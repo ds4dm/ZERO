@@ -1,0 +1,113 @@
+/**
+ @page QP_Param_Example Game::QP_Param Example
+ Consider the Following quadratic program.
+ @f[
+ \min_{y_1, y_2, y_3} (y_1 + y_2 - 2y_3)^2 + 2 x_1y_1 + 2 x_2y_1 + 3 x_1y_3 +
+ y_1-y_2+y_3
+ @f]
+ Subject to
+ @f{align*}{
+ y_1, y_2, y_3 &\ge 0 \\
+ y_1 + y_2 + y_3 &\le 10 \\
+ -y_1 +y_2 -2y_3 &\le -1 + x_1 + x_2
+ @f}
+
+ This data can be entered as follows. Assume there are lines
+ @code
+ using namespace arma;
+ @endcode
+ somewhere earlier. Now, within some function, we have
+ @code
+	unsigned int Nx = 2, Ny = 3, Ncons = 2;
+	mat Qd(3, 3);					// Easier to create a dense matrix for this problem
+	Qd << 1 << 1 << -2 << endr		// And convert that to a sparse matrix.
+	   << 1 << 1 << -2 << endr
+	   << -2 << -2 << 4 << endr;
+	sp_mat Q = sp_mat(2 * Qd);		// The matrix for y^2 terms
+	sp_mat C(3, 2);					// The matrix for x and y interaction 
+	C.zeros(); C(0, 0) = 2; C(0, 1) = 2; C(2, 0) = 3; vec c(3);
+		// The vector for linear terms in y c << 1 << endr << -1 << endr << 1 << endr;
+	sp_mat A(2, 2);					// Constraint matrix for x terms 
+	A.zeros(); A(1, 0) = -1; A(1, 1) = -1; mat Bd(2, 3); Bd << 1 << 1 << 1 << endr << -1 << 1 << -2 << endr;
+	sp_mat B = sp_mat(Bd);			// Constraint matrix for y terms
+	vec b(2);
+	b(0) = 10;
+	b(1) = -1;
+	GRBEnv env = GRBEnv();		// Now create Gurobi environment to handle any solving related calls.
+ @endcode
+
+ Now the required object can be constructed in multiple ways.
+ @code
+	// Method 1: Make a call to the constructor
+	Game::QP_Param q1(Q, C, A, B, c, b, &env);
+
+	// Method 2: Using QP_Param::set member function
+	Game::QP_Param q2(&env);
+	q2.set(Q, C, A, B, c, b);
+
+	// Method 3: Reading from a file. This requires that such an object is saved to a file at first. 
+	q1.save("dat/q1dat.dat"); // Saving the file so it can be retrieved. 
+	Game::QP_Param q3(&env); 
+	q3.load("dat/q1dat.dat");
+
+	// Checking they are the same
+	assert(q1==q2);
+	assert(q2==q3);
+ @endcode
+
+ With @f$(x_1, x_2) = (-1, 0.5)@f$, problem is
+ @f[
+ \min_{y_1, y_2, y_3} (y_1 + y_2 - 2y_3)^2  -y_2 -2y_3
+ @f]
+ Subject to
+ @f{align*}{
+ y_1, y_2, y_3 &\ge 0\\
+ y_1 + y_2 + y_3 &\le 10\\
+ -y_1 +y_2 -2y_3 &\le -1.5
+ @f}
+
+ But this computation need not be done manually by supplying the value of
+ @f$x@f$ and solving using Gurobi.
+ @code
+        vec x(2);			// Enter the value of x in an arma::vec
+        x(0) = -1;
+        x(1) = 0.5;
+
+        auto FixedModel = q2.solveFixed(x);	// Uses Gurobi to solve the model, returns a unique_ptr to GRBModel
+ @endcode
+ @p FixedModel has the GRBModel object, and all operations native to GRBModel,
+ like accessing the value of a variable, a dual *	multiplier, saving the
+ problem to a .lp file or a .mps file etc. can be performed on the object. In
+ particular, the solution can be compared with hand-calculated solution as shown
+ below. *	
+ @code 
+ arma::vec sol(3); 
+ sol << 0.5417 << endr << 5.9861 << endr << 3.4722; // Hardcoding the solution as calculated outside 
+ for (unsigned int i = 0; i < Ny; i++) 
+   assert(abs(sol(i)- FixedModel->getVar(i).get(GRB_DoubleAttr_X)) <= 0.01);
+ cout<<FixedModel->get(GRB_DoubleAttr_ObjVal<<endl; // Will print -12.757
+ @endcode
+
+ In many cases, one might want to obtain the KKT conditions of a convex
+ quadratic program and that can be obtained as below, using @p QP_Param::KKT.
+
+ The function returns @p M, @p N and @p q, where the KKT conditions can be
+ written as
+ @f[
+ 0 \leq y \perp Mx + Ny + q \geq 0
+ @f]
+
+ @code
+ sp_mat M, N;
+ vec q;
+ q1.KKT(M, N, q);
+ M.print("M");
+ N.print("N");
+ q.print("q");
+ @endcode
+
+ Now that you are aware of most of the functionalities of Game::QP_Param, let
+ us switch to the next tutorial on @link NashGame_Example NashGame and LCP
+ @endlink.
+
+ */
