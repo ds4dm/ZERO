@@ -6,6 +6,9 @@ Code to compute mixed-equilibrium in linear EPECs.
 - [Instances](https://github.com/ds4dm/EPECInstances) with detailed [mathematical description](https://github.com/ds4dm/EPECInstances/blob/master/Description.pdf)
 - [arXiv](https://arxiv.org/abs/1910.06452) pre-print for the original code
 
+## LICENSE
+This code is distributed under the CC0 1.0 Universal license.
+
 # Prerequisites
 
 ## Mandatory packages
