@@ -975,7 +975,6 @@ void Game::NashGame::setPositions()
  allocates Leader's position appropriately.
  * The ordering is according to the columns of
          @image html formulateLCP.png
-         @image latex formulateLCP.png
  */
 {
   // Defining the variable value

@@ -85,13 +85,11 @@ Game::LCP::LCP(
 
 Game::LCP::LCP(GRBEnv *env, const NashGame &N)
     : RlxdModel(*env)
-/**
- *	@brief Constructor given a NashGame
- *	@details Given a NashGame, computes the KKT of the lower levels, and
- *makes the appropriate LCP object.
- *
- *	This constructor is the most suited for high-level usage.
- *	@note Most preferred constructor for user interface.
+/**	@brief Constructor given a NashGame
+        @details Given a NashGame, computes the KKT of the lower levels, and
+   makes the appropriate LCP object. This constructor is the most suited for
+   high-level usage.
+        @note Most preferred constructor for user interface.
  */
 {
   arma::sp_mat M_local;
@@ -766,8 +764,8 @@ void Game::LCP::addCustomCuts(
   this->_Acut = arma::join_cols(this->_Acut, A);
   this->_bcut = arma::join_cols(this->_bcut, b);
 
-  //debug this->_Acut.print_dense("Matrix Acut");
-  //debug this->_bcut.print("Vector bcut");
+  // debug this->_Acut.print_dense("Matrix Acut");
+  // debug this->_bcut.print("Vector bcut");
 }
 
 bool Game::LCP::containCut(const arma::vec LHS, ///< [in] The LHS of the cut
