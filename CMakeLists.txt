@@ -13,7 +13,7 @@ ELSE ()
     set(ARMA_PATH "/usr/local")
     set(ARMA_LIB "/usr/local/lib/libarmadillo.dylib")
     set(Boost_USE_MULTITHREADED TRUE)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-c++11-narrowing -Wdefaulted-function-deleted")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-c++17-narrowing -Wdefaulted-function-deleted")
 ENDIF ()
 set(GUROBI_PATH_LINUX "/home/gurobi/9.0.0/linux64")
 set(GUROBI_PATH_MAC "/Library/gurobi900/mac64")
@@ -27,12 +27,12 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 ############################################
 cmake_minimum_required(VERSION 3.10)
 project(
-        EPECSolve
-        VERSION 2.0.1
+        EPECSolve_OG
+        VERSION 3.0.0
         LANGUAGES CXX
         DESCRIPTION "Equilibrium Problems with Equilibrium Constraints solver"
 )
-add_compile_options(-std=c++11)
+#add_compile_options(-std=c++17)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_SHARED_LINKER_FLAGS "-lgurobi_c++ -lgurobi90 -lm -O2 -lopenblas -llapack -lpthread")
 
