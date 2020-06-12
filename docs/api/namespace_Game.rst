@@ -61,9 +61,9 @@ Functions
 
 - :ref:`exhale_function_namespace_game_1ab51edb9870dec0f53df966c51ac8221f`
 
-- :ref:`exhale_function_namespace_game_1a33e82b9df7ee413620f2b5d26c289f98`
-
 - :ref:`exhale_function_namespace_game_1a1c0adf3888db1939dc071c64c6e80d3f`
+
+- :ref:`exhale_function_namespace_game_1a33e82b9df7ee413620f2b5d26c289f98`
 
 - :ref:`exhale_function_namespace_game_1a26d63d30b983cbd740dd5a7037a1f9b6`
 

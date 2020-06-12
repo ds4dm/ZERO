@@ -11,12 +11,11 @@ description <https://github.com/ds4dm/EPECInstances/blob/master/Description.pdf>
 - `arXiv <https://arxiv.org/abs/1910.06452>`__ pre-print for the
 original code
 
-
+==========
 Prerequisites
-=============
+==========
 
-Mandatory packages
-------------------
+**Mandatory packages**
 
 -  `Armadillo <http://arma.sourceforge.net/>`__ (Version 9.6 or later
    recommended. Minimum 8.5 required.)
@@ -37,16 +36,16 @@ Mandatory packages
    there is significant interest.
 
 Recommended but not mandatory for the algorithm. (Some examples might have these dependancies)
-----------------------------------------------------------------------------------------------
 
 -  `Rapid JSON <http://rapidjson.org/>`__ To export results and save
    example problem instances.
 -  `DOxygen <http://www.doxygen.nl>`__ Only if you need documentation.
    ``sudo apt install doxygen`` will install DOxygen on an Ubuntu
    machine.
-
+   
+==========
 LICENSE
-=============
+==========
 
 This code is distributed under the CC0 1.0 Universal License.
 

@@ -15,86 +15,11 @@
 <codeline><highlight class="normal">-<sp/>[Instances](https://github.com/ds4dm/EPECInstances)<sp/>with<sp/>detailed<sp/>[mathematical<sp/>description](https://github.com/ds4dm/EPECInstances/blob/master/Description.pdf)</highlight></codeline>
 <codeline><highlight class="normal">-<sp/>[arXiv](https://arxiv.org/abs/1910.06452)<sp/>pre-print<sp/>for<sp/>the<sp/>original<sp/>code</highlight></codeline>
 <codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Documentation</highlight></codeline>
+<codeline><highlight class="normal">Documentation<sp/>is<sp/>available<sp/>[here](https://ds4dm.github.io/OuterGames/html/index.html)</highlight></codeline>
+<codeline></codeline>
 <codeline><highlight class="normal">##<sp/>LICENSE</highlight></codeline>
 <codeline><highlight class="normal">This<sp/>code<sp/>is<sp/>distributed<sp/>under<sp/>the<sp/>CC0<sp/>1.0<sp/>Universal<sp/>license.</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">#<sp/>Prerequisites</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">##<sp/>Mandatory<sp/>packages</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>[Armadillo](http://arma.sourceforge.net/)<sp/>(Version<sp/>9.6<sp/>or<sp/>later<sp/>recommended.<sp/>Minimum<sp/>8.5<sp/>required.)</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>*<sp/>BLAS</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>*<sp/>ARPACK</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>*<sp/>LAPACK</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>[Gurobi](https://www.gurobi.com/registration/download-reg)<sp/>(Version<sp/>8.1<sp/>or<sp/>later)</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>[gcc/g++](https://gcc.gnu.org/)<sp/>(Tested<sp/>on<sp/>version<sp/>4.8.<sp/>Must<sp/>support<sp/>C++11<sp/>and<sp/>be<sp/>compatible<sp/>with<sp/>your<sp/>version<sp/>of<sp/>Gurobi)<sp/>`sudo<sp/>apt<sp/>install<sp/>gcc<sp/>`<sp/>will<sp/>install<sp/>gcc/g++<sp/>on<sp/>an<sp/>Ubuntu<sp/>machine.</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>[GNU<sp/>make](https://www.gnu.org/software/make/)<sp/>`sudo<sp/>apt<sp/>install<sp/>make`<sp/>will<sp/>install<sp/>GNU<sp/>make<sp/>on<sp/>an<sp/>Ubuntu<sp/>machine.</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>[Boost](https://www.boost.org/)<sp/>Required<sp/>for<sp/>logging,<sp/>commandline<sp/>interface<sp/>to<sp/>solve<sp/>files<sp/>etc.<sp/>Can<sp/>produce<sp/>a<sp/>boost-free<sp/>version<sp/>if<sp/>there<sp/>is<sp/>significant<sp/>interest.</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">##<sp/>Recommended<sp/>but<sp/>not<sp/>mandatory<sp/>for<sp/>the<sp/>algorithm.<sp/>(Some<sp/>examples<sp/>might<sp/>have<sp/>these<sp/>dependancies)</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>[Rapid<sp/>JSON](http://rapidjson.org/)<sp/>To<sp/>export<sp/>results<sp/>and<sp/>save<sp/>example<sp/>problem<sp/>instances.</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>[DOxygen](http://www.doxygen.nl)<sp/>Only<sp/>if<sp/>you<sp/>need<sp/>documentation.<sp/>`sudo<sp/>apt<sp/>install<sp/>doxygen<sp/>`<sp/>will<sp/>install<sp/>DOxygen<sp/>on<sp/>an<sp/>Ubuntu<sp/>machine.</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">#<sp/>Getting<sp/>the<sp/>documentation</highlight></codeline>
-<codeline><highlight class="normal">One<sp/>can<sp/>generate<sp/>two<sp/>versions<sp/>of<sp/>documentation<sp/>for<sp/>this<sp/>project..</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>Use<sp/>the<sp/>simple<sp/>version<sp/>of<sp/>documentation,<sp/>if<sp/>you<sp/>are<sp/>only<sp/>interested<sp/>in<sp/>using<sp/>this<sp/>as<sp/>a<sp/>predefined<sp/>library<sp/>which<sp/>you<sp/>don&apos;t<sp/>intend<sp/>to<sp/>edit.<sp/>This<sp/>version<sp/>of<sp/>the<sp/>documentation<sp/>gives<sp/>a<sp/>sufficiently<sp/>detailed<sp/>explanation<sp/>of<sp/>every<sp/>class<sp/>or<sp/>function<sp/>you<sp/>might<sp/>every<sp/>have<sp/>to<sp/>use.<sp/>To<sp/>avail<sp/>this<sp/>version,<sp/>run</highlight></codeline>
-<codeline><highlight class="normal">```bash</highlight></codeline>
-<codeline><highlight class="normal">make<sp/>docSimple</highlight></codeline>
-<codeline><highlight class="normal">```</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>Use<sp/>the<sp/>complete<sp/>documentation<sp/>if<sp/>you<sp/>are<sp/>interested<sp/>in<sp/>every<sp/>implementation<sp/>detail<sp/>of<sp/>the<sp/>code.This<sp/>gives<sp/>a<sp/>complete<sp/>description<sp/>of<sp/>every<sp/>private<sp/>member<sp/>and<sp/>fields<sp/>in<sp/>every<sp/>class,<sp/>all<sp/>of<sp/>which<sp/>might<sp/>be<sp/>useful<sp/>if<sp/>you<sp/>want<sp/>to<sp/>edit<sp/>the<sp/>code<sp/>in<sp/>here.<sp/>To<sp/>avail<sp/>this<sp/>version,<sp/>run</highlight></codeline>
-<codeline><highlight class="normal">```bash</highlight></codeline>
-<codeline><highlight class="normal">make<sp/>docDetailed</highlight></codeline>
-<codeline><highlight class="normal">```</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>You<sp/>can<sp/>alternatively<sp/>use<sp/>the<sp/>[online<sp/>documentation](https://ssriram1992.github.io/EPECsolve/html/index.html)</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">#<sp/>Compiling</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>Download<sp/>the<sp/>[project](https://github.com/ssriram1992/EPECsolve/).<sp/>If<sp/>you<sp/>do<sp/>not<sp/>have<sp/>access,<sp/>please<sp/>email<sp/>[sriram.sankaranarayanan@polymtl.ca](mailto:sriram.sankaranarayanan@polymtl.ca).</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">##<sp/>Makefile</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>Open<sp/>`Makefile`.<sp/></highlight></codeline>
-<codeline><highlight class="normal">-<sp/>Enter<sp/>the<sp/>path<sp/>where<sp/>you<sp/>downladed<sp/>in<sp/>`EPEC_HOME`.<sp/>This<sp/>folder<sp/>should<sp/>contain<sp/>folders<sp/>like<sp/>`docs/`,<sp/>`src/`,<sp/>`test/`<sp/>etc.</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>Enter<sp/>the<sp/>path<sp/>to<sp/>Boost<sp/>in<sp/>`BOOST_HOME`.<sp/>Ensure<sp/>that<sp/>the<sp/>path<sp/>to<sp/>corresponding<sp/>include<sp/>files<sp/>and<sp/>boost<sp/>libraries<sp/>are<sp/>correct.</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>Enter<sp/>the<sp/>path<sp/>of<sp/>your<sp/>armadillo-installation<sp/>in<sp/>the<sp/>line<sp/>defining<sp/>the<sp/>variable<sp/>`ARMA`.<sp/>Typically,<sp/>the<sp/>location<sp/>would<sp/>be<sp/>like<sp/>`/opt/armadillo-code`.</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>Enter<sp/>the<sp/>path<sp/>of<sp/>your<sp/>Gurobi-installation<sp/>in<sp/>the<sp/>line<sp/>defining<sp/>the<sp/>variable<sp/>`GUR`.<sp/>Typically,<sp/>the<sp/>location<sp/>would<sp/>be<sp/>like<sp/>`/opt/gurobi/gurobi811/&lt;Your<sp/>OS&gt;`.</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>Run<sp/>`make<sp/>install`<sp/>to<sp/>make<sp/>the<sp/>necessary<sp/>folders<sp/>to<sp/>store<sp/>temporary<sp/>files,<sp/>binary<sp/>files<sp/>etc.</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>Run<sp/>`make<sp/>compileEPEC`<sp/>to<sp/>compile.<sp/></highlight></codeline>
-<codeline><highlight class="normal">-<sp/>Optionally<sp/>run<sp/>`make<sp/>EPECtest`<sp/>to<sp/>run<sp/>the<sp/>set<sp/>of<sp/>unit<sp/>tests.<sp/>It<sp/>should<sp/>all<sp/>succeed<sp/>without<sp/>a<sp/>problem.</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>Run<sp/>`make`<sp/>to<sp/>create<sp/>the<sp/>binary.</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>Run<sp/>`./bin/EPEC<sp/>-h`<sp/>to<sp/>get<sp/>a<sp/>list<sp/>of<sp/>command<sp/>line<sp/>options<sp/>with<sp/>which<sp/>you<sp/>can<sp/>run<sp/>the<sp/>executable.</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">##<sp/>CMake</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>Open<sp/>`CMakeList.txt`.<sp/></highlight></codeline>
-<codeline><highlight class="normal">-<sp/>You<sp/>will<sp/>find<sp/>two<sp/>configurations.<sp/>`ROSSOBIANCO`<sp/>represents<sp/>the<sp/>remote<sp/>server<sp/>one,<sp/>while<sp/>the<sp/>other<sp/>is<sp/>the<sp/>local<sp/>one.</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>Set<sp/>`BOOST_ROOT`,<sp/>`ARMA_ROOT`,<sp/>and<sp/>`ARMA_LIB`<sp/>to<sp/>your<sp/>customized<sp/>folders.<sp/></highlight></codeline>
-<codeline><highlight class="normal">-<sp/>Set<sp/>`GUROBI_PATH_%OS`<sp/>to<sp/>your<sp/>local<sp/>gurobi<sp/>path<sp/>(and<sp/>version).<sp/>Note<sp/>that<sp/>%OS<sp/>corresponds<sp/>to<sp/>your<sp/>local<sp/>(or<sp/>remote)<sp/>operatin<sp/>system.</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">#<sp/>Command-line<sp/>interface</highlight></codeline>
-<codeline><highlight class="normal">EPECSolve<sp/>has<sp/>a<sp/>command<sp/>line<sp/>interface<sp/>built<sp/>on<sp/>top<sp/>of<sp/>the<sp/>standard<sp/>modeling<sp/>paradigm<sp/>(see<sp/>documentation<sp/>for<sp/>src/Models.cpp).</highlight></codeline>
-<codeline><highlight class="normal">Once<sp/>the<sp/>executable<sp/>is<sp/>compiled<sp/>via<sp/>`make<sp/>compileEPEC`,<sp/>the<sp/>user<sp/>can<sp/>run<sp/>EPECSolve<sp/>with:<sp/>`./EPEC<sp/>$options`.<sp/></highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">The<sp/>following<sp/>I/O<sp/>options<sp/>are<sp/>available:</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">*<sp/>`-i<sp/>(--input)<sp/>PathToInstance`:<sp/>This<sp/>**required**<sp/>option<sp/>specifies<sp/>the<sp/>path<sp/>to<sp/>the<sp/>JSON<sp/>instance<sp/>file.<sp/>Extension<sp/>.json<sp/>is<sp/>automatically<sp/>appended<sp/>to<sp/>the<sp/>argument.</highlight></codeline>
-<codeline><highlight class="normal">*<sp/>`-s<sp/>(--solution)<sp/>PathAndFile`:<sp/>Sets<sp/>the<sp/>output<sp/>(path)<sp/>filename<sp/>of<sp/>the<sp/>JSON<sp/>solution<sp/>file,<sp/>if<sp/>any<sp/>(see<sp/>option<sp/>`-w.<sp/>(writelevel)`.<sp/>If<sp/>a<sp/>JSON<sp/>output<sp/>is<sp/>required,<sp/>extension<sp/>.json<sp/>is<sp/>automatically<sp/>appended<sp/>to<sp/>the<sp/>argument.</highlight></codeline>
-<codeline><highlight class="normal">*<sp/>`-l<sp/>(--log)<sp/>PathAndFile`:<sp/>Sets<sp/>the<sp/>output<sp/>path/filename<sp/>of<sp/>the<sp/>log<sp/>file.</highlight></codeline>
-<codeline><highlight class="normal">*<sp/>`-w<sp/>(--writelevel)<sp/>intValue`:<sp/>Sets<sp/>the<sp/>verbosity<sp/>parameter<sp/>for<sp/>the<sp/>output<sp/>solution<sp/>file.<sp/>*0*:<sp/>output<sp/>only<sp/>a<sp/>JSON<sp/>solution<sp/>file<sp/>(if<sp/>any).<sp/>*1*<sp/>Only<sp/>a<sp/>human<sp/>readable<sp/>file.<sp/>*2*<sp/>Both.</highlight></codeline>
-<codeline><highlight class="normal">*<sp/>`-m<sp/>(--message)<sp/>intValue`:<sp/>Sets<sp/>the<sp/>verbosity<sp/>parameter<sp/>for<sp/>the<sp/>program<sp/>itself.<sp/>*1*:<sp/>only<sp/>info<sp/>messages,<sp/>*2*<sp/>info<sp/>and<sp/>debug,<sp/>*3*<sp/>info,<sp/>debug<sp/>and<sp/>trace<sp/>messages.</highlight></codeline>
-<codeline></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">Algorithmic<sp/>parameters:</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">*<sp/>`-a<sp/>(--algorithm)<sp/>intValue`:<sp/>Specifies<sp/>the<sp/>type<sp/>of<sp/>algorithm<sp/>employed<sp/>to<sp/>solve<sp/>the<sp/>instance.<sp/>*0*<sp/>is<sp/>**fullEnumeration**,<sp/>*1*<sp/>is<sp/>**innerApproximation**,<sp/>*2*<sp/>is<sp/>**combinatorialPNE**.<sp/>Note<sp/>that<sp/>the<sp/>latter<sp/>only<sp/>works<sp/>with<sp/>pure<sp/>equilibria.</highlight></codeline>
-<codeline><highlight class="normal">*<sp/>`-p<sp/>(--pure)<sp/>intValue`:<sp/>Specifies<sp/>whether<sp/>the<sp/>algorithm<sp/>should<sp/>seek<sp/>for<sp/>a<sp/>pure<sp/>equilibrium<sp/>or<sp/>not<sp/>(note<sp/>that<sp/>**combinatorialPNE**<sp/>will<sp/>always<sp/>seek<sp/>for<sp/>a<sp/>pure<sp/>solution)<sp/>.<sp/>*0*<sp/>no<sp/>requirement<sp/>(either<sp/>pure<sp/>or<sp/>mixed),<sp/>*1*<sp/>only<sp/>pure.</highlight></codeline>
-<codeline><highlight class="normal">*<sp/>`-bigM<sp/>intValue`:<sp/>Specifies<sp/>the<sp/>whether<sp/>LCP<sp/>problems<sp/>should<sp/>be<sp/>formulated<sp/>with<sp/>a<sp/>LCP.<sp/>*0*<sp/>(default)<sp/>for<sp/>indicator<sp/>constraints,<sp/>*1*<sp/>for<sp/>bigM<sp/>formulation.</highlight></codeline>
-<codeline><highlight class="normal">*<sp/>`-b<sp/>(--bound)<sp/>intValue`:<sp/>Specifies<sp/>if<sp/>the<sp/>final<sp/>LCP<sp/>model<sp/>should<sp/>be<sp/>bounded<sp/>by<sp/>a<sp/>*bigM*<sp/>constant<sp/>(see<sp/>option<sp/>`-boundBigM`)<sp/>in<sp/>their<sp/>primal<sp/>variables.<sp/>*0*<sp/>no<sp/>bounding,<sp/>*1*<sp/>bounding<sp/>with<sp/>*bigM*.</highlight></codeline>
-<codeline><highlight class="normal">*<sp/>`-boundBigM<sp/>intValue`:<sp/>Specifies<sp/>the<sp/>*bigM*<sp/>constant<sp/>for<sp/>the<sp/>above<sp/>param<sp/>(see<sp/>option<sp/>`-b<sp/>(--bound)`.</highlight></codeline>
-<codeline><highlight class="normal">*<sp/>`-t<sp/>(--threads)<sp/>intValue`:<sp/>Specifies<sp/>the<sp/>number<sp/>of<sp/>threads<sp/>Gurobi<sp/>uses.</highlight></codeline>
-<codeline><highlight class="normal">*<sp/>`-tl<sp/>(--timelimit)<sp/>intValue`:<sp/>Specifies<sp/>the<sp/>timeLimit<sp/>(in<sp/>seconds)<sp/>for<sp/>running<sp/>the<sp/>whole<sp/>algorithmic<sp/>procedure.<sp/></highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">Algorithmic<sp/>parameters<sp/>tailored<sp/>on<sp/>**innerApproximation**:</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">*<sp/>`-ad<sp/>(--add)<sp/>intValue`:<sp/>Specifies<sp/>the<sp/>*EPECAddPolyMethod*<sp/>strategy<sp/>employed<sp/>to<sp/>expand<sp/>the<sp/>inner<sp/>approximation<sp/>when<sp/>no<sp/>information<sp/>about<sp/>deviations<sp/>is<sp/>available.<sp/>*0*<sp/>add<sp/>polyhedra<sp/>in<sp/>lexographic<sp/>order,<sp/>*1*<sp/>reverse<sp/>lexographic,<sp/>*2*<sp/>random.</highlight></codeline>
-<codeline><highlight class="normal">*<sp/>`-ag<sp/>(--aggr)<sp/>intValue`:<sp/>Specifies<sp/>the<sp/>*EPECAddPolyMethod*<sp/>aggressivity<sp/>(see<sp/>option<sp/>`-ad<sp/>(--add)`).<sp/>*int*<sp/>specifies<sp/>the<sp/>number<sp/>of<sp/>lower-level<sp/>polyhedra<sp/>to<sp/>be<sp/>added<sp/>to<sp/>each<sp/>Stackelberg<sp/>leader<sp/>at<sp/>each<sp/>iteration<sp/>in<sp/>which<sp/>*EPECAddPolyMethod*<sp/>is<sp/>triggered.</highlight></codeline>
-<codeline><highlight class="normal">*<sp/>`-r<sp/>(--recover)<sp/>intValue`:<sp/>Specifies<sp/>the<sp/>recover<sp/>stragegy<sp/>for<sp/>the<sp/>**innerApproximation**<sp/>method.<sp/>When<sp/>the<sp/>algorithm<sp/>finds<sp/>a<sp/>mixed<sp/>equilibrium<sp/>and<sp/>the<sp/>parameter<sp/>`-p<sp/>(--pure)`<sp/>is<sp/>set<sp/>to<sp/>*1*,<sp/>the<sp/>algorithm<sp/>will<sp/>search<sp/>for<sp/>a<sp/>pure<sp/>equilibrium<sp/>either<sp/>by<sp/>randomly<sp/>expanding<sp/>the<sp/>inner<sp/>approximation<sp/>(*EPECAddPolyMethod*)<sp/>or<sp/>by<sp/>triggering<sp/>a<sp/>**combinatorialPNE**<sp/>procedure<sp/>warmstarted<sp/>with<sp/>the<sp/>current<sp/>information.<sp/>*0*<sp/>sets<sp/>the<sp/>recover<sp/>strategy<sp/>to<sp/>*incrementalEnumeration*,<sp/>*1*<sp/>sets<sp/>it<sp/>to<sp/>*combinatorial*.</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">#<sp/>Maintenance</highlight></codeline>
 <codeline><highlight class="normal">[@gdragotto](https://github.com/gdragotto)<sp/>-<sp/>Contact:<sp/>[gabriele.dragotto@polymtl.ca](mailto:gabriele.dragotto@polymtl.ca)</highlight></codeline>
