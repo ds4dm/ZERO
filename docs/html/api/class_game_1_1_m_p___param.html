@@ -1,0 +1,566 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Class MP_Param &mdash; EPECSolve 2.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> EPECSolve
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#mandatory-packages">Mandatory packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#recommended-but-not-mandatory-for-the-algorithm-some-examples-might-have-these-dependancies">Recommended but not mandatory for the algorithm. (Some examples might have these dependancies)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#license">LICENSE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Quick References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EPECSolve</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Class MP_Param</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/class_game_1_1_m_p___param.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="class-mp-param">
+<span id="exhale-class-class-game-1-1-m-p-param"></span><h1>Class MP_Param<a class="headerlink" href="#class-mp-param" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_games.h.html#file-include-games-h"><span class="std std-ref">File games.h</span></a></p></li>
+</ul>
+<div class="section" id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="derived-type">
+<h3>Derived Type<a class="headerlink" href="#derived-type" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">Game::QP_Param</span></code> (<a class="reference internal" href="class_game_1_1_q_p___param.html#exhale-class-class-game-1-1-q-p-param"><span class="std std-ref">Class QP_Param</span></a>)</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp class">
+<dt id="_CPPv4N4Game8MP_ParamE">
+<span id="_CPPv3N4Game8MP_ParamE"></span><span id="_CPPv2N4Game8MP_ParamE"></span><span id="Game::MP_Param"></span><span class="target" id="class_game_1_1_m_p___param"></span><em class="property">class </em><code class="sig-prename descclassname">Game<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">MP_Param</code><a class="headerlink" href="#_CPPv4N4Game8MP_ParamE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>class to handle parameterized mathematical programs(MP) </p>
+<p>Subclassed by <a class="reference internal" href="class_game_1_1_q_p___param.html#class_game_1_1_q_p___param"><span class="std std-ref">Game::QP_Param</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N4Game8MP_Param8MP_ParamEv">
+<span id="_CPPv3N4Game8MP_Param8MP_ParamEv"></span><span id="_CPPv2N4Game8MP_Param8MP_ParamEv"></span><span id="Game::MP_Param::MP_Param"></span><span class="target" id="class_game_1_1_m_p___param_1aa4be3148e505ff9012f47c9966a1475b"></span><code class="sig-name descname">MP_Param</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = default<a class="headerlink" href="#_CPPv4N4Game8MP_Param8MP_ParamEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game8MP_Param8MP_ParamERK8MP_Param">
+<span id="_CPPv3N4Game8MP_Param8MP_ParamERK8MP_Param"></span><span id="_CPPv2N4Game8MP_Param8MP_ParamERK8MP_Param"></span><span id="Game::MP_Param::MP_Param__MP_ParamCR"></span><span class="target" id="class_game_1_1_m_p___param_1a51f2d17e5151e8da6361c0382f62758f"></span><code class="sig-name descname">MP_Param</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N4Game8MP_Param8MP_ParamERK8MP_Param" title="Game::MP_Param::MP_Param">MP_Param</a> &amp;<em>M</em><span class="sig-paren">)</span> = default<a class="headerlink" href="#_CPPv4N4Game8MP_Param8MP_ParamERK8MP_Param" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game8MP_Param4getQEv">
+<span id="_CPPv3NK4Game8MP_Param4getQEv"></span><span id="_CPPv2NK4Game8MP_Param4getQEv"></span><span id="Game::MP_Param::getQC"></span><span class="target" id="class_game_1_1_m_p___param_1ac2db5cff1ae7f287200f82e3c729121b"></span>arma::sp_mat <code class="sig-name descname">getQ</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8MP_Param4getQEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read-only access to the private variable Q. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game8MP_Param4getCEv">
+<span id="_CPPv3NK4Game8MP_Param4getCEv"></span><span id="_CPPv2NK4Game8MP_Param4getCEv"></span><span id="Game::MP_Param::getCC"></span><span class="target" id="class_game_1_1_m_p___param_1af07f091c9b546357d5d90d67a87e340c"></span>arma::sp_mat <code class="sig-name descname">getC</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8MP_Param4getCEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read-only access to the private variable C. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game8MP_Param4getAEv">
+<span id="_CPPv3NK4Game8MP_Param4getAEv"></span><span id="_CPPv2NK4Game8MP_Param4getAEv"></span><span id="Game::MP_Param::getAC"></span><span class="target" id="class_game_1_1_m_p___param_1a40ef5cb837a54abc27ff415f01bbcce2"></span>arma::sp_mat <code class="sig-name descname">getA</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8MP_Param4getAEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read-only access to the private variable A. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game8MP_Param4getBEv">
+<span id="_CPPv3NK4Game8MP_Param4getBEv"></span><span id="_CPPv2NK4Game8MP_Param4getBEv"></span><span id="Game::MP_Param::getBC"></span><span class="target" id="class_game_1_1_m_p___param_1a10c33b4453cbbfd1d9d1511a8db415b7"></span>arma::sp_mat <code class="sig-name descname">getB</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8MP_Param4getBEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read-only access to the private variable B. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game8MP_Param4getcEv">
+<span id="_CPPv3NK4Game8MP_Param4getcEv"></span><span id="_CPPv2NK4Game8MP_Param4getcEv"></span><span id="Game::MP_Param::getcC"></span><span class="target" id="class_game_1_1_m_p___param_1a859e717089861c86bffe656f352b105e"></span>arma::vec <code class="sig-name descname">getc</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8MP_Param4getcEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read-only access to the private variable c. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game8MP_Param4getbEv">
+<span id="_CPPv3NK4Game8MP_Param4getbEv"></span><span id="_CPPv2NK4Game8MP_Param4getbEv"></span><span id="Game::MP_Param::getbC"></span><span class="target" id="class_game_1_1_m_p___param_1a30d991dc4a735cc7ae66005d33fa74e5"></span>arma::vec <code class="sig-name descname">getb</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8MP_Param4getbEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read-only access to the private variable b. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game8MP_Param5getNxEv">
+<span id="_CPPv3NK4Game8MP_Param5getNxEv"></span><span id="_CPPv2NK4Game8MP_Param5getNxEv"></span><span id="Game::MP_Param::getNxC"></span><span class="target" id="class_game_1_1_m_p___param_1a5beeddbd8425ac08b12fd041c647b922"></span>unsigned int <code class="sig-name descname">getNx</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8MP_Param5getNxEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read-only access to the private variable Nx. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game8MP_Param5getNyEv">
+<span id="_CPPv3NK4Game8MP_Param5getNyEv"></span><span id="_CPPv2NK4Game8MP_Param5getNyEv"></span><span id="Game::MP_Param::getNyC"></span><span class="target" id="class_game_1_1_m_p___param_1acf2be6a9980b50736064b0eb11103e5e"></span>unsigned int <code class="sig-name descname">getNy</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8MP_Param5getNyEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read-only access to the private variable Ny. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game8MP_Param4setQERKN4arma6sp_matE">
+<span id="_CPPv3N4Game8MP_Param4setQERKN4arma6sp_matE"></span><span id="_CPPv2N4Game8MP_Param4setQERKN4arma6sp_matE"></span><span id="Game::MP_Param::setQ__arma::sp_matCR"></span><span class="target" id="class_game_1_1_m_p___param_1aba24e357b5034e0fe7869e1ceaa5dadf"></span><a class="reference internal" href="#_CPPv4N4Game8MP_ParamE" title="Game::MP_Param">MP_Param</a> &amp;<code class="sig-name descname">setQ</code><span class="sig-paren">(</span><em class="property">const</em> arma::sp_mat &amp;<em>Q</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8MP_Param4setQERKN4arma6sp_matE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the private variable Q. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game8MP_Param4setCERKN4arma6sp_matE">
+<span id="_CPPv3N4Game8MP_Param4setCERKN4arma6sp_matE"></span><span id="_CPPv2N4Game8MP_Param4setCERKN4arma6sp_matE"></span><span id="Game::MP_Param::setC__arma::sp_matCR"></span><span class="target" id="class_game_1_1_m_p___param_1af28bfbe4728fdd28e44f71e29ff3974d"></span><a class="reference internal" href="#_CPPv4N4Game8MP_ParamE" title="Game::MP_Param">MP_Param</a> &amp;<code class="sig-name descname">setC</code><span class="sig-paren">(</span><em class="property">const</em> arma::sp_mat &amp;<em>C</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8MP_Param4setCERKN4arma6sp_matE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the private variable C. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game8MP_Param4setAERKN4arma6sp_matE">
+<span id="_CPPv3N4Game8MP_Param4setAERKN4arma6sp_matE"></span><span id="_CPPv2N4Game8MP_Param4setAERKN4arma6sp_matE"></span><span id="Game::MP_Param::setA__arma::sp_matCR"></span><span class="target" id="class_game_1_1_m_p___param_1a720cd86de42cfb6054f0d7363c371f39"></span><a class="reference internal" href="#_CPPv4N4Game8MP_ParamE" title="Game::MP_Param">MP_Param</a> &amp;<code class="sig-name descname">setA</code><span class="sig-paren">(</span><em class="property">const</em> arma::sp_mat &amp;<em>A</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8MP_Param4setAERKN4arma6sp_matE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the private variable A. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game8MP_Param4setBERKN4arma6sp_matE">
+<span id="_CPPv3N4Game8MP_Param4setBERKN4arma6sp_matE"></span><span id="_CPPv2N4Game8MP_Param4setBERKN4arma6sp_matE"></span><span id="Game::MP_Param::setB__arma::sp_matCR"></span><span class="target" id="class_game_1_1_m_p___param_1a16f75a8bb8525cd80ccec416bcc57c4e"></span><a class="reference internal" href="#_CPPv4N4Game8MP_ParamE" title="Game::MP_Param">MP_Param</a> &amp;<code class="sig-name descname">setB</code><span class="sig-paren">(</span><em class="property">const</em> arma::sp_mat &amp;<em>B</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8MP_Param4setBERKN4arma6sp_matE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the private variable B. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game8MP_Param4setcERKN4arma3vecE">
+<span id="_CPPv3N4Game8MP_Param4setcERKN4arma3vecE"></span><span id="_CPPv2N4Game8MP_Param4setcERKN4arma3vecE"></span><span id="Game::MP_Param::setc__arma::vecCR"></span><span class="target" id="class_game_1_1_m_p___param_1a5d18a93a4335e8e9bed6633aa095b5d1"></span><a class="reference internal" href="#_CPPv4N4Game8MP_ParamE" title="Game::MP_Param">MP_Param</a> &amp;<code class="sig-name descname">setc</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>c</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8MP_Param4setcERKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the private variable c. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game8MP_Param4setbERKN4arma3vecE">
+<span id="_CPPv3N4Game8MP_Param4setbERKN4arma3vecE"></span><span id="_CPPv2N4Game8MP_Param4setbERKN4arma3vecE"></span><span id="Game::MP_Param::setb__arma::vecCR"></span><span class="target" id="class_game_1_1_m_p___param_1a5855ef8253dd3776b04d916e2e7f4b1b"></span><a class="reference internal" href="#_CPPv4N4Game8MP_ParamE" title="Game::MP_Param">MP_Param</a> &amp;<code class="sig-name descname">setb</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8MP_Param4setbERKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the private variable b. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game8MP_Param3setERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecE">
+<span id="_CPPv3N4Game8MP_Param3setERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecE"></span><span id="_CPPv2N4Game8MP_Param3setERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecE"></span><span id="Game::MP_Param::set__arma::sp_matCR.arma::sp_matCR.arma::sp_matCR.arma::sp_matCR.arma::vecCR.arma::vecCR"></span><span class="target" id="class_game_1_1_m_p___param_1a97d7a955cb93ff14144bdce152e906b6"></span><a class="reference internal" href="#_CPPv4N4Game8MP_ParamE" title="Game::MP_Param">MP_Param</a> &amp;<code class="sig-name descname">set</code><span class="sig-paren">(</span><em class="property">const</em> arma::sp_mat &amp;<em>Q</em>, <em class="property">const</em> arma::sp_mat &amp;<em>C</em>, <em class="property">const</em> arma::sp_mat &amp;<em>A</em>, <em class="property">const</em> arma::sp_mat &amp;<em>B</em>, <em class="property">const</em> arma::vec &amp;<em>c</em>, <em class="property">const</em> arma::vec &amp;<em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8MP_Param3setERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Setting the data, while keeping the input objects intact. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game8MP_Param3setERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma3vecERRN4arma3vecE">
+<span id="_CPPv3N4Game8MP_Param3setERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma3vecERRN4arma3vecE"></span><span id="_CPPv2N4Game8MP_Param3setERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma3vecERRN4arma3vecE"></span><span id="Game::MP_Param::set__arma::sp_matRR.arma::sp_matRR.arma::sp_matRR.arma::sp_matRR.arma::vecRR.arma::vecRR"></span><span class="target" id="class_game_1_1_m_p___param_1a4ba89f81adc04cf5e21478f8a7f7748f"></span><a class="reference internal" href="#_CPPv4N4Game8MP_ParamE" title="Game::MP_Param">MP_Param</a> &amp;<code class="sig-name descname">set</code><span class="sig-paren">(</span>arma::sp_mat &amp;&amp;<em>Q</em>, arma::sp_mat &amp;&amp;<em>C</em>, arma::sp_mat &amp;&amp;<em>A</em>, arma::sp_mat &amp;&amp;<em>B</em>, arma::vec &amp;&amp;<em>c</em>, arma::vec &amp;&amp;<em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8MP_Param3setERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma3vecERRN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Faster means to set data. But the input objects might be corrupted now. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game8MP_Param3setERK12QP_ObjectiveRK14QP_Constraints">
+<span id="_CPPv3N4Game8MP_Param3setERK12QP_ObjectiveRK14QP_Constraints"></span><span id="_CPPv2N4Game8MP_Param3setERK12QP_ObjectiveRK14QP_Constraints"></span><span id="Game::MP_Param::set__QP_ObjectiveCR.QP_ConstraintsCR"></span><span class="target" id="class_game_1_1_m_p___param_1aca00f56e28145a26a763a8ea0b90b2f3"></span><a class="reference internal" href="#_CPPv4N4Game8MP_ParamE" title="Game::MP_Param">MP_Param</a> &amp;<code class="sig-name descname">set</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="struct_game_1_1_q_p___objective.html#_CPPv4N4Game12QP_ObjectiveE" title="Game::QP_Objective">QP_Objective</a> &amp;<em>obj</em>, <em class="property">const</em> <a class="reference internal" href="struct_game_1_1_q_p___constraints.html#_CPPv4N4Game14QP_ConstraintsE" title="Game::QP_Constraints">QP_Constraints</a> &amp;<em>cons</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8MP_Param3setERK12QP_ObjectiveRK14QP_Constraints" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game8MP_Param3setERR12QP_ObjectiveRR14QP_Constraints">
+<span id="_CPPv3N4Game8MP_Param3setERR12QP_ObjectiveRR14QP_Constraints"></span><span id="_CPPv2N4Game8MP_Param3setERR12QP_ObjectiveRR14QP_Constraints"></span><span id="Game::MP_Param::set__QP_ObjectiveRR.QP_ConstraintsRR"></span><span class="target" id="class_game_1_1_m_p___param_1a068537c1f3d09c882d6d797e45bdc8e1"></span><a class="reference internal" href="#_CPPv4N4Game8MP_ParamE" title="Game::MP_Param">MP_Param</a> &amp;<code class="sig-name descname">set</code><span class="sig-paren">(</span><a class="reference internal" href="struct_game_1_1_q_p___objective.html#_CPPv4N4Game12QP_ObjectiveE" title="Game::QP_Objective">QP_Objective</a> &amp;&amp;<em>obj</em>, <a class="reference internal" href="struct_game_1_1_q_p___constraints.html#_CPPv4N4Game14QP_ConstraintsE" title="Game::QP_Constraints">QP_Constraints</a> &amp;&amp;<em>cons</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8MP_Param3setERR12QP_ObjectiveRR14QP_Constraints" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game8MP_Param8addDummyEjji">
+<span id="_CPPv3N4Game8MP_Param8addDummyEjji"></span><span id="_CPPv2N4Game8MP_Param8addDummyEjji"></span><span id="Game::MP_Param::addDummy__unsigned-i.unsigned-i.i"></span><span class="target" id="class_game_1_1_m_p___param_1adf8d38d835f6cb716b7ea661d2fd4a7d"></span><a class="reference internal" href="#_CPPv4N4Game8MP_ParamE" title="Game::MP_Param">MP_Param</a> &amp;<code class="sig-name descname">addDummy</code><span class="sig-paren">(</span>unsigned int <em>pars</em>, unsigned int <em>vars</em> = 0, int <em>position</em> = -1<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8MP_Param8addDummyEjji" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Adds dummy variables to a parameterized mathematical program <code class="docutils literal notranslate"><span class="pre">position</span></code> dictates the position at which the parameters can be added. -1 for adding at the end. <dl class="simple">
+<dt><strong>Warning</strong></dt><dd><p><code class="docutils literal notranslate"><span class="pre">position</span></code> cannot be set for <code class="docutils literal notranslate"><span class="pre">vars</span></code>. <code class="docutils literal notranslate"><span class="pre">vars</span></code> always added at the end. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game8MP_Param5writeERKNSt6stringEb">
+<span id="_CPPv3NK4Game8MP_Param5writeERKNSt6stringEb"></span><span id="_CPPv2NK4Game8MP_Param5writeERKNSt6stringEb"></span><span id="Game::MP_Param::write__ssCR.bC"></span><span class="target" id="class_game_1_1_m_p___param_1a21a9898b1fbebb1fbece40995aa7e9d6"></span>void <code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>filename</em>, bool <em>append</em> = true<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8MP_Param5writeERKNSt6stringEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Static Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N4Game8MP_Param9dataCheckERK12QP_ObjectiveRK14QP_Constraintsbb">
+<span id="_CPPv3N4Game8MP_Param9dataCheckERK12QP_ObjectiveRK14QP_Constraintsbb"></span><span id="_CPPv2N4Game8MP_Param9dataCheckERK12QP_ObjectiveRK14QP_Constraintsbb"></span><span id="Game::MP_Param::dataCheck__QP_ObjectiveCR.QP_ConstraintsCR.b.b"></span><span class="target" id="class_game_1_1_m_p___param_1a83c92dfab0346ffbc2c8fb68267a4471"></span>bool <code class="sig-name descname">dataCheck</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="struct_game_1_1_q_p___objective.html#_CPPv4N4Game12QP_ObjectiveE" title="Game::QP_Objective">QP_Objective</a> &amp;<em>obj</em>, <em class="property">const</em> <a class="reference internal" href="struct_game_1_1_q_p___constraints.html#_CPPv4N4Game14QP_ConstraintsE" title="Game::QP_Constraints">QP_Constraints</a> &amp;<em>cons</em>, bool <em>checkObj</em> = true, bool <em>checkCons</em> = true<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8MP_Param9dataCheckERK12QP_ObjectiveRK14QP_Constraintsbb" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Protected Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N4Game8MP_Param4sizeEv">
+<span id="_CPPv3N4Game8MP_Param4sizeEv"></span><span id="_CPPv2N4Game8MP_Param4sizeEv"></span><span id="Game::MP_Param::size"></span><span class="target" id="class_game_1_1_m_p___param_1aa2528bd94216c15b6c655040cecea5fe"></span><em class="property">const</em> unsigned int <code class="sig-name descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8MP_Param4sizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Calculates <code class="docutils literal notranslate"><span class="pre">Nx</span></code>, <code class="docutils literal notranslate"><span class="pre">Ny</span></code> and <code class="docutils literal notranslate"><span class="pre">Ncons</span></code> Computes parameters in <a class="reference internal" href="#class_game_1_1_m_p___param"><span class="std std-ref">MP_Param</span></a>: </p>
+<p><ul class="simple">
+<li><p>Computes <code class="docutils literal notranslate"><span class="pre">Ny</span></code> as number of rows in <a class="reference internal" href="#class_game_1_1_m_p___param_1ad1ec9489e7f1959f468e459c881cd63d"><span class="std std-ref">MP_Param::Q</span></a></p></li>
+<li><p>Computes <code class="docutils literal notranslate"><span class="pre">Nx</span></code> as number of columns in <a class="reference internal" href="#class_game_1_1_m_p___param_1ab17ec9cd0030436cd5c443cfcfe08ad1"><span class="std std-ref">MP_Param::C</span></a></p></li>
+<li><p>Computes <code class="docutils literal notranslate"><span class="pre">Ncons</span></code> as number of rows in <a class="reference internal" href="#class_game_1_1_m_p___param_1a97fc7b4d0d1ef97e4115f0114bbfdfcc"><span class="std std-ref">MP_Param::b</span></a>, i.e., the RHS of the constraints <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span>For proper working, MP_Param::dataCheck() has to be run after this.
+@returns @p Ny, Number of variables in the quadratic program, QP
+</pre></div>
+</div>
+ </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game8MP_Param9dataCheckEb">
+<span id="_CPPv3NK4Game8MP_Param9dataCheckEb"></span><span id="_CPPv2NK4Game8MP_Param9dataCheckEb"></span><span id="Game::MP_Param::dataCheck__bC"></span><span class="target" id="class_game_1_1_m_p___param_1acb2f6575e0f7613303287d6966eacd61"></span>bool <code class="sig-name descname">dataCheck</code><span class="sig-paren">(</span>bool <em>forceSymmetry</em> = true<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8MP_Param9dataCheckEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Check that the data for the <a class="reference internal" href="#class_game_1_1_m_p___param"><span class="std std-ref">MP_Param</span></a> class is valid Always works after calls to <a class="reference internal" href="#class_game_1_1_m_p___param_1aa2528bd94216c15b6c655040cecea5fe"><span class="std std-ref">MP_Param::size()</span></a> Checks that are done: </p>
+<p><ul class="simple">
+<li><p>Number of columns in <code class="docutils literal notranslate"><span class="pre">Q</span></code> is same as <code class="docutils literal notranslate"><span class="pre">Ny</span></code> (Q should be square)</p></li>
+<li><p>Number of columns of <code class="docutils literal notranslate"><span class="pre">A</span></code> should be <code class="docutils literal notranslate"><span class="pre">Nx</span></code> </p></li>
+<li><p>Number of columns of <code class="docutils literal notranslate"><span class="pre">B</span></code> should be <code class="docutils literal notranslate"><span class="pre">Ny</span></code> </p></li>
+<li><p>Number of rows in <code class="docutils literal notranslate"><span class="pre">C</span></code> should be <code class="docutils literal notranslate"><span class="pre">Ny</span></code> </p></li>
+<li><p>Size of <code class="docutils literal notranslate"><span class="pre">c</span></code> should be <code class="docutils literal notranslate"><span class="pre">Ny</span></code> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> should have the same number of rows, equal to <code class="docutils literal notranslate"><span class="pre">Ncons</span></code> </p></li>
+<li><p>if <code class="docutils literal notranslate"><span class="pre">forceSymmetry</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code>, then Q should be symmetric</p></li>
+</ul>
+</p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>true if all above checks are cleared. false otherwise. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game8MP_Param8finalizeEv">
+<span id="_CPPv3N4Game8MP_Param8finalizeEv"></span><span id="_CPPv2N4Game8MP_Param8finalizeEv"></span><span id="Game::MP_Param::finalize"></span><span class="target" id="class_game_1_1_m_p___param_1ad99f19eae314bd3ca720d75d219167c3"></span>bool <code class="sig-name descname">finalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8MP_Param8finalizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Finalize the <a class="reference internal" href="#class_game_1_1_m_p___param"><span class="std std-ref">MP_Param</span></a> object. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Protected Attributes</p>
+<dl class="cpp var">
+<dt id="_CPPv4N4Game8MP_Param1QE">
+<span id="_CPPv3N4Game8MP_Param1QE"></span><span id="_CPPv2N4Game8MP_Param1QE"></span><span id="Game::MP_Param::Q__arma::sp_mat"></span><span class="target" id="class_game_1_1_m_p___param_1ad1ec9489e7f1959f468e459c881cd63d"></span>arma::sp_mat <code class="sig-name descname">Q</code><a class="headerlink" href="#_CPPv4N4Game8MP_Param1QE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game8MP_Param1AE">
+<span id="_CPPv3N4Game8MP_Param1AE"></span><span id="_CPPv2N4Game8MP_Param1AE"></span><span id="Game::MP_Param::A__arma::sp_mat"></span><span class="target" id="class_game_1_1_m_p___param_1aa0b31310fd4f138fe3e3771d2b077c3e"></span>arma::sp_mat <code class="sig-name descname">A</code><a class="headerlink" href="#_CPPv4N4Game8MP_Param1AE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game8MP_Param1BE">
+<span id="_CPPv3N4Game8MP_Param1BE"></span><span id="_CPPv2N4Game8MP_Param1BE"></span><span id="Game::MP_Param::B__arma::sp_mat"></span><span class="target" id="class_game_1_1_m_p___param_1a3d517547d70f75e43060785fe66ad091"></span>arma::sp_mat <code class="sig-name descname">B</code><a class="headerlink" href="#_CPPv4N4Game8MP_Param1BE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game8MP_Param1CE">
+<span id="_CPPv3N4Game8MP_Param1CE"></span><span id="_CPPv2N4Game8MP_Param1CE"></span><span id="Game::MP_Param::C__arma::sp_mat"></span><span class="target" id="class_game_1_1_m_p___param_1ab17ec9cd0030436cd5c443cfcfe08ad1"></span>arma::sp_mat <code class="sig-name descname">C</code><a class="headerlink" href="#_CPPv4N4Game8MP_Param1CE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game8MP_Param1cE">
+<span id="_CPPv3N4Game8MP_Param1cE"></span><span id="_CPPv2N4Game8MP_Param1cE"></span><span id="Game::MP_Param::c__arma::vec"></span><span class="target" id="class_game_1_1_m_p___param_1ac0e65580b83e8e6441d6e964b515dff8"></span>arma::vec <code class="sig-name descname">c</code><a class="headerlink" href="#_CPPv4N4Game8MP_Param1cE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game8MP_Param1bE">
+<span id="_CPPv3N4Game8MP_Param1bE"></span><span id="_CPPv2N4Game8MP_Param1bE"></span><span id="Game::MP_Param::b__arma::vec"></span><span class="target" id="class_game_1_1_m_p___param_1a97fc7b4d0d1ef97e4115f0114bbfdfcc"></span>arma::vec <code class="sig-name descname">b</code><a class="headerlink" href="#_CPPv4N4Game8MP_Param1bE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game8MP_Param2NxE">
+<span id="_CPPv3N4Game8MP_Param2NxE"></span><span id="_CPPv2N4Game8MP_Param2NxE"></span><span id="Game::MP_Param::Nx__unsigned-i"></span><span class="target" id="class_game_1_1_m_p___param_1aac9e6425fcc953b69c7aae411f011e58"></span>unsigned int <code class="sig-name descname">Nx</code><a class="headerlink" href="#_CPPv4N4Game8MP_Param2NxE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game8MP_Param2NyE">
+<span id="_CPPv3N4Game8MP_Param2NyE"></span><span id="_CPPv2N4Game8MP_Param2NyE"></span><span id="Game::MP_Param::Ny__unsigned-i"></span><span class="target" id="class_game_1_1_m_p___param_1ab889087a490f40f114002c92fea62b2d"></span>unsigned int <code class="sig-name descname">Ny</code><a class="headerlink" href="#_CPPv4N4Game8MP_Param2NyE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game8MP_Param5NconsE">
+<span id="_CPPv3N4Game8MP_Param5NconsE"></span><span id="_CPPv2N4Game8MP_Param5NconsE"></span><span id="Game::MP_Param::Ncons__unsigned-i"></span><span class="target" id="class_game_1_1_m_p___param_1a786341129b4f7a0501ab1784cac70c9e"></span>unsigned int <code class="sig-name descname">Ncons</code><a class="headerlink" href="#_CPPv4N4Game8MP_Param5NconsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GD and SS
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

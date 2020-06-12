@@ -1,0 +1,18 @@
+
+File Hierarchy
+--------------
+
+
+.. raw:: html
+
+   <ul class="treeView" id="file-treeView">
+     <li>
+       <ul class="collapsibleList">
+         <li>Directory <a href="dir_include.html#dir-include">include</a><ul><li>Directory <a href="dir_include_algorithms.html#dir-include-algorithms">algorithms</a><ul><li>File <a href="file_include_algorithms_algorithms.h.html#file-include-algorithms-algorithms.h">algorithms.h</a></li><li>File <a href="file_include_algorithms_combinatorialpne.h.html#file-include-algorithms-combinatorialpne.h">combinatorialpne.h</a></li><li>File <a href="file_include_algorithms_fullenumeration.h.html#file-include-algorithms-fullenumeration.h">fullenumeration.h</a></li><li>File <a href="file_include_algorithms_innerapproximation.h.html#file-include-algorithms-innerapproximation.h">innerapproximation.h</a></li><li>File <a href="file_include_algorithms_outerapproximation.h.html#file-include-algorithms-outerapproximation.h">outerapproximation.h</a></li><li class="lastChild">File <a href="file_include_algorithms_polybase.h.html#file-include-algorithms-polybase.h">polybase.h</a></li></ul></li><li>Directory <a href="dir_include_lcp.html#dir-include-lcp">lcp</a><ul><li>File <a href="file_include_lcp_lcp.h.html#file-include-lcp-lcp.h">lcp.h</a></li><li>File <a href="file_include_lcp_outerlcp.h.html#file-include-lcp-outerlcp.h">outerlcp.h</a></li><li class="lastChild">File <a href="file_include_lcp_polylcp.h.html#file-include-lcp-polylcp.h">polylcp.h</a></li></ul></li><li>File <a href="file_include_epecsolve.h.html#file-include-epecsolve.h">epecsolve.h</a></li><li>File <a href="file_include_games.h.html#file-include-games.h">games.h</a></li><li>File <a href="file_include_models.h.html#file-include-models.h">models.h</a></li><li class="lastChild">File <a href="file_include_utils.h.html#file-include-utils.h">utils.h</a></li></ul></li><li>Directory <a href="dir_src.html#dir-src">src</a><ul><li>Directory <a href="dir_src_algorithms.html#dir-src-algorithms">algorithms</a><ul><li>File <a href="file_src_algorithms_CombinatorialPNE.cpp.html#file-src-algorithms-CombinatorialPNE.cpp">CombinatorialPNE.cpp</a></li><li>File <a href="file_src_algorithms_FullEnumeration.cpp.html#file-src-algorithms-FullEnumeration.cpp">FullEnumeration.cpp</a></li><li>File <a href="file_src_algorithms_InnerApproximation.cpp.html#file-src-algorithms-InnerApproximation.cpp">InnerApproximation.cpp</a></li><li>File <a href="file_src_algorithms_OuterApproximation.cpp.html#file-src-algorithms-OuterApproximation.cpp">OuterApproximation.cpp</a></li><li class="lastChild">File <a href="file_src_algorithms_PolyBase.cpp.html#file-src-algorithms-PolyBase.cpp">PolyBase.cpp</a></li></ul></li><li>Directory <a href="dir_src_lcp.html#dir-src-lcp">lcp</a><ul><li>File <a href="file_src_lcp_LCP.cpp.html#file-src-lcp-LCP.cpp">LCP.cpp</a></li><li>File <a href="file_src_lcp_OuterLCP.cpp.html#file-src-lcp-OuterLCP.cpp">OuterLCP.cpp</a></li><li class="lastChild">File <a href="file_src_lcp_PolyLCP.cpp.html#file-src-lcp-PolyLCP.cpp">PolyLCP.cpp</a></li></ul></li><li>File <a href="file_src_CommandLineInterface.cpp.html#file-src-CommandLineInterface.cpp">CommandLineInterface.cpp</a></li><li>File <a href="file_src_Games.cpp.html#file-src-Games.cpp">Games.cpp</a></li><li>File <a href="file_src_Models.cpp.html#file-src-Models.cpp">Models.cpp</a></li><li class="lastChild">File <a href="file_src_Utils.cpp.html#file-src-Utils.cpp">Utils.cpp</a></li></ul></li><li class="lastChild">File <a href="file_README.md.html#file-README.md">README.md</a></li>
+       </ul>
+     </li><!-- only tree view element -->
+   </ul><!-- /treeView file-treeView -->
+
+.. end raw html for treeView
+
+

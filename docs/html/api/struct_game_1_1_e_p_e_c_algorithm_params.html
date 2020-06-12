@@ -1,0 +1,403 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Struct EPECAlgorithmParams &mdash; EPECSolve 2.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> EPECSolve
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#mandatory-packages">Mandatory packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#recommended-but-not-mandatory-for-the-algorithm-some-examples-might-have-these-dependancies">Recommended but not mandatory for the algorithm. (Some examples might have these dependancies)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#license">LICENSE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Quick References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EPECSolve</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Struct EPECAlgorithmParams</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/struct_game_1_1_e_p_e_c_algorithm_params.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="struct-epecalgorithmparams">
+<span id="exhale-struct-struct-game-1-1-e-p-e-c-algorithm-params"></span><h1>Struct EPECAlgorithmParams<a class="headerlink" href="#struct-epecalgorithmparams" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_games.h.html#file-include-games-h"><span class="std std-ref">File games.h</span></a></p></li>
+</ul>
+<div class="section" id="struct-documentation">
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp struct">
+<dt id="_CPPv4N4Game19EPECAlgorithmParamsE">
+<span id="_CPPv3N4Game19EPECAlgorithmParamsE"></span><span id="_CPPv2N4Game19EPECAlgorithmParamsE"></span><span id="Game::EPECAlgorithmParams"></span><span class="target" id="struct_game_1_1_e_p_e_c_algorithm_params"></span><em class="property">struct </em><code class="sig-prename descclassname">Game<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">EPECAlgorithmParams</code><a class="headerlink" href="#_CPPv4N4Game19EPECAlgorithmParamsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Stores the configuration for <a class="reference internal" href="class_game_1_1_e_p_e_c.html#class_game_1_1_e_p_e_c"><span class="std std-ref">EPEC</span></a> algorithms. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="cpp var">
+<dt id="_CPPv4N4Game19EPECAlgorithmParams9AlgorithmE">
+<span id="_CPPv3N4Game19EPECAlgorithmParams9AlgorithmE"></span><span id="_CPPv2N4Game19EPECAlgorithmParams9AlgorithmE"></span><span id="Game::EPECAlgorithmParams::Algorithm__Game::EPECalgorithm"></span><span class="target" id="struct_game_1_1_e_p_e_c_algorithm_params_1afb7d219ce16e71e7a03fb7f454d938ca"></span>Game::<a class="reference internal" href="enum_namespace_game_1a09f076906bd963c7e558c8f1a9506d1d.html#_CPPv4N4Game13EPECalgorithmE" title="Game::EPECalgorithm">EPECalgorithm</a> <code class="sig-name descname">Algorithm</code> = Game::<a class="reference internal" href="enum_namespace_game_1a09f076906bd963c7e558c8f1a9506d1d.html#_CPPv4N4Game13EPECalgorithmE" title="Game::EPECalgorithm">EPECalgorithm</a>::<a class="reference internal" href="enum_namespace_game_1a09f076906bd963c7e558c8f1a9506d1d.html#_CPPv4N4Game13EPECalgorithm15FullEnumerationE" title="Game::EPECalgorithm::FullEnumeration">FullEnumeration</a><a class="headerlink" href="#_CPPv4N4Game19EPECAlgorithmParams9AlgorithmE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game19EPECAlgorithmParams15RecoverStrategyE">
+<span id="_CPPv3N4Game19EPECAlgorithmParams15RecoverStrategyE"></span><span id="_CPPv2N4Game19EPECAlgorithmParams15RecoverStrategyE"></span><span id="Game::EPECAlgorithmParams::RecoverStrategy__Game::EPECRecoverStrategy"></span><span class="target" id="struct_game_1_1_e_p_e_c_algorithm_params_1a87eb9aa0451de0a529a908c6d638085d"></span>Game::<a class="reference internal" href="enum_namespace_game_1ad391a76e36d878e9924a5e00ed89f439.html#_CPPv4N4Game19EPECRecoverStrategyE" title="Game::EPECRecoverStrategy">EPECRecoverStrategy</a> <code class="sig-name descname">RecoverStrategy</code> = <a class="reference internal" href="enum_namespace_game_1ad391a76e36d878e9924a5e00ed89f439.html#_CPPv4N4Game19EPECRecoverStrategyE" title="Game::EPECRecoverStrategy">EPECRecoverStrategy</a>::<a class="reference internal" href="enum_namespace_game_1ad391a76e36d878e9924a5e00ed89f439.html#_CPPv4N4Game19EPECRecoverStrategy22IncrementalEnumerationE" title="Game::EPECRecoverStrategy::IncrementalEnumeration">IncrementalEnumeration</a><a class="headerlink" href="#_CPPv4N4Game19EPECAlgorithmParams15RecoverStrategyE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game19EPECAlgorithmParams7PolyLcpE">
+<span id="_CPPv3N4Game19EPECAlgorithmParams7PolyLcpE"></span><span id="_CPPv2N4Game19EPECAlgorithmParams7PolyLcpE"></span><span id="Game::EPECAlgorithmParams::PolyLcp__b"></span><span class="target" id="struct_game_1_1_e_p_e_c_algorithm_params_1a683c9950a5584e5c63dc8abff9251b28"></span>bool <code class="sig-name descname">PolyLcp</code>{true}<a class="headerlink" href="#_CPPv4N4Game19EPECAlgorithmParams7PolyLcpE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>if the Algorithm uses the polyhedral class for the <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> </p>
+<p>True if the Algorithm extends the <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> to <a class="reference internal" href="class_game_1_1_poly_l_c_p.html#class_game_1_1_poly_l_c_p"><span class="std std-ref">PolyLCP</span></a>. Namely, true </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game19EPECAlgorithmParams13AddPolyMethodE">
+<span id="_CPPv3N4Game19EPECAlgorithmParams13AddPolyMethodE"></span><span id="_CPPv2N4Game19EPECAlgorithmParams13AddPolyMethodE"></span><span id="Game::EPECAlgorithmParams::AddPolyMethod__Game::EPECAddPolyMethod"></span><span class="target" id="struct_game_1_1_e_p_e_c_algorithm_params_1a40dc83ba191fa696abedc5ff81cad472"></span>Game::<a class="reference internal" href="enum_namespace_game_1a1575f114564e7083eaa22c1ae0b2e066.html#_CPPv4N4Game17EPECAddPolyMethodE" title="Game::EPECAddPolyMethod">EPECAddPolyMethod</a> <code class="sig-name descname">AddPolyMethod</code> = Game::<a class="reference internal" href="enum_namespace_game_1a1575f114564e7083eaa22c1ae0b2e066.html#_CPPv4N4Game17EPECAddPolyMethodE" title="Game::EPECAddPolyMethod">EPECAddPolyMethod</a>::<a class="reference internal" href="enum_namespace_game_1a1575f114564e7083eaa22c1ae0b2e066.html#_CPPv4N4Game17EPECAddPolyMethod10SequentialE" title="Game::EPECAddPolyMethod::Sequential">Sequential</a><a class="headerlink" href="#_CPPv4N4Game19EPECAlgorithmParams13AddPolyMethodE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game19EPECAlgorithmParams12BoundPrimalsE">
+<span id="_CPPv3N4Game19EPECAlgorithmParams12BoundPrimalsE"></span><span id="_CPPv2N4Game19EPECAlgorithmParams12BoundPrimalsE"></span><span id="Game::EPECAlgorithmParams::BoundPrimals__b"></span><span class="target" id="struct_game_1_1_e_p_e_c_algorithm_params_1a69563f9710bd72a54741b049e0b25887"></span>bool <code class="sig-name descname">BoundPrimals</code> = {false}<a class="headerlink" href="#_CPPv4N4Game19EPECAlgorithmParams12BoundPrimalsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>arbitrary large BigM constant </p>
+<p>If true, each QP param is bounded with an </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game19EPECAlgorithmParams9BoundBigME">
+<span id="_CPPv3N4Game19EPECAlgorithmParams9BoundBigME"></span><span id="_CPPv2N4Game19EPECAlgorithmParams9BoundBigME"></span><span id="Game::EPECAlgorithmParams::BoundBigM__double"></span><span class="target" id="struct_game_1_1_e_p_e_c_algorithm_params_1af09dd768461174c98bbb10eff8f744e3"></span>double <code class="sig-name descname">BoundBigM</code> = {1e5}<a class="headerlink" href="#_CPPv4N4Game19EPECAlgorithmParams9BoundBigME" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Bounding upper value if <code class="docutils literal notranslate"><span class="pre">BoundPrimals</span></code> is true. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game19EPECAlgorithmParams18DeviationToleranceE">
+<span id="_CPPv3N4Game19EPECAlgorithmParams18DeviationToleranceE"></span><span id="_CPPv2N4Game19EPECAlgorithmParams18DeviationToleranceE"></span><span id="Game::EPECAlgorithmParams::DeviationTolerance__double"></span><span class="target" id="struct_game_1_1_e_p_e_c_algorithm_params_1a002b85eb1579cc88717013405b417d30"></span>double <code class="sig-name descname">DeviationTolerance</code>{51e-4}<a class="headerlink" href="#_CPPv4N4Game19EPECAlgorithmParams18DeviationToleranceE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Tolerance parameter for profitable deviations. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game19EPECAlgorithmParams17AddPolyMethodSeedE">
+<span id="_CPPv3N4Game19EPECAlgorithmParams17AddPolyMethodSeedE"></span><span id="_CPPv2N4Game19EPECAlgorithmParams17AddPolyMethodSeedE"></span><span id="Game::EPECAlgorithmParams::AddPolyMethodSeed__l-i"></span><span class="target" id="struct_game_1_1_e_p_e_c_algorithm_params_1a35570398b595c2911d879e5cd2b73948"></span>long int <code class="sig-name descname">AddPolyMethodSeed</code>{-1}<a class="headerlink" href="#_CPPv4N4Game19EPECAlgorithmParams17AddPolyMethodSeedE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>default computed value will be seeded. </p>
+<p>Random seed for the Random selection of polyhedra. If -1, a </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game19EPECAlgorithmParams10IndicatorsE">
+<span id="_CPPv3N4Game19EPECAlgorithmParams10IndicatorsE"></span><span id="_CPPv2N4Game19EPECAlgorithmParams10IndicatorsE"></span><span id="Game::EPECAlgorithmParams::Indicators__b"></span><span class="target" id="struct_game_1_1_e_p_e_c_algorithm_params_1a134a20176283867357929f5b94ce4b6c"></span>bool <code class="sig-name descname">Indicators</code> = {true}<a class="headerlink" href="#_CPPv4N4Game19EPECAlgorithmParams10IndicatorsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Uses <code class="docutils literal notranslate"><span class="pre">BigM</span></code> if <code class="docutils literal notranslate"><span class="pre">false</span></code>. </p>
+<p>Controls the flag <code class="docutils literal notranslate"><span class="pre">UseIndicators</span></code> in <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p"><span class="std std-ref">Game::LCP</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game19EPECAlgorithmParams9TimeLimitE">
+<span id="_CPPv3N4Game19EPECAlgorithmParams9TimeLimitE"></span><span id="_CPPv2N4Game19EPECAlgorithmParams9TimeLimitE"></span><span id="Game::EPECAlgorithmParams::TimeLimit__double"></span><span class="target" id="struct_game_1_1_e_p_e_c_algorithm_params_1ad3f7d789c6d377919b38a16cd358adab"></span>double <code class="sig-name descname">TimeLimit</code>{-1}<a class="headerlink" href="#_CPPv4N4Game19EPECAlgorithmParams9TimeLimitE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Controls the timelimit for solve in <a class="reference internal" href="class_game_1_1_e_p_e_c.html#class_game_1_1_e_p_e_c_1a71db5d5bacd5a7b97437795d797f882b"><span class="std std-ref">Game::EPEC::findNashEq</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game19EPECAlgorithmParams7ThreadsE">
+<span id="_CPPv3N4Game19EPECAlgorithmParams7ThreadsE"></span><span id="_CPPv2N4Game19EPECAlgorithmParams7ThreadsE"></span><span id="Game::EPECAlgorithmParams::Threads__unsigned-i"></span><span class="target" id="struct_game_1_1_e_p_e_c_algorithm_params_1a644dea0e4975a07a250ba2b1b72ac4aa"></span>unsigned int <code class="sig-name descname">Threads</code>{0}<a class="headerlink" href="#_CPPv4N4Game19EPECAlgorithmParams7ThreadsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Controls the number of Threads Gurobi exploits. Default 0 (auto) </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game19EPECAlgorithmParams14AggressivenessE">
+<span id="_CPPv3N4Game19EPECAlgorithmParams14AggressivenessE"></span><span id="_CPPv2N4Game19EPECAlgorithmParams14AggressivenessE"></span><span id="Game::EPECAlgorithmParams::Aggressiveness__unsigned-i"></span><span class="target" id="struct_game_1_1_e_p_e_c_algorithm_params_1aad475fefb22c4ca3844adff8010d1b3a"></span>unsigned int <code class="sig-name descname">Aggressiveness</code>{1}<a class="headerlink" href="#_CPPv4N4Game19EPECAlgorithmParams14AggressivenessE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>in EPEC::iterativeNash </p>
+<p>Controls the number of Random polyhedra added at each iteration </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game19EPECAlgorithmParams19PureNashEquilibriumE">
+<span id="_CPPv3N4Game19EPECAlgorithmParams19PureNashEquilibriumE"></span><span id="_CPPv2N4Game19EPECAlgorithmParams19PureNashEquilibriumE"></span><span id="Game::EPECAlgorithmParams::PureNashEquilibrium__b"></span><span class="target" id="struct_game_1_1_e_p_e_c_algorithm_params_1acdd4f8d1c03e3e4c76348cd7e757cc85"></span>bool <code class="sig-name descname">PureNashEquilibrium</code>{false}<a class="headerlink" href="#_CPPv4N4Game19EPECAlgorithmParams19PureNashEquilibriumE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>If true, the Algorithm will tend to search for pure NE. If none exists, it will return a MNE (if exists) </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GD and SS
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

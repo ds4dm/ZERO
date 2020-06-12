@@ -1,0 +1,549 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Class PolyLCP &mdash; EPECSolve 2.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> EPECSolve
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#mandatory-packages">Mandatory packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#recommended-but-not-mandatory-for-the-algorithm-some-examples-might-have-these-dependancies">Recommended but not mandatory for the algorithm. (Some examples might have these dependancies)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#license">LICENSE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Quick References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EPECSolve</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Class PolyLCP</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/class_game_1_1_poly_l_c_p.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="class-polylcp">
+<span id="exhale-class-class-game-1-1-poly-l-c-p"></span><h1>Class PolyLCP<a class="headerlink" href="#class-polylcp" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_lcp_polylcp.h.html#file-include-lcp-polylcp-h"><span class="std std-ref">File polylcp.h</span></a></p></li>
+</ul>
+<div class="section" id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="base-type">
+<h3>Base Type<a class="headerlink" href="#base-type" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">Game::LCP</span></code> (<a class="reference internal" href="class_game_1_1_l_c_p.html#exhale-class-class-game-1-1-l-c-p"><span class="std std-ref">Class LCP</span></a>)</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp class">
+<dt id="_CPPv4N4Game7PolyLCPE">
+<span id="_CPPv3N4Game7PolyLCPE"></span><span id="_CPPv2N4Game7PolyLCPE"></span><span id="Game::PolyLCP"></span><span class="target" id="class_game_1_1_poly_l_c_p"></span><em class="property">class </em><code class="sig-prename descclassname">Game<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">PolyLCP</code> : <em class="property">public</em> Game::<a class="reference internal" href="class_game_1_1_l_c_p.html#_CPPv4N4Game3LCPE" title="Game::LCP">LCP</a><a class="headerlink" href="#_CPPv4N4Game7PolyLCPE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N4Game7PolyLCP7PolyLCPEP6GRBEnvRK8NashGame">
+<span id="_CPPv3N4Game7PolyLCP7PolyLCPEP6GRBEnvRK8NashGame"></span><span id="_CPPv2N4Game7PolyLCP7PolyLCPEP6GRBEnvRK8NashGame"></span><span id="Game::PolyLCP::PolyLCP__GRBEnvP.NashGameCR"></span><span class="target" id="class_game_1_1_poly_l_c_p_1a2e7688ed525a53df2640f8059c0c0dd7"></span><code class="sig-name descname">PolyLCP</code><span class="sig-paren">(</span>GRBEnv *<em>env</em>, <em class="property">const</em> <a class="reference internal" href="class_game_1_1_nash_game.html#_CPPv4N4Game8NashGameE" title="Game::NashGame">NashGame</a> &amp;<em>N</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game7PolyLCP7PolyLCPEP6GRBEnvRK8NashGame" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game7PolyLCP11convNumPolyEv">
+<span id="_CPPv3NK4Game7PolyLCP11convNumPolyEv"></span><span id="_CPPv2NK4Game7PolyLCP11convNumPolyEv"></span><span id="Game::PolyLCP::convNumPolyC"></span><span class="target" id="class_game_1_1_poly_l_c_p_1a82da25777affce68da206232f9a91704"></span>unsigned long <code class="sig-name descname">convNumPoly</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game7PolyLCP11convNumPolyEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game7PolyLCP16convPolyPositionEm">
+<span id="_CPPv3NK4Game7PolyLCP16convPolyPositionEm"></span><span id="_CPPv2NK4Game7PolyLCP16convPolyPositionEm"></span><span id="Game::PolyLCP::convPolyPosition__unsigned-l-iC"></span><span class="target" id="class_game_1_1_poly_l_c_p_1a2e14a1d94151b08c878386de507793b4"></span>unsigned int <code class="sig-name descname">convPolyPosition</code><span class="sig-paren">(</span>unsigned long int <em>i</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game7PolyLCP16convPolyPositionEm" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game7PolyLCP14convPolyWeightEm">
+<span id="_CPPv3NK4Game7PolyLCP14convPolyWeightEm"></span><span id="_CPPv2NK4Game7PolyLCP14convPolyWeightEm"></span><span id="Game::PolyLCP::convPolyWeight__unsigned-l-iC"></span><span class="target" id="class_game_1_1_poly_l_c_p_1a6bd110dfdf561badc1e3f7624589e1e1"></span>unsigned int <code class="sig-name descname">convPolyWeight</code><span class="sig-paren">(</span>unsigned long int <em>i</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game7PolyLCP14convPolyWeightEm" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game7PolyLCP15getAllPolyhedraEv">
+<span id="_CPPv3NK4Game7PolyLCP15getAllPolyhedraEv"></span><span id="_CPPv2NK4Game7PolyLCP15getAllPolyhedraEv"></span><span id="Game::PolyLCP::getAllPolyhedraC"></span><span class="target" id="class_game_1_1_poly_l_c_p_1a4cd4171844f271bba06c271bbe9e02e5"></span>std::set&lt;unsigned long int&gt; <code class="sig-name descname">getAllPolyhedra</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game7PolyLCP15getAllPolyhedraEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game7PolyLCP21getNumTheoreticalPolyEv">
+<span id="_CPPv3NK4Game7PolyLCP21getNumTheoreticalPolyEv"></span><span id="_CPPv2NK4Game7PolyLCP21getNumTheoreticalPolyEv"></span><span id="Game::PolyLCP::getNumTheoreticalPolyC"></span><span class="target" id="class_game_1_1_poly_l_c_p_1a7894d5934693fb66db0170026e049ff1"></span>unsigned long int <code class="sig-name descname">getNumTheoreticalPoly</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4NK4Game7PolyLCP21getNumTheoreticalPolyEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game7PolyLCP8addAPolyEmN4Game17EPECAddPolyMethodENSt3setINSt6vectorIsEEEE">
+<span id="_CPPv3N4Game7PolyLCP8addAPolyEmN4Game17EPECAddPolyMethodENSt3setINSt6vectorIsEEEE"></span><span id="_CPPv2N4Game7PolyLCP8addAPolyEmN4Game17EPECAddPolyMethodENSt3setINSt6vectorIsEEEE"></span><span id="Game::PolyLCP::addAPoly__unsigned-l-i.Game::EPECAddPolyMethod.std::set:std::vector:short-i::"></span><span class="target" id="class_game_1_1_poly_l_c_p_1a069d38458ee626e26cc3ab7700fe9917"></span>std::set&lt;std::vector&lt;short int&gt;&gt; <code class="sig-name descname">addAPoly</code><span class="sig-paren">(</span>unsigned long int <em>nPoly</em> = 1, Game::<a class="reference internal" href="enum_namespace_game_1a1575f114564e7083eaa22c1ae0b2e066.html#_CPPv4N4Game17EPECAddPolyMethodE" title="Game::EPECAddPolyMethod">EPECAddPolyMethod</a> <em>method</em> = Game::<a class="reference internal" href="enum_namespace_game_1a1575f114564e7083eaa22c1ae0b2e066.html#_CPPv4N4Game17EPECAddPolyMethodE" title="Game::EPECAddPolyMethod">EPECAddPolyMethod</a>::<a class="reference internal" href="enum_namespace_game_1a1575f114564e7083eaa22c1ae0b2e066.html#_CPPv4N4Game17EPECAddPolyMethod10SequentialE" title="Game::EPECAddPolyMethod::Sequential">Sequential</a>, std::set&lt;std::vector&lt;short int&gt;&gt; <em>polyhedra</em> = {}<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game7PolyLCP8addAPolyEmN4Game17EPECAddPolyMethodENSt3setINSt6vectorIsEEEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game7PolyLCP10addThePolyERKm">
+<span id="_CPPv3N4Game7PolyLCP10addThePolyERKm"></span><span id="_CPPv2N4Game7PolyLCP10addThePolyERKm"></span><span id="Game::PolyLCP::addThePoly__unsigned-l-iCR"></span><span class="target" id="class_game_1_1_poly_l_c_p_1a6cbd0139e8f432d15287387b7be7bfeb"></span>bool <code class="sig-name descname">addThePoly</code><span class="sig-paren">(</span><em class="property">const</em> unsigned long int &amp;<em>decimalEncoding</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game7PolyLCP10addThePolyERKm" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game7PolyLCP13checkPolyFeasERKm">
+<span id="_CPPv3N4Game7PolyLCP13checkPolyFeasERKm"></span><span id="_CPPv2N4Game7PolyLCP13checkPolyFeasERKm"></span><span id="Game::PolyLCP::checkPolyFeas__unsigned-l-iCR"></span><span class="target" id="class_game_1_1_poly_l_c_p_1abfb1de17bc930bc70bb32b845a0e5479"></span>bool <code class="sig-name descname">checkPolyFeas</code><span class="sig-paren">(</span><em class="property">const</em> unsigned long int &amp;<em>decimalEncoding</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game7PolyLCP13checkPolyFeasERKm" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">decimalEncoding</span></code>: Decimal encoding for the polyhedron </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game7PolyLCP13checkPolyFeasERKNSt6vectorIsEE">
+<span id="_CPPv3N4Game7PolyLCP13checkPolyFeasERKNSt6vectorIsEE"></span><span id="_CPPv2N4Game7PolyLCP13checkPolyFeasERKNSt6vectorIsEE"></span><span id="Game::PolyLCP::checkPolyFeas__std::vector:short-i:CR"></span><span class="target" id="class_game_1_1_poly_l_c_p_1ace347a389d26d3151793b09e57efa84f"></span>bool <code class="sig-name descname">checkPolyFeas</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;short int&gt; &amp;<em>encoding</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game7PolyLCP13checkPolyFeasERKNSt6vectorIsEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">encoding</span></code>: A vector of +1 and -1 referring to which equations and variables are taking 0 value.) </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game7PolyLCP14clearPolyhedraEv">
+<span id="_CPPv3N4Game7PolyLCP14clearPolyhedraEv"></span><span id="_CPPv2N4Game7PolyLCP14clearPolyhedraEv"></span><span id="Game::PolyLCP::clearPolyhedra"></span><span class="target" id="class_game_1_1_poly_l_c_p_1a284ba47f087abd272c48e77c20060d45"></span>void <code class="sig-name descname">clearPolyhedra</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game7PolyLCP14clearPolyhedraEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game7PolyLCP12addPolyFromXERKN4arma3vecERb">
+<span id="_CPPv3N4Game7PolyLCP12addPolyFromXERKN4arma3vecERb"></span><span id="_CPPv2N4Game7PolyLCP12addPolyFromXERKN4arma3vecERb"></span><span id="Game::PolyLCP::addPolyFromX__arma::vecCR.bR"></span><span class="target" id="class_game_1_1_poly_l_c_p_1ad0a82937558cb85efccde85308ce6997"></span><a class="reference internal" href="#_CPPv4N4Game7PolyLCPE" title="Game::PolyLCP">PolyLCP</a> &amp;<code class="sig-name descname">addPolyFromX</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>x</em>, bool &amp;<em>ret</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game7PolyLCP12addPolyFromXERKN4arma3vecERb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Given a <em> feasible </em> point <code class="docutils literal notranslate"><span class="pre">x</span></code>, checks if a polyhedron that contains <code class="docutils literal notranslate"><span class="pre">x</span></code> is already a part of this-&gt;Ai and this-&gt; bi. If it is, then this does nothing, except for printing a log message. If not, it adds a polyhedron containing this vector. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game7PolyLCP12enumerateAllEb">
+<span id="_CPPv3N4Game7PolyLCP12enumerateAllEb"></span><span id="_CPPv2N4Game7PolyLCP12enumerateAllEb"></span><span id="Game::PolyLCP::enumerateAll__b"></span><span class="target" id="class_game_1_1_poly_l_c_p_1aebdc0ed41bb918c136f40c01b0c9fef2"></span><a class="reference internal" href="#_CPPv4N4Game7PolyLCPE" title="Game::PolyLCP">PolyLCP</a> &amp;<code class="sig-name descname">enumerateAll</code><span class="sig-paren">(</span>bool <em>solveLP</em> = true<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game7PolyLCP12enumerateAllEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Brute force computation of <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> feasible region. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">solveLP</span></code>: Should the polyhedra added be checked for feasibility? </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+<p>Computes all <span class="math notranslate nohighlight">\(2^n\)</span> polyhedra defining the <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> feasible region. Th ese are always added to <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p_1a8f71d6ee194330de1441c3911b74bff6"><span class="std std-ref">LCP::Ai</span></a> and <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p_1afcae3294d6a3492d4a1b77a1d72ccf60"><span class="std std-ref">LCP::bi</span></a> </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game7PolyLCP23feasabilityDetailStringEv">
+<span id="_CPPv3NK4Game7PolyLCP23feasabilityDetailStringEv"></span><span id="_CPPv2NK4Game7PolyLCP23feasabilityDetailStringEv"></span><span id="Game::PolyLCP::feasabilityDetailStringC"></span><span class="target" id="class_game_1_1_poly_l_c_p_1ab3da884aa6d7966d9482c8e3830aa464"></span>std::string <code class="sig-name descname">feasabilityDetailString</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game7PolyLCP23feasabilityDetailStringEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game7PolyLCP20getFeasiblePolyhedraEv">
+<span id="_CPPv3NK4Game7PolyLCP20getFeasiblePolyhedraEv"></span><span id="_CPPv2NK4Game7PolyLCP20getFeasiblePolyhedraEv"></span><span id="Game::PolyLCP::getFeasiblePolyhedraC"></span><span class="target" id="class_game_1_1_poly_l_c_p_1a8bf2b9f101f4dacc2d4e7a115d795a36"></span>unsigned int <code class="sig-name descname">getFeasiblePolyhedra</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game7PolyLCP20getFeasiblePolyhedraEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="cpp var">
+<dt id="_CPPv4N4Game7PolyLCP17AddPolyMethodSeedE">
+<span id="_CPPv3N4Game7PolyLCP17AddPolyMethodSeedE"></span><span id="_CPPv2N4Game7PolyLCP17AddPolyMethodSeedE"></span><span id="Game::PolyLCP::AddPolyMethodSeed__l-i"></span><span class="target" id="class_game_1_1_poly_l_c_p_1a1afb8ebbf1672cc4d0398c0f7265ed56"></span>long int <code class="sig-name descname">AddPolyMethodSeed</code> = {-1}<a class="headerlink" href="#_CPPv4N4Game7PolyLCP17AddPolyMethodSeedE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Should be a positive value. </p>
+<p>Seeds the Random generator for the Random polyhedra selection. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N4Game7PolyLCP22initializeNotProcessedEv">
+<span id="_CPPv3N4Game7PolyLCP22initializeNotProcessedEv"></span><span id="_CPPv2N4Game7PolyLCP22initializeNotProcessedEv"></span><span id="Game::PolyLCP::initializeNotProcessed"></span><span class="target" id="class_game_1_1_poly_l_c_p_1a216d9f17996fe72731dd33cc2062153e"></span>void <code class="sig-name descname">initializeNotProcessed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game7PolyLCP22initializeNotProcessedEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game7PolyLCP19addPolyFromEncodingENSt6vectorIsEEbbP9spmat_VecP7vec_Vec">
+<span id="_CPPv3N4Game7PolyLCP19addPolyFromEncodingENSt6vectorIsEEbbP9spmat_VecP7vec_Vec"></span><span id="_CPPv2N4Game7PolyLCP19addPolyFromEncodingENSt6vectorIsEEbbP9spmat_VecP7vec_Vec"></span><span id="Game::PolyLCP::addPolyFromEncoding__std::vector:short-i:.b.b.spmat_VecP.vec_VecP"></span><span class="target" id="class_game_1_1_poly_l_c_p_1a7488a38884fff8804d17024c3a1c1433"></span>bool <code class="sig-name descname">addPolyFromEncoding</code><span class="sig-paren">(</span>std::vector&lt;short int&gt; <em>encoding</em>, bool <em>checkFeas</em> = false, bool <em>custom</em> = false, <a class="reference internal" href="typedef_epecsolve_8h_1a47898f11e7a4b7433acbc77588a0dc03.html#_CPPv49spmat_Vec" title="spmat_Vec">spmat_Vec</a> *<em>custAi</em> = {}, <a class="reference internal" href="typedef_epecsolve_8h_1a8d8c882d060c4d307810fdf04a6314c6.html#_CPPv47vec_Vec" title="vec_Vec">vec_Vec</a> *<em>custbi</em> = {}<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game7PolyLCP19addPolyFromEncodingENSt6vectorIsEEbbP9spmat_VecP7vec_Vec" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Computes the equation of the feasibility polyhedron corresponding to the given <code class="docutils literal notranslate"><span class="pre">encoding</span></code>. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">encoding</span></code>: A vector of +1 and -1 referring to which equations and variables are taking 0 value. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">checkFeas</span></code>: The polyhedron is added after ensuring feasibility, if this is true </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">custom</span></code>: Should the polyhedra be pushed into a custom vector of polyhedra as opposed to <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p_1a8f71d6ee194330de1441c3911b74bff6"><span class="std std-ref">LCP::Ai</span></a> and <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p_1afcae3294d6a3492d4a1b77a1d72ccf60"><span class="std std-ref">LCP::bi</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">custAi</span></code>: If custom polyhedra vector is used, pointer to vector of LHS constraint matrix </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">custbi</span></code>: If custom polyhedra vector is used, pointer to vector of RHS of constraints </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+<p>The computed polyhedron is always pushed into a vector of <code class="docutils literal notranslate"><span class="pre">arma::sp_mat</span></code> and <code class="docutils literal notranslate"><span class="pre">arma::vec</span></code> If <code class="docutils literal notranslate"><span class="pre">custom</span></code> is false, this is the internal attribute of <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a>, which are <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p_1a8f71d6ee194330de1441c3911b74bff6"><span class="std std-ref">LCP::Ai</span></a> and <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p_1afcae3294d6a3492d4a1b77a1d72ccf60"><span class="std std-ref">LCP::bi</span></a>. Otherwise, the vectors can be provided as arguments. <code class="docutils literal notranslate"><span class="pre">true</span></code> value to <code class="docutils literal notranslate"><span class="pre">checkFeas</span></code> ensures that the polyhedron is pushed <em>only</em> if it is feasible. <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p><code class="docutils literal notranslate"><span class="pre">true</span></code> if successfully added, else false </p>
+</dd>
+<dt><strong>Warning</strong></dt><dd><p>Does not entertain 0 in the elements of *encoding. Only +1/-1 are allowed to not encounter undefined behavior. As a result, not meant for high level code. Instead use LCP::addPoliesFromEncoding. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game7PolyLCP21addPoliesFromEncodingENSt6vectorIsEEbbP9spmat_VecP7vec_Vec">
+<span id="_CPPv3N4Game7PolyLCP21addPoliesFromEncodingENSt6vectorIsEEbbP9spmat_VecP7vec_Vec"></span><span id="_CPPv2N4Game7PolyLCP21addPoliesFromEncodingENSt6vectorIsEEbbP9spmat_VecP7vec_Vec"></span><span id="Game::PolyLCP::addPoliesFromEncoding__std::vector:short-i:.b.b.spmat_VecP.vec_VecP"></span><span class="target" id="class_game_1_1_poly_l_c_p_1af818f34c0c90869f0d0f31400908174a"></span><a class="reference internal" href="#_CPPv4N4Game7PolyLCPE" title="Game::PolyLCP">PolyLCP</a> &amp;<code class="sig-name descname">addPoliesFromEncoding</code><span class="sig-paren">(</span>std::vector&lt;short int&gt; <em>encoding</em>, bool <em>checkFeas</em> = false, bool <em>custom</em> = false, <a class="reference internal" href="typedef_epecsolve_8h_1a47898f11e7a4b7433acbc77588a0dc03.html#_CPPv49spmat_Vec" title="spmat_Vec">spmat_Vec</a> *<em>custAi</em> = {}, <a class="reference internal" href="typedef_epecsolve_8h_1a8d8c882d060c4d307810fdf04a6314c6.html#_CPPv47vec_Vec" title="vec_Vec">vec_Vec</a> *<em>custbi</em> = {}<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game7PolyLCP21addPoliesFromEncodingENSt6vectorIsEEbbP9spmat_VecP7vec_Vec" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Computes the equation of the feasibility polyhedron corresponding to the given <code class="docutils literal notranslate"><span class="pre">encoding</span></code>. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">encoding</span></code>: A vector of +1, 0 and -1 referring to which equations and variables are taking 0 value. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">checkFeas</span></code>: The polyhedron is added after ensuring feasibility, if this is true </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">custom</span></code>: Should the polyhedra be pushed into a custom vector of polyhedra as opposed to <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p_1a8f71d6ee194330de1441c3911b74bff6"><span class="std std-ref">LCP::Ai</span></a> and <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p_1afcae3294d6a3492d4a1b77a1d72ccf60"><span class="std std-ref">LCP::bi</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">custAi</span></code>: If custom polyhedra vector is used, pointer to vector of LHS constraint matrix </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">custbi</span></code>: If custom polyhedra vector is used, pointer to vector of RHS of constraints </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+<p>The computed polyhedron are always pushed into a vector of <code class="docutils literal notranslate"><span class="pre">arma::sp_mat</span></code> and <code class="docutils literal notranslate"><span class="pre">arma::vec</span></code> If <code class="docutils literal notranslate"><span class="pre">custom</span></code> is false, this is the internal attribute of <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a>, which are <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p_1a8f71d6ee194330de1441c3911b74bff6"><span class="std std-ref">LCP::Ai</span></a> and <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p_1afcae3294d6a3492d4a1b77a1d72ccf60"><span class="std std-ref">LCP::bi</span></a>. Otherwise, the vectors can be provided as arguments. <code class="docutils literal notranslate"><span class="pre">true</span></code> value to <code class="docutils literal notranslate"><span class="pre">checkFeas</span></code> ensures that <em>each</em> polyhedron that is pushed is feasible. not meant for high level code. Instead use LCP::addPoliesFromEncoding. <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>A value of 0 in <code class="docutils literal notranslate"><span class="pre">*encoding</span></code> implies that polyhedron corresponding to fixing the corresponding variable as well as the equation become candidates to pushed into the vector. Hence this is preferred over LCP::addPolyFromEncoding for high-level usage. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game7PolyLCP11getNextPolyEN4Game17EPECAddPolyMethodE">
+<span id="_CPPv3N4Game7PolyLCP11getNextPolyEN4Game17EPECAddPolyMethodE"></span><span id="_CPPv2N4Game7PolyLCP11getNextPolyEN4Game17EPECAddPolyMethodE"></span><span id="Game::PolyLCP::getNextPoly__Game::EPECAddPolyMethod"></span><span class="target" id="class_game_1_1_poly_l_c_p_1ac537ae30d8104c3c8a598783474a4bb4"></span>unsigned long int <code class="sig-name descname">getNextPoly</code><span class="sig-paren">(</span>Game::<a class="reference internal" href="enum_namespace_game_1a1575f114564e7083eaa22c1ae0b2e066.html#_CPPv4N4Game17EPECAddPolyMethodE" title="Game::EPECAddPolyMethod">EPECAddPolyMethod</a> <em>method</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game7PolyLCP11getNextPolyEN4Game17EPECAddPolyMethodE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">method</span></code>: The method used to add the next polyedron </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Members</p>
+<dl class="cpp var">
+<dt id="_CPPv4N4Game7PolyLCP17FeasiblePolyhedraE">
+<span id="_CPPv3N4Game7PolyLCP17FeasiblePolyhedraE"></span><span id="_CPPv2N4Game7PolyLCP17FeasiblePolyhedraE"></span><span id="Game::PolyLCP::FeasiblePolyhedra__unsigned-i"></span><span class="target" id="class_game_1_1_poly_l_c_p_1ae58d2fb3672f8962a238caa500239aee"></span>unsigned int <code class="sig-name descname">FeasiblePolyhedra</code> = {0}<a class="headerlink" href="#_CPPv4N4Game7PolyLCP17FeasiblePolyhedraE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Inheritor Class to handle the polyhedral aspects of the <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> class, and support algorithms. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game7PolyLCP21SequentialPolyCounterE">
+<span id="_CPPv3N4Game7PolyLCP21SequentialPolyCounterE"></span><span id="_CPPv2N4Game7PolyLCP21SequentialPolyCounterE"></span><span id="Game::PolyLCP::SequentialPolyCounter__unsigned-i"></span><span class="target" id="class_game_1_1_poly_l_c_p_1aa0dc3451597d6e1d1c97018ed19b6168"></span>unsigned int <code class="sig-name descname">SequentialPolyCounter</code> = {0}<a class="headerlink" href="#_CPPv4N4Game7PolyLCP21SequentialPolyCounterE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game7PolyLCP28ReverseSequentialPolyCounterE">
+<span id="_CPPv3N4Game7PolyLCP28ReverseSequentialPolyCounterE"></span><span id="_CPPv2N4Game7PolyLCP28ReverseSequentialPolyCounterE"></span><span id="Game::PolyLCP::ReverseSequentialPolyCounter__l-i"></span><span class="target" id="class_game_1_1_poly_l_c_p_1a32f2873bad1c17318ceca6e60663a85f"></span>long int <code class="sig-name descname">ReverseSequentialPolyCounter</code> = {0}<a class="headerlink" href="#_CPPv4N4Game7PolyLCP28ReverseSequentialPolyCounterE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game7PolyLCP12AllPolyhedraE">
+<span id="_CPPv3N4Game7PolyLCP12AllPolyhedraE"></span><span id="_CPPv2N4Game7PolyLCP12AllPolyhedraE"></span><span id="Game::PolyLCP::AllPolyhedra__std::set:unsigned-l-i:"></span><span class="target" id="class_game_1_1_poly_l_c_p_1ad54ed6c8eacb53c2d56bece722cf8bc4"></span>std::set&lt;unsigned long int&gt; <code class="sig-name descname">AllPolyhedra</code> = {}<a class="headerlink" href="#_CPPv4N4Game7PolyLCP12AllPolyhedraE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Decimal encoding of polyhedra that have been enumerated. </p>
+<p><a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> feasible region is a union of polyhedra. Keeps track which of those inequalities are fixed to equality to get the individual polyhedra </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game7PolyLCP12FeasiblePolyE">
+<span id="_CPPv3N4Game7PolyLCP12FeasiblePolyE"></span><span id="_CPPv2N4Game7PolyLCP12FeasiblePolyE"></span><span id="Game::PolyLCP::FeasiblePoly__std::set:unsigned-l-i:"></span><span class="target" id="class_game_1_1_poly_l_c_p_1aeb53a1e8548bb1e802c5fa000ec98009"></span>std::set&lt;unsigned long int&gt; <code class="sig-name descname">FeasiblePoly</code> = {}<a class="headerlink" href="#_CPPv4N4Game7PolyLCP12FeasiblePolyE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Decimal encoding of polyhedra that have been enumerated. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game7PolyLCP14InfeasiblePolyE">
+<span id="_CPPv3N4Game7PolyLCP14InfeasiblePolyE"></span><span id="_CPPv2N4Game7PolyLCP14InfeasiblePolyE"></span><span id="Game::PolyLCP::InfeasiblePoly__std::set:unsigned-l-i:"></span><span class="target" id="class_game_1_1_poly_l_c_p_1a43b7818d5d08faf88fb9c1ab51a7a6dc"></span>std::set&lt;unsigned long int&gt; <code class="sig-name descname">InfeasiblePoly</code> = {}<a class="headerlink" href="#_CPPv4N4Game7PolyLCP14InfeasiblePolyE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Decimal encoding of polyhedra known to be infeasible. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game7PolyLCP18MaxTheoreticalPolyE">
+<span id="_CPPv3N4Game7PolyLCP18MaxTheoreticalPolyE"></span><span id="_CPPv2N4Game7PolyLCP18MaxTheoreticalPolyE"></span><span id="Game::PolyLCP::MaxTheoreticalPoly__unsigned-l-i"></span><span class="target" id="class_game_1_1_poly_l_c_p_1addf773dfc5bf76c80c04b0f68c7285fc"></span>unsigned long int <code class="sig-name descname">MaxTheoreticalPoly</code> = {0}<a class="headerlink" href="#_CPPv4N4Game7PolyLCP18MaxTheoreticalPolyE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GD and SS
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

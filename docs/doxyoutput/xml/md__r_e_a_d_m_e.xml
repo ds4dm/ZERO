@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="md__r_e_a_d_m_e" kind="page">
+    <compoundname>md_README</compoundname>
+    <title>EPECsolve for Outer Games</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>This is a private fork of EPECSolve, that handles an outer approximation for NASPs and Integer Programming games. Code to compute mixed-equilibrium in linear EPECs.<itemizedlist>
+<listitem><para><ulink url="https://github.com/ssriram1992/EPECsolve/">Base Code</ulink></para>
+</listitem><listitem><para><ulink url="https://github.com/ds4dm/EPECInstances">Instances</ulink> with detailed <ulink url="https://github.com/ds4dm/EPECInstances/blob/master/Description.pdf">mathematical description</ulink></para>
+</listitem><listitem><para><ulink url="https://arxiv.org/abs/1910.06452">arXiv</ulink> pre-print for the original code</para>
+</listitem></itemizedlist>
+</para>
+<sect1 id="md__r_e_a_d_m_e_1autotoc_md1">
+<title>LICENSE</title>
+<para>This code is distributed under the CC0 1.0 Universal license.</para>
+</sect1>
+<sect1 id="md__r_e_a_d_m_e_1autotoc_md2">
+<title>Prerequisites</title>
+<sect2 id="md__r_e_a_d_m_e_1autotoc_md3">
+<title>Mandatory packages</title>
+<para><itemizedlist>
+<listitem><para><ulink url="http://arma.sourceforge.net/">Armadillo</ulink> (Version 9.6 or later recommended. Minimum 8.5 required.)<itemizedlist>
+<listitem><para>BLAS</para>
+</listitem><listitem><para>ARPACK</para>
+</listitem><listitem><para>LAPACK</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para><ulink url="https://www.gurobi.com/registration/download-reg">Gurobi</ulink> (Version 8.1 or later)</para>
+</listitem><listitem><para><ulink url="https://gcc.gnu.org/">gcc/g++</ulink> (Tested on version 4.8. Must support C++11 and be compatible with your version of Gurobi) <computeroutput>sudo apt install gcc</computeroutput> will install gcc/g++ on an Ubuntu machine.</para>
+</listitem><listitem><para><ulink url="https://www.gnu.org/software/make/">GNU make</ulink> <computeroutput>sudo apt install make</computeroutput> will install GNU make on an Ubuntu machine.</para>
+</listitem><listitem><para><ulink url="https://www.boost.org/">Boost</ulink> Required for logging, commandline interface to solve files etc. Can produce a boost-free version if there is significant interest.</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="md__r_e_a_d_m_e_1autotoc_md4">
+<title>Recommended but not mandatory for the algorithm. (Some examples might have these dependancies)</title>
+<para><itemizedlist>
+<listitem><para><ulink url="http://rapidjson.org/">Rapid JSON</ulink> To export results and save example problem instances.</para>
+</listitem><listitem><para><ulink url="http://www.doxygen.nl">DOxygen</ulink> Only if you need documentation. <computeroutput>sudo apt install doxygen</computeroutput> will install DOxygen on an Ubuntu machine.</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+</sect1>
+<sect1 id="md__r_e_a_d_m_e_1autotoc_md5">
+<title>Getting the documentation</title>
+<para>One can generate two versions of documentation for this project..<itemizedlist>
+<listitem><para>Use the simple version of documentation, if you are only interested in using this as a predefined library which you don&apos;t intend to edit. This version of the documentation gives a sufficiently detailed explanation of every class or function you might every have to use. To avail this version, run <programlisting filename=".bash"><codeline><highlight class="normal">make<sp/>docSimple</highlight></codeline>
+</programlisting></para>
+</listitem><listitem><para>Use the complete documentation if you are interested in every implementation detail of the code.This gives a complete description of every private member and fields in every class, all of which might be useful if you want to edit the code in here. To avail this version, run <programlisting filename=".bash"><codeline><highlight class="normal">make<sp/>docDetailed</highlight></codeline>
+</programlisting></para>
+</listitem><listitem><para>You can alternatively use the <ulink url="https://ssriram1992.github.io/EPECsolve/html/index.html">online documentation</ulink></para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+<sect1 id="md__r_e_a_d_m_e_1autotoc_md6">
+<title>Compiling</title>
+<para><itemizedlist>
+<listitem><para>Download the <ulink url="https://github.com/ssriram1992/EPECsolve/">project</ulink>. If you do not have access, please email <ulink url="mailto:sriram.sankaranarayanan@polymtl.ca">sriram.sankaranarayanan@polymtl.ca</ulink>.</para>
+</listitem></itemizedlist>
+</para>
+<sect2 id="md__r_e_a_d_m_e_1autotoc_md7">
+<title>Makefile</title>
+<para><itemizedlist>
+<listitem><para>Open <computeroutput>Makefile</computeroutput>.</para>
+</listitem><listitem><para>Enter the path where you downladed in <computeroutput>EPEC_HOME</computeroutput>. This folder should contain folders like <computeroutput>docs/</computeroutput>, <computeroutput>src/</computeroutput>, <computeroutput>test/</computeroutput> etc.</para>
+</listitem><listitem><para>Enter the path to Boost in <computeroutput>BOOST_HOME</computeroutput>. Ensure that the path to corresponding include files and boost libraries are correct.</para>
+</listitem><listitem><para>Enter the path of your armadillo-installation in the line defining the variable <computeroutput>ARMA</computeroutput>. Typically, the location would be like <computeroutput>/opt/armadillo-code</computeroutput>.</para>
+</listitem><listitem><para>Enter the path of your Gurobi-installation in the line defining the variable <computeroutput>GUR</computeroutput>. Typically, the location would be like <computeroutput>/opt/gurobi/gurobi811/&lt;Your OS&gt;</computeroutput>.</para>
+</listitem><listitem><para>Run <computeroutput>make install</computeroutput> to make the necessary folders to store temporary files, binary files etc.</para>
+</listitem><listitem><para>Run <computeroutput>make compileEPEC</computeroutput> to compile.</para>
+</listitem><listitem><para>Optionally run <computeroutput>make EPECtest</computeroutput> to run the set of unit tests. It should all succeed without a problem.</para>
+</listitem><listitem><para>Run <computeroutput>make</computeroutput> to create the binary.</para>
+</listitem><listitem><para>Run <computeroutput>./bin/EPEC -h</computeroutput> to get a list of command line options with which you can run the executable.</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="md__r_e_a_d_m_e_1autotoc_md8">
+<title>CMake</title>
+<para><itemizedlist>
+<listitem><para>Open <computeroutput>CMakeList.txt</computeroutput>.</para>
+</listitem><listitem><para>You will find two configurations. <computeroutput>ROSSOBIANCO</computeroutput> represents the remote server one, while the other is the local one.</para>
+</listitem><listitem><para>Set <computeroutput>BOOST_ROOT</computeroutput>, <computeroutput>ARMA_ROOT</computeroutput>, and <computeroutput>ARMA_LIB</computeroutput> to your customized folders.</para>
+</listitem><listitem><para>Set <computeroutput>GUROBI_PATH_OS</computeroutput> to your local gurobi path (and version). Note that OS corresponds to your local (or remote) operatin system.</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+</sect1>
+<sect1 id="md__r_e_a_d_m_e_1autotoc_md9">
+<title>Command-line interface</title>
+<para>EPECSolve has a command line interface built on top of the standard modeling paradigm (see documentation for <ref refid="_models_8cpp" kindref="compound">src/Models.cpp</ref>). Once the executable is compiled via <computeroutput>make compileEPEC</computeroutput>, the user can run EPECSolve with: <computeroutput>./EPEC $options</computeroutput>.</para>
+<para>The following I/O options are available:</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>-i (--input) PathToInstance</computeroutput>: This <bold>required</bold> option specifies the path to the JSON instance file. Extension .json is automatically appended to the argument.</para>
+</listitem><listitem><para><computeroutput>-s (--solution) PathAndFile</computeroutput>: Sets the output (path) filename of the JSON solution file, if any (see option <computeroutput>-w. (writelevel)</computeroutput>. If a JSON output is required, extension .json is automatically appended to the argument.</para>
+</listitem><listitem><para><computeroutput>-l (--log) PathAndFile</computeroutput>: Sets the output path/filename of the log file.</para>
+</listitem><listitem><para><computeroutput>-w (--writelevel) intValue</computeroutput>: Sets the verbosity parameter for the output solution file. <emphasis>0</emphasis>: output only a JSON solution file (if any). <emphasis>1</emphasis> Only a human readable file. <emphasis>2</emphasis> Both.</para>
+</listitem><listitem><para><computeroutput>-m (--message) intValue</computeroutput>: Sets the verbosity parameter for the program itself. <emphasis>1</emphasis>: only info messages, <emphasis>2</emphasis> info and debug, <emphasis>3</emphasis> info, debug and trace messages.</para>
+</listitem></itemizedlist>
+</para>
+<para>Algorithmic parameters:</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>-a (--algorithm) intValue</computeroutput>: Specifies the type of algorithm employed to solve the instance. <emphasis>0</emphasis> is <bold>fullEnumeration</bold>, <emphasis>1</emphasis> is <bold>innerApproximation</bold>, <emphasis>2</emphasis> is <bold>combinatorialPNE</bold>. Note that the latter only works with pure equilibria.</para>
+</listitem><listitem><para><computeroutput>-p (--pure) intValue</computeroutput>: Specifies whether the algorithm should seek for a pure equilibrium or not (note that <bold>combinatorialPNE</bold> will always seek for a pure solution) . <emphasis>0</emphasis> no requirement (either pure or mixed), <emphasis>1</emphasis> only pure.</para>
+</listitem><listitem><para><computeroutput>-bigM intValue</computeroutput>: Specifies the whether LCP problems should be formulated with a LCP. <emphasis>0</emphasis> (default) for indicator constraints, <emphasis>1</emphasis> for bigM formulation.</para>
+</listitem><listitem><para><computeroutput>-b (--bound) intValue</computeroutput>: Specifies if the final LCP model should be bounded by a <emphasis>bigM</emphasis> constant (see option <computeroutput>-boundBigM</computeroutput>) in their primal variables. <emphasis>0</emphasis> no bounding, <emphasis>1</emphasis> bounding with <emphasis>bigM</emphasis>.</para>
+</listitem><listitem><para><computeroutput>-boundBigM intValue</computeroutput>: Specifies the <emphasis>bigM</emphasis> constant for the above param (see option <computeroutput>-b (--bound)</computeroutput>.</para>
+</listitem><listitem><para><computeroutput>-t (--threads) intValue</computeroutput>: Specifies the number of threads Gurobi uses.</para>
+</listitem><listitem><para><computeroutput>-tl (--timelimit) intValue</computeroutput>: Specifies the timeLimit (in seconds) for running the whole algorithmic procedure.</para>
+</listitem></itemizedlist>
+</para>
+<para>Algorithmic parameters tailored on <bold>innerApproximation</bold>:</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>-ad (--add) intValue</computeroutput>: Specifies the <emphasis>EPECAddPolyMethod</emphasis> strategy employed to expand the inner approximation when no information about deviations is available. <emphasis>0</emphasis> add polyhedra in lexographic order, <emphasis>1</emphasis> reverse lexographic, <emphasis>2</emphasis> random.</para>
+</listitem><listitem><para><computeroutput>-ag (--aggr) intValue</computeroutput>: Specifies the <emphasis>EPECAddPolyMethod</emphasis> aggressivity (see option <computeroutput>-ad (--add)</computeroutput>). <emphasis>int</emphasis> specifies the number of lower-level polyhedra to be added to each Stackelberg leader at each iteration in which <emphasis>EPECAddPolyMethod</emphasis> is triggered.</para>
+</listitem><listitem><para><computeroutput>-r (--recover) intValue</computeroutput>: Specifies the recover stragegy for the <bold>innerApproximation</bold> method. When the algorithm finds a mixed equilibrium and the parameter <computeroutput>-p (--pure)</computeroutput> is set to <emphasis>1</emphasis>, the algorithm will search for a pure equilibrium either by randomly expanding the inner approximation (<emphasis>EPECAddPolyMethod</emphasis>) or by triggering a <bold>combinatorialPNE</bold> procedure warmstarted with the current information. <emphasis>0</emphasis> sets the recover strategy to <emphasis>incrementalEnumeration</emphasis>, <emphasis>1</emphasis> sets it to <emphasis>combinatorial</emphasis>.</para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+<sect1 id="md__r_e_a_d_m_e_1autotoc_md10">
+<title>Maintenance</title>
+<para><ulink url="https://github.com/gdragotto">@gdragotto</ulink> - Contact: <ulink url="mailto:gabriele.dragotto@polymtl.ca">gabriele.dragotto@polymtl.ca</ulink> <ulink url="https://github.com/ssriram1992/">@ssriram1992</ulink> - Contact: <ulink url="mailto:sriram.sankaranarayanan@polymtl.ca">sriram.sankaranarayanan@polymtl.ca</ulink> </para>
+</sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

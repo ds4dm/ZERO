@@ -1,0 +1,400 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>QP_Param Example &mdash; EPECSolve 2.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Namespace Algorithms" href="../api/namespace_Algorithms.html" />
+    <link rel="prev" title="Nash LCP Example" href="NashLCP.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> EPECSolve
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#mandatory-packages">Mandatory packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#recommended-but-not-mandatory-for-the-algorithm-some-examples-might-have-these-dependancies">Recommended but not mandatory for the algorithm. (Some examples might have these dependancies)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html#license">LICENSE</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="compiling.html">Compiling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="command_line.html">Command-line interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="LCP.html">LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">QP_Param Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="compiling.html">Compiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="command_line.html">Command-line interface</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="LCP.html">LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">QP_Param Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#solving">Solving</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Quick References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EPECSolve</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>QP_Param Example</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/support_files/QP_Param.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="qp-param-example">
+<h1>QP_Param Example<a class="headerlink" href="#qp-param-example" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p>Consider the Following quadratic program.</p>
+</div></blockquote>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\min_{y_1, y_2, y_3} (y_1 + y_2 - 2y_3)^2 + 2 x_1y_1 + 2 x_2y_1 + 3 x_1y_3 + y_1-y_2+y_3\\\text{s.t.}\;\;\;\;\;  y_1, y_2, y_3 &amp;\ge 0\\\;\;\;\;\;\;\;\; y_1 + y_2 + y_3 &amp;\le 10\\\;\;\;\;\;\;\;-y_1 +y_2 -2y_3 &amp;\le -1 + x_1 + x_2\end{aligned}\end{align} \]</div>
+<div class="section" id="modeling-the-problem">
+<h2>Modeling the problem<a class="headerlink" href="#modeling-the-problem" title="Permalink to this headline">¶</a></h2>
+<p>This data can be entered as follows. Assume there are lines</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span>using namespace arma;
+@endcode
+somewhere earlier. Now, within some function, we have
+@code
+       unsigned int Nx = 2, Ny = 3, Ncons = 2;
+       mat Qd(3, 3);                                   // Easier to create a dense matrix for this problem
+       Qd &lt;&lt; 1 &lt;&lt; 1 &lt;&lt; -2 &lt;&lt; endr              // And convert that to a sparse matrix.
+          &lt;&lt; 1 &lt;&lt; 1 &lt;&lt; -2 &lt;&lt; endr
+          &lt;&lt; -2 &lt;&lt; -2 &lt;&lt; 4 &lt;&lt; endr;
+       sp_mat Q = sp_mat(2 * Qd);              // The matrix for y^2 terms
+       sp_mat C(3, 2);                                 // The matrix for x and y interaction
+       C.zeros(); C(0, 0) = 2; C(0, 1) = 2; C(2, 0) = 3; vec c(3);
+               // The vector for linear terms in y c &lt;&lt; 1 &lt;&lt; endr &lt;&lt; -1 &lt;&lt; endr &lt;&lt; 1 &lt;&lt; endr;
+       sp_mat A(2, 2);                                 // Constraint matrix for x terms
+       A.zeros(); A(1, 0) = -1; A(1, 1) = -1; mat Bd(2, 3); Bd &lt;&lt; 1 &lt;&lt; 1 &lt;&lt; 1 &lt;&lt; endr &lt;&lt; -1 &lt;&lt; 1 &lt;&lt; -2 &lt;&lt; endr;
+       sp_mat B = sp_mat(Bd);                  // Constraint matrix for y terms
+       vec b(2);
+       b(0) = 10;
+       b(1) = -1;
+       GRBEnv env = GRBEnv();          // Now create Gurobi environment to handle any solving related calls.
+</pre></div>
+</div>
+<p>Now the required object can be constructed in multiple ways.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Method 1: Make a call to the constructor</span>
+<span class="n">Game</span><span class="o">::</span><span class="n">QP_Param</span> <span class="n">q1</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">env</span><span class="p">);</span>
+
+<span class="c1">// Method 2: Using QP_Param::set member function</span>
+<span class="n">Game</span><span class="o">::</span><span class="n">QP_Param</span> <span class="n">q2</span><span class="p">(</span><span class="o">&amp;</span><span class="n">env</span><span class="p">);</span>
+<span class="n">q2</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+
+<span class="c1">// Method 3: Reading from a file. This requires that such an object is saved to a file at first.</span>
+<span class="n">q1</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">&quot;dat/q1dat.dat&quot;</span><span class="p">);</span> <span class="c1">// Saving the file so it can be retrieved.</span>
+<span class="n">Game</span><span class="o">::</span><span class="n">QP_Param</span> <span class="n">q3</span><span class="p">(</span><span class="o">&amp;</span><span class="n">env</span><span class="p">);</span>
+<span class="n">q3</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;dat/q1dat.dat&quot;</span><span class="p">);</span>
+
+<span class="c1">// Checking they are the same</span>
+<span class="n">assert</span><span class="p">(</span><span class="n">q1</span><span class="o">==</span><span class="n">q2</span><span class="p">);</span>
+<span class="n">assert</span><span class="p">(</span><span class="n">q2</span><span class="o">==</span><span class="n">q3</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>With <span class="math notranslate nohighlight">\((x_1, x_2) = (-1, 0.5)\)</span>, the problem is:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\min_{y_1, y_2, y_3} (y_1 + y_2 - 2y_3)^2  -y_2 -2y_3\\\text{s.t.}\;\;\;\;  y_1, y_2, y_3 &amp;\ge 0\\\;\;\;\;\;\;\;\;y_1 + y_2 + y_3 &amp;\le 10\\\;\;\;\;\;\;\;\;-y_1 +y_2 -2y_3 &amp;\le -1.5\end{aligned}\end{align} \]</div>
+<p>But this computation need not be done manually by supplying the value of <span class="math notranslate nohighlight">\(f\)</span> and solving using Gurobi.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">vec</span> <span class="nf">x</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>                       <span class="c1">// Enter the value of x in an arma::vec</span>
+<span class="n">x</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">;</span>
+
+<span class="k">auto</span> <span class="n">FixedModel</span> <span class="o">=</span> <span class="n">q2</span><span class="p">.</span><span class="n">solveFixed</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>     <span class="c1">// Uses Gurobi to solve the model, returns a unique_ptr to GRBModel</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="solving">
+<h2>Solving<a class="headerlink" href="#solving" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">FixedModel</span></code> has the <code class="docutils literal notranslate"><span class="pre">GRBModel</span></code> object, and all operations native to <code class="docutils literal notranslate"><span class="pre">GRBModel</span></code>, like accessing the value of a variable, a dual multiplier, saving the problem to an .lp file or a .mps file etc. can be performed on the object. In particular, the solution can be compared with hand-calculated solution as shown below.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">sol</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+<span class="n">sol</span> <span class="o">&lt;&lt;</span> <span class="mf">0.5417</span> <span class="o">&lt;&lt;</span> <span class="n">endr</span> <span class="o">&lt;&lt;</span> <span class="mf">5.9861</span> <span class="o">&lt;&lt;</span> <span class="n">endr</span> <span class="o">&lt;&lt;</span> <span class="mf">3.4722</span><span class="p">;</span> <span class="c1">// Hardcoding the solution as calculated outside</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">Ny</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">sol</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-</span> <span class="n">FixedModel</span><span class="o">-&gt;</span><span class="n">getVar</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">get</span><span class="p">(</span><span class="n">GRB_DoubleAttr_X</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="mf">0.01</span><span class="p">);</span>
+<span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">FixedModel</span><span class="o">-&gt;</span><span class="n">get</span><span class="p">(</span><span class="n">GRB_DoubleAttr_ObjVal</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span> <span class="c1">// Will print -12.757</span>
+</pre></div>
+</div>
+<p>In many cases, one might want to obtain the KKT conditions of a convex quadratic program and that can be obtained as below, using <code class="xref py py-func docutils literal notranslate"><span class="pre">Game::QP_Param::KKT()</span></code></p>
+<p>The function returns <code class="docutils literal notranslate"><span class="pre">M</span></code>, <code class="docutils literal notranslate"><span class="pre">N</span></code> and <code class="docutils literal notranslate"><span class="pre">q</span></code>, where the KKT conditions can be written as <span class="math notranslate nohighlight">\(0 \leq y \perp Mx + Ny + q \geq 0\)</span>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">sp_mat</span> <span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">;</span>
+<span class="n">vec</span> <span class="n">q</span><span class="p">;</span>
+<span class="n">q1</span><span class="p">.</span><span class="n">KKT</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">q</span><span class="p">);</span>
+<span class="n">M</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;M&quot;</span><span class="p">);</span>
+<span class="n">N</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;N&quot;</span><span class="p">);</span>
+<span class="n">q</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;q&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../api/namespace_Algorithms.html" class="btn btn-neutral float-right" title="Namespace Algorithms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="NashLCP.html" class="btn btn-neutral float-left" title="Nash LCP Example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GD and SS
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

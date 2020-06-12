@@ -1,0 +1,418 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Nash LCP Example &mdash; EPECSolve 2.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="QP_Param Example" href="QP_Param.html" />
+    <link rel="prev" title="LCP Example" href="LCP.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> EPECSolve
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#mandatory-packages">Mandatory packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#recommended-but-not-mandatory-for-the-algorithm-some-examples-might-have-these-dependancies">Recommended but not mandatory for the algorithm. (Some examples might have these dependancies)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html#license">LICENSE</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="compiling.html">Compiling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="command_line.html">Command-line interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="LCP.html">LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Nash LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="compiling.html">Compiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="command_line.html">Command-line interface</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="LCP.html">LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Nash LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Quick References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EPECSolve</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Nash LCP Example</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/support_files/NashLCP.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="nash-lcp-example">
+<h1>Nash LCP Example<a class="headerlink" href="#nash-lcp-example" title="Permalink to this headline">¶</a></h1>
+<p>Before reading this page, please ensure you are aware of the functionalities described the tutorial for <code class="docutils literal notranslate"><span class="pre">QP_Param</span></code>. Assume we have two players:</p>
+<p><strong>Player 1</strong></p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\min_{q_1}: 10 q_1 + 0.1 q_1^2 - (100 - (q_1+q_2)) q_1  =  1.1 q_1^2 - 90q_1 + q_1q_2\\\text{s.t:} q_1 &gt;= 0\end{aligned}\end{align} \]</div>
+<p><strong>Player 2</strong></p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\min_{q_2}: 5 q_2 + 0.2 q_2^2 - (100 - (q_1+q_2)) q_2  = 1.2 q_2^2 - 95 q_2 + q_2q_1\\\text{s.t:} q_2 &gt;= 0\end{aligned}\end{align} \]</div>
+<p>The above problem corresponds to a <a class="reference external" href="https://en.wikipedia.org/wiki/Cournot_competition">Cournot Competition</a>
+where the demand curve is given by <span class="math notranslate nohighlight">\(P = a-BQ\)</span> where <code class="docutils literal notranslate"><span class="pre">P</span></code> is the market price and <code class="docutils literal notranslate"><span class="pre">Q</span></code> is the quantity in the market. The cost of production of both the producers are given by a convex quadratic function in the quantity they produce. The solution to the problem is to find a Nash Equilibrium from which neither producer is incentivized to deviate.</p>
+<div class="section" id="modeling-the-problem">
+<h2>Modeling the problem<a class="headerlink" href="#modeling-the-problem" title="Permalink to this headline">¶</a></h2>
+<p>To handle this problem, first we create two objects of <code class="xref py py-class docutils literal notranslate"><span class="pre">Game::QP_Param</span></code> to model each player’s optimization problem, as parameterized by the other.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">Q</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">A</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">B</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">C</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">b</span><span class="p">.</span><span class="n">set_size</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+<span class="n">Q</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="mf">1.1</span><span class="p">;</span>
+<span class="n">C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">c</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">90</span><span class="p">;</span>
+<span class="k">auto</span> <span class="n">q1</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">QP_Param</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">env</span><span class="p">);</span>
+
+<span class="n">Q</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="mf">1.2</span><span class="p">;</span>
+<span class="n">c</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">95</span><span class="p">;</span>
+<span class="k">auto</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">QP_Param</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">env</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">QP_Param</span><span class="o">&gt;&gt;</span> <span class="n">q</span><span class="p">{</span><span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">};</span> <span class="c1">// Making a vector shared_ptr to the individual players&#39; problem</span>
+</pre></div>
+</div>
+<p>Next, since we do not have any Market clearing constraints, we set empty matrices for them. Note that, if the problem does not have market clearing constraints, still the matrices have to be input with zero rows and appropriate number of columns.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">sp_mat</span> <span class="nf">MC</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="n">vec</span> <span class="n">MCRHS</span><span class="p">;</span>
+<span class="n">MCRHS</span><span class="p">.</span><span class="n">set_size</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Finally now, we can make the <code class="xref py py-class docutils literal notranslate"><span class="pre">Game::NashGame</span></code> object by invoking the constructor.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">GRBEnv</span> <span class="n">env</span><span class="p">;</span>
+<span class="n">Game</span><span class="o">::</span><span class="n">NashGame</span> <span class="n">Nash</span> <span class="o">=</span> <span class="n">Game</span><span class="o">::</span><span class="n">NashGame</span><span class="p">(</span><span class="o">&amp;</span><span class="n">env</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">MC</span><span class="p">,</span> <span class="n">MCRHS</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Using traditional means, one can write a linear complementarity problem (LCP)
+to solve the above problem. The LCP is given as follows.</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}0 \le q_1 \perp 2.2 q_1 + q_2 - 90 \geq 0\\0 \le q_2 \perp q_1 + 2.4 q_2 - 95 \geq 0\end{aligned}\end{align} \]</div>
+<p>To observe the LCP formulation of this NashGame, one can use <code class="xref py py-func docutils literal notranslate"><span class="pre">Game::NashGame::FormulateLCP()</span></code> member function.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">M</span><span class="p">;</span>
+<span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">q</span><span class="p">;</span>
+<span class="n">perps</span> <span class="n">Compl</span><span class="p">;</span>            <span class="c1">// Stores the complementarity pairs relationships.</span>
+<span class="n">Nash</span><span class="p">.</span><span class="n">FormulateLCP</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">Compl</span><span class="p">);</span> <span class="c1">// Compute the LCP</span>
+<span class="n">M</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
+<span class="n">q</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Here <code class="docutils literal notranslate"><span class="pre">M</span></code> and <code class="docutils literal notranslate"><span class="pre">q</span></code> are such that the solution to the LCP <span class="math notranslate nohighlight">\(0 \le x \perp Mx + q \ge 0\)</span> solves the original NashGame. These matrices can be written to a file and solved externally now.
+Alternatively, one can pass it to the <code class="xref py py-class docutils literal notranslate"><span class="pre">Game::LCP</span></code> class, and solve it natively. To achieve this, one can pass the above matrices to the constructor of the <code class="xref py py-class docutils literal notranslate"><span class="pre">Game::LCP</span></code> class.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">GRBEnv</span> <span class="n">env</span> <span class="o">=</span> <span class="n">GRBEnv</span><span class="p">();</span>
+<span class="n">Game</span><span class="o">::</span><span class="n">LCP</span> <span class="n">lcp</span> <span class="o">=</span> <span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="p">(</span><span class="o">&amp;</span><span class="n">env</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>More concisely, the class <code class="xref py py-class docutils literal notranslate"><span class="pre">Game::LCP</span></code> offers a constructor with the NashGame itself as an argument. This way, one need not explicitly compute <code class="docutils literal notranslate"><span class="pre">M</span></code>, <code class="docutils literal notranslate"><span class="pre">q</span></code> etc., to create the <code class="docutils literal notranslate"><span class="pre">Game::LCP</span></code> object.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">Game</span><span class="o">::</span><span class="n">LCP</span> <span class="n">lcp2</span> <span class="o">=</span> <span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="p">(</span><span class="o">&amp;</span><span class="n">env</span><span class="p">,</span> <span class="n">Nash</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Now the <code class="docutils literal notranslate"><span class="pre">Game::LCP</span></code> object can be solved. And indeed the solution helps obtain the Nash equilibrium of the original Nash game.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span> <span class="n">model</span> <span class="o">=</span> <span class="n">lcp</span><span class="p">.</span><span class="n">LCPasMIP</span><span class="p">();</span>
+<span class="n">model</span><span class="p">.</span><span class="n">optimize</span><span class="p">();</span>
+<span class="c1">// Alternatively, auto model = lcp.LCPasMIP(true); will already optimize and solve the model.</span>
+</pre></div>
+</div>
+<p>As was the case with <code class="xref py py-func docutils literal notranslate"><span class="pre">Game::QP_Param::solveFixed()</span></code>, the above function returns a
+<code class="docutils literal notranslate"><span class="pre">unique_ptr</span></code> to <code class="docutils literal notranslate"><span class="pre">GRBModel</span></code>. And all native operations to the <a href="#id1"><span class="problematic" id="id2">``</span></a>GRBModel` can be performed and the solution be obtained.</p>
+</div>
+<div class="section" id="checking-the-solution">
+<h2>Checking the solution<a class="headerlink" href="#checking-the-solution" title="Permalink to this headline">¶</a></h2>
+<p>The solution to this problem can be obtained as <span class="math notranslate nohighlight">\(q_1=28.271028, q_2=27.803728\)</span>. To indeed check that this solution is correct, one can create a solution vector and solve each player’s <code class="xref py py-class docutils literal notranslate"><span class="pre">Game::QP_Param</span></code> and check that the solution indeed matches.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">Nashsol</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">Nashsol</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="n">model</span><span class="o">-&gt;</span><span class="n">getVarByName</span><span class="p">(</span><span class="s">&quot;x_0&quot;</span><span class="p">).</span><span class="n">get</span><span class="p">(</span><span class="n">GRB_DoubleAttr_X</span><span class="p">);</span> <span class="c1">// This is 28.271028</span>
+<span class="n">Nashsol</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">model</span><span class="o">-&gt;</span><span class="n">getVarByName</span><span class="p">(</span><span class="s">&quot;x_1&quot;</span><span class="p">).</span><span class="n">get</span><span class="p">(</span><span class="n">GRB_DoubleAttr_X</span><span class="p">);</span> <span class="c1">// This is 27.803728</span>
+
+<span class="k">auto</span> <span class="n">nashResp1</span> <span class="o">=</span> <span class="n">Nash</span><span class="p">.</span><span class="n">Respond</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Nashsol</span><span class="p">);</span>
+<span class="k">auto</span> <span class="n">nashResp2</span> <span class="o">=</span> <span class="n">Nash</span><span class="p">.</span><span class="n">Respond</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">Nashsol</span><span class="p">);</span>
+
+<span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">nashResp1</span><span class="o">-&gt;</span><span class="n">getVarByName</span><span class="p">(</span><span class="s">&quot;y_0&quot;</span><span class="p">).</span><span class="n">get</span><span class="p">(</span><span class="n">GRB_DoubleAttr_X</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span> <span class="c1">// Should print 28.271028</span>
+<span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">nashResp2</span><span class="o">-&gt;</span><span class="n">getVarByName</span><span class="p">(</span><span class="s">&quot;y_0&quot;</span><span class="p">).</span><span class="n">get</span><span class="p">(</span><span class="n">GRB_DoubleAttr_X</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span> <span class="c1">// Should print 27.803728</span>
+</pre></div>
+</div>
+<p>One can, thus check that the values match the solution values obtained earlier. If only does not want the individual <code class="docutils literal notranslate"><span class="pre">GRBModel</span></code> handles, but just want to confirm either that the problem is solved or to provide a player with profitable deviation, one can just use <code class="xref py py-func docutils literal notranslate"><span class="pre">Game::NashGame::isSolved()</span></code> function as follow.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">temp1</span> <span class="p">;</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">temp2</span><span class="p">;</span>
+<span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">Nash</span><span class="p">.</span><span class="n">isSolved</span><span class="p">(</span><span class="n">Nashsol</span><span class="p">,</span> <span class="n">temp1</span><span class="p">,</span> <span class="n">temp2</span><span class="p">);</span> <span class="c1">// This should be true.</span>
+</pre></div>
+</div>
+<p>If the <code class="xref py py-func docutils literal notranslate"><span class="pre">Game::NashGame::isSolved()</span></code> function returns false, then <code class="docutils literal notranslate"><span class="pre">temp1</span></code> and <code class="docutils literal notranslate"><span class="pre">temp2</span></code> respectively contain the player with profitable deviation, and the more profitable strategy of the player.</p>
+<p>And note that, just like <code class="xref py py-class docutils literal notranslate"><span class="pre">Game::QP_Param</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Game::NashGame</span></code> can also be saved to and loaded from an external file.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">Nash</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">&quot;dat/Nash.dat&quot;</span><span class="p">);</span> <span class="c1">//Saves the object</span>
+<span class="n">Game</span><span class="o">::</span><span class="n">NashGame</span> <span class="n">Nash2</span><span class="p">(</span><span class="o">&amp;</span><span class="n">env</span><span class="p">);</span>
+<span class="n">Nash2</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;dat/Nash.dat&quot;</span><span class="p">);</span> <span class="c1">// Loads the object into memory.</span>
+</pre></div>
+</div>
+<p>Now that you are aware of most of the functionalities of <code class="xref py py-class docutils literal notranslate"><span class="pre">Game::NashGame</span></code>, let us switch to the next tutorial on the <cite>LCP</cite> class.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="QP_Param.html" class="btn btn-neutral float-right" title="QP_Param Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="LCP.html" class="btn btn-neutral float-left" title="LCP Example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GD and SS
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

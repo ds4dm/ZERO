@@ -1,0 +1,396 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>LCP Example &mdash; EPECSolve 2.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Nash LCP Example" href="NashLCP.html" />
+    <link rel="prev" title="EPEC Example" href="EPEC.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> EPECSolve
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#mandatory-packages">Mandatory packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#recommended-but-not-mandatory-for-the-algorithm-some-examples-might-have-these-dependancies">Recommended but not mandatory for the algorithm. (Some examples might have these dependancies)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html#license">LICENSE</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="compiling.html">Compiling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="command_line.html">Command-line interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="compiling.html">Compiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="command_line.html">Command-line interface</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Quick References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EPECSolve</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>LCP Example</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/support_files/LCP.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="lcp-example">
+<h1>LCP Example<a class="headerlink" href="#lcp-example" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p>Before reading this page, please ensure you are aware of the functionalities
+described in &#64;link NashGame_Example Game::NashGame tutorial &#64;endlink before
+following this page.</p>
+<p>Consider the Following linear complementarity problem with constraints</p>
+</div></blockquote>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}Ax + By \leq b\\0 \leq x \perp Mx + Ny + q \geq 0`\end{aligned}\end{align} \]</div>
+<p>These are the types of problems that are handled by the class <code class="xref py py-func docutils literal notranslate"><span class="pre">Game::LCP()</span></code>, but we use a different notation. Instead of using <code class="docutils literal notranslate"><span class="pre">y</span></code> to refer to the variables that don’t have matching complementary equations, we call <em>all</em> the variables as <code class="docutils literal notranslate"><span class="pre">x</span></code> and we keep track of the position of variables which are not complementary to any equation.</p>
+<p><strong>Points to note:</strong></p>
+<ul class="simple">
+<li><p>The set of indices of <code class="docutils literal notranslate"><span class="pre">x</span></code> which are not complementary to any equation should be a consecutive set of indices. For the sake of clarity, these components will be called as <em>Leader vars components</em> of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p>Suppose the leader vars components of <code class="docutils literal notranslate"><span class="pre">x</span></code> are removed from <code class="docutils literal notranslate"><span class="pre">x</span></code>, in the remaining components, the first component should be complementary to the first row defined by &#64;p M, second component should be complementary to the second row defined by <code class="docutils literal notranslate"><span class="pre">M</span></code> and so on.</p></li>
+</ul>
+<div class="section" id="modeling-the-problem">
+<h2>Modeling the problem<a class="headerlink" href="#modeling-the-problem" title="Permalink to this headline">¶</a></h2>
+<p>Now consider the following linear complementarity problem.</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}x_1 + x_2 + x_3 \le 12\\0\le x_1 \perp x_4 - 1 \ge 0\\0\le x_2 \le 2\\0 \le x_3 \perp 2x_3 + x_5 \ge 0\\0 \le x_4 \perp -x_1 + x_2 + 10 \ge 0\\0 \le x_5 \perp x_2 - x_3 + 5 \ge 0\end{aligned}\end{align} \]</div>
+<p>Here indeed <span class="math notranslate nohighlight">\(x_2\)</span> is the leader vars component with no complementarity equation. This problem can be entered into the <code class="xref py py-class docutils literal notranslate"><span class="pre">Game::LCP</span></code> class as follows.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">M</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span> <span class="c1">// We have four complementarity eqns and 5 variables. arma::vec q(4); M.zeros();</span>
+<span class="c1">// First eqn</span>
+<span class="n">M</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">q</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="c1">// Second eqn</span>
+<span class="n">M</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="n">M</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>  <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">q</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="c1">// Third eqn</span>
+<span class="n">M</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">M</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">q</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="c1">// Fourth eqn</span>
+<span class="n">M</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">;</span>
+<span class="n">M</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">q</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="c1">// Other common constraints</span>
+<span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">A</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">b</span><span class="p">;</span>
+<span class="n">A</span><span class="p">.</span><span class="n">zeros</span><span class="p">();</span>
+<span class="c1">// x_2 &lt;= 2 constraint</span>
+<span class="n">A</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">b</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="c1">// x_1 + x_2 + x_3 &lt;= 12 constraint</span>
+<span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">b</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Now, since the variable with no complementarity pair is <span class="math notranslate nohighlight">\(x_2\)</span> which is in position <code class="docutils literal notranslate"><span class="pre">1</span></code> (counting from 0) of the vector <code class="docutils literal notranslate"><span class="pre">x</span></code>, the arguments <code class="docutils literal notranslate"><span class="pre">LeadStart</span></code> and <code class="docutils literal notranslate"><span class="pre">LeadEnd</span></code> in the constructor, <code class="xref py py-func docutils literal notranslate"><span class="pre">Game::LCP::LCP()</span></code> are <code class="docutils literal notranslate"><span class="pre">1</span></code> as below.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">GRBEnv</span> <span class="n">env</span><span class="p">;</span>
+<span class="n">LCP</span> <span class="n">lcp</span> <span class="o">=</span> <span class="n">LCP</span><span class="p">(</span><span class="o">&amp;</span><span class="n">env</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="solving">
+<h2>Solving<a class="headerlink" href="#solving" title="Permalink to this headline">¶</a></h2>
+<p>This problem can be solved either using big-M based disjunctive formulation with the value of the &#64;p bigM can also be chosen. But a more preferred means of solving is by using indicator constraints, where the algorithm tries to automatically identify good choices of <code class="docutils literal notranslate"><span class="pre">bigM</span></code> for each disjunction. Use the former option, only if you are very confident of  your choice of a small value of <code class="docutils literal notranslate"><span class="pre">bigM</span></code></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Solve using bigM constraints</span>
+<span class="n">lcp</span><span class="p">.</span><span class="n">useIndicators</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+<span class="n">lcp</span><span class="p">.</span><span class="n">bigM</span> <span class="o">=</span> <span class="mf">1e5</span><span class="p">;</span>
+<span class="k">auto</span> <span class="n">bigMModel</span> <span class="o">=</span> <span class="n">lcp</span><span class="p">.</span><span class="n">LCPasMIP</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+
+<span class="c1">// Solve using indicator constraints</span>
+<span class="n">lcp</span><span class="p">.</span><span class="n">useIndicators</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+<span class="k">auto</span> <span class="n">indModel</span> <span class="o">=</span> <span class="n">lcp</span><span class="p">.</span><span class="n">LCPasMIP</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Both <code class="docutils literal notranslate"><span class="pre">bigMModel</span></code> and <code class="docutils literal notranslate"><span class="pre">indModel</span></code> are <code class="xref py py-func docutils literal notranslate"><span class="pre">std::unique_ptr()</span></code>  to <code class="docutils literal notranslate"><span class="pre">GRBModel</span></code> objects. So all native gurobi operations can be performed on these objects.
+This LCP as multiple solutions. In fact the solution set can be parameterized as below.</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}x_1 &amp;= 10 + t\\x_2 &amp;= t\\x_3 &amp;= 0\\x_4 &amp;= 1\\x_5 &amp;= 0\\\text{for}\;\; t \in [0, 1]\\==========
+Utilities
+==========\end{aligned}\end{align} \]</div>
+<p>But some times, one might want to solve an MPEC. i.e., optimize over the feasible region of the set as decribed above. For this purpose, two functions <code class="xref py py-func docutils literal notranslate"><span class="pre">Game::LCP::MPECasMILP()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">Game::LCP::MPECasMIQP()</span></code> are available, depending upon whether one wants to optimize a linear objective function or a convex quadratic
+objective function over the set of solutions.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="NashLCP.html" class="btn btn-neutral float-right" title="Nash LCP Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="EPEC.html" class="btn btn-neutral float-left" title="EPEC Example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GD and SS
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

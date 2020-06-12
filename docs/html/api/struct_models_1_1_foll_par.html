@@ -1,0 +1,371 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Struct FollPar &mdash; EPECSolve 2.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> EPECSolve
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#mandatory-packages">Mandatory packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#recommended-but-not-mandatory-for-the-algorithm-some-examples-might-have-these-dependancies">Recommended but not mandatory for the algorithm. (Some examples might have these dependancies)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#license">LICENSE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Quick References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EPECSolve</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Struct FollPar</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/struct_models_1_1_foll_par.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="struct-follpar">
+<span id="exhale-struct-struct-models-1-1-foll-par"></span><h1>Struct FollPar<a class="headerlink" href="#struct-follpar" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_models.h.html#file-include-models-h"><span class="std std-ref">File models.h</span></a></p></li>
+</ul>
+<div class="section" id="struct-documentation">
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp struct">
+<dt id="_CPPv4N6Models7FollParE">
+<span id="_CPPv3N6Models7FollParE"></span><span id="_CPPv2N6Models7FollParE"></span><span id="Models::FollPar"></span><span class="target" id="struct_models_1_1_foll_par"></span><em class="property">struct </em><code class="sig-prename descclassname">Models<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">FollPar</code><a class="headerlink" href="#_CPPv4N6Models7FollParE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Stores the parameters of the follower in a country model. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N6Models7FollPar7FollParENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorINSt6stringEEE">
+<span id="_CPPv3N6Models7FollPar7FollParENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorINSt6stringEEE"></span><span id="_CPPv2N6Models7FollPar7FollParENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorINSt6stringEEE"></span><span id="Models::FollPar::FollPar__std::vector:double:.std::vector:double:.std::vector:double:.std::vector:double:.std::vector:double:.std::vector:ss:"></span><span class="target" id="struct_models_1_1_foll_par_1aee58264b73959ba267ed181829c6ab97"></span><code class="sig-name descname">FollPar</code><span class="sig-paren">(</span>std::vector&lt;double&gt; <em>costs_quad_</em> = {}, std::vector&lt;double&gt; <em>costs_lin_</em> = {}, std::vector&lt;double&gt; <em>capacities_</em> = {}, std::vector&lt;double&gt; <em>emission_costs_</em> = {}, std::vector&lt;double&gt; <em>tax_caps_</em> = {}, std::vector&lt;std::string&gt; <em>names_</em> = {}<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6Models7FollPar7FollParENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorINSt6stringEEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="cpp var">
+<dt id="_CPPv4N6Models7FollPar10costs_quadE">
+<span id="_CPPv3N6Models7FollPar10costs_quadE"></span><span id="_CPPv2N6Models7FollPar10costs_quadE"></span><span id="Models::FollPar::costs_quad__std::vector:double:"></span><span class="target" id="struct_models_1_1_foll_par_1ad460e71610da45ad9e267820374c0a17"></span>std::vector&lt;double&gt; <code class="sig-name descname">costs_quad</code> = {}<a class="headerlink" href="#_CPPv4N6Models7FollPar10costs_quadE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>std::vector should be equal to n_followers </p>
+<p>Quadratic coefficient of i-th follower’s cost. Size of this </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N6Models7FollPar9costs_linE">
+<span id="_CPPv3N6Models7FollPar9costs_linE"></span><span id="_CPPv2N6Models7FollPar9costs_linE"></span><span id="Models::FollPar::costs_lin__std::vector:double:"></span><span class="target" id="struct_models_1_1_foll_par_1a28ab4749fcbce704060cd859c1b5bb87"></span>std::vector&lt;double&gt; <code class="sig-name descname">costs_lin</code> = {}<a class="headerlink" href="#_CPPv4N6Models7FollPar9costs_linE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>std::vector should be equal to n_followers </p>
+<p>Linear coefficient of i-th follower’s cost. Size of this </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N6Models7FollPar10capacitiesE">
+<span id="_CPPv3N6Models7FollPar10capacitiesE"></span><span id="_CPPv2N6Models7FollPar10capacitiesE"></span><span id="Models::FollPar::capacities__std::vector:double:"></span><span class="target" id="struct_models_1_1_foll_par_1a717a560bd0298a462aaf9f0493b7bb84"></span>std::vector&lt;double&gt; <code class="sig-name descname">capacities</code> = {}<a class="headerlink" href="#_CPPv4N6Models7FollPar10capacitiesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>should be equal to n_followers </p>
+<p>Production capacity of each follower. Size of this std::vector </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N6Models7FollPar14emission_costsE">
+<span id="_CPPv3N6Models7FollPar14emission_costsE"></span><span id="_CPPv2N6Models7FollPar14emission_costsE"></span><span id="Models::FollPar::emission_costs__std::vector:double:"></span><span class="target" id="struct_models_1_1_foll_par_1a3b94162d1b65ef8c7d6ab77d4ba22c82"></span>std::vector&lt;double&gt; <code class="sig-name descname">emission_costs</code> = {}<a class="headerlink" href="#_CPPv4N6Models7FollPar14emission_costsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>feature only on the leader’s problem </p>
+<p>Emission costs for unit quantity of the fuel. Emission costs </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N6Models7FollPar8tax_capsE">
+<span id="_CPPv3N6Models7FollPar8tax_capsE"></span><span id="_CPPv2N6Models7FollPar8tax_capsE"></span><span id="Models::FollPar::tax_caps__std::vector:double:"></span><span class="target" id="struct_models_1_1_foll_par_1adc4cbeeec17377c3d52e056b940ade99"></span>std::vector&lt;double&gt; <code class="sig-name descname">tax_caps</code> = {}<a class="headerlink" href="#_CPPv4N6Models7FollPar8tax_capsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Individual tax caps for each follower. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N6Models7FollPar5namesE">
+<span id="_CPPv3N6Models7FollPar5namesE"></span><span id="_CPPv2N6Models7FollPar5namesE"></span><span id="Models::FollPar::names__std::vector:ss:"></span><span class="target" id="struct_models_1_1_foll_par_1aaafe051ffea4e71c3744ab655e0109a9"></span>std::vector&lt;std::string&gt; <code class="sig-name descname">names</code> = {}<a class="headerlink" href="#_CPPv4N6Models7FollPar5namesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Optional Names for the Followers. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GD and SS
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,599 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="class_algorithms_1_1_outer_approximation" kind="class" language="C++" prot="public">
+    <compoundname>Algorithms::OuterApproximation</compoundname>
+    <basecompoundref refid="class_algorithms_1_1_algorithm" prot="public" virt="non-virtual">Algorithms::Algorithm</basecompoundref>
+    <includes refid="outerapproximation_8h" local="no">outerapproximation.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_algorithms_1_1_outer_approximation_1a1fbf9b00496e8c364ff7b0ad68be73f7" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::shared_ptr&lt; <ref refid="class_game_1_1_outer_l_c_p" kindref="compound">Game::OuterLCP</ref> &gt; &gt;</type>
+        <definition>std::vector&lt;std::shared_ptr&lt;Game::OuterLCP&gt; &gt; Algorithms::OuterApproximation::outerLCP</definition>
+        <argsstring></argsstring>
+        <name>outerLCP</name>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="192" column="15" bodyfile="include/algorithms/outerapproximation.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_algorithms_1_1_outer_approximation_1a9ad8c68a6d328c12d3750c40e2341c4a" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="class_outer_tree" kindref="compound">OuterTree</ref> * &gt;</type>
+        <definition>std::vector&lt;OuterTree *&gt; Algorithms::OuterApproximation::Trees</definition>
+        <argsstring></argsstring>
+        <name>Trees</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="193" column="15" bodyfile="include/algorithms/outerapproximation.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_algorithms_1_1_outer_approximation_1ae0338eaf5d6aa11f142810dbb321b8f6" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="struct_outer_tree_1_1_node" kindref="compound">OuterTree::Node</ref> * &gt;</type>
+        <definition>std::vector&lt;OuterTree::Node *&gt; Algorithms::OuterApproximation::Incumbent</definition>
+        <argsstring></argsstring>
+        <name>Incumbent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="194" column="15" bodyfile="include/algorithms/outerapproximation.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_algorithms_1_1_outer_approximation_1a7b120186f79398ef1dd4fea9a1c95478" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Algorithms::OuterApproximation::Feasible</definition>
+        <argsstring></argsstring>
+        <name>Feasible</name>
+        <initializer>{false}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="195" column="8" bodyfile="include/algorithms/outerapproximation.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_algorithms_1_1_outer_approximation_1ab4167f9f998bc17fe47ea95368b6368e" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Algorithms::OuterApproximation::Tolerance</definition>
+        <argsstring></argsstring>
+        <name>Tolerance</name>
+        <initializer>= 1e-6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="196" column="10" bodyfile="include/algorithms/outerapproximation.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="class_algorithms_1_1_outer_approximation_1a712eb86672657b93353bc877398bbe92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class EPEC</definition>
+        <argsstring></argsstring>
+        <name>EPEC</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="214" column="3" bodyfile="include/algorithms/outerapproximation.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_algorithms_1_1_outer_approximation_1aba316c78980f13d56739b9a1775af08b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Algorithms::OuterApproximation::getTol</definition>
+        <argsstring>() const</argsstring>
+        <name>getTol</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="199" column="10" bodyfile="include/algorithms/outerapproximation.h" bodystart="199" bodyend="199"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_outer_approximation_1a8609c6993fdb66a859ca2326f4c32d78" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Algorithms::OuterApproximation::setTol</definition>
+        <argsstring>(double tol)</argsstring>
+        <name>setTol</name>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="200" column="8" bodyfile="include/algorithms/outerapproximation.h" bodystart="200" bodyend="200"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_outer_approximation_1a1bddaf4f742fd559ad1ee21fb32022ff" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Algorithms::OuterApproximation::OuterApproximation</definition>
+        <argsstring>(GRBEnv *env, Game::EPEC *EpecObj)</argsstring>
+        <name>OuterApproximation</name>
+        <param>
+          <type>GRBEnv *</type>
+          <declname>env</declname>
+        </param>
+        <param>
+          <type><ref refid="class_game_1_1_e_p_e_c" kindref="compound">Game::EPEC</ref> *</type>
+          <declname>EpecObj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="216" column="3" bodyfile="include/algorithms/outerapproximation.h" bodystart="216" bodyend="232"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_outer_approximation_1aa9dd85578ba5a76cd1aff09df7f5b532" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Algorithms::OuterApproximation::solve</definition>
+        <argsstring>() override</argsstring>
+        <name>solve</name>
+        <reimplements refid="class_algorithms_1_1_algorithm_1af1b96485ef86b1004228ffdfe6adaedf">solve</reimplements>
+        <briefdescription>
+<para>Environment and the calling EPEC object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Constructor requires a pointer to the Gurobi </para>
+        </detaileddescription>
+        <inbodydescription>
+<para>Given the referenced EPEC instance, this method solves it through the outer approximation <ref refid="class_algorithms_1_1_algorithm" kindref="compound">Algorithm</ref> mainly with the hybrid branching rule, with lookahead feature.</para>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="234" column="8" bodyfile="src/algorithms/OuterApproximation.cpp" bodystart="489" bodyend="656"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_outer_approximation_1aa9cdf5883a0b9f2f56985ed35a22b37d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool Algorithms::OuterApproximation::isSolved</definition>
+        <argsstring>(double tol=1e-4) const override</argsstring>
+        <name>isSolved</name>
+        <reimplements refid="class_algorithms_1_1_algorithm_1abb0cd9edc4ad90b96499bce47475b4d7">isSolved</reimplements>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+          <defval>1e-4</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>A method to check whether the EPEC is solved or not, given a numerical tolerance </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="237" column="8" bodyfile="src/algorithms/OuterApproximation.cpp" bodystart="9" bodyend="11"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_outer_approximation_1af718588244659c760c198baad364b43d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Algorithms::OuterApproximation::isFeasible</definition>
+        <argsstring>(bool &amp;addedCuts, double tol=1e-4)</argsstring>
+        <name>isFeasible</name>
+        <param>
+          <type>bool &amp;</type>
+          <declname>addedCuts</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+          <defval>1e-4</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Check whether the current outer approximation equilibrium is feasible and solves the outer approximation. Otherwise, add cuts, or generate useful points for next iterations.</para>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="238" column="8" bodyfile="src/algorithms/OuterApproximation.cpp" bodystart="13" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_outer_approximation_1abab0fa5a604365d3917bbc94dc5ed638" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool Algorithms::OuterApproximation::isPureStrategy</definition>
+        <argsstring>(double tol=1e-4) const override</argsstring>
+        <name>isPureStrategy</name>
+        <reimplements refid="class_algorithms_1_1_algorithm_1a96cdcca66c77e71c02092b58b52a8f6b">isPureStrategy</reimplements>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+          <defval>1e-4</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>A method to check whether the EPEC solution is a pure equilibrium or not, given a numerical tolerance </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="239" column="8" bodyfile="src/algorithms/OuterApproximation.cpp" bodystart="955" bodyend="965"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_outer_approximation_1a173b46816b43b026f571f5af3bfd5e24" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Algorithms::OuterApproximation::printCurrentApprox</definition>
+        <argsstring>()</argsstring>
+        <name>printCurrentApprox</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Returns a log message containing the encoding at the current outer approximation iteration</para>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="241" column="8" bodyfile="src/algorithms/OuterApproximation.cpp" bodystart="928" bodyend="943"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_outer_approximation_1a183e4315e12141c9cbaf7284fad800ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Algorithms::OuterApproximation::hybridBranching</definition>
+        <argsstring>(const unsigned int player, OuterTree::Node *node)</argsstring>
+        <name>hybridBranching</name>
+        <param>
+          <type>const unsigned int</type>
+          <declname>player</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_outer_tree_1_1_node" kindref="compound">OuterTree::Node</ref> *</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Given <computeroutput>player</computeroutput> <ndash/> containing the id of the player, returns the branching decision for that node given by a hybrid branching rule. In particular, the method return the complementarity id maximizing a combination of constraint violations and number of violated constraints. <computeroutput>node</computeroutput> contains the tree&apos;s node. It isn&apos;t const since a branching candidate can be pruned if infeasibility is detected</para>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="242" column="7" bodyfile="src/algorithms/OuterApproximation.cpp" bodystart="685" bodyend="761"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_outer_approximation_1a3e0825a15112d26d02f206f799cab1e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Algorithms::OuterApproximation::infeasibleBranching</definition>
+        <argsstring>(const unsigned int player, const OuterTree::Node *node)</argsstring>
+        <name>infeasibleBranching</name>
+        <param>
+          <type>const unsigned int</type>
+          <declname>player</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_outer_tree_1_1_node" kindref="compound">OuterTree::Node</ref> *</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Given <computeroutput>player</computeroutput> <ndash/> containing the id of the player, returns the branching decision for that node, where the complementarity is the most (possibly) infeasible one (with both x and z positive). In particular, the method return the (positive) id of the complementarity equation if there is a feasible branching decision at <computeroutput>node</computeroutput>, and a negative value otherwise. <simplesect kind="return"><para>a positive int with the id of the complementarity to branch on, or a negative value if none exists.</para>
+</simplesect>
+</para>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="243" column="7" bodyfile="src/algorithms/OuterApproximation.cpp" bodystart="763" bodyend="803"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_outer_approximation_1a61fd419296449987c67d9530cdd52ac6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Algorithms::OuterApproximation::deviationBranching</definition>
+        <argsstring>(const unsigned int player, const OuterTree::Node *node)</argsstring>
+        <name>deviationBranching</name>
+        <param>
+          <type>const unsigned int</type>
+          <declname>player</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_outer_tree_1_1_node" kindref="compound">OuterTree::Node</ref> *</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Given <computeroutput>player</computeroutput> <ndash/> containing the id of the player, returns the branching decision for that node, where the complementarity helps to cut off a possible deviation . In particular, the method return the (positive) id of the complementarity equation if there is a feasible branching decision at <computeroutput>node</computeroutput>, and a negative value otherwise. <simplesect kind="return"><para>a positive int with the id of the complementarity to branch on, or a negative value if none exists.</para>
+</simplesect>
+</para>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="245" column="7" bodyfile="src/algorithms/OuterApproximation.cpp" bodystart="805" bodyend="837"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_outer_approximation_1a1fffd19679d4256e77ce68db210ffcfc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Algorithms::OuterApproximation::printBranchingLog</definition>
+        <argsstring>(std::vector&lt; int &gt; vector)</argsstring>
+        <name>printBranchingLog</name>
+        <param>
+          <type>std::vector&lt; int &gt;</type>
+          <declname>vector</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Given the vector of branching logs, prints a sum up of the decision taken</para>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="247" column="8" bodyfile="src/algorithms/OuterApproximation.cpp" bodystart="944" bodyend="954"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_outer_approximation_1a67b98d9d96dcedae74fe5b3ef08a9c73" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::unique_ptr&lt; GRBModel &gt;</type>
+        <definition>std::unique_ptr&lt; GRBModel &gt; Algorithms::OuterApproximation::getFeasQP</definition>
+        <argsstring>(const unsigned int player, arma::vec x)</argsstring>
+        <name>getFeasQP</name>
+        <param>
+          <type>const unsigned int</type>
+          <declname>player</declname>
+        </param>
+        <param>
+          <type>arma::vec</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Given <computeroutput>player</computeroutput> <ndash/> containing the id of the player, returns the feasibility QP associated with the current QP made and the point <computeroutput>x</computeroutput>. In other words, it returns the model deciding whether <computeroutput>x</computeroutput> belongs to the feasible region of the QP or not. Note that Game::make_player_QP(player) has to be called before, otherwise the method will return an error.</para>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="248" column="19" bodyfile="src/algorithms/OuterApproximation.cpp" bodystart="659" bodyend="683"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_outer_approximation_1a554d7f90e0cc398ee9a588a2843a1c6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Algorithms::OuterApproximation::addValueCut</definition>
+        <argsstring>(unsigned int player, arma::vec xOfIBestResponse, arma::vec xMinusI)</argsstring>
+        <name>addValueCut</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>player</declname>
+        </param>
+        <param>
+          <type>arma::vec</type>
+          <declname>xOfIBestResponse</declname>
+        </param>
+        <param>
+          <type>arma::vec</type>
+          <declname>xMinusI</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="249" column="8" bodyfile="src/algorithms/OuterApproximation.cpp" bodystart="469" bodyend="487"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_outer_approximation_1ad494ac92286a93181bf9cc8972a1f344" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Algorithms::OuterApproximation::separationOracle</definition>
+        <argsstring>(arma::vec &amp;xOfI, arma::vec &amp;x, unsigned int player, int budget, bool &amp;addedCuts)</argsstring>
+        <name>separationOracle</name>
+        <param>
+          <type>arma::vec &amp;</type>
+          <declname>xOfI</declname>
+        </param>
+        <param>
+          <type>arma::vec &amp;</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>player</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>budget</declname>
+        </param>
+        <param>
+          <type>bool &amp;</type>
+          <declname>addedCuts</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="251" column="8" bodyfile="src/algorithms/OuterApproximation.cpp" bodystart="257" bodyend="454"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_outer_approximation_1a978e06ba908c925ed1d5de6401aa27f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>GRBModel *</type>
+        <definition>GRBModel * Algorithms::OuterApproximation::getDualMembershipLP</definition>
+        <argsstring>(unsigned int player, arma::vec vertex, bool normalization=true)</argsstring>
+        <name>getDualMembershipLP</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>player</declname>
+        </param>
+        <param>
+          <type>arma::vec</type>
+          <declname>vertex</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>normalization</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="253" column="12" bodyfile="src/algorithms/OuterApproximation.cpp" bodystart="132" bodyend="255"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_outer_approximation_1a66d46894f2e1857b28832edbc509a8b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>arma::vec</type>
+        <definition>arma::vec Algorithms::OuterApproximation::normalizeRay</definition>
+        <argsstring>(const arma::vec ray)</argsstring>
+        <name>normalizeRay</name>
+        <param>
+          <type>const arma::vec</type>
+          <declname>ray</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="255" column="13" bodyfile="src/algorithms/OuterApproximation.cpp" bodystart="456" bodyend="467"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_algorithms_1_1_outer_approximation_1a2d8367bc28a43866bae2db6bf602f2e4" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt; int &gt; Algorithms::OuterApproximation::getNextBranchLocation</definition>
+        <argsstring>(const unsigned int player, OuterTree::Node *node)</argsstring>
+        <name>getNextBranchLocation</name>
+        <param>
+          <type>const unsigned int</type>
+          <declname>player</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_outer_tree_1_1_node" kindref="compound">OuterTree::Node</ref> *</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Given <computeroutput>player</computeroutput> <ndash/> containing the id of the player <ndash/> and <computeroutput>node</computeroutput> containing a node, returns the branching decision for that node, with respect to the current node. In particular, the method return the (positive) id of the complementarity equation if there is a feasible branching decision at <computeroutput>node</computeroutput>, and a negative value otherwise. <simplesect kind="return"><para>a vector of 4 ints with the branching location given by the most infeasible branching, deviation branching, hybrid branching, and the firstlocation branching, respectively</para>
+</simplesect>
+</para>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="203" column="15" bodyfile="src/algorithms/OuterApproximation.cpp" bodystart="886" bodyend="926"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_outer_approximation_1abfe0f86eb83e5eea9683d9149d05fa35" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Algorithms::OuterApproximation::getFirstBranchLocation</definition>
+        <argsstring>(const unsigned int player, const OuterTree::Node *node)</argsstring>
+        <name>getFirstBranchLocation</name>
+        <param>
+          <type>const unsigned int</type>
+          <declname>player</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_outer_tree_1_1_node" kindref="compound">OuterTree::Node</ref> *</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Given <computeroutput>player</computeroutput> <ndash/> containing the id of the player, returns the branching decision for that node, with no complementarity condition enforced. In particular, the method return the (positive) id of the complementarity equation if there is a feasible branching decision at <computeroutput>node</computeroutput>, and a negative value otherwise. <simplesect kind="return"><para>a positive int with the id of the complementarity to branch on, or a negative value if none exists.</para>
+</simplesect>
+</para>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="205" column="7" bodyfile="src/algorithms/OuterApproximation.cpp" bodystart="839" bodyend="883"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_algorithms_1_1_outer_approximation_1af2c96b2ed6fdf2d742527809c5f162e4" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void Algorithms::OuterApproximation::postSolving</definition>
+        <argsstring>() override</argsstring>
+        <name>postSolving</name>
+        <reimplements refid="class_algorithms_1_1_algorithm_1ae1259794a607355e05218dccc00b8cba">postSolving</reimplements>
+        <briefdescription>
+<para>A protected method to be called after solving the EPEC. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="209" column="8" bodyfile="include/algorithms/outerapproximation.h" bodystart="209" bodyend="211"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This class is responsible for the outer approximation <ref refid="class_algorithms_1_1_algorithm" kindref="compound">Algorithm</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Algorithms::OuterApproximation</label>
+        <link refid="class_algorithms_1_1_outer_approximation"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Algorithms::Algorithm</label>
+        <link refid="class_algorithms_1_1_algorithm"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="4">
+        <label>Game::EPECStatistics</label>
+        <link refid="struct_game_1_1_e_p_e_c_statistics"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>AlgorithmParam</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Game::EPECAlgorithmParams</label>
+        <link refid="struct_game_1_1_e_p_e_c_algorithm_params"/>
+      </node>
+      <node id="1">
+        <label>Algorithms::OuterApproximation</label>
+        <link refid="class_algorithms_1_1_outer_approximation"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Game::EPEC</label>
+        <link refid="class_game_1_1_e_p_e_c"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>Stats</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Algorithms::Algorithm</label>
+        <link refid="class_algorithms_1_1_algorithm"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>EPECObject</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/algorithms/outerapproximation.h" line="190" column="42" bodyfile="include/algorithms/outerapproximation.h" bodystart="190" bodyend="256"/>
+    <listofallmembers>
+      <member refid="class_algorithms_1_1_outer_approximation_1a554d7f90e0cc398ee9a588a2843a1c6b" prot="public" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>addValueCut</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1a61fd419296449987c67d9530cdd52ac6" prot="public" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>deviationBranching</name></member>
+      <member refid="class_algorithms_1_1_algorithm_1a6dcf349b10b8a08d7c54b4df3e599264" prot="protected" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>Env</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1a712eb86672657b93353bc877398bbe92" prot="public" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>EPEC</name></member>
+      <member refid="class_algorithms_1_1_algorithm_1afaa849a6223a6abd701d4715cc55708c" prot="protected" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>EPECObject</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1a7b120186f79398ef1dd4fea9a1c95478" prot="private" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>Feasible</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1a978e06ba908c925ed1d5de6401aa27f8" prot="public" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>getDualMembershipLP</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1a67b98d9d96dcedae74fe5b3ef08a9c73" prot="public" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>getFeasQP</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1abfe0f86eb83e5eea9683d9149d05fa35" prot="private" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>getFirstBranchLocation</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1a2d8367bc28a43866bae2db6bf602f2e4" prot="private" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>getNextBranchLocation</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1aba316c78980f13d56739b9a1775af08b" prot="public" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>getTol</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1a183e4315e12141c9cbaf7284fad800ba" prot="public" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>hybridBranching</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1ae0338eaf5d6aa11f142810dbb321b8f6" prot="private" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>Incumbent</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1a3e0825a15112d26d02f206f799cab1e4" prot="public" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>infeasibleBranching</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1af718588244659c760c198baad364b43d" prot="public" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>isFeasible</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1abab0fa5a604365d3917bbc94dc5ed638" prot="public" virt="virtual"><scope>Algorithms::OuterApproximation</scope><name>isPureStrategy</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1aa9cdf5883a0b9f2f56985ed35a22b37d" prot="public" virt="virtual"><scope>Algorithms::OuterApproximation</scope><name>isSolved</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1a66d46894f2e1857b28832edbc509a8b4" prot="public" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>normalizeRay</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1a1bddaf4f742fd559ad1ee21fb32022ff" prot="public" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>OuterApproximation</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1a1fbf9b00496e8c364ff7b0ad68be73f7" prot="private" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>outerLCP</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1af2c96b2ed6fdf2d742527809c5f162e4" prot="protected" virt="virtual"><scope>Algorithms::OuterApproximation</scope><name>postSolving</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1a1fffd19679d4256e77ce68db210ffcfc" prot="public" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>printBranchingLog</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1a173b46816b43b026f571f5af3bfd5e24" prot="public" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>printCurrentApprox</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1ad494ac92286a93181bf9cc8972a1f344" prot="public" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>separationOracle</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1a8609c6993fdb66a859ca2326f4c32d78" prot="public" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>setTol</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1aa9dd85578ba5a76cd1aff09df7f5b532" prot="public" virt="virtual"><scope>Algorithms::OuterApproximation</scope><name>solve</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1ab4167f9f998bc17fe47ea95368b6368e" prot="private" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>Tolerance</name></member>
+      <member refid="class_algorithms_1_1_outer_approximation_1a9ad8c68a6d328c12d3750c40e2341c4a" prot="private" virt="non-virtual"><scope>Algorithms::OuterApproximation</scope><name>Trees</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,751 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>EPEC Example &mdash; EPECSolve 2.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="LCP Example" href="LCP.html" />
+    <link rel="prev" title="Command-line interface" href="command_line.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> EPECSolve
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#mandatory-packages">Mandatory packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#recommended-but-not-mandatory-for-the-algorithm-some-examples-might-have-these-dependancies">Recommended but not mandatory for the algorithm. (Some examples might have these dependancies)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html#license">LICENSE</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="compiling.html">Compiling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="command_line.html">Command-line interface</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">EPEC Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#u-v-player">u-v player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#x-y-player">x-y player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="LCP.html">LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="compiling.html">Compiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="command_line.html">Command-line interface</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">EPEC Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#u-v-player">u-v player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#x-y-player">x-y player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="LCP.html">LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Quick References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EPECSolve</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>EPEC Example</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/support_files/EPEC.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="epec-example">
+<h1>EPEC Example<a class="headerlink" href="#epec-example" title="Permalink to this headline">¶</a></h1>
+<p>Consider the following problem: The first player is the <strong>u-v</strong> player, where the
+leader’s decision variables are <span class="math notranslate nohighlight">\(u\)</span> and the follower’s decision variables
+are <span class="math notranslate nohighlight">\(v\)</span>. The second player is the <strong>x-y</strong> player where the leader’s and the
+follower’s variables are <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> respectively.</p>
+<div class="section" id="u-v-player">
+<h2>u-v player<a class="headerlink" href="#u-v-player" title="Permalink to this headline">¶</a></h2>
+<p>The u-v player’s optimization problem is given below</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}min_{u,v} v_1 -u + y_1v_2&amp;\qquad\\\text{s.t.} \;\;\;\; u \quad&amp;\ge\quad 0\\\;\;\;\; \;\;\;\; v_1+v_2+u \quad&amp;\leq\quad 5\\\;\;\;\; \;\;\;\; v \quad&amp;\in\quad \arg \min _v \left \{ -v_1+v_2 : v \ge 0; 2v_1+v_2 \leq u; v_1 -2v_2 \leq -u \right \}\end{aligned}\end{align} \]</div>
+</div>
+<div class="section" id="x-y-player">
+<h2>x-y player<a class="headerlink" href="#x-y-player" title="Permalink to this headline">¶</a></h2>
+<p>On a similar note, the optimization problem of the x-y player is given as
+follows.</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\min_{x,y}  y_1 - x + uy_2&amp;\qquad\\\text{s.t.} \;\;\;\; x \quad&amp;\ge\quad 0\\ \;\;\;\;y_1 + y_2 + x \quad&amp;\le\quad 7\\ \;\;\;\;-y_1 + y_2 \quad&amp;\le\quad 0\\ \;\;\;\;y\quad&amp;\in\quad\arg\min_y \left\{ y_1 - y_2: y \ge 0; -y_1 + y_2 \le 5-x; -y_1 + y_2 \le x-3 \right\}\end{aligned}\end{align} \]</div>
+</div>
+<div class="section" id="nash-equilibrium">
+<h2>Nash Equilibrium<a class="headerlink" href="#nash-equilibrium" title="Permalink to this headline">¶</a></h2>
+<p>The problem has a pure-strategy Nash equilibrium given by
+<span class="math notranslate nohighlight">\((u, v_1, v_2) = (2.78, 0.56, 1.67)\)</span>, and <span class="math notranslate nohighlight">\((x, y_1, y_2) = (1.67, 1.33, 0)\)</span>.</p>
+</div>
+<div class="section" id="modeling-the-problem">
+<h2>Modeling the problem<a class="headerlink" href="#modeling-the-problem" title="Permalink to this headline">¶</a></h2>
+<p><strong>Step 1</strong> The first step in modeling a game between Stackelberg leaders is to include <cite>epecsolve.h</cite> and create a derived class of <code class="xref py py-class docutils literal notranslate"><span class="pre">Game::EPEC</span></code>. The minimal constructor for <code class="xref py py-class docutils literal notranslate"><span class="pre">Game::EPEC</span></code> involves passing a pointer to <cite>GRBEnv</cite> (Check Gurobi’s C++ <a class="reference external" href="https://www.gurobi.com/documentation/8.1/refman/cpp_api_overview.html">reference manual</a>
+). The derived class should indeed instantiate the base class (Game::EPEC) using such a constructor. The code below, achieves it.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;epecsolve.h&quot;</span><span class="cp"></span>
+<span class="n">class</span> <span class="nl">my_Prob</span> <span class="p">:</span> <span class="n">public</span> <span class="n">Game</span><span class="o">::</span><span class="n">EPEC</span>
+<span class="p">{</span>
+       <span class="nl">public</span><span class="p">:</span>
+               <span class="n">my_Prob</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">e</span><span class="p">)</span> <span class="o">:</span> <span class="n">Game</span><span class="o">::</span><span class="n">EPEC</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><strong>Step 2</strong>  Next, we should define the lower level of each leader (u-v leader as well as the x-y leader) as a <code class="xref py py-class docutils literal notranslate"><span class="pre">Game::NashGame</span></code> object. For convenience, we write the following two functions that return a <code class="docutils literal notranslate"><span class="pre">std::sharedptr&lt;Game::NashGame&gt;</span></code>.  Note that</p>
+<ul class="simple">
+<li><p>The referred object contains the follower’s game along with any constraint in the leader level.</p></li>
+<li><p>The referred object does not contain the follower’s objective (which could potentially depend upon other leaders’ variables).</p></li>
+<li><p>We create the object, <em>without</em> assuming the presence of other leaders.</p></li>
+</ul>
+<p>The following code returns the <code class="docutils literal notranslate"><span class="pre">std::shareptr&lt;&gt;</span></code> as required. To refresh the concepts about creating a <code class="xref py py-class docutils literal notranslate"><span class="pre">Game::NashGame</span></code> object, refer to the Nash Game tutorial.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">NashGame</span><span class="o">&gt;</span> <span class="n">uv_leader</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
+ <span class="c1">// 2 variable and 2 constraints</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">Q</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">C</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">A</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">B</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">c</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">fill</span><span class="o">::</span><span class="n">zeros</span><span class="p">);</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">b</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">fill</span><span class="o">::</span><span class="n">zeros</span><span class="p">);</span>
+ <span class="c1">// Q remains as 0</span>
+ <span class="c1">// C remains as 0</span>
+ <span class="c1">// c</span>
+ <span class="n">c</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+ <span class="n">c</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="c1">// A</span>
+ <span class="n">A</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+ <span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="c1">// B</span>
+ <span class="n">B</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+ <span class="n">B</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">B</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">B</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="p">;</span>
+ <span class="k">auto</span> <span class="n">foll</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">QP_Param</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+
+ <span class="c1">// Lower level Market clearing constraints - empty</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">MC</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">MCRHS</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">fill</span><span class="o">::</span><span class="n">zeros</span><span class="p">);</span>
+
+ <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">LeadCons</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">LeadRHS</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+ <span class="n">LeadCons</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">LeadCons</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">LeadCons</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">LeadRHS</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+
+ <span class="k">auto</span> <span class="n">N</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">NashGame</span><span class="o">&gt;</span><span class="p">(</span>
+     <span class="n">env</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">QP_Param</span><span class="o">&gt;&gt;</span><span class="p">{</span><span class="n">foll</span><span class="p">},</span> <span class="n">MC</span><span class="p">,</span> <span class="n">MCRHS</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+     <span class="n">LeadCons</span><span class="p">,</span> <span class="n">LeadRHS</span><span class="p">);</span>
+ <span class="k">return</span> <span class="n">N</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>And we have a similar function for the x-y leader.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">NashGame</span><span class="o">&gt;</span> <span class="n">xy_leader</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
+ <span class="c1">// 2 variable and 2 constraints</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">Q</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">C</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">A</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">B</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">c</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">fill</span><span class="o">::</span><span class="n">zeros</span><span class="p">);</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">b</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">fill</span><span class="o">::</span><span class="n">zeros</span><span class="p">);</span>
+ <span class="c1">// Q remains as 0</span>
+ <span class="c1">// C remains as 0</span>
+ <span class="c1">// c</span>
+ <span class="n">c</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">c</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+ <span class="c1">// A</span>
+ <span class="n">A</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+ <span class="c1">// B</span>
+ <span class="n">B</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+ <span class="n">B</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">B</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+ <span class="n">B</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="c1">// b</span>
+ <span class="n">b</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+ <span class="n">b</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="p">;</span>
+ <span class="k">auto</span> <span class="n">foll</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">QP_Param</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+
+ <span class="c1">// Lower level Market clearing constraints - empty</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">MC</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">MCRHS</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">fill</span><span class="o">::</span><span class="n">zeros</span><span class="p">);</span>
+
+ <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">LeadCons</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">LeadRHS</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+ <span class="n">LeadCons</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">LeadCons</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">LeadCons</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">LeadRHS</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+ <span class="c1">// Comment the following four lines for another example ;)</span>
+ <span class="n">LeadCons</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+ <span class="n">LeadCons</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">LeadCons</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+ <span class="n">LeadRHS</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+ <span class="k">auto</span> <span class="n">N</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">NashGame</span><span class="o">&gt;</span><span class="p">(</span>
+     <span class="n">env</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">QP_Param</span><span class="o">&gt;&gt;</span><span class="p">{</span><span class="n">foll</span><span class="p">},</span> <span class="n">MC</span><span class="p">,</span> <span class="n">MCRHS</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+     <span class="n">LeadCons</span><span class="p">,</span> <span class="n">LeadRHS</span><span class="p">);</span>
+ <span class="k">return</span> <span class="n">N</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We also use a member function to add these leaders to the class. The following code achieves this.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">My_EPEC_Prob</span><span class="o">::</span><span class="n">addLeader</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">NashGame</span><span class="o">&gt;</span> <span class="n">N</span><span class="p">,</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">this</span><span class="o">-&gt;</span><span class="n">countries_LL</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">N</span><span class="p">);</span>
+  <span class="n">ends</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">N</span><span class="o">-&gt;</span><span class="n">getNprimals</span><span class="p">()</span> <span class="o">+</span> <span class="n">N</span><span class="o">-&gt;</span><span class="n">getNleaderVars</span><span class="p">();</span>
+  <span class="n">this</span><span class="o">-&gt;</span><span class="n">LocEnds</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ends</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note that the above code achieves the following key ideas, which must always be taken care of while adding leaders to a problem.</p>
+<ul class="simple">
+<li><p>The lower-level Game::NashGame is pushed to <code class="docutils literal notranslate"><span class="pre">Game::EPEC::countries_LL</span></code></p></li>
+<li><p>Variables that track the number of variables in the current leader (<code class="docutils literal notranslate"><span class="pre">ends[i]</span></code>) is set and is tracked by <code class="docutils literal notranslate"><span class="pre">Game::EPEC::LocEnds</span></code> at the appropriate position.</p></li>
+</ul>
+<p><strong>Step 3</strong> <code class="xref py py-class docutils literal notranslate"><span class="pre">Game::EPEC</span></code> is a pure virtual (abstract) class and it is mandatory to define two functions by every derived class that it has. First, we define <code class="xref py py-func docutils literal notranslate"><span class="pre">Game::EPEC::make_obj_leader()</span></code>. This function  has the following signature in its definition in <code class="xref py py-class docutils literal notranslate"><span class="pre">Game::EPEC</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="kt">void</span> <span class="nf">make_obj_leader</span><span class="p">(</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">Game</span><span class="o">::</span><span class="n">QP_objective</span> <span class="o">&amp;</span><span class="n">QP_obj</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The parameter <code class="docutils literal notranslate"><span class="pre">i</span></code> take the position of the leader and <cite>QP_obj</cite> is an out-parameter, which should be filled with an object of <code class="docutils literal notranslate"><span class="pre">Game::QP_objective</span></code>, which has the i-th leader’s objective. Note that this should assume the form of <span class="math notranslate nohighlight">\(c^T x + (Cx)^T x^{oth}\)</span>, where <span class="math notranslate nohighlight">\(x\)</span> is the current player’s set of variables and <span class="math notranslate nohighlight">\(x^{oth}\)</span> is the remaining set of variables. The definition of this function is shown below.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span>  <span class="kt">void</span> <span class="n">my_Prob</span><span class="o">::</span><span class="n">make_obj_leader</span><span class="p">(</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">Game</span><span class="o">::</span><span class="n">QP_objective</span> <span class="o">&amp;</span><span class="n">QP_obj</span><span class="p">)</span> <span class="n">override</span>
+<span class="p">{</span>
+   <span class="n">QP_obj</span><span class="p">.</span><span class="n">Q</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+   <span class="n">QP_obj</span><span class="p">.</span><span class="n">C</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+   <span class="n">QP_obj</span><span class="p">.</span><span class="n">c</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+   <span class="k">switch</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span>
+   <span class="p">{</span>
+   <span class="k">case</span> <span class="mi">0</span><span class="o">:</span> <span class="c1">// uv_leader&#39;s objective</span>
+     <span class="n">QP_obj</span><span class="p">.</span><span class="n">C</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+     <span class="n">QP_obj</span><span class="p">.</span><span class="n">c</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+     <span class="n">QP_obj</span><span class="p">.</span><span class="n">c</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+     <span class="k">break</span><span class="p">;</span>
+   <span class="k">case</span> <span class="mi">1</span><span class="o">:</span> <span class="c1">// xy_leader&#39;s objective</span>
+     <span class="n">QP_obj</span><span class="p">.</span><span class="n">C</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+     <span class="n">QP_obj</span><span class="p">.</span><span class="n">c</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+     <span class="n">QP_obj</span><span class="p">.</span><span class="n">c</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+     <span class="k">break</span><span class="p">;</span>
+   <span class="k">default</span><span class="o">:</span> <span class="c1">// Not strictly required, but for safety</span>
+     <span class="n">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;Invalid make_obj_leader&quot;</span><span class="p">);</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Step 4</strong> Finally, another function Game::EPEC::updateLocs has to be redefined necessarily too. For small, toy examples, this function can only update the location of the last variable as the total number of variables defined by the user plus any convex hull variables. But, for more complicated examples, we refer the user to check <code class="xref py py-func docutils literal notranslate"><span class="pre">Models::EPEC::updateLocs()</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">My_EPEC_Prob</span><span class="o">::</span><span class="n">updateLocs</span><span class="p">()</span> <span class="n">override</span> <span class="p">{</span>
+  <span class="n">ends</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">this</span><span class="o">-&gt;</span><span class="n">convexHullVariables</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="n">ends</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">this</span><span class="o">-&gt;</span><span class="n">convexHullVariables</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Step 5</strong> Now that the derived class is ready, the EPEC can be solved using an instantiation of the class. We lead you through the corresponding code, below.</p>
+<p>To start, with set up a Gurobi environment like we did for Game::QP_Param and Game::NashGame.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">GRBEnv</span> <span class="n">env</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The code is meant to produce various levels of logs. High levels of logging can produce numerous verbose messages that are meant only for debugging while low levels of logging might produce no output at all, till the program terminates failing to give any update on how the algorithm is performing. We use Boost logging (documentation <a class="reference external" href="https://www.boost.org/doc/libs/1_70_0/libs/log/doc/html/index.html">here</a>
+) for handling the logging. You can choose your favorite logging level between <code class="docutils literal notranslate"><span class="pre">trace,</span> <span class="pre">debug,</span> <span class="pre">info,</span> <span class="pre">warning,</span> <span class="pre">error,</span> <span class="pre">fatal</span></code>.</p>
+<p>We suggest a log level of <code class="docutils literal notranslate"><span class="pre">info</span></code> and higher, using the following code. Not setting the log level gives the highest verbosity (i.e., automatically sets it to &#64;p trace level).</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">boost</span><span class="o">::</span><span class="n">log</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">get</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">set_filter</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">log</span><span class="o">::</span><span class="n">trivial</span><span class="o">::</span><span class="n">severity</span> <span class="o">&gt;=</span> <span class="n">boost</span><span class="o">::</span><span class="n">log</span><span class="o">::</span><span class="n">trivial</span><span class="o">::</span><span class="n">info</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Next, we create an object for the class and add both the lower level <code class="xref py py-class docutils literal notranslate"><span class="pre">Game::NashGame</span></code> using functions defined earlier.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Create the class object</span>
+<span class="n">My_EPEC_Prob</span> <span class="nf">epec</span><span class="p">(</span><span class="o">&amp;</span><span class="n">env</span><span class="p">);</span>
+<span class="c1">// Adding uv_leader</span>
+<span class="k">auto</span> <span class="n">uv_lead</span> <span class="o">=</span> <span class="n">uv_leader</span><span class="p">(</span><span class="o">&amp;</span><span class="n">env</span><span class="p">);</span>
+<span class="n">epec</span><span class="p">.</span><span class="n">addLeader</span><span class="p">(</span><span class="n">uv_lead</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="c1">// Adding xy_leader</span>
+<span class="k">auto</span> <span class="n">xy_lead</span> <span class="o">=</span> <span class="n">xy_leader</span><span class="p">(</span><span class="o">&amp;</span><span class="n">env</span><span class="p">);</span>
+<span class="n">epec</span><span class="p">.</span><span class="n">addLeader</span><span class="p">(</span><span class="n">xy_lead</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Once all the leaders’ lower levels are added, we tell the program that we are adding no more players, and the code can do certain pre-processing and space allocation using <code class="xref py py-func docutils literal notranslate"><span class="pre">Game::EPEC::finalize()</span></code>. We can also optionally tell the program to do other operations before/after finalizing, by defining an override for <code class="xref py py-func docutils literal notranslate"><span class="pre">Game::EPEC::prefinalize()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">Game::EPEC::postfinalize()</span></code> in the derived class.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Finalize</span>
+<span class="n">epec</span><span class="p">.</span><span class="n">finalize</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>One can optionally choose the algorithm to be used for solving the problem. Not setting this, chooses the default algorithm <code class="docutils literal notranslate"><span class="pre">Game::EPEC::fullEnumeration</span></code></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">epec</span><span class="p">.</span><span class="n">setAlgorithm</span><span class="p">(</span><span class="n">Game</span><span class="o">::</span><span class="n">EPECalgorithm</span><span class="o">::</span><span class="n">innerApproximation</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Finally, the problem can be solved using</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">epec</span><span class="p">.</span><span class="n">findNashEq</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><strong>Step 6</strong> Now we discuss methods to retrieve the solution and other details from <code class="docutils literal notranslate"><span class="pre">Game::EPEC</span></code>.</p>
+<p>To start with, one can write the GRBModel (Gurobi model) solved in the last iteration or acquire a copy of the model. For the model writing, any extension allowed by Gurobi will work in the solver.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Writes the model to a file. The model can then be loaded externally, resolved and analyzed.</span>
+<span class="n">epec</span><span class="p">.</span><span class="n">writeLcpModel</span><span class="p">(</span><span class="s">&quot;my_model.lp&quot;</span><span class="p">);</span>  <span class="c1">// Writes to an LP file, in a human readable format</span>
+<span class="n">epec</span><span class="p">.</span><span class="n">writeLcpModel</span><span class="p">(</span><span class="s">&quot;my_model.sol&quot;</span><span class="p">);</span> <span class="c1">// Writes to an MPS file, in a machine readable format</span>
+<span class="c1">// Writes the solution to the same model.</span>
+
+<span class="n">epec</span><span class="p">.</span><span class="n">writeLcpModel</span><span class="p">(</span><span class="s">&quot;my_model.sol&quot;</span><span class="p">);</span> <span class="c1">// Human and machine readable.</span>
+</pre></div>
+</div>
+<p>Alternatively, without saving the model, one can directly print the solution to the model.
+Note that an EPEC does not necessarily have a pure-strategy Nash equilibrium or a mixed-strategy Nash equilibrium. However, should it have one, we print the multiple pure strategies along with the associated probability for that strategy. These are achieved using</p>
+<ul class="simple">
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">Game::EPEC::getVal_Probab()</span></code></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">Game::EPEC::getVal_LeadLeadPoly()</span></code></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">Game::EPEC::getVal_LeadFollPoly()</span></code></p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Get the set of pure strategies that the leaders will play</span>
+<span class="k">auto</span> <span class="n">uv_strats</span> <span class="o">=</span> <span class="n">epec</span><span class="p">.</span><span class="n">mixedStratPoly</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="c1">// Now print the probability of each such pure strategy and the actual strategy too.</span>
+<span class="n">std</span><span class="o">::</span><span class="n">for_each</span><span class="p">(</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">uv_strats</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">uv_strats</span><span class="p">),</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">epec</span><span class="p">](</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+          <span class="c1">// epec.getVal_Probab (a, b) gives the probability used to play b-th pure strategy by the player at position a.</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;With probability  &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_Probab</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+              <span class="c1">// epec.getVal_LeadLeadPoly(a, b, c) gives the bth variable of a-th leader in c-th poly.</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;(&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_LeadLeadPoly</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+              <span class="c1">// epec.getVal_LeadFollPoly(a, b, c) gives the bth follower variable of a-th leader in c-th poly.</span>
+                <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_LeadFollPoly</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+                <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_LeadFollPoly</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="p">});</span>
+</pre></div>
+</div>
+<p>Similarly for the x-y leader</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span> <span class="n">xy_strats</span> <span class="o">=</span> <span class="n">epec</span><span class="p">.</span><span class="n">mixedStratPoly</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">for_each</span><span class="p">(</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">xy_strats</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">xy_strats</span><span class="p">),</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">epec</span><span class="p">](</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;With probability  &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_Probab</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;(&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_LeadLeadPoly</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+                <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_LeadFollPoly</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+                <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_LeadFollPoly</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="p">});</span>
+</pre></div>
+</div>
+<p>Congratulations! You have solved your first EPEC!</p>
+<p>For your convenience, the entire example source code is given below.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;epecsolve.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;boost/log/core.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;boost/log/expressions.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;boost/log/trivial.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;gurobi_c++.h&gt;</span><span class="cp"></span>
+
+<span class="n">class</span> <span class="nl">My_EPEC_Prob</span> <span class="p">:</span> <span class="n">public</span> <span class="n">EPEC</span> <span class="p">{</span>
+<span class="nl">public</span><span class="p">:</span>
+ <span class="n">My_EPEC_Prob</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">e</span><span class="p">)</span> <span class="o">:</span> <span class="n">EPEC</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+ <span class="kt">void</span> <span class="n">addLeader</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">NashGame</span><span class="o">&gt;</span> <span class="n">N</span><span class="p">,</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">this</span><span class="o">-&gt;</span><span class="n">countries_LL</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">N</span><span class="p">);</span>
+   <span class="n">ends</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">N</span><span class="o">-&gt;</span><span class="n">getNprimals</span><span class="p">()</span> <span class="o">+</span> <span class="n">N</span><span class="o">-&gt;</span><span class="n">getNleaderVars</span><span class="p">();</span>
+   <span class="n">this</span><span class="o">-&gt;</span><span class="n">LocEnds</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ends</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+ <span class="p">}</span>
+
+<span class="nl">private</span><span class="p">:</span>
+ <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">ends</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+ <span class="kt">void</span> <span class="nf">updateLocs</span><span class="p">()</span> <span class="n">override</span> <span class="p">{</span>
+   <span class="n">ends</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">this</span><span class="o">-&gt;</span><span class="n">convexHullVariables</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span>
+   <span class="n">ends</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">this</span><span class="o">-&gt;</span><span class="n">convexHullVariables</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span>
+ <span class="p">}</span>
+ <span class="kt">void</span> <span class="nf">make_obj_leader</span><span class="p">(</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="p">,</span>
+                      <span class="n">Game</span><span class="o">::</span><span class="n">QP_objective</span> <span class="o">&amp;</span><span class="n">QP_obj</span><span class="p">)</span> <span class="n">override</span> <span class="p">{</span>
+   <span class="n">QP_obj</span><span class="p">.</span><span class="n">Q</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+   <span class="n">QP_obj</span><span class="p">.</span><span class="n">C</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+   <span class="n">QP_obj</span><span class="p">.</span><span class="n">c</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+   <span class="k">switch</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">case</span> <span class="mi">0</span><span class="o">:</span> <span class="c1">// uv_leader&#39;s objective</span>
+     <span class="n">QP_obj</span><span class="p">.</span><span class="n">C</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+     <span class="n">QP_obj</span><span class="p">.</span><span class="n">c</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+     <span class="n">QP_obj</span><span class="p">.</span><span class="n">c</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+     <span class="k">break</span><span class="p">;</span>
+   <span class="k">case</span> <span class="mi">1</span><span class="o">:</span> <span class="c1">// xy_leader&#39;s objective</span>
+     <span class="n">QP_obj</span><span class="p">.</span><span class="n">C</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+     <span class="n">QP_obj</span><span class="p">.</span><span class="n">c</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+     <span class="n">QP_obj</span><span class="p">.</span><span class="n">c</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+     <span class="k">break</span><span class="p">;</span>
+   <span class="k">default</span><span class="o">:</span>
+     <span class="n">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;Invalid make_obj_leader&quot;</span><span class="p">);</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">NashGame</span><span class="o">&gt;</span> <span class="n">uv_leader</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
+ <span class="c1">// 2 variable and 2 constraints</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">Q</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">C</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">A</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">B</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">c</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">fill</span><span class="o">::</span><span class="n">zeros</span><span class="p">);</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">b</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">fill</span><span class="o">::</span><span class="n">zeros</span><span class="p">);</span>
+ <span class="c1">// Q remains as 0</span>
+ <span class="c1">// C remains as 0</span>
+ <span class="c1">// c</span>
+ <span class="n">c</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+ <span class="n">c</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="c1">// A</span>
+ <span class="n">A</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+ <span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="c1">// B</span>
+ <span class="n">B</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+ <span class="n">B</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">B</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">B</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="p">;</span>
+ <span class="k">auto</span> <span class="n">foll</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">QP_Param</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+
+ <span class="c1">// Lower level Market clearing constraints - empty</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">MC</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">MCRHS</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">fill</span><span class="o">::</span><span class="n">zeros</span><span class="p">);</span>
+
+ <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">LeadCons</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">LeadRHS</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+ <span class="n">LeadCons</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">LeadCons</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">LeadCons</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">LeadRHS</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+
+ <span class="k">auto</span> <span class="n">N</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">NashGame</span><span class="o">&gt;</span><span class="p">(</span>
+     <span class="n">env</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">QP_Param</span><span class="o">&gt;&gt;</span><span class="p">{</span><span class="n">foll</span><span class="p">},</span> <span class="n">MC</span><span class="p">,</span> <span class="n">MCRHS</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+     <span class="n">LeadCons</span><span class="p">,</span> <span class="n">LeadRHS</span><span class="p">);</span>
+ <span class="k">return</span> <span class="n">N</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">NashGame</span><span class="o">&gt;</span> <span class="n">xy_leader</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
+ <span class="c1">// 2 variable and 2 constraints</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">Q</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">C</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">A</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">B</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">c</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">fill</span><span class="o">::</span><span class="n">zeros</span><span class="p">);</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">b</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">fill</span><span class="o">::</span><span class="n">zeros</span><span class="p">);</span>
+ <span class="c1">// Q remains as 0</span>
+ <span class="c1">// C remains as 0</span>
+ <span class="c1">// c</span>
+ <span class="n">c</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">c</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+ <span class="c1">// A</span>
+ <span class="n">A</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+ <span class="c1">// B</span>
+ <span class="n">B</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+ <span class="n">B</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">B</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+ <span class="n">B</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="c1">// b</span>
+ <span class="n">b</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+ <span class="n">b</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="p">;</span>
+ <span class="k">auto</span> <span class="n">foll</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">QP_Param</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+
+ <span class="c1">// Lower level Market clearing constraints - empty</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">MC</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">MCRHS</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">fill</span><span class="o">::</span><span class="n">zeros</span><span class="p">);</span>
+
+ <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">LeadCons</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+ <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">LeadRHS</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+ <span class="n">LeadCons</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">LeadCons</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">LeadCons</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">LeadRHS</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+ <span class="c1">// Comment the following four lines for another example ;)</span>
+ <span class="n">LeadCons</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+ <span class="n">LeadCons</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="n">LeadCons</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+ <span class="n">LeadRHS</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+ <span class="k">auto</span> <span class="n">N</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">NashGame</span><span class="o">&gt;</span><span class="p">(</span>
+     <span class="n">env</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">QP_Param</span><span class="o">&gt;&gt;</span><span class="p">{</span><span class="n">foll</span><span class="p">},</span> <span class="n">MC</span><span class="p">,</span> <span class="n">MCRHS</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+     <span class="n">LeadCons</span><span class="p">,</span> <span class="n">LeadRHS</span><span class="p">);</span>
+ <span class="k">return</span> <span class="n">N</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+ <span class="n">GRBEnv</span> <span class="n">env</span><span class="p">;</span>
+ <span class="n">boost</span><span class="o">::</span><span class="n">log</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">get</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">set_filter</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">log</span><span class="o">::</span><span class="n">trivial</span><span class="o">::</span><span class="n">severity</span> <span class="o">&gt;=</span>
+ <span class="n">boost</span><span class="o">::</span><span class="n">log</span><span class="o">::</span><span class="n">trivial</span><span class="o">::</span><span class="n">warning</span><span class="p">);</span>
+ <span class="n">My_EPEC_Prob</span> <span class="nf">epec</span><span class="p">(</span><span class="o">&amp;</span><span class="n">env</span><span class="p">);</span>
+ <span class="c1">// Adding uv_leader</span>
+ <span class="k">auto</span> <span class="n">uv_lead</span> <span class="o">=</span> <span class="n">uv_leader</span><span class="p">(</span><span class="o">&amp;</span><span class="n">env</span><span class="p">);</span>
+ <span class="n">epec</span><span class="p">.</span><span class="n">addLeader</span><span class="p">(</span><span class="n">uv_lead</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+ <span class="c1">// Adding xy_leader</span>
+ <span class="k">auto</span> <span class="n">xy_lead</span> <span class="o">=</span> <span class="n">xy_leader</span><span class="p">(</span><span class="o">&amp;</span><span class="n">env</span><span class="p">);</span>
+ <span class="n">epec</span><span class="p">.</span><span class="n">addLeader</span><span class="p">(</span><span class="n">xy_lead</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+ <span class="c1">// Finalize</span>
+ <span class="n">epec</span><span class="p">.</span><span class="n">finalize</span><span class="p">();</span>
+ <span class="n">epec</span><span class="p">.</span><span class="n">setAlgorithm</span><span class="p">(</span><span class="n">Game</span><span class="o">::</span><span class="n">EPECalgorithm</span><span class="o">::</span><span class="n">innerApproximation</span><span class="p">);</span>
+ <span class="c1">// Solve</span>
+ <span class="n">try</span> <span class="p">{</span>
+   <span class="n">epec</span><span class="p">.</span><span class="n">findNashEq</span><span class="p">();</span>
+ <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Error caught: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">s</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+   <span class="n">throw</span><span class="p">;</span>
+ <span class="p">}</span>
+
+ <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">UV LEADER</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+ <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;u: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_LeadLead</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+ <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;v_1: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_LeadFoll</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+ <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;v_2: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_LeadFoll</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+ <span class="k">auto</span> <span class="n">uv_strats</span> <span class="o">=</span> <span class="n">epec</span><span class="p">.</span><span class="n">mixedStratPoly</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+ <span class="n">std</span><span class="o">::</span><span class="n">for_each</span><span class="p">(</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">uv_strats</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">uv_strats</span><span class="p">),</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">epec</span><span class="p">](</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+       <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;With probability  &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_Probab</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+       <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;(&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_LeadLeadPoly</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+                 <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_LeadFollPoly</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+                 <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_LeadFollPoly</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+     <span class="p">});</span>
+ <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+ <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">XY LEADER</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+ <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;x: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_LeadLead</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+ <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;y_1: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_LeadFoll</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+ <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;y_2: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_LeadFoll</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+ <span class="k">auto</span> <span class="n">xy_strats</span> <span class="o">=</span> <span class="n">epec</span><span class="p">.</span><span class="n">mixedStratPoly</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+ <span class="n">std</span><span class="o">::</span><span class="n">for_each</span><span class="p">(</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">xy_strats</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">xy_strats</span><span class="p">),</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">epec</span><span class="p">](</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+       <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;With probability  &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_Probab</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+       <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;(&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_LeadLeadPoly</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+                 <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_LeadFollPoly</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+                 <span class="o">&lt;&lt;</span> <span class="n">epec</span><span class="p">.</span><span class="n">getVal_LeadFollPoly</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+     <span class="p">});</span>
+ <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+ <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="LCP.html" class="btn btn-neutral float-right" title="LCP Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="command_line.html" class="btn btn-neutral float-left" title="Command-line interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GD and SS
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

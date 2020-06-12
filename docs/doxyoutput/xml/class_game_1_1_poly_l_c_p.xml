@@ -1,0 +1,662 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="class_game_1_1_poly_l_c_p" kind="class" language="C++" prot="public">
+    <compoundname>Game::PolyLCP</compoundname>
+    <basecompoundref refid="class_game_1_1_l_c_p" prot="public" virt="non-virtual">Game::LCP</basecompoundref>
+    <includes refid="polylcp_8h" local="no">polylcp.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_game_1_1_poly_l_c_p_1ae58d2fb3672f8962a238caa500239aee" prot="private" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int Game::PolyLCP::FeasiblePolyhedra</definition>
+        <argsstring></argsstring>
+        <name>FeasiblePolyhedra</name>
+        <initializer>{0}</initializer>
+        <briefdescription>
+<para>Inheritor Class to handle the polyhedral aspects of the <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref> class, and support algorithms. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="20" column="16" bodyfile="include/lcp/polylcp.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_poly_l_c_p_1aa0dc3451597d6e1d1c97018ed19b6168" prot="private" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int Game::PolyLCP::SequentialPolyCounter</definition>
+        <argsstring></argsstring>
+        <name>SequentialPolyCounter</name>
+        <initializer>{0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="21" column="16" bodyfile="include/lcp/polylcp.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_poly_l_c_p_1a32f2873bad1c17318ceca6e60663a85f" prot="private" static="no" mutable="no">
+        <type>long int</type>
+        <definition>long int Game::PolyLCP::ReverseSequentialPolyCounter</definition>
+        <argsstring></argsstring>
+        <name>ReverseSequentialPolyCounter</name>
+        <initializer>{0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="22" column="12" bodyfile="include/lcp/polylcp.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_poly_l_c_p_1ad54ed6c8eacb53c2d56bece722cf8bc4" prot="private" static="no" mutable="no">
+        <type>std::set&lt; unsigned long int &gt;</type>
+        <definition>std::set&lt;unsigned long int&gt; Game::PolyLCP::AllPolyhedra</definition>
+        <argsstring></argsstring>
+        <name>AllPolyhedra</name>
+        <initializer>=
+      {}</initializer>
+        <briefdescription>
+<para>Decimal encoding of polyhedra that have been enumerated. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref> feasible region is a union of polyhedra. Keeps track which of those inequalities are fixed to equality to get the individual polyhedra </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="25" column="12" bodyfile="include/lcp/polylcp.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_poly_l_c_p_1aeb53a1e8548bb1e802c5fa000ec98009" prot="private" static="no" mutable="no">
+        <type>std::set&lt; unsigned long int &gt;</type>
+        <definition>std::set&lt;unsigned long int&gt; Game::PolyLCP::FeasiblePoly</definition>
+        <argsstring></argsstring>
+        <name>FeasiblePoly</name>
+        <initializer>=
+      {}</initializer>
+        <briefdescription>
+<para>Decimal encoding of polyhedra that have been enumerated. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="27" column="12" bodyfile="include/lcp/polylcp.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_poly_l_c_p_1a43b7818d5d08faf88fb9c1ab51a7a6dc" prot="private" static="no" mutable="no">
+        <type>std::set&lt; unsigned long int &gt;</type>
+        <definition>std::set&lt;unsigned long int&gt; Game::PolyLCP::InfeasiblePoly</definition>
+        <argsstring></argsstring>
+        <name>InfeasiblePoly</name>
+        <initializer>=
+      {}</initializer>
+        <briefdescription>
+<para>Decimal encoding of polyhedra known to be infeasible. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="29" column="12" bodyfile="include/lcp/polylcp.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_poly_l_c_p_1addf773dfc5bf76c80c04b0f68c7285fc" prot="private" static="no" mutable="no">
+        <type>unsigned long int</type>
+        <definition>unsigned long int Game::PolyLCP::MaxTheoreticalPoly</definition>
+        <argsstring></argsstring>
+        <name>MaxTheoreticalPoly</name>
+        <initializer>{0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="31" column="21" bodyfile="include/lcp/polylcp.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_game_1_1_poly_l_c_p_1a1afb8ebbf1672cc4d0398c0f7265ed56" prot="public" static="no" mutable="no">
+        <type>long int</type>
+        <definition>long int Game::PolyLCP::AddPolyMethodSeed</definition>
+        <argsstring></argsstring>
+        <name>AddPolyMethodSeed</name>
+        <initializer>= {
+      -1}</initializer>
+        <briefdescription>
+<para>Should be a positive value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Seeds the Random generator for the Random polyhedra selection. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="54" column="12" bodyfile="include/lcp/polylcp.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1a216d9f17996fe72731dd33cc2062153e" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Game::PolyLCP::initializeNotProcessed</definition>
+        <argsstring>()</argsstring>
+        <name>initializeNotProcessed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="32" column="8" bodyfile="include/lcp/polylcp.h" bodystart="32" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1a7488a38884fff8804d17024c3a1c1433" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Game::PolyLCP::addPolyFromEncoding</definition>
+        <argsstring>(std::vector&lt; short int &gt; encoding, bool checkFeas=false, bool custom=false, spmat_Vec *custAi={}, vec_Vec *custbi={})</argsstring>
+        <name>addPolyFromEncoding</name>
+        <param>
+          <type>std::vector&lt; short int &gt;</type>
+          <declname>encoding</declname>
+          <briefdescription><para>A vector of +1 and -1 referring to which equations and variables are taking 0 value. </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>checkFeas</declname>
+          <defval>false</defval>
+          <briefdescription><para>The polyhedron is added after ensuring feasibility, if this is true </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>custom</declname>
+          <defval>false</defval>
+          <briefdescription><para>Should the polyhedra be pushed into a custom vector of polyhedra as opposed to <ref refid="class_game_1_1_l_c_p_1a8f71d6ee194330de1441c3911b74bff6" kindref="member">LCP::Ai</ref> and <ref refid="class_game_1_1_l_c_p_1afcae3294d6a3492d4a1b77a1d72ccf60" kindref="member">LCP::bi</ref> </para>
+</briefdescription>
+        </param>
+        <param>
+          <type><ref refid="epecsolve_8h_1a47898f11e7a4b7433acbc77588a0dc03" kindref="member">spmat_Vec</ref> *</type>
+          <declname>custAi</declname>
+          <defval>{}</defval>
+          <briefdescription><para>If custom polyhedra vector is used, pointer to vector of LHS constraint matrix </para>
+</briefdescription>
+        </param>
+        <param>
+          <type><ref refid="epecsolve_8h_1a8d8c882d060c4d307810fdf04a6314c6" kindref="member">vec_Vec</ref> *</type>
+          <declname>custbi</declname>
+          <defval>{}</defval>
+          <briefdescription><para>If custom polyhedra vector is used, pointer to vector of RHS of constraints </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+<para>Computes the equation of the feasibility polyhedron corresponding to the given <computeroutput>encoding</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The computed polyhedron is always pushed into a vector of <computeroutput>arma::sp_mat</computeroutput> and <computeroutput>arma::vec</computeroutput> If <computeroutput>custom</computeroutput> is false, this is the internal attribute of <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref>, which are <ref refid="class_game_1_1_l_c_p_1a8f71d6ee194330de1441c3911b74bff6" kindref="member">LCP::Ai</ref> and <ref refid="class_game_1_1_l_c_p_1afcae3294d6a3492d4a1b77a1d72ccf60" kindref="member">LCP::bi</ref>. Otherwise, the vectors can be provided as arguments. <computeroutput>true</computeroutput> value to <computeroutput>checkFeas</computeroutput> ensures that the polyhedron is pushed <emphasis>only</emphasis> if it is feasible. <simplesect kind="return"><para><computeroutput>true</computeroutput> if successfully added, else false </para>
+</simplesect>
+<simplesect kind="warning"><para>Does not entertain 0 in the elements of *encoding. Only +1/-1 are allowed to not encounter undefined behavior. As a result, not meant for high level code. Instead use LCP::addPoliesFromEncoding. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="39" column="8" bodyfile="src/lcp/PolyLCP.cpp" bodystart="100" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1af818f34c0c90869f0d0f31400908174a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_game_1_1_poly_l_c_p" kindref="compound">PolyLCP</ref> &amp;</type>
+        <definition>Game::PolyLCP &amp; Game::PolyLCP::addPoliesFromEncoding</definition>
+        <argsstring>(std::vector&lt; short int &gt; encoding, bool checkFeas=false, bool custom=false, spmat_Vec *custAi={}, vec_Vec *custbi={})</argsstring>
+        <name>addPoliesFromEncoding</name>
+        <param>
+          <type>std::vector&lt; short int &gt;</type>
+          <declname>encoding</declname>
+          <briefdescription><para>A vector of +1, 0 and -1 referring to which equations and variables are taking 0 value. </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>checkFeas</declname>
+          <defval>false</defval>
+          <briefdescription><para>The polyhedron is added after ensuring feasibility, if this is true </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>custom</declname>
+          <defval>false</defval>
+          <briefdescription><para>Should the polyhedra be pushed into a custom vector of polyhedra as opposed to <ref refid="class_game_1_1_l_c_p_1a8f71d6ee194330de1441c3911b74bff6" kindref="member">LCP::Ai</ref> and <ref refid="class_game_1_1_l_c_p_1afcae3294d6a3492d4a1b77a1d72ccf60" kindref="member">LCP::bi</ref> </para>
+</briefdescription>
+        </param>
+        <param>
+          <type><ref refid="epecsolve_8h_1a47898f11e7a4b7433acbc77588a0dc03" kindref="member">spmat_Vec</ref> *</type>
+          <declname>custAi</declname>
+          <defval>{}</defval>
+          <briefdescription><para>If custom polyhedra vector is used, pointer to vector of LHS constraint matrix </para>
+</briefdescription>
+        </param>
+        <param>
+          <type><ref refid="epecsolve_8h_1a8d8c882d060c4d307810fdf04a6314c6" kindref="member">vec_Vec</ref> *</type>
+          <declname>custbi</declname>
+          <defval>{}</defval>
+          <briefdescription><para>If custom polyhedra vector is used, pointer to vector of RHS of constraints </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+<para>Computes the equation of the feasibility polyhedron corresponding to the given <computeroutput>encoding</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The computed polyhedron are always pushed into a vector of <computeroutput>arma::sp_mat</computeroutput> and <computeroutput>arma::vec</computeroutput> If <computeroutput>custom</computeroutput> is false, this is the internal attribute of <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref>, which are <ref refid="class_game_1_1_l_c_p_1a8f71d6ee194330de1441c3911b74bff6" kindref="member">LCP::Ai</ref> and <ref refid="class_game_1_1_l_c_p_1afcae3294d6a3492d4a1b77a1d72ccf60" kindref="member">LCP::bi</ref>. Otherwise, the vectors can be provided as arguments. <computeroutput>true</computeroutput> value to <computeroutput>checkFeas</computeroutput> ensures that <emphasis>each</emphasis> polyhedron that is pushed is feasible. not meant for high level code. Instead use LCP::addPoliesFromEncoding. <simplesect kind="note"><para>A value of 0 in <computeroutput>*encoding</computeroutput> implies that polyhedron corresponding to fixing the corresponding variable as well as the equation become candidates to pushed into the vector. Hence this is preferred over LCP::addPolyFromEncoding for high-level usage. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="42" column="11" bodyfile="src/lcp/PolyLCP.cpp" bodystart="189" bodyend="237"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1ac537ae30d8104c3c8a598783474a4bb4" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned long int</type>
+        <definition>unsigned long int Game::PolyLCP::getNextPoly</definition>
+        <argsstring>(Game::EPECAddPolyMethod method)</argsstring>
+        <name>getNextPoly</name>
+        <param>
+          <type><ref refid="namespace_game_1a1575f114564e7083eaa22c1ae0b2e066" kindref="member">Game::EPECAddPolyMethod</ref></type>
+          <declname>method</declname>
+          <briefdescription><para>The method used to add the next polyedron </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Returns a polyhedron (in its decimal encoding) that is neither already known to be infeasible, nor already added in the inner approximation representation.</para>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="45" column="21" bodyfile="src/lcp/PolyLCP.cpp" bodystart="239" bodyend="295"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1a2e7688ed525a53df2640f8059c0c0dd7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Game::PolyLCP::PolyLCP</definition>
+        <argsstring>(GRBEnv *env, const NashGame &amp;N)</argsstring>
+        <name>PolyLCP</name>
+        <param>
+          <type>GRBEnv *</type>
+          <declname>env</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_game_1_1_nash_game" kindref="compound">NashGame</ref> &amp;</type>
+          <declname>N</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="48" column="3" bodyfile="include/lcp/polylcp.h" bodystart="48" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1a82da25777affce68da206232f9a91704" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned long</type>
+        <definition>unsigned long Game::PolyLCP::convNumPoly</definition>
+        <argsstring>() const</argsstring>
+        <name>convNumPoly</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>To be used in interaction with <ref refid="class_game_1_1_l_c_p_1aab450b015162c87d06194c0cd36b26e2" kindref="member">Game::LCP::convexHull</ref>. Gives the number of polyhedra in the current inner approximation of the <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref> feasible region.</para>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="58" column="17" bodyfile="src/lcp/PolyLCP.cpp" bodystart="410" bodyend="417"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1a2e14a1d94151b08c878386de507793b4" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int Game::PolyLCP::convPolyPosition</definition>
+        <argsstring>(unsigned long int i) const</argsstring>
+        <name>convPolyPosition</name>
+        <param>
+          <type>unsigned long int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>For the convex hull of the <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref> feasible region computed, a bunch of variables are added for extended formulation and the added variables c</para>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="59" column="16" bodyfile="src/lcp/PolyLCP.cpp" bodystart="419" bodyend="433"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1a6bd110dfdf561badc1e3f7624589e1e1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int Game::PolyLCP::convPolyWeight</definition>
+        <argsstring>(unsigned long int i) const</argsstring>
+        <name>convPolyWeight</name>
+        <param>
+          <type>unsigned long int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>To be used in interaction with <ref refid="class_game_1_1_l_c_p_1aab450b015162c87d06194c0cd36b26e2" kindref="member">Game::LCP::convexHull</ref>. Gives the position of the variable, which assigns the convex weight to the i-th polyhedron.</para>
+<para>However, if the inner approximation has exactly one polyhedron, then returns 0.</para>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="60" column="16" bodyfile="src/lcp/PolyLCP.cpp" bodystart="435" bodyend="455"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1a4cd4171844f271bba06c271bbe9e02e5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::set&lt; unsigned long int &gt;</type>
+        <definition>std::set&lt;unsigned long int&gt; Game::PolyLCP::getAllPolyhedra</definition>
+        <argsstring>() const</argsstring>
+        <name>getAllPolyhedra</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="62" column="12" bodyfile="include/lcp/polylcp.h" bodystart="62" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1a7894d5934693fb66db0170026e049ff1" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>unsigned long int</type>
+        <definition>unsigned long int Game::PolyLCP::getNumTheoreticalPoly</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>getNumTheoreticalPoly</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="65" column="21" bodyfile="include/lcp/polylcp.h" bodystart="65" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1a069d38458ee626e26cc3ab7700fe9917" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::set&lt; std::vector&lt; short int &gt; &gt;</type>
+        <definition>std::set&lt; std::vector&lt; short int &gt; &gt; Game::PolyLCP::addAPoly</definition>
+        <argsstring>(unsigned long int nPoly=1, Game::EPECAddPolyMethod method=Game::EPECAddPolyMethod::Sequential, std::set&lt; std::vector&lt; short int &gt;&gt; polyhedra={})</argsstring>
+        <name>addAPoly</name>
+        <param>
+          <type>unsigned long int</type>
+          <declname>nPoly</declname>
+          <defval>1</defval>
+        </param>
+        <param>
+          <type><ref refid="namespace_game_1a1575f114564e7083eaa22c1ae0b2e066" kindref="member">Game::EPECAddPolyMethod</ref></type>
+          <declname>method</declname>
+          <defval><ref refid="namespace_game_1a1575f114564e7083eaa22c1ae0b2e066aa7e82daa7280af25afbaa076ac16eb1e" kindref="member">Game::EPECAddPolyMethod::Sequential</ref></defval>
+        </param>
+        <param>
+          <type>std::set&lt; std::vector&lt; short int &gt;&gt;</type>
+          <declname>polyhedra</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Tries to add at most <computeroutput>nPoly</computeroutput> number of polyhedra to the inner approximation representation of the current <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref>. The set of added polyhedra (+1/-1 encoding) is appended to <computeroutput>polyhedra</computeroutput> and returned. The only reason fewer polyhedra might be added is that the fewer polyhedra already represent the feasible region of the <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref>. <computeroutput>method</computeroutput> is casted from Game::EPEC::EPECAddPolyMethod</para>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="69" column="3" bodyfile="src/lcp/PolyLCP.cpp" bodystart="298" bodyend="351"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1a6cbd0139e8f432d15287387b7be7bfeb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Game::PolyLCP::addThePoly</definition>
+        <argsstring>(const unsigned long int &amp;decimalEncoding)</argsstring>
+        <name>addThePoly</name>
+        <param>
+          <type>const unsigned long int &amp;</type>
+          <declname>decimalEncoding</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="72" column="8" bodyfile="src/lcp/PolyLCP.cpp" bodystart="352" bodyend="364"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1abfb1de17bc930bc70bb32b845a0e5479" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Game::PolyLCP::checkPolyFeas</definition>
+        <argsstring>(const unsigned long int &amp;decimalEncoding)</argsstring>
+        <name>checkPolyFeas</name>
+        <param>
+          <type>const unsigned long int &amp;</type>
+          <declname>decimalEncoding</declname>
+          <briefdescription><para>Decimal encoding for the polyhedron </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="73" column="8" bodyfile="src/lcp/PolyLCP.cpp" bodystart="457" bodyend="463"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1ace347a389d26d3151793b09e57efa84f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Game::PolyLCP::checkPolyFeas</definition>
+        <argsstring>(const std::vector&lt; short int &gt; &amp;encoding)</argsstring>
+        <name>checkPolyFeas</name>
+        <param>
+          <type>const std::vector&lt; short int &gt; &amp;</type>
+          <declname>encoding</declname>
+          <briefdescription><para>A vector of +1 and -1 referring to which equations and variables are taking 0 value.) </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Check whether the given polyhedron is or is not feasible. @detail Given a +1/-1 encoding of a polyhedron, first checks if the polyhedron is a previously known feasible polyhedron or previously known infeasible polyhedron. If yes, returns the result appropriately. If not, solves a linear program to decide the feasibility of the given polyhedra.</para>
+<para>Not <computeroutput>const</computeroutput> because it could update <ref refid="class_game_1_1_poly_l_c_p_1a43b7818d5d08faf88fb9c1ab51a7a6dc" kindref="member">Game::PolyLCP::InfeasiblePoly</ref> and <ref refid="class_game_1_1_poly_l_c_p_1aeb53a1e8548bb1e802c5fa000ec98009" kindref="member">Game::PolyLCP::FeasiblePoly</ref>.</para>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="74" column="8" bodyfile="src/lcp/PolyLCP.cpp" bodystart="465" bodyend="545"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1a284ba47f087abd272c48e77c20060d45" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Game::PolyLCP::clearPolyhedra</definition>
+        <argsstring>()</argsstring>
+        <name>clearPolyhedra</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="75" column="8" bodyfile="include/lcp/polylcp.h" bodystart="75" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1ad0a82937558cb85efccde85308ce6997" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_game_1_1_poly_l_c_p" kindref="compound">PolyLCP</ref> &amp;</type>
+        <definition>Game::PolyLCP &amp; Game::PolyLCP::addPolyFromX</definition>
+        <argsstring>(const arma::vec &amp;x, bool &amp;ret)</argsstring>
+        <name>addPolyFromX</name>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>bool &amp;</type>
+          <declname>ret</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Given a <emphasis> feasible </emphasis> point <computeroutput>x</computeroutput>, checks if a polyhedron that contains <computeroutput>x</computeroutput> is already a part of this-&gt;Ai and this-&gt; bi. If it is, then this does nothing, except for printing a log message. If not, it adds a polyhedron containing this vector. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="80" column="11" bodyfile="src/lcp/PolyLCP.cpp" bodystart="59" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1aebdc0ed41bb918c136f40c01b0c9fef2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_game_1_1_poly_l_c_p" kindref="compound">PolyLCP</ref> &amp;</type>
+        <definition>Game::PolyLCP &amp; Game::PolyLCP::enumerateAll</definition>
+        <argsstring>(bool solveLP=true)</argsstring>
+        <name>enumerateAll</name>
+        <param>
+          <type>bool</type>
+          <declname>solveLP</declname>
+          <defval>true</defval>
+          <briefdescription><para>Should the polyhedra added be checked for feasibility? </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+<para>Brute force computation of <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref> feasible region. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Computes all <formula id="20">$2^n$</formula> polyhedra defining the <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref> feasible region. Th ese are always added to <ref refid="class_game_1_1_l_c_p_1a8f71d6ee194330de1441c3911b74bff6" kindref="member">LCP::Ai</ref> and <ref refid="class_game_1_1_l_c_p_1afcae3294d6a3492d4a1b77a1d72ccf60" kindref="member">LCP::bi</ref> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="81" column="11" bodyfile="src/lcp/PolyLCP.cpp" bodystart="366" bodyend="392"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1ab3da884aa6d7966d9482c8e3830aa464" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string Game::PolyLCP::feasabilityDetailString</definition>
+        <argsstring>() const</argsstring>
+        <name>feasabilityDetailString</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Returns a string that has the decimal encoding of all polyhedra which are part of <ref refid="class_game_1_1_poly_l_c_p_1ad54ed6c8eacb53c2d56bece722cf8bc4" kindref="member">Game::PolyLCP::AllPolyhedra</ref></para>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="82" column="15" bodyfile="src/lcp/PolyLCP.cpp" bodystart="394" bodyend="408"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1a8bf2b9f101f4dacc2d4e7a115d795a36" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int Game::PolyLCP::getFeasiblePolyhedra</definition>
+        <argsstring>() const</argsstring>
+        <name>getFeasiblePolyhedra</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lcp/polylcp.h" line="83" column="16" bodyfile="include/lcp/polylcp.h" bodystart="83" bodyend="83"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Game::PolyLCP</label>
+        <link refid="class_game_1_1_poly_l_c_p"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Game::LCP</label>
+        <link refid="class_game_1_1_l_c_p"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Game::PolyLCP</label>
+        <link refid="class_game_1_1_poly_l_c_p"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Game::LCP</label>
+        <link refid="class_game_1_1_l_c_p"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/lcp/polylcp.h" line="12" column="25" bodyfile="include/lcp/polylcp.h" bodystart="12" bodyend="84"/>
+    <listofallmembers>
+      <member refid="class_game_1_1_l_c_p_1a75112da9c4219c166062a928b437ae60" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>_A</name></member>
+      <member refid="class_game_1_1_l_c_p_1aba71ce89427bac3178dd053b0f92855f" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>_Acut</name></member>
+      <member refid="class_game_1_1_l_c_p_1a0c531992ff29a14f598a54fa67a789a6" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>_b</name></member>
+      <member refid="class_game_1_1_l_c_p_1ae44ef5e71958457bc4c12097f9bdc206" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>_bcut</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1a069d38458ee626e26cc3ab7700fe9917" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>addAPoly</name></member>
+      <member refid="class_game_1_1_l_c_p_1a01cc591a0ab7e4930de2cca20ff623ff" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>addCustomCuts</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1af818f34c0c90869f0d0f31400908174a" prot="private" virt="non-virtual"><scope>Game::PolyLCP</scope><name>addPoliesFromEncoding</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1a7488a38884fff8804d17024c3a1c1433" prot="private" virt="non-virtual"><scope>Game::PolyLCP</scope><name>addPolyFromEncoding</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1ad0a82937558cb85efccde85308ce6997" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>addPolyFromX</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1a1afb8ebbf1672cc4d0398c0f7265ed56" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>AddPolyMethodSeed</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1a6cbd0139e8f432d15287387b7be7bfeb" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>addThePoly</name></member>
+      <member refid="class_game_1_1_l_c_p_1a8f71d6ee194330de1441c3911b74bff6" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>Ai</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1ad54ed6c8eacb53c2d56bece722cf8bc4" prot="private" virt="non-virtual"><scope>Game::PolyLCP</scope><name>AllPolyhedra</name></member>
+      <member refid="class_game_1_1_l_c_p_1afcae3294d6a3492d4a1b77a1d72ccf60" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>bi</name></member>
+      <member refid="class_game_1_1_l_c_p_1aa729a92224dec4a4bf895a34ca711190" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>BigM</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1abfb1de17bc930bc70bb32b845a0e5479" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>checkPolyFeas</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1ace347a389d26d3151793b09e57efa84f" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>checkPolyFeas</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1a284ba47f087abd272c48e77c20060d45" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>clearPolyhedra</name></member>
+      <member refid="class_game_1_1_l_c_p_1a6dbcd747d3b7a82fcd9079916da001df" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>Compl</name></member>
+      <member refid="class_game_1_1_l_c_p_1abdf05d0d0fb6926b10445bf01707cb20" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>containCut</name></member>
+      <member refid="class_game_1_1_l_c_p_1aab450b015162c87d06194c0cd36b26e2" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>convexHull</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1a82da25777affce68da206232f9a91704" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>convNumPoly</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1a2e14a1d94151b08c878386de507793b4" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>convPolyPosition</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1a6bd110dfdf561badc1e3f7624589e1e1" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>convPolyWeight</name></member>
+      <member refid="class_game_1_1_l_c_p_1a99d7d4a906d78149e7ff1701f6d7d4aa" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>defConst</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1aebdc0ed41bb918c136f40c01b0c9fef2" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>enumerateAll</name></member>
+      <member refid="class_game_1_1_l_c_p_1a5e9a233a5316fb7f3f7c63bb75f4abf6" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>Env</name></member>
+      <member refid="class_game_1_1_l_c_p_1af88f1e7ee2425f584c5acb4868c1b531" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>Eps</name></member>
+      <member refid="class_game_1_1_l_c_p_1a98d96c73d2ec4a19517c6c633d2130b7" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>EpsInt</name></member>
+      <member refid="class_game_1_1_l_c_p_1a2d2876ada5a9d435754561cbbc5b6352" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>errorCheck</name></member>
+      <member refid="class_game_1_1_l_c_p_1a25b0cf47517b0adc600ba5e71f8b98e5" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>extractSols</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1ab3da884aa6d7966d9482c8e3830aa464" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>feasabilityDetailString</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1aeb53a1e8548bb1e802c5fa000ec98009" prot="private" virt="non-virtual"><scope>Game::PolyLCP</scope><name>FeasiblePoly</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1ae58d2fb3672f8962a238caa500239aee" prot="private" virt="non-virtual"><scope>Game::PolyLCP</scope><name>FeasiblePolyhedra</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1a4cd4171844f271bba06c271bbe9e02e5" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>getAllPolyhedra</name></member>
+      <member refid="class_game_1_1_l_c_p_1a56d3a73e7eea32833e3fc4f08c910e7f" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>getCompl</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1a8bf2b9f101f4dacc2d4e7a115d795a36" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>getFeasiblePolyhedra</name></member>
+      <member refid="class_game_1_1_l_c_p_1a7706f73777b1d3b66b1e5b97b04660c1" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>getLEnd</name></member>
+      <member refid="class_game_1_1_l_c_p_1a351c9d968ca93d32bb183bbd56c539c5" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>getLStart</name></member>
+      <member refid="class_game_1_1_l_c_p_1a3ced9ff9dd3e3075326335ebeecc4229" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>getM</name></member>
+      <member refid="class_game_1_1_l_c_p_1ae84003685742b9de4c91b21e91055970" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>getMstar</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1ac537ae30d8104c3c8a598783474a4bb4" prot="private" virt="non-virtual"><scope>Game::PolyLCP</scope><name>getNextPoly</name></member>
+      <member refid="class_game_1_1_l_c_p_1aba5830b8f67b850954ac372aaf420e19" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>getNumberLeader</name></member>
+      <member refid="class_game_1_1_l_c_p_1a1bfe98fa1f54f78e2e7524737b573bfd" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>getNumCols</name></member>
+      <member refid="class_game_1_1_l_c_p_1abebfd11b7cab3a214c31b9ca3442f72e" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>getNumRows</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1a7894d5934693fb66db0170026e049ff1" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>getNumTheoreticalPoly</name></member>
+      <member refid="class_game_1_1_l_c_p_1a3cc8c85eca98fb717a4487dc7ed692cd" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>getq</name></member>
+      <member refid="class_game_1_1_l_c_p_1a52df9c31f5d00c00803fe1a6f4b60534" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>getqstar</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1a43b7818d5d08faf88fb9c1ab51a7a6dc" prot="private" virt="non-virtual"><scope>Game::PolyLCP</scope><name>InfeasiblePoly</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1a216d9f17996fe72731dd33cc2062153e" prot="private" virt="non-virtual"><scope>Game::PolyLCP</scope><name>initializeNotProcessed</name></member>
+      <member refid="class_game_1_1_l_c_p_1a4530c61c56c08e195e93f52a15875dd8" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>isZero</name></member>
+      <member refid="class_game_1_1_l_c_p_1a8f354ec1846b682d4e8d526c4408e702" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>LCP</name></member>
+      <member refid="class_game_1_1_l_c_p_1affd1945600584a97ee0b95a803e70a93" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>LCP</name></member>
+      <member refid="class_game_1_1_l_c_p_1af6442053d33eb07c14bdfcad02d4cbea" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>LCP</name></member>
+      <member refid="class_game_1_1_l_c_p_1a26af85e6c2bca5744cf2148da9539f31" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>LCP</name></member>
+      <member refid="class_game_1_1_l_c_p_1ad05015288e6d7ae561cea30233128840" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>LCP</name></member>
+      <member refid="class_game_1_1_l_c_p_1a4c22fc6e301f34d6649e255e692d5799" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>LCPasMIP</name></member>
+      <member refid="class_game_1_1_l_c_p_1a460788245a88de27ebea9aece253a832" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>LCPasMIP</name></member>
+      <member refid="class_game_1_1_l_c_p_1aac1de9da2006efce0cecc1881efba0b6" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>LCPasMIP</name></member>
+      <member refid="class_game_1_1_l_c_p_1ae9389315873f8bf470c9ed80250c65f5" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>LCPasQP</name></member>
+      <member refid="class_game_1_1_l_c_p_1a5842889dd444dceda535c0e464775d80" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>LeadEnd</name></member>
+      <member refid="class_game_1_1_l_c_p_1a3626cacccb0d8ab0e1a88f8f1a3659f9" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>LeadStart</name></member>
+      <member refid="class_game_1_1_l_c_p_1a474418dda015aabcfde678cfe45b4080" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>load</name></member>
+      <member refid="class_game_1_1_l_c_p_1a220ce78f11a0e9550cec63d65411c5f4" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>M</name></member>
+      <member refid="class_game_1_1_l_c_p_1a2145443fd73ae38b4e4b02637bf6a0e2" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>MadeRlxdModel</name></member>
+      <member refid="class_game_1_1_l_c_p_1ad40426b0333d8502982333317c8c52ea" prot="public" virt="virtual"><scope>Game::PolyLCP</scope><name>makeQP</name></member>
+      <member refid="class_game_1_1_l_c_p_1a777726134bf9ffc8fa0c6bfe8ffdb6fc" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>makeRelaxed</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1addf773dfc5bf76c80c04b0f68c7285fc" prot="private" virt="non-virtual"><scope>Game::PolyLCP</scope><name>MaxTheoreticalPoly</name></member>
+      <member refid="class_game_1_1_l_c_p_1a966ef9dc503c215501e27dcfe02af8ff" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>MPECasMILP</name></member>
+      <member refid="class_game_1_1_l_c_p_1a7e9ffaa72ecfd60e2fa3155d011f720b" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>MPECasMIQP</name></member>
+      <member refid="class_game_1_1_l_c_p_1abeaadbce4a891d3575dddae796592c72" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>nC</name></member>
+      <member refid="class_game_1_1_l_c_p_1aa209e8dc6b817bff5750b1f98f1a6a6d" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>nR</name></member>
+      <member refid="class_game_1_1_l_c_p_1a0a8544f8b93d3ed9f7c07580f48c3151" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>NumberLeader</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1a2e7688ed525a53df2640f8059c0c0dd7" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>PolyLCP</name></member>
+      <member refid="class_game_1_1_l_c_p_1a0b673739018e4626f4f08b453e580eab" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>print</name></member>
+      <member refid="class_game_1_1_l_c_p_1afffdded2f61d6dee34f312c8a2e4b356" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>q</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1a32f2873bad1c17318ceca6e60663a85f" prot="private" virt="non-virtual"><scope>Game::PolyLCP</scope><name>ReverseSequentialPolyCounter</name></member>
+      <member refid="class_game_1_1_l_c_p_1a187fe2df5192bc2354944d807a361333" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>RlxdModel</name></member>
+      <member refid="class_game_1_1_l_c_p_1a7c3f4e815fd66dd5d516d911f588857c" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>save</name></member>
+      <member refid="class_game_1_1_poly_l_c_p_1aa0dc3451597d6e1d1c97018ed19b6168" prot="private" virt="non-virtual"><scope>Game::PolyLCP</scope><name>SequentialPolyCounter</name></member>
+      <member refid="class_game_1_1_l_c_p_1a9cb1d44937ea87d794352f94bf1f6fe3" prot="protected" virt="non-virtual"><scope>Game::PolyLCP</scope><name>solEncode</name></member>
+      <member refid="class_game_1_1_l_c_p_1ae7cfc28ee5fe3b678522e191cf265fe3" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>solEncode</name></member>
+      <member refid="class_game_1_1_l_c_p_1a33a303e1e3643475f06dd1204dd6c27c" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>solEncode</name></member>
+      <member refid="class_game_1_1_l_c_p_1ac7b07ba8761ea4fbd7164febaf25d696" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>UseIndicators</name></member>
+      <member refid="class_game_1_1_l_c_p_1abd4348549394ab1692315b26620eceab" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>write</name></member>
+      <member refid="class_game_1_1_l_c_p_1ab5c2258c4d017ca269c42ba1d689c5ed" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>zFromX</name></member>
+      <member refid="class_game_1_1_l_c_p_1acd69c7ff6422ebbb8ab0b5d83812e262" prot="public" virt="non-virtual"><scope>Game::PolyLCP</scope><name>~LCP</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

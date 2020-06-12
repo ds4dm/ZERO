@@ -1,0 +1,1088 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="class_models_1_1_e_p_e_c" kind="class" language="C++" prot="public">
+    <compoundname>Models::EPEC</compoundname>
+    <basecompoundref refid="class_game_1_1_e_p_e_c" prot="public" virt="non-virtual">Game::EPEC</basecompoundref>
+    <includes refid="models_8h" local="no">models.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1abf67fd852539ed21d238381efec1affa" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="struct_models_1_1_lead_all_par" kindref="compound">LeadAllPar</ref> &gt;</type>
+        <definition>std::vector&lt;LeadAllPar&gt; Models::EPEC::AllLeadPars</definition>
+        <argsstring></argsstring>
+        <name>AllLeadPars</name>
+        <initializer>=
+      {}</initializer>
+        <briefdescription>
+<para>The parameters of each leader in the <ref refid="class_models_1_1_e_p_e_c" kindref="compound">EPEC</ref> game. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="186" column="15" bodyfile="include/models.h" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1adde9b8a110bf03c10b036f5004bc721e" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::shared_ptr&lt; <ref refid="class_game_1_1_q_p___param" kindref="compound">Game::QP_Param</ref> &gt; &gt;</type>
+        <definition>std::vector&lt;std::shared_ptr&lt;Game::QP_Param&gt; &gt; Models::EPEC::MC_QP</definition>
+        <argsstring></argsstring>
+        <name>MC_QP</name>
+        <initializer>=
+      {}</initializer>
+        <briefdescription>
+<para>player </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The QP corresponding to the market clearing condition of each </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="188" column="15" bodyfile="include/models.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1afe2b46d396e7980d8336099d8d916b19" prot="private" static="no" mutable="no">
+        <type>arma::sp_mat</type>
+        <definition>arma::sp_mat Models::EPEC::TranspCosts</definition>
+        <argsstring></argsstring>
+        <name>TranspCosts</name>
+        <initializer>=
+      {}</initializer>
+        <briefdescription>
+<para>Transportation costs between pairs of countries. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="191" column="16" bodyfile="include/models.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1a4de4147addd36ee7df8e0944bfa017ea" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; unsigned int &gt;</type>
+        <definition>std::vector&lt;unsigned int&gt; Models::EPEC::nImportMarkets</definition>
+        <argsstring></argsstring>
+        <name>nImportMarkets</name>
+        <initializer>=
+      {}</initializer>
+        <briefdescription>
+<para>Number of countries from which the i-th country imports. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="193" column="15" bodyfile="include/models.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1ac8aaf82d32d88e211018505a5c99907a" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="namespace_models_1aec9f0d1d113730ec8734d5f6ab9cab9d" kindref="member">LeadLocs</ref> &gt;</type>
+        <definition>std::vector&lt;LeadLocs&gt; Models::EPEC::Locations</definition>
+        <argsstring></argsstring>
+        <name>Locations</name>
+        <initializer>=
+      {}</initializer>
+        <briefdescription>
+<para>Location of variables for each country. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="195" column="15" bodyfile="include/models.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1af93e428bf0f642c3f46dc9d34641a74d" prot="private" static="no" mutable="no">
+        <type>std::map&lt; std::string, unsigned int &gt;</type>
+        <definition>std::map&lt;std::string, unsigned int&gt; Models::EPEC::name2nos</definition>
+        <argsstring></argsstring>
+        <name>name2nos</name>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="198" column="12" bodyfile="include/models.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1a90bc7510117aa20be8fb042f35351320" prot="private" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int Models::EPEC::taxVars</definition>
+        <argsstring></argsstring>
+        <name>taxVars</name>
+        <initializer>= {0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="199" column="16" bodyfile="include/models.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1ac2c5e7306ea5ab51ea953abdf9e4447f" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; arma::sp_mat &gt;</type>
+        <definition>std::vector&lt;arma::sp_mat&gt; Models::EPEC::LeadConses</definition>
+        <argsstring></argsstring>
+        <name>LeadConses</name>
+        <initializer>{}</initializer>
+        <briefdescription>
+<para>Stores each leader&apos;s constraint LHS. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="201" column="7" bodyfile="include/models.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1af6b6f5d1fb8f3eb3ba888bc5fd656bc6" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; arma::vec &gt;</type>
+        <definition>std::vector&lt;arma::vec&gt; Models::EPEC::LeadRHSes</definition>
+        <argsstring></argsstring>
+        <name>LeadRHSes</name>
+        <initializer>{}</initializer>
+        <briefdescription>
+<para>Stores each leader&apos;s constraint RHS. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="202" column="15" bodyfile="include/models.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1a967c713d494e56a70652d0b5aad10045" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Models::EPEC::quadraticTax</definition>
+        <argsstring></argsstring>
+        <name>quadraticTax</name>
+        <initializer>= {false}</initializer>
+        <briefdescription>
+<para>is added to each leader objective </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If set to true, a term for the quadratic tax </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="241" column="8" bodyfile="include/models.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a189ce1f5b375df11455f428a40738039" prot="private" static="no" const="no" explicit="no" inline="no" final="yes" virt="virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::makeObjectivePlayer</definition>
+        <argsstring>(const unsigned int i, Game::QP_Objective &amp;QP_obj) final</argsstring>
+        <name>makeObjectivePlayer</name>
+        <reimplements refid="class_game_1_1_e_p_e_c_1a2ee93319f7d964f4c5df850bcf27504e">makeObjectivePlayer</reimplements>
+        <param>
+          <type>const unsigned int</type>
+          <declname>i</declname>
+          <briefdescription><para>The location of the country whose objective is to be made </para>
+</briefdescription>
+        </param>
+        <param>
+          <type><ref refid="struct_game_1_1_q_p___objective" kindref="compound">Game::QP_Objective</ref> &amp;</type>
+          <declname>QP_obj</declname>
+          <briefdescription><para>The object where the objective parameters are to be stored. </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Makes the objective function of each country. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="173" column="8" bodyfile="src/Models.cpp" bodystart="923" bodyend="979"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1adb4f3499fa2c03522ce997f0c3f63316" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::updateLocations</definition>
+        <argsstring>() override</argsstring>
+        <name>updateLocations</name>
+        <reimplements refid="class_game_1_1_e_p_e_c_1a54e18b35ce3b7ce266daedf76759bef9">updateLocations</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This function is called after <ref refid="class_game_1_1_e_p_e_c_1a66b446e508a6079805e7d8900f5db4ed" kindref="member">makePlayerQP()</ref> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="176" column="8" bodyfile="src/Models.cpp" bodystart="986" bodyend="999"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1aa9dacf6f8965a70a18d47e196cb6f03f" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::preFinalize</definition>
+        <argsstring>() override</argsstring>
+        <name>preFinalize</name>
+        <reimplements refid="class_game_1_1_e_p_e_c_1abea72c0ff571c5168047e9a42e4182af">preFinalize</reimplements>
+        <briefdescription>
+<para>Empty function - optionally reimplementable in derived class. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function can be optionally implemented by the derived class. Code in this class will be run <emphasis>before</emphasis> calling <ref refid="class_game_1_1_e_p_e_c_1ab32d89068adc66f100a266bbf31bf63e" kindref="member">Game::EPEC::finalize()</ref>. </para>
+        </detaileddescription>
+        <inbodydescription>
+<para>Does the following:<orderedlist>
+<listitem><para>Adds the trade balance constraint for all leaders. i.e., total import must equal sum of import from each country</para>
+</listitem><listitem><para>Stores the number of import markets for each country in <ref refid="class_models_1_1_e_p_e_c_1a4de4147addd36ee7df8e0944bfa017ea" kindref="member">Models::EPEC::nImportMarkets</ref></para>
+</listitem></orderedlist>
+</para>
+        </inbodydescription>
+        <location file="include/models.h" line="178" column="8" bodyfile="src/Models.cpp" bodystart="644" bodyend="674"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a2e38c1ac580d46b2a0bdaa36a8d46e63" prot="private" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::postFinalize</definition>
+        <argsstring>() override</argsstring>
+        <name>postFinalize</name>
+        <reimplements refid="class_game_1_1_e_p_e_c_1aba9fd1fa8c9ee2e70afc62232ecfd6b0">postFinalize</reimplements>
+        <briefdescription>
+<para>Empty function - optionally reimplementable in derived class. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function can be optionally implemented by the derived class. Code in this class will be run <emphasis>after</emphasis> calling <ref refid="class_game_1_1_e_p_e_c_1ab32d89068adc66f100a266bbf31bf63e" kindref="member">Game::EPEC::finalize()</ref>. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="180" column="8" bodyfile="include/models.h" bodystart="180" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a78f228dd404eb6167125d1de1df3340a" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Models::EPEC::dataCheck</definition>
+        <argsstring>(bool chkAllLeadPars=true, bool chkcountriesLL=true, bool chkMC_QP=true, bool chkLeadConses=true, bool chkLeadRHSes=true, bool chknImportMarkets=true, bool chkLocations=true, bool chkLeaderLocations=true, bool chkLeadObjec=true) const</argsstring>
+        <name>dataCheck</name>
+        <param>
+          <type>bool</type>
+          <declname>chkAllLeadPars</declname>
+          <defval>true</defval>
+          <briefdescription><para>Checks if <ref refid="class_models_1_1_e_p_e_c_1abf67fd852539ed21d238381efec1affa" kindref="member">Models::EPEC::AllLeadPars</ref> has size <computeroutput>n</computeroutput> </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>chkcountriesLL</declname>
+          <defval>true</defval>
+          <briefdescription><para>Checks if <ref refid="class_game_1_1_e_p_e_c_1a1dc1b8bd642e450bc1e30eefe963fe13" kindref="member">Models::EPEC::PlayersLowerLevels</ref> has size <computeroutput>n</computeroutput> </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>chkMC_QP</declname>
+          <defval>true</defval>
+          <briefdescription><para>Checks if <ref refid="class_models_1_1_e_p_e_c_1adde9b8a110bf03c10b036f5004bc721e" kindref="member">Models::EPEC::MC_QP</ref> has size <computeroutput>n</computeroutput> </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>chkLeadConses</declname>
+          <defval>true</defval>
+          <briefdescription><para>Checks if <ref refid="class_models_1_1_e_p_e_c_1ac2c5e7306ea5ab51ea953abdf9e4447f" kindref="member">Models::EPEC::LeadConses</ref> has size <computeroutput>n</computeroutput> </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>chkLeadRHSes</declname>
+          <defval>true</defval>
+          <briefdescription><para>Checks if <ref refid="class_models_1_1_e_p_e_c_1af6b6f5d1fb8f3eb3ba888bc5fd656bc6" kindref="member">Models::EPEC::LeadRHSes</ref> has size <computeroutput>n</computeroutput> </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>chknImportMarkets</declname>
+          <defval>true</defval>
+          <briefdescription><para>Checks if <ref refid="class_models_1_1_e_p_e_c_1a4de4147addd36ee7df8e0944bfa017ea" kindref="member">Models::EPEC::nImportMarkets</ref> has size <computeroutput>n</computeroutput> </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>chkLocations</declname>
+          <defval>true</defval>
+          <briefdescription><para>Checks if <ref refid="class_models_1_1_e_p_e_c_1ac8aaf82d32d88e211018505a5c99907a" kindref="member">Models::EPEC::Locations</ref> has size <computeroutput>n</computeroutput> </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>chkLeaderLocations</declname>
+          <defval>true</defval>
+          <briefdescription><para>Checks if <ref refid="class_game_1_1_e_p_e_c_1a59b0ccd12c05db259bb7ca056daf453d" kindref="member">Models::EPEC::LeaderLocations</ref> has size <computeroutput>n</computeroutput> and <ref refid="class_game_1_1_e_p_e_c_1afc5252004b0a5c875fdf4517ba60fecd" kindref="member">Models::EPEC::NumVariables</ref> is set </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>chkLeadObjec</declname>
+          <defval>true</defval>
+          <briefdescription><para>Checks if <ref refid="class_game_1_1_e_p_e_c_1a191a899d044f94263965f8d184259e5b" kindref="member">Models::EPEC::LeaderObjective</ref> has size <computeroutput>n</computeroutput> </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Checks the data in <ref refid="class_models_1_1_e_p_e_c" kindref="compound">Models::EPEC</ref> object, based on checking flags, <computeroutput>n</computeroutput> is the number of countries in the <ref refid="class_models_1_1_e_p_e_c" kindref="compound">Models::EPEC</ref> object. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="204" column="8" bodyfile="src/Models.cpp" bodystart="830" bodyend="877"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a043aff53098136d5f60d53a839b0ed85" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Models::EPEC::ParamValid</definition>
+        <argsstring>(const LeadAllPar &amp;Param) const</argsstring>
+        <name>ParamValid</name>
+        <param>
+          <type>const <ref refid="struct_models_1_1_lead_all_par" kindref="compound">LeadAllPar</ref> &amp;</type>
+          <declname>Param</declname>
+          <defname>Params</defname>
+          <briefdescription><para>Object whose validity is to be tested </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+<para>Checks the Validity of <ref refid="struct_models_1_1_lead_all_par" kindref="compound">Models::LeadAllPar</ref> object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Checks that the parameter given to add a country is valid. Does not have obvious errors</para>
+<para>Checks the following:<itemizedlist>
+<listitem><para>Size of FollowerParam.costs_lin, FollowerParam.costs_quad, FollowerParam.capacities, FollowerParam.emission_costs are all equal to <computeroutput>Params.n_followers</computeroutput> - <computeroutput>DemandParam.alpha</computeroutput> and <computeroutput>DemandParam.beta</computeroutput> are greater than zero - <computeroutput>name</computeroutput> is not empty - <computeroutput>name</computeroutput> does not match with the name of any other existing countries in the <ref refid="class_models_1_1_e_p_e_c" kindref="compound">EPEC</ref> object. </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="213" column="8" bodyfile="src/Models.cpp" bodystart="154" bodyend="185"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1afc7d4b6c72f488300b31cf51db2f81d6" prot="private" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::make_LL_QP</definition>
+        <argsstring>(const LeadAllPar &amp;Params, const unsigned int follower, Game::QP_Param *Foll, const LeadLocs &amp;Loc) noexcept</argsstring>
+        <name>make_LL_QP</name>
+        <param>
+          <type>const <ref refid="struct_models_1_1_lead_all_par" kindref="compound">LeadAllPar</ref> &amp;</type>
+          <declname>Params</declname>
+          <briefdescription><para>The Parameters object </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>const unsigned int</type>
+          <declname>follower</declname>
+          <briefdescription><para>Which follower&apos;s QP has to be made? </para>
+</briefdescription>
+        </param>
+        <param>
+          <type><ref refid="class_game_1_1_q_p___param" kindref="compound">Game::QP_Param</ref> *</type>
+          <declname>Foll</declname>
+          <briefdescription><para>Non-owning pointer to the Follower QP_Param object </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>const <ref refid="namespace_models_1aec9f0d1d113730ec8734d5f6ab9cab9d" kindref="member">LeadLocs</ref> &amp;</type>
+          <declname>Loc</declname>
+          <briefdescription><para>LeadLocs object for accessing different leader locations. </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+<para>Makes the lower level quadratic program object for each follower. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Makes Lower Level Quadratic Programs.</para>
+<para>Sets the constraints and objective for the lower level problem (i.e., the follower) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="216" column="8" bodyfile="src/Models.cpp" bodystart="187" bodyend="248"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1ac0317095ef32ba34772c9e73f26dc0ad" prot="private" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::make_LL_LeadCons</definition>
+        <argsstring>(arma::sp_mat &amp;LeadCons, arma::vec &amp;LeadRHS, const LeadAllPar &amp;Param, const Models::LeadLocs &amp;Loc={}, const unsigned int import_lim_cons=1, const unsigned int export_lim_cons=1, const unsigned int price_lim_cons=1, const unsigned int activeTaxCaps=0) const noexcept</argsstring>
+        <name>make_LL_LeadCons</name>
+        <param>
+          <type>arma::sp_mat &amp;</type>
+          <declname>LeadCons</declname>
+          <briefdescription><para>The LHS matrix of leader constraints (for output) </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>arma::vec &amp;</type>
+          <declname>LeadRHS</declname>
+          <briefdescription><para>RHS vector for leader constraints (for output) </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>const <ref refid="struct_models_1_1_lead_all_par" kindref="compound">LeadAllPar</ref> &amp;</type>
+          <declname>Param</declname>
+          <defname>Params</defname>
+          <briefdescription><para>All country specific parameters </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>const <ref refid="namespace_models_1aec9f0d1d113730ec8734d5f6ab9cab9d" kindref="member">Models::LeadLocs</ref> &amp;</type>
+          <declname>Loc</declname>
+          <defval>{}</defval>
+          <briefdescription><para>Location of variables </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>const unsigned int</type>
+          <declname>import_lim_cons</declname>
+          <defval>1</defval>
+          <briefdescription><para>Does a constraint on import limit exist or no limit? </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>const unsigned int</type>
+          <declname>export_lim_cons</declname>
+          <defval>1</defval>
+          <briefdescription><para>Does a constraint on export limit exist or no limit? </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>const unsigned int</type>
+          <declname>price_lim_cons</declname>
+          <defval>1</defval>
+          <briefdescription><para>Does a constraint on price limit exist or no limit? </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>const unsigned int</type>
+          <declname>activeTaxCaps</declname>
+          <defval>0</defval>
+          <briefdescription><para>Number of active Tax Caps constraints. If strictly positive, tax cap constraint(s) will be enforced </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+<para>Makes the leader constraint matrix and RHS. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Makes the leader level constraints for a country. The constraints added are as follows: <formula id="21">\begin{eqnarray} t_i^{I} &amp;\leq&amp; \bar{t_i^{I}}\\ q^{import} - q^{export} &amp;\leq&amp; \bar{q^{import}}\\ q^{export} - q^{import} &amp;\leq&amp; \bar{q^{export}}\\ \alpha - \beta\left(q^{import} - q^{export} + \sum_i q_i \right) &amp;\leq&amp; *\bar{\pi}\\ q^{export} &amp;\leq&amp; \sum_i q_i +q^{import} \end{eqnarray}</formula> Here <formula id="22">$\bar{q^{import}}$</formula> and <formula id="23">$\bar{q^{export}}$</formula> denote the net import limit and export limit respectively. <formula id="24">$\bar\pi$</formula> is the maximum local price that the government desires to have.</para>
+<para>The first two constraints above limit net imports and exports respectively. The third constraint limits local price. These constraints are added only if the RHS parameters are given as non-negative value. A default value of -1 to any of these parameters (given in <ref refid="struct_models_1_1_lead_all_par" kindref="compound">Models::LeadAllPar</ref> <computeroutput>Params</computeroutput> object) ensures that these constraints are not added. The last constraint is <emphasis>always</emphasis> added. It ensures that the country does not export more than what it has produced + imported! </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="220" column="8" bodyfile="src/Models.cpp" bodystart="250" bodyend="409"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a926d12ae3829db9068a6ce813fbbdfce" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::add_Leaders_tradebalance_constraints</definition>
+        <argsstring>(const unsigned int i)</argsstring>
+        <name>add_Leaders_tradebalance_constraints</name>
+        <param>
+          <type>const unsigned int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+<para>Adds leaders&apos; trade balance constraints for import-exports. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Does the following job:<itemizedlist>
+<listitem><para>Counts the number of import markets for the country <computeroutput>i</computeroutput> to store in <ref refid="class_models_1_1_e_p_e_c_1a4de4147addd36ee7df8e0944bfa017ea" kindref="member">Models::EPEC::nImportMarkets</ref> - Adds the trade balance constraint. Total quantity imported by country <computeroutput>i</computeroutput> = Sum of Total quantity exported by each country to country i. - Updates the LeadLocs in Models::EPEC::Locations.at(i) </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="228" column="8" bodyfile="src/Models.cpp" bodystart="676" bodyend="726"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a295ae8dd8ca635a407940bc78ce8875a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::make_MC_leader</definition>
+        <argsstring>(const unsigned int i)</argsstring>
+        <name>make_MC_leader</name>
+        <param>
+          <type>const unsigned int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+<para>Makes the market clearing constraint for country <computeroutput>i</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Writes the market clearing constraint as a <ref refid="class_game_1_1_q_p___param" kindref="compound">Game::QP_Param</ref> and stores it in <ref refid="class_models_1_1_e_p_e_c_1adde9b8a110bf03c10b036f5004bc721e" kindref="member">Models::EPEC::MC_QP</ref> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="230" column="8" bodyfile="src/Models.cpp" bodystart="767" bodyend="828"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a92ed1b673ace45b835bc07cc9b30e6ea" prot="private" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::makeMCConstraints</definition>
+        <argsstring>(arma::sp_mat &amp;MCLHS, arma::vec &amp;MCRHS) const override</argsstring>
+        <name>makeMCConstraints</name>
+        <reimplements refid="class_game_1_1_e_p_e_c_1abd1f66626593e9f02132467bec62573c">makeMCConstraints</reimplements>
+        <param>
+          <type>arma::sp_mat &amp;</type>
+          <declname>MCLHS</declname>
+        </param>
+        <param>
+          <type>arma::vec &amp;</type>
+          <declname>MCRHS</declname>
+        </param>
+        <briefdescription>
+<para>Returns leader&apos;s Market clearing constraints in matrix form. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="232" column="8" bodyfile="src/Models.cpp" bodystart="728" bodyend="765"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a8400c73da6cca24c5e7fdfd390a19838" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::WriteCountry</definition>
+        <argsstring>(const unsigned int i, const std::string filename, const arma::vec x, const bool append=true) const</argsstring>
+        <name>WriteCountry</name>
+        <param>
+          <type>const unsigned int</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>const std::string</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>const arma::vec</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>append</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="234" column="8" bodyfile="src/Models.cpp" bodystart="1449" bodyend="1511"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a27f68538976f6d41d93dbc51f6711166" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::WriteFollower</definition>
+        <argsstring>(const unsigned int i, const unsigned int j, const std::string filename, const arma::vec x) const</argsstring>
+        <name>WriteFollower</name>
+        <param>
+          <type>const unsigned int</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>const unsigned int</type>
+          <declname>j</declname>
+        </param>
+        <param>
+          <type>const std::string</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>const arma::vec</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="237" column="8" bodyfile="src/Models.cpp" bodystart="1513" bodyend="1586"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1ad2ed81668039c974d5710bac7c1bd8b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Models::EPEC::EPEC</definition>
+        <argsstring>()=delete</argsstring>
+        <name>EPEC</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="246" column="3"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a05bb954912158ca39f123ec1c6cdba9a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Models::EPEC::EPEC</definition>
+        <argsstring>(GRBEnv *env, arma::sp_mat TranspCosts={})</argsstring>
+        <name>EPEC</name>
+        <param>
+          <type>GRBEnv *</type>
+          <declname>env</declname>
+        </param>
+        <param>
+          <type>arma::sp_mat</type>
+          <declname>TranspCosts</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="248" column="3" bodyfile="include/models.h" bodystart="248" bodyend="249"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1ad4eddf9e6d7fa0391db41f647af25fc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::testLCP</definition>
+        <argsstring>(const unsigned int i)</argsstring>
+        <name>testLCP</name>
+        <param>
+          <type>const unsigned int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="252" column="8" bodyfile="src/Models.cpp" bodystart="1588" bodyend="1595"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a14962535c0ee6c0f2669508d850dbfe1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_models_1_1_e_p_e_c" kindref="compound">EPEC</ref> &amp;</type>
+        <definition>Models::EPEC &amp; Models::EPEC::addCountry</definition>
+        <argsstring>(LeadAllPar Params, const unsigned int addnlLeadVars=0)</argsstring>
+        <name>addCountry</name>
+        <param>
+          <type><ref refid="struct_models_1_1_lead_all_par" kindref="compound">LeadAllPar</ref></type>
+          <declname>Params</declname>
+          <briefdescription><para>The Parameter structure for the leader </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>const unsigned int</type>
+          <declname>addnlLeadVars</declname>
+          <defval>0</defval>
+          <briefdescription><para>Create columns with 0s in it. To handle additional dummy leader variables. </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+<para>Models a Standard Nash-Cournot game within a country </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A Nash cournot game is played among the followers, for the leader-decided values of import export, caps and taxations on all players. The total quantity used in the demand equation is the sum of quantity produced by all followers + any import - any export.</para>
+<para>Use <formula id="25">$l_i$</formula> to denote the <formula id="26">$i$</formula>-th element in <computeroutput>costs_lin</computeroutput> and <formula id="27">$q_i$</formula> for the <formula id="26">$i$</formula>-th element in <computeroutput>costs_quad</computeroutput>. Then to produce quantity <formula id="28">$x_i$</formula>, the <formula id="26">$i$</formula>-th producer&apos;s cost will be <formula id="29">\[ l_ix_i + \frac{1}{2}q_ix_i^2 \]</formula> In addition to this, the leader may impose &quot;tax&quot;, which could increase <formula id="25">$l_i$</formula> for each player.</para>
+<para>Total quantity in the market is given by sum of quantities produced by all producers adjusted by imports and exports <formula id="30">\[{Total\quad Quantity} = \sum_i x_i + x_{imp} - x_{exp} \]</formula> The demand curve in the market is given by <formula id="31">\[{Price} = a-b({Total\quad Quantity})\]</formula></para>
+<para>Each follower is also constrained by a maximum production capacity her infrastructure allows. And each follower is constrained by a cap on their production, that is imposed by the leader.</para>
+<para>Each follower decides <formula id="28">$x_i$</formula> noncooperatively maximizing profits.</para>
+<para>The leader decides quantity imported <formula id="32">$q_{imp}$</formula>, quantity exported <formula id="33">$q_{exp}$</formula>, cap on each player, <formula id="34">$\tilde{x_i}$</formula>, and the tax for each player <formula id="35">$t_i$</formula>.</para>
+<para>The leader is also constrained to not export or import anything more than the limits set by <computeroutput>export_limit</computeroutput> and <computeroutput>import_limit</computeroutput>. A negative value to these input variables imply that there is no such limit.</para>
+<para>Similarly the leader cannot also impose tax on any player greater than what is dictated by the input variable <computeroutput>max_tax</computeroutput>.</para>
+<para><simplesect kind="return"><para>Pointer to LCP object dynamically created using <computeroutput>new</computeroutput>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="255" column="8" bodyfile="src/Models.cpp" bodystart="411" bodyend="603"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1ae7423f15fd8596aeebc38d31f04d03c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_models_1_1_e_p_e_c" kindref="compound">EPEC</ref> &amp;</type>
+        <definition>Models::EPEC &amp; Models::EPEC::addTranspCosts</definition>
+        <argsstring>(const arma::sp_mat &amp;costs)</argsstring>
+        <name>addTranspCosts</name>
+        <param>
+          <type>const arma::sp_mat &amp;</type>
+          <declname>costs</declname>
+          <briefdescription><para>The transportation cost matrix </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+<para>Adds intercountry transportation costs matrix. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Adds the transportation cost matrix. Entry in row i and column j of this matrix corresponds to the unit transportation costs for sending fuel from country i to country j. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="262" column="8" bodyfile="src/Models.cpp" bodystart="605" bodyend="642"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a1d74390d88d7f5236d502eba172864ca" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int Models::EPEC::getPosition</definition>
+        <argsstring>(const unsigned int countryCount, const LeaderVars var=LeaderVars::FollowerStart) const</argsstring>
+        <name>getPosition</name>
+        <param>
+          <type>const unsigned int</type>
+          <declname>countryCount</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespace_models_1a64b758b38a6e4004b84630ec087bf76e" kindref="member">LeaderVars</ref></type>
+          <declname>var</declname>
+          <defval><ref refid="namespace_models_1a64b758b38a6e4004b84630ec087bf76eaf2dcda11a77f92f3c0cd7e08f37ce122" kindref="member">LeaderVars::FollowerStart</ref></defval>
+        </param>
+        <briefdescription>
+<para>Gets position of a variable in a country. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="265" column="3" bodyfile="src/Models.cpp" bodystart="879" bodyend="889"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1ab76060f9c18689c85f20583322d3084d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int Models::EPEC::getPosition</definition>
+        <argsstring>(const std::string &amp;countryCount, const LeaderVars var=LeaderVars::FollowerStart) const</argsstring>
+        <name>getPosition</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>countryCount</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespace_models_1a64b758b38a6e4004b84630ec087bf76e" kindref="member">LeaderVars</ref></type>
+          <declname>var</declname>
+          <defval><ref refid="namespace_models_1a64b758b38a6e4004b84630ec087bf76eaf2dcda11a77f92f3c0cd7e08f37ce122" kindref="member">LeaderVars::FollowerStart</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="269" column="3"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a356a22aff221fad903b911014783651f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_models_1_1_e_p_e_c" kindref="compound">EPEC</ref> &amp;</type>
+        <definition>Models::EPEC &amp; Models::EPEC::unlock</definition>
+        <argsstring>()</argsstring>
+        <name>unlock</name>
+        <briefdescription>
+<para>Unlocks an <ref refid="class_models_1_1_e_p_e_c" kindref="compound">EPEC</ref> model. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A Finalized model cannot be edited unless it is unlocked first. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="272" column="8" bodyfile="src/Models.cpp" bodystart="910" bodyend="921"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a536a82c1fa0aa9b3a4e9f84669b17166" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::unique_ptr&lt; GRBModel &gt;</type>
+        <definition>unique_ptr&lt; GRBModel &gt; Models::EPEC::Respond</definition>
+        <argsstring>(const std::string name, const arma::vec &amp;x) const</argsstring>
+        <name>Respond</name>
+        <param>
+          <type>const std::string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="274" column="19" bodyfile="src/Models.cpp" bodystart="981" bodyend="984"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1aea86a7ca6a2f4d0bcedd2d7a02a4db89" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_game_1_1_nash_game" kindref="compound">Game::NashGame</ref> *</type>
+        <definition>Game::NashGame * Models::EPEC::get_LowerLevelNash</definition>
+        <argsstring>(const unsigned int i) const</argsstring>
+        <name>get_LowerLevelNash</name>
+        <param>
+          <type>const unsigned int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+<para>Returns a non-owning pointer to the <computeroutput>i</computeroutput> -th country&apos;s lower level NashGame. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="278" column="18" bodyfile="src/Models.cpp" bodystart="901" bodyend="908"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a7ab042a6cac2e61ce8039f25d9a8a0db" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::write</definition>
+        <argsstring>(const std::string filename, const unsigned int i, bool append=true) const</argsstring>
+        <name>write</name>
+        <param>
+          <type>const std::string</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>const unsigned int</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>append</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="281" column="8"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1ad6045931d0e213e1897f6b018b93575a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::write</definition>
+        <argsstring>(const std::string filename, bool append=true) const</argsstring>
+        <name>write</name>
+        <param>
+          <type>const std::string</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>append</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="284" column="8"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1abdfa0a37634cbecc7a0d1a953d9dae44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::readSolutionJSON</definition>
+        <argsstring>(const std::string filename)</argsstring>
+        <name>readSolutionJSON</name>
+        <param>
+          <type>const std::string</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Reads the solution file and load it in the current <ref refid="class_models_1_1_e_p_e_c" kindref="compound">EPEC</ref> instance</para>
+        </inbodydescription>
+        <location file="include/models.h" line="286" column="8" bodyfile="src/Models.cpp" bodystart="1188" bodyend="1228"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a0b4f42c3d7a8bac1673ecd63faee254b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::writeSolutionJSON</definition>
+        <argsstring>(std::string filename, const arma::vec x, const arma::vec z) const</argsstring>
+        <name>writeSolutionJSON</name>
+        <param>
+          <type>std::string</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>const arma::vec</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>const arma::vec</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Writes the computed Nash Equilibrium in the standard JSON solution file <computeroutput>filename</computeroutput> dictates the name of the .JSON solution file</para>
+        </inbodydescription>
+        <location file="include/models.h" line="288" column="8" bodyfile="src/Models.cpp" bodystart="1115" bodyend="1186"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a52dd1bf3d61d40aa3f461403377d73de" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::writeSolution</definition>
+        <argsstring>(const int writeLevel, std::string filename) const</argsstring>
+        <name>writeSolution</name>
+        <param>
+          <type>const int</type>
+          <declname>writeLevel</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Writes the computed Nash Equilibrium in the <ref refid="class_models_1_1_e_p_e_c" kindref="compound">EPEC</ref> instance <computeroutput>writeLevel</computeroutput> is an integer representing the write configuration. 0: only Json solution; 1: only human readable solution; 2:both</para>
+        </inbodydescription>
+        <location file="include/models.h" line="291" column="8" bodyfile="src/Models.cpp" bodystart="1230" bodyend="1249"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a32f76f4e828f8f7ffa6d76f889b60bc5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="struct_models_1_1_e_p_e_c_instance" kindref="compound">EPECInstance</ref></type>
+        <definition>const EPECInstance Models::EPEC::getInstance</definition>
+        <argsstring>() const</argsstring>
+        <name>getInstance</name>
+        <briefdescription>
+<para>Get the current <ref refid="struct_models_1_1_e_p_e_c_instance" kindref="compound">EPECInstance</ref> loaded. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="294" column="22" bodyfile="include/models.h" bodystart="294" bodyend="296"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Models::EPEC</label>
+        <link refid="class_models_1_1_e_p_e_c"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Game::EPEC</label>
+        <link refid="class_game_1_1_e_p_e_c"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Models::EPEC</label>
+        <link refid="class_models_1_1_e_p_e_c"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Game::EPECStatistics</label>
+        <link refid="struct_game_1_1_e_p_e_c_statistics"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>AlgorithmParam</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Game::EPECAlgorithmParams</label>
+        <link refid="struct_game_1_1_e_p_e_c_algorithm_params"/>
+      </node>
+      <node id="2">
+        <label>Game::EPEC</label>
+        <link refid="class_game_1_1_e_p_e_c"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Stats</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/models.h" line="170" column="29" bodyfile="include/models.h" bodystart="170" bodyend="297"/>
+    <listofallmembers>
+      <member refid="class_models_1_1_e_p_e_c_1a926d12ae3829db9068a6ce813fbbdfce" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>add_Leaders_tradebalance_constraints</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1a14962535c0ee6c0f2669508d850dbfe1" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>addCountry</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1ae0bd0fb7910bc4735c0c6481e1ab7c60" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>addDummyLead</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1ae7423f15fd8596aeebc38d31f04d03c6" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>addTranspCosts</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a487479646a902f7843ba3a8ddbe6708e" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>Algorithm</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1abf67fd852539ed21d238381efec1affa" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>AllLeadPars</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1afcd0018e01a696881c8da744a3a05048" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>computeLeaderLocations</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a37dca6fc0a76c12bc4bc0eac602e3633" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>computeNashEq</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1afd414e30d05368455d9a2eaa166b6bfb" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>ConvexHullVariables</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1a78f228dd404eb6167125d1de1df3340a" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>dataCheck</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a19ac846f7e3a018c47b61dc8b5089b60" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>Env</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1ad2ed81668039c974d5710bac7c1bd8b7" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>EPEC</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1a05bb954912158ca39f123ec1c6cdba9a" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>EPEC</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a2323518f6af325c254eaad444cea1317" prot="protected" virt="non-virtual" ambiguityscope="Game::EPEC::"><scope>Models::EPEC</scope><name>EPEC</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1ae88d958afd4f98f1bb7638759ff1c753" prot="public" virt="non-virtual" ambiguityscope="Game::EPEC::"><scope>Models::EPEC</scope><name>EPEC</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1ab32d89068adc66f100a266bbf31bf63e" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>finalize</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a9e4f44f67e4a2956673398847e5db614" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>Finalized</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a71db5d5bacd5a7b97437795d797f882b" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>findNashEq</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1aea86a7ca6a2f4d0bcedd2d7a02a4db89" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>get_LowerLevelNash</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a6ccbebf4b00acfe2eebbf4415f238f3a" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getAddPolyMethod</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a6f594a6b85327cbf9e45507eb20a6132" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getAddPolyMethodSeed</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a35bedfe83fdc16fd8462476ebb451cd6" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getAggressiveness</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1aa6adad5f2653416cb852a0720ccf9987" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getAlgorithm</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1aef7276e65bf9467f90d90fbdc2a334f1" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getBoundBigM</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a4971c1bc08aa285bf7f4db06618cf772" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getBoundPrimals</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1ad8a2d364f4a7e61f5f1dfa454a229657" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getDeviationTolerance</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1ab1a26d73539ae4d268b70688e312b747" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getIndicators</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1a32f76f4e828f8f7ffa6d76f889b60bc5" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getInstance</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1aa9f848f3d44b529af6c7b7fb3b4789cf" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getLCPDescription</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1af4ba9e089745932ff3bf24897af53e5f" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getLCPModel</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a676146ffcd3ae1c43462afefebf77f02" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getNumLeaders</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1acb7aba467faa3bfcd572e8dcce4a7c3b" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getNumThreads</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a7bf2d222ff193b83713849a89c4291ba" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getNumVar</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1a1d74390d88d7f5236d502eba172864ca" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getPosition</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1ab76060f9c18689c85f20583322d3084d" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getPosition</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a0bf1c7483795c1f08baabf2426ca933d" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getPositionLeadFoll</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1aec1b59c633f797063362b0ae4323f8ea" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getPositionLeadLead</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a15d65c14e30eed4ad6456a34b0dbaeb9" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getPureNashEquilibrium</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a67525a1ab20ed9108c6c70e25ce36186" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getRecoverStrategy</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a03b6d74bb697a567c41de0253a15d5a9" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getStatistics</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a22353c0fd28f1423c626006e8ba00052" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getTimeLimit</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a723c245afbc41788c993566aca9f238c" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getValLeadFoll</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a24faf8f9033094c380f38fe3f6609a27" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getValLeadLead</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1aacb304f764e52114fdedef15a0a90558" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getX</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a03f5dc3947750c69b9c3bfdf675ab394" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>getXMinusI</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a6f84ee2018f9bb85d0b1b53e65ff85e4" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getXofI</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1aa20feaa35c98de9e134190579a400cf7" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getXWithoutHull</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1aaaca9d7917b658c77e2fe048bf7a7214" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getZ</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a157723e234e69a264e9ccf3dec0ec745" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>InitTime</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1af02848579e2409da28ce975b8d116adc" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>isPureStrategy</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a9c3a719fb69eb3866aa6b440e9a31192" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>isSolved</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a38b32268297c5cdf5334853d3ee2ba82" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>LCPModel</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1ada0cf8c4cefee9d0e3f6fcd29aa4fac0" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>LCPModelBase</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1ac2c5e7306ea5ab51ea953abdf9e4447f" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>LeadConses</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a59b0ccd12c05db259bb7ca056daf453d" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>LeaderLocations</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a191a899d044f94263965f8d184259e5b" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>LeaderObjective</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a08077df159307f005f5254e8f72eb5d8" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>LeaderObjectiveConvexHull</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1af6b6f5d1fb8f3eb3ba888bc5fd656bc6" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>LeadRHSes</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1ac8aaf82d32d88e211018505a5c99907a" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>Locations</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a618f3df2c40a9d456f9ceaf00802967c" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>LocEnds</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1ac0317095ef32ba34772c9e73f26dc0ad" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>make_LL_LeadCons</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1afc7d4b6c72f488300b31cf51db2f81d6" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>make_LL_QP</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1a295ae8dd8ca635a407940bc78ce8875a" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>make_MC_leader</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1a92ed1b673ace45b835bc07cc9b30e6ea" prot="private" virt="virtual"><scope>Models::EPEC</scope><name>makeMCConstraints</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1a189ce1f5b375df11455f428a40738039" prot="private" virt="virtual"><scope>Models::EPEC</scope><name>makeObjectivePlayer</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a66b446e508a6079805e7d8900f5db4ed" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>makePlayerQP</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a5db4c964c3d451ab55a5630e565753d0" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>makePlayersQPs</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a4d84d3af33242733ec32b89f91d49158" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>makeTheLCP</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1adde9b8a110bf03c10b036f5004bc721e" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>MC_QP</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1af93e428bf0f642c3f46dc9d34641a74d" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>name2nos</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a3dd72f644df2168162d60b12d0993a9d" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>NashEquilibrium</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1a4de4147addd36ee7df8e0944bfa017ea" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>nImportMarkets</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1aacadd9d4fb3fd17d2f142db8758f1be9" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>numMCVariables</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a8e4aa5e6b5baa41c7a977b3b66cdfdf2" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>NumPlayers</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1afc5252004b0a5c875fdf4517ba60fecd" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>NumVariables</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1a043aff53098136d5f60d53a839b0ed85" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>ParamValid</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1ae133b3254fa8258788d60f994d1f8e9f" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>PlayersLCP</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a1dc1b8bd642e450bc1e30eefe963fe13" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>PlayersLowerLevels</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a7e5d7741f612c5cf33e9bd44fad4e620" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>PlayersQP</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1a2e38c1ac580d46b2a0bdaa36a8d46e63" prot="private" virt="virtual"><scope>Models::EPEC</scope><name>postFinalize</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1aa9dacf6f8965a70a18d47e196cb6f03f" prot="private" virt="virtual"><scope>Models::EPEC</scope><name>preFinalize</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1a967c713d494e56a70652d0b5aad10045" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>quadraticTax</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1abdfa0a37634cbecc7a0d1a953d9dae44" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>readSolutionJSON</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1ad53ac72b21e5d73db9e552aa23fb2fec" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>reset</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a6dc4295a2c585a695ca5c1b54f8a7883" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>respond</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1a536a82c1fa0aa9b3a4e9f84669b17166" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>Respond</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a3fcda0d435da9c183b73df244ac863a0" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>respondSol</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1ac3588ae6663ee577458a98e2dfa71a42" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setAddPolyMethod</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1aab7d6a3125f1be27f42fa8839d8ec84f" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setAddPolyMethodSeed</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a3425d5ca9abea1e5ab18f5e53bf91bd5" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setAggressiveness</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1addbd62e18bcc408656c330f8cfbb1b2c" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setAlgorithm</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1aab6e24f25d193a514b2c97681a5d2df8" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setBoundBigM</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a4b6238b4052069f2fd7122f327bb70c5" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setBoundPrimals</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a9e0fb6903f40b26e00ab1289300b2c8c" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setDeviationTolerance</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a3b2335bc68d6464ad5af7e74ab91f243" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setIndicators</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a19e56d50e5ca900bb05247d7e4028772" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setNumThreads</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a437840f2bb7687b81585fc793b5be0d6" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setPureNashEquilibrium</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a63a30d74e2fbe74cf9df603e162caa4f" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setRecoverStrategy</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a3e714cdf0c2eac38a3d6cb17acde2109" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setTimeLimit</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1ad0c30f87298df78ec8b2275fc272745f" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>SizesWithoutHull</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1ac897450f8b0afb2346e872de2fbc82eb" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>SolutionX</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1aa1a2f0e5df60ca00ccad7b9a8a4f1c8a" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>SolutionZ</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a827a90f6d6c14f8e6d61694f9a63f450" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>Stats</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1a90bc7510117aa20be8fb042f35351320" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>taxVars</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1ad4eddf9e6d7fa0391db41f647af25fc5" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>testLCP</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a1f958d036ee7569e9488f454158d9c8a" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>TheLCP</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a92ad8e8ed1ff48bcd5509dcbf893c185" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>TheNashGame</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1afe2b46d396e7980d8336099d8d916b19" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>TranspCosts</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1a356a22aff221fad903b911014783651f" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>unlock</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1adb4f3499fa2c03522ce997f0c3f63316" prot="private" virt="virtual"><scope>Models::EPEC</scope><name>updateLocations</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a219d10c724c0165cc0d8a1a7d613580d" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>warmstart</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1a7ab042a6cac2e61ce8039f25d9a8a0db" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>write</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1ad6045931d0e213e1897f6b018b93575a" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>write</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1a8400c73da6cca24c5e7fdfd390a19838" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>WriteCountry</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1a27f68538976f6d41d93dbc51f6711166" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>WriteFollower</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a37fed0d5194d7d4a25953e117593b3a4" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>writeLCPModel</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1a52dd1bf3d61d40aa3f461403377d73de" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>writeSolution</name></member>
+      <member refid="class_models_1_1_e_p_e_c_1a0b4f42c3d7a8bac1673ecd63faee254b" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>writeSolutionJSON</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a695b5ed41fdbbf18f2cea05383c2081f" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>~EPEC</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

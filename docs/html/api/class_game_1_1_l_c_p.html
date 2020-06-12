@@ -1,0 +1,868 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Class LCP &mdash; EPECSolve 2.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> EPECSolve
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#mandatory-packages">Mandatory packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#recommended-but-not-mandatory-for-the-algorithm-some-examples-might-have-these-dependancies">Recommended but not mandatory for the algorithm. (Some examples might have these dependancies)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#license">LICENSE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Quick References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EPECSolve</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Class LCP</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/class_game_1_1_l_c_p.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="class-lcp">
+<span id="exhale-class-class-game-1-1-l-c-p"></span><h1>Class LCP<a class="headerlink" href="#class-lcp" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_lcp_lcp.h.html#file-include-lcp-lcp-h"><span class="std std-ref">File lcp.h</span></a></p></li>
+</ul>
+<div class="section" id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="derived-types">
+<h3>Derived Types<a class="headerlink" href="#derived-types" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">Game::OuterLCP</span></code> (<a class="reference internal" href="class_game_1_1_outer_l_c_p.html#exhale-class-class-game-1-1-outer-l-c-p"><span class="std std-ref">Class OuterLCP</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">Game::PolyLCP</span></code> (<a class="reference internal" href="class_game_1_1_poly_l_c_p.html#exhale-class-class-game-1-1-poly-l-c-p"><span class="std std-ref">Class PolyLCP</span></a>)</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp class">
+<dt id="_CPPv4N4Game3LCPE">
+<span id="_CPPv3N4Game3LCPE"></span><span id="_CPPv2N4Game3LCPE"></span><span id="Game::LCP"></span><span class="target" id="class_game_1_1_l_c_p"></span><em class="property">class </em><code class="sig-prename descclassname">Game<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">LCP</code><a class="headerlink" href="#_CPPv4N4Game3LCPE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Class to handle and solve linear complementarity problems. </p>
+<p>A class to handle linear complementarity problems (<a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a>) especially as MIPs with BigM constraints </p>
+<p>Subclassed by <a class="reference internal" href="class_game_1_1_outer_l_c_p.html#class_game_1_1_outer_l_c_p"><span class="std std-ref">Game::OuterLCP</span></a>, <a class="reference internal" href="class_game_1_1_poly_l_c_p.html#class_game_1_1_poly_l_c_p"><span class="std std-ref">Game::PolyLCP</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP3LCPEv">
+<span id="_CPPv3N4Game3LCP3LCPEv"></span><span id="_CPPv2N4Game3LCP3LCPEv"></span><span id="Game::LCP::LCP"></span><span class="target" id="class_game_1_1_l_c_p_1a8f354ec1846b682d4e8d526c4408e702"></span><code class="sig-name descname">LCP</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = delete<a class="headerlink" href="#_CPPv4N4Game3LCP3LCPEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Class has no default constructors. </p>
+<p>Constructors </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP3LCPEP6GRBEnv">
+<span id="_CPPv3N4Game3LCP3LCPEP6GRBEnv"></span><span id="_CPPv2N4Game3LCP3LCPEP6GRBEnv"></span><span id="Game::LCP::LCP__GRBEnvP"></span><span class="target" id="class_game_1_1_l_c_p_1affd1945600584a97ee0b95a803e70a93"></span><code class="sig-name descname">LCP</code><span class="sig-paren">(</span>GRBEnv *<em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP3LCPEP6GRBEnv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP3LCPEP6GRBEnvN4arma6sp_matEN4arma3vecEjjN4arma6sp_matEN4arma3vecE">
+<span id="_CPPv3N4Game3LCP3LCPEP6GRBEnvN4arma6sp_matEN4arma3vecEjjN4arma6sp_matEN4arma3vecE"></span><span id="_CPPv2N4Game3LCP3LCPEP6GRBEnvN4arma6sp_matEN4arma3vecEjjN4arma6sp_matEN4arma3vecE"></span><span id="Game::LCP::LCP__GRBEnvP.arma::sp_mat.arma::vec.unsigned-i.unsigned.arma::sp_mat.arma::vec"></span><span class="target" id="class_game_1_1_l_c_p_1af6442053d33eb07c14bdfcad02d4cbea"></span><code class="sig-name descname">LCP</code><span class="sig-paren">(</span>GRBEnv *<em>env</em>, arma::sp_mat <em>M</em>, arma::vec <em>q</em>, unsigned int <em>leadStart</em>, unsigned <em>leadEnd</em>, arma::sp_mat <em>A</em> = {}, arma::vec <em>b</em> = {}<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP3LCPEP6GRBEnvN4arma6sp_matEN4arma3vecEjjN4arma6sp_matEN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This constructor flor loading <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> from a file. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">env</span></code>: Gurobi environment required </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">M</span></code>: <code class="docutils literal notranslate"><span class="pre">M</span></code> in <span class="math notranslate nohighlight">\(Mx+q\)</span> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">q</span></code>: <code class="docutils literal notranslate"><span class="pre">q</span></code> in <span class="math notranslate nohighlight">\(Mx+q\)</span> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">leadStart</span></code>: Position where variables which are not complementary to any equation starts </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">leadEnd</span></code>: Position where variables which are not complementary to any equation ends </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: Any equations without a complemntarity variable </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: RHS of equations without complementarity variables </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><dl class="simple">
+<dt><strong>Warning</strong></dt><dd><p>This might be deprecated to support <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> functioning without sticking to the output format of <a class="reference internal" href="class_game_1_1_nash_game.html#class_game_1_1_nash_game"><span class="std std-ref">NashGame</span></a> </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP3LCPEP6GRBEnvN4arma6sp_matEN4arma3vecE5perpsN4arma6sp_matEN4arma3vecE">
+<span id="_CPPv3N4Game3LCP3LCPEP6GRBEnvN4arma6sp_matEN4arma3vecE5perpsN4arma6sp_matEN4arma3vecE"></span><span id="_CPPv2N4Game3LCP3LCPEP6GRBEnvN4arma6sp_matEN4arma3vecE5perpsN4arma6sp_matEN4arma3vecE"></span><span id="Game::LCP::LCP__GRBEnvP.arma::sp_mat.arma::vec.perps.arma::sp_mat.arma::vec"></span><span class="target" id="class_game_1_1_l_c_p_1a26af85e6c2bca5744cf2148da9539f31"></span><code class="sig-name descname">LCP</code><span class="sig-paren">(</span>GRBEnv *<em>env</em>, arma::sp_mat <em>M</em>, arma::vec <em>q</em>, <a class="reference internal" href="typedef_epecsolve_8h_1ad87785d9eb3e6e48c0895b348f6660ca.html#_CPPv45perps" title="perps">perps</a> <em>Compl</em>, arma::sp_mat <em>A</em> = {}, arma::vec <em>b</em> = {}<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP3LCPEP6GRBEnvN4arma6sp_matEN4arma3vecE5perpsN4arma6sp_matEN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">env</span></code>: Gurobi environment required </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">M</span></code>: <code class="docutils literal notranslate"><span class="pre">M</span></code> in <span class="math notranslate nohighlight">\(Mx+q\)</span> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">q</span></code>: <code class="docutils literal notranslate"><span class="pre">q</span></code> in <span class="math notranslate nohighlight">\(Mx+q\)</span> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Compl</span></code>: Pairing equations and variables for complementarity </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: Any equations without a complementarity variable </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: RHS of equations without complementarity variables </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP3LCPEP6GRBEnvRKN4Game8NashGameE">
+<span id="_CPPv3N4Game3LCP3LCPEP6GRBEnvRKN4Game8NashGameE"></span><span id="_CPPv2N4Game3LCP3LCPEP6GRBEnvRKN4Game8NashGameE"></span><span id="Game::LCP::LCP__GRBEnvP.Game::NashGameCR"></span><span class="target" id="class_game_1_1_l_c_p_1ad05015288e6d7ae561cea30233128840"></span><code class="sig-name descname">LCP</code><span class="sig-paren">(</span>GRBEnv *<em>env</em>, <em class="property">const</em> Game::<a class="reference internal" href="class_game_1_1_nash_game.html#_CPPv4N4Game8NashGameE" title="Game::NashGame">NashGame</a> &amp;<em>N</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP3LCPEP6GRBEnvRKN4Game8NashGameE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructor given a <a class="reference internal" href="class_game_1_1_nash_game.html#class_game_1_1_nash_game"><span class="std std-ref">NashGame</span></a>. </p>
+<p>Given a <a class="reference internal" href="class_game_1_1_nash_game.html#class_game_1_1_nash_game"><span class="std std-ref">NashGame</span></a>, computes the KKT of the lower levels, and makes the appropriate <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> object. This constructor is the most suited for high-level usage. <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>Most preferred constructor for user interface. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCPD0Ev">
+<span id="_CPPv3N4Game3LCPD0Ev"></span><span id="_CPPv2N4Game3LCPD0Ev"></span><span id="Game::LCP::~LCP"></span><span class="target" id="class_game_1_1_l_c_p_1acd69c7ff6422ebbb8ab0b5d83812e262"></span><code class="sig-name descname">~LCP</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = default<a class="headerlink" href="#_CPPv4N4Game3LCPD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Destructor - to delete the objects created with new operator </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP4getMEv">
+<span id="_CPPv3N4Game3LCP4getMEv"></span><span id="_CPPv2N4Game3LCP4getMEv"></span><span id="Game::LCP::getM"></span><span class="target" id="class_game_1_1_l_c_p_1a3ced9ff9dd3e3075326335ebeecc4229"></span>arma::sp_mat <code class="sig-name descname">getM</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP4getMEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read-only access to <a class="reference internal" href="#class_game_1_1_l_c_p_1a220ce78f11a0e9550cec63d65411c5f4"><span class="std std-ref">LCP::M</span></a>. </p>
+<p>Return data and address </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP8getMstarEv">
+<span id="_CPPv3N4Game3LCP8getMstarEv"></span><span id="_CPPv2N4Game3LCP8getMstarEv"></span><span id="Game::LCP::getMstar"></span><span class="target" id="class_game_1_1_l_c_p_1ae84003685742b9de4c91b21e91055970"></span>arma::sp_mat *<code class="sig-name descname">getMstar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP8getMstarEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Reference access to <a class="reference internal" href="#class_game_1_1_l_c_p_1a220ce78f11a0e9550cec63d65411c5f4"><span class="std std-ref">LCP::M</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP4getqEv">
+<span id="_CPPv3N4Game3LCP4getqEv"></span><span id="_CPPv2N4Game3LCP4getqEv"></span><span id="Game::LCP::getq"></span><span class="target" id="class_game_1_1_l_c_p_1a3cc8c85eca98fb717a4487dc7ed692cd"></span>arma::vec <code class="sig-name descname">getq</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP4getqEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read-only access to <a class="reference internal" href="#class_game_1_1_l_c_p_1afffdded2f61d6dee34f312c8a2e4b356"><span class="std std-ref">LCP::q</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP15getNumberLeaderEv">
+<span id="_CPPv3N4Game3LCP15getNumberLeaderEv"></span><span id="_CPPv2N4Game3LCP15getNumberLeaderEv"></span><span id="Game::LCP::getNumberLeader"></span><span class="target" id="class_game_1_1_l_c_p_1aba5830b8f67b850954ac372aaf420e19"></span>unsigned int <code class="sig-name descname">getNumberLeader</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP15getNumberLeaderEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read-only access to <a class="reference internal" href="#class_game_1_1_l_c_p_1afffdded2f61d6dee34f312c8a2e4b356"><span class="std std-ref">LCP::q</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP8getqstarEv">
+<span id="_CPPv3N4Game3LCP8getqstarEv"></span><span id="_CPPv2N4Game3LCP8getqstarEv"></span><span id="Game::LCP::getqstar"></span><span class="target" id="class_game_1_1_l_c_p_1a52df9c31f5d00c00803fe1a6f4b60534"></span>arma::vec *<code class="sig-name descname">getqstar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP8getqstarEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Reference access to <a class="reference internal" href="#class_game_1_1_l_c_p_1afffdded2f61d6dee34f312c8a2e4b356"><span class="std std-ref">LCP::q</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP9getLStartEv">
+<span id="_CPPv3N4Game3LCP9getLStartEv"></span><span id="_CPPv2N4Game3LCP9getLStartEv"></span><span id="Game::LCP::getLStart"></span><span class="target" id="class_game_1_1_l_c_p_1a351c9d968ca93d32bb183bbd56c539c5"></span><em class="property">const</em> unsigned int <code class="sig-name descname">getLStart</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP9getLStartEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read-only access to <a class="reference internal" href="#class_game_1_1_l_c_p_1a3626cacccb0d8ab0e1a88f8f1a3659f9"><span class="std std-ref">LCP::LeadStart</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP7getLEndEv">
+<span id="_CPPv3N4Game3LCP7getLEndEv"></span><span id="_CPPv2N4Game3LCP7getLEndEv"></span><span id="Game::LCP::getLEnd"></span><span class="target" id="class_game_1_1_l_c_p_1a7706f73777b1d3b66b1e5b97b04660c1"></span><em class="property">const</em> unsigned int <code class="sig-name descname">getLEnd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP7getLEndEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read-only access to <a class="reference internal" href="#class_game_1_1_l_c_p_1a5842889dd444dceda535c0e464775d80"><span class="std std-ref">LCP::LeadEnd</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP8getComplEv">
+<span id="_CPPv3N4Game3LCP8getComplEv"></span><span id="_CPPv2N4Game3LCP8getComplEv"></span><span id="Game::LCP::getCompl"></span><span class="target" id="class_game_1_1_l_c_p_1a56d3a73e7eea32833e3fc4f08c910e7f"></span><a class="reference internal" href="typedef_epecsolve_8h_1ad87785d9eb3e6e48c0895b348f6660ca.html#_CPPv45perps" title="perps">perps</a> <code class="sig-name descname">getCompl</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP8getComplEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read-only access to <a class="reference internal" href="#class_game_1_1_l_c_p_1a6dbcd747d3b7a82fcd9079916da001df"><span class="std std-ref">LCP::Compl</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP5printENSt6stringE">
+<span id="_CPPv3N4Game3LCP5printENSt6stringE"></span><span id="_CPPv2N4Game3LCP5printENSt6stringE"></span><span id="Game::LCP::print__ss"></span><span class="target" id="class_game_1_1_l_c_p_1a0b673739018e4626f4f08b453e580eab"></span>void <code class="sig-name descname">print</code><span class="sig-paren">(</span>std::string <em>end</em> = &quot;\n&quot;<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP5printENSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Print a summary of the <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP10getNumColsEv">
+<span id="_CPPv3N4Game3LCP10getNumColsEv"></span><span id="_CPPv2N4Game3LCP10getNumColsEv"></span><span id="Game::LCP::getNumCols"></span><span class="target" id="class_game_1_1_l_c_p_1a1bfe98fa1f54f78e2e7524737b573bfd"></span>unsigned int <code class="sig-name descname">getNumCols</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP10getNumColsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP10getNumRowsEv">
+<span id="_CPPv3N4Game3LCP10getNumRowsEv"></span><span id="_CPPv2N4Game3LCP10getNumRowsEv"></span><span id="Game::LCP::getNumRows"></span><span class="target" id="class_game_1_1_l_c_p_1abebfd11b7cab3a214c31b9ca3442f72e"></span>unsigned int <code class="sig-name descname">getNumRows</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP10getNumRowsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game3LCP11extractSolsEP8GRBModelRN4arma3vecERN4arma3vecEb">
+<span id="_CPPv3NK4Game3LCP11extractSolsEP8GRBModelRN4arma3vecERN4arma3vecEb"></span><span id="_CPPv2NK4Game3LCP11extractSolsEP8GRBModelRN4arma3vecERN4arma3vecEb"></span><span id="Game::LCP::extractSols__GRBModelP.arma::vecR.arma::vecR.bC"></span><span class="target" id="class_game_1_1_l_c_p_1a25b0cf47517b0adc600ba5e71f8b98e5"></span>bool <code class="sig-name descname">extractSols</code><span class="sig-paren">(</span>GRBModel *<em>model</em>, arma::vec &amp;<em>z</em>, arma::vec &amp;<em>x</em>, bool <em>extractZ</em> = false<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game3LCP11extractSolsEP8GRBModelRN4arma3vecERN4arma3vecEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Extracts variable and equation values from a solved Gurobi model for <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">model</span></code>: The Gurobi Model that was solved (perhaps using <a class="reference internal" href="#class_game_1_1_l_c_p_1a4c22fc6e301f34d6649e255e692d5799"><span class="std std-ref">Game::LCP::LCPasMIP</span></a>) </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code>: Output variable - where the equation values are stored </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: Output variable - where the variable values are stored </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">extractZ</span></code>: z values are filled only if this is true </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><dl class="simple">
+<dt><strong>Warning</strong></dt><dd><p>This solves the model if the model is not already solve </p>
+</dd>
+<dt><strong>Return</strong></dt><dd><p><code class="docutils literal notranslate"><span class="pre">false</span></code> if the model is not solved to optimality. <code class="docutils literal notranslate"><span class="pre">true</span></code> otherwise </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP7LCPasQPEb">
+<span id="_CPPv3N4Game3LCP7LCPasQPEb"></span><span id="_CPPv2N4Game3LCP7LCPasQPEb"></span><span id="Game::LCP::LCPasQP__b"></span><span class="target" id="class_game_1_1_l_c_p_1ae9389315873f8bf470c9ed80250c65f5"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">LCPasQP</code><span class="sig-paren">(</span>bool <em>solve</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP7LCPasQPEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Solves the <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> as a QP using Gurobi. </p>
+<p>Removes all complementarity constraints from the QP’s constraints. Instead, the sum of products of complementarity pairs is minimized. If the optimal value turns out to be 0, then it is actually a solution of the <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a>. Else the <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> is infeasible. <dl class="simple">
+<dt><strong>Warning</strong></dt><dd><p>Solves the <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> feasibility problem. Not the MPEC optimization problem. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP8LCPasMIPEb">
+<span id="_CPPv3N4Game3LCP8LCPasMIPEb"></span><span id="_CPPv2N4Game3LCP8LCPasMIPEb"></span><span id="Game::LCP::LCPasMIP__b"></span><span class="target" id="class_game_1_1_l_c_p_1a460788245a88de27ebea9aece253a832"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">LCPasMIP</code><span class="sig-paren">(</span>bool <em>solve</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP8LCPasMIPEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Helps solving an <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> as an MIP using BigM constraints. </p>
+<p><p>The MIP problem that is returned by this function is equivalent to the </p>
+<a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> problem provided the value of BigM is large enough. <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A std::unique_ptr to GRBModel that has the equivalent MIP</p>
+</dd>
+<dt><strong>Note</strong></dt><dd><p>This solves just the feasibility problem. Should you need a leader’s objective function, use <a class="reference internal" href="#class_game_1_1_l_c_p_1a966ef9dc503c215501e27dcfe02af8ff"><span class="std std-ref">LCP::MPECasMILP</span></a> or <a class="reference internal" href="#class_game_1_1_l_c_p_1a7e9ffaa72ecfd60e2fa3155d011f720b"><span class="std std-ref">LCP::MPECasMIQP</span></a> </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP10MPECasMILPERKN4arma6sp_matERKN4arma3vecERKN4arma3vecEb">
+<span id="_CPPv3N4Game3LCP10MPECasMILPERKN4arma6sp_matERKN4arma3vecERKN4arma3vecEb"></span><span id="_CPPv2N4Game3LCP10MPECasMILPERKN4arma6sp_matERKN4arma3vecERKN4arma3vecEb"></span><span id="Game::LCP::MPECasMILP__arma::sp_matCR.arma::vecCR.arma::vecCR.b"></span><span class="target" id="class_game_1_1_l_c_p_1a966ef9dc503c215501e27dcfe02af8ff"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">MPECasMILP</code><span class="sig-paren">(</span><em class="property">const</em> arma::sp_mat &amp;<em>C</em>, <em class="property">const</em> arma::vec &amp;<em>c</em>, <em class="property">const</em> arma::vec &amp;<em>x_minus_i</em>, bool <em>solve</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP10MPECasMILPERKN4arma6sp_matERKN4arma3vecERKN4arma3vecEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Helps solving an <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> as an MIP. </p>
+<p><p>The MIP problem that is returned by this function is equivalent to the </p>
+<a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> problem. The function differs from <a class="reference internal" href="#class_game_1_1_l_c_p_1a4c22fc6e301f34d6649e255e692d5799"><span class="std std-ref">LCP::LCPasMIP</span></a> by the fact that, this explicitly takes a leader objective, and returns an object with this objective. <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A std::unique_ptr to GRBModel that has the equivalent MIP</p>
+</dd>
+<dt><strong>Note</strong></dt><dd><p>The leader’s objective has to be linear here. For quadratic objectives, refer <a class="reference internal" href="#class_game_1_1_l_c_p_1a7e9ffaa72ecfd60e2fa3155d011f720b"><span class="std std-ref">LCP::MPECasMIQP</span></a> </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game3LCP9solEncodeERKN4arma3vecERKN4arma3vecE">
+<span id="_CPPv3NK4Game3LCP9solEncodeERKN4arma3vecERKN4arma3vecE"></span><span id="_CPPv2NK4Game3LCP9solEncodeERKN4arma3vecERKN4arma3vecE"></span><span id="Game::LCP::solEncode__arma::vecCR.arma::vecCRC"></span><span class="target" id="class_game_1_1_l_c_p_1ae7cfc28ee5fe3b678522e191cf265fe3"></span>std::vector&lt;short int&gt; <code class="sig-name descname">solEncode</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>z</em>, <em class="property">const</em> arma::vec &amp;<em>x</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game3LCP9solEncodeERKN4arma3vecERKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Given variable values and equation values, encodes it in 0/+1/-1 format and returns it. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code>: Equation values </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: Variable values </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP10MPECasMIQPERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecEb">
+<span id="_CPPv3N4Game3LCP10MPECasMIQPERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecEb"></span><span id="_CPPv2N4Game3LCP10MPECasMIQPERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecEb"></span><span id="Game::LCP::MPECasMIQP__arma::sp_matCR.arma::sp_matCR.arma::vecCR.arma::vecCR.b"></span><span class="target" id="class_game_1_1_l_c_p_1a7e9ffaa72ecfd60e2fa3155d011f720b"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">MPECasMIQP</code><span class="sig-paren">(</span><em class="property">const</em> arma::sp_mat &amp;<em>Q</em>, <em class="property">const</em> arma::sp_mat &amp;<em>C</em>, <em class="property">const</em> arma::vec &amp;<em>c</em>, <em class="property">const</em> arma::vec &amp;<em>x_minus_i</em>, bool <em>solve</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP10MPECasMIQPERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Helps solving an <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> as an MIQPs. </p>
+<p><p>The MIQP problem that is returned by this function is equivalent to the </p>
+<a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> problem provided the value of BigM is large enough. The function differs from <a class="reference internal" href="#class_game_1_1_l_c_p_1a4c22fc6e301f34d6649e255e692d5799"><span class="std std-ref">LCP::LCPasMIP</span></a> by the fact that, this explicitly takes a leader objective, and returns an object with this objective. This allows quadratic leader objective. If you are aware that the leader’s objective is linear, use the faster method <a class="reference internal" href="#class_game_1_1_l_c_p_1a966ef9dc503c215501e27dcfe02af8ff"><span class="std std-ref">LCP::MPECasMILP</span></a> <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A std::unique_ptr to GRBModel that has the equivalent MIQP</p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP8LCPasMIPENSt6vectorIsEEb">
+<span id="_CPPv3N4Game3LCP8LCPasMIPENSt6vectorIsEEb"></span><span id="_CPPv2N4Game3LCP8LCPasMIPENSt6vectorIsEEb"></span><span id="Game::LCP::LCPasMIP__std::vector:short-i:.b"></span><span class="target" id="class_game_1_1_l_c_p_1aac1de9da2006efce0cecc1881efba0b6"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">LCPasMIP</code><span class="sig-paren">(</span>std::vector&lt;short int&gt; <em>Fixes</em>, bool <em>solve</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP8LCPasMIPENSt6vectorIsEEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Fixes</span></code>: For each Variable, +1 fixes the equation to equality and -1 fixes the variable to equality. A value of 0 fixes neither. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">solve</span></code>: Whether the model is to be solved before returned </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+<p>Uses the big M method to solve the complementarity problem. The variables and eqns to be set to equality can be given in Fixes in 0/+1/-1 notation <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>Returned model is <em>always</em> a restriction. For <code class="docutils literal notranslate"><span class="pre">Fixes</span> <span class="pre">=</span> <span class="pre">{0,...,0}</span></code>, the returned model would solve the exact <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a>. </p>
+</dd>
+<dt><strong>Warning</strong></dt><dd><p>Note that the model returned by this function has to be explicitly deleted using the delete operator. </p>
+</dd>
+<dt><strong>Return</strong></dt><dd><p>unique pointer to a GRBModel </p>
+</dd>
+<dt><strong>Exceptions</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">string</span></code>: if <code class="docutils literal notranslate"> <span class="pre">Fixes.size()!=</span> </code> number of equations (for complementarity). </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game3LCP5writeENSt6stringEb">
+<span id="_CPPv3NK4Game3LCP5writeENSt6stringEb"></span><span id="_CPPv2NK4Game3LCP5writeENSt6stringEb"></span><span id="Game::LCP::write__ss.bC"></span><span class="target" id="class_game_1_1_l_c_p_1abd4348549394ab1692315b26620eceab"></span>void <code class="sig-name descname">write</code><span class="sig-paren">(</span>std::string <em>filename</em>, bool <em>append</em> = true<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game3LCP5writeENSt6stringEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game3LCP4saveENSt6stringEb">
+<span id="_CPPv3NK4Game3LCP4saveENSt6stringEb"></span><span id="_CPPv2NK4Game3LCP4saveENSt6stringEb"></span><span id="Game::LCP::save__ss.bC"></span><span class="target" id="class_game_1_1_l_c_p_1a7c3f4e815fd66dd5d516d911f588857c"></span>void <code class="sig-name descname">save</code><span class="sig-paren">(</span>std::string <em>filename</em>, bool <em>erase</em> = true<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game3LCP4saveENSt6stringEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP4loadENSt6stringEl">
+<span id="_CPPv3N4Game3LCP4loadENSt6stringEl"></span><span id="_CPPv2N4Game3LCP4loadENSt6stringEl"></span><span id="Game::LCP::load__ss.l-i"></span><span class="target" id="class_game_1_1_l_c_p_1a474418dda015aabcfde678cfe45b4080"></span>long int <code class="sig-name descname">load</code><span class="sig-paren">(</span>std::string <em>filename</em>, long int <em>pos</em> = 0<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP4loadENSt6stringEl" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP6makeQPERN4Game12QP_ObjectiveERN4Game8QP_ParamE">
+<span id="_CPPv3N4Game3LCP6makeQPERN4Game12QP_ObjectiveERN4Game8QP_ParamE"></span><span id="_CPPv2N4Game3LCP6makeQPERN4Game12QP_ObjectiveERN4Game8QP_ParamE"></span><span id="Game::LCP::makeQP__Game::QP_ObjectiveR.Game::QP_ParamR"></span><span class="target" id="class_game_1_1_l_c_p_1ad40426b0333d8502982333317c8c52ea"></span>void <code class="sig-name descname">makeQP</code><span class="sig-paren">(</span>Game::<a class="reference internal" href="struct_game_1_1_q_p___objective.html#_CPPv4N4Game12QP_ObjectiveE" title="Game::QP_Objective">QP_Objective</a> &amp;<em>QP_obj</em>, Game::<a class="reference internal" href="class_game_1_1_q_p___param.html#_CPPv4N4Game8QP_ParamE" title="Game::QP_Param">QP_Param</a> &amp;<em>QP</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP6makeQPERN4Game12QP_ObjectiveERN4Game8QP_ParamE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">QP_obj</span></code>: Objective function of the final QP that has to be made </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">QP</span></code>: This is the <a class="reference internal" href="class_game_1_1_q_p___param.html#class_game_1_1_q_p___param"><span class="std std-ref">Game::QP_Param</span></a> that results from the input objective and the convex hull of the region defined by <a class="reference internal" href="class_game_1_1_outer_l_c_p.html#class_game_1_1_outer_l_c_p"><span class="std std-ref">Game::OuterLCP</span></a> </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP13addCustomCutsEKN4arma6sp_matEKN4arma3vecE">
+<span id="_CPPv3N4Game3LCP13addCustomCutsEKN4arma6sp_matEKN4arma3vecE"></span><span id="_CPPv2N4Game3LCP13addCustomCutsEKN4arma6sp_matEKN4arma3vecE"></span><span id="Game::LCP::addCustomCuts__arma::sp_matC.arma::vecC"></span><span class="target" id="class_game_1_1_l_c_p_1a01cc591a0ab7e4930de2cca20ff623ff"></span>void <code class="sig-name descname">addCustomCuts</code><span class="sig-paren">(</span><em class="property">const</em> arma::sp_mat <em>A</em>, <em class="property">const</em> arma::vec <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP13addCustomCutsEKN4arma6sp_matEKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: The LHS of the added cuts </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: The RHS of the added cuts </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP10containCutEKN4arma3vecEKdd">
+<span id="_CPPv3N4Game3LCP10containCutEKN4arma3vecEKdd"></span><span id="_CPPv2N4Game3LCP10containCutEKN4arma3vecEKdd"></span><span id="Game::LCP::containCut__arma::vecC.doubleC.double"></span><span class="target" id="class_game_1_1_l_c_p_1abdf05d0d0fb6926b10445bf01707cb20"></span>bool <code class="sig-name descname">containCut</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec <em>LHS</em>, <em class="property">const</em> double <em>RHS</em>, double <em>tol</em> = 1e-5<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP10containCutEKN4arma3vecEKdd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">LHS</span></code>: The LHS of the cut </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RHS</span></code>: The rHS of the cut </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tol</span></code>: optional tolerance </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game3LCP9solEncodeERKN4arma3vecE">
+<span id="_CPPv3NK4Game3LCP9solEncodeERKN4arma3vecE"></span><span id="_CPPv2NK4Game3LCP9solEncodeERKN4arma3vecE"></span><span id="Game::LCP::solEncode__arma::vecCRC"></span><span class="target" id="class_game_1_1_l_c_p_1a33a303e1e3643475f06dd1204dd6c27c"></span>std::vector&lt;short int&gt; <code class="sig-name descname">solEncode</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>x</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game3LCP9solEncodeERKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Given variable values, encodes it in 0/+1/-1 format and returns it. </p>
+<p>Gives the 0/+1/-1 notation. The notation is defined as follows. Note that, if the input is feasible, then in each complementarity pair (Eqn, Var), at least one of the two is zero.</p>
+<p><ul class="simple">
+<li><p>If the equation is zero in a certain index and the variable is non-zero, then that index is noted by +1.</p></li>
+<li><p>If the variable is zero in a certain index and the equation is non-zero, then that index is noted by +1.</p></li>
+<li><p>If both the variable and equation are zero, then that index is noted by 0. </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP6zFromXEKN4arma3vecE">
+<span id="_CPPv3N4Game3LCP6zFromXEKN4arma3vecE"></span><span id="_CPPv2N4Game3LCP6zFromXEKN4arma3vecE"></span><span id="Game::LCP::zFromX__arma::vecC"></span><span class="target" id="class_game_1_1_l_c_p_1ab5c2258c4d017ca269c42ba1d689c5ed"></span>arma::vec <code class="sig-name descname">zFromX</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP6zFromXEKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="cpp var">
+<dt id="_CPPv4N4Game3LCP4BigME">
+<span id="_CPPv3N4Game3LCP4BigME"></span><span id="_CPPv2N4Game3LCP4BigME"></span><span id="Game::LCP::BigM__l-double"></span><span class="target" id="class_game_1_1_l_c_p_1aa729a92224dec4a4bf895a34ca711190"></span>long double <code class="sig-name descname">BigM</code> = {1e7}<a class="headerlink" href="#_CPPv4N4Game3LCP4BigME" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>BigM used to rewrite the <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> as MIP. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game3LCP3EpsE">
+<span id="_CPPv3N4Game3LCP3EpsE"></span><span id="_CPPv2N4Game3LCP3EpsE"></span><span id="Game::LCP::Eps__double"></span><span class="target" id="class_game_1_1_l_c_p_1af88f1e7ee2425f584c5acb4868c1b531"></span>double <code class="sig-name descname">Eps</code> = {1e-6}<a class="headerlink" href="#_CPPv4N4Game3LCP3EpsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The threshold for optimality and feasability tolerances. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game3LCP6EpsIntE">
+<span id="_CPPv3N4Game3LCP6EpsIntE"></span><span id="_CPPv2N4Game3LCP6EpsIntE"></span><span id="Game::LCP::EpsInt__double"></span><span class="target" id="class_game_1_1_l_c_p_1a98d96c73d2ec4a19517c6c633d2130b7"></span>double <code class="sig-name descname">EpsInt</code> = {1e-8}<a class="headerlink" href="#_CPPv4N4Game3LCP6EpsIntE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>considered to be zero. </p>
+<p>The threshold, below which a number would be </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game3LCP13UseIndicatorsE">
+<span id="_CPPv3N4Game3LCP13UseIndicatorsE"></span><span id="_CPPv2N4Game3LCP13UseIndicatorsE"></span><span id="Game::LCP::UseIndicators__b"></span><span class="target" id="class_game_1_1_l_c_p_1ac7b07ba8761ea4fbd7164febaf25d696"></span>bool <code class="sig-name descname">UseIndicators</code>{true}<a class="headerlink" href="#_CPPv4N4Game3LCP13UseIndicatorsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>constraints. BigM formulation otherwise </p>
+<p>If true, complementarities will be handled with indicator </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Protected Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game3LCP10errorCheckEb">
+<span id="_CPPv3NK4Game3LCP10errorCheckEb"></span><span id="_CPPv2NK4Game3LCP10errorCheckEb"></span><span id="Game::LCP::errorCheck__bC"></span><span class="target" id="class_game_1_1_l_c_p_1a2d2876ada5a9d435754561cbbc5b6352"></span>bool <code class="sig-name descname">errorCheck</code><span class="sig-paren">(</span>bool <em>throwErr</em> = true<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game3LCP10errorCheckEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">throwErr</span></code>: If this is true, function throws an error, else, it just returns false </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+<p>Checks if the <code class="docutils literal notranslate"><span class="pre">M</span></code> and <code class="docutils literal notranslate"><span class="pre">q</span></code> given to create the <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> object are of compatible size, given the number of leader variables </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP8defConstEP6GRBEnv">
+<span id="_CPPv3N4Game3LCP8defConstEP6GRBEnv"></span><span id="_CPPv2N4Game3LCP8defConstEP6GRBEnv"></span><span id="Game::LCP::defConst__GRBEnvP"></span><span class="target" id="class_game_1_1_l_c_p_1a99d7d4a906d78149e7ff1701f6d7d4aa"></span>void <code class="sig-name descname">defConst</code><span class="sig-paren">(</span>GRBEnv *<em>env</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP8defConstEP6GRBEnv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Assign default values to <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> attributes. </p>
+<p>Internal member that can be called from multiple constructors to assign default values to some attributes of the class. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP11makeRelaxedEv">
+<span id="_CPPv3N4Game3LCP11makeRelaxedEv"></span><span id="_CPPv2N4Game3LCP11makeRelaxedEv"></span><span id="Game::LCP::makeRelaxed"></span><span class="target" id="class_game_1_1_l_c_p_1a777726134bf9ffc8fa0c6bfe8ffdb6fc"></span>void <code class="sig-name descname">makeRelaxed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP11makeRelaxedEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Makes a Gurobi object that relaxes complementarity constraints in an <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a>. </p>
+<p>A Gurobi object is stored in the <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> object, that has all complementarity constraints removed. A copy of this object is used by other member functions </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP8LCPasMIPENSt6vectorIjEENSt6vectorIjEEb">
+<span id="_CPPv3N4Game3LCP8LCPasMIPENSt6vectorIjEENSt6vectorIjEEb"></span><span id="_CPPv2N4Game3LCP8LCPasMIPENSt6vectorIjEENSt6vectorIjEEb"></span><span id="Game::LCP::LCPasMIP__std::vector:unsigned-i:.std::vector:unsigned-i:.b"></span><span class="target" id="class_game_1_1_l_c_p_1a4c22fc6e301f34d6649e255e692d5799"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">LCPasMIP</code><span class="sig-paren">(</span>std::vector&lt;unsigned int&gt; <em>FixEq</em> = {}, std::vector&lt;unsigned int&gt; <em>FixVar</em> = {}, bool <em>solve</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP8LCPasMIPENSt6vectorIjEENSt6vectorIjEEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FixEq</span></code>: If any equation is to be fixed to equality </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FixVar</span></code>: If any variable is to be fixed to equality </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">solve</span></code>: Whether the model should be solved in the function before returned. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+<p>Uses the big M method to solve the complementarity problem. The variables and equations to be set to equality can be given in FixVar and FixEq. <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>Returned model is <em>always</em> a restriction. For <code class="docutils literal notranslate"><span class="pre">FixEq</span> <span class="pre">=</span> <span class="pre">FixVar</span> <span class="pre">=</span> <span class="pre">{}</span></code>, the returned model would solve the exact <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a>. </p>
+</dd>
+<dt><strong>Warning</strong></dt><dd><p>Note that the model returned by this function has to be explicitly deleted using the delete operator. </p>
+</dd>
+<dt><strong>Return</strong></dt><dd><p>unique pointer to a GRBModel </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4I0ENK4Game3LCP6isZeroEbK1T">
+<span id="_CPPv3I0ENK4Game3LCP6isZeroEK1T"></span><span id="_CPPv2I0ENK4Game3LCP6isZeroEK1T"></span>template&lt;class <code class="sig-name descname">T</code>&gt;<br /><span class="target" id="class_game_1_1_l_c_p_1a4530c61c56c08e195e93f52a15875dd8"></span>bool <code class="sig-name descname">isZero</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4I0ENK4Game3LCP6isZeroEbK1T" title="Game::LCP::isZero::T">T</a> <em>val</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4I0ENK4Game3LCP6isZeroEbK1T" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game3LCP9solEncodeEP8GRBModel">
+<span id="_CPPv3NK4Game3LCP9solEncodeEP8GRBModel"></span><span id="_CPPv2NK4Game3LCP9solEncodeEP8GRBModel"></span><span id="Game::LCP::solEncode__GRBModelPC"></span><span class="target" id="class_game_1_1_l_c_p_1a9cb1d44937ea87d794352f94bf1f6fe3"></span>std::vector&lt;short int&gt; <code class="sig-name descname">solEncode</code><span class="sig-paren">(</span>GRBModel *<em>model</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game3LCP9solEncodeEP8GRBModel" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Given a Gurobi model, extracts variable values and equation values, encodes it in 0/+1/-1 format and returns it. </p>
+<p><dl class="simple">
+<dt><strong>Warning</strong></dt><dd><p>Note that the std::vector returned by this function might have to be explicitly deleted using the delete operator. For specific uses in LCP::BranchAndPrune, this delete is handled by the class destructor. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game3LCP10convexHullERN4arma6sp_matERN4arma3vecE">
+<span id="_CPPv3N4Game3LCP10convexHullERN4arma6sp_matERN4arma3vecE"></span><span id="_CPPv2N4Game3LCP10convexHullERN4arma6sp_matERN4arma3vecE"></span><span id="Game::LCP::convexHull__arma::sp_matR.arma::vecR"></span><span class="target" id="class_game_1_1_l_c_p_1aab450b015162c87d06194c0cd36b26e2"></span>unsigned int <code class="sig-name descname">convexHull</code><span class="sig-paren">(</span>arma::sp_mat &amp;<em>A</em>, arma::vec &amp;<em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game3LCP10convexHullERN4arma6sp_matERN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: Convex hull inequality description LHS to be stored here </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: Convex hull inequality description RHS </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+<p>Computes the convex hull of the feasible region of the <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a>. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Protected Attributes</p>
+<dl class="cpp var">
+<dt id="_CPPv4N4Game3LCP3EnvE">
+<span id="_CPPv3N4Game3LCP3EnvE"></span><span id="_CPPv2N4Game3LCP3EnvE"></span><span id="Game::LCP::Env__GRBEnvP"></span><span class="target" id="class_game_1_1_l_c_p_1a5e9a233a5316fb7f3f7c63bb75f4abf6"></span>GRBEnv *<code class="sig-name descname">Env</code><a class="headerlink" href="#_CPPv4N4Game3LCP3EnvE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Gurobi Env. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game3LCP1ME">
+<span id="_CPPv3N4Game3LCP1ME"></span><span id="_CPPv2N4Game3LCP1ME"></span><span id="Game::LCP::M__arma::sp_mat"></span><span class="target" id="class_game_1_1_l_c_p_1a220ce78f11a0e9550cec63d65411c5f4"></span>arma::sp_mat <code class="sig-name descname">M</code><a class="headerlink" href="#_CPPv4N4Game3LCP1ME" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>M in <span class="math notranslate nohighlight">\(Mx+q\)</span> that defines the <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game3LCP1qE">
+<span id="_CPPv3N4Game3LCP1qE"></span><span id="_CPPv2N4Game3LCP1qE"></span><span id="Game::LCP::q__arma::vec"></span><span class="target" id="class_game_1_1_l_c_p_1afffdded2f61d6dee34f312c8a2e4b356"></span>arma::vec <code class="sig-name descname">q</code><a class="headerlink" href="#_CPPv4N4Game3LCP1qE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>q in <span class="math notranslate nohighlight">\(Mx+q\)</span> that defines the <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game3LCP5ComplE">
+<span id="_CPPv3N4Game3LCP5ComplE"></span><span id="_CPPv2N4Game3LCP5ComplE"></span><span id="Game::LCP::Compl__perps"></span><span class="target" id="class_game_1_1_l_c_p_1a6dbcd747d3b7a82fcd9079916da001df"></span><a class="reference internal" href="typedef_epecsolve_8h_1ad87785d9eb3e6e48c0895b348f6660ca.html#_CPPv45perps" title="perps">perps</a> <code class="sig-name descname">Compl</code><a class="headerlink" href="#_CPPv4N4Game3LCP5ComplE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Compl stores data in &lt;Eqn, Var&gt; form. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game3LCP9LeadStartE">
+<span id="_CPPv3N4Game3LCP9LeadStartE"></span><span id="_CPPv2N4Game3LCP9LeadStartE"></span><span id="Game::LCP::LeadStart__unsigned-i"></span><span class="target" id="class_game_1_1_l_c_p_1a3626cacccb0d8ab0e1a88f8f1a3659f9"></span>unsigned int <code class="sig-name descname">LeadStart</code> = {1}<a class="headerlink" href="#_CPPv4N4Game3LCP9LeadStartE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game3LCP7LeadEndE">
+<span id="_CPPv3N4Game3LCP7LeadEndE"></span><span id="_CPPv2N4Game3LCP7LeadEndE"></span><span id="Game::LCP::LeadEnd__unsigned-i"></span><span class="target" id="class_game_1_1_l_c_p_1a5842889dd444dceda535c0e464775d80"></span>unsigned int <code class="sig-name descname">LeadEnd</code> = {0}<a class="headerlink" href="#_CPPv4N4Game3LCP7LeadEndE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game3LCP12NumberLeaderE">
+<span id="_CPPv3N4Game3LCP12NumberLeaderE"></span><span id="_CPPv2N4Game3LCP12NumberLeaderE"></span><span id="Game::LCP::NumberLeader__unsigned-i"></span><span class="target" id="class_game_1_1_l_c_p_1a0a8544f8b93d3ed9f7c07580f48c3151"></span>unsigned int <code class="sig-name descname">NumberLeader</code> = {0}<a class="headerlink" href="#_CPPv4N4Game3LCP12NumberLeaderE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game3LCP2_AE">
+<span id="_CPPv3N4Game3LCP2_AE"></span><span id="_CPPv2N4Game3LCP2_AE"></span><span id="Game::LCP::_A__arma::sp_mat"></span><span class="target" id="class_game_1_1_l_c_p_1a75112da9c4219c166062a928b437ae60"></span>arma::sp_mat <code class="sig-name descname">_A</code> = {}<a class="headerlink" href="#_CPPv4N4Game3LCP2_AE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game3LCP2_bE">
+<span id="_CPPv3N4Game3LCP2_bE"></span><span id="_CPPv2N4Game3LCP2_bE"></span><span id="Game::LCP::_b__arma::vec"></span><span class="target" id="class_game_1_1_l_c_p_1a0c531992ff29a14f598a54fa67a789a6"></span>arma::vec <code class="sig-name descname">_b</code> = {}<a class="headerlink" href="#_CPPv4N4Game3LCP2_bE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Apart from <span class="math notranslate nohighlight">\(0 \le x \perp Mx+q\ge 0\)</span>, one needs <span class="math notranslate nohighlight">\( &lt; Ax\le b\)</span> too! </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game3LCP5_AcutE">
+<span id="_CPPv3N4Game3LCP5_AcutE"></span><span id="_CPPv2N4Game3LCP5_AcutE"></span><span id="Game::LCP::_Acut__arma::sp_mat"></span><span class="target" id="class_game_1_1_l_c_p_1aba71ce89427bac3178dd053b0f92855f"></span>arma::sp_mat <code class="sig-name descname">_Acut</code> = {}<a class="headerlink" href="#_CPPv4N4Game3LCP5_AcutE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game3LCP5_bcutE">
+<span id="_CPPv3N4Game3LCP5_bcutE"></span><span id="_CPPv2N4Game3LCP5_bcutE"></span><span id="Game::LCP::_bcut__arma::vec"></span><span class="target" id="class_game_1_1_l_c_p_1ae44ef5e71958457bc4c12097f9bdc206"></span>arma::vec <code class="sig-name descname">_bcut</code> = {}<a class="headerlink" href="#_CPPv4N4Game3LCP5_bcutE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Cutting planes eventually added to the model. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game3LCP13MadeRlxdModelE">
+<span id="_CPPv3N4Game3LCP13MadeRlxdModelE"></span><span id="_CPPv2N4Game3LCP13MadeRlxdModelE"></span><span id="Game::LCP::MadeRlxdModel__b"></span><span class="target" id="class_game_1_1_l_c_p_1a2145443fd73ae38b4e4b02637bf6a0e2"></span>bool <code class="sig-name descname">MadeRlxdModel</code> = {false}<a class="headerlink" href="#_CPPv4N4Game3LCP13MadeRlxdModelE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Keep track if <a class="reference internal" href="#class_game_1_1_l_c_p_1a187fe2df5192bc2354944d807a361333"><span class="std std-ref">LCP::RlxdModel</span></a> is made. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game3LCP2nRE">
+<span id="_CPPv3N4Game3LCP2nRE"></span><span id="_CPPv2N4Game3LCP2nRE"></span><span id="Game::LCP::nR__unsigned-i"></span><span class="target" id="class_game_1_1_l_c_p_1aa209e8dc6b817bff5750b1f98f1a6a6d"></span>unsigned int <code class="sig-name descname">nR</code><a class="headerlink" href="#_CPPv4N4Game3LCP2nRE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game3LCP2nCE">
+<span id="_CPPv3N4Game3LCP2nCE"></span><span id="_CPPv2N4Game3LCP2nCE"></span><span id="Game::LCP::nC__unsigned-i"></span><span class="target" id="class_game_1_1_l_c_p_1abeaadbce4a891d3575dddae796592c72"></span>unsigned int <code class="sig-name descname">nC</code><a class="headerlink" href="#_CPPv4N4Game3LCP2nCE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game3LCP9RlxdModelE">
+<span id="_CPPv3N4Game3LCP9RlxdModelE"></span><span id="_CPPv2N4Game3LCP9RlxdModelE"></span><span id="Game::LCP::RlxdModel__GRBModel"></span><span class="target" id="class_game_1_1_l_c_p_1a187fe2df5192bc2354944d807a361333"></span>GRBModel <code class="sig-name descname">RlxdModel</code><a class="headerlink" href="#_CPPv4N4Game3LCP9RlxdModelE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>removed. </p>
+<p>A gurobi model with all complementarity constraints </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game3LCP2AiE">
+<span id="_CPPv3N4Game3LCP2AiE"></span><span id="_CPPv2N4Game3LCP2AiE"></span><span id="Game::LCP::Ai__std::unique_ptr:spmat_Vec:"></span><span class="target" id="class_game_1_1_l_c_p_1a8f71d6ee194330de1441c3911b74bff6"></span>std::unique_ptr&lt;<a class="reference internal" href="typedef_epecsolve_8h_1a47898f11e7a4b7433acbc77588a0dc03.html#_CPPv49spmat_Vec" title="spmat_Vec">spmat_Vec</a>&gt; <code class="sig-name descname">Ai</code><a class="headerlink" href="#_CPPv4N4Game3LCP2AiE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Vector to contain the LHSs of a description (either exact or approximated) of the <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a>’s feasible region </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game3LCP2biE">
+<span id="_CPPv3N4Game3LCP2biE"></span><span id="_CPPv2N4Game3LCP2biE"></span><span id="Game::LCP::bi__std::unique_ptr:vec_Vec:"></span><span class="target" id="class_game_1_1_l_c_p_1afcae3294d6a3492d4a1b77a1d72ccf60"></span>std::unique_ptr&lt;<a class="reference internal" href="typedef_epecsolve_8h_1a8d8c882d060c4d307810fdf04a6314c6.html#_CPPv47vec_Vec" title="vec_Vec">vec_Vec</a>&gt; <code class="sig-name descname">bi</code><a class="headerlink" href="#_CPPv4N4Game3LCP2biE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Vector to contain the RHSs of a description (either exact or approximated) of the <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a>’s feasible region </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GD and SS
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

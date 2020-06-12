@@ -1,0 +1,670 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Class EPEC &mdash; EPECSolve 2.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> EPECSolve
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#mandatory-packages">Mandatory packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#recommended-but-not-mandatory-for-the-algorithm-some-examples-might-have-these-dependancies">Recommended but not mandatory for the algorithm. (Some examples might have these dependancies)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#license">LICENSE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Quick References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EPECSolve</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Class EPEC</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/class_models_1_1_e_p_e_c.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="class-epec">
+<span id="exhale-class-class-models-1-1-e-p-e-c"></span><h1>Class EPEC<a class="headerlink" href="#class-epec" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_models.h.html#file-include-models-h"><span class="std std-ref">File models.h</span></a></p></li>
+</ul>
+<div class="section" id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="base-type">
+<h3>Base Type<a class="headerlink" href="#base-type" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">Game::EPEC</span></code> (<a class="reference internal" href="class_game_1_1_e_p_e_c.html#exhale-class-class-game-1-1-e-p-e-c"><span class="std std-ref">Class EPEC</span></a>)</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp class">
+<dt id="_CPPv4N6Models4EPECE">
+<span id="_CPPv3N6Models4EPECE"></span><span id="_CPPv2N6Models4EPECE"></span><span id="Models::EPEC"></span><span class="target" id="class_models_1_1_e_p_e_c"></span><em class="property">class </em><code class="sig-prename descclassname">Models<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">EPEC</code> : <em class="property">public</em> Game::<a class="reference internal" href="class_game_1_1_e_p_e_c.html#_CPPv4N4Game4EPECE" title="Game::EPEC">EPEC</a><a class="headerlink" href="#_CPPv4N6Models4EPECE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N6Models4EPEC4EPECEv">
+<span id="_CPPv3N6Models4EPEC4EPECEv"></span><span id="_CPPv2N6Models4EPEC4EPECEv"></span><span id="Models::EPEC::EPEC"></span><span class="target" id="class_models_1_1_e_p_e_c_1ad2ed81668039c974d5710bac7c1bd8b7"></span><code class="sig-name descname">EPEC</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = delete<a class="headerlink" href="#_CPPv4N6Models4EPEC4EPECEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6Models4EPEC4EPECEP6GRBEnvN4arma6sp_matE">
+<span id="_CPPv3N6Models4EPEC4EPECEP6GRBEnvN4arma6sp_matE"></span><span id="_CPPv2N6Models4EPEC4EPECEP6GRBEnvN4arma6sp_matE"></span><span id="Models::EPEC::EPEC__GRBEnvP.arma::sp_mat"></span><span class="target" id="class_models_1_1_e_p_e_c_1a05bb954912158ca39f123ec1c6cdba9a"></span><code class="sig-name descname">EPEC</code><span class="sig-paren">(</span>GRBEnv *<em>env</em>, arma::sp_mat <em>TranspCosts</em> = {}<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6Models4EPEC4EPECEP6GRBEnvN4arma6sp_matE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6Models4EPEC7testLCPEKj">
+<span id="_CPPv3N6Models4EPEC7testLCPEKj"></span><span id="_CPPv2N6Models4EPEC7testLCPEKj"></span><span id="Models::EPEC::testLCP__unsigned-iC"></span><span class="target" id="class_models_1_1_e_p_e_c_1ad4eddf9e6d7fa0391db41f647af25fc5"></span>void <code class="sig-name descname">testLCP</code><span class="sig-paren">(</span><em class="property">const</em> unsigned int <em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6Models4EPEC7testLCPEKj" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6Models4EPEC10addCountryE10LeadAllParKj">
+<span id="_CPPv3N6Models4EPEC10addCountryE10LeadAllParKj"></span><span id="_CPPv2N6Models4EPEC10addCountryE10LeadAllParKj"></span><span id="Models::EPEC::addCountry__LeadAllPar.unsigned-iC"></span><span class="target" id="class_models_1_1_e_p_e_c_1a14962535c0ee6c0f2669508d850dbfe1"></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC">EPEC</a> &amp;<code class="sig-name descname">addCountry</code><span class="sig-paren">(</span><a class="reference internal" href="struct_models_1_1_lead_all_par.html#_CPPv4N6Models10LeadAllParE" title="Models::LeadAllPar">LeadAllPar</a> <em>Params</em>, <em class="property">const</em> unsigned int <em>addnlLeadVars</em> = 0<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6Models4EPEC10addCountryE10LeadAllParKj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Models a Standard Nash-Cournot game within a country </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Params</span></code>: The Parameter structure for the leader </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">addnlLeadVars</span></code>: Create columns with 0s in it. To handle additional dummy leader variables. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+<p>A Nash cournot game is played among the followers, for the leader-decided values of import export, caps and taxations on all players. The total quantity used in the demand equation is the sum of quantity produced by all followers + any import - any export.</p>
+<p>Use <span class="math notranslate nohighlight">\(l_i\)</span> to denote the <span class="math notranslate nohighlight">\(i\)</span>-th element in <code class="docutils literal notranslate"><span class="pre">costs_lin</span></code> and <span class="math notranslate nohighlight">\(q_i\)</span> for the <span class="math notranslate nohighlight">\(i\)</span>-th element in <code class="docutils literal notranslate"><span class="pre">costs_quad</span></code>. Then to produce quantity <span class="math notranslate nohighlight">\(x_i\)</span>, the <span class="math notranslate nohighlight">\(i\)</span>-th producer’s cost will be <div class="math notranslate nohighlight">
+\[ l_ix_i + \frac{1}{2}q_ix_i^2 \]</div>
+ In addition to this, the leader may impose “tax”, which could increase <span class="math notranslate nohighlight">\(l_i\)</span> for each player.</p>
+<p>Total quantity in the market is given by sum of quantities produced by all producers adjusted by imports and exports <div class="math notranslate nohighlight">
+\[{Total\quad Quantity} = \sum_i x_i + x_{imp} - x_{exp} \]</div>
+ The demand curve in the market is given by <div class="math notranslate nohighlight">
+\[{Price} = a-b({Total\quad Quantity})\]</div>
+</p>
+<p>Each follower is also constrained by a maximum production capacity her infrastructure allows. And each follower is constrained by a cap on their production, that is imposed by the leader.</p>
+<p>Each follower decides <span class="math notranslate nohighlight">\(x_i\)</span> noncooperatively maximizing profits.</p>
+<p>The leader decides quantity imported <span class="math notranslate nohighlight">\(q_{imp}\)</span>, quantity exported <span class="math notranslate nohighlight">\(q_{exp}\)</span>, cap on each player, <span class="math notranslate nohighlight">\(\tilde{x_i}\)</span>, and the tax for each player <span class="math notranslate nohighlight">\(t_i\)</span>.</p>
+<p>The leader is also constrained to not export or import anything more than the limits set by <code class="docutils literal notranslate"><span class="pre">export_limit</span></code> and <code class="docutils literal notranslate"><span class="pre">import_limit</span></code>. A negative value to these input variables imply that there is no such limit.</p>
+<p>Similarly the leader cannot also impose tax on any player greater than what is dictated by the input variable <code class="docutils literal notranslate"><span class="pre">max_tax</span></code>.</p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Pointer to LCP object dynamically created using <code class="docutils literal notranslate"><span class="pre">new</span></code>. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6Models4EPEC14addTranspCostsERKN4arma6sp_matE">
+<span id="_CPPv3N6Models4EPEC14addTranspCostsERKN4arma6sp_matE"></span><span id="_CPPv2N6Models4EPEC14addTranspCostsERKN4arma6sp_matE"></span><span id="Models::EPEC::addTranspCosts__arma::sp_matCR"></span><span class="target" id="class_models_1_1_e_p_e_c_1ae7423f15fd8596aeebc38d31f04d03c6"></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC">EPEC</a> &amp;<code class="sig-name descname">addTranspCosts</code><span class="sig-paren">(</span><em class="property">const</em> arma::sp_mat &amp;<em>costs</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6Models4EPEC14addTranspCostsERKN4arma6sp_matE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Adds intercountry transportation costs matrix. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">costs</span></code>: The transportation cost matrix </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+<p>Adds the transportation cost matrix. Entry in row i and column j of this matrix corresponds to the unit transportation costs for sending fuel from country i to country j. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK6Models4EPEC11getPositionEKjK10LeaderVars">
+<span id="_CPPv3NK6Models4EPEC11getPositionEKjK10LeaderVars"></span><span id="_CPPv2NK6Models4EPEC11getPositionEKjK10LeaderVars"></span><span id="Models::EPEC::getPosition__unsigned-iC.LeaderVarsCC"></span><span class="target" id="class_models_1_1_e_p_e_c_1a1d74390d88d7f5236d502eba172864ca"></span>unsigned int <code class="sig-name descname">getPosition</code><span class="sig-paren">(</span><em class="property">const</em> unsigned int <em>countryCount</em>, <em class="property">const</em> <a class="reference internal" href="enum_namespace_models_1a64b758b38a6e4004b84630ec087bf76e.html#_CPPv4N6Models10LeaderVarsE" title="Models::LeaderVars">LeaderVars</a> <em>var</em> = <a class="reference internal" href="enum_namespace_models_1a64b758b38a6e4004b84630ec087bf76e.html#_CPPv4N6Models10LeaderVarsE" title="Models::LeaderVars">LeaderVars</a>::<a class="reference internal" href="enum_namespace_models_1a64b758b38a6e4004b84630ec087bf76e.html#_CPPv4N6Models10LeaderVars13FollowerStartE" title="Models::LeaderVars::FollowerStart">FollowerStart</a><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK6Models4EPEC11getPositionEKjK10LeaderVars" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Gets position of a variable in a country. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK6Models4EPEC11getPositionERKNSt6stringEK10LeaderVars">
+<span id="_CPPv3NK6Models4EPEC11getPositionERKNSt6stringEK10LeaderVars"></span><span id="_CPPv2NK6Models4EPEC11getPositionERKNSt6stringEK10LeaderVars"></span><span id="Models::EPEC::getPosition__ssCR.LeaderVarsCC"></span><span class="target" id="class_models_1_1_e_p_e_c_1ab76060f9c18689c85f20583322d3084d"></span>unsigned int <code class="sig-name descname">getPosition</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>countryCount</em>, <em class="property">const</em> <a class="reference internal" href="enum_namespace_models_1a64b758b38a6e4004b84630ec087bf76e.html#_CPPv4N6Models10LeaderVarsE" title="Models::LeaderVars">LeaderVars</a> <em>var</em> = <a class="reference internal" href="enum_namespace_models_1a64b758b38a6e4004b84630ec087bf76e.html#_CPPv4N6Models10LeaderVarsE" title="Models::LeaderVars">LeaderVars</a>::<a class="reference internal" href="enum_namespace_models_1a64b758b38a6e4004b84630ec087bf76e.html#_CPPv4N6Models10LeaderVars13FollowerStartE" title="Models::LeaderVars::FollowerStart">FollowerStart</a><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK6Models4EPEC11getPositionERKNSt6stringEK10LeaderVars" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6Models4EPEC6unlockEv">
+<span id="_CPPv3N6Models4EPEC6unlockEv"></span><span id="_CPPv2N6Models4EPEC6unlockEv"></span><span id="Models::EPEC::unlock"></span><span class="target" id="class_models_1_1_e_p_e_c_1a356a22aff221fad903b911014783651f"></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC">EPEC</a> &amp;<code class="sig-name descname">unlock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6Models4EPEC6unlockEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Unlocks an <a class="reference internal" href="#class_models_1_1_e_p_e_c"><span class="std std-ref">EPEC</span></a> model. </p>
+<p>A Finalized model cannot be edited unless it is unlocked first. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK6Models4EPEC7RespondEKNSt6stringERKN4arma3vecE">
+<span id="_CPPv3NK6Models4EPEC7RespondEKNSt6stringERKN4arma3vecE"></span><span id="_CPPv2NK6Models4EPEC7RespondEKNSt6stringERKN4arma3vecE"></span><span id="Models::EPEC::Respond__ssC.arma::vecCRC"></span><span class="target" id="class_models_1_1_e_p_e_c_1a536a82c1fa0aa9b3a4e9f84669b17166"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">Respond</code><span class="sig-paren">(</span><em class="property">const</em> std::string <em>name</em>, <em class="property">const</em> arma::vec &amp;<em>x</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK6Models4EPEC7RespondEKNSt6stringERKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK6Models4EPEC18get_LowerLevelNashEKj">
+<span id="_CPPv3NK6Models4EPEC18get_LowerLevelNashEKj"></span><span id="_CPPv2NK6Models4EPEC18get_LowerLevelNashEKj"></span><span id="Models::EPEC::get_LowerLevelNash__unsigned-iCC"></span><span class="target" id="class_models_1_1_e_p_e_c_1aea86a7ca6a2f4d0bcedd2d7a02a4db89"></span>Game::<a class="reference internal" href="class_game_1_1_nash_game.html#_CPPv4N4Game8NashGameE" title="Game::NashGame">NashGame</a> *<code class="sig-name descname">get_LowerLevelNash</code><span class="sig-paren">(</span><em class="property">const</em> unsigned int <em>i</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK6Models4EPEC18get_LowerLevelNashEKj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns a non-owning pointer to the <code class="docutils literal notranslate"><span class="pre">i</span></code> -th country’s lower level NashGame. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK6Models4EPEC5writeEKNSt6stringEKjb">
+<span id="_CPPv3NK6Models4EPEC5writeEKNSt6stringEKjb"></span><span id="_CPPv2NK6Models4EPEC5writeEKNSt6stringEKjb"></span><span id="Models::EPEC::write__ssC.unsigned-iC.bC"></span><span class="target" id="class_models_1_1_e_p_e_c_1a7ab042a6cac2e61ce8039f25d9a8a0db"></span>void <code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="property">const</em> std::string <em>filename</em>, <em class="property">const</em> unsigned int <em>i</em>, bool <em>append</em> = true<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK6Models4EPEC5writeEKNSt6stringEKjb" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK6Models4EPEC5writeEKNSt6stringEb">
+<span id="_CPPv3NK6Models4EPEC5writeEKNSt6stringEb"></span><span id="_CPPv2NK6Models4EPEC5writeEKNSt6stringEb"></span><span id="Models::EPEC::write__ssC.bC"></span><span class="target" id="class_models_1_1_e_p_e_c_1ad6045931d0e213e1897f6b018b93575a"></span>void <code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="property">const</em> std::string <em>filename</em>, bool <em>append</em> = true<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK6Models4EPEC5writeEKNSt6stringEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6Models4EPEC16readSolutionJSONEKNSt6stringE">
+<span id="_CPPv3N6Models4EPEC16readSolutionJSONEKNSt6stringE"></span><span id="_CPPv2N6Models4EPEC16readSolutionJSONEKNSt6stringE"></span><span id="Models::EPEC::readSolutionJSON__ssC"></span><span class="target" id="class_models_1_1_e_p_e_c_1abdfa0a37634cbecc7a0d1a953d9dae44"></span>void <code class="sig-name descname">readSolutionJSON</code><span class="sig-paren">(</span><em class="property">const</em> std::string <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6Models4EPEC16readSolutionJSONEKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK6Models4EPEC17writeSolutionJSONENSt6stringEKN4arma3vecEKN4arma3vecE">
+<span id="_CPPv3NK6Models4EPEC17writeSolutionJSONENSt6stringEKN4arma3vecEKN4arma3vecE"></span><span id="_CPPv2NK6Models4EPEC17writeSolutionJSONENSt6stringEKN4arma3vecEKN4arma3vecE"></span><span id="Models::EPEC::writeSolutionJSON__ss.arma::vecC.arma::vecCC"></span><span class="target" id="class_models_1_1_e_p_e_c_1a0b4f42c3d7a8bac1673ecd63faee254b"></span>void <code class="sig-name descname">writeSolutionJSON</code><span class="sig-paren">(</span>std::string <em>filename</em>, <em class="property">const</em> arma::vec <em>x</em>, <em class="property">const</em> arma::vec <em>z</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK6Models4EPEC17writeSolutionJSONENSt6stringEKN4arma3vecEKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK6Models4EPEC13writeSolutionEKiNSt6stringE">
+<span id="_CPPv3NK6Models4EPEC13writeSolutionEKiNSt6stringE"></span><span id="_CPPv2NK6Models4EPEC13writeSolutionEKiNSt6stringE"></span><span id="Models::EPEC::writeSolution__iC.ssC"></span><span class="target" id="class_models_1_1_e_p_e_c_1a52dd1bf3d61d40aa3f461403377d73de"></span>void <code class="sig-name descname">writeSolution</code><span class="sig-paren">(</span><em class="property">const</em> int <em>writeLevel</em>, std::string <em>filename</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK6Models4EPEC13writeSolutionEKiNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK6Models4EPEC11getInstanceEv">
+<span id="_CPPv3NK6Models4EPEC11getInstanceEv"></span><span id="_CPPv2NK6Models4EPEC11getInstanceEv"></span><span id="Models::EPEC::getInstanceC"></span><span class="target" id="class_models_1_1_e_p_e_c_1a32f76f4e828f8f7ffa6d76f889b60bc5"></span><em class="property">const</em> <a class="reference internal" href="struct_models_1_1_e_p_e_c_instance.html#_CPPv4N6Models12EPECInstanceE" title="Models::EPECInstance">EPECInstance</a> <code class="sig-name descname">getInstance</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK6Models4EPEC11getInstanceEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the current <a class="reference internal" href="struct_models_1_1_e_p_e_c_instance.html#struct_models_1_1_e_p_e_c_instance"><span class="std std-ref">EPECInstance</span></a> loaded. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="cpp var">
+<dt id="_CPPv4N6Models4EPEC12quadraticTaxE">
+<span id="_CPPv3N6Models4EPEC12quadraticTaxE"></span><span id="_CPPv2N6Models4EPEC12quadraticTaxE"></span><span id="Models::EPEC::quadraticTax__b"></span><span class="target" id="class_models_1_1_e_p_e_c_1a967c713d494e56a70652d0b5aad10045"></span>bool <code class="sig-name descname">quadraticTax</code> = {false}<a class="headerlink" href="#_CPPv4N6Models4EPEC12quadraticTaxE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>is added to each leader objective </p>
+<p>If set to true, a term for the quadratic tax </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N6Models4EPEC19makeObjectivePlayerEKjRN4Game12QP_ObjectiveE">
+<span id="_CPPv3N6Models4EPEC19makeObjectivePlayerEKjRN4Game12QP_ObjectiveE"></span><span id="_CPPv2N6Models4EPEC19makeObjectivePlayerEKjRN4Game12QP_ObjectiveE"></span><span id="Models::EPEC::makeObjectivePlayer__unsigned-iC.Game::QP_ObjectiveR"></span><span class="target" id="class_models_1_1_e_p_e_c_1a189ce1f5b375df11455f428a40738039"></span>void <code class="sig-name descname">makeObjectivePlayer</code><span class="sig-paren">(</span><em class="property">const</em> unsigned int <em>i</em>, Game::<a class="reference internal" href="struct_game_1_1_q_p___objective.html#_CPPv4N4Game12QP_ObjectiveE" title="Game::QP_Objective">QP_Objective</a> &amp;<em>QP_obj</em><span class="sig-paren">)</span> <em class="property">final</em><a class="headerlink" href="#_CPPv4N6Models4EPEC19makeObjectivePlayerEKjRN4Game12QP_ObjectiveE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">i</span></code>: The location of the country whose objective is to be made </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">QP_obj</span></code>: The object where the objective parameters are to be stored. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+<p>Makes the objective function of each country. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6Models4EPEC15updateLocationsEv">
+<span id="_CPPv3N6Models4EPEC15updateLocationsEv"></span><span id="_CPPv2N6Models4EPEC15updateLocationsEv"></span><span id="Models::EPEC::updateLocations"></span><span class="target" id="class_models_1_1_e_p_e_c_1adb4f3499fa2c03522ce997f0c3f63316"></span>void <code class="sig-name descname">updateLocations</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N6Models4EPEC15updateLocationsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This function is called after <a class="reference internal" href="class_game_1_1_e_p_e_c.html#class_game_1_1_e_p_e_c_1a66b446e508a6079805e7d8900f5db4ed"><span class="std std-ref">makePlayerQP()</span></a> </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6Models4EPEC11preFinalizeEv">
+<span id="_CPPv3N6Models4EPEC11preFinalizeEv"></span><span id="_CPPv2N6Models4EPEC11preFinalizeEv"></span><span id="Models::EPEC::preFinalize"></span><span class="target" id="class_models_1_1_e_p_e_c_1aa9dacf6f8965a70a18d47e196cb6f03f"></span>void <code class="sig-name descname">preFinalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N6Models4EPEC11preFinalizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Empty function - optionally reimplementable in derived class. </p>
+<p>This function can be optionally implemented by the derived class. Code in this class will be run <em>before</em> calling <a class="reference internal" href="class_game_1_1_e_p_e_c.html#class_game_1_1_e_p_e_c_1ab32d89068adc66f100a266bbf31bf63e"><span class="std std-ref">Game::EPEC::finalize()</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6Models4EPEC12postFinalizeEv">
+<span id="_CPPv3N6Models4EPEC12postFinalizeEv"></span><span id="_CPPv2N6Models4EPEC12postFinalizeEv"></span><span id="Models::EPEC::postFinalize"></span><span class="target" id="class_models_1_1_e_p_e_c_1a2e38c1ac580d46b2a0bdaa36a8d46e63"></span>void <code class="sig-name descname">postFinalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N6Models4EPEC12postFinalizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Empty function - optionally reimplementable in derived class. </p>
+<p>This function can be optionally implemented by the derived class. Code in this class will be run <em>after</em> calling <a class="reference internal" href="class_game_1_1_e_p_e_c.html#class_game_1_1_e_p_e_c_1ab32d89068adc66f100a266bbf31bf63e"><span class="std std-ref">Game::EPEC::finalize()</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK6Models4EPEC9dataCheckEbbbbbbbbb">
+<span id="_CPPv3NK6Models4EPEC9dataCheckEbbbbbbbbb"></span><span id="_CPPv2NK6Models4EPEC9dataCheckEbbbbbbbbb"></span><span id="Models::EPEC::dataCheck__b.b.b.b.b.b.b.b.bC"></span><span class="target" id="class_models_1_1_e_p_e_c_1a78f228dd404eb6167125d1de1df3340a"></span>bool <code class="sig-name descname">dataCheck</code><span class="sig-paren">(</span>bool <em>chkAllLeadPars</em> = true, bool <em>chkcountriesLL</em> = true, bool <em>chkMC_QP</em> = true, bool <em>chkLeadConses</em> = true, bool <em>chkLeadRHSes</em> = true, bool <em>chknImportMarkets</em> = true, bool <em>chkLocations</em> = true, bool <em>chkLeaderLocations</em> = true, bool <em>chkLeadObjec</em> = true<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK6Models4EPEC9dataCheckEbbbbbbbbb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">chkAllLeadPars</span></code>: Checks if <a class="reference internal" href="#class_models_1_1_e_p_e_c_1abf67fd852539ed21d238381efec1affa"><span class="std std-ref">Models::EPEC::AllLeadPars</span></a> has size <code class="docutils literal notranslate"><span class="pre">n</span></code> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chkcountriesLL</span></code>: Checks if <a class="reference internal" href="class_game_1_1_e_p_e_c.html#class_game_1_1_e_p_e_c_1a1dc1b8bd642e450bc1e30eefe963fe13"><span class="std std-ref">Models::EPEC::PlayersLowerLevels</span></a> has size <code class="docutils literal notranslate"><span class="pre">n</span></code> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chkMC_QP</span></code>: Checks if <a class="reference internal" href="#class_models_1_1_e_p_e_c_1adde9b8a110bf03c10b036f5004bc721e"><span class="std std-ref">Models::EPEC::MC_QP</span></a> has size <code class="docutils literal notranslate"><span class="pre">n</span></code> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chkLeadConses</span></code>: Checks if <a class="reference internal" href="#class_models_1_1_e_p_e_c_1ac2c5e7306ea5ab51ea953abdf9e4447f"><span class="std std-ref">Models::EPEC::LeadConses</span></a> has size <code class="docutils literal notranslate"><span class="pre">n</span></code> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chkLeadRHSes</span></code>: Checks if <a class="reference internal" href="#class_models_1_1_e_p_e_c_1af6b6f5d1fb8f3eb3ba888bc5fd656bc6"><span class="std std-ref">Models::EPEC::LeadRHSes</span></a> has size <code class="docutils literal notranslate"><span class="pre">n</span></code> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chknImportMarkets</span></code>: Checks if <a class="reference internal" href="#class_models_1_1_e_p_e_c_1a4de4147addd36ee7df8e0944bfa017ea"><span class="std std-ref">Models::EPEC::nImportMarkets</span></a> has size <code class="docutils literal notranslate"><span class="pre">n</span></code> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chkLocations</span></code>: Checks if <a class="reference internal" href="#class_models_1_1_e_p_e_c_1ac8aaf82d32d88e211018505a5c99907a"><span class="std std-ref">Models::EPEC::Locations</span></a> has size <code class="docutils literal notranslate"><span class="pre">n</span></code> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chkLeaderLocations</span></code>: Checks if <a class="reference internal" href="class_game_1_1_e_p_e_c.html#class_game_1_1_e_p_e_c_1a59b0ccd12c05db259bb7ca056daf453d"><span class="std std-ref">Models::EPEC::LeaderLocations</span></a> has size <code class="docutils literal notranslate"><span class="pre">n</span></code> and <a class="reference internal" href="class_game_1_1_e_p_e_c.html#class_game_1_1_e_p_e_c_1afc5252004b0a5c875fdf4517ba60fecd"><span class="std std-ref">Models::EPEC::NumVariables</span></a> is set </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chkLeadObjec</span></code>: Checks if <a class="reference internal" href="class_game_1_1_e_p_e_c.html#class_game_1_1_e_p_e_c_1a191a899d044f94263965f8d184259e5b"><span class="std std-ref">Models::EPEC::LeaderObjective</span></a> has size <code class="docutils literal notranslate"><span class="pre">n</span></code> </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+<p>Checks the data in <a class="reference internal" href="#class_models_1_1_e_p_e_c"><span class="std std-ref">Models::EPEC</span></a> object, based on checking flags, <code class="docutils literal notranslate"><span class="pre">n</span></code> is the number of countries in the <a class="reference internal" href="#class_models_1_1_e_p_e_c"><span class="std std-ref">Models::EPEC</span></a> object. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK6Models4EPEC10ParamValidERK10LeadAllPar">
+<span id="_CPPv3NK6Models4EPEC10ParamValidERK10LeadAllPar"></span><span id="_CPPv2NK6Models4EPEC10ParamValidERK10LeadAllPar"></span><span id="Models::EPEC::ParamValid__LeadAllParCRC"></span><span class="target" id="class_models_1_1_e_p_e_c_1a043aff53098136d5f60d53a839b0ed85"></span>bool <code class="sig-name descname">ParamValid</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="struct_models_1_1_lead_all_par.html#_CPPv4N6Models10LeadAllParE" title="Models::LeadAllPar">LeadAllPar</a> &amp;<em>Param</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK6Models4EPEC10ParamValidERK10LeadAllPar" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Checks the Validity of <a class="reference internal" href="struct_models_1_1_lead_all_par.html#struct_models_1_1_lead_all_par"><span class="std std-ref">Models::LeadAllPar</span></a> object. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Param</span></code>: Object whose validity is to be tested </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+<p>Checks that the parameter given to add a country is valid. Does not have obvious errors</p>
+<p>Checks the following:<ul class="simple">
+<li><p>Size of FollowerParam.costs_lin, FollowerParam.costs_quad, FollowerParam.capacities, FollowerParam.emission_costs are all equal to <code class="docutils literal notranslate"><span class="pre">Params.n_followers</span></code> - <code class="docutils literal notranslate"><span class="pre">DemandParam.alpha</span></code> and <code class="docutils literal notranslate"><span class="pre">DemandParam.beta</span></code> are greater than zero - <code class="docutils literal notranslate"><span class="pre">name</span></code> is not empty - <code class="docutils literal notranslate"><span class="pre">name</span></code> does not match with the name of any other existing countries in the <a class="reference internal" href="#class_models_1_1_e_p_e_c"><span class="std std-ref">EPEC</span></a> object. </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6Models4EPEC10make_LL_QPERK10LeadAllParKjPN4Game8QP_ParamERK8LeadLocs">
+<span id="_CPPv3N6Models4EPEC10make_LL_QPERK10LeadAllParKjPN4Game8QP_ParamERK8LeadLocs"></span><span id="_CPPv2N6Models4EPEC10make_LL_QPERK10LeadAllParKjPN4Game8QP_ParamERK8LeadLocs"></span><span id="Models::EPEC::make_LL_QP__LeadAllParCR.unsigned-iC.Game::QP_ParamP.LeadLocsCR"></span><span class="target" id="class_models_1_1_e_p_e_c_1afc7d4b6c72f488300b31cf51db2f81d6"></span>void <code class="sig-name descname">make_LL_QP</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="struct_models_1_1_lead_all_par.html#_CPPv4N6Models10LeadAllParE" title="Models::LeadAllPar">LeadAllPar</a> &amp;<em>Params</em>, <em class="property">const</em> unsigned int <em>follower</em>, Game::<a class="reference internal" href="class_game_1_1_q_p___param.html#_CPPv4N4Game8QP_ParamE" title="Game::QP_Param">QP_Param</a> *<em>Foll</em>, <em class="property">const</em> <a class="reference internal" href="typedef_namespace_models_1aec9f0d1d113730ec8734d5f6ab9cab9d.html#_CPPv4N6Models8LeadLocsE" title="Models::LeadLocs">LeadLocs</a> &amp;<em>Loc</em><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4N6Models4EPEC10make_LL_QPERK10LeadAllParKjPN4Game8QP_ParamERK8LeadLocs" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Makes the lower level quadratic program object for each follower. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Params</span></code>: The Parameters object </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">follower</span></code>: Which follower’s QP has to be made? </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Foll</span></code>: Non-owning pointer to the Follower QP_Param object </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Loc</span></code>: LeadLocs object for accessing different leader locations. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+<p>Makes Lower Level Quadratic Programs.</p>
+<p>Sets the constraints and objective for the lower level problem (i.e., the follower) </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK6Models4EPEC16make_LL_LeadConsERN4arma6sp_matERN4arma3vecERK10LeadAllParRKN6Models8LeadLocsEKjKjKjKj">
+<span id="_CPPv3NK6Models4EPEC16make_LL_LeadConsERN4arma6sp_matERN4arma3vecERK10LeadAllParRKN6Models8LeadLocsEKjKjKjKj"></span><span id="_CPPv2NK6Models4EPEC16make_LL_LeadConsERN4arma6sp_matERN4arma3vecERK10LeadAllParRKN6Models8LeadLocsEKjKjKjKj"></span><span id="Models::EPEC::make_LL_LeadCons__arma::sp_matR.arma::vecR.LeadAllParCR.Models::LeadLocsCR.unsigned-iC.unsigned-iC.unsigned-iC.unsigned-iCC"></span><span class="target" id="class_models_1_1_e_p_e_c_1ac0317095ef32ba34772c9e73f26dc0ad"></span>void <code class="sig-name descname">make_LL_LeadCons</code><span class="sig-paren">(</span>arma::sp_mat &amp;<em>LeadCons</em>, arma::vec &amp;<em>LeadRHS</em>, <em class="property">const</em> <a class="reference internal" href="struct_models_1_1_lead_all_par.html#_CPPv4N6Models10LeadAllParE" title="Models::LeadAllPar">LeadAllPar</a> &amp;<em>Param</em>, <em class="property">const</em> Models::<a class="reference internal" href="typedef_namespace_models_1aec9f0d1d113730ec8734d5f6ab9cab9d.html#_CPPv4N6Models8LeadLocsE" title="Models::LeadLocs">LeadLocs</a> &amp;<em>Loc</em> = {}, <em class="property">const</em> unsigned int <em>import_lim_cons</em> = 1, <em class="property">const</em> unsigned int <em>export_lim_cons</em> = 1, <em class="property">const</em> unsigned int <em>price_lim_cons</em> = 1, <em class="property">const</em> unsigned int <em>activeTaxCaps</em> = 0<span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4NK6Models4EPEC16make_LL_LeadConsERN4arma6sp_matERN4arma3vecERK10LeadAllParRKN6Models8LeadLocsEKjKjKjKj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Makes the leader constraint matrix and RHS. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">LeadCons</span></code>: The LHS matrix of leader constraints (for output) </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LeadRHS</span></code>: RHS vector for leader constraints (for output) </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Param</span></code>: All country specific parameters </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Loc</span></code>: Location of variables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import_lim_cons</span></code>: Does a constraint on import limit exist or no limit? </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">export_lim_cons</span></code>: Does a constraint on export limit exist or no limit? </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">price_lim_cons</span></code>: Does a constraint on price limit exist or no limit? </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">activeTaxCaps</span></code>: Number of active Tax Caps constraints. If strictly positive, tax cap constraint(s) will be enforced </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+<p>Makes the leader level constraints for a country. The constraints added are as follows: <div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray} t_i^{I} &amp;\leq&amp; \bar{t_i^{I}}\\ q^{import} - q^{export} &amp;\leq&amp; \bar{q^{import}}\\ q^{export} - q^{import} &amp;\leq&amp; \bar{q^{export}}\\ \alpha - \beta\left(q^{import} - q^{export} + \sum_i q_i \right) &amp;\leq&amp; *\bar{\pi}\\ q^{export} &amp;\leq&amp; \sum_i q_i +q^{import} \end{eqnarray}\end{split}\]</div>
+ Here <span class="math notranslate nohighlight">\(\bar{q^{import}}\)</span> and <span class="math notranslate nohighlight">\(\bar{q^{export}}\)</span> denote the net import limit and export limit respectively. <span class="math notranslate nohighlight">\(\bar\pi\)</span> is the maximum local price that the government desires to have.</p>
+<p>The first two constraints above limit net imports and exports respectively. The third constraint limits local price. These constraints are added only if the RHS parameters are given as non-negative value. A default value of -1 to any of these parameters (given in <a class="reference internal" href="struct_models_1_1_lead_all_par.html#struct_models_1_1_lead_all_par"><span class="std std-ref">Models::LeadAllPar</span></a> <code class="docutils literal notranslate"><span class="pre">Params</span></code> object) ensures that these constraints are not added. The last constraint is <em>always</em> added. It ensures that the country does not export more than what it has produced + imported! </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6Models4EPEC36add_Leaders_tradebalance_constraintsEKj">
+<span id="_CPPv3N6Models4EPEC36add_Leaders_tradebalance_constraintsEKj"></span><span id="_CPPv2N6Models4EPEC36add_Leaders_tradebalance_constraintsEKj"></span><span id="Models::EPEC::add_Leaders_tradebalance_constraints__unsigned-iC"></span><span class="target" id="class_models_1_1_e_p_e_c_1a926d12ae3829db9068a6ce813fbbdfce"></span>void <code class="sig-name descname">add_Leaders_tradebalance_constraints</code><span class="sig-paren">(</span><em class="property">const</em> unsigned int <em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6Models4EPEC36add_Leaders_tradebalance_constraintsEKj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Adds leaders’ trade balance constraints for import-exports. </p>
+<p>Does the following job:<ul class="simple">
+<li><p>Counts the number of import markets for the country <code class="docutils literal notranslate"><span class="pre">i</span></code> to store in <a class="reference internal" href="#class_models_1_1_e_p_e_c_1a4de4147addd36ee7df8e0944bfa017ea"><span class="std std-ref">Models::EPEC::nImportMarkets</span></a> - Adds the trade balance constraint. Total quantity imported by country <code class="docutils literal notranslate"><span class="pre">i</span></code> = Sum of Total quantity exported by each country to country i. - Updates the LeadLocs in Models::EPEC::Locations.at(i) </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6Models4EPEC14make_MC_leaderEKj">
+<span id="_CPPv3N6Models4EPEC14make_MC_leaderEKj"></span><span id="_CPPv2N6Models4EPEC14make_MC_leaderEKj"></span><span id="Models::EPEC::make_MC_leader__unsigned-iC"></span><span class="target" id="class_models_1_1_e_p_e_c_1a295ae8dd8ca635a407940bc78ce8875a"></span>void <code class="sig-name descname">make_MC_leader</code><span class="sig-paren">(</span><em class="property">const</em> unsigned int <em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6Models4EPEC14make_MC_leaderEKj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Makes the market clearing constraint for country <code class="docutils literal notranslate"><span class="pre">i</span></code>. </p>
+<p>Writes the market clearing constraint as a <a class="reference internal" href="class_game_1_1_q_p___param.html#class_game_1_1_q_p___param"><span class="std std-ref">Game::QP_Param</span></a> and stores it in <a class="reference internal" href="#class_models_1_1_e_p_e_c_1adde9b8a110bf03c10b036f5004bc721e"><span class="std std-ref">Models::EPEC::MC_QP</span></a> </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK6Models4EPEC17makeMCConstraintsERN4arma6sp_matERN4arma3vecE">
+<span id="_CPPv3NK6Models4EPEC17makeMCConstraintsERN4arma6sp_matERN4arma3vecE"></span><span id="_CPPv2NK6Models4EPEC17makeMCConstraintsERN4arma6sp_matERN4arma3vecE"></span><span id="Models::EPEC::makeMCConstraints__arma::sp_matR.arma::vecRC"></span><span class="target" id="class_models_1_1_e_p_e_c_1a92ed1b673ace45b835bc07cc9b30e6ea"></span>void <code class="sig-name descname">makeMCConstraints</code><span class="sig-paren">(</span>arma::sp_mat &amp;<em>MCLHS</em>, arma::vec &amp;<em>MCRHS</em><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">override</em><a class="headerlink" href="#_CPPv4NK6Models4EPEC17makeMCConstraintsERN4arma6sp_matERN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns leader’s Market clearing constraints in matrix form. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK6Models4EPEC12WriteCountryEKjKNSt6stringEKN4arma3vecEKb">
+<span id="_CPPv3NK6Models4EPEC12WriteCountryEKjKNSt6stringEKN4arma3vecEKb"></span><span id="_CPPv2NK6Models4EPEC12WriteCountryEKjKNSt6stringEKN4arma3vecEKb"></span><span id="Models::EPEC::WriteCountry__unsigned-iC.ssC.arma::vecC.bCC"></span><span class="target" id="class_models_1_1_e_p_e_c_1a8400c73da6cca24c5e7fdfd390a19838"></span>void <code class="sig-name descname">WriteCountry</code><span class="sig-paren">(</span><em class="property">const</em> unsigned int <em>i</em>, <em class="property">const</em> std::string <em>filename</em>, <em class="property">const</em> arma::vec <em>x</em>, <em class="property">const</em> bool <em>append</em> = true<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK6Models4EPEC12WriteCountryEKjKNSt6stringEKN4arma3vecEKb" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK6Models4EPEC13WriteFollowerEKjKjKNSt6stringEKN4arma3vecE">
+<span id="_CPPv3NK6Models4EPEC13WriteFollowerEKjKjKNSt6stringEKN4arma3vecE"></span><span id="_CPPv2NK6Models4EPEC13WriteFollowerEKjKjKNSt6stringEKN4arma3vecE"></span><span id="Models::EPEC::WriteFollower__unsigned-iC.unsigned-iC.ssC.arma::vecCC"></span><span class="target" id="class_models_1_1_e_p_e_c_1a27f68538976f6d41d93dbc51f6711166"></span>void <code class="sig-name descname">WriteFollower</code><span class="sig-paren">(</span><em class="property">const</em> unsigned int <em>i</em>, <em class="property">const</em> unsigned int <em>j</em>, <em class="property">const</em> std::string <em>filename</em>, <em class="property">const</em> arma::vec <em>x</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK6Models4EPEC13WriteFollowerEKjKjKNSt6stringEKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Members</p>
+<dl class="cpp var">
+<dt id="_CPPv4N6Models4EPEC11AllLeadParsE">
+<span id="_CPPv3N6Models4EPEC11AllLeadParsE"></span><span id="_CPPv2N6Models4EPEC11AllLeadParsE"></span><span id="Models::EPEC::AllLeadPars__std::vector:LeadAllPar:"></span><span class="target" id="class_models_1_1_e_p_e_c_1abf67fd852539ed21d238381efec1affa"></span>std::vector&lt;<a class="reference internal" href="struct_models_1_1_lead_all_par.html#_CPPv4N6Models10LeadAllParE" title="Models::LeadAllPar">LeadAllPar</a>&gt; <code class="sig-name descname">AllLeadPars</code> = {}<a class="headerlink" href="#_CPPv4N6Models4EPEC11AllLeadParsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The parameters of each leader in the <a class="reference internal" href="#class_models_1_1_e_p_e_c"><span class="std std-ref">EPEC</span></a> game. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N6Models4EPEC5MC_QPE">
+<span id="_CPPv3N6Models4EPEC5MC_QPE"></span><span id="_CPPv2N6Models4EPEC5MC_QPE"></span><span id="Models::EPEC::MC_QP__std::vector:std::shared_ptr:Game::QP_Param::"></span><span class="target" id="class_models_1_1_e_p_e_c_1adde9b8a110bf03c10b036f5004bc721e"></span>std::vector&lt;std::shared_ptr&lt;Game::<a class="reference internal" href="class_game_1_1_q_p___param.html#_CPPv4N4Game8QP_ParamE" title="Game::QP_Param">QP_Param</a>&gt;&gt; <code class="sig-name descname">MC_QP</code> = {}<a class="headerlink" href="#_CPPv4N6Models4EPEC5MC_QPE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>player </p>
+<p>The QP corresponding to the market clearing condition of each </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N6Models4EPEC11TranspCostsE">
+<span id="_CPPv3N6Models4EPEC11TranspCostsE"></span><span id="_CPPv2N6Models4EPEC11TranspCostsE"></span><span id="Models::EPEC::TranspCosts__arma::sp_mat"></span><span class="target" id="class_models_1_1_e_p_e_c_1afe2b46d396e7980d8336099d8d916b19"></span>arma::sp_mat <code class="sig-name descname">TranspCosts</code> = {}<a class="headerlink" href="#_CPPv4N6Models4EPEC11TranspCostsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Transportation costs between pairs of countries. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N6Models4EPEC14nImportMarketsE">
+<span id="_CPPv3N6Models4EPEC14nImportMarketsE"></span><span id="_CPPv2N6Models4EPEC14nImportMarketsE"></span><span id="Models::EPEC::nImportMarkets__std::vector:unsigned-i:"></span><span class="target" id="class_models_1_1_e_p_e_c_1a4de4147addd36ee7df8e0944bfa017ea"></span>std::vector&lt;unsigned int&gt; <code class="sig-name descname">nImportMarkets</code> = {}<a class="headerlink" href="#_CPPv4N6Models4EPEC14nImportMarketsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Number of countries from which the i-th country imports. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N6Models4EPEC9LocationsE">
+<span id="_CPPv3N6Models4EPEC9LocationsE"></span><span id="_CPPv2N6Models4EPEC9LocationsE"></span><span id="Models::EPEC::Locations__std::vector:LeadLocs:"></span><span class="target" id="class_models_1_1_e_p_e_c_1ac8aaf82d32d88e211018505a5c99907a"></span>std::vector&lt;<a class="reference internal" href="typedef_namespace_models_1aec9f0d1d113730ec8734d5f6ab9cab9d.html#_CPPv4N6Models8LeadLocsE" title="Models::LeadLocs">LeadLocs</a>&gt; <code class="sig-name descname">Locations</code> = {}<a class="headerlink" href="#_CPPv4N6Models4EPEC9LocationsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Location of variables for each country. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N6Models4EPEC8name2nosE">
+<span id="_CPPv3N6Models4EPEC8name2nosE"></span><span id="_CPPv2N6Models4EPEC8name2nosE"></span><span id="Models::EPEC::name2nos__std::map:ss.unsigned-i:"></span><span class="target" id="class_models_1_1_e_p_e_c_1af93e428bf0f642c3f46dc9d34641a74d"></span>std::map&lt;std::string, unsigned int&gt; <code class="sig-name descname">name2nos</code> = {}<a class="headerlink" href="#_CPPv4N6Models4EPEC8name2nosE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N6Models4EPEC7taxVarsE">
+<span id="_CPPv3N6Models4EPEC7taxVarsE"></span><span id="_CPPv2N6Models4EPEC7taxVarsE"></span><span id="Models::EPEC::taxVars__unsigned-i"></span><span class="target" id="class_models_1_1_e_p_e_c_1a90bc7510117aa20be8fb042f35351320"></span>unsigned int <code class="sig-name descname">taxVars</code> = {0}<a class="headerlink" href="#_CPPv4N6Models4EPEC7taxVarsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N6Models4EPEC10LeadConsesE">
+<span id="_CPPv3N6Models4EPEC10LeadConsesE"></span><span id="_CPPv2N6Models4EPEC10LeadConsesE"></span><span id="Models::EPEC::LeadConses__std::vector:arma::sp_mat:"></span><span class="target" id="class_models_1_1_e_p_e_c_1ac2c5e7306ea5ab51ea953abdf9e4447f"></span>std::vector&lt;arma::sp_mat&gt; <code class="sig-name descname">LeadConses</code> = {}<a class="headerlink" href="#_CPPv4N6Models4EPEC10LeadConsesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Stores each leader’s constraint LHS. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N6Models4EPEC9LeadRHSesE">
+<span id="_CPPv3N6Models4EPEC9LeadRHSesE"></span><span id="_CPPv2N6Models4EPEC9LeadRHSesE"></span><span id="Models::EPEC::LeadRHSes__std::vector:arma::vec:"></span><span class="target" id="class_models_1_1_e_p_e_c_1af6b6f5d1fb8f3eb3ba888bc5fd656bc6"></span>std::vector&lt;arma::vec&gt; <code class="sig-name descname">LeadRHSes</code> = {}<a class="headerlink" href="#_CPPv4N6Models4EPEC9LeadRHSesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Stores each leader’s constraint RHS. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GD and SS
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

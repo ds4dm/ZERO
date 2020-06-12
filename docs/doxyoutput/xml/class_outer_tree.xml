@@ -1,0 +1,769 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="class_outer_tree" kind="class" language="C++" prot="public">
+    <compoundname>OuterTree</compoundname>
+    <includes refid="outerapproximation_8h" local="no">outerapproximation.h</includes>
+    <innerclass refid="struct_outer_tree_1_1_node" prot="public">OuterTree::Node</innerclass>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_outer_tree_1a53df69238da5f9539ccad7ad4a161854" prot="private" static="no" mutable="no">
+        <type><ref refid="struct_outer_tree_1_1_node" kindref="compound">Node</ref></type>
+        <definition>Node OuterTree::Root</definition>
+        <argsstring></argsstring>
+        <name>Root</name>
+        <initializer>= <ref refid="struct_outer_tree_1_1_node" kindref="compound">Node</ref>(0)</initializer>
+        <briefdescription>
+<para>The root node of the tree. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="65" column="8" bodyfile="include/algorithms/outerapproximation.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_outer_tree_1ada109de4ffbba1cf61173c2ec7b2b037" prot="private" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int OuterTree::EncodingSize</definition>
+        <argsstring></argsstring>
+        <name>EncodingSize</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The size of the encoding, namely the number of complementarity equations </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="66" column="16" bodyfile="include/algorithms/outerapproximation.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_outer_tree_1aee21139e81a4634cc0b14ab41c8beeae" prot="private" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int OuterTree::NodeCounter</definition>
+        <argsstring></argsstring>
+        <name>NodeCounter</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+<para>The counter for node ids. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="68" column="16" bodyfile="include/algorithms/outerapproximation.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_outer_tree_1a2531c94f622a9eac9a2f6288001b9f95" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="struct_outer_tree_1_1_node" kindref="compound">Node</ref> &gt;</type>
+        <definition>std::vector&lt;Node&gt; OuterTree::Nodes</definition>
+        <argsstring></argsstring>
+        <name>Nodes</name>
+        <initializer>{}</initializer>
+        <briefdescription>
+<para>Storage of nodes in the tree. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="69" column="15" bodyfile="include/algorithms/outerapproximation.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_outer_tree_1a1a6dec5e19409718b57ffb4443699acc" prot="private" static="no" mutable="no">
+        <type>arma::sp_mat</type>
+        <definition>arma::sp_mat OuterTree::V</definition>
+        <argsstring></argsstring>
+        <name>V</name>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This object stores points that are inside the feasible region of the respective leader. Thesee are used to derive valid cuts, or certify that an equilibrium is inside (outside) the convex-hull of the feasible region. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="70" column="16" bodyfile="include/algorithms/outerapproximation.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_outer_tree_1a07065fb0a850c32f4b33327de4aa181a" prot="private" static="no" mutable="no">
+        <type>arma::sp_mat</type>
+        <definition>arma::sp_mat OuterTree::R</definition>
+        <argsstring></argsstring>
+        <name>R</name>
+        <initializer>{}</initializer>
+        <briefdescription>
+<para>As in V, but instead of vertices, this object contains rays. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="75" column="7" bodyfile="include/algorithms/outerapproximation.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_outer_tree_1a9d11ad9cb025ab160cabce18c0e9c0db" prot="private" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int OuterTree::VertexCounter</definition>
+        <argsstring></argsstring>
+        <name>VertexCounter</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>The counter for node ids. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="76" column="16" bodyfile="include/algorithms/outerapproximation.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_outer_tree_1a72354a8e0c2e6a3dca2aec0a6ca04659" prot="private" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int OuterTree::RayCounter</definition>
+        <argsstring></argsstring>
+        <name>RayCounter</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>The counter for node ids. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="77" column="16" bodyfile="include/algorithms/outerapproximation.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_outer_tree_1ad6d173ba61e058edfc0bcdc34a1c3c05" prot="private" static="no" mutable="no">
+        <type>GRBModel *</type>
+        <definition>GRBModel* OuterTree::MembershipLP</definition>
+        <argsstring></argsstring>
+        <name>MembershipLP</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This member stores the membership LP associated with the vertices in V </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="78" column="12" bodyfile="include/algorithms/outerapproximation.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_outer_tree_1aa5a62bc96b1cbe44c4c65c20fcfb244a" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool OuterTree::MembershipInit</definition>
+        <argsstring></argsstring>
+        <name>MembershipInit</name>
+        <initializer>{false}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="80" column="8" bodyfile="include/algorithms/outerapproximation.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_outer_tree_1aeed76662f492e43a3e7d31906af2d1f0" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool OuterTree::isPure</definition>
+        <argsstring></argsstring>
+        <name>isPure</name>
+        <initializer>{false}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="81" column="8" bodyfile="include/algorithms/outerapproximation.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_outer_tree_1a2e2c18329d8df030590757b58f29a66e" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool OuterTree::isFeasible</definition>
+        <argsstring></argsstring>
+        <name>isFeasible</name>
+        <initializer>{false}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="82" column="8" bodyfile="include/algorithms/outerapproximation.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_outer_tree_1a279efab5d68b82a41e96bd4a1eb1f81a" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int OuterTree::nextIdentifier</definition>
+        <argsstring>()</argsstring>
+        <name>nextIdentifier</name>
+        <briefdescription>
+<para>Increments the node counter and get the id of the new node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="84" column="16" bodyfile="include/algorithms/outerapproximation.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_outer_tree_1adb4f22de5ac9024ace9f2e8934a2872c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>OuterTree::OuterTree</definition>
+        <argsstring>(unsigned int encSize, GRBEnv *env)</argsstring>
+        <name>OuterTree</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>encSize</declname>
+        </param>
+        <param>
+          <type>GRBEnv *</type>
+          <declname>env</declname>
+        </param>
+        <briefdescription>
+<para>Constructor of the Tree given the encoding size. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="90" column="3" bodyfile="include/algorithms/outerapproximation.h" bodystart="90" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1a1921d4c2e6b95e4ec6fe3ac764df2dd4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>GRBModel *</type>
+        <definition>GRBModel* OuterTree::getMembershipLP</definition>
+        <argsstring>()</argsstring>
+        <name>getMembershipLP</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="97" column="12" bodyfile="include/algorithms/outerapproximation.h" bodystart="97" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1abca17db7a75835d7b249d5d0459ac1a7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const bool</type>
+        <definition>const bool OuterTree::getMembershipInit</definition>
+        <argsstring>()</argsstring>
+        <name>getMembershipInit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="99" column="14" bodyfile="include/algorithms/outerapproximation.h" bodystart="99" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1a58af7c6606496b04d1a9890e2d0c3bdc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void OuterTree::setMembershipInit</definition>
+        <argsstring>()</argsstring>
+        <name>setMembershipInit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="101" column="15" bodyfile="include/algorithms/outerapproximation.h" bodystart="101" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1a9fe6a75d06c2e566ea53760fe77d731a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void OuterTree::resetFeasibility</definition>
+        <argsstring>()</argsstring>
+        <name>resetFeasibility</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="103" column="15" bodyfile="include/algorithms/outerapproximation.h" bodystart="103" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1a340e298b0d305c0a0a0bbeb7ba5be42e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool OuterTree::getPure</definition>
+        <argsstring>() const</argsstring>
+        <name>getPure</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="108" column="15" bodyfile="include/algorithms/outerapproximation.h" bodystart="108" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1af9064bccf6ced8cadd1b909261ab4c1d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void OuterTree::setFeasible</definition>
+        <argsstring>()</argsstring>
+        <name>setFeasible</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="110" column="15" bodyfile="include/algorithms/outerapproximation.h" bodystart="110" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1a0a496414017621f69dbd9f362c0282d0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void OuterTree::setPure</definition>
+        <argsstring>()</argsstring>
+        <name>setPure</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="112" column="15" bodyfile="include/algorithms/outerapproximation.h" bodystart="112" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1a6445ef85cea32cc71c4da074a5ad6c8c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const unsigned int</type>
+        <definition>const unsigned int OuterTree::getEncodingSize</definition>
+        <argsstring>()</argsstring>
+        <name>getEncodingSize</name>
+        <briefdescription>
+<para>Getter for the encoding size. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="114" column="29" bodyfile="include/algorithms/outerapproximation.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1a8705be45ce9161e71fa6b29495b3d4fd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const arma::sp_mat *</type>
+        <definition>const arma::sp_mat* OuterTree::getV</definition>
+        <argsstring>()</argsstring>
+        <name>getV</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="118" column="29" bodyfile="include/algorithms/outerapproximation.h" bodystart="118" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1ad96b67ad9d94129bca3fbbcc27d0eca5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const arma::sp_mat *</type>
+        <definition>const arma::sp_mat* OuterTree::getR</definition>
+        <argsstring>()</argsstring>
+        <name>getR</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="120" column="29" bodyfile="include/algorithms/outerapproximation.h" bodystart="120" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1a894c759176eb2874aa32551f286aba36" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void OuterTree::incrementVertices</definition>
+        <argsstring>(unsigned int increment)</argsstring>
+        <name>incrementVertices</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>increment</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="122" column="8" bodyfile="include/algorithms/outerapproximation.h" bodystart="122" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1a18cec5e7790e856af0443c5640f71027" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void OuterTree::incrementRays</definition>
+        <argsstring>(unsigned int increment)</argsstring>
+        <name>incrementRays</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>increment</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="125" column="8" bodyfile="include/algorithms/outerapproximation.h" bodystart="125" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1ae9e7270e38c6304f1c4f2578661e69a6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const unsigned int</type>
+        <definition>const unsigned int OuterTree::getVertexCount</definition>
+        <argsstring>()</argsstring>
+        <name>getVertexCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="127" column="29" bodyfile="include/algorithms/outerapproximation.h" bodystart="127" bodyend="127"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1adf061a6f68cba5d59668bc281a75b8a6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const unsigned int</type>
+        <definition>const unsigned int OuterTree::getRayCount</definition>
+        <argsstring>()</argsstring>
+        <name>getRayCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="128" column="29" bodyfile="include/algorithms/outerapproximation.h" bodystart="128" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1a6235111a9ce71685c155e2d10026a3ed" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const unsigned int</type>
+        <definition>const unsigned int OuterTree::getNodeCount</definition>
+        <argsstring>()</argsstring>
+        <name>getNodeCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="130" column="29" bodyfile="include/algorithms/outerapproximation.h" bodystart="130" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1aa690cf8bf68f5519f57bef9243b01d41" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void OuterTree::addVertex</definition>
+        <argsstring>(arma::vec vertex)</argsstring>
+        <name>addVertex</name>
+        <param>
+          <type>arma::vec</type>
+          <declname>vertex</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="132" column="15" bodyfile="include/algorithms/outerapproximation.h" bodystart="132" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1abbd11ce625de7660ad1117335260abf9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void OuterTree::addRay</definition>
+        <argsstring>(arma::vec ray)</argsstring>
+        <name>addRay</name>
+        <param>
+          <type>arma::vec</type>
+          <declname>ray</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="136" column="15" bodyfile="include/algorithms/outerapproximation.h" bodystart="136" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1a2e4de48ca2dbdc666f002441d64907e9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool OuterTree::containsRay</definition>
+        <argsstring>(arma::vec ray, double tol)</argsstring>
+        <name>containsRay</name>
+        <param>
+          <type>arma::vec</type>
+          <declname>ray</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="140" column="15" bodyfile="include/algorithms/outerapproximation.h" bodystart="140" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1a0ff14517323237510b8afde3aecd8c7e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool OuterTree::containsVertex</definition>
+        <argsstring>(arma::vec vertex, double tol)</argsstring>
+        <name>containsVertex</name>
+        <param>
+          <type>arma::vec</type>
+          <declname>vertex</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="157" column="15" bodyfile="include/algorithms/outerapproximation.h" bodystart="157" bodyend="172"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1aac4829646fb93b6d8423006b9b4e6588" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="struct_outer_tree_1_1_node" kindref="compound">Node</ref> *const</type>
+        <definition>Node* const OuterTree::getRoot</definition>
+        <argsstring>()</argsstring>
+        <name>getRoot</name>
+        <briefdescription>
+<para>Getter for the root node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="174" column="21" bodyfile="include/algorithms/outerapproximation.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1ac36e9007b6ae51d896bf19a983069d6e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="struct_outer_tree_1_1_node" kindref="compound">Node</ref> &gt; *</type>
+        <definition>std::vector&lt;Node&gt;* OuterTree::getNodes</definition>
+        <argsstring>()</argsstring>
+        <name>getNodes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="178" column="22" bodyfile="include/algorithms/outerapproximation.h" bodystart="178" bodyend="178"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1a400465cf62bc782c7056662dfd37fff0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OuterTree::denyBranchingLocation</definition>
+        <argsstring>(Node &amp;node, const unsigned int &amp;location)</argsstring>
+        <name>denyBranchingLocation</name>
+        <param>
+          <type><ref refid="struct_outer_tree_1_1_node" kindref="compound">Node</ref> &amp;</type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type>const unsigned int &amp;</type>
+          <declname>location</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>If a complementarity equation<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>location</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>has proven to be infeasible or it isn&apos;t a candidate for branching, this method prevents any further branching on it for the node</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>node.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="180" column="8" bodyfile="src/algorithms/OuterApproximation.cpp" bodystart="991" bodyend="1004"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1a0e3500def2dd1502d0fb65d5c6e1263d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OuterTree::denyBranchingLocations</definition>
+        <argsstring>(Node &amp;node, const std::vector&lt; int &gt; &amp;locations)</argsstring>
+        <name>denyBranchingLocations</name>
+        <param>
+          <type><ref refid="struct_outer_tree_1_1_node" kindref="compound">Node</ref> &amp;</type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; int &gt; &amp;</type>
+          <declname>locations</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>If a complementarity equation<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>location</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>has proven to be infeasible or it isn&apos;t a candidate for branching, this method prevents any further branching on it for the node</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>node.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="181" column="8" bodyfile="src/algorithms/OuterApproximation.cpp" bodystart="1006" bodyend="1018"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1a499be54d3ac8186dc735b81d0507d913" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; long int &gt;</type>
+        <definition>std::vector&lt; long int &gt; OuterTree::singleBranch</definition>
+        <argsstring>(const unsigned int idComp, Node &amp;t)</argsstring>
+        <name>singleBranch</name>
+        <param>
+          <type>const unsigned int</type>
+          <declname>idComp</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_outer_tree_1_1_node" kindref="compound">Node</ref> &amp;</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Given the<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>idComp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>and the parent node</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>t</parametername>
+<parametername>creates</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a single child by branching on</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>idComp.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="183" column="15" bodyfile="src/algorithms/OuterApproximation.cpp" bodystart="1020" bodyend="1038"/>
+      </memberdef>
+      <memberdef kind="function" id="class_outer_tree_1a2c7384ad0adb74734f7a06e1b33a99e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; long int &gt;</type>
+        <definition>std::vector&lt; long int &gt; OuterTree::multipleBranch</definition>
+        <argsstring>(const std::vector&lt; int &gt; idsComp, Node &amp;t)</argsstring>
+        <name>multipleBranch</name>
+        <param>
+          <type>const std::vector&lt; int &gt;</type>
+          <declname>idsComp</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_outer_tree_1_1_node" kindref="compound">Node</ref> &amp;</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Given the<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>idComp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>and the parent node</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>t</parametername>
+<parametername>creates</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a single child by branching on</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>idComp.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </inbodydescription>
+        <location file="include/algorithms/outerapproximation.h" line="185" column="15" bodyfile="src/algorithms/OuterApproximation.cpp" bodystart="1040" bodyend="1060"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>OuterTree</label>
+        <link refid="class_outer_tree"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Root</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>OuterTree::Node</label>
+        <link refid="struct_outer_tree_1_1_node"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Parent</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/algorithms/outerapproximation.h" line="12" column="16" bodyfile="include/algorithms/outerapproximation.h" bodystart="12" bodyend="186"/>
+    <listofallmembers>
+      <member refid="class_outer_tree_1abbd11ce625de7660ad1117335260abf9" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>addRay</name></member>
+      <member refid="class_outer_tree_1aa690cf8bf68f5519f57bef9243b01d41" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>addVertex</name></member>
+      <member refid="class_outer_tree_1a2e4de48ca2dbdc666f002441d64907e9" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>containsRay</name></member>
+      <member refid="class_outer_tree_1a0ff14517323237510b8afde3aecd8c7e" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>containsVertex</name></member>
+      <member refid="class_outer_tree_1a400465cf62bc782c7056662dfd37fff0" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>denyBranchingLocation</name></member>
+      <member refid="class_outer_tree_1a0e3500def2dd1502d0fb65d5c6e1263d" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>denyBranchingLocations</name></member>
+      <member refid="class_outer_tree_1ada109de4ffbba1cf61173c2ec7b2b037" prot="private" virt="non-virtual"><scope>OuterTree</scope><name>EncodingSize</name></member>
+      <member refid="class_outer_tree_1a6445ef85cea32cc71c4da074a5ad6c8c" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>getEncodingSize</name></member>
+      <member refid="class_outer_tree_1abca17db7a75835d7b249d5d0459ac1a7" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>getMembershipInit</name></member>
+      <member refid="class_outer_tree_1a1921d4c2e6b95e4ec6fe3ac764df2dd4" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>getMembershipLP</name></member>
+      <member refid="class_outer_tree_1a6235111a9ce71685c155e2d10026a3ed" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>getNodeCount</name></member>
+      <member refid="class_outer_tree_1ac36e9007b6ae51d896bf19a983069d6e" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>getNodes</name></member>
+      <member refid="class_outer_tree_1a340e298b0d305c0a0a0bbeb7ba5be42e" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>getPure</name></member>
+      <member refid="class_outer_tree_1ad96b67ad9d94129bca3fbbcc27d0eca5" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>getR</name></member>
+      <member refid="class_outer_tree_1adf061a6f68cba5d59668bc281a75b8a6" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>getRayCount</name></member>
+      <member refid="class_outer_tree_1aac4829646fb93b6d8423006b9b4e6588" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>getRoot</name></member>
+      <member refid="class_outer_tree_1a8705be45ce9161e71fa6b29495b3d4fd" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>getV</name></member>
+      <member refid="class_outer_tree_1ae9e7270e38c6304f1c4f2578661e69a6" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>getVertexCount</name></member>
+      <member refid="class_outer_tree_1a18cec5e7790e856af0443c5640f71027" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>incrementRays</name></member>
+      <member refid="class_outer_tree_1a894c759176eb2874aa32551f286aba36" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>incrementVertices</name></member>
+      <member refid="class_outer_tree_1a2e2c18329d8df030590757b58f29a66e" prot="private" virt="non-virtual"><scope>OuterTree</scope><name>isFeasible</name></member>
+      <member refid="class_outer_tree_1aeed76662f492e43a3e7d31906af2d1f0" prot="private" virt="non-virtual"><scope>OuterTree</scope><name>isPure</name></member>
+      <member refid="class_outer_tree_1aa5a62bc96b1cbe44c4c65c20fcfb244a" prot="private" virt="non-virtual"><scope>OuterTree</scope><name>MembershipInit</name></member>
+      <member refid="class_outer_tree_1ad6d173ba61e058edfc0bcdc34a1c3c05" prot="private" virt="non-virtual"><scope>OuterTree</scope><name>MembershipLP</name></member>
+      <member refid="class_outer_tree_1a2c7384ad0adb74734f7a06e1b33a99e4" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>multipleBranch</name></member>
+      <member refid="class_outer_tree_1a279efab5d68b82a41e96bd4a1eb1f81a" prot="private" virt="non-virtual"><scope>OuterTree</scope><name>nextIdentifier</name></member>
+      <member refid="class_outer_tree_1aee21139e81a4634cc0b14ab41c8beeae" prot="private" virt="non-virtual"><scope>OuterTree</scope><name>NodeCounter</name></member>
+      <member refid="class_outer_tree_1a2531c94f622a9eac9a2f6288001b9f95" prot="private" virt="non-virtual"><scope>OuterTree</scope><name>Nodes</name></member>
+      <member refid="class_outer_tree_1adb4f22de5ac9024ace9f2e8934a2872c" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>OuterTree</name></member>
+      <member refid="class_outer_tree_1a07065fb0a850c32f4b33327de4aa181a" prot="private" virt="non-virtual"><scope>OuterTree</scope><name>R</name></member>
+      <member refid="class_outer_tree_1a72354a8e0c2e6a3dca2aec0a6ca04659" prot="private" virt="non-virtual"><scope>OuterTree</scope><name>RayCounter</name></member>
+      <member refid="class_outer_tree_1a9fe6a75d06c2e566ea53760fe77d731a" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>resetFeasibility</name></member>
+      <member refid="class_outer_tree_1a53df69238da5f9539ccad7ad4a161854" prot="private" virt="non-virtual"><scope>OuterTree</scope><name>Root</name></member>
+      <member refid="class_outer_tree_1af9064bccf6ced8cadd1b909261ab4c1d" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>setFeasible</name></member>
+      <member refid="class_outer_tree_1a58af7c6606496b04d1a9890e2d0c3bdc" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>setMembershipInit</name></member>
+      <member refid="class_outer_tree_1a0a496414017621f69dbd9f362c0282d0" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>setPure</name></member>
+      <member refid="class_outer_tree_1a499be54d3ac8186dc735b81d0507d913" prot="public" virt="non-virtual"><scope>OuterTree</scope><name>singleBranch</name></member>
+      <member refid="class_outer_tree_1a1a6dec5e19409718b57ffb4443699acc" prot="private" virt="non-virtual"><scope>OuterTree</scope><name>V</name></member>
+      <member refid="class_outer_tree_1a9d11ad9cb025ab160cabce18c0e9c0db" prot="private" virt="non-virtual"><scope>OuterTree</scope><name>VertexCounter</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

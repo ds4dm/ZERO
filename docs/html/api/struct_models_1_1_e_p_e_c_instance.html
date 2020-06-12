@@ -1,0 +1,362 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Struct EPECInstance &mdash; EPECSolve 2.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> EPECSolve
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#mandatory-packages">Mandatory packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#recommended-but-not-mandatory-for-the-algorithm-some-examples-might-have-these-dependancies">Recommended but not mandatory for the algorithm. (Some examples might have these dependancies)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#license">LICENSE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Quick References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EPECSolve</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Struct EPECInstance</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/struct_models_1_1_e_p_e_c_instance.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="struct-epecinstance">
+<span id="exhale-struct-struct-models-1-1-e-p-e-c-instance"></span><h1>Struct EPECInstance<a class="headerlink" href="#struct-epecinstance" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_models.h.html#file-include-models-h"><span class="std std-ref">File models.h</span></a></p></li>
+</ul>
+<div class="section" id="struct-documentation">
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp struct">
+<dt id="_CPPv4N6Models12EPECInstanceE">
+<span id="_CPPv3N6Models12EPECInstanceE"></span><span id="_CPPv2N6Models12EPECInstanceE"></span><span id="Models::EPECInstance"></span><span class="target" id="struct_models_1_1_e_p_e_c_instance"></span><em class="property">struct </em><code class="sig-prename descclassname">Models<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">EPECInstance</code><a class="headerlink" href="#_CPPv4N6Models12EPECInstanceE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Stores a single Instance. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N6Models12EPECInstance12EPECInstanceENSt6stringE">
+<span id="_CPPv3N6Models12EPECInstance12EPECInstanceENSt6stringE"></span><span id="_CPPv2N6Models12EPECInstance12EPECInstanceENSt6stringE"></span><span id="Models::EPECInstance::EPECInstance__ss"></span><span class="target" id="struct_models_1_1_e_p_e_c_instance_1a3f4f3e937cc617a809040c035b8ddae0"></span><code class="sig-name descname">EPECInstance</code><span class="sig-paren">(</span>std::string <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6Models12EPECInstance12EPECInstanceENSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructor from instance file. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6Models12EPECInstance12EPECInstanceENSt6vectorIN6Models10LeadAllParEEEN4arma6sp_matE">
+<span id="_CPPv3N6Models12EPECInstance12EPECInstanceENSt6vectorIN6Models10LeadAllParEEEN4arma6sp_matE"></span><span id="_CPPv2N6Models12EPECInstance12EPECInstanceENSt6vectorIN6Models10LeadAllParEEEN4arma6sp_matE"></span><span id="Models::EPECInstance::EPECInstance__std::vector:Models::LeadAllPar:.arma::sp_mat"></span><span class="target" id="struct_models_1_1_e_p_e_c_instance_1a4dfd3b98d5ce7b325b0b6f345186169c"></span><code class="sig-name descname">EPECInstance</code><span class="sig-paren">(</span>std::vector&lt;Models::<a class="reference internal" href="struct_models_1_1_lead_all_par.html#_CPPv4N6Models10LeadAllParE" title="Models::LeadAllPar">LeadAllPar</a>&gt; <em>Countries_</em>, arma::sp_mat <em>Transp_</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6Models12EPECInstance12EPECInstanceENSt6vectorIN6Models10LeadAllParEEEN4arma6sp_matE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructor from instance objects. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6Models12EPECInstance4loadENSt6stringE">
+<span id="_CPPv3N6Models12EPECInstance4loadENSt6stringE"></span><span id="_CPPv2N6Models12EPECInstance4loadENSt6stringE"></span><span id="Models::EPECInstance::load__ss"></span><span class="target" id="struct_models_1_1_e_p_e_c_instance_1a1224e238323bb6387cea74f8c59acefc"></span>void <code class="sig-name descname">load</code><span class="sig-paren">(</span>std::string <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6Models12EPECInstance4loadENSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Reads the <a class="reference internal" href="#struct_models_1_1_e_p_e_c_instance"><span class="std std-ref">EPECInstance</span></a> from a file. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6Models12EPECInstance4saveENSt6stringE">
+<span id="_CPPv3N6Models12EPECInstance4saveENSt6stringE"></span><span id="_CPPv2N6Models12EPECInstance4saveENSt6stringE"></span><span id="Models::EPECInstance::save__ss"></span><span class="target" id="struct_models_1_1_e_p_e_c_instance_1aa2ef90d0954b07bb4a947905aa1468c2"></span>void <code class="sig-name descname">save</code><span class="sig-paren">(</span>std::string <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6Models12EPECInstance4saveENSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Writes the <a class="reference internal" href="#struct_models_1_1_e_p_e_c_instance"><span class="std std-ref">EPECInstance</span></a> from a file. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="cpp var">
+<dt id="_CPPv4N6Models12EPECInstance9CountriesE">
+<span id="_CPPv3N6Models12EPECInstance9CountriesE"></span><span id="_CPPv2N6Models12EPECInstance9CountriesE"></span><span id="Models::EPECInstance::Countries__std::vector:Models::LeadAllPar:"></span><span class="target" id="struct_models_1_1_e_p_e_c_instance_1ae244048e3bb0509d1ec35afa8eb97903"></span>std::vector&lt;Models::<a class="reference internal" href="struct_models_1_1_lead_all_par.html#_CPPv4N6Models10LeadAllParE" title="Models::LeadAllPar">LeadAllPar</a>&gt; <code class="sig-name descname">Countries</code> = {}<a class="headerlink" href="#_CPPv4N6Models12EPECInstance9CountriesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><a class="reference internal" href="struct_models_1_1_lead_all_par.html#struct_models_1_1_lead_all_par"><span class="std std-ref">LeadAllPar</span></a> vector. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N6Models12EPECInstance19TransportationCostsE">
+<span id="_CPPv3N6Models12EPECInstance19TransportationCostsE"></span><span id="_CPPv2N6Models12EPECInstance19TransportationCostsE"></span><span id="Models::EPECInstance::TransportationCosts__arma::sp_mat"></span><span class="target" id="struct_models_1_1_e_p_e_c_instance_1a66f78f8fc226176952be87b1d61b32ec"></span>arma::sp_mat <code class="sig-name descname">TransportationCosts</code> = {}<a class="headerlink" href="#_CPPv4N6Models12EPECInstance19TransportationCostsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Transportation costs matrix. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GD and SS
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

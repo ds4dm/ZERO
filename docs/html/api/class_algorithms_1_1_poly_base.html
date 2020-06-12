@@ -1,0 +1,439 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Class PolyBase &mdash; EPECSolve 2.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> EPECSolve
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#mandatory-packages">Mandatory packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#recommended-but-not-mandatory-for-the-algorithm-some-examples-might-have-these-dependancies">Recommended but not mandatory for the algorithm. (Some examples might have these dependancies)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#license">LICENSE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Quick References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EPECSolve</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Class PolyBase</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/class_algorithms_1_1_poly_base.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="class-polybase">
+<span id="exhale-class-class-algorithms-1-1-poly-base"></span><h1>Class PolyBase<a class="headerlink" href="#class-polybase" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_algorithms_polybase.h.html#file-include-algorithms-polybase-h"><span class="std std-ref">File polybase.h</span></a></p></li>
+</ul>
+<div class="section" id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="base-type">
+<h3>Base Type<a class="headerlink" href="#base-type" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">Algorithms::Algorithm</span></code> (<a class="reference internal" href="class_algorithms_1_1_algorithm.html#exhale-class-class-algorithms-1-1-algorithm"><span class="std std-ref">Class Algorithm</span></a>)</p></li>
+</ul>
+</div>
+<div class="section" id="derived-types">
+<h3>Derived Types<a class="headerlink" href="#derived-types" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">Algorithms::CombinatorialPNE</span></code> (<a class="reference internal" href="class_algorithms_1_1_combinatorial_p_n_e.html#exhale-class-class-algorithms-1-1-combinatorial-p-n-e"><span class="std std-ref">Class CombinatorialPNE</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">Algorithms::FullEnumeration</span></code> (<a class="reference internal" href="class_algorithms_1_1_full_enumeration.html#exhale-class-class-algorithms-1-1-full-enumeration"><span class="std std-ref">Class FullEnumeration</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">Algorithms::InnerApproximation</span></code> (<a class="reference internal" href="class_algorithms_1_1_inner_approximation.html#exhale-class-class-algorithms-1-1-inner-approximation"><span class="std std-ref">Class InnerApproximation</span></a>)</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp class">
+<dt id="_CPPv4N10Algorithms8PolyBaseE">
+<span id="_CPPv3N10Algorithms8PolyBaseE"></span><span id="_CPPv2N10Algorithms8PolyBaseE"></span><span id="Algorithms::PolyBase"></span><span class="target" id="class_algorithms_1_1_poly_base"></span><em class="property">class </em><code class="sig-prename descclassname">Algorithms<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">PolyBase</code> : <em class="property">public</em> Algorithms::<a class="reference internal" href="class_algorithms_1_1_algorithm.html#_CPPv4N10Algorithms9AlgorithmE" title="Algorithms::Algorithm">Algorithm</a><a class="headerlink" href="#_CPPv4N10Algorithms8PolyBaseE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Subclassed by <a class="reference internal" href="class_algorithms_1_1_combinatorial_p_n_e.html#class_algorithms_1_1_combinatorial_p_n_e"><span class="std std-ref">Algorithms::CombinatorialPNE</span></a>, <a class="reference internal" href="class_algorithms_1_1_full_enumeration.html#class_algorithms_1_1_full_enumeration"><span class="std std-ref">Algorithms::FullEnumeration</span></a>, <a class="reference internal" href="class_algorithms_1_1_inner_approximation.html#class_algorithms_1_1_inner_approximation"><span class="std std-ref">Algorithms::InnerApproximation</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N10Algorithms8PolyBase8PolyBaseEP6GRBEnvPN4Game4EPECE">
+<span id="_CPPv3N10Algorithms8PolyBase8PolyBaseEP6GRBEnvPN4Game4EPECE"></span><span id="_CPPv2N10Algorithms8PolyBase8PolyBaseEP6GRBEnvPN4Game4EPECE"></span><span id="Algorithms::PolyBase::PolyBase__GRBEnvP.Game::EPECP"></span><span class="target" id="class_algorithms_1_1_poly_base_1a1f78be58a2d6bb79a68d493a14912c2b"></span><code class="sig-name descname">PolyBase</code><span class="sig-paren">(</span>GRBEnv *<em>env</em>, Game::<a class="reference internal" href="class_game_1_1_e_p_e_c.html#_CPPv4N4Game4EPECE" title="Game::EPEC">EPEC</a> *<em>EPECObject</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms8PolyBase8PolyBaseEP6GRBEnvPN4Game4EPECE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK10Algorithms8PolyBase8isSolvedEPjPN4arma3vecEd">
+<span id="_CPPv3NK10Algorithms8PolyBase8isSolvedEPjPN4arma3vecEd"></span><span id="_CPPv2NK10Algorithms8PolyBase8isSolvedEPjPN4arma3vecEd"></span><span id="Algorithms::PolyBase::isSolved__unsigned-iP.arma::vecP.doubleC"></span><span class="target" id="class_algorithms_1_1_poly_base_1a7b1d145bcea0de98ae44efc2c75c2939"></span>bool <code class="sig-name descname">isSolved</code><span class="sig-paren">(</span>unsigned int *<em>countryNumber</em>, arma::vec *<em>profitableDeviation</em>, double <em>tol</em> = -1<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms8PolyBase8isSolvedEPjPN4arma3vecEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>&#64;briefs Checks if <a class="reference internal" href="class_game_1_1_e_p_e_c.html#class_game_1_1_e_p_e_c"><span class="std std-ref">Game::EPEC</span></a> is solved, otherwise it returns a proof.</p>
+<p>Analogous to <a class="reference internal" href="class_game_1_1_nash_game.html#class_game_1_1_nash_game_1a28ff99cbe8f408add01afcbda9249934"><span class="std std-ref">Game::NashGame::isSolved</span></a> but checks if the given <a class="reference internal" href="class_game_1_1_e_p_e_c.html#class_game_1_1_e_p_e_c"><span class="std std-ref">Game::EPEC</span></a> is solved. If it is solved, then retruns true. If not, it returns the country which has a profitable deviation in <code class="docutils literal notranslate"><span class="pre">countryNumber</span></code> and the profitable deviation in <code class="docutils literal notranslate"><span class="pre">profitableDeviation</span></code>. <code class="docutils literal notranslate"><span class="pre">Tolerance</span></code> is the tolerance for the check. If the <em> improved objective </em> after the deviation is less than <code class="docutils literal notranslate"><span class="pre">Tolerance</span></code>, then it is not considered as a profitable deviation.</p>
+<p>Thus we check if the given point is an <span class="math notranslate nohighlight">\(\epsilon\)</span>-equilibrium. Value of <span class="math notranslate nohighlight">\(\epsilon \)</span> can be chosen sufficiently close to 0.</p>
+<p><dl class="simple">
+<dt><strong>Warning</strong></dt><dd><p>Setting <code class="docutils literal notranslate"><span class="pre">Tolerance</span></code> = 0 might even reject a real solution as not solved. This is due to Numerical issues arising from the LCP solver (Gurobi). </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK10Algorithms8PolyBase8isSolvedEd">
+<span id="_CPPv3NK10Algorithms8PolyBase8isSolvedEd"></span><span id="_CPPv2NK10Algorithms8PolyBase8isSolvedEd"></span><span id="Algorithms::PolyBase::isSolved__doubleC"></span><span class="target" id="class_algorithms_1_1_poly_base_1ac27d78674528f933621deccc71f66501"></span>bool <code class="sig-name descname">isSolved</code><span class="sig-paren">(</span>double <em>tol</em> = -1<span class="sig-paren">)</span> <em class="property">const</em> <em class="property">override</em><a class="headerlink" href="#_CPPv4NK10Algorithms8PolyBase8isSolvedEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method to check whether the EPEC is solved or not, given a numerical tolerance </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N10Algorithms8PolyBase14makeThePureLCPEb">
+<span id="_CPPv3N10Algorithms8PolyBase14makeThePureLCPEb"></span><span id="_CPPv2N10Algorithms8PolyBase14makeThePureLCPEb"></span><span id="Algorithms::PolyBase::makeThePureLCP__b"></span><span class="target" id="class_algorithms_1_1_poly_base_1abe79ddc6a7707a82b399b75b102c2331"></span>void <code class="sig-name descname">makeThePureLCP</code><span class="sig-paren">(</span>bool <em>indicators</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms8PolyBase14makeThePureLCPEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK10Algorithms8PolyBase18getValLeadFollPolyEjjjd">
+<span id="_CPPv3NK10Algorithms8PolyBase18getValLeadFollPolyEjjjd"></span><span id="_CPPv2NK10Algorithms8PolyBase18getValLeadFollPolyEjjjd"></span><span id="Algorithms::PolyBase::getValLeadFollPoly__unsigned-i.unsigned-i.unsigned-i.doubleC"></span><span class="target" id="class_algorithms_1_1_poly_base_1a86c4dde773b300f57f9968c7250d0f8e"></span>double <code class="sig-name descname">getValLeadFollPoly</code><span class="sig-paren">(</span>unsigned int <em>i</em>, unsigned int <em>j</em>, unsigned int <em>k</em>, double <em>tol</em> = 1e-5<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms8PolyBase18getValLeadFollPolyEjjjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK10Algorithms8PolyBase18getValLeadLeadPolyEjjjd">
+<span id="_CPPv3NK10Algorithms8PolyBase18getValLeadLeadPolyEjjjd"></span><span id="_CPPv2NK10Algorithms8PolyBase18getValLeadLeadPolyEjjjd"></span><span id="Algorithms::PolyBase::getValLeadLeadPoly__unsigned-i.unsigned-i.unsigned-i.doubleC"></span><span class="target" id="class_algorithms_1_1_poly_base_1ac3c83ac88bf7bd84238781bbf1be68c3"></span>double <code class="sig-name descname">getValLeadLeadPoly</code><span class="sig-paren">(</span>unsigned int <em>i</em>, unsigned int <em>j</em>, unsigned int <em>k</em>, double <em>tol</em> = 1e-5<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms8PolyBase18getValLeadLeadPolyEjjjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK10Algorithms8PolyBase12getValProbabEjj">
+<span id="_CPPv3NK10Algorithms8PolyBase12getValProbabEjj"></span><span id="_CPPv2NK10Algorithms8PolyBase12getValProbabEjj"></span><span id="Algorithms::PolyBase::getValProbab__unsigned-i.unsigned-iC"></span><span class="target" id="class_algorithms_1_1_poly_base_1aa9ef9760237673271aa3dd174992f4ac"></span>double <code class="sig-name descname">getValProbab</code><span class="sig-paren">(</span>unsigned int <em>i</em>, unsigned int <em>k</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms8PolyBase12getValProbabEjj" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK10Algorithms8PolyBase14isPureStrategyEjd">
+<span id="_CPPv3NK10Algorithms8PolyBase14isPureStrategyEjd"></span><span id="_CPPv2NK10Algorithms8PolyBase14isPureStrategyEjd"></span><span id="Algorithms::PolyBase::isPureStrategy__unsigned-i.doubleC"></span><span class="target" id="class_algorithms_1_1_poly_base_1aa09f61d5c01cbeaaf02471e2182134ca"></span>bool <code class="sig-name descname">isPureStrategy</code><span class="sig-paren">(</span>unsigned int <em>i</em>, double <em>tol</em> = 1e-5<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms8PolyBase14isPureStrategyEjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK10Algorithms8PolyBase14isPureStrategyEd">
+<span id="_CPPv3NK10Algorithms8PolyBase14isPureStrategyEd"></span><span id="_CPPv2NK10Algorithms8PolyBase14isPureStrategyEd"></span><span id="Algorithms::PolyBase::isPureStrategy__doubleC"></span><span class="target" id="class_algorithms_1_1_poly_base_1a7bf62bee2c06bc6b3de5f4a1bbacf716"></span>bool <code class="sig-name descname">isPureStrategy</code><span class="sig-paren">(</span>double <em>tol</em> = 1e-5<span class="sig-paren">)</span> <em class="property">const</em> <em class="property">override</em><a class="headerlink" href="#_CPPv4NK10Algorithms8PolyBase14isPureStrategyEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method to check whether the EPEC solution is a pure equilibrium or not, given a numerical tolerance </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK10Algorithms8PolyBase17mixedStrategyPolyEjd">
+<span id="_CPPv3NK10Algorithms8PolyBase17mixedStrategyPolyEjd"></span><span id="_CPPv2NK10Algorithms8PolyBase17mixedStrategyPolyEjd"></span><span id="Algorithms::PolyBase::mixedStrategyPoly__unsigned-i.doubleC"></span><span class="target" id="class_algorithms_1_1_poly_base_1a08033828621a4e73c37c2041e029614d"></span>std::vector&lt;unsigned int&gt; <code class="sig-name descname">mixedStrategyPoly</code><span class="sig-paren">(</span>unsigned int <em>i</em>, double <em>tol</em> = 1e-5<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms8PolyBase17mixedStrategyPolyEjd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the indices of polyhedra feasible for the leader, from which strategies are played with probability greater than Tolerance. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK10Algorithms8PolyBase23getPositionLeadFollPolyEjjj">
+<span id="_CPPv3NK10Algorithms8PolyBase23getPositionLeadFollPolyEjjj"></span><span id="_CPPv2NK10Algorithms8PolyBase23getPositionLeadFollPolyEjjj"></span><span id="Algorithms::PolyBase::getPositionLeadFollPoly__unsigned-i.unsigned-i.unsigned-iC"></span><span class="target" id="class_algorithms_1_1_poly_base_1ae334c85da0d64e0c8b8471f2233dd449"></span>unsigned int <code class="sig-name descname">getPositionLeadFollPoly</code><span class="sig-paren">(</span>unsigned int <em>i</em>, unsigned int <em>j</em>, unsigned int <em>k</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms8PolyBase23getPositionLeadFollPolyEjjj" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK10Algorithms8PolyBase23getPositionLeadLeadPolyEjjj">
+<span id="_CPPv3NK10Algorithms8PolyBase23getPositionLeadLeadPolyEjjj"></span><span id="_CPPv2NK10Algorithms8PolyBase23getPositionLeadLeadPolyEjjj"></span><span id="Algorithms::PolyBase::getPositionLeadLeadPoly__unsigned-i.unsigned-i.unsigned-iC"></span><span class="target" id="class_algorithms_1_1_poly_base_1af721963dcce33b7acbeaee904c485116"></span>unsigned int <code class="sig-name descname">getPositionLeadLeadPoly</code><span class="sig-paren">(</span>unsigned int <em>i</em>, unsigned int <em>j</em>, unsigned int <em>k</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms8PolyBase23getPositionLeadLeadPolyEjjj" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK10Algorithms8PolyBase14getNumPolyLeadEj">
+<span id="_CPPv3NK10Algorithms8PolyBase14getNumPolyLeadEj"></span><span id="_CPPv2NK10Algorithms8PolyBase14getNumPolyLeadEj"></span><span id="Algorithms::PolyBase::getNumPolyLead__unsigned-iC"></span><span class="target" id="class_algorithms_1_1_poly_base_1aa987e6d74b441b0c61b06899e6248925"></span>unsigned int <code class="sig-name descname">getNumPolyLead</code><span class="sig-paren">(</span>unsigned int <em>i</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms8PolyBase14getNumPolyLeadEj" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK10Algorithms8PolyBase17getPositionProbabEjj">
+<span id="_CPPv3NK10Algorithms8PolyBase17getPositionProbabEjj"></span><span id="_CPPv2NK10Algorithms8PolyBase17getPositionProbabEjj"></span><span id="Algorithms::PolyBase::getPositionProbab__unsigned-i.unsigned-iC"></span><span class="target" id="class_algorithms_1_1_poly_base_1a53fd963bfa11b12f7bd6a445dc0caf63"></span>unsigned int <code class="sig-name descname">getPositionProbab</code><span class="sig-paren">(</span>unsigned int <em>i</em>, unsigned int <em>k</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms8PolyBase17getPositionProbabEjj" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Protected Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N10Algorithms8PolyBase11postSolvingEv">
+<span id="_CPPv3N10Algorithms8PolyBase11postSolvingEv"></span><span id="_CPPv2N10Algorithms8PolyBase11postSolvingEv"></span><span id="Algorithms::PolyBase::postSolving"></span><span class="target" id="class_algorithms_1_1_poly_base_1a66e196274f52293e5d442a3c1e44220e"></span>void <code class="sig-name descname">postSolving</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N10Algorithms8PolyBase11postSolvingEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A protected method to be called after solving the EPEC. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Protected Attributes</p>
+<dl class="cpp var">
+<dt id="_CPPv4N10Algorithms8PolyBase7PolyLCPE">
+<span id="_CPPv3N10Algorithms8PolyBase7PolyLCPE"></span><span id="_CPPv2N10Algorithms8PolyBase7PolyLCPE"></span><span id="Algorithms::PolyBase::PolyLCP__std::vector:std::shared_ptr:Game::PolyLCP::"></span><span class="target" id="class_algorithms_1_1_poly_base_1afddd2b644ad54f462303315088234600"></span>std::vector&lt;std::shared_ptr&lt;Game::<a class="reference internal" href="class_game_1_1_poly_l_c_p.html#_CPPv4N4Game7PolyLCPE" title="Game::PolyLCP">PolyLCP</a>&gt;&gt; <code class="sig-name descname">PolyLCP</code> = {}<a class="headerlink" href="#_CPPv4N10Algorithms8PolyBase7PolyLCPE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This is the abstract class of <a class="reference internal" href="namespace_Algorithms.html#namespace-algorithms"><span class="std std-ref">Algorithms</span></a> for full enumeration, inner approximation, and Combinatorial PNE. It provides a constructor where the Gurobi environment and the EPEC are passed. This is an abstract class. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GD and SS
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

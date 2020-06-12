@@ -1,0 +1,878 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Class EPEC &mdash; EPECSolve 2.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> EPECSolve
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#mandatory-packages">Mandatory packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#recommended-but-not-mandatory-for-the-algorithm-some-examples-might-have-these-dependancies">Recommended but not mandatory for the algorithm. (Some examples might have these dependancies)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#license">LICENSE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Quick References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EPECSolve</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Class EPEC</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/class_game_1_1_e_p_e_c.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="class-epec">
+<span id="exhale-class-class-game-1-1-e-p-e-c"></span><h1>Class EPEC<a class="headerlink" href="#class-epec" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_games.h.html#file-include-games-h"><span class="std std-ref">File games.h</span></a></p></li>
+</ul>
+<div class="section" id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="derived-type">
+<h3>Derived Type<a class="headerlink" href="#derived-type" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">Models::EPEC</span></code> (<a class="reference internal" href="class_models_1_1_e_p_e_c.html#exhale-class-class-models-1-1-e-p-e-c"><span class="std std-ref">Class EPEC</span></a>)</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp class">
+<dt id="_CPPv4N4Game4EPECE">
+<span id="_CPPv3N4Game4EPECE"></span><span id="_CPPv2N4Game4EPECE"></span><span id="Game::EPEC"></span><span class="target" id="class_game_1_1_e_p_e_c"></span><em class="property">class </em><code class="sig-prename descclassname">Game<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">EPEC</code><a class="headerlink" href="#_CPPv4N4Game4EPECE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Class to handle a Nash game between leaders of Stackelberg games. </p>
+<p>Subclassed by <a class="reference internal" href="class_models_1_1_e_p_e_c.html#class_models_1_1_e_p_e_c"><span class="std std-ref">Models::EPEC</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC4EPECEv">
+<span id="_CPPv3N4Game4EPEC4EPECEv"></span><span id="_CPPv2N4Game4EPEC4EPECEv"></span><span id="Game::EPEC::EPEC"></span><span class="target" id="class_game_1_1_e_p_e_c_1a1b8553cd89efb9951f7cec24b8c09b5f"></span><code class="sig-name descname">EPEC</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = delete<a class="headerlink" href="#_CPPv4N4Game4EPEC4EPECEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC4EPECER4EPEC">
+<span id="_CPPv3N4Game4EPEC4EPECER4EPEC"></span><span id="_CPPv2N4Game4EPEC4EPECER4EPEC"></span><span id="Game::EPEC::EPEC__EPECR"></span><span class="target" id="class_game_1_1_e_p_e_c_1ae88d958afd4f98f1bb7638759ff1c753"></span><code class="sig-name descname">EPEC</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N4Game4EPEC4EPECER4EPEC" title="Game::EPEC::EPEC">EPEC</a>&amp;<span class="sig-paren">)</span> = delete<a class="headerlink" href="#_CPPv4N4Game4EPEC4EPECER4EPEC" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPECD0Ev">
+<span id="_CPPv3N4Game4EPECD0Ev"></span><span id="_CPPv2N4Game4EPECD0Ev"></span><span id="Game::EPEC::~EPEC"></span><span class="target" id="class_game_1_1_e_p_e_c_1a695b5ed41fdbbf18f2cea05383c2081f"></span><code class="sig-name descname">~EPEC</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = default<a class="headerlink" href="#_CPPv4N4Game4EPECD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC8finalizeEv">
+<span id="_CPPv3N4Game4EPEC8finalizeEv"></span><span id="_CPPv2N4Game4EPEC8finalizeEv"></span><span id="Game::EPEC::finalize"></span><span class="target" id="class_game_1_1_e_p_e_c_1ab32d89068adc66f100a266bbf31bf63e"></span>void <code class="sig-name descname">finalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC8finalizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Finalizes the creation of a <a class="reference internal" href="#class_game_1_1_e_p_e_c"><span class="std std-ref">Game::EPEC</span></a> object. </p>
+<p>Performs a bunch of job after all data for a <a class="reference internal" href="#class_game_1_1_e_p_e_c"><span class="std std-ref">Game::EPEC</span></a> object are given, namely. <a class="reference internal" href="#class_game_1_1_e_p_e_c_1afcd0018e01a696881c8da744a3a05048"><span class="std std-ref">Models::EPEC::computeLeaderLocations</span></a> - Adds the required dummy variables to each leader’s problem so that a game among the leaders can be defined. Calls <a class="reference internal" href="#class_game_1_1_e_p_e_c_1ae0bd0fb7910bc4735c0c6481e1ab7c60"><span class="std std-ref">Game::EPEC::addDummyLead</span></a><ul class="simple">
+<li><p>Makes the market clearing constraint in each country. Calls </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC10findNashEqEv">
+<span id="_CPPv3N4Game4EPEC10findNashEqEv"></span><span id="_CPPv2N4Game4EPEC10findNashEqEv"></span><span id="Game::EPEC::findNashEq"></span><span class="target" id="class_game_1_1_e_p_e_c_1a71db5d5bacd5a7b97437795d797f882b"></span><em class="property">const</em> void <code class="sig-name descname">findNashEq</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC10findNashEqEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC8isSolvedEd">
+<span id="_CPPv3NK4Game4EPEC8isSolvedEd"></span><span id="_CPPv2NK4Game4EPEC8isSolvedEd"></span><span id="Game::EPEC::isSolved__doubleC"></span><span class="target" id="class_game_1_1_e_p_e_c_1a9c3a719fb69eb3866aa6b440e9a31192"></span>bool <code class="sig-name descname">isSolved</code><span class="sig-paren">(</span>double <em>tol</em> = 1e-5<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC8isSolvedEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC7respondEKjRKN4arma3vecE">
+<span id="_CPPv3NK4Game4EPEC7respondEKjRKN4arma3vecE"></span><span id="_CPPv2NK4Game4EPEC7respondEKjRKN4arma3vecE"></span><span id="Game::EPEC::respond__unsigned-iC.arma::vecCRC"></span><span class="target" id="class_game_1_1_e_p_e_c_1a6dc4295a2c585a695ca5c1b54f8a7883"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">respond</code><span class="sig-paren">(</span><em class="property">const</em> unsigned int <em>i</em>, <em class="property">const</em> arma::vec &amp;<em>x</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC7respondEKjRKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC10respondSolERN4arma3vecEjRKN4arma3vecERKN4arma3vecE">
+<span id="_CPPv3NK4Game4EPEC10respondSolERN4arma3vecEjRKN4arma3vecERKN4arma3vecE"></span><span id="_CPPv2NK4Game4EPEC10respondSolERN4arma3vecEjRKN4arma3vecERKN4arma3vecE"></span><span id="Game::EPEC::respondSol__arma::vecR.unsigned-i.arma::vecCR.arma::vecCRC"></span><span class="target" id="class_game_1_1_e_p_e_c_1a3fcda0d435da9c183b73df244ac863a0"></span>double <code class="sig-name descname">respondSol</code><span class="sig-paren">(</span>arma::vec &amp;<em>sol</em>, unsigned int <em>player</em>, <em class="property">const</em> arma::vec &amp;<em>x</em>, <em class="property">const</em> arma::vec &amp;<em>prevDev</em> = {}<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC10respondSolERN4arma3vecEjRKN4arma3vecERKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sol</span></code>: Optimal response </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">player</span></code>: Player whose optimal response is to be computed </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: A std::vector of pure strategies (either for all players or all other players </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC4getXEv">
+<span id="_CPPv3NK4Game4EPEC4getXEv"></span><span id="_CPPv2NK4Game4EPEC4getXEv"></span><span id="Game::EPEC::getXC"></span><span class="target" id="class_game_1_1_e_p_e_c_1aacb304f764e52114fdedef15a0a90558"></span><em class="property">const</em> arma::vec <code class="sig-name descname">getX</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC4getXEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC5resetEv">
+<span id="_CPPv3N4Game4EPEC5resetEv"></span><span id="_CPPv2N4Game4EPEC5resetEv"></span><span id="Game::EPEC::reset"></span><span class="target" id="class_game_1_1_e_p_e_c_1ad53ac72b21e5d73db9e552aa23fb2fec"></span>void <code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC5resetEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC4getZEv">
+<span id="_CPPv3NK4Game4EPEC4getZEv"></span><span id="_CPPv2NK4Game4EPEC4getZEv"></span><span id="Game::EPEC::getZC"></span><span class="target" id="class_game_1_1_e_p_e_c_1aaaca9d7917b658c77e2fe048bf7a7214"></span><em class="property">const</em> arma::vec <code class="sig-name descname">getZ</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC4getZEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC14isPureStrategyEd">
+<span id="_CPPv3NK4Game4EPEC14isPureStrategyEd"></span><span id="_CPPv2NK4Game4EPEC14isPureStrategyEd"></span><span id="Game::EPEC::isPureStrategy__doubleC"></span><span class="target" id="class_game_1_1_e_p_e_c_1af02848579e2409da28ce975b8d116adc"></span>bool <code class="sig-name descname">isPureStrategy</code><span class="sig-paren">(</span>double <em>tol</em> = 1e-5<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC14isPureStrategyEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Return a bool indicating whether the equilibrium is a pure strategy </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC13getStatisticsEv">
+<span id="_CPPv3NK4Game4EPEC13getStatisticsEv"></span><span id="_CPPv2NK4Game4EPEC13getStatisticsEv"></span><span id="Game::EPEC::getStatisticsC"></span><span class="target" id="class_game_1_1_e_p_e_c_1a03b6d74bb697a567c41de0253a15d5a9"></span><em class="property">const</em> <a class="reference internal" href="struct_game_1_1_e_p_e_c_statistics.html#_CPPv4N4Game14EPECStatisticsE" title="Game::EPECStatistics">EPECStatistics</a> <code class="sig-name descname">getStatistics</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC13getStatisticsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the <a class="reference internal" href="struct_game_1_1_e_p_e_c_statistics.html#struct_game_1_1_e_p_e_c_statistics"><span class="std std-ref">EPECStatistics</span></a> object for the current instance. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC12setAlgorithmEN4Game13EPECalgorithmE">
+<span id="_CPPv3N4Game4EPEC12setAlgorithmEN4Game13EPECalgorithmE"></span><span id="_CPPv2N4Game4EPEC12setAlgorithmEN4Game13EPECalgorithmE"></span><span id="Game::EPEC::setAlgorithm__Game::EPECalgorithm"></span><span class="target" id="class_game_1_1_e_p_e_c_1addbd62e18bcc408656c330f8cfbb1b2c"></span>void <code class="sig-name descname">setAlgorithm</code><span class="sig-paren">(</span>Game::<a class="reference internal" href="enum_namespace_game_1a09f076906bd963c7e558c8f1a9506d1d.html#_CPPv4N4Game13EPECalgorithmE" title="Game::EPECalgorithm">EPECalgorithm</a> <em>algorithm</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC12setAlgorithmEN4Game13EPECalgorithmE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Decides the Algorithm to be used for solving the given instance of the problem. The choice of algorithms are documented in <a class="reference internal" href="enum_namespace_game_1a09f076906bd963c7e558c8f1a9506d1d.html#namespace_game_1a09f076906bd963c7e558c8f1a9506d1d"><span class="std std-ref">Game::EPECalgorithm</span></a> </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC12getAlgorithmEv">
+<span id="_CPPv3NK4Game4EPEC12getAlgorithmEv"></span><span id="_CPPv2NK4Game4EPEC12getAlgorithmEv"></span><span id="Game::EPEC::getAlgorithmC"></span><span class="target" id="class_game_1_1_e_p_e_c_1aa6adad5f2653416cb852a0720ccf9987"></span>Game::<a class="reference internal" href="enum_namespace_game_1a09f076906bd963c7e558c8f1a9506d1d.html#_CPPv4N4Game13EPECalgorithmE" title="Game::EPECalgorithm">EPECalgorithm</a> <code class="sig-name descname">getAlgorithm</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC12getAlgorithmEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC18setRecoverStrategyEN4Game19EPECRecoverStrategyE">
+<span id="_CPPv3N4Game4EPEC18setRecoverStrategyEN4Game19EPECRecoverStrategyE"></span><span id="_CPPv2N4Game4EPEC18setRecoverStrategyEN4Game19EPECRecoverStrategyE"></span><span id="Game::EPEC::setRecoverStrategy__Game::EPECRecoverStrategy"></span><span class="target" id="class_game_1_1_e_p_e_c_1a63a30d74e2fbe74cf9df603e162caa4f"></span>void <code class="sig-name descname">setRecoverStrategy</code><span class="sig-paren">(</span>Game::<a class="reference internal" href="enum_namespace_game_1ad391a76e36d878e9924a5e00ed89f439.html#_CPPv4N4Game19EPECRecoverStrategyE" title="Game::EPECRecoverStrategy">EPECRecoverStrategy</a> <em>strategy</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC18setRecoverStrategyEN4Game19EPECRecoverStrategyE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Decides the Algorithm to be used for recovering a PNE out of the InnerApproximation procedure. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC18getRecoverStrategyEv">
+<span id="_CPPv3NK4Game4EPEC18getRecoverStrategyEv"></span><span id="_CPPv2NK4Game4EPEC18getRecoverStrategyEv"></span><span id="Game::EPEC::getRecoverStrategyC"></span><span class="target" id="class_game_1_1_e_p_e_c_1a67525a1ab20ed9108c6c70e25ce36186"></span>Game::<a class="reference internal" href="enum_namespace_game_1ad391a76e36d878e9924a5e00ed89f439.html#_CPPv4N4Game19EPECRecoverStrategyE" title="Game::EPECRecoverStrategy">EPECRecoverStrategy</a> <code class="sig-name descname">getRecoverStrategy</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC18getRecoverStrategyEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC17setAggressivenessEj">
+<span id="_CPPv3N4Game4EPEC17setAggressivenessEj"></span><span id="_CPPv2N4Game4EPEC17setAggressivenessEj"></span><span id="Game::EPEC::setAggressiveness__unsigned-i"></span><span class="target" id="class_game_1_1_e_p_e_c_1a3425d5ca9abea1e5ab18f5e53bf91bd5"></span>void <code class="sig-name descname">setAggressiveness</code><span class="sig-paren">(</span>unsigned int <em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC17setAggressivenessEj" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC17getAggressivenessEv">
+<span id="_CPPv3NK4Game4EPEC17getAggressivenessEv"></span><span id="_CPPv2NK4Game4EPEC17getAggressivenessEv"></span><span id="Game::EPEC::getAggressivenessC"></span><span class="target" id="class_game_1_1_e_p_e_c_1a35bedfe83fdc16fd8462476ebb451cd6"></span>unsigned int <code class="sig-name descname">getAggressiveness</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC17getAggressivenessEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC13setNumThreadsEj">
+<span id="_CPPv3N4Game4EPEC13setNumThreadsEj"></span><span id="_CPPv2N4Game4EPEC13setNumThreadsEj"></span><span id="Game::EPEC::setNumThreads__unsigned-i"></span><span class="target" id="class_game_1_1_e_p_e_c_1a19e56d50e5ca900bb05247d7e4028772"></span>void <code class="sig-name descname">setNumThreads</code><span class="sig-paren">(</span>unsigned int <em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC13setNumThreadsEj" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC13getNumThreadsEv">
+<span id="_CPPv3NK4Game4EPEC13getNumThreadsEv"></span><span id="_CPPv2NK4Game4EPEC13getNumThreadsEv"></span><span id="Game::EPEC::getNumThreadsC"></span><span class="target" id="class_game_1_1_e_p_e_c_1acb7aba467faa3bfcd572e8dcce4a7c3b"></span>unsigned int <code class="sig-name descname">getNumThreads</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC13getNumThreadsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC20setAddPolyMethodSeedEj">
+<span id="_CPPv3N4Game4EPEC20setAddPolyMethodSeedEj"></span><span id="_CPPv2N4Game4EPEC20setAddPolyMethodSeedEj"></span><span id="Game::EPEC::setAddPolyMethodSeed__unsigned-i"></span><span class="target" id="class_game_1_1_e_p_e_c_1aab7d6a3125f1be27f42fa8839d8ec84f"></span>void <code class="sig-name descname">setAddPolyMethodSeed</code><span class="sig-paren">(</span>unsigned int <em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC20setAddPolyMethodSeedEj" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC20getAddPolyMethodSeedEv">
+<span id="_CPPv3NK4Game4EPEC20getAddPolyMethodSeedEv"></span><span id="_CPPv2NK4Game4EPEC20getAddPolyMethodSeedEv"></span><span id="Game::EPEC::getAddPolyMethodSeedC"></span><span class="target" id="class_game_1_1_e_p_e_c_1a6f594a6b85327cbf9e45507eb20a6132"></span>unsigned long <code class="sig-name descname">getAddPolyMethodSeed</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC20getAddPolyMethodSeedEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC13setIndicatorsEb">
+<span id="_CPPv3N4Game4EPEC13setIndicatorsEb"></span><span id="_CPPv2N4Game4EPEC13setIndicatorsEb"></span><span id="Game::EPEC::setIndicators__b"></span><span class="target" id="class_game_1_1_e_p_e_c_1a3b2335bc68d6464ad5af7e74ab91f243"></span>void <code class="sig-name descname">setIndicators</code><span class="sig-paren">(</span>bool <em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC13setIndicatorsEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC13getIndicatorsEv">
+<span id="_CPPv3NK4Game4EPEC13getIndicatorsEv"></span><span id="_CPPv2NK4Game4EPEC13getIndicatorsEv"></span><span id="Game::EPEC::getIndicatorsC"></span><span class="target" id="class_game_1_1_e_p_e_c_1ab1a26d73539ae4d268b70688e312b747"></span>bool <code class="sig-name descname">getIndicators</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC13getIndicatorsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC22setPureNashEquilibriumEb">
+<span id="_CPPv3N4Game4EPEC22setPureNashEquilibriumEb"></span><span id="_CPPv2N4Game4EPEC22setPureNashEquilibriumEb"></span><span id="Game::EPEC::setPureNashEquilibrium__b"></span><span class="target" id="class_game_1_1_e_p_e_c_1a437840f2bb7687b81585fc793b5be0d6"></span>void <code class="sig-name descname">setPureNashEquilibrium</code><span class="sig-paren">(</span>bool <em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC22setPureNashEquilibriumEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC22getPureNashEquilibriumEv">
+<span id="_CPPv3NK4Game4EPEC22getPureNashEquilibriumEv"></span><span id="_CPPv2NK4Game4EPEC22getPureNashEquilibriumEv"></span><span id="Game::EPEC::getPureNashEquilibriumC"></span><span class="target" id="class_game_1_1_e_p_e_c_1a15d65c14e30eed4ad6456a34b0dbaeb9"></span>bool <code class="sig-name descname">getPureNashEquilibrium</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC22getPureNashEquilibriumEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC15setBoundPrimalsEb">
+<span id="_CPPv3N4Game4EPEC15setBoundPrimalsEb"></span><span id="_CPPv2N4Game4EPEC15setBoundPrimalsEb"></span><span id="Game::EPEC::setBoundPrimals__b"></span><span class="target" id="class_game_1_1_e_p_e_c_1a4b6238b4052069f2fd7122f327bb70c5"></span>void <code class="sig-name descname">setBoundPrimals</code><span class="sig-paren">(</span>bool <em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC15setBoundPrimalsEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC15getBoundPrimalsEv">
+<span id="_CPPv3NK4Game4EPEC15getBoundPrimalsEv"></span><span id="_CPPv2NK4Game4EPEC15getBoundPrimalsEv"></span><span id="Game::EPEC::getBoundPrimalsC"></span><span class="target" id="class_game_1_1_e_p_e_c_1a4971c1bc08aa285bf7f4db06618cf772"></span>bool <code class="sig-name descname">getBoundPrimals</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC15getBoundPrimalsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC12setBoundBigMEd">
+<span id="_CPPv3N4Game4EPEC12setBoundBigMEd"></span><span id="_CPPv2N4Game4EPEC12setBoundBigMEd"></span><span id="Game::EPEC::setBoundBigM__double"></span><span class="target" id="class_game_1_1_e_p_e_c_1aab6e24f25d193a514b2c97681a5d2df8"></span>void <code class="sig-name descname">setBoundBigM</code><span class="sig-paren">(</span>double <em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC12setBoundBigMEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC12getBoundBigMEv">
+<span id="_CPPv3NK4Game4EPEC12getBoundBigMEv"></span><span id="_CPPv2NK4Game4EPEC12getBoundBigMEv"></span><span id="Game::EPEC::getBoundBigMC"></span><span class="target" id="class_game_1_1_e_p_e_c_1aef7276e65bf9467f90d90fbdc2a334f1"></span>double <code class="sig-name descname">getBoundBigM</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC12getBoundBigMEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC21setDeviationToleranceEd">
+<span id="_CPPv3N4Game4EPEC21setDeviationToleranceEd"></span><span id="_CPPv2N4Game4EPEC21setDeviationToleranceEd"></span><span id="Game::EPEC::setDeviationTolerance__double"></span><span class="target" id="class_game_1_1_e_p_e_c_1a9e0fb6903f40b26e00ab1289300b2c8c"></span>void <code class="sig-name descname">setDeviationTolerance</code><span class="sig-paren">(</span>double <em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC21setDeviationToleranceEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC21getDeviationToleranceEv">
+<span id="_CPPv3NK4Game4EPEC21getDeviationToleranceEv"></span><span id="_CPPv2NK4Game4EPEC21getDeviationToleranceEv"></span><span id="Game::EPEC::getDeviationToleranceC"></span><span class="target" id="class_game_1_1_e_p_e_c_1ad8a2d364f4a7e61f5f1dfa454a229657"></span>double <code class="sig-name descname">getDeviationTolerance</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC21getDeviationToleranceEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC12setTimeLimitEd">
+<span id="_CPPv3N4Game4EPEC12setTimeLimitEd"></span><span id="_CPPv2N4Game4EPEC12setTimeLimitEd"></span><span id="Game::EPEC::setTimeLimit__double"></span><span class="target" id="class_game_1_1_e_p_e_c_1a3e714cdf0c2eac38a3d6cb17acde2109"></span>void <code class="sig-name descname">setTimeLimit</code><span class="sig-paren">(</span>double <em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC12setTimeLimitEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC12getTimeLimitEv">
+<span id="_CPPv3NK4Game4EPEC12getTimeLimitEv"></span><span id="_CPPv2NK4Game4EPEC12getTimeLimitEv"></span><span id="Game::EPEC::getTimeLimitC"></span><span class="target" id="class_game_1_1_e_p_e_c_1a22353c0fd28f1423c626006e8ba00052"></span>double <code class="sig-name descname">getTimeLimit</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC12getTimeLimitEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC16setAddPolyMethodEN4Game17EPECAddPolyMethodE">
+<span id="_CPPv3N4Game4EPEC16setAddPolyMethodEN4Game17EPECAddPolyMethodE"></span><span id="_CPPv2N4Game4EPEC16setAddPolyMethodEN4Game17EPECAddPolyMethodE"></span><span id="Game::EPEC::setAddPolyMethod__Game::EPECAddPolyMethod"></span><span class="target" id="class_game_1_1_e_p_e_c_1ac3588ae6663ee577458a98e2dfa71a42"></span>void <code class="sig-name descname">setAddPolyMethod</code><span class="sig-paren">(</span>Game::<a class="reference internal" href="enum_namespace_game_1a1575f114564e7083eaa22c1ae0b2e066.html#_CPPv4N4Game17EPECAddPolyMethodE" title="Game::EPECAddPolyMethod">EPECAddPolyMethod</a> <em>add</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC16setAddPolyMethodEN4Game17EPECAddPolyMethodE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC16getAddPolyMethodEv">
+<span id="_CPPv3NK4Game4EPEC16getAddPolyMethodEv"></span><span id="_CPPv2NK4Game4EPEC16getAddPolyMethodEv"></span><span id="Game::EPEC::getAddPolyMethodC"></span><span class="target" id="class_game_1_1_e_p_e_c_1a6ccbebf4b00acfe2eebbf4415f238f3a"></span>Game::<a class="reference internal" href="enum_namespace_game_1a1575f114564e7083eaa22c1ae0b2e066.html#_CPPv4N4Game17EPECAddPolyMethodE" title="Game::EPECAddPolyMethod">EPECAddPolyMethod</a> <code class="sig-name descname">getAddPolyMethod</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC16getAddPolyMethodEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC9getNumVarEv">
+<span id="_CPPv3NK4Game4EPEC9getNumVarEv"></span><span id="_CPPv2NK4Game4EPEC9getNumVarEv"></span><span id="Game::EPEC::getNumVarC"></span><span class="target" id="class_game_1_1_e_p_e_c_1a7bf2d222ff193b83713849a89c4291ba"></span>int <code class="sig-name descname">getNumVar</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC9getNumVarEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC13getNumLeadersEv">
+<span id="_CPPv3NK4Game4EPEC13getNumLeadersEv"></span><span id="_CPPv2NK4Game4EPEC13getNumLeadersEv"></span><span id="Game::EPEC::getNumLeadersC"></span><span class="target" id="class_game_1_1_e_p_e_c_1a676146ffcd3ae1c43462afefebf77f02"></span>unsigned int <code class="sig-name descname">getNumLeaders</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC13getNumLeadersEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC19getPositionLeadFollEjj">
+<span id="_CPPv3NK4Game4EPEC19getPositionLeadFollEjj"></span><span id="_CPPv2NK4Game4EPEC19getPositionLeadFollEjj"></span><span id="Game::EPEC::getPositionLeadFoll__unsigned-i.unsigned-iC"></span><span class="target" id="class_game_1_1_e_p_e_c_1a0bf1c7483795c1f08baabf2426ca933d"></span>unsigned int <code class="sig-name descname">getPositionLeadFoll</code><span class="sig-paren">(</span>unsigned int <em>i</em>, unsigned int <em>j</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC19getPositionLeadFollEjj" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC19getPositionLeadLeadEjj">
+<span id="_CPPv3NK4Game4EPEC19getPositionLeadLeadEjj"></span><span id="_CPPv2NK4Game4EPEC19getPositionLeadLeadEjj"></span><span id="Game::EPEC::getPositionLeadLead__unsigned-i.unsigned-iC"></span><span class="target" id="class_game_1_1_e_p_e_c_1aec1b59c633f797063362b0ae4323f8ea"></span>unsigned int <code class="sig-name descname">getPositionLeadLead</code><span class="sig-paren">(</span>unsigned int <em>i</em>, unsigned int <em>j</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC19getPositionLeadLeadEjj" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC14getValLeadFollEjj">
+<span id="_CPPv3NK4Game4EPEC14getValLeadFollEjj"></span><span id="_CPPv2NK4Game4EPEC14getValLeadFollEjj"></span><span id="Game::EPEC::getValLeadFoll__unsigned-i.unsigned-iC"></span><span class="target" id="class_game_1_1_e_p_e_c_1a723c245afbc41788c993566aca9f238c"></span>double <code class="sig-name descname">getValLeadFoll</code><span class="sig-paren">(</span>unsigned int <em>i</em>, unsigned int <em>j</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC14getValLeadFollEjj" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC14getValLeadLeadEjj">
+<span id="_CPPv3NK4Game4EPEC14getValLeadLeadEjj"></span><span id="_CPPv2NK4Game4EPEC14getValLeadLeadEjj"></span><span id="Game::EPEC::getValLeadLead__unsigned-i.unsigned-iC"></span><span class="target" id="class_game_1_1_e_p_e_c_1a24faf8f9033094c380f38fe3f6609a27"></span>double <code class="sig-name descname">getValLeadLead</code><span class="sig-paren">(</span>unsigned int <em>i</em>, unsigned int <em>j</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC14getValLeadLeadEjj" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC17getLCPDescriptionEv">
+<span id="_CPPv3NK4Game4EPEC17getLCPDescriptionEv"></span><span id="_CPPv2NK4Game4EPEC17getLCPDescriptionEv"></span><span id="Game::EPEC::getLCPDescriptionC"></span><span class="target" id="class_game_1_1_e_p_e_c_1aa9f848f3d44b529af6c7b7fb3b4789cf"></span><em class="property">const</em> <a class="reference internal" href="class_game_1_1_l_c_p.html#_CPPv4N4Game3LCPE" title="Game::LCP">LCP</a> &amp;<code class="sig-name descname">getLCPDescription</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC17getLCPDescriptionEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p"><span class="std std-ref">Game::LCP</span></a> object solved in the last iteration either to solve the problem or to prove non-existence of Nash equilibrium. Object is returned using constant reference. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC11getLCPModelEv">
+<span id="_CPPv3NK4Game4EPEC11getLCPModelEv"></span><span id="_CPPv2NK4Game4EPEC11getLCPModelEv"></span><span id="Game::EPEC::getLCPModelC"></span><span class="target" id="class_game_1_1_e_p_e_c_1af4ba9e089745932ff3bf24897af53e5f"></span><em class="property">const</em> GRBModel &amp;<code class="sig-name descname">getLCPModel</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC11getLCPModelEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the GRBModel solved in the last iteration to solve the problem or to prove non-existence of Nash equilibrium. Object is returned using constant reference. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC13writeLCPModelERKNSt6stringE">
+<span id="_CPPv3NK4Game4EPEC13writeLCPModelERKNSt6stringE"></span><span id="_CPPv2NK4Game4EPEC13writeLCPModelERKNSt6stringE"></span><span id="Game::EPEC::writeLCPModel__ssCRC"></span><span class="target" id="class_game_1_1_e_p_e_c_1a37fed0d5194d7d4a25953e117593b3a4"></span>void <code class="sig-name descname">writeLCPModel</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>filename</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC13writeLCPModelERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Writes the GRBModel solved in the last iteration to solve the problem or to prove non-existence of Nash equilibrium to a file. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC15getXWithoutHullERKN4arma3vecERN4arma3vecE">
+<span id="_CPPv3NK4Game4EPEC15getXWithoutHullERKN4arma3vecERN4arma3vecE"></span><span id="_CPPv2NK4Game4EPEC15getXWithoutHullERKN4arma3vecERN4arma3vecE"></span><span id="Game::EPEC::getXWithoutHull__arma::vecCR.arma::vecRC"></span><span class="target" id="class_game_1_1_e_p_e_c_1aa20feaa35c98de9e134190579a400cf7"></span>void <code class="sig-name descname">getXWithoutHull</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>x</em>, arma::vec &amp;<em>xWithoutHull</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC15getXWithoutHullERKN4arma3vecERN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC7getXofIERKN4arma3vecERKjRN4arma3vecEb">
+<span id="_CPPv3NK4Game4EPEC7getXofIERKN4arma3vecERKjRN4arma3vecEb"></span><span id="_CPPv2NK4Game4EPEC7getXofIERKN4arma3vecERKjRN4arma3vecEb"></span><span id="Game::EPEC::getXofI__arma::vecCR.unsigned-iCR.arma::vecR.bC"></span><span class="target" id="class_game_1_1_e_p_e_c_1a6f84ee2018f9bb85d0b1b53e65ff85e4"></span>void <code class="sig-name descname">getXofI</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>x</em>, <em class="property">const</em> unsigned int &amp;<em>i</em>, arma::vec &amp;<em>solI</em>, bool <em>hull</em> = false<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC7getXofIERKN4arma3vecERKjRN4arma3vecEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Protected Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC9warmstartEN4arma3vecE">
+<span id="_CPPv3N4Game4EPEC9warmstartEN4arma3vecE"></span><span id="_CPPv2N4Game4EPEC9warmstartEN4arma3vecE"></span><span id="Game::EPEC::warmstart__arma::vec"></span><span class="target" id="class_game_1_1_e_p_e_c_1a219d10c724c0165cc0d8a1a7d613580d"></span>bool <code class="sig-name descname">warmstart</code><span class="sig-paren">(</span>arma::vec <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC9warmstartEN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Warmstarts <a class="reference internal" href="#class_game_1_1_e_p_e_c"><span class="std std-ref">EPEC</span></a> with a solution. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC4EPECEP6GRBEnv">
+<span id="_CPPv3N4Game4EPEC4EPECEP6GRBEnv"></span><span id="_CPPv2N4Game4EPEC4EPECEP6GRBEnv"></span><span id="Game::EPEC::EPEC__GRBEnvP"></span><span class="target" id="class_game_1_1_e_p_e_c_1a2323518f6af325c254eaad444cea1317"></span><code class="sig-name descname">EPEC</code><span class="sig-paren">(</span>GRBEnv *<em>env</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC4EPECEP6GRBEnv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC19makeObjectivePlayerEKjRN4Game12QP_ObjectiveE">
+<span id="_CPPv3N4Game4EPEC19makeObjectivePlayerEKjRN4Game12QP_ObjectiveE"></span><span id="_CPPv2N4Game4EPEC19makeObjectivePlayerEKjRN4Game12QP_ObjectiveE"></span><span id="Game::EPEC::makeObjectivePlayer__unsigned-iC.Game::QP_ObjectiveR"></span><span class="target" id="class_game_1_1_e_p_e_c_1a2ee93319f7d964f4c5df850bcf27504e"></span>void <code class="sig-name descname">makeObjectivePlayer</code><span class="sig-paren">(</span><em class="property">const</em> unsigned int <em>i</em>, Game::<a class="reference internal" href="struct_game_1_1_q_p___objective.html#_CPPv4N4Game12QP_ObjectiveE" title="Game::QP_Objective">QP_Objective</a> &amp;<em>QP_obj</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N4Game4EPEC19makeObjectivePlayerEKjRN4Game12QP_ObjectiveE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Can be instantiated by a derived class only! </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC11preFinalizeEv">
+<span id="_CPPv3N4Game4EPEC11preFinalizeEv"></span><span id="_CPPv2N4Game4EPEC11preFinalizeEv"></span><span id="Game::EPEC::preFinalize"></span><span class="target" id="class_game_1_1_e_p_e_c_1abea72c0ff571c5168047e9a42e4182af"></span>void <code class="sig-name descname">preFinalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC11preFinalizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Empty function - optionally reimplementable in derived class. </p>
+<p>This function can be optionally implemented by the derived class. Code in this class will be run <em>before</em> calling <a class="reference internal" href="#class_game_1_1_e_p_e_c_1ab32d89068adc66f100a266bbf31bf63e"><span class="std std-ref">Game::EPEC::finalize()</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC12postFinalizeEv">
+<span id="_CPPv3N4Game4EPEC12postFinalizeEv"></span><span id="_CPPv2N4Game4EPEC12postFinalizeEv"></span><span id="Game::EPEC::postFinalize"></span><span class="target" id="class_game_1_1_e_p_e_c_1aba9fd1fa8c9ee2e70afc62232ecfd6b0"></span>void <code class="sig-name descname">postFinalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC12postFinalizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Empty function - optionally reimplementable in derived class. </p>
+<p>This function can be optionally implemented by the derived class. Code in this class will be run <em>after</em> calling <a class="reference internal" href="#class_game_1_1_e_p_e_c_1ab32d89068adc66f100a266bbf31bf63e"><span class="std std-ref">Game::EPEC::finalize()</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC15updateLocationsEv">
+<span id="_CPPv3N4Game4EPEC15updateLocationsEv"></span><span id="_CPPv2N4Game4EPEC15updateLocationsEv"></span><span id="Game::EPEC::updateLocations"></span><span class="target" id="class_game_1_1_e_p_e_c_1a54e18b35ce3b7ce266daedf76759bef9"></span>void <code class="sig-name descname">updateLocations</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N4Game4EPEC15updateLocationsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC17makeMCConstraintsERN4arma6sp_matERN4arma3vecE">
+<span id="_CPPv3NK4Game4EPEC17makeMCConstraintsERN4arma6sp_matERN4arma3vecE"></span><span id="_CPPv2NK4Game4EPEC17makeMCConstraintsERN4arma6sp_matERN4arma3vecE"></span><span id="Game::EPEC::makeMCConstraints__arma::sp_matR.arma::vecRC"></span><span class="target" id="class_game_1_1_e_p_e_c_1abd1f66626593e9f02132467bec62573c"></span>void <code class="sig-name descname">makeMCConstraints</code><span class="sig-paren">(</span>arma::sp_mat &amp;<em>MC</em>, arma::vec &amp;<em>RHS</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC17makeMCConstraintsERN4arma6sp_matERN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Protected Attributes</p>
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC18PlayersLowerLevelsE">
+<span id="_CPPv3N4Game4EPEC18PlayersLowerLevelsE"></span><span id="_CPPv2N4Game4EPEC18PlayersLowerLevelsE"></span><span id="Game::EPEC::PlayersLowerLevels__std::vector:std::shared_ptr:Game::NashGame::"></span><span class="target" id="class_game_1_1_e_p_e_c_1a1dc1b8bd642e450bc1e30eefe963fe13"></span>std::vector&lt;std::shared_ptr&lt;Game::<a class="reference internal" href="class_game_1_1_nash_game.html#_CPPv4N4Game8NashGameE" title="Game::NashGame">NashGame</a>&gt;&gt; <code class="sig-name descname">PlayersLowerLevels</code> = {}<a class="headerlink" href="#_CPPv4N4Game4EPEC18PlayersLowerLevelsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC10PlayersLCPE">
+<span id="_CPPv3N4Game4EPEC10PlayersLCPE"></span><span id="_CPPv2N4Game4EPEC10PlayersLCPE"></span><span id="Game::EPEC::PlayersLCP__std::vector:std::shared_ptr:Game::LCP::"></span><span class="target" id="class_game_1_1_e_p_e_c_1ae133b3254fa8258788d60f994d1f8e9f"></span>std::vector&lt;std::shared_ptr&lt;Game::<a class="reference internal" href="class_game_1_1_l_c_p.html#_CPPv4N4Game3LCPE" title="Game::LCP">LCP</a>&gt;&gt; <code class="sig-name descname">PlayersLCP</code> = {}<a class="headerlink" href="#_CPPv4N4Game4EPEC10PlayersLCPE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC9PlayersQPE">
+<span id="_CPPv3N4Game4EPEC9PlayersQPE"></span><span id="_CPPv2N4Game4EPEC9PlayersQPE"></span><span id="Game::EPEC::PlayersQP__std::vector:std::shared_ptr:Game::QP_Param::"></span><span class="target" id="class_game_1_1_e_p_e_c_1a7e5d7741f612c5cf33e9bd44fad4e620"></span>std::vector&lt;std::shared_ptr&lt;Game::<a class="reference internal" href="class_game_1_1_q_p___param.html#_CPPv4N4Game8QP_ParamE" title="Game::QP_Param">QP_Param</a>&gt;&gt; <code class="sig-name descname">PlayersQP</code> = {}<a class="headerlink" href="#_CPPv4N4Game4EPEC9PlayersQPE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The QP corresponding to each player. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC15LeaderObjectiveE">
+<span id="_CPPv3N4Game4EPEC15LeaderObjectiveE"></span><span id="_CPPv2N4Game4EPEC15LeaderObjectiveE"></span><span id="Game::EPEC::LeaderObjective__std::vector:std::shared_ptr:Game::QP_Objective::"></span><span class="target" id="class_game_1_1_e_p_e_c_1a191a899d044f94263965f8d184259e5b"></span>std::vector&lt;std::shared_ptr&lt;Game::<a class="reference internal" href="struct_game_1_1_q_p___objective.html#_CPPv4N4Game12QP_ObjectiveE" title="Game::QP_Objective">QP_Objective</a>&gt;&gt; <code class="sig-name descname">LeaderObjective</code> = {}<a class="headerlink" href="#_CPPv4N4Game4EPEC15LeaderObjectiveE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Objective of each leader. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC25LeaderObjectiveConvexHullE">
+<span id="_CPPv3N4Game4EPEC25LeaderObjectiveConvexHullE"></span><span id="_CPPv2N4Game4EPEC25LeaderObjectiveConvexHullE"></span><span id="Game::EPEC::LeaderObjectiveConvexHull__std::vector:std::shared_ptr:Game::QP_Objective::"></span><span class="target" id="class_game_1_1_e_p_e_c_1a08077df159307f005f5254e8f72eb5d8"></span>std::vector&lt;std::shared_ptr&lt;Game::<a class="reference internal" href="struct_game_1_1_q_p___objective.html#_CPPv4N4Game12QP_ObjectiveE" title="Game::QP_Objective">QP_Objective</a>&gt;&gt; <code class="sig-name descname">LeaderObjectiveConvexHull</code> = {}<a class="headerlink" href="#_CPPv4N4Game4EPEC25LeaderObjectiveConvexHullE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>convex hull computation </p>
+<p>Objective of each leader, given the </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC11TheNashGameE">
+<span id="_CPPv3N4Game4EPEC11TheNashGameE"></span><span id="_CPPv2N4Game4EPEC11TheNashGameE"></span><span id="Game::EPEC::TheNashGame__std::unique_ptr:Game::NashGame:"></span><span class="target" id="class_game_1_1_e_p_e_c_1a92ad8e8ed1ff48bcd5509dcbf893c185"></span>std::unique_ptr&lt;Game::<a class="reference internal" href="class_game_1_1_nash_game.html#_CPPv4N4Game8NashGameE" title="Game::NashGame">NashGame</a>&gt; <code class="sig-name descname">TheNashGame</code><a class="headerlink" href="#_CPPv4N4Game4EPEC11TheNashGameE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The <a class="reference internal" href="#class_game_1_1_e_p_e_c"><span class="std std-ref">EPEC</span></a> nash game. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC15LeaderLocationsE">
+<span id="_CPPv3N4Game4EPEC15LeaderLocationsE"></span><span id="_CPPv2N4Game4EPEC15LeaderLocationsE"></span><span id="Game::EPEC::LeaderLocations__std::vector:unsigned-i:"></span><span class="target" id="class_game_1_1_e_p_e_c_1a59b0ccd12c05db259bb7ca056daf453d"></span>std::vector&lt;unsigned int&gt; <code class="sig-name descname">LeaderLocations</code> = {}<a class="headerlink" href="#_CPPv4N4Game4EPEC15LeaderLocationsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Location of each leader </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC7LocEndsE">
+<span id="_CPPv3N4Game4EPEC7LocEndsE"></span><span id="_CPPv2N4Game4EPEC7LocEndsE"></span><span id="Game::EPEC::LocEnds__std::vector:unsigned-iCP:"></span><span class="target" id="class_game_1_1_e_p_e_c_1a618f3df2c40a9d456f9ceaf00802967c"></span>std::vector&lt;<em class="property">const</em> unsigned int*&gt; <code class="sig-name descname">LocEnds</code> = {}<a class="headerlink" href="#_CPPv4N4Game4EPEC7LocEndsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Number of variables in the current player, including any number of convex hull variables at the current moment. The used, i.e., the inheritor of <a class="reference internal" href="#class_game_1_1_e_p_e_c"><span class="std std-ref">Game::EPEC</span></a> has the responsibility to keep this correct by implementing an override of <a class="reference internal" href="#class_game_1_1_e_p_e_c_1a54e18b35ce3b7ce266daedf76759bef9"><span class="std std-ref">Game::EPEC::updateLocations</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC19ConvexHullVariablesE">
+<span id="_CPPv3N4Game4EPEC19ConvexHullVariablesE"></span><span id="_CPPv2N4Game4EPEC19ConvexHullVariablesE"></span><span id="Game::EPEC::ConvexHullVariables__std::vector:unsigned-i:"></span><span class="target" id="class_game_1_1_e_p_e_c_1afd414e30d05368455d9a2eaa166b6bfb"></span>std::vector&lt;unsigned int&gt; <code class="sig-name descname">ConvexHullVariables</code> = {}<a class="headerlink" href="#_CPPv4N4Game4EPEC19ConvexHullVariablesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC14numMCVariablesE">
+<span id="_CPPv3N4Game4EPEC14numMCVariablesE"></span><span id="_CPPv2N4Game4EPEC14numMCVariablesE"></span><span id="Game::EPEC::numMCVariables__unsigned-i"></span><span class="target" id="class_game_1_1_e_p_e_c_1aacadd9d4fb3fd17d2f142db8758f1be9"></span>unsigned int <code class="sig-name descname">numMCVariables</code> = {0}<a class="headerlink" href="#_CPPv4N4Game4EPEC14numMCVariablesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC3EnvE">
+<span id="_CPPv3N4Game4EPEC3EnvE"></span><span id="_CPPv2N4Game4EPEC3EnvE"></span><span id="Game::EPEC::Env__GRBEnvP"></span><span class="target" id="class_game_1_1_e_p_e_c_1a19ac846f7e3a018c47b61dc8b5089b60"></span>GRBEnv *<code class="sig-name descname">Env</code><a class="headerlink" href="#_CPPv4N4Game4EPEC3EnvE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC9FinalizedE">
+<span id="_CPPv3N4Game4EPEC9FinalizedE"></span><span id="_CPPv2N4Game4EPEC9FinalizedE"></span><span id="Game::EPEC::Finalized__b"></span><span class="target" id="class_game_1_1_e_p_e_c_1a9e4f44f67e4a2956673398847e5db614"></span>bool <code class="sig-name descname">Finalized</code> = {false}<a class="headerlink" href="#_CPPv4N4Game4EPEC9FinalizedE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC15NashEquilibriumE">
+<span id="_CPPv3N4Game4EPEC15NashEquilibriumE"></span><span id="_CPPv2N4Game4EPEC15NashEquilibriumE"></span><span id="Game::EPEC::NashEquilibrium__b"></span><span class="target" id="class_game_1_1_e_p_e_c_1a3dd72f644df2168162d60b12d0993a9d"></span>bool <code class="sig-name descname">NashEquilibrium</code>{false}<a class="headerlink" href="#_CPPv4N4Game4EPEC15NashEquilibriumE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>True if computeNashEq returned an equilibrium. Note that this can be the equilibrium of an approximation, and not to the original game </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC8InitTimeE">
+<span id="_CPPv3N4Game4EPEC8InitTimeE"></span><span id="_CPPv2N4Game4EPEC8InitTimeE"></span><span id="Game::EPEC::InitTime__std::chrono::high_resolution_clock::time_point"></span><span class="target" id="class_game_1_1_e_p_e_c_1a157723e234e69a264e9ccf3dec0ec745"></span>std::chrono::high_resolution_clock::time_point <code class="sig-name descname">InitTime</code><a class="headerlink" href="#_CPPv4N4Game4EPEC8InitTimeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC5StatsE">
+<span id="_CPPv3N4Game4EPEC5StatsE"></span><span id="_CPPv2N4Game4EPEC5StatsE"></span><span id="Game::EPEC::Stats__EPECStatistics"></span><span class="target" id="class_game_1_1_e_p_e_c_1a827a90f6d6c14f8e6d61694f9a63f450"></span><a class="reference internal" href="struct_game_1_1_e_p_e_c_statistics.html#_CPPv4N4Game14EPECStatisticsE" title="Game::EPECStatistics">EPECStatistics</a> <code class="sig-name descname">Stats</code> = {}<a class="headerlink" href="#_CPPv4N4Game4EPEC5StatsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Store run time information. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC9SolutionZE">
+<span id="_CPPv3N4Game4EPEC9SolutionZE"></span><span id="_CPPv2N4Game4EPEC9SolutionZE"></span><span id="Game::EPEC::SolutionZ__arma::vec"></span><span class="target" id="class_game_1_1_e_p_e_c_1aa1a2f0e5df60ca00ccad7b9a8a4f1c8a"></span>arma::vec <code class="sig-name descname">SolutionZ</code><a class="headerlink" href="#_CPPv4N4Game4EPEC9SolutionZE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Solution equation values. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC9SolutionXE">
+<span id="_CPPv3N4Game4EPEC9SolutionXE"></span><span id="_CPPv2N4Game4EPEC9SolutionXE"></span><span id="Game::EPEC::SolutionX__arma::vec"></span><span class="target" id="class_game_1_1_e_p_e_c_1ac897450f8b0afb2346e872de2fbc82eb"></span>arma::vec <code class="sig-name descname">SolutionX</code><a class="headerlink" href="#_CPPv4N4Game4EPEC9SolutionXE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Solution variable values. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC12addDummyLeadEj">
+<span id="_CPPv3N4Game4EPEC12addDummyLeadEj"></span><span id="_CPPv2N4Game4EPEC12addDummyLeadEj"></span><span id="Game::EPEC::addDummyLead__unsigned-i"></span><span class="target" id="class_game_1_1_e_p_e_c_1ae0bd0fb7910bc4735c0c6481e1ab7c60"></span>void <code class="sig-name descname">addDummyLead</code><span class="sig-paren">(</span>unsigned int <em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC12addDummyLeadEj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Add Dummy variables for the leaders. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">i</span></code>: The leader to whom dummy variables should be added </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC12makePlayerQPEj">
+<span id="_CPPv3N4Game4EPEC12makePlayerQPEj"></span><span id="_CPPv2N4Game4EPEC12makePlayerQPEj"></span><span id="Game::EPEC::makePlayerQP__unsigned-i"></span><span class="target" id="class_game_1_1_e_p_e_c_1a66b446e508a6079805e7d8900f5db4ed"></span><em class="property">const</em> void <code class="sig-name descname">makePlayerQP</code><span class="sig-paren">(</span>unsigned int <em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC12makePlayerQPEj" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Makes the <a class="reference internal" href="class_game_1_1_q_p___param.html#class_game_1_1_q_p___param"><span class="std std-ref">Game::QP_Param</span></a> corresponding to the <code class="docutils literal notranslate"><span class="pre">i-th</span></code> country. </p>
+<p><ul class="simple">
+<li><p>First gets the <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p"><span class="std std-ref">Game::LCP</span></a> object from <code class="docutils literal notranslate"><a class="reference internal" href="#class_game_1_1_e_p_e_c_1a1dc1b8bd642e450bc1e30eefe963fe13"><span class="std std-ref"><span class="pre">Game::EPEC::PlayersLowerLevels</span></span></a></code> and makes a <a class="reference internal" href="class_game_1_1_q_p___param.html#class_game_1_1_q_p___param"><span class="std std-ref">Game::QP_Param</span></a> with this <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> as the lower level</p></li>
+<li><p>This is achieved by calling <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p_1ad40426b0333d8502982333317c8c52ea"><span class="std std-ref">LCP::makeQP</span></a> and using the objective value object in <code class="docutils literal notranslate"><a class="reference internal" href="#class_game_1_1_e_p_e_c_1a191a899d044f94263965f8d184259e5b"><span class="std std-ref"><span class="pre">Game::EPEC::LeaderObjective</span></span></a></code> </p></li>
+<li><p>Finally the locations are updated owing to the complete convex hull calculated during the call to <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p_1ad40426b0333d8502982333317c8c52ea"><span class="std std-ref">LCP::makeQP</span></a> <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>Overloaded as <a class="reference internal" href="#class_game_1_1_e_p_e_c_1a66b446e508a6079805e7d8900f5db4ed"><span class="std std-ref">Models::EPEC::makePlayerQP()</span></a> </p>
+</dd>
+</dl>
+</p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC14makePlayersQPsEv">
+<span id="_CPPv3N4Game4EPEC14makePlayersQPsEv"></span><span id="_CPPv2N4Game4EPEC14makePlayersQPsEv"></span><span id="Game::EPEC::makePlayersQPs"></span><span class="target" id="class_game_1_1_e_p_e_c_1a5db4c964c3d451ab55a5630e565753d0"></span>void <code class="sig-name descname">makePlayersQPs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC14makePlayersQPsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Makes the <a class="reference internal" href="class_game_1_1_q_p___param.html#class_game_1_1_q_p___param"><span class="std std-ref">Game::QP_Param</span></a> for all the countries. </p>
+<p>Calls are made to <a class="reference internal" href="#class_game_1_1_e_p_e_c_1a66b446e508a6079805e7d8900f5db4ed"><span class="std std-ref">Models::EPEC::makePlayerQP(const unsigned int i)</span></a> for each valid <code class="docutils literal notranslate"><span class="pre">i</span></code> <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>Overloaded as <a class="reference internal" href="#class_game_1_1_e_p_e_c_1a66b446e508a6079805e7d8900f5db4ed"><span class="std std-ref">EPEC::makePlayerQP(unsigned int)</span></a> </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC10makeTheLCPEv">
+<span id="_CPPv3N4Game4EPEC10makeTheLCPEv"></span><span id="_CPPv2N4Game4EPEC10makeTheLCPEv"></span><span id="Game::EPEC::makeTheLCP"></span><span class="target" id="class_game_1_1_e_p_e_c_1a4d84d3af33242733ec32b89f91d49158"></span>void <code class="sig-name descname">makeTheLCP</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC10makeTheLCPEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC22computeLeaderLocationsEj">
+<span id="_CPPv3N4Game4EPEC22computeLeaderLocationsEj"></span><span id="_CPPv2N4Game4EPEC22computeLeaderLocationsEj"></span><span id="Game::EPEC::computeLeaderLocations__unsigned-i"></span><span class="target" id="class_game_1_1_e_p_e_c_1afcd0018e01a696881c8da744a3a05048"></span>void <code class="sig-name descname">computeLeaderLocations</code><span class="sig-paren">(</span>unsigned int <em>addSpaceForMC</em> = 0<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC22computeLeaderLocationsEj" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK4Game4EPEC10getXMinusIERKN4arma3vecERKjRN4arma3vecE">
+<span id="_CPPv3NK4Game4EPEC10getXMinusIERKN4arma3vecERKjRN4arma3vecE"></span><span id="_CPPv2NK4Game4EPEC10getXMinusIERKN4arma3vecERKjRN4arma3vecE"></span><span id="Game::EPEC::getXMinusI__arma::vecCR.unsigned-iCR.arma::vecRC"></span><span class="target" id="class_game_1_1_e_p_e_c_1a03f5dc3947750c69b9c3bfdf675ab394"></span>void <code class="sig-name descname">getXMinusI</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>x</em>, <em class="property">const</em> unsigned int &amp;<em>i</em>, arma::vec &amp;<em>solOther</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game4EPEC10getXMinusIERKN4arma3vecERKjRN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N4Game4EPEC13computeNashEqEbdb">
+<span id="_CPPv3N4Game4EPEC13computeNashEqEbdb"></span><span id="_CPPv2N4Game4EPEC13computeNashEqEbdb"></span><span id="Game::EPEC::computeNashEq__b.double.b"></span><span class="target" id="class_game_1_1_e_p_e_c_1a37dca6fc0a76c12bc4bc0eac602e3633"></span>bool <code class="sig-name descname">computeNashEq</code><span class="sig-paren">(</span>bool <em>pureNE</em> = false, double <em>localTimeLimit</em> = -1.0, bool <em>check</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game4EPEC13computeNashEqEbdb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pureNE</span></code>: True if we search for a PNE </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">localTimeLimit</span></code>: Allowed time limit to run this function </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">check</span></code>: If true, the Algorithm will seek for the maximum number of NE. Then, it will check they are equilibria for the original problem </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Members</p>
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC16SizesWithoutHullE">
+<span id="_CPPv3N4Game4EPEC16SizesWithoutHullE"></span><span id="_CPPv2N4Game4EPEC16SizesWithoutHullE"></span><span id="Game::EPEC::SizesWithoutHull__std::vector:unsigned-i:"></span><span class="target" id="class_game_1_1_e_p_e_c_1ad0c30f87298df78ec8b2275fc272745f"></span>std::vector&lt;unsigned int&gt; <code class="sig-name descname">SizesWithoutHull</code> = {}<a class="headerlink" href="#_CPPv4N4Game4EPEC16SizesWithoutHullE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC6TheLCPE">
+<span id="_CPPv3N4Game4EPEC6TheLCPE"></span><span id="_CPPv2N4Game4EPEC6TheLCPE"></span><span id="Game::EPEC::TheLCP__std::unique_ptr:Game::LCP:"></span><span class="target" id="class_game_1_1_e_p_e_c_1a1f958d036ee7569e9488f454158d9c8a"></span>std::unique_ptr&lt;Game::<a class="reference internal" href="class_game_1_1_l_c_p.html#_CPPv4N4Game3LCPE" title="Game::LCP">LCP</a>&gt; <code class="sig-name descname">TheLCP</code><a class="headerlink" href="#_CPPv4N4Game4EPEC6TheLCPE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The <a class="reference internal" href="#class_game_1_1_e_p_e_c"><span class="std std-ref">EPEC</span></a> nash game written as an <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC8LCPModelE">
+<span id="_CPPv3N4Game4EPEC8LCPModelE"></span><span id="_CPPv2N4Game4EPEC8LCPModelE"></span><span id="Game::EPEC::LCPModel__std::unique_ptr:GRBModel:"></span><span class="target" id="class_game_1_1_e_p_e_c_1a38b32268297c5cdf5334853d3ee2ba82"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">LCPModel</code><a class="headerlink" href="#_CPPv4N4Game4EPEC8LCPModelE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A Gurobi mode object of the <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> form of <a class="reference internal" href="#class_game_1_1_e_p_e_c"><span class="std std-ref">EPEC</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC12LCPModelBaseE">
+<span id="_CPPv3N4Game4EPEC12LCPModelBaseE"></span><span id="_CPPv2N4Game4EPEC12LCPModelBaseE"></span><span id="Game::EPEC::LCPModelBase__std::unique_ptr:GRBModel:"></span><span class="target" id="class_game_1_1_e_p_e_c_1ada0cf8c4cefee9d0e3f6fcd29aa4fac0"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">LCPModelBase</code><a class="headerlink" href="#_CPPv4N4Game4EPEC12LCPModelBaseE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A Gurobi mode object of the <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> form of <a class="reference internal" href="#class_game_1_1_e_p_e_c"><span class="std std-ref">EPEC</span></a>. If we are searching for a pure NE, the <a class="reference internal" href="class_game_1_1_l_c_p.html#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a> which is indifferent to pure or mixed NE is stored in this object. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC12NumVariablesE">
+<span id="_CPPv3N4Game4EPEC12NumVariablesE"></span><span id="_CPPv2N4Game4EPEC12NumVariablesE"></span><span id="Game::EPEC::NumVariables__unsigned-i"></span><span class="target" id="class_game_1_1_e_p_e_c_1afc5252004b0a5c875fdf4517ba60fecd"></span>unsigned int <code class="sig-name descname">NumVariables</code> = {0}<a class="headerlink" href="#_CPPv4N4Game4EPEC12NumVariablesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC10NumPlayersE">
+<span id="_CPPv3N4Game4EPEC10NumPlayersE"></span><span id="_CPPv2N4Game4EPEC10NumPlayersE"></span><span id="Game::EPEC::NumPlayers__unsigned-i"></span><span class="target" id="class_game_1_1_e_p_e_c_1a8e4aa5e6b5baa41c7a977b3b66cdfdf2"></span>unsigned int <code class="sig-name descname">NumPlayers</code> = {0}<a class="headerlink" href="#_CPPv4N4Game4EPEC10NumPlayersE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N4Game4EPEC9AlgorithmE">
+<span id="_CPPv3N4Game4EPEC9AlgorithmE"></span><span id="_CPPv2N4Game4EPEC9AlgorithmE"></span><span id="Game::EPEC::Algorithm__std::shared_ptr:Algorithms::Algorithm:"></span><span class="target" id="class_game_1_1_e_p_e_c_1a487479646a902f7843ba3a8ddbe6708e"></span>std::shared_ptr&lt;Algorithms::<a class="reference internal" href="class_algorithms_1_1_algorithm.html#_CPPv4N10Algorithms9AlgorithmE" title="Algorithms::Algorithm">Algorithm</a>&gt; <code class="sig-name descname">Algorithm</code> = {}<a class="headerlink" href="#_CPPv4N4Game4EPEC9AlgorithmE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Friends</p>
+<dl class="friendclass">
+<dt>
+<em class="property">friend class</em> Algorithms::PolyBase</dt>
+</dl>
+
+<dl class="friendclass">
+<dt>
+<em class="property">friend class</em> Algorithms::InnerApproximation</dt>
+</dl>
+
+<dl class="friendclass">
+<dt>
+<em class="property">friend class</em> Algorithms::OuterApproximation</dt>
+</dl>
+
+<dl class="friendclass">
+<dt>
+<em class="property">friend class</em> Algorithms::CombinatorialPNE</dt>
+</dl>
+
+<dl class="friendclass">
+<dt>
+<em class="property">friend class</em> Algorithms::FullEnumeration</dt>
+</dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GD and SS
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

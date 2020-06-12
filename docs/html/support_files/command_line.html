@@ -1,0 +1,383 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Command-line interface &mdash; EPECSolve 2.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="EPEC Example" href="EPEC.html" />
+    <link rel="prev" title="Compiling" href="compiling.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> EPECSolve
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#mandatory-packages">Mandatory packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#recommended-but-not-mandatory-for-the-algorithm-some-examples-might-have-these-dependancies">Recommended but not mandatory for the algorithm. (Some examples might have these dependancies)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html#license">LICENSE</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="compiling.html">Compiling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Command-line interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="LCP.html">LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="compiling.html">Compiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compiling.html#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Command-line interface</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="LCP.html">LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LCP.html#solving">Solving</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Quick References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Algorithms.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Game.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Models.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EPECSolve</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Command-line interface</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/support_files/command_line.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="command-line-interface">
+<h1>Command-line interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h1>
+<p>EPECSolve has a command line interface built on top of the standard
+modeling paradigm (see documentation for src/Models.cpp). Once the
+executable is compiled via <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">compileEPEC</span></code>, the user can run
+EPECSolve with: <code class="docutils literal notranslate"><span class="pre">./EPEC</span> <span class="pre">$options</span></code>.</p>
+<p>The following I/O options are available:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-i</span> <span class="pre">(--input)</span> <span class="pre">PathToInstance</span></code>: This <strong>required</strong> option specifies
+the path to the JSON instance file. Extension .json is automatically
+appended to the argument.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">(--solution)</span> <span class="pre">PathAndFile</span></code>: Sets the output (path) filename of
+the JSON solution file, if any (see option <code class="docutils literal notranslate"><span class="pre">-w.</span> <span class="pre">(writelevel)</span></code>. If a
+JSON output is required, extension .json is automatically appended to
+the argument.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-l</span> <span class="pre">(--log)</span> <span class="pre">PathAndFile</span></code>: Sets the output path/filename of the log
+file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-w</span> <span class="pre">(--writelevel)</span> <span class="pre">intValue</span></code>: Sets the verbosity parameter for the
+output solution file. <em>0</em>: output only a JSON solution file (if any).
+<em>1</em> Only a human readable file. <em>2</em> Both.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-m</span> <span class="pre">(--message)</span> <span class="pre">intValue</span></code>: Sets the verbosity parameter for the
+program itself. <em>1</em>: only info messages, <em>2</em> info and debug, <em>3</em>
+info, debug and trace messages.</p></li>
+</ul>
+<p>Algorithmic parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-a</span> <span class="pre">(--algorithm)</span> <span class="pre">intValue</span></code>: Specifies the type of algorithm
+employed to solve the instance. <em>0</em> is <strong>fullEnumeration</strong>, <em>1</em> is
+<strong>innerApproximation</strong>, <em>2</em> is <strong>combinatorialPNE</strong>. Note that the
+latter only works with pure equilibria.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-p</span> <span class="pre">(--pure)</span> <span class="pre">intValue</span></code>: Specifies whether the algorithm should seek
+for a pure equilibrium or not (note that <strong>combinatorialPNE</strong> will
+always seek for a pure solution) . <em>0</em> no requirement (either pure or
+mixed), <em>1</em> only pure.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-bigM</span> <span class="pre">intValue</span></code>: Specifies the whether LCP problems should be
+formulated with a LCP. <em>0</em> (default) for indicator constraints, <em>1</em>
+for bigM formulation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-b</span> <span class="pre">(--bound)</span> <span class="pre">intValue</span></code>: Specifies if the final LCP model should be
+bounded by a <em>bigM</em> constant (see option <code class="docutils literal notranslate"><span class="pre">-boundBigM</span></code>) in their
+primal variables. <em>0</em> no bounding, <em>1</em> bounding with <em>bigM</em>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-boundBigM</span> <span class="pre">intValue</span></code>: Specifies the <em>bigM</em> constant for the above
+param (see option <code class="docutils literal notranslate"><span class="pre">-b</span> <span class="pre">(--bound)</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-t</span> <span class="pre">(--threads)</span> <span class="pre">intValue</span></code>: Specifies the number of threads Gurobi
+uses.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-tl</span> <span class="pre">(--timelimit)</span> <span class="pre">intValue</span></code>: Specifies the timeLimit (in seconds)
+for running the whole algorithmic procedure.</p></li>
+</ul>
+<p>Algorithmic parameters tailored on <strong>innerApproximation</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-ad</span> <span class="pre">(--add)</span> <span class="pre">intValue</span></code>: Specifies the <em>EPECAddPolyMethod</em> strategy
+employed to expand the inner approximation when no information about
+deviations is available. <em>0</em> add polyhedra in lexographic order, <em>1</em>
+reverse lexographic, <em>2</em> random.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-ag</span> <span class="pre">(--aggr)</span> <span class="pre">intValue</span></code>: Specifies the <em>EPECAddPolyMethod</em>
+aggressivity (see option <code class="docutils literal notranslate"><span class="pre">-ad</span> <span class="pre">(--add)</span></code>). <em>int</em> specifies the number
+of lower-level polyhedra to be added to each Stackelberg leader at
+each iteration in which <em>EPECAddPolyMethod</em> is triggered.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-r</span> <span class="pre">(--recover)</span> <span class="pre">intValue</span></code>: Specifies the recover stragegy for the
+<strong>innerApproximation</strong> method. When the algorithm finds a mixed
+equilibrium and the parameter <code class="docutils literal notranslate"><span class="pre">-p</span> <span class="pre">(--pure)</span></code> is set to <em>1</em>, the
+algorithm will search for a pure equilibrium either by randomly
+expanding the inner approximation (<em>EPECAddPolyMethod</em>) or by
+triggering a <strong>combinatorialPNE</strong> procedure warmstarted with the
+current information. <em>0</em> sets the recover strategy to
+<em>incrementalEnumeration</em>, <em>1</em> sets it to <em>combinatorial</em>.</p></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="EPEC.html" class="btn btn-neutral float-right" title="EPEC Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="compiling.html" class="btn btn-neutral float-left" title="Compiling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, GD and SS
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
