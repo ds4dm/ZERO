@@ -36,7 +36,7 @@ protected:
   arma::vec _b = {}; ///< Apart from @f$0 \le x \perp Mx+q\ge 0@f$, one needs@f$
   ///< Ax\le b@f$ too!
   arma::sp_mat _Acut = {};
-  arma::vec _bcut = {}; ///< Cutting planes eventually added to the model
+  arma::vec _bcut = {};      ///< Cutting planes eventually added to the model
   bool MadeRlxdModel{false}; ///< Keep track if LCP::RlxdModel is made
   unsigned int nR, nC;
 
@@ -155,7 +155,7 @@ public:
 
   void addCustomCuts(const arma::sp_mat A, const arma::vec b);
 
-  bool containCut(const arma::vec LHS, const double RHS, double tol=1e-5);
+  bool containCut(const arma::vec LHS, const double RHS, double tol = 1e-5);
 
   std::vector<short int> solEncode(const arma::vec &x) const;
 

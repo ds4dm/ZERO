@@ -75,16 +75,16 @@ bool Game::OuterLCP::addComponent(
                        ///< LHS matrix
     vec_Vec *custbi ///< If custom polyhedra vector is used, pointer to the RHS
                     ///< vector
-    /**
-     * Given an encoding with +1, -1 and 0s optionally checks its feasibility,
-     * and adds the appropriate polyhedron for outer approximation to
-     * Game::OuterLCP::Ai and Game::OuterLCP::bi (or @p custAi and @p custbi).
-     *
-     * As a note to remember, 0 means, no branching is done on the said
-     * complementarity condition.
-     *
-     * @internal Analogous to Game::PolyLCP::addPolyFromEncoding
-     */
+                    /**
+                     * Given an encoding with +1, -1 and 0s optionally checks its feasibility,
+                     * and adds the appropriate polyhedron for outer approximation to
+                     * Game::OuterLCP::Ai and Game::OuterLCP::bi (or @p custAi and @p custbi).
+                     *
+                     * As a note to remember, 0 means, no branching is done on the said
+                     * complementarity condition.
+                     *
+                     * @internal Analogous to Game::PolyLCP::addPolyFromEncoding
+                     */
 ) {
   unsigned long fixNumber = Utils::vecToNum(encoding);
   BOOST_LOG_TRIVIAL(trace)

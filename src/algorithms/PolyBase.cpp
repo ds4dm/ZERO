@@ -11,15 +11,15 @@ bool Algorithms::PolyBase::isSolved(unsigned int *countryNumber,
  * Analogous to Game::NashGame::isSolved but checks if the given Game::EPEC is
  * solved. If it is solved, then retruns true. If not, it returns the country
  * which has a profitable deviation in @p countryNumber and the profitable
- * deviation in @p profitableDeviation. @p Tolerance is the tolerance for the check.
- * If the <i> improved objective </i> after the deviation is less than @p Tolerance,
- * then it is not considered as a profitable deviation.
+ * deviation in @p profitableDeviation. @p Tolerance is the tolerance for the
+ * check. If the <i> improved objective </i> after the deviation is less than @p
+ * Tolerance, then it is not considered as a profitable deviation.
  *
  * Thus we check if the given point is an @f$\epsilon@f$-equilibrium. Value of
  * @f$\epsilon @f$ can be chosen sufficiently close to 0.
  *
- * @warning Setting @p Tolerance = 0 might even reject a real solution as not solved.
- * This is due to Numerical issues arising from the LCP solver (Gurobi).
+ * @warning Setting @p Tolerance = 0 might even reject a real solution as not
+ * solved. This is due to Numerical issues arising from the LCP solver (Gurobi).
  */
 {
   if (!this->EPECObject->TheNashGame)

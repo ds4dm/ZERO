@@ -260,7 +260,7 @@ double Game::EPEC::respondSol(
    */
   auto model = this->respond(player, x);
   BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::respondSol: Writing dat/RespondSol" +
-                              std::to_string(player) + ".lp to disk";
+                                  std::to_string(player) + ".lp to disk";
   model->write("dat/RespondSol" + std::to_string(player) + ".lp");
   const int status = model->get(GRB_IntAttr_Status);
   if (status == GRB_UNBOUNDED || status == GRB_OPTIMAL) {
@@ -295,7 +295,7 @@ double Game::EPEC::respondSol(
           for (unsigned int i = 0; i < Nx; ++i)
             sol.at(i) =
                 sol.at(i) + model->getVarByName("x_" + std::to_string(i))
-                    .get(GRB_DoubleAttr_UnbdRay);
+                                .get(GRB_DoubleAttr_UnbdRay);
           newobjvalue = sol * objcoeff;
           if (newobjvalue.at(0) < objvalue.at(0))
             improved = true;
@@ -382,7 +382,7 @@ void Game::EPEC::makePlayersQPs()
             this->PlayersQP.at(j)->addDummy(
                 convHullVarCount, 0,
                 this->PlayersQP.at(j)->getNx() -
-                this->numMCVariables); // The position to add parameters is
+                    this->numMCVariables); // The position to add parameters is
             // towards the end of all parameters,
             // giving space only for the
             // numMCVariables number of market
@@ -440,7 +440,7 @@ void ::Game::EPEC::makeTheLCP() {
       this->Stats.AlgorithmParam.Indicators; // Using indicator constraints
 
   this->LCPModel = this->TheLCP->LCPasMIP(false);
-  //this->LCPModel->setObjective(GRBLinExpr{0}, GRB_MINIMIZE);
+  // this->LCPModel->setObjective(GRBLinExpr{0}, GRB_MINIMIZE);
 
   BOOST_LOG_TRIVIAL(trace) << *TheNashGame;
 }
@@ -449,8 +449,8 @@ bool Game::EPEC::computeNashEq(
     bool pureNE,           ///< True if we search for a PNE
     double localTimeLimit, ///< Allowed time limit to run this function
     bool check ///< If true, the Algorithm will seek for the maximum number of
-    ///< NE. Then, it will check they are equilibria for the original
-    ///< problem
+               ///< NE. Then, it will check they are equilibria for the original
+               ///< problem
 ) {
   /**
    * Given that Game::EPEC::PlayersQP are all filled with a each country's

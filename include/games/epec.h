@@ -254,4 +254,4 @@ public: // functions
   void getXofI(const arma::vec &x, const unsigned int &i, arma::vec &solI,
                bool hull = false) const;
 };
-};
+}; // namespace Game

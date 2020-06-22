@@ -314,7 +314,7 @@ std::unique_ptr<GRBModel> Game::QP_Param::solveFixed(
   /// compatible with the Game::QP_Param definition.
   if (x.size() != this->Nx)
     throw "Game::QP_Param::solveFixed: Invalid argument size: " +
-          std::to_string(x.size()) + " != " + std::to_string(Nx);
+        std::to_string(x.size()) + " != " + std::to_string(Nx);
   std::unique_ptr<GRBModel> model(new GRBModel(this->QuadModel));
   try {
     GRBQuadExpr yQy = model->getObjective();
@@ -403,8 +403,8 @@ unsigned int Game::QP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N,
     return 0;
   }
   M = arma::join_cols( // In armadillo join_cols(A, B) is same as [A;B] in
-      // Matlab
-      //  join_rows(A, B) is same as [A B] in Matlab
+                       // Matlab
+                       //  join_rows(A, B) is same as [A B] in Matlab
       arma::join_rows(this->Q, this->B.t()),
       arma::join_rows(-this->B,
                       arma::zeros<arma::sp_mat>(this->Ncons, this->Ncons)));

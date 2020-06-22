@@ -5,7 +5,6 @@
 #include <set>
 #include <string>
 
-
 namespace std {
 string to_string(Game::EPECsolveStatus st);
 

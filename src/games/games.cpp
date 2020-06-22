@@ -4,21 +4,20 @@
 #include <array>
 #include <boost/log/trivial.hpp>
 #include <iostream>
-#include <memory>
 
 unsigned int Game::convexHull(
     const std::vector<arma::sp_mat *>
-    *Ai, ///< Inequality constraints LHS that define polyhedra whose convex
+        *Ai, ///< Inequality constraints LHS that define polyhedra whose convex
     ///< hull is to be found
     const std::vector<arma::vec *>
-    *bi, ///< Inequality constraints RHS that define
+        *bi, ///< Inequality constraints RHS that define
     ///< polyhedra whose convex hull is to be found
     arma::sp_mat &A, ///< Pointer to store the output of the convex hull LHS
     arma::vec &b,    ///< Pointer to store the output of the convex hull RHS
     const arma::sp_mat
-    Acom,            ///< any common constraints to all the polyhedra - lhs.
+        Acom,            ///< any common constraints to all the polyhedra - lhs.
     const arma::vec bcom ///< Any common constraints to ALL the polyhedra - RHS.
-)
+    )
 /** @brief Computing convex hull of finite union of polyhedra
  * @details Computes the convex hull of a finite union of polyhedra where
  * each polyhedra @f$P_i@f$ is of the form
@@ -59,13 +58,13 @@ unsigned int Game::convexHull(
     if (Ai->at(i)->n_cols != nC)
       throw("Game::convexHull: Inconsistent number of variables in the "
             "polyhedra ") +
-           std::to_string(i) + "; " + std::to_string(Ai->at(i)->n_cols) +
-           "!=" + std::to_string(nC);
+          std::to_string(i) + "; " + std::to_string(Ai->at(i)->n_cols) +
+          "!=" + std::to_string(nC);
     if (Ai->at(i)->n_rows != bi->at(i)->n_rows)
       throw("Game::convexHull: Inconsistent number of rows in LHS and "
             "RHS of polyhedra ") +
-           std::to_string(i) + ";" + std::to_string(Ai->at(i)->n_rows) +
-           "!=" + std::to_string(bi->at(i)->n_rows);
+          std::to_string(i) + ";" + std::to_string(Ai->at(i)->n_rows) +
+          "!=" + std::to_string(bi->at(i)->n_rows);
     nFinCons += Ai->at(i)->n_rows;
   }
   // For common constraint copy
@@ -126,15 +125,15 @@ void Game::compConvSize(
     const unsigned int nFinCons, ///< Number of rows in final matrix A
     const unsigned int nFinVar,  ///< Number of columns in the final matrix A
     const std::vector<arma::sp_mat *>
-    *Ai, ///< Inequality constraints LHS that define polyhedra whose convex
+        *Ai, ///< Inequality constraints LHS that define polyhedra whose convex
     ///< hull is to be found
     const std::vector<arma::vec *>
-    *bi, ///< Inequality constraints RHS that define
+        *bi, ///< Inequality constraints RHS that define
     ///< polyhedra whose convex hull is to be found
     const arma::sp_mat
-    &Acom,            ///< LHS of the common constraints for all polyhedra
+        &Acom,            ///< LHS of the common constraints for all polyhedra
     const arma::vec &bcom ///< RHS of the common constraints for all polyhedra
-)
+    )
 /**
  * @brief INTERNAL FUNCTION NOT FOR GENERAL USE.
  * @warning INTERNAL FUNCTION NOT FOR GENERAL USE.
@@ -209,11 +208,11 @@ arma::vec
 Game::LPSolve(const arma::sp_mat &A, ///< The constraint matrix
               const arma::vec &b,    ///< RHS of the constraint matrix
               const arma::vec &c, ///< If feasible, returns a std::vector that
-    ///< minimizes along this direction
+                                  ///< minimizes along this direction
               int &status, ///< Status of the optimization problem. If optimal,
-    ///< this will be GRB_OPTIMAL
+                           ///< this will be GRB_OPTIMAL
               bool positivity ///< Should @f$x\geq0@f$ be enforced?
-)
+              )
 /**
  Checks if the polyhedron given by @f$ Ax\leq b@f$ is feasible.
  If yes, returns the point @f$x@f$ in the polyhedron that minimizes @f$c^Tx@f$
@@ -286,7 +285,6 @@ void Game::print(const perps &C) noexcept {
     std::cout << "<" << p.first << ", " << p.second << ">"
               << "\t";
 }
-
 
 std::string std::to_string(const Game::EPECsolveStatus st) {
   switch (st) {

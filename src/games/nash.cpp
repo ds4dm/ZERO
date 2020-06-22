@@ -297,7 +297,7 @@ the image below
   }
   BOOST_LOG_TRIVIAL(trace) << "Game::NashGame::formulateLCP: MC RHS";
   if (this->MCRHS.n_elem >= 1) // It is possible that it is a Cournot game and
-    // there are no MC conditions!
+                               // there are no MC conditions!
   {
     M.submat(this->MC_DualPosition, 0, this->LeaderPosition - 1,
              this->DualPosition.at(0) - 1) = this->MarketClearing;
@@ -426,7 +426,7 @@ Game::NashGame &Game::NashGame::addLeadCons(const arma::vec &a, double b)
   if (a.n_elem != nC)
     throw("Error in NashGame::addLeadCons: Leader constraint size "
           "incompatible --- ") +
-         std::to_string(a.n_elem) + std::string(" != ") + std::to_string(nC);
+        std::to_string(a.n_elem) + std::string(" != ") + std::to_string(nC);
   auto nR = this->LeaderConstraints.n_rows;
   this->LeaderConstraints =
       Utils::resizePatch(this->LeaderConstraints, nR + 1, nC);
@@ -506,7 +506,7 @@ std::unique_ptr<GRBModel> Game::NashGame::respond(
     const arma::vec &x,  ///< A std::vector of pure strategies (either for all
     ///< players or all other players)
     bool fullvec ///< Is @p x strategy of all players? (including player @p
-    ///< player)
+                 ///< player)
 ) const
 /**
  * @brief Given the decision of other players, find the optimal response for
@@ -538,7 +538,7 @@ std::unique_ptr<GRBModel> Game::NashGame::respond(
   } else {
     solOther.zeros(nVar - nEnd + nStart);
     solOther = x.subvec(0, nVar - nEnd + nStart -
-                           1); // Discard any dual variables in x
+                               1); // Discard any dual variables in x
   }
 
   return this->Players.at(player)->solveFixed(solOther, true);
@@ -550,7 +550,7 @@ double Game::NashGame::respondSol(
     const arma::vec &x,  ///< A std::vector of pure strategies (either for all
     ///< players or all other players)
     bool fullvec ///< Is @p x strategy of all players? (including player @p
-    ///< player)
+                 ///< player)
 ) const {
   /**
    * @brief Returns the optimal objective value that is obtainable for the
