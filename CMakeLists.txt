@@ -13,7 +13,7 @@ ELSE ()
     set(ARMA_PATH "/usr/local")
     set(ARMA_LIB "/usr/local/lib/libarmadillo.dylib")
     set(Boost_USE_MULTITHREADED TRUE)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-c++17-narrowing -Wdefaulted-function-deleted")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-c++11-narrowing -Wdefaulted-function-deleted")
 ENDIF ()
 set(GUROBI_PATH_LINUX "/home/gurobi/9.0.0/linux64")
 set(GUROBI_PATH_MAC "/Library/gurobi900/mac64")
@@ -32,7 +32,7 @@ project(
         LANGUAGES CXX
         DESCRIPTION "Equilibrium Problems with Equilibrium Constraints solver"
 )
-#add_compile_options(-std=c++17)
+add_compile_options(-std=c++11)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_SHARED_LINKER_FLAGS "-lgurobi_c++ -lgurobi90 -lm -O2 -lopenblas -llapack -lpthread")
 
@@ -99,8 +99,13 @@ include_directories(${ARMA_PATH}/include)
 
 include_directories("src" "include")
 configure_file(src/CMakeConfig.h.in ${PROJECT_SOURCE_DIR}/include/version.h)
+
 add_library(EPECSolve
-            src/Games.cpp
+            src/games/games.cpp
+            src/games/epec.cpp
+            src/games/ipg.cpp
+            src/games/qpmp.cpp
+            src/games/nash.cpp
             src/lcp/LCP.cpp
             src/lcp/PolyLCP.cpp
             src/Utils.cpp
@@ -124,16 +129,10 @@ target_link_libraries(EPECSolve
 add_executable(EPEC
                src/CommandLineInterface.cpp)
 #set_target_properties(EPEC PROPERTIES CXX_VISIBILITY_PRESET hidden)
-add_executable(EPECInstances
-               instances/makeInstances.cpp)
-add_executable(EPECChileArgentina
-               instances/ChileArgentina.cpp)
 add_executable(EPECExample
                examples/example.cpp)
 add_executable(EPECtest
                test/EPEC.cpp)
-target_link_libraries(EPECInstances EPECSolve)
-target_link_libraries(EPECChileArgentina EPECSolve)
 target_link_libraries(EPECExample EPECSolve)
 target_link_libraries(EPEC EPECSolve)
 target_link_libraries(EPECtest EPECSolve Boost::unit_test_framework)

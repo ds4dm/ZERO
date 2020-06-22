@@ -1,8 +1,8 @@
 #include <string>
-#define EPECSOLVE_VERSION "2.0.1"
-#define EPECSOLVE_VERSION_MAJOR "2"
+#define EPECSOLVE_VERSION "3.0.0"
+#define EPECSOLVE_VERSION_MAJOR "3"
 #define EPECSOLVE_VERSION_MINOR "0"
-#define EPECSOLVE_VERSION_PATCH "1"
+#define EPECSOLVE_VERSION_PATCH "0"
 
 class EPECVersion {
 public:

@@ -92,7 +92,7 @@ public:
   LCP(GRBEnv *env, arma::sp_mat M, arma::vec q, perps Compl,
       arma::sp_mat A = {},
       arma::vec b = {}); // Constructor with M, q, compl pairs
-  LCP(GRBEnv *env, const Game::NashGame &N);
+  LCP(GRBEnv *env, const NashGame &N);
 
   /** Destructor - to delete the objects created with new operator */
   ~LCP() = default;
@@ -151,7 +151,7 @@ public:
 
   long int load(std::string filename, long int pos = 0);
 
-  virtual void makeQP(Game::QP_Objective &QP_obj, Game::QP_Param &QP);
+  virtual void makeQP(QP_Objective &QP_obj, QP_Param &QP);
 
   void addCustomCuts(const arma::sp_mat A, const arma::vec b);
 
