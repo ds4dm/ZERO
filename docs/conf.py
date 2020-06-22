@@ -6,9 +6,15 @@ author = 'GD and SS'
 
 # The full version, including alpha/beta/rc tags
 release = '2.0.1'
-
 extensions = [
+    # there may be others here already, e.g. 'sphinx.ext.mathjax'
+    'breathe',
+    'exhale',
+    'recommonmark',
+    'sphinx.ext.todo'
 ]
+
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -32,14 +38,6 @@ html_theme_options = {
     'includehidden': True,
     'titles_only': False
 }
-
-extensions = [
-    # there may be others here already, e.g. 'sphinx.ext.mathjax'
-    'breathe',
-    'exhale',
-    'recommonmark',
-    'sphinx.ext.todo'
-]
 
 # Setup the breathe extension
 breathe_projects = {"My Project": "./doxyoutput/xml"}

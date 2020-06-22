@@ -115,11 +115,11 @@ This LCP as multiple solutions. In fact the solution set can be parameterized as
  
  \text{for}\;\; t \in [0, 1]
  
- ==========
- Utilities
- ==========
+==========
+Utilities
+==========
 
-But some times, one might want to solve an MPEC. i.e., optimize over the feasible region of the set as decribed above. For this purpose, two functions :py:func:`Game::LCP::MPECasMILP` and :py:func:`Game::LCP::MPECasMIQP` are available, depending upon whether one wants to optimize a linear objective function or a convex quadratic
+However, sometimes one might want to solve an MPEC. i.e., optimize over the feasible region of the set as decribed above. For this purpose, two functions :py:func:`Game::LCP::MPECasMILP` and :py:func:`Game::LCP::MPECasMIQP` are available, depending upon whether one wants to optimize a linear objective function or a convex quadratic
 objective function over the set of solutions.
 
 

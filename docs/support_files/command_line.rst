@@ -1,5 +1,5 @@
 Command-line interface
-======================
+=====================================
 
 EPECSolve has a command line interface built on top of the standard
 modeling paradigm (see documentation for src/Models.cpp). Once the

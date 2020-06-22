@@ -1,5 +1,5 @@
 Compiling
-=========
+=====================================
 
 We assume you have downloaded the project from the github repository.
 

@@ -11,11 +11,8 @@ description <https://github.com/ds4dm/EPECInstances/blob/master/Description.pdf>
 - `arXiv <https://arxiv.org/abs/1910.06452>`__ pre-print for the
 original code
 
-==========
-Prerequisites
-==========
 
-**Mandatory packages**
+**Mandatory packages** to make EPECSolve work are:
 
 -  `Armadillo <http://arma.sourceforge.net/>`__ (Version 9.6 or later
    recommended. Minimum 8.5 required.)
@@ -43,25 +40,21 @@ Recommended but not mandatory for the algorithm. (Some examples might have these
    ``sudo apt install doxygen`` will install DOxygen on an Ubuntu
    machine.
    
-==========
-LICENSE
-==========
-
-This code is distributed under the CC0 1.0 Universal License.
+**LICENSE**: This code is distributed under the CC0 1.0 Universal License.
 
 
 .. toctree::
    :caption: Quick Start
    :hidden:
-   
-   index
+ 
+   self
    support_files/compiling
    support_files/command_line
 
 .. toctree::
    :caption: Tutorials
    :hidden:
-   
+
    support_files/EPEC
    support_files/LCP
    support_files/NashLCP
@@ -71,7 +64,7 @@ This code is distributed under the CC0 1.0 Universal License.
    :caption: Quick References
    :maxdepth: 5
    :hidden:
- 
+
    api/namespace_Algorithms
    api/namespace_Game
    api/namespace_Models
