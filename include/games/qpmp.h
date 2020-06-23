@@ -198,6 +198,8 @@ public: // Constructors
   /// @brief Loads the @p Game::QP_Param object stored in a file.
   long int load(const std::string &filename, long int pos = 0);
   double computeObjectiveWithoutOthers(const arma::vec &y) const;
-  arma::vec getConstraintViolations(arma::vec x, arma::vec y, double tol);
+  arma::vec getConstraintViolations(const arma::vec x, const arma::vec y, double tol);
 };
 } // namespace Game
+
+#include "ipg.h"

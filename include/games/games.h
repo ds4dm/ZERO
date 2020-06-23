@@ -38,14 +38,14 @@ bool isZero(arma::mat M, double tol = 1e-6) noexcept;
 bool isZero(arma::sp_mat M, double tol = 1e-6) noexcept;
 
 // bool isZero(arma::vec M, double Tolerance = 1e-6);
-///@brief struct to handle the objective params of MP_Param/QP_Param
+///@brief struct to handle the objective params of MP_Param and inheritors
 ///@details Refer QP_Param class for what Q, C and c mean.
 typedef struct QP_Objective {
   arma::sp_mat Q;
   arma::sp_mat C;
   arma::vec c;
 } QP_objective;
-///@brief struct to handle the constraint params of MP_Param/QP_Param
+///@brief struct to handle the constraint params of MP_Param and inheritors
 ///@details Refer QP_Param class for what A, B and b mean.
 typedef struct QP_Constraints {
   arma::sp_mat A, B;

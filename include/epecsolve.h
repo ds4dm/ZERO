@@ -25,6 +25,7 @@ struct QP_Objective;
 struct QP_Constraints;
 class MP_Param;
 class QP_Param;
+class IPG_Param;
 class NashGame;
 class LCP;
 class PolyLCP;
@@ -132,7 +133,6 @@ class OuterApproximation;
 } // namespace Algorithms
 #include "games/epec.h"
 #include "games/games.h"
-#include "games/ipg.h"
 #include "games/nash.h"
 #include "games/qpmp.h"
 #include "lcp/lcp.h"

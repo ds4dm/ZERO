@@ -103,8 +103,8 @@ configure_file(src/CMakeConfig.h.in ${PROJECT_SOURCE_DIR}/include/version.h)
 add_library(EPECSolve
             src/games/games.cpp
             src/games/epec.cpp
-            src/games/ipg.cpp
             src/games/qpmp.cpp
+            src/games/ipg.cpp
             src/games/nash.cpp
             src/lcp/LCP.cpp
             src/lcp/PolyLCP.cpp

@@ -1,10 +1,4 @@
 #include "games/qpmp.h"
-#include "algorithms/algorithms.h"
-#include "algorithms/combinatorialpne.h"
-#include "algorithms/fullenumeration.h"
-#include "algorithms/innerapproximation.h"
-#include "algorithms/outerapproximation.h"
-#include <algorithm>
 #include <armadillo>
 #include <array>
 #include <boost/log/trivial.hpp>
@@ -137,10 +131,13 @@ const unsigned int Game::MP_Param::size()
  * 	@returns @p Ny, Number of variables in the quadratic program, QP
  */
 {
-  this->Ny = this->Q.n_rows;
+  if (Q.n_rows < 1)
+    this->Ny = this->c.size();
+  else
+    this->Ny = this->Q.n_rows;
   this->Nx = this->C.n_cols;
   this->Ncons = this->b.size();
-  return Ny;
+  return this->Ny;
 }
 
 Game::MP_Param &
@@ -203,13 +200,15 @@ bool Game::MP_Param::dataCheck(bool forceSymmetry) const
  */
 {
   if (forceSymmetry) {
+    if (!this->Q.is_symmetric())
+      return false;
   }
-  if (this->Q.n_cols != Ny) {
+  if (this->Q.n_cols > 0 && this->Q.n_cols != Ny) {
     return false;
   }
-  if (this->A.n_cols != Nx) {
+  if (this->A.n_cols > 0 && this->A.n_cols != Nx) {
     return false;
-  } // Rest are matrix size compatibility checks
+  }
   if (this->B.n_cols != Ny) {
     return false;
   }
@@ -219,7 +218,7 @@ bool Game::MP_Param::dataCheck(bool forceSymmetry) const
   if (this->c.size() != Ny) {
     return false;
   }
-  if (this->A.n_rows != Ncons) {
+  if (this->A.n_rows > 0 && this->A.n_rows != Ncons) {
     return false;
   }
   if (this->B.n_rows != Ncons) {
@@ -460,13 +459,19 @@ Game::QP_Param &Game::QP_Param::set(const QP_Objective &obj,
   return this->set(obj.Q, obj.C, cons.A, cons.B, obj.c, cons.b);
 }
 
-arma::vec Game::QP_Param::getConstraintViolations(arma::vec x, arma::vec y,
+arma::vec Game::QP_Param::getConstraintViolations(const arma::vec x,
+                                                  const arma::vec y,
                                                   double tol = 1e-5) {
+  arma::vec xN, yN;
   if (x.size() < B.n_cols)
-    x = Utils::resizePatch(x, B.n_cols);
+    arma::vec xN = Utils::resizePatch(x, B.n_cols);
+  else
+    xN = x;
   if (y.size() < A.n_cols)
-    y = Utils::resizePatch(y, A.n_cols);
-  arma::vec slack = A * x + B * y - b;
+    arma::vec yN = Utils::resizePatch(y, A.n_cols);
+  else
+    yN = y;
+  arma::vec slack = A * xN + B * yN - b;
   return slack;
 }
 
