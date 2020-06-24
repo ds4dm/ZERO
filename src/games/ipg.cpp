@@ -115,7 +115,7 @@ std::unique_ptr<GRBModel> Game::IP_Param::solveFixed(
 }
 
 Game::IP_Param &Game::IP_Param::addDummy(unsigned int pars, unsigned int vars,
-                                           int position) {
+                                         int position) {
 
   // Call the superclass function
   try {
@@ -134,10 +134,10 @@ Game::IP_Param &Game::IP_Param::addDummy(unsigned int pars, unsigned int vars,
   return *this;
 }
 
-Game::IP_Param &
-Game::IP_Param::set(const arma::sp_mat &C, const arma::sp_mat &B,
-                     const arma::vec &b, const arma::vec &c,
-                     const arma::vec &bounds, const std::vector<int> &integers)
+Game::IP_Param &Game::IP_Param::set(const arma::sp_mat &C,
+                                    const arma::sp_mat &B, const arma::vec &b,
+                                    const arma::vec &c, const arma::vec &bounds,
+                                    const std::vector<int> &integers)
 /// Setting the data, while keeping the input objects intact
 {
   try {
@@ -154,9 +154,9 @@ Game::IP_Param::set(const arma::sp_mat &C, const arma::sp_mat &B,
 }
 
 Game::IP_Param &Game::IP_Param::set(arma::sp_mat &C, arma::sp_mat &&B,
-                                      arma::vec &&b, arma::vec &&c,
-                                      arma::vec &&bounds,
-                                      std::vector<int> &&integers)
+                                    arma::vec &&b, arma::vec &&c,
+                                    arma::vec &&bounds,
+                                    std::vector<int> &&integers)
 /// Faster means to set data. But the input objects might be corrupted now.
 {
   this->madeModel = false;
@@ -170,8 +170,8 @@ Game::IP_Param &Game::IP_Param::set(arma::sp_mat &C, arma::sp_mat &&B,
 }
 
 Game::IP_Param &Game::IP_Param::set(QP_Objective &&obj, QP_Constraints &&cons,
-                                      arma::vec &&bounds,
-                                      std::vector<int> &&integers)
+                                    arma::vec &&bounds,
+                                    std::vector<int> &&integers)
 /// Setting the data with the inputs being a struct Game::QP_Objective and
 /// struct Game::QP_Constraints.
 {
@@ -183,14 +183,14 @@ Game::IP_Param &Game::IP_Param::set(QP_Objective &&obj, QP_Constraints &&cons,
 }
 
 Game::IP_Param &Game::IP_Param::set(const QP_Objective &obj,
-                                      const QP_Constraints &cons,
-                                      const arma::vec &bounds ,
-                                      const std::vector<int> &integers) {
+                                    const QP_Constraints &cons,
+                                    const arma::vec &bounds,
+                                    const std::vector<int> &integers) {
   return this->set(obj.C, cons.B, cons.b, obj.c, bounds, this->integers);
 }
 
 arma::vec Game::IP_Param::getConstraintViolations(const arma::vec y,
-                                                   double tol = 1e-5) {
+                                                  double tol = 1e-5) {
   arma::vec slack;
   if (y.size() < A.n_cols) {
     arma::vec yN = Utils::resizePatch(y, A.n_cols);
@@ -201,7 +201,7 @@ arma::vec Game::IP_Param::getConstraintViolations(const arma::vec y,
 }
 
 double Game::IP_Param::computeObjective(const arma::vec &y, const arma::vec &x,
-                                         bool checkFeas, double tol) const {
+                                        bool checkFeas, double tol) const {
   /**
    * Computes @f$(Cx)^Ty + c^Ty@f$ given the input values @p
    * y and
@@ -225,8 +225,7 @@ double Game::IP_Param::computeObjective(const arma::vec &y, const arma::vec &x,
   return obj(0);
 }
 
-double
-Game::IP_Param::computeObjectiveWithoutOthers(const arma::vec &y) const {
+double Game::IP_Param::computeObjectiveWithoutOthers(const arma::vec &y) const {
   /**
    * Computes @f$c^Ty @f$ given the input values @p y;
    */
@@ -235,4 +234,83 @@ Game::IP_Param::computeObjectiveWithoutOthers(const arma::vec &y) const {
         "Error in QP_Param::computeObjectiveWithoutOthers: Invalid size of y");
   arma::vec obj = c.t() * y;
   return obj(0);
+}
+
+Game::IPG::IPG(GRBEnv *env, ///< A pointer to the Gurobi Environment
+               std::vector<std::shared_ptr<Game::IP_Param>>
+                   players ///< A vector containing the pointers to the IP param
+                           ///< for each player
+) {
+  /**
+   * @brief This constructors initializes the integer programming game with the
+   * gurobi environment @p env and the vector of shared pointers to the
+   * IP_Params in @p players
+   */
+
+  this->Env = env;
+  this->PlayersIP = players;
+  this->finalize();
+}
+void Game::IPG::finalize() {
+  /**
+   * @brief This methods finalizes the model by disabling any edits to the
+   * number of players. The proper object (for instance, the ones counting
+   * players variables) are initialized with the right values.
+   */
+  this->NumPlayers = this->PlayersIP.size();
+  this->PlayerVariables = std::vector<unsigned int>(this->NumPlayers);
+  this->Solution = std::vector<arma::vec>(this->NumPlayers);
+  this->NumVariables = 0;
+  for (unsigned int i = 0; i < this->NumPlayers; ++i) {
+    PlayerVariables.at(i) = this->PlayersIP.at(i)->getNy();
+    this->NumVariables += PlayerVariables.at(i);
+  }
+  this->Finalized = true;
+}
+
+void Game::IPG::getXMinusI(
+    const arma::vec &x, ///< The vector containing the full solution. It should
+                        ///< have the same size of the field NumVariables
+    const unsigned int &i, ///< The index of the designed player
+    arma::vec &xMinusI     ///< An output vector containing x^{-i}
+) const {
+  /**
+   * @brief Given @p x as the solution vector and @p i as index of player, the method returns x^{-i}
+   */
+  if (this->NumVariables != x.size())
+    throw("Error in Game::IPG::getXMinusI:  Wrong size for the input parameter "
+          "x.");
+
+  xMinusI.zeros(this->NumVariables - this->PlayerVariables.at(i));
+
+  for (unsigned int j = 0, posIn = 0, posOut = 0; j < this->NumPlayers; ++j) {
+    if (i != j) {
+      xMinusI.subvec(posOut, posOut + this->PlayerVariables.at(j) - 1) =
+          x.subvec(posIn, posIn + this->PlayerVariables.at(j) - 1);
+      posOut += this->PlayerVariables.at(j);
+    }
+    posIn += this->PlayerVariables.at(j);
+  }
+}
+
+void Game::IPG::getXofI(
+    const arma::vec &x, ///< The vector containing the full solution. It should
+    ///< have the same size of the field NumVariables
+    const unsigned int &i, ///< The index of the designed player
+    arma::vec &xOfI     ///< An output vector containing x^i
+) const {
+  /**
+   * @brief Given @p x as the solution vector and @p i as index of player, the method returns x^i
+   */
+  if (this->NumVariables != x.size())
+    throw("Error in Game::IPG::getXofI:  Wrong size for the input parameter "
+          "x.");
+
+  int count =0;
+  for (unsigned int j = 0; j < i; ++j)
+    count +=this->PlayerVariables.at(j);
+
+  xOfI.zeros(this->PlayerVariables.at(i));
+  xOfI=x.subvec(count, count + this->PlayerVariables.at(i) - 1);
+
 }

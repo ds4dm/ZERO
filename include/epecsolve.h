@@ -31,6 +31,7 @@ class LCP;
 class PolyLCP;
 class OuterLCP;
 class EPEC;
+class IPG;
 enum class EPECsolveStatus {
   /**
    * Set of Status in which the solution Status of a Game::EPEC can be.
