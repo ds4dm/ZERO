@@ -5,7 +5,7 @@
 #include <iostream>
 #include <memory>
 
-bool Game::IPG_Param::operator==(const IPG_Param &IPG2) const {
+bool Game::IP_Param::operator==(const IP_Param &IPG2) const {
   if (!Game::isZero(this->B - IPG2.getB()))
     return false;
   if (!Game::isZero(this->C - IPG2.getC()))
@@ -19,7 +19,7 @@ bool Game::IPG_Param::operator==(const IPG_Param &IPG2) const {
   return !(this->integers != IPG2.getIntegers());
 }
 
-void Game::IPG_Param::makeModel() {
+void Game::IP_Param::makeModel() {
 
   /** This method creates the (mixed)-integer program for the game, where the
    *objective omits the bilinear part.
@@ -46,28 +46,28 @@ void Game::IPG_Param::makeModel() {
     model->update();
     model->set(GRB_IntParam_OutputFlag, 0);
   } catch (const char *e) {
-    std::cerr << " Error in Game::IPG_Param::makeModel: " << e << '\n';
+    std::cerr << " Error in Game::IP_Param::makeModel: " << e << '\n';
     throw;
   } catch (std::string &e) {
-    std::cerr << "String: Error in Game::IPG_Param::makeModel: " << e << '\n';
+    std::cerr << "String: Error in Game::IP_Param::makeModel: " << e << '\n';
     throw;
   } catch (std::exception &e) {
-    std::cerr << "Exception: Error in Game::IPG_Param::makeModel: " << e.what()
+    std::cerr << "Exception: Error in Game::IP_Param::makeModel: " << e.what()
               << '\n';
     throw;
   } catch (GRBException &e) {
-    std::cerr << "GRBException: Error in Game::IPG_Param::makeModel: "
+    std::cerr << "GRBException: Error in Game::IP_Param::makeModel: "
               << e.getErrorCode() << "; " << e.getMessage() << '\n';
     throw;
   }
   this->madeModel = true;
 }
 
-std::unique_ptr<GRBModel> Game::IPG_Param::solveFixed(
+std::unique_ptr<GRBModel> Game::IP_Param::solveFixed(
     arma::vec x,
     bool solve) /**
                  * Given a value for the parameters @f$x@f$ in the
-                 * definition of IPG_Param, solve           the
+                 * definition of IP_Param, solve           the
                  * parameterized MIP program to  optimality.
                  *
                  * In terms of game theory, this can be viewed as
@@ -76,9 +76,9 @@ std::unique_ptr<GRBModel> Game::IPG_Param::solveFixed(
                  *@p solve decides whether the model has to be optimized or not
                  */
 {
-  /// compatible with the Game::IPG_Param definition.
+  /// compatible with the Game::IP_Param definition.
   if (x.size() != this->Nx)
-    throw "Game::IPG_Param::solveFixed: Invalid argument size: " +
+    throw "Game::IP_Param::solveFixed: Invalid argument size: " +
         std::to_string(x.size()) + " != " + std::to_string(Nx);
   std::unique_ptr<GRBModel> model(new GRBModel(this->IPModel));
   try {
@@ -97,45 +97,45 @@ std::unique_ptr<GRBModel> Game::IPG_Param::solveFixed(
     if (solve)
       model->optimize();
   } catch (const char *e) {
-    std::cerr << " Error in Game::IPG_Param::solveFixed: " << e << '\n';
+    std::cerr << " Error in Game::IP_Param::solveFixed: " << e << '\n';
     throw;
   } catch (std::string &e) {
-    std::cerr << "String: Error in Game::IPG_Param::solveFixed: " << e << '\n';
+    std::cerr << "String: Error in Game::IP_Param::solveFixed: " << e << '\n';
     throw;
   } catch (std::exception &e) {
-    std::cerr << "Exception: Error in Game::IPG_Param::solveFixed: " << e.what()
+    std::cerr << "Exception: Error in Game::IP_Param::solveFixed: " << e.what()
               << '\n';
     throw;
   } catch (GRBException &e) {
-    std::cerr << "GRBException: Error in Game::IPG_Param::solveFixed: "
+    std::cerr << "GRBException: Error in Game::IP_Param::solveFixed: "
               << e.getErrorCode() << "; " << e.getMessage() << '\n';
     throw;
   }
   return model;
 }
 
-Game::IPG_Param &Game::IPG_Param::addDummy(unsigned int pars, unsigned int vars,
+Game::IP_Param &Game::IP_Param::addDummy(unsigned int pars, unsigned int vars,
                                            int position) {
 
   // Call the superclass function
   try {
     MP_Param::addDummy(pars, vars, position);
   } catch (const char *e) {
-    std::cerr << " Error in Game::IPG_Param::addDummy: " << e << '\n';
+    std::cerr << " Error in Game::IP_Param::addDummy: " << e << '\n';
     throw;
   } catch (std::string &e) {
-    std::cerr << "String: Error in Game::IPG_Param::addDummy: " << e << '\n';
+    std::cerr << "String: Error in Game::IP_Param::addDummy: " << e << '\n';
     throw;
   } catch (std::exception &e) {
-    std::cerr << "Exception: Error in Game::IPG_Param::addDummy: " << e.what()
+    std::cerr << "Exception: Error in Game::IP_Param::addDummy: " << e.what()
               << '\n';
     throw;
   }
   return *this;
 }
 
-Game::IPG_Param &
-Game::IPG_Param::set(const arma::sp_mat &C, const arma::sp_mat &B,
+Game::IP_Param &
+Game::IP_Param::set(const arma::sp_mat &C, const arma::sp_mat &B,
                      const arma::vec &b, const arma::vec &c,
                      const arma::vec &bounds, const std::vector<int> &integers)
 /// Setting the data, while keeping the input objects intact
@@ -148,12 +148,12 @@ Game::IPG_Param::set(const arma::sp_mat &C, const arma::sp_mat &B,
     this->integers = integers;
   } catch (std::string &e) {
     std::cerr << "String: " << e << '\n';
-    throw("Error in IPG_Param::set: Invalid Data");
+    throw("Error in IP_Param::set: Invalid Data");
   }
   return *this;
 }
 
-Game::IPG_Param &Game::IPG_Param::set(arma::sp_mat &C, arma::sp_mat &&B,
+Game::IP_Param &Game::IP_Param::set(arma::sp_mat &C, arma::sp_mat &&B,
                                       arma::vec &&b, arma::vec &&c,
                                       arma::vec &&bounds,
                                       std::vector<int> &&integers)
@@ -164,32 +164,32 @@ Game::IPG_Param &Game::IPG_Param::set(arma::sp_mat &C, arma::sp_mat &&B,
     MP_Param::set(Q, C, A, B, c, b);
   } catch (std::string &e) {
     std::cerr << "String: " << e << '\n';
-    throw("Error in IPG_Param::set: Invalid Data");
+    throw("Error in IP_Param::set: Invalid Data");
   }
   return *this;
 }
 
-Game::IPG_Param &Game::IPG_Param::set(QP_Objective &&obj, QP_Constraints &&cons,
+Game::IP_Param &Game::IP_Param::set(QP_Objective &&obj, QP_Constraints &&cons,
                                       arma::vec &&bounds,
                                       std::vector<int> &&integers)
 /// Setting the data with the inputs being a struct Game::QP_Objective and
 /// struct Game::QP_Constraints.
 {
   if (integers.empty())
-    throw("Error in IPG_Param::set: Invalid integer vector");
+    throw("Error in IP_Param::set: Invalid integer vector");
   return this->set(std::move(obj.C), std::move(cons.B), std::move(cons.b),
                    std::move(obj.c), std::move(bounds),
                    std::move(this->integers));
 }
 
-Game::IPG_Param &Game::IPG_Param::set(const QP_Objective &obj,
+Game::IP_Param &Game::IP_Param::set(const QP_Objective &obj,
                                       const QP_Constraints &cons,
                                       const arma::vec &bounds ,
                                       const std::vector<int> &integers) {
   return this->set(obj.C, cons.B, cons.b, obj.c, bounds, this->integers);
 }
 
-arma::vec Game::IPG_Param::getConstraintViolations(const arma::vec y,
+arma::vec Game::IP_Param::getConstraintViolations(const arma::vec y,
                                                    double tol = 1e-5) {
   arma::vec slack;
   if (y.size() < A.n_cols) {
@@ -200,7 +200,7 @@ arma::vec Game::IPG_Param::getConstraintViolations(const arma::vec y,
   return slack;
 }
 
-double Game::IPG_Param::computeObjective(const arma::vec &y, const arma::vec &x,
+double Game::IP_Param::computeObjective(const arma::vec &y, const arma::vec &x,
                                          bool checkFeas, double tol) const {
   /**
    * Computes @f$(Cx)^Ty + c^Ty@f$ given the input values @p
@@ -226,7 +226,7 @@ double Game::IPG_Param::computeObjective(const arma::vec &y, const arma::vec &x,
 }
 
 double
-Game::IPG_Param::computeObjectiveWithoutOthers(const arma::vec &y) const {
+Game::IP_Param::computeObjectiveWithoutOthers(const arma::vec &y) const {
   /**
    * Computes @f$c^Ty @f$ given the input values @p y;
    */

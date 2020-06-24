@@ -25,7 +25,7 @@ struct QP_Objective;
 struct QP_Constraints;
 class MP_Param;
 class QP_Param;
-class IPG_Param;
+class IP_Param;
 class NashGame;
 class LCP;
 class PolyLCP;
