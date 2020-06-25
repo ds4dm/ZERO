@@ -371,3 +371,48 @@ std::vector<short int> Utils::numToVec(unsigned long int number,
   std::reverse(binary.begin(), binary.end());
   return binary;
 }
+
+bool Utils::containsConstraint(arma::sp_mat &A, const vec &b, arma::vec &lhs,
+                               const double &rhs, const double tol = 1e-6) {
+  if (lhs.size() != A.n_cols)
+    return false;
+  for (int i = 0; i < A.n_rows; ++i) {
+    bool res = true;
+    for (int j = 0; j < A.n_cols; ++j) {
+      if (std::abs(lhs.at(j) - A.at(i, j)) > tol) {
+        res = false;
+        break;
+      }
+    }
+    if (res && std::abs(b.at(i) - rhs) < tol) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool Utils::containsElement(const vec &b, const double &element,
+                            const double tol = 1e-6) {
+  for (unsigned int i = 0; i < b.size(); ++i)
+    if (std::abs(b.at(i) - element) < tol)
+      return true;
+}
+
+bool Utils::containsRow(const sp_mat &A, arma::vec &row,
+                        const double tol = 1e-6) {
+
+  if (row.size() != A.n_cols)
+    return false;
+  for (int i = 0; i < A.n_rows; ++i) {
+    bool res = true;
+    for (int j = 0; j < A.n_cols; ++j) {
+      if (std::abs(row.at(j) - A.at(i, j)) > tol) {
+        res = false;
+        break;
+      }
+    }
+    if (res)
+      return true;
+  }
+  return false;
+}
