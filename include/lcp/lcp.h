@@ -163,5 +163,5 @@ public:
 };
 } // namespace Game
 
-#include "lcp/outerlcp.h"
-#include "lcp/polylcp.h"
+#include "lcp/outer_lcp.h"
+#include "lcp/poly_lcp.h"

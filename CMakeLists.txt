@@ -57,16 +57,16 @@ add_library(ZERO
             src/games/qpmp.cpp
             src/games/ipg.cpp
             src/games/nash.cpp
-            src/lcp/LCP.cpp
-            src/lcp/PolyLCP.cpp
-            src/Utils.cpp
-            src/interfaces/EPECModels.cpp
-            src/algorithms/EPEC/PolyBase.cpp
-            src/algorithms/EPEC/InnerApproximation.cpp
-            src/algorithms/EPEC/CombinatorialPNE.cpp
-            src/algorithms/EPEC/FullEnumeration.cpp
-            src/algorithms/EPEC/OuterApproximation.cpp
-            src/lcp/OuterLCP.cpp)
+            src/lcp/lcp.cpp
+            src/lcp/poly_lcp.cpp
+            src/utils.cpp
+            src/interfaces/epec_models.cpp
+            src/algorithms/EPEC/epec_polybase.cpp
+            src/algorithms/EPEC/epec_innerapproximation.cpp
+            src/algorithms/EPEC/epec_combinatorialpne.cpp
+            src/algorithms/EPEC/epec_fullenumeration.cpp
+            src/algorithms/EPEC/epec_outerapproximation.cpp
+            src/lcp/outer_lcp.cpp src/algorithms/IPG/ipg_outerapproximation.cpp)
 target_include_directories(ZERO PRIVATE src)
 set_target_properties(ZERO PROPERTIES
                       POSITION_INDEPENDENT_CODE ON
@@ -86,7 +86,7 @@ target_link_libraries(ZERO
 
 #EPEC Command line interface
 add_executable(EPECShell
-               src/shells/EPEC.cpp)
+               src/shells/epec_shell.cpp include/algorithms/IPG/ipg_outerapproximation.h)
 target_link_libraries(EPECShell
                       Boost::program_options
                       Boost::log Boost::log_setup

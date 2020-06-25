@@ -1,4 +1,4 @@
-#include "lcp/polylcp.h"
+#include "lcp/poly_lcp.h"
 #include <algorithm>
 #include <armadillo>
 #include <boost/log/trivial.hpp>

@@ -1,9 +1,9 @@
-#include "games/epec.h"
-#include "algorithms/EPEC/algorithms.h"
-#include "algorithms/EPEC/combinatorialpne.h"
-#include "algorithms/EPEC/fullenumeration.h"
-#include "algorithms/EPEC/innerapproximation.h"
-#include "algorithms/EPEC/outerapproximation.h"
+#include "algorithms/EPEC/epec_algorithms.h"
+#include "algorithms/EPEC/epec_combinatorialpne.h"
+#include "algorithms/EPEC/epec_fullenumeration.h"
+#include "algorithms/EPEC/epec_innerapproximation.h"
+#include "algorithms/EPEC/epec_outerapproximation.h"
+#include "games/epec_shell.h"
 #include <algorithm>
 #include <armadillo>
 #include <array>

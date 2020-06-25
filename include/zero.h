@@ -134,7 +134,7 @@ class CombinatorialPNE;
 class OuterApproximation;
 } // namespace EPEC
 } // namespace Algorithms
-#include "games/epec.h"
+#include "games/epec_shell.h"
 #include "games/games.h"
 #include "games/nash.h"
 #include "games/qpmp.h"

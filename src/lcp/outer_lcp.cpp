@@ -1,4 +1,4 @@
-#include "lcp/outerlcp.h"
+#include "lcp/outer_lcp.h"
 #include <boost/log/trivial.hpp>
 
 void Game::OuterLCP::outerApproximate(const std::vector<bool> encoding,
