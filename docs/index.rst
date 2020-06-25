@@ -1,6 +1,10 @@
 Welcome
 =====================================
 
+ZERO is a multi-purpose game solver written in C++. Currently, it manages NASPs (EPECs) and Integer Programming Games.
+
+This project is a private fork of `EPECSolve <https://github.com/ssriram1992/EPECsolve/>`.
+
 This is a private fork of EPECSolve, that handles an outer approximation
 for NASPs and Integer Programming games. Code to compute
 mixed-equilibrium in linear EPECs. - `Base
@@ -12,7 +16,7 @@ description <https://github.com/ds4dm/EPECInstances/blob/master/Description.pdf>
 original code
 
 
-**Mandatory packages** to make EPECSolve work are:
+**Mandatory packages** to make ZERO work are:
 
 -  `Armadillo <http://arma.sourceforge.net/>`__ (Version 9.6 or later
    recommended. Minimum 8.5 required.)
@@ -24,7 +28,7 @@ original code
 -  `Gurobi <https://www.gurobi.com/registration/download-reg>`__
    (Version 8.1 or later)
 -  `gcc/g++ <https://gcc.gnu.org/>`__ (Tested on version 4.8. Must
-   support C++11 and be compatible with your version of Gurobi)
+   support C++14 and be compatible with your version of Gurobi)
    ``sudo apt install gcc`` will install gcc/g++ on an Ubuntu machine.
 -  `CMake <https://cmake.org/>`__
    ``sudo apt install cmake`` will do the job for Debian-based distro.
