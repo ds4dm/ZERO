@@ -28,10 +28,10 @@ set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_C_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 project(
-        EPECSolve_OG
-        VERSION 3.0.0
+        ZERO
+        VERSION 1.0.0
         LANGUAGES CXX
-        DESCRIPTION "Equilibrium Problems with Equilibrium Constraints solver"
+        DESCRIPTION "ZERO is a multi-purpose game solver"
 )
 
 include_directories(${ARMA_PATH}/include)
@@ -51,7 +51,7 @@ configure_file(src/CMakeConfig.h.in ${PROJECT_SOURCE_DIR}/include/version.h)
 
 
 #EPECSOLVE - Main library
-add_library(EPECSolve
+add_library(ZERO
             src/games/games.cpp
             src/games/epec.cpp
             src/games/qpmp.cpp
@@ -60,18 +60,18 @@ add_library(EPECSolve
             src/lcp/LCP.cpp
             src/lcp/PolyLCP.cpp
             src/Utils.cpp
-            src/Models.cpp
+            src/interfaces/EPECModels.cpp
             src/algorithms/EPEC/PolyBase.cpp
             src/algorithms/EPEC/InnerApproximation.cpp
             src/algorithms/EPEC/CombinatorialPNE.cpp
             src/algorithms/EPEC/FullEnumeration.cpp
             src/algorithms/EPEC/OuterApproximation.cpp
             src/lcp/OuterLCP.cpp)
-target_include_directories(EPECSolve PRIVATE src)
-set_target_properties(EPECSolve PROPERTIES
+target_include_directories(ZERO PRIVATE src)
+set_target_properties(ZERO PROPERTIES
                       POSITION_INDEPENDENT_CODE ON
                       )
-target_link_libraries(EPECSolve
+target_link_libraries(ZERO
                       Boost::log Boost::log_setup
                       -O2 blas lapack pthread m
                       ${ARMA_LIB}
@@ -80,25 +80,25 @@ target_link_libraries(EPECSolve
 
 
 #Examples
-add_executable(EPECExample
-               examples/example.cpp)
-target_link_libraries(EPECExample EPECSolve)
+#add_executable(EPECExample
+#               examples/example.cpp)
+#target_link_libraries(EPECExample EPECSolve)
 
-#Command line interface
-add_executable(EPEC
-               src/CommandLineInterface.cpp)
-target_link_libraries(EPEC
+#EPEC Command line interface
+add_executable(EPECShell
+               src/shells/EPEC.cpp)
+target_link_libraries(EPECShell
                       Boost::program_options
                       Boost::log Boost::log_setup
                       EPECSolve)
 
-#Tests
-add_executable(EPECtest
-               test/EPEC.cpp)
-target_link_libraries(EPECtest EPECSolve Boost::unit_test_framework)
+#EPEC Tests
+add_executable(EPECTests
+               test/EPEC/EPEC.cpp)
+target_link_libraries(EPECTests EPECSolve Boost::unit_test_framework)
 
 
-message("\n\nEPEC Cmake configuration terminated:")
+message("\n\nZERO cMake configuration terminated:")
 message("\tWorking directory: ${CMAKE_CURRENT_SOURCE_DIR}")
 message("\tArmadillo (lib) : ${ARMA_PATH}/include")
 message("\tArmadillo (include) : ${ARMA_LIB}")

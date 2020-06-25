@@ -4,7 +4,7 @@
  * @file src/lcptolp.h To handle Linear Complementarity Problems.
  */
 
-#include "epecsolve.h"
+#include "zero.h"
 #include <armadillo>
 #include <gurobi_c++.h>
 #include <iostream>

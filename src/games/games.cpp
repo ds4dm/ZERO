@@ -1,4 +1,4 @@
-#include "epecsolve.h"
+#include "zero.h"
 #include <algorithm>
 #include <armadillo>
 #include <array>

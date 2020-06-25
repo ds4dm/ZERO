@@ -1,5 +1,5 @@
-#include "epecsolve.h"
-#include "models.h"
+#include "EPECModels.h"
+#include "zero.h"
 #include <armadillo>
 #include <boost/log/core.hpp>
 #include <boost/log/expressions.hpp>
@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
   double timeLimit = NAN, boundBigM = NAN, devtol = NAN;
   bool bound = 0, pure = 0;
 
-  po::options_description desc("EPEC: Allowed options");
+  po::options_description desc("ZERO-EPEC: Allowed options");
   desc.add_options()("help,h", "Shows this help message")("version,v",
                                                           "Shows EPEC version")(
       "input,i", po::value<string>(&instanceFile),
@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
     arma::arma_version ver;
     int major = 0, minor = 0, technical = 0;
     string M, m, p;
-    EPECVersion(M, m, p);
+    ZEROVersion(M, m, p);
     BOOST_LOG_TRIVIAL(info)
         << "EPEC Solve Version: " << M << "." << m << "." << p;
     BOOST_LOG_TRIVIAL(info) << "Dependencies:";
@@ -271,7 +271,7 @@ int main(int argc, char **argv) {
     results << "\n";
     results.close();
   } catch (GRBException &s) {
-    std::cerr << "EPEC: Gurobi Exception: Code " << s.getErrorCode() << " -- "
+    std::cerr << "ZERO-EPEC: Gurobi Exception: Code " << s.getErrorCode() << " -- "
               << s.getMessage() << '\n';
     ;
   }

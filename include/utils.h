@@ -4,7 +4,7 @@
  * @file src/utils.h Basic utilities
  */
 
-#include "epecsolve.h"
+#include "zero.h"
 #include <armadillo>
 #include <fstream>
 #include <set>

@@ -1,15 +1,15 @@
 #include <string>
-#define EPECSOLVE_VERSION "3.0.0"
-#define EPECSOLVE_VERSION_MAJOR "3"
-#define EPECSOLVE_VERSION_MINOR "0"
-#define EPECSOLVE_VERSION_PATCH "0"
+#define ZERO_VERSION "1.0.0"
+#define ZERO_VERSION_MAJOR "1"
+#define ZERO_VERSION_MINOR "0"
+#define ZERO_VERSION_PATCH "0"
 
-class EPECVersion {
+class ZEROVersion {
 public:
-  EPECVersion(std::string &major, std::string &minor, std::string &patch) {
-    major = EPECSOLVE_VERSION_MAJOR;
-    minor = EPECSOLVE_VERSION_MINOR;
-    patch = EPECSOLVE_VERSION_PATCH;
+  ZEROVersion(std::string &major, std::string &minor, std::string &patch) {
+    major = ZERO_VERSION_MAJOR;
+    minor = ZERO_VERSION_MINOR;
+    patch = ZERO_VERSION_PATCH;
   }
-  EPECVersion(std::string &version) { version = EPECSOLVE_VERSION; }
+  ZEROVersion(std::string &version) { version = ZERO_VERSION; }
 };

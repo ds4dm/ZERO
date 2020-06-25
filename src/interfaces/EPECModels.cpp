@@ -1,4 +1,4 @@
-#include "models.h"
+#include "EPECModels.h"
 #include <armadillo>
 #include <boost/log/trivial.hpp>
 #include <gurobi_c++.h>
