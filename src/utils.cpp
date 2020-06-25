@@ -393,9 +393,11 @@ bool Utils::containsConstraint(arma::sp_mat &A, const vec &b, arma::vec &lhs,
 
 bool Utils::containsElement(const vec &b, const double &element,
                             const double tol) {
-  for (unsigned int i = 0; i < b.size(); ++i)
+  for (unsigned int i = 0; i < b.size(); ++i) {
     if (std::abs(b.at(i) - element) < tol)
       return true;
+  }
+  return false;
 }
 
 bool Utils::containsRow(const sp_mat &A, arma::vec &row, const double tol) {
@@ -421,4 +423,16 @@ bool Utils::containsConstraint(sp_mat &A, const vec &b, sp_mat &lhs,
     return false;
   arma::vec Ai = arma::vec{lhs};
   return Utils::containsConstraint(A, b, Ai, rhs, tol);
+}
+arma::vec Utils::normalize(const arma::vec input) {
+  double max = input.max();
+  double min = std::abs(input.min());
+  double norm = 0;
+
+  if (max > min)
+    norm = max;
+  else
+    norm = min;
+
+  return input / norm;
 }

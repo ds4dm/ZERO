@@ -140,40 +140,6 @@ public:
     this->R = arma::join_cols(this->R, arma::sp_mat{ray.t()});
   }
 
-  inline bool containsRay(arma::vec ray, double tol) {
-    if (ray.size() != this->R.n_cols)
-      return false;
-    for (int i = 0; i < this->R.n_rows; ++i) {
-      bool res = true;
-      for (int j = 0; j < this->R.n_cols; ++j) {
-        if (std::abs(ray.at(j) - this->R.row(i).at(j)) > 1e-5) {
-          res = false;
-          break;
-        }
-      }
-      if (res)
-        return true;
-    }
-    return false;
-  }
-
-  inline bool containsVertex(arma::vec vertex, double tol) {
-    if (vertex.size() != this->V.n_cols)
-      return false;
-    for (int i = 0; i < this->V.n_rows; ++i) {
-      bool res = true;
-      for (int j = 0; j < this->V.n_cols; ++j) {
-        if (std::abs(vertex.at(j) - this->V.row(i).at(j)) > tol) {
-          res = false;
-          break;
-        }
-      }
-      if (res)
-        return true;
-    }
-    return false;
-  }
-
   inline Node *const getRoot() {
     return &this->Root;
   } ///< Getter for the root node
@@ -254,7 +220,6 @@ public:
                         int budget, bool &addedCuts);
   GRBModel *getDualMembershipLP(unsigned int player, arma::vec vertex,
                                 bool normalization = true);
-  arma::vec normalizeRay(const arma::vec ray);
 };
 } // namespace EPEC
 

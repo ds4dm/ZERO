@@ -10,7 +10,8 @@ bool Algorithms::EPEC::OuterApproximation::isSolved(double tol) const {
   return this->Feasible;
 }
 
-bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts, double tol) {
+bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts,
+                                                      double tol) {
 
   /**
    * Check whether the current outer approximation equilibrium is feasible and
@@ -34,7 +35,8 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts, double to
                                               this->EPECObject->SolutionX);
     if (val == GRB_INFINITY) {
       BOOST_LOG_TRIVIAL(trace)
-        << "Algorithms::EPEC::OuterApproximation:: Unbounded deviation for " << i;
+          << "Algorithms::EPEC::OuterApproximation:: Unbounded deviation for "
+          << i;
       addedCuts = false;
       return false;
     }
@@ -51,8 +53,8 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts, double to
                                       "isFeasible: No best response for Player "
                                    << i;
         BOOST_LOG_TRIVIAL(trace)
-          << "Algorithms::EPEC::OuterApproximation:: " << currentPayoffs.at(i)
-          << " vs " << val;
+            << "Algorithms::EPEC::OuterApproximation:: " << currentPayoffs.at(i)
+            << " vs " << val;
         result = false;
         // throw;
         // throw;
@@ -65,9 +67,9 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts, double to
         this->addValueCut(i, bestResponse, xMinusI);
         // @todo enable cuts
         BOOST_LOG_TRIVIAL(info)
-          << "Algorithms::EPEC::OuterApproximation::isFeasible: "
-             "Value cut at for Player "
-          << i;
+            << "Algorithms::EPEC::OuterApproximation::isFeasible: "
+               "Value cut at for Player "
+            << i;
         result = false;
       }
     } else {
@@ -79,17 +81,18 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts, double to
       // Check if we need to add the point to the vertex storage.
       arma::vec vertex = bestResponse.subvec(0, xOfI.size() - 1);
       vertex.print("Best Response");
-      if (!this->Trees.at(i)->containsVertex(vertex, this->Tolerance)) {
+        if (!Utils::containsRow(*this->Trees.at(i)->getV(),
+                                vertex, this->Tolerance)) {
         this->Trees.at(i)->addVertex(vertex);
         BOOST_LOG_TRIVIAL(info)
-          << "Algorithms::EPEC::OuterApproximation::isFeasible: "
-             "Adding vertex as of best response for Player "
-          << i << " (Best Response)";
+            << "Algorithms::EPEC::OuterApproximation::isFeasible: "
+               "Adding vertex as of best response for Player "
+            << i << " (Best Response)";
       } else {
         BOOST_LOG_TRIVIAL(info)
-          << "Algorithms::EPEC::OuterApproximation::isFeasible: "
-             "Already known best response for Player "
-          << i << " (Best Response)";
+            << "Algorithms::EPEC::OuterApproximation::isFeasible: "
+               "Already known best response for Player "
+            << i << " (Best Response)";
       }
 
       // Check if best response coincides with the strategy in the equilibrium
@@ -110,9 +113,9 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts, double to
         if (!this->separationOracle(xOfI, this->EPECObject->SolutionX, i,
                                     budget, addedCuts)) {
           BOOST_LOG_TRIVIAL(trace)
-            << "Algorithms::EPEC::OuterApproximation::isFeasible: "
-               "Oracle gave a negative answer for Player "
-            << i;
+              << "Algorithms::EPEC::OuterApproximation::isFeasible: "
+                 "Oracle gave a negative answer for Player "
+              << i;
           result = false;
         }
 
@@ -120,9 +123,9 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts, double to
         this->Trees.at(i)->setFeasible();
         this->Trees.at(i)->setPure();
         BOOST_LOG_TRIVIAL(info)
-          << "Algorithms::EPEC::OuterApproximation::isFeasible: "
-             "Feasible strategy for Player "
-          << i << " (Best Response)";
+            << "Algorithms::EPEC::OuterApproximation::isFeasible: "
+               "Feasible strategy for Player "
+            << i << " (Best Response)";
       }
     }
   }
@@ -141,7 +144,7 @@ GRBModel *Algorithms::EPEC::OuterApproximation::getDualMembershipLP(
   if (V->n_rows < 1 && R->n_rows < 1) {
     throw "Algorithms::EPEC::OuterApproximation::getDualMembershipLP: "
           "no points or rays in the membershipLP of " +
-          std::to_string(player);
+        std::to_string(player);
   }
   if (V->n_cols != vertex.size())
     throw "Algorithms::EPEC::OuterApproximation::getDualMembershipLP: invalid "
@@ -202,8 +205,8 @@ GRBModel *Algorithms::EPEC::OuterApproximation::getDualMembershipLP(
     convexModel->set(GRB_IntParam_OutputFlag, 0);
     convexModel->set(GRB_IntParam_SolutionLimit, 100);
     this->Trees.at(player)->setMembershipInit();
-    BOOST_LOG_TRIVIAL(trace)
-      << "Algorithms::EPEC::OuterApproximation::getDualMembershipLP: created model";
+    BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::OuterApproximation::"
+                                "getDualMembershipLP: created model";
   } else {
     // current number of vertices in the model
     if (this->Trees.at(player)->getVertexCount() < V->n_rows) {
@@ -241,8 +244,8 @@ GRBModel *Algorithms::EPEC::OuterApproximation::getDualMembershipLP(
           R->n_rows - this->Trees.at(player)->getRayCount());
     }
 
-    BOOST_LOG_TRIVIAL(trace)
-      << "Algorithms::EPEC::OuterApproximation::getDualMembershipLP: updated model";
+    BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::OuterApproximation::"
+                                "getDualMembershipLP: updated model";
   }
   convexModel->update();
   GRBLinExpr expr = convexModel->getVarByName("x");
@@ -273,18 +276,18 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(arma::vec &xOfI,
 
     int status = convexModel->get(GRB_IntAttr_Status);
     BOOST_LOG_TRIVIAL(trace)
-      << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-         "MermbershipLP status is "
-      << status;
+        << "Algorithms::EPEC::OuterApproximation::separationOracle: "
+           "MermbershipLP status is "
+        << status;
     if (status == GRB_OPTIMAL) {
       if (convexModel->getObjective().getValue() == 0 &&
           convexModel->getConstrByName("Normalization")
-              .get(GRB_DoubleAttr_Slack) == 1) {
+                  .get(GRB_DoubleAttr_Slack) == 1) {
         // this->Trees.at(player)->addVertex(xOfI);
         BOOST_LOG_TRIVIAL(info)
-          << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-             "The point is a convex combination of known points! Player "
-          << player;
+            << "Algorithms::EPEC::OuterApproximation::separationOracle: "
+               "The point is a convex combination of known points! Player "
+            << player;
 
         this->Trees.at(player)->setFeasible();
 
@@ -295,7 +298,7 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(arma::vec &xOfI,
              ++v) {
           // abs to avoid misunderstanding with sign conventions
           support.at(v) = convexModel->getConstrByName("V_" + std::to_string(v))
-              .get(GRB_DoubleAttr_Pi);
+                              .get(GRB_DoubleAttr_Pi);
         }
         support.print("MNE Support: ");
         if (support.max() == 1)
@@ -309,10 +312,10 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(arma::vec &xOfI,
       // Get the Farkas' in the form of the unbounded ray of the dual of the
       // dualMembershipLP (the primal)
       BOOST_LOG_TRIVIAL(info)
-        << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-           "The point is NOT a convex combination of known points! Found "
-        << convexModel->get(GRB_IntAttr_SolCount) << " solutions. Player "
-        << player;
+          << "Algorithms::EPEC::OuterApproximation::separationOracle: "
+             "The point is NOT a convex combination of known points! Found "
+          << convexModel->get(GRB_IntAttr_SolCount) << " solutions. Player "
+          << player;
       for (int z = 0; z < convexModel->get(GRB_IntAttr_SolCount); ++z) {
         convexModel->getEnv().set(GRB_IntParam_SolutionNumber, z);
         arma::vec cutLHS;
@@ -320,7 +323,7 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(arma::vec &xOfI,
 
         for (unsigned int i = 0; i < xOfI.size(); i++)
           cutLHS.at(i) = convexModel->getVarByName("y_" + std::to_string(i))
-              .get(GRB_DoubleAttr_X);
+                             .get(GRB_DoubleAttr_X);
         cutLHS.print("Separating hyperplane: ");
 
         // Optimize the resulting inequality over the original feasible set
@@ -342,16 +345,16 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(arma::vec &xOfI,
         if (status == GRB_OPTIMAL) {
           double cutV = leaderModel->getObjective().getValue();
           BOOST_LOG_TRIVIAL(trace)
-            << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-               "LeaderModel status = "
-            << std::to_string(status) << " with objective=" << cutV
-            << " for Player " << player;
+              << "Algorithms::EPEC::OuterApproximation::separationOracle: "
+                 "LeaderModel status = "
+              << std::to_string(status) << " with objective=" << cutV
+              << " for Player " << player;
           arma::vec val = cutLHS.t() * xOfI; // c^T xOfI
           arma::vec val2 = cutLHS.t() * V->row(0).t();
           BOOST_LOG_TRIVIAL(trace)
-            << "Algorithms::EPEC::OuterApproximation::separationOracle: c^Tv="
-            << cutV << " -- c^TxOfI=" << val.at(0)
-            << " -- c^TV(0)=" << val2.at(0);
+              << "Algorithms::EPEC::OuterApproximation::separationOracle: c^Tv="
+              << cutV << " -- c^TxOfI=" << val.at(0)
+              << " -- c^TV(0)=" << val2.at(0);
           if (cutV - val.at(0) < -this->Tolerance) {
             // False, but we have a cut :-)
             // Ciao Moni
@@ -360,22 +363,22 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(arma::vec &xOfI,
                 Utils::resizePatch(arma::sp_mat{cutLHS}.t(), 1,
                                    this->outerLCP.at(player)->getNumCols());
             if (this->outerLCP.at(player)->containCut(
-                Utils::resizePatch(cutLHS,
-                                   this->outerLCP.at(player)->getNumCols()),
-                cutV)) {
+                    Utils::resizePatch(cutLHS,
+                                       this->outerLCP.at(player)->getNumCols()),
+                    cutV)) {
               BOOST_LOG_TRIVIAL(info)
-                << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-                   "cut already added for Player "
-                << player;
+                  << "Algorithms::EPEC::OuterApproximation::separationOracle: "
+                     "cut already added for Player "
+                  << player;
               // throw;
               break;
 
             } else {
               this->outerLCP.at(player)->addCustomCuts(cutL, arma::vec{cutV});
               BOOST_LOG_TRIVIAL(info)
-                << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-                   "adding cut for Player "
-                << player;
+                  << "Algorithms::EPEC::OuterApproximation::separationOracle: "
+                     "adding cut for Player "
+                  << player;
               addedCuts = true;
               return false;
             }
@@ -385,15 +388,16 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(arma::vec &xOfI,
             v.zeros(V->n_cols);
             for (unsigned int i = 0; i < V->n_cols; ++i) {
               v[i] = leaderModel->getVarByName("x_" + std::to_string(i))
-                  .get(GRB_DoubleAttr_X);
+                         .get(GRB_DoubleAttr_X);
             }
 
             v.print("Vertex found: ");
-            if (this->Trees.at(player)->containsVertex(v, this->Tolerance)) {
+            if (Utils::containsRow(*this->Trees.at(player)->getV(), v,
+                                   this->Tolerance)) {
               BOOST_LOG_TRIVIAL(warning)
-                << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-                   "duplicate vertex for  player "
-                << player;
+                  << "Algorithms::EPEC::OuterApproximation::separationOracle: "
+                     "duplicate vertex for  player "
+                  << player;
               //@todo
               break;
               // throw;
@@ -401,10 +405,10 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(arma::vec &xOfI,
               this->Trees.at(player)->addVertex(v);
               v.print("Vertex");
               BOOST_LOG_TRIVIAL(info)
-                << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-                   "adding vertex for Player. "
-                << (budget - k - 1) << " iterations left for player "
-                << player;
+                  << "Algorithms::EPEC::OuterApproximation::separationOracle: "
+                     "adding vertex for Player. "
+                  << (budget - k - 1) << " iterations left for player "
+                  << player;
               break;
             }
           }
@@ -412,20 +416,20 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(arma::vec &xOfI,
         } // status optimal for leaderModel
         else if (status == GRB_UNBOUNDED) {
           // Check for a new ray
-          arma::vec normalizedRay = this->normalizeRay(cutLHS);
-          if (!this->Trees.at(player)->containsRay(normalizedRay,
-                                                   this->Tolerance)) {
+          arma::vec normalizedRay = Utils::normalize(cutLHS);
+          if (!Utils::containsRow(*this->Trees.at(player)->getR(),
+                                  normalizedRay, this->Tolerance)) {
             BOOST_LOG_TRIVIAL(warning)
-              << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-                 "new ray for  player "
-              << player;
+                << "Algorithms::EPEC::OuterApproximation::separationOracle: "
+                   "new ray for  player "
+                << player;
             this->Trees.at(player)->addRay(normalizedRay);
             break;
           } else {
             BOOST_LOG_TRIVIAL(warning)
-              << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-                 "duplicate ray for player "
-              << player;
+                << "Algorithms::EPEC::OuterApproximation::separationOracle: "
+                   "duplicate ray for player "
+                << player;
             break;
           }
 
@@ -433,9 +437,9 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(arma::vec &xOfI,
 
         else {
           BOOST_LOG_TRIVIAL(warning)
-            << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-               "unknown status for leaderModel for player "
-            << player;
+              << "Algorithms::EPEC::OuterApproximation::separationOracle: "
+                 "unknown status for leaderModel for player "
+              << player;
           throw;
         }
       } // end for
@@ -444,31 +448,18 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(arma::vec &xOfI,
 
     else {
       BOOST_LOG_TRIVIAL(warning)
-        << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-           "unknown status for convexrModel for player "
-        << player;
+          << "Algorithms::EPEC::OuterApproximation::separationOracle: "
+             "unknown status for convexrModel for player "
+          << player;
       throw;
     }
   }
   return false;
 }
 
-arma::vec Algorithms::EPEC::OuterApproximation::normalizeRay(const arma::vec ray) {
-  double max = ray.max();
-  double min = std::abs(ray.min());
-  double norm = 0;
 
-  if (max > min)
-    norm = max;
-  else
-    norm = min;
-
-  return ray / norm;
-}
-
-void Algorithms::EPEC::OuterApproximation::addValueCut(unsigned int player,
-                                                       arma::vec xOfIBestResponse,
-                                                       arma::vec xMinusI) {
+void Algorithms::EPEC::OuterApproximation::addValueCut(
+    unsigned int player, arma::vec xOfIBestResponse, arma::vec xMinusI) {
 
   double cutRHS = this->EPECObject->PlayersQP.at(player)->computeObjective(
       Utils::resizePatch(xOfIBestResponse,
@@ -480,9 +471,10 @@ void Algorithms::EPEC::OuterApproximation::addValueCut(unsigned int player,
                   this->EPECObject->LeaderObjective.at(player)->C * xMinusI;
   arma::sp_mat cutLHS = Utils::resizePatch(
       arma::sp_mat{LHS}.t(), 1, this->outerLCP.at(player)->getNumCols());
-  BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::addValueCut: "
-                             "adding cut for Player "
-                          << player;
+  BOOST_LOG_TRIVIAL(info)
+      << "Algorithms::EPEC::OuterApproximation::addValueCut: "
+         "adding cut for Player "
+      << player;
   this->outerLCP.at(player)->addCustomCuts(-cutLHS, arma::vec{-cutRHS});
 }
 
@@ -521,8 +513,8 @@ void Algorithms::EPEC::OuterApproximation::solve() {
     branchingLocations.clear();
     ++this->EPECObject->Stats.NumIterations;
     BOOST_LOG_TRIVIAL(info)
-      << "Algorithms::EPEC::OuterApproximation::solve: Iteration "
-      << std::to_string(this->EPECObject->Stats.NumIterations);
+        << "Algorithms::EPEC::OuterApproximation::solve: Iteration "
+        << std::to_string(this->EPECObject->Stats.NumIterations);
 
     comp = 0;
     branchingLocations = std::vector<int>(this->EPECObject->NumPlayers, -1);
@@ -545,8 +537,9 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 
       // Check at least a player has at least a branching candidate
       if (comp == this->EPECObject->NumPlayers) {
-        BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::solve: "
-                                   "Solved without any equilibrium.";
+        BOOST_LOG_TRIVIAL(info)
+            << "Algorithms::EPEC::OuterApproximation::solve: "
+               "Solved without any equilibrium.";
         this->EPECObject->Stats.Status = Game::EPECsolveStatus::NashEqNotFound;
         solved = true;
         break;
@@ -558,10 +551,11 @@ void Algorithms::EPEC::OuterApproximation::solve() {
                             branchingLocations.end()) < 0) {
 
         // No branching candidates.
-        BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::solve: "
-                                   "No more hybrid branching candidates for "
-                                   "any player. Checking if "
-                                   "any complementarities are left.";
+        BOOST_LOG_TRIVIAL(info)
+            << "Algorithms::EPEC::OuterApproximation::solve: "
+               "No more hybrid branching candidates for "
+               "any player. Checking if "
+               "any complementarities are left.";
         this->printCurrentApprox();
         for (int j = 0; j < this->EPECObject->NumPlayers; ++j)
           branchingLocations.at(j) =
@@ -569,8 +563,9 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 
         if (*std::max_element(branchingLocations.begin(),
                               branchingLocations.end()) < 0) {
-          BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::solve: "
-                                     "No more branching candidates.";
+          BOOST_LOG_TRIVIAL(info)
+              << "Algorithms::EPEC::OuterApproximation::solve: "
+                 "No more branching candidates.";
           this->isSolved();
           break;
         }
@@ -586,16 +581,18 @@ void Algorithms::EPEC::OuterApproximation::solve() {
         this->outerLCP.at(j)->outerApproximate(childEncoding, true);
         // By definition of hybrid branching, the node should be feasible
         Incumbent.at(j) = &(this->Trees.at(j)->getNodes()->at(branches.at(0)));
-        BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::solve: "
-                                   "branching candidate for player "
-                                << j << " is " << branchingLocations.at(j);
+        BOOST_LOG_TRIVIAL(info)
+            << "Algorithms::EPEC::OuterApproximation::solve: "
+               "branching candidate for player "
+            << j << " is " << branchingLocations.at(j);
       } else if (!branch) {
         // if we don't branch.
         this->outerLCP.at(j)->outerApproximate(Incumbent.at(j)->getEncoding(),
                                                true);
-        BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::solve: "
-                                   "No branching for player "
-                                << j;
+        BOOST_LOG_TRIVIAL(info)
+            << "Algorithms::EPEC::OuterApproximation::solve: "
+               "No branching for player "
+            << j;
       }
     }
 
@@ -624,15 +621,16 @@ void Algorithms::EPEC::OuterApproximation::solve() {
       if (this->isFeasible(addedCuts)) {
         this->Feasible = true;
         this->EPECObject->Stats.Status = Game::EPECsolveStatus::NashEqFound;
-        BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::solve: "
-                                   "Solved. ";
+        BOOST_LOG_TRIVIAL(info)
+            << "Algorithms::EPEC::OuterApproximation::solve: "
+               "Solved. ";
         return;
       } else {
         if (addedCuts) {
           branch = false;
           BOOST_LOG_TRIVIAL(info)
-            << "Algorithms::EPEC::OuterApproximation::solve: "
-               "Cuts were added. Skipping next branching phase. ";
+              << "Algorithms::EPEC::OuterApproximation::solve: "
+                 "Cuts were added. Skipping next branching phase. ";
         } else {
           branch = true;
         }
@@ -682,8 +680,8 @@ Algorithms::EPEC::OuterApproximation::getFeasQP(const unsigned int player,
   return model;
 }
 
-int Algorithms::EPEC::OuterApproximation::hybridBranching(const unsigned int player,
-                                                          OuterTree::Node *node) {
+int Algorithms::EPEC::OuterApproximation::hybridBranching(
+    const unsigned int player, OuterTree::Node *node) {
   /**
    * Given @p player -- containing the id of the player, returns the branching
    * decision for that node given by a hybrid branching rule. In
@@ -744,14 +742,14 @@ int Algorithms::EPEC::OuterApproximation::hybridBranching(const unsigned int pla
               bestId = i;
               bestScore = model->getObjective().getValue();
               BOOST_LOG_TRIVIAL(debug)
-                << "OuterApproximation::hybridBranching: Player " << player
-                << " has violation of " << bestScore
-                << " with complementarity " << i;
+                  << "OuterApproximation::hybridBranching: Player " << player
+                  << " has violation of " << bestScore
+                  << " with complementarity " << i;
             }
           } else {
             BOOST_LOG_TRIVIAL(debug)
-              << "OuterApproximation::hybridBranching: Player " << player
-              << " has no violation with complementarity " << i;
+                << "OuterApproximation::hybridBranching: Player " << player
+                << " has no violation with complementarity " << i;
           }
         }
       }
@@ -788,8 +786,8 @@ int Algorithms::EPEC::OuterApproximation::infeasibleBranching(
     for (unsigned int i = 0; i < currentSolution.size(); i++) {
       unsigned int varPos =
           i >= this->outerLCP.at(player)->getLStart()
-          ? i + this->outerLCP.at(player)->getNumberLeader()
-          : i;
+              ? i + this->outerLCP.at(player)->getNumberLeader()
+              : i;
       if (x(varPos) > 0 && z(i) > 0 && node->getAllowedBranchings().at(i) &&
           currentSolution.at(i) == 0) {
         if ((x(varPos) + z(i)) > maxInfeas) {
@@ -855,7 +853,7 @@ int Algorithms::EPEC::OuterApproximation::getFirstBranchLocation(
   int pos = -nR;
   arma::vec z, x;
   if (this->outerLCP.at(player)->extractSols(
-      model.get(), z, x, true)) // If already infeasible, nothing to branch!
+          model.get(), z, x, true)) // If already infeasible, nothing to branch!
   {
     std::vector<short int> v1 = this->outerLCP.at(player)->solEncode(z, x);
 
@@ -864,8 +862,8 @@ int Algorithms::EPEC::OuterApproximation::getFirstBranchLocation(
     for (unsigned int i = 0; i < nR; i++) {
       unsigned int varPos =
           i >= this->outerLCP.at(player)->getLStart()
-          ? i + this->outerLCP.at(player)->getNumberLeader()
-          : i;
+              ? i + this->outerLCP.at(player)->getNumberLeader()
+              : i;
       if (x(varPos) > maxvalx && node->getAllowedBranchings().at(i)) {
         maxvalx = x(varPos);
         maxposx = i;
@@ -882,9 +880,8 @@ int Algorithms::EPEC::OuterApproximation::getFirstBranchLocation(
   return pos;
 }
 
-std::vector<int>
-Algorithms::EPEC::OuterApproximation::getNextBranchLocation(const unsigned int player,
-                                                            OuterTree::Node *node) {
+std::vector<int> Algorithms::EPEC::OuterApproximation::getNextBranchLocation(
+    const unsigned int player, OuterTree::Node *node) {
   /**
    * Given @p player -- containing the id of the player -- and @p node
    * containing a node, returns the branching decision for that node, with
@@ -902,26 +899,26 @@ Algorithms::EPEC::OuterApproximation::getNextBranchLocation(const unsigned int p
 
   if (decisions.at(0) < 0 && decisions.at(1) < 0 && decisions.at(2) < 0) {
     BOOST_LOG_TRIVIAL(info)
-      << "Player " << player
-      << ": branching with FirstBranchLocation is the only available choice";
+        << "Player " << player
+        << ": branching with FirstBranchLocation is the only available choice";
     decisions.at(3) = this->getFirstBranchLocation(player, node);
   }
 
   BOOST_LOG_TRIVIAL(debug)
-    << "Algorithms::EPEC::OuterApproximation::getNextBranchinglocation: "
-       "given decisions are: ";
+      << "Algorithms::EPEC::OuterApproximation::getNextBranchinglocation: "
+         "given decisions are: ";
   BOOST_LOG_TRIVIAL(debug) << "Algorithms::EPEC::OuterApproximation::"
                               "getNextBranchinglocation:\t Infeasible="
                            << decisions.at(0);
   BOOST_LOG_TRIVIAL(debug) << "Algorithms::EPEC::OuterApproximation::"
                               "getNextBranchinglocation:\t Deviation="
                            << decisions.at(1);
-  BOOST_LOG_TRIVIAL(debug)
-    << "Algorithms::EPEC::OuterApproximation::getNextBranchinglocation:\t Hybrid="
-    << decisions.at(2);
-  BOOST_LOG_TRIVIAL(debug)
-    << "Algorithms::EPEC::OuterApproximation::getNextBranchinglocation:\t First="
-    << decisions.at(3);
+  BOOST_LOG_TRIVIAL(debug) << "Algorithms::EPEC::OuterApproximation::"
+                              "getNextBranchinglocation:\t Hybrid="
+                           << decisions.at(2);
+  BOOST_LOG_TRIVIAL(debug) << "Algorithms::EPEC::OuterApproximation::"
+                              "getNextBranchinglocation:\t First="
+                           << decisions.at(3);
   return decisions;
 }
 
@@ -964,7 +961,8 @@ bool Algorithms::EPEC::OuterApproximation::isPureStrategy(double tol) const {
   }
 }
 
-Algorithms::EPEC::OuterTree::Node::Node(Node &parent, unsigned int idComp, unsigned long int id) {
+Algorithms::EPEC::OuterTree::Node::Node(Node &parent, unsigned int idComp,
+                                        unsigned long int id) {
   /**
    * Given the parent node address @param parent, the @param idComp to branch
    * on, and the @param id, creates a new node
@@ -988,8 +986,8 @@ Algorithms::EPEC::OuterTree::Node::Node(unsigned int encSize) {
   this->AllowedBranchings = std::vector<bool>(encSize, true);
 }
 
-void Algorithms::EPEC::OuterTree::denyBranchingLocation(Algorithms::EPEC::OuterTree::Node &node,
-                                                        const unsigned int &location) {
+void Algorithms::EPEC::OuterTree::denyBranchingLocation(
+    Algorithms::EPEC::OuterTree::Node &node, const unsigned int &location) {
   /**
    * If a complementarity equation @param location  has proven to be infeasible
    * or it isn't a candidate for branching, this method prevents any further
@@ -998,13 +996,15 @@ void Algorithms::EPEC::OuterTree::denyBranchingLocation(Algorithms::EPEC::OuterT
   if (location >= this->EncodingSize)
     throw "OuteTree::branch idComp is larger than the encoding size.";
   if (!node.AllowedBranchings.at(location))
-    BOOST_LOG_TRIVIAL(warning) << "Algorithms::EPEC::OuterTree::denyBranchingLocation: location "
-                                  "has been already denied.";
+    BOOST_LOG_TRIVIAL(warning)
+        << "Algorithms::EPEC::OuterTree::denyBranchingLocation: location "
+           "has been already denied.";
   node.AllowedBranchings.at(location) = false;
 }
 
-void Algorithms::EPEC::OuterTree::denyBranchingLocations(Algorithms::EPEC::OuterTree::Node &node,
-                                                         const std::vector<int> &locations) {
+void Algorithms::EPEC::OuterTree::denyBranchingLocations(
+    Algorithms::EPEC::OuterTree::Node &node,
+    const std::vector<int> &locations) {
   /**
    * If a complementarity equation @param location  has proven to be infeasible
    * or it isn't a candidate for branching, this method prevents any further
@@ -1012,23 +1012,25 @@ void Algorithms::EPEC::OuterTree::denyBranchingLocations(Algorithms::EPEC::Outer
    */
   for (auto &location : locations) {
     if (location < 0)
-      throw "Algorithms::EPEC::OuterTree::denyBranchingLocations a location is negative.";
+      throw "Algorithms::EPEC::OuterTree::denyBranchingLocations a location is "
+            "negative.";
     this->denyBranchingLocation(node, location);
   }
 }
 
-std::vector<long int> Algorithms::EPEC::OuterTree::singleBranch(const unsigned int idComp,
-                                                                Algorithms::EPEC::OuterTree::Node &t) {
+std::vector<long int> Algorithms::EPEC::OuterTree::singleBranch(
+    const unsigned int idComp, Algorithms::EPEC::OuterTree::Node &t) {
   /**
    * Given the @param idComp and the parent node @param t, creates a single
    * child by branching on @param idComp.
    */
   if (idComp >= this->EncodingSize)
-    throw "Algorithms::EPEC::OuterTree::branch idComp is larger than the encoding size.";
+    throw "Algorithms::EPEC::OuterTree::branch idComp is larger than the "
+          "encoding size.";
   if (t.Encoding.at(idComp) != 0) {
     BOOST_LOG_TRIVIAL(warning)
-      << "OuterTree: cannot branch on this complementary, since it already "
-         "has been processed.";
+        << "OuterTree: cannot branch on this complementary, since it already "
+           "has been processed.";
     return std::vector<long int>{-1};
   }
   auto child = Node(t, idComp, this->nextIdentifier());
@@ -1037,8 +1039,9 @@ std::vector<long int> Algorithms::EPEC::OuterTree::singleBranch(const unsigned i
   return std::vector<long int>{this->NodeCounter - 1};
 }
 
-std::vector<long int> Algorithms::EPEC::OuterTree::multipleBranch(const std::vector<int> idsComp,
-                                                                  Node &t) {
+std::vector<long int>
+Algorithms::EPEC::OuterTree::multipleBranch(const std::vector<int> idsComp,
+                                            Node &t) {
   /**
    * Given the @param idComp and the parent node @param t, creates a single
    * child by branching on @param idComp.
@@ -1048,8 +1051,8 @@ std::vector<long int> Algorithms::EPEC::OuterTree::multipleBranch(const std::vec
       throw "Tree::branch idComp is larger than the encoding size.";
     if (t.Encoding.at(idComp) != 0) {
       BOOST_LOG_TRIVIAL(warning)
-        << "Tree: cannot branch on this complementary, since it already has "
-           "been processed.";
+          << "Tree: cannot branch on this complementary, since it already has "
+             "been processed.";
       return std::vector<long int>{-1};
     }
   }

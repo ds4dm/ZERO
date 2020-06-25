@@ -22,6 +22,7 @@ bool containsRow(const arma::sp_mat &A, arma::vec &row,  const double tol = 1e-6
 bool containsElement(const arma::vec &b, const double &element,  const double tol = 1e-6);
 bool containsConstraint(arma::sp_mat &A, const arma::vec &b, arma::vec &lhs, const double &rhs,  const double tol = 1e-6);
 bool containsConstraint(arma::sp_mat &A, const arma::vec &b, arma::sp_mat &lhs, const double &rhs,  const double tol = 1e-6);
+arma::vec normalize(const arma::vec input);
 
 // Saving and retrieving an arma::vec
 void appendSave(const arma::vec &matrix, const std::string out,
