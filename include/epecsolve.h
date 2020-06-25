@@ -124,6 +124,7 @@ struct EPECStatistics {
 };
 } // namespace Game
 namespace Algorithms {
+namespace EPEC {
 // Forward declarations
 class Algorithm;
 class PolyBase;
@@ -131,6 +132,7 @@ class FullEnumeration;
 class InnerApproximation;
 class CombinatorialPNE;
 class OuterApproximation;
+} // namespace EPEC
 } // namespace Algorithms
 #include "games/epec.h"
 #include "games/games.h"

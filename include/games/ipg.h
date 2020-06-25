@@ -126,7 +126,6 @@ class IPG {
 private:
   unsigned int NumVariables{0};
   unsigned int NumPlayers{0};
-  std::shared_ptr<Algorithms::Algorithm> Algorithm{};
 
 protected: // Datafields
   std::vector<std::shared_ptr<Game::IP_Param>>

@@ -1,9 +1,9 @@
 #include "games/epec.h"
-#include "algorithms/algorithms.h"
-#include "algorithms/combinatorialpne.h"
-#include "algorithms/fullenumeration.h"
-#include "algorithms/innerapproximation.h"
-#include "algorithms/outerapproximation.h"
+#include "algorithms/EPEC/algorithms.h"
+#include "algorithms/EPEC/combinatorialpne.h"
+#include "algorithms/EPEC/fullenumeration.h"
+#include "algorithms/EPEC/innerapproximation.h"
+#include "algorithms/EPEC/outerapproximation.h"
 #include <algorithm>
 #include <armadillo>
 #include <array>
@@ -479,7 +479,7 @@ bool Game::EPEC::computeNashEq(
         << " Game::EPEC::computeNashEq: (PureNashEquilibrium flag is "
            "true) Searching for a pure NE.";
     if (this->Stats.AlgorithmParam.PolyLcp)
-      dynamic_cast<Algorithms::PolyBase *>(this->Algorithm.get())
+      dynamic_cast<Algorithms::EPEC::PolyBase *>(this->Algorithm.get())
           ->makeThePureLCP(this->Stats.AlgorithmParam.Indicators);
   }
 
@@ -609,29 +609,29 @@ const void Game::EPEC::findNashEq() {
 
   case Game::EPECalgorithm::InnerApproximation: {
     final_msg << "Inner approximation Algorithm completed. ";
-    this->Algorithm = std::shared_ptr<Algorithms::Algorithm>(
-        new class Algorithms::InnerApproximation(this->Env, this));
+    this->Algorithm = std::shared_ptr<Algorithms::EPEC::Algorithm>(
+        new class Algorithms::EPEC::InnerApproximation(this->Env, this));
     this->Algorithm->solve();
   } break;
 
   case Game::EPECalgorithm::CombinatorialPne: {
     final_msg << "CombinatorialPNE Algorithm completed. ";
-    this->Algorithm = std::shared_ptr<Algorithms::Algorithm>(
-        new class Algorithms::CombinatorialPNE(this->Env, this));
+    this->Algorithm = std::shared_ptr<Algorithms::EPEC::Algorithm>(
+        new class Algorithms::EPEC::CombinatorialPNE(this->Env, this));
     this->Algorithm->solve();
   } break;
 
   case Game::EPECalgorithm::OuterApproximation: {
     final_msg << "Outer approximation Algorithm completed. ";
-    this->Algorithm = std::shared_ptr<Algorithms::Algorithm>(
-        new class Algorithms::OuterApproximation(this->Env, this));
+    this->Algorithm = std::shared_ptr<Algorithms::EPEC::Algorithm>(
+        new class Algorithms::EPEC::OuterApproximation(this->Env, this));
     this->Algorithm->solve();
   } break;
 
   case Game::EPECalgorithm::FullEnumeration: {
     final_msg << "Full enumeration Algorithm completed. ";
-    this->Algorithm = std::shared_ptr<Algorithms::Algorithm>(
-        new class Algorithms::FullEnumeration(this->Env, this));
+    this->Algorithm = std::shared_ptr<Algorithms::EPEC::Algorithm>(
+        new class Algorithms::EPEC::FullEnumeration(this->Env, this));
     this->Algorithm->solve();
   } break;
   }

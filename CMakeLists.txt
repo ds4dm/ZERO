@@ -61,11 +61,11 @@ add_library(EPECSolve
             src/lcp/PolyLCP.cpp
             src/Utils.cpp
             src/Models.cpp
-            src/algorithms/PolyBase.cpp
-            src/algorithms/InnerApproximation.cpp
-            src/algorithms/CombinatorialPNE.cpp
-            src/algorithms/FullEnumeration.cpp
-            src/algorithms/OuterApproximation.cpp
+            src/algorithms/EPEC/PolyBase.cpp
+            src/algorithms/EPEC/InnerApproximation.cpp
+            src/algorithms/EPEC/CombinatorialPNE.cpp
+            src/algorithms/EPEC/FullEnumeration.cpp
+            src/algorithms/EPEC/OuterApproximation.cpp
             src/lcp/OuterLCP.cpp)
 target_include_directories(EPECSolve PRIVATE src)
 set_target_properties(EPECSolve PROPERTIES

@@ -22,7 +22,7 @@ private:
   ///< object.
   unsigned int NumVariables{0};
   unsigned int NumPlayers{0};
-  std::shared_ptr<Algorithms::Algorithm> Algorithm{};
+  std::shared_ptr<Algorithms::EPEC::Algorithm> Algorithm{};
 
 protected: // Datafields
   std::vector<std::shared_ptr<Game::NashGame>> PlayersLowerLevels{};
@@ -98,15 +98,15 @@ protected: // functions
 
 public: // functions
   // Friends algorithmic classes
-  friend class Algorithms::PolyBase;
+  friend class Algorithms::EPEC::PolyBase;
 
-  friend class Algorithms::InnerApproximation;
+  friend class Algorithms::EPEC::InnerApproximation;
 
-  friend class Algorithms::OuterApproximation;
+  friend class Algorithms::EPEC::OuterApproximation;
 
-  friend class Algorithms::CombinatorialPNE;
+  friend class Algorithms::EPEC::CombinatorialPNE;
 
-  friend class Algorithms::FullEnumeration;
+  friend class Algorithms::EPEC::FullEnumeration;
 
   EPEC() = delete;       // No default constructor
   EPEC(EPEC &) = delete; // Abstract class - no copy constructor
