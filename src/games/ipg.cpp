@@ -1,6 +1,5 @@
 #include "games/ipg.h"
 #include <armadillo>
-#include <array>
 #include <boost/log/trivial.hpp>
 #include <iostream>
 #include <memory>
@@ -235,6 +234,63 @@ double Game::IP_Param::computeObjectiveWithoutOthers(const arma::vec &y) const {
   arma::vec obj = c.t() * y;
   return obj(0);
 }
+void Game::IP_Param::addConstraints(
+    arma::sp_mat Ain, ///< [in] The LHSs of the added cuts
+    arma::vec bin     ///< [in] The RHSs of the added cuts
+) {
+  /**
+   * This method stores a description of the new cuts of @p Ain (and
+   * RHS @p bin) in B and b, respectively
+   */
+  if (this->B.n_cols != A.n_cols)
+    throw("Error in Game::IP_Param::addConstraints: mismatch of A columns");
+  if (b.size() != A.n_rows)
+    throw("Error in Game::IP_Param::addConstraints: mismatch of A rows and b "
+          "columns");
+
+  this->B = arma::join_cols(this->B, Ain);
+  this->b = arma::join_cols(this->b, bin);
+  this->size();
+
+  // If model hasn't been made, we do not need to update it
+  if (this->madeModel) {
+    for (unsigned int i = 0; i < Ain.n_rows; i++) {
+      GRBLinExpr LHS{0};
+      for (auto j = Ain.begin_row(i); j != Ain.end_row(i); ++j)
+        LHS +=
+            (*j) * this->IPModel.getVarByName("y_" + std::to_string(j.col()));
+      this->IPModel.addConstr(LHS, GRB_LESS_EQUAL, b[i]);
+    }
+    this->IPModel.update();
+  }
+}
+
+bool Game::IP_Param::containsConstraint(
+    const arma::vec Ai, ///< [in] The LHS of the cut
+    const double bi,    ///< [in] The rHS of the cut
+    double tol          ///< [in] optional tolerance
+) {
+  /**
+   * Given the IP_Param, this method checks if @p Ai  and @p bi are part of B
+   * and b respectively. description
+   */
+  if (Ai.size() != this->B.n_cols)
+    return false;
+  for (int i = 0; i < this->B.n_rows; ++i) {
+    bool res = true;
+    for (int j = 0; j < this->B.n_cols; ++j) {
+      if (std::abs(Ai.at(j) - this->B.at(i, j)) > 1e-5) {
+        res = false;
+        break;
+      }
+      if (res && std::abs(this->b.at(i) - bi) < 1e-5) {
+        return true;
+        throw;
+      }
+    }
+  }
+  return false;
+}
 
 Game::IPG::IPG(GRBEnv *env, ///< A pointer to the Gurobi Environment
                std::vector<std::shared_ptr<Game::IP_Param>>
@@ -275,7 +331,8 @@ void Game::IPG::getXMinusI(
     arma::vec &xMinusI     ///< An output vector containing x^{-i}
 ) const {
   /**
-   * @brief Given @p x as the solution vector and @p i as index of player, the method returns x^{-i}
+   * @brief Given @p x as the solution vector and @p i as index of player, the
+   * method returns x^{-i}
    */
   if (this->NumVariables != x.size())
     throw("Error in Game::IPG::getXMinusI:  Wrong size for the input parameter "
@@ -297,20 +354,20 @@ void Game::IPG::getXofI(
     const arma::vec &x, ///< The vector containing the full solution. It should
     ///< have the same size of the field NumVariables
     const unsigned int &i, ///< The index of the designed player
-    arma::vec &xOfI     ///< An output vector containing x^i
+    arma::vec &xOfI        ///< An output vector containing x^i
 ) const {
   /**
-   * @brief Given @p x as the solution vector and @p i as index of player, the method returns x^i
+   * @brief Given @p x as the solution vector and @p i as index of player, the
+   * method returns x^i
    */
   if (this->NumVariables != x.size())
     throw("Error in Game::IPG::getXofI:  Wrong size for the input parameter "
           "x.");
 
-  int count =0;
+  int count = 0;
   for (unsigned int j = 0; j < i; ++j)
-    count +=this->PlayerVariables.at(j);
+    count += this->PlayerVariables.at(j);
 
   xOfI.zeros(this->PlayerVariables.at(i));
-  xOfI=x.subvec(count, count + this->PlayerVariables.at(i) - 1);
-
+  xOfI = x.subvec(count, count + this->PlayerVariables.at(i) - 1);
 }

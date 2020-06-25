@@ -26,10 +26,10 @@ class IP_Param : public MP_Param
 private:
   // Gurobi environment and model
   GRBEnv *Env;
-  GRBModel IPModel;
-  arma::vec bounds;
-  std::vector<int> integers;
-  bool madeModel{false};
+  GRBModel IPModel; ///< Stores the IP model associated with the object
+  arma::vec bounds; ///< Stores the explicit bounds on variables
+  std::vector<int> integers; ///< Stores the indexes of integer variables
+  bool madeModel{false}; ///< True if the model has been made
 
   // These methods should be inaccessible to the inheritor, since we have a
   // different structure.
@@ -68,6 +68,8 @@ public: // Constructors
   std::vector<int> getIntegers() const { return this->integers; }
   arma::vec getBounds() const { return this->bounds; }
   void makeModel();
+  void addConstraints(const arma::sp_mat A, const arma::vec b);
+  bool containsConstraint(const arma::vec Ai, const double bi, double tol = 1e-5);
 
   /// Copy constructor
   IP_Param(const IP_Param &ipg)
