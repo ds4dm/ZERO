@@ -1,6 +1,5 @@
 <center><img src="https://github.com/ds4dm/ZERO/raw/master/docs/support_files/zero.png" width="250"></center>
 
-# ZERO
 This project is a private fork of EPECSolve. ZERO is a multi-purpose game solver written in C++. Currently, it manages NASPs (EPECs) and Integer Programming Games.
 
 - [Base Code](https://github.com/ssriram1992/EPECsolve/)
