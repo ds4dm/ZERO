@@ -373,7 +373,7 @@ std::vector<short int> Utils::numToVec(unsigned long int number,
 }
 
 bool Utils::containsConstraint(arma::sp_mat &A, const vec &b, arma::vec &lhs,
-                               const double &rhs, const double tol = 1e-6) {
+                               const double &rhs, const double tol) {
   if (lhs.size() != A.n_cols)
     return false;
   for (int i = 0; i < A.n_rows; ++i) {
@@ -392,14 +392,13 @@ bool Utils::containsConstraint(arma::sp_mat &A, const vec &b, arma::vec &lhs,
 }
 
 bool Utils::containsElement(const vec &b, const double &element,
-                            const double tol = 1e-6) {
+                            const double tol) {
   for (unsigned int i = 0; i < b.size(); ++i)
     if (std::abs(b.at(i) - element) < tol)
       return true;
 }
 
-bool Utils::containsRow(const sp_mat &A, arma::vec &row,
-                        const double tol = 1e-6) {
+bool Utils::containsRow(const sp_mat &A, arma::vec &row, const double tol) {
 
   if (row.size() != A.n_cols)
     return false;
@@ -415,4 +414,11 @@ bool Utils::containsRow(const sp_mat &A, arma::vec &row,
       return true;
   }
   return false;
+}
+bool Utils::containsConstraint(sp_mat &A, const vec &b, sp_mat &lhs,
+                               const double &rhs, const double tol) {
+  if (lhs.n_rows > 1)
+    return false;
+  arma::vec Ai = arma::vec{lhs};
+  return Utils::containsConstraint(A, b, Ai, rhs, tol);
 }
