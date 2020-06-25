@@ -90,12 +90,12 @@ add_executable(EPECShell
 target_link_libraries(EPECShell
                       Boost::program_options
                       Boost::log Boost::log_setup
-                      EPECSolve)
+                      ZERO)
 
 #EPEC Tests
 add_executable(EPECTests
                test/EPEC/EPEC.cpp)
-target_link_libraries(EPECTests EPECSolve Boost::unit_test_framework)
+target_link_libraries(EPECTests ZERO Boost::unit_test_framework)
 
 
 message("\n\nZERO cMake configuration terminated:")
