@@ -65,7 +65,6 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts,
         arma::vec xMinusI;
         this->EPECObject->getXMinusI(this->EPECObject->SolutionX, i, xMinusI);
         this->addValueCut(i, bestResponse, xMinusI);
-        // @todo enable cuts
         BOOST_LOG_TRIVIAL(info)
             << "Algorithms::EPEC::OuterApproximation::isFeasible: "
                "Value cut at for Player "

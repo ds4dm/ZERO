@@ -1,8 +1,8 @@
 #pragma once
 
 #include "algorithms/algorithms.h"
-#include "epec_models.h"
 #include "games.h"
+#include "interfaces/epec_models.h"
 #include "lcp/lcp.h"
 #include "zero.h"
 #include <armadillo>

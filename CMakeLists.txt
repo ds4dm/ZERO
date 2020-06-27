@@ -19,7 +19,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 ############################################
 ################ DO NOT MODIFY #############
 ############################################
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.7)
 option(CXX "enable C++ compilation" ON)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -47,10 +47,10 @@ find_package(Boost 1.70.0 REQUIRED COMPONENTS program_options unit_test_framewor
 include_directories(${BOOST_ROOT}/include)
 
 include_directories("src" "include" "lib")
-configure_file(src/CMakeConfig.h.in ${PROJECT_SOURCE_DIR}/include/version.h)
+configure_file(src/support/CMakeConfig.h.in include/support/version.h)
 
 
-#EPECSOLVE - Main library
+#ZERO - Main library
 add_library(ZERO
             src/games/games.cpp
             src/games/epec.cpp
@@ -59,14 +59,16 @@ add_library(ZERO
             src/games/nash.cpp
             src/lcp/lcp.cpp
             src/lcp/poly_lcp.cpp
-            src/utils.cpp
+            src/support/utils.cpp
             src/interfaces/epec_models.cpp
             src/algorithms/EPEC/epec_polybase.cpp
             src/algorithms/EPEC/epec_innerapproximation.cpp
             src/algorithms/EPEC/epec_combinatorialpne.cpp
             src/algorithms/EPEC/epec_fullenumeration.cpp
             src/algorithms/EPEC/epec_outerapproximation.cpp
-            src/lcp/outer_lcp.cpp src/algorithms/IPG/ipg_outerapproximation.cpp)
+            src/lcp/outer_lcp.cpp
+            src/algorithms/IPG/ipg_oracle.cpp
+            )
 target_include_directories(ZERO PRIVATE src)
 set_target_properties(ZERO PROPERTIES
                       POSITION_INDEPENDENT_CODE ON
@@ -86,7 +88,7 @@ target_link_libraries(ZERO
 
 #EPEC Command line interface
 add_executable(EPECShell
-               src/shells/epec_shell.cpp include/algorithms/IPG/ipg_outerapproximation.h)
+               src/shells/epec.cpp include/algorithms/IPG/ipg_oracle.h)
 target_link_libraries(EPECShell
                       Boost::program_options
                       Boost::log Boost::log_setup

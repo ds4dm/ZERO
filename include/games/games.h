@@ -5,19 +5,9 @@
 #include <set>
 #include <string>
 
-namespace std {
-string to_string(Game::EPECsolveStatus st);
-
-string to_string(Game::EPECalgorithm al);
-
-string to_string(Game::EPECRecoverStrategy st);
-
-string to_string(Game::EPECAlgorithmParams al);
-
-string to_string(Game::EPECAddPolyMethod add);
-}; // namespace std
 
 namespace Game {
+
 class PolyLCP; // Forward declaration
 
 arma::vec LPSolve(const arma::sp_mat &A, const arma::vec &b, const arma::vec &c,
