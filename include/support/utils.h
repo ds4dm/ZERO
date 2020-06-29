@@ -18,10 +18,16 @@ arma::mat resizePatch(const arma::mat &mat, const unsigned int nR,
 
 arma::vec resizePatch(const arma::vec &mat, const unsigned int nR);
 
-bool containsRow(const arma::sp_mat &A, arma::vec &row,  const double tol = 1e-6);
-bool containsElement(const arma::vec &b, const double &element,  const double tol = 1e-6);
-bool containsConstraint(arma::sp_mat &A, const arma::vec &b, arma::vec &lhs, const double &rhs,  const double tol = 1e-6);
-bool containsConstraint(arma::sp_mat &A, const arma::vec &b, arma::sp_mat &lhs, const double &rhs,  const double tol = 1e-6);
+bool containsRow(const arma::sp_mat &A, const arma::vec &row,
+                 const double tol = 1e-6);
+bool containsElement(const arma::vec &b, const double &element,
+                     const double tol = 1e-6);
+bool containsConstraint(arma::sp_mat &A, const arma::vec &b,
+                        const arma::vec &lhs, const double &rhs,
+                        const double tol = 1e-6);
+bool containsConstraint(arma::sp_mat &A, const arma::vec &b,
+                        const arma::sp_mat &lhs, const double &rhs,
+                        const double tol = 1e-6);
 arma::vec normalize(const arma::vec input);
 
 // Saving and retrieving an arma::vec
@@ -69,7 +75,6 @@ unsigned long int vecToNum(std::vector<short int> binary);
 
 std::vector<short int> numToVec(unsigned long int number,
                                 const unsigned long nCompl);
-
 
 } // namespace Utils
 

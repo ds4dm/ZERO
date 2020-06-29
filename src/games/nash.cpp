@@ -94,12 +94,12 @@ long int Game::NashGame::load(const std::string &filename, long int pos) {
    *
    */
   if (!this->Env)
-    throw("Error in NashGame::load: To load NashGame from file, it has "
-          "to be constructed using NashGame(GRBEnv*) constructor");
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "The solver environment is empty.");
   std::string headercheck;
   pos = Utils::appendRead(headercheck, filename, pos);
   if (headercheck != "NashGame")
-    throw("Error in NashGame::load: In valid header - ") + headercheck;
+    throw ZEROException(ZEROErrorCode::IOError, "File header is invalid");
   unsigned int numPlayersLocal = 0;
   pos = Utils::appendRead(numPlayersLocal, filename, pos,
                           std::string("NashGame::NumPlayers"));
@@ -350,16 +350,9 @@ arma::sp_mat Game::NashGame::rewriteLeadCons() const
                       this->DualPosition.at(0) - 1) = -this->MarketClearing;
     }
     return arma::join_cols(A_out_expl, A_out_MC);
-  } catch (const char *e) {
-    std::cerr << "Error in NashGame::rewriteLeadCons: " << e << '\n';
-    throw;
-  } catch (std::string &e) {
-    std::cerr << "String: Error in NashGame::rewriteLeadCons: " << e << '\n';
-    throw;
-  } catch (std::exception &e) {
-    std::cerr << "Exception: Error in NashGame::rewriteLeadCons: " << e.what()
-              << '\n';
-    throw;
+  } catch (...) {
+    throw ZEROException(ZEROErrorCode::Numeric,
+                        "Error in manipulating data structures");
   }
 }
 
@@ -424,9 +417,10 @@ Game::NashGame &Game::NashGame::addLeadCons(const arma::vec &a, double b)
 {
   auto nC = this->LeaderConstraints.n_cols;
   if (a.n_elem != nC)
-    throw("Error in NashGame::addLeadCons: Leader constraint size "
-          "incompatible --- ") +
-        std::to_string(a.n_elem) + std::string(" != ") + std::to_string(nC);
+    throw ZEROException(
+        ZEROErrorCode::Assertion,
+        "The number of constraints is not valid: " + std::to_string(a.n_elem) +
+            std::string(" != ") + std::to_string(nC));
   auto nR = this->LeaderConstraints.n_rows;
   this->LeaderConstraints =
       Utils::resizePatch(this->LeaderConstraints, nR + 1, nC);

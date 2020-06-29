@@ -28,5 +28,5 @@ private:
   unsigned int addDeviatedPolyhedron(const std::vector<arma::vec> &deviations,
                                      bool &infeasCheck) const;
 };
-}
+} // namespace EPEC
 } // namespace Algorithms

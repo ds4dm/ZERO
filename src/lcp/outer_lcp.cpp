@@ -4,9 +4,8 @@
 void Game::OuterLCP::outerApproximate(const std::vector<bool> encoding,
                                       bool clear) {
   if (encoding.size() != this->Compl.size()) {
-    BOOST_LOG_TRIVIAL(error)
-        << "Game::OuterLCP::outerApproximate: wrong encoding size";
-    throw;
+    throw ZEROException(ZEROErrorCode::InvalidData,
+                        "Mismatch in encoding size");
   }
   if (clear) {
     this->clearApproximation();
@@ -128,10 +127,7 @@ bool Game::OuterLCP::addComponent(
       case 0:
         break;
       default: {
-        BOOST_LOG_TRIVIAL(error)
-            << "Game::OuterLCP::addComponent: Non-allowed value in encoding: "
-            << encoding.at(i);
-        throw "Game::OuterLCP::addComponent: Non-allowed encoding.";
+        throw ZEROException(ZEROErrorCode::InvalidData, "Non-allowed encoding");
       }
       }
     }
@@ -224,21 +220,8 @@ bool Game::OuterLCP::checkComponentFeas(
       InfeasibleComponents.insert(fixNumber);
       return false;
     }
-  } catch (const char *e) {
-    std::cerr << "Error in Game::OuterLCP::checkComponentFeas: " << e << '\n';
-    throw;
-  } catch (std::string &e) {
-    std::cerr << "String: Error in Game::OuterLCP::checkComponentFeas: " << e
-              << '\n';
-    throw;
-  } catch (std::exception &e) {
-    std::cerr << "Exception: Error in Game::OuterLCP::checkComponentFeas: "
-              << e.what() << '\n';
-    throw;
   } catch (GRBException &e) {
-    std::cerr << "GRBException: Error in Game::OuterLCP::checkComponentFeas: "
-              << e.getErrorCode() << ": " << e.getMessage() << '\n';
-    throw;
+    throw ZEROException(e);
   }
   return false;
 }

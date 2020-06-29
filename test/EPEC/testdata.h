@@ -1,5 +1,6 @@
 #pragma once
 #include "epectests.h"
+#include "zero.h"
 #define TEST_NUM_THREADS 4
 
 struct countrySol {
@@ -17,29 +18,29 @@ struct testInst {
   std::vector<countrySol> solution;
 };
 
-std::vector<Game::EPECAlgorithmParams>
-allAlgo(Game::EPECAlgorithmParams common_params = {}, bool readCommonConfig = false) {
-  std::vector<Game::EPECAlgorithmParams> algs;
-  Game::EPECAlgorithmParams alg;
-  alg.Threads = TEST_NUM_THREADS;
-  alg.Algorithm = Game::EPECalgorithm::FullEnumeration;
+std::vector<Data::EPEC::DataObject>
+allAlgo(Data::EPEC::DataObject common_params = {}, bool readCommonConfig = false) {
+  std::vector<Data::EPEC::DataObject> algs;
+
+  Data::EPEC::DataObject alg;
+  alg.Threads.set(TEST_NUM_THREADS);
+  alg.Algorithm.set(Data::EPEC::Algorithms::FullEnumeration);
   algs.push_back(alg);
-  alg.Algorithm = Game::EPECalgorithm::CombinatorialPne;
+  alg.Algorithm.set(Data::EPEC::Algorithms::CombinatorialPne);
   algs.push_back(alg);
-  //alg.Algorithm = Game::EPECalgorithm::OuterApproximation;
-  //algs.push_back(alg);
+  alg.Algorithm.set(Data::EPEC::Algorithms::OuterApproximation);
+  algs.push_back(alg);
 
   for (int i = 0; i < 2; i++) {
-    Game::EPECAlgorithmParams alg_in;
-    alg_in.Algorithm = Game::EPECalgorithm::InnerApproximation;
-    alg_in.AddPolyMethod = static_cast<Game::EPECAddPolyMethod>(i);
+    Data::EPEC::DataObject alg_in;
+    alg_in.Algorithm = Data::EPEC::Algorithms::InnerApproximation;
+    alg_in.PolyhedraStrategy.set(static_cast<Data::LCP::PolyhedraStrategy>(i));
     for (int j = 1; j < 10; j += 3) {
       alg_in.Aggressiveness = j;
       if (readCommonConfig) {
-        alg_in.TimeLimit = common_params.TimeLimit;
-        alg_in.Indicators = common_params.Indicators;
-        alg_in.Threads = 4;
-        alg_in.AddPolyMethodSeed = common_params.AddPolyMethodSeed;
+        alg_in.TimeLimit.set(common_params.TimeLimit.get());
+        alg_in.IndicatorConstraints.set(common_params.IndicatorConstraints.get());
+        alg_in.RandomSeed = common_params.RandomSeed.get();
       }
       algs.push_back(alg_in);
     }
@@ -48,16 +49,16 @@ allAlgo(Game::EPECAlgorithmParams common_params = {}, bool readCommonConfig = fa
 }
 
 void testEPECInstance(const testInst inst,
-                      const std::vector<Game::EPECAlgorithmParams> algorithms,
+                      const std::vector<Data::EPEC::DataObject> algorithms,
                       TestType check_type = TestType::resultCheck) {
   BOOST_TEST_MESSAGE("*** NEW INSTANCE ***");
   for (auto const algorithm : algorithms) {
     std::stringstream ss;
-    ss << "Algorithm: " << std::to_string(algorithm.Algorithm);
-    if (algorithm.Algorithm == Game::EPECalgorithm::InnerApproximation) {
-      ss << "\nAggressiveness: " << algorithm.Aggressiveness;
+    ss << "Algorithm: " << std::to_string(algorithm.Algorithm.get());
+    if (algorithm.Algorithm.get() == Data::EPEC::Algorithms::InnerApproximation) {
+      ss << "\nAggressiveness: " << algorithm.Aggressiveness.get();
       ss << "\nMethod to add polyhedra: "
-         << std::to_string(algorithm.AddPolyMethod);
+         << std::to_string(algorithm.PolyhedraStrategy.get());
     }
     BOOST_TEST_MESSAGE(ss.str());
     GRBEnv env;
@@ -68,12 +69,12 @@ void testEPECInstance(const testInst inst,
     epec.addTranspCosts(inst.instance.TransportationCosts);
     epec.finalize();
 
-    epec.setAlgorithm(algorithm.Algorithm);
-    epec.setAggressiveness(algorithm.Aggressiveness);
-    epec.setAddPolyMethod(algorithm.AddPolyMethod);
-    epec.setIndicators(algorithm.Indicators);
+    epec.setAlgorithm(algorithm.Algorithm.get());
+    epec.setAggressiveness(algorithm.Aggressiveness.get());
+    epec.setAddPolyMethod(algorithm.PolyhedraStrategy.get());
+    epec.setIndicators(algorithm.IndicatorConstraints.get());
     epec.setNumThreads(TEST_NUM_THREADS );
-    epec.setAddPolyMethodSeed(algorithm.AddPolyMethodSeed);
+    epec.setRandomSeed(algorithm.RandomSeed.get());
 
     const std::chrono::high_resolution_clock::time_point initTime =
         std::chrono::high_resolution_clock::now();
@@ -119,8 +120,8 @@ void testEPECInstance(const testInst inst,
       }
     } break;
     default: {
-      BOOST_CHECK_MESSAGE(epec.getStatistics().Status ==
-                              Game::EPECsolveStatus::NashEqNotFound,
+      BOOST_CHECK_MESSAGE(epec.getStatistics().Status.get() ==
+                              ZEROStatus::NashEqNotFound,
                           "Checking for infeasability");
     }
     }

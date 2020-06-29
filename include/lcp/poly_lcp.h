@@ -1,6 +1,5 @@
 #pragma once
-
-#include "lcp/lcp.h"
+#include "zero.h"
 #include <armadillo>
 #include <gurobi_c++.h>
 #include <iostream>
@@ -42,7 +41,7 @@ private:
   PolyLCP &addPoliesFromEncoding(std::vector<short int> encoding,
                                  bool checkFeas = false, bool custom = false,
                                  spmat_Vec *custAi = {}, vec_Vec *custbi = {});
-  unsigned long int getNextPoly(EPECAddPolyMethod method);
+  unsigned long int getNextPoly(Data::LCP::PolyhedraStrategy method);
 
 public:
   PolyLCP(GRBEnv *env, const NashGame &N) : LCP(env, N) {
@@ -67,7 +66,8 @@ public:
   }
   std::set<std::vector<short int>>
   addAPoly(unsigned long int nPoly = 1,
-           EPECAddPolyMethod method = EPECAddPolyMethod::Sequential,
+           Data::LCP::PolyhedraStrategy method =
+               Data::LCP::PolyhedraStrategy::Sequential,
            std::set<std::vector<short int>> polyhedra = {});
   bool addThePoly(const unsigned long int &decimalEncoding);
   bool checkPolyFeas(const unsigned long int &decimalEncoding);

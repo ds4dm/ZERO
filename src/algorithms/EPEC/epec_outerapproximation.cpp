@@ -80,8 +80,8 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts,
       // Check if we need to add the point to the vertex storage.
       arma::vec vertex = bestResponse.subvec(0, xOfI.size() - 1);
       vertex.print("Best Response");
-        if (!Utils::containsRow(*this->Trees.at(i)->getV(),
-                                vertex, this->Tolerance)) {
+      if (!Utils::containsRow(*this->Trees.at(i)->getV(), vertex,
+                              this->Tolerance)) {
         this->Trees.at(i)->addVertex(vertex);
         BOOST_LOG_TRIVIAL(info)
             << "Algorithms::EPEC::OuterApproximation::isFeasible: "
@@ -141,13 +141,13 @@ GRBModel *Algorithms::EPEC::OuterApproximation::getDualMembershipLP(
   R->print_dense("R");
 
   if (V->n_rows < 1 && R->n_rows < 1) {
-    throw "Algorithms::EPEC::OuterApproximation::getDualMembershipLP: "
-          "no points or rays in the membershipLP of " +
-        std::to_string(player);
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "no points or rays in the membershipLP of " +
+                            std::to_string(player));
   }
   if (V->n_cols != vertex.size())
-    throw "Algorithms::EPEC::OuterApproximation::getDualMembershipLP: invalid "
-          "dimension of vertex.";
+    throw ZEROException(ZEROErrorCode::Assertion, " invalid "
+                                                  "dimension of vertex");
 
   if (!this->Trees.at(player)->getMembershipInit()) {
     // Initialize the model
@@ -434,28 +434,22 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(arma::vec &xOfI,
 
         } // status unbounded for leaderModel
 
-        else {
-          BOOST_LOG_TRIVIAL(warning)
-              << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-                 "unknown status for leaderModel for player "
-              << player;
-          throw;
-        }
+        else
+          throw ZEROException(ZEROErrorCode::Assertion,
+                              "Unknown status for leaderModel for player " +
+                                  std::to_string(player));
       } // end for
       // no separation
     }
 
     else {
-      BOOST_LOG_TRIVIAL(warning)
-          << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-             "unknown status for convexrModel for player "
-          << player;
-      throw;
+      throw ZEROException(ZEROErrorCode::Assertion,
+                          "Unknown status for convexModel for player " +
+                              std::to_string(player));
     }
   }
   return false;
 }
-
 
 void Algorithms::EPEC::OuterApproximation::addValueCut(
     unsigned int player, arma::vec xOfIBestResponse, arma::vec xMinusI) {
@@ -486,11 +480,11 @@ void Algorithms::EPEC::OuterApproximation::solve() {
   // Set the initial point for all countries as 0 and solve the respective LCPs?
   this->EPECObject->SolutionX.zeros(this->EPECObject->NumVariables);
   bool solved = {false};
-  if (this->EPECObject->Stats.AlgorithmParam.TimeLimit > 0)
+  if (this->EPECObject->Stats.AlgorithmData.TimeLimit.get() > 0)
     this->EPECObject->InitTime = std::chrono::high_resolution_clock::now();
 
-  this->EPECObject->Stats.NumIterations = 0;
-  if (this->EPECObject->Stats.AlgorithmParam.TimeLimit > 0)
+  this->EPECObject->Stats.NumIterations.set(0);
+  if (this->EPECObject->Stats.AlgorithmData.TimeLimit.get() > 0)
     this->EPECObject->InitTime = std::chrono::high_resolution_clock::now();
 
   // Initialize Trees
@@ -510,10 +504,11 @@ void Algorithms::EPEC::OuterApproximation::solve() {
   std::vector<long int> branches;
   while (!solved) {
     branchingLocations.clear();
-    ++this->EPECObject->Stats.NumIterations;
+    this->EPECObject->Stats.NumIterations.set(
+        this->EPECObject->Stats.NumIterations.get() + 1);
     BOOST_LOG_TRIVIAL(info)
         << "Algorithms::EPEC::OuterApproximation::solve: Iteration "
-        << std::to_string(this->EPECObject->Stats.NumIterations);
+        << std::to_string(this->EPECObject->Stats.NumIterations.get());
 
     comp = 0;
     branchingLocations = std::vector<int>(this->EPECObject->NumPlayers, -1);
@@ -524,7 +519,7 @@ void Algorithms::EPEC::OuterApproximation::solve() {
             Trees.at(j)->getEncodingSize())
           comp++;
         else {
-          if (this->EPECObject->Stats.NumIterations == 1) {
+          if (this->EPECObject->Stats.NumIterations.get() == 1) {
             branchingLocations.at(j) =
                 this->getFirstBranchLocation(j, Incumbent.at(j));
           } else {
@@ -539,7 +534,7 @@ void Algorithms::EPEC::OuterApproximation::solve() {
         BOOST_LOG_TRIVIAL(info)
             << "Algorithms::EPEC::OuterApproximation::solve: "
                "Solved without any equilibrium.";
-        this->EPECObject->Stats.Status = Game::EPECsolveStatus::NashEqNotFound;
+        this->EPECObject->Stats.Status.set(ZEROStatus::NashEqNotFound);
         solved = true;
         break;
       }
@@ -599,19 +594,19 @@ void Algorithms::EPEC::OuterApproximation::solve() {
     this->EPECObject->makePlayersQPs();
     // To make computeNashEq skip any feasibility check
     this->Feasible = true;
-    if (this->EPECObject->Stats.AlgorithmParam.TimeLimit > 0) {
+    if (this->EPECObject->Stats.AlgorithmData.TimeLimit.get() > 0) {
       const std::chrono::duration<double> timeElapsed =
           std::chrono::high_resolution_clock::now() -
           this->EPECObject->InitTime;
       const double timeRemaining =
-          this->EPECObject->Stats.AlgorithmParam.TimeLimit -
+          this->EPECObject->Stats.AlgorithmData.TimeLimit.get() -
           timeElapsed.count();
       this->EPECObject->computeNashEq(
-          this->EPECObject->Stats.AlgorithmParam.PureNashEquilibrium,
+          this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(),
           timeRemaining);
     } else {
       this->EPECObject->computeNashEq(
-          this->EPECObject->Stats.AlgorithmParam.PureNashEquilibrium);
+          this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get());
     }
 
     this->Feasible = false;
@@ -619,7 +614,7 @@ void Algorithms::EPEC::OuterApproximation::solve() {
       bool addedCuts{false};
       if (this->isFeasible(addedCuts)) {
         this->Feasible = true;
-        this->EPECObject->Stats.Status = Game::EPECsolveStatus::NashEqFound;
+        this->EPECObject->Stats.Status.set(ZEROStatus::NashEqFound);
         BOOST_LOG_TRIVIAL(info)
             << "Algorithms::EPEC::OuterApproximation::solve: "
                "Solved. ";
@@ -637,15 +632,15 @@ void Algorithms::EPEC::OuterApproximation::solve() {
     } else {
       branch = true;
     }
-    if (this->EPECObject->Stats.AlgorithmParam.TimeLimit > 0) {
+    if (this->EPECObject->Stats.AlgorithmData.TimeLimit.get() > 0) {
       const std::chrono::duration<double> timeElapsed =
           std::chrono::high_resolution_clock::now() -
           this->EPECObject->InitTime;
       const double timeRemaining =
-          this->EPECObject->Stats.AlgorithmParam.TimeLimit -
+          this->EPECObject->Stats.AlgorithmData.TimeLimit.get() -
           timeElapsed.count();
       if (timeRemaining <= 0) {
-        this->EPECObject->Stats.Status = Game::EPECsolveStatus::TimeLimit;
+        this->EPECObject->Stats.Status.set(ZEROStatus::TimeLimit);
         return;
       }
     }
@@ -700,9 +695,7 @@ int Algorithms::EPEC::OuterApproximation::hybridBranching(
 
     this->EPECObject->getXofI(this->EPECObject->SolutionX, player, x);
     if (x.size() != this->EPECObject->LeaderObjective.at(player)->c.n_rows)
-      throw "Algorithms::EPEC::OuterApproximation::hybridBranching: "
-            "wrong-dimensioned "
-            "x^i";
+      throw ZEROException(ZEROErrorCode::Assertion, "wrong dimensioned x^i");
 
     auto currentEncoding = node->getEncoding();
     std::vector<bool> incumbentApproximation;
@@ -993,7 +986,8 @@ void Algorithms::EPEC::OuterTree::denyBranchingLocation(
    * branching on it for the node @param node.
    */
   if (location >= this->EncodingSize)
-    throw "OuteTree::branch idComp is larger than the encoding size.";
+    throw ZEROException(ZEROErrorCode::OutOfRange,
+                        "idComp is larger than the encoding size");
   if (!node.AllowedBranchings.at(location))
     BOOST_LOG_TRIVIAL(warning)
         << "Algorithms::EPEC::OuterTree::denyBranchingLocation: location "
@@ -1011,8 +1005,8 @@ void Algorithms::EPEC::OuterTree::denyBranchingLocations(
    */
   for (auto &location : locations) {
     if (location < 0)
-      throw "Algorithms::EPEC::OuterTree::denyBranchingLocations a location is "
-            "negative.";
+      throw ZEROException(ZEROErrorCode::OutOfRange,
+                          "The branching location is negative");
     this->denyBranchingLocation(node, location);
   }
 }
@@ -1024,8 +1018,8 @@ std::vector<long int> Algorithms::EPEC::OuterTree::singleBranch(
    * child by branching on @param idComp.
    */
   if (idComp >= this->EncodingSize)
-    throw "Algorithms::EPEC::OuterTree::branch idComp is larger than the "
-          "encoding size.";
+    throw ZEROException(ZEROErrorCode::OutOfRange,
+                        "idComp is larger than the encoding size");
   if (t.Encoding.at(idComp) != 0) {
     BOOST_LOG_TRIVIAL(warning)
         << "OuterTree: cannot branch on this complementary, since it already "
@@ -1047,7 +1041,8 @@ Algorithms::EPEC::OuterTree::multipleBranch(const std::vector<int> idsComp,
    */
   for (auto &idComp : idsComp) {
     if (idComp >= this->EncodingSize)
-      throw "Tree::branch idComp is larger than the encoding size.";
+      throw ZEROException(ZEROErrorCode::OutOfRange,
+                          "idComp is larger than the encoding size");
     if (t.Encoding.at(idComp) != 0) {
       BOOST_LOG_TRIVIAL(warning)
           << "Tree: cannot branch on this complementary, since it already has "
@@ -1073,7 +1068,7 @@ Algorithms::EPEC::OuterTree::Node::Node(Node &parent, std::vector<int> idsComp,
   this->AllowedBranchings = parent.AllowedBranchings;
   for (auto &idComp : idsComp) {
     if (idComp < 0)
-      throw "Algorithms::EPEC::OuterTree::Node::Node  idComp is negative.";
+      throw ZEROException(ZEROErrorCode::Assertion, "idComp is negative");
     this->Encoding.at(idComp) = true;
     this->AllowedBranchings.at(idComp) = false;
     this->IdComps.push_back(idComp);

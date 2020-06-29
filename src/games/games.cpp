@@ -36,35 +36,34 @@ unsigned int Game::convexHull(
   const unsigned int nPoly{static_cast<unsigned int>(Ai->size())};
   // Error check
   if (nPoly == 0)
-    throw("Game::convexHull: Empty std::vector of polyhedra given! Problem "
-          "might be "
-          "infeasible."); // There should be at least 1 polyhedron to
+    throw ZEROException(ZEROErrorCode::Assertion, "There are no polyhedra");
   // consider
   const unsigned int nC{static_cast<unsigned int>(Ai->front()->n_cols)};
   const unsigned int nComm{static_cast<unsigned int>(Acom.n_rows)};
 
   if (nComm > 0 && Acom.n_cols != nC)
-    throw("Game::convexHull: Inconsistent number of variables in the "
-          "common polyhedron");
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "Inconsistend number of variables");
   if (nComm > 0 && nComm != bcom.n_rows)
-    throw("Game::convexHull: Inconsistent number of rows in LHS and RHS "
-          "in the common polyhedron");
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "Inconsistent number of rows");
 
   // Count the number of variables in the convex hull.
   unsigned int nFinCons{0}, nFinVar{0};
   if (nPoly != bi->size())
-    throw("Game::convexHull: Inconsistent number of LHS and RHS for polyhedra");
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "Inconsistent number of rows in the polyhedron");
   for (unsigned int i = 0; i != nPoly; i++) {
     if (Ai->at(i)->n_cols != nC)
-      throw("Game::convexHull: Inconsistent number of variables in the "
-            "polyhedra ") +
-          std::to_string(i) + "; " + std::to_string(Ai->at(i)->n_cols) +
-          "!=" + std::to_string(nC);
+      throw ZEROException(
+          ZEROErrorCode::Assertion,
+          "Inconsistent number of variables: " + std::to_string(i) + "; " +
+              std::to_string(Ai->at(i)->n_cols) + "!=" + std::to_string(nC));
     if (Ai->at(i)->n_rows != bi->at(i)->n_rows)
-      throw("Game::convexHull: Inconsistent number of rows in LHS and "
-            "RHS of polyhedra ") +
-          std::to_string(i) + ";" + std::to_string(Ai->at(i)->n_rows) +
-          "!=" + std::to_string(bi->at(i)->n_rows);
+      throw ZEROException(ZEROErrorCode::Assertion,
+                          "Inconsistent number of rows: " + std::to_string(i) +
+                              ";" + std::to_string(Ai->at(i)->n_rows) +
+                              "!=" + std::to_string(bi->at(i)->n_rows));
     nFinCons += Ai->at(i)->n_rows;
   }
   // For common constraint copy
@@ -223,9 +222,11 @@ Game::LPSolve(const arma::sp_mat &A, ///< The constraint matrix
   nR = A.n_rows;
   nC = A.n_cols;
   if (c.n_rows != nC)
-    throw "Game::LPSolve: Inconsistency in no of Vars in isFeas()";
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "Inconsistent number of variables");
   if (b.n_rows != nR)
-    throw "Game::LPSolve: Inconsistency in no of Constr in isFeas()";
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "Inconsistent number of constraints");
 
   arma::vec sol = arma::vec(c.n_rows, arma::fill::zeros);
   const double lb = positivity ? 0 : -GRB_INFINITY;
@@ -284,68 +285,4 @@ void Game::print(const perps &C) noexcept {
   for (auto p : C)
     std::cout << "<" << p.first << ", " << p.second << ">"
               << "\t";
-}
-
-std::string std::to_string(const Game::EPECsolveStatus st) {
-  switch (st) {
-  case Game::EPECsolveStatus::NashEqNotFound:
-    return std::string("NO_NASH_EQ_FOUND");
-  case Game::EPECsolveStatus::NashEqFound:
-    return std::string("NASH_EQ_FOUND");
-  case Game::EPECsolveStatus::TimeLimit:
-    return std::string("TIME_LIMIT");
-  case Game::EPECsolveStatus::Uninitialized:
-    return std::string("UNINITIALIZED");
-  case Game::EPECsolveStatus::Numerical:
-    return std::string("NUMERICAL_ISSUES");
-  }
-}
-
-std::string std::to_string(const Game::EPECalgorithm al) {
-  switch (al) {
-  case Game::EPECalgorithm::FullEnumeration:
-    return std::string("FullEnumeration");
-  case Game::EPECalgorithm::InnerApproximation:
-    return std::string("InnerApproximation");
-  case Game::EPECalgorithm::CombinatorialPne:
-    return std::string("CombinatorialPNE");
-  case Game::EPECalgorithm::OuterApproximation:
-    return std::string("OuterApproximation");
-  default:
-    return std::string("UNKNOWN_ALGORITHM_") +
-           std::to_string(static_cast<int>(al));
-  }
-}
-
-std::string std::to_string(const Game::EPECRecoverStrategy strategy) {
-  switch (strategy) {
-  case Game::EPECRecoverStrategy::IncrementalEnumeration:
-    return std::string("IncrementalEnumeration");
-  case Game::EPECRecoverStrategy::Combinatorial:
-    return std::string("Combinatorial");
-  }
-}
-
-std::string std::to_string(const Game::EPECAddPolyMethod add) {
-  switch (add) {
-  case Game::EPECAddPolyMethod::Sequential:
-    return std::string("Sequential");
-  case Game::EPECAddPolyMethod::ReverseSequential:
-    return std::string("ReverseSequential");
-  case Game::EPECAddPolyMethod::Random:
-    return std::string("Random");
-  }
-}
-
-std::string std::to_string(const Game::EPECAlgorithmParams al) {
-  std::stringstream ss;
-  ss << "Algorithm: " << std::to_string(al.Algorithm) << '\n';
-  if (al.Algorithm == Game::EPECalgorithm::InnerApproximation) {
-    ss << "Aggressiveness: " << al.Aggressiveness << '\n';
-    ss << "AddPolyMethod: " << std::to_string(al.AddPolyMethod) << '\n';
-  }
-  ss << "Time Limit: " << al.TimeLimit << '\n';
-  ss << "Indicators: " << std::boolalpha << al.Indicators;
-
-  return ss.str();
 }

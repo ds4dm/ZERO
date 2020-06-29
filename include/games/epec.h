@@ -1,4 +1,5 @@
 #pragma once
+#include "lcp/lcp.h"
 #include "zero.h"
 #include <armadillo>
 #include <gurobi_c++.h>
@@ -6,23 +7,15 @@
 #include <memory>
 #include <set>
 #include <string>
+#include <support/codes.h>
 
-namespace Game {
+namespace Data {
+namespace EPEC {
 
-enum class EPECsolveStatus {
-  /**
-   * Set of Status in which the solution Status of a Game::EPEC can be.
-   */
-  NashEqNotFound, ///< Instance proved to be infeasible.
-  NashEqFound,    ///< Solution found for the instance.
-  TimeLimit,      ///< Time limit reached, nash equilibrium not found.
-  Numerical,      ///< Numerical issues
-  Uninitialized   ///< Not started to solve the problem.
-};
-
-enum class EPECalgorithm {
+enum class Algorithms {
+  /** The available algorithms **/
   FullEnumeration, ///< Completely enumerate the set of polyhedra for all
-  ///< followers
+  ///< leaders
   InnerApproximation, ///< Perform increasingly better inner approximations in
   ///< iterations
   CombinatorialPne, ///< Perform a Combinatorial-based search strategy to find a
@@ -31,76 +24,46 @@ enum class EPECalgorithm {
   ///< of the feasible region of each leader
 };
 
-///< Recovery strategies for obtaining a PNE with InnerApproximation
-enum class EPECRecoverStrategy {
+enum class RecoverStrategy {
+  /** @brief Recovery strategies are triggered when the Algorithm
+  "InnerApproximation" is selected. If a PNE is requested, then the algorithm
+  can recover it by using one of these strategies
+  **/
   IncrementalEnumeration, ///< Add Random polyhedra at each iteration
   Combinatorial ///< Triggers the CombinatorialPNE with additional information
   ///< from InnerApproximation
 };
 
-enum class EPECAddPolyMethod {
-  Sequential,        ///< Adds polyhedra by selecting them in order
-  ReverseSequential, ///< Adds polyhedra by selecting them in reverse
-  ///< Sequential order
-  Random ///< Adds the next polyhedron by selecting Random feasible one
-};
-
-/// @brief Stores the configuration for EPEC algorithms
-struct EPECAlgorithmParams {
-  Game::EPECalgorithm Algorithm = Game::EPECalgorithm::FullEnumeration;
-  Game::EPECRecoverStrategy RecoverStrategy =
-      EPECRecoverStrategy::IncrementalEnumeration;
-  bool PolyLcp{
-      true}; ///< True if the Algorithm extends the LCP to PolyLCP. Namely, true
-  ///< if the Algorithm uses the polyhedral class for the LCP
-  EPECAddPolyMethod AddPolyMethod = Game::EPECAddPolyMethod::Sequential;
-  bool BoundPrimals{false}; ///< If true, each QP param is bounded with an
+class DataObject : public ZEROAlgorithmData {
+public:
+  Attr<Data::EPEC::Algorithms> Algorithm = {
+      Data::EPEC::Algorithms::FullEnumeration}; ///< The selected algorithm
+  Attr<Data::EPEC::RecoverStrategy> RecoverStrategy = {
+      Data::EPEC::RecoverStrategy::
+          IncrementalEnumeration}; ///< The Recover Strategy for inner
+                                   ///< approximation
+  Attr<Data::LCP::PolyhedraStrategy>
+      PolyhedraStrategy; ///< The polyhedral strategy for inner approximation
+  Attr<unsigned int> Aggressiveness{
+      1}; ///< The upper bound on the polyhedra added by the Polyhedral
+          ///< Strategy, for each player at each iteration.
+  Attr<std::vector<unsigned int>> FeasiblePolyhedra =
+      std::vector<unsigned int>(); ///< A vector of number of feasible
+                                   ///< polyhedra, for each leader
+  Attr<bool> BoundPrimals{false}; ///< If true, each QP param is bounded with an
   ///< arbitrary large BigM constant
-  double BoundBigM{1e5}; ///< Bounding upper value if @p BoundPrimals is true.
-  double DeviationTolerance{
-      51e-4}; ///< Tolerance parameter for profitable deviations.
-  long int AddPolyMethodSeed{
-      -1}; ///< Random seed for the Random selection of polyhedra. If -1, a
-  ///< default computed value will be seeded.
-  bool Indicators{true}; ///< Controls the flag @p UseIndicators in Game::LCP.
-  ///< Uses @p BigM if @p false.
-  double TimeLimit{
-      -1}; ///< Controls the timelimit for solve in Game::EPEC::findNashEq
-  unsigned int Threads{
-      0}; ///< Controls the number of Threads Gurobi exploits. Default 0 (auto)
-  unsigned int Aggressiveness{
-      1}; ///< Controls the number of Random polyhedra added at each iteration
-  ///< in EPEC::iterativeNash
-  bool PureNashEquilibrium{
-      false}; ///< If true, the Algorithm will tend to search for pure
-  ///< NE. If none exists, it will return a MNE (if exists)
+  Attr<double> BoundBigM{
+      1e5}; ///< Bounding upper value if @p BoundPrimals is true.
+  Attr<int> LostIntermediateEq = {
+      0}; ///< Counts the number of approximation steps where the problem
+          ///< (approximated) has no nash equilibrium
+  DataObject() : PolyhedraStrategy{static_cast<LCP::PolyhedraStrategy>(0)} {};
 };
 
-/// @brief Stores statistics for a (solved) EPEC instance
-struct EPECStatistics {
-  Game::EPECsolveStatus Status = Game::EPECsolveStatus::Uninitialized;
-  int NumVar = {-1};        ///< Number of variables in findNashEq model
-  int NumIterations = {-1}; ///< Number of iteration of the Algorithm (not valid
-  ///< for FullEnumeration)
-  int NumConstraints = {-1}; ///< Number of constraints in findNashEq model
-  int NumNonZero = {-1}; ///< Number of non-zero coefficients in the constraint
-  ///< matrix of findNashEq model
-  int LostIntermediateEq = {0}; ///< Numer of times InnerApproximation cannot
-  ///< add polyhedra basing on deviations
-  bool NumericalIssues = {
-      false}; ///< True if there have been some Numerical issues during the
-  ///< iteration of the InnerApproximation
-  std::vector<unsigned int> FeasiblePolyhedra =
-      {}; ///< Vector containing the number of non-void polyhedra, indexed by
-  ///< leader (country)
-  double WallClockTime = {0};
-  bool PureNashEquilibrium{false}; ///< True if the equilibrium is a pure NE.
-  EPECAlgorithmParams AlgorithmParam =
-      {}; ///< Stores the configuration for the EPEC Algorithm employed in the
-  ///< instance.
-};
+} // namespace EPEC
+} // namespace Data
 
-
+namespace Game {
 
 ///@brief Class to handle a Nash game between leaders of Stackelberg games
 class EPEC {
@@ -148,10 +111,13 @@ protected: // Datafields
   ///< can be the equilibrium of an approximation, and not to the
   ///< original game
   std::chrono::high_resolution_clock::time_point InitTime;
-  EPECStatistics Stats;        ///< Store run time information
-  arma::vec SolutionZ,         ///< Solution equation values
-      SolutionX;               ///< Solution variable values
-  bool warmstart(arma::vec x); ///< Warmstarts EPEC with a solution
+  ZEROStatistics<Data::EPEC::DataObject> Stats =
+      ZEROStatistics<Data::EPEC::DataObject>(
+          Data::EPEC::DataObject()); ///< Store run time information and
+                                     ///< algorithm params
+  arma::vec SolutionZ,               ///< Solution equation values
+      SolutionX;                     ///< Solution variable values
+  bool warmstart(arma::vec x);       ///< Warmstarts EPEC with a solution
 
 private:
   void addDummyLead(unsigned int i); ///< Add Dummy variables for the leaders
@@ -170,7 +136,7 @@ private:
                      bool check = false);
 
 protected: // functions
-  EPEC(GRBEnv *env)
+  explicit EPEC(GRBEnv *env)
       : Env{env} {}; ///< Can be instantiated by a derived class only!
 
   // virtual function to be implemented by the inheritor.
@@ -228,89 +194,54 @@ public: // functions
   ///< equilibrium is a pure strategy
 
   ///@brief Get the EPECStatistics object for the current instance
-  const Game::EPECStatistics getStatistics() const { return this->Stats; }
-
-  void setAlgorithm(Game::EPECalgorithm algorithm);
-
-  Game::EPECalgorithm getAlgorithm() const {
-    return this->Stats.AlgorithmParam.Algorithm;
+  ZEROStatistics<Data::EPEC::DataObject> getStatistics() const {
+    return this->Stats;
   }
 
-  void setRecoverStrategy(EPECRecoverStrategy strategy);
+  void setAlgorithm(Data::EPEC::Algorithms algorithm);
 
-  EPECRecoverStrategy getRecoverStrategy() const {
-    return this->Stats.AlgorithmParam.RecoverStrategy;
-  }
+  void setRecoverStrategy(Data::EPEC::RecoverStrategy strategy);
 
   void setAggressiveness(unsigned int a) {
-    this->Stats.AlgorithmParam.Aggressiveness = a;
-  }
-
-  unsigned int getAggressiveness() const {
-    return this->Stats.AlgorithmParam.Aggressiveness;
+    this->Stats.AlgorithmData.Aggressiveness = a;
   }
 
   void setNumThreads(unsigned int t) {
-    this->Stats.AlgorithmParam.Threads = t;
+    this->Stats.AlgorithmData.Threads.set(t);
     this->Env->set(GRB_IntParam_Threads, t);
   }
 
-  unsigned int getNumThreads() const {
-    return this->Stats.AlgorithmParam.Threads;
+  void setRandomSeed(unsigned int t) {
+    this->Stats.AlgorithmData.RandomSeed.set(t);
   }
 
-  void setAddPolyMethodSeed(unsigned int t) {
-    this->Stats.AlgorithmParam.AddPolyMethodSeed = t;
+  void setIndicators(bool val) {
+    this->Stats.AlgorithmData.IndicatorConstraints.set(val);
   }
-
-  unsigned long getAddPolyMethodSeed() const {
-    return this->Stats.AlgorithmParam.AddPolyMethodSeed;
-  }
-
-  void setIndicators(bool val) { this->Stats.AlgorithmParam.Indicators = val; }
-
-  bool getIndicators() const { return this->Stats.AlgorithmParam.Indicators; }
 
   void setPureNashEquilibrium(bool val) {
-    this->Stats.AlgorithmParam.PureNashEquilibrium = val;
-  }
-
-  bool getPureNashEquilibrium() const {
-    return this->Stats.AlgorithmParam.PureNashEquilibrium;
+    this->Stats.AlgorithmData.PureNashEquilibrium = val;
   }
 
   void setBoundPrimals(bool val) {
-    this->Stats.AlgorithmParam.BoundPrimals = val;
+    this->Stats.AlgorithmData.BoundPrimals.set(val);
   }
 
-  bool getBoundPrimals() const {
-    return this->Stats.AlgorithmParam.BoundPrimals;
+  void setBoundBigM(double val) {
+    this->Stats.AlgorithmData.BoundBigM.set(val);
   }
-
-  void setBoundBigM(double val) { this->Stats.AlgorithmParam.BoundBigM = val; }
-
-  double getBoundBigM() const { return this->Stats.AlgorithmParam.BoundBigM; }
 
   void setDeviationTolerance(double val) {
-    this->Stats.AlgorithmParam.DeviationTolerance = val;
+    this->Stats.AlgorithmData.DeviationTolerance.set(val);
   }
 
-  double getDeviationTolerance() const {
-    return this->Stats.AlgorithmParam.DeviationTolerance;
+  void setTimeLimit(double val) {
+    this->Stats.AlgorithmData.TimeLimit.set(val);
   }
 
-  void setTimeLimit(double val) { this->Stats.AlgorithmParam.TimeLimit = val; }
-
-  double getTimeLimit() const { return this->Stats.AlgorithmParam.TimeLimit; }
-
-  void setAddPolyMethod(Game::EPECAddPolyMethod add) {
-    this->Stats.AlgorithmParam.AddPolyMethod = add;
+  void setAddPolyMethod(Data::LCP::PolyhedraStrategy add) {
+    this->Stats.AlgorithmData.PolyhedraStrategy.set(add);
   }
-
-  Game::EPECAddPolyMethod getAddPolyMethod() const {
-    return this->Stats.AlgorithmParam.AddPolyMethod;
-  }
-
   // Methods to get positions of variables
   // The below are all const functions which return an unsigned int.
   int getNumVar() const noexcept { return this->NumVariables; }
@@ -351,13 +282,9 @@ public: // functions
 }; // namespace Game
 
 namespace std {
-string to_string(Game::EPECsolveStatus st);
 
-string to_string(Game::EPECalgorithm al);
+string to_string(Data::EPEC::Algorithms al);
 
-string to_string(Game::EPECRecoverStrategy st);
+string to_string(Data::EPEC::RecoverStrategy st);
 
-string to_string(Game::EPECAlgorithmParams al);
-
-string to_string(Game::EPECAddPolyMethod add);
 }; // namespace std

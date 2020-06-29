@@ -19,14 +19,14 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 ############################################
 ################ DO NOT MODIFY #############
 ############################################
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 3.2)
 option(CXX "enable C++ compilation" ON)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_VISIBILITY_PRESET hidden)
-set(CMAKE_C_VISIBILITY_PRESET hidden)
-set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
+set(EXECUTABLE_OUTPUT_PATH "bin")
+#set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+#set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 project(
         ZERO
         VERSION 1.0.0
@@ -52,22 +52,23 @@ configure_file(src/support/CMakeConfig.h.in include/support/version.h)
 
 #ZERO - Main library
 add_library(ZERO
+            src/support/utils.cpp
+            src/support/codes.cpp
             src/games/games.cpp
-            src/games/epec.cpp
-            src/games/qpmp.cpp
-            src/games/ipg.cpp
-            src/games/nash.cpp
             src/lcp/lcp.cpp
             src/lcp/poly_lcp.cpp
-            src/support/utils.cpp
+            src/lcp/outer_lcp.cpp
+            src/games/qpmp.cpp
+            src/games/nash.cpp
+            src/games/epec.cpp
+            #src/games/ipg.cpp
             src/interfaces/epec_models.cpp
             src/algorithms/EPEC/epec_polybase.cpp
             src/algorithms/EPEC/epec_innerapproximation.cpp
             src/algorithms/EPEC/epec_combinatorialpne.cpp
             src/algorithms/EPEC/epec_fullenumeration.cpp
             src/algorithms/EPEC/epec_outerapproximation.cpp
-            src/lcp/outer_lcp.cpp
-            src/algorithms/IPG/ipg_oracle.cpp
+            #src/algorithms/IPG/ipg_oracle.cpp
             )
 target_include_directories(ZERO PRIVATE src)
 set_target_properties(ZERO PROPERTIES
@@ -88,7 +89,7 @@ target_link_libraries(ZERO
 
 #EPEC Command line interface
 add_executable(EPECShell
-               src/shells/epec.cpp include/algorithms/IPG/ipg_oracle.h)
+               src/shells/epec.cpp)
 target_link_libraries(EPECShell
                       Boost::program_options
                       Boost::log Boost::log_setup

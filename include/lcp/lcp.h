@@ -11,7 +11,20 @@
 #include <memory>
 #include <set>
 
-// using namespace Game;
+namespace Data {
+namespace LCP {
+
+enum class PolyhedraStrategy {
+  /** @brief When expanding the feasible region of an approximated LCP, this
+   * enum controls the strategy being used.
+   */
+  Sequential = 0,        ///< Adds polyhedra by selecting them in order
+  ReverseSequential = 1, ///< Adds polyhedra by selecting them in reverse
+  ///< Sequential order
+  Random = 2 ///< Adds the next polyhedron by selecting Random feasible one
+};
+}
+} // namespace Data
 
 namespace Game {
 
@@ -162,6 +175,10 @@ public:
   arma::vec zFromX(const arma::vec x);
 };
 } // namespace Game
+
+namespace std {
+string to_string(Data::LCP::PolyhedraStrategy add);
+}
 
 #include "lcp/outer_lcp.h"
 #include "lcp/poly_lcp.h"

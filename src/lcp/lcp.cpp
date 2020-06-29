@@ -160,8 +160,8 @@ void Game::LCP::makeRelaxed()
       if (_A.n_cols != nC || _A.n_rows != _b.n_rows) {
         BOOST_LOG_TRIVIAL(trace) << "(" << _A.n_rows << "," << _A.n_cols
                                  << ")\t" << _b.n_rows << " " << nC;
-        throw("Game::LCP::makeRelaxed: A and b are incompatible! Thrown "
-              "from makeRelaxed()");
+        throw ZEROException(ZEROErrorCode::InvalidData,
+                            "A and b are incompatible");
       }
       for (unsigned int i = 0; i < _A.n_rows; i++) {
         GRBLinExpr expr = 0;
@@ -175,20 +175,12 @@ void Game::LCP::makeRelaxed()
     }
     RlxdModel.update();
     this->MadeRlxdModel = true;
-  } catch (const char *e) {
-    std::cerr << "Error in Game::LCP::makeRelaxed: " << e << '\n';
-    throw;
-  } catch (std::string &e) {
-    std::cerr << "String: Error in Game::LCP::makeRelaxed: " << e << '\n';
-    throw;
-  } catch (std::exception &e) {
-    std::cerr << "Exception: Error in Game::LCP::makeRelaxed: " << e.what()
-              << '\n';
-    throw;
+
   } catch (GRBException &e) {
-    std::cerr << "GRBException: Error in Game::LCP::makeRelaxed: "
-              << e.getErrorCode() << "; " << e.getMessage() << '\n';
-    throw;
+    throw ZEROException(e);
+  } catch (...) {
+    throw ZEROException(ZEROErrorCode::Unknown,
+                        "Unknown exception in makeRelaxed()");
   }
 }
 
@@ -211,7 +203,8 @@ std::unique_ptr<GRBModel> Game::LCP::LCPasMIP(
  */
 {
   if (Fixes.size() != this->nR)
-    throw("Game::LCP::LCPasMIP: Bad size for Fixes in Game::LCP::LCPasMIP");
+    throw ZEROException(ZEROErrorCode::InvalidData,
+                        "Mismatch in size of fixes");
   std::vector<unsigned int> FixVar, FixEq;
   for (unsigned int i = 0; i < nR; i++) {
     if (Fixes[i] == 1)
@@ -316,20 +309,11 @@ Game::LCP::LCPasMIP(std::vector<unsigned int>
     if (solve)
       model->optimize();
     return model;
-  } catch (const char *e) {
-    std::cerr << "Error in Game::LCP::LCPasMIP: " << e << '\n';
-    throw;
-  } catch (std::string &e) {
-    std::cerr << "String: Error in Game::LCP::LCPasMIP: " << e << '\n';
-    throw;
-  } catch (std::exception &e) {
-    std::cerr << "Exception: Error in Game::LCP::LCPasMIP: " << e.what()
-              << '\n';
-    throw;
   } catch (GRBException &e) {
-    std::cerr << "GRBException: Error in Game::LCP::LCPasMIP: "
-              << e.getErrorCode() << "; " << e.getMessage() << '\n';
-    throw;
+    throw ZEROException(e);
+  } catch (...) {
+    throw ZEROException(ZEROErrorCode::Unknown,
+                        "Unknown exception in makeRelaxed()");
   }
   return nullptr;
 }
@@ -347,12 +331,14 @@ bool Game::LCP::errorCheck(
   const unsigned int nC_t = M.n_cols;
   if (throwErr) {
     if (nR_t != q.n_rows)
-      throw "Game::LCP::errorCheck: M and q have unequal number of rows";
+      throw ZEROException(ZEROErrorCode::InvalidData,
+                          "Mismatch in size of M and q (rows)");
     if (nR_t + NumberLeader != nC)
-      throw "Game::LCP::errorCheck: Inconsistency between number of leader "
-            "vars " +
-          std::to_string(NumberLeader) + ", number of rows " +
-          std::to_string(nR_t) + " and number of cols " + std::to_string(nC);
+      throw ZEROException(ZEROErrorCode::InvalidData,
+                          "Mismatch in size of M and q (columns) -- " +
+                              std::to_string(NumberLeader) +
+                              ", number of rows " + std::to_string(nR_t) +
+                              " and number of cols " + std::to_string(nC));
   }
   return (nR_t == q.n_rows && nR_t + NumberLeader == nC_t);
 }
@@ -485,21 +471,12 @@ std::unique_ptr<GRBModel> Game::LCP::LCPasQP(bool solve)
       int status = model->get(GRB_IntAttr_Status);
       if (status != GRB_OPTIMAL ||
           model->get(GRB_DoubleAttr_ObjVal) > this->Eps)
-        throw "Game::LCP::LCPasQP: LCP infeasible";
-    } catch (const char *e) {
-      std::cerr << "Error in Game::LCP::LCPasQP: " << e << '\n';
-      throw;
-    } catch (std::string &e) {
-      std::cerr << "String: Error in Game::LCP::LCPasQP: " << e << '\n';
-      throw;
-    } catch (std::exception &e) {
-      std::cerr << "Exception: Error in Game::LCP::LCPasQP: " << e.what()
-                << '\n';
-      throw;
+        throw ZEROException(ZEROErrorCode::Assertion, "LCP is infeasible");
     } catch (GRBException &e) {
-      std::cerr << "GRBException: Error in Game::LCP::LCPasQP: "
-                << e.getErrorCode() << "; " << e.getMessage() << '\n';
-      throw;
+      throw ZEROException(e);
+    } catch (...) {
+      throw ZEROException(ZEROErrorCode::Unknown,
+                          "Unknown exception in LCPasQP()");
     }
   }
   return model;
@@ -536,18 +513,16 @@ Game::LCP::MPECasMILP(const arma::sp_mat &C, const arma::vec &c,
   // Reset the solution limit. We need to solve to optimality
   model->set(GRB_IntParam_SolutionLimit, GRB_MAXINT);
   if (C.n_cols != x_minus_i.n_rows)
-    throw("Game::LCP::LCPasMILP: Bad size of x_minus_i");
+    throw ZEROException(ZEROErrorCode::InvalidData, "x_minus_i size mismatch");
   if (c.n_rows != C.n_rows)
-    throw("Game::LCP::LCPasMILP: Bad size of c");
+    throw ZEROException(ZEROErrorCode::InvalidData, "c size mismatch");
   arma::vec Cx(c.n_rows, arma::fill::zeros);
   try {
     Cx = C * x_minus_i;
   } catch (std::exception &e) {
-    std::cerr << "Exception in Game::LCP::MPECasMILP: " << e.what() << '\n';
-    throw;
+    throw ZEROException(ZEROErrorCode::Numeric, e.what());
   } catch (std::string &e) {
-    std::cerr << "Exception in Game::LCP::MPECasMILP: " << e << '\n';
-    throw;
+    throw ZEROException(ZEROErrorCode::Numeric, e);
   }
   arma::vec obj = c + Cx;
   GRBLinExpr expr{0};
@@ -631,13 +606,14 @@ void Game::LCP::save(std::string filename, bool erase) const {
 
 long int Game::LCP::load(std::string filename, long int pos) {
   if (!this->Env)
-    throw("Error in LCP::load: To load LCP from file, it has to be "
-          "constructed using LCP(GRBEnv*) constructor");
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        " To load LCP from file, it has to be constructed "
+                        "using LCP(GRBEnv*) constructor");
 
   std::string headercheck;
   pos = Utils::appendRead(headercheck, filename, pos);
   if (headercheck != "LCP")
-    throw("Error in LCP::load: In valid header - ") + headercheck;
+    throw ZEROException(ZEROErrorCode::IOError, "Invalid header");
 
   arma::sp_mat M_t, A;
   arma::vec q_t, b;
@@ -757,9 +733,9 @@ void Game::LCP::addCustomCuts(
    */
 
   if (this->_A.n_cols != A.n_cols)
-    throw("Error in LCP::addCustomCuts: mismatch of A columns");
+    throw ZEROException(ZEROErrorCode::InvalidData, "Mismatch in A columns");
   if (b.size() != A.n_rows)
-    throw("Error in LCP::addCustomCuts: mismatch of A rows and b columns");
+    throw ZEROException(ZEROErrorCode::InvalidData, "Mismatch in A and b rows");
 
   this->_Acut = arma::join_cols(this->_Acut, A);
   this->_bcut = arma::join_cols(this->_bcut, b);
@@ -777,20 +753,18 @@ bool Game::LCP::containCut(const arma::vec LHS, ///< [in] The LHS of the cut
    * LCP::_bcut, this method check if @p LHS and @p RHS are part of this
    * description
    */
-  if (LHS.size() != this->_Acut.n_cols)
-    return false;
-  for (int i = 0; i < this->_Acut.n_rows; ++i) {
-    bool res = true;
-    for (int j = 0; j < this->_Acut.n_cols; ++j) {
-      if (std::abs(LHS.at(j) - this->_Acut(i, j)) > 1e-5) {
-        res = false;
-        break;
-      }
-      if (res && std::abs(this->_bcut.at(i) - RHS) < 1e-5) {
-        return true;
-        throw;
-      }
-    }
+  return Utils::containsConstraint(this->_Acut, this->_bcut, LHS, RHS, tol);
+}
+
+std::string std::to_string(const Data::LCP::PolyhedraStrategy add) {
+  switch (add) {
+  case Data::LCP::PolyhedraStrategy::Sequential:
+    return std::string("Sequential");
+  case Data::LCP::PolyhedraStrategy::ReverseSequential:
+    return std::string("ReverseSequential");
+  case Data::LCP::PolyhedraStrategy::Random:
+    return std::string("Random");
+  default:
+    return std::string("Unknown");
   }
-  return false;
 }

@@ -1,4 +1,5 @@
 #include "lcp/poly_lcp.h"
+#include "zero.h"
 #include <algorithm>
 #include <armadillo>
 #include <boost/log/trivial.hpp>
@@ -151,8 +152,7 @@ bool Game::PolyLCP::addPolyFromEncoding(
         std::unique_ptr<arma::vec>(new arma::vec(nR, arma::fill::zeros));
     for (unsigned int i = 0; i < this->nR; i++) {
       if (encoding.at(i) == 0) {
-        throw("Error in Game::PolyLCP::addPolyFromEncoding. 0s not allowed in "
-              "argument vector");
+        throw ZEROException(ZEROErrorCode::InvalidData, "Non-allowed encoding");
       }
       if (encoding.at(i) == 1) // Equation to be fixed top zero
       {
@@ -237,7 +237,7 @@ Game::PolyLCP &Game::PolyLCP::addPoliesFromEncoding(
 }
 
 unsigned long int Game::PolyLCP::getNextPoly(
-    Game::EPECAddPolyMethod
+    Data::LCP::PolyhedraStrategy
         method ///< The method used to add the next polyedron
 ) {
   /**
@@ -247,7 +247,7 @@ unsigned long int Game::PolyLCP::getNextPoly(
    */
 
   switch (method) {
-  case Game::EPECAddPolyMethod::Sequential: {
+  case Data::LCP::PolyhedraStrategy::Sequential: {
     while (this->SequentialPolyCounter < this->MaxTheoreticalPoly) {
       const auto isAll =
           AllPolyhedra.find(this->SequentialPolyCounter) != AllPolyhedra.end();
@@ -260,7 +260,7 @@ unsigned long int Game::PolyLCP::getNextPoly(
     }
     return this->MaxTheoreticalPoly;
   } break;
-  case Game::EPECAddPolyMethod::ReverseSequential: {
+  case Data::LCP::PolyhedraStrategy::ReverseSequential: {
     while (this->ReverseSequentialPolyCounter >= 0) {
       const auto isAll =
           AllPolyhedra.find(this->ReverseSequentialPolyCounter) !=
@@ -275,7 +275,7 @@ unsigned long int Game::PolyLCP::getNextPoly(
     }
     return this->MaxTheoreticalPoly;
   } break;
-  case Game::EPECAddPolyMethod::Random: {
+  case Data::LCP::PolyhedraStrategy::Random: {
     static std::mt19937 engine(this->AddPolyMethodSeed);
     std::uniform_int_distribution<unsigned long int> dist(
         0, this->MaxTheoreticalPoly - 1);
@@ -292,10 +292,13 @@ unsigned long int Game::PolyLCP::getNextPoly(
     }
   }
   }
+  // This shouldn't happen
+  return -1;
 }
 
 std::set<std::vector<short int>>
-Game::PolyLCP::addAPoly(unsigned long int nPoly, Game::EPECAddPolyMethod method,
+Game::PolyLCP::addAPoly(unsigned long int nPoly,
+                        Data::LCP::PolyhedraStrategy method,
                         std::set<std::vector<short int>> polyhedra) {
   /**
    * Tries to add at most @p nPoly number of polyhedra to the inner
@@ -325,10 +328,7 @@ Game::PolyLCP::addAPoly(unsigned long int nPoly, Game::EPECAddPolyMethod method,
     return polyhedra;
 
   if (nPoly < 0) // There is no way that this can happen!
-  {
-    BOOST_LOG_TRIVIAL(error) << "nPoly can't be negative, i.e., " << nPoly;
-    throw("Error in Game::PolyLCP::addAPoly: nPoly reached a negative value!");
-  }
+    throw ZEROException(ZEROErrorCode::InvalidData, "nPoly is negative");
 
   bool complete{false};
   while (!complete) {
@@ -422,12 +422,10 @@ unsigned int Game::PolyLCP::convPolyPosition(const unsigned long int i) const {
    * variables are added for extended formulation and the added variables c
    */
   const unsigned int nPoly = this->convNumPoly();
-  if (i > nPoly) {
-    BOOST_LOG_TRIVIAL(error) << "Error in Game::PolyLCP::convPolyPosition: "
-                                "Invalid argument. Out of bounds for i";
-    throw("Error in Game::PolyLCP::convPolyPosition: Invalid "
-          "argument. Out of bounds for i");
-  }
+  if (i > nPoly)
+    throw ZEROException(ZEROErrorCode::OutOfRange,
+                        "Argument i is out of range");
+
   const unsigned int nC = this->M.n_cols;
   return nC + i * nC;
 }
@@ -445,10 +443,10 @@ unsigned int Game::PolyLCP::convPolyWeight(const unsigned long int i) const {
   if (nPoly <= 1) {
     return 0;
   }
-  if (i > nPoly) {
-    throw("Error in Game::PolyLCP::convPolyWeight: "
-          "Invalid argument. Out of bounds for i");
-  }
+  if (i > nPoly)
+    throw ZEROException(ZEROErrorCode::OutOfRange,
+                        "Argument i is out of range");
+
   const unsigned int nC = this->M.n_cols;
 
   return nC + nPoly * nC + i;
@@ -526,20 +524,8 @@ bool Game::PolyLCP::checkPolyFeas(
       InfeasiblePoly.insert(encodingNumber);
       return false;
     }
-  } catch (const char *e) {
-    std::cerr << "Error in Game::PolyLCP::checkPolyFeas: " << e << '\n';
-    throw;
-  } catch (std::string e) {
-    std::cerr << "String: Error in Game::PolyLCP::checkPolyFeas: " << e << '\n';
-    throw;
-  } catch (std::exception &e) {
-    std::cerr << "Exception: Error in Game::PolyLCP::checkPolyFeas: "
-              << e.what() << '\n';
-    throw;
   } catch (GRBException &e) {
-    std::cerr << "GRBException: Error in Game::PolyLCP::checkPolyFeas: "
-              << e.getErrorCode() << ": " << e.getMessage() << '\n';
-    throw;
+    throw ZEROException(e);
   }
   return false;
 }

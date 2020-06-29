@@ -1,10 +1,9 @@
 #pragma once
 
-#include "algorithms/algorithms.h"
-#include "games.h"
+#include "zero.h"
 #include "interfaces/epec_models.h"
 #include "lcp/lcp.h"
-#include "zero.h"
+#include "algorithms/EPEC/epec_algorithms.h"
 #include <armadillo>
 #include <boost/log/core.hpp>
 #include <boost/log/expressions.hpp>

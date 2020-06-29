@@ -44,20 +44,10 @@ void Game::IP_Param::makeModel() {
     }
     model->update();
     model->set(GRB_IntParam_OutputFlag, 0);
-  } catch (const char *e) {
-    std::cerr << " Error in Game::IP_Param::makeModel: " << e << '\n';
-    throw;
-  } catch (std::string &e) {
-    std::cerr << "String: Error in Game::IP_Param::makeModel: " << e << '\n';
-    throw;
-  } catch (std::exception &e) {
-    std::cerr << "Exception: Error in Game::IP_Param::makeModel: " << e.what()
-              << '\n';
-    throw;
+
   } catch (GRBException &e) {
-    std::cerr << "GRBException: Error in Game::IP_Param::makeModel: "
-              << e.getErrorCode() << "; " << e.getMessage() << '\n';
-    throw;
+    throw ZEROException(ZEROErrorCode::SolverError,
+                        std::to_string(e.getErrorCode()) + e.getMessage());
   }
   this->madeModel = true;
 }
@@ -77,8 +67,9 @@ std::unique_ptr<GRBModel> Game::IP_Param::solveFixed(
 {
   /// compatible with the Game::IP_Param definition.
   if (x.size() != this->Nx)
-    throw "Game::IP_Param::solveFixed: Invalid argument size: " +
-        std::to_string(x.size()) + " != " + std::to_string(Nx);
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "Invalid argument size: " + std::to_string(x.size()) +
+                            " != " + std::to_string(Nx));
   std::unique_ptr<GRBModel> model(new GRBModel(this->IPModel));
   try {
     GRBQuadExpr obj = model->getObjective();
@@ -95,20 +86,8 @@ std::unique_ptr<GRBModel> Game::IP_Param::solveFixed(
     model->set(GRB_IntParam_OutputFlag, 0);
     if (solve)
       model->optimize();
-  } catch (const char *e) {
-    std::cerr << " Error in Game::IP_Param::solveFixed: " << e << '\n';
-    throw;
-  } catch (std::string &e) {
-    std::cerr << "String: Error in Game::IP_Param::solveFixed: " << e << '\n';
-    throw;
-  } catch (std::exception &e) {
-    std::cerr << "Exception: Error in Game::IP_Param::solveFixed: " << e.what()
-              << '\n';
-    throw;
   } catch (GRBException &e) {
-    std::cerr << "GRBException: Error in Game::IP_Param::solveFixed: "
-              << e.getErrorCode() << "; " << e.getMessage() << '\n';
-    throw;
+    throw ZEROException(e);
   }
   return model;
 }
@@ -117,19 +96,7 @@ Game::IP_Param &Game::IP_Param::addDummy(unsigned int pars, unsigned int vars,
                                          int position) {
 
   // Call the superclass function
-  try {
-    MP_Param::addDummy(pars, vars, position);
-  } catch (const char *e) {
-    std::cerr << " Error in Game::IP_Param::addDummy: " << e << '\n';
-    throw;
-  } catch (std::string &e) {
-    std::cerr << "String: Error in Game::IP_Param::addDummy: " << e << '\n';
-    throw;
-  } catch (std::exception &e) {
-    std::cerr << "Exception: Error in Game::IP_Param::addDummy: " << e.what()
-              << '\n';
-    throw;
-  }
+  MP_Param::addDummy(pars, vars, position);
   return *this;
 }
 
@@ -139,16 +106,11 @@ Game::IP_Param &Game::IP_Param::set(const arma::sp_mat &C,
                                     const std::vector<int> &integers)
 /// Setting the data, while keeping the input objects intact
 {
-  try {
-    this->Q.zeros(0);
-    this->A.zeros(0);
-    this->set(Q, C, A, B, c, b);
-    this->bounds = bounds;
-    this->integers = integers;
-  } catch (std::string &e) {
-    std::cerr << "String: " << e << '\n';
-    throw("Error in IP_Param::set: Invalid Data");
-  }
+  this->Q.zeros(0);
+  this->A.zeros(0);
+  this->set(Q, C, A, B, c, b);
+  this->bounds = bounds;
+  this->integers = integers;
   return *this;
 }
 
@@ -159,12 +121,7 @@ Game::IP_Param &Game::IP_Param::set(arma::sp_mat &C, arma::sp_mat &&B,
 /// Faster means to set data. But the input objects might be corrupted now.
 {
   this->madeModel = false;
-  try {
-    MP_Param::set(Q, C, A, B, c, b);
-  } catch (std::string &e) {
-    std::cerr << "String: " << e << '\n';
-    throw("Error in IP_Param::set: Invalid Data");
-  }
+  MP_Param::set(Q, C, A, B, c, b);
   return *this;
 }
 
@@ -175,7 +132,9 @@ Game::IP_Param &Game::IP_Param::set(QP_Objective &&obj, QP_Constraints &&cons,
 /// struct Game::QP_Constraints.
 {
   if (integers.empty())
-    throw("Error in IP_Param::set: Invalid integer vector");
+    throw ZEROException(ZEROErrorCode::InvalidData,
+                        "Invalid vector of integers. Refer to QP_Param is no "
+                        "integers are involved");
   return this->set(std::move(obj.C), std::move(cons.B), std::move(cons.b),
                    std::move(obj.c), std::move(bounds),
                    std::move(this->integers));
@@ -209,9 +168,9 @@ double Game::IP_Param::computeObjective(const arma::vec &y, const arma::vec &x,
    * constraints of the problem, namely @f$Ax + By \leq b@f$.
    */
   if (y.n_rows != this->getNy())
-    throw("Error in QP_Param::computeObjective: Invalid size of y");
+    throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of y");
   if (x.n_rows != this->getNx())
-    throw("Error in QP_Param::computeObjective: Invalid size of x");
+    throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of x");
   if (checkFeas) {
     arma::vec slack = B * y - b;
     if (slack.n_rows) // if infeasible
@@ -229,8 +188,7 @@ double Game::IP_Param::computeObjectiveWithoutOthers(const arma::vec &y) const {
    * Computes @f$c^Ty @f$ given the input values @p y;
    */
   if (y.n_rows != this->getNy())
-    throw(
-        "Error in QP_Param::computeObjectiveWithoutOthers: Invalid size of y");
+    throw ZEROException(ZEROErrorCode::Assertion, "Invalid size of y");
   arma::vec obj = c.t() * y;
   return obj(0);
 }
@@ -242,11 +200,13 @@ void Game::IP_Param::addConstraints(
    * This method stores a description of the new cuts of @p Ain (and
    * RHS @p bin) in B and b, respectively
    */
-  if (this->B.n_cols != A.n_cols)
-    throw("Error in Game::IP_Param::addConstraints: mismatch of A columns");
-  if (b.size() != A.n_rows)
-    throw("Error in Game::IP_Param::addConstraints: mismatch of A rows and b "
-          "columns");
+  if (this->B.n_cols != Ain.n_cols)
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "Mismatch between the variables of the input "
+                        "constraints and the stored ones");
+  if (bin.size() != Ain.n_rows)
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "Invalid number of rows between Ain and Bin");
 
   this->B = arma::join_cols(this->B, Ain);
   this->b = arma::join_cols(this->b, bin);
@@ -263,33 +223,6 @@ void Game::IP_Param::addConstraints(
     }
     this->IPModel.update();
   }
-}
-
-bool Game::IP_Param::containsConstraint(
-    const arma::vec Ai, ///< [in] The LHS of the cut
-    const double bi,    ///< [in] The rHS of the cut
-    double tol          ///< [in] optional tolerance
-) {
-  /**
-   * Given the IP_Param, this method checks if @p Ai  and @p bi are part of B
-   * and b respectively. description
-   */
-  if (Ai.size() != this->B.n_cols)
-    return false;
-  for (int i = 0; i < this->B.n_rows; ++i) {
-    bool res = true;
-    for (int j = 0; j < this->B.n_cols; ++j) {
-      if (std::abs(Ai.at(j) - this->B.at(i, j)) > 1e-5) {
-        res = false;
-        break;
-      }
-      if (res && std::abs(this->b.at(i) - bi) < 1e-5) {
-        return true;
-        throw;
-      }
-    }
-  }
-  return false;
 }
 
 Game::IPG::IPG(GRBEnv *env, ///< A pointer to the Gurobi Environment
@@ -335,8 +268,7 @@ void Game::IPG::getXMinusI(
    * method returns x^{-i}
    */
   if (this->NumVariables != x.size())
-    throw("Error in Game::IPG::getXMinusI:  Wrong size for the input parameter "
-          "x.");
+    throw ZEROException(ZEROErrorCode::Assertion, "Invalid size of x");
 
   xMinusI.zeros(this->NumVariables - this->PlayerVariables.at(i));
 
@@ -361,8 +293,7 @@ void Game::IPG::getXofI(
    * method returns x^i
    */
   if (this->NumVariables != x.size())
-    throw("Error in Game::IPG::getXofI:  Wrong size for the input parameter "
-          "x.");
+    throw ZEROException(ZEROErrorCode::Assertion, "Invalid size of x");
 
   int count = 0;
   for (unsigned int j = 0; j < i; ++j)

@@ -4,6 +4,7 @@
 #include "algorithms/EPEC/epec_fullenumeration.h"
 #include "algorithms/EPEC/epec_innerapproximation.h"
 #include "algorithms/EPEC/epec_outerapproximation.h"
+#include "zero.h"
 #include <algorithm>
 #include <armadillo>
 #include <array>
@@ -48,44 +49,28 @@ void Game::EPEC::finalize()
   /// calling Game::EPEC::finalize()
   this->preFinalize();
 
-  try {
-    this->ConvexHullVariables = std::vector<unsigned int>(this->NumPlayers, 0);
-    this->Stats.FeasiblePolyhedra =
-        std::vector<unsigned int>(this->NumPlayers, 0);
-    this->computeLeaderLocations(this->numMCVariables);
-    // Initialize leader objective and PlayersQP
-    this->LeaderObjective =
-        std::vector<std::shared_ptr<Game::QP_Objective>>(NumPlayers);
-    this->LeaderObjectiveConvexHull =
-        std::vector<std::shared_ptr<Game::QP_Objective>>(NumPlayers);
-    this->PlayersQP = std::vector<std::shared_ptr<Game::QP_Param>>(NumPlayers);
-    this->PlayersLCP = std::vector<std::shared_ptr<Game::LCP>>(NumPlayers);
-    this->SizesWithoutHull = std::vector<unsigned int>(NumPlayers, 0);
+  this->ConvexHullVariables = std::vector<unsigned int>(this->NumPlayers, 0);
+  this->Stats.AlgorithmData.FeasiblePolyhedra.set(
+      std::vector<unsigned int>(this->NumPlayers, 0));
+  this->computeLeaderLocations(this->numMCVariables);
+  // Initialize leader objective and PlayersQP
+  this->LeaderObjective =
+      std::vector<std::shared_ptr<Game::QP_Objective>>(NumPlayers);
+  this->LeaderObjectiveConvexHull =
+      std::vector<std::shared_ptr<Game::QP_Objective>>(NumPlayers);
+  this->PlayersQP = std::vector<std::shared_ptr<Game::QP_Param>>(NumPlayers);
+  this->PlayersLCP = std::vector<std::shared_ptr<Game::LCP>>(NumPlayers);
+  this->SizesWithoutHull = std::vector<unsigned int>(NumPlayers, 0);
 
-    for (unsigned int i = 0; i < this->NumPlayers; i++) {
-      this->addDummyLead(i);
-      this->LeaderObjective.at(i) = std::make_shared<Game::QP_Objective>();
-      this->LeaderObjectiveConvexHull.at(i) =
-          std::make_shared<Game::QP_Objective>();
-      this->makeObjectivePlayer(i, *this->LeaderObjective.at(i).get());
-      // this->PlayersLCP.at(i) =std::shared_ptr<Game::PolyLCP>(new
-      // PolyLCP(this->Env,*this->PlayersLowerLevels.at(i).get()));
-      this->SizesWithoutHull.at(i) = *this->LocEnds.at(i);
-    }
-
-  } catch (const char *e) {
-    std::cerr << e << '\n';
-    throw;
-  } catch (std::string &e) {
-    std::cerr << "String in Game::EPEC::finalize : " << e << '\n';
-    throw;
-  } catch (GRBException &e) {
-    std::cerr << "GRBException in Game::EPEC::finalize : " << e.getErrorCode()
-              << ": " << e.getMessage() << '\n';
-    throw;
-  } catch (std::exception &e) {
-    std::cerr << "Exception in Game::EPEC::finalize : " << e.what() << '\n';
-    throw;
+  for (unsigned int i = 0; i < this->NumPlayers; i++) {
+    this->addDummyLead(i);
+    this->LeaderObjective.at(i) = std::make_shared<Game::QP_Objective>();
+    this->LeaderObjectiveConvexHull.at(i) =
+        std::make_shared<Game::QP_Objective>();
+    this->makeObjectivePlayer(i, *this->LeaderObjective.at(i).get());
+    // this->PlayersLCP.at(i) =std::shared_ptr<Game::PolyLCP>(new
+    // PolyLCP(this->Env,*this->PlayersLowerLevels.at(i).get()));
+    this->SizesWithoutHull.at(i) = *this->LocEnds.at(i);
   }
 
   this->Finalized = true;
@@ -105,28 +90,12 @@ void Game::EPEC::addDummyLead(
   // this->Locations.at(i).at(Models::LeaderVars::End);
 
   if (nEPECvars < nThisCountryvars)
-    throw("String in Game::EPEC::addDummyLead: Invalid variable counts " +
-          std::to_string(nEPECvars) + " and " +
-          std::to_string(nThisCountryvars));
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "Mismatch between variable counts " +
+                            std::to_string(nEPECvars) + " and " +
+                            std::to_string(nThisCountryvars));
 
-  try {
-    this->PlayersLowerLevels.at(i).get()->addDummy(nEPECvars -
-                                                   nThisCountryvars);
-  } catch (const char *e) {
-    std::cerr << e << '\n';
-    throw;
-  } catch (std::string &e) {
-    std::cerr << "String in Game::EPEC::add_Dummy_All_Lead : " << e << '\n';
-    throw;
-  } catch (GRBException &e) {
-    std::cerr << "GRBException in Game::EPEC::add_Dummy_All_Lead : "
-              << e.getErrorCode() << ": " << e.getMessage() << '\n';
-    throw;
-  } catch (std::exception &e) {
-    std::cerr << "Exception in Game::EPEC::add_Dummy_All_Lead : " << e.what()
-              << '\n';
-    throw;
-  }
+  this->PlayersLowerLevels.at(i).get()->addDummy(nEPECvars - nThisCountryvars);
 }
 
 void Game::EPEC::computeLeaderLocations(const unsigned int addSpaceForMC) {
@@ -224,10 +193,11 @@ void Game::EPEC::getXWithoutHull(const arma::vec &x,
 std::unique_ptr<GRBModel> Game::EPEC::respond(const unsigned int i,
                                               const arma::vec &x) const {
   if (!this->Finalized)
-    throw("Error in Game::EPEC::respond: Model not Finalized");
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "The model was not finalized");
 
   if (i >= this->NumPlayers)
-    throw("Error in Game::EPEC::respond: Invalid country number");
+    throw ZEROException(ZEROErrorCode::OutOfRange, "Country number is invalid");
 
   arma::vec solOther;
   this->getXMinusI(x, i, solOther);
@@ -332,9 +302,11 @@ const void Game::EPEC::makePlayerQP(const unsigned int i)
   // "
   // << this->AllLeadPars[i].name << '\n';
   if (!this->Finalized)
-    throw("Error in Game::EPEC::makePlayerQP: Model not Finalized");
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "The model was not finalized");
   if (i >= this->NumPlayers)
-    throw("Error in Game::EPEC::makePlayerQP: Invalid country number");
+    throw ZEROException(ZEROErrorCode::OutOfRange,
+                        "The player id is out of range");
   // if (!this->PlayersQP.at(i).get())
   {
     this->PlayersQP.at(i) = std::make_shared<Game::QP_Param>(this->Env);
@@ -375,35 +347,19 @@ void Game::EPEC::makePlayersQPs()
     // Location details
     this->ConvexHullVariables.at(i) = convHullVarCount;
     // All other players' QP
-    try {
-      if (this->NumPlayers > 1) {
-        for (unsigned int j = 0; j < this->NumPlayers; j++) {
-          if (i != j) {
-            this->PlayersQP.at(j)->addDummy(
-                convHullVarCount, 0,
-                this->PlayersQP.at(j)->getNx() -
-                    this->numMCVariables); // The position to add parameters is
-            // towards the end of all parameters,
-            // giving space only for the
-            // numMCVariables number of market
-            // clearing variables
-          }
+    if (this->NumPlayers > 1) {
+      for (unsigned int j = 0; j < this->NumPlayers; j++) {
+        if (i != j) {
+          this->PlayersQP.at(j)->addDummy(
+              convHullVarCount, 0,
+              this->PlayersQP.at(j)->getNx() -
+                  this->numMCVariables); // The position to add parameters is
+          // towards the end of all parameters,
+          // giving space only for the
+          // numMCVariables number of market
+          // clearing variables
         }
       }
-    } catch (const char *e) {
-      std::cerr << e << '\n';
-      throw;
-    } catch (std::string &e) {
-      std::cerr << "String in Game::EPEC::makePlayerQP : " << e << '\n';
-      throw;
-    } catch (GRBException &e) {
-      std::cerr << "GRBException in Game::EPEC::makePlayerQP : "
-                << e.getErrorCode() << ": " << e.getMessage() << '\n';
-      throw;
-    } catch (std::exception &e) {
-      std::cerr << "Exception in Game::EPEC::makePlayerQP : " << e.what()
-                << '\n';
-      throw;
     }
   }
   this->updateLocations();
@@ -416,7 +372,8 @@ void ::Game::EPEC::makeTheLCP() {
                                 "no country QP has been "
                                 "made."
                              << '\n';
-    throw;
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "No country QP has been made");
   }
   // Preliminary set up to get the LCP ready
   int Nvar =
@@ -434,10 +391,11 @@ void ::Game::EPEC::makeTheLCP() {
   this->TheLCP =
       std::unique_ptr<Game::LCP>(new Game::LCP(this->Env, *TheNashGame));
   BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makeTheLCP(): LCP is ready";
-  BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makeTheLCP(): Indicators set to "
-                           << this->Stats.AlgorithmParam.Indicators;
-  this->TheLCP->UseIndicators =
-      this->Stats.AlgorithmParam.Indicators; // Using indicator constraints
+  BOOST_LOG_TRIVIAL(trace)
+      << "Game::EPEC::makeTheLCP(): Indicators set to "
+      << this->Stats.AlgorithmData.IndicatorConstraints.get();
+  this->TheLCP->UseIndicators = this->Stats.AlgorithmData.IndicatorConstraints
+                                    .get(); // Using indicator constraints
 
   this->LCPModel = this->TheLCP->LCPasMIP(false);
   // this->LCPModel->setObjective(GRBLinExpr{0}, GRB_MINIMIZE);
@@ -467,10 +425,10 @@ bool Game::EPEC::computeNashEq(
   if (localTimeLimit > 0) {
     this->LCPModel->set(GRB_DoubleParam_TimeLimit, localTimeLimit);
   }
-  if (this->Stats.AlgorithmParam.BoundPrimals) {
+  if (this->Stats.AlgorithmData.BoundPrimals.get()) {
     for (unsigned int c = 0; c < this->TheNashGame->getNprimals(); c++) {
       this->LCPModel->getVarByName("x_" + std::to_string(c))
-          .set(GRB_DoubleAttr_UB, this->Stats.AlgorithmParam.BoundBigM);
+          .set(GRB_DoubleAttr_UB, this->Stats.AlgorithmData.BoundBigM.get());
     }
   }
 
@@ -478,25 +436,26 @@ bool Game::EPEC::computeNashEq(
     BOOST_LOG_TRIVIAL(info)
         << " Game::EPEC::computeNashEq: (PureNashEquilibrium flag is "
            "true) Searching for a pure NE.";
-    if (this->Stats.AlgorithmParam.PolyLcp)
+    if (this->Stats.AlgorithmData.Algorithm.get() !=
+        Data::EPEC::Algorithms::OuterApproximation)
       dynamic_cast<Algorithms::EPEC::PolyBase *>(this->Algorithm.get())
-          ->makeThePureLCP(this->Stats.AlgorithmParam.Indicators);
+          ->makeThePureLCP(
+              this->Stats.AlgorithmData.IndicatorConstraints.get());
   }
 
   this->LCPModel->set(GRB_IntParam_OutputFlag, 1);
   if (check)
     this->LCPModel->set(GRB_IntParam_SolutionLimit, GRB_MAXINT);
   this->LCPModel->optimize();
-  this->Stats.WallClockTime += this->LCPModel->get(GRB_DoubleAttr_Runtime);
+  this->Stats.WallClockTime.set(this->Stats.WallClockTime.get() +
+                                this->LCPModel->get(GRB_DoubleAttr_Runtime));
 
   // Search just for a feasible point
   try { // Try finding a Nash equilibrium for the approximation
     this->NashEquilibrium = this->TheLCP->extractSols(
         this->LCPModel.get(), SolutionZ, SolutionX, true);
   } catch (GRBException &e) {
-    BOOST_LOG_TRIVIAL(error)
-        << "GRBException in Game::EPEC::computeNashEq : " << e.getErrorCode()
-        << ": " << e.getMessage() << " ";
+    throw ZEROException(e);
   }
   if (this->NashEquilibrium) { // If a Nash equilibrium is found, then update
     // appropriately
@@ -527,25 +486,21 @@ bool Game::EPEC::computeNashEq(
         << "Game::EPEC::computeNashEq: no equilibrium has been found.";
     int status = this->LCPModel->get(GRB_IntAttr_Status);
     if (status == GRB_TIME_LIMIT)
-      this->Stats.Status = Game::EPECsolveStatus::TimeLimit;
+      this->Stats.Status = ZEROStatus::TimeLimit;
     else
-      this->Stats.Status = Game::EPECsolveStatus::NashEqNotFound;
+      this->Stats.Status = ZEROStatus::NashEqNotFound;
   }
   return this->NashEquilibrium;
 }
 
 bool Game::EPEC::warmstart(const arma::vec x) { //@todo complete implementation
 
-  if (x.size() < this->getNumVar()) {
-    BOOST_LOG_TRIVIAL(error)
-        << "Exception in Game::EPEC::warmstart: number of variables "
-           "does not fit this instance.";
-    throw;
-  }
+  if (x.size() < this->getNumVar())
+    throw ZEROException(ZEROErrorCode::OutOfRange,
+                        "The number of variables does not fit the instance");
+
   if (!this->Finalized) {
-    BOOST_LOG_TRIVIAL(error)
-        << "Exception in Game::EPEC::warmstart: EPEC is not Finalized.";
-    throw;
+    throw ZEROException(ZEROErrorCode::Assertion, "The EPEC was not finalized");
   }
   if (this->PlayersQP.front() == nullptr) {
     BOOST_LOG_TRIVIAL(warning)
@@ -595,40 +550,39 @@ const void Game::EPEC::findNashEq() {
 
   std::stringstream final_msg;
   if (!this->Finalized)
-    throw("Error in Game::EPEC::iterativeNash: Object not yet "
-          "Finalized. ");
+    throw ZEROException(ZEROErrorCode::Assertion, "The EPEC was not finalized");
 
-  if (this->Stats.Status != Game::EPECsolveStatus::Uninitialized) {
+  if (this->Stats.Status.get() != ZEROStatus::Uninitialized) {
     BOOST_LOG_TRIVIAL(error)
         << "Game::EPEC::findNashEq: a Nash Eq was "
            "already found. Calling this findNashEq might lead to errors!";
   }
 
   // Choosing the appropriate algorithm
-  switch (this->Stats.AlgorithmParam.Algorithm) {
+  switch (this->Stats.AlgorithmData.Algorithm.get()) {
 
-  case Game::EPECalgorithm::InnerApproximation: {
+  case Data::EPEC::Algorithms::InnerApproximation: {
     final_msg << "Inner approximation Algorithm completed. ";
     this->Algorithm = std::shared_ptr<Algorithms::EPEC::Algorithm>(
         new class Algorithms::EPEC::InnerApproximation(this->Env, this));
     this->Algorithm->solve();
   } break;
 
-  case Game::EPECalgorithm::CombinatorialPne: {
+  case Data::EPEC::Algorithms::CombinatorialPne: {
     final_msg << "CombinatorialPNE Algorithm completed. ";
     this->Algorithm = std::shared_ptr<Algorithms::EPEC::Algorithm>(
         new class Algorithms::EPEC::CombinatorialPNE(this->Env, this));
     this->Algorithm->solve();
   } break;
 
-  case Game::EPECalgorithm::OuterApproximation: {
+  case Data::EPEC::Algorithms::OuterApproximation: {
     final_msg << "Outer approximation Algorithm completed. ";
     this->Algorithm = std::shared_ptr<Algorithms::EPEC::Algorithm>(
         new class Algorithms::EPEC::OuterApproximation(this->Env, this));
     this->Algorithm->solve();
   } break;
 
-  case Game::EPECalgorithm::FullEnumeration: {
+  case Data::EPEC::Algorithms::FullEnumeration: {
     final_msg << "Full enumeration Algorithm completed. ";
     this->Algorithm = std::shared_ptr<Algorithms::EPEC::Algorithm>(
         new class Algorithms::EPEC::FullEnumeration(this->Env, this));
@@ -642,18 +596,19 @@ const void Game::EPEC::findNashEq() {
     this->Stats.NumNonZero = this->LCPModel->get(GRB_IntAttr_NumNZs);
   } // Assigning appropriate Status messages after solving
 
-  switch (this->Stats.Status) {
-  case Game::EPECsolveStatus::NashEqNotFound:
+  switch (this->Stats.Status.get()) {
+  case ZEROStatus::NashEqNotFound:
     final_msg << "No Nash equilibrium exists.";
     break;
-  case Game::EPECsolveStatus::NashEqFound: {
+  case ZEROStatus::NashEqFound: {
     final_msg << "Found a Nash equilibrium ("
-              << (this->Stats.PureNashEquilibrium == 0 ? "MNE" : "PNE") << ").";
+              << (this->Stats.PureNashEquilibrium.get() == 0 ? "MNE" : "PNE")
+              << ").";
   } break;
-  case Game::EPECsolveStatus::TimeLimit:
+  case ZEROStatus::TimeLimit:
     final_msg << "Nash equilibrium not found. Time limit attained";
     break;
-  case Game::EPECsolveStatus::Numerical:
+  case ZEROStatus::Numerical:
     final_msg << "Nash equilibrium not found. Numerical issues might affect "
                  "this result.";
     break;
@@ -664,22 +619,22 @@ const void Game::EPEC::findNashEq() {
   BOOST_LOG_TRIVIAL(info) << "Game::EPEC::findNashEq: " << final_msg.str();
 }
 
-void Game::EPEC::setAlgorithm(Game::EPECalgorithm algorithm)
+void Game::EPEC::setAlgorithm(Data::EPEC::Algorithms algorithm)
 /**
  * Decides the Algorithm to be used for solving the given instance of the
  * problem. The choice of algorithms are documented in Game::EPECalgorithm
  */
 {
-  this->Stats.AlgorithmParam.Algorithm = algorithm;
+  this->Stats.AlgorithmData.Algorithm.set(algorithm);
 }
 
-void Game::EPEC::setRecoverStrategy(Game::EPECRecoverStrategy strategy)
+void Game::EPEC::setRecoverStrategy(Data::EPEC::RecoverStrategy strategy)
 /**
  * Decides the Algorithm to be used for recovering a PNE out of the
  * InnerApproximation procedure.
  */
 {
-  this->Stats.AlgorithmParam.RecoverStrategy = strategy;
+  this->Stats.AlgorithmData.RecoverStrategy.set(strategy);
 }
 
 unsigned int Game::EPEC::getPositionLeadFoll(const unsigned int i,
@@ -710,8 +665,8 @@ double Game::EPEC::getValLeadFoll(const unsigned int i,
    * Get the value of the j-th variable in i-th leader
    */
   if (!this->LCPModel)
-    throw std::string("Error in Game::EPEC::getValLeadFoll: "
-                      "Game::EPEC::LCPModel not made and solved");
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "The LCP was not made nor solved");
   return this->LCPModel
       ->getVarByName("x_" + std::to_string(this->getPositionLeadFoll(i, j)))
       .get(GRB_DoubleAttr_X);
@@ -723,9 +678,36 @@ double Game::EPEC::getValLeadLead(const unsigned int i,
    * Get the value of the j-th non-follower variable in i-th leader
    */
   if (!this->LCPModel)
-    throw std::string("Error in Game::EPEC::getValLeadLead: "
-                      "Game::EPEC::LCPModel not made and solved");
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "The LCP was not made nor solved");
   return this->LCPModel
       ->getVarByName("x_" + std::to_string(this->getPositionLeadLead(i, j)))
       .get(GRB_DoubleAttr_X);
+}
+
+std::string std::to_string(const Data::EPEC::Algorithms al) {
+  switch (al) {
+  case Data::EPEC::Algorithms::FullEnumeration:
+    return std::string("FullEnumeration");
+  case Data::EPEC::Algorithms::InnerApproximation:
+    return std::string("InnerApproximation");
+  case Data::EPEC::Algorithms::CombinatorialPne:
+    return std::string("CombinatorialPNE");
+  case Data::EPEC::Algorithms::OuterApproximation:
+    return std::string("OuterApproximation");
+  default:
+    return std::string("UNKNOWN_ALGORITHM_") +
+           std::to_string(static_cast<int>(al));
+  }
+}
+
+std::string std::to_string(const Data::EPEC::RecoverStrategy strategy) {
+  switch (strategy) {
+  case Data::EPEC::RecoverStrategy::IncrementalEnumeration:
+    return std::string("IncrementalEnumeration");
+  case Data::EPEC::RecoverStrategy::Combinatorial:
+    return std::string("Combinatorial");
+  default:
+    return std::string("Unknown");
+  }
 }

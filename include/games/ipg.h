@@ -1,5 +1,6 @@
 #pragma once
-#include "qpmp.h"
+#include "zero.h"
+#include <algorithms/IPG/ipg_oracle.h>
 #include <armadillo>
 #include <gurobi_c++.h>
 #include <iostream>
@@ -26,10 +27,10 @@ class IP_Param : public MP_Param
 private:
   // Gurobi environment and model
   GRBEnv *Env;
-  GRBModel IPModel; ///< Stores the IP model associated with the object
-  arma::vec bounds; ///< Stores the explicit bounds on variables
+  GRBModel IPModel;          ///< Stores the IP model associated with the object
+  arma::vec bounds;          ///< Stores the explicit bounds on variables
   std::vector<int> integers; ///< Stores the indexes of integer variables
-  bool madeModel{false}; ///< True if the model has been made
+  bool madeModel{false};     ///< True if the model has been made
 
   // These methods should be inaccessible to the inheritor, since we have a
   // different structure.
@@ -62,14 +63,13 @@ public: // Constructors
     this->integers = integers;
     this->size();
     if (!this->dataCheck())
-      throw("Error in IP_Param::IP_Param: Invalid data for constructor");
+      throw ZEROException(ZEROErrorCode::InvalidData, "dataCheck() failed");
   }
 
   std::vector<int> getIntegers() const { return this->integers; }
   arma::vec getBounds() const { return this->bounds; }
   void makeModel();
   void addConstraints(const arma::sp_mat A, const arma::vec b);
-  bool containsConstraint(const arma::vec Ai, const double bi, double tol = 1e-5);
 
   /// Copy constructor
   IP_Param(const IP_Param &ipg)
@@ -144,20 +144,21 @@ protected: // Datafields
   ///< can be the equilibrium of an approximation, and not to the
   ///< original game
   std::chrono::high_resolution_clock::time_point InitTime;
-  EPECStatistics Stats; ///< Store run time information
+  Data::EPEC::EPECStatistics Stats; ///< Store run time information
   std::vector<arma::vec>
       Solution; ///< Solution variable values, for each player
 
 private:
   void getXMinusI(const arma::vec &x, const unsigned int &i,
                   arma::vec &xMinusI) const;
-  void getXofI(const arma::vec &x, const unsigned int &i, arma::vec &xOfI) const;
+  void getXofI(const arma::vec &x, const unsigned int &i,
+               arma::vec &xOfI) const;
 
   bool computeNashEq(double localTimeLimit = -1.0, bool check = false);
   void finalize();
 
 public: // functions
-
+  friend class Algorithms::IPG::Oracle;
   IPG() = delete;      // No default constructor
   IPG(IPG &) = delete; // Abstract class - no copy constructor
   ~IPG() = default;    // Destructor to free data
@@ -178,11 +179,11 @@ public: // functions
   const std::vector<arma::vec> getX() const { return this->Solution; }
 
   ///@brief Get the EPECStatistics object for the current instance
-  const Game::EPECStatistics getStatistics() const { return this->Stats; }
+  const Data::EPEC::EPECStatistics getStatistics() const { return this->Stats; }
 
-  void setAlgorithm(Game::EPECalgorithm algorithm);
+  void setAlgorithm(Data::EPEC::EPECalgorithm algorithm);
 
-  Game::EPECalgorithm getAlgorithm() const {
+  Data::EPEC::EPECalgorithm getAlgorithm() const {
     return this->Stats.AlgorithmParam.Algorithm;
   }
 

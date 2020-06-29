@@ -5,7 +5,6 @@
 #include <set>
 #include <string>
 
-
 namespace Game {
 
 class PolyLCP; // Forward declaration

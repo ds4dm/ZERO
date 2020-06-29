@@ -3,8 +3,8 @@
 #include <boost/log/trivial.hpp>
 
 bool Algorithms::EPEC::PolyBase::isSolved(unsigned int *countryNumber,
-                                    arma::vec *profitableDeviation,
-                                    double tol) const
+                                          arma::vec *profitableDeviation,
+                                          double tol) const
 /**
  * @briefs Checks if Game::EPEC is solved, otherwise it returns a proof.
  * @details
@@ -27,7 +27,7 @@ bool Algorithms::EPEC::PolyBase::isSolved(unsigned int *countryNumber,
   if (!this->EPECObject->NashEquilibrium)
     return false;
   if (tol < 0)
-    tol = this->EPECObject->Stats.AlgorithmParam.DeviationTolerance;
+    tol = this->EPECObject->Stats.AlgorithmData.DeviationTolerance.get();
   this->EPECObject->TheNashGame->isSolved(
       this->EPECObject->SolutionX, *countryNumber, *profitableDeviation, tol);
   arma::vec objvals = this->EPECObject->TheNashGame->computeQPObjectiveValues(
@@ -85,7 +85,8 @@ unsigned int Algorithms::EPEC::PolyBase::getPositionLeadLeadPoly(
   return LeaderStart + FollPoly + this->PolyLCP.at(i)->getLStart() + j;
 }
 
-unsigned int Algorithms::EPEC::PolyBase::getNumPolyLead(const unsigned int i) const {
+unsigned int
+Algorithms::EPEC::PolyBase::getNumPolyLead(const unsigned int i) const {
   /**
    * Get the number of polyhedra used in the inner approximation of the
    * feasible region of the i-th leader.*
@@ -96,7 +97,7 @@ unsigned int Algorithms::EPEC::PolyBase::getNumPolyLead(const unsigned int i) co
 
 unsigned int
 Algorithms::EPEC::PolyBase::getPositionProbab(const unsigned int i,
-                                        const unsigned int k) const {
+                                              const unsigned int k) const {
   /**
    * Get the position of the probability associated with the k-th polyhedron
    * (k-th pure strategy) of the i-th leader. However, if the leader has an
@@ -125,7 +126,7 @@ bool Algorithms::EPEC::PolyBase::isPureStrategy(const double tol) const {
 }
 
 bool Algorithms::EPEC::PolyBase::isPureStrategy(const unsigned int i,
-                                          const double tol) const {
+                                                const double tol) const {
   /**
    * Checks if the returned strategy leader is a pure strategy for the leader
    * i. The strategy is considered a pure strategy, if it is played with a
@@ -142,7 +143,7 @@ bool Algorithms::EPEC::PolyBase::isPureStrategy(const unsigned int i,
 
 std::vector<unsigned int>
 Algorithms::EPEC::PolyBase::mixedStrategyPoly(const unsigned int i,
-                                        const double tol) const
+                                              const double tol) const
 /**
  * Returns the indices of polyhedra feasible for the leader, from which
  * strategies are played with probability greater than Tolerance.
@@ -160,7 +161,7 @@ Algorithms::EPEC::PolyBase::mixedStrategyPoly(const unsigned int i,
 }
 
 double Algorithms::EPEC::PolyBase::getValProbab(const unsigned int i,
-                                          const unsigned int k) const {
+                                                const unsigned int k) const {
   /**
    * Get the probability associated with the k-th polyhedron
    * (k-th pure strategy) of the i-th leader.
@@ -174,16 +175,16 @@ double Algorithms::EPEC::PolyBase::getValProbab(const unsigned int i,
 }
 
 double Algorithms::EPEC::PolyBase::getValLeadFollPoly(const unsigned int i,
-                                                const unsigned int j,
-                                                const unsigned int k,
-                                                const double tol) const {
+                                                      const unsigned int j,
+                                                      const unsigned int k,
+                                                      const double tol) const {
   /**
    * For the i-th leader, gets the k-th pure strategy for i-th leader at
    * position j
    */
   if (!this->EPECObject->LCPModel)
-    throw std::string("Error in Algorithms::EPEC::PolyBase::getValLeadFollPoly: "
-                      "Algorithms::EPEC::PolyBase::LCPModel not made and solved");
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "LCPModel not made nor solved");
   const double probab = this->getValProbab(i, k);
   if (probab > 1 - tol)
     return this->EPECObject->getValLeadFoll(i, j);
@@ -197,16 +198,16 @@ double Algorithms::EPEC::PolyBase::getValLeadFollPoly(const unsigned int i,
 }
 
 double Algorithms::EPEC::PolyBase::getValLeadLeadPoly(const unsigned int i,
-                                                const unsigned int j,
-                                                const unsigned int k,
-                                                const double tol) const {
+                                                      const unsigned int j,
+                                                      const unsigned int k,
+                                                      const double tol) const {
   /**
    * For the i-th leader, gets the k-th pure strategy for i-th leader at
    * non-follower leader position j
    */
   if (!this->EPECObject->LCPModel)
-    throw std::string("Error in Algorithms::EPEC::PolyBase::getValLeadLeadPoly: "
-                      "Algorithms::EPEC::PolyBase::LCPModel not made and solved");
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "LCPModel not made nor solved");
   const double probab = this->getValProbab(i, k);
   if (probab > 1 - tol)
     return this->EPECObject->getValLeadLead(i, j);
@@ -269,15 +270,16 @@ void Algorithms::EPEC::PolyBase::makeThePureLCP(bool indicators) {
     }
     this->EPECObject->LCPModel->setObjective(objectiveTerm, GRB_MAXIMIZE);
     if (indicators) {
-      BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::PolyBase::makeThePureLCP: using "
-                                  "indicator constraints.";
+      BOOST_LOG_TRIVIAL(trace)
+          << "Algorithms::EPEC::PolyBase::makeThePureLCP: using "
+             "indicator constraints.";
     } else {
-      BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::PolyBase::makeThePureLCP: using "
-                                  "indicator constraints.";
+      BOOST_LOG_TRIVIAL(trace)
+          << "Algorithms::EPEC::PolyBase::makeThePureLCP: using "
+             "indicator constraints.";
     }
   } catch (GRBException &e) {
-    std::cerr << "GRBException in Algorithms::EPEC::PolyBase::makeThePureLCP : "
-              << e.getErrorCode() << ": " << e.getMessage() << '\n';
-    throw;
+    throw ZEROException(ZEROErrorCode::SolverError,
+                        std::to_string(e.getErrorCode()) + e.getMessage());
   }
 }

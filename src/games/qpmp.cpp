@@ -153,7 +153,7 @@ Game::MP_Param::set(const arma::sp_mat &Q, const arma::sp_mat &C,
   this->c = (c);
   this->b = (b);
   if (!finalize())
-    throw("Error in MP_Param::set: Invalid data");
+    throw ZEROException(ZEROErrorCode::InvalidData, "finalize() failed");
   return *this;
 }
 
@@ -169,7 +169,7 @@ Game::MP_Param &Game::MP_Param::set(arma::sp_mat &&Q, arma::sp_mat &&C,
   this->c = std::move(c);
   this->b = std::move(b);
   if (!finalize())
-    throw("Error in MP_Param::set: Invalid data");
+    throw ZEROException(ZEROErrorCode::InvalidData, "finalize() failed");
   return *this;
 }
 
@@ -312,8 +312,9 @@ std::unique_ptr<GRBModel> Game::QP_Param::solveFixed(
   this->makeyQy(); /// @throws GRBException if argument std::vector size is not
   /// compatible with the Game::QP_Param definition.
   if (x.size() != this->Nx)
-    throw "Game::QP_Param::solveFixed: Invalid argument size: " +
-        std::to_string(x.size()) + " != " + std::to_string(Nx);
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "Mismatch in x size: " + std::to_string(x.size()) +
+                            " != " + std::to_string(Nx));
   std::unique_ptr<GRBModel> model(new GRBModel(this->QuadModel));
   try {
     GRBQuadExpr yQy = model->getObjective();
@@ -336,20 +337,8 @@ std::unique_ptr<GRBModel> Game::QP_Param::solveFixed(
     model->set(GRB_IntParam_OutputFlag, 0);
     if (solve)
       model->optimize();
-  } catch (const char *e) {
-    std::cerr << " Error in Game::QP_Param::solveFixed: " << e << '\n';
-    throw;
-  } catch (std::string &e) {
-    std::cerr << "String: Error in Game::QP_Param::solveFixed: " << e << '\n';
-    throw;
-  } catch (std::exception &e) {
-    std::cerr << "Exception: Error in Game::QP_Param::solveFixed: " << e.what()
-              << '\n';
-    throw;
   } catch (GRBException &e) {
-    std::cerr << "GRBException: Error in Game::QP_Param::solveFixed: "
-              << e.getErrorCode() << "; " << e.getMessage() << '\n';
-    throw;
+    throw ZEROException(e);
   }
   return model;
 }
@@ -370,19 +359,8 @@ Game::QP_Param &Game::QP_Param::addDummy(unsigned int pars, unsigned int vars,
   // the NashGame.";
 
   // Call the superclass function
-  try {
-    MP_Param::addDummy(pars, vars, position);
-  } catch (const char *e) {
-    std::cerr << " Error in Game::QP_Param::addDummy: " << e << '\n';
-    throw;
-  } catch (std::string &e) {
-    std::cerr << "String: Error in Game::QP_Param::addDummy: " << e << '\n';
-    throw;
-  } catch (std::exception &e) {
-    std::cerr << "Exception: Error in Game::QP_Param::addDummy: " << e.what()
-              << '\n';
-    throw;
-  }
+  MP_Param::addDummy(pars, vars, position);
+
   return *this;
 }
 
@@ -398,8 +376,7 @@ unsigned int Game::QP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N,
  */
 {
   if (!this->dataCheck()) {
-    throw("Inconsistent data for KKT of Game::QP_Param::KKT");
-    return 0;
+    throw ZEROException(ZEROErrorCode::Assertion, "dataCheck() failed on KKT");
   }
   M = arma::join_cols( // In armadillo join_cols(A, B) is same as [A;B] in
                        // Matlab
@@ -422,12 +399,7 @@ Game::QP_Param::set(const arma::sp_mat &Q, const arma::sp_mat &C,
 /// Setting the data, while keeping the input objects intact
 {
   this->madeyQy = false;
-  try {
-    MP_Param::set(Q, C, A, B, c, b);
-  } catch (std::string &e) {
-    std::cerr << "String: " << e << '\n';
-    throw("Error in QP_Param::set: Invalid Data");
-  }
+  MP_Param::set(Q, C, A, B, c, b);
   return *this;
 }
 
@@ -437,12 +409,7 @@ Game::QP_Param &Game::QP_Param::set(arma::sp_mat &&Q, arma::sp_mat &&C,
 /// Faster means to set data. But the input objects might be corrupted now.
 {
   this->madeyQy = false;
-  try {
-    MP_Param::set(Q, C, A, B, c, b);
-  } catch (std::string &e) {
-    std::cerr << "String: " << e << '\n';
-    throw("Error in QP_Param::set: Invalid Data");
-  }
+  MP_Param::set(Q, C, A, B, c, b);
   return *this;
 }
 
@@ -485,9 +452,9 @@ double Game::QP_Param::computeObjective(const arma::vec &y, const arma::vec &x,
    * constraints of the problem, namely @f$Ax + By \leq b@f$.
    */
   if (y.n_rows != this->getNy())
-    throw("Error in QP_Param::computeObjective: Invalid size of y");
+    throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of y");
   if (x.n_rows != this->getNx())
-    throw("Error in QP_Param::computeObjective: Invalid size of x");
+    throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of x");
   if (checkFeas) {
     arma::vec slack = A * x + B * y - b;
     if (slack.n_rows) // if infeasible
@@ -505,8 +472,7 @@ double Game::QP_Param::computeObjectiveWithoutOthers(const arma::vec &y) const {
    * Computes @f$\frac{1}{2} y^TQy + c^Ty @f$ given the input values @p y;
    */
   if (y.n_rows != this->getNy())
-    throw(
-        "Error in QP_Param::computeObjectiveWithoutOthers: Invalid size of y");
+    throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of y");
   arma::vec obj = 0.5 * y.t() * Q * y + c.t() * y;
   return obj(0);
 }
@@ -549,7 +515,7 @@ long int Game::QP_Param::load(const std::string &filename, long int pos) {
   std::string headercheck;
   pos = Utils::appendRead(headercheck, filename, pos);
   if (headercheck != "QP_Param")
-    throw("Error in QP_Param::load: In valid header - ") + headercheck;
+    throw ZEROException(ZEROErrorCode::IOError, "Invalid header");
   pos = Utils::appendRead(Q, filename, pos, std::string("QP_Param::Q"));
   pos = Utils::appendRead(A, filename, pos, std::string("QP_Param::A"));
   pos = Utils::appendRead(B, filename, pos, std::string("QP_Param::B"));

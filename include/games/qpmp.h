@@ -140,7 +140,7 @@ public: // Constructors
     this->set(Q, C, A, B, c, b);
     this->size();
     if (!this->dataCheck())
-      throw("Error in QP_Param::QP_Param: Invalid data for constructor");
+      throw ZEROException(ZEROErrorCode::InvalidData, "dataCheck() failed");
   }
 
   /// Copy constructor
@@ -198,8 +198,9 @@ public: // Constructors
   /// @brief Loads the @p Game::QP_Param object stored in a file.
   long int load(const std::string &filename, long int pos = 0);
   double computeObjectiveWithoutOthers(const arma::vec &y) const;
-  arma::vec getConstraintViolations(const arma::vec x, const arma::vec y, double tol);
+  arma::vec getConstraintViolations(const arma::vec x, const arma::vec y,
+                                    double tol);
 };
 } // namespace Game
 
-#include "ipg.h"
+//#include "ipg.h"

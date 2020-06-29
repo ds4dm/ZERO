@@ -171,33 +171,33 @@ int main(int argc, char **argv) {
 
     switch (algorithm) {
     case 1: {
-      epec.setAlgorithm(Game::EPECalgorithm::InnerApproximation);
+      epec.setAlgorithm(Data::EPEC::Algorithms::InnerApproximation);
       if (aggressiveness != 1)
         epec.setAggressiveness(aggressiveness);
       switch (add) {
       case 1:
-        epec.setAddPolyMethod(Game::EPECAddPolyMethod::ReverseSequential);
+        epec.setAddPolyMethod(Data::LCP::PolyhedraStrategy::ReverseSequential);
         break;
       case 2:
-        epec.setAddPolyMethod(Game::EPECAddPolyMethod::Random);
+        epec.setAddPolyMethod(Data::LCP::PolyhedraStrategy::Random);
         break;
       default:
-        epec.setAddPolyMethod(Game::EPECAddPolyMethod::Sequential);
+        epec.setAddPolyMethod(Data::LCP::PolyhedraStrategy::Sequential);
       }
       if (recover != 0)
-        epec.setRecoverStrategy(Game::EPECRecoverStrategy::Combinatorial);
+        epec.setRecoverStrategy(Data::EPEC::RecoverStrategy::Combinatorial);
       break;
     }
     case 2: {
-      epec.setAlgorithm(Game::EPECalgorithm::CombinatorialPne);
+      epec.setAlgorithm(Data::EPEC::Algorithms::CombinatorialPne);
       break;
     }
     case 3: {
-      epec.setAlgorithm(Game::EPECalgorithm::OuterApproximation);
+      epec.setAlgorithm(Data::EPEC::Algorithms::OuterApproximation);
       break;
     }
     default:
-      epec.setAlgorithm(Game::EPECalgorithm::FullEnumeration);
+      epec.setAlgorithm(Data::EPEC::Algorithms::FullEnumeration);
     }
 
     //------------
@@ -206,16 +206,8 @@ int main(int argc, char **argv) {
       epec.addCountry(instance.Countries.at(j));
     epec.addTranspCosts(instance.TransportationCosts);
     epec.finalize();
-    // epec.makePlayerQP();
-    try {
-      epec.findNashEq();
-    } catch (string &s) {
-      std::cerr << "Error while finding Nash equilibrium: " << s << '\n';
-      ;
-    } catch (exception &e) {
-      std::cerr << "Error while finding Nash equilibrium: " << e.what() << '\n';
-      ;
-    }
+    epec.findNashEq();
+
     auto timeStop = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> timeDiff = timeStop - timeStart;
     double wallClockTime = timeDiff.count();
@@ -224,8 +216,8 @@ int main(int argc, char **argv) {
     // --------------------------------
     // WRITING STATISTICS AND SOLUTION
     // --------------------------------
-    Game::EPECStatistics stat = epec.getStatistics();
-    if (stat.Status == Game::EPECsolveStatus::NashEqFound)
+    auto stat = epec.getStatistics();
+    if (stat.Status.get() == ZEROStatus::NashEqFound)
       epec.writeSolution(writeLevel, resFile);
     ifstream existCheck(logFile);
     std::ofstream results(logFile, ios::app);
@@ -244,36 +236,40 @@ int main(int argc, char **argv) {
     existCheck.close();
 
     stringstream polyT;
-    copy(stat.FeasiblePolyhedra.begin(), stat.FeasiblePolyhedra.end(),
+    copy(stat.AlgorithmData.FeasiblePolyhedra.get().begin(),
+         stat.AlgorithmData.FeasiblePolyhedra.get().end(),
          ostream_iterator<int>(polyT, " "));
 
-    results << instanceFile << ";" << to_string(epec.getAlgorithm()) << ";"
+    results << instanceFile << ";"
+            << to_string(stat.AlgorithmData.Algorithm.get()) << ";"
             << instance.Countries.size() << ";[";
     for (auto &countrie : instance.Countries)
       results << " " << countrie.n_followers;
 
-    results << " ];" << to_string(epec.getStatistics().PureNashEquilibrium)
-            << ";" << to_string(pure) << ";" << to_string(stat.Status) << ";[ "
-            << polyT.str() << "];" << stat.NumVar << ";" << stat.NumConstraints
-            << ";" << stat.NumNonZero << ";" << wallClockTime << ";"
-            << realThreads << ";" << to_string(epec.getIndicators());
-    if (epec.getAlgorithm() == Game::EPECalgorithm::InnerApproximation) {
-      results << ";" << epec.getStatistics().NumIterations << ";"
-              << epec.getStatistics().LostIntermediateEq << ";"
-              << epec.getAggressiveness() << ";"
-              << to_string(epec.getAddPolyMethod()) << ";"
-              << epec.getStatistics().NumericalIssues << ";"
-              << to_string(epec.getBoundPrimals()) << ";" << epec.getBoundBigM()
-              << ";" << to_string(epec.getRecoverStrategy());
+    results << " ];"
+            << to_string(epec.getStatistics().PureNashEquilibrium.get()) << ";"
+            << to_string(pure) << ";" << to_string(stat.Status.get()) << ";[ "
+            << polyT.str() << "];" << stat.NumVar.get() << ";"
+            << stat.NumConstraints.get() << ";" << stat.NumNonZero.get() << ";"
+            << wallClockTime << ";" << realThreads << ";"
+            << to_string(stat.AlgorithmData.IndicatorConstraints.get());
+    if (stat.AlgorithmData.Algorithm.get() ==
+        Data::EPEC::Algorithms::InnerApproximation) {
+      results << ";" << stat.NumIterations.get() << ";"
+              << epec.getStatistics().AlgorithmData.LostIntermediateEq.get()
+              << ";" << stat.AlgorithmData.Aggressiveness.get() << ";"
+              << to_string(stat.AlgorithmData.PolyhedraStrategy.get()) << ";"
+              << stat.NumericalIssues.get() << ";"
+              << to_string(stat.AlgorithmData.BoundPrimals.get()) << ";"
+              << stat.AlgorithmData.BoundBigM.get() << ";"
+              << to_string(stat.AlgorithmData.RecoverStrategy.get());
     } else {
       results << ";-;-;-;-;-;-;-;-";
     }
     results << "\n";
     results.close();
-  } catch (GRBException &s) {
-    std::cerr << "ZERO-EPEC: Gurobi Exception: Code " << s.getErrorCode() << " -- "
-              << s.getMessage() << '\n';
-    ;
+  } catch (ZEROException &e) {
+    std::cerr << "" << e.what() << "--" << e.more();
   }
 
   return EXIT_SUCCESS;

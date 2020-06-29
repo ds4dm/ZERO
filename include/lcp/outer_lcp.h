@@ -1,12 +1,12 @@
 #pragma once
 
-#include "lcp/lcp.h"
 #include <armadillo>
 #include <gurobi_c++.h>
 #include <iostream>
 #include <memory>
 #include <set>
 #include <string>
+#include <zero.h>
 
 namespace Game {
 class OuterLCP : public LCP {

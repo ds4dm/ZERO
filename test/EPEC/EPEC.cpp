@@ -1,5 +1,5 @@
 #include "epectests.h"
-#include "algorithms/algorithms.h"
+#include "algorithms/EPEC/epec_algorithms.h"
 
 
 using namespace std;
@@ -447,8 +447,8 @@ BOOST_AUTO_TEST_CASE(IndicatorConstraints_test) {
    *are suggested.
    **/
   BOOST_TEST_MESSAGE("Indicator constraints test");
-  Game::EPECAlgorithmParams common;
-  common.Indicators = false;
+  Data::EPEC::DataObject common;
+  common.IndicatorConstraints.set(false);
   testEPECInstance(SimpleBlu(), allAlgo(common, false));
   BOOST_TEST_MESSAGE("Disabling indicator constraints.");
   testEPECInstance(SimpleBlu(), allAlgo(common, true));

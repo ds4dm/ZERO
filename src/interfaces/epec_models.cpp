@@ -165,22 +165,26 @@ bool Models::EPEC::ParamValid(
  */
 {
   if (Params.n_followers == 0)
-    throw "Error in EPEC::ParamValid(). 0 Followers?";
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "There are no followers for a player");
   if (Params.FollowerParam.costs_lin.size() != Params.n_followers ||
       Params.FollowerParam.costs_quad.size() != Params.n_followers ||
       Params.FollowerParam.capacities.size() != Params.n_followers ||
       Params.FollowerParam.tax_caps.size() != Params.n_followers ||
       Params.FollowerParam.emission_costs.size() != Params.n_followers)
-    throw "Error in EPEC::ParamValid(). Size Mismatch";
+    throw ZEROException(ZEROErrorCode::InvalidData,
+                        "The input data has a size mismatch");
   if (Params.DemandParam.alpha <= 0 || Params.DemandParam.beta <= 0)
-    throw "Error in EPEC::ParamValid(). Invalid demand curve params";
+    throw ZEROException(ZEROErrorCode::InvalidData,
+                        "Demand curve parameters are negative");
   // Country should have a name!
   if (Params.name == "")
-    throw "Error in EPEC::ParamValid(). Country name empty";
+    throw ZEROException(ZEROErrorCode::InvalidData, "The country has no name");
   // Country should have a unique name
   for (const auto &p : this->AllLeadPars)
     if (Params.name.compare(p.name) == 0) // i.e., if the strings are same
-      throw "Error in EPEC::ParamValid(). Country name repetition";
+      throw ZEROException(ZEROErrorCode::InvalidData,
+                          "The country has an already existing name");
   return true;
 }
 
@@ -449,8 +453,9 @@ Models::EPEC &Models::EPEC::addCountry(Models::LeadAllPar Params,
  */
 {
   if (this->Finalized)
-    throw("Error in Models::EPEC::addCountry: EPEC object Finalized. Call "
-          "EPEC::unlock() to unlock this object first and then edit.");
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "EPEC object Finalized. Call EPEC::unlock() to unlock "
+                        "this object first and then edit");
 
   bool noError = false;
   try {
@@ -561,19 +566,8 @@ Models::EPEC &Models::EPEC::addCountry(Models::LeadAllPar Params,
     // Make Leader Constraints
     this->make_LL_LeadCons(LeadCons, LeadRHS, Params, Loc, import_lim_cons,
                            export_lim_cons, price_lim_cons, activeTaxCaps);
-  } catch (const char *e) {
-    cerr << e << '\n';
-    throw;
-  } catch (string &e) {
-    cerr << "String in Models::EPEC::addCountry : " << e << '\n';
-    throw;
   } catch (GRBException &e) {
-    cerr << "GRBException in Models::EPEC::addCountry : " << e.getErrorCode()
-         << ": " << e.getMessage() << '\n';
-    throw;
-  } catch (exception &e) {
-    cerr << "Exception in Models::EPEC::addCountry : " << e.what() << '\n';
-    throw;
+    throw ZEROException(e);
   }
 
   // Lower level Market clearing constraints - empty
@@ -613,29 +607,21 @@ Models::EPEC &Models::EPEC::addTranspCosts(
  */
 {
   if (this->Finalized)
-    throw("Error in Models::EPEC::addTranspCosts: EPEC object Finalized. Call "
-          "EPEC::unlock() to unlock this object first and then edit.");
+    throw ZEROException(
+        ZEROErrorCode::Assertion,
+        "EPEC object Finalized. Call "
+        "EPEC::unlock() to unlock this object first and then edit.");
   try {
     if (this->getNumLeaders() != costs.n_rows ||
         this->getNumLeaders() != costs.n_cols)
-      throw("Error in EPEC::addTranspCosts. Invalid size of Q");
+      throw ZEROException(ZEROErrorCode::Assertion, "Mismatch of size in Q");
     else
       this->TranspCosts = arma::sp_mat(costs);
     this->TranspCosts.diag()
         .zeros(); // Doesn't make sense for it to have a nonzero diagonal!
-  } catch (const char *e) {
-    cerr << e << '\n';
-    throw;
-  } catch (string &e) {
-    cerr << "String in Models::EPEC::addTranspCosts : " << e << '\n';
-    throw;
+
   } catch (GRBException &e) {
-    cerr << "GRBException in Models::EPEC::addTranspCosts : "
-         << e.getErrorCode() << ": " << e.getMessage() << '\n';
-    throw;
-  } catch (exception &e) {
-    cerr << "Exception in Models::EPEC::addTranspCosts : " << e.what() << '\n';
-    throw;
+    throw ZEROException(e);
   }
 
   return *this;
@@ -649,27 +635,20 @@ void Models::EPEC::preFinalize() {
    * 	2. Stores the number of import markets for each country in
    * Models::EPEC::nImportMarkets
    */
+
+  /*
+   * Below for loop adds space for each country's quantity imported from
+   * variable
+   */
   try {
-    /*
-     * Below for loop adds space for each country's quantity imported from
-     * variable
-     */
     this->nImportMarkets = vector<unsigned int>(this->getNumLeaders());
     for (unsigned int i = 0; i < this->getNumLeaders(); i++)
       this->add_Leaders_tradebalance_constraints(i);
-  } catch (const char *e) {
-    cerr << e << '\n';
-    throw;
-  } catch (string &e) {
-    cerr << "String in Models::EPEC::preFinalize : " << e << '\n';
-    throw;
   } catch (GRBException &e) {
-    cerr << "GRBException in Models::EPEC::preFinalize : " << e.getErrorCode()
-         << ": " << e.getMessage() << '\n';
-    throw;
-  } catch (exception &e) {
-    cerr << "Exception in Models::EPEC::preFinalize : " << e.what() << '\n';
-    throw;
+    throw ZEROException(e);
+  } catch (...) {
+    throw ZEROException(ZEROErrorCode::Unknown,
+                        "Unknown exception in preFinalize()");
   }
 }
 
@@ -685,8 +664,7 @@ void Models::EPEC::add_Leaders_tradebalance_constraints(const unsigned int i)
  */
 {
   if (i >= this->PlayersLowerLevels.size())
-    throw("Error in Models::EPEC::add_Leaders_tradebalance_constraints. "
-          "Bad argument");
+    throw ZEROException(ZEROErrorCode::OutOfRange, "Player does not exist");
   int nImp = 0;
   LeadLocs &Loc = this->Locations.at(i);
   // Counts the number of countries from which the current country imports
@@ -732,8 +710,8 @@ void Models::EPEC::makeMCConstraints(arma::sp_mat &MCLHS,
  */
 {
   if (!this->Finalized)
-    throw("Error in Models::EPEC::makeMCConstraints: This function can be "
-          "run only AFTER calling finalize()");
+    throw ZEROException(ZEROErrorCode::Assertion,
+                        "makeMCConstraints can be called after finalize()");
   // Transportation matrix
   const arma::sp_mat &TrCo = this->TranspCosts;
   // Output matrices
@@ -772,8 +750,7 @@ void Models::EPEC::make_MC_leader(const unsigned int i)
  */
 {
   if (i >= this->getNumLeaders())
-    throw("Error in Models::EPEC::add_Leaders_tradebalance_constraints. "
-          "Bad argument");
+    throw ZEROException(ZEROErrorCode::OutOfRange, "Player does not exist");
   try {
     const arma::sp_mat &TrCo = this->TranspCosts;
     const unsigned int nEPECvars = this->getNumVar();
@@ -811,19 +788,11 @@ void Models::EPEC::make_MC_leader(const unsigned int i)
                                  arma::vec{0},                             // c
                                  arma::vec{}                               // b
     );
-  } catch (const char *e) {
-    cerr << e << '\n';
-    throw;
-  } catch (string &e) {
-    cerr << "String in Models::EPEC::make_MC_leader : " << e << '\n';
-    throw;
   } catch (GRBException &e) {
-    cerr << "GRBException in Models::EPEC::make_MC_leader : "
-         << e.getErrorCode() << ": " << e.getMessage() << '\n';
-    throw;
-  } catch (exception &e) {
-    cerr << "Exception in Models::EPEC::make_MC_leader : " << e.what() << '\n';
-    throw;
+    throw ZEROException(e);
+  } catch (...) {
+    throw ZEROException(ZEROErrorCode::Unknown,
+                        "Unknown exception in make_MC_leader()");
   }
 }
 
@@ -883,7 +852,8 @@ unsigned int Models::EPEC::getPosition(const unsigned int countryCount,
  */
 {
   if (countryCount >= this->getNumLeaders())
-    throw("Error in Models::EPEC::getPosition: Bad Country Count");
+    throw ZEROException(ZEROErrorCode::OutOfRange,
+                        "Player object is out of range");
   return this->LeaderLocations.at(countryCount) +
          this->Locations.at(countryCount).at(var);
 }
@@ -1210,20 +1180,13 @@ void Models::EPEC::readSolutionJSON(const string filename) {
       ifs.close();
       this->warmstart(new_x);
     } catch (exception &e) {
-      cerr << "Exception in Models::readSolutionJSON : cannot read instance "
-              "file."
-           << e.what() << '\n';
-      throw;
+      throw ZEROException(ZEROErrorCode::IOError, e.what());
     } catch (...) {
-      cerr
-          << "Exception in Models::readSolutionJSON: cannot read instance file."
-          << '\n';
-      throw;
+      throw ZEROException(ZEROErrorCode::Unknown,
+                          "Unknown errorin readSolutionJSON()");
     }
   } else {
-    cerr << "Exception in Models::readSolutionJSON : file instance not found."
-         << '\n';
-    throw;
+    throw ZEROException(ZEROErrorCode::IOError, "File not found");
   }
 }
 
@@ -1233,7 +1196,7 @@ void Models::EPEC::writeSolution(const int writeLevel, string filename) const {
    * @p writeLevel is an integer representing the write configuration. 0: only
    * Json solution; 1: only human readable solution; 2:both
    */
-  if (this->Stats.Status == Game::EPECsolveStatus::NashEqFound) {
+  if (this->Stats.Status.get() == ZEROStatus::NashEqFound) {
     if (writeLevel == 1 || writeLevel == 2) {
       this->WriteCountry(0, filename + ".txt", this->SolutionX, false);
       for (unsigned int ell = 1; ell < this->getNumLeaders(); ++ell)
@@ -1433,16 +1396,12 @@ void Models::EPECInstance::load(string filename) {
       this->Countries = LAP;
       this->TransportationCosts = TrCo;
     } catch (exception &e) {
-      cerr << "Exception in Models::load : cannot read instance file."
-           << e.what() << '\n';
-      throw;
+      throw ZEROException(ZEROErrorCode::IOError, e.what());
     } catch (...) {
-      cerr << "Exception in Models::load : cannot read instance file." << '\n';
-      throw;
+      throw ZEROException(ZEROErrorCode::IOError, "Unknown error in load()");
     }
   } else {
-    cerr << "Exception in Models::load : file instance not found." << '\n';
-    throw;
+    throw ZEROException(ZEROErrorCode::IOError, "File not found");
   }
 }
 

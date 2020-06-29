@@ -21,9 +21,10 @@ protected:
      * polyhedra. The responsability for calling this method is left to the
      * inheritor
      */
+    std::vector<unsigned int> feasible;
     for (unsigned int i = 0; i < this->EPECObject->NumPlayers; i++)
-      this->EPECObject->Stats.FeasiblePolyhedra.at(i) =
-          this->PolyLCP.at(i)->getFeasiblePolyhedra();
+      feasible.push_back(this->PolyLCP.at(i)->getFeasiblePolyhedra());
+    this->EPECObject->Stats.AlgorithmData.FeasiblePolyhedra.set(feasible);
     this->EPECObject->Stats.PureNashEquilibrium = this->isPureStrategy();
   }
 
@@ -35,7 +36,6 @@ public:
      */
     this->EPECObject = EPECObject;
     this->Env = env;
-    this->EPECObject->Stats.AlgorithmParam.PolyLcp = true;
     this->PolyLCP =
         std::vector<std::shared_ptr<Game::PolyLCP>>(EPECObject->NumPlayers);
     for (unsigned int i = 0; i < EPECObject->NumPlayers; i++) {
@@ -74,7 +74,7 @@ public:
 
   unsigned int getPositionProbab(unsigned int i, unsigned int k) const;
 };
-}
+} // namespace EPEC
 } // namespace Algorithms
 
 #include "epec_combinatorialpne.h"

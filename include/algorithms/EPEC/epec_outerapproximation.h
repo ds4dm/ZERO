@@ -188,7 +188,6 @@ public:
      *  The constructor re-builds the LCP fields in the EPEC object as new
      * OuterLCP objects
      */
-    this->EPECObject->Stats.AlgorithmParam.PolyLcp = false;
     this->outerLCP =
         std::vector<std::shared_ptr<Game::OuterLCP>>(EPECObject->NumPlayers);
     for (unsigned int i = 0; i < EPECObject->NumPlayers; i++) {

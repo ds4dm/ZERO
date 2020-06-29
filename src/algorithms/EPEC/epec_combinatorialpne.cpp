@@ -10,9 +10,9 @@ void Algorithms::EPEC::CombinatorialPNE::solveWithExcluded(
    *pure-equilibrium Algorithm
    * @p exclude-list contains the set of excluded polyhedra combinations.
    */
-  if (this->EPECObject->Stats.AlgorithmParam.TimeLimit > 0) {
+  if (this->EPECObject->Stats.AlgorithmData.TimeLimit.get() > 0) {
     // Checking the function hasn't been called from InnerApproximation
-    if (this->EPECObject->Stats.NumIterations <= 0) {
+    if (this->EPECObject->Stats.NumIterations.get() <= 0) {
       this->EPECObject->InitTime = std::chrono::high_resolution_clock::now();
     }
   }
@@ -20,8 +20,8 @@ void Algorithms::EPEC::CombinatorialPNE::solveWithExcluded(
   for (int j = 0; j < this->EPECObject->NumPlayers; ++j)
     start.push_back(-1);
   this->combPNE(start, excludeList);
-  if (this->EPECObject->Stats.Status == Game::EPECsolveStatus::Uninitialized)
-    this->EPECObject->Stats.Status = Game::EPECsolveStatus::NashEqNotFound;
+  if (this->EPECObject->Stats.Status.get() == ZEROStatus::Uninitialized)
+    this->EPECObject->Stats.Status.set(ZEROStatus::NashEqNotFound);
   this->postSolving();
 }
 
@@ -34,18 +34,19 @@ void Algorithms::EPEC::CombinatorialPNE::combPNE(
    * terminates and  stores the solution  into the referenced EPEC object. @p
    * excludeList contains the excluded combinations of polyhedra.
    */
-  if ((this->EPECObject->Stats.Status == Game::EPECsolveStatus::NashEqFound &&
-       this->EPECObject->Stats.PureNashEquilibrium) ||
-      this->EPECObject->Stats.Status == Game::EPECsolveStatus::TimeLimit)
+  if ((this->EPECObject->Stats.Status.get() == ZEROStatus::NashEqFound &&
+       this->EPECObject->Stats.PureNashEquilibrium.get()) ||
+      this->EPECObject->Stats.Status.get() == ZEROStatus::TimeLimit)
     return;
 
-  if (this->EPECObject->Stats.AlgorithmParam.TimeLimit > 0) {
+  if (this->EPECObject->Stats.AlgorithmData.TimeLimit.get() > 0) {
     const std::chrono::duration<double> timeElapsed =
         std::chrono::high_resolution_clock::now() - this->EPECObject->InitTime;
     const double timeRemaining =
-        this->EPECObject->Stats.AlgorithmParam.TimeLimit - timeElapsed.count();
+        this->EPECObject->Stats.AlgorithmData.TimeLimit.get() -
+        timeElapsed.count();
     if (timeRemaining <= 0) {
-      this->EPECObject->Stats.Status = Game::EPECsolveStatus::TimeLimit;
+      this->EPECObject->Stats.Status.set(ZEROStatus::TimeLimit);
       return;
     }
   }
@@ -94,12 +95,12 @@ void Algorithms::EPEC::CombinatorialPNE::combPNE(
       }
       this->EPECObject->makePlayersQPs();
       bool res = 0;
-      if (this->EPECObject->Stats.AlgorithmParam.TimeLimit > 0) {
+      if (this->EPECObject->Stats.AlgorithmData.TimeLimit.get() > 0) {
         const std::chrono::duration<double> timeElapsed =
             std::chrono::high_resolution_clock::now() -
             this->EPECObject->InitTime;
         const double timeRemaining =
-            this->EPECObject->Stats.AlgorithmParam.TimeLimit -
+            this->EPECObject->Stats.AlgorithmData.TimeLimit.get() -
             timeElapsed.count();
         res = this->EPECObject->computeNashEq(false, timeRemaining, true);
       } else
@@ -109,17 +110,18 @@ void Algorithms::EPEC::CombinatorialPNE::combPNE(
         if (this->isSolved()) {
           // Check that the equilibrium is a pure strategy
           if ((this->isPureStrategy())) {
-            BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::CombinatorialPNE::combPNE: "
-                                       "found a pure strategy.";
-            this->EPECObject->Stats.Status = Game::EPECsolveStatus::NashEqFound;
+            BOOST_LOG_TRIVIAL(info)
+                << "Algorithms::EPEC::CombinatorialPNE::combPNE: "
+                   "found a pure strategy.";
+            this->EPECObject->Stats.Status.set(ZEROStatus::NashEqFound);
             this->EPECObject->Stats.PureNashEquilibrium = true;
             return;
           }
         }
       }
     } else {
-      BOOST_LOG_TRIVIAL(trace)
-          << "Algorithms::EPEC::CombinatorialPNE::combPNE: configuration pruned.";
+      BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::CombinatorialPNE::combPNE:"
+                                  " configuration pruned.";
       return;
     }
   }

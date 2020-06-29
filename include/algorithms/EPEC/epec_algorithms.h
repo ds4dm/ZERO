@@ -3,8 +3,8 @@
 
 namespace Algorithms {
 namespace EPEC {
-/** @brief The namespace Algorithms::EPEC is responsible for the management of the
- algorithms that solve EPECs. Generally, the namespace is organized with
+/** @brief The namespace Algorithms::EPEC is responsible for the management of
+ the algorithms that solve EPECs. Generally, the namespace is organized with
  multiple-level inheritances. The basic class is Algorithm, which implements
  some basic capabilities that all algorithms are sharing. Then, PolyBase
  managed the algorithm that either inner-approximate or full-enumerate the
@@ -45,5 +45,5 @@ class CombinatorialPNE;
 // Then, second level inheritor for the outer approximation
 class OuterApproximation;
 
-}
+} // namespace EPEC
 } // namespace Algorithms

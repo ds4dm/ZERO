@@ -23,8 +23,8 @@ arma::sp_mat Utils::resizePatch(const arma::sp_mat &mat, const unsigned int nR,
     if (nR <= mat.n_rows && nC <= mat.n_cols)
       mMat = mat.submat(0, 0, nR, nC);
     else
-      throw("Error in resize() - the patch for arma::resize. Either both "
-            "dimension should be larger or both should be smaller!");
+      throw ZEROException(ZEROErrorCode::OutOfRange,
+                          "Either both dimension should be smaller or larger.");
   }
   return mMat;
 }
@@ -47,8 +47,8 @@ arma::mat Utils::resizePatch(const arma::mat &mat, const unsigned int nR,
     if (nR <= mat.n_rows && nC <= mat.n_cols)
       mMat = mat.submat(0, 0, nR, nC);
     else
-      throw("Error in resize() - the patch for arma::resize. Either both "
-            "dimension should be larger or both should be smaller!");
+      throw ZEROException(ZEROErrorCode::OutOfRange,
+                          "Either both dimension should be smaller or larger.");
   }
   return mMat;
 }
@@ -120,8 +120,9 @@ long int Utils::appendRead(
   infile >> headerCheckwith;
 
   if (header != "" && header != headerCheckwith)
-    throw("Error in Utils::appendRead<sp_mat>. Wrong header. Expected: " +
-          header + " Found: " + headerCheckwith);
+    throw ZEROException(ZEROErrorCode::InvalidData, "Wrong header. Expected " +
+                                                        header + " found " +
+                                                        headerCheckwith);
 
   infile >> nR >> nC >> nnz;
   if (nR == 0 || nC == 0)
@@ -174,8 +175,9 @@ long int appendRead(vector<double> &v, const string in, long int pos,
   infile >> headerCheckwith;
 
   if (header != "" && header != headerCheckwith)
-    throw("Error in Utils::appendRead<sp_mat>. Wrong header. Expected: " +
-          header + " Found: " + headerCheckwith);
+    throw ZEROException(ZEROErrorCode::InvalidData, "Wrong header. Expected " +
+                                                        header + " found " +
+                                                        headerCheckwith);
 
   infile >> size;
 
@@ -232,8 +234,9 @@ long int Utils::appendRead(
 
   inFile >> checkwith;
   if (header != "" && checkwith != header)
-    throw("Error in Utils::appendRead<vec>. Wrong header. Expected: " + header +
-          " Found: " + checkwith);
+    throw ZEROException(ZEROErrorCode::InvalidData, "Wrong header. Expected " +
+                                                        header + " found " +
+                                                        checkwith);
   inFile >> nR;
   matrix.zeros(nR);
   for (unsigned int i = 0; i < nR; ++i) {
@@ -273,8 +276,9 @@ long int Utils::appendRead(long int &v, const string in, long int pos,
   infile >> headerCheckwith;
 
   if (header != "" && header != headerCheckwith)
-    throw("Error in Utils::appendRead<long int>. Wrong header. Expected: " +
-          header + " Found: " + headerCheckwith);
+    throw ZEROException(ZEROErrorCode::InvalidData, "Wrong header. Expected " +
+                                                        header + " found " +
+                                                        headerCheckwith);
 
   long int val;
   infile >> val;
@@ -307,8 +311,9 @@ long int Utils::appendRead(unsigned int &v, const string in, long int pos,
   infile >> headerCheckwith;
 
   if (header != "" && header != headerCheckwith)
-    throw("Error in Utils::appendRead<unsigned int>. Wrong header. Expected: " +
-          header + " Found: " + headerCheckwith);
+    throw ZEROException(ZEROErrorCode::InvalidData, "Wrong header. Expected " +
+                                                        header + " found " +
+                                                        headerCheckwith);
 
   unsigned int val;
   infile >> val;
@@ -372,8 +377,9 @@ std::vector<short int> Utils::numToVec(unsigned long int number,
   return binary;
 }
 
-bool Utils::containsConstraint(arma::sp_mat &A, const vec &b, arma::vec &lhs,
-                               const double &rhs, const double tol) {
+bool Utils::containsConstraint(arma::sp_mat &A, const vec &b,
+                               const arma::vec &lhs, const double &rhs,
+                               const double tol) {
   if (lhs.size() != A.n_cols)
     return false;
   for (int i = 0; i < A.n_rows; ++i) {
@@ -400,7 +406,8 @@ bool Utils::containsElement(const vec &b, const double &element,
   return false;
 }
 
-bool Utils::containsRow(const sp_mat &A, arma::vec &row, const double tol) {
+bool Utils::containsRow(const sp_mat &A, const arma::vec &row,
+                        const double tol) {
 
   if (row.size() != A.n_cols)
     return false;
@@ -417,7 +424,7 @@ bool Utils::containsRow(const sp_mat &A, arma::vec &row, const double tol) {
   }
   return false;
 }
-bool Utils::containsConstraint(sp_mat &A, const vec &b, sp_mat &lhs,
+bool Utils::containsConstraint(sp_mat &A, const vec &b, const sp_mat &lhs,
                                const double &rhs, const double tol) {
   if (lhs.n_rows > 1)
     return false;

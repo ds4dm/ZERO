@@ -20,7 +20,7 @@ private:
     ends[1] = this->ConvexHullVariables.at(1) + 3;
   }
   void makeObjectivePlayer(const unsigned int i,
-                       Game::QP_Objective &QP_obj) override {
+                           Game::QP_Objective &QP_obj) override {
     QP_obj.Q.zeros(3, 3);
     QP_obj.C.zeros(3, 3);
     QP_obj.c.zeros(3);
@@ -36,7 +36,8 @@ private:
       QP_obj.c(2) = 1;
       break;
     default:
-      throw ("Invalid makeObjectivePlayer");
+      throw ZEROException(ZEROErrorCode::OutOfRange,
+                          "Invalid player" + std::to_string(i));
     }
   }
 };
@@ -127,6 +128,7 @@ int main() {
   GRBEnv env;
   boost::log::core::get()->set_filter(boost::log::trivial::severity >=
                                       boost::log::trivial::warning);
+  try{
   My_EPEC_Prob epec(&env);
   // Adding uvLeader
   auto uv_lead = uvLeader(&env);
@@ -138,11 +140,9 @@ int main() {
   epec.finalize();
   epec.setAlgorithm(Game::EPECalgorithm::InnerApproximation);
   // Solve
-  try {
     epec.findNashEq();
-  } catch (std::string &s) {
-    std::cerr << "Error caught: " << s << '\n';
-    throw;
+  } catch (ZEROException &e) {
+    std::cerr << e.which() << " - " << e.what() << " | " << e.more();
   }
   // auto M = epec.getLcpModel();
   // M.write("dat/ex_model.lp");
