@@ -671,11 +671,12 @@ BOOST_AUTO_TEST_CASE(C2F1_2_test) {
       "Testing [1,2] followers with  2 Countries (CH_S_F0_CL_SC_F0)");
   testEPECInstance(CH_S_F0_CL_SC_F0(), allAlgo());
 }
+/*
 BOOST_AUTO_TEST_CASE(HardToEnum1_test) {
   BOOST_TEST_MESSAGE("Testing HardToEnum1");
   testEPECInstance(HardToEnum_1(), allAlgo());
 }
-/*
+
 BOOST_AUTO_TEST_CASE(HardToEnum2_test) {
   BOOST_TEST_MESSAGE("Testing HardToEnum2");
   testEPECInstance(HardToEnum_2(), allAlgo());
