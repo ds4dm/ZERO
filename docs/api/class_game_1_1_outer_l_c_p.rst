@@ -3,7 +3,7 @@
 Class OuterLCP
 ==============
 
-- Defined in :ref:`file_include_lcp_outerlcp.h`
+- Defined in :ref:`file_include_lcp_outer_lcp.h`
 
 
 Inheritance Relationships

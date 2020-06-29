@@ -1,7 +1,7 @@
 
-.. _file_src_lcp_LCP.cpp:
+.. _file_src_lcp_lcp.cpp:
 
-File LCP.cpp
+File lcp.cpp
 ============
 
 |exhale_lsh| :ref:`Parent directory <dir_src_lcp>` (``src/lcp``)
@@ -12,14 +12,14 @@ File LCP.cpp
    :local:
    :backlinks: none
 
-Definition (``src/lcp/LCP.cpp``)
+Definition (``src/lcp/lcp.cpp``)
 --------------------------------
 
 
 .. toctree::
    :maxdepth: 1
 
-   program_listing_file_src_lcp_LCP.cpp.rst
+   program_listing_file_src_lcp_lcp.cpp.rst
 
 
 
@@ -31,7 +31,7 @@ Includes
 
 - ``../include/lcp/lcp.h``
 
-- ``algorithm`` (:ref:`file_include_algorithms_algorithms.h`)
+- ``algorithm`` (:ref:`file_include_algorithms_EPEC_epec_algorithms.h`)
 
 - ``armadillo``
 

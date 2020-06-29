@@ -1,0 +1,13 @@
+.. _exhale_enum_codes_8h_1adc92fa8b12e5abec0a79ad40bedc1ccf:
+
+Enum ZEROStatus
+===============
+
+- Defined in :ref:`file_include_support_codes.h`
+
+
+Enum Documentation
+------------------
+
+
+.. doxygenenum:: ZEROStatus

@@ -1,0 +1,297 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="class_algorithms_1_1_e_p_e_c_1_1_algorithm" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>Algorithms::EPEC::Algorithm</compoundname>
+    <derivedcompoundref refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation" prot="public" virt="non-virtual">Algorithms::EPEC::OuterApproximation</derivedcompoundref>
+    <derivedcompoundref refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base" prot="public" virt="non-virtual">Algorithms::EPEC::PolyBase</derivedcompoundref>
+    <includes refid="epec__algorithms_8h" local="no">epec_algorithms.h</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1aad636a41bb0353f0c632430b6fb20937" prot="protected" static="no" mutable="no">
+        <type>GRBEnv *</type>
+        <definition>GRBEnv* Algorithms::EPEC::Algorithm::Env</definition>
+        <argsstring></argsstring>
+        <name>Env</name>
+        <briefdescription>
+<para>This abstract class is the base type that every algorithm inherits. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A pointer to the Gurobi Environment </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_algorithms.h" line="23" column="10" bodyfile="include/algorithms/EPEC/epec_algorithms.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_game_1_1_e_p_e_c" kindref="compound">Game::EPEC</ref> *</type>
+        <definition>Game::EPEC* Algorithms::EPEC::Algorithm::EPECObject</definition>
+        <argsstring></argsstring>
+        <name>EPECObject</name>
+        <briefdescription>
+<para>A pointer to the original LCP object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_algorithms.h" line="24" column="14" bodyfile="include/algorithms/EPEC/epec_algorithms.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1a37ddfb90b704938ccf5cd70877a10e16" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void Algorithms::EPEC::Algorithm::postSolving</definition>
+        <argsstring>()=0</argsstring>
+        <name>postSolving</name>
+        <reimplementedby refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ae32c59d87b904dd0b6bff19a4bf954f7">postSolving</reimplementedby>
+        <reimplementedby refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1ab546c0ac19d77b306800f29f2562b27f">postSolving</reimplementedby>
+        <briefdescription>
+<para>A protected method to be called after solving the <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_algorithms.h" line="26" column="3"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1afb53fa0b28accf7ffb71f38b7127cd8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void Algorithms::EPEC::Algorithm::solve</definition>
+        <argsstring>()=0</argsstring>
+        <name>solve</name>
+        <reimplementedby refid="class_algorithms_1_1_e_p_e_c_1_1_full_enumeration_1ade43af2f102ebdc5bc88657e2e3dc490">solve</reimplementedby>
+        <reimplementedby refid="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1a3f57f11002bbe86fe0b002eb155d26f9">solve</reimplementedby>
+        <reimplementedby refid="class_algorithms_1_1_e_p_e_c_1_1_combinatorial_p_n_e_1a7be7a3f2ee2b67ac3d29407313ede988">solve</reimplementedby>
+        <reimplementedby refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1aee27604e761a72b3629ca85e56ce9f2e">solve</reimplementedby>
+        <briefdescription>
+<para>A method to solve the <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_algorithms.h" line="29" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1a596d3003e279074929df8118e6bdd5e2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool Algorithms::EPEC::Algorithm::isSolved</definition>
+        <argsstring>(double tol=-1) const =0</argsstring>
+        <name>isSolved</name>
+        <reimplementedby refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a291dab58d5014bc5be3477ed500c43f5">isSolved</reimplementedby>
+        <reimplementedby refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a6a1f2a8e6e9e1a75f702fab2b3f9f493">isSolved</reimplementedby>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>A method to check whether the <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref> is solved or not, given a numerical tolerance </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_algorithms.h" line="30" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1a0321c963e7d9b76815e0e3eb54655912" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool Algorithms::EPEC::Algorithm::isPureStrategy</definition>
+        <argsstring>(double tol=-1) const =0</argsstring>
+        <name>isPureStrategy</name>
+        <reimplementedby refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a08f0d6ead0a0a6442657e0144dc1d441">isPureStrategy</reimplementedby>
+        <reimplementedby refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1aa8a48f84931889820bd8f05e250f945b">isPureStrategy</reimplementedby>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>A method to check whether the <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref> solution is a pure equilibrium or not, given a numerical tolerance </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_algorithms.h" line="33" column="16"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The namespace <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">Algorithms::EPEC</ref> is responsible for the management of the algorithms that solve EPECs. Generally, the namespace is organized with multiple-level inheritances. The basic class is <ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm" kindref="compound">Algorithm</ref>, which implements some basic capabilities that all algorithms are sharing. Then, <ref refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base" kindref="compound">PolyBase</ref> managed the algorithm that either inner-approximate or full-enumerate the feasible region of each <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref>&apos;s player (3rd level inheritors: e.g., Algorithm-&gt;PolyBase-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_full_enumeration" kindref="compound">FullEnumeration</ref>). The <ref refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation" kindref="compound">OuterApproximation</ref> class (2nd level inheritance) manages the outer approximation. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Algorithms::EPEC::OuterApproximation</label>
+        <link refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Algorithms::EPEC::PolyBase</label>
+        <link refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Algorithms::EPEC::Algorithm</label>
+        <link refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm"/>
+      </node>
+      <node id="6">
+        <label>Algorithms::EPEC::InnerApproximation</label>
+        <link refid="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Algorithms::EPEC::FullEnumeration</label>
+        <link refid="class_algorithms_1_1_e_p_e_c_1_1_full_enumeration"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Algorithms::EPEC::CombinatorialPNE</label>
+        <link refid="class_algorithms_1_1_e_p_e_c_1_1_combinatorial_p_n_e"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="10">
+        <label>Attr&lt; std::vector&lt; unsigned int &gt; &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="3">
+        <label>ZEROStatistics&lt; Data::EPEC::DataObject &gt;</label>
+        <link refid="struct_z_e_r_o_statistics"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>WallClockTime</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>AlgorithmData</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>NumConstraints</edgelabel>
+          <edgelabel>NumNonZero</edgelabel>
+          <edgelabel>NumIterations</edgelabel>
+          <edgelabel>NumVar</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>PureNashEquilibrium</edgelabel>
+          <edgelabel>NumericalIssues</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>Status</edgelabel>
+        </childnode>
+      </node>
+      <node id="15">
+        <label>Attr&lt; ZEROStatus &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="8">
+        <label>Attr&lt; int &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="14">
+        <label>Attr&lt; Data::LCP::PolyhedraStrategy &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="1">
+        <label>Algorithms::EPEC::Algorithm</label>
+        <link refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>EPECObject</edgelabel>
+        </childnode>
+      </node>
+      <node id="13">
+        <label>Attr&lt; Data::EPEC::Algorithms &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="9">
+        <label>Attr&lt; bool &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="5">
+        <label>Data::EPEC::DataObject</label>
+        <link refid="class_data_1_1_e_p_e_c_1_1_data_object"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>BoundBigM</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>FeasiblePolyhedra</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>LostIntermediateEq</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>Aggressiveness</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>RecoverStrategy</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>BoundPrimals</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>Algorithm</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>PolyhedraStrategy</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Game::EPEC</label>
+        <link refid="class_game_1_1_e_p_e_c"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Stats</edgelabel>
+        </childnode>
+      </node>
+      <node id="11">
+        <label>Attr&lt; unsigned int &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="4">
+        <label>Attr&lt; double &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="6">
+        <label>ZEROAlgorithmData</label>
+        <link refid="class_z_e_r_o_algorithm_data"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>DeviationTolerance</edgelabel>
+          <edgelabel>TimeLimit</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>RandomSeed</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>Threads</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>PureNashEquilibrium</edgelabel>
+          <edgelabel>IndicatorConstraints</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Attr&lt; unsigned long int &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="12">
+        <label>Attr&lt; Data::EPEC::RecoverStrategy &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/algorithms/EPEC/epec_algorithms.h" line="17" column="16" bodyfile="include/algorithms/EPEC/epec_algorithms.h" bodystart="17" bodyend="36"/>
+    <listofallmembers>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1aad636a41bb0353f0c632430b6fb20937" prot="protected" virt="non-virtual"><scope>Algorithms::EPEC::Algorithm</scope><name>Env</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" prot="protected" virt="non-virtual"><scope>Algorithms::EPEC::Algorithm</scope><name>EPECObject</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1a0321c963e7d9b76815e0e3eb54655912" prot="public" virt="pure-virtual"><scope>Algorithms::EPEC::Algorithm</scope><name>isPureStrategy</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1a596d3003e279074929df8118e6bdd5e2" prot="public" virt="pure-virtual"><scope>Algorithms::EPEC::Algorithm</scope><name>isSolved</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1a37ddfb90b704938ccf5cd70877a10e16" prot="protected" virt="pure-virtual"><scope>Algorithms::EPEC::Algorithm</scope><name>postSolving</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1afb53fa0b28accf7ffb71f38b7127cd8a" prot="public" virt="pure-virtual"><scope>Algorithms::EPEC::Algorithm</scope><name>solve</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

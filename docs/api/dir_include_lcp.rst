@@ -16,7 +16,7 @@ Files
 -----
 
 - :ref:`file_include_lcp_lcp.h`
-- :ref:`file_include_lcp_outerlcp.h`
-- :ref:`file_include_lcp_polylcp.h`
+- :ref:`file_include_lcp_outer_lcp.h`
+- :ref:`file_include_lcp_poly_lcp.h`
 
 

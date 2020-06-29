@@ -3,7 +3,7 @@
 Struct QP_Constraints
 =====================
 
-- Defined in :ref:`file_include_games.h`
+- Defined in :ref:`file_include_games_games.h`
 
 
 Struct Documentation

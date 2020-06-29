@@ -3,7 +3,7 @@
 Class EPEC
 ==========
 
-- Defined in :ref:`file_include_games.h`
+- Defined in :ref:`file_include_games_EPEC_test.h`
 
 
 Inheritance Relationships

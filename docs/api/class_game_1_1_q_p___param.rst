@@ -3,7 +3,7 @@
 Class QP_Param
 ==============
 
-- Defined in :ref:`file_include_games.h`
+- Defined in :ref:`file_include_games_qpmp.h`
 
 
 Inheritance Relationships

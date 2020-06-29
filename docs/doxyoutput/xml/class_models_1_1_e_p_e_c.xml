@@ -3,7 +3,7 @@
   <compounddef id="class_models_1_1_e_p_e_c" kind="class" language="C++" prot="public">
     <compoundname>Models::EPEC</compoundname>
     <basecompoundref refid="class_game_1_1_e_p_e_c" prot="public" virt="non-virtual">Game::EPEC</basecompoundref>
-    <includes refid="models_8h" local="no">models.h</includes>
+    <includes refid="epec__models_8h" local="no">epec_models.h</includes>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1abf67fd852539ed21d238381efec1affa" prot="private" static="no" mutable="no">
         <type>std::vector&lt; <ref refid="struct_models_1_1_lead_all_par" kindref="compound">LeadAllPar</ref> &gt;</type>
@@ -19,7 +19,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="186" column="15" bodyfile="include/models.h" bodystart="186" bodyend="-1"/>
+        <location file="include/interfaces/epec_models.h" line="186" column="15" bodyfile="include/interfaces/epec_models.h" bodystart="186" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1adde9b8a110bf03c10b036f5004bc721e" prot="private" static="no" mutable="no">
         <type>std::vector&lt; std::shared_ptr&lt; <ref refid="class_game_1_1_q_p___param" kindref="compound">Game::QP_Param</ref> &gt; &gt;</type>
@@ -36,7 +36,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="188" column="15" bodyfile="include/models.h" bodystart="188" bodyend="-1"/>
+        <location file="include/interfaces/epec_models.h" line="188" column="15" bodyfile="include/interfaces/epec_models.h" bodystart="188" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1afe2b46d396e7980d8336099d8d916b19" prot="private" static="no" mutable="no">
         <type>arma::sp_mat</type>
@@ -52,7 +52,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="191" column="16" bodyfile="include/models.h" bodystart="191" bodyend="-1"/>
+        <location file="include/interfaces/epec_models.h" line="191" column="16" bodyfile="include/interfaces/epec_models.h" bodystart="191" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1a4de4147addd36ee7df8e0944bfa017ea" prot="private" static="no" mutable="no">
         <type>std::vector&lt; unsigned int &gt;</type>
@@ -68,7 +68,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="193" column="15" bodyfile="include/models.h" bodystart="193" bodyend="-1"/>
+        <location file="include/interfaces/epec_models.h" line="193" column="15" bodyfile="include/interfaces/epec_models.h" bodystart="193" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1ac8aaf82d32d88e211018505a5c99907a" prot="private" static="no" mutable="no">
         <type>std::vector&lt; <ref refid="namespace_models_1aec9f0d1d113730ec8734d5f6ab9cab9d" kindref="member">LeadLocs</ref> &gt;</type>
@@ -84,7 +84,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="195" column="15" bodyfile="include/models.h" bodystart="195" bodyend="-1"/>
+        <location file="include/interfaces/epec_models.h" line="195" column="15" bodyfile="include/interfaces/epec_models.h" bodystart="195" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1af93e428bf0f642c3f46dc9d34641a74d" prot="private" static="no" mutable="no">
         <type>std::map&lt; std::string, unsigned int &gt;</type>
@@ -98,7 +98,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="198" column="12" bodyfile="include/models.h" bodystart="198" bodyend="-1"/>
+        <location file="include/interfaces/epec_models.h" line="198" column="12" bodyfile="include/interfaces/epec_models.h" bodystart="198" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1a90bc7510117aa20be8fb042f35351320" prot="private" static="no" mutable="no">
         <type>unsigned int</type>
@@ -112,7 +112,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="199" column="16" bodyfile="include/models.h" bodystart="199" bodyend="-1"/>
+        <location file="include/interfaces/epec_models.h" line="199" column="16" bodyfile="include/interfaces/epec_models.h" bodystart="199" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1ac2c5e7306ea5ab51ea953abdf9e4447f" prot="private" static="no" mutable="no">
         <type>std::vector&lt; arma::sp_mat &gt;</type>
@@ -127,7 +127,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="201" column="7" bodyfile="include/models.h" bodystart="201" bodyend="-1"/>
+        <location file="include/interfaces/epec_models.h" line="201" column="7" bodyfile="include/interfaces/epec_models.h" bodystart="201" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1af6b6f5d1fb8f3eb3ba888bc5fd656bc6" prot="private" static="no" mutable="no">
         <type>std::vector&lt; arma::vec &gt;</type>
@@ -142,7 +142,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="202" column="15" bodyfile="include/models.h" bodystart="202" bodyend="-1"/>
+        <location file="include/interfaces/epec_models.h" line="202" column="15" bodyfile="include/interfaces/epec_models.h" bodystart="202" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-attrib">
@@ -160,7 +160,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="241" column="8" bodyfile="include/models.h" bodystart="241" bodyend="-1"/>
+        <location file="include/interfaces/epec_models.h" line="241" column="8" bodyfile="include/interfaces/epec_models.h" bodystart="241" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -189,7 +189,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="173" column="8" bodyfile="src/Models.cpp" bodystart="923" bodyend="979"/>
+        <location file="include/interfaces/epec_models.h" line="173" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="893" bodyend="949"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1adb4f3499fa2c03522ce997f0c3f63316" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -204,7 +204,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="176" column="8" bodyfile="src/Models.cpp" bodystart="986" bodyend="999"/>
+        <location file="include/interfaces/epec_models.h" line="176" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="956" bodyend="969"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1aa9dacf6f8965a70a18d47e196cb6f03f" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -225,7 +225,7 @@
 </listitem></orderedlist>
 </para>
         </inbodydescription>
-        <location file="include/models.h" line="178" column="8" bodyfile="src/Models.cpp" bodystart="644" bodyend="674"/>
+        <location file="include/interfaces/epec_models.h" line="178" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="630" bodyend="653"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a2e38c1ac580d46b2a0bdaa36a8d46e63" prot="private" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>void</type>
@@ -241,7 +241,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="180" column="8" bodyfile="include/models.h" bodystart="180" bodyend="180"/>
+        <location file="include/interfaces/epec_models.h" line="180" column="8" bodyfile="include/interfaces/epec_models.h" bodystart="180" bodyend="180"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a78f228dd404eb6167125d1de1df3340a" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -318,7 +318,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="204" column="8" bodyfile="src/Models.cpp" bodystart="830" bodyend="877"/>
+        <location file="include/interfaces/epec_models.h" line="204" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="799" bodyend="846"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a043aff53098136d5f60d53a839b0ed85" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -344,7 +344,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="213" column="8" bodyfile="src/Models.cpp" bodystart="154" bodyend="185"/>
+        <location file="include/interfaces/epec_models.h" line="213" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="154" bodyend="189"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1afc7d4b6c72f488300b31cf51db2f81d6" prot="private" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
@@ -384,7 +384,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="216" column="8" bodyfile="src/Models.cpp" bodystart="187" bodyend="248"/>
+        <location file="include/interfaces/epec_models.h" line="216" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="191" bodyend="252"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1ac0317095ef32ba34772c9e73f26dc0ad" prot="private" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
@@ -449,12 +449,12 @@
 <para>Makes the leader constraint matrix and RHS. </para>
         </briefdescription>
         <detaileddescription>
-<para>Makes the leader level constraints for a country. The constraints added are as follows: <formula id="21">\begin{eqnarray} t_i^{I} &amp;\leq&amp; \bar{t_i^{I}}\\ q^{import} - q^{export} &amp;\leq&amp; \bar{q^{import}}\\ q^{export} - q^{import} &amp;\leq&amp; \bar{q^{export}}\\ \alpha - \beta\left(q^{import} - q^{export} + \sum_i q_i \right) &amp;\leq&amp; *\bar{\pi}\\ q^{export} &amp;\leq&amp; \sum_i q_i +q^{import} \end{eqnarray}</formula> Here <formula id="22">$\bar{q^{import}}$</formula> and <formula id="23">$\bar{q^{export}}$</formula> denote the net import limit and export limit respectively. <formula id="24">$\bar\pi$</formula> is the maximum local price that the government desires to have.</para>
+<para>Makes the leader level constraints for a country. The constraints added are as follows: <formula id="20">\begin{eqnarray} t_i^{I} &amp;\leq&amp; \bar{t_i^{I}}\\ q^{import} - q^{export} &amp;\leq&amp; \bar{q^{import}}\\ q^{export} - q^{import} &amp;\leq&amp; \bar{q^{export}}\\ \alpha - \beta\left(q^{import} - q^{export} + \sum_i q_i \right) &amp;\leq&amp; *\bar{\pi}\\ q^{export} &amp;\leq&amp; \sum_i q_i +q^{import} \end{eqnarray}</formula> Here <formula id="21">$\bar{q^{import}}$</formula> and <formula id="22">$\bar{q^{export}}$</formula> denote the net import limit and export limit respectively. <formula id="23">$\bar\pi$</formula> is the maximum local price that the government desires to have.</para>
 <para>The first two constraints above limit net imports and exports respectively. The third constraint limits local price. These constraints are added only if the RHS parameters are given as non-negative value. A default value of -1 to any of these parameters (given in <ref refid="struct_models_1_1_lead_all_par" kindref="compound">Models::LeadAllPar</ref> <computeroutput>Params</computeroutput> object) ensures that these constraints are not added. The last constraint is <emphasis>always</emphasis> added. It ensures that the country does not export more than what it has produced + imported! </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="220" column="8" bodyfile="src/Models.cpp" bodystart="250" bodyend="409"/>
+        <location file="include/interfaces/epec_models.h" line="220" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="254" bodyend="413"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a926d12ae3829db9068a6ce813fbbdfce" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -476,7 +476,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="228" column="8" bodyfile="src/Models.cpp" bodystart="676" bodyend="726"/>
+        <location file="include/interfaces/epec_models.h" line="228" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="655" bodyend="704"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a295ae8dd8ca635a407940bc78ce8875a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -495,7 +495,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="230" column="8" bodyfile="src/Models.cpp" bodystart="767" bodyend="828"/>
+        <location file="include/interfaces/epec_models.h" line="230" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="745" bodyend="797"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a92ed1b673ace45b835bc07cc9b30e6ea" prot="private" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -518,7 +518,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="232" column="8" bodyfile="src/Models.cpp" bodystart="728" bodyend="765"/>
+        <location file="include/interfaces/epec_models.h" line="232" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="706" bodyend="743"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a8400c73da6cca24c5e7fdfd390a19838" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -548,7 +548,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="234" column="8" bodyfile="src/Models.cpp" bodystart="1449" bodyend="1511"/>
+        <location file="include/interfaces/epec_models.h" line="234" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="1408" bodyend="1470"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a27f68538976f6d41d93dbc51f6711166" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -577,7 +577,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="237" column="8" bodyfile="src/Models.cpp" bodystart="1513" bodyend="1586"/>
+        <location file="include/interfaces/epec_models.h" line="237" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="1472" bodyend="1545"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -592,7 +592,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="246" column="3"/>
+        <location file="include/interfaces/epec_models.h" line="246" column="3"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a05bb954912158ca39f123ec1c6cdba9a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -614,7 +614,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="248" column="3" bodyfile="include/models.h" bodystart="248" bodyend="249"/>
+        <location file="include/interfaces/epec_models.h" line="248" column="3" bodyfile="include/interfaces/epec_models.h" bodystart="248" bodyend="249"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1ad4eddf9e6d7fa0391db41f647af25fc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -631,7 +631,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="252" column="8" bodyfile="src/Models.cpp" bodystart="1588" bodyend="1595"/>
+        <location file="include/interfaces/epec_models.h" line="252" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="1547" bodyend="1554"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a14962535c0ee6c0f2669508d850dbfe1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_models_1_1_e_p_e_c" kindref="compound">EPEC</ref> &amp;</type>
@@ -656,11 +656,11 @@
         </briefdescription>
         <detaileddescription>
 <para>A Nash cournot game is played among the followers, for the leader-decided values of import export, caps and taxations on all players. The total quantity used in the demand equation is the sum of quantity produced by all followers + any import - any export.</para>
-<para>Use <formula id="25">$l_i$</formula> to denote the <formula id="26">$i$</formula>-th element in <computeroutput>costs_lin</computeroutput> and <formula id="27">$q_i$</formula> for the <formula id="26">$i$</formula>-th element in <computeroutput>costs_quad</computeroutput>. Then to produce quantity <formula id="28">$x_i$</formula>, the <formula id="26">$i$</formula>-th producer&apos;s cost will be <formula id="29">\[ l_ix_i + \frac{1}{2}q_ix_i^2 \]</formula> In addition to this, the leader may impose &quot;tax&quot;, which could increase <formula id="25">$l_i$</formula> for each player.</para>
-<para>Total quantity in the market is given by sum of quantities produced by all producers adjusted by imports and exports <formula id="30">\[{Total\quad Quantity} = \sum_i x_i + x_{imp} - x_{exp} \]</formula> The demand curve in the market is given by <formula id="31">\[{Price} = a-b({Total\quad Quantity})\]</formula></para>
+<para>Use <formula id="24">$l_i$</formula> to denote the <formula id="25">$i$</formula>-th element in <computeroutput>costs_lin</computeroutput> and <formula id="26">$q_i$</formula> for the <formula id="25">$i$</formula>-th element in <computeroutput>costs_quad</computeroutput>. Then to produce quantity <formula id="27">$x_i$</formula>, the <formula id="25">$i$</formula>-th producer&apos;s cost will be <formula id="28">\[ l_ix_i + \frac{1}{2}q_ix_i^2 \]</formula> In addition to this, the leader may impose &quot;tax&quot;, which could increase <formula id="24">$l_i$</formula> for each player.</para>
+<para>Total quantity in the market is given by sum of quantities produced by all producers adjusted by imports and exports <formula id="29">\[{Total\quad Quantity} = \sum_i x_i + x_{imp} - x_{exp} \]</formula> The demand curve in the market is given by <formula id="30">\[{Price} = a-b({Total\quad Quantity})\]</formula></para>
 <para>Each follower is also constrained by a maximum production capacity her infrastructure allows. And each follower is constrained by a cap on their production, that is imposed by the leader.</para>
-<para>Each follower decides <formula id="28">$x_i$</formula> noncooperatively maximizing profits.</para>
-<para>The leader decides quantity imported <formula id="32">$q_{imp}$</formula>, quantity exported <formula id="33">$q_{exp}$</formula>, cap on each player, <formula id="34">$\tilde{x_i}$</formula>, and the tax for each player <formula id="35">$t_i$</formula>.</para>
+<para>Each follower decides <formula id="27">$x_i$</formula> noncooperatively maximizing profits.</para>
+<para>The leader decides quantity imported <formula id="31">$q_{imp}$</formula>, quantity exported <formula id="32">$q_{exp}$</formula>, cap on each player, <formula id="33">$\tilde{x_i}$</formula>, and the tax for each player <formula id="34">$t_i$</formula>.</para>
 <para>The leader is also constrained to not export or import anything more than the limits set by <computeroutput>export_limit</computeroutput> and <computeroutput>import_limit</computeroutput>. A negative value to these input variables imply that there is no such limit.</para>
 <para>Similarly the leader cannot also impose tax on any player greater than what is dictated by the input variable <computeroutput>max_tax</computeroutput>.</para>
 <para><simplesect kind="return"><para>Pointer to LCP object dynamically created using <computeroutput>new</computeroutput>. </para>
@@ -669,7 +669,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="255" column="8" bodyfile="src/Models.cpp" bodystart="411" bodyend="603"/>
+        <location file="include/interfaces/epec_models.h" line="255" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="415" bodyend="597"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1ae7423f15fd8596aeebc38d31f04d03c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_models_1_1_e_p_e_c" kindref="compound">EPEC</ref> &amp;</type>
@@ -690,7 +690,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="262" column="8" bodyfile="src/Models.cpp" bodystart="605" bodyend="642"/>
+        <location file="include/interfaces/epec_models.h" line="262" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="599" bodyend="628"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a1d74390d88d7f5236d502eba172864ca" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned int</type>
@@ -713,7 +713,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="265" column="3" bodyfile="src/Models.cpp" bodystart="879" bodyend="889"/>
+        <location file="include/interfaces/epec_models.h" line="265" column="3" bodyfile="src/interfaces/epec_models.cpp" bodystart="848" bodyend="859"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1ab76060f9c18689c85f20583322d3084d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned int</type>
@@ -735,7 +735,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="269" column="3"/>
+        <location file="include/interfaces/epec_models.h" line="269" column="3"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a356a22aff221fad903b911014783651f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_models_1_1_e_p_e_c" kindref="compound">EPEC</ref> &amp;</type>
@@ -750,7 +750,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="272" column="8" bodyfile="src/Models.cpp" bodystart="910" bodyend="921"/>
+        <location file="include/interfaces/epec_models.h" line="272" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="880" bodyend="891"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a536a82c1fa0aa9b3a4e9f84669b17166" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::unique_ptr&lt; GRBModel &gt;</type>
@@ -771,7 +771,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="274" column="19" bodyfile="src/Models.cpp" bodystart="981" bodyend="984"/>
+        <location file="include/interfaces/epec_models.h" line="274" column="19" bodyfile="src/interfaces/epec_models.cpp" bodystart="951" bodyend="954"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1aea86a7ca6a2f4d0bcedd2d7a02a4db89" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_game_1_1_nash_game" kindref="compound">Game::NashGame</ref> *</type>
@@ -789,7 +789,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="278" column="18" bodyfile="src/Models.cpp" bodystart="901" bodyend="908"/>
+        <location file="include/interfaces/epec_models.h" line="278" column="18" bodyfile="src/interfaces/epec_models.cpp" bodystart="871" bodyend="878"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a7ab042a6cac2e61ce8039f25d9a8a0db" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -815,7 +815,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="281" column="8"/>
+        <location file="include/interfaces/epec_models.h" line="281" column="8"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1ad6045931d0e213e1897f6b018b93575a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -837,7 +837,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="284" column="8"/>
+        <location file="include/interfaces/epec_models.h" line="284" column="8"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1abdfa0a37634cbecc7a0d1a953d9dae44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -855,7 +855,7 @@
         <inbodydescription>
 <para>Reads the solution file and load it in the current <ref refid="class_models_1_1_e_p_e_c" kindref="compound">EPEC</ref> instance</para>
         </inbodydescription>
-        <location file="include/models.h" line="286" column="8" bodyfile="src/Models.cpp" bodystart="1188" bodyend="1228"/>
+        <location file="include/interfaces/epec_models.h" line="286" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="1158" bodyend="1191"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a0b4f42c3d7a8bac1673ecd63faee254b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -881,7 +881,7 @@
         <inbodydescription>
 <para>Writes the computed Nash Equilibrium in the standard JSON solution file <computeroutput>filename</computeroutput> dictates the name of the .JSON solution file</para>
         </inbodydescription>
-        <location file="include/models.h" line="288" column="8" bodyfile="src/Models.cpp" bodystart="1115" bodyend="1186"/>
+        <location file="include/interfaces/epec_models.h" line="288" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="1085" bodyend="1156"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a52dd1bf3d61d40aa3f461403377d73de" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -903,7 +903,7 @@
         <inbodydescription>
 <para>Writes the computed Nash Equilibrium in the <ref refid="class_models_1_1_e_p_e_c" kindref="compound">EPEC</ref> instance <computeroutput>writeLevel</computeroutput> is an integer representing the write configuration. 0: only Json solution; 1: only human readable solution; 2:both</para>
         </inbodydescription>
-        <location file="include/models.h" line="291" column="8" bodyfile="src/Models.cpp" bodystart="1230" bodyend="1249"/>
+        <location file="include/interfaces/epec_models.h" line="291" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="1193" bodyend="1212"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a32f76f4e828f8f7ffa6d76f889b60bc5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>const <ref refid="struct_models_1_1_e_p_e_c_instance" kindref="compound">EPECInstance</ref></type>
@@ -917,7 +917,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/models.h" line="294" column="22" bodyfile="include/models.h" bodystart="294" bodyend="296"/>
+        <location file="include/interfaces/epec_models.h" line="294" column="22" bodyfile="include/interfaces/epec_models.h" bodystart="294" bodyend="296"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -937,22 +937,88 @@
       </node>
     </inheritancegraph>
     <collaborationgraph>
+      <node id="10">
+        <label>Attr&lt; std::vector&lt; unsigned int &gt; &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="3">
+        <label>ZEROStatistics&lt; Data::EPEC::DataObject &gt;</label>
+        <link refid="struct_z_e_r_o_statistics"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>WallClockTime</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>AlgorithmData</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>NumConstraints</edgelabel>
+          <edgelabel>NumNonZero</edgelabel>
+          <edgelabel>NumIterations</edgelabel>
+          <edgelabel>NumVar</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>PureNashEquilibrium</edgelabel>
+          <edgelabel>NumericalIssues</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>Status</edgelabel>
+        </childnode>
+      </node>
+      <node id="15">
+        <label>Attr&lt; ZEROStatus &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="8">
+        <label>Attr&lt; int &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="14">
+        <label>Attr&lt; Data::LCP::PolyhedraStrategy &gt;</label>
+        <link refid="class_attr"/>
+      </node>
       <node id="1">
         <label>Models::EPEC</label>
         <link refid="class_models_1_1_e_p_e_c"/>
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="3">
-        <label>Game::EPECStatistics</label>
-        <link refid="struct_game_1_1_e_p_e_c_statistics"/>
-        <childnode refid="4" relation="usage">
-          <edgelabel>AlgorithmParam</edgelabel>
-        </childnode>
+      <node id="13">
+        <label>Attr&lt; Data::EPEC::Algorithms &gt;</label>
+        <link refid="class_attr"/>
       </node>
-      <node id="4">
-        <label>Game::EPECAlgorithmParams</label>
-        <link refid="struct_game_1_1_e_p_e_c_algorithm_params"/>
+      <node id="9">
+        <label>Attr&lt; bool &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="5">
+        <label>Data::EPEC::DataObject</label>
+        <link refid="class_data_1_1_e_p_e_c_1_1_data_object"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>BoundBigM</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>FeasiblePolyhedra</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>LostIntermediateEq</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>Aggressiveness</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>RecoverStrategy</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>BoundPrimals</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>Algorithm</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>PolyhedraStrategy</edgelabel>
+        </childnode>
       </node>
       <node id="2">
         <label>Game::EPEC</label>
@@ -961,14 +1027,48 @@
           <edgelabel>Stats</edgelabel>
         </childnode>
       </node>
+      <node id="11">
+        <label>Attr&lt; unsigned int &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="4">
+        <label>Attr&lt; double &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="6">
+        <label>ZEROAlgorithmData</label>
+        <link refid="class_z_e_r_o_algorithm_data"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>DeviationTolerance</edgelabel>
+          <edgelabel>TimeLimit</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>RandomSeed</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>Threads</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>PureNashEquilibrium</edgelabel>
+          <edgelabel>IndicatorConstraints</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Attr&lt; unsigned long int &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="12">
+        <label>Attr&lt; Data::EPEC::RecoverStrategy &gt;</label>
+        <link refid="class_attr"/>
+      </node>
     </collaborationgraph>
-    <location file="include/models.h" line="170" column="29" bodyfile="include/models.h" bodystart="170" bodyend="297"/>
+    <location file="include/interfaces/epec_models.h" line="170" column="29" bodyfile="include/interfaces/epec_models.h" bodystart="170" bodyend="297"/>
     <listofallmembers>
       <member refid="class_models_1_1_e_p_e_c_1a926d12ae3829db9068a6ce813fbbdfce" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>add_Leaders_tradebalance_constraints</name></member>
       <member refid="class_models_1_1_e_p_e_c_1a14962535c0ee6c0f2669508d850dbfe1" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>addCountry</name></member>
       <member refid="class_game_1_1_e_p_e_c_1ae0bd0fb7910bc4735c0c6481e1ab7c60" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>addDummyLead</name></member>
       <member refid="class_models_1_1_e_p_e_c_1ae7423f15fd8596aeebc38d31f04d03c6" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>addTranspCosts</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a487479646a902f7843ba3a8ddbe6708e" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>Algorithm</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a085ac9ace1a3aef12e61c03463dee800" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>Algorithm</name></member>
       <member refid="class_models_1_1_e_p_e_c_1abf67fd852539ed21d238381efec1affa" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>AllLeadPars</name></member>
       <member refid="class_game_1_1_e_p_e_c_1afcd0018e01a696881c8da744a3a05048" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>computeLeaderLocations</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a37dca6fc0a76c12bc4bc0eac602e3633" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>computeNashEq</name></member>
@@ -983,28 +1083,16 @@
       <member refid="class_game_1_1_e_p_e_c_1a9e4f44f67e4a2956673398847e5db614" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>Finalized</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a71db5d5bacd5a7b97437795d797f882b" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>findNashEq</name></member>
       <member refid="class_models_1_1_e_p_e_c_1aea86a7ca6a2f4d0bcedd2d7a02a4db89" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>get_LowerLevelNash</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a6ccbebf4b00acfe2eebbf4415f238f3a" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getAddPolyMethod</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a6f594a6b85327cbf9e45507eb20a6132" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getAddPolyMethodSeed</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a35bedfe83fdc16fd8462476ebb451cd6" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getAggressiveness</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1aa6adad5f2653416cb852a0720ccf9987" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getAlgorithm</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1aef7276e65bf9467f90d90fbdc2a334f1" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getBoundBigM</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a4971c1bc08aa285bf7f4db06618cf772" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getBoundPrimals</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1ad8a2d364f4a7e61f5f1dfa454a229657" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getDeviationTolerance</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1ab1a26d73539ae4d268b70688e312b747" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getIndicators</name></member>
       <member refid="class_models_1_1_e_p_e_c_1a32f76f4e828f8f7ffa6d76f889b60bc5" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getInstance</name></member>
       <member refid="class_game_1_1_e_p_e_c_1aa9f848f3d44b529af6c7b7fb3b4789cf" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getLCPDescription</name></member>
       <member refid="class_game_1_1_e_p_e_c_1af4ba9e089745932ff3bf24897af53e5f" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getLCPModel</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a676146ffcd3ae1c43462afefebf77f02" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getNumLeaders</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1acb7aba467faa3bfcd572e8dcce4a7c3b" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getNumThreads</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a7bf2d222ff193b83713849a89c4291ba" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getNumVar</name></member>
       <member refid="class_models_1_1_e_p_e_c_1a1d74390d88d7f5236d502eba172864ca" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getPosition</name></member>
       <member refid="class_models_1_1_e_p_e_c_1ab76060f9c18689c85f20583322d3084d" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getPosition</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a0bf1c7483795c1f08baabf2426ca933d" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getPositionLeadFoll</name></member>
       <member refid="class_game_1_1_e_p_e_c_1aec1b59c633f797063362b0ae4323f8ea" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getPositionLeadLead</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a15d65c14e30eed4ad6456a34b0dbaeb9" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getPureNashEquilibrium</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a67525a1ab20ed9108c6c70e25ce36186" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getRecoverStrategy</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a03b6d74bb697a567c41de0253a15d5a9" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getStatistics</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a22353c0fd28f1423c626006e8ba00052" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getTimeLimit</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1ac17da3390473477503b076e4867710ac" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getStatistics</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a723c245afbc41788c993566aca9f238c" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getValLeadFoll</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a24faf8f9033094c380f38fe3f6609a27" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getValLeadLead</name></member>
       <member refid="class_game_1_1_e_p_e_c_1aacb304f764e52114fdedef15a0a90558" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>getX</name></member>
@@ -1051,22 +1139,22 @@
       <member refid="class_game_1_1_e_p_e_c_1a6dc4295a2c585a695ca5c1b54f8a7883" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>respond</name></member>
       <member refid="class_models_1_1_e_p_e_c_1a536a82c1fa0aa9b3a4e9f84669b17166" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>Respond</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a3fcda0d435da9c183b73df244ac863a0" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>respondSol</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1ac3588ae6663ee577458a98e2dfa71a42" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setAddPolyMethod</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1aab7d6a3125f1be27f42fa8839d8ec84f" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setAddPolyMethodSeed</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a73bc0d776af3885481aafab39cff90d9" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setAddPolyMethod</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a3425d5ca9abea1e5ab18f5e53bf91bd5" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setAggressiveness</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1addbd62e18bcc408656c330f8cfbb1b2c" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setAlgorithm</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1acbc098323dd83d07fa249630c8a56536" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setAlgorithm</name></member>
       <member refid="class_game_1_1_e_p_e_c_1aab6e24f25d193a514b2c97681a5d2df8" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setBoundBigM</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a4b6238b4052069f2fd7122f327bb70c5" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setBoundPrimals</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a9e0fb6903f40b26e00ab1289300b2c8c" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setDeviationTolerance</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a3b2335bc68d6464ad5af7e74ab91f243" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setIndicators</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a19e56d50e5ca900bb05247d7e4028772" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setNumThreads</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a437840f2bb7687b81585fc793b5be0d6" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setPureNashEquilibrium</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a63a30d74e2fbe74cf9df603e162caa4f" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setRecoverStrategy</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a572fac1c8fb7571abbd3ccf002c7e650" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setRandomSeed</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1ac14487f892f9d94d7d783e874fe4b5d9" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setRecoverStrategy</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a3e714cdf0c2eac38a3d6cb17acde2109" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>setTimeLimit</name></member>
       <member refid="class_game_1_1_e_p_e_c_1ad0c30f87298df78ec8b2275fc272745f" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>SizesWithoutHull</name></member>
       <member refid="class_game_1_1_e_p_e_c_1ac897450f8b0afb2346e872de2fbc82eb" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>SolutionX</name></member>
       <member refid="class_game_1_1_e_p_e_c_1aa1a2f0e5df60ca00ccad7b9a8a4f1c8a" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>SolutionZ</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a827a90f6d6c14f8e6d61694f9a63f450" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>Stats</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a6bf4f89d2d8a9818da7d698da2c07f05" prot="protected" virt="non-virtual"><scope>Models::EPEC</scope><name>Stats</name></member>
       <member refid="class_models_1_1_e_p_e_c_1a90bc7510117aa20be8fb042f35351320" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>taxVars</name></member>
       <member refid="class_models_1_1_e_p_e_c_1ad4eddf9e6d7fa0391db41f647af25fc5" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>testLCP</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a1f958d036ee7569e9488f454158d9c8a" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>TheLCP</name></member>

@@ -15,8 +15,8 @@ Directory lcp
 Files
 -----
 
-- :ref:`file_src_lcp_LCP.cpp`
-- :ref:`file_src_lcp_OuterLCP.cpp`
-- :ref:`file_src_lcp_PolyLCP.cpp`
+- :ref:`file_src_lcp_lcp.cpp`
+- :ref:`file_src_lcp_outer_lcp.cpp`
+- :ref:`file_src_lcp_poly_lcp.cpp`
 
 

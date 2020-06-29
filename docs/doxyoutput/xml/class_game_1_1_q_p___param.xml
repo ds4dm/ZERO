@@ -3,7 +3,7 @@
   <compounddef id="class_game_1_1_q_p___param" kind="class" language="C++" prot="public">
     <compoundname>Game::QP_Param</compoundname>
     <basecompoundref refid="class_game_1_1_m_p___param" prot="public" virt="non-virtual">Game::MP_Param</basecompoundref>
-    <includes refid="games_8h" local="no">games.h</includes>
+    <includes refid="qpmp_8h" local="no">qpmp.h</includes>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="class_game_1_1_q_p___param_1a2247b8e3a40f8529152469826c28e464" prot="private" static="no" mutable="no">
         <type>GRBEnv *</type>
@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games.h" line="174" column="10" bodyfile="include/games.h" bodystart="174" bodyend="-1"/>
+        <location file="include/games/qpmp.h" line="123" column="10" bodyfile="include/games/qpmp.h" bodystart="123" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_game_1_1_q_p___param_1ad06f1cf8e5c84e2c6f5de0aaf95d6bb1" prot="private" static="no" mutable="no">
         <type>GRBModel</type>
@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games.h" line="175" column="12" bodyfile="include/games.h" bodystart="175" bodyend="-1"/>
+        <location file="include/games/qpmp.h" line="124" column="12" bodyfile="include/games/qpmp.h" bodystart="124" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_game_1_1_q_p___param_1a336917f832b509890d122c133e859ee0" prot="private" static="no" mutable="no">
         <type>bool</type>
@@ -42,7 +42,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games.h" line="176" column="8" bodyfile="include/games.h" bodystart="176" bodyend="-1"/>
+        <location file="include/games/qpmp.h" line="125" column="8" bodyfile="include/games/qpmp.h" bodystart="125" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -58,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games.h" line="178" column="7" bodyfile="src/Games.cpp" bodystart="558" bodyend="579"/>
+        <location file="include/games/qpmp.h" line="127" column="7" bodyfile="src/games/qpmp.cpp" bodystart="276" bodyend="297"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -79,7 +79,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games.h" line="182" column="12" bodyfile="include/games.h" bodystart="182" bodyend="185"/>
+        <location file="include/games/qpmp.h" line="131" column="12" bodyfile="include/games/qpmp.h" bodystart="131" bodyend="134"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_q_p___param_1a61008ed53ae0d7bf482724c6495931fe" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -122,7 +122,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games.h" line="188" column="3" bodyfile="include/games.h" bodystart="188" bodyend="195"/>
+        <location file="include/games/qpmp.h" line="137" column="3" bodyfile="include/games/qpmp.h" bodystart="137" bodyend="144"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_q_p___param_1ad02ba73442c9556bae3c184ac3ae7ee8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -140,7 +140,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games.h" line="198" column="3" bodyfile="include/games.h" bodystart="198" bodyend="202"/>
+        <location file="include/games/qpmp.h" line="147" column="3" bodyfile="include/games/qpmp.h" bodystart="147" bodyend="151"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_q_p___param_1a3fb0950b780c847e97f34043068ca758" prot="public" static="no" const="no" explicit="no" inline="no" final="yes" virt="virtual">
         <type><ref refid="class_game_1_1_q_p___param" kindref="compound">QP_Param</ref> &amp;</type>
@@ -179,7 +179,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games.h" line="205" column="12" bodyfile="src/Games.cpp" bodystart="701" bodyend="714"/>
+        <location file="include/games/qpmp.h" line="154" column="12" bodyfile="src/games/qpmp.cpp" bodystart="396" bodyend="404"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_q_p___param_1ac1555a30b8ba903db65a3fe0b6763ec4" prot="public" static="no" const="no" explicit="no" inline="no" final="yes" virt="virtual">
         <type><ref refid="class_game_1_1_q_p___param" kindref="compound">QP_Param</ref> &amp;</type>
@@ -218,7 +218,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games.h" line="209" column="12" bodyfile="src/Games.cpp" bodystart="716" bodyend="729"/>
+        <location file="include/games/qpmp.h" line="158" column="12" bodyfile="src/games/qpmp.cpp" bodystart="406" bodyend="414"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_q_p___param_1a3f02452cc0c46075b899e44859ace8dc" prot="public" static="no" const="no" explicit="no" inline="no" final="yes" virt="virtual">
         <type><ref refid="class_game_1_1_q_p___param" kindref="compound">QP_Param</ref> &amp;</type>
@@ -240,7 +240,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games.h" line="212" column="12" bodyfile="src/Games.cpp" bodystart="739" bodyend="742"/>
+        <location file="include/games/qpmp.h" line="161" column="12" bodyfile="src/games/qpmp.cpp" bodystart="424" bodyend="427"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_q_p___param_1a5048a36ffe7ce26720fda054ba570a3e" prot="public" static="no" const="no" explicit="no" inline="no" final="yes" virt="virtual">
         <type><ref refid="class_game_1_1_q_p___param" kindref="compound">QP_Param</ref> &amp;</type>
@@ -263,7 +263,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games.h" line="214" column="12" bodyfile="src/Games.cpp" bodystart="731" bodyend="737"/>
+        <location file="include/games/qpmp.h" line="163" column="12" bodyfile="src/games/qpmp.cpp" bodystart="416" bodyend="422"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_q_p___param_1a5a9582b9b43875c771cec657f627e947" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -280,7 +280,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games.h" line="216" column="8" bodyfile="src/Games.cpp" bodystart="542" bodyend="556"/>
+        <location file="include/games/qpmp.h" line="165" column="8" bodyfile="src/games/qpmp.cpp" bodystart="260" bodyend="274"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_q_p___param_1aa9042eb407e5768c793f17e490e8a5bd" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned int</type>
@@ -303,11 +303,11 @@
 <para>Compute the KKT conditions for the given QP. </para>
         </briefdescription>
         <detaileddescription>
-<para>Writes the KKT condition of the parameterized QP As per the convention, y is the decision variable for the QP and that is parameterized in x The KKT conditions are <formula id="9">$0 \leq y \perp My + Nx + q \geq 0$</formula> </para>
+<para>Writes the KKT condition of the parameterized QP As per the convention, y is the decision variable for the QP and that is parameterized in x The KKT conditions are <formula id="17">$0 \leq y \perp My + Nx + q \geq 0$</formula> </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games.h" line="219" column="16" bodyfile="src/Games.cpp" bodystart="671" bodyend="698"/>
+        <location file="include/games/qpmp.h" line="168" column="16" bodyfile="src/games/qpmp.cpp" bodystart="367" bodyend="393"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_q_p___param_1a6063c18689d5a489fb3ce79d7e8303d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::unique_ptr&lt; GRBModel &gt;</type>
@@ -340,7 +340,7 @@
 </parameterlist>
 compatible with the <ref refid="class_game_1_1_q_p___param" kindref="compound">Game::QP_Param</ref> definition.</para>
         </inbodydescription>
-        <location file="include/games.h" line="221" column="19" bodyfile="src/Games.cpp" bodystart="581" bodyend="637"/>
+        <location file="include/games/qpmp.h" line="170" column="19" bodyfile="src/games/qpmp.cpp" bodystart="299" bodyend="344"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_q_p___param_1aad40a0f721956c78c03be4d39a4b1710" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -371,18 +371,18 @@ compatible with the <ref refid="class_game_1_1_q_p___param" kindref="compound">G
 <para>Computes the objective value, given a vector <computeroutput>y</computeroutput> and a parameterizing vector <computeroutput>x</computeroutput> </para>
         </detaileddescription>
         <inbodydescription>
-<para>Computes <formula id="10">$\frac{1}{2} y^TQy + (Cx)^Ty + c^Ty$</formula> given the input values <computeroutput>y</computeroutput> and <computeroutput>x</computeroutput>. <parameterlist kind="param"><parameteritem>
+<para>Computes <formula id="18">$\frac{1}{2} y^TQy + (Cx)^Ty + c^Ty$</formula> given the input values <computeroutput>y</computeroutput> and <computeroutput>x</computeroutput>. <parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>checkFeas</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>if <computeroutput>true</computeroutput>, checks if the given <formula id="11">$(x,y)$</formula> satisfies the constraints of the problem, namely <formula id="12">$Ax + By \leq b$</formula>.</para>
+<para>if <computeroutput>true</computeroutput>, checks if the given <formula id="10">$(x,y)$</formula> satisfies the constraints of the problem, namely <formula id="11">$Ax + By \leq b$</formula>.</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
 </para>
         </inbodydescription>
-        <location file="include/games.h" line="225" column="10" bodyfile="src/Games.cpp" bodystart="754" bodyend="777"/>
+        <location file="include/games/qpmp.h" line="174" column="10" bodyfile="src/games/qpmp.cpp" bodystart="445" bodyend="468"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_q_p___param_1a8339624c0944723a19d58c8d66f1a729" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -400,7 +400,7 @@ compatible with the <ref refid="class_game_1_1_q_p___param" kindref="compound">G
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games.h" line="228" column="15" bodyfile="include/games.h" bodystart="228" bodyend="237"/>
+        <location file="include/games/qpmp.h" line="177" column="15" bodyfile="include/games/qpmp.h" bodystart="177" bodyend="186"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_q_p___param_1a5313f28073ba60f90ca422e2da6a369a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type><ref refid="class_game_1_1_q_p___param" kindref="compound">QP_Param</ref> &amp;</type>
@@ -433,7 +433,7 @@ compatible with the <ref refid="class_game_1_1_q_p___param" kindref="compound">G
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games.h" line="239" column="12" bodyfile="src/Games.cpp" bodystart="639" bodyend="669"/>
+        <location file="include/games/qpmp.h" line="188" column="12" bodyfile="src/games/qpmp.cpp" bodystart="346" bodyend="365"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_q_p___param_1a23ff06e9e2f2bcc5c8925d3535bb13cc" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -456,7 +456,7 @@ compatible with the <ref refid="class_game_1_1_q_p___param" kindref="compound">G
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games.h" line="244" column="8" bodyfile="src/Games.cpp" bodystart="336" bodyend="349"/>
+        <location file="include/games/qpmp.h" line="193" column="8" bodyfile="src/games/qpmp.cpp" bodystart="49" bodyend="62"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_q_p___param_1ad19060753eec41c341607f9f197f6771" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -480,7 +480,7 @@ compatible with the <ref refid="class_game_1_1_q_p___param" kindref="compound">G
         <inbodydescription>
 <para>The <ref refid="class_game_1_1_q_p___param" kindref="compound">Game::QP_Param</ref> object hence stored can be loaded back using <ref refid="class_game_1_1_q_p___param_1addb5647d7fd877b6559561df5ba7f198" kindref="member">Game::QP_Param::load</ref></para>
         </inbodydescription>
-        <location file="include/games.h" line="247" column="8" bodyfile="src/Games.cpp" bodystart="790" bodyend="803"/>
+        <location file="include/games/qpmp.h" line="196" column="8" bodyfile="src/games/qpmp.cpp" bodystart="480" bodyend="493"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_q_p___param_1addb5647d7fd877b6559561df5ba7f198" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>long int</type>
@@ -503,7 +503,7 @@ compatible with the <ref refid="class_game_1_1_q_p___param" kindref="compound">G
         </detaileddescription>
         <inbodydescription>
 <para>Before calling this function, use the constructor <ref refid="class_game_1_1_q_p___param_1aca8de136cfd5597acf66de448dce9edd" kindref="member">QP_Param::QP_Param(GRBEnv *Env)</ref> to initialize.</para>
-<para>Example usage: <programlisting filename=".cpp"><codeline><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="_command_line_interface_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>()</highlight></codeline>
+<para>Example usage: <programlisting filename=".cpp"><codeline><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="shells_2epec_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>()</highlight></codeline>
 <codeline><highlight class="normal">{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GRBEnv<sp/><ref refid="class_game_1_1_q_p___param_1a2247b8e3a40f8529152469826c28e464" kindref="member">Env</ref>;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_q_p___param" kindref="compound">Game::QP_Param</ref><sp/>q1(&amp;<ref refid="class_game_1_1_q_p___param_1a2247b8e3a40f8529152469826c28e464" kindref="member">Env</ref>);</highlight></codeline>
@@ -513,7 +513,7 @@ compatible with the <ref refid="class_game_1_1_q_p___param" kindref="compound">G
 <codeline><highlight class="normal">}</highlight></codeline>
 </programlisting></para>
         </inbodydescription>
-        <location file="include/games.h" line="250" column="12" bodyfile="src/Games.cpp" bodystart="805" bodyend="837"/>
+        <location file="include/games/qpmp.h" line="199" column="12" bodyfile="src/games/qpmp.cpp" bodystart="495" bodyend="527"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_q_p___param_1a3e8ae28e0b8f163149e05247b87bab6c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -529,21 +529,21 @@ compatible with the <ref refid="class_game_1_1_q_p___param" kindref="compound">G
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
-<para>Computes <formula id="13">$\frac{1}{2} y^TQy + c^Ty $</formula> given the input values <computeroutput>y</computeroutput>;</para>
+<para>Computes <formula id="19">$\frac{1}{2} y^TQy + c^Ty $</formula> given the input values <computeroutput>y</computeroutput>;</para>
         </inbodydescription>
-        <location file="include/games.h" line="251" column="10" bodyfile="src/Games.cpp" bodystart="779" bodyend="788"/>
+        <location file="include/games/qpmp.h" line="200" column="10" bodyfile="src/games/qpmp.cpp" bodystart="470" bodyend="478"/>
       </memberdef>
-      <memberdef kind="function" id="class_game_1_1_q_p___param_1a66941fec42f7e4c3ee2b787c2ab1e81c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_game_1_1_q_p___param_1a4fda0fa63c08186f3441f1adcb30efcd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>arma::vec</type>
         <definition>arma::vec Game::QP_Param::getConstraintViolations</definition>
-        <argsstring>(arma::vec x, arma::vec y, double tol)</argsstring>
+        <argsstring>(const arma::vec x, const arma::vec y, double tol)</argsstring>
         <name>getConstraintViolations</name>
         <param>
-          <type>arma::vec</type>
+          <type>const arma::vec</type>
           <declname>x</declname>
         </param>
         <param>
-          <type>arma::vec</type>
+          <type>const arma::vec</type>
           <declname>y</declname>
         </param>
         <param>
@@ -556,14 +556,14 @@ compatible with the <ref refid="class_game_1_1_q_p___param" kindref="compound">G
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games.h" line="252" column="13" bodyfile="src/Games.cpp" bodystart="744" bodyend="752"/>
+        <location file="include/games/qpmp.h" line="201" column="13" bodyfile="src/games/qpmp.cpp" bodystart="429" bodyend="443"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Class to handle parameterized quadratic programs(QP) </para>
     </briefdescription>
     <detaileddescription>
-<para>Represents a Parameterized QP as <formula id="38">\[ \min_y \frac{1}{2}y^TQy + c^Ty + (Cx)^T y \]</formula> Subject to <formula id="39">\begin{eqnarray} Ax + By &amp;\leq&amp; b \\ y &amp;\geq&amp; 0 \end{eqnarray}</formula> </para>
+<para>Represents a Parameterized QP as <formula id="40">\[ \min_y \frac{1}{2}y^TQy + c^Ty + (Cx)^T y \]</formula> Subject to <formula id="41">\begin{eqnarray} Ax + By &amp;\leq&amp; b \\ y &amp;\geq&amp; 0 \end{eqnarray}</formula> </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="2">
@@ -589,7 +589,7 @@ compatible with the <ref refid="class_game_1_1_q_p___param" kindref="compound">G
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="include/games.h" line="171" column="1" bodyfile="include/games.h" bodystart="159" bodyend="253"/>
+    <location file="include/games/qpmp.h" line="120" column="1" bodyfile="include/games/qpmp.h" bodystart="108" bodyend="203"/>
     <listofallmembers>
       <member refid="class_game_1_1_m_p___param_1aa0b31310fd4f138fe3e3771d2b077c3e" prot="protected" virt="non-virtual"><scope>Game::QP_Param</scope><name>A</name></member>
       <member refid="class_game_1_1_q_p___param_1a5313f28073ba60f90ca422e2da6a369a" prot="public" virt="virtual"><scope>Game::QP_Param</scope><name>addDummy</name></member>
@@ -608,7 +608,7 @@ compatible with the <ref refid="class_game_1_1_q_p___param" kindref="compound">G
       <member refid="class_game_1_1_m_p___param_1a30d991dc4a735cc7ae66005d33fa74e5" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>getb</name></member>
       <member refid="class_game_1_1_m_p___param_1af07f091c9b546357d5d90d67a87e340c" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>getC</name></member>
       <member refid="class_game_1_1_m_p___param_1a859e717089861c86bffe656f352b105e" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>getc</name></member>
-      <member refid="class_game_1_1_q_p___param_1a66941fec42f7e4c3ee2b787c2ab1e81c" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>getConstraintViolations</name></member>
+      <member refid="class_game_1_1_q_p___param_1a4fda0fa63c08186f3441f1adcb30efcd" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>getConstraintViolations</name></member>
       <member refid="class_game_1_1_m_p___param_1a5beeddbd8425ac08b12fd041c647b922" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>getNx</name></member>
       <member refid="class_game_1_1_m_p___param_1acf2be6a9980b50736064b0eb11103e5e" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>getNy</name></member>
       <member refid="class_game_1_1_m_p___param_1ac2db5cff1ae7f287200f82e3c729121b" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>getQ</name></member>

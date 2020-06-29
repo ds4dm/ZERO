@@ -11,15 +11,11 @@ Directory algorithms
 
 *Directory path:* ``include/algorithms``
 
+Subdirectories
+--------------
 
-Files
------
+- :ref:`dir_include_algorithms_EPEC`
+- :ref:`dir_include_algorithms_IPG`
 
-- :ref:`file_include_algorithms_algorithms.h`
-- :ref:`file_include_algorithms_combinatorialpne.h`
-- :ref:`file_include_algorithms_fullenumeration.h`
-- :ref:`file_include_algorithms_innerapproximation.h`
-- :ref:`file_include_algorithms_outerapproximation.h`
-- :ref:`file_include_algorithms_polybase.h`
 
 

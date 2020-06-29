@@ -3,7 +3,7 @@
 Function Utils::appendRead(arma::vec&, const std::string, long int, const std::string)
 ======================================================================================
 
-- Defined in :ref:`file_include_utils.h`
+- Defined in :ref:`file_include_support_utils.h`
 
 
 Function Documentation

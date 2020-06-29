@@ -1,20 +1,16 @@
 Welcome
 =====================================
 
+
 ZERO is a multi-purpose game solver written in C++. Currently, it manages NASPs (EPECs) and Integer Programming Games.
 
-This project is a private fork of `EPECSolve <https://github.com/ssriram1992/EPECsolve/>`.
+ - `Base Code <https://github.com/ssriram1992/EPECsolve/>`__ : ZERO is a private fork of EPECSolve.
+ - `Instances <https://github.com/ds4dm/EPECInstances>`__ with detailed `mathematical description <https://github.com/ds4dm/EPECInstances/blob/master/Description.pdf>`__ 
+ - `arXiv <https://arxiv.org/abs/1910.06452>`__ pre-print for the original code
 
-This is a private fork of EPECSolve, that handles an outer approximation
-for NASPs and Integer Programming games. Code to compute
-mixed-equilibrium in linear EPECs. - `Base
-Code <https://github.com/ssriram1992/EPECsolve/>`__ -
-`Instances <https://github.com/ds4dm/EPECInstances>`__ with detailed
-`mathematical
-description <https://github.com/ds4dm/EPECInstances/blob/master/Description.pdf>`__
-- `arXiv <https://arxiv.org/abs/1910.06452>`__ pre-print for the
-original code
 
+Dependencies
+***********
 
 **Mandatory packages** to make ZERO work are:
 
@@ -36,7 +32,7 @@ original code
    interface to solve files etc. Can produce a boost-free version if
    there is significant interest.
 
-Recommended but not mandatory for the algorithm. (Some examples might have these dependancies)
+Recommended but not mandatory for the algorithms: 
 
 -  `Rapid JSON <http://rapidjson.org/>`__ To export results and save
    example problem instances.
@@ -44,12 +40,14 @@ Recommended but not mandatory for the algorithm. (Some examples might have these
    ``sudo apt install doxygen`` will install DOxygen on an Ubuntu
    machine.
    
-**LICENSE**: This code is distributed under the CC0 1.0 Universal License.
+***********
+LICENSE
+This code is distributed under the CC0 1.0 Universal License.
 
 
 .. toctree::
    :caption: Quick Start
-   :hidden:
+   :name: quickstart
  
    self
    support_files/compiling
@@ -57,7 +55,7 @@ Recommended but not mandatory for the algorithm. (Some examples might have these
 
 .. toctree::
    :caption: Tutorials
-   :hidden:
+   :name: Tutorials
 
    support_files/EPEC
    support_files/LCP
@@ -65,11 +63,9 @@ Recommended but not mandatory for the algorithm. (Some examples might have these
    support_files/QP_Param
    
 .. toctree::
-   :caption: Quick References
+   :caption: Extended References
    :maxdepth: 5
    :hidden:
-
-   api/namespace_Algorithms
-   api/namespace_Game
-   api/namespace_Models
-   api/namespace_Utils
+   
+   
+   api/library_root

@@ -11,15 +11,15 @@ Subdirectories
 --------------
 
 - :ref:`dir_include_algorithms`
+- :ref:`dir_include_games`
+- :ref:`dir_include_interfaces`
 - :ref:`dir_include_lcp`
+- :ref:`dir_include_support`
 
 
 Files
 -----
 
-- :ref:`file_include_epecsolve.h`
-- :ref:`file_include_games.h`
-- :ref:`file_include_models.h`
-- :ref:`file_include_utils.h`
+- :ref:`file_include_zero.h`
 
 

@@ -11,14 +11,11 @@ Directory algorithms
 
 *Directory path:* ``src/algorithms``
 
+Subdirectories
+--------------
 
-Files
------
+- :ref:`dir_src_algorithms_EPEC`
+- :ref:`dir_src_algorithms_IPG`
 
-- :ref:`file_src_algorithms_CombinatorialPNE.cpp`
-- :ref:`file_src_algorithms_FullEnumeration.cpp`
-- :ref:`file_src_algorithms_InnerApproximation.cpp`
-- :ref:`file_src_algorithms_OuterApproximation.cpp`
-- :ref:`file_src_algorithms_PolyBase.cpp`
 
 

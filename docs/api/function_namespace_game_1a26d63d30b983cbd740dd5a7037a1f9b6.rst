@@ -3,7 +3,7 @@
 Function Game::LPSolve
 ======================
 
-- Defined in :ref:`file_include_games.h`
+- Defined in :ref:`file_include_games_games.h`
 
 
 Function Documentation

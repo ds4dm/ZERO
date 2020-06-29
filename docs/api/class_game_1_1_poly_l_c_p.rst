@@ -3,7 +3,7 @@
 Class PolyLCP
 =============
 
-- Defined in :ref:`file_include_lcp_polylcp.h`
+- Defined in :ref:`file_include_lcp_poly_lcp.h`
 
 
 Inheritance Relationships

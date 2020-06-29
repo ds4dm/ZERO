@@ -3,7 +3,7 @@
 Function Utils::resizePatch(const arma::mat&, const unsigned int, const unsigned int)
 =====================================================================================
 
-- Defined in :ref:`file_include_utils.h`
+- Defined in :ref:`file_include_support_utils.h`
 
 
 Function Documentation

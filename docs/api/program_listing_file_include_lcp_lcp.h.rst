@@ -12,14 +12,23 @@ Program Listing for File lcp.h
 
    #pragma once
    
-   #include "epecsolve.h"
+   #include "zero.h"
    #include <armadillo>
    #include <gurobi_c++.h>
    #include <iostream>
    #include <memory>
    #include <set>
    
-   // using namespace Game;
+   namespace Data {
+   namespace LCP {
+   
+   enum class PolyhedraStrategy {
+     Sequential = 0,        
+     ReverseSequential = 1, 
+     Random = 2 
+   };
+   }
+   } // namespace Data
    
    namespace Game {
    
@@ -35,7 +44,7 @@ Program Listing for File lcp.h
      arma::sp_mat _A = {};
      arma::vec _b = {}; 
      arma::sp_mat _Acut = {};
-     arma::vec _bcut = {}; 
+     arma::vec _bcut = {};      
      bool MadeRlxdModel{false}; 
      unsigned int nR, nC;
    
@@ -84,7 +93,7 @@ Program Listing for File lcp.h
      LCP(GRBEnv *env, arma::sp_mat M, arma::vec q, perps Compl,
          arma::sp_mat A = {},
          arma::vec b = {}); // Constructor with M, q, compl pairs
-     LCP(GRBEnv *env, const Game::NashGame &N);
+     LCP(GRBEnv *env, const NashGame &N);
    
      ~LCP() = default;
    
@@ -141,11 +150,11 @@ Program Listing for File lcp.h
    
      long int load(std::string filename, long int pos = 0);
    
-     virtual void makeQP(Game::QP_Objective &QP_obj, Game::QP_Param &QP);
+     virtual void makeQP(QP_Objective &QP_obj, QP_Param &QP);
    
      void addCustomCuts(const arma::sp_mat A, const arma::vec b);
    
-     bool containCut(const arma::vec LHS, const double RHS, double tol=1e-5);
+     bool containCut(const arma::vec LHS, const double RHS, double tol = 1e-5);
    
      std::vector<short int> solEncode(const arma::vec &x) const;
    
@@ -153,5 +162,9 @@ Program Listing for File lcp.h
    };
    } // namespace Game
    
-   #include "lcp/outerlcp.h"
-   #include "lcp/polylcp.h"
+   namespace std {
+   string to_string(Data::LCP::PolyhedraStrategy add);
+   }
+   
+   #include "lcp/outer_lcp.h"
+   #include "lcp/poly_lcp.h"

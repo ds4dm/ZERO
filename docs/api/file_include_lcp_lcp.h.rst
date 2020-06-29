@@ -31,19 +31,19 @@ Includes
 
 - ``armadillo``
 
-- ``epecsolve.h`` (:ref:`file_include_epecsolve.h`)
-
 - ``gurobi_c++.h``
 
 - ``iostream``
 
-- ``lcp/outerlcp.h`` (:ref:`file_include_lcp_outerlcp.h`)
+- ``lcp/outer_lcp.h`` (:ref:`file_include_lcp_outer_lcp.h`)
 
-- ``lcp/polylcp.h`` (:ref:`file_include_lcp_polylcp.h`)
+- ``lcp/poly_lcp.h`` (:ref:`file_include_lcp_poly_lcp.h`)
 
 - ``memory``
 
 - ``set``
+
+- ``zero.h`` (:ref:`file_include_zero.h`)
 
 
 
@@ -51,13 +51,11 @@ Included By
 -----------
 
 
-- :ref:`file_src_lcp_LCP.cpp`
+- :ref:`file_src_lcp_lcp.cpp`
 
-- :ref:`file_include_lcp_outerlcp.h`
+- :ref:`file_include_games_EPEC_test.h`
 
-- :ref:`file_include_lcp_polylcp.h`
-
-- :ref:`file_include_epecsolve.h`
+- :ref:`file_include_zero.h`
 
 
 
@@ -66,7 +64,13 @@ Namespaces
 ----------
 
 
+- :ref:`namespace_Data`
+
+- :ref:`namespace_Data__LCP`
+
 - :ref:`namespace_Game`
+
+- :ref:`namespace_std`
 
 
 Classes
@@ -74,4 +78,18 @@ Classes
 
 
 - :ref:`exhale_class_class_game_1_1_l_c_p`
+
+
+Enums
+-----
+
+
+- :ref:`exhale_enum_namespace_data_1_1_l_c_p_1aa8773225c810ac45575f86ac803105ab`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacestd_1ad178135c94273bc34663a0949faeb80c`
 

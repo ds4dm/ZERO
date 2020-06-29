@@ -3,7 +3,7 @@
 Class NashGame
 ==============
 
-- Defined in :ref:`file_include_games.h`
+- Defined in :ref:`file_include_games_nash.h`
 
 
 Class Documentation

@@ -3,7 +3,7 @@
 Typedef Game::QP_objective
 ==========================
 
-- Defined in :ref:`file_include_games.h`
+- Defined in :ref:`file_include_games_games.h`
 
 
 Typedef Documentation

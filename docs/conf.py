@@ -1,11 +1,11 @@
 
 import textwrap
-project = 'EPECSolve'
+project = 'ZERO'
 copyright = '2020, GD and SS'
 author = 'GD and SS'
 
 # The full version, including alpha/beta/rc tags
-release = '2.0.1'
+release = '1.0.0'
 extensions = [
     # there may be others here already, e.g. 'sphinx.ext.mathjax'
     'breathe',
@@ -24,21 +24,22 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 html_contex ={
     "display_github": True,
     "github_user": "ds4dm",
-    "github_repo": "OuterGames",
+    "github_repo": "ZERO",
 }
 html_theme = 'sphinx_rtd_theme'
 html_theme_options = {
-    'logo_only': False,
+    'logo_only': True,
     'display_version': True,
     'prev_next_buttons_location': 'bottom',
     'style_external_links': False,
+    'style_nav_header_background' : '#333131',
     'collapse_navigation': False,
     'sticky_navigation': True,
     'navigation_depth': 5,
     'includehidden': True,
     'titles_only': False
 }
-
+html_logo = "support_files/zero_white.png"
 # Setup the breathe extension
 breathe_projects = {"My Project": "./doxyoutput/xml"}
 breathe_default_project = "My Project"
@@ -54,7 +55,7 @@ exhale_args = {
     "createTreeView":        True,
     "exhaleExecutesDoxygen": True,
     "exhaleDoxygenStdin":    textwrap.dedent('''
-        INPUT                   = ../README.md  ../src/ ../include/algorithms/ ../include/lcp/ ../include/epecsolve.h ../include/games.h ../include/models.h  ../include/utils.h
+        INPUT                   = ../README.md  ../src/ ../include
         IMAGE_PATH              = ./
         EXCLUDE_SYMBOLS         = arma::* rapidjson::*
         DOT_IMAGE_FORMAT        = png

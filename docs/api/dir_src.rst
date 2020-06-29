@@ -11,15 +11,11 @@ Subdirectories
 --------------
 
 - :ref:`dir_src_algorithms`
+- :ref:`dir_src_games`
+- :ref:`dir_src_interfaces`
 - :ref:`dir_src_lcp`
+- :ref:`dir_src_shells`
+- :ref:`dir_src_support`
 
-
-Files
------
-
-- :ref:`file_src_CommandLineInterface.cpp`
-- :ref:`file_src_Games.cpp`
-- :ref:`file_src_Models.cpp`
-- :ref:`file_src_Utils.cpp`
 
 

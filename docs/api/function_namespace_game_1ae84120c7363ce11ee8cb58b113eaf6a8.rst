@@ -3,7 +3,7 @@
 Function Game::operator<<(std::ostream&, const QP_Param&)
 =========================================================
 
-- Defined in :ref:`file_include_games.h`
+- Defined in :ref:`file_include_games_nash.h`
 
 
 Function Documentation

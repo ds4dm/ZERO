@@ -1,0 +1,13 @@
+.. _exhale_enum_codes_8h_1aec3f6d9705d82787080ef99b37b7efea:
+
+Enum ZEROErrorCode
+==================
+
+- Defined in :ref:`file_include_support_codes.h`
+
+
+Enum Documentation
+------------------
+
+
+.. doxygenenum:: ZEROErrorCode
