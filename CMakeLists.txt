@@ -97,7 +97,8 @@ target_link_libraries(EPECShell
 
 #EPEC Tests
 add_executable(EPECTests
-               test/EPEC/EPEC.cpp)
+               test/EPEC/EPEC_test.cpp)
+target_include_directories(EPECTests PRIVATE test)
 target_link_libraries(EPECTests ZERO Boost::unit_test_framework)
 
 

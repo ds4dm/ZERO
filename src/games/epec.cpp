@@ -1,9 +1,9 @@
-#include "games/epec.h"
 #include "algorithms/EPEC/epec_algorithms.h"
 #include "algorithms/EPEC/epec_combinatorialpne.h"
 #include "algorithms/EPEC/epec_fullenumeration.h"
 #include "algorithms/EPEC/epec_innerapproximation.h"
 #include "algorithms/EPEC/epec_outerapproximation.h"
+#include "games/EPEC_test.h"
 #include "zero.h"
 #include <algorithm>
 #include <armadillo>

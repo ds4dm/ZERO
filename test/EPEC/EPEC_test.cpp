@@ -1,4 +1,4 @@
-#include "epectests.h"
+#include "EPEC_test.h"
 #include "algorithms/EPEC/epec_algorithms.h"
 
 

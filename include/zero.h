@@ -73,7 +73,7 @@ enum class PolyhedraStrategy;
 }
 
 } // namespace Data
-#include "games/epec.h"
+#include "games/EPEC_test.h"
 #include "games/games.h"
 #include "games/nash.h"
 #include "games/qpmp.h"
