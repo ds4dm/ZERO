@@ -248,7 +248,7 @@ void Game::IPG::getXMinusI(
                            ///< have the same size of the field NumVariables
     const unsigned int &i, ///< The index of the designed player
     arma::vec &xMinusI     ///< An output vector containing x^{-i}
-) const {
+    ) const {
   /**
    * @brief Given @p x as the solution vector and @p i as index of player, the
    * method returns x^{-i}
@@ -272,7 +272,7 @@ void Game::IPG::getXofI(const arma::vec &x, ///< The vector containing the full 
                                             ///< have the same size of the field NumVariables
                         const unsigned int &i, ///< The index of the designed player
                         arma::vec &xOfI        ///< An output vector containing x^i
-) const {
+                        ) const {
   /**
    * @brief Given @p x as the solution vector and @p i as index of player, the
    * method returns x^i

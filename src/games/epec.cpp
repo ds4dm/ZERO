@@ -203,7 +203,7 @@ Game::EPEC::respondSol(arma::vec &sol,      ///< [out] Optimal response
                        ///< players or all other players
                        const arma::vec &prevDev
                        //< [in] if any, the std::vector of previous deviations.
-) const {
+                       ) const {
   /**
    * @brief Returns the optimal objective value that is obtainable for the
    * player @p player given the decision @p x of all other players.

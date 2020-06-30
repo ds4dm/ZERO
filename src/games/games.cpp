@@ -261,6 +261,7 @@ bool Game::isZero(arma::sp_mat M, double tol) noexcept {
    */
   if (M.n_nonzero == 0)
 	 return true;
+
   return (arma::min(arma::min(abs(M))) <= tol);
 }
 

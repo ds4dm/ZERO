@@ -143,7 +143,7 @@ ostream &Models::operator<<(ostream &ost, const Models::LeaderVars l) {
 }
 
 bool Models::EPEC::ParamValid(const LeadAllPar &Params ///< Object whose validity is to be tested
-) const
+                              ) const
 /**
  * @brief Checks the Validity of Models::LeadAllPar object
  * @details Checks the following:
@@ -243,7 +243,7 @@ void Models::EPEC::make_LL_LeadCons(
     ///< exist or no limit?
     const unsigned int activeTaxCaps ///< Number of active Tax Caps constraints. If strictly
                                      ///< positive, tax cap constraint(s) will be enforced
-) const noexcept
+    ) const noexcept
 /**
  * Makes the leader level constraints for a country.
  * The constraints added are as follows:
@@ -737,7 +737,7 @@ bool Models::EPEC::dataCheck(
     const bool chkLeaderLocations, ///< Checks if Models::EPEC::LeaderLocations has
     ///< size @p n and Models::EPEC::NumVariables is set
     const bool chkLeadObjec ///< Checks if Models::EPEC::LeaderObjective has size @p n
-) const
+    ) const
 /**
  * Checks the data in Models::EPEC object, based on checking flags, @p n is the
  * number of countries in the Models::EPEC object.

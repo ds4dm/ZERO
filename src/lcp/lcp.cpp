@@ -295,7 +295,7 @@ std::unique_ptr<GRBModel> Game::LCP::LCPasMIP(
 
 bool Game::LCP::errorCheck(bool throwErr ///< If this is true, function throws an
                                          ///< error, else, it just returns false
-) const
+                           ) const
 /**
  * Checks if the `M` and `q` given to create the LCP object are of
  * compatible size, given the number of leader variables
@@ -325,7 +325,7 @@ bool Game::LCP::extractSols(
     arma::vec &z, ///< Output variable - where the equation values are stored
     arma::vec &x, ///< Output variable - where the variable values are stored
     bool extractZ ///< z values are filled only if this is true
-) const
+    ) const
 /** @brief Extracts variable and equation values from a solved Gurobi model for
    LCP */
 /** @warning This solves the model if the model is not already solve */
@@ -370,7 +370,7 @@ arma::vec Game::LCP::zFromX(const arma::vec x) { return (this->M * x + this->q);
 
 std::vector<short int> Game::LCP::solEncode(const arma::vec &z, ///< Equation values
                                             const arma::vec &x  ///< Variable values
-) const
+                                            ) const
 /// @brief Given variable values and equation values, encodes it in 0/+1/-1
 /// format and returns it.
 {
@@ -640,7 +640,7 @@ unsigned int Game::LCP::convexHull(arma::sp_mat &A, ///< Convex hull inequality 
 }
 
 void Game::LCP::makeQP(Game::QP_Objective &QP_obj, ///< [in/out] Objective function of the final QP
-                       ///< that has to be made
+                                                   ///< that has to be made
                        Game::QP_Param &QP ///< [out] This is the Game::QP_Param that results from
                                           ///< the input objective and the convex hull of the
                                           ///< region defined by Game::OuterLCP

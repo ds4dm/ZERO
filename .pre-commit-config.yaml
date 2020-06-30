@@ -3,3 +3,8 @@ repos:
     rev: v0.6.10
     hooks:
     - id: cmake-format
+  - repo: https://github.com/pocc/pre-commit-hooks
+    rev: python
+    hooks:
+      - id: clang-format
+        args: [--style=file, -i]

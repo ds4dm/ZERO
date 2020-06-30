@@ -163,7 +163,7 @@ const Game::NashGame &Game::NashGame::formulateLCP(
     bool writeToFile,         ///< If  true, writes  M and  q to file.k
     const std::string M_name, ///< File name to be used to write  M
     const std::string q_name  ///< File name to be used to write  M
-) const {
+    ) const {
   /// @brief Formulates the LCP corresponding to the Nash game.
   /// @warning Does not return the leader constraints. Use
   /// NashGame::rewriteLeadCons() to handle them
@@ -462,7 +462,7 @@ Game::NashGame::respond(unsigned int player, ///< Player whose optimal response 
                         ///< players or all other players)
                         bool fullvec ///< Is @p x strategy of all players? (including player @p
                                      ///< player)
-) const
+                        ) const
 /**
  * @brief Given the decision of other players, find the optimal response for
  * player in position @p player
@@ -503,7 +503,7 @@ Game::NashGame::respondSol(arma::vec &sol,      ///< [out] Optimal response
                            ///< players or all other players)
                            bool fullvec ///< Is @p x strategy of all players? (including player @p
                                         ///< player)
-) const {
+                           ) const {
   /**
    * @brief Returns the optimal objective value that is obtainable for the
    * player @p player given the decision @p x of all other players.

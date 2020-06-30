@@ -202,7 +202,7 @@ bool Algorithms::EPEC::InnerApproximation::getAllDeviations(
     std::vector<arma::vec> &deviations,   ///< [out] The vector of deviations for all players
     const arma::vec &guessSol,            ///< [in] The guess for the solution vector
     const std::vector<arma::vec> &prevDev //<[in] The previous vector of deviations, if any exist.
-) const
+    ) const
 /**
  * @brief Given a potential solution vector, returns a profitable deviation (if
  * it exists) for all players. @param
@@ -230,7 +230,7 @@ unsigned int Algorithms::EPEC::InnerApproximation::addDeviatedPolyhedron(
                       ///< true, at least one player has no polyhedron that can
                       ///< be added. In the first iteration, this translates to
                       ///< x
-) const {
+    ) const {
   /**
    * Given a profitable deviation for each country, adds <i>a</i> polyhedron in
    * the feasible region of each country to the corresponding country's
