@@ -7,9 +7,9 @@
 class ZEROVersion {
 public:
   ZEROVersion(std::string &major, std::string &minor, std::string &patch) {
-    major = ZERO_VERSION_MAJOR;
-    minor = ZERO_VERSION_MINOR;
-    patch = ZERO_VERSION_PATCH;
+	 major = ZERO_VERSION_MAJOR;
+	 minor = ZERO_VERSION_MINOR;
+	 patch = ZERO_VERSION_PATCH;
   }
   ZEROVersion(std::string &version) { version = ZERO_VERSION; }
 };

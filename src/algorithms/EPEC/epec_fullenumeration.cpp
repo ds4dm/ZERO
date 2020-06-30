@@ -7,17 +7,16 @@ void Algorithms::EPEC::FullEnumeration::solve() {
    * @p excludelist contains the set of excluded polyhedra combinations.
    */
   for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i)
-    this->PolyLCP.at(i)->enumerateAll(true);
+	 this->PolyLCP.at(i)->enumerateAll(true);
   this->EPECObject->makePlayersQPs();
   BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::FullEnumeration::solve: "
                               "Starting FullEnumeration search";
-  this->EPECObject->computeNashEq(
-      this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(),
-      this->EPECObject->Stats.AlgorithmData.TimeLimit.get());
+  this->EPECObject->computeNashEq(this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(),
+                                  this->EPECObject->Stats.AlgorithmData.TimeLimit.get());
   if (this->isSolved()) {
-    this->EPECObject->Stats.Status.set(ZEROStatus::NashEqFound);
-    if (this->isPureStrategy())
-      this->EPECObject->Stats.PureNashEquilibrium = true;
+	 this->EPECObject->Stats.Status.set(ZEROStatus::NashEqFound);
+	 if (this->isPureStrategy())
+		this->EPECObject->Stats.PureNashEquilibrium = true;
   }
   // Post Solving
   this->postSolving();
