@@ -33,7 +33,7 @@ RAPIDJSON_NAMESPACE_BEGIN
 
 //! Cursor stream wrapper for counting line and column number if error exists.
 /*!
-    \tparam InputStream     Any stream that implements Stream Concept
+	 \tparam InputStream     Any stream that implements Stream Concept
 */
 template <typename InputStream, typename Encoding = UTF8<>>
 class CursorStreamWrapper : public GenericStreamWrapper<InputStream, Encoding> {
@@ -41,7 +41,7 @@ public:
   typedef typename Encoding::Ch Ch;
 
   CursorStreamWrapper(InputStream &is)
-      : GenericStreamWrapper<InputStream, Encoding>(is), line_(1), col_(0) {}
+		: GenericStreamWrapper<InputStream, Encoding>(is), line_(1), col_(0) {}
 
   // counting line and column number
   Ch Take() {

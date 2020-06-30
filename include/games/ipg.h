@@ -13,24 +13,24 @@ namespace Game {
   class IP_Param : public MP_Param
   // Shape of C is Ny\times Nx
   /**
-   * Represents a Parameterized QP as \f[
-   * \min_y c^Ty + (Cx)^T y
-   * \f]
-   * Subject to
-   * \f{eqnarray}{
-   * Ay &\leq& b \\
-   * y &\geq& 0
-   * y_i &\in& &\mathbb{Z}&^{z_i} &\forall& i &\in& I
-   * \f}
-   */
+	* Represents a Parameterized QP as \f[
+	* \min_y c^Ty + (Cx)^T y
+	* \f]
+	* Subject to
+	* \f{eqnarray}{
+	* Ay &\leq& b \\
+	* y &\geq& 0
+	* y_i &\in& &\mathbb{Z}&^{z_i} &\forall& i &\in& I
+	* \f}
+	*/
   {
   private:
 	 // Gurobi environment and model
-	 GRBEnv *Env;
-	 GRBModel IPModel;          ///< Stores the IP model associated with the object
-	 arma::vec bounds;          ///< Stores the explicit bounds on variables
-	 std::vector<int> integers; ///< Stores the indexes of integer variables
-	 bool madeModel{false};     ///< True if the model has been made
+	 GRBEnv *         Env;
+	 GRBModel         IPModel;          ///< Stores the IP model associated with the object
+	 arma::vec        bounds;           ///< Stores the explicit bounds on variables
+	 std::vector<int> integers;         ///< Stores the indexes of integer variables
+	 bool             madeModel{false}; ///< True if the model has been made
 
 	 // These methods should be inaccessible to the inheritor, since we have a
 	 // different structure.
@@ -41,9 +41,14 @@ namespace Game {
 	 explicit IP_Param(GRBEnv *env = nullptr) : Env{env}, IPModel{(*env)} { this->size(); }
 
 	 /// Set data at construct time
-	 explicit IP_Param(arma::sp_mat C, arma::sp_mat B, arma::vec b, arma::vec c, arma::vec bounds,
-	                   std::vector<int> integers, GRBEnv *env = nullptr)
-	     : Env{env}, IPModel{(*env)} {
+	 explicit IP_Param(arma::sp_mat     C,
+							 arma::sp_mat     B,
+							 arma::vec        b,
+							 arma::vec        c,
+							 arma::vec        bounds,
+							 std::vector<int> integers,
+							 GRBEnv *         env = nullptr)
+		  : Env{env}, IPModel{(*env)} {
 		/**
 		 ** This provides a high level constructor for a parametrized integer
 		 *program
@@ -64,28 +69,38 @@ namespace Game {
 	 }
 
 	 std::vector<int> getIntegers() const { return this->integers; }
-	 arma::vec getBounds() const { return this->bounds; }
-	 void makeModel();
-	 void addConstraints(const arma::sp_mat A, const arma::vec b);
+	 arma::vec        getBounds() const { return this->bounds; }
+	 void             makeModel();
+	 void             addConstraints(const arma::sp_mat A, const arma::vec b);
 
 	 /// Copy constructor
 	 IP_Param(const IP_Param &ipg)
-	     : MP_Param(ipg), Env{ipg.Env}, IPModel{ipg.IPModel}, madeModel{ipg.madeModel} {
+		  : MP_Param(ipg), Env{ipg.Env}, IPModel{ipg.IPModel}, madeModel{ipg.madeModel} {
 		this->size();
 	 };
 
 	 // Override setters
-	 IP_Param &set(const arma::sp_mat &C, const arma::sp_mat &B, const arma::vec &b,
-	               const arma::vec &c, const arma::vec &bounds,
-	               const std::vector<int> &integers); // Copy data into this
-	 IP_Param &set(arma::sp_mat &C, arma::sp_mat &&B, arma::vec &&b, arma::vec &&c,
-	               arma::vec &&bounds,
-	               std::vector<int> &&integers); // Copy data into this
+	 IP_Param &set(const arma::sp_mat &    C,
+						const arma::sp_mat &    B,
+						const arma::vec &       b,
+						const arma::vec &       c,
+						const arma::vec &       bounds,
+						const std::vector<int> &integers); // Copy data into this
+	 IP_Param &set(arma::sp_mat &     C,
+						arma::sp_mat &&    B,
+						arma::vec &&       b,
+						arma::vec &&       c,
+						arma::vec &&       bounds,
+						std::vector<int> &&integers); // Copy data into this
 
-	 IP_Param &set(const QP_Objective &obj, const QP_Constraints &cons, const arma::vec &bounds = {},
-	               const std::vector<int> &integers = {});
-	 IP_Param &set(QP_Objective &&obj, QP_Constraints &&cons, arma::vec &&bounds = {},
-	               std::vector<int> &&integers = {});
+	 IP_Param &set(const QP_Objective &    obj,
+						const QP_Constraints &  cons,
+						const arma::vec &       bounds   = {},
+						const std::vector<int> &integers = {});
+	 IP_Param &set(QP_Objective &&    obj,
+						QP_Constraints &&  cons,
+						arma::vec &&       bounds   = {},
+						std::vector<int> &&integers = {});
 
 	 bool operator==(const IP_Param &IPG2) const;
 
@@ -93,8 +108,10 @@ namespace Game {
 
 	 /// Computes the objective value, given a vector @p y and
 	 /// a parameterizing vector @p x
-	 double computeObjective(const arma::vec &y, const arma::vec &x, bool checkFeas = true,
-	                         double tol = 1e-6) const;
+	 double computeObjective(const arma::vec &y,
+									 const arma::vec &x,
+									 bool             checkFeas = true,
+									 double           tol       = 1e-6) const;
 
 	 inline bool isPlayable(const IP_Param &P) const
 	 /// Checks if the current object can play a game with another Game::IP_Param
@@ -113,7 +130,7 @@ namespace Game {
 	 /// files.
 	 void write(const std::string &filename, bool append) const override;
 
-	 double computeObjectiveWithoutOthers(const arma::vec &y) const;
+	 double    computeObjectiveWithoutOthers(const arma::vec &y) const;
 	 arma::vec getConstraintViolations(const arma::vec y, double tol);
   };
 
@@ -125,19 +142,19 @@ namespace Game {
 
   protected: // Datafields
 	 std::vector<std::shared_ptr<Game::IP_Param>>
-	     PlayersIP{}; ///< The Integer Programs associated to each player
+		  PlayersIP{}; ///< The Integer Programs associated to each player
 
 	 std::vector<unsigned int> PlayerVariables{}; ///< The number of variables for each player
 
 	 GRBEnv *Env;
-	 bool Finalized{false};       ///< When the object is finalized, the solving process
-	                              ///< can start. No players can be added.
+	 bool    Finalized{false};    ///< When the object is finalized, the solving process
+											///< can start. No players can be added.
 	 bool NashEquilibrium{false}; ///< True if computeNashEq returned an equilibrium. Note that this
 	 ///< can be the equilibrium of an approximation, and not to the
 	 ///< original game
 	 std::chrono::high_resolution_clock::time_point InitTime;
-	 Data::EPEC::EPECStatistics Stats; ///< Store run time information
-	 std::vector<arma::vec> Solution;  ///< Solution variable values, for each player
+	 Data::EPEC::EPECStatistics                     Stats; ///< Store run time information
+	 std::vector<arma::vec> Solution; ///< Solution variable values, for each player
 
   private:
 	 void getXMinusI(const arma::vec &x, const unsigned int &i, arma::vec &xMinusI) const;
@@ -156,8 +173,8 @@ namespace Game {
 	 IPG(GRBEnv *env, std::vector<std::shared_ptr<Game::IP_Param>> players);
 
 	 const void findNashEq();
-	 bool isSolved(double tol = 1e-5) const;
-	 bool isPureStrategy(double tol = 1e-5) const; ///< Return a bool indicating whether the
+	 bool       isSolved(double tol = 1e-5) const;
+	 bool       isPureStrategy(double tol = 1e-5) const; ///< Return a bool indicating whether the
 	 ///< equilibrium is a pure strategy
 
 	 std::unique_ptr<GRBModel> respondModel(const unsigned int i, const arma::vec &x) const;

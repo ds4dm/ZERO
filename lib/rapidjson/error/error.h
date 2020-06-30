@@ -31,9 +31,9 @@ RAPIDJSON_DIAG_OFF(padded)
 
 //! Character type of error messages.
 /*! \ingroup RAPIDJSON_ERRORS
-    The default character type is \c char.
-    On Windows, user can define this macro as \c TCHAR for supporting both
-    unicode/non-unicode settings.
+	 The default character type is \c char.
+	 On Windows, user can define this macro as \c TCHAR for supporting both
+	 unicode/non-unicode settings.
 */
 #ifndef RAPIDJSON_ERROR_CHARTYPE
 #define RAPIDJSON_ERROR_CHARTYPE char
@@ -44,9 +44,9 @@ RAPIDJSON_DIAG_OFF(padded)
 
 //! Macro for converting string literial to \ref RAPIDJSON_ERROR_CHARTYPE[].
 /*! \ingroup RAPIDJSON_ERRORS
-    By default this conversion macro does nothing.
-    On Windows, user can define this macro as \c _T(x) for supporting both
-    unicode/non-unicode settings.
+	 By default this conversion macro does nothing.
+	 On Windows, user can define this macro as \c _T(x) for supporting both
+	 unicode/non-unicode settings.
 */
 #ifndef RAPIDJSON_ERROR_STRING
 #define RAPIDJSON_ERROR_STRING(x) x
@@ -59,7 +59,7 @@ RAPIDJSON_NAMESPACE_BEGIN
 
 //! Error code of parsing.
 /*! \ingroup RAPIDJSON_ERRORS
-    \see GenericReader::Parse, GenericReader::GetParseErrorCode
+	 \see GenericReader::Parse, GenericReader::GetParseErrorCode
 */
 enum ParseErrorCode {
   kParseErrorNone = 0, //!< No error.
@@ -91,17 +91,17 @@ enum ParseErrorCode {
 
 //! Result of parsing (wraps ParseErrorCode)
 /*!
-    \ingroup RAPIDJSON_ERRORS
-    \code
-        Document doc;
-        ParseResult ok = doc.Parse("[42]");
-        if (!ok) {
-            fprintf(stderr, "JSON parse error: %s (%u)",
-                    GetParseError_En(ok.Code()), ok.Offset());
-            exit(EXIT_FAILURE);
-        }
-    \endcode
-    \see GenericReader::Parse, GenericDocument::Parse
+	 \ingroup RAPIDJSON_ERRORS
+	 \code
+		  Document doc;
+		  ParseResult ok = doc.Parse("[42]");
+		  if (!ok) {
+				fprintf(stderr, "JSON parse error: %s (%u)",
+						  GetParseError_En(ok.Code()), ok.Offset());
+				exit(EXIT_FAILURE);
+		  }
+	 \endcode
+	 \see GenericReader::Parse, GenericDocument::Parse
 */
 struct ParseResult {
   //!! Unspecified boolean type
@@ -123,12 +123,12 @@ public:
   //! Whether the result is an error.
   bool IsError() const { return code_ != kParseErrorNone; }
 
-  bool operator==(const ParseResult &that) const { return code_ == that.code_; }
-  bool operator==(ParseErrorCode code) const { return code_ == code; }
+  bool        operator==(const ParseResult &that) const { return code_ == that.code_; }
+  bool        operator==(ParseErrorCode code) const { return code_ == code; }
   friend bool operator==(ParseErrorCode code, const ParseResult &err) { return code == err.code_; }
 
-  bool operator!=(const ParseResult &that) const { return !(*this == that); }
-  bool operator!=(ParseErrorCode code) const { return !(*this == code); }
+  bool        operator!=(const ParseResult &that) const { return !(*this == that); }
+  bool        operator!=(ParseErrorCode code) const { return !(*this == code); }
   friend bool operator!=(ParseErrorCode code, const ParseResult &err) { return err != code; }
 
   //! Reset error code.
@@ -141,17 +141,17 @@ public:
 
 private:
   ParseErrorCode code_;
-  size_t offset_;
+  size_t         offset_;
 };
 
 //! Function pointer type of GetParseError().
 /*! \ingroup RAPIDJSON_ERRORS
 
-    This is the prototype for \c GetParseError_X(), where \c X is a locale.
-    User can dynamically change locale in runtime, e.g.:
+	 This is the prototype for \c GetParseError_X(), where \c X is a locale.
+	 User can dynamically change locale in runtime, e.g.:
 \code
-    GetParseErrorFunc GetParseError = GetParseError_En; // or whatever
-    const RAPIDJSON_ERROR_CHARTYPE* s = GetParseError(document.GetParseErrorCode());
+	 GetParseErrorFunc GetParseError = GetParseError_En; // or whatever
+	 const RAPIDJSON_ERROR_CHARTYPE* s = GetParseError(document.GetParseErrorCode());
 \endcode
 */
 typedef const RAPIDJSON_ERROR_CHARTYPE *(*GetParseErrorFunc)(ParseErrorCode);

@@ -27,18 +27,18 @@ RAPIDJSON_NAMESPACE_BEGIN
 
 //! Wrapper of \c std::basic_ostream into RapidJSON's Stream concept.
 /*!
-    The classes can be wrapped including but not limited to:
+	 The classes can be wrapped including but not limited to:
 
-    - \c std::ostringstream
-    - \c std::stringstream
-    - \c std::wpstringstream
-    - \c std::wstringstream
-    - \c std::ifstream
-    - \c std::fstream
-    - \c std::wofstream
-    - \c std::wfstream
+	 - \c std::ostringstream
+	 - \c std::stringstream
+	 - \c std::wpstringstream
+	 - \c std::wstringstream
+	 - \c std::ifstream
+	 - \c std::fstream
+	 - \c std::wofstream
+	 - \c std::wfstream
 
-    \tparam StreamType Class derived from \c std::basic_ostream.
+	 \tparam StreamType Class derived from \c std::basic_ostream.
 */
 
 template <typename StreamType> class BasicOStreamWrapper {
@@ -79,7 +79,7 @@ private:
   StreamType &stream_;
 };
 
-typedef BasicOStreamWrapper<std::ostream> OStreamWrapper;
+typedef BasicOStreamWrapper<std::ostream>  OStreamWrapper;
 typedef BasicOStreamWrapper<std::wostream> WOStreamWrapper;
 
 #ifdef __clang__

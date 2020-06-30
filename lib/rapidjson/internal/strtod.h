@@ -54,10 +54,10 @@ namespace internal {
   }
 
   inline int CheckWithinHalfULP(double b, const BigInteger &d, int dExp) {
-	 const Double db(b);
+	 const Double   db(b);
 	 const uint64_t bInt = db.IntegerSignificand();
-	 const int bExp      = db.IntegerExponent();
-	 const int hExp      = bExp - 1;
+	 const int      bExp = db.IntegerExponent();
+	 const int      hExp = bExp - 1;
 
 	 int dS_Exp2 = 0, dS_Exp5 = 0, bS_Exp2 = 0, bS_Exp5 = 0, hS_Exp2 = 0, hS_Exp5 = 0;
 
@@ -128,10 +128,10 @@ namespace internal {
   // Compute an approximation and see if it is within 1/2 ULP
   inline bool StrtodDiyFp(const char *decimals, int dLen, int dExp, double *result) {
 	 uint64_t significand = 0;
-	 int i = 0; // 2^64 - 1 = 18446744073709551615, 1844674407370955161 = 0x1999999999999999
+	 int      i = 0; // 2^64 - 1 = 18446744073709551615, 1844674407370955161 = 0x1999999999999999
 	 for (; i < dLen; i++) {
 		if (significand > RAPIDJSON_UINT64_C2(0x19999999, 0x99999999) ||
-		    (significand == RAPIDJSON_UINT64_C2(0x19999999, 0x99999999) && decimals[i] > '5'))
+			 (significand == RAPIDJSON_UINT64_C2(0x19999999, 0x99999999) && decimals[i] > '5'))
 		  break;
 		significand = significand * 10u + static_cast<unsigned>(decimals[i] - '0');
 	 }
@@ -139,10 +139,10 @@ namespace internal {
 	 if (i < dLen && decimals[i] >= '5') // Rounding
 		significand++;
 
-	 int remaining       = dLen - i;
+	 int       remaining = dLen - i;
 	 const int kUlpShift = 3;
 	 const int kUlp      = 1 << kUlpShift;
-	 int64_t error       = (remaining == 0) ? 0 : kUlp / 2;
+	 int64_t   error     = (remaining == 0) ? 0 : kUlp / 2;
 
 	 DiyFp v(significand, 0);
 	 v = v.Normalize();
@@ -150,17 +150,17 @@ namespace internal {
 
 	 dExp += remaining;
 
-	 int actualExp;
+	 int   actualExp;
 	 DiyFp cachedPower = GetCachedPower10(dExp, &actualExp);
 	 if (actualExp != dExp) {
 		static const DiyFp kPow10[] = {
-		    DiyFp(RAPIDJSON_UINT64_C2(0xa0000000, 0x00000000), -60), // 10^1
-		    DiyFp(RAPIDJSON_UINT64_C2(0xc8000000, 0x00000000), -57), // 10^2
-		    DiyFp(RAPIDJSON_UINT64_C2(0xfa000000, 0x00000000), -54), // 10^3
-		    DiyFp(RAPIDJSON_UINT64_C2(0x9c400000, 0x00000000), -50), // 10^4
-		    DiyFp(RAPIDJSON_UINT64_C2(0xc3500000, 0x00000000), -47), // 10^5
-		    DiyFp(RAPIDJSON_UINT64_C2(0xf4240000, 0x00000000), -44), // 10^6
-		    DiyFp(RAPIDJSON_UINT64_C2(0x98968000, 0x00000000), -40)  // 10^7
+			 DiyFp(RAPIDJSON_UINT64_C2(0xa0000000, 0x00000000), -60), // 10^1
+			 DiyFp(RAPIDJSON_UINT64_C2(0xc8000000, 0x00000000), -57), // 10^2
+			 DiyFp(RAPIDJSON_UINT64_C2(0xfa000000, 0x00000000), -54), // 10^3
+			 DiyFp(RAPIDJSON_UINT64_C2(0x9c400000, 0x00000000), -50), // 10^4
+			 DiyFp(RAPIDJSON_UINT64_C2(0xc3500000, 0x00000000), -47), // 10^5
+			 DiyFp(RAPIDJSON_UINT64_C2(0xf4240000, 0x00000000), -44), // 10^6
+			 DiyFp(RAPIDJSON_UINT64_C2(0x98968000, 0x00000000), -40)  // 10^7
 		};
 		int adjustment = dExp - actualExp;
 		RAPIDJSON_ASSERT(adjustment >= 1 && adjustment < 8);
@@ -178,7 +178,7 @@ namespace internal {
 	 error <<= oldExp - v.e;
 
 	 const int effectiveSignificandSize = Double::EffectiveSignificandSize(64 + v.e);
-	 int precisionSize                  = 64 - effectiveSignificandSize;
+	 int       precisionSize            = 64 - effectiveSignificandSize;
 	 if (precisionSize + kUlpShift >= 64) {
 		int scaleExp = (precisionSize + kUlpShift) - 63;
 		v.f >>= scaleExp;
@@ -187,7 +187,7 @@ namespace internal {
 		precisionSize -= scaleExp;
 	 }
 
-	 DiyFp rounded(v.f >> precisionSize, v.e + precisionSize);
+	 DiyFp          rounded(v.f >> precisionSize, v.e + precisionSize);
 	 const uint64_t precisionBits = (v.f & ((uint64_t(1) << precisionSize) - 1)) * kUlp;
 	 const uint64_t halfWay       = (uint64_t(1) << (precisionSize - 1)) * kUlp;
 	 if (precisionBits >= halfWay + static_cast<unsigned>(error)) {
@@ -201,14 +201,14 @@ namespace internal {
 	 *result = rounded.ToDouble();
 
 	 return halfWay - static_cast<unsigned>(error) >= precisionBits ||
-	        precisionBits >= halfWay + static_cast<unsigned>(error);
+			  precisionBits >= halfWay + static_cast<unsigned>(error);
   }
 
   inline double StrtodBigInteger(double approx, const char *decimals, int dLen, int dExp) {
 	 RAPIDJSON_ASSERT(dLen >= 0);
 	 const BigInteger dInt(decimals, static_cast<unsigned>(dLen));
-	 Double a(approx);
-	 int cmp = CheckWithinHalfULP(a.Value(), dInt, dExp);
+	 Double           a(approx);
+	 int              cmp = CheckWithinHalfULP(a.Value(), dInt, dExp);
 	 if (cmp < 0)
 		return a.Value(); // within half ULP
 	 else if (cmp == 0) {
@@ -221,8 +221,8 @@ namespace internal {
 		return a.NextPositiveDouble();
   }
 
-  inline double StrtodFullPrecision(double d, int p, const char *decimals, size_t length,
-                                    size_t decimalPosition, int exp) {
+  inline double StrtodFullPrecision(
+		double d, int p, const char *decimals, size_t length, size_t decimalPosition, int exp) {
 	 RAPIDJSON_ASSERT(d >= 0.0);
 	 RAPIDJSON_ASSERT(length >= 1);
 

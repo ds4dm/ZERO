@@ -6,8 +6,8 @@
 using namespace std;
 using namespace arma;
 
-arma::sp_mat Utils::resizePatch(const arma::sp_mat &mat, const unsigned int nR,
-                                const unsigned int nC) {
+arma::sp_mat
+Utils::resizePatch(const arma::sp_mat &mat, const unsigned int nR, const unsigned int nC) {
   /**
  @brief Armadillo patch for resizing sp_mat
  @details Armadillo sp_mat::resize() is not robust as it initializes garbage
@@ -24,7 +24,7 @@ arma::sp_mat Utils::resizePatch(const arma::sp_mat &mat, const unsigned int nR,
 		mMat = mat.submat(0, 0, nR, nC);
 	 else
 		throw ZEROException(ZEROErrorCode::OutOfRange,
-		                    "Either both dimension should be smaller or larger.");
+								  "Either both dimension should be smaller or larger.");
   }
   return mMat;
 }
@@ -47,7 +47,7 @@ arma::mat Utils::resizePatch(const arma::mat &mat, const unsigned int nR, const 
 		mMat = mat.submat(0, 0, nR, nC);
 	 else
 		throw ZEROException(ZEROErrorCode::OutOfRange,
-		                    "Either both dimension should be smaller or larger.");
+								  "Either both dimension should be smaller or larger.");
   }
   return mMat;
 }
@@ -70,12 +70,12 @@ arma::vec Utils::resizePatch(const arma::vec &mat, const unsigned int nR) {
 }
 
 void Utils::appendSave(const sp_mat &matrix, ///< The arma::sp_mat to be saved
-                       const string out,     ///< File name of the output file
-                       const string header,  ///< A header that might be used to
-                                             ///< check data correctness
-                       bool erase            ///< Should the matrix be appended to the
-                                             ///< current file or overwritten
-                       )
+							  const string  out,    ///< File name of the output file
+							  const string  header, ///< A header that might be used to
+															///< check data correctness
+							  bool erase            ///< Should the matrix be appended to the
+															///< current file or overwritten
+							  )
 /**
  * Utility to append an arma::sp_mat to a data file.
  */
@@ -93,17 +93,17 @@ void Utils::appendSave(const sp_mat &matrix, ///< The arma::sp_mat to be saved
   outfile << nR << "\t" << nC << "\t" << nnz << "\n";
   for (auto it = matrix.begin(); it != matrix.end(); ++it)
 	 outfile << it.row() << "\t" << it.col() << "\t" << (*it)
-	         << "\n"; // Write the required information of sp_mat
+				<< "\n"; // Write the required information of sp_mat
   outfile << "\n";
   outfile.close(); // and close it
 }
 
-long int Utils::appendRead(sp_mat &matrix,  ///< Read and store the solution in this matrix.
-                           const string in, ///< File to read from (could be file very many data is
-                                            ///< appended one below another)
-                           long int pos, ///< Position in the long file where reading should start
-                           const string header ///< Any header to check data sanctity
-                           )
+long int Utils::appendRead(sp_mat &     matrix, ///< Read and store the solution in this matrix.
+									const string in, ///< File to read from (could be file very many data is
+														  ///< appended one below another)
+									long int pos, ///< Position in the long file where reading should start
+									const string header ///< Any header to check data sanctity
+									)
 /**
  * Utility to read an arma::sp_mat from a long file.
  * @returns The end position from which the next data object can be read.
@@ -119,17 +119,17 @@ long int Utils::appendRead(sp_mat &matrix,  ///< Read and store the solution in 
 
   if (header != "" && header != headerCheckwith)
 	 throw ZEROException(ZEROErrorCode::InvalidData,
-	                     "Wrong header. Expected " + header + " found " + headerCheckwith);
+								"Wrong header. Expected " + header + " found " + headerCheckwith);
 
   infile >> nR >> nC >> nnz;
   if (nR == 0 || nC == 0)
 	 matrix.set_size(nR, nC);
   else {
 	 arma::umat locations(2, nnz);
-	 arma::vec values(nnz);
+	 arma::vec  values(nnz);
 
 	 unsigned int r = 0, c = 0;
-	 double val = 0;
+	 double       val = 0;
 
 	 for (unsigned int i = 0; i < nnz; ++i) {
 		infile >> r >> c >> val;
@@ -148,8 +148,8 @@ long int Utils::appendRead(sp_mat &matrix,  ///< Read and store the solution in 
 
 void appendSave(const vector<double> v, const string out, const string header, bool erase) {
   /**
-   * Utility to append an std::vector<double> to a data file.
-   */
+	* Utility to append an std::vector<double> to a data file.
+	*/
   ofstream outfile(out, erase ? ios::out : ios::app);
   outfile << header << "\n" << v.size() << "\n";
   for (const double x : v)
@@ -159,19 +159,19 @@ void appendSave(const vector<double> v, const string out, const string header, b
 
 long int appendRead(vector<double> &v, const string in, long int pos, const string header) {
   unsigned long int size = 0;
-  ifstream infile(in, ios::in);
+  ifstream          infile(in, ios::in);
   infile.seekg(pos);
   /**
-   * Utility to read an std::vector<double> from a long file.
-   * @returns The end position from which the next data object can be read.
-   */
+	* Utility to read an std::vector<double> from a long file.
+	* @returns The end position from which the next data object can be read.
+	*/
 
   string headerCheckwith;
   infile >> headerCheckwith;
 
   if (header != "" && header != headerCheckwith)
 	 throw ZEROException(ZEROErrorCode::InvalidData,
-	                     "Wrong header. Expected " + header + " found " + headerCheckwith);
+								"Wrong header. Expected " + header + " found " + headerCheckwith);
 
   infile >> size;
 
@@ -183,16 +183,16 @@ long int appendRead(vector<double> &v, const string in, long int pos, const stri
   return pos;
 }
 
-void Utils::appendSave(const vec &matrix,   ///< The arma::vec to be saved
-                       const string out,    ///< File name of the output file
-                       const string header, ///< A header that might be used to
-                                            ///< check data correctness
-                       bool erase           ///< Should the vec be appended to the
-                                            ///< current file or overwritten
+void Utils::appendSave(const vec &  matrix, ///< The arma::vec to be saved
+							  const string out,    ///< File name of the output file
+							  const string header, ///< A header that might be used to
+														  ///< check data correctness
+							  bool erase           ///< Should the vec be appended to the
+														  ///< current file or overwritten
 ) {
   /**
-   * Utility to append an arma::vec to a data file.
-   */
+	* Utility to append an arma::vec to a data file.
+	*/
   // Using C++ file operations to copy the data into the target given by @out
   unsigned int nR{0};
 
@@ -209,26 +209,26 @@ void Utils::appendSave(const vec &matrix,   ///< The arma::vec to be saved
   outfile.close(); // and close it
 }
 
-long int Utils::appendRead(vec &matrix,     ///< Read and store the solution in this matrix.
-                           const string in, ///< File to read from (could be file very many data is
-                                            ///< appended one below another)
-                           long int pos, ///< Position in the long file where reading should start
-                           const string header ///< Any header to check data sanctity
+long int Utils::appendRead(vec &        matrix, ///< Read and store the solution in this matrix.
+									const string in, ///< File to read from (could be file very many data is
+														  ///< appended one below another)
+									long int pos, ///< Position in the long file where reading should start
+									const string header ///< Any header to check data sanctity
 ) {
   /**
-   * Utility to read an arma::vec from a long file.
-   * @returns The end position from which the next data object can be read.
-   */
+	* Utility to read an arma::vec from a long file.
+	* @returns The end position from which the next data object can be read.
+	*/
   unsigned int nR;
-  string buffers;
-  string checkwith;
-  ifstream inFile(in, ios::in);
+  string       buffers;
+  string       checkwith;
+  ifstream     inFile(in, ios::in);
   inFile.seekg(pos);
 
   inFile >> checkwith;
   if (header != "" && checkwith != header)
 	 throw ZEROException(ZEROErrorCode::InvalidData,
-	                     "Wrong header. Expected " + header + " found " + checkwith);
+								"Wrong header. Expected " + header + " found " + checkwith);
   inFile >> nR;
   matrix.zeros(nR);
   for (unsigned int i = 0; i < nR; ++i) {
@@ -256,9 +256,9 @@ void Utils::appendSave(const long int v, const string out, const string header, 
 
 long int Utils::appendRead(long int &v, const string in, long int pos, const string header) {
   /**
-   * Utility to read a long int from a long file.
-   * @returns The end position from which the next data object can be read.
-   */
+	* Utility to read a long int from a long file.
+	* @returns The end position from which the next data object can be read.
+	*/
   ifstream infile(in, ios::in);
   infile.seekg(pos);
 
@@ -267,7 +267,7 @@ long int Utils::appendRead(long int &v, const string in, long int pos, const str
 
   if (header != "" && header != headerCheckwith)
 	 throw ZEROException(ZEROErrorCode::InvalidData,
-	                     "Wrong header. Expected " + header + " found " + headerCheckwith);
+								"Wrong header. Expected " + header + " found " + headerCheckwith);
 
   long int val;
   infile >> val;
@@ -299,7 +299,7 @@ long int Utils::appendRead(unsigned int &v, const string in, long int pos, const
 
   if (header != "" && header != headerCheckwith)
 	 throw ZEROException(ZEROErrorCode::InvalidData,
-	                     "Wrong header. Expected " + header + " found " + headerCheckwith);
+								"Wrong header. Expected " + header + " found " + headerCheckwith);
 
   unsigned int val;
   infile >> val;
@@ -323,9 +323,9 @@ void Utils::appendSave(const string v, const string out, bool erase)
 
 long int Utils::appendRead(string &v, const string in, long int pos) {
   /**
-   * Utility to read a std::string from a long file.
-   * @returns The end position from which the next data object can be read.
-   */
+	* Utility to read a std::string from a long file.
+	* @returns The end position from which the next data object can be read.
+	*/
   ifstream infile(in, ios::in);
   infile.seekg(pos);
 
@@ -340,7 +340,7 @@ long int Utils::appendRead(string &v, const string in, long int pos) {
 }
 unsigned long int Utils::vecToNum(std::vector<short int> binary) {
   unsigned long int number = 0;
-  unsigned int posn        = 1;
+  unsigned int      posn   = 1;
   while (!binary.empty()) {
 	 short int bit = (binary.back() + 1) / 2; // The least significant bit
 	 number += (bit * posn);
@@ -361,8 +361,8 @@ std::vector<short int> Utils::numToVec(unsigned long int number, const unsigned 
   return binary;
 }
 
-bool Utils::containsConstraint(arma::sp_mat &A, const vec &b, const arma::vec &lhs,
-                               const double &rhs, const double tol) {
+bool Utils::containsConstraint(
+	 arma::sp_mat &A, const vec &b, const arma::vec &lhs, const double &rhs, const double tol) {
   if (lhs.size() != A.n_cols)
 	 return false;
   for (int i = 0; i < A.n_rows; ++i) {
@@ -405,8 +405,8 @@ bool Utils::containsRow(const sp_mat &A, const arma::vec &row, const double tol)
   }
   return false;
 }
-bool Utils::containsConstraint(sp_mat &A, const vec &b, const sp_mat &lhs, const double &rhs,
-                               const double tol) {
+bool Utils::containsConstraint(
+	 sp_mat &A, const vec &b, const sp_mat &lhs, const double &rhs, const double tol) {
   if (lhs.n_rows > 1)
 	 return false;
   arma::vec Ai = arma::vec{lhs};

@@ -32,20 +32,20 @@ namespace internal {
 
   //! A type-unsafe stack for storing different types of data.
   /*! \tparam Allocator Allocator for allocating stack memory.
-   */
+	*/
   template <typename Allocator> class Stack {
   public:
 	 // Optimization note: Do not allocate memory for stack_ in constructor.
 	 // Do it lazily when first Push() -> Expand() -> Resize().
 	 Stack(Allocator *allocator, size_t stackCapacity)
-	     : allocator_(allocator), ownAllocator_(0), stack_(0), stackTop_(0), stackEnd_(0),
-	       initialCapacity_(stackCapacity) {}
+		  : allocator_(allocator), ownAllocator_(0), stack_(0), stackTop_(0), stackEnd_(0),
+			 initialCapacity_(stackCapacity) {}
 
 #if RAPIDJSON_HAS_CXX11_RVALUE_REFS
 	 Stack(Stack &&rhs)
-	     : allocator_(rhs.allocator_), ownAllocator_(rhs.ownAllocator_), stack_(rhs.stack_),
-	       stackTop_(rhs.stackTop_), stackEnd_(rhs.stackEnd_),
-	       initialCapacity_(rhs.initialCapacity_) {
+		  : allocator_(rhs.allocator_), ownAllocator_(rhs.ownAllocator_), stack_(rhs.stack_),
+			 stackTop_(rhs.stackTop_), stackEnd_(rhs.stackEnd_),
+			 initialCapacity_(rhs.initialCapacity_) {
 		rhs.allocator_       = 0;
 		rhs.ownAllocator_    = 0;
 		rhs.stack_           = 0;
@@ -107,7 +107,7 @@ namespace internal {
 	 template <typename T> RAPIDJSON_FORCEINLINE void Reserve(size_t count = 1) {
 		// Expand the stack if needed
 		if (RAPIDJSON_UNLIKELY(static_cast<std::ptrdiff_t>(sizeof(T) * count) >
-		                       (stackEnd_ - stackTop_)))
+									  (stackEnd_ - stackTop_)))
 		  Expand<T>(count);
 	 }
 
@@ -155,7 +155,7 @@ namespace internal {
 		return *allocator_;
 	 }
 
-	 bool Empty() const { return stackTop_ == stack_; }
+	 bool   Empty() const { return stackTop_ == stack_; }
 	 size_t GetSize() const { return static_cast<size_t>(stackTop_ - stack_); }
 	 size_t GetCapacity() const { return static_cast<size_t>(stackEnd_ - stack_); }
 
@@ -197,10 +197,10 @@ namespace internal {
 
 	 Allocator *allocator_;
 	 Allocator *ownAllocator_;
-	 char *stack_;
-	 char *stackTop_;
-	 char *stackEnd_;
-	 size_t initialCapacity_;
+	 char *     stack_;
+	 char *     stackTop_;
+	 char *     stackEnd_;
+	 size_t     initialCapacity_;
   };
 
 } // namespace internal

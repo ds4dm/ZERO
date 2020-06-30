@@ -16,11 +16,11 @@ namespace Algorithms {
 
 		void postSolving() override {
 		  /**
-		   * Perform postSolving operations.
-		   * For instance, it updates the statistics associated with the feasible
-		   * polyhedra. The responsability for calling this method is left to the
-		   * inheritor
-		   */
+			* Perform postSolving operations.
+			* For instance, it updates the statistics associated with the feasible
+			* polyhedra. The responsability for calling this method is left to the
+			* inheritor
+			*/
 		  std::vector<unsigned int> feasible;
 		  for (unsigned int i = 0; i < this->EPECObject->NumPlayers; i++)
 			 feasible.push_back(this->PolyLCP.at(i)->getFeasiblePolyhedra());
@@ -31,28 +31,28 @@ namespace Algorithms {
 	 public:
 		PolyBase(GRBEnv *env, Game::EPEC *EPECObject) {
 		  /*
-		   *  The method will reassign the LCP fields in the EPEC object to new
-		   * PolyLCP objects
-		   */
+			*  The method will reassign the LCP fields in the EPEC object to new
+			* PolyLCP objects
+			*/
 		  this->EPECObject = EPECObject;
 		  this->Env        = env;
 		  this->PolyLCP    = std::vector<std::shared_ptr<Game::PolyLCP>>(EPECObject->NumPlayers);
 		  for (unsigned int i = 0; i < EPECObject->NumPlayers; i++) {
 			 this->PolyLCP.at(i) = std::shared_ptr<Game::PolyLCP>(
-			     new class Game::PolyLCP(this->Env, *EPECObject->PlayersLowerLevels.at(i).get()));
+				  new class Game::PolyLCP(this->Env, *EPECObject->PlayersLowerLevels.at(i).get()));
 			 EPECObject->PlayersLCP.at(i) = this->PolyLCP.at(i);
 		  }
 		}
-		bool isSolved(unsigned int *countryNumber, arma::vec *profitableDeviation,
-		              double tol = -1) const;
+		bool
+			  isSolved(unsigned int *countryNumber, arma::vec *profitableDeviation, double tol = -1) const;
 		bool isSolved(double tol = -1) const override;
 		void makeThePureLCP(bool indicators);
 
-		double getValLeadFollPoly(unsigned int i, unsigned int j, unsigned int k,
-		                          double tol = 1e-5) const;
+		double
+		getValLeadFollPoly(unsigned int i, unsigned int j, unsigned int k, double tol = 1e-5) const;
 
-		double getValLeadLeadPoly(unsigned int i, unsigned int j, unsigned int k,
-		                          double tol = 1e-5) const;
+		double
+		getValLeadLeadPoly(unsigned int i, unsigned int j, unsigned int k, double tol = 1e-5) const;
 
 		double getValProbab(unsigned int i, unsigned int k) const;
 

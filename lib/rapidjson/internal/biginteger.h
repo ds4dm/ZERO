@@ -38,7 +38,7 @@ namespace internal {
 	 BigInteger(const char *decimals, size_t length) : count_(1) {
 		RAPIDJSON_ASSERT(length > 0);
 		digits_[0]                         = 0;
-		size_t i                           = 0;
+		size_t       i                     = 0;
 		const size_t kMaxDigitPerIteration = 19; // 2^64 = 18446744073709551616 > 10^19
 		while (length >= kMaxDigitPerIteration) {
 		  AppendDecimal64(decimals + i, decimals + i + kMaxDigitPerIteration);
@@ -143,7 +143,7 @@ namespace internal {
 		  digits_[count_] = 0;
 		  for (size_t i = count_; i > 0; i--)
 			 digits_[i + offset] =
-			     (digits_[i] << interShift) | (digits_[i - 1] >> (kTypeBit - interShift));
+				  (digits_[i] << interShift) | (digits_[i - 1] >> (kTypeBit - interShift));
 		  digits_[offset] = digits_[0] << interShift;
 		  count_ += offset;
 		  if (digits_[count_])
@@ -163,17 +163,17 @@ namespace internal {
 
 	 BigInteger &MultiplyPow5(unsigned exp) {
 		static const uint32_t kPow5[12] = {5,
-		                                   5 * 5,
-		                                   5 * 5 * 5,
-		                                   5 * 5 * 5 * 5,
-		                                   5 * 5 * 5 * 5 * 5,
-		                                   5 * 5 * 5 * 5 * 5 * 5,
-		                                   5 * 5 * 5 * 5 * 5 * 5 * 5,
-		                                   5 * 5 * 5 * 5 * 5 * 5 * 5 * 5,
-		                                   5 * 5 * 5 * 5 * 5 * 5 * 5 * 5 * 5,
-		                                   5 * 5 * 5 * 5 * 5 * 5 * 5 * 5 * 5 * 5,
-		                                   5 * 5 * 5 * 5 * 5 * 5 * 5 * 5 * 5 * 5 * 5,
-		                                   5 * 5 * 5 * 5 * 5 * 5 * 5 * 5 * 5 * 5 * 5 * 5};
+													  5 * 5,
+													  5 * 5 * 5,
+													  5 * 5 * 5 * 5,
+													  5 * 5 * 5 * 5 * 5,
+													  5 * 5 * 5 * 5 * 5 * 5,
+													  5 * 5 * 5 * 5 * 5 * 5 * 5,
+													  5 * 5 * 5 * 5 * 5 * 5 * 5 * 5,
+													  5 * 5 * 5 * 5 * 5 * 5 * 5 * 5 * 5,
+													  5 * 5 * 5 * 5 * 5 * 5 * 5 * 5 * 5 * 5,
+													  5 * 5 * 5 * 5 * 5 * 5 * 5 * 5 * 5 * 5 * 5,
+													  5 * 5 * 5 * 5 * 5 * 5 * 5 * 5 * 5 * 5 * 5 * 5};
 		if (exp == 0)
 		  return *this;
 		for (; exp >= 27; exp -= 27)
@@ -191,7 +191,7 @@ namespace internal {
 		int cmp = Compare(rhs);
 		RAPIDJSON_ASSERT(cmp != 0);
 		const BigInteger *a, *b; // Makes a > b
-		bool ret;
+		bool              ret;
 		if (cmp < 0) {
 		  a   = &rhs;
 		  b   = this;
@@ -228,9 +228,9 @@ namespace internal {
 	 }
 
 	 size_t GetCount() const { return count_; }
-	 Type GetDigit(size_t index) const {
-		RAPIDJSON_ASSERT(index < count_);
-		return digits_[index];
+	 Type   GetDigit(size_t index) const {
+      RAPIDJSON_ASSERT(index < count_);
+      return digits_[index];
 	 }
 	 bool IsZero() const { return count_ == 1 && digits_[0] == 0; }
 
@@ -268,13 +268,13 @@ namespace internal {
 		return low;
 #elif (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)) && defined(__x86_64__)
 		__extension__ typedef unsigned __int128 uint128;
-		uint128 p = static_cast<uint128>(a) * static_cast<uint128>(b);
+		uint128                                 p = static_cast<uint128>(a) * static_cast<uint128>(b);
 		p += k;
 		*outHigh = static_cast<uint64_t>(p >> 64);
 		return static_cast<uint64_t>(p);
 #else
 		const uint64_t a0 = a & 0xFFFFFFFF, a1 = a >> 32, b0 = b & 0xFFFFFFFF, b1 = b >> 32;
-		uint64_t x0 = a0 * b0, x1 = a0 * b1, x2 = a1 * b0, x3 = a1 * b1;
+		uint64_t       x0 = a0 * b0, x1 = a0 * b1, x2 = a1 * b0, x3 = a1 * b1;
 		x1 += (x0 >> 32); // can't give carry
 		x1 += x2;
 		if (x1 < x2)
@@ -294,7 +294,7 @@ namespace internal {
 	 static const size_t kCapacity = kBitCount / sizeof(Type);
 	 static const size_t kTypeBit  = sizeof(Type) * 8;
 
-	 Type digits_[kCapacity];
+	 Type   digits_[kCapacity];
 	 size_t count_;
   };
 

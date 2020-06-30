@@ -43,9 +43,9 @@ namespace internal {
   //
   template <bool Cond> struct BoolType {
 	 static const bool Value = Cond;
-	 typedef BoolType Type;
+	 typedef BoolType  Type;
   };
-  typedef BoolType<true> TrueType;
+  typedef BoolType<true>  TrueType;
   typedef BoolType<false> FalseType;
 
 
@@ -94,8 +94,8 @@ namespace internal {
 
   template <typename CT, typename T>
   struct IsMoreConst
-      : AndExpr<IsSame<typename RemoveConst<CT>::Type, typename RemoveConst<T>::Type>,
-                BoolType<IsConst<CT>::Value >= IsConst<T>::Value>>::Type {};
+		: AndExpr<IsSame<typename RemoveConst<CT>::Type, typename RemoveConst<T>::Type>,
+					 BoolType<IsConst<CT>::Value >= IsConst<T>::Value>>::Type {};
 
   template <typename T> struct IsPointer : FalseType {};
   template <typename T> struct IsPointer<T *> : TrueType {};
@@ -117,7 +117,7 @@ namespace internal {
 	 typedef char (&No)[2];
 
 	 template <typename T> static Yes Check(const D *, T);
-	 static No Check(const B *, int);
+	 static No                        Check(const B *, int);
 
 	 struct Host {
 		operator const B *() const;
@@ -157,7 +157,7 @@ namespace internal {
 
 #define RAPIDJSON_REMOVEFPTR_(type)                                                                \
   typename ::RAPIDJSON_NAMESPACE::internal::RemoveSfinaeTag<                                       \
-      ::RAPIDJSON_NAMESPACE::internal::SfinaeTag &(*)type>::Type
+		::RAPIDJSON_NAMESPACE::internal::SfinaeTag &(*)type>::Type
 
 #define RAPIDJSON_ENABLEIF(cond)                                                                   \
   typename ::RAPIDJSON_NAMESPACE::internal::EnableIf<RAPIDJSON_REMOVEFPTR_(cond)>::Type * = NULL
@@ -167,11 +167,11 @@ namespace internal {
 
 #define RAPIDJSON_ENABLEIF_RETURN(cond, returntype)                                                \
   typename ::RAPIDJSON_NAMESPACE::internal::EnableIf<RAPIDJSON_REMOVEFPTR_(cond),                  \
-                                                     RAPIDJSON_REMOVEFPTR_(returntype)>::Type
+																	  RAPIDJSON_REMOVEFPTR_(returntype)>::Type
 
 #define RAPIDJSON_DISABLEIF_RETURN(cond, returntype)                                               \
   typename ::RAPIDJSON_NAMESPACE::internal::DisableIf<RAPIDJSON_REMOVEFPTR_(cond),                 \
-                                                      RAPIDJSON_REMOVEFPTR_(returntype)>::Type
+																		RAPIDJSON_REMOVEFPTR_(returntype)>::Type
 
 } // namespace internal
 RAPIDJSON_NAMESPACE_END

@@ -287,7 +287,7 @@ static
 #else                 // STATIC_IMAXDIV ][
 _inline
 #endif                // STATIC_IMAXDIV ]
-    imaxdiv_t __cdecl imaxdiv(intmax_t numer, intmax_t denom) {
+	 imaxdiv_t __cdecl imaxdiv(intmax_t numer, intmax_t denom) {
   imaxdiv_t result;
 
   result.quot = numer / denom;

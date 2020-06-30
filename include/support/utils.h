@@ -16,34 +16,50 @@ namespace Utils {
 
   arma::vec resizePatch(const arma::vec &mat, const unsigned int nR);
 
-  bool containsRow(const arma::sp_mat &A, const arma::vec &row, const double tol = 1e-6);
-  bool containsElement(const arma::vec &b, const double &element, const double tol = 1e-6);
-  bool containsConstraint(arma::sp_mat &A, const arma::vec &b, const arma::vec &lhs,
-                          const double &rhs, const double tol = 1e-6);
-  bool containsConstraint(arma::sp_mat &A, const arma::vec &b, const arma::sp_mat &lhs,
-                          const double &rhs, const double tol = 1e-6);
+  bool      containsRow(const arma::sp_mat &A, const arma::vec &row, const double tol = 1e-6);
+  bool      containsElement(const arma::vec &b, const double &element, const double tol = 1e-6);
+  bool      containsConstraint(arma::sp_mat &   A,
+										 const arma::vec &b,
+										 const arma::vec &lhs,
+										 const double &   rhs,
+										 const double     tol = 1e-6);
+  bool      containsConstraint(arma::sp_mat &      A,
+										 const arma::vec &   b,
+										 const arma::sp_mat &lhs,
+										 const double &      rhs,
+										 const double        tol = 1e-6);
   arma::vec normalize(const arma::vec input);
 
   // Saving and retrieving an arma::vec
-  void appendSave(const arma::vec &matrix, const std::string out, const std::string header = "",
-                  bool erase = false);
+  void appendSave(const arma::vec & matrix,
+						const std::string out,
+						const std::string header = "",
+						bool              erase  = false);
 
-  long int appendRead(arma::vec &matrix, const std::string in, long int pos,
-                      const std::string header = "");
+  long int
+  appendRead(arma::vec &matrix, const std::string in, long int pos, const std::string header = "");
 
   // Saving and retrieving an arma::sp_mat
-  void appendSave(const arma::sp_mat &matrix, const std::string out, const std::string header = "",
-                  bool erase = false);
+  void appendSave(const arma::sp_mat &matrix,
+						const std::string   out,
+						const std::string   header = "",
+						bool                erase  = false);
 
-  long int appendRead(arma::sp_mat &matrix, const std::string in, long int pos,
-                      const std::string header = "");
+  long int appendRead(arma::sp_mat &    matrix,
+							 const std::string in,
+							 long int          pos,
+							 const std::string header = "");
 
   // Saving and retrieving an std::vector<double>
-  void appendSave(const std::vector<double> v, const std::string out, const std::string header = "",
-                  bool erase = false);
+  void appendSave(const std::vector<double> v,
+						const std::string         out,
+						const std::string         header = "",
+						bool                      erase  = false);
 
-  long int appendRead(std::vector<double> &v, const std::string in, long int pos,
-                      const std::string header = "");
+  long int appendRead(std::vector<double> &v,
+							 const std::string    in,
+							 long int             pos,
+							 const std::string    header = "");
 
   // Saving std::string
   void appendSave(const std::string v, const std::string out, bool erase = false);
@@ -51,18 +67,22 @@ namespace Utils {
   long int appendRead(std::string &v, const std::string in, long int pos);
 
   // Saving A long int
-  void appendSave(const long int v, const std::string out, const std::string header = "",
-                  bool erase = false);
+  void appendSave(const long int    v,
+						const std::string out,
+						const std::string header = "",
+						bool              erase  = false);
 
-  long int appendRead(long int &v, const std::string in, long int pos,
-                      const std::string header = "");
+  long int
+  appendRead(long int &v, const std::string in, long int pos, const std::string header = "");
 
   // Saving A unsigned int
-  void appendSave(const unsigned int v, const std::string out, const std::string header = "",
-                  bool erase = false);
+  void appendSave(const unsigned int v,
+						const std::string  out,
+						const std::string  header = "",
+						bool               erase  = false);
 
-  long int appendRead(unsigned int &v, const std::string in, long int pos,
-                      const std::string header = "");
+  long int
+  appendRead(unsigned int &v, const std::string in, long int pos, const std::string header = "");
 
   // Binary encoding functions for the LCP class
   unsigned long int vecToNum(std::vector<short int> binary);

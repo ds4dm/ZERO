@@ -8,7 +8,7 @@
 std::ostream &operator<<(std::ostream &ost, const perps &C) {
   for (auto p : C)
 	 ost << "<" << p.first << ", " << p.second << ">"
-	     << "\t";
+		  << "\t";
   return ost;
 }
 
@@ -21,22 +21,22 @@ std::ostream &Game::operator<<(std::ostream &os, const Game::QP_Param &Q) {
 
 void Game::MP_Param::write(const std::string &filename, bool) const {
   /**
-   * @brief  Writes a given parameterized Mathematical program to a set of
-   * files.
-   *
-   * Writes a given parameterized Mathematical program to a set of files.
-   * One file is written for each attribute namely
-   * 1. Game::MP_Param::Q
-   * 2. Game::MP_Param::C
-   * 3. Game::MP_Param::A
-   * 4. Game::MP_Param::B
-   * 5. Game::MP_Param::c
-   * 6. Game::MP_Param::b
-   *
-   * To contrast see, Game::MP_Param::save where all details are written to a
-   * single loadable file
-   *
-   */
+	* @brief  Writes a given parameterized Mathematical program to a set of
+	* files.
+	*
+	* Writes a given parameterized Mathematical program to a set of files.
+	* One file is written for each attribute namely
+	* 1. Game::MP_Param::Q
+	* 2. Game::MP_Param::C
+	* 3. Game::MP_Param::A
+	* 4. Game::MP_Param::B
+	* 5. Game::MP_Param::c
+	* 6. Game::MP_Param::b
+	*
+	* To contrast see, Game::MP_Param::save where all details are written to a
+	* single loadable file
+	*
+	*/
   this->getQ().save(filename + "_Q.txt", arma::file_type::arma_ascii);
   this->getC().save(filename + "_C.txt", arma::file_type::arma_ascii);
   this->getA().save(filename + "_A.txt", arma::file_type::arma_ascii);
@@ -94,7 +94,7 @@ Game::MP_Param &Game::MP_Param::addDummy(unsigned int pars, unsigned int vars, i
   default:
 	 if (pars) {
 		arma::sp_mat A_temp =
-		    arma::join_rows(A.cols(0, position - 1), arma::zeros<arma::sp_mat>(this->Ncons, pars));
+			 arma::join_rows(A.cols(0, position - 1), arma::zeros<arma::sp_mat>(this->Ncons, pars));
 		if (static_cast<unsigned int>(position) < A.n_cols) {
 		  A = arma::join_rows(A_temp, A.cols(position, A.n_cols - 1));
 		} else {
@@ -104,7 +104,7 @@ Game::MP_Param &Game::MP_Param::addDummy(unsigned int pars, unsigned int vars, i
 	 if (vars || pars) {
 		C = Utils::resizePatch(C, this->Ny, C.n_cols);
 		arma::sp_mat C_temp =
-		    arma::join_rows(C.cols(0, position - 1), arma::zeros<arma::sp_mat>(this->Ny, pars));
+			 arma::join_rows(C.cols(0, position - 1), arma::zeros<arma::sp_mat>(this->Ny, pars));
 		if (static_cast<unsigned int>(position) < C.n_cols) {
 		  C = arma::join_rows(C_temp, C.cols(position, C.n_cols - 1));
 		} else {
@@ -137,9 +137,12 @@ const unsigned int Game::MP_Param::size()
   return this->Ny;
 }
 
-Game::MP_Param &Game::MP_Param::set(const arma::sp_mat &Q, const arma::sp_mat &C,
-                                    const arma::sp_mat &A, const arma::sp_mat &B,
-                                    const arma::vec &c, const arma::vec &b)
+Game::MP_Param &Game::MP_Param::set(const arma::sp_mat &Q,
+												const arma::sp_mat &C,
+												const arma::sp_mat &A,
+												const arma::sp_mat &B,
+												const arma::vec &   c,
+												const arma::vec &   b)
 /// Setting the data, while keeping the input objects intact
 {
   this->Q = (Q);
@@ -153,8 +156,12 @@ Game::MP_Param &Game::MP_Param::set(const arma::sp_mat &Q, const arma::sp_mat &C
   return *this;
 }
 
-Game::MP_Param &Game::MP_Param::set(arma::sp_mat &&Q, arma::sp_mat &&C, arma::sp_mat &&A,
-                                    arma::sp_mat &&B, arma::vec &&c, arma::vec &&b)
+Game::MP_Param &Game::MP_Param::set(arma::sp_mat &&Q,
+												arma::sp_mat &&C,
+												arma::sp_mat &&A,
+												arma::sp_mat &&B,
+												arma::vec &&   c,
+												arma::vec &&   b)
 /// Faster means to set data. But the input objects might be corrupted now.
 {
   this->Q = std::move(Q);
@@ -221,8 +228,10 @@ bool Game::MP_Param::dataCheck(bool forceSymmetry) const
   return true;
 }
 
-bool Game::MP_Param::dataCheck(const QP_Objective &obj, const QP_Constraints &cons, bool checkobj,
-                               bool checkcons) {
+bool Game::MP_Param::dataCheck(const QP_Objective &  obj,
+										 const QP_Constraints &cons,
+										 bool                  checkobj,
+										 bool                  checkcons) {
   unsigned int Ny    = obj.Q.n_rows;
   unsigned int Nx    = obj.C.n_cols;
   unsigned int Ncons = cons.b.size();
@@ -277,9 +286,9 @@ int Game::QP_Param::makeyQy()
   GRBQuadExpr yQy{0};
   for (auto val = Q.begin(); val != Q.end(); ++val) {
 	 unsigned int i, j;
-	 double value = (*val);
-	 i            = val.row();
-	 j            = val.col();
+	 double       value = (*val);
+	 i                  = val.row();
+	 j                  = val.col();
 	 yQy += 0.5 * y[i] * value * y[j];
   }
   QuadModel.setObjective(yQy, GRB_MINIMIZE);
@@ -289,27 +298,27 @@ int Game::QP_Param::makeyQy()
 }
 
 std::unique_ptr<GRBModel> Game::QP_Param::solveFixed(
-    arma::vec x, bool solve) /**
-                              * Given a value for the parameters @f$x@f$ in the
-                              * definition of QP_Param, solve           the
-                              * parameterized quadratic program to  optimality.
-                              *
-                              * In terms of game theory, this can be viewed as
-                              * <i>the best response</i> for a           set of
-                              * decisions by other players.
-                              *@p solve decides whether the model has to be optimized or not
-                              */
+	 arma::vec x, bool solve) /**
+										* Given a value for the parameters @f$x@f$ in the
+										* definition of QP_Param, solve           the
+										* parameterized quadratic program to  optimality.
+										*
+										* In terms of game theory, this can be viewed as
+										* <i>the best response</i> for a           set of
+										* decisions by other players.
+										*@p solve decides whether the model has to be optimized or not
+										*/
 {
   this->makeyQy(); /// @throws GRBException if argument std::vector size is not
   /// compatible with the Game::QP_Param definition.
   if (x.size() != this->Nx)
 	 throw ZEROException(ZEROErrorCode::Assertion,
-	                     "Mismatch in x size: " + std::to_string(x.size()) +
-	                         " != " + std::to_string(Nx));
+								"Mismatch in x size: " + std::to_string(x.size()) +
+									 " != " + std::to_string(Nx));
   std::unique_ptr<GRBModel> model(new GRBModel(this->QuadModel));
   try {
 	 GRBQuadExpr yQy = model->getObjective();
-	 arma::vec Cx, Ax;
+	 arma::vec   Cx, Ax;
 	 Cx = this->C * x;
 	 Ax = this->A * x;
 	 GRBVar y[this->Ny];
@@ -368,10 +377,10 @@ unsigned int Game::QP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q)
 	 throw ZEROException(ZEROErrorCode::Assertion, "dataCheck() failed on KKT");
   }
   M = arma::join_cols( // In armadillo join_cols(A, B) is same as [A;B] in
-                       // Matlab
-                       //  join_rows(A, B) is same as [A B] in Matlab
-      arma::join_rows(this->Q, this->B.t()),
-      arma::join_rows(-this->B, arma::zeros<arma::sp_mat>(this->Ncons, this->Ncons)));
+							  // Matlab
+							  //  join_rows(A, B) is same as [A B] in Matlab
+		arma::join_rows(this->Q, this->B.t()),
+		arma::join_rows(-this->B, arma::zeros<arma::sp_mat>(this->Ncons, this->Ncons)));
   // M.print_dense();
   N = arma::join_cols(this->C, -this->A);
   // N.print_dense();
@@ -380,9 +389,12 @@ unsigned int Game::QP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q)
   return M.n_rows;
 }
 
-Game::QP_Param &Game::QP_Param::set(const arma::sp_mat &Q, const arma::sp_mat &C,
-                                    const arma::sp_mat &A, const arma::sp_mat &B,
-                                    const arma::vec &c, const arma::vec &b)
+Game::QP_Param &Game::QP_Param::set(const arma::sp_mat &Q,
+												const arma::sp_mat &C,
+												const arma::sp_mat &A,
+												const arma::sp_mat &B,
+												const arma::vec &   c,
+												const arma::vec &   b)
 /// Setting the data, while keeping the input objects intact
 {
   this->madeyQy = false;
@@ -390,8 +402,12 @@ Game::QP_Param &Game::QP_Param::set(const arma::sp_mat &Q, const arma::sp_mat &C
   return *this;
 }
 
-Game::QP_Param &Game::QP_Param::set(arma::sp_mat &&Q, arma::sp_mat &&C, arma::sp_mat &&A,
-                                    arma::sp_mat &&B, arma::vec &&c, arma::vec &&b)
+Game::QP_Param &Game::QP_Param::set(arma::sp_mat &&Q,
+												arma::sp_mat &&C,
+												arma::sp_mat &&A,
+												arma::sp_mat &&B,
+												arma::vec &&   c,
+												arma::vec &&   b)
 /// Faster means to set data. But the input objects might be corrupted now.
 {
   this->madeyQy = false;
@@ -403,16 +419,20 @@ Game::QP_Param &Game::QP_Param::set(QP_Objective &&obj, QP_Constraints &&cons)
 /// Setting the data with the inputs being a struct Game::QP_Objective and
 /// struct Game::QP_Constraints
 {
-  return this->set(std::move(obj.Q), std::move(obj.C), std::move(cons.A), std::move(cons.B),
-                   std::move(obj.c), std::move(cons.b));
+  return this->set(std::move(obj.Q),
+						 std::move(obj.C),
+						 std::move(cons.A),
+						 std::move(cons.B),
+						 std::move(obj.c),
+						 std::move(cons.b));
 }
 
 Game::QP_Param &Game::QP_Param::set(const QP_Objective &obj, const QP_Constraints &cons) {
   return this->set(obj.Q, obj.C, cons.A, cons.B, obj.c, cons.b);
 }
 
-arma::vec Game::QP_Param::getConstraintViolations(const arma::vec x, const arma::vec y,
-                                                  double tol = 1e-5) {
+arma::vec
+Game::QP_Param::getConstraintViolations(const arma::vec x, const arma::vec y, double tol = 1e-5) {
   arma::vec xN, yN;
   if (x.size() < B.n_cols)
 	 arma::vec xN = Utils::resizePatch(x, B.n_cols);
@@ -426,15 +446,17 @@ arma::vec Game::QP_Param::getConstraintViolations(const arma::vec x, const arma:
   return slack;
 }
 
-double Game::QP_Param::computeObjective(const arma::vec &y, const arma::vec &x, bool checkFeas,
-                                        double tol) const {
+double Game::QP_Param::computeObjective(const arma::vec &y,
+													 const arma::vec &x,
+													 bool             checkFeas,
+													 double           tol) const {
   /**
-   * Computes @f$\frac{1}{2} y^TQy + (Cx)^Ty + c^Ty@f$ given the input values @p
-   * y and
-   * @p x.
-   * @param checkFeas if @p true, checks if the given @f$(x,y)@f$ satisfies the
-   * constraints of the problem, namely @f$Ax + By \leq b@f$.
-   */
+	* Computes @f$\frac{1}{2} y^TQy + (Cx)^Ty + c^Ty@f$ given the input values @p
+	* y and
+	* @p x.
+	* @param checkFeas if @p true, checks if the given @f$(x,y)@f$ satisfies the
+	* constraints of the problem, namely @f$Ax + By \leq b@f$.
+	*/
   if (y.n_rows != this->getNy())
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of y");
   if (x.n_rows != this->getNx())
@@ -453,8 +475,8 @@ double Game::QP_Param::computeObjective(const arma::vec &y, const arma::vec &x, 
 
 double Game::QP_Param::computeObjectiveWithoutOthers(const arma::vec &y) const {
   /**
-   * Computes @f$\frac{1}{2} y^TQy + c^Ty @f$ given the input values @p y;
-   */
+	* Computes @f$\frac{1}{2} y^TQy + c^Ty @f$ given the input values @p y;
+	*/
   if (y.n_rows != this->getNy())
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of y");
   arma::vec obj = 0.5 * y.t() * Q * y + c.t() * y;
@@ -463,9 +485,9 @@ double Game::QP_Param::computeObjectiveWithoutOthers(const arma::vec &y) const {
 
 void Game::QP_Param::save(const std::string &filename, bool erase) const {
   /**
-   * The Game::QP_Param object hence stored can be loaded back using
-   * Game::QP_Param::load
-   */
+	* The Game::QP_Param object hence stored can be loaded back using
+	* Game::QP_Param::load
+	*/
   Utils::appendSave(std::string("QP_Param"), filename, erase);
   Utils::appendSave(this->Q, filename, std::string("QP_Param::Q"), false);
   Utils::appendSave(this->A, filename, std::string("QP_Param::A"), false);
@@ -478,25 +500,25 @@ void Game::QP_Param::save(const std::string &filename, bool erase) const {
 
 long int Game::QP_Param::load(const std::string &filename, long int pos) {
   /**
-   * @details  Before calling this function, use the constructor
-   * QP_Param::QP_Param(GRBEnv *Env) to initialize.
-   *
-   * Example usage:
-   * @code{.cpp}
-   * int main()
-   * {
-   * 		GRBEnv Env;
-   * 		Game::QP_Param q1(&Env);
-   * 		q1.load("./dat/q1data.dat");
-   * 		std::cout<<q1<<'\n';
-   * 		return 0;
-   * }
-   * @endcode
-   *
-   */
+	* @details  Before calling this function, use the constructor
+	* QP_Param::QP_Param(GRBEnv *Env) to initialize.
+	*
+	* Example usage:
+	* @code{.cpp}
+	* int main()
+	* {
+	* 		GRBEnv Env;
+	* 		Game::QP_Param q1(&Env);
+	* 		q1.load("./dat/q1data.dat");
+	* 		std::cout<<q1<<'\n';
+	* 		return 0;
+	* }
+	* @endcode
+	*
+	*/
   arma::sp_mat Q, A, B, C;
-  arma::vec c, b;
-  std::string headercheck;
+  arma::vec    c, b;
+  std::string  headercheck;
   pos = Utils::appendRead(headercheck, filename, pos);
   if (headercheck != "QP_Param")
 	 throw ZEROException(ZEROErrorCode::IOError, "Invalid header");

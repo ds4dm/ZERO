@@ -46,31 +46,31 @@ namespace Algorithms {
 		  } ///< Getter method for the parent node
 
 		private:
-		  std::vector<unsigned int> IdComps; ///< Contains the branching decisions taken at the node
-		  std::vector<bool> Encoding;        ///< An encoding of bool. True if the complementarity
+		  std::vector<unsigned int> IdComps;  ///< Contains the branching decisions taken at the node
+		  std::vector<bool>         Encoding; ///< An encoding of bool. True if the complementarity
 		  ///< condition is included in the current node outer
 		  ///< approximation, false otherwise.
 		  std::vector<bool> AllowedBranchings; ///< A vector where true means that the corresponding
 		  ///< complementarity is a candidate for banching at
 		  ///< the current node
-		  unsigned long int Id; ///< A long int giving the numerical identifier for the node
-		  Node *Parent;         ///< A pointer to the parent node.
+		  unsigned long int Id;     ///< A long int giving the numerical identifier for the node
+		  Node *            Parent; ///< A pointer to the parent node.
 		};
 
 	 private:
-		Node Root                 = Node(0); ///< The root node of the tree
+		Node         Root         = Node(0); ///< The root node of the tree
 		unsigned int EncodingSize = 0;       ///< The size of the encoding, namely the
 		///< number of complementarity equations
-		unsigned int NodeCounter = 1; ///< The counter for node ids
-		std::vector<Node> Nodes{};    ///< Storage of nodes in the tree
-		arma::sp_mat V{};             ///< This object stores points that are inside the feasible
+		unsigned int      NodeCounter = 1; ///< The counter for node ids
+		std::vector<Node> Nodes{};         ///< Storage of nodes in the tree
+		arma::sp_mat      V{};             ///< This object stores points that are inside the feasible
 		///< region of the respective leader. Thesee are used to derive
 		///< valid cuts, or certify that an equilibrium is inside
 		///< (outside) the convex-hull of the feasible region.
 		arma::sp_mat R{}; ///< As in V, but instead of vertices, this object contains rays
 		unsigned int VertexCounter = 0; ///< The counter for node ids
 		unsigned int RayCounter    = 0; ///< The counter for node ids
-		GRBModel *MembershipLP;         ///< This member stores the membership LP associated
+		GRBModel *   MembershipLP;      ///< This member stores the membership LP associated
 		///< with the vertices in V
 		bool MembershipInit{false};
 		bool isPure{false};
@@ -145,14 +145,14 @@ namespace Algorithms {
 	 class OuterApproximation : public Algorithm {
 	 private:
 		std::vector<std::shared_ptr<Game::OuterLCP>> outerLCP{};
-		std::vector<OuterTree *> Trees;
-		std::vector<OuterTree::Node *> Incumbent;
-		bool Feasible{false};
-		double Tolerance = 1e-6;
+		std::vector<OuterTree *>                     Trees;
+		std::vector<OuterTree::Node *>               Incumbent;
+		bool                                         Feasible{false};
+		double                                       Tolerance = 1e-6;
 
 	 public:
 		double getTol() const { return Tolerance; }
-		void setTol(double tol) { this->Tolerance = tol; }
+		void   setTol(double tol) { this->Tolerance = tol; }
 
 	 private:
 		std::vector<int> getNextBranchLocation(const unsigned int player, OuterTree::Node *node);
@@ -160,7 +160,7 @@ namespace Algorithms {
 
 	 protected:
 		void postSolving() override{
-		    //@todo implement
+			 //@todo implement
 		};
 
 	 public:
@@ -170,13 +170,13 @@ namespace Algorithms {
 		  this->EPECObject = EpecObj;
 		  this->Env        = env;
 		  /*
-		   *  The constructor re-builds the LCP fields in the EPEC object as new
-		   * OuterLCP objects
-		   */
+			*  The constructor re-builds the LCP fields in the EPEC object as new
+			* OuterLCP objects
+			*/
 		  this->outerLCP = std::vector<std::shared_ptr<Game::OuterLCP>>(EPECObject->NumPlayers);
 		  for (unsigned int i = 0; i < EPECObject->NumPlayers; i++) {
 			 this->outerLCP.at(i) = std::shared_ptr<Game::OuterLCP>(
-			     new Game::OuterLCP(this->Env, *EPECObject->PlayersLowerLevels.at(i).get()));
+				  new Game::OuterLCP(this->Env, *EPECObject->PlayersLowerLevels.at(i).get()));
 			 EPECObject->PlayersLCP.at(i) = this->outerLCP.at(i);
 		  }
 
@@ -190,16 +190,16 @@ namespace Algorithms {
 		bool isPureStrategy(double tol = 1e-4) const override;
 
 		void printCurrentApprox();
-		int hybridBranching(const unsigned int player, OuterTree::Node *node);
-		int infeasibleBranching(const unsigned int player, const OuterTree::Node *node);
-		int deviationBranching(const unsigned int player, const OuterTree::Node *node);
+		int  hybridBranching(const unsigned int player, OuterTree::Node *node);
+		int  infeasibleBranching(const unsigned int player, const OuterTree::Node *node);
+		int  deviationBranching(const unsigned int player, const OuterTree::Node *node);
 		void printBranchingLog(std::vector<int> vector);
 		std::unique_ptr<GRBModel> getFeasQP(const unsigned int player, arma::vec x);
 		void addValueCut(unsigned int player, arma::vec xOfIBestResponse, arma::vec xMinusI);
-		bool separationOracle(arma::vec &xOfI, arma::vec &x, unsigned int player, int budget,
-		                      bool &addedCuts);
-		GRBModel *getDualMembershipLP(unsigned int player, arma::vec vertex,
-		                              bool normalization = true);
+		bool separationOracle(
+			 arma::vec &xOfI, arma::vec &x, unsigned int player, int budget, bool &addedCuts);
+		GRBModel *
+		getDualMembershipLP(unsigned int player, arma::vec vertex, bool normalization = true);
 	 };
   } // namespace EPEC
 

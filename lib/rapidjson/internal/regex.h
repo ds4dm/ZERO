@@ -65,62 +65,62 @@ namespace internal {
 	 }
 
 	 SourceStream &ss_;
-	 unsigned codepoint_;
+	 unsigned      codepoint_;
   };
 
   ///////////////////////////////////////////////////////////////////////////////
   // GenericRegex
 
   static const SizeType kRegexInvalidState =
-      ~SizeType(0); //!< Represents an invalid index in GenericRegex::State::out, out1
+		~SizeType(0); //!< Represents an invalid index in GenericRegex::State::out, out1
   static const SizeType kRegexInvalidRange = ~SizeType(0);
 
   template <typename Encoding, typename Allocator> class GenericRegexSearch;
 
   //! Regular expression engine with subset of ECMAscript grammar.
   /*!
-      Supported regular expression syntax:
-      - \c ab     Concatenation
-      - \c a|b    Alternation
-      - \c a?     Zero or one
-      - \c a*     Zero or more
-      - \c a+     One or more
-      - \c a{3}   Exactly 3 times
-      - \c a{3,}  At least 3 times
-      - \c a{3,5} 3 to 5 times
-      - \c (ab)   Grouping
-      - \c ^a     At the beginning
-      - \c a$     At the end
-      - \c .      Any character
-      - \c [abc]  Character classes
-      - \c [a-c]  Character class range
-      - \c [a-z0-9_] Character class combination
-      - \c [^abc] Negated character classes
-      - \c [^a-c] Negated character class range
-      - \c [\b]   Backspace (U+0008)
-      - \c \\| \\\\ ...  Escape characters
-      - \c \\f Form feed (U+000C)
-      - \c \\n Line feed (U+000A)
-      - \c \\r Carriage return (U+000D)
-      - \c \\t Tab (U+0009)
-      - \c \\v Vertical tab (U+000B)
+		Supported regular expression syntax:
+		- \c ab     Concatenation
+		- \c a|b    Alternation
+		- \c a?     Zero or one
+		- \c a*     Zero or more
+		- \c a+     One or more
+		- \c a{3}   Exactly 3 times
+		- \c a{3,}  At least 3 times
+		- \c a{3,5} 3 to 5 times
+		- \c (ab)   Grouping
+		- \c ^a     At the beginning
+		- \c a$     At the end
+		- \c .      Any character
+		- \c [abc]  Character classes
+		- \c [a-c]  Character class range
+		- \c [a-z0-9_] Character class combination
+		- \c [^abc] Negated character classes
+		- \c [^a-c] Negated character class range
+		- \c [\b]   Backspace (U+0008)
+		- \c \\| \\\\ ...  Escape characters
+		- \c \\f Form feed (U+000C)
+		- \c \\n Line feed (U+000A)
+		- \c \\r Carriage return (U+000D)
+		- \c \\t Tab (U+0009)
+		- \c \\v Vertical tab (U+000B)
 
-      \note This is a Thompson NFA engine, implemented with reference to
-          Cox, Russ. "Regular Expression Matching Can Be Simple And Fast (but is slow in Java, Perl,
-     PHP, Python, Ruby,...).", https://swtch.com/~rsc/regexp/regexp1.html
+		\note This is a Thompson NFA engine, implemented with reference to
+			 Cox, Russ. "Regular Expression Matching Can Be Simple And Fast (but is slow in Java, Perl,
+	  PHP, Python, Ruby,...).", https://swtch.com/~rsc/regexp/regexp1.html
   */
   template <typename Encoding, typename Allocator = CrtAllocator> class GenericRegex {
   public:
-	 typedef Encoding EncodingType;
+	 typedef Encoding              EncodingType;
 	 typedef typename Encoding::Ch Ch;
 	 template <typename, typename> friend class GenericRegexSearch;
 
 	 GenericRegex(const Ch *source, Allocator *allocator = 0)
-	     : ownAllocator_(allocator ? 0 : RAPIDJSON_NEW(Allocator)()),
-	       allocator_(allocator ? allocator : ownAllocator_), states_(allocator_, 256),
-	       ranges_(allocator_, 256), root_(kRegexInvalidState), stateCount_(), rangeCount_(),
-	       anchorBegin_(), anchorEnd_() {
-		GenericStringStream<Encoding> ss(source);
+		  : ownAllocator_(allocator ? 0 : RAPIDJSON_NEW(Allocator)()),
+			 allocator_(allocator ? allocator : ownAllocator_), states_(allocator_, 256),
+			 ranges_(allocator_, 256), root_(kRegexInvalidState), stateCount_(), rangeCount_(),
+			 anchorBegin_(), anchorEnd_() {
+		GenericStringStream<Encoding>                          ss(source);
 		DecodedStream<GenericStringStream<Encoding>, Encoding> ds(ss);
 		Parse(ds);
 	 }
@@ -216,7 +216,7 @@ namespace internal {
 
 		  case ')':
 			 while (!operatorStack.Empty() &&
-			        *operatorStack.template Top<Operator>() != kLeftParenthesis)
+					  *operatorStack.template Top<Operator>() != kLeftParenthesis)
 				if (!Eval(operandStack, *operatorStack.template Pop<Operator>(1)))
 				  return;
 			 if (operatorStack.Empty())
@@ -279,7 +279,7 @@ namespace internal {
 		  case '\\': // Escape character
 			 if (!CharacterEscape(ds, &codepoint))
 				return; // Unsupported escape character
-				        // fall through to default
+						  // fall through to default
 
 		  default: // Pattern character
 			 PushOperand(operandStack, codepoint);
@@ -352,24 +352,24 @@ namespace internal {
 			 Frag e1 = *operandStack.template Pop<Frag>(1);
 			 Patch(e1.out, e2.start);
 			 *operandStack.template Push<Frag>() =
-			     Frag(e1.start, e2.out, Min(e1.minIndex, e2.minIndex));
+				  Frag(e1.start, e2.out, Min(e1.minIndex, e2.minIndex));
 		  }
 		  return true;
 
 		case kAlternation:
 		  if (operandStack.GetSize() >= sizeof(Frag) * 2) {
-			 Frag e2    = *operandStack.template Pop<Frag>(1);
-			 Frag e1    = *operandStack.template Pop<Frag>(1);
-			 SizeType s = NewState(e1.start, e2.start, 0);
+			 Frag     e2 = *operandStack.template Pop<Frag>(1);
+			 Frag     e1 = *operandStack.template Pop<Frag>(1);
+			 SizeType s  = NewState(e1.start, e2.start, 0);
 			 *operandStack.template Push<Frag>() =
-			     Frag(s, Append(e1.out, e2.out), Min(e1.minIndex, e2.minIndex));
+				  Frag(s, Append(e1.out, e2.out), Min(e1.minIndex, e2.minIndex));
 			 return true;
 		  }
 		  return false;
 
 		case kZeroOrOne:
 		  if (operandStack.GetSize() >= sizeof(Frag)) {
-			 Frag e                              = *operandStack.template Pop<Frag>(1);
+			 Frag     e                          = *operandStack.template Pop<Frag>(1);
 			 SizeType s                          = NewState(kRegexInvalidState, e.start, 0);
 			 *operandStack.template Push<Frag>() = Frag(s, Append(e.out, s), e.minIndex);
 			 return true;
@@ -378,7 +378,7 @@ namespace internal {
 
 		case kZeroOrMore:
 		  if (operandStack.GetSize() >= sizeof(Frag)) {
-			 Frag e     = *operandStack.template Pop<Frag>(1);
+			 Frag     e = *operandStack.template Pop<Frag>(1);
 			 SizeType s = NewState(kRegexInvalidState, e.start, 0);
 			 Patch(e.out, s);
 			 *operandStack.template Push<Frag>() = Frag(s, s, e.minIndex);
@@ -388,7 +388,7 @@ namespace internal {
 
 		case kOneOrMore:
 		  if (operandStack.GetSize() >= sizeof(Frag)) {
-			 Frag e     = *operandStack.template Pop<Frag>(1);
+			 Frag     e = *operandStack.template Pop<Frag>(1);
 			 SizeType s = NewState(kRegexInvalidState, e.start, 0);
 			 Patch(e.out, s);
 			 *operandStack.template Push<Frag>() = Frag(e.start, s, e.minIndex);
@@ -445,10 +445,10 @@ namespace internal {
 
 	 void CloneTopOperand(Stack<Allocator> &operandStack) {
 		const Frag src =
-		    *operandStack.template Top<Frag>(); // Copy constructor to prevent invalidation
+			 *operandStack.template Top<Frag>(); // Copy constructor to prevent invalidation
 		SizeType count =
-		    stateCount_ -
-		    src.minIndex; // Assumes top operand contains states in [src->minIndex, stateCount_)
+			 stateCount_ -
+			 src.minIndex; // Assumes top operand contains states in [src->minIndex, stateCount_)
 		State *s = states_.template Push<State>(count);
 		memcpy(s, &GetState(src.minIndex), count * sizeof(State));
 		for (SizeType j = 0; j < count; j++) {
@@ -458,7 +458,7 @@ namespace internal {
 			 s[j].out1 += count;
 		}
 		*operandStack.template Push<Frag>() =
-		    Frag(src.start + count, src.out + count, src.minIndex + count);
+			 Frag(src.start + count, src.out + count, src.minIndex + count);
 		stateCount_ += count;
 	 }
 
@@ -478,9 +478,9 @@ namespace internal {
 
 	 template <typename InputStream>
 	 bool ParseRange(DecodedStream<InputStream, Encoding> &ds, SizeType *range) {
-		bool isBegin     = true;
-		bool negate      = false;
-		int step         = 0;
+		bool     isBegin = true;
+		bool     negate  = false;
+		int      step    = 0;
 		SizeType start   = kRegexInvalidRange;
 		SizeType current = kRegexInvalidRange;
 		unsigned codepoint;
@@ -592,13 +592,13 @@ namespace internal {
 		}
 	 }
 
-	 Allocator *ownAllocator_;
-	 Allocator *allocator_;
+	 Allocator *      ownAllocator_;
+	 Allocator *      allocator_;
 	 Stack<Allocator> states_;
 	 Stack<Allocator> ranges_;
-	 SizeType root_;
-	 SizeType stateCount_;
-	 SizeType rangeCount_;
+	 SizeType         root_;
+	 SizeType         stateCount_;
+	 SizeType         rangeCount_;
 
 	 static const unsigned kInfinityQuantifier = ~0u;
 
@@ -610,11 +610,11 @@ namespace internal {
   template <typename RegexType, typename Allocator = CrtAllocator> class GenericRegexSearch {
   public:
 	 typedef typename RegexType::EncodingType Encoding;
-	 typedef typename Encoding::Ch Ch;
+	 typedef typename Encoding::Ch            Ch;
 
 	 GenericRegexSearch(const RegexType &regex, Allocator *allocator = 0)
-	     : regex_(regex), allocator_(allocator), ownAllocator_(0), state0_(allocator, 0),
-	       state1_(allocator, 0), stateSet_() {
+		  : regex_(regex), allocator_(allocator), ownAllocator_(0), state0_(allocator, 0),
+			 state1_(allocator, 0), stateSet_() {
 		RAPIDJSON_ASSERT(regex_.IsValid());
 		if (!allocator_)
 		  ownAllocator_ = allocator_ = RAPIDJSON_NEW(Allocator)();
@@ -656,21 +656,22 @@ namespace internal {
 
 		state0_.Clear();
 		Stack<Allocator> *current = &state0_, *next = &state1_;
-		const size_t stateSetSize = GetStateSetSize();
+		const size_t      stateSetSize = GetStateSetSize();
 		std::memset(stateSet_, 0, stateSetSize);
 
-		bool matched = AddState(*current, regex_.root_);
+		bool     matched = AddState(*current, regex_.root_);
 		unsigned codepoint;
 		while (!current->Empty() && (codepoint = ds.Take()) != 0) {
 		  std::memset(stateSet_, 0, stateSetSize);
 		  next->Clear();
 		  matched = false;
 		  for (const SizeType *s = current->template Bottom<SizeType>();
-		       s != current->template End<SizeType>(); ++s) {
+				 s != current->template End<SizeType>();
+				 ++s) {
 			 const State &sr = regex_.GetState(*s);
 			 if (sr.codepoint == codepoint || sr.codepoint == RegexType::kAnyCharacterClass ||
-			     (sr.codepoint == RegexType::kRangeCharacterClass &&
-			      MatchRange(sr.rangeStart, codepoint))) {
+				  (sr.codepoint == RegexType::kRangeCharacterClass &&
+					MatchRange(sr.rangeStart, codepoint))) {
 				matched = AddState(*next, sr.out) || matched;
 				if (!anchorEnd && matched)
 				  return true;
@@ -699,7 +700,7 @@ namespace internal {
 		  *l.template PushUnsafe<SizeType>() = index;
 		}
 		return s.out == kRegexInvalidState; // by using PushUnsafe() above, we can ensure s is not
-		                                    // validated due to reallocation.
+														// validated due to reallocation.
 	 }
 
 	 bool MatchRange(SizeType rangeIndex, unsigned codepoint) const {
@@ -714,14 +715,14 @@ namespace internal {
 	 }
 
 	 const RegexType &regex_;
-	 Allocator *allocator_;
-	 Allocator *ownAllocator_;
+	 Allocator *      allocator_;
+	 Allocator *      ownAllocator_;
 	 Stack<Allocator> state0_;
 	 Stack<Allocator> state1_;
-	 uint32_t *stateSet_;
+	 uint32_t *       stateSet_;
   };
 
-  typedef GenericRegex<UTF8<>> Regex;
+  typedef GenericRegex<UTF8<>>      Regex;
   typedef GenericRegexSearch<Regex> RegexSearch;
 
 } // namespace internal

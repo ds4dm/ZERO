@@ -31,18 +31,18 @@ RAPIDJSON_NAMESPACE_BEGIN
 
 //! Wrapper of \c std::basic_istream into RapidJSON's Stream concept.
 /*!
-    The classes can be wrapped including but not limited to:
+	 The classes can be wrapped including but not limited to:
 
-    - \c std::istringstream
-    - \c std::stringstream
-    - \c std::wistringstream
-    - \c std::wstringstream
-    - \c std::ifstream
-    - \c std::fstream
-    - \c std::wifstream
-    - \c std::wfstream
+	 - \c std::istringstream
+	 - \c std::stringstream
+	 - \c std::wistringstream
+	 - \c std::wstringstream
+	 - \c std::ifstream
+	 - \c std::fstream
+	 - \c std::wifstream
+	 - \c std::wfstream
 
-    \tparam StreamType Class derived from \c std::basic_istream.
+	 \tparam StreamType Class derived from \c std::basic_istream.
 */
 
 template <typename StreamType> class BasicIStreamWrapper {
@@ -51,23 +51,23 @@ public:
 
   //! Constructor.
   /*!
-      \param stream stream opened for read.
+		\param stream stream opened for read.
   */
   BasicIStreamWrapper(StreamType &stream)
-      : stream_(stream), buffer_(peekBuffer_), bufferSize_(4), bufferLast_(0), current_(buffer_),
-        readCount_(0), count_(0), eof_(false) {
+		: stream_(stream), buffer_(peekBuffer_), bufferSize_(4), bufferLast_(0), current_(buffer_),
+		  readCount_(0), count_(0), eof_(false) {
 	 Read();
   }
 
   //! Constructor.
   /*!
-      \param stream stream opened for read.
-      \param buffer user-supplied buffer.
-      \param bufferSize size of buffer in bytes. Must >=4 bytes.
+		\param stream stream opened for read.
+		\param buffer user-supplied buffer.
+		\param bufferSize size of buffer in bytes. Must >=4 bytes.
   */
   BasicIStreamWrapper(StreamType &stream, char *buffer, size_t bufferSize)
-      : stream_(stream), buffer_(buffer), bufferSize_(bufferSize), bufferLast_(0),
-        current_(buffer_), readCount_(0), count_(0), eof_(false) {
+		: stream_(stream), buffer_(buffer), bufferSize_(bufferSize), bufferLast_(0),
+		  current_(buffer_), readCount_(0), count_(0), eof_(false) {
 	 RAPIDJSON_ASSERT(bufferSize >= 4);
 	 Read();
   }
@@ -83,9 +83,9 @@ public:
   // Not implemented
   void Put(Ch) { RAPIDJSON_ASSERT(false); }
   void Flush() { RAPIDJSON_ASSERT(false); }
-  Ch *PutBegin() {
-	 RAPIDJSON_ASSERT(false);
-	 return 0;
+  Ch * PutBegin() {
+    RAPIDJSON_ASSERT(false);
+    return 0;
   }
   size_t PutEnd(Ch *) {
 	 RAPIDJSON_ASSERT(false);
@@ -118,16 +118,16 @@ private:
   }
 
   StreamType &stream_;
-  Ch peekBuffer_[4], *buffer_;
-  size_t bufferSize_;
-  Ch *bufferLast_;
-  Ch *current_;
-  size_t readCount_;
-  size_t count_; //!< Number of characters read
-  bool eof_;
+  Ch          peekBuffer_[4], *buffer_;
+  size_t      bufferSize_;
+  Ch *        bufferLast_;
+  Ch *        current_;
+  size_t      readCount_;
+  size_t      count_; //!< Number of characters read
+  bool        eof_;
 };
 
-typedef BasicIStreamWrapper<std::istream> IStreamWrapper;
+typedef BasicIStreamWrapper<std::istream>  IStreamWrapper;
 typedef BasicIStreamWrapper<std::wistream> WIStreamWrapper;
 
 #if defined(__clang__) || defined(_MSC_VER)

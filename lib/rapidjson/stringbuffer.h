@@ -33,16 +33,16 @@ RAPIDJSON_NAMESPACE_BEGIN
 
 //! Represents an in-memory output stream.
 /*!
-    \tparam Encoding Encoding of the stream.
-    \tparam Allocator type for allocating memory buffer.
-    \note implements Stream concept
+	 \tparam Encoding Encoding of the stream.
+	 \tparam Allocator type for allocating memory buffer.
+	 \note implements Stream concept
 */
 template <typename Encoding, typename Allocator = CrtAllocator> class GenericStringBuffer {
 public:
   typedef typename Encoding::Ch Ch;
 
   GenericStringBuffer(Allocator *allocator = 0, size_t capacity = kDefaultCapacity)
-      : stack_(allocator, capacity) {}
+		: stack_(allocator, capacity) {}
 
 #if RAPIDJSON_HAS_CXX11_RVALUE_REFS
   GenericStringBuffer(GenericStringBuffer &&rhs) : stack_(std::move(rhs.stack_)) {}
@@ -66,8 +66,8 @@ public:
   }
 
   void Reserve(size_t count) { stack_.template Reserve<Ch>(count); }
-  Ch *Push(size_t count) { return stack_.template Push<Ch>(count); }
-  Ch *PushUnsafe(size_t count) { return stack_.template PushUnsafe<Ch>(count); }
+  Ch * Push(size_t count) { return stack_.template Push<Ch>(count); }
+  Ch * PushUnsafe(size_t count) { return stack_.template PushUnsafe<Ch>(count); }
   void Pop(size_t count) { stack_.template Pop<Ch>(count); }
 
   const Ch *GetString() const {
@@ -84,7 +84,7 @@ public:
   //! Get the length of string in Ch in the string buffer.
   size_t GetLength() const { return stack_.GetSize() / sizeof(Ch); }
 
-  static const size_t kDefaultCapacity = 256;
+  static const size_t                kDefaultCapacity = 256;
   mutable internal::Stack<Allocator> stack_;
 
 private:

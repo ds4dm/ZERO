@@ -9,7 +9,7 @@ using namespace Game;
 
 BOOST_AUTO_TEST_CASE(LoggingOff) {
   boost::log::core::get()->set_filter(boost::log::trivial::severity >=
-                                      boost::log::trivial::warning);
+												  boost::log::trivial::warning);
 }
 
 BOOST_AUTO_TEST_SUITE(Core__Tests)
@@ -44,25 +44,25 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
   */
 
   /* Below is the data for the following quadratic programming problem
-   * min (y1 + y2 - 2y3)^2 + 2 x1y1 + 2 x2y1 + 3 x1y3 + y1-y2+y3
-   * Subject to
-   * y1, y2, y3 >= 0
-   * y1 + y2 + y3 <= 10
-   * -y1 +y2 -2y3 <= -1 + x1 + x2
-   *
-   * With (x1, x2) = (-1, 0.5), problem is
-   * min (y1 + y2 - 2y3)^2  -y2 -2y3
-   * Subject to
-   * y1, y2, y3 >= 0
-   * y1 + y2 + y3 <= 10
-   * -y1 +y2 -2y3 <= -1.5
-   *
-   *  The optimal objective value for this problem (as solved outside) is
-   * -12.757 and a potential solution (y1, y2, y3) is (0.542, 5.986, 3.472)
-   *
-   */
+	* min (y1 + y2 - 2y3)^2 + 2 x1y1 + 2 x2y1 + 3 x1y3 + y1-y2+y3
+	* Subject to
+	* y1, y2, y3 >= 0
+	* y1 + y2 + y3 <= 10
+	* -y1 +y2 -2y3 <= -1 + x1 + x2
+	*
+	* With (x1, x2) = (-1, 0.5), problem is
+	* min (y1 + y2 - 2y3)^2  -y2 -2y3
+	* Subject to
+	* y1, y2, y3 >= 0
+	* y1 + y2 + y3 <= 10
+	* -y1 +y2 -2y3 <= -1.5
+	*
+	*  The optimal objective value for this problem (as solved outside) is
+	* -12.757 and a potential solution (y1, y2, y3) is (0.542, 5.986, 3.472)
+	*
+	*/
   unsigned int Nx = 2, Ny = 3, Ncons = 2;
-  mat Qd(3, 3);
+  mat          Qd(3, 3);
   Qd << 1 << 1 << -2 << endr << 1 << 1 << -2 << endr << -2 << -2 << 4 << endr;
   sp_mat Q = sp_mat(2 * Qd);
   sp_mat C(3, 2);
@@ -79,7 +79,7 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
   mat Bd(2, 3);
   Bd << 1 << 1 << 1 << endr << -1 << 1 << -2 << endr;
   sp_mat B = sp_mat(Bd);
-  vec b(2);
+  vec    b(2);
   b(0) = 10;
   b(1) = -1;
   /* Manual data over */
@@ -88,9 +88,9 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
 
   // Constructor
   BOOST_TEST_MESSAGE("Constructor tests");
-  QP_Param q1(Q, C, A, B, c, b, &env);
+  QP_Param       q1(Q, C, A, B, c, b, &env);
   const QP_Param q_ref(q1);
-  QP_Param q2(&env);
+  QP_Param       q2(&env);
   q2.set(Q, C, A, B, c, b);
   BOOST_CHECK(q1 == q2);
   // Checking if the constructor is sensible
@@ -99,12 +99,12 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
   // QP_Param.solve_fixed()
   BOOST_TEST_MESSAGE("QP_Param.solveFixed() test");
   arma::vec x(2);
-  x(0)            = -1;
-  x(1)            = 0.5;
-  auto FixedModel = q2.solveFixed(x, true);
+  x(0)                 = -1;
+  x(1)                 = 0.5;
+  auto      FixedModel = q2.solveFixed(x, true);
   arma::vec sol(3);
   sol << 0.5417 << endr << 5.9861 << endr
-      << 3.4722; // Hard-coding the solution as calculated outside
+		<< 3.4722; // Hard-coding the solution as calculated outside
   for (unsigned int i = 0; i < Ny; i++)
 	 BOOST_WARN_CLOSE(sol(i), FixedModel->getVar(i).get(GRB_DoubleAttr_X), 0.01);
   BOOST_CHECK_CLOSE(FixedModel->get(GRB_DoubleAttr_ObjVal), -12.757, 0.01);
@@ -112,12 +112,12 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
   // KKT conditions for a QPC
   BOOST_TEST_MESSAGE("QP_Param.KKT() test");
   sp_mat M, N;
-  vec q;
+  vec    q;
   // Hard coding the expected values for M, N and q
   mat Mhard(5, 5), Nhard(5, 2);
   vec qhard(5);
   Mhard << 2 << 2 << -4 << 1 << -1 << endr << 2 << 2 << -4 << 1 << 1 << endr << -4 << -4 << 8 << 1
-        << -2 << endr << -1 << -1 << -1 << 0 << 0 << endr << 1 << -1 << 2 << 0 << 0 << endr;
+		  << -2 << endr << -1 << -1 << -1 << 0 << 0 << endr << 1 << -1 << 2 << 0 << 0 << endr;
   Nhard << 2 << 2 << endr << 0 << 0 << endr << 3 << 0 << endr << 0 << 0 << endr << 1 << 1 << endr;
   qhard << 1 << -1 << 1 << 10 << -1;
   BOOST_CHECK_NO_THROW(q1.KKT(M, N, q)); // Should not throw any exception!
@@ -139,7 +139,7 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
   // Q should remain same on left part, and the last row and col have to be
   // zeros
   arma::sp_mat temp_spmat1 =
-      q1.getQ().submat(0, 0, Ny - 1, Ny - 1); // The top left part should not have changed.
+		q1.getQ().submat(0, 0, Ny - 1, Ny - 1); // The top left part should not have changed.
   BOOST_CHECK_MESSAGE(Game::isZero(temp_spmat1 - q_ref.getQ()), "Q check after addDummy(0, 1, 1)");
   temp_spmat1 = q1.getQ().cols(Ny, Ny);
   BOOST_CHECK_MESSAGE(Game::isZero(temp_spmat1), "Q check after addDummy(0, 1, 1)");
@@ -189,20 +189,20 @@ BOOST_AUTO_TEST_CASE(NashGame_test) {
 
   /** First test is to create a duopoly **/
   /* PLAYER 1:
-   * 	min: 10 q1 + 0.1 q1^2 - (100 - (q1+q2)) q1 	= 1.1 q1^2 - 90 q1 +
-   * q1q2 s.t: q1 >= 0
-   *
-   * PLAYER 2:
-   * 	min: 5 q2 + 0.2 q2^2 - (100 - (q1+q2)) q2 	= 1.2 q2^2 - 95 q2 +
-   * q2q1 s.t: q2 >= 0
-   *
-   * EXPECTED LCP
-   * 0 \leq q1 \perp 2.2 q1 + q2 - 90 \geq 0
-   * 0 \leq q2 \perp q1 + 2.4 q2 - 95 \geq 0
-   * Solution: q1=28.271, q2=27.8037
-   */
+	* 	min: 10 q1 + 0.1 q1^2 - (100 - (q1+q2)) q1 	= 1.1 q1^2 - 90 q1 +
+	* q1q2 s.t: q1 >= 0
+	*
+	* PLAYER 2:
+	* 	min: 5 q2 + 0.2 q2^2 - (100 - (q1+q2)) q2 	= 1.2 q2^2 - 95 q2 +
+	* q2q1 s.t: q2 >= 0
+	*
+	* EXPECTED LCP
+	* 0 \leq q1 \perp 2.2 q1 + q2 - 90 \geq 0
+	* 0 \leq q2 \perp q1 + 2.4 q2 - 95 \geq 0
+	* Solution: q1=28.271, q2=27.8037
+	*/
   arma::sp_mat Q(1, 1), A(0, 1), B(0, 1), C(1, 1);
-  arma::vec b, c(1);
+  arma::vec    b, c(1);
   b.set_size(0);
   Q(0, 0) = 2 * 1.1;
   C(0, 0) = 1;
@@ -214,15 +214,15 @@ BOOST_AUTO_TEST_CASE(NashGame_test) {
 
   // Creating the Nashgame
   std::vector<shared_ptr<Game::QP_Param>> q{q1, q2};
-  sp_mat MC(0, 2);
-  vec MCRHS;
+  sp_mat                                  MC(0, 2);
+  vec                                     MCRHS;
   MCRHS.set_size(0);
   Game::NashGame Nash = Game::NashGame(&env, q, MC, MCRHS);
 
   // Master check  -  LCP should be proper!
   sp_mat MM, MM_ref;
-  vec qq, qq_ref;
-  perps Compl;
+  vec    qq, qq_ref;
+  perps  Compl;
   BOOST_TEST_MESSAGE("NashGame.formulateLCP test");
   BOOST_CHECK_NO_THROW(Nash.formulateLCP(MM, qq, Compl));
   BOOST_CHECK_MESSAGE(MM(0, 0) == 2.2, "checking q1 coefficient in M-LCP (0,0)");
@@ -233,7 +233,7 @@ BOOST_AUTO_TEST_CASE(NashGame_test) {
   BOOST_CHECK_MESSAGE(qq(1) == -95, "checking rhs coefficient in Q-LCP (1)");
 
   BOOST_TEST_MESSAGE("LCP.LCPasMIP test");
-  Game::LCP lcp(&env, Nash);
+  Game::LCP            lcp(&env, Nash);
   unique_ptr<GRBModel> lcpmodel = lcp.LCPasMIP(true);
 
   // int Nvar = Nash.getNprimals() + Nash.getNumDualVars() + Nash.getNumShadow() +
@@ -268,15 +268,15 @@ BOOST_AUTO_TEST_CASE(NashGame_test) {
   BOOST_CHECK_CLOSE(nashResp2->getVarByName("y_0").get(GRB_DoubleAttr_X), Nashsol(1), 0.0001);
 
   unsigned int temp1 = 0;
-  arma::vec temp2;
+  arma::vec    temp2;
   BOOST_CHECK_MESSAGE(Nash.isSolved(Nashsol, temp1, temp2),
-                      "Checking that the Nashgame is solved correctly using isSolved()");
+							 "Checking that the Nashgame is solved correctly using isSolved()");
 }
 
 BOOST_AUTO_TEST_CASE(LCP_test) {
   // For the problem in LCP tutorial.
   arma::sp_mat M(4, 5); // We have four complementarity eqns and 5 variables.
-  arma::vec q(4);
+  arma::vec    q(4);
   M.zeros();
   // First eqn
   M(0, 3) = 1;
@@ -295,7 +295,7 @@ BOOST_AUTO_TEST_CASE(LCP_test) {
   q(3)    = 5;
   // Other common constraints
   arma::sp_mat A(2, 5);
-  arma::vec b(2);
+  arma::vec    b(2);
   A.zeros();
   // x_2 <= 2 constraint
   A(0, 1) = 1;
@@ -307,23 +307,23 @@ BOOST_AUTO_TEST_CASE(LCP_test) {
   b(1)    = 12;
   // Creating the LCP object
   GRBEnv env;
-  LCP lcp(&env, M, q, 1, 1, A, b);
+  LCP    lcp(&env, M, q, 1, 1, A, b);
 }
 
 BOOST_AUTO_TEST_CASE(ConvexHull_test) {
 
   /** Testing the convexHull method
-   *  We pick three polyhedra in a two dimensional space and optimize a linear
-   * function (maximaze sum of two dimensions)
-   * **/
+	*  We pick three polyhedra in a two dimensional space and optimize a linear
+	* function (maximaze sum of two dimensions)
+	* **/
   BOOST_TEST_MESSAGE("\n\n");
   BOOST_TEST_MESSAGE("Testing Game::convexHull");
 
-  GRBEnv env;
-  arma::sp_mat A1, A2, A3, A;
-  arma::vec b1, b2, b3, b;
+  GRBEnv                 env;
+  arma::sp_mat           A1, A2, A3, A;
+  arma::vec              b1, b2, b3, b;
   vector<arma::sp_mat *> Ai;
-  vector<arma::vec *> bi;
+  vector<arma::vec *>    bi;
 
   A.zeros();
   b.zeros();
@@ -386,7 +386,7 @@ BOOST_AUTO_TEST_CASE(ConvexHull_test) {
   GRBModel model = GRBModel(env);
   BOOST_TEST_MESSAGE("Testing Game::convexHull with a two dimensional problem.");
   Game::convexHull(&Ai, &bi, A, b);
-  GRBVar x[A.n_cols];
+  GRBVar    x[A.n_cols];
   GRBConstr a[A.n_rows];
   for (unsigned int i = 0; i < A.n_cols; i++)
 	 x[i] = model.addVar(-GRB_INFINITY, +GRB_INFINITY, 0, GRB_CONTINUOUS, "x_" + to_string(i));
@@ -413,13 +413,13 @@ BOOST_AUTO_TEST_CASE(ConvexHull_test) {
 
 BOOST_AUTO_TEST_CASE(IndicatorConstraints_test) {
   /** Testing the indicator constraints switch
-   *  Two identical problems should have same solutions with BigM formulation
-   *and indicator constraints one Numerical issues in some instances suggest
-   *that Indicators are a safer choice for Numerical stability issues.
-   * @warning the test might fail depending on the thresholds. please see
-   *lcptolp BigM, Eps, eps_Int. For a better stability, Indicators constraints
-   *are suggested.
-   **/
+	*  Two identical problems should have same solutions with BigM formulation
+	*and indicator constraints one Numerical issues in some instances suggest
+	*that Indicators are a safer choice for Numerical stability issues.
+	* @warning the test might fail depending on the thresholds. please see
+	*lcptolp BigM, Eps, eps_Int. For a better stability, Indicators constraints
+	*are suggested.
+	**/
   BOOST_TEST_MESSAGE("Indicator constraints test");
   Data::EPEC::DataObject common;
   common.IndicatorConstraints.set(false);
@@ -438,8 +438,8 @@ BOOST_AUTO_TEST_SUITE(Models_Bilevel__Test)
 BOOST_AUTO_TEST_CASE(Bilevel_test) {
 
   /** Testing a Single country (C1) with a single follower (F1)
-   *  LeaderConstraints: no leader constraints are enforced
-   **/
+	*  LeaderConstraints: no leader constraints are enforced
+	**/
   testInst SimpleBlu2                                              = SimpleBlu();
   SimpleBlu2.instance.Countries.at(0).FollowerParam.tax_caps.at(0) = -1;
   testEPECInstance(SimpleBlu2, allAlgo(), TestType::simpleCheck);
@@ -448,10 +448,10 @@ BOOST_AUTO_TEST_CASE(Bilevel_test) {
 BOOST_AUTO_TEST_CASE(Bilevel_TaxCap_test) {
 
   /** Testing a Single country (C1) with a single follower (F1)
-   *  LeaderConstraints: tax cap to 20
-   *  The leader will maximize the tax (20) on the follower, which will produce
-   *q=100
-   **/
+	*  LeaderConstraints: tax cap to 20
+	*  The leader will maximize the tax (20) on the follower, which will produce
+	*q=100
+	**/
   BOOST_TEST_MESSAGE("Testing a single bilevel problem with low taxcap.");
   testInst SimpleBlu2                                              = SimpleBlu();
   SimpleBlu2.instance.Countries.at(0).FollowerParam.tax_caps.at(0) = 20;
@@ -461,9 +461,9 @@ BOOST_AUTO_TEST_CASE(Bilevel_TaxCap_test) {
 
 BOOST_AUTO_TEST_CASE(Bilevel_PriceCap1_test) {
   /** Testing a Single country (C1) with a single follower (F1)
-   *  LeaderConstraints: price cap 299
-   *  The price cap will enforce production to q=20 for the follower
-   **/
+	*  LeaderConstraints: price cap 299
+	*  The price cap will enforce production to q=20 for the follower
+	**/
   testInst SimpleBlu2                                              = SimpleBlu();
   SimpleBlu2.instance.Countries.at(0).LeaderParam.price_limit      = 299;
   SimpleBlu2.instance.Countries.at(0).FollowerParam.tax_caps.at(0) = -1;
@@ -473,9 +473,9 @@ BOOST_AUTO_TEST_CASE(Bilevel_PriceCap1_test) {
 
 BOOST_AUTO_TEST_CASE(Bilevel_PriceCap2_test) {
   /** Testing a Single country (C1) with a single follower (F1)
-   *  LeaderConstraints: price cap (infeasible)
-   *  The price cap is infeasible
-   **/
+	*  LeaderConstraints: price cap (infeasible)
+	*  The price cap is infeasible
+	**/
   BOOST_TEST_MESSAGE("Testing a single bilevel problem with infeasible price cap.");
   BOOST_TEST_MESSAGE("Testing a single bilevel problem with low taxcap.");
   testInst SimpleBlu2                                         = SimpleBlu();
@@ -485,10 +485,10 @@ BOOST_AUTO_TEST_CASE(Bilevel_PriceCap2_test) {
 
 BOOST_AUTO_TEST_CASE(Bilevel_PriceCapTaxCap_test) {
   /** Testing a Single country (C1) with a single follower (F1)
-   *  LeaderConstraints: price cap 295 and TaxCap at 20
-   *  The price cap is feasible, hence we should expect max taxation (20) and
-   *q=100
-   **/
+	*  LeaderConstraints: price cap 295 and TaxCap at 20
+	*  The price cap is feasible, hence we should expect max taxation (20) and
+	*q=100
+	**/
   testInst SimpleBlu2                                              = SimpleBlu();
   SimpleBlu2.instance.Countries.at(0).LeaderParam.price_limit      = 295;
   SimpleBlu2.instance.Countries.at(0).FollowerParam.tax_caps.at(0) = 20;
@@ -506,8 +506,8 @@ BOOST_AUTO_TEST_SUITE(Models_C1Fn__Tests)
 
 BOOST_AUTO_TEST_CASE(C1F2_test) {
   /** Testing a Single country (C1) with a single follower (F1)
-   *  LeaderConstraints: price cap 300 and tax cap 100
-   **/
+	*  LeaderConstraints: price cap 300 and tax cap 100
+	**/
   BOOST_TEST_MESSAGE("Testing 2Followers 1 Country with tax cap and price cap.");
   testInst SimpleVerde2                                        = SimpleVerde();
   SimpleVerde2.instance.Countries.at(0).FollowerParam.tax_caps = {100, 100};
@@ -518,15 +518,15 @@ BOOST_AUTO_TEST_CASE(C1F2_test) {
 BOOST_AUTO_TEST_CASE(C1F5_test) {
   /** Testing a Single country (C1) with a 5 followers (F5)
 
-   **/
+	**/
   BOOST_TEST_MESSAGE("Testing 5Followers 1 Country.");
   testEPECInstance(SimpleViola(), allAlgo(), TestType::simpleCheck);
 }
 
 BOOST_AUTO_TEST_CASE(C1F5_PriceCapInfeas_test) {
   /** Testing a Single country (C1) with a 5 followers (F5)
-   *  The price cap is infeasible.
-   **/
+	*  The price cap is infeasible.
+	**/
   BOOST_TEST_MESSAGE("Testing 5 Followers 1 Country with a price cap and tax cap.");
   BOOST_TEST_MESSAGE("Expected: Problem is infeasible");
   BOOST_TEST_MESSAGE("Testing 5Followers 1 Country.");
@@ -549,12 +549,12 @@ BOOST_AUTO_TEST_CASE(LoggingOff) {
 
 BOOST_AUTO_TEST_CASE(C2F1_test) {
   /** Testing two countries (C2) with a single follower (F1)
-   *  LeaderConstraints: price cap 300 and tax cap 100
-   *  The follower with the lowest marginal cost will produce more
-   **/
+	*  LeaderConstraints: price cap 300 and tax cap 100
+	*  The follower with the lowest marginal cost will produce more
+	**/
   BOOST_TEST_MESSAGE("Testing 2 Countries with a follower each -  with tax cap "
-                     "and price cap.");
-  testInst inst;
+							"and price cap.");
+  testInst           inst;
   Models::LeadAllPar Country(1, "One", FP_Blu(), {300, 0.05}, {-1, -1, 295, false, 0});
   Models::LeadAllPar Country2(1, "Two", FP_Blu(), {300, 0.07}, {-1, -1, 350, false, 0});
   inst.instance.Countries           = {Country, Country2};
@@ -567,25 +567,25 @@ BOOST_AUTO_TEST_CASE(C2F2_test) {
   /* Expected answer for this problem */
   /************************************/
   /* One:
-   * 	Total production: 			140
-   * 		OneGas production:		100
-   * 		OneCoal production:		40
-   * 	Taxes:
-   * 		OneGas tax:				0.00
-   * 		OneCoal tax:				78.00
-   *
-   * 	Price:						230
-   *
-   * Two:
-   * 	Total production: 			120
-   * 		TwoGas production:		48.57
-   * 		TwoSolar production:	71.43
-   * 	Taxes:
-   * 		TwoGas tax:				61.43
-   * 		TwoSolar tax:			0.00
-   *
-   * 	Price:						240
-   *									*/
+	* 	Total production: 			140
+	* 		OneGas production:		100
+	* 		OneCoal production:		40
+	* 	Taxes:
+	* 		OneGas tax:				0.00
+	* 		OneCoal tax:				78.00
+	*
+	* 	Price:						230
+	*
+	* Two:
+	* 	Total production: 			120
+	* 		TwoGas production:		48.57
+	* 		TwoSolar production:	71.43
+	* 	Taxes:
+	* 		TwoGas tax:				61.43
+	* 		TwoSolar tax:			0.00
+	*
+	* 	Price:						240
+	*									*/
   /************************************/
   BOOST_TEST_MESSAGE("Testing 2 Followers 2 Countries with a price caps, tax caps.");
   testEPECInstance(C2F2_Base(), allAlgo(), TestType::resultCheck);
@@ -596,30 +596,30 @@ BOOST_AUTO_TEST_CASE(C2F2_ImportExportCaps_test) {
   /* Expected answer for this problem */
   /************************************/
   /* One:
-   *  Imports                     27.50
-   * 	Total production: 			112.50
-   * 		OneGas production:		100
-   * 		OneCoal production:		12.50
-   * 	Taxes:
-   * 		OneGas tax:				0.00
-   * 		OneCoal tax:			100.00
-   *
-   * 	Price:						230
-   *
-   * Two:
-   *  Exports                     27.50
-   * 	Total production: 			147.50
-   * 		TwoGas production:		76.07
-   * 		TwoSolar production:	71.43
-   * 	Taxes:
-   * 		TwoGas tax:				33.93
-   * 		TwoSolar tax:			0.00
-   *
-   * 	Price:						240
-   *									*/
+	*  Imports                     27.50
+	* 	Total production: 			112.50
+	* 		OneGas production:		100
+	* 		OneCoal production:		12.50
+	* 	Taxes:
+	* 		OneGas tax:				0.00
+	* 		OneCoal tax:			100.00
+	*
+	* 	Price:						230
+	*
+	* Two:
+	*  Exports                     27.50
+	* 	Total production: 			147.50
+	* 		TwoGas production:		76.07
+	* 		TwoSolar production:	71.43
+	* 	Taxes:
+	* 		TwoGas tax:				33.93
+	* 		TwoSolar tax:			0.00
+	*
+	* 	Price:						240
+	*									*/
   /************************************/
   BOOST_TEST_MESSAGE("Testing 2 Followers 2 Countries with a price caps, tax "
-                     "caps, and export/import caps.");
+							"caps, and export/import caps.");
   testInst C2F2_Mod                                          = C2F2_Base();
   C2F2_Mod.instance.Countries.at(0).LeaderParam.import_limit = 100;
   C2F2_Mod.instance.Countries.at(1).LeaderParam.import_limit = 100;
@@ -737,16 +737,16 @@ arma::sp_mat TranspCost(unsigned int n) {
   return TrCo;
 }
 
-Models::LeadAllPar LAP_LowDem(Models::FollPar followers, Models::LeadPar leader,
-                              const std::string &a) {
-  return Models::LeadAllPar(followers.capacities.size(), "Low demand country " + a, followers,
-                            {300, 0.7}, leader);
+Models::LeadAllPar
+LAP_LowDem(Models::FollPar followers, Models::LeadPar leader, const std::string &a) {
+  return Models::LeadAllPar(
+		followers.capacities.size(), "Low demand country " + a, followers, {300, 0.7}, leader);
 }
 
-Models::LeadAllPar LAP_HiDem(Models::FollPar followers, Models::LeadPar leader,
-                             const std::string &a) {
-  return Models::LeadAllPar(followers.capacities.size(), "High demand country " + a, followers,
-                            {350, 0.5}, leader);
+Models::LeadAllPar
+LAP_HiDem(Models::FollPar followers, Models::LeadPar leader, const std::string &a) {
+  return Models::LeadAllPar(
+		followers.capacities.size(), "High demand country " + a, followers, {350, 0.5}, leader);
 }
 
 testInst CH_S_F0_CL_SC_F0() {
@@ -764,7 +764,7 @@ testInst CH_S_F0_CL_SC_F0() {
 }
 
 testInst C2F2_Base() {
-  testInst inst;
+  testInst           inst;
   Models::LeadAllPar One(2, "One", OneGas() + OneCoal(), {300, 0.5}, {0, 0, 230, false, 0});
 
   Models::LeadAllPar Two(2, "Two", OneGas() + OneSolar(), {300, 0.5}, {0, 0, 240, false, 0});
@@ -780,9 +780,12 @@ testInst C2F2_Base() {
 
 testInst SimpleViola() {
   // Problem
-  testInst inst;
-  Models::LeadAllPar Country(5, "One", FP_Blu() + FP_Bianco() + OneCoal() + OneGas() + OneSolar(),
-                             {300, 0.05}, {-1, -1, -1, false, 0});
+  testInst           inst;
+  Models::LeadAllPar Country(5,
+									  "One",
+									  FP_Blu() + FP_Bianco() + OneCoal() + OneGas() + OneSolar(),
+									  {300, 0.05},
+									  {-1, -1, -1, false, 0});
   inst.instance.Countries           = {Country};
   inst.instance.TransportationCosts = TranspCost(1);
 
@@ -793,7 +796,7 @@ testInst SimpleViola() {
 
 testInst SimpleBlu() {
 
-  testInst inst;
+  testInst           inst;
   Models::LeadAllPar Country(1, "One", FP_Blu(), {300, 0.05}, {-1, -1, -1, false, 0});
   inst.instance.Countries           = {Country};
   inst.instance.TransportationCosts = TranspCost(1);
@@ -804,7 +807,7 @@ testInst SimpleBlu() {
 }
 
 testInst SimpleVerde() {
-  testInst inst;
+  testInst           inst;
   Models::LeadAllPar Country(2, "One", OneGas() + OneSolar(), {300, 0.05}, {-1, -1, 300, false, 0});
   inst.instance.Countries           = {Country};
   inst.instance.TransportationCosts = TranspCost(1);
@@ -816,13 +819,13 @@ testInst SimpleVerde() {
 
 testInst HardToEnum_1() {
   // Problem
-  testInst inst;
-  Models::LeadAllPar Country0(2, "One", FP_Rosso() + FP_Bianco(), {300, 0.7},
-                              {-1, -1, 295, false, 0});
-  Models::LeadAllPar Country1(2, "Two", FP_Rosso() + FP_Bianco(), {325, 0.5},
-                              {-1, -1, 285, false, 0});
-  Models::LeadAllPar Country2(2, "Three", FP_Rosso() + FP_Bianco(), {350, 0.5},
-                              {-1, -1, 295, false, 0});
+  testInst           inst;
+  Models::LeadAllPar Country0(
+		2, "One", FP_Rosso() + FP_Bianco(), {300, 0.7}, {-1, -1, 295, false, 0});
+  Models::LeadAllPar Country1(
+		2, "Two", FP_Rosso() + FP_Bianco(), {325, 0.5}, {-1, -1, 285, false, 0});
+  Models::LeadAllPar Country2(
+		2, "Three", FP_Rosso() + FP_Bianco(), {350, 0.5}, {-1, -1, 295, false, 0});
   arma::sp_mat TrCo(3, 3);
   TrCo.zeros(3, 3);
   TrCo(0, 1)                        = 1;
@@ -844,13 +847,13 @@ testInst HardToEnum_1() {
 
 testInst HardToEnum_2() {
   // Problem
-  testInst inst;
-  Models::LeadAllPar Country0(2, "One", FP_Rosso() + FP_Bianco(), {300, 0.7},
-                              {-1, -1, 295, false, 0});
-  Models::LeadAllPar Country1(2, "Two", FP_Rosso() + FP_Bianco(), {325, 0.5},
-                              {-1, -1, 285, false, 1});
-  Models::LeadAllPar Country2(2, "Three", FP_Rosso() + FP_Bianco(), {350, 0.5},
-                              {-1, -1, 295, false, 2});
+  testInst           inst;
+  Models::LeadAllPar Country0(
+		2, "One", FP_Rosso() + FP_Bianco(), {300, 0.7}, {-1, -1, 295, false, 0});
+  Models::LeadAllPar Country1(
+		2, "Two", FP_Rosso() + FP_Bianco(), {325, 0.5}, {-1, -1, 285, false, 1});
+  Models::LeadAllPar Country2(
+		2, "Three", FP_Rosso() + FP_Bianco(), {350, 0.5}, {-1, -1, 295, false, 2});
   arma::sp_mat TrCo(3, 3);
   TrCo.zeros(3, 3);
   TrCo(0, 1)                        = 1;

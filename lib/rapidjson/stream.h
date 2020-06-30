@@ -25,55 +25,55 @@ RAPIDJSON_NAMESPACE_BEGIN
 //  Stream
 
 /*! \class rapidjson::Stream
-    \brief Concept for reading and writing characters.
+	 \brief Concept for reading and writing characters.
 
-    For read-only stream, no need to implement PutBegin(), Put(), Flush() and PutEnd().
+	 For read-only stream, no need to implement PutBegin(), Put(), Flush() and PutEnd().
 
-    For write-only stream, only need to implement Put() and Flush().
+	 For write-only stream, only need to implement Put() and Flush().
 
 \code
 concept Stream {
-    typename Ch;    //!< Character type of the stream.
+	 typename Ch;    //!< Character type of the stream.
 
-    //! Read the current character from stream without moving the read cursor.
-    Ch Peek() const;
+	 //! Read the current character from stream without moving the read cursor.
+	 Ch Peek() const;
 
-    //! Read the current character from stream and moving the read cursor to next character.
-    Ch Take();
+	 //! Read the current character from stream and moving the read cursor to next character.
+	 Ch Take();
 
-    //! Get the current read cursor.
-    //! \return Number of characters read from start.
-    size_t Tell();
+	 //! Get the current read cursor.
+	 //! \return Number of characters read from start.
+	 size_t Tell();
 
-    //! Begin writing operation at the current read pointer.
-    //! \return The begin writer pointer.
-    Ch* PutBegin();
+	 //! Begin writing operation at the current read pointer.
+	 //! \return The begin writer pointer.
+	 Ch* PutBegin();
 
-    //! Write a character.
-    void Put(Ch c);
+	 //! Write a character.
+	 void Put(Ch c);
 
-    //! Flush the buffer.
-    void Flush();
+	 //! Flush the buffer.
+	 void Flush();
 
-    //! End the writing operation.
-    //! \param begin The begin write pointer returned by PutBegin().
-    //! \return Number of characters written.
-    size_t PutEnd(Ch* begin);
+	 //! End the writing operation.
+	 //! \param begin The begin write pointer returned by PutBegin().
+	 //! \return Number of characters written.
+	 size_t PutEnd(Ch* begin);
 }
 \endcode
 */
 
 //! Provides additional information for stream.
 /*!
-    By using traits pattern, this type provides a default configuration for stream.
-    For custom stream, this type can be specialized for other configuration.
-    See TEST(Reader, CustomStringStream) in readertest.cpp for example.
+	 By using traits pattern, this type provides a default configuration for stream.
+	 For custom stream, this type can be specialized for other configuration.
+	 See TEST(Reader, CustomStringStream) in readertest.cpp for example.
 */
 template <typename Stream> struct StreamTraits {
   //! Whether to make local copy of stream for optimization during parsing.
   /*!
-      By default, for safety, streams do not use local copy optimization.
-      Stream that can be copied fast should specialize this, like StreamTraits<StringStream>.
+		By default, for safety, streams do not use local copy optimization.
+		Stream that can be copied fast should specialize this, like StreamTraits<StringStream>.
   */
   enum { copyOptimization = 0 };
 };
@@ -101,8 +101,8 @@ template <typename Stream, typename Ch> inline void PutN(Stream &stream, Ch c, s
 
 //! A Stream Wrapper
 /*! \tThis string stream is a wrapper for any stream by just forwarding any
-    \treceived message to the origin stream.
-    \note implements Stream concept
+	 \treceived message to the origin stream.
+	 \note implements Stream concept
 */
 
 #if defined(_MSC_VER) && _MSC_VER <= 1800
@@ -116,12 +116,12 @@ public:
   typedef typename Encoding::Ch Ch;
   GenericStreamWrapper(InputStream &is) : is_(is) {}
 
-  Ch Peek() const { return is_.Peek(); }
-  Ch Take() { return is_.Take(); }
+  Ch     Peek() const { return is_.Peek(); }
+  Ch     Take() { return is_.Take(); }
   size_t Tell() { return is_.Tell(); }
-  Ch *PutBegin() { return is_.PutBegin(); }
-  void Put(Ch ch) { is_.Put(ch); }
-  void Flush() { is_.Flush(); }
+  Ch *   PutBegin() { return is_.PutBegin(); }
+  void   Put(Ch ch) { is_.Put(ch); }
+  void   Flush() { is_.Flush(); }
   size_t PutEnd(Ch *ch) { return is_.PutEnd(ch); }
 
   // wrapper for MemoryStream
@@ -129,7 +129,7 @@ public:
 
   // wrapper for AutoUTFInputStream
   UTFType GetType() const { return is_.GetType(); }
-  bool HasBOM() const { return is_.HasBOM(); }
+  bool    HasBOM() const { return is_.HasBOM(); }
 
 protected:
   InputStream &is_;
@@ -150,16 +150,16 @@ template <typename Encoding> struct GenericStringStream {
 
   GenericStringStream(const Ch *src) : src_(src), head_(src) {}
 
-  Ch Peek() const { return *src_; }
-  Ch Take() { return *src_++; }
+  Ch     Peek() const { return *src_; }
+  Ch     Take() { return *src_++; }
   size_t Tell() const { return static_cast<size_t>(src_ - head_); }
 
   Ch *PutBegin() {
 	 RAPIDJSON_ASSERT(false);
 	 return 0;
   }
-  void Put(Ch) { RAPIDJSON_ASSERT(false); }
-  void Flush() { RAPIDJSON_ASSERT(false); }
+  void   Put(Ch) { RAPIDJSON_ASSERT(false); }
+  void   Flush() { RAPIDJSON_ASSERT(false); }
   size_t PutEnd(Ch *) {
 	 RAPIDJSON_ASSERT(false);
 	 return 0;
@@ -181,7 +181,7 @@ typedef GenericStringStream<UTF8<>> StringStream;
 
 //! A read-write string stream.
 /*! This string stream is particularly designed for in-situ parsing.
-    \note implements Stream concept
+	 \note implements Stream concept
 */
 template <typename Encoding> struct GenericInsituStringStream {
   typedef typename Encoding::Ch Ch;
@@ -189,8 +189,8 @@ template <typename Encoding> struct GenericInsituStringStream {
   GenericInsituStringStream(Ch *src) : src_(src), dst_(0), head_(src) {}
 
   // Read
-  Ch Peek() { return *src_; }
-  Ch Take() { return *src_++; }
+  Ch     Peek() { return *src_; }
+  Ch     Take() { return *src_++; }
   size_t Tell() { return static_cast<size_t>(src_ - head_); }
 
   // Write
@@ -199,9 +199,9 @@ template <typename Encoding> struct GenericInsituStringStream {
 	 *dst_++ = c;
   }
 
-  Ch *PutBegin() { return dst_ = src_; }
+  Ch *   PutBegin() { return dst_ = src_; }
   size_t PutEnd(Ch *begin) { return static_cast<size_t>(dst_ - begin); }
-  void Flush() {}
+  void   Flush() {}
 
   Ch *Push(size_t count) {
 	 Ch *begin = dst_;

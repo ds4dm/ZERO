@@ -27,11 +27,11 @@ RAPIDJSON_NAMESPACE_BEGIN
 
 //! Maps error code of parsing into error message.
 /*!
-    \ingroup RAPIDJSON_ERRORS
-    \param parseErrorCode Error code obtained in parsing.
-    \return the error message.
-    \note User can make a copy of this function for localization.
-        Using switch-case is safer for future modification of error codes.
+	 \ingroup RAPIDJSON_ERRORS
+	 \param parseErrorCode Error code obtained in parsing.
+	 \return the error message.
+	 \note User can make a copy of this function for localization.
+		  Using switch-case is safer for future modification of error codes.
 */
 inline const RAPIDJSON_ERROR_CHARTYPE *GetParseError_En(ParseErrorCode parseErrorCode) {
   switch (parseErrorCode) {

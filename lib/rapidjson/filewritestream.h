@@ -27,14 +27,14 @@ RAPIDJSON_NAMESPACE_BEGIN
 
 //! Wrapper of C file stream for output using fwrite().
 /*!
-    \note implements Stream concept
+	 \note implements Stream concept
 */
 class FileWriteStream {
 public:
   typedef char Ch; //!< Character type. Only support char.
 
   FileWriteStream(std::FILE *fp, char *buffer, size_t bufferSize)
-      : fp_(fp), buffer_(buffer), bufferEnd_(buffer + bufferSize), current_(buffer_) {
+		: fp_(fp), buffer_(buffer), bufferEnd_(buffer + bufferSize), current_(buffer_) {
 	 RAPIDJSON_ASSERT(fp_ != 0);
   }
 
@@ -100,9 +100,9 @@ private:
   FileWriteStream &operator=(const FileWriteStream &);
 
   std::FILE *fp_;
-  char *buffer_;
-  char *bufferEnd_;
-  char *current_;
+  char *     buffer_;
+  char *     bufferEnd_;
+  char *     current_;
 };
 
 //! Implement specialized version of PutN() with memset() for better performance.

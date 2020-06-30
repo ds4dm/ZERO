@@ -15,9 +15,9 @@ public:
 
 private:
   unsigned int ends[2];
-  void updateLocations() override {
-	 ends[0] = this->ConvexHullVariables.at(0) + 3;
-	 ends[1] = this->ConvexHullVariables.at(1) + 3;
+  void         updateLocations() override {
+    ends[0] = this->ConvexHullVariables.at(0) + 3;
+    ends[1] = this->ConvexHullVariables.at(1) + 3;
   }
   void makeObjectivePlayer(const unsigned int i, Game::QP_Objective &QP_obj) override {
 	 QP_obj.Q.zeros(3, 3);
@@ -43,8 +43,8 @@ private:
 std::shared_ptr<Game::NashGame> uvLeader(GRBEnv *env) {
   // 2 variable and 2 constraints
   arma::sp_mat Q(2, 2), C(2, 1), A(2, 1), B(2, 2);
-  arma::vec c(2, arma::fill::zeros);
-  arma::vec b(2, arma::fill::zeros);
+  arma::vec    c(2, arma::fill::zeros);
+  arma::vec    b(2, arma::fill::zeros);
   // Q remains as 0
   // C remains as 0
   // c
@@ -62,25 +62,25 @@ std::shared_ptr<Game::NashGame> uvLeader(GRBEnv *env) {
 
   // Lower level Market clearing constraints - empty
   arma::sp_mat MC(0, 3);
-  arma::vec MCRHS(0, arma::fill::zeros);
+  arma::vec    MCRHS(0, arma::fill::zeros);
 
   arma::sp_mat LeadCons(1, 3);
-  arma::vec LeadRHS(1);
+  arma::vec    LeadRHS(1);
   LeadCons(0, 0) = 1;
   LeadCons(0, 1) = 1;
   LeadCons(0, 2) = 1;
   LeadRHS(0)     = 5;
 
-  auto N = std::make_shared<Game::NashGame>(env, std::vector<std::shared_ptr<Game::QP_Param>>{foll},
-                                            MC, MCRHS, 1, LeadCons, LeadRHS);
+  auto N = std::make_shared<Game::NashGame>(
+		env, std::vector<std::shared_ptr<Game::QP_Param>>{foll}, MC, MCRHS, 1, LeadCons, LeadRHS);
   return N;
 }
 
 std::shared_ptr<Game::NashGame> xy_leader(GRBEnv *env) {
   // 2 variable and 2 constraints
   arma::sp_mat Q(2, 2), C(2, 1), A(2, 1), B(2, 2);
-  arma::vec c(2, arma::fill::zeros);
-  arma::vec b(2, arma::fill::zeros);
+  arma::vec    c(2, arma::fill::zeros);
+  arma::vec    b(2, arma::fill::zeros);
   // Q remains as 0
   // C remains as 0
   // c
@@ -101,10 +101,10 @@ std::shared_ptr<Game::NashGame> xy_leader(GRBEnv *env) {
 
   // Lower level Market clearing constraints - empty
   arma::sp_mat MC(0, 3);
-  arma::vec MCRHS(0, arma::fill::zeros);
+  arma::vec    MCRHS(0, arma::fill::zeros);
 
   arma::sp_mat LeadCons(2, 3);
-  arma::vec LeadRHS(2);
+  arma::vec    LeadRHS(2);
   LeadCons(0, 0) = 1;
   LeadCons(0, 1) = 1;
   LeadCons(0, 2) = 1;
@@ -115,15 +115,15 @@ std::shared_ptr<Game::NashGame> xy_leader(GRBEnv *env) {
   LeadCons(1, 2) = 0;
   LeadRHS(1)     = 0;
 
-  auto N = std::make_shared<Game::NashGame>(env, std::vector<std::shared_ptr<Game::QP_Param>>{foll},
-                                            MC, MCRHS, 1, LeadCons, LeadRHS);
+  auto N = std::make_shared<Game::NashGame>(
+		env, std::vector<std::shared_ptr<Game::QP_Param>>{foll}, MC, MCRHS, 1, LeadCons, LeadRHS);
   return N;
 }
 
 int main() {
   GRBEnv env;
   boost::log::core::get()->set_filter(boost::log::trivial::severity >=
-                                      boost::log::trivial::warning);
+												  boost::log::trivial::warning);
   try {
 	 My_EPEC_Prob epec(&env);
 	 // Adding uvLeader
@@ -153,7 +153,7 @@ int main() {
   std::for_each(std::begin(uv_strats), std::end(uv_strats), [&epec](const unsigned int i) {
 	 std::cout << "With probability  " << epec.getValProbab(0, i) << '\n';
 	 std::cout << "(" << epec.getValLeadLeadPoly(0, 0, i) << ", " << epec.getValLeadFollPoly(0, 0, i)
-	           << ", " << epec.getValLeadFollPoly(0, 1, i) << ")\n";
+				  << ", " << epec.getValLeadFollPoly(0, 1, i) << ")\n";
   });
   std::cout << '\n';
   std::cout << "\nXY LEADER\n";
@@ -164,7 +164,7 @@ int main() {
   std::for_each(std::begin(xy_strats), std::end(xy_strats), [&epec](const unsigned int i) {
 	 std::cout << "With probability  " << epec.getValProbab(1, i) << '\n';
 	 std::cout << "(" << epec.getValLeadLeadPoly(1, 0, i) << ", " << epec.getValLeadFollPoly(1, 0, i)
-	           << ", " << epec.getValLeadFollPoly(1, 1, i) << ")\n";
+				  << ", " << epec.getValLeadFollPoly(1, 1, i) << ")\n";
   });
   std::cout << '\n';
   return 0;

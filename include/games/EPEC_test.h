@@ -37,23 +37,23 @@ namespace Data {
 	 class DataObject : public ZEROAlgorithmData {
 	 public:
 		Attr<Data::EPEC::Algorithms> Algorithm = {
-		    Data::EPEC::Algorithms::FullEnumeration}; ///< The selected algorithm
+			 Data::EPEC::Algorithms::FullEnumeration}; ///< The selected algorithm
 		Attr<Data::EPEC::RecoverStrategy> RecoverStrategy = {
-		    Data::EPEC::RecoverStrategy::IncrementalEnumeration}; ///< The Recover Strategy for inner
-		                                                          ///< approximation
+			 Data::EPEC::RecoverStrategy::IncrementalEnumeration}; ///< The Recover Strategy for inner
+																					 ///< approximation
 		Attr<Data::LCP::PolyhedraStrategy>
-		    PolyhedraStrategy; ///< The polyhedral strategy for inner approximation
+								 PolyhedraStrategy; ///< The polyhedral strategy for inner approximation
 		Attr<unsigned int> Aggressiveness{
-		    1}; ///< The upper bound on the polyhedra added by the Polyhedral
-		        ///< Strategy, for each player at each iteration.
+			 1}; ///< The upper bound on the polyhedra added by the Polyhedral
+				  ///< Strategy, for each player at each iteration.
 		Attr<std::vector<unsigned int>> FeasiblePolyhedra =
-		    std::vector<unsigned int>(); ///< A vector of number of feasible
-		                                 ///< polyhedra, for each leader
+			 std::vector<unsigned int>(); ///< A vector of number of feasible
+													///< polyhedra, for each leader
 		Attr<bool> BoundPrimals{false};  ///< If true, each QP param is bounded with an
 		///< arbitrary large BigM constant
-		Attr<double> BoundBigM{1e5};        ///< Bounding upper value if @p BoundPrimals is true.
-		Attr<int> LostIntermediateEq = {0}; ///< Counts the number of approximation steps where the
-		                                    ///< problem (approximated) has no nash equilibrium
+		Attr<double> BoundBigM{1e5};           ///< Bounding upper value if @p BoundPrimals is true.
+		Attr<int>    LostIntermediateEq = {0}; ///< Counts the number of approximation steps where the
+															///< problem (approximated) has no nash equilibrium
 		DataObject() : PolyhedraStrategy{static_cast<LCP::PolyhedraStrategy>(0)} {};
 	 };
 
@@ -65,27 +65,27 @@ namespace Game {
   ///@brief Class to handle a Nash game between leaders of Stackelberg games
   class EPEC {
   private:
-	 std::vector<unsigned int> SizesWithoutHull{};
-	 std::unique_ptr<Game::LCP> TheLCP;      ///< The EPEC nash game written as an LCP
-	 std::unique_ptr<GRBModel> LCPModel;     ///< A Gurobi mode object of the LCP form of EPEC
-	 std::unique_ptr<GRBModel> LCPModelBase; ///< A Gurobi mode object of the LCP form of EPEC. If
+	 std::vector<unsigned int>  SizesWithoutHull{};
+	 std::unique_ptr<Game::LCP> TheLCP;       ///< The EPEC nash game written as an LCP
+	 std::unique_ptr<GRBModel>  LCPModel;     ///< A Gurobi mode object of the LCP form of EPEC
+	 std::unique_ptr<GRBModel>  LCPModelBase; ///< A Gurobi mode object of the LCP form of EPEC. If
 	 ///< we are searching for a pure NE,
 	 ///< the LCP which is indifferent to pure or mixed NE is stored in this
 	 ///< object.
-	 unsigned int NumVariables{0};
-	 unsigned int NumPlayers{0};
+	 unsigned int                                 NumVariables{0};
+	 unsigned int                                 NumPlayers{0};
 	 std::shared_ptr<Algorithms::EPEC::Algorithm> Algorithm{};
 
   protected: // Datafields
 	 std::vector<std::shared_ptr<Game::NashGame>> PlayersLowerLevels{};
-	 std::vector<std::shared_ptr<Game::LCP>> PlayersLCP{};
+	 std::vector<std::shared_ptr<Game::LCP>>      PlayersLCP{};
 
 	 std::vector<std::shared_ptr<Game::QP_Param>>
-	     PlayersQP{}; ///< The QP corresponding to each player
+		  PlayersQP{}; ///< The QP corresponding to each player
 	 std::vector<std::shared_ptr<Game::QP_Objective>>
-	     LeaderObjective{}; ///< Objective of each leader
+		  LeaderObjective{}; ///< Objective of each leader
 	 std::vector<std::shared_ptr<Game::QP_Objective>>
-	     LeaderObjectiveConvexHull{}; ///< Objective of each leader, given the
+		  LeaderObjectiveConvexHull{}; ///< Objective of each leader, given the
 	 ///< convex hull computation
 
 	 std::unique_ptr<Game::NashGame> TheNashGame; ///< The EPEC nash game
@@ -96,24 +96,24 @@ namespace Game {
 	 /// Game::EPEC has the responsibility to keep this correct by implementing an
 	 /// override of Game::EPEC::updateLocations.
 	 std::vector<const unsigned int *> LocEnds{};
-	 std::vector<unsigned int> ConvexHullVariables{};
-	 unsigned int numMCVariables{0};
+	 std::vector<unsigned int>         ConvexHullVariables{};
+	 unsigned int                      numMCVariables{0};
 
 	 GRBEnv *Env;
-	 bool Finalized{false};
+	 bool    Finalized{false};
 	 bool NashEquilibrium{false}; ///< True if computeNashEq returned an equilibrium. Note that this
 	 ///< can be the equilibrium of an approximation, and not to the
 	 ///< original game
 	 std::chrono::high_resolution_clock::time_point InitTime;
-	 ZEROStatistics<Data::EPEC::DataObject> Stats = ZEROStatistics<Data::EPEC::DataObject>(
-	     Data::EPEC::DataObject()); ///< Store run time information and
-	                                ///< algorithm params
-	 arma::vec SolutionZ,           ///< Solution equation values
-	     SolutionX;                 ///< Solution variable values
-	 bool warmstart(arma::vec x);   ///< Warmstarts EPEC with a solution
+	 ZEROStatistics<Data::EPEC::DataObject>         Stats = ZEROStatistics<Data::EPEC::DataObject>(
+        Data::EPEC::DataObject()); ///< Store run time information and
+														 ///< algorithm params
+	 arma::vec SolutionZ,                   ///< Solution equation values
+		  SolutionX;                         ///< Solution variable values
+	 bool warmstart(arma::vec x);           ///< Warmstarts EPEC with a solution
 
   private:
-	 void addDummyLead(unsigned int i); ///< Add Dummy variables for the leaders
+	 void       addDummyLead(unsigned int i); ///< Add Dummy variables for the leaders
 	 const void makePlayerQP(unsigned int i);
 
 	 void makePlayersQPs();
@@ -163,12 +163,14 @@ namespace Game {
 	 void finalize();
 
 	 const void findNashEq();
-	 bool isSolved(double tol = 1e-5) const;
+	 bool       isSolved(double tol = 1e-5) const;
 
 	 std::unique_ptr<GRBModel> respond(const unsigned int i, const arma::vec &x) const;
 
-	 double respondSol(arma::vec &sol, unsigned int player, const arma::vec &x,
-	                   const arma::vec &prevDev = {}) const;
+	 double respondSol(arma::vec &      sol,
+							 unsigned int     player,
+							 const arma::vec &x,
+							 const arma::vec &prevDev = {}) const;
 
 	 const arma::vec getX() const { return this->SolutionX; }
 
@@ -244,8 +246,8 @@ namespace Game {
 	 void writeLCPModel(const std::string &filename) const { this->LCPModel->write(filename); }
 
 	 void getXWithoutHull(const arma::vec &x, arma::vec &xWithoutHull) const;
-	 void getXofI(const arma::vec &x, const unsigned int &i, arma::vec &solI,
-	              bool hull = false) const;
+	 void
+	 getXofI(const arma::vec &x, const unsigned int &i, arma::vec &solI, bool hull = false) const;
   };
 }; // namespace Game
 

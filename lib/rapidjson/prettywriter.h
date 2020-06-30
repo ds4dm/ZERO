@@ -39,47 +39,51 @@ enum PrettyFormatOptions {
 
 //! Writer with indentation and spacing.
 /*!
-    \tparam OutputStream Type of output os.
-    \tparam SourceEncoding Encoding of source string.
-    \tparam TargetEncoding Encoding of output stream.
-    \tparam StackAllocator Type of allocator for allocating memory of stack.
+	 \tparam OutputStream Type of output os.
+	 \tparam SourceEncoding Encoding of source string.
+	 \tparam TargetEncoding Encoding of output stream.
+	 \tparam StackAllocator Type of allocator for allocating memory of stack.
 */
-template <typename OutputStream, typename SourceEncoding = UTF8<>, typename TargetEncoding = UTF8<>,
-          typename StackAllocator = CrtAllocator, unsigned writeFlags = kWriteDefaultFlags>
+template <typename OutputStream,
+			 typename SourceEncoding = UTF8<>,
+			 typename TargetEncoding = UTF8<>,
+			 typename StackAllocator = CrtAllocator,
+			 unsigned writeFlags     = kWriteDefaultFlags>
 class PrettyWriter
-    : public Writer<OutputStream, SourceEncoding, TargetEncoding, StackAllocator, writeFlags> {
+	 : public Writer<OutputStream, SourceEncoding, TargetEncoding, StackAllocator, writeFlags> {
 public:
   typedef Writer<OutputStream, SourceEncoding, TargetEncoding, StackAllocator, writeFlags> Base;
-  typedef typename Base::Ch Ch;
+  typedef typename Base::Ch                                                                Ch;
 
   //! Constructor
   /*! \param os Output stream.
-      \param allocator User supplied allocator. If it is null, it will create a private one.
-      \param levelDepth Initial capacity of stack.
+		\param allocator User supplied allocator. If it is null, it will create a private one.
+		\param levelDepth Initial capacity of stack.
   */
-  explicit PrettyWriter(OutputStream &os, StackAllocator *allocator = 0,
-                        size_t levelDepth = Base::kDefaultLevelDepth)
-      : Base(os, allocator, levelDepth), indentChar_(' '), indentCharCount_(4),
-        formatOptions_(kFormatDefault) {}
+  explicit PrettyWriter(OutputStream &  os,
+								StackAllocator *allocator  = 0,
+								size_t          levelDepth = Base::kDefaultLevelDepth)
+		: Base(os, allocator, levelDepth), indentChar_(' '), indentCharCount_(4),
+		  formatOptions_(kFormatDefault) {}
 
 
   explicit PrettyWriter(StackAllocator *allocator = 0, size_t levelDepth = Base::kDefaultLevelDepth)
-      : Base(allocator, levelDepth), indentChar_(' '), indentCharCount_(4) {}
+		: Base(allocator, levelDepth), indentChar_(' '), indentCharCount_(4) {}
 
 #if RAPIDJSON_HAS_CXX11_RVALUE_REFS
   PrettyWriter(PrettyWriter &&rhs)
-      : Base(std::forward<PrettyWriter>(rhs)), indentChar_(rhs.indentChar_),
-        indentCharCount_(rhs.indentCharCount_), formatOptions_(rhs.formatOptions_) {}
+		: Base(std::forward<PrettyWriter>(rhs)), indentChar_(rhs.indentChar_),
+		  indentCharCount_(rhs.indentCharCount_), formatOptions_(rhs.formatOptions_) {}
 #endif
 
   //! Set custom indentation.
   /*! \param indentChar       Character for indentation. Must be whitespace character (' ', '\\t',
-     '\\n', '\\r'). \param indentCharCount  Number of indent characters for each indentation level.
-      \note The default indentation is 4 spaces.
+	  '\\n', '\\r'). \param indentCharCount  Number of indent characters for each indentation level.
+		\note The default indentation is 4 spaces.
   */
   PrettyWriter &SetIndent(Ch indentChar, unsigned indentCharCount) {
 	 RAPIDJSON_ASSERT(indentChar == ' ' || indentChar == '\t' || indentChar == '\n' ||
-	                  indentChar == '\r');
+							indentChar == '\r');
 	 indentChar_      = indentChar;
 	 indentCharCount_ = indentCharCount;
 	 return *this;
@@ -87,14 +91,14 @@ public:
 
   //! Set pretty writer formatting options.
   /*! \param options Formatting options.
-   */
+	*/
   PrettyWriter &SetFormatOptions(PrettyFormatOptions options) {
 	 formatOptions_ = options;
 	 return *this;
   }
 
   /*! @name Implementation of Handler
-      \see Handler
+		\see Handler
   */
   //@{
 
@@ -160,11 +164,11 @@ public:
   bool EndObject(SizeType memberCount = 0) {
 	 (void)memberCount;
 	 RAPIDJSON_ASSERT(Base::level_stack_.GetSize() >=
-	                  sizeof(typename Base::Level)); // not inside an Object
+							sizeof(typename Base::Level)); // not inside an Object
 	 RAPIDJSON_ASSERT(!Base::level_stack_.template Top<typename Base::Level>()
-	                       ->inArray); // currently inside an Array, not Object
+								  ->inArray); // currently inside an Array, not Object
 	 RAPIDJSON_ASSERT(0 == Base::level_stack_.template Top<typename Base::Level>()->valueCount %
-	                           2); // Object has a Key without a Value
+										2); // Object has a Key without a Value
 
 	 bool empty = Base::level_stack_.template Pop<typename Base::Level>(1)->valueCount == 0;
 
@@ -217,11 +221,11 @@ public:
 
   //! Write a raw JSON value.
   /*!
-      For user to write a stringified JSON as a value.
+		For user to write a stringified JSON as a value.
 
-      \param json A well-formed JSON value. It should not contain null character within [0, length -
-     1] range. \param length Length of the json. \param type Type of the root of json. \note When
-     using PrettyWriter::RawValue(), the result json may not be indented correctly.
+		\param json A well-formed JSON value. It should not contain null character within [0, length -
+	  1] range. \param length Length of the json. \param type Type of the root of json. \note When
+	  using PrettyWriter::RawValue(), the result json may not be indented correctly.
   */
   bool RawValue(const Ch *json, size_t length, Type type) {
 	 RAPIDJSON_ASSERT(json != 0);
@@ -263,7 +267,7 @@ protected:
 		}
 		if (!level->inArray && level->valueCount % 2 == 0)
 		  RAPIDJSON_ASSERT(type ==
-		                   kStringType); // if it's in object, then even number should be a name
+								 kStringType); // if it's in object, then even number should be a name
 		level->valueCount++;
 	 } else {
 		RAPIDJSON_ASSERT(!Base::hasRoot_); // Should only has one and only one root.
@@ -276,8 +280,8 @@ protected:
 	 PutN(*Base::os_, static_cast<typename OutputStream::Ch>(indentChar_), count);
   }
 
-  Ch indentChar_;
-  unsigned indentCharCount_;
+  Ch                  indentChar_;
+  unsigned            indentCharCount_;
   PrettyFormatOptions formatOptions_;
 
 private:

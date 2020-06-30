@@ -18,13 +18,14 @@ namespace Algorithms {
 		void solve();
 
 	 private:
-		void start();
-		bool addRandomPoly2All(unsigned int aggressiveLevel   = 1,
-		                       bool stopOnSingleInfeasibility = false);
-		bool getAllDeviations(std::vector<arma::vec> &deviations, const arma::vec &guessSol,
-		                      const std::vector<arma::vec> &prevDev = {}) const;
+		void         start();
+		bool         addRandomPoly2All(unsigned int aggressiveLevel           = 1,
+												 bool         stopOnSingleInfeasibility = false);
+		bool         getAllDeviations(std::vector<arma::vec> &      deviations,
+												const arma::vec &             guessSol,
+												const std::vector<arma::vec> &prevDev = {}) const;
 		unsigned int addDeviatedPolyhedron(const std::vector<arma::vec> &deviations,
-		                                   bool &infeasCheck) const;
+													  bool &                        infeasCheck) const;
 	 };
   } // namespace EPEC
 } // namespace Algorithms

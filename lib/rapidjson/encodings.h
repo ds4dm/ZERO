@@ -33,53 +33,53 @@ RAPIDJSON_NAMESPACE_BEGIN
 // Encoding
 
 /*! \class rapidjson::Encoding
-    \brief Concept for encoding of Unicode characters.
+	 \brief Concept for encoding of Unicode characters.
 
 \code
 concept Encoding {
-    typename Ch;    //! Type of character. A "character" is actually a code unit in unicode's
+	 typename Ch;    //! Type of character. A "character" is actually a code unit in unicode's
 definition.
 
-    enum { supportUnicode = 1 }; // or 0 if not supporting unicode
+	 enum { supportUnicode = 1 }; // or 0 if not supporting unicode
 
-    //! \brief Encode a Unicode codepoint to an output stream.
-    //! \param os Output stream.
-    //! \param codepoint An unicode codepoint, ranging from 0x0 to 0x10FFFF inclusively.
-    template<typename OutputStream>
-    static void Encode(OutputStream& os, unsigned codepoint);
+	 //! \brief Encode a Unicode codepoint to an output stream.
+	 //! \param os Output stream.
+	 //! \param codepoint An unicode codepoint, ranging from 0x0 to 0x10FFFF inclusively.
+	 template<typename OutputStream>
+	 static void Encode(OutputStream& os, unsigned codepoint);
 
-    //! \brief Decode a Unicode codepoint from an input stream.
-    //! \param is Input stream.
-    //! \param codepoint Output of the unicode codepoint.
-    //! \return true if a valid codepoint can be decoded from the stream.
-    template <typename InputStream>
-    static bool Decode(InputStream& is, unsigned* codepoint);
+	 //! \brief Decode a Unicode codepoint from an input stream.
+	 //! \param is Input stream.
+	 //! \param codepoint Output of the unicode codepoint.
+	 //! \return true if a valid codepoint can be decoded from the stream.
+	 template <typename InputStream>
+	 static bool Decode(InputStream& is, unsigned* codepoint);
 
-    //! \brief Validate one Unicode codepoint from an encoded stream.
-    //! \param is Input stream to obtain codepoint.
-    //! \param os Output for copying one codepoint.
-    //! \return true if it is valid.
-    //! \note This function just validating and copying the codepoint without actually decode it.
-    template <typename InputStream, typename OutputStream>
-    static bool Validate(InputStream& is, OutputStream& os);
+	 //! \brief Validate one Unicode codepoint from an encoded stream.
+	 //! \param is Input stream to obtain codepoint.
+	 //! \param os Output for copying one codepoint.
+	 //! \return true if it is valid.
+	 //! \note This function just validating and copying the codepoint without actually decode it.
+	 template <typename InputStream, typename OutputStream>
+	 static bool Validate(InputStream& is, OutputStream& os);
 
-    // The following functions are deal with byte streams.
+	 // The following functions are deal with byte streams.
 
-    //! Take a character from input byte stream, skip BOM if exist.
-    template <typename InputByteStream>
-    static CharType TakeBOM(InputByteStream& is);
+	 //! Take a character from input byte stream, skip BOM if exist.
+	 template <typename InputByteStream>
+	 static CharType TakeBOM(InputByteStream& is);
 
-    //! Take a character from input byte stream.
-    template <typename InputByteStream>
-    static Ch Take(InputByteStream& is);
+	 //! Take a character from input byte stream.
+	 template <typename InputByteStream>
+	 static Ch Take(InputByteStream& is);
 
-    //! Put BOM to output byte stream.
-    template <typename OutputByteStream>
-    static void PutBOM(OutputByteStream& os);
+	 //! Put BOM to output byte stream.
+	 template <typename OutputByteStream>
+	 static void PutBOM(OutputByteStream& os);
 
-    //! Put a character to output byte stream.
-    template <typename OutputByteStream>
-    static void Put(OutputByteStream& os, Ch c);
+	 //! Put a character to output byte stream.
+	 template <typename OutputByteStream>
+	 static void Put(OutputByteStream& os, Ch c);
 };
 \endcode
 */
@@ -89,9 +89,9 @@ definition.
 
 //! UTF-8 encoding.
 /*! http://en.wikipedia.org/wiki/UTF-8
-    http://tools.ietf.org/html/rfc3629
-    \tparam CharType Code unit for storing 8-bit UTF-8 data. Default is char.
-    \note implements Encoding concept
+	 http://tools.ietf.org/html/rfc3629
+	 \tparam CharType Code unit for storing 8-bit UTF-8 data. Default is char.
+	 \note implements Encoding concept
 */
 template <typename CharType = char> struct UTF8 {
   typedef CharType Ch;
@@ -261,24 +261,24 @@ template <typename CharType = char> struct UTF8 {
 	 // With new mapping 1 -> 0x10, 7 -> 0x20, 9 -> 0x40, such that AND operation can test multiple
 	 // types.
 	 static const unsigned char type[] = {
-	     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-	     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-	     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-	     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-	     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-	     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-	     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-	     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-	     0,    0,    0,    0,    0,    0,    0,    0,    0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10,
-	     0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40,
-	     0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x20, 0x20, 0x20, 0x20, 0x20,
-	     0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-	     0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 8,    8,    2,
-	     2,    2,    2,    2,    2,    2,    2,    2,    2,    2,    2,    2,    2,    2,    2,
-	     2,    2,    2,    2,    2,    2,    2,    2,    2,    2,    2,    2,    2,    2,    10,
-	     3,    3,    3,    3,    3,    3,    3,    3,    3,    3,    3,    3,    4,    3,    3,
-	     11,   6,    6,    6,    5,    8,    8,    8,    8,    8,    8,    8,    8,    8,    8,
-	     8,
+		  0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+		  0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+		  0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+		  0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+		  0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+		  0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+		  0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+		  0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+		  0,    0,    0,    0,    0,    0,    0,    0,    0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10,
+		  0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40,
+		  0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x20, 0x20, 0x20, 0x20, 0x20,
+		  0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
+		  0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 8,    8,    2,
+		  2,    2,    2,    2,    2,    2,    2,    2,    2,    2,    2,    2,    2,    2,    2,
+		  2,    2,    2,    2,    2,    2,    2,    2,    2,    2,    2,    2,    2,    2,    10,
+		  3,    3,    3,    3,    3,    3,    3,    3,    3,    3,    3,    3,    4,    3,    3,
+		  11,   6,    6,    6,    5,    8,    8,    8,    8,    8,    8,    8,    8,    8,    8,
+		  8,
 	 };
 	 return type[c];
   }
@@ -321,12 +321,12 @@ template <typename CharType = char> struct UTF8 {
 
 //! UTF-16 encoding.
 /*! http://en.wikipedia.org/wiki/UTF-16
-    http://tools.ietf.org/html/rfc2781
-    \tparam CharType Type for storing 16-bit UTF-16 data. Default is wchar_t. C++11 may use char16_t
-   instead. \note implements Encoding concept
+	 http://tools.ietf.org/html/rfc2781
+	 \tparam CharType Type for storing 16-bit UTF-16 data. Default is wchar_t. C++11 may use char16_t
+	instead. \note implements Encoding concept
 
-    \note For in-memory access, no need to concern endianness. The code units and code points are
-   represented by CPU's endianness. For streaming, use UTF16LE and UTF16BE, which handle endianness.
+	 \note For in-memory access, no need to concern endianness. The code units and code points are
+	represented by CPU's endianness. For streaming, use UTF16LE and UTF16BE, which handle endianness.
 */
 template <typename CharType = wchar_t> struct UTF16 {
   typedef CharType Ch;
@@ -338,7 +338,7 @@ template <typename CharType = wchar_t> struct UTF16 {
 	 RAPIDJSON_STATIC_ASSERT(sizeof(typename OutputStream::Ch) >= 2);
 	 if (codepoint <= 0xFFFF) {
 		RAPIDJSON_ASSERT(codepoint < 0xD800 ||
-		                 codepoint > 0xDFFF); // Code point itself cannot be surrogate pair
+							  codepoint > 0xDFFF); // Code point itself cannot be surrogate pair
 		os.Put(static_cast<typename OutputStream::Ch>(codepoint));
 	 } else {
 		RAPIDJSON_ASSERT(codepoint <= 0x10FFFF);
@@ -353,7 +353,7 @@ template <typename CharType = wchar_t> struct UTF16 {
 	 RAPIDJSON_STATIC_ASSERT(sizeof(typename OutputStream::Ch) >= 2);
 	 if (codepoint <= 0xFFFF) {
 		RAPIDJSON_ASSERT(codepoint < 0xD800 ||
-		                 codepoint > 0xDFFF); // Code point itself cannot be surrogate pair
+							  codepoint > 0xDFFF); // Code point itself cannot be surrogate pair
 		PutUnsafe(os, static_cast<typename OutputStream::Ch>(codepoint));
 	 } else {
 		RAPIDJSON_ASSERT(codepoint <= 0x10FFFF);
@@ -456,11 +456,11 @@ template <typename CharType = wchar_t> struct UTF16BE : UTF16<CharType> {
 
 //! UTF-32 encoding.
 /*! http://en.wikipedia.org/wiki/UTF-32
-    \tparam CharType Type for storing 32-bit UTF-32 data. Default is unsigned. C++11 may use
-   char32_t instead. \note implements Encoding concept
+	 \tparam CharType Type for storing 32-bit UTF-32 data. Default is unsigned. C++11 may use
+	char32_t instead. \note implements Encoding concept
 
-    \note For in-memory access, no need to concern endianness. The code units and code points are
-   represented by CPU's endianness. For streaming, use UTF32LE and UTF32BE, which handle endianness.
+	 \note For in-memory access, no need to concern endianness. The code units and code points are
+	represented by CPU's endianness. For streaming, use UTF32LE and UTF32BE, which handle endianness.
 */
 template <typename CharType = unsigned> struct UTF32 {
   typedef CharType Ch;
@@ -569,8 +569,8 @@ template <typename CharType = unsigned> struct UTF32BE : UTF32<CharType> {
 
 //! ASCII encoding.
 /*! http://en.wikipedia.org/wiki/ASCII
-    \tparam CharType Code unit for storing 7-bit ASCII data. Default is char.
-    \note implements Encoding concept
+	 \tparam CharType Code unit for storing 7-bit ASCII data. Default is char.
+	 \note implements Encoding concept
 */
 template <typename CharType = char> struct ASCII {
   typedef CharType Ch;
@@ -717,14 +717,14 @@ template <typename Encoding> struct Transcoder<Encoding, Encoding> {
   template <typename InputStream, typename OutputStream>
   static RAPIDJSON_FORCEINLINE bool Transcode(InputStream &is, OutputStream &os) {
 	 os.Put(is.Take()); // Just copy one code unit. This semantic is different from primary template
-	                    // class.
+							  // class.
 	 return true;
   }
 
   template <typename InputStream, typename OutputStream>
   static RAPIDJSON_FORCEINLINE bool TranscodeUnsafe(InputStream &is, OutputStream &os) {
 	 PutUnsafe(os, is.Take()); // Just copy one code unit. This semantic is different from primary
-	                           // template class.
+										// template class.
 	 return true;
   }
 

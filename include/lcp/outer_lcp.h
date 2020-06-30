@@ -32,18 +32,21 @@ namespace Game {
 
 	 void outerApproximate(std::vector<bool> encoding, bool clear = true);
 
-	 bool addComponent(std::vector<short int> encoding, bool checkFeas, bool custom = false,
-	                   spmat_Vec *custAi = {}, vec_Vec *custbi = {});
+	 bool              addComponent(std::vector<short int> encoding,
+											  bool                   checkFeas,
+											  bool                   custom = false,
+											  spmat_Vec *            custAi = {},
+											  vec_Vec *              custbi = {});
 	 inline const bool getFeasApprox() { return this->feasApprox; }
 
   private:
 	 std::set<unsigned long int> Approximation =
-	     {}; ///< Decimal encoding of polyhedra that have been enumerated.
-	         ///< Analogous to Game::PolyLCP::AllPolyhedra
+		  {}; ///< Decimal encoding of polyhedra that have been enumerated.
+				///< Analogous to Game::PolyLCP::AllPolyhedra
 	 std::set<unsigned long int> FeasibleComponents =
-	     {}; ///< Decimal encoding of polyhedra that have been enumerated
+		  {}; ///< Decimal encoding of polyhedra that have been enumerated
 	 std::set<unsigned long int> InfeasibleComponents =
-	     {}; ///< Decimal encoding of polyhedra known to be infeasible
+		  {}; ///< Decimal encoding of polyhedra known to be infeasible
 	 bool isParent(const std::vector<short> &father, const std::vector<short> &child);
 
 	 void addChildComponents(const std::vector<short> encoding);

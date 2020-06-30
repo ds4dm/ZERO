@@ -32,8 +32,8 @@ RAPIDJSON_NAMESPACE_BEGIN
 
 //! Input byte stream wrapper with a statically bound encoding.
 /*!
-    \tparam Encoding The interpretation of encoding of the stream. Either UTF8, UTF16LE, UTF16BE,
-   UTF32LE, UTF32BE. \tparam InputByteStream Type of input byte stream. For example, FileReadStream.
+	 \tparam Encoding The interpretation of encoding of the stream. Either UTF8, UTF16LE, UTF16BE,
+	UTF32LE, UTF32BE. \tparam InputByteStream Type of input byte stream. For example, FileReadStream.
 */
 template <typename Encoding, typename InputByteStream> class EncodedInputStream {
   RAPIDJSON_STATIC_ASSERT(sizeof(typename InputByteStream::Ch) == 1);
@@ -54,9 +54,9 @@ public:
   // Not implemented
   void Put(Ch) { RAPIDJSON_ASSERT(false); }
   void Flush() { RAPIDJSON_ASSERT(false); }
-  Ch *PutBegin() {
-	 RAPIDJSON_ASSERT(false);
-	 return 0;
+  Ch * PutBegin() {
+    RAPIDJSON_ASSERT(false);
+    return 0;
   }
   size_t PutEnd(Ch *) {
 	 RAPIDJSON_ASSERT(false);
@@ -68,7 +68,7 @@ private:
   EncodedInputStream &operator=(const EncodedInputStream &);
 
   InputByteStream &is_;
-  Ch current_;
+  Ch               current_;
 };
 
 //! Specialized for UTF8 MemoryStream.
@@ -84,14 +84,14 @@ public:
 	 if (static_cast<unsigned char>(is_.Peek()) == 0xBFu)
 		is_.Take();
   }
-  Ch Peek() const { return is_.Peek(); }
-  Ch Take() { return is_.Take(); }
+  Ch     Peek() const { return is_.Peek(); }
+  Ch     Take() { return is_.Take(); }
   size_t Tell() const { return is_.Tell(); }
 
   // Not implemented
-  void Put(Ch) {}
-  void Flush() {}
-  Ch *PutBegin() { return 0; }
+  void   Put(Ch) {}
+  void   Flush() {}
+  Ch *   PutBegin() { return 0; }
   size_t PutEnd(Ch *) { return 0; }
 
   MemoryStream &is_;
@@ -103,9 +103,9 @@ private:
 
 //! Output byte stream wrapper with statically bound encoding.
 /*!
-    \tparam Encoding The interpretation of encoding of the stream. Either UTF8, UTF16LE, UTF16BE,
-   UTF32LE, UTF32BE. \tparam OutputByteStream Type of input byte stream. For example,
-   FileWriteStream.
+	 \tparam Encoding The interpretation of encoding of the stream. Either UTF8, UTF16LE, UTF16BE,
+	UTF32LE, UTF32BE. \tparam OutputByteStream Type of input byte stream. For example,
+	FileWriteStream.
 */
 template <typename Encoding, typename OutputByteStream> class EncodedOutputStream {
   RAPIDJSON_STATIC_ASSERT(sizeof(typename OutputByteStream::Ch) == 1);
@@ -155,8 +155,8 @@ private:
 
 //! Input stream wrapper with dynamically bound encoding and automatic encoding detection.
 /*!
-    \tparam CharType Type of character for reading.
-    \tparam InputByteStream type of input byte stream to be wrapped.
+	 \tparam CharType Type of character for reading.
+	 \tparam InputByteStream type of input byte stream to be wrapped.
 */
 template <typename CharType, typename InputByteStream> class AutoUTFInputStream {
   RAPIDJSON_STATIC_ASSERT(sizeof(typename InputByteStream::Ch) == 1);
@@ -166,11 +166,11 @@ public:
 
   //! Constructor.
   /*!
-      \param is input stream to be wrapped.
-      \param type UTF encoding type if it is not detected from the stream.
+		\param is input stream to be wrapped.
+		\param type UTF encoding type if it is not detected from the stream.
   */
   AutoUTFInputStream(InputByteStream &is, UTFType type = kUTF8)
-      : is_(&is), type_(type), hasBOM_(false) {
+		: is_(&is), type_(type), hasBOM_(false) {
 	 RAPIDJSON_ASSERT(type >= kUTF8 && type <= kUTF32BE);
 	 DetectType();
 	 static const TakeFunc f[] = {RAPIDJSON_ENCODINGS_FUNC(Take)};
@@ -179,7 +179,7 @@ public:
   }
 
   UTFType GetType() const { return type_; }
-  bool HasBOM() const { return hasBOM_; }
+  bool    HasBOM() const { return hasBOM_; }
 
   Ch Peek() const { return current_; }
   Ch Take() {
@@ -192,9 +192,9 @@ public:
   // Not implemented
   void Put(Ch) { RAPIDJSON_ASSERT(false); }
   void Flush() { RAPIDJSON_ASSERT(false); }
-  Ch *PutBegin() {
-	 RAPIDJSON_ASSERT(false);
-	 return 0;
+  Ch * PutBegin() {
+    RAPIDJSON_ASSERT(false);
+    return 0;
   }
   size_t PutEnd(Ch *) {
 	 RAPIDJSON_ASSERT(false);
@@ -296,16 +296,16 @@ private:
 
   typedef Ch (*TakeFunc)(InputByteStream &is);
   InputByteStream *is_;
-  UTFType type_;
-  Ch current_;
-  TakeFunc takeFunc_;
-  bool hasBOM_;
+  UTFType          type_;
+  Ch               current_;
+  TakeFunc         takeFunc_;
+  bool             hasBOM_;
 };
 
 //! Output stream wrapper with dynamically bound encoding and automatic encoding detection.
 /*!
-    \tparam CharType Type of character for writing.
-    \tparam OutputByteStream type of output byte stream to be wrapped.
+	 \tparam CharType Type of character for writing.
+	 \tparam OutputByteStream type of output byte stream to be wrapped.
 */
 template <typename CharType, typename OutputByteStream> class AutoUTFOutputStream {
   RAPIDJSON_STATIC_ASSERT(sizeof(typename OutputByteStream::Ch) == 1);
@@ -315,9 +315,9 @@ public:
 
   //! Constructor.
   /*!
-      \param os output stream to be wrapped.
-      \param type UTF encoding type.
-      \param putBOM Whether to write BOM at the beginning of the stream.
+		\param os output stream to be wrapped.
+		\param type UTF encoding type.
+		\param putBOM Whether to write BOM at the beginning of the stream.
   */
   AutoUTFOutputStream(OutputByteStream &os, UTFType type, bool putBOM) : os_(&os), type_(type) {
 	 RAPIDJSON_ASSERT(type >= kUTF8 && type <= kUTF32BE);
@@ -376,8 +376,8 @@ private:
   typedef void (*PutFunc)(OutputByteStream &, Ch);
 
   OutputByteStream *os_;
-  UTFType type_;
-  PutFunc putFunc_;
+  UTFType           type_;
+  PutFunc           putFunc_;
 };
 
 #undef RAPIDJSON_ENCODINGS_FUNC

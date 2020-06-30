@@ -12,8 +12,8 @@
 #include "support/version.h"
 
 using perps = std::vector<std::pair<unsigned int, unsigned int>>;
-std::ostream &operator<<(std::ostream &ost, perps C);
-template <class T> std::ostream &operator<<(std::ostream &ost, std::vector<T> v);
+std::ostream &                            operator<<(std::ostream &ost, perps C);
+template <class T> std::ostream &         operator<<(std::ostream &ost, std::vector<T> v);
 template <class T, class S> std::ostream &operator<<(std::ostream &ost, std::pair<T, S> p);
 using spmat_Vec = std::vector<std::unique_ptr<arma::sp_mat>>;
 using vec_Vec   = std::vector<std::unique_ptr<arma::vec>>;
@@ -24,9 +24,9 @@ enum class ZEROErrorCode;
 
 namespace Game {
   /**
-   * @brief This namespace contains the definition of the games and their
-   * support structures.
-   */
+	* @brief This namespace contains the definition of the games and their
+	* support structures.
+	*/
   struct QP_Objective;
   struct QP_Constraints;
   class MP_Param;
@@ -41,10 +41,10 @@ namespace Game {
 } // namespace Game
 namespace Algorithms {
   /**
-   * @brief This namespace contains the definition of the algorithms. For each
-   * game, there is a lower-level namespace under which the algorithms are
-   * nested.
-   */
+	* @brief This namespace contains the definition of the algorithms. For each
+	* game, there is a lower-level namespace under which the algorithms are
+	* nested.
+	*/
   class AbstractAlgorithm; ///< Abstact type for other algorithms
   namespace EPEC {
 	 class Algorithm;
@@ -62,9 +62,9 @@ namespace Algorithms {
 class ZEROAlgorithmData;
 namespace Data {
   /**
-   * @brief This namespace contains the Data support structures for the
-   * algorithms
-   */
+	* @brief This namespace contains the Data support structures for the
+	* algorithms
+	*/
   namespace EPEC {
 	 class DataObject;
   }

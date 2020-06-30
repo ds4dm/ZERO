@@ -20,18 +20,18 @@ namespace Algorithms {
 		 *
 		 */
 	 protected:
-		GRBEnv *Env;                    ///< A pointer to the Gurobi Environment
-		Game::EPEC *EPECObject;         ///< A pointer to the original LCP object
+		GRBEnv *     Env;               ///< A pointer to the Gurobi Environment
+		Game::EPEC * EPECObject;        ///< A pointer to the original LCP object
 		virtual void postSolving() = 0; ///< A protected method to be called after solving the EPEC
 
 	 public:
 		virtual void solve() = 0; ///< A method to solve the EPEC
 		virtual bool
 		isSolved(double tol = -1) const = 0; ///< A method to check whether the EPEC is solved or not,
-		                                     ///< given a numerical tolerance
+														 ///< given a numerical tolerance
 		virtual bool isPureStrategy(
-		    double tol = -1) const = 0; ///< A method to check whether the EPEC solution is a pure
-		                                ///< equilibrium or not, given a numerical tolerance
+			 double tol = -1) const = 0; ///< A method to check whether the EPEC solution is a pure
+												  ///< equilibrium or not, given a numerical tolerance
 	 };
 	 // Second level inheritor for polyhedral inner approximations or full
 	 // enumeration

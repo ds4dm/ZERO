@@ -52,10 +52,10 @@ RAPIDJSON_NAMESPACE_BEGIN
 // WriteFlag
 
 /*! \def RAPIDJSON_WRITE_DEFAULT_FLAGS
-    \ingroup RAPIDJSON_CONFIG
-    \brief User-defined kWriteDefaultFlags definition.
+	 \ingroup RAPIDJSON_CONFIG
+	 \brief User-defined kWriteDefaultFlags definition.
 
-    User can define this as any \c WriteFlag combinations.
+	 User can define this as any \c WriteFlag combinations.
 */
 #ifndef RAPIDJSON_WRITE_DEFAULT_FLAGS
 #define RAPIDJSON_WRITE_DEFAULT_FLAGS kWriteNoFlags
@@ -67,27 +67,30 @@ enum WriteFlag {
   kWriteValidateEncodingFlag = 1, //!< Validate encoding of JSON strings.
   kWriteNanAndInfFlag        = 2, //!< Allow writing of Infinity, -Infinity and NaN.
   kWriteDefaultFlags = RAPIDJSON_WRITE_DEFAULT_FLAGS //!< Default write flags. Can be customized by
-                                                     //!< defining RAPIDJSON_WRITE_DEFAULT_FLAGS
+																	  //!< defining RAPIDJSON_WRITE_DEFAULT_FLAGS
 };
 
 //! JSON writer
 /*! Writer implements the concept Handler.
-    It generates JSON text by events to an output os.
+	 It generates JSON text by events to an output os.
 
-    User may programmatically calls the functions of a writer to generate JSON text.
+	 User may programmatically calls the functions of a writer to generate JSON text.
 
-    On the other side, a writer can also be passed to objects that generates events,
+	 On the other side, a writer can also be passed to objects that generates events,
 
-    for example Reader::Parse() and Document::Accept().
+	 for example Reader::Parse() and Document::Accept().
 
-    \tparam OutputStream Type of output stream.
-    \tparam SourceEncoding Encoding of source string.
-    \tparam TargetEncoding Encoding of output stream.
-    \tparam StackAllocator Type of allocator for allocating memory of stack.
-    \note implements Handler concept
+	 \tparam OutputStream Type of output stream.
+	 \tparam SourceEncoding Encoding of source string.
+	 \tparam TargetEncoding Encoding of output stream.
+	 \tparam StackAllocator Type of allocator for allocating memory of stack.
+	 \note implements Handler concept
 */
-template <typename OutputStream, typename SourceEncoding = UTF8<>, typename TargetEncoding = UTF8<>,
-          typename StackAllocator = CrtAllocator, unsigned writeFlags = kWriteDefaultFlags>
+template <typename OutputStream,
+			 typename SourceEncoding = UTF8<>,
+			 typename TargetEncoding = UTF8<>,
+			 typename StackAllocator = CrtAllocator,
+			 unsigned writeFlags     = kWriteDefaultFlags>
 class Writer {
 public:
   typedef typename SourceEncoding::Ch Ch;
@@ -96,43 +99,44 @@ public:
 
   //! Constructor
   /*! \param os Output stream.
-      \param stackAllocator User supplied allocator. If it is null, it will create a private one.
-      \param levelDepth Initial capacity of stack.
+		\param stackAllocator User supplied allocator. If it is null, it will create a private one.
+		\param levelDepth Initial capacity of stack.
   */
-  explicit Writer(OutputStream &os, StackAllocator *stackAllocator = 0,
-                  size_t levelDepth = kDefaultLevelDepth)
-      : os_(&os), level_stack_(stackAllocator, levelDepth * sizeof(Level)),
-        maxDecimalPlaces_(kDefaultMaxDecimalPlaces), hasRoot_(false) {}
+  explicit Writer(OutputStream &  os,
+						StackAllocator *stackAllocator = 0,
+						size_t          levelDepth     = kDefaultLevelDepth)
+		: os_(&os), level_stack_(stackAllocator, levelDepth * sizeof(Level)),
+		  maxDecimalPlaces_(kDefaultMaxDecimalPlaces), hasRoot_(false) {}
 
   explicit Writer(StackAllocator *allocator = 0, size_t levelDepth = kDefaultLevelDepth)
-      : os_(0), level_stack_(allocator, levelDepth * sizeof(Level)),
-        maxDecimalPlaces_(kDefaultMaxDecimalPlaces), hasRoot_(false) {}
+		: os_(0), level_stack_(allocator, levelDepth * sizeof(Level)),
+		  maxDecimalPlaces_(kDefaultMaxDecimalPlaces), hasRoot_(false) {}
 
 #if RAPIDJSON_HAS_CXX11_RVALUE_REFS
   Writer(Writer &&rhs)
-      : os_(rhs.os_), level_stack_(std::move(rhs.level_stack_)),
-        maxDecimalPlaces_(rhs.maxDecimalPlaces_), hasRoot_(rhs.hasRoot_) {
+		: os_(rhs.os_), level_stack_(std::move(rhs.level_stack_)),
+		  maxDecimalPlaces_(rhs.maxDecimalPlaces_), hasRoot_(rhs.hasRoot_) {
 	 rhs.os_ = 0;
   }
 #endif
 
   //! Reset the writer with a new stream.
   /*!
-      This function reset the writer with a new stream and default settings,
-      in order to make a Writer object reusable for output multiple JSONs.
+		This function reset the writer with a new stream and default settings,
+		in order to make a Writer object reusable for output multiple JSONs.
 
-      \param os New output stream.
-      \code
-      Writer<OutputStream> writer(os1);
-      writer.StartObject();
-      // ...
-      writer.EndObject();
+		\param os New output stream.
+		\code
+		Writer<OutputStream> writer(os1);
+		writer.StartObject();
+		// ...
+		writer.EndObject();
 
-      writer.Reset(os2);
-      writer.StartObject();
-      // ...
-      writer.EndObject();
-      \endcode
+		writer.Reset(os2);
+		writer.StartObject();
+		// ...
+		writer.EndObject();
+		\endcode
   */
   void Reset(OutputStream &os) {
 	 os_      = &os;
@@ -142,7 +146,7 @@ public:
 
   //! Checks whether the output is a complete JSON.
   /*!
-      A complete JSON has a complete root object or array.
+		A complete JSON has a complete root object or array.
   */
   bool IsComplete() const { return hasRoot_ && level_stack_.Empty(); }
 
@@ -150,26 +154,26 @@ public:
 
   //! Sets the maximum number of decimal places for double output.
   /*!
-      This setting truncates the output with specified number of decimal places.
+		This setting truncates the output with specified number of decimal places.
 
-      For example,
+		For example,
 
-      \code
-      writer.SetMaxDecimalPlaces(3);
-      writer.StartArray();
-      writer.Double(0.12345);                 // "0.123"
-      writer.Double(0.0001);                  // "0.0"
-      writer.Double(1.234567890123456e30);    // "1.234567890123456e30" (do not truncate significand
-     for positive exponent) writer.Double(1.23e-4);                 // "0.0"                  (do
-     truncate significand for negative exponent) writer.EndArray(); \endcode
+		\code
+		writer.SetMaxDecimalPlaces(3);
+		writer.StartArray();
+		writer.Double(0.12345);                 // "0.123"
+		writer.Double(0.0001);                  // "0.0"
+		writer.Double(1.234567890123456e30);    // "1.234567890123456e30" (do not truncate significand
+	  for positive exponent) writer.Double(1.23e-4);                 // "0.0"                  (do
+	  truncate significand for negative exponent) writer.EndArray(); \endcode
 
-      The default setting does not truncate any decimal places. You can restore to this setting by
-     calling \code writer.SetMaxDecimalPlaces(Writer::kDefaultMaxDecimalPlaces); \endcode
+		The default setting does not truncate any decimal places. You can restore to this setting by
+	  calling \code writer.SetMaxDecimalPlaces(Writer::kDefaultMaxDecimalPlaces); \endcode
   */
   void SetMaxDecimalPlaces(int maxDecimalPlaces) { maxDecimalPlaces_ = maxDecimalPlaces; }
 
   /*!@name Implementation of Handler
-      \see Handler
+		\see Handler
   */
   //@{
 
@@ -200,8 +204,8 @@ public:
 
   //! Writes the given \c double value to the stream
   /*!
-      \param d The value to be written.
-      \return Whether it is succeed.
+		\param d The value to be written.
+		\return Whether it is succeed.
   */
   bool Double(double d) {
 	 Prefix(kNumberType);
@@ -242,9 +246,9 @@ public:
 	 (void)memberCount;
 	 RAPIDJSON_ASSERT(level_stack_.GetSize() >= sizeof(Level)); // not inside an Object
 	 RAPIDJSON_ASSERT(
-	     !level_stack_.template Top<Level>()->inArray); // currently inside an Array, not Object
+		  !level_stack_.template Top<Level>()->inArray); // currently inside an Array, not Object
 	 RAPIDJSON_ASSERT(0 == level_stack_.template Top<Level>()->valueCount %
-	                           2); // Object has a Key without a Value
+										2); // Object has a Key without a Value
 	 level_stack_.template Pop<Level>(1);
 	 return EndValue(WriteEndObject());
   }
@@ -275,10 +279,10 @@ public:
 
   //! Write a raw JSON value.
   /*!
-      For user to write a stringified JSON as a value.
+		For user to write a stringified JSON as a value.
 
-      \param json A well-formed JSON value. It should not contain null character within [0, length -
-     1] range. \param length Length of the json. \param type Type of the root of json.
+		\param json A well-formed JSON value. It should not contain null character within [0, length -
+	  1] range. \param length Length of the json. \param type Type of the root of json.
   */
   bool RawValue(const Ch *json, size_t length, Type type) {
 	 RAPIDJSON_ASSERT(json != 0);
@@ -288,8 +292,8 @@ public:
 
   //! Flush the output stream.
   /*!
-      Allows the user to flush the output stream immediately.
-   */
+		Allows the user to flush the output stream immediately.
+	*/
   void Flush() { os_->Flush(); }
 
 protected:
@@ -297,7 +301,7 @@ protected:
   struct Level {
 	 Level(bool inArray_) : valueCount(0), inArray(inArray_) {}
 	 size_t valueCount; //!< number of values in this level
-	 bool inArray;      //!< true if in array, otherwise in object
+	 bool   inArray;    //!< true if in array, otherwise in object
   };
 
   static const size_t kDefaultLevelDepth = 32;
@@ -330,7 +334,7 @@ protected:
   }
 
   bool WriteInt(int i) {
-	 char buffer[11];
+	 char        buffer[11];
 	 const char *end = internal::i32toa(i, buffer);
 	 PutReserve(*os_, static_cast<size_t>(end - buffer));
 	 for (const char *p = buffer; p != end; ++p)
@@ -339,7 +343,7 @@ protected:
   }
 
   bool WriteUint(unsigned u) {
-	 char buffer[10];
+	 char        buffer[10];
 	 const char *end = internal::u32toa(u, buffer);
 	 PutReserve(*os_, static_cast<size_t>(end - buffer));
 	 for (const char *p = buffer; p != end; ++p)
@@ -348,7 +352,7 @@ protected:
   }
 
   bool WriteInt64(int64_t i64) {
-	 char buffer[21];
+	 char        buffer[21];
 	 const char *end = internal::i64toa(i64, buffer);
 	 PutReserve(*os_, static_cast<size_t>(end - buffer));
 	 for (const char *p = buffer; p != end; ++p)
@@ -357,7 +361,7 @@ protected:
   }
 
   bool WriteUint64(uint64_t u64) {
-	 char buffer[20];
+	 char  buffer[20];
 	 char *end = internal::u64toa(u64, buffer);
 	 PutReserve(*os_, static_cast<size_t>(end - buffer));
 	 for (char *p = buffer; p != end; ++p)
@@ -392,7 +396,7 @@ protected:
 		return true;
 	 }
 
-	 char buffer[25];
+	 char  buffer[25];
 	 char *end = internal::dtoa(d, buffer, maxDecimalPlaces_);
 	 PutReserve(*os_, static_cast<size_t>(end - buffer));
 	 for (char *p = buffer; p != end; ++p)
@@ -401,17 +405,17 @@ protected:
   }
 
   bool WriteString(const Ch *str, SizeType length) {
-	 static const typename OutputStream::Ch hexDigits[16] = {'0', '1', '2', '3', '4', '5', '6', '7',
-	                                                         '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-	 static const char escape[256]                        = {
+	 static const typename OutputStream::Ch hexDigits[16] = {
+		  '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+	 static const char escape[256] = {
 #define Z16 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-	     // 0    1    2    3    4    5    6    7    8    9    A    B    C    D    E    F
-	     'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'b', 't', 'n', 'u', 'f',  'r', 'u', 'u', // 00
-	     'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u',  'u', 'u', 'u', // 10
-	     0,   0,   '"', 0,   0,   0,   0,   0,   0,   0,   0,   0,   0,    0,   0,   0,   // 20
-	     Z16, Z16,                                                                        // 30~4F
-	     0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   '\\', 0,   0,   0,   // 50
-	     Z16, Z16, Z16, Z16, Z16, Z16, Z16, Z16, Z16, Z16                                 // 60~FF
+		  // 0    1    2    3    4    5    6    7    8    9    A    B    C    D    E    F
+		  'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'b', 't', 'n', 'u', 'f',  'r', 'u', 'u', // 00
+		  'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u',  'u', 'u', 'u', // 10
+		  0,   0,   '"', 0,   0,   0,   0,   0,   0,   0,   0,   0,   0,    0,   0,   0,   // 20
+		  Z16, Z16,                                                                        // 30~4F
+		  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   '\\', 0,   0,   0,   // 50
+		  Z16, Z16, Z16, Z16, Z16, Z16, Z16, Z16, Z16, Z16                                 // 60~FF
 #undef Z16
 	 };
 
@@ -454,11 +458,11 @@ protected:
 			 PutUnsafe(*os_, hexDigits[(trail)&15]);
 		  }
 		} else if ((sizeof(Ch) == 1 || static_cast<unsigned>(c) < 256) &&
-		           RAPIDJSON_UNLIKELY(escape[static_cast<unsigned char>(c)])) {
+					  RAPIDJSON_UNLIKELY(escape[static_cast<unsigned char>(c)])) {
 		  is.Take();
 		  PutUnsafe(*os_, '\\');
 		  PutUnsafe(*os_,
-		            static_cast<typename OutputStream::Ch>(escape[static_cast<unsigned char>(c)]));
+						static_cast<typename OutputStream::Ch>(escape[static_cast<unsigned char>(c)]));
 		  if (escape[static_cast<unsigned char>(c)] == 'u') {
 			 PutUnsafe(*os_, '0');
 			 PutUnsafe(*os_, '0');
@@ -466,9 +470,9 @@ protected:
 			 PutUnsafe(*os_, hexDigits[static_cast<unsigned char>(c) & 0xF]);
 		  }
 		} else if (RAPIDJSON_UNLIKELY(!(
-		               writeFlags & kWriteValidateEncodingFlag
-		                   ? Transcoder<SourceEncoding, TargetEncoding>::Validate(is, *os_)
-		                   : Transcoder<SourceEncoding, TargetEncoding>::TranscodeUnsafe(is, *os_))))
+							writeFlags & kWriteValidateEncodingFlag
+								 ? Transcoder<SourceEncoding, TargetEncoding>::Validate(is, *os_)
+								 : Transcoder<SourceEncoding, TargetEncoding>::TranscodeUnsafe(is, *os_))))
 		  return false;
 	 }
 	 PutUnsafe(*os_, '\"');
@@ -502,9 +506,9 @@ protected:
 	 while (RAPIDJSON_LIKELY(is.Tell() < length)) {
 		RAPIDJSON_ASSERT(is.Peek() != '\0');
 		if (RAPIDJSON_UNLIKELY(
-		        !(writeFlags & kWriteValidateEncodingFlag
-		              ? Transcoder<SourceEncoding, TargetEncoding>::Validate(is, *os_)
-		              : Transcoder<SourceEncoding, TargetEncoding>::TranscodeUnsafe(is, *os_))))
+				  !(writeFlags & kWriteValidateEncodingFlag
+						  ? Transcoder<SourceEncoding, TargetEncoding>::Validate(is, *os_)
+						  : Transcoder<SourceEncoding, TargetEncoding>::TranscodeUnsafe(is, *os_))))
 		  return false;
 	 }
 	 return true;
@@ -522,7 +526,7 @@ protected:
 		}
 		if (!level->inArray && level->valueCount % 2 == 0)
 		  RAPIDJSON_ASSERT(type ==
-		                   kStringType); // if it's in object, then even number should be a name
+								 kStringType); // if it's in object, then even number should be a name
 		level->valueCount++;
 	 } else {
 		RAPIDJSON_ASSERT(!hasRoot_); // Should only has one and only one root.
@@ -537,10 +541,10 @@ protected:
 	 return ret;
   }
 
-  OutputStream *os_;
+  OutputStream *                  os_;
   internal::Stack<StackAllocator> level_stack_;
-  int maxDecimalPlaces_;
-  bool hasRoot_;
+  int                             maxDecimalPlaces_;
+  bool                            hasRoot_;
 
 private:
   // Prohibit copy constructor & assignment operator.
@@ -551,29 +555,29 @@ private:
 // Full specialization for StringStream to prevent memory copying
 
 template <> inline bool Writer<StringBuffer>::WriteInt(int i) {
-  char *buffer    = os_->Push(11);
-  const char *end = internal::i32toa(i, buffer);
+  char *      buffer = os_->Push(11);
+  const char *end    = internal::i32toa(i, buffer);
   os_->Pop(static_cast<size_t>(11 - (end - buffer)));
   return true;
 }
 
 template <> inline bool Writer<StringBuffer>::WriteUint(unsigned u) {
-  char *buffer    = os_->Push(10);
-  const char *end = internal::u32toa(u, buffer);
+  char *      buffer = os_->Push(10);
+  const char *end    = internal::u32toa(u, buffer);
   os_->Pop(static_cast<size_t>(10 - (end - buffer)));
   return true;
 }
 
 template <> inline bool Writer<StringBuffer>::WriteInt64(int64_t i64) {
-  char *buffer    = os_->Push(21);
-  const char *end = internal::i64toa(i64, buffer);
+  char *      buffer = os_->Push(21);
+  const char *end    = internal::i64toa(i64, buffer);
   os_->Pop(static_cast<size_t>(21 - (end - buffer)));
   return true;
 }
 
 template <> inline bool Writer<StringBuffer>::WriteUint64(uint64_t u) {
-  char *buffer    = os_->Push(20);
-  const char *end = internal::u64toa(u, buffer);
+  char *      buffer = os_->Push(20);
+  const char *end    = internal::u64toa(u, buffer);
   os_->Pop(static_cast<size_t>(20 - (end - buffer)));
   return true;
 }
@@ -625,9 +629,9 @@ inline bool Writer<StringBuffer>::ScanWriteUnescapedString(StringStream &is, siz
   const char *p   = is.src_;
   const char *end = is.head_ + length;
   const char *nextAligned =
-      reinterpret_cast<const char *>((reinterpret_cast<size_t>(p) + 15) & static_cast<size_t>(~15));
+		reinterpret_cast<const char *>((reinterpret_cast<size_t>(p) + 15) & static_cast<size_t>(~15));
   const char *endAligned =
-      reinterpret_cast<const char *>(reinterpret_cast<size_t>(end) & static_cast<size_t>(~15));
+		reinterpret_cast<const char *>(reinterpret_cast<size_t>(end) & static_cast<size_t>(~15));
   if (nextAligned > end)
 	 return true;
 
@@ -639,15 +643,57 @@ inline bool Writer<StringBuffer>::ScanWriteUnescapedString(StringStream &is, siz
 		os_->PutUnsafe(*p++);
 
   // The rest of string using SIMD
-  static const char dquote[16] = {'\"', '\"', '\"', '\"', '\"', '\"', '\"', '\"',
-                                  '\"', '\"', '\"', '\"', '\"', '\"', '\"', '\"'};
-  static const char bslash[16] = {'\\', '\\', '\\', '\\', '\\', '\\', '\\', '\\',
-                                  '\\', '\\', '\\', '\\', '\\', '\\', '\\', '\\'};
-  static const char space[16]  = {0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F,
-                                 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F};
-  const __m128i dq             = _mm_loadu_si128(reinterpret_cast<const __m128i *>(&dquote[0]));
-  const __m128i bs             = _mm_loadu_si128(reinterpret_cast<const __m128i *>(&bslash[0]));
-  const __m128i sp             = _mm_loadu_si128(reinterpret_cast<const __m128i *>(&space[0]));
+  static const char dquote[16] = {'\"',
+											 '\"',
+											 '\"',
+											 '\"',
+											 '\"',
+											 '\"',
+											 '\"',
+											 '\"',
+											 '\"',
+											 '\"',
+											 '\"',
+											 '\"',
+											 '\"',
+											 '\"',
+											 '\"',
+											 '\"'};
+  static const char bslash[16] = {'\\',
+											 '\\',
+											 '\\',
+											 '\\',
+											 '\\',
+											 '\\',
+											 '\\',
+											 '\\',
+											 '\\',
+											 '\\',
+											 '\\',
+											 '\\',
+											 '\\',
+											 '\\',
+											 '\\',
+											 '\\'};
+  static const char space[16]  = {0x1F,
+                                 0x1F,
+                                 0x1F,
+                                 0x1F,
+                                 0x1F,
+                                 0x1F,
+                                 0x1F,
+                                 0x1F,
+                                 0x1F,
+                                 0x1F,
+                                 0x1F,
+                                 0x1F,
+                                 0x1F,
+                                 0x1F,
+                                 0x1F,
+                                 0x1F};
+  const __m128i     dq         = _mm_loadu_si128(reinterpret_cast<const __m128i *>(&dquote[0]));
+  const __m128i     bs         = _mm_loadu_si128(reinterpret_cast<const __m128i *>(&bslash[0]));
+  const __m128i     sp         = _mm_loadu_si128(reinterpret_cast<const __m128i *>(&space[0]));
 
   for (; p != endAligned; p += 16) {
 	 const __m128i s  = _mm_load_si128(reinterpret_cast<const __m128i *>(p));
@@ -690,9 +736,9 @@ inline bool Writer<StringBuffer>::ScanWriteUnescapedString(StringStream &is, siz
   const char *p   = is.src_;
   const char *end = is.head_ + length;
   const char *nextAligned =
-      reinterpret_cast<const char *>((reinterpret_cast<size_t>(p) + 15) & static_cast<size_t>(~15));
+		reinterpret_cast<const char *>((reinterpret_cast<size_t>(p) + 15) & static_cast<size_t>(~15));
   const char *endAligned =
-      reinterpret_cast<const char *>(reinterpret_cast<size_t>(end) & static_cast<size_t>(~15));
+		reinterpret_cast<const char *>(reinterpret_cast<size_t>(end) & static_cast<size_t>(~15));
   if (nextAligned > end)
 	 return true;
 
@@ -711,7 +757,7 @@ inline bool Writer<StringBuffer>::ScanWriteUnescapedString(StringStream &is, siz
 
   for (; p != endAligned; p += 16) {
 	 const uint8x16_t s = vld1q_u8(reinterpret_cast<const uint8_t *>(p));
-	 uint8x16_t x       = vceqq_u8(s, s0);
+	 uint8x16_t       x = vceqq_u8(s, s0);
 	 x                  = vorrq_u8(x, vceqq_u8(s, s1));
 	 x                  = vorrq_u8(x, vceqq_u8(s, s2));
 	 x                  = vorrq_u8(x, vcltq_u8(s, s3));
@@ -720,8 +766,8 @@ inline bool Writer<StringBuffer>::ScanWriteUnescapedString(StringStream &is, siz
 	 uint64_t low  = vgetq_lane_u64(reinterpret_cast<uint64x2_t>(x), 0); // extract
 	 uint64_t high = vgetq_lane_u64(reinterpret_cast<uint64x2_t>(x), 1); // extract
 
-	 SizeType len = 0;
-	 bool escaped = false;
+	 SizeType len     = 0;
+	 bool     escaped = false;
 	 if (low == 0) {
 		if (high != 0) {
 		  unsigned lz = (unsigned)__builtin_clzll(high);

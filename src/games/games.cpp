@@ -1,21 +1,19 @@
 #include "zero.h"
-#include <algorithm>
 #include <armadillo>
-#include <array>
 #include <boost/log/trivial.hpp>
 #include <iostream>
 
 unsigned int
 Game::convexHull(const std::vector<arma::sp_mat *>
-                     *Ai, ///< Inequality constraints LHS that define polyhedra whose convex
-                 ///< hull is to be found
-                 const std::vector<arma::vec *> *bi, ///< Inequality constraints RHS that define
-                 ///< polyhedra whose convex hull is to be found
-                 arma::sp_mat &A,         ///< Pointer to store the output of the convex hull LHS
-                 arma::vec &b,            ///< Pointer to store the output of the convex hull RHS
-                 const arma::sp_mat Acom, ///< any common constraints to all the polyhedra - lhs.
-                 const arma::vec bcom     ///< Any common constraints to ALL the polyhedra - RHS.
-                 )
+							*Ai, ///< Inequality constraints LHS that define polyhedra whose convex
+					  ///< hull is to be found
+					  const std::vector<arma::vec *> *bi, ///< Inequality constraints RHS that define
+					  ///< polyhedra whose convex hull is to be found
+					  arma::sp_mat &     A,    ///< Pointer to store the output of the convex hull LHS
+					  arma::vec &        b,    ///< Pointer to store the output of the convex hull RHS
+					  const arma::sp_mat Acom, ///< any common constraints to all the polyhedra - lhs.
+					  const arma::vec    bcom  ///< Any common constraints to ALL the polyhedra - RHS.
+					  )
 /** @brief Computing convex hull of finite union of polyhedra
  * @details Computes the convex hull of a finite union of polyhedra where
  * each polyhedra @f$P_i@f$ is of the form
@@ -51,13 +49,13 @@ Game::convexHull(const std::vector<arma::sp_mat *>
   for (unsigned int i = 0; i != nPoly; i++) {
 	 if (Ai->at(i)->n_cols != nC)
 		throw ZEROException(ZEROErrorCode::Assertion,
-		                    "Inconsistent number of variables: " + std::to_string(i) + "; " +
-		                        std::to_string(Ai->at(i)->n_cols) + "!=" + std::to_string(nC));
+								  "Inconsistent number of variables: " + std::to_string(i) + "; " +
+										std::to_string(Ai->at(i)->n_cols) + "!=" + std::to_string(nC));
 	 if (Ai->at(i)->n_rows != bi->at(i)->n_rows)
 		throw ZEROException(ZEROErrorCode::Assertion,
-		                    "Inconsistent number of rows: " + std::to_string(i) + ";" +
-		                        std::to_string(Ai->at(i)->n_rows) +
-		                        "!=" + std::to_string(bi->at(i)->n_rows));
+								  "Inconsistent number of rows: " + std::to_string(i) + ";" +
+										std::to_string(Ai->at(i)->n_rows) +
+										"!=" + std::to_string(bi->at(i)->n_rows));
 	 nFinCons += Ai->at(i)->n_rows;
   }
   // For common constraint copy
@@ -85,7 +83,7 @@ Game::convexHull(const std::vector<arma::sp_mat *>
   /****************** SLOW LOOP BEWARE *******************/
   for (unsigned int i = 0; i < nPoly; i++) {
 	 BOOST_LOG_TRIVIAL(trace) << "Game::convexHull: Handling Polyhedron " << i + 1 << " out of "
-	                          << nPoly;
+									  << nPoly;
 	 // First constraint in (4.31)
 	 // A.submat(complRow, i*nC, complRow+nConsInPoly-1, (i+1)*nC-1) =
 	 // *Ai->at(i); // Slowest line. Will arma improve this? First constraint RHS
@@ -113,17 +111,17 @@ Game::convexHull(const std::vector<arma::sp_mat *>
 }
 
 void Game::compConvSize(
-    arma::sp_mat &A,             ///< Output parameter
-    const unsigned int nFinCons, ///< Number of rows in final matrix A
-    const unsigned int nFinVar,  ///< Number of columns in the final matrix A
-    const std::vector<arma::sp_mat *>
-        *Ai, ///< Inequality constraints LHS that define polyhedra whose convex
-    ///< hull is to be found
-    const std::vector<arma::vec *> *bi, ///< Inequality constraints RHS that define
-    ///< polyhedra whose convex hull is to be found
-    const arma::sp_mat &Acom, ///< LHS of the common constraints for all polyhedra
-    const arma::vec &bcom     ///< RHS of the common constraints for all polyhedra
-    )
+	 arma::sp_mat &     A,        ///< Output parameter
+	 const unsigned int nFinCons, ///< Number of rows in final matrix A
+	 const unsigned int nFinVar,  ///< Number of columns in the final matrix A
+	 const std::vector<arma::sp_mat *>
+		  *Ai, ///< Inequality constraints LHS that define polyhedra whose convex
+	 ///< hull is to be found
+	 const std::vector<arma::vec *> *bi, ///< Inequality constraints RHS that define
+	 ///< polyhedra whose convex hull is to be found
+	 const arma::sp_mat &Acom, ///< LHS of the common constraints for all polyhedra
+	 const arma::vec &   bcom  ///< RHS of the common constraints for all polyhedra
+	 )
 /**
  * @brief INTERNAL FUNCTION NOT FOR GENERAL USE.
  * @warning INTERNAL FUNCTION NOT FOR GENERAL USE.
@@ -136,7 +134,7 @@ void Game::compConvSize(
 {
   const unsigned int nPoly{static_cast<unsigned int>(Ai->size())};
   const unsigned int nC{static_cast<unsigned int>(Ai->front()->n_cols)};
-  unsigned int N{0}; // Total number of nonzero elements in the final matrix
+  unsigned int       N{0}; // Total number of nonzero elements in the final matrix
   const unsigned int numCommon{static_cast<unsigned int>(Acom.n_nonzero + bcom.n_rows)};
   for (unsigned int i = 0; i < nPoly; i++) {
 	 N += Ai->at(i)->n_nonzero;
@@ -146,7 +144,7 @@ void Game::compConvSize(
 
   // Now computed N which is the total number of nonzeros.
   arma::umat locations; // location of nonzeros
-  arma::vec val;        // nonzero values
+  arma::vec  val;       // nonzero values
   locations.zeros(2, N);
   val.zeros(N);
 
@@ -191,13 +189,13 @@ void Game::compConvSize(
 }
 
 arma::vec Game::LPSolve(const arma::sp_mat &A, ///< The constraint matrix
-                        const arma::vec &b,    ///< RHS of the constraint matrix
-                        const arma::vec &c,    ///< If feasible, returns a std::vector that
-                                               ///< minimizes along this direction
-                        int &status,           ///< Status of the optimization problem. If optimal,
-                                               ///< this will be GRB_OPTIMAL
-                        bool positivity        ///< Should @f$x\geq0@f$ be enforced?
-                        )
+								const arma::vec &   b, ///< RHS of the constraint matrix
+								const arma::vec &   c, ///< If feasible, returns a std::vector that
+															  ///< minimizes along this direction
+								int &status,           ///< Status of the optimization problem. If optimal,
+															  ///< this will be GRB_OPTIMAL
+								bool positivity        ///< Should @f$x\geq0@f$ be enforced?
+								)
 /**
  Checks if the polyhedron given by @f$ Ax\leq b@f$ is feasible.
  If yes, returns the point @f$x@f$ in the polyhedron that minimizes @f$c^Tx@f$
@@ -212,12 +210,12 @@ arma::vec Game::LPSolve(const arma::sp_mat &A, ///< The constraint matrix
   if (b.n_rows != nR)
 	 throw ZEROException(ZEROErrorCode::Assertion, "Inconsistent number of constraints");
 
-  arma::vec sol   = arma::vec(c.n_rows, arma::fill::zeros);
-  const double lb = positivity ? 0 : -GRB_INFINITY;
+  arma::vec    sol = arma::vec(c.n_rows, arma::fill::zeros);
+  const double lb  = positivity ? 0 : -GRB_INFINITY;
 
-  GRBEnv env;
-  GRBModel model = GRBModel(env);
-  GRBVar x[nC];
+  GRBEnv    env;
+  GRBModel  model = GRBModel(env);
+  GRBVar    x[nC];
   GRBConstr a[nR];
   // Adding Variables
   for (unsigned int i = 0; i < nC; i++)
@@ -241,24 +239,24 @@ arma::vec Game::LPSolve(const arma::sp_mat &A, ///< The constraint matrix
 
 bool Game::isZero(arma::mat M, double tol) noexcept {
   /**
-   * @brief
-   * Checking if a given matrix M is a zero matrix
-   *
-   * @param tol Tolerance, below which a number is treated as 0
-   * @warning Tolerance < 0 always returns @p false with no error.
-   *
-   */
+	* @brief
+	* Checking if a given matrix M is a zero matrix
+	*
+	* @param tol Tolerance, below which a number is treated as 0
+	* @warning Tolerance < 0 always returns @p false with no error.
+	*
+	*/
   return (arma::min(arma::min(abs(M))) <= tol);
 }
 
 bool Game::isZero(arma::sp_mat M, double tol) noexcept {
   /**
-   * @brief
-   * Checking if a given sparse matrix M is a zero matrix
-   *
-   * @param tol Tolerance, below which a number is treated as 0
-   *
-   */
+	* @brief
+	* Checking if a given sparse matrix M is a zero matrix
+	*
+	* @param tol Tolerance, below which a number is treated as 0
+	*
+	*/
   if (M.n_nonzero == 0)
 	 return true;
 
@@ -268,5 +266,5 @@ bool Game::isZero(arma::sp_mat M, double tol) noexcept {
 void Game::print(const perps &C) noexcept {
   for (auto p : C)
 	 std::cout << "<" << p.first << ", " << p.second << ">"
-	           << "\t";
+				  << "\t";
 }

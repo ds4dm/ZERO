@@ -30,14 +30,14 @@ namespace internal {
   RAPIDJSON_DIAG_PUSH
   RAPIDJSON_DIAG_OFF(effc++)
   RAPIDJSON_DIAG_OFF(array - bounds) // some gcc versions generate wrong warnings
-                                     // https://gcc.gnu.org/bugzilla/show_bug.cgi?id=59124
+												 // https://gcc.gnu.org/bugzilla/show_bug.cgi?id=59124
 #endif
 
-  inline void GrisuRound(char *buffer, int len, uint64_t delta, uint64_t rest, uint64_t ten_kappa,
-                         uint64_t wp_w) {
+  inline void GrisuRound(
+		char *buffer, int len, uint64_t delta, uint64_t rest, uint64_t ten_kappa, uint64_t wp_w) {
 	 while (rest < wp_w && delta - rest >= ten_kappa &&
-	        (rest + ten_kappa < wp_w || /// closer
-	         wp_w - rest > rest + ten_kappa - wp_w)) {
+			  (rest + ten_kappa < wp_w || /// closer
+				wp_w - rest > rest + ten_kappa - wp_w)) {
 		buffer[len - 1]--;
 		rest += ten_kappa;
 	 }
@@ -67,16 +67,16 @@ namespace internal {
 	 return 9;
   }
 
-  inline void DigitGen(const DiyFp &W, const DiyFp &Mp, uint64_t delta, char *buffer, int *len,
-                       int *K) {
-	 static const uint32_t kPow10[] = {1,      10,      100,      1000,      10000,
-	                                   100000, 1000000, 10000000, 100000000, 1000000000};
+  inline void
+  DigitGen(const DiyFp &W, const DiyFp &Mp, uint64_t delta, char *buffer, int *len, int *K) {
+	 static const uint32_t kPow10[] = {
+		  1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
 	 const DiyFp one(uint64_t(1) << -Mp.e, Mp.e);
-	 const DiyFp wp_w = Mp - W;
-	 uint32_t p1      = static_cast<uint32_t>(Mp.f >> -one.e);
-	 uint64_t p2      = Mp.f & (one.f - 1);
-	 int kappa        = CountDecimalDigit32(p1); // kappa in [0, 9]
-	 *len             = 0;
+	 const DiyFp wp_w  = Mp - W;
+	 uint32_t    p1    = static_cast<uint32_t>(Mp.f >> -one.e);
+	 uint64_t    p2    = Mp.f & (one.f - 1);
+	 int         kappa = CountDecimalDigit32(p1); // kappa in [0, 9]
+	 *len              = 0;
 
 	 while (kappa > 0) {
 		uint32_t d = 0;
@@ -125,8 +125,8 @@ namespace internal {
 		uint64_t tmp = (static_cast<uint64_t>(p1) << -one.e) + p2;
 		if (tmp <= delta) {
 		  *K += kappa;
-		  GrisuRound(buffer, *len, delta, tmp, static_cast<uint64_t>(kPow10[kappa]) << -one.e,
-		             wp_w.f);
+		  GrisuRound(
+				buffer, *len, delta, tmp, static_cast<uint64_t>(kPow10[kappa]) << -one.e, wp_w.f);
 		  return;
 		}
 	 }
@@ -151,13 +151,13 @@ namespace internal {
 
   inline void Grisu2(double value, char *buffer, int *length, int *K) {
 	 const DiyFp v(value);
-	 DiyFp w_m, w_p;
+	 DiyFp       w_m, w_p;
 	 v.NormalizedBoundaries(&w_m, &w_p);
 
 	 const DiyFp c_mk = GetCachedPower(w_p.e, K);
 	 const DiyFp W    = v.Normalize() * c_mk;
-	 DiyFp Wp         = w_p * c_mk;
-	 DiyFp Wm         = w_m * c_mk;
+	 DiyFp       Wp   = w_p * c_mk;
+	 DiyFp       Wm   = w_m * c_mk;
 	 Wm.f++;
 	 Wp.f--;
 	 DigitGen(W, Wp, Wp.f - Wm.f, buffer, length, K);

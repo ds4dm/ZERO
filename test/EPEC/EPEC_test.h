@@ -24,20 +24,20 @@
 struct countrySol {
   std::vector<double> foll_prod;
   std::vector<double> foll_tax;
-  double export_;
-  double import;
-  double export_price;
+  double              export_;
+  double              import;
+  double              export_price;
 };
 
 enum class TestType { resultCheck, simpleCheck, infeasabilityCheck };
 
 struct testInst {
-  Models::EPECInstance instance = {{}, {}};
+  Models::EPECInstance    instance = {{}, {}};
   std::vector<countrySol> solution;
 };
 
-std::vector<Data::EPEC::DataObject> allAlgo(Data::EPEC::DataObject common_params = {},
-                                            bool readCommonConfig                = false) {
+std::vector<Data::EPEC::DataObject> allAlgo(Data::EPEC::DataObject common_params    = {},
+														  bool                   readCommonConfig = false) {
   std::vector<Data::EPEC::DataObject> algs;
 
   Data::EPEC::DataObject alg;
@@ -66,8 +66,9 @@ std::vector<Data::EPEC::DataObject> allAlgo(Data::EPEC::DataObject common_params
   return algs;
 }
 
-void testEPECInstance(const testInst inst, const std::vector<Data::EPEC::DataObject> algorithms,
-                      TestType check_type = TestType::resultCheck) {
+void testEPECInstance(const testInst                            inst,
+							 const std::vector<Data::EPEC::DataObject> algorithms,
+							 TestType check_type = TestType::resultCheck) {
   BOOST_TEST_MESSAGE("*** NEW INSTANCE ***");
   for (auto const algorithm : algorithms) {
 	 std::stringstream ss;
@@ -77,8 +78,8 @@ void testEPECInstance(const testInst inst, const std::vector<Data::EPEC::DataObj
 		ss << "\nMethod to add polyhedra: " << std::to_string(algorithm.PolyhedraStrategy.get());
 	 }
 	 BOOST_TEST_MESSAGE(ss.str());
-	 GRBEnv env;
-	 Models::EPEC epec(&env);
+	 GRBEnv        env;
+	 Models::EPEC  epec(&env);
 	 unsigned long nCountr = inst.instance.Countries.size();
 	 for (unsigned int i = 0; i < nCountr; i++)
 		epec.addCountry(inst.instance.Countries.at(i));
@@ -93,15 +94,15 @@ void testEPECInstance(const testInst inst, const std::vector<Data::EPEC::DataObj
 	 epec.setRandomSeed(algorithm.RandomSeed.get());
 
 	 const std::chrono::high_resolution_clock::time_point initTime =
-	     std::chrono::high_resolution_clock::now();
+		  std::chrono::high_resolution_clock::now();
 	 epec.findNashEq();
 	 const std::chrono::duration<double> timeElapsed =
-	     std::chrono::high_resolution_clock::now() - initTime;
+		  std::chrono::high_resolution_clock::now() - initTime;
 
 	 switch (check_type) {
 	 case TestType::simpleCheck: {
 		unsigned int cn;
-		arma::vec dev;
+		arma::vec    dev;
 		BOOST_CHECK_MESSAGE(epec.isSolved(), "Invoking isSolved method.");
 	 } break;
 	 case TestType::resultCheck: {
@@ -112,27 +113,31 @@ void testEPECInstance(const testInst inst, const std::vector<Data::EPEC::DataObj
 		  for (unsigned int j = 0; j < countryAns.foll_prod.size(); j++) {
 			 // Follower production
 			 BOOST_CHECK_CLOSE(
-			     epec.getX().at(epec.getPosition(i, Models::LeaderVars::FollowerStart) + j),
-			     countryAns.foll_prod.at(j), 1);
+				  epec.getX().at(epec.getPosition(i, Models::LeaderVars::FollowerStart) + j),
+				  countryAns.foll_prod.at(j),
+				  1);
 			 // Tax
 			 BOOST_WARN_CLOSE(epec.getX().at(epec.getPosition(i, Models::LeaderVars::Tax) + j),
-			                  countryAns.foll_tax.at(j), 1);
+									countryAns.foll_tax.at(j),
+									1);
 		  }
 		  // Export
 		  BOOST_CHECK_CLOSE(epec.getX().at(epec.getPosition(i, Models::LeaderVars::NetExport)),
-		                    countryAns.export_, 1);
+								  countryAns.export_,
+								  1);
 		  // Import
 		  BOOST_CHECK_CLOSE(epec.getX().at(epec.getPosition(i, Models::LeaderVars::NetImport)),
-		                    countryAns.import, 1);
+								  countryAns.import,
+								  1);
 		  // Export price
 		  double exportPrice{
-		      epec.getX().at(epec.getPosition(nCountr - 1, Models::LeaderVars::End) + i)};
+				epec.getX().at(epec.getPosition(nCountr - 1, Models::LeaderVars::End) + i)};
 		  BOOST_WARN_CLOSE(exportPrice, countryAns.export_price, 10);
 		}
 	 } break;
 	 default: {
 		BOOST_CHECK_MESSAGE(epec.getStatistics().Status.get() == ZEROStatus::NashEqNotFound,
-		                    "Checking for infeasability");
+								  "Checking for infeasability");
 	 }
 	 }
 
@@ -155,10 +160,10 @@ Models::FollPar FP_C3F1();
 Models::FollPar OneGas();
 Models::FollPar OneCoal();
 Models::FollPar OneSolar();
-arma::sp_mat TranspCost(unsigned int n);
+arma::sp_mat    TranspCost(unsigned int n);
 
-Models::LeadAllPar LAP_LowDem(Models::FollPar followers, Models::LeadPar leader,
-                              const std::string &a = "");
+Models::LeadAllPar
+LAP_LowDem(Models::FollPar followers, Models::LeadPar leader, const std::string &a = "");
 
-Models::LeadAllPar LAP_HiDem(Models::FollPar followers, Models::LeadPar leader,
-                             const std::string &a = "");
+Models::LeadAllPar
+LAP_HiDem(Models::FollPar followers, Models::LeadPar leader, const std::string &a = "");

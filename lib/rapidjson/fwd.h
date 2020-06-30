@@ -84,14 +84,20 @@ typedef GenericReader<UTF8<char>, UTF8<char>, CrtAllocator> Reader;
 
 // writer.h
 
-template <typename OutputStream, typename SourceEncoding, typename TargetEncoding,
-          typename StackAllocator, unsigned writeFlags>
+template <typename OutputStream,
+			 typename SourceEncoding,
+			 typename TargetEncoding,
+			 typename StackAllocator,
+			 unsigned writeFlags>
 class Writer;
 
 // prettywriter.h
 
-template <typename OutputStream, typename SourceEncoding, typename TargetEncoding,
-          typename StackAllocator, unsigned writeFlags>
+template <typename OutputStream,
+			 typename SourceEncoding,
+			 typename TargetEncoding,
+			 typename StackAllocator,
+			 unsigned writeFlags>
 class PrettyWriter;
 
 // document.h
@@ -122,14 +128,14 @@ template <typename SchemaDocumentType> class IGenericRemoteSchemaDocumentProvide
 
 template <typename ValueT, typename Allocator> class GenericSchemaDocument;
 
-typedef GenericSchemaDocument<Value, CrtAllocator> SchemaDocument;
+typedef GenericSchemaDocument<Value, CrtAllocator>           SchemaDocument;
 typedef IGenericRemoteSchemaDocumentProvider<SchemaDocument> IRemoteSchemaDocumentProvider;
 
 template <typename SchemaDocumentType, typename OutputHandler, typename StateAllocator>
 class GenericSchemaValidator;
 
 typedef GenericSchemaValidator<SchemaDocument, BaseReaderHandler<UTF8<char>, void>, CrtAllocator>
-    SchemaValidator;
+	 SchemaValidator;
 
 RAPIDJSON_NAMESPACE_END
 
