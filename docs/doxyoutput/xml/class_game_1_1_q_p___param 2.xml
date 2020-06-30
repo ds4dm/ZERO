@@ -1,0 +1,647 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="class_game_1_1_q_p___param" kind="class" language="C++" prot="public">
+    <compoundname>Game::QP_Param</compoundname>
+    <basecompoundref refid="class_game_1_1_m_p___param" prot="public" virt="non-virtual">Game::MP_Param</basecompoundref>
+    <includes refid="games_8h" local="no">games.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_game_1_1_q_p___param_1a2247b8e3a40f8529152469826c28e464" prot="private" static="no" mutable="no">
+        <type>GRBEnv *</type>
+        <definition>GRBEnv* Game::QP_Param::Env</definition>
+        <argsstring></argsstring>
+        <name>Env</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games.h" line="174" column="10" bodyfile="include/games.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_q_p___param_1ad06f1cf8e5c84e2c6f5de0aaf95d6bb1" prot="private" static="no" mutable="no">
+        <type>GRBModel</type>
+        <definition>GRBModel Game::QP_Param::QuadModel</definition>
+        <argsstring></argsstring>
+        <name>QuadModel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games.h" line="175" column="12" bodyfile="include/games.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_q_p___param_1a336917f832b509890d122c133e859ee0" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Game::QP_Param::madeyQy</definition>
+        <argsstring></argsstring>
+        <name>madeyQy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games.h" line="176" column="8" bodyfile="include/games.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_game_1_1_q_p___param_1ab7adef7ab5eea6a66dc5a78c2973c79b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Game::QP_Param::makeyQy</definition>
+        <argsstring>()</argsstring>
+        <name>makeyQy</name>
+        <briefdescription>
+<para>Adds the Gurobi Quadratic objective to the Gurobi model <computeroutput>QuadModel</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games.h" line="178" column="7" bodyfile="src/Games.cpp" bodystart="558" bodyend="579"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_game_1_1_q_p___param_1aca8de136cfd5597acf66de448dce9edd" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Game::QP_Param::QP_Param</definition>
+        <argsstring>(GRBEnv *env=nullptr)</argsstring>
+        <name>QP_Param</name>
+        <param>
+          <type>GRBEnv *</type>
+          <declname>env</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>Initialize only the size. Everything else is empty (can be updated later) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games.h" line="182" column="12" bodyfile="include/games.h" bodystart="182" bodyend="185"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_q_p___param_1a61008ed53ae0d7bf482724c6495931fe" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Game::QP_Param::QP_Param</definition>
+        <argsstring>(arma::sp_mat Q, arma::sp_mat C, arma::sp_mat A, arma::sp_mat B, arma::vec c, arma::vec b, GRBEnv *env=nullptr)</argsstring>
+        <name>QP_Param</name>
+        <param>
+          <type>arma::sp_mat</type>
+          <declname>Q</declname>
+        </param>
+        <param>
+          <type>arma::sp_mat</type>
+          <declname>C</declname>
+        </param>
+        <param>
+          <type>arma::sp_mat</type>
+          <declname>A</declname>
+        </param>
+        <param>
+          <type>arma::sp_mat</type>
+          <declname>B</declname>
+        </param>
+        <param>
+          <type>arma::vec</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>arma::vec</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>GRBEnv *</type>
+          <declname>env</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>Set data at construct time. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games.h" line="188" column="3" bodyfile="include/games.h" bodystart="188" bodyend="195"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_q_p___param_1ad02ba73442c9556bae3c184ac3ae7ee8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Game::QP_Param::QP_Param</definition>
+        <argsstring>(const QP_Param &amp;Qu)</argsstring>
+        <name>QP_Param</name>
+        <param>
+          <type>const <ref refid="class_game_1_1_q_p___param" kindref="compound">QP_Param</ref> &amp;</type>
+          <declname>Qu</declname>
+        </param>
+        <briefdescription>
+<para>Copy constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games.h" line="198" column="3" bodyfile="include/games.h" bodystart="198" bodyend="202"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_q_p___param_1a3fb0950b780c847e97f34043068ca758" prot="public" static="no" const="no" explicit="no" inline="no" final="yes" virt="virtual">
+        <type><ref refid="class_game_1_1_q_p___param" kindref="compound">QP_Param</ref> &amp;</type>
+        <definition>Game::QP_Param &amp; Game::QP_Param::set</definition>
+        <argsstring>(const arma::sp_mat &amp;Q, const arma::sp_mat &amp;C, const arma::sp_mat &amp;A, const arma::sp_mat &amp;B, const arma::vec &amp;c, const arma::vec &amp;b) final</argsstring>
+        <name>set</name>
+        <reimplements refid="class_game_1_1_m_p___param_1a97d7a955cb93ff14144bdce152e906b6">set</reimplements>
+        <param>
+          <type>const arma::sp_mat &amp;</type>
+          <declname>Q</declname>
+        </param>
+        <param>
+          <type>const arma::sp_mat &amp;</type>
+          <declname>C</declname>
+        </param>
+        <param>
+          <type>const arma::sp_mat &amp;</type>
+          <declname>A</declname>
+        </param>
+        <param>
+          <type>const arma::sp_mat &amp;</type>
+          <declname>B</declname>
+        </param>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+<para>Setting the data, while keeping the input objects intact. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games.h" line="205" column="12" bodyfile="src/Games.cpp" bodystart="701" bodyend="714"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_q_p___param_1ac1555a30b8ba903db65a3fe0b6763ec4" prot="public" static="no" const="no" explicit="no" inline="no" final="yes" virt="virtual">
+        <type><ref refid="class_game_1_1_q_p___param" kindref="compound">QP_Param</ref> &amp;</type>
+        <definition>Game::QP_Param &amp; Game::QP_Param::set</definition>
+        <argsstring>(arma::sp_mat &amp;&amp;Q, arma::sp_mat &amp;&amp;C, arma::sp_mat &amp;&amp;A, arma::sp_mat &amp;&amp;B, arma::vec &amp;&amp;c, arma::vec &amp;&amp;b) final</argsstring>
+        <name>set</name>
+        <reimplements refid="class_game_1_1_m_p___param_1a4ba89f81adc04cf5e21478f8a7f7748f">set</reimplements>
+        <param>
+          <type>arma::sp_mat &amp;&amp;</type>
+          <declname>Q</declname>
+        </param>
+        <param>
+          <type>arma::sp_mat &amp;&amp;</type>
+          <declname>C</declname>
+        </param>
+        <param>
+          <type>arma::sp_mat &amp;&amp;</type>
+          <declname>A</declname>
+        </param>
+        <param>
+          <type>arma::sp_mat &amp;&amp;</type>
+          <declname>B</declname>
+        </param>
+        <param>
+          <type>arma::vec &amp;&amp;</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>arma::vec &amp;&amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+<para>Faster means to set data. But the input objects might be corrupted now. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games.h" line="209" column="12" bodyfile="src/Games.cpp" bodystart="716" bodyend="729"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_q_p___param_1a3f02452cc0c46075b899e44859ace8dc" prot="public" static="no" const="no" explicit="no" inline="no" final="yes" virt="virtual">
+        <type><ref refid="class_game_1_1_q_p___param" kindref="compound">QP_Param</ref> &amp;</type>
+        <definition>Game::QP_Param &amp; Game::QP_Param::set</definition>
+        <argsstring>(const QP_Objective &amp;obj, const QP_Constraints &amp;cons) final</argsstring>
+        <name>set</name>
+        <reimplements refid="class_game_1_1_m_p___param_1aca00f56e28145a26a763a8ea0b90b2f3">set</reimplements>
+        <param>
+          <type>const <ref refid="struct_game_1_1_q_p___objective" kindref="compound">QP_Objective</ref> &amp;</type>
+          <declname>obj</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_game_1_1_q_p___constraints" kindref="compound">QP_Constraints</ref> &amp;</type>
+          <declname>cons</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games.h" line="212" column="12" bodyfile="src/Games.cpp" bodystart="739" bodyend="742"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_q_p___param_1a5048a36ffe7ce26720fda054ba570a3e" prot="public" static="no" const="no" explicit="no" inline="no" final="yes" virt="virtual">
+        <type><ref refid="class_game_1_1_q_p___param" kindref="compound">QP_Param</ref> &amp;</type>
+        <definition>Game::QP_Param &amp; Game::QP_Param::set</definition>
+        <argsstring>(QP_Objective &amp;&amp;obj, QP_Constraints &amp;&amp;cons) final</argsstring>
+        <name>set</name>
+        <reimplements refid="class_game_1_1_m_p___param_1a068537c1f3d09c882d6d797e45bdc8e1">set</reimplements>
+        <param>
+          <type><ref refid="struct_game_1_1_q_p___objective" kindref="compound">QP_Objective</ref> &amp;&amp;</type>
+          <declname>obj</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_game_1_1_q_p___constraints" kindref="compound">QP_Constraints</ref> &amp;&amp;</type>
+          <declname>cons</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Setting the data with the inputs being a struct <ref refid="struct_game_1_1_q_p___objective" kindref="compound">Game::QP_Objective</ref> and struct <ref refid="struct_game_1_1_q_p___constraints" kindref="compound">Game::QP_Constraints</ref> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games.h" line="214" column="12" bodyfile="src/Games.cpp" bodystart="731" bodyend="737"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_q_p___param_1a5a9582b9b43875c771cec657f627e947" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Game::QP_Param::operator==</definition>
+        <argsstring>(const QP_Param &amp;Q2) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="class_game_1_1_q_p___param" kindref="compound">QP_Param</ref> &amp;</type>
+          <declname>Q2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games.h" line="216" column="8" bodyfile="src/Games.cpp" bodystart="542" bodyend="556"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_q_p___param_1aa9042eb407e5768c793f17e490e8a5bd" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int Game::QP_Param::KKT</definition>
+        <argsstring>(arma::sp_mat &amp;M, arma::sp_mat &amp;N, arma::vec &amp;q) const</argsstring>
+        <name>KKT</name>
+        <param>
+          <type>arma::sp_mat &amp;</type>
+          <declname>M</declname>
+        </param>
+        <param>
+          <type>arma::sp_mat &amp;</type>
+          <declname>N</declname>
+        </param>
+        <param>
+          <type>arma::vec &amp;</type>
+          <declname>q</declname>
+        </param>
+        <briefdescription>
+<para>Compute the KKT conditions for the given QP. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Writes the KKT condition of the parameterized QP As per the convention, y is the decision variable for the QP and that is parameterized in x The KKT conditions are <formula id="9">$0 \leq y \perp My + Nx + q \geq 0$</formula> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games.h" line="219" column="16" bodyfile="src/Games.cpp" bodystart="671" bodyend="698"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_q_p___param_1a6063c18689d5a489fb3ce79d7e8303d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::unique_ptr&lt; GRBModel &gt;</type>
+        <definition>std::unique_ptr&lt; GRBModel &gt; Game::QP_Param::solveFixed</definition>
+        <argsstring>(arma::vec x, bool solve)</argsstring>
+        <name>solveFixed</name>
+        <param>
+          <type>arma::vec</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>solve</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Given a value for the parameters <formula id="7">$x$</formula> in the definition of <ref refid="class_game_1_1_q_p___param" kindref="compound">QP_Param</ref>, solve the parameterized quadratic program to optimality.</para>
+<para>In terms of game theory, this can be viewed as <emphasis>the best response</emphasis> for a set of decisions by other players. <computeroutput>solve</computeroutput> decides whether the model has to be optimized or not </para>
+        </detaileddescription>
+        <inbodydescription>
+<para><parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>GRBException</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if argument std::vector size is not</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+compatible with the <ref refid="class_game_1_1_q_p___param" kindref="compound">Game::QP_Param</ref> definition.</para>
+        </inbodydescription>
+        <location file="include/games.h" line="221" column="19" bodyfile="src/Games.cpp" bodystart="581" bodyend="637"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_q_p___param_1aad40a0f721956c78c03be4d39a4b1710" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Game::QP_Param::computeObjective</definition>
+        <argsstring>(const arma::vec &amp;y, const arma::vec &amp;x, bool checkFeas=true, double tol=1e-6) const</argsstring>
+        <name>computeObjective</name>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>checkFeas</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+          <defval>1e-6</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Computes the objective value, given a vector <computeroutput>y</computeroutput> and a parameterizing vector <computeroutput>x</computeroutput> </para>
+        </detaileddescription>
+        <inbodydescription>
+<para>Computes <formula id="10">$\frac{1}{2} y^TQy + (Cx)^Ty + c^Ty$</formula> given the input values <computeroutput>y</computeroutput> and <computeroutput>x</computeroutput>. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>checkFeas</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if <computeroutput>true</computeroutput>, checks if the given <formula id="11">$(x,y)$</formula> satisfies the constraints of the problem, namely <formula id="12">$Ax + By \leq b$</formula>.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </inbodydescription>
+        <location file="include/games.h" line="225" column="10" bodyfile="src/Games.cpp" bodystart="754" bodyend="777"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_q_p___param_1a8339624c0944723a19d58c8d66f1a729" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Game::QP_Param::isPlayable</definition>
+        <argsstring>(const QP_Param &amp;P) const</argsstring>
+        <name>isPlayable</name>
+        <param>
+          <type>const <ref refid="class_game_1_1_q_p___param" kindref="compound">QP_Param</ref> &amp;</type>
+          <declname>P</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Checks if the current object can play a game with another <ref refid="class_game_1_1_q_p___param" kindref="compound">Game::QP_Param</ref> object <computeroutput>P</computeroutput>. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games.h" line="228" column="15" bodyfile="include/games.h" bodystart="228" bodyend="237"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_q_p___param_1a5313f28073ba60f90ca422e2da6a369a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="class_game_1_1_q_p___param" kindref="compound">QP_Param</ref> &amp;</type>
+        <definition>Game::QP_Param &amp; Game::QP_Param::addDummy</definition>
+        <argsstring>(unsigned int pars, unsigned int vars=0, int position=-1) override</argsstring>
+        <name>addDummy</name>
+        <reimplements refid="class_game_1_1_m_p___param_1adf8d38d835f6cb716b7ea661d2fd4a7d">addDummy</reimplements>
+        <param>
+          <type>unsigned int</type>
+          <declname>pars</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>vars</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>position</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="warning"><para>You might have to rerun <ref refid="class_game_1_1_q_p___param_1aa9042eb407e5768c793f17e490e8a5bd" kindref="member">QP_Param::KKT</ref> since you have now changed the QP. </para>
+</simplesect>
+<simplesect kind="warning"><para>This implies you might have to rerun <ref refid="class_game_1_1_nash_game_1a439948d6f60a1cf985d17a7296c3ed28" kindref="member">NashGame::formulateLCP</ref> again too. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games.h" line="239" column="12" bodyfile="src/Games.cpp" bodystart="639" bodyend="669"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_q_p___param_1a23ff06e9e2f2bcc5c8925d3535bb13cc" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Game::QP_Param::write</definition>
+        <argsstring>(const std::string &amp;filename, bool append) const override</argsstring>
+        <name>write</name>
+        <reimplements refid="class_game_1_1_m_p___param_1a21a9898b1fbebb1fbece40995aa7e9d6">write</reimplements>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>append</declname>
+        </param>
+        <briefdescription>
+<para>Writes a given parameterized Mathematical program to a set of files. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games.h" line="244" column="8" bodyfile="src/Games.cpp" bodystart="336" bodyend="349"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_q_p___param_1ad19060753eec41c341607f9f197f6771" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Game::QP_Param::save</definition>
+        <argsstring>(const std::string &amp;filename, bool erase=true) const</argsstring>
+        <name>save</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>erase</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Saves the <computeroutput><ref refid="class_game_1_1_q_p___param" kindref="compound">Game::QP_Param</ref></computeroutput> object in a loadable file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>The <ref refid="class_game_1_1_q_p___param" kindref="compound">Game::QP_Param</ref> object hence stored can be loaded back using <ref refid="class_game_1_1_q_p___param_1addb5647d7fd877b6559561df5ba7f198" kindref="member">Game::QP_Param::load</ref></para>
+        </inbodydescription>
+        <location file="include/games.h" line="247" column="8" bodyfile="src/Games.cpp" bodystart="790" bodyend="803"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_q_p___param_1addb5647d7fd877b6559561df5ba7f198" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long int</type>
+        <definition>long int Game::QP_Param::load</definition>
+        <argsstring>(const std::string &amp;filename, long int pos=0)</argsstring>
+        <name>load</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>long int</type>
+          <declname>pos</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Loads the <computeroutput><ref refid="class_game_1_1_q_p___param" kindref="compound">Game::QP_Param</ref></computeroutput> object stored in a file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Before calling this function, use the constructor <ref refid="class_game_1_1_q_p___param_1aca8de136cfd5597acf66de448dce9edd" kindref="member">QP_Param::QP_Param(GRBEnv *Env)</ref> to initialize.</para>
+<para>Example usage: <programlisting filename=".cpp"><codeline><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="_command_line_interface_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>()</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GRBEnv<sp/><ref refid="class_game_1_1_q_p___param_1a2247b8e3a40f8529152469826c28e464" kindref="member">Env</ref>;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_q_p___param" kindref="compound">Game::QP_Param</ref><sp/>q1(&amp;<ref refid="class_game_1_1_q_p___param_1a2247b8e3a40f8529152469826c28e464" kindref="member">Env</ref>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>q1.load(</highlight><highlight class="stringliteral">&quot;./dat/q1data.dat&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout&lt;&lt;q1&lt;&lt;</highlight><highlight class="charliteral">&apos;\n&apos;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para>
+        </inbodydescription>
+        <location file="include/games.h" line="250" column="12" bodyfile="src/Games.cpp" bodystart="805" bodyend="837"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_q_p___param_1a3e8ae28e0b8f163149e05247b87bab6c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Game::QP_Param::computeObjectiveWithoutOthers</definition>
+        <argsstring>(const arma::vec &amp;y) const</argsstring>
+        <name>computeObjectiveWithoutOthers</name>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Computes <formula id="13">$\frac{1}{2} y^TQy + c^Ty $</formula> given the input values <computeroutput>y</computeroutput>;</para>
+        </inbodydescription>
+        <location file="include/games.h" line="251" column="10" bodyfile="src/Games.cpp" bodystart="779" bodyend="788"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_q_p___param_1a66941fec42f7e4c3ee2b787c2ab1e81c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>arma::vec</type>
+        <definition>arma::vec Game::QP_Param::getConstraintViolations</definition>
+        <argsstring>(arma::vec x, arma::vec y, double tol)</argsstring>
+        <name>getConstraintViolations</name>
+        <param>
+          <type>arma::vec</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>arma::vec</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games.h" line="252" column="13" bodyfile="src/Games.cpp" bodystart="744" bodyend="752"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Class to handle parameterized quadratic programs(QP) </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Represents a Parameterized QP as <formula id="38">\[ \min_y \frac{1}{2}y^TQy + c^Ty + (Cx)^T y \]</formula> Subject to <formula id="39">\begin{eqnarray} Ax + By &amp;\leq&amp; b \\ y &amp;\geq&amp; 0 \end{eqnarray}</formula> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Game::MP_Param</label>
+        <link refid="class_game_1_1_m_p___param"/>
+      </node>
+      <node id="1">
+        <label>Game::QP_Param</label>
+        <link refid="class_game_1_1_q_p___param"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Game::MP_Param</label>
+        <link refid="class_game_1_1_m_p___param"/>
+      </node>
+      <node id="1">
+        <label>Game::QP_Param</label>
+        <link refid="class_game_1_1_q_p___param"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/games.h" line="171" column="1" bodyfile="include/games.h" bodystart="159" bodyend="253"/>
+    <listofallmembers>
+      <member refid="class_game_1_1_m_p___param_1aa0b31310fd4f138fe3e3771d2b077c3e" prot="protected" virt="non-virtual"><scope>Game::QP_Param</scope><name>A</name></member>
+      <member refid="class_game_1_1_q_p___param_1a5313f28073ba60f90ca422e2da6a369a" prot="public" virt="virtual"><scope>Game::QP_Param</scope><name>addDummy</name></member>
+      <member refid="class_game_1_1_m_p___param_1a3d517547d70f75e43060785fe66ad091" prot="protected" virt="non-virtual"><scope>Game::QP_Param</scope><name>B</name></member>
+      <member refid="class_game_1_1_m_p___param_1a97fc7b4d0d1ef97e4115f0114bbfdfcc" prot="protected" virt="non-virtual"><scope>Game::QP_Param</scope><name>b</name></member>
+      <member refid="class_game_1_1_m_p___param_1ab17ec9cd0030436cd5c443cfcfe08ad1" prot="protected" virt="non-virtual"><scope>Game::QP_Param</scope><name>C</name></member>
+      <member refid="class_game_1_1_m_p___param_1ac0e65580b83e8e6441d6e964b515dff8" prot="protected" virt="non-virtual"><scope>Game::QP_Param</scope><name>c</name></member>
+      <member refid="class_game_1_1_q_p___param_1aad40a0f721956c78c03be4d39a4b1710" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>computeObjective</name></member>
+      <member refid="class_game_1_1_q_p___param_1a3e8ae28e0b8f163149e05247b87bab6c" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>computeObjectiveWithoutOthers</name></member>
+      <member refid="class_game_1_1_m_p___param_1acb2f6575e0f7613303287d6966eacd61" prot="protected" virt="non-virtual"><scope>Game::QP_Param</scope><name>dataCheck</name></member>
+      <member refid="class_game_1_1_m_p___param_1a83c92dfab0346ffbc2c8fb68267a4471" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>dataCheck</name></member>
+      <member refid="class_game_1_1_q_p___param_1a2247b8e3a40f8529152469826c28e464" prot="private" virt="non-virtual"><scope>Game::QP_Param</scope><name>Env</name></member>
+      <member refid="class_game_1_1_m_p___param_1ad99f19eae314bd3ca720d75d219167c3" prot="protected" virt="virtual"><scope>Game::QP_Param</scope><name>finalize</name></member>
+      <member refid="class_game_1_1_m_p___param_1a40ef5cb837a54abc27ff415f01bbcce2" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>getA</name></member>
+      <member refid="class_game_1_1_m_p___param_1a10c33b4453cbbfd1d9d1511a8db415b7" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>getB</name></member>
+      <member refid="class_game_1_1_m_p___param_1a30d991dc4a735cc7ae66005d33fa74e5" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>getb</name></member>
+      <member refid="class_game_1_1_m_p___param_1af07f091c9b546357d5d90d67a87e340c" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>getC</name></member>
+      <member refid="class_game_1_1_m_p___param_1a859e717089861c86bffe656f352b105e" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>getc</name></member>
+      <member refid="class_game_1_1_q_p___param_1a66941fec42f7e4c3ee2b787c2ab1e81c" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>getConstraintViolations</name></member>
+      <member refid="class_game_1_1_m_p___param_1a5beeddbd8425ac08b12fd041c647b922" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>getNx</name></member>
+      <member refid="class_game_1_1_m_p___param_1acf2be6a9980b50736064b0eb11103e5e" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>getNy</name></member>
+      <member refid="class_game_1_1_m_p___param_1ac2db5cff1ae7f287200f82e3c729121b" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>getQ</name></member>
+      <member refid="class_game_1_1_q_p___param_1a8339624c0944723a19d58c8d66f1a729" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>isPlayable</name></member>
+      <member refid="class_game_1_1_q_p___param_1aa9042eb407e5768c793f17e490e8a5bd" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>KKT</name></member>
+      <member refid="class_game_1_1_q_p___param_1addb5647d7fd877b6559561df5ba7f198" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>load</name></member>
+      <member refid="class_game_1_1_q_p___param_1a336917f832b509890d122c133e859ee0" prot="private" virt="non-virtual"><scope>Game::QP_Param</scope><name>madeyQy</name></member>
+      <member refid="class_game_1_1_q_p___param_1ab7adef7ab5eea6a66dc5a78c2973c79b" prot="private" virt="non-virtual"><scope>Game::QP_Param</scope><name>makeyQy</name></member>
+      <member refid="class_game_1_1_m_p___param_1aa4be3148e505ff9012f47c9966a1475b" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>MP_Param</name></member>
+      <member refid="class_game_1_1_m_p___param_1a51f2d17e5151e8da6361c0382f62758f" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>MP_Param</name></member>
+      <member refid="class_game_1_1_m_p___param_1a786341129b4f7a0501ab1784cac70c9e" prot="protected" virt="non-virtual"><scope>Game::QP_Param</scope><name>Ncons</name></member>
+      <member refid="class_game_1_1_m_p___param_1aac9e6425fcc953b69c7aae411f011e58" prot="protected" virt="non-virtual"><scope>Game::QP_Param</scope><name>Nx</name></member>
+      <member refid="class_game_1_1_m_p___param_1ab889087a490f40f114002c92fea62b2d" prot="protected" virt="non-virtual"><scope>Game::QP_Param</scope><name>Ny</name></member>
+      <member refid="class_game_1_1_q_p___param_1a5a9582b9b43875c771cec657f627e947" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>operator==</name></member>
+      <member refid="class_game_1_1_m_p___param_1ad1ec9489e7f1959f468e459c881cd63d" prot="protected" virt="non-virtual"><scope>Game::QP_Param</scope><name>Q</name></member>
+      <member refid="class_game_1_1_q_p___param_1aca8de136cfd5597acf66de448dce9edd" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>QP_Param</name></member>
+      <member refid="class_game_1_1_q_p___param_1a61008ed53ae0d7bf482724c6495931fe" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>QP_Param</name></member>
+      <member refid="class_game_1_1_q_p___param_1ad02ba73442c9556bae3c184ac3ae7ee8" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>QP_Param</name></member>
+      <member refid="class_game_1_1_q_p___param_1ad06f1cf8e5c84e2c6f5de0aaf95d6bb1" prot="private" virt="non-virtual"><scope>Game::QP_Param</scope><name>QuadModel</name></member>
+      <member refid="class_game_1_1_q_p___param_1ad19060753eec41c341607f9f197f6771" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>save</name></member>
+      <member refid="class_game_1_1_q_p___param_1a3fb0950b780c847e97f34043068ca758" prot="public" virt="virtual"><scope>Game::QP_Param</scope><name>set</name></member>
+      <member refid="class_game_1_1_q_p___param_1ac1555a30b8ba903db65a3fe0b6763ec4" prot="public" virt="virtual"><scope>Game::QP_Param</scope><name>set</name></member>
+      <member refid="class_game_1_1_q_p___param_1a3f02452cc0c46075b899e44859ace8dc" prot="public" virt="virtual"><scope>Game::QP_Param</scope><name>set</name></member>
+      <member refid="class_game_1_1_q_p___param_1a5048a36ffe7ce26720fda054ba570a3e" prot="public" virt="virtual"><scope>Game::QP_Param</scope><name>set</name></member>
+      <member refid="class_game_1_1_m_p___param_1a720cd86de42cfb6054f0d7363c371f39" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>setA</name></member>
+      <member refid="class_game_1_1_m_p___param_1a5855ef8253dd3776b04d916e2e7f4b1b" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>setb</name></member>
+      <member refid="class_game_1_1_m_p___param_1a16f75a8bb8525cd80ccec416bcc57c4e" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>setB</name></member>
+      <member refid="class_game_1_1_m_p___param_1af28bfbe4728fdd28e44f71e29ff3974d" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>setC</name></member>
+      <member refid="class_game_1_1_m_p___param_1a5d18a93a4335e8e9bed6633aa095b5d1" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>setc</name></member>
+      <member refid="class_game_1_1_m_p___param_1aba24e357b5034e0fe7869e1ceaa5dadf" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>setQ</name></member>
+      <member refid="class_game_1_1_m_p___param_1aa2528bd94216c15b6c655040cecea5fe" prot="protected" virt="non-virtual"><scope>Game::QP_Param</scope><name>size</name></member>
+      <member refid="class_game_1_1_q_p___param_1a6063c18689d5a489fb3ce79d7e8303d5" prot="public" virt="non-virtual"><scope>Game::QP_Param</scope><name>solveFixed</name></member>
+      <member refid="class_game_1_1_q_p___param_1a23ff06e9e2f2bcc5c8925d3535bb13cc" prot="public" virt="virtual"><scope>Game::QP_Param</scope><name>write</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

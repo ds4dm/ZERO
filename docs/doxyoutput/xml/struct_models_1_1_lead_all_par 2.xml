@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="struct_models_1_1_lead_all_par" kind="struct" language="C++" prot="public">
+    <compoundname>Models::LeadAllPar</compoundname>
+    <includes refid="models_8h" local="no">models.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_models_1_1_lead_all_par_1a50316bb42793ad51f81470ec2c75deaa" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int Models::LeadAllPar::n_followers</definition>
+        <argsstring></argsstring>
+        <name>n_followers</name>
+        <briefdescription>
+<para>Number of followers in the country. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="101" column="16" bodyfile="include/models.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_lead_all_par_1a285c3f95be3345e51b85c1180b2e3e4e" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string Models::LeadAllPar::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>Country Name. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="102" column="15" bodyfile="include/models.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_lead_all_par_1adf8e44c2a1e3018f3393a2af5ae16ca3" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_models_1_1_foll_par" kindref="compound">Models::FollPar</ref></type>
+        <definition>Models::FollPar Models::LeadAllPar::FollowerParam</definition>
+        <argsstring></argsstring>
+        <name>FollowerParam</name>
+        <initializer>= {}</initializer>
+        <briefdescription>
+<para>A struct to hold Follower Parameters. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="103" column="19" bodyfile="include/models.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_lead_all_par_1a5e652d9a446b3d9c37d3f201ff2aec78" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_models_1_1_dem_par" kindref="compound">Models::DemPar</ref></type>
+        <definition>Models::DemPar Models::LeadAllPar::DemandParam</definition>
+        <argsstring></argsstring>
+        <name>DemandParam</name>
+        <initializer>= {}</initializer>
+        <briefdescription>
+<para>A struct to hold Demand Parameters. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="104" column="18" bodyfile="include/models.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_lead_all_par_1a825a28d96986f5e148db46f1f6ebdfa9" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_models_1_1_lead_par" kindref="compound">Models::LeadPar</ref></type>
+        <definition>Models::LeadPar Models::LeadAllPar::LeaderParam</definition>
+        <argsstring></argsstring>
+        <name>LeaderParam</name>
+        <initializer>= {}</initializer>
+        <briefdescription>
+<para>A struct to hold Leader Parameters. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="105" column="19" bodyfile="include/models.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_models_1_1_lead_all_par_1ab0e167d9b5b94d15b96d0ef4b8404659" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Models::LeadAllPar::LeadAllPar</definition>
+        <argsstring>(unsigned int n_foll, std::string name, Models::FollPar FP={}, Models::DemPar DP={}, Models::LeadPar LP={})</argsstring>
+        <name>LeadAllPar</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>n_foll</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_models_1_1_foll_par" kindref="compound">Models::FollPar</ref></type>
+          <declname>FP</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type><ref refid="struct_models_1_1_dem_par" kindref="compound">Models::DemPar</ref></type>
+          <declname>DP</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type><ref refid="struct_models_1_1_lead_par" kindref="compound">Models::LeadPar</ref></type>
+          <declname>LP</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/models.h" line="106" column="3" bodyfile="include/models.h" bodystart="106" bodyend="111"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Stores the parameters of a country model. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="4">
+        <label>Models::FollPar</label>
+        <link refid="struct_models_1_1_foll_par"/>
+      </node>
+      <node id="2">
+        <label>Models::DemPar</label>
+        <link refid="struct_models_1_1_dem_par"/>
+      </node>
+      <node id="3">
+        <label>Models::LeadPar</label>
+        <link refid="struct_models_1_1_lead_par"/>
+      </node>
+      <node id="1">
+        <label>Models::LeadAllPar</label>
+        <link refid="struct_models_1_1_lead_all_par"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>DemandParam</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>LeaderParam</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>FollowerParam</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/models.h" line="100" column="17" bodyfile="include/models.h" bodystart="100" bodyend="112"/>
+    <listofallmembers>
+      <member refid="struct_models_1_1_lead_all_par_1a5e652d9a446b3d9c37d3f201ff2aec78" prot="public" virt="non-virtual"><scope>Models::LeadAllPar</scope><name>DemandParam</name></member>
+      <member refid="struct_models_1_1_lead_all_par_1adf8e44c2a1e3018f3393a2af5ae16ca3" prot="public" virt="non-virtual"><scope>Models::LeadAllPar</scope><name>FollowerParam</name></member>
+      <member refid="struct_models_1_1_lead_all_par_1ab0e167d9b5b94d15b96d0ef4b8404659" prot="public" virt="non-virtual"><scope>Models::LeadAllPar</scope><name>LeadAllPar</name></member>
+      <member refid="struct_models_1_1_lead_all_par_1a825a28d96986f5e148db46f1f6ebdfa9" prot="public" virt="non-virtual"><scope>Models::LeadAllPar</scope><name>LeaderParam</name></member>
+      <member refid="struct_models_1_1_lead_all_par_1a50316bb42793ad51f81470ec2c75deaa" prot="public" virt="non-virtual"><scope>Models::LeadAllPar</scope><name>n_followers</name></member>
+      <member refid="struct_models_1_1_lead_all_par_1a285c3f95be3345e51b85c1180b2e3e4e" prot="public" virt="non-virtual"><scope>Models::LeadAllPar</scope><name>name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

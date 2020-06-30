@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Program Listing for File epec_fullenumeration.h &mdash; ZERO 1.0.0 documentation</title>
+  <title>Program Listing for File epec_fullenumeration.h &mdash; Python 1.0.0 documentation</title>
   
 
   
@@ -63,6 +63,10 @@
 
           
             
+            
+              <div class="version">
+                1.0.0
+              </div>
             
           
 
@@ -139,8 +143,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Algorithms__IPG.html#classes">Classes</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_arma.html">Namespace arma</a></li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_boost__program_options.html">Namespace boost::program_options</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_Data.html">Namespace Data</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_Data.html#namespaces">Namespaces</a></li>
 </ul>
@@ -167,7 +169,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_rapidjson.html">Namespace rapidjson</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_std.html">Namespace std</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_std.html#functions">Functions</a></li>
 </ul>
@@ -695,7 +696,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ZERO</a>
+          <a href="../index.html">Python</a>
         
       </nav>
 
@@ -753,14 +754,13 @@
 <span class="cp">#include</span> <span class="cpf">&quot;epec_polybase.h&quot;</span><span class="cp"></span>
 
 <span class="k">namespace</span> <span class="n">Algorithms</span> <span class="p">{</span>
-<span class="k">namespace</span> <span class="n">EPEC</span> <span class="p">{</span>
-<span class="k">class</span> <span class="nc">FullEnumeration</span> <span class="o">:</span> <span class="k">public</span> <span class="n">PolyBase</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-  <span class="n">FullEnumeration</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">Game</span><span class="o">::</span><span class="n">EPEC</span> <span class="o">*</span><span class="n">EPECObject</span><span class="p">)</span>
-      <span class="o">:</span> <span class="n">PolyBase</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">EPECObject</span><span class="p">){};</span>
-  <span class="kt">void</span> <span class="nf">solve</span><span class="p">();</span>
-<span class="p">};</span>
-<span class="p">}</span> <span class="c1">// namespace EPEC</span>
+  <span class="k">namespace</span> <span class="n">EPEC</span> <span class="p">{</span>
+     <span class="k">class</span> <span class="nc">FullEnumeration</span> <span class="o">:</span> <span class="k">public</span> <span class="n">PolyBase</span> <span class="p">{</span>
+     <span class="k">public</span><span class="o">:</span>
+        <span class="n">FullEnumeration</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">Game</span><span class="o">::</span><span class="n">EPEC</span> <span class="o">*</span><span class="n">EPECObject</span><span class="p">)</span> <span class="o">:</span> <span class="n">PolyBase</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">EPECObject</span><span class="p">){};</span>
+        <span class="kt">void</span> <span class="nf">solve</span><span class="p">();</span>
+     <span class="p">};</span>
+  <span class="p">}</span> <span class="c1">// namespace EPEC</span>
 <span class="p">}</span> <span class="c1">// namespace Algorithms</span>
 </pre></div>
 </div>
@@ -777,7 +777,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, GD and SS
+        &copy; Copyright Gabriele Dragotto, Sriram Sankaranarayanan
 
     </p>
   </div>

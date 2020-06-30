@@ -1,5 +1,5 @@
 Nash LCP Example
-*********
+*****************
 
 Before reading this page, please ensure you are aware of the functionalities described the tutorial for ``QP_Param``. Assume we have two players:
 
@@ -23,9 +23,9 @@ Before reading this page, please ensure you are aware of the functionalities des
 The above problem corresponds to a `Cournot Competition <https://en.wikipedia.org/wiki/Cournot_competition>`_
 where the demand curve is given by :math:`P = a-BQ` where ``P`` is the market price and ``Q`` is the quantity in the market. The cost of production of both the producers are given by a convex quadratic function in the quantity they produce. The solution to the problem is to find a Nash Equilibrium from which neither producer is incentivized to deviate.
 
-==========
+====================================
 Modeling the problem
-==========
+====================================
 
 To handle this problem, first we create two objects of :py:class:`Game::QP_Param` to model each player's optimization problem, as parameterized by the other.
 
@@ -106,13 +106,12 @@ Now the ``Game::LCP`` object can be solved. And indeed the solution helps obtain
  model.optimize();			
  // Alternatively, auto model = lcp.LCPasMIP(true); will already optimize and solve the model.
 
-
 As was the case with :py:func:`Game::QP_Param::solveFixed`, the above function returns a
 ``unique_ptr`` to ``GRBModel``. And all native operations to the ``GRBModel` can be performed and the solution be obtained.
 
-==========
+====================================
 Checking the solution
-==========
+====================================
 
 The solution to this problem can be obtained as :math:`q_1=28.271028, q_2=27.803728`. To indeed check that this solution is correct, one can create a solution vector and solve each player's :py:class:`Game::QP_Param` and check that the solution indeed matches.
  

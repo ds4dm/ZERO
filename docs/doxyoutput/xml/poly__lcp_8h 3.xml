@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="poly__lcp_8h" kind="file" language="C++">
+    <compoundname>poly_lcp.h</compoundname>
+    <includes local="yes">zero.h</includes>
+    <includes local="no">armadillo</includes>
+    <includes local="no">gurobi_c++.h</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">memory</includes>
+    <includes local="no">set</includes>
+    <includes local="no">string</includes>
+    <includedby refid="epec__fullenumeration_8cpp" local="yes">src/algorithms/EPEC/epec_fullenumeration.cpp</includedby>
+    <includedby refid="lcp_8h" local="yes">include/lcp/lcp.h</includedby>
+    <includedby refid="poly__lcp_8cpp" local="yes">src/lcp/poly_lcp.cpp</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>zero.h</label>
+      </node>
+      <node id="8">
+        <label>string</label>
+      </node>
+      <node id="3">
+        <label>armadillo</label>
+      </node>
+      <node id="1">
+        <label>include/lcp/poly_lcp.h</label>
+        <link refid="poly__lcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>iostream</label>
+      </node>
+      <node id="4">
+        <label>gurobi_c++.h</label>
+      </node>
+      <node id="7">
+        <label>set</label>
+      </node>
+      <node id="6">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>src/algorithms/EPEC/epec_fullenumeration.cpp</label>
+        <link refid="epec__fullenumeration_8cpp"/>
+      </node>
+      <node id="1">
+        <label>include/lcp/poly_lcp.h</label>
+        <link refid="poly__lcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>include/lcp/lcp.h</label>
+        <link refid="lcp_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>src/lcp/lcp.cpp</label>
+        <link refid="lcp_8cpp"/>
+      </node>
+      <node id="5">
+        <label>src/lcp/poly_lcp.cpp</label>
+        <link refid="poly__lcp_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_game_1_1_poly_l_c_p" prot="public">Game::PolyLCP</innerclass>
+    <innernamespace refid="namespace_game">Game</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;zero.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;armadillo&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;gurobi_c++.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;set&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_game" kindref="compound">Game</ref><sp/>{</highlight></codeline>
+<codeline lineno="11" refid="class_game_1_1_poly_l_c_p" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_game_1_1_poly_l_c_p" kindref="compound">PolyLCP</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref><sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>using<sp/>LCP::LCP;</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="19" refid="class_game_1_1_poly_l_c_p_1ae58d2fb3672f8962a238caa500239aee" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_poly_l_c_p_1ae58d2fb3672f8962a238caa500239aee" kindref="member">FeasiblePolyhedra</ref>{0};</highlight></codeline>
+<codeline lineno="20" refid="class_game_1_1_poly_l_c_p_1aa0dc3451597d6e1d1c97018ed19b6168" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_poly_l_c_p_1aa0dc3451597d6e1d1c97018ed19b6168" kindref="member">SequentialPolyCounter</ref>{0};</highlight></codeline>
+<codeline lineno="21" refid="class_game_1_1_poly_l_c_p_1a32f2873bad1c17318ceca6e60663a85f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_poly_l_c_p_1a32f2873bad1c17318ceca6e60663a85f" kindref="member">ReverseSequentialPolyCounter</ref>{0};</highlight></codeline>
+<codeline lineno="24" refid="class_game_1_1_poly_l_c_p_1ad54ed6c8eacb53c2d56bece722cf8bc4" refkind="member"><highlight class="normal"><sp/><sp/>std::set&lt;unsigned<sp/>long<sp/>int&gt;<sp/><ref refid="class_game_1_1_poly_l_c_p_1ad54ed6c8eacb53c2d56bece722cf8bc4" kindref="member">AllPolyhedra</ref><sp/>=</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{};<sp/></highlight></codeline>
+<codeline lineno="26" refid="class_game_1_1_poly_l_c_p_1aeb53a1e8548bb1e802c5fa000ec98009" refkind="member"><highlight class="normal"><sp/><sp/>std::set&lt;unsigned<sp/>long<sp/>int&gt;<sp/><ref refid="class_game_1_1_poly_l_c_p_1aeb53a1e8548bb1e802c5fa000ec98009" kindref="member">FeasiblePoly</ref><sp/>=</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{};<sp/></highlight></codeline>
+<codeline lineno="28" refid="class_game_1_1_poly_l_c_p_1a43b7818d5d08faf88fb9c1ab51a7a6dc" refkind="member"><highlight class="normal"><sp/><sp/>std::set&lt;unsigned<sp/>long<sp/>int&gt;<sp/><ref refid="class_game_1_1_poly_l_c_p_1a43b7818d5d08faf88fb9c1ab51a7a6dc" kindref="member">InfeasiblePoly</ref><sp/>=</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{};<sp/></highlight></codeline>
+<codeline lineno="30" refid="class_game_1_1_poly_l_c_p_1addf773dfc5bf76c80c04b0f68c7285fc" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_poly_l_c_p_1addf773dfc5bf76c80c04b0f68c7285fc" kindref="member">MaxTheoreticalPoly</ref>{0};</highlight></codeline>
+<codeline lineno="31" refid="class_game_1_1_poly_l_c_p_1a216d9f17996fe72731dd33cc2062153e" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_poly_l_c_p_1a216d9f17996fe72731dd33cc2062153e" kindref="member">initializeNotProcessed</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>numCompl<sp/>=<sp/>this-&gt;<ref refid="class_game_1_1_l_c_p_1a6dbcd747d3b7a82fcd9079916da001df" kindref="member">Compl</ref>.size();</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>2^n<sp/>-<sp/>the<sp/>number<sp/>of<sp/>polyhedra<sp/>theoretically</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_game_1_1_poly_l_c_p_1addf773dfc5bf76c80c04b0f68c7285fc" kindref="member">MaxTheoreticalPoly</ref><sp/>=<sp/>static_cast&lt;unsigned<sp/>long<sp/>int&gt;(pow(2,<sp/>numCompl));</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_poly_l_c_p_1aa0dc3451597d6e1d1c97018ed19b6168" kindref="member">SequentialPolyCounter</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_poly_l_c_p_1a32f2873bad1c17318ceca6e60663a85f" kindref="member">ReverseSequentialPolyCounter</ref><sp/>=<sp/>this-&gt;<ref refid="class_game_1_1_poly_l_c_p_1addf773dfc5bf76c80c04b0f68c7285fc" kindref="member">MaxTheoreticalPoly</ref><sp/>-<sp/>1;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_poly_l_c_p_1a7488a38884fff8804d17024c3a1c1433" kindref="member">addPolyFromEncoding</ref>(std::vector&lt;short<sp/>int&gt;<sp/>encoding,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>checkFeas<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>custom<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>spmat_Vec<sp/>*custAi<sp/>=<sp/>{},<sp/>vec_Vec<sp/>*custbi<sp/>=<sp/>{});</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><ref refid="class_game_1_1_poly_l_c_p_1a2e7688ed525a53df2640f8059c0c0dd7" kindref="member">PolyLCP</ref><sp/>&amp;<ref refid="class_game_1_1_poly_l_c_p_1af818f34c0c90869f0d0f31400908174a" kindref="member">addPoliesFromEncoding</ref>(std::vector&lt;short<sp/>int&gt;<sp/>encoding,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>checkFeas<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>custom<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>spmat_Vec<sp/>*custAi<sp/>=<sp/>{},<sp/>vec_Vec<sp/>*custbi<sp/>=<sp/>{});</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_poly_l_c_p_1a9949b98dad6c12d90251f3c8ede80b51" kindref="member">getNextPoly</ref>(<ref refid="namespace_data_1_1_l_c_p_1aa8773225c810ac45575f86ac803105ab" kindref="member">Data::LCP::PolyhedraStrategy</ref><sp/>method);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="47" refid="class_game_1_1_poly_l_c_p_1a2e7688ed525a53df2640f8059c0c0dd7" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_game_1_1_poly_l_c_p_1a2e7688ed525a53df2640f8059c0c0dd7" kindref="member">PolyLCP</ref>(GRBEnv<sp/>*env,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>NashGame<sp/>&amp;N)<sp/>:<sp/><ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref>(env,<sp/>N)<sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_game_1_1_l_c_p_1a8f71d6ee194330de1441c3911b74bff6" kindref="member">Ai</ref><sp/>=<sp/>std::unique_ptr&lt;spmat_Vec&gt;(</highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>spmat_Vec());</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_game_1_1_l_c_p_1afcae3294d6a3492d4a1b77a1d72ccf60" kindref="member">bi</ref><sp/>=<sp/>std::unique_ptr&lt;vec_Vec&gt;(</highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>vec_Vec());</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_game_1_1_poly_l_c_p_1a284ba47f087abd272c48e77c20060d45" kindref="member">clearPolyhedra</ref>();</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_game_1_1_poly_l_c_p_1a216d9f17996fe72731dd33cc2062153e" kindref="member">initializeNotProcessed</ref>();</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="53" refid="class_game_1_1_poly_l_c_p_1a1afb8ebbf1672cc4d0398c0f7265ed56" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_poly_l_c_p_1a1afb8ebbf1672cc4d0398c0f7265ed56" kindref="member">AddPolyMethodSeed</ref><sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>-1};<sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Convex<sp/>hull<sp/>computation<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_poly_l_c_p_1a82da25777affce68da206232f9a91704" kindref="member">convNumPoly</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_poly_l_c_p_1a2e14a1d94151b08c878386de507793b4" kindref="member">convPolyPosition</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_poly_l_c_p_1a6bd110dfdf561badc1e3f7624589e1e1" kindref="member">convPolyWeight</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61" refid="class_game_1_1_poly_l_c_p_1a4cd4171844f271bba06c271bbe9e02e5" refkind="member"><highlight class="normal"><sp/><sp/>std::set&lt;unsigned<sp/>long<sp/>int&gt;<sp/><ref refid="class_game_1_1_poly_l_c_p_1a4cd4171844f271bba06c271bbe9e02e5" kindref="member">getAllPolyhedra</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_game_1_1_poly_l_c_p_1ad54ed6c8eacb53c2d56bece722cf8bc4" kindref="member">AllPolyhedra</ref>;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="64" refid="class_game_1_1_poly_l_c_p_1a7894d5934693fb66db0170026e049ff1" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_poly_l_c_p_1a7894d5934693fb66db0170026e049ff1" kindref="member">getNumTheoreticalPoly</ref>()<sp/>const<sp/>noexcept<sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_game_1_1_poly_l_c_p_1addf773dfc5bf76c80c04b0f68c7285fc" kindref="member">MaxTheoreticalPoly</ref>;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/>std::set&lt;std::vector&lt;short<sp/>int&gt;&gt;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><ref refid="class_game_1_1_poly_l_c_p_1a3ca012eb137a6dd7bb98f23691ea5d41" kindref="member">addAPoly</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nPoly<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_data_1_1_l_c_p_1aa8773225c810ac45575f86ac803105ab" kindref="member">Data::LCP::PolyhedraStrategy</ref><sp/>method<sp/>=</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_data_1_1_l_c_p_1aa8773225c810ac45575f86ac803105abaa7e82daa7280af25afbaa076ac16eb1e" kindref="member">Data::LCP::PolyhedraStrategy::Sequential</ref>,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::set&lt;std::vector&lt;short<sp/>int&gt;&gt;<sp/>polyhedra<sp/>=<sp/>{});</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_poly_l_c_p_1a6cbd0139e8f432d15287387b7be7bfeb" kindref="member">addThePoly</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>&amp;decimalEncoding);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_poly_l_c_p_1abfb1de17bc930bc70bb32b845a0e5479" kindref="member">checkPolyFeas</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>&amp;decimalEncoding);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_poly_l_c_p_1abfb1de17bc930bc70bb32b845a0e5479" kindref="member">checkPolyFeas</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;short<sp/>int&gt;<sp/>&amp;encoding);</highlight></codeline>
+<codeline lineno="75" refid="class_game_1_1_poly_l_c_p_1a284ba47f087abd272c48e77c20060d45" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_poly_l_c_p_1a284ba47f087abd272c48e77c20060d45" kindref="member">clearPolyhedra</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_game_1_1_l_c_p_1a8f71d6ee194330de1441c3911b74bff6" kindref="member">Ai</ref>-&gt;clear();</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_game_1_1_l_c_p_1afcae3294d6a3492d4a1b77a1d72ccf60" kindref="member">bi</ref>-&gt;clear();</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>this-&gt;AllPolyhedra.clear();</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><ref refid="class_game_1_1_poly_l_c_p" kindref="compound">PolyLCP</ref><sp/>&amp;<ref refid="class_game_1_1_poly_l_c_p_1ad0a82937558cb85efccde85308ce6997" kindref="member">addPolyFromX</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;x,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>&amp;ret);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><ref refid="class_game_1_1_poly_l_c_p" kindref="compound">PolyLCP</ref><sp/>&amp;<ref refid="class_game_1_1_poly_l_c_p_1aebdc0ed41bb918c136f40c01b0c9fef2" kindref="member">enumerateAll</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>solveLP<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="class_game_1_1_poly_l_c_p_1ab3da884aa6d7966d9482c8e3830aa464" kindref="member">feasabilityDetailString</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="83" refid="class_game_1_1_poly_l_c_p_1a8bf2b9f101f4dacc2d4e7a115d795a36" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_poly_l_c_p_1a8bf2b9f101f4dacc2d4e7a115d795a36" kindref="member">getFeasiblePolyhedra</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_game_1_1_poly_l_c_p_1ae58d2fb3672f8962a238caa500239aee" kindref="member">FeasiblePolyhedra</ref>;<sp/>}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>Game</highlight></codeline>
+    </programlisting>
+    <location file="include/lcp/poly_lcp.h"/>
+  </compounddef>
+</doxygen>

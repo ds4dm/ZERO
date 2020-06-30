@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation" kind="class" language="C++" prot="public">
+    <compoundname>Algorithms::EPEC::InnerApproximation</compoundname>
+    <basecompoundref refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base" prot="public" virt="non-virtual">Algorithms::EPEC::PolyBase</basecompoundref>
+    <includes refid="epec__innerapproximation_8h" local="no">epec_innerapproximation.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1a0ec6b37ef38785eb514d295bb3ce3281" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Algorithms::EPEC::InnerApproximation::InnerApproximation</definition>
+        <argsstring>(GRBEnv *env, Game::EPEC *EPECObject)</argsstring>
+        <name>InnerApproximation</name>
+        <param>
+          <type>GRBEnv *</type>
+          <declname>env</declname>
+        </param>
+        <param>
+          <type>Game::EPEC *</type>
+          <declname>EPECObject</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_innerapproximation.h" line="17" column="3" bodyfile="include/algorithms/EPEC/epec_innerapproximation.h" bodystart="17" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1a3f57f11002bbe86fe0b002eb155d26f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Algorithms::EPEC::InnerApproximation::solve</definition>
+        <argsstring>()</argsstring>
+        <name>solve</name>
+        <reimplements refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1afb53fa0b28accf7ffb71f38b7127cd8a">solve</reimplements>
+        <briefdescription>
+<para>A method to solve the <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Wraps the <ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm" kindref="compound">Algorithm</ref> with the postSolving operations</para>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_innerapproximation.h" line="19" column="8" bodyfile="src/algorithms/EPEC/epec_innerapproximation.cpp" bodystart="12" bodyend="18"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1a003f173148410c570746da4bd29e7202" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Algorithms::EPEC::InnerApproximation::start</definition>
+        <argsstring>()</argsstring>
+        <name>start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Given the referenced <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref> instance, this method solves it through the inner approximation <ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm" kindref="compound">Algorithm</ref>.</para>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_innerapproximation.h" line="22" column="8" bodyfile="src/algorithms/EPEC/epec_innerapproximation.cpp" bodystart="20" bodyend="182"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1ae73f1a2a080486ee9c64c49d8343fd89" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Algorithms::EPEC::InnerApproximation::addRandomPoly2All</definition>
+        <argsstring>(unsigned int aggressiveLevel=1, bool stopOnSingleInfeasibility=false)</argsstring>
+        <name>addRandomPoly2All</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>aggressiveLevel</declname>
+          <defval>1</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>stopOnSingleInfeasibility</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Makes a call to to Game::LCP::addAPoly for each member in Game::EPEC::PlayersLCP and tries to add a polyhedron to get a better inner approximation for the LCP. <computeroutput>aggressiveLevel</computeroutput> is the maximum number of polyhedra it will try to add to each country. Setting it to an arbitrarily high value will mimic complete enumeration.</para>
+<para>If <computeroutput>stopOnSingleInfeasibility</computeroutput> is true, then the function returns false and aborts all operation as soon as it finds that it cannot add polyhedra to some country. On the other hand if <computeroutput>stopOnSingleInfeasibility</computeroutput> is false, the function returns false, only if it is not possible to add polyhedra to <emphasis>any</emphasis> of the countries. <simplesect kind="return"><para>true if successfully added the maximum possible number of polyhedra not greater than aggressiveLevel. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_innerapproximation.h" line="23" column="8" bodyfile="src/algorithms/EPEC/epec_innerapproximation.cpp" bodystart="184" bodyend="220"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1aac90b8b215e9baf1fd5e41b60a96cc1c" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Algorithms::EPEC::InnerApproximation::getAllDeviations</definition>
+        <argsstring>(std::vector&lt; arma::vec &gt; &amp;deviations, const arma::vec &amp;guessSol, const std::vector&lt; arma::vec &gt; &amp;prevDev={}) const</argsstring>
+        <name>getAllDeviations</name>
+        <param>
+          <type>std::vector&lt; arma::vec &gt; &amp;</type>
+          <declname>deviations</declname>
+          <briefdescription><para>The vector of deviations for all players </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>guessSol</declname>
+          <briefdescription><para>The guess for the solution vector </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>const std::vector&lt; arma::vec &gt; &amp;</type>
+          <declname>prevDev</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Given a potential solution vector, returns a profitable deviation (if it exists) for all players. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+</parameternamelist>
+<parameterdescription>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_innerapproximation.h" line="25" column="8" bodyfile="src/algorithms/EPEC/epec_innerapproximation.cpp" bodystart="222" bodyend="249"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1afde7daf1886fefed019bb2ff135c2051" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int Algorithms::EPEC::InnerApproximation::addDeviatedPolyhedron</definition>
+        <argsstring>(const std::vector&lt; arma::vec &gt; &amp;deviations, bool &amp;infeasCheck) const</argsstring>
+        <name>addDeviatedPolyhedron</name>
+        <param>
+          <type>const std::vector&lt; arma::vec &gt; &amp;</type>
+          <declname>deviations</declname>
+          <briefdescription><para>devns.at(i) is a profitable deviation for the i-th country from the current this-&gt;SolutionX </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>bool &amp;</type>
+          <declname>infeasCheck</declname>
+          <briefdescription><para>Useful for the first iteration of iterativeNash. If true, at least one player has no polyhedron that can be added. In the first iteration, this translates to x </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Given a profitable deviation for each country, adds <emphasis>a</emphasis> polyhedron in the feasible region of each country to the corresponding country&apos;s <ref refid="class_game_1_1_l_c_p" kindref="compound">Game::LCP</ref> object (this-&gt;PlayersLCP.at(i)) &apos;s vector of feasible polyhedra.</para>
+<para>Naturally, this makes the inner approximation of the <ref refid="class_game_1_1_l_c_p" kindref="compound">Game::LCP</ref> better, by including one additional polyhedron.</para>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_innerapproximation.h" line="28" column="16" bodyfile="src/algorithms/EPEC/epec_innerapproximation.cpp" bodystart="251" bodyend="292"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This class is responsible for the inner Approximation. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Algorithms::EPEC::PolyBase</label>
+        <link refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Algorithms::EPEC::Algorithm</label>
+        <link refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm"/>
+      </node>
+      <node id="1">
+        <label>Algorithms::EPEC::InnerApproximation</label>
+        <link refid="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Algorithms::EPEC::PolyBase</label>
+        <link refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Algorithms::EPEC::Algorithm</label>
+        <link refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm"/>
+      </node>
+      <node id="1">
+        <label>Algorithms::EPEC::InnerApproximation</label>
+        <link refid="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/algorithms/EPEC/epec_innerapproximation.h" line="14" column="41" bodyfile="include/algorithms/EPEC/epec_innerapproximation.h" bodystart="14" bodyend="30"/>
+    <listofallmembers>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1afde7daf1886fefed019bb2ff135c2051" prot="private" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>addDeviatedPolyhedron</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1ae73f1a2a080486ee9c64c49d8343fd89" prot="private" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>addRandomPoly2All</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1aad636a41bb0353f0c632430b6fb20937" prot="protected" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>Env</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" prot="protected" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>EPECObject</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1aac90b8b215e9baf1fd5e41b60a96cc1c" prot="private" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>getAllDeviations</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a0e0cfcb04c622946a00441e7460f9959" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>getNumPolyLead</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a9a5a1f8d89b1049326165049b123e109" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>getPositionLeadFollPoly</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a6f83e7a8d82218dcbaf6e43255d949c7" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>getPositionLeadLeadPoly</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ad7777a11c5b70da40af2780802b31fab" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>getPositionProbab</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a9266e3d1190be52164d30b2134236f93" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>getValLeadFollPoly</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a1d7e28a9c5842d4b1fc8f9e9f4a61c71" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>getValLeadLeadPoly</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a22f4df7130fcc3ba15d904214e59114f" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>getValProbab</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1a0ec6b37ef38785eb514d295bb3ce3281" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>InnerApproximation</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ac1be48a137ea071862794beba97ff02a" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>isPureStrategy</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1aa8a48f84931889820bd8f05e250f945b" prot="public" virt="virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>isPureStrategy</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a5943ee10262cc33bbeb18d5a902e1b90" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>isSolved</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a291dab58d5014bc5be3477ed500c43f5" prot="public" virt="virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>isSolved</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a5631dd8fb9bd2d7aef4cd4137a905d15" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>makeThePureLCP</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ac6d224591f7862a5da5dcf3607016c92" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>mixedStrategyPoly</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a3232baf0efbe5fe82c3168937a6a8d20" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>PolyBase</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a07f74282d7751de285a7e72b0377c8d6" prot="protected" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>PolyLCP</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ae32c59d87b904dd0b6bff19a4bf954f7" prot="protected" virt="virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>postSolving</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1a3f57f11002bbe86fe0b002eb155d26f9" prot="public" virt="virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>solve</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1a003f173148410c570746da4bd29e7202" prot="private" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>start</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

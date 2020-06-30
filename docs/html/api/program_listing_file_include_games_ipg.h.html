@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Program Listing for File ipg.h &mdash; ZERO 1.0.0 documentation</title>
+  <title>Program Listing for File ipg.h &mdash; Python 1.0.0 documentation</title>
   
 
   
@@ -63,6 +63,10 @@
 
           
             
+            
+              <div class="version">
+                1.0.0
+              </div>
             
           
 
@@ -139,8 +143,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Algorithms__IPG.html#classes">Classes</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_arma.html">Namespace arma</a></li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_boost__program_options.html">Namespace boost::program_options</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_Data.html">Namespace Data</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_Data.html#namespaces">Namespaces</a></li>
 </ul>
@@ -167,7 +169,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_rapidjson.html">Namespace rapidjson</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_std.html">Namespace std</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_std.html#functions">Functions</a></li>
 </ul>
@@ -695,7 +696,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ZERO</a>
+          <a href="../index.html">Python</a>
         
       </nav>
 
@@ -759,183 +760,174 @@
 <span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
 
 <span class="k">namespace</span> <span class="n">Game</span> <span class="p">{</span>
-<span class="k">class</span> <span class="nc">IP_Param</span> <span class="o">:</span> <span class="k">public</span> <span class="n">MP_Param</span>
-<span class="c1">// Shape of C is Ny\times Nx</span>
-<span class="p">{</span>
-<span class="k">private</span><span class="o">:</span>
-  <span class="c1">// Gurobi environment and model</span>
-  <span class="n">GRBEnv</span> <span class="o">*</span><span class="n">Env</span><span class="p">;</span>
-  <span class="n">GRBModel</span> <span class="n">IPModel</span><span class="p">;</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">bounds</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">integers</span><span class="p">;</span>
-  <span class="kt">bool</span> <span class="n">madeModel</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
+  <span class="k">class</span> <span class="nc">IP_Param</span> <span class="o">:</span> <span class="k">public</span> <span class="n">MP_Param</span>
+  <span class="c1">// Shape of C is Ny\times Nx</span>
+  <span class="p">{</span>
+  <span class="k">private</span><span class="o">:</span>
+     <span class="c1">// Gurobi environment and model</span>
+     <span class="n">GRBEnv</span> <span class="o">*</span>         <span class="n">Env</span><span class="p">;</span>
+     <span class="n">GRBModel</span>         <span class="n">IPModel</span><span class="p">;</span>
+     <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>        <span class="n">bounds</span><span class="p">;</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">integers</span><span class="p">;</span>
+     <span class="kt">bool</span>             <span class="n">madeModel</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
 
-  <span class="c1">// These methods should be inaccessible to the inheritor, since we have a</span>
-  <span class="c1">// different structure.</span>
-  <span class="k">using</span> <span class="n">MP_Param</span><span class="o">::</span><span class="n">set</span><span class="p">;</span>
+     <span class="c1">// These methods should be inaccessible to the inheritor, since we have a</span>
+     <span class="c1">// different structure.</span>
+     <span class="k">using</span> <span class="n">MP_Param</span><span class="o">::</span><span class="n">set</span><span class="p">;</span>
 
-<span class="k">public</span><span class="o">:</span> <span class="c1">// Constructors</span>
-  <span class="k">explicit</span> <span class="n">IP_Param</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">)</span> <span class="o">:</span> <span class="n">Env</span><span class="p">{</span><span class="n">env</span><span class="p">},</span> <span class="n">IPModel</span><span class="p">{(</span><span class="o">*</span><span class="n">env</span><span class="p">)}</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
-  <span class="p">}</span>
+  <span class="k">public</span><span class="o">:</span> <span class="c1">// Constructors</span>
+     <span class="k">explicit</span> <span class="n">IP_Param</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">)</span> <span class="o">:</span> <span class="n">Env</span><span class="p">{</span><span class="n">env</span><span class="p">},</span> <span class="n">IPModel</span><span class="p">{(</span><span class="o">*</span><span class="n">env</span><span class="p">)}</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span> <span class="p">}</span>
 
-  <span class="k">explicit</span> <span class="n">IP_Param</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">C</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">B</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">b</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">c</span><span class="p">,</span>
-                    <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">integers</span><span class="p">,</span>
-                    <span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">)</span>
-      <span class="o">:</span> <span class="n">Env</span><span class="p">{</span><span class="n">env</span><span class="p">},</span> <span class="n">IPModel</span><span class="p">{(</span><span class="o">*</span><span class="n">env</span><span class="p">)}</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Q</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">A</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">set</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">bounds</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">;</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">integers</span> <span class="o">=</span> <span class="n">integers</span><span class="p">;</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">dataCheck</span><span class="p">())</span>
-      <span class="k">throw</span> <span class="n">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">InvalidData</span><span class="p">,</span> <span class="s">&quot;dataCheck() failed&quot;</span><span class="p">);</span>
-  <span class="p">}</span>
+     <span class="k">explicit</span> <span class="n">IP_Param</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span>     <span class="n">C</span><span class="p">,</span>
+                             <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span>     <span class="n">B</span><span class="p">,</span>
+                             <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>        <span class="n">b</span><span class="p">,</span>
+                             <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>        <span class="n">c</span><span class="p">,</span>
+                             <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>        <span class="n">bounds</span><span class="p">,</span>
+                             <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">integers</span><span class="p">,</span>
+                             <span class="n">GRBEnv</span> <span class="o">*</span>         <span class="n">env</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">)</span>
+          <span class="o">:</span> <span class="n">Env</span><span class="p">{</span><span class="n">env</span><span class="p">},</span> <span class="n">IPModel</span><span class="p">{(</span><span class="o">*</span><span class="n">env</span><span class="p">)}</span> <span class="p">{</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">Q</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">A</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">set</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">bounds</span>   <span class="o">=</span> <span class="n">bounds</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">integers</span> <span class="o">=</span> <span class="n">integers</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">dataCheck</span><span class="p">())</span>
+          <span class="k">throw</span> <span class="n">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">InvalidData</span><span class="p">,</span> <span class="s">&quot;dataCheck() failed&quot;</span><span class="p">);</span>
+     <span class="p">}</span>
 
-  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">getIntegers</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">integers</span><span class="p">;</span> <span class="p">}</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">getBounds</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">bounds</span><span class="p">;</span> <span class="p">}</span>
-  <span class="kt">void</span> <span class="n">makeModel</span><span class="p">();</span>
-  <span class="kt">void</span> <span class="nf">addConstraints</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">A</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">b</span><span class="p">);</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">getIntegers</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">integers</span><span class="p">;</span> <span class="p">}</span>
+     <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>        <span class="n">getBounds</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">bounds</span><span class="p">;</span> <span class="p">}</span>
+     <span class="kt">void</span>             <span class="n">makeModel</span><span class="p">();</span>
+     <span class="kt">void</span>             <span class="nf">addConstraints</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">A</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">b</span><span class="p">);</span>
 
-  <span class="n">IP_Param</span><span class="p">(</span><span class="k">const</span> <span class="n">IP_Param</span> <span class="o">&amp;</span><span class="n">ipg</span><span class="p">)</span>
-      <span class="o">:</span> <span class="n">MP_Param</span><span class="p">(</span><span class="n">ipg</span><span class="p">),</span> <span class="n">Env</span><span class="p">{</span><span class="n">ipg</span><span class="p">.</span><span class="n">Env</span><span class="p">},</span> <span class="n">IPModel</span><span class="p">{</span><span class="n">ipg</span><span class="p">.</span><span class="n">IPModel</span><span class="p">},</span> <span class="n">madeModel</span><span class="p">{</span>
-                                                               <span class="n">ipg</span><span class="p">.</span><span class="n">madeModel</span><span class="p">}</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
+     <span class="n">IP_Param</span><span class="p">(</span><span class="k">const</span> <span class="n">IP_Param</span> <span class="o">&amp;</span><span class="n">ipg</span><span class="p">)</span>
+          <span class="o">:</span> <span class="n">MP_Param</span><span class="p">(</span><span class="n">ipg</span><span class="p">),</span> <span class="n">Env</span><span class="p">{</span><span class="n">ipg</span><span class="p">.</span><span class="n">Env</span><span class="p">},</span> <span class="n">IPModel</span><span class="p">{</span><span class="n">ipg</span><span class="p">.</span><span class="n">IPModel</span><span class="p">},</span> <span class="n">madeModel</span><span class="p">{</span><span class="n">ipg</span><span class="p">.</span><span class="n">madeModel</span><span class="p">}</span> <span class="p">{</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
+     <span class="p">};</span>
+
+     <span class="c1">// Override setters</span>
+     <span class="n">IP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span>    <span class="n">C</span><span class="p">,</span>
+                        <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span>    <span class="n">B</span><span class="p">,</span>
+                        <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span>       <span class="n">b</span><span class="p">,</span>
+                        <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span>       <span class="n">c</span><span class="p">,</span>
+                        <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span>       <span class="n">bounds</span><span class="p">,</span>
+                        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">integers</span><span class="p">);</span> <span class="c1">// Copy data into this</span>
+     <span class="n">IP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span>     <span class="n">C</span><span class="p">,</span>
+                        <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;&amp;</span>    <span class="n">B</span><span class="p">,</span>
+                        <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;&amp;</span>       <span class="n">b</span><span class="p">,</span>
+                        <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;&amp;</span>       <span class="n">c</span><span class="p">,</span>
+                        <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;&amp;</span>       <span class="n">bounds</span><span class="p">,</span>
+                        <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span><span class="n">integers</span><span class="p">);</span> <span class="c1">// Copy data into this</span>
+
+     <span class="n">IP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="k">const</span> <span class="n">QP_Objective</span> <span class="o">&amp;</span>    <span class="n">obj</span><span class="p">,</span>
+                        <span class="k">const</span> <span class="n">QP_Constraints</span> <span class="o">&amp;</span>  <span class="n">cons</span><span class="p">,</span>
+                        <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span>       <span class="n">bounds</span>   <span class="o">=</span> <span class="p">{},</span>
+                        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">integers</span> <span class="o">=</span> <span class="p">{});</span>
+     <span class="n">IP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="n">QP_Objective</span> <span class="o">&amp;&amp;</span>    <span class="n">obj</span><span class="p">,</span>
+                        <span class="n">QP_Constraints</span> <span class="o">&amp;&amp;</span>  <span class="n">cons</span><span class="p">,</span>
+                        <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;&amp;</span>       <span class="n">bounds</span>   <span class="o">=</span> <span class="p">{},</span>
+                        <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span><span class="n">integers</span> <span class="o">=</span> <span class="p">{});</span>
+
+     <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span> <span class="n">IP_Param</span> <span class="o">&amp;</span><span class="n">IPG2</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+
+     <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">GRBModel</span><span class="o">&gt;</span> <span class="n">solveFixed</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">x</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">solve</span><span class="p">);</span>
+
+     <span class="kt">double</span> <span class="nf">computeObjective</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">,</span>
+                                     <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span>
+                                     <span class="kt">bool</span>             <span class="n">checkFeas</span> <span class="o">=</span> <span class="nb">true</span><span class="p">,</span>
+                                     <span class="kt">double</span>           <span class="n">tol</span>       <span class="o">=</span> <span class="mf">1e-6</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+
+     <span class="kr">inline</span> <span class="kt">bool</span> <span class="nf">isPlayable</span><span class="p">(</span><span class="k">const</span> <span class="n">IP_Param</span> <span class="o">&amp;</span><span class="n">P</span><span class="p">)</span> <span class="k">const</span>
+     <span class="p">{</span>
+        <span class="kt">bool</span> <span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">,</span> <span class="n">b3</span><span class="p">;</span>
+        <span class="n">b1</span> <span class="o">=</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Nx</span> <span class="o">+</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Ny</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="n">P</span><span class="p">.</span><span class="n">getNx</span><span class="p">()</span> <span class="o">+</span> <span class="n">P</span><span class="p">.</span><span class="n">getNy</span><span class="p">());</span>
+        <span class="n">b2</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Nx</span> <span class="o">&gt;=</span> <span class="n">P</span><span class="p">.</span><span class="n">getNy</span><span class="p">();</span>
+        <span class="n">b3</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Ny</span> <span class="o">&lt;=</span> <span class="n">P</span><span class="p">.</span><span class="n">getNx</span><span class="p">();</span>
+        <span class="k">return</span> <span class="n">b1</span> <span class="o">&amp;&amp;</span> <span class="n">b2</span> <span class="o">&amp;&amp;</span> <span class="n">b3</span><span class="p">;</span>
+     <span class="p">}</span>
+
+     <span class="n">IP_Param</span> <span class="o">&amp;</span><span class="n">addDummy</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">pars</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">vars</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="kt">int</span> <span class="n">position</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
+
+     <span class="kt">void</span> <span class="nf">write</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">filename</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">append</span><span class="p">)</span> <span class="k">const</span> <span class="k">override</span><span class="p">;</span>
+
+     <span class="kt">double</span>    <span class="nf">computeObjectiveWithoutOthers</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+     <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">getConstraintViolations</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">y</span><span class="p">,</span> <span class="kt">double</span> <span class="n">tol</span><span class="p">);</span>
   <span class="p">};</span>
 
-  <span class="c1">// Override setters</span>
-  <span class="n">IP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">C</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">B</span><span class="p">,</span>
-                <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">bounds</span><span class="p">,</span>
-                <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">integers</span><span class="p">);</span> <span class="c1">// Copy data into this</span>
-  <span class="n">IP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">C</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;&amp;</span><span class="n">B</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;&amp;</span><span class="n">b</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;&amp;</span><span class="n">c</span><span class="p">,</span>
-                <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;&amp;</span><span class="n">bounds</span><span class="p">,</span>
-                <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span><span class="n">integers</span><span class="p">);</span> <span class="c1">// Copy data into this</span>
+  <span class="k">class</span> <span class="nc">IPG</span> <span class="p">{</span>
+  <span class="k">private</span><span class="o">:</span>
+     <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">NumVariables</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+     <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">NumPlayers</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
 
-  <span class="n">IP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="k">const</span> <span class="n">QP_Objective</span> <span class="o">&amp;</span><span class="n">obj</span><span class="p">,</span> <span class="k">const</span> <span class="n">QP_Constraints</span> <span class="o">&amp;</span><span class="n">cons</span><span class="p">,</span>
-                <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">{},</span>
-                <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">integers</span> <span class="o">=</span> <span class="p">{});</span>
-  <span class="n">IP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="n">QP_Objective</span> <span class="o">&amp;&amp;</span><span class="n">obj</span><span class="p">,</span> <span class="n">QP_Constraints</span> <span class="o">&amp;&amp;</span><span class="n">cons</span><span class="p">,</span>
-                <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;&amp;</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">{},</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span><span class="n">integers</span> <span class="o">=</span> <span class="p">{});</span>
+  <span class="k">protected</span><span class="o">:</span> <span class="c1">// Datafields</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">IP_Param</span><span class="o">&gt;&gt;</span>
+          <span class="n">PlayersIP</span><span class="p">{};</span>
 
-  <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span> <span class="n">IP_Param</span> <span class="o">&amp;</span><span class="n">IPG2</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">PlayerVariables</span><span class="p">{};</span>
 
-  <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">GRBModel</span><span class="o">&gt;</span> <span class="n">solveFixed</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">x</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">solve</span><span class="p">);</span>
+     <span class="n">GRBEnv</span> <span class="o">*</span><span class="n">Env</span><span class="p">;</span>
+     <span class="kt">bool</span>    <span class="n">Finalized</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
+     <span class="kt">bool</span> <span class="n">NashEquilibrium</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">time_point</span> <span class="n">InitTime</span><span class="p">;</span>
+     <span class="n">Data</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">EPECStatistics</span>                     <span class="n">Stats</span><span class="p">;</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span> <span class="n">Solution</span><span class="p">;</span>
 
-  <span class="kt">double</span> <span class="nf">computeObjective</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span>
-                          <span class="kt">bool</span> <span class="n">checkFeas</span> <span class="o">=</span> <span class="nb">true</span><span class="p">,</span> <span class="kt">double</span> <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+  <span class="k">private</span><span class="o">:</span>
+     <span class="kt">void</span> <span class="n">getXMinusI</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">i</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">xMinusI</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+     <span class="kt">void</span> <span class="nf">getXofI</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">i</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">xOfI</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 
-  <span class="kr">inline</span> <span class="kt">bool</span> <span class="nf">isPlayable</span><span class="p">(</span><span class="k">const</span> <span class="n">IP_Param</span> <span class="o">&amp;</span><span class="n">P</span><span class="p">)</span> <span class="k">const</span>
-  <span class="p">{</span>
-    <span class="kt">bool</span> <span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">,</span> <span class="n">b3</span><span class="p">;</span>
-    <span class="n">b1</span> <span class="o">=</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Nx</span> <span class="o">+</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Ny</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="n">P</span><span class="p">.</span><span class="n">getNx</span><span class="p">()</span> <span class="o">+</span> <span class="n">P</span><span class="p">.</span><span class="n">getNy</span><span class="p">());</span>
-    <span class="n">b2</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Nx</span> <span class="o">&gt;=</span> <span class="n">P</span><span class="p">.</span><span class="n">getNy</span><span class="p">();</span>
-    <span class="n">b3</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Ny</span> <span class="o">&lt;=</span> <span class="n">P</span><span class="p">.</span><span class="n">getNx</span><span class="p">();</span>
-    <span class="k">return</span> <span class="n">b1</span> <span class="o">&amp;&amp;</span> <span class="n">b2</span> <span class="o">&amp;&amp;</span> <span class="n">b3</span><span class="p">;</span>
-  <span class="p">}</span>
+     <span class="kt">bool</span> <span class="nf">computeNashEq</span><span class="p">(</span><span class="kt">double</span> <span class="n">localTimeLimit</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">check</span> <span class="o">=</span> <span class="nb">false</span><span class="p">);</span>
+     <span class="kt">void</span> <span class="nf">finalize</span><span class="p">();</span>
 
-  <span class="n">IP_Param</span> <span class="o">&amp;</span><span class="n">addDummy</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">pars</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">vars</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-                     <span class="kt">int</span> <span class="n">position</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
+  <span class="k">public</span><span class="o">:</span> <span class="c1">// functions</span>
+     <span class="k">friend</span> <span class="k">class</span> <span class="nc">Algorithms</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Oracle</span><span class="p">;</span>
+     <span class="n">IPG</span><span class="p">()</span>      <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>  <span class="c1">// No default constructor</span>
+     <span class="n">IPG</span><span class="p">(</span><span class="n">IPG</span> <span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>  <span class="c1">// Abstract class - no copy constructor</span>
+     <span class="o">~</span><span class="n">IPG</span><span class="p">()</span>     <span class="o">=</span> <span class="k">default</span><span class="p">;</span> <span class="c1">// Destructor to free data</span>
 
-  <span class="kt">void</span> <span class="nf">write</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">filename</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">append</span><span class="p">)</span> <span class="k">const</span> <span class="k">override</span><span class="p">;</span>
+     <span class="n">IPG</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="o">:</span> <span class="n">Env</span><span class="p">{</span><span class="n">env</span><span class="p">}</span> <span class="p">{};</span>
+     <span class="n">IPG</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">IP_Param</span><span class="o">&gt;&gt;</span> <span class="n">players</span><span class="p">);</span>
 
-  <span class="kt">double</span> <span class="nf">computeObjectiveWithoutOthers</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">getConstraintViolations</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">y</span><span class="p">,</span> <span class="kt">double</span> <span class="n">tol</span><span class="p">);</span>
-<span class="p">};</span>
+     <span class="k">const</span> <span class="kt">void</span> <span class="nf">findNashEq</span><span class="p">();</span>
+     <span class="kt">bool</span>       <span class="nf">isSolved</span><span class="p">(</span><span class="kt">double</span> <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+     <span class="kt">bool</span>       <span class="nf">isPureStrategy</span><span class="p">(</span><span class="kt">double</span> <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 
-<span class="k">class</span> <span class="nc">IPG</span> <span class="p">{</span>
-<span class="k">private</span><span class="o">:</span>
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">NumVariables</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">NumPlayers</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">GRBModel</span><span class="o">&gt;</span> <span class="n">respondModel</span><span class="p">(</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 
-<span class="k">protected</span><span class="o">:</span> <span class="c1">// Datafields</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">IP_Param</span><span class="o">&gt;&gt;</span>
-      <span class="n">PlayersIP</span><span class="p">{};</span>
+     <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span> <span class="n">getX</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Solution</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span>
-      <span class="n">PlayerVariables</span><span class="p">{};</span>
+     <span class="k">const</span> <span class="n">Data</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">EPECStatistics</span> <span class="n">getStatistics</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="n">GRBEnv</span> <span class="o">*</span><span class="n">Env</span><span class="p">;</span>
-  <span class="kt">bool</span> <span class="n">Finalized</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
-  <span class="kt">bool</span> <span class="n">NashEquilibrium</span><span class="p">{</span>
-      <span class="nb">false</span><span class="p">};</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">time_point</span> <span class="n">InitTime</span><span class="p">;</span>
-  <span class="n">Data</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">EPECStatistics</span> <span class="n">Stats</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span>
-      <span class="n">Solution</span><span class="p">;</span>
+     <span class="kt">void</span> <span class="n">setAlgorithm</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">EPECalgorithm</span> <span class="n">algorithm</span><span class="p">);</span>
 
-<span class="k">private</span><span class="o">:</span>
-  <span class="kt">void</span> <span class="n">getXMinusI</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">i</span><span class="p">,</span>
-                  <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">xMinusI</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="nf">getXofI</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">i</span><span class="p">,</span>
-               <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">xOfI</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+     <span class="n">Data</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">EPECalgorithm</span> <span class="n">getAlgorithm</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmParam</span><span class="p">.</span><span class="n">Algorithm</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="kt">bool</span> <span class="nf">computeNashEq</span><span class="p">(</span><span class="kt">double</span> <span class="n">localTimeLimit</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">check</span> <span class="o">=</span> <span class="nb">false</span><span class="p">);</span>
-  <span class="kt">void</span> <span class="nf">finalize</span><span class="p">();</span>
+     <span class="kt">void</span> <span class="n">setNumThreads</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmParam</span><span class="p">.</span><span class="n">Threads</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">Env</span><span class="o">-&gt;</span><span class="n">set</span><span class="p">(</span><span class="n">GRB_IntParam_Threads</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>
+     <span class="p">}</span>
 
-<span class="k">public</span><span class="o">:</span> <span class="c1">// functions</span>
-  <span class="k">friend</span> <span class="k">class</span> <span class="nc">Algorithms</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Oracle</span><span class="p">;</span>
-  <span class="n">IPG</span><span class="p">()</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>      <span class="c1">// No default constructor</span>
-  <span class="n">IPG</span><span class="p">(</span><span class="n">IPG</span> <span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span> <span class="c1">// Abstract class - no copy constructor</span>
-  <span class="o">~</span><span class="n">IPG</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>    <span class="c1">// Destructor to free data</span>
+     <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getNumThreads</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmParam</span><span class="p">.</span><span class="n">Threads</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="n">IPG</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span>
-      <span class="o">:</span> <span class="n">Env</span><span class="p">{</span><span class="n">env</span><span class="p">}</span> <span class="p">{};</span>
-  <span class="n">IPG</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">IP_Param</span><span class="o">&gt;&gt;</span> <span class="n">players</span><span class="p">);</span>
+     <span class="kt">void</span> <span class="n">setPureNashEquilibrium</span><span class="p">(</span><span class="kt">bool</span> <span class="n">val</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmParam</span><span class="p">.</span><span class="n">PureNashEquilibrium</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="k">const</span> <span class="kt">void</span> <span class="nf">findNashEq</span><span class="p">();</span>
-  <span class="kt">bool</span> <span class="nf">isSolved</span><span class="p">(</span><span class="kt">double</span> <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-  <span class="kt">bool</span> <span class="nf">isPureStrategy</span><span class="p">(</span>
-      <span class="kt">double</span> <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+     <span class="kt">bool</span> <span class="n">getPureNashEquilibrium</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmParam</span><span class="p">.</span><span class="n">PureNashEquilibrium</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">GRBModel</span><span class="o">&gt;</span> <span class="n">respondModel</span><span class="p">(</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="p">,</span>
-                                         <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+     <span class="kt">void</span> <span class="n">setDeviationTolerance</span><span class="p">(</span><span class="kt">double</span> <span class="n">val</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmParam</span><span class="p">.</span><span class="n">DeviationTolerance</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span> <span class="n">getX</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Solution</span><span class="p">;</span> <span class="p">}</span>
+     <span class="kt">double</span> <span class="n">getDeviationTolerance</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmParam</span><span class="p">.</span><span class="n">DeviationTolerance</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="k">const</span> <span class="n">Data</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">EPECStatistics</span> <span class="n">getStatistics</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">;</span> <span class="p">}</span>
+     <span class="kt">void</span> <span class="n">setTimeLimit</span><span class="p">(</span><span class="kt">double</span> <span class="n">val</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmParam</span><span class="p">.</span><span class="n">TimeLimit</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="kt">void</span> <span class="n">setAlgorithm</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">EPECalgorithm</span> <span class="n">algorithm</span><span class="p">);</span>
+     <span class="kt">double</span> <span class="n">getTimeLimit</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmParam</span><span class="p">.</span><span class="n">TimeLimit</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="n">Data</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">EPECalgorithm</span> <span class="n">getAlgorithm</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmParam</span><span class="p">.</span><span class="n">Algorithm</span><span class="p">;</span>
-  <span class="p">}</span>
+     <span class="c1">// Methods to get positions of variables</span>
+     <span class="c1">// The below are all const functions which return an unsigned int.</span>
+     <span class="kt">int</span> <span class="n">getNumVar</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">NumVariables</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="kt">void</span> <span class="n">setNumThreads</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmParam</span><span class="p">.</span><span class="n">Threads</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Env</span><span class="o">-&gt;</span><span class="n">set</span><span class="p">(</span><span class="n">GRB_IntParam_Threads</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>
-  <span class="p">}</span>
-
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getNumThreads</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmParam</span><span class="p">.</span><span class="n">Threads</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="kt">void</span> <span class="n">setPureNashEquilibrium</span><span class="p">(</span><span class="kt">bool</span> <span class="n">val</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmParam</span><span class="p">.</span><span class="n">PureNashEquilibrium</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="kt">bool</span> <span class="n">getPureNashEquilibrium</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmParam</span><span class="p">.</span><span class="n">PureNashEquilibrium</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="kt">void</span> <span class="n">setDeviationTolerance</span><span class="p">(</span><span class="kt">double</span> <span class="n">val</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmParam</span><span class="p">.</span><span class="n">DeviationTolerance</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="kt">double</span> <span class="n">getDeviationTolerance</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmParam</span><span class="p">.</span><span class="n">DeviationTolerance</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="kt">void</span> <span class="n">setTimeLimit</span><span class="p">(</span><span class="kt">double</span> <span class="n">val</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmParam</span><span class="p">.</span><span class="n">TimeLimit</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span> <span class="p">}</span>
-
-  <span class="kt">double</span> <span class="n">getTimeLimit</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmParam</span><span class="p">.</span><span class="n">TimeLimit</span><span class="p">;</span> <span class="p">}</span>
-
-  <span class="c1">// Methods to get positions of variables</span>
-  <span class="c1">// The below are all const functions which return an unsigned int.</span>
-  <span class="kt">int</span> <span class="n">getNumVar</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">NumVariables</span><span class="p">;</span> <span class="p">}</span>
-
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getNumPlayers</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">;</span> <span class="p">}</span>
-<span class="p">};</span>
+     <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getNumPlayers</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">;</span> <span class="p">}</span>
+  <span class="p">};</span>
 
 <span class="p">}</span> <span class="c1">// namespace Game</span>
 </pre></div>
@@ -953,7 +945,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, GD and SS
+        &copy; Copyright Gabriele Dragotto, Sriram Sankaranarayanan
 
     </p>
   </div>

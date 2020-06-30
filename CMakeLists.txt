@@ -1,50 +1,54 @@
-# ##############################################################################
-# ############### CONFIGURATION #############
-# Here you can edit with your paths #####
-# ##############################################################################
-
-if(ROSSOBIANCO)
-  set(BOOST_ROOT "/home/x86_64-unknown-linux_ol7-gnu/boost-1.70.0")
-  set(ARMA_PATH "/home/draggabr/.local/armadillo")
-  set(ARMA_LIB "${ARMA_PATH}/lib64/libarmadillo.so")
-else()
-  set(BOOST_ROOT "/usr/local/boost-1.70.0/")
-  set(ARMA_PATH "/usr/local")
-  set(ARMA_LIB "/usr/local/lib/libarmadillo.dylib")
-endif()
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-# ##############################################################################
-# ############### DO NOT MODIFY #############
-# ##############################################################################
 cmake_minimum_required(VERSION 3.14)
+
+# CXX Options
 option(CXX "enable C++ compilation" ON)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+# Additional options
 set(EXECUTABLE_OUTPUT_PATH "bin")
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# Project setting
 project(
   ZERO
   VERSION 1.0.0
   LANGUAGES CXX
   DESCRIPTION "ZERO is a multi-purpose game solver")
+set(ZERO_AUTHORS "Gabriele Dragotto, Sriram Sankaranarayanan")
 
-include_directories(${ARMA_PATH}/include)
-
+# CMake modules
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+
+# ##############################################################################
+# CUSTOM HINTS AND CONFIGURATIONS
+# ##############################################################################
 
 set(GUROBI_DIR "/home/gurobi/9.0.0/linux64" "/Library/gurobi900/mac64"
                "C:\\dev\\gurobi900\\win64")
-find_package(GUROBI REQUIRED)
+if(ROSSOBIANCO)
+  # REMOTE CONFIGURATION for remote development
+  set(BOOST_ROOT "/home/x86_64-unknown-linux_ol7-gnu/boost-1.70.0")
+  set(ARMA_PATH "/home/draggabr/.local/armadillo")
+  set(ARMA_LIB "${ARMA_PATH}/lib64/libarmadillo.so")
+else()
+  # Local dev
+  set(BOOST_ROOT "/usr/local/boost-1.70.0/")
+  set(ARMA_PATH "/usr/local")
+  set(ARMA_LIB "/usr/local/lib/libarmadillo.dylib")
+endif()
+
+# ##############################################################################
+# ##############################################################################
 
 set(Boost_USE_MULTITHREADED TRUE)
 find_package(Boost 1.70.0 REQUIRED COMPONENTS program_options
                                               unit_test_framework log log_setup)
-
 configure_file(src/support/CMakeConfig.h.in include/support/version.h)
 
-# ZERO - Main library
+# ##############################################################################
+# ZERO - MAIN LIBRARY
+# ##############################################################################
 add_library(
   ZERO
   src/support/utils.cpp
@@ -77,25 +81,52 @@ target_include_directories(
   ZERO
   PUBLIC ${GUROBI_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/include
          ${CMAKE_CURRENT_SOURCE_DIR}/lib ${Boost_INCLUDE_DIR}
+         ${ARMA_PATH}/include
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+# ##############################################################################
+# ##############################################################################
 
+# ##############################################################################
+# ZERO - DOCS Compiled only for local dev
+# ##############################################################################
+if(NOT DEFINED ROSSOBIANCO)
+  add_subdirectory("docs")
+endif()
+# ##############################################################################
+# ##############################################################################
+
+# ##############################################################################
+# ZERO - EPEC EXAMPLES
+# ##############################################################################
 # Examples add_executable(EPECExample examples/example.cpp)
 # target_link_libraries(EPECExample EPECSolve)
+# ##############################################################################
+# ##############################################################################
 
-# EPEC Command line interface
+# ##############################################################################
+# ZERO - EPEC COMMAND LINE
+# ##############################################################################
 add_executable(EPECShell src/shells/epec.cpp)
 target_link_libraries(EPECShell Boost::program_options ZERO)
 set_target_properties(
   EPECShell
   PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
              VISIBILITY_INLINES_HIDDEN ON)
+# ##############################################################################
+# ##############################################################################
 
-# EPEC Tests
+# ##############################################################################
+# ZERO - EPEC TESTS
+# ##############################################################################
 add_executable(EPECTests test/EPEC/EPEC_test.cpp)
 target_include_directories(EPECTests PRIVATE test)
 target_link_libraries(EPECTests ZERO Boost::unit_test_framework)
+# ##############################################################################
+# ##############################################################################
 
-message("\n\nZERO cMake configuration terminated:")
+message("\n\nZERO Configuration:")
+message("\tVersion: ${PROJECT_NAME}-${PROJECT_VERSION}")
+message("\tCopyright: ${ZERO_AUTHORS}\n\n")
 message("\tWorking directory: ${CMAKE_CURRENT_SOURCE_DIR}")
 message("\tArmadillo (lib) : ${ARMA_PATH}/include")
 message("\tArmadillo (include) : ${ARMA_LIB}")
@@ -103,4 +134,3 @@ message("\tGurobi (lib) : ${GUROBI_LIBRARY} ${GUROBI_CXX_LIBRARY}")
 message("\tGurobi (include) : ${GUROBI_INCLUDE_DIRS}")
 message("\tBoost (include) : ${Boost_INCLUDE_DIR} ")
 message("\tBoost (lib) : ${Boost_LIBRARIES}")
-# ##############################################################################

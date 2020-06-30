@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>QP_Param Example &mdash; ZERO 1.0.0 documentation</title>
+  <title>QP_Param Example &mdash; Python 1.0.0 documentation</title>
   
 
   
@@ -65,6 +65,10 @@
 
           
             
+            
+              <div class="version">
+                1.0.0
+              </div>
             
           
 
@@ -141,8 +145,6 @@
 <li class="toctree-l5"><a class="reference internal" href="../api/namespace_Algorithms__IPG.html#classes">Classes</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="../api/namespace_arma.html">Namespace arma</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/namespace_boost__program_options.html">Namespace boost::program_options</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/namespace_Data.html">Namespace Data</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../api/namespace_Data.html#namespaces">Namespaces</a></li>
 </ul>
@@ -169,7 +171,6 @@
 <li class="toctree-l5"><a class="reference internal" href="../api/namespace_Models.html#typedefs">Typedefs</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="../api/namespace_rapidjson.html">Namespace rapidjson</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/namespace_std.html">Namespace std</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../api/namespace_std.html#functions">Functions</a></li>
 </ul>
@@ -697,7 +698,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ZERO</a>
+          <a href="../index.html">Python</a>
         
       </nav>
 
@@ -757,26 +758,24 @@
 <div class="section" id="modeling-the-problem">
 <h2>Modeling the problem<a class="headerlink" href="#modeling-the-problem" title="Permalink to this headline">¶</a></h2>
 <p>This data can be entered as follows. Assume there are lines</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span>using namespace arma;
-@endcode
-somewhere earlier. Now, within some function, we have
-@code
-       unsigned int Nx = 2, Ny = 3, Ncons = 2;
-       mat Qd(3, 3);                                   // Easier to create a dense matrix for this problem
-       Qd &lt;&lt; 1 &lt;&lt; 1 &lt;&lt; -2 &lt;&lt; endr              // And convert that to a sparse matrix.
-          &lt;&lt; 1 &lt;&lt; 1 &lt;&lt; -2 &lt;&lt; endr
-          &lt;&lt; -2 &lt;&lt; -2 &lt;&lt; 4 &lt;&lt; endr;
-       sp_mat Q = sp_mat(2 * Qd);              // The matrix for y^2 terms
-       sp_mat C(3, 2);                                 // The matrix for x and y interaction
-       C.zeros(); C(0, 0) = 2; C(0, 1) = 2; C(2, 0) = 3; vec c(3);
-               // The vector for linear terms in y c &lt;&lt; 1 &lt;&lt; endr &lt;&lt; -1 &lt;&lt; endr &lt;&lt; 1 &lt;&lt; endr;
-       sp_mat A(2, 2);                                 // Constraint matrix for x terms
-       A.zeros(); A(1, 0) = -1; A(1, 1) = -1; mat Bd(2, 3); Bd &lt;&lt; 1 &lt;&lt; 1 &lt;&lt; 1 &lt;&lt; endr &lt;&lt; -1 &lt;&lt; 1 &lt;&lt; -2 &lt;&lt; endr;
-       sp_mat B = sp_mat(Bd);                  // Constraint matrix for y terms
-       vec b(2);
-       b(0) = 10;
-       b(1) = -1;
-       GRBEnv env = GRBEnv();          // Now create Gurobi environment to handle any solving related calls.
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">using</span> <span class="n">namespace</span> <span class="n">arma</span><span class="p">;</span>
+<span class="n">somewhere</span> <span class="n">earlier</span><span class="p">.</span> <span class="n">Now</span><span class="p">,</span> <span class="n">within</span> <span class="n">some</span> <span class="n">function</span><span class="p">,</span> <span class="n">we</span> <span class="n">have</span>
+       <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">Nx</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Ny</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">Ncons</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+       <span class="n">mat</span> <span class="nf">Qd</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>                                   <span class="c1">// Easier to create a dense matrix for this problem</span>
+       <span class="n">Qd</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="o">-</span><span class="mi">2</span> <span class="o">&lt;&lt;</span> <span class="n">endr</span>              <span class="c1">// And convert that to a sparse matrix.</span>
+          <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="o">-</span><span class="mi">2</span> <span class="o">&lt;&lt;</span> <span class="n">endr</span>
+          <span class="o">&lt;&lt;</span> <span class="o">-</span><span class="mi">2</span> <span class="o">&lt;&lt;</span> <span class="o">-</span><span class="mi">2</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span> <span class="o">&lt;&lt;</span> <span class="n">endr</span><span class="p">;</span>
+       <span class="n">sp_mat</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">sp_mat</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">Qd</span><span class="p">);</span>              <span class="c1">// The matrix for y^2 terms</span>
+       <span class="n">sp_mat</span> <span class="nf">C</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>                                 <span class="c1">// The matrix for x and y interaction</span>
+       <span class="n">C</span><span class="p">.</span><span class="n">zeros</span><span class="p">();</span> <span class="n">C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">C</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">vec</span> <span class="nf">c</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+               <span class="c1">// The vector for linear terms in y c &lt;&lt; 1 &lt;&lt; endr &lt;&lt; -1 &lt;&lt; endr &lt;&lt; 1 &lt;&lt; endr;</span>
+       <span class="n">sp_mat</span> <span class="nf">A</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>                                 <span class="c1">// Constraint matrix for x terms</span>
+       <span class="n">A</span><span class="p">.</span><span class="n">zeros</span><span class="p">();</span> <span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">mat</span> <span class="nf">Bd</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span> <span class="n">Bd</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">endr</span> <span class="o">&lt;&lt;</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="o">-</span><span class="mi">2</span> <span class="o">&lt;&lt;</span> <span class="n">endr</span><span class="p">;</span>
+       <span class="n">sp_mat</span> <span class="n">B</span> <span class="o">=</span> <span class="n">sp_mat</span><span class="p">(</span><span class="n">Bd</span><span class="p">);</span>                  <span class="c1">// Constraint matrix for y terms</span>
+       <span class="n">vec</span> <span class="nf">b</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+       <span class="n">b</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+       <span class="n">b</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+       <span class="n">GRBEnv</span> <span class="n">env</span> <span class="o">=</span> <span class="n">GRBEnv</span><span class="p">();</span>          <span class="c1">// Now create Gurobi environment to handle any solving related calls.</span>
 </pre></div>
 </div>
 <p>Now the required object can be constructed in multiple ways.</p>
@@ -852,7 +851,7 @@ somewhere earlier. Now, within some function, we have
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, GD and SS
+        &copy; Copyright Gabriele Dragotto, Sriram Sankaranarayanan
 
     </p>
   </div>

@@ -1,0 +1,13 @@
+.. _exhale_typedef_zero_8h_1ad87785d9eb3e6e48c0895b348f6660ca:
+
+Typedef perps
+=============
+
+- Defined in :ref:`file_include_zero.h`
+
+
+Typedef Documentation
+---------------------
+
+
+.. doxygentypedef:: perps

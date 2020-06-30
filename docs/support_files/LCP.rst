@@ -1,17 +1,18 @@
 LCP Example
-*********
+***************
 
  Before reading this page, please ensure you are aware of the functionalities
  described in @link NashGame_Example Game::NashGame tutorial @endlink before
  following this page.
 
- Consider the Following linear complementarity problem with constraints 
+ Consider the Following linear complementarity problem with constraints
+
 .. math::
 
   Ax + By \leq b
 
   0 \leq x \perp Mx + Ny + q \geq 0`
- 
+
 
 These are the types of problems that are handled by the class :py:func:`Game::LCP`, but we use a different notation. Instead of using ``y`` to refer to the variables that don't have matching complementary equations, we call *all* the variables as ``x`` and we keep track of the position of variables which are not complementary to any equation.
 
@@ -21,9 +22,9 @@ These are the types of problems that are handled by the class :py:func:`Game::LC
 
 - Suppose the leader vars components of ``x`` are removed from ``x``, in the remaining components, the first component should be complementary to the first row defined by @p M, second component should be complementary to the second row defined by ``M`` and so on.
 
-==========
+====================================
 Modeling the problem
-==========
+====================================
 
 Now consider the following linear complementarity problem.
 
@@ -115,9 +116,9 @@ This LCP as multiple solutions. In fact the solution set can be parameterized as
  
  \text{for}\;\; t \in [0, 1]
  
-==========
+====================================
 Utilities
-==========
+====================================
 
 However, sometimes one might want to solve an MPEC. i.e., optimize over the feasible region of the set as decribed above. For this purpose, two functions :py:func:`Game::LCP::MPECasMILP` and :py:func:`Game::LCP::MPECasMIQP` are available, depending upon whether one wants to optimize a linear objective function or a convex quadratic
 objective function over the set of solutions.

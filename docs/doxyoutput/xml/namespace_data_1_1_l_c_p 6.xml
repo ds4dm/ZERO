@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="namespace_data_1_1_l_c_p" kind="namespace" language="C++">
+    <compoundname>Data::LCP</compoundname>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="namespace_data_1_1_l_c_p_1aa8773225c810ac45575f86ac803105ab" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>PolyhedraStrategy</name>
+        <enumvalue id="namespace_data_1_1_l_c_p_1aa8773225c810ac45575f86ac803105abaa7e82daa7280af25afbaa076ac16eb1e" prot="public">
+          <name>Sequential</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>When expanding the feasible region of an approximated <ref refid="namespace_data_1_1_l_c_p" kindref="compound">LCP</ref>, this enum controls the strategy being used. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>Adds polyhedra by selecting them in order </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_data_1_1_l_c_p_1aa8773225c810ac45575f86ac803105abaf2525e098bf0c19adae45840e26bfd1a" prot="public">
+          <name>ReverseSequential</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Sequential order. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>Adds polyhedra by selecting them in reverse </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_data_1_1_l_c_p_1aa8773225c810ac45575f86ac803105aba64663f4646781c9c0110838b905daa23" prot="public">
+          <name>Random</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Adds the next polyhedron by selecting Random feasible one. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lcp/lcp.h" line="17" column="29" bodyfile="include/lcp/lcp.h" bodystart="17" bodyend="25"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/lcp/lcp.h" line="15" column="13"/>
+  </compounddef>
+</doxygen>

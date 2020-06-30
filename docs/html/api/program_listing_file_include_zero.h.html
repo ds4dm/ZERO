@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Program Listing for File zero.h &mdash; ZERO 1.0.0 documentation</title>
+  <title>Program Listing for File zero.h &mdash; Python 1.0.0 documentation</title>
   
 
   
@@ -63,6 +63,10 @@
 
           
             
+            
+              <div class="version">
+                1.0.0
+              </div>
             
           
 
@@ -139,8 +143,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Algorithms__IPG.html#classes">Classes</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_arma.html">Namespace arma</a></li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_boost__program_options.html">Namespace boost::program_options</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_Data.html">Namespace Data</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_Data.html#namespaces">Namespaces</a></li>
 </ul>
@@ -167,7 +169,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_rapidjson.html">Namespace rapidjson</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_std.html">Namespace std</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_std.html#functions">Functions</a></li>
 </ul>
@@ -695,7 +696,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ZERO</a>
+          <a href="../index.html">Python</a>
         
       </nav>
 
@@ -762,54 +763,52 @@
 <span class="cp">#include</span> <span class="cpf">&quot;support/version.h&quot;</span><span class="cp"></span>
 
 <span class="k">using</span> <span class="n">perps</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;&gt;</span><span class="p">;</span>
-<span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">ost</span><span class="p">,</span> <span class="n">perps</span> <span class="n">C</span><span class="p">);</span>
-<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-<span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">ost</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">);</span>
-<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">S</span><span class="o">&gt;</span>
-<span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">ost</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">S</span><span class="o">&gt;</span> <span class="n">p</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span>                            <span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">ost</span><span class="p">,</span> <span class="n">perps</span> <span class="n">C</span><span class="p">);</span>
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span>         <span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">ost</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">);</span>
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">S</span><span class="o">&gt;</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">ost</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">S</span><span class="o">&gt;</span> <span class="n">p</span><span class="p">);</span>
 <span class="k">using</span> <span class="n">spmat_Vec</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="o">&gt;&gt;</span><span class="p">;</span>
-<span class="k">using</span> <span class="n">vec_Vec</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">vec_Vec</span>   <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;&gt;</span><span class="p">;</span>
 
 <span class="c1">// Forward declarations</span>
 <span class="k">class</span> <span class="nc">ZEROException</span><span class="p">;</span>
 <span class="k">enum</span> <span class="k">class</span> <span class="nc">ZEROErrorCode</span><span class="p">;</span>
 
 <span class="k">namespace</span> <span class="n">Game</span> <span class="p">{</span>
-<span class="k">struct</span> <span class="n">QP_Objective</span><span class="p">;</span>
-<span class="k">struct</span> <span class="n">QP_Constraints</span><span class="p">;</span>
-<span class="k">class</span> <span class="nc">MP_Param</span><span class="p">;</span>
-<span class="k">class</span> <span class="nc">QP_Param</span><span class="p">;</span>
-<span class="k">class</span> <span class="nc">IP_Param</span><span class="p">;</span>
-<span class="k">class</span> <span class="nc">NashGame</span><span class="p">;</span>
-<span class="k">class</span> <span class="nc">LCP</span><span class="p">;</span>
-<span class="k">class</span> <span class="nc">PolyLCP</span><span class="p">;</span>
-<span class="k">class</span> <span class="nc">OuterLCP</span><span class="p">;</span>
-<span class="k">class</span> <span class="nc">EPEC</span><span class="p">;</span>
-<span class="k">class</span> <span class="nc">IPG</span><span class="p">;</span>
+  <span class="k">struct</span> <span class="n">QP_Objective</span><span class="p">;</span>
+  <span class="k">struct</span> <span class="n">QP_Constraints</span><span class="p">;</span>
+  <span class="k">class</span> <span class="nc">MP_Param</span><span class="p">;</span>
+  <span class="k">class</span> <span class="nc">QP_Param</span><span class="p">;</span>
+  <span class="k">class</span> <span class="nc">IP_Param</span><span class="p">;</span>
+  <span class="k">class</span> <span class="nc">NashGame</span><span class="p">;</span>
+  <span class="k">class</span> <span class="nc">LCP</span><span class="p">;</span>
+  <span class="k">class</span> <span class="nc">PolyLCP</span><span class="p">;</span>
+  <span class="k">class</span> <span class="nc">OuterLCP</span><span class="p">;</span>
+  <span class="k">class</span> <span class="nc">EPEC</span><span class="p">;</span>
+  <span class="k">class</span> <span class="nc">IPG</span><span class="p">;</span>
 <span class="p">}</span> <span class="c1">// namespace Game</span>
 <span class="k">namespace</span> <span class="n">Algorithms</span> <span class="p">{</span>
-<span class="k">class</span> <span class="nc">AbstractAlgorithm</span><span class="p">;</span>
-<span class="k">namespace</span> <span class="n">EPEC</span> <span class="p">{</span>
-<span class="k">class</span> <span class="nc">Algorithm</span><span class="p">;</span>
-<span class="k">class</span> <span class="nc">PolyBase</span><span class="p">;</span>
-<span class="k">class</span> <span class="nc">FullEnumeration</span><span class="p">;</span>
-<span class="k">class</span> <span class="nc">InnerApproximation</span><span class="p">;</span>
-<span class="k">class</span> <span class="nc">CombinatorialPNE</span><span class="p">;</span>
-<span class="k">class</span> <span class="nc">OuterApproximation</span><span class="p">;</span>
-<span class="p">}</span> <span class="c1">// namespace EPEC</span>
-<span class="k">namespace</span> <span class="n">IPG</span> <span class="p">{</span>
-<span class="k">class</span> <span class="nc">Oracle</span><span class="p">;</span>
-<span class="p">}</span> <span class="c1">// namespace IPG</span>
+  <span class="k">class</span> <span class="nc">AbstractAlgorithm</span><span class="p">;</span>
+  <span class="k">namespace</span> <span class="n">EPEC</span> <span class="p">{</span>
+     <span class="k">class</span> <span class="nc">Algorithm</span><span class="p">;</span>
+     <span class="k">class</span> <span class="nc">PolyBase</span><span class="p">;</span>
+     <span class="k">class</span> <span class="nc">FullEnumeration</span><span class="p">;</span>
+     <span class="k">class</span> <span class="nc">InnerApproximation</span><span class="p">;</span>
+     <span class="k">class</span> <span class="nc">CombinatorialPNE</span><span class="p">;</span>
+     <span class="k">class</span> <span class="nc">OuterApproximation</span><span class="p">;</span>
+  <span class="p">}</span> <span class="c1">// namespace EPEC</span>
+  <span class="k">namespace</span> <span class="n">IPG</span> <span class="p">{</span>
+     <span class="k">class</span> <span class="nc">Oracle</span><span class="p">;</span>
+  <span class="p">}</span> <span class="c1">// namespace IPG</span>
 <span class="p">}</span> <span class="c1">// namespace Algorithms</span>
 
 <span class="k">class</span> <span class="nc">ZEROAlgorithmData</span><span class="p">;</span>
 <span class="k">namespace</span> <span class="n">Data</span> <span class="p">{</span>
-<span class="k">namespace</span> <span class="n">EPEC</span> <span class="p">{</span>
-<span class="k">class</span> <span class="nc">DataObject</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">namespace</span> <span class="n">LCP</span> <span class="p">{</span>
-<span class="k">enum</span> <span class="k">class</span> <span class="nc">PolyhedraStrategy</span><span class="p">;</span>
-<span class="p">}</span>
+  <span class="k">namespace</span> <span class="n">EPEC</span> <span class="p">{</span>
+     <span class="k">class</span> <span class="nc">DataObject</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">namespace</span> <span class="n">LCP</span> <span class="p">{</span>
+     <span class="k">enum</span> <span class="k">class</span> <span class="nc">PolyhedraStrategy</span><span class="p">;</span>
+  <span class="p">}</span>
 
 <span class="p">}</span> <span class="c1">// namespace Data</span>
 <span class="cp">#include</span> <span class="cpf">&quot;games/EPEC_test.h&quot;</span><span class="cp"></span>
@@ -832,7 +831,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, GD and SS
+        &copy; Copyright Gabriele Dragotto, Sriram Sankaranarayanan
 
     </p>
   </div>

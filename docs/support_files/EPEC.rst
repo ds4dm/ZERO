@@ -1,13 +1,13 @@
 EPEC Example
-*********
+***************
 Consider the following problem: The first player is the **u-v** player, where the
 leader's decision variables are :math:`u` and the follower's decision variables
 are :math:`v`. The second player is the **x-y** player where the leader's and the
 follower's variables are :math:`x` and :math:`y` respectively.
 
-==========
+====================================
 u-v player
-==========
+====================================
 The u-v player's optimization problem is given below
 
 .. math::
@@ -21,9 +21,9 @@ The u-v player's optimization problem is given below
   \;\;\;\; \;\;\;\; v \quad&\in\quad \arg \min _v \left \{ -v_1+v_2 : v \ge 0; 2v_1+v_2 \leq u; v_1 -2v_2 \leq -u \right \}
 
 
-==========
+====================================
 x-y player
-==========
+====================================
 On a similar note, the optimization problem of the x-y player is given as
 follows.
 
@@ -41,15 +41,15 @@ follows.
 
 
 
-==========
+====================================
 Nash Equilibrium
-==========
+====================================
 The problem has a pure-strategy Nash equilibrium given by
 :math:`(u, v_1, v_2) = (2.78, 0.56, 1.67)`, and :math:`(x, y_1, y_2) = (1.67, 1.33, 0)`.
 
-==========
+====================================
 Modeling the problem
-==========
+====================================
 
 **Step 1** The first step in modeling a game between Stackelberg leaders is to include `epecsolve.h` and create a derived class of :py:class:`Game::EPEC`. The minimal constructor for :py:class:`Game::EPEC` involves passing a pointer to `GRBEnv` (Check Gurobi's C++ `reference manual <https://www.gurobi.com/documentation/8.1/refman/cpp_api_overview.html>`_
 ). The derived class should indeed instantiate the base class (Game::EPEC) using such a constructor. The code below, achieves it.

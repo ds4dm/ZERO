@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Program Listing for File qpmp.h &mdash; ZERO 1.0.0 documentation</title>
+  <title>Program Listing for File qpmp.h &mdash; Python 1.0.0 documentation</title>
   
 
   
@@ -63,6 +63,10 @@
 
           
             
+            
+              <div class="version">
+                1.0.0
+              </div>
             
           
 
@@ -139,8 +143,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Algorithms__IPG.html#classes">Classes</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_arma.html">Namespace arma</a></li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_boost__program_options.html">Namespace boost::program_options</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_Data.html">Namespace Data</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_Data.html#namespaces">Namespaces</a></li>
 </ul>
@@ -167,7 +169,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_rapidjson.html">Namespace rapidjson</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_std.html">Namespace std</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_std.html#functions">Functions</a></li>
 </ul>
@@ -695,7 +696,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ZERO</a>
+          <a href="../index.html">Python</a>
         
       </nav>
 
@@ -758,176 +759,174 @@
 <span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
 
 <span class="k">namespace</span> <span class="n">Game</span> <span class="p">{</span>
-<span class="k">class</span> <span class="nc">MP_Param</span> <span class="p">{</span>
-<span class="k">protected</span><span class="o">:</span>
-  <span class="c1">// Data representing the parameterized QP</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">Q</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">;</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">c</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
-  <span class="c1">// Object for sizes and integrity check</span>
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">Nx</span><span class="p">,</span> <span class="n">Ny</span><span class="p">,</span> <span class="n">Ncons</span><span class="p">;</span>
+  <span class="k">class</span> <span class="nc">MP_Param</span> <span class="p">{</span>
+  <span class="k">protected</span><span class="o">:</span>
+     <span class="c1">// Data representing the parameterized QP</span>
+     <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">Q</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">;</span>
+     <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>    <span class="n">c</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+     <span class="c1">// Object for sizes and integrity check</span>
+     <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">Nx</span><span class="p">,</span> <span class="n">Ny</span><span class="p">,</span> <span class="n">Ncons</span><span class="p">;</span>
 
-  <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">size</span><span class="p">();</span>
+     <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">size</span><span class="p">();</span>
 
-  <span class="kt">bool</span> <span class="nf">dataCheck</span><span class="p">(</span><span class="kt">bool</span> <span class="n">forceSymmetry</span> <span class="o">=</span> <span class="nb">true</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+     <span class="kt">bool</span> <span class="nf">dataCheck</span><span class="p">(</span><span class="kt">bool</span> <span class="n">forceSymmetry</span> <span class="o">=</span> <span class="nb">true</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 
-  <span class="k">virtual</span> <span class="kr">inline</span> <span class="kt">bool</span> <span class="nf">finalize</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
-    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">dataCheck</span><span class="p">();</span>
-  <span class="p">}</span>
+     <span class="k">virtual</span> <span class="kr">inline</span> <span class="kt">bool</span> <span class="nf">finalize</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">dataCheck</span><span class="p">();</span>
+     <span class="p">}</span>
 
-<span class="k">public</span><span class="o">:</span>
-  <span class="c1">// Default constructors</span>
-  <span class="n">MP_Param</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+  <span class="k">public</span><span class="o">:</span>
+     <span class="c1">// Default constructors</span>
+     <span class="n">MP_Param</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
 
-  <span class="n">MP_Param</span><span class="p">(</span><span class="k">const</span> <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">M</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+     <span class="n">MP_Param</span><span class="p">(</span><span class="k">const</span> <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">M</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
 
-  <span class="c1">// Getters and setters</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">getQ</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Q</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">getC</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">C</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">getA</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">A</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">getB</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">B</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">getc</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">c</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">getb</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">b</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getNx</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Nx</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getNy</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Ny</span><span class="p">;</span>
-  <span class="p">}</span>
+     <span class="c1">// Getters and setters</span>
+     <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">getQ</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Q</span><span class="p">;</span> <span class="p">}</span>
+     <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">getC</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">C</span><span class="p">;</span> <span class="p">}</span>
+     <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">getA</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">A</span><span class="p">;</span> <span class="p">}</span>
+     <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">getB</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">B</span><span class="p">;</span> <span class="p">}</span>
+     <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>    <span class="n">getc</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">c</span><span class="p">;</span> <span class="p">}</span>
+     <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>    <span class="n">getb</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">b</span><span class="p">;</span> <span class="p">}</span>
+     <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getNx</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Nx</span><span class="p">;</span> <span class="p">}</span>
+     <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getNy</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Ny</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">setQ</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">Q</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Q</span> <span class="o">=</span> <span class="n">Q</span><span class="p">;</span>
-    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">setC</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">C</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">C</span> <span class="o">=</span> <span class="n">C</span><span class="p">;</span>
-    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">setA</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">A</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="p">;</span>
-    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">setB</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">B</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">B</span> <span class="o">=</span> <span class="n">B</span><span class="p">;</span>
-    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">setc</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
-    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">setb</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
-    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
-  <span class="p">}</span>
+     <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">setQ</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">Q</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">Q</span> <span class="o">=</span> <span class="n">Q</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+     <span class="p">}</span>
+     <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">setC</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">C</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">C</span> <span class="o">=</span> <span class="n">C</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+     <span class="p">}</span>
+     <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">setA</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">A</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+     <span class="p">}</span>
+     <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">setB</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">B</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">B</span> <span class="o">=</span> <span class="n">B</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+     <span class="p">}</span>
+     <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">setc</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+     <span class="p">}</span>
+     <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">setb</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+     <span class="p">}</span>
 
-  <span class="c1">// Setters and advanced constructors</span>
-  <span class="k">virtual</span> <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">Q</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">C</span><span class="p">,</span>
-                        <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">A</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">B</span><span class="p">,</span>
-                        <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">,</span>
-                        <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">);</span> <span class="c1">// Copy data into this</span>
-  <span class="k">virtual</span> <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;&amp;</span><span class="n">Q</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;&amp;</span><span class="n">C</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;&amp;</span><span class="n">A</span><span class="p">,</span>
-                        <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;&amp;</span><span class="n">B</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;&amp;</span><span class="n">c</span><span class="p">,</span>
-                        <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;&amp;</span><span class="n">b</span><span class="p">);</span> <span class="c1">// Move data into this</span>
-  <span class="k">virtual</span> <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="k">const</span> <span class="n">QP_Objective</span> <span class="o">&amp;</span><span class="n">obj</span><span class="p">,</span> <span class="k">const</span> <span class="n">QP_Constraints</span> <span class="o">&amp;</span><span class="n">cons</span><span class="p">);</span>
+     <span class="c1">// Setters and advanced constructors</span>
+     <span class="k">virtual</span> <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">Q</span><span class="p">,</span>
+                                  <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">C</span><span class="p">,</span>
+                                  <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">A</span><span class="p">,</span>
+                                  <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">B</span><span class="p">,</span>
+                                  <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span>   <span class="n">c</span><span class="p">,</span>
+                                  <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span>   <span class="n">b</span><span class="p">);</span> <span class="c1">// Copy data into this</span>
+     <span class="k">virtual</span> <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;&amp;</span><span class="n">Q</span><span class="p">,</span>
+                                  <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;&amp;</span><span class="n">C</span><span class="p">,</span>
+                                  <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;&amp;</span><span class="n">A</span><span class="p">,</span>
+                                  <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;&amp;</span><span class="n">B</span><span class="p">,</span>
+                                  <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;&amp;</span>   <span class="n">c</span><span class="p">,</span>
+                                  <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;&amp;</span>   <span class="n">b</span><span class="p">);</span> <span class="c1">// Move data into this</span>
+     <span class="k">virtual</span> <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="k">const</span> <span class="n">QP_Objective</span> <span class="o">&amp;</span><span class="n">obj</span><span class="p">,</span> <span class="k">const</span> <span class="n">QP_Constraints</span> <span class="o">&amp;</span><span class="n">cons</span><span class="p">);</span>
 
-  <span class="k">virtual</span> <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="n">QP_Objective</span> <span class="o">&amp;&amp;</span><span class="n">obj</span><span class="p">,</span> <span class="n">QP_Constraints</span> <span class="o">&amp;&amp;</span><span class="n">cons</span><span class="p">);</span>
+     <span class="k">virtual</span> <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="n">QP_Objective</span> <span class="o">&amp;&amp;</span><span class="n">obj</span><span class="p">,</span> <span class="n">QP_Constraints</span> <span class="o">&amp;&amp;</span><span class="n">cons</span><span class="p">);</span>
 
-  <span class="k">virtual</span> <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">addDummy</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">pars</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">vars</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-                             <span class="kt">int</span> <span class="n">position</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+     <span class="k">virtual</span> <span class="n">MP_Param</span> <span class="o">&amp;</span><span class="n">addDummy</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">pars</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">vars</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="kt">int</span> <span class="n">position</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
 
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">write</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">filename</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">append</span> <span class="o">=</span> <span class="nb">true</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+     <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">write</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">filename</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">append</span> <span class="o">=</span> <span class="nb">true</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 
-  <span class="k">static</span> <span class="kt">bool</span> <span class="nf">dataCheck</span><span class="p">(</span><span class="k">const</span> <span class="n">QP_Objective</span> <span class="o">&amp;</span><span class="n">obj</span><span class="p">,</span> <span class="k">const</span> <span class="n">QP_Constraints</span> <span class="o">&amp;</span><span class="n">cons</span><span class="p">,</span>
-                        <span class="kt">bool</span> <span class="n">checkObj</span> <span class="o">=</span> <span class="nb">true</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">checkCons</span> <span class="o">=</span> <span class="nb">true</span><span class="p">);</span>
-<span class="p">};</span>
-
-<span class="k">class</span> <span class="nc">QP_Param</span> <span class="o">:</span> <span class="k">public</span> <span class="n">MP_Param</span>
-<span class="c1">// Shape of C is Ny\times Nx</span>
-<span class="p">{</span>
-<span class="k">private</span><span class="o">:</span>
-  <span class="c1">// Gurobi environment and model</span>
-  <span class="n">GRBEnv</span> <span class="o">*</span><span class="n">Env</span><span class="p">;</span>
-  <span class="n">GRBModel</span> <span class="n">QuadModel</span><span class="p">;</span>
-  <span class="kt">bool</span> <span class="n">madeyQy</span><span class="p">;</span>
-
-  <span class="kt">int</span> <span class="nf">makeyQy</span><span class="p">();</span>
-
-<span class="k">public</span><span class="o">:</span> <span class="c1">// Constructors</span>
-  <span class="k">explicit</span> <span class="n">QP_Param</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">)</span>
-      <span class="o">:</span> <span class="n">Env</span><span class="p">{</span><span class="n">env</span><span class="p">},</span> <span class="n">QuadModel</span><span class="p">{(</span><span class="o">*</span><span class="n">env</span><span class="p">)},</span> <span class="n">madeyQy</span><span class="p">{</span><span class="nb">false</span><span class="p">}</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
-  <span class="p">}</span>
-
-  <span class="n">QP_Param</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">Q</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">C</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">A</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">B</span><span class="p">,</span>
-           <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">c</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">b</span><span class="p">,</span> <span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">)</span>
-      <span class="o">:</span> <span class="n">Env</span><span class="p">{</span><span class="n">env</span><span class="p">},</span> <span class="n">QuadModel</span><span class="p">{(</span><span class="o">*</span><span class="n">env</span><span class="p">)},</span> <span class="n">madeyQy</span><span class="p">{</span><span class="nb">false</span><span class="p">}</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">set</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">dataCheck</span><span class="p">())</span>
-      <span class="k">throw</span> <span class="n">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">InvalidData</span><span class="p">,</span> <span class="s">&quot;dataCheck() failed&quot;</span><span class="p">);</span>
-  <span class="p">}</span>
-
-  <span class="n">QP_Param</span><span class="p">(</span><span class="k">const</span> <span class="n">QP_Param</span> <span class="o">&amp;</span><span class="n">Qu</span><span class="p">)</span>
-      <span class="o">:</span> <span class="n">MP_Param</span><span class="p">(</span><span class="n">Qu</span><span class="p">),</span> <span class="n">Env</span><span class="p">{</span><span class="n">Qu</span><span class="p">.</span><span class="n">Env</span><span class="p">},</span> <span class="n">QuadModel</span><span class="p">{</span><span class="n">Qu</span><span class="p">.</span><span class="n">QuadModel</span><span class="p">},</span> <span class="n">madeyQy</span><span class="p">{</span>
-                                                                <span class="n">Qu</span><span class="p">.</span><span class="n">madeyQy</span><span class="p">}</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
+     <span class="k">static</span> <span class="kt">bool</span> <span class="nf">dataCheck</span><span class="p">(</span><span class="k">const</span> <span class="n">QP_Objective</span> <span class="o">&amp;</span>  <span class="n">obj</span><span class="p">,</span>
+                                  <span class="k">const</span> <span class="n">QP_Constraints</span> <span class="o">&amp;</span><span class="n">cons</span><span class="p">,</span>
+                                  <span class="kt">bool</span>                  <span class="n">checkObj</span>  <span class="o">=</span> <span class="nb">true</span><span class="p">,</span>
+                                  <span class="kt">bool</span>                  <span class="n">checkCons</span> <span class="o">=</span> <span class="nb">true</span><span class="p">);</span>
   <span class="p">};</span>
 
-  <span class="c1">// Override setters</span>
-  <span class="n">QP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">Q</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">C</span><span class="p">,</span>
-                <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">A</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">B</span><span class="p">,</span>
-                <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">,</span>
-                <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="k">final</span><span class="p">;</span> <span class="c1">// Copy data into this</span>
-  <span class="n">QP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;&amp;</span><span class="n">Q</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;&amp;</span><span class="n">C</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;&amp;</span><span class="n">A</span><span class="p">,</span>
-                <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;&amp;</span><span class="n">B</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;&amp;</span><span class="n">c</span><span class="p">,</span>
-                <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;&amp;</span><span class="n">b</span><span class="p">)</span> <span class="k">final</span><span class="p">;</span> <span class="c1">// Move data into this</span>
-  <span class="n">QP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="k">const</span> <span class="n">QP_Objective</span> <span class="o">&amp;</span><span class="n">obj</span><span class="p">,</span> <span class="k">const</span> <span class="n">QP_Constraints</span> <span class="o">&amp;</span><span class="n">cons</span><span class="p">)</span> <span class="k">final</span><span class="p">;</span>
-
-  <span class="n">QP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="n">QP_Objective</span> <span class="o">&amp;&amp;</span><span class="n">obj</span><span class="p">,</span> <span class="n">QP_Constraints</span> <span class="o">&amp;&amp;</span><span class="n">cons</span><span class="p">)</span> <span class="k">final</span><span class="p">;</span>
-
-  <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span> <span class="n">QP_Param</span> <span class="o">&amp;</span><span class="n">Q2</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-
-  <span class="c1">// Other methods</span>
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">KKT</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">M</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">N</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">q</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-
-  <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">GRBModel</span><span class="o">&gt;</span> <span class="n">solveFixed</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">x</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">solve</span><span class="p">);</span>
-
-  <span class="kt">double</span> <span class="nf">computeObjective</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span>
-                          <span class="kt">bool</span> <span class="n">checkFeas</span> <span class="o">=</span> <span class="nb">true</span><span class="p">,</span> <span class="kt">double</span> <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-
-  <span class="kr">inline</span> <span class="kt">bool</span> <span class="nf">isPlayable</span><span class="p">(</span><span class="k">const</span> <span class="n">QP_Param</span> <span class="o">&amp;</span><span class="n">P</span><span class="p">)</span> <span class="k">const</span>
+  <span class="k">class</span> <span class="nc">QP_Param</span> <span class="o">:</span> <span class="k">public</span> <span class="n">MP_Param</span>
+  <span class="c1">// Shape of C is Ny\times Nx</span>
   <span class="p">{</span>
-    <span class="kt">bool</span> <span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">,</span> <span class="n">b3</span><span class="p">;</span>
-    <span class="n">b1</span> <span class="o">=</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Nx</span> <span class="o">+</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Ny</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="n">P</span><span class="p">.</span><span class="n">getNx</span><span class="p">()</span> <span class="o">+</span> <span class="n">P</span><span class="p">.</span><span class="n">getNy</span><span class="p">());</span>
-    <span class="n">b2</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Nx</span> <span class="o">&gt;=</span> <span class="n">P</span><span class="p">.</span><span class="n">getNy</span><span class="p">();</span>
-    <span class="n">b3</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Ny</span> <span class="o">&lt;=</span> <span class="n">P</span><span class="p">.</span><span class="n">getNx</span><span class="p">();</span>
-    <span class="k">return</span> <span class="n">b1</span> <span class="o">&amp;&amp;</span> <span class="n">b2</span> <span class="o">&amp;&amp;</span> <span class="n">b3</span><span class="p">;</span>
-  <span class="p">}</span>
+  <span class="k">private</span><span class="o">:</span>
+     <span class="c1">// Gurobi environment and model</span>
+     <span class="n">GRBEnv</span> <span class="o">*</span> <span class="n">Env</span><span class="p">;</span>
+     <span class="n">GRBModel</span> <span class="n">QuadModel</span><span class="p">;</span>
+     <span class="kt">bool</span>     <span class="n">madeyQy</span><span class="p">;</span>
 
-  <span class="n">QP_Param</span> <span class="o">&amp;</span><span class="n">addDummy</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">pars</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">vars</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-                     <span class="kt">int</span> <span class="n">position</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
+     <span class="kt">int</span> <span class="nf">makeyQy</span><span class="p">();</span>
 
-  <span class="kt">void</span> <span class="nf">write</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">filename</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">append</span><span class="p">)</span> <span class="k">const</span> <span class="k">override</span><span class="p">;</span>
+  <span class="k">public</span><span class="o">:</span> <span class="c1">// Constructors</span>
+     <span class="k">explicit</span> <span class="n">QP_Param</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">)</span> <span class="o">:</span> <span class="n">Env</span><span class="p">{</span><span class="n">env</span><span class="p">},</span> <span class="n">QuadModel</span><span class="p">{(</span><span class="o">*</span><span class="n">env</span><span class="p">)},</span> <span class="n">madeyQy</span><span class="p">{</span><span class="nb">false</span><span class="p">}</span> <span class="p">{</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
+     <span class="p">}</span>
 
-  <span class="kt">void</span> <span class="nf">save</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">filename</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">erase</span> <span class="o">=</span> <span class="nb">true</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+     <span class="n">QP_Param</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">Q</span><span class="p">,</span>
+                 <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">C</span><span class="p">,</span>
+                 <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">A</span><span class="p">,</span>
+                 <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">B</span><span class="p">,</span>
+                 <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>    <span class="n">c</span><span class="p">,</span>
+                 <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>    <span class="n">b</span><span class="p">,</span>
+                 <span class="n">GRBEnv</span> <span class="o">*</span>     <span class="n">env</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">)</span>
+          <span class="o">:</span> <span class="n">Env</span><span class="p">{</span><span class="n">env</span><span class="p">},</span> <span class="n">QuadModel</span><span class="p">{(</span><span class="o">*</span><span class="n">env</span><span class="p">)},</span> <span class="n">madeyQy</span><span class="p">{</span><span class="nb">false</span><span class="p">}</span> <span class="p">{</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">set</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">dataCheck</span><span class="p">())</span>
+          <span class="k">throw</span> <span class="n">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">InvalidData</span><span class="p">,</span> <span class="s">&quot;dataCheck() failed&quot;</span><span class="p">);</span>
+     <span class="p">}</span>
 
-  <span class="kt">long</span> <span class="kt">int</span> <span class="nf">load</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">filename</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
-  <span class="kt">double</span> <span class="nf">computeObjectiveWithoutOthers</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">getConstraintViolations</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">x</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">y</span><span class="p">,</span>
-                                    <span class="kt">double</span> <span class="n">tol</span><span class="p">);</span>
-<span class="p">};</span>
+     <span class="n">QP_Param</span><span class="p">(</span><span class="k">const</span> <span class="n">QP_Param</span> <span class="o">&amp;</span><span class="n">Qu</span><span class="p">)</span>
+          <span class="o">:</span> <span class="n">MP_Param</span><span class="p">(</span><span class="n">Qu</span><span class="p">),</span> <span class="n">Env</span><span class="p">{</span><span class="n">Qu</span><span class="p">.</span><span class="n">Env</span><span class="p">},</span> <span class="n">QuadModel</span><span class="p">{</span><span class="n">Qu</span><span class="p">.</span><span class="n">QuadModel</span><span class="p">},</span> <span class="n">madeyQy</span><span class="p">{</span><span class="n">Qu</span><span class="p">.</span><span class="n">madeyQy</span><span class="p">}</span> <span class="p">{</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
+     <span class="p">};</span>
+
+     <span class="c1">// Override setters</span>
+     <span class="n">QP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">Q</span><span class="p">,</span>
+                        <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">C</span><span class="p">,</span>
+                        <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">A</span><span class="p">,</span>
+                        <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">B</span><span class="p">,</span>
+                        <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span>   <span class="n">c</span><span class="p">,</span>
+                        <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span>   <span class="n">b</span><span class="p">)</span> <span class="k">final</span><span class="p">;</span> <span class="c1">// Copy data into this</span>
+     <span class="n">QP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;&amp;</span><span class="n">Q</span><span class="p">,</span>
+                        <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;&amp;</span><span class="n">C</span><span class="p">,</span>
+                        <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;&amp;</span><span class="n">A</span><span class="p">,</span>
+                        <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;&amp;</span><span class="n">B</span><span class="p">,</span>
+                        <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;&amp;</span>   <span class="n">c</span><span class="p">,</span>
+                        <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;&amp;</span>   <span class="n">b</span><span class="p">)</span> <span class="k">final</span><span class="p">;</span> <span class="c1">// Move data into this</span>
+     <span class="n">QP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="k">const</span> <span class="n">QP_Objective</span> <span class="o">&amp;</span><span class="n">obj</span><span class="p">,</span> <span class="k">const</span> <span class="n">QP_Constraints</span> <span class="o">&amp;</span><span class="n">cons</span><span class="p">)</span> <span class="k">final</span><span class="p">;</span>
+
+     <span class="n">QP_Param</span> <span class="o">&amp;</span><span class="n">set</span><span class="p">(</span><span class="n">QP_Objective</span> <span class="o">&amp;&amp;</span><span class="n">obj</span><span class="p">,</span> <span class="n">QP_Constraints</span> <span class="o">&amp;&amp;</span><span class="n">cons</span><span class="p">)</span> <span class="k">final</span><span class="p">;</span>
+
+     <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span> <span class="n">QP_Param</span> <span class="o">&amp;</span><span class="n">Q2</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+
+     <span class="c1">// Other methods</span>
+     <span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">KKT</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">M</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">N</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">q</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+
+     <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">GRBModel</span><span class="o">&gt;</span> <span class="n">solveFixed</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">x</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">solve</span><span class="p">);</span>
+
+     <span class="kt">double</span> <span class="nf">computeObjective</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">,</span>
+                                     <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span>
+                                     <span class="kt">bool</span>             <span class="n">checkFeas</span> <span class="o">=</span> <span class="nb">true</span><span class="p">,</span>
+                                     <span class="kt">double</span>           <span class="n">tol</span>       <span class="o">=</span> <span class="mf">1e-6</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+
+     <span class="kr">inline</span> <span class="kt">bool</span> <span class="nf">isPlayable</span><span class="p">(</span><span class="k">const</span> <span class="n">QP_Param</span> <span class="o">&amp;</span><span class="n">P</span><span class="p">)</span> <span class="k">const</span>
+     <span class="p">{</span>
+        <span class="kt">bool</span> <span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">,</span> <span class="n">b3</span><span class="p">;</span>
+        <span class="n">b1</span> <span class="o">=</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Nx</span> <span class="o">+</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Ny</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="n">P</span><span class="p">.</span><span class="n">getNx</span><span class="p">()</span> <span class="o">+</span> <span class="n">P</span><span class="p">.</span><span class="n">getNy</span><span class="p">());</span>
+        <span class="n">b2</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Nx</span> <span class="o">&gt;=</span> <span class="n">P</span><span class="p">.</span><span class="n">getNy</span><span class="p">();</span>
+        <span class="n">b3</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Ny</span> <span class="o">&lt;=</span> <span class="n">P</span><span class="p">.</span><span class="n">getNx</span><span class="p">();</span>
+        <span class="k">return</span> <span class="n">b1</span> <span class="o">&amp;&amp;</span> <span class="n">b2</span> <span class="o">&amp;&amp;</span> <span class="n">b3</span><span class="p">;</span>
+     <span class="p">}</span>
+
+     <span class="n">QP_Param</span> <span class="o">&amp;</span><span class="n">addDummy</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">pars</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">vars</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="kt">int</span> <span class="n">position</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
+
+     <span class="kt">void</span> <span class="nf">write</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">filename</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">append</span><span class="p">)</span> <span class="k">const</span> <span class="k">override</span><span class="p">;</span>
+
+     <span class="kt">void</span> <span class="nf">save</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">filename</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">erase</span> <span class="o">=</span> <span class="nb">true</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+
+     <span class="kt">long</span> <span class="kt">int</span>  <span class="nf">load</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">filename</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
+     <span class="kt">double</span>    <span class="nf">computeObjectiveWithoutOthers</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+     <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">getConstraintViolations</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">x</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">y</span><span class="p">,</span> <span class="kt">double</span> <span class="n">tol</span><span class="p">);</span>
+  <span class="p">};</span>
 <span class="p">}</span> <span class="c1">// namespace Game</span>
 
 <span class="c1">//#include &quot;ipg.h&quot;</span>
@@ -946,7 +945,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, GD and SS
+        &copy; Copyright Gabriele Dragotto, Sriram Sankaranarayanan
 
     </p>
   </div>

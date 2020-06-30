@@ -1,5 +1,5 @@
 QP_Param Example
-*********
+*****************
  Consider the Following quadratic program.
 
 .. math::
@@ -13,18 +13,16 @@ QP_Param Example
  \;\;\;\;\;\;\;-y_1 +y_2 -2y_3 &\le -1 + x_1 + x_2
 
 
-==========
+====================================
 Modeling the problem
-==========
+====================================
 
 This data can be entered as follows. Assume there are lines
 
 .. code-block:: c
 
  using namespace arma;
- @endcode
  somewhere earlier. Now, within some function, we have
- @code
 	unsigned int Nx = 2, Ny = 3, Ncons = 2;
 	mat Qd(3, 3);					// Easier to create a dense matrix for this problem
 	Qd << 1 << 1 << -2 << endr		// And convert that to a sparse matrix.

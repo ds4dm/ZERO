@@ -1,0 +1,573 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="class_algorithms_1_1_e_p_e_c_1_1_poly_base" kind="class" language="C++" prot="public">
+    <compoundname>Algorithms::EPEC::PolyBase</compoundname>
+    <basecompoundref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm" prot="public" virt="non-virtual">Algorithms::EPEC::Algorithm</basecompoundref>
+    <derivedcompoundref refid="class_algorithms_1_1_e_p_e_c_1_1_combinatorial_p_n_e" prot="public" virt="non-virtual">Algorithms::EPEC::CombinatorialPNE</derivedcompoundref>
+    <derivedcompoundref refid="class_algorithms_1_1_e_p_e_c_1_1_full_enumeration" prot="public" virt="non-virtual">Algorithms::EPEC::FullEnumeration</derivedcompoundref>
+    <derivedcompoundref refid="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation" prot="public" virt="non-virtual">Algorithms::EPEC::InnerApproximation</derivedcompoundref>
+    <includes refid="epec__polybase_8h" local="no">epec_polybase.h</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a07f74282d7751de285a7e72b0377c8d6" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; std::shared_ptr&lt; <ref refid="class_game_1_1_poly_l_c_p" kindref="compound">Game::PolyLCP</ref> &gt; &gt;</type>
+        <definition>std::vector&lt;std::shared_ptr&lt;Game::PolyLCP&gt; &gt; Algorithms::EPEC::PolyBase::PolyLCP</definition>
+        <argsstring></argsstring>
+        <name>PolyLCP</name>
+        <initializer>{}</initializer>
+        <briefdescription>
+<para>This is the abstract class of <ref refid="namespace_algorithms" kindref="compound">Algorithms</ref> for full enumeration, inner approximation, and Combinatorial PNE. It provides a constructor where the Gurobi environment and the <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref> are passed. This is an abstract class. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="15" column="15" bodyfile="include/algorithms/EPEC/epec_polybase.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ae32c59d87b904dd0b6bff19a4bf954f7" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void Algorithms::EPEC::PolyBase::postSolving</definition>
+        <argsstring>() override</argsstring>
+        <name>postSolving</name>
+        <reimplements refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1a37ddfb90b704938ccf5cd70877a10e16">postSolving</reimplements>
+        <briefdescription>
+<para>A protected method to be called after solving the <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Perform postSolving operations. For instance, it updates the statistics associated with the feasible polyhedra. The responsability for calling this method is left to the inheritor</para>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="17" column="8" bodyfile="include/algorithms/EPEC/epec_polybase.h" bodystart="17" bodyend="29"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a3232baf0efbe5fe82c3168937a6a8d20" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Algorithms::EPEC::PolyBase::PolyBase</definition>
+        <argsstring>(GRBEnv *env, Game::EPEC *EPECObject)</argsstring>
+        <name>PolyBase</name>
+        <param>
+          <type>GRBEnv *</type>
+          <declname>env</declname>
+        </param>
+        <param>
+          <type><ref refid="class_game_1_1_e_p_e_c" kindref="compound">Game::EPEC</ref> *</type>
+          <declname>EPECObject</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="32" column="3" bodyfile="include/algorithms/EPEC/epec_polybase.h" bodystart="32" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a5943ee10262cc33bbeb18d5a902e1b90" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Algorithms::EPEC::PolyBase::isSolved</definition>
+        <argsstring>(unsigned int *countryNumber, arma::vec *profitableDeviation, double tol=-1) const</argsstring>
+        <name>isSolved</name>
+        <param>
+          <type>unsigned int *</type>
+          <declname>countryNumber</declname>
+        </param>
+        <param>
+          <type>arma::vec *</type>
+          <declname>profitableDeviation</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>@briefs Checks if <ref refid="class_game_1_1_e_p_e_c" kindref="compound">Game::EPEC</ref> is solved, otherwise it returns a proof.</para>
+<para>Analogous to <ref refid="class_game_1_1_nash_game_1a28ff99cbe8f408add01afcbda9249934" kindref="member">Game::NashGame::isSolved</ref> but checks if the given <ref refid="class_game_1_1_e_p_e_c" kindref="compound">Game::EPEC</ref> is solved. If it is solved, then retruns true. If not, it returns the country which has a profitable deviation in <computeroutput>countryNumber</computeroutput> and the profitable deviation in <computeroutput>profitableDeviation</computeroutput>. <computeroutput>Tolerance</computeroutput> is the tolerance for the check. If the <emphasis> improved objective </emphasis> after the deviation is less than <computeroutput>Tolerance</computeroutput>, then it is not considered as a profitable deviation.</para>
+<para>Thus we check if the given point is an <formula id="0">$\epsilon$</formula>-equilibrium. Value of <formula id="1">$\epsilon $</formula> can be chosen sufficiently close to 0.</para>
+<para><simplesect kind="warning"><para>Setting <computeroutput>Tolerance</computeroutput> = 0 might even reject a real solution as not solved. This is due to Numerical issues arising from the LCP solver (Gurobi). </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="48" column="8" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="5" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a291dab58d5014bc5be3477ed500c43f5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool Algorithms::EPEC::PolyBase::isSolved</definition>
+        <argsstring>(double tol=-1) const override</argsstring>
+        <name>isSolved</name>
+        <reimplements refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1a596d3003e279074929df8118e6bdd5e2">isSolved</reimplements>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>A method to check whether the <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref> is solved or not, given a numerical tolerance </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="50" column="8" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="51" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a5631dd8fb9bd2d7aef4cd4137a905d15" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Algorithms::EPEC::PolyBase::makeThePureLCP</definition>
+        <argsstring>(bool indicators)</argsstring>
+        <name>makeThePureLCP</name>
+        <param>
+          <type>bool</type>
+          <declname>indicators</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Given that <ref refid="class_game_1_1_e_p_e_c_1a38b32268297c5cdf5334853d3ee2ba82" kindref="member">Game::EPEC::LCPModel</ref> is filled with the final LCP, directs the search toward a pure nash EQ. If such an equilibrium does not exist, then the model will return anyway a MNE. The original LCP is stored in the field <ref refid="class_game_1_1_e_p_e_c_1ada0cf8c4cefee9d0e3f6fcd29aa4fac0" kindref="member">Game::EPEC::LCPModelBase</ref>. <computeroutput>Indicators</computeroutput> dictates whether the resulting LCP should use indicator constraints instead of general binaries. In general, there are advantages in using the binary variables instead of such constraints, since there is no BigM involved in the formulation.</para>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="51" column="8" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="223" bodyend="285"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a9266e3d1190be52164d30b2134236f93" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Algorithms::EPEC::PolyBase::getValLeadFollPoly</definition>
+        <argsstring>(unsigned int i, unsigned int j, unsigned int k, double tol=1e-5) const</argsstring>
+        <name>getValLeadFollPoly</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>j</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>k</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+          <defval>1e-5</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>For the i-th leader, gets the k-th pure strategy for i-th leader at position j</para>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="53" column="10" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="177" bodyend="198"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a1d7e28a9c5842d4b1fc8f9e9f4a61c71" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Algorithms::EPEC::PolyBase::getValLeadLeadPoly</definition>
+        <argsstring>(unsigned int i, unsigned int j, unsigned int k, double tol=1e-5) const</argsstring>
+        <name>getValLeadLeadPoly</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>j</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>k</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+          <defval>1e-5</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>For the i-th leader, gets the k-th pure strategy for i-th leader at non-follower leader position j</para>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="56" column="10" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="200" bodyend="221"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a22f4df7130fcc3ba15d904214e59114f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Algorithms::EPEC::PolyBase::getValProbab</definition>
+        <argsstring>(unsigned int i, unsigned int k) const</argsstring>
+        <name>getValProbab</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Get the probability associated with the k-th polyhedron (k-th pure strategy) of the i-th leader.</para>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="59" column="10" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="163" bodyend="175"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ac1be48a137ea071862794beba97ff02a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Algorithms::EPEC::PolyBase::isPureStrategy</definition>
+        <argsstring>(unsigned int i, double tol=1e-5) const</argsstring>
+        <name>isPureStrategy</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+          <defval>1e-5</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Checks if the returned strategy leader is a pure strategy for the leader i. The strategy is considered a pure strategy, if it is played with a probability greater than 1 - Tolerance;</para>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="61" column="8" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="128" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1aa8a48f84931889820bd8f05e250f945b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool Algorithms::EPEC::PolyBase::isPureStrategy</definition>
+        <argsstring>(double tol=1e-5) const override</argsstring>
+        <name>isPureStrategy</name>
+        <reimplements refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1a0321c963e7d9b76815e0e3eb54655912">isPureStrategy</reimplements>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+          <defval>1e-5</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>A method to check whether the <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref> solution is a pure equilibrium or not, given a numerical tolerance </para>
+        </detaileddescription>
+        <inbodydescription>
+<para>Checks if the returned strategy leader is a pure strategy for the leader i. The strategy is considered a pure strategy, if it is played with a probability greater than 1 - Tolerance;</para>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="63" column="8" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="115" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ac6d224591f7862a5da5dcf3607016c92" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; unsigned int &gt;</type>
+        <definition>std::vector&lt; unsigned int &gt; Algorithms::EPEC::PolyBase::mixedStrategyPoly</definition>
+        <argsstring>(unsigned int i, double tol=1e-5) const</argsstring>
+        <name>mixedStrategyPoly</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+          <defval>1e-5</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the indices of polyhedra feasible for the leader, from which strategies are played with probability greater than Tolerance. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="65" column="15" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="145" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a9a5a1f8d89b1049326165049b123e109" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int Algorithms::EPEC::PolyBase::getPositionLeadFollPoly</definition>
+        <argsstring>(unsigned int i, unsigned int j, unsigned int k) const</argsstring>
+        <name>getPositionLeadFollPoly</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>j</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Get the position of the k-th follower variable of the i-th leader, in the j-th feasible polyhedron.</para>
+<para>Indeed it should hold that <formula id="2">$ j &lt; $</formula> Algorithms::EPEC::PolyBase::getNumPolyLead(i)</para>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="67" column="16" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="58" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a6f83e7a8d82218dcbaf6e43255d949c7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int Algorithms::EPEC::PolyBase::getPositionLeadLeadPoly</definition>
+        <argsstring>(unsigned int i, unsigned int j, unsigned int k) const</argsstring>
+        <name>getPositionLeadLeadPoly</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>j</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Get the position of the k-th leader variable of the i-th leader, in the j-th feasible polyhedron.</para>
+<para>Indeed it should hold that <formula id="2">$ j &lt; $</formula> Algorithms::EPEC::PolyBase::getNumPolyLead(i)</para>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="70" column="16" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="73" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a0e0cfcb04c622946a00441e7460f9959" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int Algorithms::EPEC::PolyBase::getNumPolyLead</definition>
+        <argsstring>(unsigned int i) const</argsstring>
+        <name>getNumPolyLead</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Get the number of polyhedra used in the inner approximation of the feasible region of the i-th leader.*</para>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="73" column="16" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="89" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ad7777a11c5b70da40af2780802b31fab" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int Algorithms::EPEC::PolyBase::getPositionProbab</definition>
+        <argsstring>(unsigned int i, unsigned int k) const</argsstring>
+        <name>getPositionProbab</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Get the position of the probability associated with the k-th polyhedron (k-th pure strategy) of the i-th leader. However, if the leader has an inner approximation with exactly 1 polyhedron, it returns 0;</para>
+        </inbodydescription>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="75" column="16" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="99" bodyend="113"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Algorithms::EPEC::PolyBase</label>
+        <link refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Algorithms::EPEC::Algorithm</label>
+        <link refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm"/>
+      </node>
+      <node id="5">
+        <label>Algorithms::EPEC::InnerApproximation</label>
+        <link refid="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Algorithms::EPEC::FullEnumeration</label>
+        <link refid="class_algorithms_1_1_e_p_e_c_1_1_full_enumeration"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Algorithms::EPEC::CombinatorialPNE</label>
+        <link refid="class_algorithms_1_1_e_p_e_c_1_1_combinatorial_p_n_e"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="11">
+        <label>Attr&lt; std::vector&lt; unsigned int &gt; &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="4">
+        <label>ZEROStatistics&lt; Data::EPEC::DataObject &gt;</label>
+        <link refid="struct_z_e_r_o_statistics"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>WallClockTime</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>AlgorithmData</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>NumConstraints</edgelabel>
+          <edgelabel>NumNonZero</edgelabel>
+          <edgelabel>NumIterations</edgelabel>
+          <edgelabel>NumVar</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>PureNashEquilibrium</edgelabel>
+          <edgelabel>NumericalIssues</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>Status</edgelabel>
+        </childnode>
+      </node>
+      <node id="16">
+        <label>Attr&lt; ZEROStatus &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="9">
+        <label>Attr&lt; int &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="1">
+        <label>Algorithms::EPEC::PolyBase</label>
+        <link refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>Attr&lt; Data::LCP::PolyhedraStrategy &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="2">
+        <label>Algorithms::EPEC::Algorithm</label>
+        <link refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>EPECObject</edgelabel>
+        </childnode>
+      </node>
+      <node id="14">
+        <label>Attr&lt; Data::EPEC::Algorithms &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="10">
+        <label>Attr&lt; bool &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="6">
+        <label>Data::EPEC::DataObject</label>
+        <link refid="class_data_1_1_e_p_e_c_1_1_data_object"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>BoundBigM</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>FeasiblePolyhedra</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>LostIntermediateEq</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>Aggressiveness</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>RecoverStrategy</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>BoundPrimals</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>Algorithm</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>PolyhedraStrategy</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Game::EPEC</label>
+        <link refid="class_game_1_1_e_p_e_c"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>Stats</edgelabel>
+        </childnode>
+      </node>
+      <node id="12">
+        <label>Attr&lt; unsigned int &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="5">
+        <label>Attr&lt; double &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="7">
+        <label>ZEROAlgorithmData</label>
+        <link refid="class_z_e_r_o_algorithm_data"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>DeviationTolerance</edgelabel>
+          <edgelabel>TimeLimit</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>RandomSeed</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>Threads</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>PureNashEquilibrium</edgelabel>
+          <edgelabel>IndicatorConstraints</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>Attr&lt; unsigned long int &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="13">
+        <label>Attr&lt; Data::EPEC::RecoverStrategy &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/algorithms/EPEC/epec_polybase.h" line="8" column="32" bodyfile="include/algorithms/EPEC/epec_polybase.h" bodystart="8" bodyend="76"/>
+    <listofallmembers>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1aad636a41bb0353f0c632430b6fb20937" prot="protected" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>Env</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" prot="protected" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>EPECObject</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a0e0cfcb04c622946a00441e7460f9959" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>getNumPolyLead</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a9a5a1f8d89b1049326165049b123e109" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>getPositionLeadFollPoly</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a6f83e7a8d82218dcbaf6e43255d949c7" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>getPositionLeadLeadPoly</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ad7777a11c5b70da40af2780802b31fab" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>getPositionProbab</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a9266e3d1190be52164d30b2134236f93" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>getValLeadFollPoly</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a1d7e28a9c5842d4b1fc8f9e9f4a61c71" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>getValLeadLeadPoly</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a22f4df7130fcc3ba15d904214e59114f" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>getValProbab</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ac1be48a137ea071862794beba97ff02a" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>isPureStrategy</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1aa8a48f84931889820bd8f05e250f945b" prot="public" virt="virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>isPureStrategy</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a5943ee10262cc33bbeb18d5a902e1b90" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>isSolved</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a291dab58d5014bc5be3477ed500c43f5" prot="public" virt="virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>isSolved</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a5631dd8fb9bd2d7aef4cd4137a905d15" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>makeThePureLCP</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ac6d224591f7862a5da5dcf3607016c92" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>mixedStrategyPoly</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a3232baf0efbe5fe82c3168937a6a8d20" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>PolyBase</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a07f74282d7751de285a7e72b0377c8d6" prot="protected" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>PolyLCP</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ae32c59d87b904dd0b6bff19a4bf954f7" prot="protected" virt="virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>postSolving</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1afb53fa0b28accf7ffb71f38b7127cd8a" prot="public" virt="pure-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>solve</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Program Listing for File codes.h &mdash; ZERO 1.0.0 documentation</title>
+  <title>Program Listing for File codes.h &mdash; Python 1.0.0 documentation</title>
   
 
   
@@ -63,6 +63,10 @@
 
           
             
+            
+              <div class="version">
+                1.0.0
+              </div>
             
           
 
@@ -139,8 +143,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Algorithms__IPG.html#classes">Classes</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_arma.html">Namespace arma</a></li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_boost__program_options.html">Namespace boost::program_options</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_Data.html">Namespace Data</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_Data.html#namespaces">Namespaces</a></li>
 </ul>
@@ -167,7 +169,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_rapidjson.html">Namespace rapidjson</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_std.html">Namespace std</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_std.html#functions">Functions</a></li>
 </ul>
@@ -695,7 +696,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ZERO</a>
+          <a href="../index.html">Python</a>
         
       </nav>
 
@@ -769,7 +770,7 @@
 
 <span class="k">public</span><span class="o">:</span>
   <span class="n">Attr</span><span class="p">(</span><span class="n">T</span> <span class="n">value</span><span class="p">)</span> <span class="o">:</span> <span class="n">Object</span><span class="p">{</span><span class="n">value</span><span class="p">}</span> <span class="p">{};</span>
-  <span class="n">T</span> <span class="nf">get</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">Object</span><span class="p">;</span> <span class="p">}</span>
+  <span class="n">T</span>    <span class="nf">get</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">Object</span><span class="p">;</span> <span class="p">}</span>
   <span class="kt">void</span> <span class="nf">set</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="n">Object</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span> <span class="p">}</span>
   <span class="c1">// T &amp;operator=(const T &amp;a) { std::cerr &lt;&lt; &quot;Operation not allowed. Use set()&quot;;</span>
   <span class="c1">// } operator T() { std::cerr &lt;&lt; &quot;Operation not allowed. Use get()&quot;; }</span>
@@ -778,71 +779,61 @@
 <span class="k">class</span> <span class="nc">ZEROAlgorithmData</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
   <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">DeviationTolerance</span><span class="p">{</span>
-      <span class="mf">51e-4</span><span class="p">};</span>
+        <span class="mf">51e-4</span><span class="p">};</span>
   <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">IndicatorConstraints</span><span class="p">{</span>
-      <span class="nb">true</span><span class="p">};</span>
+        <span class="nb">true</span><span class="p">};</span>
   <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">TimeLimit</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">};</span>
-  <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">Threads</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
-  <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">PureNashEquilibrium</span><span class="p">{</span>
-      <span class="nb">false</span><span class="p">};</span>
-  <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">RandomSeed</span><span class="p">{</span>
-      <span class="mi">42</span><span class="p">};</span>
+  <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span>    <span class="n">Threads</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+  <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span>   <span class="n">PureNashEquilibrium</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
+  <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">RandomSeed</span><span class="p">{</span><span class="mi">42</span><span class="p">};</span>
 <span class="p">};</span>
 
 <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">DataObjectType</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="n">ZEROStatistics</span> <span class="p">{</span>
   <span class="n">ZEROStatistics</span><span class="p">(</span><span class="n">DataObjectType</span> <span class="n">t</span><span class="p">)</span> <span class="o">:</span> <span class="n">AlgorithmData</span><span class="p">{</span><span class="n">t</span><span class="p">}</span> <span class="p">{};</span>
-  <span class="n">Attr</span><span class="o">&lt;</span><span class="n">ZEROStatus</span><span class="o">&gt;</span> <span class="n">Status</span> <span class="o">=</span> <span class="n">ZEROStatus</span><span class="o">::</span><span class="n">Uninitialized</span><span class="p">;</span>
-  <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">NumVar</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
-  <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">NumConstraints</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="mi">0</span><span class="p">};</span>
-  <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">NumIterations</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="mi">0</span><span class="p">};</span>
-  <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">NumNonZero</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="o">-</span><span class="mi">1</span><span class="p">};</span>
-  <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">NumericalIssues</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="nb">false</span><span class="p">};</span>
-  <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">WallClockTime</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
-  <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">PureNashEquilibrium</span><span class="p">{</span>
-      <span class="nb">false</span><span class="p">};</span>
+  <span class="n">Attr</span><span class="o">&lt;</span><span class="n">ZEROStatus</span><span class="o">&gt;</span> <span class="n">Status</span>         <span class="o">=</span> <span class="n">ZEROStatus</span><span class="o">::</span><span class="n">Uninitialized</span><span class="p">;</span>
+  <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span>        <span class="n">NumVar</span>         <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+  <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span>        <span class="n">NumConstraints</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+  <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span>        <span class="n">NumIterations</span>  <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+  <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span>        <span class="n">NumNonZero</span>     <span class="o">=</span> <span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">};</span>
+  <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">NumericalIssues</span> <span class="o">=</span> <span class="p">{</span><span class="nb">false</span><span class="p">};</span>
+  <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span>   <span class="n">WallClockTime</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+  <span class="n">Attr</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span>     <span class="n">PureNashEquilibrium</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
   <span class="n">DataObjectType</span> <span class="n">AlgorithmData</span><span class="p">;</span>
 <span class="p">};</span>
 
 <span class="k">enum</span> <span class="k">class</span> <span class="nc">ZEROErrorCode</span> <span class="p">{</span>
-  <span class="n">MemoryError</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+  <span class="n">MemoryError</span>  <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
   <span class="n">InvalidQuery</span> <span class="o">=</span> <span class="mi">101</span><span class="p">,</span>
-  <span class="n">InvalidData</span> <span class="o">=</span> <span class="mi">102</span><span class="p">,</span>
-  <span class="n">SolverError</span> <span class="o">=</span> <span class="mi">103</span><span class="p">,</span>
+  <span class="n">InvalidData</span>  <span class="o">=</span> <span class="mi">102</span><span class="p">,</span>
+  <span class="n">SolverError</span>  <span class="o">=</span> <span class="mi">103</span><span class="p">,</span>
   <span class="n">OutOfRange</span> <span class="o">=</span> <span class="mi">104</span><span class="p">,</span>
-  <span class="n">Numeric</span> <span class="o">=</span> <span class="mi">105</span><span class="p">,</span>
-  <span class="n">IOError</span> <span class="o">=</span> <span class="mi">106</span><span class="p">,</span>
-  <span class="n">Assertion</span> <span class="o">=</span> <span class="mi">107</span><span class="p">,</span>
-  <span class="n">Unknown</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">Numeric</span>    <span class="o">=</span> <span class="mi">105</span><span class="p">,</span>
+  <span class="n">IOError</span>    <span class="o">=</span> <span class="mi">106</span><span class="p">,</span>
+  <span class="n">Assertion</span>  <span class="o">=</span> <span class="mi">107</span><span class="p">,</span>
+  <span class="n">Unknown</span>    <span class="o">=</span> <span class="mi">0</span>
 <span class="p">};</span>
 
 <span class="k">namespace</span> <span class="n">std</span> <span class="p">{</span>
-<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">to_string</span><span class="p">(</span><span class="k">const</span> <span class="n">ZEROErrorCode</span> <span class="o">&amp;</span><span class="n">code</span><span class="p">);</span>
-<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">to_string</span><span class="p">(</span><span class="n">ZEROStatus</span> <span class="n">st</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">to_string</span><span class="p">(</span><span class="k">const</span> <span class="n">ZEROErrorCode</span> <span class="o">&amp;</span><span class="n">code</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">to_string</span><span class="p">(</span><span class="n">ZEROStatus</span> <span class="n">st</span><span class="p">);</span>
 <span class="p">}</span> <span class="c1">// namespace std</span>
 
 <span class="k">class</span> <span class="nc">ZEROException</span> <span class="o">:</span> <span class="k">virtual</span> <span class="k">public</span> <span class="n">std</span><span class="o">::</span><span class="n">exception</span> <span class="p">{</span>
 <span class="k">protected</span><span class="o">:</span>
   <span class="n">ZEROErrorCode</span> <span class="n">error_code</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">error_additional</span> <span class="o">=</span>
-      <span class="s">&quot;-&quot;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">error_additional</span> <span class="o">=</span> <span class="s">&quot;-&quot;</span><span class="p">;</span>
 
 <span class="k">public</span><span class="o">:</span>
   <span class="k">explicit</span> <span class="n">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span> <span class="n">code</span><span class="p">)</span> <span class="o">:</span> <span class="n">error_code</span><span class="p">(</span><span class="n">code</span><span class="p">){};</span>
   <span class="k">explicit</span> <span class="nf">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span> <span class="n">code</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">more</span><span class="p">)</span>
-      <span class="o">:</span> <span class="n">error_code</span><span class="p">(</span><span class="n">code</span><span class="p">),</span> <span class="n">error_additional</span><span class="p">(</span><span class="n">more</span><span class="p">){};</span>
+        <span class="o">:</span> <span class="n">error_code</span><span class="p">(</span><span class="n">code</span><span class="p">),</span> <span class="n">error_additional</span><span class="p">(</span><span class="n">more</span><span class="p">){};</span>
   <span class="n">ZEROException</span><span class="p">(</span><span class="n">GRBException</span> <span class="o">&amp;</span><span class="n">e</span><span class="p">)</span>
-      <span class="o">:</span> <span class="n">error_code</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">SolverError</span><span class="p">),</span>
-        <span class="n">error_additional</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">getErrorCode</span><span class="p">())</span> <span class="o">+</span> <span class="n">e</span><span class="p">.</span><span class="n">getMessage</span><span class="p">()){};</span>
+        <span class="o">:</span> <span class="n">error_code</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">SolverError</span><span class="p">),</span>
+          <span class="n">error_additional</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">getErrorCode</span><span class="p">())</span> <span class="o">+</span> <span class="n">e</span><span class="p">.</span><span class="n">getMessage</span><span class="p">()){};</span>
   <span class="o">~</span><span class="n">ZEROException</span><span class="p">()</span> <span class="k">noexcept</span> <span class="k">override</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="nf">what</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="k">override</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">error_code</span><span class="p">).</span><span class="n">c_str</span><span class="p">();</span>
-  <span class="p">};</span>
+  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="nf">what</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="k">override</span> <span class="p">{</span> <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">error_code</span><span class="p">).</span><span class="n">c_str</span><span class="p">();</span> <span class="p">};</span>
   <span class="k">virtual</span> <span class="n">ZEROErrorCode</span> <span class="nf">which</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="p">{</span> <span class="k">return</span> <span class="n">error_code</span><span class="p">;</span> <span class="p">};</span>
-  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="nf">more</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="p">{</span> <span class="k">return</span> <span class="n">error_additional</span><span class="p">.</span><span class="n">c_str</span><span class="p">();</span> <span class="p">};</span>
+  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span>          <span class="nf">more</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="p">{</span> <span class="k">return</span> <span class="n">error_additional</span><span class="p">.</span><span class="n">c_str</span><span class="p">();</span> <span class="p">};</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -859,7 +850,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, GD and SS
+        &copy; Copyright Gabriele Dragotto, Sriram Sankaranarayanan
 
     </p>
   </div>

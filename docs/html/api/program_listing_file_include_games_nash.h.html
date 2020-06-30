@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Program Listing for File nash.h &mdash; ZERO 1.0.0 documentation</title>
+  <title>Program Listing for File nash.h &mdash; Python 1.0.0 documentation</title>
   
 
   
@@ -63,6 +63,10 @@
 
           
             
+            
+              <div class="version">
+                1.0.0
+              </div>
             
           
 
@@ -139,8 +143,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Algorithms__IPG.html#classes">Classes</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_arma.html">Namespace arma</a></li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_boost__program_options.html">Namespace boost::program_options</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_Data.html">Namespace Data</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_Data.html#namespaces">Namespaces</a></li>
 </ul>
@@ -167,7 +169,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_rapidjson.html">Namespace rapidjson</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_std.html">Namespace std</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_std.html#functions">Functions</a></li>
 </ul>
@@ -695,7 +696,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ZERO</a>
+          <a href="../index.html">Python</a>
         
       </nav>
 
@@ -758,135 +759,135 @@
 <span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
 
 <span class="k">namespace</span> <span class="n">Game</span> <span class="p">{</span>
-<span class="k">class</span> <span class="nc">NashGame</span> <span class="p">{</span>
-<span class="k">private</span><span class="o">:</span>
-  <span class="n">GRBEnv</span> <span class="o">*</span><span class="n">Env</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">LeaderConstraints</span><span class="p">;</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">LeaderConstraintsRHS</span><span class="p">;</span>
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">NumPlayers</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">QP_Param</span><span class="o">&gt;&gt;</span>
-      <span class="n">Players</span><span class="p">;</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">MarketClearing</span><span class="p">;</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">MCRHS</span><span class="p">;</span>
+  <span class="k">class</span> <span class="nc">NashGame</span> <span class="p">{</span>
+  <span class="k">private</span><span class="o">:</span>
+     <span class="n">GRBEnv</span> <span class="o">*</span>     <span class="n">Env</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+     <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">LeaderConstraints</span><span class="p">;</span>
+     <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>    <span class="n">LeaderConstraintsRHS</span><span class="p">;</span>
+     <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">NumPlayers</span><span class="p">;</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">QP_Param</span><span class="o">&gt;&gt;</span> <span class="n">Players</span><span class="p">;</span>
+     <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span>                           <span class="n">MarketClearing</span><span class="p">;</span>
+     <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>                              <span class="n">MCRHS</span><span class="p">;</span>
 
-  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">PrimalPosition</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">DualPosition</span><span class="p">;</span>
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">MC_DualPosition</span><span class="p">;</span>
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">LeaderPosition</span><span class="p">;</span>
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">numLeaderVar</span><span class="p">;</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">PrimalPosition</span><span class="p">;</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">DualPosition</span><span class="p">;</span>
+     <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">MC_DualPosition</span><span class="p">;</span>
+     <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">LeaderPosition</span><span class="p">;</span>
+     <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">numLeaderVar</span><span class="p">;</span>
 
-  <span class="kt">void</span> <span class="nf">setPositions</span><span class="p">();</span>
+     <span class="kt">void</span> <span class="nf">setPositions</span><span class="p">();</span>
 
-<span class="k">public</span><span class="o">:</span> <span class="c1">// Constructors</span>
-  <span class="k">explicit</span> <span class="n">NashGame</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">e</span><span class="p">)</span> <span class="k">noexcept</span> <span class="o">:</span> <span class="n">Env</span><span class="p">{</span><span class="n">e</span><span class="p">}</span> <span class="p">{};</span>
+  <span class="k">public</span><span class="o">:</span> <span class="c1">// Constructors</span>
+     <span class="k">explicit</span> <span class="n">NashGame</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">e</span><span class="p">)</span> <span class="k">noexcept</span> <span class="o">:</span> <span class="n">Env</span><span class="p">{</span><span class="n">e</span><span class="p">}</span> <span class="p">{};</span>
 
-  <span class="k">explicit</span> <span class="nf">NashGame</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">e</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">QP_Param</span><span class="o">&gt;&gt;</span> <span class="n">players</span><span class="p">,</span>
-                    <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">MC</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">MCRHS</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">nLeadVar</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">leadA</span> <span class="o">=</span> <span class="p">{},</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">leadRHS</span> <span class="o">=</span> <span class="p">{});</span>
+     <span class="k">explicit</span> <span class="nf">NashGame</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span>                               <span class="n">e</span><span class="p">,</span>
+                             <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">QP_Param</span><span class="o">&gt;&gt;</span> <span class="n">players</span><span class="p">,</span>
+                             <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span>                           <span class="n">MC</span><span class="p">,</span>
+                             <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>                              <span class="n">MCRHS</span><span class="p">,</span>
+                             <span class="kt">unsigned</span> <span class="kt">int</span>                           <span class="n">nLeadVar</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                             <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span>                           <span class="n">leadA</span>    <span class="o">=</span> <span class="p">{},</span>
+                             <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>                              <span class="n">leadRHS</span>  <span class="o">=</span> <span class="p">{});</span>
 
-  <span class="c1">// Copy constructor</span>
-  <span class="n">NashGame</span><span class="p">(</span><span class="k">const</span> <span class="n">NashGame</span> <span class="o">&amp;</span><span class="n">N</span><span class="p">);</span>
+     <span class="c1">// Copy constructor</span>
+     <span class="n">NashGame</span><span class="p">(</span><span class="k">const</span> <span class="n">NashGame</span> <span class="o">&amp;</span><span class="n">N</span><span class="p">);</span>
 
-  <span class="o">~</span><span class="n">NashGame</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+     <span class="o">~</span><span class="n">NashGame</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
 
-  <span class="c1">// Verbose declaration</span>
-  <span class="k">friend</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">os</span><span class="p">,</span> <span class="k">const</span> <span class="n">NashGame</span> <span class="o">&amp;</span><span class="n">N</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
-    <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;--------------------------------------------------------------------&quot;</span>
-          <span class="s">&quot;---&quot;</span>
-       <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
-    <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Nash Game with &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">N</span><span class="p">.</span><span class="n">NumPlayers</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; players&quot;</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
-    <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;--------------------------------------------------------------------&quot;</span>
-          <span class="s">&quot;---&quot;</span>
-       <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
-    <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Number of primal variables:</span><span class="se">\t\t\t</span><span class="s"> &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">N</span><span class="p">.</span><span class="n">getNprimals</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
-    <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Number of dual variables:</span><span class="se">\t\t\t</span><span class="s"> &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">N</span><span class="p">.</span><span class="n">getNumDualVars</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
-    <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Number of shadow price dual variables:</span><span class="se">\t\t</span><span class="s"> &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">N</span><span class="p">.</span><span class="n">getNumShadow</span><span class="p">()</span>
-       <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
-    <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Number of leader variables:</span><span class="se">\t\t\t</span><span class="s"> &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">N</span><span class="p">.</span><span class="n">getNumLeaderVars</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
-    <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;--------------------------------------------------------------------&quot;</span>
-          <span class="s">&quot;---&quot;</span>
-       <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">os</span><span class="p">;</span>
-  <span class="p">}</span>
+     <span class="c1">// Verbose declaration</span>
+     <span class="k">friend</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">os</span><span class="p">,</span> <span class="k">const</span> <span class="n">NashGame</span> <span class="o">&amp;</span><span class="n">N</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+        <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;--------------------------------------------------------------------&quot;</span>
+                <span class="s">&quot;---&quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+        <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Nash Game with &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">N</span><span class="p">.</span><span class="n">NumPlayers</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; players&quot;</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+        <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;--------------------------------------------------------------------&quot;</span>
+                <span class="s">&quot;---&quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+        <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Number of primal variables:</span><span class="se">\t\t\t</span><span class="s"> &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">N</span><span class="p">.</span><span class="n">getNprimals</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+        <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Number of dual variables:</span><span class="se">\t\t\t</span><span class="s"> &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">N</span><span class="p">.</span><span class="n">getNumDualVars</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+        <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Number of shadow price dual variables:</span><span class="se">\t\t</span><span class="s"> &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">N</span><span class="p">.</span><span class="n">getNumShadow</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+        <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Number of leader variables:</span><span class="se">\t\t\t</span><span class="s"> &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">N</span><span class="p">.</span><span class="n">getNumLeaderVars</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+        <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;--------------------------------------------------------------------&quot;</span>
+                <span class="s">&quot;---&quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">os</span><span class="p">;</span>
+     <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getNprimals</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
-    <span class="cm">/***</span>
-<span class="cm">     * Number of primal variables is the sum of the &quot;y&quot; variables present in</span>
-<span class="cm">     * each player&#39;s Game::QP_Param</span>
-<span class="cm">     */</span>
-    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">PrimalPosition</span><span class="p">.</span><span class="n">back</span><span class="p">();</span>
-  <span class="p">}</span>
+     <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getNprimals</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+        <span class="cm">/***</span>
+<span class="cm">         * Number of primal variables is the sum of the &quot;y&quot; variables present in</span>
+<span class="cm">         * each player&#39;s Game::QP_Param</span>
+<span class="cm">         */</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">PrimalPosition</span><span class="p">.</span><span class="n">back</span><span class="p">();</span>
+     <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getNumShadow</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MCRHS</span><span class="p">.</span><span class="n">n_rows</span><span class="p">;</span> <span class="p">}</span>
+     <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getNumShadow</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MCRHS</span><span class="p">.</span><span class="n">n_rows</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getNumLeaderVars</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">numLeaderVar</span><span class="p">;</span> <span class="p">}</span>
+     <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getNumLeaderVars</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">numLeaderVar</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getNumDualVars</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">DualPosition</span><span class="p">.</span><span class="n">back</span><span class="p">()</span> <span class="o">-</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">DualPosition</span><span class="p">.</span><span class="n">front</span><span class="p">()</span> <span class="o">+</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="p">}</span>
+     <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getNumDualVars</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">DualPosition</span><span class="p">.</span><span class="n">back</span><span class="p">()</span> <span class="o">-</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">DualPosition</span><span class="p">.</span><span class="n">front</span><span class="p">()</span> <span class="o">+</span> <span class="mi">0</span><span class="p">;</span>
+     <span class="p">}</span>
 
-  <span class="c1">// Position of variables</span>
-  <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getPrimalLoc</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">PrimalPosition</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
-  <span class="p">}</span>
+     <span class="c1">// Position of variables</span>
+     <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getPrimalLoc</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">PrimalPosition</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">);</span> <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getMCDualLoc</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">MC_DualPosition</span><span class="p">;</span> <span class="p">}</span>
+     <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getMCDualLoc</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">MC_DualPosition</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getLeaderLoc</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">LeaderPosition</span><span class="p">;</span> <span class="p">}</span>
+     <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getLeaderLoc</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">LeaderPosition</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getDualLoc</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">DualPosition</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
-  <span class="p">}</span>
+     <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getDualLoc</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">DualPosition</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">);</span> <span class="p">}</span>
 
-  <span class="c1">// Members</span>
-  <span class="k">const</span> <span class="n">NashGame</span> <span class="o">&amp;</span><span class="n">formulateLCP</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">M</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">q</span><span class="p">,</span> <span class="n">perps</span> <span class="o">&amp;</span><span class="n">Compl</span><span class="p">,</span>
-                               <span class="kt">bool</span> <span class="n">writeToFile</span> <span class="o">=</span> <span class="nb">false</span><span class="p">,</span>
-                               <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">M_name</span> <span class="o">=</span> <span class="s">&quot;dat/LCP.txt&quot;</span><span class="p">,</span>
-                               <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">q_name</span> <span class="o">=</span> <span class="s">&quot;dat/q.txt&quot;</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+     <span class="c1">// Members</span>
+     <span class="k">const</span> <span class="n">NashGame</span> <span class="o">&amp;</span><span class="n">formulateLCP</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">M</span><span class="p">,</span>
+                                            <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span>   <span class="n">q</span><span class="p">,</span>
+                                            <span class="n">perps</span> <span class="o">&amp;</span>       <span class="n">Compl</span><span class="p">,</span>
+                                            <span class="kt">bool</span>          <span class="n">writeToFile</span> <span class="o">=</span> <span class="nb">false</span><span class="p">,</span>
+                                            <span class="n">std</span><span class="o">::</span><span class="n">string</span>   <span class="n">M_name</span>      <span class="o">=</span> <span class="s">&quot;dat/LCP.txt&quot;</span><span class="p">,</span>
+                                            <span class="n">std</span><span class="o">::</span><span class="n">string</span>   <span class="n">q_name</span>      <span class="o">=</span> <span class="s">&quot;dat/q.txt&quot;</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 
-  <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">rewriteLeadCons</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+     <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">rewriteLeadCons</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
 
-  <span class="kr">inline</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">getLeadRHS</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">LeaderConstraintsRHS</span><span class="p">;</span> <span class="p">}</span>
+     <span class="kr">inline</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">getLeadRHS</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">LeaderConstraintsRHS</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">getMCLeadRHS</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">arma</span><span class="o">::</span><span class="n">join_cols</span><span class="p">(</span>
-        <span class="n">arma</span><span class="o">::</span><span class="n">join_cols</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">LeaderConstraintsRHS</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MCRHS</span><span class="p">),</span> <span class="o">-</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">MCRHS</span><span class="p">);</span>
-  <span class="p">}</span>
+     <span class="kr">inline</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">getMCLeadRHS</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">arma</span><span class="o">::</span><span class="n">join_cols</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">join_cols</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">LeaderConstraintsRHS</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MCRHS</span><span class="p">),</span>
+                                      <span class="o">-</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">MCRHS</span><span class="p">);</span>
+     <span class="p">}</span>
 
-  <span class="c1">// Check solution and correctness</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">GRBModel</span><span class="o">&gt;</span> <span class="n">respond</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span>
-                                    <span class="kt">bool</span> <span class="n">fullvec</span> <span class="o">=</span> <span class="nb">true</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+     <span class="c1">// Check solution and correctness</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">GRBModel</span><span class="o">&gt;</span>
+     <span class="n">respond</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">fullvec</span> <span class="o">=</span> <span class="nb">true</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 
-  <span class="kt">double</span> <span class="nf">respondSol</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">sol</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span>
-                    <span class="kt">bool</span> <span class="n">fullvec</span> <span class="o">=</span> <span class="nb">true</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+     <span class="kt">double</span>
+     <span class="nf">respondSol</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">sol</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">fullvec</span> <span class="o">=</span> <span class="nb">true</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 
-  <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">computeQPObjectiveValues</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span>
-                                     <span class="kt">bool</span> <span class="n">checkFeas</span> <span class="o">=</span> <span class="nb">false</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+     <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">computeQPObjectiveValues</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">checkFeas</span> <span class="o">=</span> <span class="nb">false</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 
-  <span class="kt">bool</span> <span class="nf">isSolved</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">sol</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">violPlayer</span><span class="p">,</span>
-                <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">violSol</span><span class="p">,</span> <span class="kt">double</span> <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+     <span class="kt">bool</span> <span class="nf">isSolved</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">sol</span><span class="p">,</span>
+                        <span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">&amp;</span>   <span class="n">violPlayer</span><span class="p">,</span>
+                        <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span>      <span class="n">violSol</span><span class="p">,</span>
+                        <span class="kt">double</span>           <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 
-  <span class="c1">//  Modify NashGame members</span>
-  <span class="n">NashGame</span> <span class="o">&amp;</span><span class="n">addDummy</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">par</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="kt">int</span> <span class="n">position</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+     <span class="c1">//  Modify NashGame members</span>
+     <span class="n">NashGame</span> <span class="o">&amp;</span><span class="n">addDummy</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">par</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="kt">int</span> <span class="n">position</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
 
-  <span class="n">NashGame</span> <span class="o">&amp;</span><span class="n">addLeadCons</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="kt">double</span> <span class="n">b</span><span class="p">);</span>
+     <span class="n">NashGame</span> <span class="o">&amp;</span><span class="n">addLeadCons</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="kt">double</span> <span class="n">b</span><span class="p">);</span>
 
-  <span class="c1">// Read/Write Nashgame functions</span>
-  <span class="kt">void</span> <span class="nf">write</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">filename</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">append</span> <span class="o">=</span> <span class="nb">true</span><span class="p">,</span>
-             <span class="kt">bool</span> <span class="n">KKT</span> <span class="o">=</span> <span class="nb">false</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+     <span class="c1">// Read/Write Nashgame functions</span>
+     <span class="kt">void</span> <span class="nf">write</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">filename</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">append</span> <span class="o">=</span> <span class="nb">true</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">KKT</span> <span class="o">=</span> <span class="nb">false</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 
-  <span class="kt">void</span> <span class="nf">save</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">filename</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">erase</span> <span class="o">=</span> <span class="nb">true</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+     <span class="kt">void</span> <span class="nf">save</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">filename</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">erase</span> <span class="o">=</span> <span class="nb">true</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 
-  <span class="kt">long</span> <span class="kt">int</span> <span class="nf">load</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">filename</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">computeQPObjectiveValuesWithoutOthers</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-<span class="p">};</span>
+     <span class="kt">long</span> <span class="kt">int</span>  <span class="nf">load</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">filename</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
+     <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">computeQPObjectiveValuesWithoutOthers</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+  <span class="p">};</span>
 
-<span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">os</span><span class="p">,</span> <span class="k">const</span> <span class="n">QP_Param</span> <span class="o">&amp;</span><span class="n">Q</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">os</span><span class="p">,</span> <span class="k">const</span> <span class="n">QP_Param</span> <span class="o">&amp;</span><span class="n">Q</span><span class="p">);</span>
 
-<span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">ost</span><span class="p">,</span> <span class="k">const</span> <span class="n">perps</span> <span class="o">&amp;</span><span class="n">C</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">ost</span><span class="p">,</span> <span class="k">const</span> <span class="n">perps</span> <span class="o">&amp;</span><span class="n">C</span><span class="p">);</span>
 
-<span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="k">const</span> <span class="n">perps</span> <span class="o">&amp;</span><span class="n">C</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="k">const</span> <span class="n">perps</span> <span class="o">&amp;</span><span class="n">C</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
 <span class="p">}</span> <span class="c1">// namespace Game</span>
 </pre></div>
 </div>
@@ -903,7 +904,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, GD and SS
+        &copy; Copyright Gabriele Dragotto, Sriram Sankaranarayanan
 
     </p>
   </div>

@@ -1,0 +1,45 @@
+
+.. _file_src_games_ipg.cpp:
+
+File ipg.cpp
+============
+
+|exhale_lsh| :ref:`Parent directory <dir_src_games>` (``src/games``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``src/games/ipg.cpp``)
+----------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file_src_games_ipg.cpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``armadillo``
+
+- ``boost/log/trivial.hpp``
+
+- ``games/ipg.h`` (:ref:`file_include_games_ipg.h`)
+
+- ``iostream``
+
+- ``memory``
+
+
+
+
+

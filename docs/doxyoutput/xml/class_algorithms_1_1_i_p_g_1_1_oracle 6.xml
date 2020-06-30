@@ -1,0 +1,449 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="class_algorithms_1_1_i_p_g_1_1_oracle" kind="class" language="C++" prot="public">
+    <compoundname>Algorithms::IPG::Oracle</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">GRBCallback</basecompoundref>
+    <includes refid="ipg__oracle_8h" local="no">ipg_oracle.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a6f4c087a18a1edee79b0dbda0e0f53a5" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; arma::sp_mat &gt;</type>
+        <definition>std::vector&lt;arma::sp_mat&gt; Algorithms::IPG::Oracle::CutPool_A</definition>
+        <argsstring></argsstring>
+        <name>CutPool_A</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/IPG/ipg_oracle.h" line="18" column="15" bodyfile="include/algorithms/IPG/ipg_oracle.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a42be1de2032c127df22e5dc39e4de6b7" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; arma::vec &gt;</type>
+        <definition>std::vector&lt;arma::vec&gt; Algorithms::IPG::Oracle::CutPool_b</definition>
+        <argsstring></argsstring>
+        <name>CutPool_b</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/IPG/ipg_oracle.h" line="19" column="15" bodyfile="include/algorithms/IPG/ipg_oracle.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a54bc1bf00ab99cd50b3fe9bab3426de1" prot="private" static="no" mutable="no">
+        <type><ref refid="class_game_1_1_i_p_g" kindref="compound">Game::IPG</ref> *</type>
+        <definition>Game::IPG* Algorithms::IPG::Oracle::IPG</definition>
+        <argsstring></argsstring>
+        <name>IPG</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/IPG/ipg_oracle.h" line="20" column="13" bodyfile="include/algorithms/IPG/ipg_oracle.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_algorithms_1_1_i_p_g_1_1_oracle_1ae9f340daa7581607eb018602fde4c6c8" prot="private" static="no" mutable="no">
+        <type>GRBEnv *</type>
+        <definition>GRBEnv* Algorithms::IPG::Oracle::Env</definition>
+        <argsstring></argsstring>
+        <name>Env</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/IPG/ipg_oracle.h" line="21" column="10" bodyfile="include/algorithms/IPG/ipg_oracle.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_algorithms_1_1_i_p_g_1_1_oracle_1ab7e1ec6e969bf8eb12e3d4c6dd46aaf4" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Algorithms::IPG::Oracle::Feasible</definition>
+        <argsstring></argsstring>
+        <name>Feasible</name>
+        <initializer>{false}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/IPG/ipg_oracle.h" line="22" column="8" bodyfile="include/algorithms/IPG/ipg_oracle.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a50b35e01a55ee2c42be09fedf3dae6da" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Algorithms::IPG::Oracle::Tolerance</definition>
+        <argsstring></argsstring>
+        <name>Tolerance</name>
+        <initializer>= 1e-6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/IPG/ipg_oracle.h" line="23" column="10" bodyfile="include/algorithms/IPG/ipg_oracle.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="class_algorithms_1_1_i_p_g_1_1_oracle_1ad14dbf2e3fe53a8a7ce0a4fb555e0714" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class Game::IPG</definition>
+        <argsstring></argsstring>
+        <name>Game::IPG</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/IPG/ipg_oracle.h" line="33" column="3" bodyfile="include/algorithms/IPG/ipg_oracle.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1aaecad506e4669fe8a442470d4140991f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Algorithms::IPG::Oracle::addConstraintsToPool</definition>
+        <argsstring>(const arma::sp_mat A, const arma::vec b, const unsigned int player, bool check=true)</argsstring>
+        <name>addConstraintsToPool</name>
+        <param>
+          <type>const arma::sp_mat</type>
+          <declname>A</declname>
+          <briefdescription><para>The LHS of the constraints to add </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>const arma::vec</type>
+          <declname>b</declname>
+          <briefdescription><para>The RHS of the constraints to add </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>const unsigned int</type>
+          <declname>player</declname>
+          <briefdescription><para>The index of the player </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>check</declname>
+          <defval>true</defval>
+          <briefdescription><para>A boolean controling whether the method check for the uniqueness of the constraints </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>This method adds to the members CutPool_A and CutPool_b the content of <computeroutput>A</computeroutput> and <computeroutput>b</computeroutput>. If <computeroutput>check</computeroutput> is set to true, then the methods checks that the content of A and b is unique. In case a duplicate is detected, the copy is not added to the class&apos; members. <simplesect kind="return"><para>true in at least one constraint has been added</para>
+</simplesect>
+</para>
+        </inbodydescription>
+        <location file="include/algorithms/IPG/ipg_oracle.h" line="25" column="8" bodyfile="src/algorithms/IPG/ipg_oracle.cpp" bodystart="150" bodyend="195"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a1c47f767db7479a9f5f6d6aa397200c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Algorithms::IPG::Oracle::separationCallback</definition>
+        <argsstring>(const unsigned int player)</argsstring>
+        <name>separationCallback</name>
+        <param>
+          <type>const unsigned int</type>
+          <declname>player</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/IPG/ipg_oracle.h" line="29" column="8"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a13e1568ed2f4792824da4ab6eb94c8b7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Algorithms::IPG::Oracle::getTol</definition>
+        <argsstring>() const</argsstring>
+        <name>getTol</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/IPG/ipg_oracle.h" line="30" column="10" bodyfile="include/algorithms/IPG/ipg_oracle.h" bodystart="30" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1aae8a97c1ae287128f8a40df277084507" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Algorithms::IPG::Oracle::setTol</definition>
+        <argsstring>(double tol)</argsstring>
+        <name>setTol</name>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/IPG/ipg_oracle.h" line="31" column="8" bodyfile="include/algorithms/IPG/ipg_oracle.h" bodystart="31" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a4e0a7a531afabba100b286af02b70221" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Algorithms::IPG::Oracle::Oracle</definition>
+        <argsstring>(GRBEnv *env, Game::IPG *IPGObj)</argsstring>
+        <name>Oracle</name>
+        <param>
+          <type>GRBEnv *</type>
+          <declname>env</declname>
+        </param>
+        <param>
+          <type><ref refid="class_game_1_1_i_p_g" kindref="compound">Game::IPG</ref> *</type>
+          <declname>IPGObj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/IPG/ipg_oracle.h" line="35" column="3" bodyfile="include/algorithms/IPG/ipg_oracle.h" bodystart="35" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1ab3fd0b8a91fda4a9b1f75fb890ed9dd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Algorithms::IPG::Oracle::solve</definition>
+        <argsstring>()</argsstring>
+        <name>solve</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The constructor requires the Gurobi environment and the <ref refid="class_game_1_1_i_p_g" kindref="compound">Game::IPG</ref> object. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/IPG/ipg_oracle.h" line="39" column="8"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1af9643974292bf18d18f985b657302082" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Algorithms::IPG::Oracle::isSolved</definition>
+        <argsstring>(double tol=1e-4) const</argsstring>
+        <name>isSolved</name>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+          <defval>1e-4</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/IPG/ipg_oracle.h" line="41" column="8" bodyfile="src/algorithms/IPG/ipg_oracle.cpp" bodystart="9" bodyend="11"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1ad8cc03386421c974dbbd8803a670f1cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Algorithms::IPG::Oracle::isFeasible</definition>
+        <argsstring>(bool &amp;addedCuts, double tol=1e-4)</argsstring>
+        <name>isFeasible</name>
+        <param>
+          <type>bool &amp;</type>
+          <declname>addedCuts</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+          <defval>1e-4</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Check whether the current outer approximation equilibrium is feasible and solves the outer approximation. Otherwise, add cuts, or generate useful points for next iterations.</para>
+        </inbodydescription>
+        <location file="include/algorithms/IPG/ipg_oracle.h" line="42" column="8" bodyfile="src/algorithms/IPG/ipg_oracle.cpp" bodystart="30" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a0cfe2936ac2ca9a8d757a6854ba99c88" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Algorithms::IPG::Oracle::isPureStrategy</definition>
+        <argsstring>(double tol=1e-4) const</argsstring>
+        <name>isPureStrategy</name>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+          <defval>1e-4</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/IPG/ipg_oracle.h" line="43" column="8"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1aa8c1709f46d7fe840eff6579d2f02cb8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Algorithms::IPG::Oracle::addValueCut</definition>
+        <argsstring>(unsigned int player, arma::vec xOfIBestResponse, arma::vec xMinusI)</argsstring>
+        <name>addValueCut</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>player</declname>
+        </param>
+        <param>
+          <type>arma::vec</type>
+          <declname>xOfIBestResponse</declname>
+        </param>
+        <param>
+          <type>arma::vec</type>
+          <declname>xMinusI</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/IPG/ipg_oracle.h" line="45" column="8" bodyfile="src/algorithms/IPG/ipg_oracle.cpp" bodystart="13" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a29de59b270cb690c35f157e9cabeb2b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Algorithms::IPG::Oracle::separationOracle</definition>
+        <argsstring>(arma::vec &amp;xOfI, arma::vec &amp;x, unsigned int player, int budget, bool &amp;addedCuts)</argsstring>
+        <name>separationOracle</name>
+        <param>
+          <type>arma::vec &amp;</type>
+          <declname>xOfI</declname>
+        </param>
+        <param>
+          <type>arma::vec &amp;</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>player</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>budget</declname>
+        </param>
+        <param>
+          <type>bool &amp;</type>
+          <declname>addedCuts</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/IPG/ipg_oracle.h" line="47" column="8"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1af77308976c6553e2120a5428f25b166e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>GRBModel *</type>
+        <definition>GRBModel* Algorithms::IPG::Oracle::getDualMembershipLP</definition>
+        <argsstring>(unsigned int player, arma::vec vertex, bool normalization=true)</argsstring>
+        <name>getDualMembershipLP</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>player</declname>
+        </param>
+        <param>
+          <type>arma::vec</type>
+          <declname>vertex</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>normalization</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/IPG/ipg_oracle.h" line="49" column="12"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1af6e543428074105a7c1435031c779e1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>arma::vec</type>
+        <definition>arma::vec Algorithms::IPG::Oracle::normalizeRay</definition>
+        <argsstring>(const arma::vec ray)</argsstring>
+        <name>normalizeRay</name>
+        <param>
+          <type>const arma::vec</type>
+          <declname>ray</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/algorithms/IPG/ipg_oracle.h" line="51" column="13"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This class is responsible for the <ref refid="class_algorithms_1_1_i_p_g_1_1_oracle" kindref="compound">Oracle</ref> algorithm for <ref refid="namespace_algorithms_1_1_i_p_g" kindref="compound">IPG</ref>. It inherit a GRBCallback to handle Gurobi callbacks. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Algorithms::IPG::Oracle</label>
+        <link refid="class_algorithms_1_1_i_p_g_1_1_oracle"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>GRBCallback</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Algorithms::IPG::Oracle</label>
+        <link refid="class_algorithms_1_1_i_p_g_1_1_oracle"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>IPG</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Game::IPG</label>
+        <link refid="class_game_1_1_i_p_g"/>
+      </node>
+      <node id="2">
+        <label>GRBCallback</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/algorithms/IPG/ipg_oracle.h" line="16" column="32" bodyfile="include/algorithms/IPG/ipg_oracle.h" bodystart="16" bodyend="52"/>
+    <listofallmembers>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1aaecad506e4669fe8a442470d4140991f" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>addConstraintsToPool</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1aa8c1709f46d7fe840eff6579d2f02cb8" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>addValueCut</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a6f4c087a18a1edee79b0dbda0e0f53a5" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>CutPool_A</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a42be1de2032c127df22e5dc39e4de6b7" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>CutPool_b</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1ae9f340daa7581607eb018602fde4c6c8" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>Env</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1ab7e1ec6e969bf8eb12e3d4c6dd46aaf4" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>Feasible</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1ad14dbf2e3fe53a8a7ce0a4fb555e0714" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>Game::IPG</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1af77308976c6553e2120a5428f25b166e" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>getDualMembershipLP</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a13e1568ed2f4792824da4ab6eb94c8b7" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>getTol</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a54bc1bf00ab99cd50b3fe9bab3426de1" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>IPG</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1ad8cc03386421c974dbbd8803a670f1cf" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>isFeasible</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a0cfe2936ac2ca9a8d757a6854ba99c88" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>isPureStrategy</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1af9643974292bf18d18f985b657302082" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>isSolved</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1af6e543428074105a7c1435031c779e1f" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>normalizeRay</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a4e0a7a531afabba100b286af02b70221" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>Oracle</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a1c47f767db7479a9f5f6d6aa397200c0" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>separationCallback</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a29de59b270cb690c35f157e9cabeb2b2" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>separationOracle</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1aae8a97c1ae287128f8a40df277084507" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>setTol</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1ab3fd0b8a91fda4a9b1f75fb890ed9dd7" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>solve</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a50b35e01a55ee2c42be09fedf3dae6da" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>Tolerance</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -10,8 +10,7 @@
         <definition>std::vector&lt;LeadAllPar&gt; Models::EPEC::AllLeadPars</definition>
         <argsstring></argsstring>
         <name>AllLeadPars</name>
-        <initializer>=
-      {}</initializer>
+        <initializer>= {}</initializer>
         <briefdescription>
 <para>The parameters of each leader in the <ref refid="class_models_1_1_e_p_e_c" kindref="compound">EPEC</ref> game. </para>
         </briefdescription>
@@ -19,7 +18,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="186" column="15" bodyfile="include/interfaces/epec_models.h" bodystart="186" bodyend="-1"/>
+        <location file="include/interfaces/epec_models.h" line="194" column="14" bodyfile="include/interfaces/epec_models.h" bodystart="194" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1adde9b8a110bf03c10b036f5004bc721e" prot="private" static="no" mutable="no">
         <type>std::vector&lt; std::shared_ptr&lt; <ref refid="class_game_1_1_q_p___param" kindref="compound">Game::QP_Param</ref> &gt; &gt;</type>
@@ -27,7 +26,7 @@
         <argsstring></argsstring>
         <name>MC_QP</name>
         <initializer>=
-      {}</initializer>
+		  {}</initializer>
         <briefdescription>
 <para>player </para>
         </briefdescription>
@@ -36,15 +35,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="188" column="15" bodyfile="include/interfaces/epec_models.h" bodystart="188" bodyend="-1"/>
+        <location file="include/interfaces/epec_models.h" line="195" column="14" bodyfile="include/interfaces/epec_models.h" bodystart="195" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1afe2b46d396e7980d8336099d8d916b19" prot="private" static="no" mutable="no">
         <type>arma::sp_mat</type>
         <definition>arma::sp_mat Models::EPEC::TranspCosts</definition>
         <argsstring></argsstring>
         <name>TranspCosts</name>
-        <initializer>=
-      {}</initializer>
+        <initializer>= {}</initializer>
         <briefdescription>
 <para>Transportation costs between pairs of countries. </para>
         </briefdescription>
@@ -52,7 +50,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="191" column="16" bodyfile="include/interfaces/epec_models.h" bodystart="191" bodyend="-1"/>
+        <location file="include/interfaces/epec_models.h" line="198" column="28" bodyfile="include/interfaces/epec_models.h" bodystart="198" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1a4de4147addd36ee7df8e0944bfa017ea" prot="private" static="no" mutable="no">
         <type>std::vector&lt; unsigned int &gt;</type>
@@ -60,7 +58,7 @@
         <argsstring></argsstring>
         <name>nImportMarkets</name>
         <initializer>=
-      {}</initializer>
+		  {}</initializer>
         <briefdescription>
 <para>Number of countries from which the i-th country imports. </para>
         </briefdescription>
@@ -68,15 +66,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="193" column="15" bodyfile="include/interfaces/epec_models.h" bodystart="193" bodyend="-1"/>
+        <location file="include/interfaces/epec_models.h" line="199" column="14" bodyfile="include/interfaces/epec_models.h" bodystart="199" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1ac8aaf82d32d88e211018505a5c99907a" prot="private" static="no" mutable="no">
         <type>std::vector&lt; <ref refid="namespace_models_1aec9f0d1d113730ec8734d5f6ab9cab9d" kindref="member">LeadLocs</ref> &gt;</type>
         <definition>std::vector&lt;LeadLocs&gt; Models::EPEC::Locations</definition>
         <argsstring></argsstring>
         <name>Locations</name>
-        <initializer>=
-      {}</initializer>
+        <initializer>= {}</initializer>
         <briefdescription>
 <para>Location of variables for each country. </para>
         </briefdescription>
@@ -84,7 +81,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="195" column="15" bodyfile="include/interfaces/epec_models.h" bodystart="195" bodyend="-1"/>
+        <location file="include/interfaces/epec_models.h" line="201" column="14" bodyfile="include/interfaces/epec_models.h" bodystart="201" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1af93e428bf0f642c3f46dc9d34641a74d" prot="private" static="no" mutable="no">
         <type>std::map&lt; std::string, unsigned int &gt;</type>
@@ -98,7 +95,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="198" column="12" bodyfile="include/interfaces/epec_models.h" bodystart="198" bodyend="-1"/>
+        <location file="include/interfaces/epec_models.h" line="203" column="11" bodyfile="include/interfaces/epec_models.h" bodystart="203" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1a90bc7510117aa20be8fb042f35351320" prot="private" static="no" mutable="no">
         <type>unsigned int</type>
@@ -112,7 +109,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="199" column="16" bodyfile="include/interfaces/epec_models.h" bodystart="199" bodyend="-1"/>
+        <location file="include/interfaces/epec_models.h" line="204" column="38" bodyfile="include/interfaces/epec_models.h" bodystart="204" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1ac2c5e7306ea5ab51ea953abdf9e4447f" prot="private" static="no" mutable="no">
         <type>std::vector&lt; arma::sp_mat &gt;</type>
@@ -127,7 +124,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="201" column="7" bodyfile="include/interfaces/epec_models.h" bodystart="201" bodyend="-1"/>
+        <location file="include/interfaces/epec_models.h" line="205" column="24" bodyfile="include/interfaces/epec_models.h" bodystart="205" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_models_1_1_e_p_e_c_1af6b6f5d1fb8f3eb3ba888bc5fd656bc6" prot="private" static="no" mutable="no">
         <type>std::vector&lt; arma::vec &gt;</type>
@@ -142,7 +139,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="202" column="15" bodyfile="include/interfaces/epec_models.h" bodystart="202" bodyend="-1"/>
+        <location file="include/interfaces/epec_models.h" line="206" column="27" bodyfile="include/interfaces/epec_models.h" bodystart="206" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-attrib">
@@ -160,7 +157,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="241" column="8" bodyfile="include/interfaces/epec_models.h" bodystart="241" bodyend="-1"/>
+        <location file="include/interfaces/epec_models.h" line="256" column="7" bodyfile="include/interfaces/epec_models.h" bodystart="256" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -189,7 +186,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="173" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="893" bodyend="949"/>
+        <location file="include/interfaces/epec_models.h" line="182" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="812" bodyend="863"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1adb4f3499fa2c03522ce997f0c3f63316" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -204,7 +201,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="176" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="956" bodyend="969"/>
+        <location file="include/interfaces/epec_models.h" line="184" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="869" bodyend="881"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1aa9dacf6f8965a70a18d47e196cb6f03f" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -225,7 +222,7 @@
 </listitem></orderedlist>
 </para>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="178" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="630" bodyend="653"/>
+        <location file="include/interfaces/epec_models.h" line="186" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="568" bodyend="590"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a2e38c1ac580d46b2a0bdaa36a8d46e63" prot="private" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>void</type>
@@ -241,7 +238,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="180" column="8" bodyfile="include/interfaces/epec_models.h" bodystart="180" bodyend="180"/>
+        <location file="include/interfaces/epec_models.h" line="188" column="7" bodyfile="include/interfaces/epec_models.h" bodystart="188" bodyend="188"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a78f228dd404eb6167125d1de1df3340a" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -318,7 +315,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="204" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="799" bodyend="846"/>
+        <location file="include/interfaces/epec_models.h" line="208" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="727" bodyend="767"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a043aff53098136d5f60d53a839b0ed85" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -344,7 +341,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="213" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="154" bodyend="189"/>
+        <location file="include/interfaces/epec_models.h" line="221" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="145" bodyend="175"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1afc7d4b6c72f488300b31cf51db2f81d6" prot="private" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
@@ -384,7 +381,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="216" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="191" bodyend="252"/>
+        <location file="include/interfaces/epec_models.h" line="224" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="177" bodyend="231"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1ac0317095ef32ba34772c9e73f26dc0ad" prot="private" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
@@ -454,7 +451,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="220" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="254" bodyend="413"/>
+        <location file="include/interfaces/epec_models.h" line="230" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="233" bodyend="368"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a926d12ae3829db9068a6ce813fbbdfce" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -476,7 +473,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="228" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="655" bodyend="704"/>
+        <location file="include/interfaces/epec_models.h" line="239" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="592" bodyend="636"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a295ae8dd8ca635a407940bc78ce8875a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -495,7 +492,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="230" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="745" bodyend="797"/>
+        <location file="include/interfaces/epec_models.h" line="241" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="674" bodyend="725"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a92ed1b673ace45b835bc07cc9b30e6ea" prot="private" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -518,7 +515,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="232" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="706" bodyend="743"/>
+        <location file="include/interfaces/epec_models.h" line="243" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="638" bodyend="672"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a8400c73da6cca24c5e7fdfd390a19838" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -548,7 +545,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="234" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="1408" bodyend="1470"/>
+        <location file="include/interfaces/epec_models.h" line="245" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="1310" bodyend="1369"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a27f68538976f6d41d93dbc51f6711166" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -577,7 +574,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="237" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="1472" bodyend="1545"/>
+        <location file="include/interfaces/epec_models.h" line="250" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="1371" bodyend="1438"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -592,7 +589,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="246" column="3"/>
+        <location file="include/interfaces/epec_models.h" line="261" column="2"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a05bb954912158ca39f123ec1c6cdba9a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -614,7 +611,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="248" column="3" bodyfile="include/interfaces/epec_models.h" bodystart="248" bodyend="249"/>
+        <location file="include/interfaces/epec_models.h" line="263" column="2" bodyfile="include/interfaces/epec_models.h" bodystart="263" bodyend="263"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1ad4eddf9e6d7fa0391db41f647af25fc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -631,7 +628,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="252" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="1547" bodyend="1554"/>
+        <location file="include/interfaces/epec_models.h" line="266" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="1440" bodyend="1447"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a14962535c0ee6c0f2669508d850dbfe1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_models_1_1_e_p_e_c" kindref="compound">EPEC</ref> &amp;</type>
@@ -669,7 +666,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="255" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="415" bodyend="597"/>
+        <location file="include/interfaces/epec_models.h" line="269" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="370" bodyend="538"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1ae7423f15fd8596aeebc38d31f04d03c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_models_1_1_e_p_e_c" kindref="compound">EPEC</ref> &amp;</type>
@@ -690,7 +687,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="262" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="599" bodyend="628"/>
+        <location file="include/interfaces/epec_models.h" line="276" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="541" bodyend="566"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a1d74390d88d7f5236d502eba172864ca" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned int</type>
@@ -713,7 +710,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="265" column="3" bodyfile="src/interfaces/epec_models.cpp" bodystart="848" bodyend="859"/>
+        <location file="include/interfaces/epec_models.h" line="278" column="15" bodyfile="src/interfaces/epec_models.cpp" bodystart="769" bodyend="778"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1ab76060f9c18689c85f20583322d3084d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned int</type>
@@ -735,7 +732,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="269" column="3"/>
+        <location file="include/interfaces/epec_models.h" line="281" column="15"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a356a22aff221fad903b911014783651f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_models_1_1_e_p_e_c" kindref="compound">EPEC</ref> &amp;</type>
@@ -750,7 +747,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="272" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="880" bodyend="891"/>
+        <location file="include/interfaces/epec_models.h" line="284" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="799" bodyend="810"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a536a82c1fa0aa9b3a4e9f84669b17166" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::unique_ptr&lt; GRBModel &gt;</type>
@@ -771,7 +768,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="274" column="19" bodyfile="src/interfaces/epec_models.cpp" bodystart="951" bodyend="954"/>
+        <location file="include/interfaces/epec_models.h" line="286" column="18" bodyfile="src/interfaces/epec_models.cpp" bodystart="865" bodyend="867"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1aea86a7ca6a2f4d0bcedd2d7a02a4db89" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_game_1_1_nash_game" kindref="compound">Game::NashGame</ref> *</type>
@@ -789,7 +786,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="278" column="18" bodyfile="src/interfaces/epec_models.cpp" bodystart="871" bodyend="878"/>
+        <location file="include/interfaces/epec_models.h" line="289" column="17" bodyfile="src/interfaces/epec_models.cpp" bodystart="790" bodyend="797"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a7ab042a6cac2e61ce8039f25d9a8a0db" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -815,7 +812,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="281" column="8"/>
+        <location file="include/interfaces/epec_models.h" line="292" column="7"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1ad6045931d0e213e1897f6b018b93575a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -837,7 +834,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="284" column="8"/>
+        <location file="include/interfaces/epec_models.h" line="294" column="7"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1abdfa0a37634cbecc7a0d1a953d9dae44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -855,7 +852,7 @@
         <inbodydescription>
 <para>Reads the solution file and load it in the current <ref refid="class_models_1_1_e_p_e_c" kindref="compound">EPEC</ref> instance</para>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="286" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="1158" bodyend="1191"/>
+        <location file="include/interfaces/epec_models.h" line="296" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="1064" bodyend="1096"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a0b4f42c3d7a8bac1673ecd63faee254b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -881,7 +878,7 @@
         <inbodydescription>
 <para>Writes the computed Nash Equilibrium in the standard JSON solution file <computeroutput>filename</computeroutput> dictates the name of the .JSON solution file</para>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="288" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="1085" bodyend="1156"/>
+        <location file="include/interfaces/epec_models.h" line="298" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="994" bodyend="1062"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a52dd1bf3d61d40aa3f461403377d73de" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -903,7 +900,7 @@
         <inbodydescription>
 <para>Writes the computed Nash Equilibrium in the <ref refid="class_models_1_1_e_p_e_c" kindref="compound">EPEC</ref> instance <computeroutput>writeLevel</computeroutput> is an integer representing the write configuration. 0: only Json solution; 1: only human readable solution; 2:both</para>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="291" column="8" bodyfile="src/interfaces/epec_models.cpp" bodystart="1193" bodyend="1212"/>
+        <location file="include/interfaces/epec_models.h" line="300" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="1098" bodyend="1116"/>
       </memberdef>
       <memberdef kind="function" id="class_models_1_1_e_p_e_c_1a32f76f4e828f8f7ffa6d76f889b60bc5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>const <ref refid="struct_models_1_1_e_p_e_c_instance" kindref="compound">EPECInstance</ref></type>
@@ -917,7 +914,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interfaces/epec_models.h" line="294" column="22" bodyfile="include/interfaces/epec_models.h" bodystart="294" bodyend="296"/>
+        <location file="include/interfaces/epec_models.h" line="303" column="21" bodyfile="include/interfaces/epec_models.h" bodystart="303" bodyend="305"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1062,7 +1059,7 @@
         <link refid="class_attr"/>
       </node>
     </collaborationgraph>
-    <location file="include/interfaces/epec_models.h" line="170" column="29" bodyfile="include/interfaces/epec_models.h" bodystart="170" bodyend="297"/>
+    <location file="include/interfaces/epec_models.h" line="179" column="31" bodyfile="include/interfaces/epec_models.h" bodystart="179" bodyend="306"/>
     <listofallmembers>
       <member refid="class_models_1_1_e_p_e_c_1a926d12ae3829db9068a6ce813fbbdfce" prot="private" virt="non-virtual"><scope>Models::EPEC</scope><name>add_Leaders_tradebalance_constraints</name></member>
       <member refid="class_models_1_1_e_p_e_c_1a14962535c0ee6c0f2669508d850dbfe1" prot="public" virt="non-virtual"><scope>Models::EPEC</scope><name>addCountry</name></member>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Program Listing for File epec_outerapproximation.h &mdash; ZERO 1.0.0 documentation</title>
+  <title>Program Listing for File epec_outerapproximation.h &mdash; Python 1.0.0 documentation</title>
   
 
   
@@ -63,6 +63,10 @@
 
           
             
+            
+              <div class="version">
+                1.0.0
+              </div>
             
           
 
@@ -139,8 +143,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Algorithms__IPG.html#classes">Classes</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_arma.html">Namespace arma</a></li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_boost__program_options.html">Namespace boost::program_options</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_Data.html">Namespace Data</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_Data.html#namespaces">Namespaces</a></li>
 </ul>
@@ -167,7 +169,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_rapidjson.html">Namespace rapidjson</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_std.html">Namespace std</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_std.html#functions">Functions</a></li>
 </ul>
@@ -695,7 +696,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ZERO</a>
+          <a href="../index.html">Python</a>
         
       </nav>
 
@@ -760,203 +761,184 @@
 <span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
 
 <span class="k">namespace</span> <span class="n">Algorithms</span> <span class="p">{</span>
-<span class="k">namespace</span> <span class="n">EPEC</span> <span class="p">{</span>
+  <span class="k">namespace</span> <span class="n">EPEC</span> <span class="p">{</span>
 
-<span class="k">class</span> <span class="nc">OuterTree</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-  <span class="k">struct</span> <span class="n">Node</span> <span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span>
-    <span class="k">friend</span> <span class="k">class</span> <span class="nc">OuterTree</span><span class="p">;</span>
+     <span class="k">class</span> <span class="nc">OuterTree</span> <span class="p">{</span>
+     <span class="k">public</span><span class="o">:</span>
+        <span class="k">struct</span> <span class="n">Node</span> <span class="p">{</span>
+        <span class="k">public</span><span class="o">:</span>
+          <span class="k">friend</span> <span class="k">class</span> <span class="nc">OuterTree</span><span class="p">;</span>
 
-    <span class="n">Node</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">encSize</span><span class="p">);</span>
+          <span class="n">Node</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">encSize</span><span class="p">);</span>
 
-    <span class="n">Node</span><span class="p">(</span><span class="n">Node</span> <span class="o">&amp;</span><span class="n">parent</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">idComp</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">id</span><span class="p">);</span>
-    <span class="n">Node</span><span class="p">(</span><span class="n">Node</span> <span class="o">&amp;</span><span class="n">parent</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">idComps</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">id</span><span class="p">);</span>
+          <span class="n">Node</span><span class="p">(</span><span class="n">Node</span> <span class="o">&amp;</span><span class="n">parent</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">idComp</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">id</span><span class="p">);</span>
+          <span class="n">Node</span><span class="p">(</span><span class="n">Node</span> <span class="o">&amp;</span><span class="n">parent</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">idComps</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">id</span><span class="p">);</span>
 
-    <span class="kr">inline</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">getIdComps</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">IdComps</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">getId</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Id</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">getCumulativeBranches</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">count</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">AllowedBranchings</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span>
-                        <span class="k">this</span><span class="o">-&gt;</span><span class="n">AllowedBranchings</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="nb">false</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="kr">inline</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">getEncoding</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Encoding</span><span class="p">;</span>
-    <span class="p">}</span>
+          <span class="kr">inline</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">getIdComps</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+             <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">IdComps</span><span class="p">;</span>
+          <span class="p">}</span>
+          <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">getId</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Id</span><span class="p">;</span> <span class="p">}</span>
+          <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">getCumulativeBranches</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+             <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">count</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">AllowedBranchings</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">AllowedBranchings</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="nb">false</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="kr">inline</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">getEncoding</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+             <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Encoding</span><span class="p">;</span>
+          <span class="p">}</span>
 
-    <span class="kr">inline</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">getAllowedBranchings</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">AllowedBranchings</span><span class="p">;</span>
-    <span class="p">}</span>
+          <span class="kr">inline</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">getAllowedBranchings</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+             <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">AllowedBranchings</span><span class="p">;</span>
+          <span class="p">}</span>
 
-    <span class="kr">inline</span> <span class="n">Node</span> <span class="o">*</span><span class="n">getParent</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Parent</span><span class="p">;</span>
-    <span class="p">}</span>
+          <span class="kr">inline</span> <span class="n">Node</span> <span class="o">*</span><span class="n">getParent</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+             <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Parent</span><span class="p">;</span>
+          <span class="p">}</span>
 
-  <span class="k">private</span><span class="o">:</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span>
-        <span class="n">IdComps</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span>
-        <span class="n">Encoding</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span>
-        <span class="n">AllowedBranchings</span><span class="p">;</span>
-    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span>
-        <span class="n">Id</span><span class="p">;</span>
-    <span class="n">Node</span> <span class="o">*</span><span class="n">Parent</span><span class="p">;</span>
-  <span class="p">};</span>
+        <span class="k">private</span><span class="o">:</span>
+          <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">IdComps</span><span class="p">;</span>
+          <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span>         <span class="n">Encoding</span><span class="p">;</span>
+          <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">AllowedBranchings</span><span class="p">;</span>
+          <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">Id</span><span class="p">;</span>
+          <span class="n">Node</span> <span class="o">*</span>            <span class="n">Parent</span><span class="p">;</span>
+        <span class="p">};</span>
 
-<span class="k">private</span><span class="o">:</span>
-  <span class="n">Node</span> <span class="n">Root</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">EncodingSize</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">NodeCounter</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span> <span class="n">Nodes</span><span class="p">{};</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">V</span><span class="p">{};</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span>
-      <span class="n">R</span><span class="p">{};</span>
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">VertexCounter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">RayCounter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="n">GRBModel</span> <span class="o">*</span><span class="n">MembershipLP</span><span class="p">;</span>
-  <span class="kt">bool</span> <span class="n">MembershipInit</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
-  <span class="kt">bool</span> <span class="n">isPure</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
-  <span class="kt">bool</span> <span class="n">isFeasible</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
+     <span class="k">private</span><span class="o">:</span>
+        <span class="n">Node</span>         <span class="n">Root</span>         <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">EncodingSize</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">unsigned</span> <span class="kt">int</span>      <span class="n">NodeCounter</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span> <span class="n">Nodes</span><span class="p">{};</span>
+        <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span>      <span class="n">V</span><span class="p">{};</span>
+        <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">R</span><span class="p">{};</span>
+        <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">VertexCounter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">RayCounter</span>    <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">GRBModel</span> <span class="o">*</span>   <span class="n">MembershipLP</span><span class="p">;</span>
+        <span class="kt">bool</span> <span class="n">MembershipInit</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
+        <span class="kt">bool</span> <span class="n">isPure</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
+        <span class="kt">bool</span> <span class="n">isFeasible</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
 
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">nextIdentifier</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">NodeCounter</span><span class="o">++</span><span class="p">;</span>
-    <span class="k">return</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">NodeCounter</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
-  <span class="p">}</span>
+        <span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">nextIdentifier</span><span class="p">()</span> <span class="p">{</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">NodeCounter</span><span class="o">++</span><span class="p">;</span>
+          <span class="k">return</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">NodeCounter</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span>
 
-<span class="k">public</span><span class="o">:</span>
-  <span class="n">OuterTree</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">encSize</span><span class="p">,</span> <span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span>
-      <span class="o">:</span> <span class="n">MembershipLP</span><span class="p">(</span><span class="k">new</span> <span class="n">GRBModel</span><span class="p">(</span><span class="o">*</span><span class="n">env</span><span class="p">))</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Root</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">encSize</span><span class="p">);</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">EncodingSize</span> <span class="o">=</span> <span class="n">encSize</span><span class="p">;</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Nodes</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Root</span><span class="p">);</span>
-  <span class="p">}</span>
+     <span class="k">public</span><span class="o">:</span>
+        <span class="n">OuterTree</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">encSize</span><span class="p">,</span> <span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="o">:</span> <span class="n">MembershipLP</span><span class="p">(</span><span class="k">new</span> <span class="n">GRBModel</span><span class="p">(</span><span class="o">*</span><span class="n">env</span><span class="p">))</span> <span class="p">{</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">Root</span>         <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">encSize</span><span class="p">);</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">EncodingSize</span> <span class="o">=</span> <span class="n">encSize</span><span class="p">;</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">Nodes</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Root</span><span class="p">);</span>
+        <span class="p">}</span>
 
-  <span class="n">GRBModel</span> <span class="o">*</span><span class="n">getMembershipLP</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MembershipLP</span><span class="p">;</span> <span class="p">}</span>
+        <span class="n">GRBModel</span> <span class="o">*</span><span class="n">getMembershipLP</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MembershipLP</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="k">const</span> <span class="kt">bool</span> <span class="n">getMembershipInit</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MembershipInit</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">const</span> <span class="kt">bool</span> <span class="n">getMembershipInit</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MembershipInit</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">setMembershipInit</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MembershipInit</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="p">}</span>
+        <span class="kr">inline</span> <span class="kt">void</span> <span class="n">setMembershipInit</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MembershipInit</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">resetFeasibility</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">isPure</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">isFeasible</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-  <span class="p">}</span>
+        <span class="kr">inline</span> <span class="kt">void</span> <span class="n">resetFeasibility</span><span class="p">()</span> <span class="p">{</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">isPure</span>     <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">isFeasible</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="kt">bool</span> <span class="n">getPure</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">isPure</span><span class="p">;</span> <span class="p">}</span>
+        <span class="kr">inline</span> <span class="kt">bool</span> <span class="n">getPure</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">isPure</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">setFeasible</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">isFeasible</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="p">}</span>
+        <span class="kr">inline</span> <span class="kt">void</span> <span class="n">setFeasible</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">isFeasible</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">setPure</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">isPure</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="p">}</span>
+        <span class="kr">inline</span> <span class="kt">void</span> <span class="n">setPure</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">isPure</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="k">const</span> <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getEncodingSize</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EncodingSize</span><span class="p">;</span>
-  <span class="p">}</span>
+        <span class="k">const</span> <span class="kr">inline</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getEncodingSize</span><span class="p">()</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EncodingSize</span><span class="p">;</span>
+        <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">*</span><span class="n">getV</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="o">&amp;</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">V</span><span class="p">;</span> <span class="p">}</span>
+        <span class="kr">inline</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">*</span><span class="n">getV</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="o">&amp;</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">V</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">*</span><span class="n">getR</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="o">&amp;</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">R</span><span class="p">;</span> <span class="p">}</span>
+        <span class="kr">inline</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">*</span><span class="n">getR</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="o">&amp;</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">R</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="kt">void</span> <span class="n">incrementVertices</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">increment</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">VertexCounter</span> <span class="o">+=</span> <span class="n">increment</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="kt">void</span> <span class="n">incrementRays</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">increment</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">RayCounter</span> <span class="o">+=</span> <span class="n">increment</span><span class="p">;</span> <span class="p">}</span>
+        <span class="kt">void</span> <span class="n">incrementVertices</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">increment</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">VertexCounter</span> <span class="o">+=</span> <span class="n">increment</span><span class="p">;</span> <span class="p">}</span>
+        <span class="kt">void</span> <span class="n">incrementRays</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">increment</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">RayCounter</span> <span class="o">+=</span> <span class="n">increment</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getVertexCount</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">VertexCounter</span><span class="p">;</span> <span class="p">}</span>
-  <span class="kr">inline</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getRayCount</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">RayCounter</span><span class="p">;</span> <span class="p">}</span>
+        <span class="kr">inline</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getVertexCount</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">VertexCounter</span><span class="p">;</span> <span class="p">}</span>
+        <span class="kr">inline</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getRayCount</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">RayCounter</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getNodeCount</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">NodeCounter</span><span class="p">;</span> <span class="p">}</span>
+        <span class="kr">inline</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">getNodeCount</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">NodeCounter</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">addVertex</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">vertex</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">V</span> <span class="o">=</span> <span class="n">arma</span><span class="o">::</span><span class="n">join_cols</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">V</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="p">{</span><span class="n">vertex</span><span class="p">.</span><span class="n">t</span><span class="p">()});</span>
-  <span class="p">}</span>
+        <span class="kr">inline</span> <span class="kt">void</span> <span class="n">addVertex</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">vertex</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">V</span> <span class="o">=</span> <span class="n">arma</span><span class="o">::</span><span class="n">join_cols</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">V</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="p">{</span><span class="n">vertex</span><span class="p">.</span><span class="n">t</span><span class="p">()});</span>
+        <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="kt">void</span> <span class="n">addRay</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">ray</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">R</span> <span class="o">=</span> <span class="n">arma</span><span class="o">::</span><span class="n">join_cols</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">R</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="p">{</span><span class="n">ray</span><span class="p">.</span><span class="n">t</span><span class="p">()});</span>
-  <span class="p">}</span>
+        <span class="kr">inline</span> <span class="kt">void</span> <span class="n">addRay</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">ray</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">R</span> <span class="o">=</span> <span class="n">arma</span><span class="o">::</span><span class="n">join_cols</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">R</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="p">{</span><span class="n">ray</span><span class="p">.</span><span class="n">t</span><span class="p">()});</span>
+        <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="n">Node</span> <span class="o">*</span><span class="k">const</span> <span class="n">getRoot</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="o">&amp;</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Root</span><span class="p">;</span>
-  <span class="p">}</span>
+        <span class="kr">inline</span> <span class="n">Node</span> <span class="o">*</span><span class="k">const</span> <span class="n">getRoot</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="o">&amp;</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Root</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="kr">inline</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">getNodes</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="o">&amp;</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Nodes</span><span class="p">;</span> <span class="p">};</span>
+        <span class="kr">inline</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">getNodes</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="o">&amp;</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Nodes</span><span class="p">;</span> <span class="p">};</span>
 
-  <span class="kt">void</span> <span class="nf">denyBranchingLocation</span><span class="p">(</span><span class="n">Node</span> <span class="o">&amp;</span><span class="n">node</span><span class="p">,</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">location</span><span class="p">);</span>
-  <span class="kt">void</span> <span class="nf">denyBranchingLocations</span><span class="p">(</span><span class="n">Node</span> <span class="o">&amp;</span><span class="n">node</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">locations</span><span class="p">);</span>
+        <span class="kt">void</span> <span class="nf">denyBranchingLocation</span><span class="p">(</span><span class="n">Node</span> <span class="o">&amp;</span><span class="n">node</span><span class="p">,</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">location</span><span class="p">);</span>
+        <span class="kt">void</span> <span class="nf">denyBranchingLocations</span><span class="p">(</span><span class="n">Node</span> <span class="o">&amp;</span><span class="n">node</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">locations</span><span class="p">);</span>
 
-  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">singleBranch</span><span class="p">(</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">idComp</span><span class="p">,</span> <span class="n">Node</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">singleBranch</span><span class="p">(</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">idComp</span><span class="p">,</span> <span class="n">Node</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
 
-  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">multipleBranch</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">idsComp</span><span class="p">,</span> <span class="n">Node</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
-<span class="p">};</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">multipleBranch</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">idsComp</span><span class="p">,</span> <span class="n">Node</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
+     <span class="p">};</span>
 
-<span class="k">class</span> <span class="nc">OuterApproximation</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Algorithm</span> <span class="p">{</span>
-<span class="k">private</span><span class="o">:</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">OuterLCP</span><span class="o">&gt;&gt;</span> <span class="n">outerLCP</span><span class="p">{};</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">OuterTree</span> <span class="o">*&gt;</span> <span class="n">Trees</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">OuterTree</span><span class="o">::</span><span class="n">Node</span> <span class="o">*&gt;</span> <span class="n">Incumbent</span><span class="p">;</span>
-  <span class="kt">bool</span> <span class="n">Feasible</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
-  <span class="kt">double</span> <span class="n">Tolerance</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">;</span>
+     <span class="k">class</span> <span class="nc">OuterApproximation</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Algorithm</span> <span class="p">{</span>
+     <span class="k">private</span><span class="o">:</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">OuterLCP</span><span class="o">&gt;&gt;</span> <span class="n">outerLCP</span><span class="p">{};</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">OuterTree</span> <span class="o">*&gt;</span>                     <span class="n">Trees</span><span class="p">;</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">OuterTree</span><span class="o">::</span><span class="n">Node</span> <span class="o">*&gt;</span>               <span class="n">Incumbent</span><span class="p">;</span>
+        <span class="kt">bool</span>                                         <span class="n">Feasible</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
+        <span class="kt">double</span>                                       <span class="n">Tolerance</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">;</span>
 
-<span class="k">public</span><span class="o">:</span>
-  <span class="kt">double</span> <span class="n">getTol</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">Tolerance</span><span class="p">;</span> <span class="p">}</span>
-  <span class="kt">void</span> <span class="n">setTol</span><span class="p">(</span><span class="kt">double</span> <span class="n">tol</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Tolerance</span> <span class="o">=</span> <span class="n">tol</span><span class="p">;</span> <span class="p">}</span>
+     <span class="k">public</span><span class="o">:</span>
+        <span class="kt">double</span> <span class="n">getTol</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">Tolerance</span><span class="p">;</span> <span class="p">}</span>
+        <span class="kt">void</span>   <span class="n">setTol</span><span class="p">(</span><span class="kt">double</span> <span class="n">tol</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Tolerance</span> <span class="o">=</span> <span class="n">tol</span><span class="p">;</span> <span class="p">}</span>
 
-<span class="k">private</span><span class="o">:</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">getNextBranchLocation</span><span class="p">(</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span>
-                                         <span class="n">OuterTree</span><span class="o">::</span><span class="n">Node</span> <span class="o">*</span><span class="n">node</span><span class="p">);</span>
-  <span class="kt">int</span> <span class="nf">getFirstBranchLocation</span><span class="p">(</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span>
-                             <span class="k">const</span> <span class="n">OuterTree</span><span class="o">::</span><span class="n">Node</span> <span class="o">*</span><span class="n">node</span><span class="p">);</span>
+     <span class="k">private</span><span class="o">:</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">getNextBranchLocation</span><span class="p">(</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="n">OuterTree</span><span class="o">::</span><span class="n">Node</span> <span class="o">*</span><span class="n">node</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="nf">getFirstBranchLocation</span><span class="p">(</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="k">const</span> <span class="n">OuterTree</span><span class="o">::</span><span class="n">Node</span> <span class="o">*</span><span class="n">node</span><span class="p">);</span>
 
-<span class="k">protected</span><span class="o">:</span>
-  <span class="kt">void</span> <span class="n">postSolving</span><span class="p">()</span> <span class="k">override</span><span class="p">{</span>
-      <span class="c1">//@todo implement</span>
-  <span class="p">};</span>
+     <span class="k">protected</span><span class="o">:</span>
+        <span class="kt">void</span> <span class="n">postSolving</span><span class="p">()</span> <span class="k">override</span><span class="p">{</span>
+             <span class="c1">//@todo implement</span>
+        <span class="p">};</span>
 
-<span class="k">public</span><span class="o">:</span>
-  <span class="k">friend</span> <span class="k">class</span> <span class="nc">EPEC</span><span class="p">;</span>
+     <span class="k">public</span><span class="o">:</span>
+        <span class="k">friend</span> <span class="k">class</span> <span class="nc">EPEC</span><span class="p">;</span>
 
-  <span class="n">OuterApproximation</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">Game</span><span class="o">::</span><span class="n">EPEC</span> <span class="o">*</span><span class="n">EpecObj</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span> <span class="o">=</span> <span class="n">EpecObj</span><span class="p">;</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Env</span> <span class="o">=</span> <span class="n">env</span><span class="p">;</span>
-    <span class="cm">/*</span>
-<span class="cm">     *  The constructor re-builds the LCP fields in the EPEC object as new</span>
-<span class="cm">     * OuterLCP objects</span>
-<span class="cm">     */</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">outerLCP</span> <span class="o">=</span>
-        <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">OuterLCP</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">);</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">this</span><span class="o">-&gt;</span><span class="n">outerLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">OuterLCP</span><span class="o">&gt;</span><span class="p">(</span><span class="k">new</span> <span class="n">Game</span><span class="o">::</span><span class="n">OuterLCP</span><span class="p">(</span>
-          <span class="k">this</span><span class="o">-&gt;</span><span class="n">Env</span><span class="p">,</span> <span class="o">*</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">PlayersLowerLevels</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">get</span><span class="p">()));</span>
-      <span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">PlayersLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">outerLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
-    <span class="p">}</span>
+        <span class="n">OuterApproximation</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">Game</span><span class="o">::</span><span class="n">EPEC</span> <span class="o">*</span><span class="n">EpecObj</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span> <span class="o">=</span> <span class="n">EpecObj</span><span class="p">;</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">Env</span>        <span class="o">=</span> <span class="n">env</span><span class="p">;</span>
+          <span class="cm">/*</span>
+<span class="cm">            *  The constructor re-builds the LCP fields in the EPEC object as new</span>
+<span class="cm">            * OuterLCP objects</span>
+<span class="cm">            */</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">outerLCP</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">OuterLCP</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">);</span>
+          <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+             <span class="k">this</span><span class="o">-&gt;</span><span class="n">outerLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">OuterLCP</span><span class="o">&gt;</span><span class="p">(</span>
+                  <span class="k">new</span> <span class="n">Game</span><span class="o">::</span><span class="n">OuterLCP</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Env</span><span class="p">,</span> <span class="o">*</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">PlayersLowerLevels</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">get</span><span class="p">()));</span>
+             <span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">PlayersLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">outerLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+          <span class="p">}</span>
 
-  <span class="p">};</span>
-  <span class="kt">void</span> <span class="nf">solve</span><span class="p">()</span> <span class="k">override</span><span class="p">;</span>
+        <span class="p">};</span>
+        <span class="kt">void</span> <span class="nf">solve</span><span class="p">()</span> <span class="k">override</span><span class="p">;</span>
 
-  <span class="c1">//@todo define these for the outer approximation</span>
-  <span class="kt">bool</span> <span class="nf">isSolved</span><span class="p">(</span><span class="kt">double</span> <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">)</span> <span class="k">const</span> <span class="k">override</span><span class="p">;</span>
-  <span class="kt">bool</span> <span class="nf">isFeasible</span><span class="p">(</span><span class="kt">bool</span> <span class="o">&amp;</span><span class="n">addedCuts</span><span class="p">,</span> <span class="kt">double</span> <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">);</span>
-  <span class="kt">bool</span> <span class="nf">isPureStrategy</span><span class="p">(</span><span class="kt">double</span> <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">)</span> <span class="k">const</span> <span class="k">override</span><span class="p">;</span>
+        <span class="c1">//@todo define these for the outer approximation</span>
+        <span class="kt">bool</span> <span class="nf">isSolved</span><span class="p">(</span><span class="kt">double</span> <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">)</span> <span class="k">const</span> <span class="k">override</span><span class="p">;</span>
+        <span class="kt">bool</span> <span class="nf">isFeasible</span><span class="p">(</span><span class="kt">bool</span> <span class="o">&amp;</span><span class="n">addedCuts</span><span class="p">,</span> <span class="kt">double</span> <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">);</span>
+        <span class="kt">bool</span> <span class="nf">isPureStrategy</span><span class="p">(</span><span class="kt">double</span> <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">)</span> <span class="k">const</span> <span class="k">override</span><span class="p">;</span>
 
-  <span class="kt">void</span> <span class="nf">printCurrentApprox</span><span class="p">();</span>
-  <span class="kt">int</span> <span class="nf">hybridBranching</span><span class="p">(</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="n">OuterTree</span><span class="o">::</span><span class="n">Node</span> <span class="o">*</span><span class="n">node</span><span class="p">);</span>
-  <span class="kt">int</span> <span class="nf">infeasibleBranching</span><span class="p">(</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span>
-                          <span class="k">const</span> <span class="n">OuterTree</span><span class="o">::</span><span class="n">Node</span> <span class="o">*</span><span class="n">node</span><span class="p">);</span>
-  <span class="kt">int</span> <span class="nf">deviationBranching</span><span class="p">(</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span>
-                         <span class="k">const</span> <span class="n">OuterTree</span><span class="o">::</span><span class="n">Node</span> <span class="o">*</span><span class="n">node</span><span class="p">);</span>
-  <span class="kt">void</span> <span class="nf">printBranchingLog</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">vector</span><span class="p">);</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">GRBModel</span><span class="o">&gt;</span> <span class="n">getFeasQP</span><span class="p">(</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">x</span><span class="p">);</span>
-  <span class="kt">void</span> <span class="nf">addValueCut</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">xOfIBestResponse</span><span class="p">,</span>
-                   <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">xMinusI</span><span class="p">);</span>
-  <span class="kt">bool</span> <span class="nf">separationOracle</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">xOfI</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span>
-                        <span class="kt">int</span> <span class="n">budget</span><span class="p">,</span> <span class="kt">bool</span> <span class="o">&amp;</span><span class="n">addedCuts</span><span class="p">);</span>
-  <span class="n">GRBModel</span> <span class="o">*</span><span class="nf">getDualMembershipLP</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">vertex</span><span class="p">,</span>
-                                <span class="kt">bool</span> <span class="n">normalization</span> <span class="o">=</span> <span class="nb">true</span><span class="p">);</span>
-<span class="p">};</span>
-<span class="p">}</span> <span class="c1">// namespace EPEC</span>
+        <span class="kt">void</span> <span class="nf">printCurrentApprox</span><span class="p">();</span>
+        <span class="kt">int</span>  <span class="nf">hybridBranching</span><span class="p">(</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="n">OuterTree</span><span class="o">::</span><span class="n">Node</span> <span class="o">*</span><span class="n">node</span><span class="p">);</span>
+        <span class="kt">int</span>  <span class="nf">infeasibleBranching</span><span class="p">(</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="k">const</span> <span class="n">OuterTree</span><span class="o">::</span><span class="n">Node</span> <span class="o">*</span><span class="n">node</span><span class="p">);</span>
+        <span class="kt">int</span>  <span class="nf">deviationBranching</span><span class="p">(</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="k">const</span> <span class="n">OuterTree</span><span class="o">::</span><span class="n">Node</span> <span class="o">*</span><span class="n">node</span><span class="p">);</span>
+        <span class="kt">void</span> <span class="nf">printBranchingLog</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">vector</span><span class="p">);</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">GRBModel</span><span class="o">&gt;</span> <span class="n">getFeasQP</span><span class="p">(</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">x</span><span class="p">);</span>
+        <span class="kt">void</span> <span class="nf">addValueCut</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">xOfIBestResponse</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">xMinusI</span><span class="p">);</span>
+        <span class="kt">bool</span> <span class="nf">separationOracle</span><span class="p">(</span>
+             <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">xOfI</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="kt">int</span> <span class="n">budget</span><span class="p">,</span> <span class="kt">bool</span> <span class="o">&amp;</span><span class="n">addedCuts</span><span class="p">);</span>
+        <span class="n">GRBModel</span> <span class="o">*</span>
+        <span class="nf">getDualMembershipLP</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">vertex</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">normalization</span> <span class="o">=</span> <span class="nb">true</span><span class="p">);</span>
+     <span class="p">};</span>
+  <span class="p">}</span> <span class="c1">// namespace EPEC</span>
 
 <span class="p">}</span> <span class="c1">// namespace Algorithms</span>
 </pre></div>
@@ -974,7 +956,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, GD and SS
+        &copy; Copyright Gabriele Dragotto, Sriram Sankaranarayanan
 
     </p>
   </div>

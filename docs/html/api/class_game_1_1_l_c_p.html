@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Class LCP &mdash; ZERO 1.0.0 documentation</title>
+  <title>Class LCP &mdash; Python 1.0.0 documentation</title>
   
 
   
@@ -65,6 +65,10 @@
 
           
             
+            
+              <div class="version">
+                1.0.0
+              </div>
             
           
 
@@ -141,8 +145,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Algorithms__IPG.html#classes">Classes</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_arma.html">Namespace arma</a></li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_boost__program_options.html">Namespace boost::program_options</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_Data.html">Namespace Data</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_Data.html#namespaces">Namespaces</a></li>
 </ul>
@@ -169,7 +171,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_rapidjson.html">Namespace rapidjson</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_std.html">Namespace std</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_std.html#functions">Functions</a></li>
 </ul>
@@ -697,7 +698,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ZERO</a>
+          <a href="../index.html">Python</a>
         
       </nav>
 
@@ -1120,7 +1121,7 @@
 
 <dl class="cpp var">
 <dt id="_CPPv4N4Game3LCP13UseIndicatorsE">
-<span id="_CPPv3N4Game3LCP13UseIndicatorsE"></span><span id="_CPPv2N4Game3LCP13UseIndicatorsE"></span><span id="Game::LCP::UseIndicators__b"></span><span class="target" id="class_game_1_1_l_c_p_1ac7b07ba8761ea4fbd7164febaf25d696"></span>bool <code class="sig-name descname">UseIndicators</code>{true}<a class="headerlink" href="#_CPPv4N4Game3LCP13UseIndicatorsE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N4Game3LCP13UseIndicatorsE"></span><span id="_CPPv2N4Game3LCP13UseIndicatorsE"></span><span id="Game::LCP::UseIndicators__b"></span><span class="target" id="class_game_1_1_l_c_p_1ac7b07ba8761ea4fbd7164febaf25d696"></span>bool <code class="sig-name descname">UseIndicators</code> = {true}<a class="headerlink" href="#_CPPv4N4Game3LCP13UseIndicatorsE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>constraints. BigM formulation otherwise </p>
 <p>If true, complementarities will be handled with indicator </p>
 </dd></dl>
@@ -1298,13 +1299,15 @@
 <dl class="cpp var">
 <dt id="_CPPv4N4Game3LCP2AiE">
 <span id="_CPPv3N4Game3LCP2AiE"></span><span id="_CPPv2N4Game3LCP2AiE"></span><span id="Game::LCP::Ai__std::unique_ptr:spmat_Vec:"></span><span class="target" id="class_game_1_1_l_c_p_1a8f71d6ee194330de1441c3911b74bff6"></span>std::unique_ptr&lt;<a class="reference internal" href="typedef_zero_8h_1a47898f11e7a4b7433acbc77588a0dc03.html#_CPPv49spmat_Vec" title="spmat_Vec">spmat_Vec</a>&gt; <code class="sig-name descname">Ai</code><a class="headerlink" href="#_CPPv4N4Game3LCP2AiE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Vector to contain the LHSs of a description (either exact or approximated) of the <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a>’s feasible region </p>
+<dd><p>approximated) of the <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a>’s feasible region </p>
+<p>Vector to contain the LHSs of a description (either exact or </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N4Game3LCP2biE">
 <span id="_CPPv3N4Game3LCP2biE"></span><span id="_CPPv2N4Game3LCP2biE"></span><span id="Game::LCP::bi__std::unique_ptr:vec_Vec:"></span><span class="target" id="class_game_1_1_l_c_p_1afcae3294d6a3492d4a1b77a1d72ccf60"></span>std::unique_ptr&lt;<a class="reference internal" href="typedef_zero_8h_1a8d8c882d060c4d307810fdf04a6314c6.html#_CPPv47vec_Vec" title="vec_Vec">vec_Vec</a>&gt; <code class="sig-name descname">bi</code><a class="headerlink" href="#_CPPv4N4Game3LCP2biE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Vector to contain the RHSs of a description (either exact or approximated) of the <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a>’s feasible region </p>
+<dd><p>approximated) of the <a class="reference internal" href="#class_game_1_1_l_c_p"><span class="std std-ref">LCP</span></a>’s feasible region </p>
+<p>Vector to contain the RHSs of a description (either exact or </p>
 </dd></dl>
 
 </div>
@@ -1333,7 +1336,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, GD and SS
+        &copy; Copyright Gabriele Dragotto, Sriram Sankaranarayanan
 
     </p>
   </div>

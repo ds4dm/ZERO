@@ -1,8 +1,9 @@
-
 import textwrap
-project = 'ZERO'
-copyright = '2020, GD and SS'
-author = 'GD and SS'
+copyright = "Gabriele Dragotto, Sriram Sankaranarayanan"
+version = "1.0.0"
+release = "@1.0.0"
+author = "Gabriele Dragotto, Sriram Sankaranarayanan"
+
 
 # The full version, including alpha/beta/rc tags
 release = '1.0.0'
@@ -14,10 +15,7 @@ extensions = [
     'sphinx.ext.todo'
 ]
 
-
-
-# Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+source_parsers = {'.md': 'recommonmark.parser.CommonMarkParser'}
 todo_include_todos = True
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
@@ -41,8 +39,8 @@ html_theme_options = {
 }
 html_logo = "support_files/zero_white.png"
 # Setup the breathe extension
-breathe_projects = {"My Project": "./doxyoutput/xml"}
-breathe_default_project = "My Project"
+breathe_projects = {"ZERO": "./doxyoutput/xml"}
+breathe_default_project = "ZERO"
 breathe_default_members = ('members', 'undoc-members' , 'protected-members', 'private-members')
 
 
@@ -55,15 +53,16 @@ exhale_args = {
     "createTreeView":        True,
     "exhaleExecutesDoxygen": True,
     "exhaleDoxygenStdin":    textwrap.dedent('''
-        INPUT                   = ../README.md  ../src/ ../include
-        IMAGE_PATH              = ./
-        EXCLUDE_SYMBOLS         = arma::* rapidjson::*
-        DOT_IMAGE_FORMAT        = png
-        RECURSIVE               = YES
-        EXTRACT_ALL             = YES
-        EXTRACT_PRIVATE         = YES
-        EXTERNAL_PAGES          = YES
-        FILE_PATTERNS           = *.c *.h *.cpp
+            INPUT   = ../README.md  ../src/ ../include
+            IMAGE_PATH      = ./
+            EXCLUDE_SYMBOLS = arma::* rapidjson::* boost::* arma rapidjson boost
+            DOT_IMAGE_FORMAT= png
+            RECURSIVE       = YES
+            EXTRACT_ALL     = YES
+            EXTRACT_PRIVATE = YES
+            EXTERNAL_PAGES  = YES
+            FILE_PATTERNS   = *.c *.h *.cpp
+            GENERATE_XML = YES
     ''')
 }
 

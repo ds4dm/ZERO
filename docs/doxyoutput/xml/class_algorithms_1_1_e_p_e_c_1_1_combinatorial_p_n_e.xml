@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_combinatorialpne.h" line="17" column="3" bodyfile="include/algorithms/EPEC/epec_combinatorialpne.h" bodystart="17" bodyend="18"/>
+        <location file="include/algorithms/EPEC/epec_combinatorialpne.h" line="17" column="1" bodyfile="include/algorithms/EPEC/epec_combinatorialpne.h" bodystart="17" bodyend="18"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_combinatorial_p_n_e_1a7be7a3f2ee2b67ac3d29407313ede988" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>void</type>
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_combinatorialpne.h" line="20" column="8" bodyfile="include/algorithms/EPEC/epec_combinatorialpne.h" bodystart="20" bodyend="22"/>
+        <location file="include/algorithms/EPEC/epec_combinatorialpne.h" line="20" column="6" bodyfile="include/algorithms/EPEC/epec_combinatorialpne.h" bodystart="20" bodyend="20"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_combinatorial_p_n_e_1a57d1cf8a606921df8a404ce501d4a434" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -63,7 +63,7 @@
         <inbodydescription>
 <para>Solve the referenced <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref> instance with the Combinatorial pure-equilibrium <ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm" kindref="compound">Algorithm</ref> <computeroutput>exclude-list</computeroutput> contains the set of excluded polyhedra combinations.</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_combinatorialpne.h" line="23" column="8" bodyfile="src/algorithms/EPEC/epec_combinatorialpne.cpp" bodystart="7" bodyend="26"/>
+        <location file="include/algorithms/EPEC/epec_combinatorialpne.h" line="21" column="6" bodyfile="src/algorithms/EPEC/epec_combinatorialpne.cpp" bodystart="7" bodyend="26"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -87,7 +87,7 @@
         <inbodydescription>
 <para>Starting from <computeroutput>combination</computeroutput>, the methods builds the recursion to generate the subproblems associated with all the existing combinations of polyhedra. Then, it solves each subproblem, and if a solution is found, it terminates and stores the solution into the referenced <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref> object. <computeroutput>excludeList</computeroutput> contains the excluded combinations of polyhedra.</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_combinatorialpne.h" line="28" column="8" bodyfile="src/algorithms/EPEC/epec_combinatorialpne.cpp" bodystart="28" bodyend="128"/>
+        <location file="include/algorithms/EPEC/epec_combinatorialpne.h" line="25" column="6" bodyfile="src/algorithms/EPEC/epec_combinatorialpne.cpp" bodystart="28" bodyend="121"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -252,7 +252,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="include/algorithms/EPEC/epec_combinatorialpne.h" line="15" column="39" bodyfile="include/algorithms/EPEC/epec_combinatorialpne.h" bodystart="15" bodyend="30"/>
+    <location file="include/algorithms/EPEC/epec_combinatorialpne.h" line="15" column="40" bodyfile="include/algorithms/EPEC/epec_combinatorialpne.h" bodystart="15" bodyend="27"/>
     <listofallmembers>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_combinatorial_p_n_e_1a37d536d2f764509b2372bd33cd1cf8e2" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::CombinatorialPNE</scope><name>CombinatorialPNE</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_combinatorial_p_n_e_1a518b30cb79720fdc2184f888caac67ad" prot="private" virt="non-virtual"><scope>Algorithms::EPEC::CombinatorialPNE</scope><name>combPNE</name></member>

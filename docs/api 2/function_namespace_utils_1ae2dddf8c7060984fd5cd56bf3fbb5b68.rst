@@ -1,0 +1,13 @@
+.. _exhale_function_namespace_utils_1ae2dddf8c7060984fd5cd56bf3fbb5b68:
+
+Function Utils::appendSave(const std::vector<double>, const std::string, const std::string, bool)
+=================================================================================================
+
+- Defined in :ref:`file_include_support_utils.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: Utils::appendSave(const std::vector<double>, const std::string, const std::string, bool)

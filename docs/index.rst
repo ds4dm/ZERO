@@ -10,7 +10,7 @@ ZERO is a multi-purpose game solver written in C++. Currently, it manages NASPs 
 
 
 Dependencies
-***********
+*************
 
 **Mandatory packages** to make ZERO work are:
 
@@ -39,9 +39,9 @@ Recommended but not mandatory for the algorithms:
 -  `DOxygen <http://www.doxygen.nl>`__ Only if you need documentation.
    ``sudo apt install doxygen`` will install DOxygen on an Ubuntu
    machine.
-   
-***********
+
 LICENSE
+***********
 This code is distributed under the CC0 1.0 Universal License.
 
 

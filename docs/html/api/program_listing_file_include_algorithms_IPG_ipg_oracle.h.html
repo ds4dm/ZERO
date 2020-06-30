@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Program Listing for File ipg_oracle.h &mdash; ZERO 1.0.0 documentation</title>
+  <title>Program Listing for File ipg_oracle.h &mdash; Python 1.0.0 documentation</title>
   
 
   
@@ -63,6 +63,10 @@
 
           
             
+            
+              <div class="version">
+                1.0.0
+              </div>
             
           
 
@@ -139,8 +143,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Algorithms__IPG.html#classes">Classes</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_arma.html">Namespace arma</a></li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_boost__program_options.html">Namespace boost::program_options</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_Data.html">Namespace Data</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_Data.html#namespaces">Namespaces</a></li>
 </ul>
@@ -167,7 +169,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_rapidjson.html">Namespace rapidjson</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_std.html">Namespace std</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_std.html#functions">Functions</a></li>
 </ul>
@@ -695,7 +696,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ZERO</a>
+          <a href="../index.html">Python</a>
         
       </nav>
 
@@ -759,45 +760,46 @@
 <span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
 
 <span class="k">namespace</span> <span class="n">Algorithms</span> <span class="p">{</span>
-<span class="k">namespace</span> <span class="n">IPG</span> <span class="p">{</span>
+  <span class="k">namespace</span> <span class="n">IPG</span> <span class="p">{</span>
 
-<span class="k">class</span> <span class="nc">Oracle</span> <span class="o">:</span> <span class="k">public</span> <span class="n">GRBCallback</span> <span class="p">{</span>
-<span class="k">private</span><span class="o">:</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="o">&gt;</span> <span class="n">CutPool_A</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span> <span class="n">CutPool_b</span><span class="p">;</span>
-  <span class="n">Game</span><span class="o">::</span><span class="n">IPG</span> <span class="o">*</span><span class="n">IPG</span><span class="p">;</span>
-  <span class="n">GRBEnv</span> <span class="o">*</span><span class="n">Env</span><span class="p">;</span>
-  <span class="kt">bool</span> <span class="n">Feasible</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
-  <span class="kt">double</span> <span class="n">Tolerance</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">;</span>
+     <span class="k">class</span> <span class="nc">Oracle</span> <span class="o">:</span> <span class="k">public</span> <span class="n">GRBCallback</span> <span class="p">{</span>
+     <span class="k">private</span><span class="o">:</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="o">&gt;</span> <span class="n">CutPool_A</span><span class="p">;</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span>    <span class="n">CutPool_b</span><span class="p">;</span>
+        <span class="n">Game</span><span class="o">::</span><span class="n">IPG</span> <span class="o">*</span>               <span class="n">IPG</span><span class="p">;</span>
+        <span class="n">GRBEnv</span> <span class="o">*</span>                  <span class="n">Env</span><span class="p">;</span>
+        <span class="kt">bool</span>                      <span class="n">Feasible</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
+        <span class="kt">double</span>                    <span class="n">Tolerance</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">;</span>
 
-  <span class="kt">bool</span> <span class="nf">addConstraintsToPool</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">A</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">b</span><span class="p">,</span>
-                            <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">check</span> <span class="o">=</span> <span class="nb">true</span><span class="p">);</span>
+        <span class="kt">bool</span> <span class="nf">addConstraintsToPool</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">A</span><span class="p">,</span>
+                                          <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>    <span class="n">b</span><span class="p">,</span>
+                                          <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span>
+                                          <span class="kt">bool</span>               <span class="n">check</span> <span class="o">=</span> <span class="nb">true</span><span class="p">);</span>
 
-<span class="k">public</span><span class="o">:</span>
-  <span class="kt">void</span> <span class="n">separationCallback</span><span class="p">(</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">);</span>
-  <span class="kt">double</span> <span class="nf">getTol</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">Tolerance</span><span class="p">;</span> <span class="p">}</span>
-  <span class="kt">void</span> <span class="nf">setTol</span><span class="p">(</span><span class="kt">double</span> <span class="n">tol</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Tolerance</span> <span class="o">=</span> <span class="n">tol</span><span class="p">;</span> <span class="p">}</span>
+     <span class="k">public</span><span class="o">:</span>
+        <span class="kt">void</span>   <span class="n">separationCallback</span><span class="p">(</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">);</span>
+        <span class="kt">double</span> <span class="nf">getTol</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">Tolerance</span><span class="p">;</span> <span class="p">}</span>
+        <span class="kt">void</span>   <span class="nf">setTol</span><span class="p">(</span><span class="kt">double</span> <span class="n">tol</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Tolerance</span> <span class="o">=</span> <span class="n">tol</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="k">friend</span> <span class="k">class</span> <span class="nc">Game</span><span class="o">::</span><span class="n">IPG</span><span class="p">;</span>
+        <span class="k">friend</span> <span class="k">class</span> <span class="nc">Game</span><span class="o">::</span><span class="n">IPG</span><span class="p">;</span>
 
-  <span class="n">Oracle</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">Game</span><span class="o">::</span><span class="n">IPG</span> <span class="o">*</span><span class="n">IPGObj</span><span class="p">)</span>
-      <span class="o">:</span> <span class="n">IPG</span><span class="p">{</span><span class="n">IPGObj</span><span class="p">},</span> <span class="n">Env</span><span class="p">{</span><span class="n">env</span><span class="p">}</span> <span class="p">{};</span>
+        <span class="n">Oracle</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">Game</span><span class="o">::</span><span class="n">IPG</span> <span class="o">*</span><span class="n">IPGObj</span><span class="p">)</span>
+             <span class="o">:</span> <span class="n">IPG</span><span class="p">{</span><span class="n">IPGObj</span><span class="p">},</span> <span class="n">Env</span><span class="p">{</span><span class="n">env</span><span class="p">}</span> <span class="p">{};</span>
 
-  <span class="kt">void</span> <span class="nf">solve</span><span class="p">();</span>
+        <span class="kt">void</span> <span class="nf">solve</span><span class="p">();</span>
 
-  <span class="kt">bool</span> <span class="nf">isSolved</span><span class="p">(</span><span class="kt">double</span> <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-  <span class="kt">bool</span> <span class="nf">isFeasible</span><span class="p">(</span><span class="kt">bool</span> <span class="o">&amp;</span><span class="n">addedCuts</span><span class="p">,</span> <span class="kt">double</span> <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">);</span>
-  <span class="kt">bool</span> <span class="nf">isPureStrategy</span><span class="p">(</span><span class="kt">double</span> <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+        <span class="kt">bool</span> <span class="nf">isSolved</span><span class="p">(</span><span class="kt">double</span> <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+        <span class="kt">bool</span> <span class="nf">isFeasible</span><span class="p">(</span><span class="kt">bool</span> <span class="o">&amp;</span><span class="n">addedCuts</span><span class="p">,</span> <span class="kt">double</span> <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">);</span>
+        <span class="kt">bool</span> <span class="nf">isPureStrategy</span><span class="p">(</span><span class="kt">double</span> <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 
-  <span class="kt">void</span> <span class="nf">addValueCut</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">xOfIBestResponse</span><span class="p">,</span>
-                   <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">xMinusI</span><span class="p">);</span>
-  <span class="kt">bool</span> <span class="nf">separationOracle</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">xOfI</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span>
-                        <span class="kt">int</span> <span class="n">budget</span><span class="p">,</span> <span class="kt">bool</span> <span class="o">&amp;</span><span class="n">addedCuts</span><span class="p">);</span>
-  <span class="n">GRBModel</span> <span class="o">*</span><span class="nf">getDualMembershipLP</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">vertex</span><span class="p">,</span>
-                                <span class="kt">bool</span> <span class="n">normalization</span> <span class="o">=</span> <span class="nb">true</span><span class="p">);</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">normalizeRay</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">ray</span><span class="p">);</span>
-<span class="p">};</span>
-<span class="p">}</span> <span class="c1">// namespace IPG</span>
+        <span class="kt">void</span> <span class="nf">addValueCut</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">xOfIBestResponse</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">xMinusI</span><span class="p">);</span>
+        <span class="kt">bool</span> <span class="nf">separationOracle</span><span class="p">(</span>
+             <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">xOfI</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="kt">int</span> <span class="n">budget</span><span class="p">,</span> <span class="kt">bool</span> <span class="o">&amp;</span><span class="n">addedCuts</span><span class="p">);</span>
+        <span class="n">GRBModel</span> <span class="o">*</span>
+                     <span class="nf">getDualMembershipLP</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">vertex</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">normalization</span> <span class="o">=</span> <span class="nb">true</span><span class="p">);</span>
+        <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">normalizeRay</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">ray</span><span class="p">);</span>
+     <span class="p">};</span>
+  <span class="p">}</span> <span class="c1">// namespace IPG</span>
 
 <span class="p">}</span> <span class="c1">// namespace Algorithms</span>
 </pre></div>
@@ -815,7 +817,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, GD and SS
+        &copy; Copyright Gabriele Dragotto, Sriram Sankaranarayanan
 
     </p>
   </div>

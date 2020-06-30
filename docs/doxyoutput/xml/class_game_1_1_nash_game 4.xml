@@ -1,0 +1,908 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="class_game_1_1_nash_game" kind="class" language="C++" prot="public">
+    <compoundname>Game::NashGame</compoundname>
+    <includes refid="nash_8h" local="no">nash.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_game_1_1_nash_game_1a9d644ce0882320934b9b723ab804ca01" prot="private" static="no" mutable="no">
+        <type>GRBEnv *</type>
+        <definition>GRBEnv* Game::NashGame::Env</definition>
+        <argsstring></argsstring>
+        <name>Env</name>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="26" column="10" bodyfile="include/games/nash.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_nash_game_1a69062fef79730d6d87aea99352524bfb" prot="private" static="no" mutable="no">
+        <type>arma::sp_mat</type>
+        <definition>arma::sp_mat Game::NashGame::LeaderConstraints</definition>
+        <argsstring></argsstring>
+        <name>LeaderConstraints</name>
+        <briefdescription>
+<para>Upper level leader constraints LHS. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="27" column="16" bodyfile="include/games/nash.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_nash_game_1a54cddc6679f55f88af4b6e6fcdf9aa9e" prot="private" static="no" mutable="no">
+        <type>arma::vec</type>
+        <definition>arma::vec Game::NashGame::LeaderConstraintsRHS</definition>
+        <argsstring></argsstring>
+        <name>LeaderConstraintsRHS</name>
+        <briefdescription>
+<para>Upper level leader constraints RHS. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="28" column="13" bodyfile="include/games/nash.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_nash_game_1a42cc938da995c37fbd84806463c9aaca" prot="private" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int Game::NashGame::NumPlayers</definition>
+        <argsstring></argsstring>
+        <name>NumPlayers</name>
+        <briefdescription>
+<para>Number of players in the Nash <ref refid="namespace_game" kindref="compound">Game</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="29" column="16" bodyfile="include/games/nash.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_nash_game_1a726f63874022ff64ca272a158b3a8a20" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::shared_ptr&lt; <ref refid="class_game_1_1_q_p___param" kindref="compound">QP_Param</ref> &gt; &gt;</type>
+        <definition>std::vector&lt;std::shared_ptr&lt;QP_Param&gt; &gt; Game::NashGame::Players</definition>
+        <argsstring></argsstring>
+        <name>Players</name>
+        <briefdescription>
+<para>The QP that each player solves. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="31" column="7" bodyfile="include/games/nash.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_nash_game_1a77402999e8c65c0e8b406dd20e95f534" prot="private" static="no" mutable="no">
+        <type>arma::sp_mat</type>
+        <definition>arma::sp_mat Game::NashGame::MarketClearing</definition>
+        <argsstring></argsstring>
+        <name>MarketClearing</name>
+        <briefdescription>
+<para>Market clearing constraints. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="32" column="16" bodyfile="include/games/nash.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_nash_game_1a61332b6f39e1dff806c15e5b4f831634" prot="private" static="no" mutable="no">
+        <type>arma::vec</type>
+        <definition>arma::vec Game::NashGame::MCRHS</definition>
+        <argsstring></argsstring>
+        <name>MCRHS</name>
+        <briefdescription>
+<para>RHS to the Market Clearing constraints. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="33" column="13" bodyfile="include/games/nash.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_nash_game_1aec5719e31a1487539116400c71f55cbb" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; unsigned int &gt;</type>
+        <definition>std::vector&lt;unsigned int&gt; Game::NashGame::PrimalPosition</definition>
+        <argsstring></argsstring>
+        <name>PrimalPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="37" column="15" bodyfile="include/games/nash.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_nash_game_1a11f9ce7c07f9d73b69b56fc7915d9ae4" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; unsigned int &gt;</type>
+        <definition>std::vector&lt;unsigned int&gt; Game::NashGame::DualPosition</definition>
+        <argsstring></argsstring>
+        <name>DualPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="40" column="15" bodyfile="include/games/nash.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_nash_game_1a054c3b99ec1e643e03282ff7032ea2a8" prot="private" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int Game::NashGame::MC_DualPosition</definition>
+        <argsstring></argsstring>
+        <name>MC_DualPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="42" column="16" bodyfile="include/games/nash.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_nash_game_1acfc02f61ed0c658f63a930e8cb3fc36f" prot="private" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int Game::NashGame::LeaderPosition</definition>
+        <argsstring></argsstring>
+        <name>LeaderPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="44" column="16" bodyfile="include/games/nash.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_nash_game_1a0e956dd244cc178612c475dcdcad0110" prot="private" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int Game::NashGame::numLeaderVar</definition>
+        <argsstring></argsstring>
+        <name>numLeaderVar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Number of leader variables. These many variables will not have a matching complementary equation. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="47" column="16" bodyfile="include/games/nash.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_game_1_1_nash_game_1a93574f4ebf6ce5a16334043a67c21f03" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Game::NashGame::setPositions</definition>
+        <argsstring>()</argsstring>
+        <name>setPositions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Stores the position of each players&apos; primal and dual variables. Also allocates Leader&apos;s position appropriately. The ordering is according to the columns of <image type="html" name="formulateLCP.png"></image>
+ </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="49" column="8" bodyfile="src/games/nash.cpp" bodystart="141" bodyend="169"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_game_1_1_nash_game_1aacdedcbc71d5ed952f81afad5bca50be" prot="public" static="no" const="no" explicit="yes" inline="yes" noexcept="yes" virt="non-virtual">
+        <type></type>
+        <definition>Game::NashGame::NashGame</definition>
+        <argsstring>(GRBEnv *e) noexcept</argsstring>
+        <name>NashGame</name>
+        <param>
+          <type>GRBEnv *</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+<para>To be used only when <ref refid="class_game_1_1_nash_game" kindref="compound">NashGame</ref> is being loaded from a file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="53" column="12" bodyfile="include/games/nash.h" bodystart="53" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1a0d1c45c298a06114290b292ef7f26de9" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Game::NashGame::NashGame</definition>
+        <argsstring>(GRBEnv *e, std::vector&lt; std::shared_ptr&lt; QP_Param &gt;&gt; players, arma::sp_mat MC, arma::vec MCRHS, unsigned int nLeadVar=0, arma::sp_mat leadA={}, arma::vec leadRHS={})</argsstring>
+        <name>NashGame</name>
+        <param>
+          <type>GRBEnv *</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; std::shared_ptr&lt; <ref refid="class_game_1_1_q_p___param" kindref="compound">QP_Param</ref> &gt;&gt;</type>
+          <declname>players</declname>
+        </param>
+        <param>
+          <type>arma::sp_mat</type>
+          <declname>MC</declname>
+        </param>
+        <param>
+          <type>arma::vec</type>
+          <declname>MCRHS</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>nLeadVar</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>arma::sp_mat</type>
+          <declname>leadA</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>arma::vec</type>
+          <declname>leadRHS</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Construct a <ref refid="class_game_1_1_nash_game" kindref="compound">NashGame</ref> by giving a std::vector of pointers to <ref refid="class_game_1_1_q_p___param" kindref="compound">QP_Param</ref>, defining each player&apos;s game A set of Market clearing constraints and its RHS And if there are leader variables, the number of leader vars. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Constructing a <ref refid="class_game_1_1_nash_game" kindref="compound">NashGame</ref> from a set of <ref refid="class_game_1_1_q_p___param" kindref="compound">Game::QP_Param</ref>, Market clearing constraints</para>
+<para>Have a std::vector of pointers to <ref refid="class_game_1_1_q_p___param" kindref="compound">Game::QP_Param</ref> ready such that the variables are separated in <formula id="13">$x^{i}$</formula> and <formula id="14">$x^{-i}$</formula> format.</para>
+<para>In the correct ordering of variables, have the Market clearing equations ready.</para>
+<para>Now call this constructor. It will allocate appropriate space for the dual variables for each player. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="57" column="12" bodyfile="src/games/nash.cpp" bodystart="8" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1ac2aa48fd0039afc8d593b4bda813f60d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Game::NashGame::NashGame</definition>
+        <argsstring>(const NashGame &amp;N)</argsstring>
+        <name>NashGame</name>
+        <param>
+          <type>const <ref refid="class_game_1_1_nash_game" kindref="compound">NashGame</ref> &amp;</type>
+          <declname>N</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="62" column="3" bodyfile="src/games/nash.cpp" bodystart="46" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1a7ad163b3b089c26ba55648b9fe70ba7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Game::NashGame::~NashGame</definition>
+        <argsstring>()=default</argsstring>
+        <name>~NashGame</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="64" column="3"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1ad1d3b9de9fde00bb56f21784174145e5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int Game::NashGame::getNprimals</definition>
+        <argsstring>() const</argsstring>
+        <name>getNprimals</name>
+        <briefdescription>
+<para>Return the number of primal variables. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="88" column="23" bodyfile="include/games/nash.h" bodystart="88" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1af0ac79695f4362877cde5c4c83c4288d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int Game::NashGame::getNumShadow</definition>
+        <argsstring>() const</argsstring>
+        <name>getNumShadow</name>
+        <briefdescription>
+<para>Gets the number of Market clearing Shadow prices. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Number of shadow price variables is equal to the number of Market clearing constraints. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="99" column="23" bodyfile="include/games/nash.h" bodystart="99" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1a2b2377ba2f1df47392b18e7f917e67d0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int Game::NashGame::getNumLeaderVars</definition>
+        <argsstring>() const</argsstring>
+        <name>getNumLeaderVars</name>
+        <briefdescription>
+<para>Gets the number of leader variables. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Leader variables are variables which do not have a complementarity relation with any equation. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="105" column="23" bodyfile="include/games/nash.h" bodystart="105" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1ada21bbbaf24c086cc3017046d1392b21" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int Game::NashGame::getNumDualVars</definition>
+        <argsstring>() const</argsstring>
+        <name>getNumDualVars</name>
+        <briefdescription>
+<para>Gets the number of dual variables in the problem. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>This is the count of number of dual variables and that is indeed the sum of the number dual variables each player has. And the number of dual variables for any player is equal to the number of linear constraints they have which is given by the number of rows in the player&apos;s <ref refid="class_game_1_1_m_p___param_1aa0b31310fd4f138fe3e3771d2b077c3e" kindref="member">Game::QP_Param::A</ref></para>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="108" column="23" bodyfile="include/games/nash.h" bodystart="108" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1a0c72cfd05756f5f63c9d92eaece3e921" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int Game::NashGame::getPrimalLoc</definition>
+        <argsstring>(unsigned int i=0) const</argsstring>
+        <name>getPrimalLoc</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>i</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Gets the position of the primal variable of i th player. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="121" column="23" bodyfile="include/games/nash.h" bodystart="121" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1ab1538d5bac464a88c11ac2438c362a98" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int Game::NashGame::getMCDualLoc</definition>
+        <argsstring>() const</argsstring>
+        <name>getMCDualLoc</name>
+        <briefdescription>
+<para>Gets the position where the Market-clearing dual variables start. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="126" column="23" bodyfile="include/games/nash.h" bodystart="126" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1a44edfcdfc067edcbea485b9c3f1040c8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int Game::NashGame::getLeaderLoc</definition>
+        <argsstring>() const</argsstring>
+        <name>getLeaderLoc</name>
+        <briefdescription>
+<para>Gets the position where the Leader variables start. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="129" column="23" bodyfile="include/games/nash.h" bodystart="129" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1aff52d0e942ec759e8bcfeb2054602c0f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int Game::NashGame::getDualLoc</definition>
+        <argsstring>(unsigned int i=0) const</argsstring>
+        <name>getDualLoc</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>i</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Gets the location where the dual variables start. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="132" column="23" bodyfile="include/games/nash.h" bodystart="132" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1a439948d6f60a1cf985d17a7296c3ed28" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="class_game_1_1_nash_game" kindref="compound">NashGame</ref> &amp;</type>
+        <definition>const Game::NashGame &amp; Game::NashGame::formulateLCP</definition>
+        <argsstring>(arma::sp_mat &amp;M, arma::vec &amp;q, perps &amp;Compl, bool writeToFile=false, std::string M_name=&quot;dat/LCP.txt&quot;, std::string q_name=&quot;dat/q.txt&quot;) const</argsstring>
+        <name>formulateLCP</name>
+        <param>
+          <type>arma::sp_mat &amp;</type>
+          <declname>M</declname>
+          <briefdescription><para>Where the output M is stored and returned. </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>arma::vec &amp;</type>
+          <declname>q</declname>
+          <briefdescription><para>Where the output q is stored and returned. </para>
+</briefdescription>
+        </param>
+        <param>
+          <type><ref refid="zero_8h_1ad87785d9eb3e6e48c0895b348f6660ca" kindref="member">perps</ref> &amp;</type>
+          <declname>Compl</declname>
+          <briefdescription><para>Says which equations are complementary to which variables </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>writeToFile</declname>
+          <defval>false</defval>
+          <briefdescription><para>If true, writes M and q to file.k </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>M_name</declname>
+          <defval>&quot;dat/LCP.txt&quot;</defval>
+          <briefdescription><para>File name to be used to write M </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>q_name</declname>
+          <defval>&quot;dat/q.txt&quot;</defval>
+          <briefdescription><para>File name to be used to write M </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Formulates the <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref> corresponding to the Nash game. <simplesect kind="warning"><para>Does not return the leader constraints. Use <ref refid="class_game_1_1_nash_game_1a1dbbf2ec7e19794d3bf5365c9c677c3c" kindref="member">NashGame::rewriteLeadCons()</ref> to handle them</para>
+</simplesect>
+Computes the KKT conditions for each Player, calling <ref refid="class_game_1_1_q_p___param_1aa9042eb407e5768c793f17e490e8a5bd" kindref="member">QP_Param::KKT</ref>. Arranges them systematically to return M, q as an <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref> <formula id="15">$0\leq q \perp Mx+q \geq 0 $</formula>. The way the variables of the players get distributed is shown in the image below <image type="html" name="formulateLCP.png"></image>
+ <image type="latex" name="formulateLCP.png"></image>
+</para>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="137" column="18" bodyfile="src/games/nash.cpp" bodystart="171" bodyend="313"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1a1dbbf2ec7e19794d3bf5365c9c677c3c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>arma::sp_mat</type>
+        <definition>arma::sp_mat Game::NashGame::rewriteLeadCons</definition>
+        <argsstring>() const</argsstring>
+        <name>rewriteLeadCons</name>
+        <briefdescription>
+<para>Rewrites leader constraint adjusting for dual variables. Rewrites leader constraints given earlier with added empty columns and spaces corresponding to Market clearing duals and other equation duals. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This becomes important if the Lower level complementarity problem is passed to <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref> with upper level constraints. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="142" column="16" bodyfile="src/games/nash.cpp" bodystart="315" bodyend="357"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1a3ee08aede90db91f0c38b283c8fa003c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>arma::vec</type>
+        <definition>arma::vec Game::NashGame::getLeadRHS</definition>
+        <argsstring>() const</argsstring>
+        <name>getLeadRHS</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="144" column="20" bodyfile="include/games/nash.h" bodystart="144" bodyend="144"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1a9822cf86f807f3bac5286b9e015dc759" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>arma::vec</type>
+        <definition>arma::vec Game::NashGame::getMCLeadRHS</definition>
+        <argsstring>() const</argsstring>
+        <name>getMCLeadRHS</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="146" column="20" bodyfile="include/games/nash.h" bodystart="146" bodyend="149"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1a346af2f0ac0b1086d12feb08b9c0fda3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::unique_ptr&lt; GRBModel &gt;</type>
+        <definition>std::unique_ptr&lt; GRBModel &gt; Game::NashGame::respond</definition>
+        <argsstring>(unsigned int player, const arma::vec &amp;x, bool fullvec=true) const</argsstring>
+        <name>respond</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>player</declname>
+          <briefdescription><para>Player whose optimal response is to be computed </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>x</declname>
+          <briefdescription><para>A std::vector of pure strategies (either for all players or all other players) </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>fullvec</declname>
+          <defval>true</defval>
+          <briefdescription><para>Is <computeroutput>x</computeroutput> strategy of all players? (including player <computeroutput>player</computeroutput>) </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+<para>Given the decision of other players, find the optimal response for player in position <computeroutput>player</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Given the strategy of each player, returns a Gurobi Model that has the optimal strategy of the player at position <computeroutput>player</computeroutput>. <simplesect kind="return"><para>A std::unique_ptr to GRBModel </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="152" column="19" bodyfile="src/games/nash.cpp" bodystart="498" bodyend="539"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1a484f6890402e4b2bcc0ad713f5c6f60b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Game::NashGame::respondSol</definition>
+        <argsstring>(arma::vec &amp;sol, unsigned int player, const arma::vec &amp;x, bool fullvec=true) const</argsstring>
+        <name>respondSol</name>
+        <param>
+          <type>arma::vec &amp;</type>
+          <declname>sol</declname>
+          <briefdescription><para>Optimal response </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>player</declname>
+          <briefdescription><para>Player whose optimal response is to be computed </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>x</declname>
+          <briefdescription><para>A std::vector of pure strategies (either for all players or all other players) </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>fullvec</declname>
+          <defval>true</defval>
+          <briefdescription><para>Is <computeroutput>x</computeroutput> strategy of all players? (including player <computeroutput>player</computeroutput>) </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Returns the optimal objective value that is obtainable for the player <computeroutput>player</computeroutput> given the decision <computeroutput>x</computeroutput> of all other players.</para>
+<para>Calls <ref refid="class_game_1_1_nash_game_1a346af2f0ac0b1086d12feb08b9c0fda3" kindref="member">Game::NashGame::respond</ref> and obtains the std::unique_ptr to GRBModel of best response by player <computeroutput>player</computeroutput>. Then solves the model and returns the appropriate objective value. <simplesect kind="return"><para>The optimal objective value for the player <computeroutput>player</computeroutput>.</para>
+</simplesect>
+</para>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="155" column="10" bodyfile="src/games/nash.cpp" bodystart="541" bodyend="573"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1a176a394bb37520dbb0aade9472fb671c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>arma::vec</type>
+        <definition>arma::vec Game::NashGame::computeQPObjectiveValues</definition>
+        <argsstring>(const arma::vec &amp;x, bool checkFeas=false) const</argsstring>
+        <name>computeQPObjectiveValues</name>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>checkFeas</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Computes players&apos; objective</para>
+<para>Computes the objective value of <emphasis> each </emphasis> player in the <ref refid="class_game_1_1_nash_game" kindref="compound">Game::NashGame</ref> object. <simplesect kind="return"><para>An arma::vec with the objective values.</para>
+</simplesect>
+</para>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="158" column="13" bodyfile="src/games/nash.cpp" bodystart="575" bodyend="611"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1a28ff99cbe8f408add01afcbda9249934" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Game::NashGame::isSolved</definition>
+        <argsstring>(const arma::vec &amp;sol, unsigned int &amp;violPlayer, arma::vec &amp;violSol, double tol=1e-4) const</argsstring>
+        <name>isSolved</name>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>sol</declname>
+        </param>
+        <param>
+          <type>unsigned int &amp;</type>
+          <declname>violPlayer</declname>
+        </param>
+        <param>
+          <type>arma::vec &amp;</type>
+          <declname>violSol</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+          <defval>1e-4</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Checks if the Nash game is solved.</para>
+<para>Checks if the Nash game is solved, if not provides a proof of deviation <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">sol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- The std::vector of pure strategies for the Nash <ref refid="namespace_game" kindref="compound">Game</ref> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">violPlayer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Index of the player with profitable deviation </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">violSol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- The pure strategy for that player - which gives a profitable deviation </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- If the additional profit is smaller than this, then it is not considered a profitable deviation.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="161" column="8" bodyfile="src/games/nash.cpp" bodystart="651" bodyend="675"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1a7eb1ccdea694ca28f9b51c9def3458b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_game_1_1_nash_game" kindref="compound">NashGame</ref> &amp;</type>
+        <definition>Game::NashGame &amp; Game::NashGame::addDummy</definition>
+        <argsstring>(unsigned int par=0, int position=-1)</argsstring>
+        <name>addDummy</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>par</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>position</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+<para>Add dummy variables in a <ref refid="class_game_1_1_nash_game" kindref="compound">NashGame</ref> object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Add extra variables at the end of the problem. These are just zero columns that don&apos;t feature in the problem anywhere. They are of importance only where the <ref refid="class_game_1_1_nash_game" kindref="compound">NashGame</ref> gets converted into an <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref> and gets parametrized. Typically, they appear in the upper level objective in such a case. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="165" column="12" bodyfile="src/games/nash.cpp" bodystart="359" bodyend="408"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1ab02ae78595c039ea0dae1807a685112d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_game_1_1_nash_game" kindref="compound">NashGame</ref> &amp;</type>
+        <definition>Game::NashGame &amp; Game::NashGame::addLeadCons</definition>
+        <argsstring>(const arma::vec &amp;a, double b)</argsstring>
+        <name>addLeadCons</name>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+<para>Adds Leader constraint to a <ref refid="class_game_1_1_nash_game" kindref="compound">NashGame</ref> object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>In case common constraint to all followers is to be added (like a leader constraint in an MPEC), this function can be used. It adds a single constraint <formula id="16">$ a^Tx \leq b$</formula> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="167" column="12" bodyfile="src/games/nash.cpp" bodystart="410" bodyend="434"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1ad7f7f6ff549dd69e36c12efb1c494eb3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Game::NashGame::write</definition>
+        <argsstring>(const std::string &amp;filename, bool append=true, bool KKT=false) const</argsstring>
+        <name>write</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>append</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>KKT</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="170" column="8" bodyfile="src/games/nash.cpp" bodystart="436" bodyend="496"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1a4c9edf968d11aee274eaefc63cc5dce6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Game::NashGame::save</definition>
+        <argsstring>(const std::string &amp;filename, bool erase=true) const</argsstring>
+        <name>save</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>erase</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Saves the <computeroutput><ref refid="class_game_1_1_nash_game" kindref="compound">Game::NashGame</ref></computeroutput> object in a loadable file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="174" column="8" bodyfile="src/games/nash.cpp" bodystart="57" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1a246d31eb40b443f95f83030f230e24e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long int</type>
+        <definition>long int Game::NashGame::load</definition>
+        <argsstring>(const std::string &amp;filename, long int pos=0)</argsstring>
+        <name>load</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>long int</type>
+          <declname>pos</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Loads the <computeroutput><ref refid="class_game_1_1_nash_game" kindref="compound">Game::NashGame</ref></computeroutput> object stored in a file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Loads the <computeroutput><ref refid="class_game_1_1_nash_game" kindref="compound">NashGame</ref></computeroutput> object stored in a file. Before calling this function, use the constructor <ref refid="class_game_1_1_nash_game_1aacdedcbc71d5ed952f81afad5bca50be" kindref="member">NashGame::NashGame(GRBEnv *Env)</ref> to initialize.</para>
+<para>Loads the <computeroutput><ref refid="class_game_1_1_nash_game" kindref="compound">NashGame</ref></computeroutput> object stored in a file. Before calling this function, use the constructor <ref refid="class_game_1_1_nash_game_1aacdedcbc71d5ed952f81afad5bca50be" kindref="member">NashGame::NashGame(GRBEnv *Env)</ref> to initialize. Example usage: <programlisting filename=".cpp"><codeline><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="shells_2epec_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>()</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GRBEnv<sp/><ref refid="class_game_1_1_nash_game_1a9d644ce0882320934b9b723ab804ca01" kindref="member">Env</ref>;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_nash_game" kindref="compound">Game::NashGame</ref><sp/>N(&amp;<ref refid="class_game_1_1_nash_game_1a9d644ce0882320934b9b723ab804ca01" kindref="member">Env</ref>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>N.load(</highlight><highlight class="stringliteral">&quot;./dat/Ndata.dat&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout&lt;&lt;N&lt;&lt;</highlight><highlight class="charliteral">&apos;\n&apos;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="177" column="12" bodyfile="src/games/nash.cpp" bodystart="76" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_nash_game_1a8784a156aa14a760953755b394723490" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>arma::vec</type>
+        <definition>arma::vec Game::NashGame::computeQPObjectiveValuesWithoutOthers</definition>
+        <argsstring>(const arma::vec &amp;x) const</argsstring>
+        <name>computeQPObjectiveValuesWithoutOthers</name>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Computes players&apos; objective without the part dependent on other players variable</para>
+<para>Computes the objective value of <emphasis> each </emphasis> player in the <ref refid="class_game_1_1_nash_game" kindref="compound">Game::NashGame</ref> where the objective related to other players is fixed to zero object. <simplesect kind="return"><para>An arma::vec with the objective values.</para>
+</simplesect>
+</para>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="178" column="13" bodyfile="src/games/nash.cpp" bodystart="613" bodyend="649"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="class_game_1_1_nash_game_1ab09efa101cfa90c75e805a1ad569a8cf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend std::ostream &amp;</type>
+        <definition>std::ostream&amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const NashGame &amp;N)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_game_1_1_nash_game" kindref="compound">NashGame</ref> &amp;</type>
+          <declname>N</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/nash.h" line="67" column="10" bodyfile="include/games/nash.h" bodystart="67" bodyend="85"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Class to model Nash-cournot games with each player playing a QP. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Stores a vector of QPs with each player&apos;s optimization problem. Potentially common (leader) constraints can be stored too.</para>
+<para>Helpful in rewriting the Nash-Cournot game as an <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref> Helpful in rewriting leader constraints after incorporating dual variables etc <simplesect kind="warning"><para>This has public fields which if accessed and changed can cause undefined behavior! </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="include/games/nash.h" line="24" column="15" bodyfile="include/games/nash.h" bodystart="24" bodyend="180"/>
+    <listofallmembers>
+      <member refid="class_game_1_1_nash_game_1a7eb1ccdea694ca28f9b51c9def3458b3" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>addDummy</name></member>
+      <member refid="class_game_1_1_nash_game_1ab02ae78595c039ea0dae1807a685112d" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>addLeadCons</name></member>
+      <member refid="class_game_1_1_nash_game_1a176a394bb37520dbb0aade9472fb671c" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>computeQPObjectiveValues</name></member>
+      <member refid="class_game_1_1_nash_game_1a8784a156aa14a760953755b394723490" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>computeQPObjectiveValuesWithoutOthers</name></member>
+      <member refid="class_game_1_1_nash_game_1a11f9ce7c07f9d73b69b56fc7915d9ae4" prot="private" virt="non-virtual"><scope>Game::NashGame</scope><name>DualPosition</name></member>
+      <member refid="class_game_1_1_nash_game_1a9d644ce0882320934b9b723ab804ca01" prot="private" virt="non-virtual"><scope>Game::NashGame</scope><name>Env</name></member>
+      <member refid="class_game_1_1_nash_game_1a439948d6f60a1cf985d17a7296c3ed28" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>formulateLCP</name></member>
+      <member refid="class_game_1_1_nash_game_1aff52d0e942ec759e8bcfeb2054602c0f" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>getDualLoc</name></member>
+      <member refid="class_game_1_1_nash_game_1a44edfcdfc067edcbea485b9c3f1040c8" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>getLeaderLoc</name></member>
+      <member refid="class_game_1_1_nash_game_1a3ee08aede90db91f0c38b283c8fa003c" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>getLeadRHS</name></member>
+      <member refid="class_game_1_1_nash_game_1ab1538d5bac464a88c11ac2438c362a98" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>getMCDualLoc</name></member>
+      <member refid="class_game_1_1_nash_game_1a9822cf86f807f3bac5286b9e015dc759" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>getMCLeadRHS</name></member>
+      <member refid="class_game_1_1_nash_game_1ad1d3b9de9fde00bb56f21784174145e5" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>getNprimals</name></member>
+      <member refid="class_game_1_1_nash_game_1ada21bbbaf24c086cc3017046d1392b21" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>getNumDualVars</name></member>
+      <member refid="class_game_1_1_nash_game_1a2b2377ba2f1df47392b18e7f917e67d0" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>getNumLeaderVars</name></member>
+      <member refid="class_game_1_1_nash_game_1af0ac79695f4362877cde5c4c83c4288d" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>getNumShadow</name></member>
+      <member refid="class_game_1_1_nash_game_1a0c72cfd05756f5f63c9d92eaece3e921" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>getPrimalLoc</name></member>
+      <member refid="class_game_1_1_nash_game_1a28ff99cbe8f408add01afcbda9249934" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>isSolved</name></member>
+      <member refid="class_game_1_1_nash_game_1a69062fef79730d6d87aea99352524bfb" prot="private" virt="non-virtual"><scope>Game::NashGame</scope><name>LeaderConstraints</name></member>
+      <member refid="class_game_1_1_nash_game_1a54cddc6679f55f88af4b6e6fcdf9aa9e" prot="private" virt="non-virtual"><scope>Game::NashGame</scope><name>LeaderConstraintsRHS</name></member>
+      <member refid="class_game_1_1_nash_game_1acfc02f61ed0c658f63a930e8cb3fc36f" prot="private" virt="non-virtual"><scope>Game::NashGame</scope><name>LeaderPosition</name></member>
+      <member refid="class_game_1_1_nash_game_1a246d31eb40b443f95f83030f230e24e3" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>load</name></member>
+      <member refid="class_game_1_1_nash_game_1a77402999e8c65c0e8b406dd20e95f534" prot="private" virt="non-virtual"><scope>Game::NashGame</scope><name>MarketClearing</name></member>
+      <member refid="class_game_1_1_nash_game_1a054c3b99ec1e643e03282ff7032ea2a8" prot="private" virt="non-virtual"><scope>Game::NashGame</scope><name>MC_DualPosition</name></member>
+      <member refid="class_game_1_1_nash_game_1a61332b6f39e1dff806c15e5b4f831634" prot="private" virt="non-virtual"><scope>Game::NashGame</scope><name>MCRHS</name></member>
+      <member refid="class_game_1_1_nash_game_1aacdedcbc71d5ed952f81afad5bca50be" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>NashGame</name></member>
+      <member refid="class_game_1_1_nash_game_1a0d1c45c298a06114290b292ef7f26de9" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>NashGame</name></member>
+      <member refid="class_game_1_1_nash_game_1ac2aa48fd0039afc8d593b4bda813f60d" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>NashGame</name></member>
+      <member refid="class_game_1_1_nash_game_1a0e956dd244cc178612c475dcdcad0110" prot="private" virt="non-virtual"><scope>Game::NashGame</scope><name>numLeaderVar</name></member>
+      <member refid="class_game_1_1_nash_game_1a42cc938da995c37fbd84806463c9aaca" prot="private" virt="non-virtual"><scope>Game::NashGame</scope><name>NumPlayers</name></member>
+      <member refid="class_game_1_1_nash_game_1ab09efa101cfa90c75e805a1ad569a8cf" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>operator&lt;&lt;</name></member>
+      <member refid="class_game_1_1_nash_game_1a726f63874022ff64ca272a158b3a8a20" prot="private" virt="non-virtual"><scope>Game::NashGame</scope><name>Players</name></member>
+      <member refid="class_game_1_1_nash_game_1aec5719e31a1487539116400c71f55cbb" prot="private" virt="non-virtual"><scope>Game::NashGame</scope><name>PrimalPosition</name></member>
+      <member refid="class_game_1_1_nash_game_1a346af2f0ac0b1086d12feb08b9c0fda3" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>respond</name></member>
+      <member refid="class_game_1_1_nash_game_1a484f6890402e4b2bcc0ad713f5c6f60b" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>respondSol</name></member>
+      <member refid="class_game_1_1_nash_game_1a1dbbf2ec7e19794d3bf5365c9c677c3c" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>rewriteLeadCons</name></member>
+      <member refid="class_game_1_1_nash_game_1a4c9edf968d11aee274eaefc63cc5dce6" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>save</name></member>
+      <member refid="class_game_1_1_nash_game_1a93574f4ebf6ce5a16334043a67c21f03" prot="private" virt="non-virtual"><scope>Game::NashGame</scope><name>setPositions</name></member>
+      <member refid="class_game_1_1_nash_game_1ad7f7f6ff549dd69e36c12efb1c494eb3" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>write</name></member>
+      <member refid="class_game_1_1_nash_game_1a7ad163b3b089c26ba55648b9fe70ba7e" prot="public" virt="non-virtual"><scope>Game::NashGame</scope><name>~NashGame</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

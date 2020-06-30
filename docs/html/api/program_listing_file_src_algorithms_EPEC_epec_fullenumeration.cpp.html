@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Program Listing for File epec_fullenumeration.cpp &mdash; ZERO 1.0.0 documentation</title>
+  <title>Program Listing for File epec_fullenumeration.cpp &mdash; Python 1.0.0 documentation</title>
   
 
   
@@ -63,6 +63,10 @@
 
           
             
+            
+              <div class="version">
+                1.0.0
+              </div>
             
           
 
@@ -139,8 +143,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Algorithms__IPG.html#classes">Classes</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_arma.html">Namespace arma</a></li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_boost__program_options.html">Namespace boost::program_options</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_Data.html">Namespace Data</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_Data.html#namespaces">Namespaces</a></li>
 </ul>
@@ -167,7 +169,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_rapidjson.html">Namespace rapidjson</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_std.html">Namespace std</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_std.html#functions">Functions</a></li>
 </ul>
@@ -695,7 +696,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ZERO</a>
+          <a href="../index.html">Python</a>
         
       </nav>
 
@@ -754,17 +755,16 @@
 
 <span class="kt">void</span> <span class="n">Algorithms</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">FullEnumeration</span><span class="o">::</span><span class="n">solve</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">PolyLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">enumerateAll</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+     <span class="k">this</span><span class="o">-&gt;</span><span class="n">PolyLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">enumerateAll</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
   <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">makePlayersQPs</span><span class="p">();</span>
   <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::FullEnumeration::solve: &quot;</span>
                               <span class="s">&quot;Starting FullEnumeration search&quot;</span><span class="p">;</span>
-  <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">computeNashEq</span><span class="p">(</span>
-      <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">PureNashEquilibrium</span><span class="p">.</span><span class="n">get</span><span class="p">(),</span>
-      <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">TimeLimit</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">computeNashEq</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">PureNashEquilibrium</span><span class="p">.</span><span class="n">get</span><span class="p">(),</span>
+                                  <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">TimeLimit</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
   <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">isSolved</span><span class="p">())</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">Status</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">NashEqFound</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">isPureStrategy</span><span class="p">())</span>
-      <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">PureNashEquilibrium</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+     <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">Status</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">NashEqFound</span><span class="p">);</span>
+     <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">isPureStrategy</span><span class="p">())</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">PureNashEquilibrium</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
   <span class="p">}</span>
   <span class="c1">// Post Solving</span>
   <span class="k">this</span><span class="o">-&gt;</span><span class="n">postSolving</span><span class="p">();</span>
@@ -784,7 +784,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, GD and SS
+        &copy; Copyright Gabriele Dragotto, Sriram Sankaranarayanan
 
     </p>
   </div>

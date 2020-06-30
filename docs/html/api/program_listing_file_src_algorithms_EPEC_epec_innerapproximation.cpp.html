@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Program Listing for File epec_innerapproximation.cpp &mdash; ZERO 1.0.0 documentation</title>
+  <title>Program Listing for File epec_innerapproximation.cpp &mdash; Python 1.0.0 documentation</title>
   
 
   
@@ -63,6 +63,10 @@
 
           
             
+            
+              <div class="version">
+                1.0.0
+              </div>
             
           
 
@@ -139,8 +143,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Algorithms__IPG.html#classes">Classes</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_arma.html">Namespace arma</a></li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_boost__program_options.html">Namespace boost::program_options</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_Data.html">Namespace Data</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_Data.html#namespaces">Namespaces</a></li>
 </ul>
@@ -167,7 +169,6 @@
 <li class="toctree-l5"><a class="reference internal" href="namespace_Models.html#typedefs">Typedefs</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="namespace_rapidjson.html">Namespace rapidjson</a></li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_std.html">Namespace std</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_std.html#functions">Functions</a></li>
 </ul>
@@ -695,7 +696,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ZERO</a>
+          <a href="../index.html">Python</a>
         
       </nav>
 
@@ -780,220 +781,192 @@
   <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">NumIterations</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">PolyhedraStrategy</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span>
       <span class="n">Data</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">PolyhedraStrategy</span><span class="o">::</span><span class="n">Random</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">// 42 is the answer, we all know</span>
-      <span class="kt">long</span> <span class="kt">int</span> <span class="n">seed</span> <span class="o">=</span>
-          <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">RandomSeed</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">0</span>
-              <span class="o">?</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">()</span>
-                        <span class="p">.</span><span class="n">time_since_epoch</span><span class="p">()</span>
-                        <span class="p">.</span><span class="n">count</span><span class="p">()</span> <span class="o">+</span>
-                    <span class="mi">42</span> <span class="o">+</span> <span class="n">PolyLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getNumRows</span><span class="p">()</span>
-              <span class="o">:</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">RandomSeed</span><span class="p">.</span><span class="n">get</span><span class="p">();</span>
-      <span class="n">PolyLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">AddPolyMethodSeed</span> <span class="o">=</span> <span class="n">seed</span><span class="p">;</span>
-    <span class="p">}</span>
+     <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 42 is the answer, we all know</span>
+        <span class="kt">long</span> <span class="kt">int</span> <span class="n">seed</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">RandomSeed</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">0</span>
+                            <span class="o">?</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">().</span><span class="n">time_since_epoch</span><span class="p">().</span><span class="n">count</span><span class="p">()</span> <span class="o">+</span>
+                                  <span class="mi">42</span> <span class="o">+</span> <span class="n">PolyLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getNumRows</span><span class="p">()</span>
+                            <span class="o">:</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">RandomSeed</span><span class="p">.</span><span class="n">get</span><span class="p">();</span>
+        <span class="n">PolyLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">AddPolyMethodSeed</span> <span class="o">=</span> <span class="n">seed</span><span class="p">;</span>
+     <span class="p">}</span>
   <span class="p">}</span>
   <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">TimeLimit</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">InitTime</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
+     <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">InitTime</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
 
   <span class="c1">// Stay in this loop, till you find a Nash equilibrium or prove that there</span>
   <span class="c1">// does not exist a Nash equilibrium or you run out of time.</span>
   <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">solved</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">NumIterations</span><span class="p">.</span><span class="n">set</span><span class="p">(</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">NumIterations</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-    <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
-        <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::InnerApproximation::solve: Iteration &quot;</span>
-        <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">NumIterations</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+     <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">NumIterations</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">NumIterations</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+     <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">info</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::InnerApproximation::solve: Iteration &quot;</span>
+                             <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">NumIterations</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">addRandPoly</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
-          <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::InnerApproximation::solve: using &quot;</span>
-             <span class="s">&quot;heuristical polyhedra selection&quot;</span><span class="p">;</span>
-      <span class="kt">bool</span> <span class="n">success</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">addRandomPoly2All</span><span class="p">(</span>
-          <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">Aggressiveness</span><span class="p">.</span><span class="n">get</span><span class="p">(),</span>
-          <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">NumIterations</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span>
-      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">success</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">Status</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">NashEqNotFound</span><span class="p">);</span>
-        <span class="k">return</span><span class="p">;</span>
-      <span class="p">}</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="c1">// else we are in the case of finding deviations.</span>
-      <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">deviatedCountry</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
-      <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">countryDeviation</span><span class="p">{};</span>
-      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">isSolved</span><span class="p">(</span><span class="o">&amp;</span><span class="n">deviatedCountry</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">countryDeviation</span><span class="p">))</span> <span class="p">{</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">Status</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">NashEqFound</span><span class="p">);</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">PureNashEquilibrium</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">isPureStrategy</span><span class="p">();</span>
-        <span class="k">if</span> <span class="p">((</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">PureNashEquilibrium</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&amp;&amp;</span>
-             <span class="o">!</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">PureNashEquilibrium</span><span class="p">.</span><span class="n">get</span><span class="p">()))</span> <span class="p">{</span>
-          <span class="c1">// We are seeking for a pure strategy. Then, here we switch between an</span>
-          <span class="c1">// incremental</span>
-          <span class="c1">// enumeration or combinations of pure strategies.</span>
-          <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">RecoverStrategy</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span>
-              <span class="n">Data</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">RecoverStrategy</span><span class="o">::</span><span class="n">IncrementalEnumeration</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
-                <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::InnerApproximation::solve: &quot;</span>
-                   <span class="s">&quot;triggering recover strategy &quot;</span>
-                   <span class="s">&quot;(IncrementalEnumeration)&quot;</span><span class="p">;</span>
-            <span class="n">incrementalEnumeration</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-          <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">RecoverStrategy</span>
-                         <span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="n">Data</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">RecoverStrategy</span><span class="o">::</span><span class="n">Combinatorial</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
-                <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::InnerApproximation::solve: triggering &quot;</span>
-                   <span class="s">&quot;recover strategy (Combinatorial)&quot;</span><span class="p">;</span>
-            <span class="c1">// In this case, we want to try all the combinations of pure</span>
-            <span class="c1">// strategies, except the ones between polyhedra we already tested.</span>
-            <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">excludeList</span><span class="p">;</span>
-            <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
-              <span class="n">excludeList</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">PolyLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">j</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getAllPolyhedra</span><span class="p">());</span>
-            <span class="p">}</span>
-            <span class="n">Algorithms</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">CombinatorialPNE</span> <span class="n">combPNE</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Env</span><span class="p">,</span>
-                                                       <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="p">);</span>
-            <span class="n">combPNE</span><span class="p">.</span><span class="n">solveWithExcluded</span><span class="p">(</span><span class="n">excludeList</span><span class="p">);</span>
-            <span class="k">return</span><span class="p">;</span>
-          <span class="p">}</span>
-
-        <span class="p">}</span> <span class="k">else</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">addRandPoly</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">info</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::InnerApproximation::solve: using &quot;</span>
+                                   <span class="s">&quot;heuristical polyhedra selection&quot;</span><span class="p">;</span>
+        <span class="kt">bool</span> <span class="n">success</span> <span class="o">=</span>
+            <span class="k">this</span><span class="o">-&gt;</span><span class="n">addRandomPoly2All</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">Aggressiveness</span><span class="p">.</span><span class="n">get</span><span class="p">(),</span>
+                                    <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">NumIterations</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">success</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">Status</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">NashEqNotFound</span><span class="p">);</span>
           <span class="k">return</span><span class="p">;</span>
-      <span class="p">}</span>
-      <span class="c1">// Vector of deviations for the countries</span>
-      <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span> <span class="n">devns</span> <span class="o">=</span>
-          <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">);</span>
-      <span class="k">this</span><span class="o">-&gt;</span><span class="n">getAllDeviations</span><span class="p">(</span><span class="n">devns</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">SolutionX</span><span class="p">,</span> <span class="n">prevDevns</span><span class="p">);</span>
-      <span class="n">prevDevns</span> <span class="o">=</span> <span class="n">devns</span><span class="p">;</span>
-      <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">addedPoly</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">addDeviatedPolyhedron</span><span class="p">(</span><span class="n">devns</span><span class="p">,</span> <span class="n">infeasCheck</span><span class="p">);</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">addedPoly</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">NumIterations</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span>
-          <span class="o">!</span><span class="n">incrementalEnumeration</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
-            <span class="o">&lt;&lt;</span> <span class="s">&quot; In Algorithms::EPEC::InnerApproximation::solve: Not &quot;</span>
-               <span class="s">&quot;Solved, but no deviation? Error!</span><span class="se">\n</span><span class="s"> This might be due to &quot;</span>
-               <span class="s">&quot;Numerical issues (tolerances)&quot;</span><span class="p">;</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">Status</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">Numerical</span><span class="p">);</span>
-        <span class="n">solved</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-      <span class="p">}</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">infeasCheck</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">NumIterations</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">warning</span><span class="p">)</span>
-            <span class="o">&lt;&lt;</span> <span class="s">&quot; In Algorithms::EPEC::InnerApproximation::solve: Problem is &quot;</span>
-               <span class="s">&quot;infeasible&quot;</span><span class="p">;</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">Status</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">NashEqNotFound</span><span class="p">);</span>
-        <span class="k">return</span><span class="p">;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
+        <span class="p">}</span>
+     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="c1">// else we are in the case of finding deviations.</span>
+        <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">deviatedCountry</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+        <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">countryDeviation</span><span class="p">{};</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">isSolved</span><span class="p">(</span><span class="o">&amp;</span><span class="n">deviatedCountry</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">countryDeviation</span><span class="p">))</span> <span class="p">{</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">Status</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">NashEqFound</span><span class="p">);</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">PureNashEquilibrium</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">isPureStrategy</span><span class="p">();</span>
+          <span class="k">if</span> <span class="p">((</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">PureNashEquilibrium</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&amp;&amp;</span>
+               <span class="o">!</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">PureNashEquilibrium</span><span class="p">.</span><span class="n">get</span><span class="p">()))</span> <span class="p">{</span>
+             <span class="c1">// We are seeking for a pure strategy. Then, here we switch between an</span>
+             <span class="c1">// incremental</span>
+             <span class="c1">// enumeration or combinations of pure strategies.</span>
+             <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">RecoverStrategy</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span>
+                 <span class="n">Data</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">RecoverStrategy</span><span class="o">::</span><span class="n">IncrementalEnumeration</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">info</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::InnerApproximation::solve: &quot;</span>
+                                           <span class="s">&quot;triggering recover strategy &quot;</span>
+                                           <span class="s">&quot;(IncrementalEnumeration)&quot;</span><span class="p">;</span>
+                <span class="n">incrementalEnumeration</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+             <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">RecoverStrategy</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span>
+                        <span class="n">Data</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">RecoverStrategy</span><span class="o">::</span><span class="n">Combinatorial</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">info</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::InnerApproximation::solve: triggering &quot;</span>
+                                           <span class="s">&quot;recover strategy (Combinatorial)&quot;</span><span class="p">;</span>
+                <span class="c1">// In this case, we want to try all the combinations of pure</span>
+                <span class="c1">// strategies, except the ones between polyhedra we already tested.</span>
+                <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">excludeList</span><span class="p">;</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+                  <span class="n">excludeList</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">PolyLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">j</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getAllPolyhedra</span><span class="p">());</span>
+                <span class="p">}</span>
+                <span class="n">Algorithms</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">CombinatorialPNE</span> <span class="n">combPNE</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Env</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="p">);</span>
+                <span class="n">combPNE</span><span class="p">.</span><span class="n">solveWithExcluded</span><span class="p">(</span><span class="n">excludeList</span><span class="p">);</span>
+                <span class="k">return</span><span class="p">;</span>
+             <span class="p">}</span>
 
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">makePlayersQPs</span><span class="p">();</span>
+          <span class="p">}</span> <span class="k">else</span>
+             <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">// Vector of deviations for the countries</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span> <span class="n">devns</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">);</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">getAllDeviations</span><span class="p">(</span><span class="n">devns</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">SolutionX</span><span class="p">,</span> <span class="n">prevDevns</span><span class="p">);</span>
+        <span class="n">prevDevns</span>              <span class="o">=</span> <span class="n">devns</span><span class="p">;</span>
+        <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">addedPoly</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">addDeviatedPolyhedron</span><span class="p">(</span><span class="n">devns</span><span class="p">,</span> <span class="n">infeasCheck</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">addedPoly</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">NumIterations</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span>
+            <span class="o">!</span><span class="n">incrementalEnumeration</span><span class="p">)</span> <span class="p">{</span>
+          <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; In Algorithms::EPEC::InnerApproximation::solve: Not &quot;</span>
+                                      <span class="s">&quot;Solved, but no deviation? Error!</span><span class="se">\n</span><span class="s"> This might be due to &quot;</span>
+                                      <span class="s">&quot;Numerical issues (tolerances)&quot;</span><span class="p">;</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">Status</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">Numerical</span><span class="p">);</span>
+          <span class="n">solved</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">infeasCheck</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">NumIterations</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+          <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">warning</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; In Algorithms::EPEC::InnerApproximation::solve: Problem is &quot;</span>
+                                        <span class="s">&quot;infeasible&quot;</span><span class="p">;</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">Status</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">NashEqNotFound</span><span class="p">);</span>
+          <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+     <span class="p">}</span>
 
-    <span class="c1">// TimeLimit</span>
-    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">TimeLimit</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">timeElapsed</span> <span class="o">=</span>
-          <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span>
-          <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">InitTime</span><span class="p">;</span>
-      <span class="k">const</span> <span class="kt">double</span> <span class="n">timeRemaining</span> <span class="o">=</span>
-          <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">TimeLimit</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">-</span>
-          <span class="n">timeElapsed</span><span class="p">.</span><span class="n">count</span><span class="p">();</span>
-      <span class="n">addRandPoly</span> <span class="o">=</span>
-          <span class="o">!</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">computeNashEq</span><span class="p">(</span>
-              <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">PureNashEquilibrium</span><span class="p">.</span><span class="n">get</span><span class="p">(),</span>
-              <span class="n">timeRemaining</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
-          <span class="o">!</span><span class="n">incrementalEnumeration</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-      <span class="c1">// No Time Limit</span>
-      <span class="n">addRandPoly</span> <span class="o">=</span>
-          <span class="o">!</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">computeNashEq</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span>
-                                               <span class="p">.</span><span class="n">PureNashEquilibrium</span><span class="p">.</span><span class="n">get</span><span class="p">())</span> <span class="o">&amp;&amp;</span>
-          <span class="o">!</span><span class="n">incrementalEnumeration</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">addRandPoly</span><span class="p">)</span>
-      <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">LostIntermediateEq</span><span class="p">.</span><span class="n">set</span><span class="p">(</span>
-          <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">LostIntermediateEq</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
-          <span class="o">&lt;&lt;</span> <span class="s">&quot;Country &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="n">PolyLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">feasabilityDetailString</span><span class="p">();</span>
-    <span class="p">}</span>
-    <span class="c1">// This might be reached when a NashEq is found, and need to be verified.</span>
-    <span class="c1">// Anyway, we are over the TimeLimit and we should stop</span>
-    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">TimeLimit</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">timeElapsed</span> <span class="o">=</span>
-          <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span>
-          <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">InitTime</span><span class="p">;</span>
-      <span class="k">const</span> <span class="kt">double</span> <span class="n">timeRemaining</span> <span class="o">=</span>
-          <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">TimeLimit</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">-</span>
-          <span class="n">timeElapsed</span><span class="p">.</span><span class="n">count</span><span class="p">();</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">timeRemaining</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">incrementalEnumeration</span><span class="p">)</span>
-          <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">Status</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">TimeLimit</span><span class="p">);</span>
-        <span class="k">return</span><span class="p">;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
+     <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">makePlayersQPs</span><span class="p">();</span>
+
+     <span class="c1">// TimeLimit</span>
+     <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">TimeLimit</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">timeElapsed</span> <span class="o">=</span>
+            <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">InitTime</span><span class="p">;</span>
+        <span class="k">const</span> <span class="kt">double</span> <span class="n">timeRemaining</span> <span class="o">=</span>
+            <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">TimeLimit</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">-</span> <span class="n">timeElapsed</span><span class="p">.</span><span class="n">count</span><span class="p">();</span>
+        <span class="n">addRandPoly</span> <span class="o">=</span>
+            <span class="o">!</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">computeNashEq</span><span class="p">(</span>
+                <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">PureNashEquilibrium</span><span class="p">.</span><span class="n">get</span><span class="p">(),</span> <span class="n">timeRemaining</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+            <span class="o">!</span><span class="n">incrementalEnumeration</span><span class="p">;</span>
+     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// No Time Limit</span>
+        <span class="n">addRandPoly</span> <span class="o">=</span> <span class="o">!</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">computeNashEq</span><span class="p">(</span>
+                          <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">PureNashEquilibrium</span><span class="p">.</span><span class="n">get</span><span class="p">())</span> <span class="o">&amp;&amp;</span>
+                      <span class="o">!</span><span class="n">incrementalEnumeration</span><span class="p">;</span>
+     <span class="p">}</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">addRandPoly</span><span class="p">)</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">LostIntermediateEq</span><span class="p">.</span><span class="n">set</span><span class="p">(</span>
+            <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">LostIntermediateEq</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+     <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">info</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Country &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="n">PolyLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">feasabilityDetailString</span><span class="p">();</span>
+     <span class="p">}</span>
+     <span class="c1">// This might be reached when a NashEq is found, and need to be verified.</span>
+     <span class="c1">// Anyway, we are over the TimeLimit and we should stop</span>
+     <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">TimeLimit</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">timeElapsed</span> <span class="o">=</span>
+            <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">InitTime</span><span class="p">;</span>
+        <span class="k">const</span> <span class="kt">double</span> <span class="n">timeRemaining</span> <span class="o">=</span>
+            <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">TimeLimit</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">-</span> <span class="n">timeElapsed</span><span class="p">.</span><span class="n">count</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">timeRemaining</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">incrementalEnumeration</span><span class="p">)</span>
+             <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">Status</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">TimeLimit</span><span class="p">);</span>
+          <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kt">bool</span> <span class="n">Algorithms</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">InnerApproximation</span><span class="o">::</span><span class="n">addRandomPoly2All</span><span class="p">(</span>
-    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">aggressiveLevel</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">stopOnSingleInfeasibility</span><span class="p">)</span>
+<span class="kt">bool</span> <span class="n">Algorithms</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">InnerApproximation</span><span class="o">::</span><span class="n">addRandomPoly2All</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">aggressiveLevel</span><span class="p">,</span>
+                                                             <span class="kt">bool</span> <span class="n">stopOnSingleInfeasibility</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Adding Random polyhedra to countries&quot;</span><span class="p">;</span>
   <span class="kt">bool</span> <span class="n">infeasible</span><span class="p">{</span><span class="nb">true</span><span class="p">};</span>
   <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">auto</span> <span class="n">addedPolySet</span> <span class="o">=</span> <span class="n">PolyLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">addAPoly</span><span class="p">(</span>
-        <span class="n">aggressiveLevel</span><span class="p">,</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">PolyhedraStrategy</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">stopOnSingleInfeasibility</span> <span class="o">&amp;&amp;</span> <span class="n">addedPolySet</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
-      <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
-          <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::InnerApproximation::addRandomPoly2All: No Nash &quot;</span>
-             <span class="s">&quot;equilibrium. due to &quot;</span>
-             <span class="s">&quot;infeasibility of country &quot;</span>
-          <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
-      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">addedPolySet</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
-      <span class="n">infeasible</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+     <span class="k">auto</span> <span class="n">addedPolySet</span> <span class="o">=</span> <span class="n">PolyLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">addAPoly</span><span class="p">(</span>
+         <span class="n">aggressiveLevel</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">PolyhedraStrategy</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">stopOnSingleInfeasibility</span> <span class="o">&amp;&amp;</span> <span class="n">addedPolySet</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">info</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::InnerApproximation::addRandomPoly2All: No Nash &quot;</span>
+                                   <span class="s">&quot;equilibrium. due to &quot;</span>
+                                   <span class="s">&quot;infeasibility of country &quot;</span>
+                                <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+     <span class="p">}</span>
+     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">addedPolySet</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+        <span class="n">infeasible</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
   <span class="p">}</span>
   <span class="k">return</span> <span class="o">!</span><span class="n">infeasible</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kt">bool</span> <span class="n">Algorithms</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">InnerApproximation</span><span class="o">::</span><span class="n">getAllDeviations</span><span class="p">(</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span>
-        <span class="o">&amp;</span><span class="n">deviations</span><span class="p">,</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">deviations</span><span class="p">,</span>
     <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">guessSol</span><span class="p">,</span>
-    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span>
-        <span class="o">&amp;</span><span class="n">prevDev</span> <span class="c1">//&lt;[in] The previous vector of deviations, if any exist.</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">prevDev</span> <span class="c1">//&lt;[in] The previous vector of deviations, if any exist.</span>
 <span class="p">)</span> <span class="k">const</span>
 <span class="p">{</span>
   <span class="n">deviations</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">);</span>
 
-  <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">;</span>
-       <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// For each country</span>
-    <span class="c1">// If we cannot compute a deviation, it means model is infeasible!</span>
-    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">respondSol</span><span class="p">(</span><span class="n">deviations</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">i</span><span class="p">,</span> <span class="n">guessSol</span><span class="p">,</span>
-                                     <span class="n">prevDev</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="o">==</span> <span class="n">GRB_INFINITY</span><span class="p">)</span>
-      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-    <span class="c1">// cout &lt;&lt; &quot;Game::EPEC::getAllDeviations: deviations(i): &quot;</span>
-    <span class="c1">// &lt;&lt;deviations.at(i);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// For each country</span>
+     <span class="c1">// If we cannot compute a deviation, it means model is infeasible!</span>
+     <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">respondSol</span><span class="p">(</span><span class="n">deviations</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">i</span><span class="p">,</span> <span class="n">guessSol</span><span class="p">,</span> <span class="n">prevDev</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="o">==</span> <span class="n">GRB_INFINITY</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+     <span class="c1">// cout &lt;&lt; &quot;Game::EPEC::getAllDeviations: deviations(i): &quot;</span>
+     <span class="c1">// &lt;&lt;deviations.at(i);</span>
   <span class="p">}</span>
   <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">Algorithms</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">InnerApproximation</span><span class="o">::</span><span class="n">addDeviatedPolyhedron</span><span class="p">(</span>
-    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span>
-        <span class="o">&amp;</span><span class="n">deviations</span><span class="p">,</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">deviations</span><span class="p">,</span>
     <span class="kt">bool</span> <span class="o">&amp;</span><span class="n">infeasCheck</span>
 <span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
-  <span class="n">infeasCheck</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="n">infeasCheck</span>        <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
   <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">added</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">;</span>
-       <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// For each country</span>
-    <span class="kt">bool</span> <span class="n">ret</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">deviations</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">empty</span><span class="p">())</span>
-      <span class="n">PolyLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">addPolyFromX</span><span class="p">(</span><span class="n">deviations</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">ret</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">ret</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::InnerApproximation::&quot;</span>
-                                  <span class="s">&quot;addDeviatedPolyhedron: added &quot;</span>
-                                  <span class="s">&quot;polyhedron for player &quot;</span>
-                               <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
-      <span class="o">++</span><span class="n">added</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-      <span class="n">infeasCheck</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-      <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
-          <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::InnerApproximation::addDeviatedPolyhedron: NO &quot;</span>
-             <span class="s">&quot;polyhedron added for player &quot;</span>
-          <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
-    <span class="p">}</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// For each country</span>
+     <span class="kt">bool</span> <span class="n">ret</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">deviations</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">empty</span><span class="p">())</span>
+        <span class="n">PolyLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">addPolyFromX</span><span class="p">(</span><span class="n">deviations</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">ret</span><span class="p">);</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">ret</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::InnerApproximation::&quot;</span>
+                                    <span class="s">&quot;addDeviatedPolyhedron: added &quot;</span>
+                                    <span class="s">&quot;polyhedron for player &quot;</span>
+                                 <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+        <span class="o">++</span><span class="n">added</span><span class="p">;</span>
+     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">infeasCheck</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::InnerApproximation::addDeviatedPolyhedron: NO &quot;</span>
+                                    <span class="s">&quot;polyhedron added for player &quot;</span>
+                                 <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+     <span class="p">}</span>
   <span class="p">}</span>
   <span class="k">return</span> <span class="n">added</span><span class="p">;</span>
 <span class="p">}</span>
@@ -1012,7 +985,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, GD and SS
+        &copy; Copyright Gabriele Dragotto, Sriram Sankaranarayanan
 
     </p>
   </div>
