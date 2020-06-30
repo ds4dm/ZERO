@@ -11,7 +11,6 @@ ELSE ()
     set(BOOST_ROOT "/usr/local/boost-1.70.0/")
     set(ARMA_PATH "/usr/local")
     set(ARMA_LIB "/usr/local/lib/libarmadillo.dylib")
-    set(Boost_USE_MULTITHREADED TRUE)
 ENDIF ()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -19,36 +18,30 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 ############################################
 ################ DO NOT MODIFY #############
 ############################################
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.14)
 option(CXX "enable C++ compilation" ON)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(EXECUTABLE_OUTPUT_PATH "bin")
-#set(CMAKE_CXX_VISIBILITY_PRESET hidden)
-#set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
-project(
-        ZERO
+project(ZERO
         VERSION 1.0.0
         LANGUAGES CXX
         DESCRIPTION "ZERO is a multi-purpose game solver"
-)
+        )
 
 include_directories(${ARMA_PATH}/include)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+
 set(GUROBI_DIR "/home/gurobi/9.0.0/linux64" "/Library/gurobi900/mac64" "C:\\dev\\gurobi900\\win64")
-
 find_package(GUROBI REQUIRED)
-include_directories(${GUROBI_INCLUDE_DIRS})
 
-set(Boost_USE_STATIC_LIBS ON)
+set(Boost_USE_MULTITHREADED TRUE)
 find_package(Boost 1.70.0 REQUIRED COMPONENTS program_options unit_test_framework log log_setup)
-include_directories(${BOOST_ROOT}/include)
 
-include_directories("src" "include" "lib")
+
 configure_file(src/support/CMakeConfig.h.in include/support/version.h)
-
 
 #ZERO - Main library
 add_library(ZERO
@@ -70,17 +63,29 @@ add_library(ZERO
             src/algorithms/EPEC/epec_outerapproximation.cpp
             #src/algorithms/IPG/ipg_oracle.cpp
             )
-target_include_directories(ZERO PRIVATE src)
 set_target_properties(ZERO PROPERTIES
                       POSITION_INDEPENDENT_CODE ON
+                      CXX_VISIBILITY_PRESET hidden
+                      VISIBILITY_INLINES_HIDDEN ON
                       )
-target_link_libraries(ZERO
+target_link_libraries(ZERO PRIVATE
+                      blas lapack pthread m
+                      PUBLIC
                       Boost::log Boost::log_setup
-                      -O2 blas lapack pthread m
                       ${ARMA_LIB}
                       ${GUROBI_LIBRARY}
-                      optimized ${GUROBI_CXX_LIBRARY} debug ${GUROBI_CXX_DEBUG_LIBRARY})
-
+                      ${GUROBI_CXX_LIBRARY}
+                      )
+target_include_directories(
+        ZERO
+        PUBLIC
+        ${GUROBI_INCLUDE_DIRS}
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/lib
+        ${Boost_INCLUDE_DIR}
+        PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
 
 #Examples
 #add_executable(EPECExample
@@ -92,8 +97,12 @@ add_executable(EPECShell
                src/shells/epec.cpp)
 target_link_libraries(EPECShell
                       Boost::program_options
-                      Boost::log Boost::log_setup
                       ZERO)
+set_target_properties(EPECShell PROPERTIES
+                      POSITION_INDEPENDENT_CODE ON
+                      CXX_VISIBILITY_PRESET hidden
+                      VISIBILITY_INLINES_HIDDEN ON
+                      )
 
 #EPEC Tests
 add_executable(EPECTests
@@ -106,7 +115,8 @@ message("\n\nZERO cMake configuration terminated:")
 message("\tWorking directory: ${CMAKE_CURRENT_SOURCE_DIR}")
 message("\tArmadillo (lib) : ${ARMA_PATH}/include")
 message("\tArmadillo (include) : ${ARMA_LIB}")
-message("\tGurobi (lib) : ${GUROBI_LIBRARY}")
+message("\tGurobi (lib) : ${GUROBI_LIBRARY} ${GUROBI_CXX_LIBRARY}")
 message("\tGurobi (include) : ${GUROBI_INCLUDE_DIRS}")
-message("\tBoost (include) : ${BOOST_ROOT}/include ")
+message("\tBoost (include) : ${Boost_INCLUDE_DIR} ")
+message("\tBoost (lib) : ${Boost_LIBRARIES}")
 ############################################
