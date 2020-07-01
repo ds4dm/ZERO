@@ -45,16 +45,6 @@ namespace Algorithms {
 			 double tol = -1) const = 0; ///< A method to check whether the EPEC solution is a pure
 												  ///< equilibrium or not, given a numerical tolerance
 	 };
-	 // Second level inheritor for polyhedral inner approximations or full
-	 // enumeration
-	 class PolyBase;
-	 // The following algorithms are children of polybase
-	 class FullEnumeration;
-	 class InnerApproximation;
-	 class CombinatorialPNE;
-
-	 // Then, second level inheritor for the outer approximation
-	 class OuterApproximation;
 
   } // namespace EPEC
 } // namespace Algorithms
