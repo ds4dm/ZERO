@@ -1,3 +1,4 @@
+message("Searching for Gurobi")
 find_path(
   GUROBI_INCLUDE_DIRS
   NAMES gurobi_c.h

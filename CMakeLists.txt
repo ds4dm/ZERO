@@ -17,33 +17,36 @@ project(
   DESCRIPTION "ZERO is a multi-purpose game solver")
 set(ZERO_AUTHORS "Gabriele Dragotto, Sriram Sankaranarayanan")
 
-# CMake modules
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-
 # ##############################################################################
-# CUSTOM HINTS AND CONFIGURATIONS
+# CUSTOM HINTS AND CUSTOM CONFIGURATIONS
 # ##############################################################################
 
 set(GUROBI_DIR "/home/gurobi/9.0.0/linux64" "/Library/gurobi900/mac64"
                "C:\\dev\\gurobi900\\win64")
-if(ROSSOBIANCO)
-  # REMOTE CONFIGURATION for remote development
-  set(BOOST_ROOT "/home/x86_64-unknown-linux_ol7-gnu/boost-1.70.0")
-  set(ARMA_PATH "/home/draggabr/.local/armadillo")
-  set(ARMA_LIB "${ARMA_PATH}/lib64/libarmadillo.so")
-else()
-  # Local dev
-  set(BOOST_ROOT "/usr/local/boost-1.70.0/")
-  set(ARMA_PATH "/usr/local")
-  set(ARMA_LIB "/usr/local/lib/libarmadillo.dylib")
-endif()
-
 # ##############################################################################
 # ##############################################################################
 
-set(Boost_USE_MULTITHREADED TRUE)
-find_package(Boost 1.70.0 REQUIRED COMPONENTS program_options
-                                              unit_test_framework log log_setup)
+# CMake modules
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+# Explicit declaration for custom CMake modules
+include(${CMAKE_MODULE_PATH}/FindGUROBI.cmake)
+include(${CMAKE_MODULE_PATH}/FindSphinx.cmake)
+include(${CMAKE_MODULE_PATH}/FindConan.cmake)
+
+conan_cmake_run(
+  CONANFILE
+  conanfile.txt
+  BASIC_SETUP
+  CMAKE_TARGETS
+  NO_OUTPUT_DIRS
+  SKIP_STD
+  KEEP_RPATHS
+  BUILD
+  missing
+  ENV
+  CONAN_CMAKE_TOOLCHAIN_FILE="${CMAKE_TOOLCHAIN_FILE}"
+  OUTPUT_QUIET)
+
 configure_file(src/support/CMakeConfig.h.in include/support/version.h)
 
 # ##############################################################################
@@ -75,13 +78,12 @@ set_target_properties(
 target_link_libraries(
   ZERO
   PRIVATE blas lapack pthread m
-  PUBLIC Boost::log Boost::log_setup ${ARMA_LIB} ${GUROBI_LIBRARY}
-         ${GUROBI_CXX_LIBRARY})
+  PUBLIC CONAN_PKG::boost CONAN_PKG::armadillo CONAN_PKG::openblas
+         ${GUROBI_LIBRARY} ${GUROBI_CXX_LIBRARY})
 target_include_directories(
   ZERO
   PUBLIC ${GUROBI_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/include
-         ${CMAKE_CURRENT_SOURCE_DIR}/lib ${Boost_INCLUDE_DIR}
-         ${ARMA_PATH}/include
+         ${CMAKE_CURRENT_SOURCE_DIR}/lib ${CONAN_INCLUDE_DIRS}
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 # ##############################################################################
 # ##############################################################################
@@ -107,7 +109,7 @@ endif()
 # ZERO - EPEC COMMAND LINE
 # ##############################################################################
 add_executable(EPECShell src/shells/epec.cpp)
-target_link_libraries(EPECShell Boost::program_options ZERO)
+target_link_libraries(EPECShell CONAN_PKG::boost ZERO)
 set_target_properties(
   EPECShell
   PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
@@ -120,17 +122,15 @@ set_target_properties(
 # ##############################################################################
 add_executable(EPECTests test/EPEC/EPEC_test.cpp)
 target_include_directories(EPECTests PRIVATE test)
-target_link_libraries(EPECTests ZERO Boost::unit_test_framework)
+target_link_libraries(EPECTests ZERO CONAN_PKG::boost)
 # ##############################################################################
 # ##############################################################################
 
 message("\n\nZERO Configuration:")
-message("\tVersion: ${PROJECT_NAME}-${PROJECT_VERSION}")
-message("\tCopyright: ${ZERO_AUTHORS}\n\n")
-message("\tWorking directory: ${CMAKE_CURRENT_SOURCE_DIR}")
-message("\tArmadillo (lib) : ${ARMA_PATH}/include")
-message("\tArmadillo (include) : ${ARMA_LIB}")
-message("\tGurobi (lib) : ${GUROBI_LIBRARY} ${GUROBI_CXX_LIBRARY}")
-message("\tGurobi (include) : ${GUROBI_INCLUDE_DIRS}")
-message("\tBoost (include) : ${Boost_INCLUDE_DIR} ")
-message("\tBoost (lib) : ${Boost_LIBRARIES}")
+message("\tVersion:\t\t\t${PROJECT_NAME}-${PROJECT_VERSION}")
+message("\tCopyright:\t\t\t${ZERO_AUTHORS}\n\n")
+message("\tWorking directory:\t${CMAKE_CURRENT_SOURCE_DIR}")
+message("\tConan (libs):\t\t${CONAN_LIBS}")
+message("\tConan (includes):\t${CONAN_INCLUDE_DIRS}")
+message("\tGurobi (lib):\t\t${GUROBI_LIBRARY} ${GUROBI_CXX_LIBRARY}")
+message("\tGurobi (include):\t${GUROBI_INCLUDE_DIRS}")
