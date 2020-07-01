@@ -76,20 +76,17 @@ namespace Data {
 namespace Game {
 
   ///@brief Class to handle a Nash game between leaders of Stackelberg games
-  class EPEC {
+  class EPEC : public AbstractGame<Data::EPEC::DataObject> {
   private:
-	 std::vector<unsigned int>  SizesWithoutHull{};
-	 std::unique_ptr<Game::LCP> TheLCP;       ///< The EPEC nash game written as an LCP
-	 std::unique_ptr<GRBModel>  LCPModel;     ///< A Gurobi mode object of the LCP form of EPEC
-	 std::unique_ptr<GRBModel>  LCPModelBase; ///< A Gurobi mode object of the LCP form of EPEC. If
+	 std::shared_ptr<Algorithms::EPEC::Algorithm> Algorithm{};
+	 std::vector<unsigned int>                    SizesWithoutHull{};
+	 std::unique_ptr<Game::LCP>                   TheLCP; ///< The EPEC nash game written as an LCP
+	 std::unique_ptr<GRBModel> LCPModel;     ///< A Gurobi mode object of the LCP form of EPEC
+	 std::unique_ptr<GRBModel> LCPModelBase; ///< A Gurobi mode object of the LCP form of EPEC. If
 	 ///< we are searching for a pure NE,
 	 ///< the LCP which is indifferent to pure or mixed NE is stored in this
 	 ///< object.
-	 unsigned int                                 NumVariables{0};
-	 unsigned int                                 NumPlayers{0};
-	 std::shared_ptr<Algorithms::EPEC::Algorithm> Algorithm{};
-
-  protected: // Datafields
+  protected:
 	 std::vector<std::shared_ptr<Game::NashGame>> PlayersLowerLevels{};
 	 std::vector<std::shared_ptr<Game::LCP>>      PlayersLCP{};
 
@@ -112,18 +109,10 @@ namespace Game {
 	 std::vector<unsigned int>         ConvexHullVariables{};
 	 unsigned int                      numMCVariables{0};
 
-	 GRBEnv *Env;
-	 bool    Finalized{false};
-	 bool NashEquilibrium{false}; ///< True if computeNashEq returned an equilibrium. Note that this
-	 ///< can be the equilibrium of an approximation, and not to the
-	 ///< original game
-	 std::chrono::high_resolution_clock::time_point InitTime;
-	 ZEROStatistics<Data::EPEC::DataObject>         Stats = ZEROStatistics<Data::EPEC::DataObject>(
-        Data::EPEC::DataObject()); ///< Store run time information and
-														 ///< algorithm params
-	 arma::vec SolutionZ,                   ///< Solution equation values
-		  SolutionX;                         ///< Solution variable values
-	 bool warmstart(arma::vec x);           ///< Warmstarts EPEC with a solution
+	 bool      Finalized{false};
+	 arma::vec SolutionZ,         ///< Solution equation values
+		  SolutionX;               ///< Solution variable values
+	 bool warmstart(arma::vec x); ///< Warmstarts EPEC with a solution
 
   private:
 	 void       addDummyLead(unsigned int i); ///< Add Dummy variables for the leaders
@@ -139,9 +128,7 @@ namespace Game {
 
 	 bool computeNashEq(bool pureNE = false, double localTimeLimit = -1.0, bool check = false);
 
-  protected:                                  // functions
-	 explicit EPEC(GRBEnv *env) : Env{env} {}; ///< Can be instantiated by a derived class only!
-
+  protected:
 	 // virtual function to be implemented by the inheritor.
 	 virtual void makeObjectivePlayer(const unsigned int i, Game::QP_Objective &QP_obj) = 0;
 
@@ -169,14 +156,14 @@ namespace Game {
 
 	 friend class Algorithms::EPEC::FullEnumeration;
 
-	 EPEC()       = delete;  // No default constructor
-	 EPEC(EPEC &) = delete;  // Abstract class - no copy constructor
-	 ~EPEC()      = default; // Destructor to free data
+	 EPEC(GRBEnv *env) { this->Env = env; };
 
 	 void finalize();
 
-	 const void findNashEq();
-	 bool       isSolved(double tol = 1e-5) const;
+	 // Override AbstractGame methods
+	 const void findNashEq() override;
+	 bool       isSolved(double tol = 1e-5) const override;
+	 bool       isPureStrategy(double tol = 1e-5) const override;
 
 	 std::unique_ptr<GRBModel> respond(const unsigned int i, const arma::vec &x) const;
 
@@ -191,49 +178,21 @@ namespace Game {
 
 	 const arma::vec getZ() const { return this->SolutionZ; }
 
-	 bool isPureStrategy(double tol = 1e-5) const; ///< Return a bool indicating whether the
-	 ///< equilibrium is a pure strategy
-
-	 ///@brief Get the EPECStatistics object for the current instance
-	 ZEROStatistics<Data::EPEC::DataObject> getStatistics() const { return this->Stats; }
-
 	 void setAlgorithm(Data::EPEC::Algorithms algorithm);
 
 	 void setRecoverStrategy(Data::EPEC::RecoverStrategy strategy);
 
 	 void setAggressiveness(unsigned int a) { this->Stats.AlgorithmData.Aggressiveness = a; }
 
-	 void setNumThreads(unsigned int t) {
-		this->Stats.AlgorithmData.Threads.set(t);
-		this->Env->set(GRB_IntParam_Threads, t);
-	 }
-
-	 void setRandomSeed(unsigned int t) { this->Stats.AlgorithmData.RandomSeed.set(t); }
-
-	 void setIndicators(bool val) { this->Stats.AlgorithmData.IndicatorConstraints.set(val); }
-
-	 void setPureNashEquilibrium(bool val) { this->Stats.AlgorithmData.PureNashEquilibrium = val; }
-
 	 void setBoundPrimals(bool val) { this->Stats.AlgorithmData.BoundPrimals.set(val); }
 
 	 void setBoundBigM(double val) { this->Stats.AlgorithmData.BoundBigM.set(val); }
-
-	 void setDeviationTolerance(double val) {
-		this->Stats.AlgorithmData.DeviationTolerance.set(val);
-	 }
-
-	 void setTimeLimit(double val) { this->Stats.AlgorithmData.TimeLimit.set(val); }
 
 	 void setAddPolyMethod(Data::LCP::PolyhedraStrategy add) {
 		this->Stats.AlgorithmData.PolyhedraStrategy.set(add);
 	 }
 	 // Methods to get positions of variables
 	 // The below are all const functions which return an unsigned int.
-	 int getNumVar() const noexcept { return this->NumVariables; }
-
-	 unsigned int getNumLeaders() const noexcept {
-		return static_cast<int>(this->PlayersLowerLevels.size());
-	 }
 
 	 unsigned int getPositionLeadFoll(unsigned int i, unsigned int j) const;
 

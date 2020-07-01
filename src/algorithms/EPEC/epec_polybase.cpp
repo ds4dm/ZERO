@@ -127,7 +127,7 @@ bool Algorithms::EPEC::PolyBase::isPureStrategy(const double tol) const {
 	* i. The strategy is considered a pure strategy, if it is played with a
 	* probability greater than 1 - Tolerance;
 	*/
-  for (unsigned int i = 0; i < this->EPECObject->getNumLeaders(); ++i) {
+  for (unsigned int i = 0; i < this->EPECObject->getNumPlayers(); ++i) {
 	 if (!isPureStrategy(i, tol))
 		return false;
   }
@@ -236,7 +236,7 @@ void Algorithms::EPEC::PolyBase::makeThePureLCP(bool indicators) {
 		  std::unique_ptr<GRBModel>(new GRBModel(*this->EPECObject->LCPModel));
 	 const unsigned int nPolyLead = [this]() {
 		unsigned int ell = 0;
-		for (unsigned int i = 0; i < this->EPECObject->getNumLeaders(); ++i)
+		for (unsigned int i = 0; i < this->EPECObject->getNumPlayers(); ++i)
 		  ell += (this->getNumPolyLead(i));
 		return ell;
 	 }();
@@ -245,7 +245,8 @@ void Algorithms::EPEC::PolyBase::makeThePureLCP(bool indicators) {
 	 GRBVar       pure_bin[nPolyLead];
 	 GRBLinExpr   objectiveTerm{0};
 	 unsigned int count{0}, i, j;
-	 for (i = 0; i < this->EPECObject->getNumLeaders(); i++) {
+	 //@todo fix bug in else
+	 for (i = 0; i < this->EPECObject->getNumPlayers(); i++) {
 		for (j = 0; j < this->getNumPolyLead(i); ++j) {
 		  pure_bin[count] = this->EPECObject->LCPModel->addVar(
 				0, 1, 0, GRB_BINARY, "pureBin_" + std::to_string(i) + "_" + std::to_string(j));

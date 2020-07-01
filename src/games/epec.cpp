@@ -25,7 +25,7 @@
 
 void Game::EPEC::preFinalize()
 /**
-  @brief Empty function - optionally reimplementable in derived class
+  @brief Empty function - optionally re-implementable in derived class
 @details This function can be optionally implemented by
  the derived class. Code in this class will be run <i>before</i>
  calling Game::EPEC::finalize().
@@ -55,7 +55,8 @@ void Game::EPEC::finalize()
   if (this->Finalized)
 	 std::cerr << "Warning in Game::EPEC::finalize: Model already Finalized\n";
 
-  this->NumPlayers = this->getNumLeaders();
+  this->NumPlayers = static_cast<int>(this->PlayersLowerLevels.size());
+  ;
   /// Game::EPEC::preFinalize() can be overridden, and that code will run before
   /// calling Game::EPEC::finalize()
   this->preFinalize();
@@ -458,8 +459,8 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
 		}
 	 } else {
 		this->NashEquilibrium = true;
-		this->SolutionX.save("dat/X.dat", arma::file_type::arma_ascii);
-		this->SolutionZ.save("dat/Z.dat", arma::file_type::arma_ascii);
+		// this->SolutionX.save("dat/X.dat", arma::file_type::arma_ascii);
+		// this->SolutionZ.save("dat/Z.dat", arma::file_type::arma_ascii);
 		BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
 	 }
 

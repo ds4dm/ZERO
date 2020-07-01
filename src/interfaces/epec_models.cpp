@@ -557,6 +557,7 @@ Models::EPEC &Models::EPEC::addCountry(Models::LeadAllPar Params, const unsigned
   this->LeadConses.push_back(N->rewriteLeadCons()); // Not mandatory!
   this->AllLeadPars.push_back(Params);
   this->Game::EPEC::numMCVariables++;
+  this->NumPlayers++;
   return *this;
 }
 
@@ -575,7 +576,7 @@ Models::EPEC::addTranspCosts(const arma::sp_mat &costs ///< The transportation c
 								"EPEC object Finalized. Call "
 								"EPEC::unlock() to unlock this object first and then edit.");
   try {
-	 if (this->getNumLeaders() != costs.n_rows || this->getNumLeaders() != costs.n_cols)
+	 if (this->getNumPlayers() != costs.n_rows || this->getNumPlayers() != costs.n_cols)
 		throw ZEROException(ZEROErrorCode::Assertion, "Mismatch of size in Q");
 	 else
 		this->TranspCosts = arma::sp_mat(costs);
@@ -602,8 +603,8 @@ void Models::EPEC::preFinalize() {
 	* variable
 	*/
   try {
-	 this->nImportMarkets = vector<unsigned int>(this->getNumLeaders());
-	 for (unsigned int i = 0; i < this->getNumLeaders(); i++)
+	 this->nImportMarkets = vector<unsigned int>(this->getNumPlayers());
+	 for (unsigned int i = 0; i < this->getNumPlayers(); i++)
 		this->add_Leaders_tradebalance_constraints(i);
   } catch (GRBException &e) {
 	 throw ZEROException(e);
@@ -669,11 +670,11 @@ void Models::EPEC::makeMCConstraints(arma::sp_mat &MCLHS, arma::vec &MCRHS) cons
   // Transportation matrix
   const arma::sp_mat &TrCo = this->TranspCosts;
   // Output matrices
-  MCRHS.zeros(this->getNumLeaders());
-  MCLHS.zeros(this->getNumLeaders(), this->getNumVar());
+  MCRHS.zeros(this->getNumPlayers());
+  MCLHS.zeros(this->getNumPlayers(), this->getNumVar());
   // The MC constraint for each leader country
-  if (this->getNumLeaders() > 1) {
-	 for (unsigned int i = 0; i < this->getNumLeaders(); ++i) {
+  if (this->getNumPlayers() > 1) {
+	 for (unsigned int i = 0; i < this->getNumPlayers(); ++i) {
 		MCLHS(i, this->getPosition(i, LeaderVars::NetExport)) = 1;
 		for (auto val = TrCo.begin_row(i); val != TrCo.end_row(i); ++val) {
 		  const unsigned int j = val.col(); // This is the country which is importing from "i"
@@ -701,7 +702,7 @@ void Models::EPEC::make_MC_leader(const unsigned int i)
  * it in Models::EPEC::MC_QP
  */
 {
-  if (i >= this->getNumLeaders())
+  if (i >= this->getNumPlayers())
 	 throw ZEROException(ZEROErrorCode::OutOfRange, "Player does not exist");
   try {
 	 const arma::sp_mat &TrCo        = this->TranspCosts;
@@ -767,25 +768,25 @@ bool Models::EPEC::dataCheck(
  * number of countries in the Models::EPEC object.
  */
 {
-  if (!chkAllLeadPars && AllLeadPars.size() != this->getNumLeaders())
+  if (!chkAllLeadPars && AllLeadPars.size() != this->getNumPlayers())
 	 return false;
-  if (!chkcountries_LL && PlayersLowerLevels.size() != this->getNumLeaders())
+  if (!chkcountries_LL && PlayersLowerLevels.size() != this->getNumPlayers())
 	 return false;
-  if (!chkMC_QP && MC_QP.size() != this->getNumLeaders())
+  if (!chkMC_QP && MC_QP.size() != this->getNumPlayers())
 	 return false;
-  if (!chkLeadConses && LeadConses.size() != this->getNumLeaders())
+  if (!chkLeadConses && LeadConses.size() != this->getNumPlayers())
 	 return false;
-  if (!chkLeadRHSes && LeadRHSes.size() != this->getNumLeaders())
+  if (!chkLeadRHSes && LeadRHSes.size() != this->getNumPlayers())
 	 return false;
-  if (!chknImportMarkets && nImportMarkets.size() != this->getNumLeaders())
+  if (!chknImportMarkets && nImportMarkets.size() != this->getNumPlayers())
 	 return false;
-  if (!chkLocations && Locations.size() != this->getNumLeaders())
+  if (!chkLocations && Locations.size() != this->getNumPlayers())
 	 return false;
-  if (!chkLeaderLocations && LeaderLocations.size() != this->getNumLeaders())
+  if (!chkLeaderLocations && LeaderLocations.size() != this->getNumPlayers())
 	 return false;
   if (!chkLeaderLocations && this->getNumVar() == 0)
 	 return false;
-  if (!chkLeadObjec && LeaderObjective.size() != this->getNumLeaders())
+  if (!chkLeadObjec && LeaderObjective.size() != this->getNumPlayers())
 	 return false;
   return true;
 }
@@ -796,7 +797,7 @@ unsigned int Models::EPEC::getPosition(const unsigned int       countryCount,
  * @brief Gets position of a variable in a country.
  */
 {
-  if (countryCount >= this->getNumLeaders())
+  if (countryCount >= this->getNumPlayers())
 	 throw ZEROException(ZEROErrorCode::OutOfRange, "Player object is out of range");
   return this->LeaderLocations.at(countryCount) + this->Locations.at(countryCount).at(var);
 }
@@ -863,13 +864,13 @@ void Models::EPEC::makeObjectivePlayer(
 		QP_obj.c.at(j) = 1;
   }
 
-  if (this->getNumLeaders() > 1) {
+  if (this->getNumPlayers() > 1) {
 	 // export revenue term
 
 	 QP_obj.C(Loc.at(Models::LeaderVars::NetExport),
 				 // this->getPosition(i, Models::LeaderVars::End) -
 				 // nThisCountryvars) = -1;
-				 this->getPosition(this->getNumLeaders() - 1, Models::LeaderVars::End) -
+				 this->getPosition(this->getNumPlayers() - 1, Models::LeaderVars::End) -
 					  nThisCountryvars + i) = -1;
 
 	 // Import cost term.
@@ -879,7 +880,7 @@ void Models::EPEC::makeObjectivePlayer(
 		QP_obj.c.at(Loc.at(Models::LeaderVars::CountryImport) + count) = (*val);
 		// \pi^I*q^{I\to A}_{imp} term
 		QP_obj.C.at(Loc.at(Models::LeaderVars::CountryImport) + count,
-						this->getPosition(this->getNumLeaders() - 1, Models::LeaderVars::End) -
+						this->getPosition(this->getNumPlayers() - 1, Models::LeaderVars::End) -
 							 nThisCountryvars + val.row()) = 1;
 		// this->Locations.at(val.row()).at(Models::LeaderVars::End)) = 1;
 		// this->getPosition(val.row(), Models::LeaderVars::End)) = 1;
@@ -896,7 +897,7 @@ void Models::EPEC::updateLocations()
  * This function is called after makePlayerQP()
  */
 {
-  for (unsigned int i = 0; i < this->getNumLeaders(); ++i) {
+  for (unsigned int i = 0; i < this->getNumPlayers(); ++i) {
 	 LeadLocs &Loc = this->Locations.at(i);
 	 Models::decreaseVal(Loc,
 								Models::LeaderVars::ConvHullDummy,
@@ -1017,7 +1018,7 @@ void Models::EPEC::write(const string filename, bool append) const {
 	 file << "############### COUNTRY PARAMETERS ###############\n";
 	 file << "##################################################\n";
   }
-  for (unsigned int i = 0; i < this->getNumLeaders(); ++i)
+  for (unsigned int i = 0; i < this->getNumPlayers(); ++i)
 	 this->write(filename, i, (append || i));
 }
 
@@ -1035,15 +1036,15 @@ void Models::EPEC::writeSolutionJSON(string filename, const arma::vec x, const a
   writer.Key("isPureEquilibrium");
   writer.Bool(this->isPureStrategy());
   writer.Key("nCountries");
-  writer.Uint(this->getNumLeaders());
+  writer.Uint(this->getNumPlayers());
   writer.Key("nFollowers");
   writer.StartArray();
-  for (unsigned i = 0; i < this->getNumLeaders(); i++)
+  for (unsigned i = 0; i < this->getNumPlayers(); i++)
 	 writer.Uint(this->AllLeadPars.at(i).n_followers);
   writer.EndArray();
   writer.Key("Countries");
   writer.StartArray();
-  for (unsigned i = 0; i < this->getNumLeaders(); i++) {
+  for (unsigned i = 0; i < this->getNumPlayers(); i++) {
 	 writer.StartObject();
 	 writer.Key("FollowerStart");
 	 writer.Uint(this->getPosition(i, Models::LeaderVars::FollowerStart));
@@ -1068,7 +1069,7 @@ void Models::EPEC::writeSolutionJSON(string filename, const arma::vec x, const a
 	 writer.Key("End");
 	 writer.Uint(this->getPosition(i, Models::LeaderVars::End));
 	 writer.Key("ShadowPrice");
-	 writer.Uint(this->getPosition(this->getNumLeaders() - 1, Models::LeaderVars::End) + i);
+	 writer.Uint(this->getPosition(this->getNumPlayers() - 1, Models::LeaderVars::End) + i);
 	 writer.EndObject();
   }
   writer.EndArray();
@@ -1134,7 +1135,7 @@ void Models::EPEC::writeSolution(const int writeLevel, string filename) const {
   if (this->Stats.Status.get() == ZEROStatus::NashEqFound) {
 	 if (writeLevel == 1 || writeLevel == 2) {
 		this->WriteCountry(0, filename + ".txt", this->SolutionX, false);
-		for (unsigned int ell = 1; ell < this->getNumLeaders(); ++ell)
+		for (unsigned int ell = 1; ell < this->getNumPlayers(); ++ell)
 		  this->WriteCountry(ell, filename + ".txt", this->SolutionX, true);
 		this->write(filename + ".txt", true);
 	 }
@@ -1364,7 +1365,7 @@ void Models::EPEC::WriteCountry(const unsigned int i,
   // Trade
   double Export{x.at(this->getPosition(i, Models::LeaderVars::NetExport))};
   double exportPrice{
-		x.at(this->getPosition(this->getNumLeaders() - 1, Models::LeaderVars::End) + i)};
+		x.at(this->getPosition(this->getNumPlayers() - 1, Models::LeaderVars::End) + i)};
   double import{0};
   for (unsigned int j = this->getPosition(i, Models::LeaderVars::CountryImport);
 		 j < this->getPosition(i, Models::LeaderVars::CountryImport + 1);
