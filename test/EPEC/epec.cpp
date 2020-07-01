@@ -182,13 +182,13 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
   BOOST_CHECK_MESSAGE(abs(q1.getc().at(Ny)) < 1e-4, "c check after addDummy(0, 1, 1)");
 
   BOOST_TEST_MESSAGE("QP_Param test for file save");
-  q1.save("test/q1.dat", true);
-  q2.save("test/q2.dat", true);
+  q1.save("../test/EPEC/q1.dat", true);
+  q2.save("../test/EPEC/q2.dat", true);
   BOOST_TEST_MESSAGE("Saved QP_Param objects");
   QP_Param q1loader(&env);
-  q1loader.load("test/q1.dat", 0);
+  q1loader.load("../test/EPEC/q1.dat", 0);
   QP_Param q2loader(&env);
-  q2loader.load("test/q2.dat", 0);
+  q2loader.load("../test/EPEC/q2.dat", 0);
 
   BOOST_CHECK_MESSAGE(q1loader == q1, "Save/load test 1 works well");
   BOOST_CHECK_MESSAGE(q2loader == q2, "Save/load test 2 works well");
@@ -257,18 +257,18 @@ BOOST_AUTO_TEST_CASE(NashGame_test) {
   BOOST_CHECK_CLOSE(lcpmodel->getVarByName("x_1").get(GRB_DoubleAttr_X), 27.803728, 0.001);
 
   BOOST_TEST_MESSAGE("NashGame load/save test");
-  BOOST_CHECK_NO_THROW(Nash.save("test/Nash.dat"));
+  BOOST_CHECK_NO_THROW(Nash.save("../test/EPEC/Nash.dat"));
 
   NashGame N2(&env);
-  BOOST_CHECK_NO_THROW(N2.load("test/Nash.dat"));
-  BOOST_CHECK_NO_THROW(N2.save("test/Nash2.dat"));
+  BOOST_CHECK_NO_THROW(N2.load("../test/EPEC/Nash.dat"));
+  BOOST_CHECK_NO_THROW(N2.save("../test/EPEC/Nash2.dat"));
 
   BOOST_TEST_MESSAGE("LCP load/save test");
-  BOOST_CHECK_NO_THROW(lcp.save("test/TheLCP.dat"));
+  BOOST_CHECK_NO_THROW(lcp.save("../test/EPEC/TheLCP.dat"));
 
   LCP lcp2(&env);
-  BOOST_CHECK_NO_THROW(lcp2.load("test/TheLCP.dat"));
-  BOOST_CHECK_NO_THROW(lcp2.save("test/lcp2.dat"));
+  BOOST_CHECK_NO_THROW(lcp2.load("../test/EPEC/TheLCP.dat"));
+  BOOST_CHECK_NO_THROW(lcp2.save("../test/EPEC/lcp2.dat"));
 
   arma::vec Nashsol(2);
   Nashsol(0) = 28.271028;
@@ -414,9 +414,7 @@ BOOST_AUTO_TEST_CASE(ConvexHull_test) {
   model.setObjective(obj, GRB_MAXIMIZE);
   model.set(GRB_IntParam_OutputFlag, 0);
   model.set(GRB_IntParam_DualReductions, 0);
-  model.write("dat/ConvexHullTest.lp");
   model.optimize();
-  model.write("dat/ConvexHullTest.sol");
   BOOST_TEST_MESSAGE("Comparing results:");
   BOOST_CHECK_MESSAGE(model.get(GRB_IntAttr_Status) == GRB_OPTIMAL, "checking optimization Status");
   BOOST_CHECK_MESSAGE(model.getObjective().getValue() == 4, "checking obj==4");
