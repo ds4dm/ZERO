@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Program Listing for File epec.cpp &mdash; Python 1.0.0 documentation</title>
+  <title>Program Listing for File epec.cpp &mdash; ZERO 1.0.0 documentation</title>
   
 
   
@@ -93,7 +93,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#downloading-and-compiling">Downloading and Compiling</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
@@ -696,7 +697,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Python</a>
+          <a href="../index.html">ZERO</a>
         
       </nav>
 
@@ -917,7 +918,7 @@
                               <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span>
                               <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">prevDev</span>
                               <span class="c1">//&lt; [in] if any, the std::vector of previous deviations.</span>
-<span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+                              <span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
   <span class="k">auto</span> <span class="n">model</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">respond</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
   <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Game::EPEC::respondSol: Writing dat/RespondSol&quot;</span> <span class="o">+</span>
                                              <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">player</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;.lp to disk&quot;</span><span class="p">;</span>

@@ -42,22 +42,22 @@ Program Listing for File epec_models.cpp
      ost << "Follower Parameters: " << '\n';
      ost << "********************" << '\n';
      ost << Models::prn::label << "Linear Costs"
-         << ":\t";
+           << ":\t";
      for (auto a : P.costs_lin)
         ost << Models::prn::val << a;
      ost << '\n'
-         << Models::prn::label << "Quadratic costs"
-         << ":\t";
+           << Models::prn::label << "Quadratic costs"
+           << ":\t";
      for (auto a : P.costs_quad)
         ost << Models::prn::val << a;
      ost << '\n'
-         << Models::prn::label << "Production capacities"
-         << ":\t";
+           << Models::prn::label << "Production capacities"
+           << ":\t";
      for (auto a : P.capacities)
         ost << Models::prn::val << (a < 0 ? std::numeric_limits<double>::infinity() : a);
      ost << '\n'
-         << Models::prn::label << "Tax Caps"
-         << ":\t";
+           << Models::prn::label << "Tax Caps"
+           << ":\t";
      for (auto a : P.tax_caps)
         ost << Models::prn::val << (a < 0 ? std::numeric_limits<double>::infinity() : a);
      ost << '\n';
@@ -76,16 +76,16 @@ Program Listing for File epec_models.cpp
      ost << "******************" << '\n';
      ost << std::fixed;
      ost << Models::prn::label << "Export Limit"
-         << ":" << Models::prn::val
-         << (P.export_limit < 0 ? std::numeric_limits<double>::infinity() : P.export_limit);
+           << ":" << Models::prn::val
+           << (P.export_limit < 0 ? std::numeric_limits<double>::infinity() : P.export_limit);
      ost << '\n';
      ost << Models::prn::label << "Import Limit"
-         << ":" << Models::prn::val
-         << (P.import_limit < 0 ? std::numeric_limits<double>::infinity() : P.import_limit);
+           << ":" << Models::prn::val
+           << (P.import_limit < 0 ? std::numeric_limits<double>::infinity() : P.import_limit);
      ost << '\n';
      ost << Models::prn::label << "Price limit"
-         << ":" << Models::prn::val
-         << (P.price_limit < 0 ? std::numeric_limits<double>::infinity() : P.price_limit);
+           << ":" << Models::prn::val
+           << (P.price_limit < 0 ? std::numeric_limits<double>::infinity() : P.price_limit);
      ost << '\n';
      return ost;
    }
@@ -102,19 +102,19 @@ Program Listing for File epec_models.cpp
    ostream &Models::operator<<(ostream &ost, const Models::LeadAllPar P) {
      ost << "\n\n";
      ost << "***************************"
-         << "\n";
+           << "\n";
      ost << "Leader Complete Description"
-         << "\n";
+           << "\n";
      ost << "***************************"
-         << "\n"
-         << "\n";
+           << "\n"
+           << "\n";
      ost << Models::prn::label << "Number of followers"
-         << ":" << Models::prn::val << P.n_followers << "\n "
-         << "\n";
+           << ":" << Models::prn::val << P.n_followers << "\n "
+           << "\n";
      ost << '\n' << P.LeaderParam << '\n' << P.FollowerParam << '\n' << P.DemandParam << "\n";
      ost << "***************************"
-         << "\n"
-         << "\n";
+           << "\n"
+           << "\n";
      return ost;
    }
    
@@ -155,15 +155,15 @@ Program Listing for File epec_models.cpp
    }
    
    bool Models::EPEC::ParamValid(const LeadAllPar &Params 
-   ) const
+                                           ) const
    {
      if (Params.n_followers == 0)
         throw ZEROException(ZEROErrorCode::Assertion, "There are no followers for a player");
      if (Params.FollowerParam.costs_lin.size() != Params.n_followers ||
-         Params.FollowerParam.costs_quad.size() != Params.n_followers ||
-         Params.FollowerParam.capacities.size() != Params.n_followers ||
-         Params.FollowerParam.tax_caps.size() != Params.n_followers ||
-         Params.FollowerParam.emission_costs.size() != Params.n_followers)
+           Params.FollowerParam.costs_quad.size() != Params.n_followers ||
+           Params.FollowerParam.capacities.size() != Params.n_followers ||
+           Params.FollowerParam.tax_caps.size() != Params.n_followers ||
+           Params.FollowerParam.emission_costs.size() != Params.n_followers)
         throw ZEROException(ZEROErrorCode::InvalidData, "The input data has a size mismatch");
      if (Params.DemandParam.alpha <= 0 || Params.DemandParam.beta <= 0)
         throw ZEROException(ZEROErrorCode::InvalidData, "Demand curve parameters are negative");
@@ -178,18 +178,18 @@ Program Listing for File epec_models.cpp
    }
    
    void Models::EPEC::make_LL_QP(
-       const LeadAllPar &Params,    
-       const unsigned int follower, 
-       Game::QP_Param *Foll,        
-       const Models::LeadLocs &Loc  
-       ) noexcept
+        const LeadAllPar &      Params,   
+        const unsigned int      follower, 
+        Game::QP_Param *        Foll,     
+        const Models::LeadLocs &Loc       
+        ) noexcept
    {
      const unsigned int LeadVars = Loc.at(Models::LeaderVars::End) - Params.n_followers;
-     arma::sp_mat Q(1, 1), C(1, LeadVars + Params.n_followers - 1);
+     arma::sp_mat       Q(1, 1), C(1, LeadVars + Params.n_followers - 1);
      // Two constraints. One saying that you should be less than capacity
      // Another saying that you should be less than leader imposed cap!
      arma::sp_mat A(1, Loc.at(Models::LeaderVars::End) - 1), B(1, 1);
-     arma::vec c(1), b(1);
+     arma::vec    c(1), b(1);
      c.fill(0);
      b.fill(0);
      A.zeros();
@@ -204,20 +204,20 @@ Program Listing for File epec_models.cpp
    
      arma::mat Ctemp(1, Loc.at(Models::LeaderVars::End) - 1, arma::fill::zeros);
      Ctemp.cols(0, Params.n_followers - 1)
-         .fill(Params.DemandParam.beta); // First n-1 entries and 1 more entry is Beta
+           .fill(Params.DemandParam.beta); // First n-1 entries and 1 more entry is Beta
      Ctemp(0, Params.n_followers) = -Params.DemandParam.beta; // For q_exp
    
      // Scroll in Ctemp basing on the taxation paradigm
      if (Params.LeaderParam.tax_type == Models::TaxType::StandardTax)
         Ctemp(0, (Params.n_followers - 1) + 2 + Params.n_followers + follower) =
-            1; // q_{-i}, then import, export, then tilde q_i, then i-th tax
+             1; // q_{-i}, then import, export, then tilde q_i, then i-th tax
      else if (Params.LeaderParam.tax_type == Models::TaxType::SingleTax)
         Ctemp(0, (Params.n_followers - 1) + 2 + Params.n_followers + 0) =
-            1; // q_{-i}, then import, export, then tilde q_i, then only tax var
+             1; // q_{-i}, then import, export, then tilde q_i, then only tax var
      else if (Params.LeaderParam.tax_type == Models::TaxType::CarbonTax)
         Ctemp(0, (Params.n_followers - 1) + 2 + Params.n_followers + 0) =
-            Params.FollowerParam.emission_costs.at(follower); // q_{-i}, then import, export, then tilde
-                                                              // q_i, then only tax var
+             Params.FollowerParam.emission_costs.at(follower); // q_{-i}, then import, export, then tilde
+                                                                                // q_i, then only tax var
    
      C = Ctemp;
      // A(1, (Params.n_followers - 1) + 2 + follower) = 0;
@@ -229,15 +229,15 @@ Program Listing for File epec_models.cpp
    }
    
    void Models::EPEC::make_LL_LeadCons(
-       arma::sp_mat &LeadCons,             
-       arma::vec &LeadRHS,                 
-       const LeadAllPar &Params,           
-       const Models::LeadLocs &Loc,        
-       const unsigned int import_lim_cons, 
-       const unsigned int export_lim_cons, 
-       const unsigned int price_lim_cons, 
-       const unsigned int activeTaxCaps 
-   ) const noexcept
+        arma::sp_mat &          LeadCons,        
+        arma::vec &             LeadRHS,         
+        const LeadAllPar &      Params,          
+        const Models::LeadLocs &Loc,             
+        const unsigned int      import_lim_cons, 
+        const unsigned int export_lim_cons, 
+        const unsigned int price_lim_cons, 
+        const unsigned int activeTaxCaps 
+        ) const noexcept
    {
      if (activeTaxCaps > 0) {
         // Tax Caps are active
@@ -268,22 +268,22 @@ Program Listing for File epec_models.cpp
      // everything that comes in should satisfy this limit (28d)
      if (export_lim_cons) {
         LeadCons(activeTaxCaps + import_lim_cons + export_lim_cons,
-                 Loc.at(Models::LeaderVars::NetExport))            = 1;
+                    Loc.at(Models::LeaderVars::NetExport))            = 1;
         LeadCons(activeTaxCaps + import_lim_cons + export_lim_cons,
-                 Loc.at(Models::LeaderVars::NetImport))            = -1;
+                    Loc.at(Models::LeaderVars::NetImport))            = -1;
         LeadRHS(activeTaxCaps + import_lim_cons + export_lim_cons) = Params.LeaderParam.export_limit;
      }
      // (28g)
      if (price_lim_cons) {
         for (unsigned int i = 0; i < Params.n_followers; i++)
            LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons, i) =
-               -Params.DemandParam.beta;
+                -Params.DemandParam.beta;
         LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons,
-                    Loc.at(Models::LeaderVars::NetImport)) = -Params.DemandParam.beta;
+                        Loc.at(Models::LeaderVars::NetImport)) = -Params.DemandParam.beta;
         LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons,
-                    Loc.at(Models::LeaderVars::NetExport)) = Params.DemandParam.beta;
+                        Loc.at(Models::LeaderVars::NetExport)) = Params.DemandParam.beta;
         LeadRHS.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons) =
-            Params.LeaderParam.price_limit - Params.DemandParam.alpha;
+             Params.LeaderParam.price_limit - Params.DemandParam.alpha;
      }
      // revenue tax
      if (Params.LeaderParam.tax_revenue) {
@@ -306,31 +306,31 @@ Program Listing for File epec_models.cpp
            double carbonCorrection = (carbonTax == 1) ? Params.FollowerParam.emission_costs.at(i) : 1;
            // -u_i + \bar{q}_it_i + \bar{t}_iq_i \le \bar{t}_i \bar{q}_i
            LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + i * 3 + 1,
-                       Loc.at(Models::LeaderVars::TaxQuad) + i) = -1;
+                           Loc.at(Models::LeaderVars::TaxQuad) + i) = -1;
            LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + i * 3 + 1,
-                       Loc.at(Models::LeaderVars::Tax) + i * standardTax) =
-               Params.FollowerParam.capacities.at(i) * carbonCorrection;
+                           Loc.at(Models::LeaderVars::Tax) + i * standardTax) =
+                Params.FollowerParam.capacities.at(i) * carbonCorrection;
            LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + i * 3 + 1,
-                       Loc.at(Models::LeaderVars::FollowerStart) + i) = t_cap * carbonCorrection;
+                           Loc.at(Models::LeaderVars::FollowerStart) + i) = t_cap * carbonCorrection;
            LeadRHS.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + i * 3 + 1) =
-               t_cap * Params.FollowerParam.capacities.at(i) * carbonCorrection;
+                t_cap * Params.FollowerParam.capacities.at(i) * carbonCorrection;
    
            // -u_i + \bar{q}_it_i  \le 0
            LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + i * 3 + 2,
-                       Loc.at(Models::LeaderVars::TaxQuad) + i) = -1;
+                           Loc.at(Models::LeaderVars::TaxQuad) + i) = -1;
            LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + i * 3 + 2,
-                       Loc.at(Models::LeaderVars::Tax) + i * standardTax) =
-               Params.FollowerParam.capacities.at(i) * carbonCorrection;
+                           Loc.at(Models::LeaderVars::Tax) + i * standardTax) =
+                Params.FollowerParam.capacities.at(i) * carbonCorrection;
            LeadRHS.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + i * 3 + 2) =
-               0;
+                0;
    
            // -u_i + \bar{t}_iq_i  \le 0
            LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + i * 3 + 3,
-                       Loc.at(Models::LeaderVars::TaxQuad) + i)       = -1;
+                           Loc.at(Models::LeaderVars::TaxQuad) + i)       = -1;
            LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + i * 3 + 3,
-                       Loc.at(Models::LeaderVars::FollowerStart) + i) = t_cap * carbonCorrection;
+                           Loc.at(Models::LeaderVars::FollowerStart) + i) = t_cap * carbonCorrection;
            LeadRHS.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + i * 3 + 3) =
-               0;
+                0;
         }
      }
      BOOST_LOG_TRIVIAL(trace) << "********** Price Limit constraint: " << price_lim_cons;
@@ -343,8 +343,8 @@ Program Listing for File epec_models.cpp
    {
      if (this->Finalized)
         throw ZEROException(ZEROErrorCode::Assertion,
-                            "EPEC object Finalized. Call EPEC::unlock() to unlock "
-                            "this object first and then edit");
+                                   "EPEC object Finalized. Call EPEC::unlock() to unlock "
+                                   "this object first and then edit");
    
      bool noError = false;
      try {
@@ -374,7 +374,7 @@ Program Listing for File epec_models.cpp
      }
    
      const unsigned int LeadVars =
-         2 + (1 + Params.LeaderParam.tax_revenue) * Params.n_followers + taxVars + addnlLeadVars;
+           2 + (1 + Params.LeaderParam.tax_revenue) * Params.n_followers + taxVars + addnlLeadVars;
      // 2 for quantity imported and exported, n for imposed cap, taxVars for taxes
      // and n for bilinear taxes.
    
@@ -405,30 +405,33 @@ Program Listing for File epec_models.cpp
         // Since we have a standard taxation paradigm, we have to consider all
         // different tax caps
         activeTaxCaps = count_if(Params.FollowerParam.tax_caps.begin(),
-                                 Params.FollowerParam.tax_caps.end(), [](double i) { return i >= 0; });
+                                         Params.FollowerParam.tax_caps.end(),
+                                         [](double i) { return i >= 0; });
      } else {
         // There is no standard taxation paradigm (so we have carbon or single).
         // Hence we want to consider just one caps, arbitrary the first
         activeTaxCaps = count_if(Params.FollowerParam.tax_caps.begin(),
-                                 Params.FollowerParam.tax_caps.end(), [](double i) { return i >= 0; });
+                                         Params.FollowerParam.tax_caps.end(),
+                                         [](double i) { return i >= 0; });
         if (activeTaxCaps >= 0) {
            if (!std::equal(Params.FollowerParam.tax_caps.begin() + 1,
-                           Params.FollowerParam.tax_caps.end(), Params.FollowerParam.tax_caps.begin())) {
+                                Params.FollowerParam.tax_caps.end(),
+                                Params.FollowerParam.tax_caps.begin())) {
              BOOST_LOG_TRIVIAL(warning) << "Tax caps are not equal within a non-standard tax framework. "
-                                           "Using the first value as tax limit.";
+                                                     "Using the first value as tax limit.";
            }
            activeTaxCaps = 1;
         }
      }
    
      arma::sp_mat LeadCons(import_lim_cons +     // Import limit constraint
-                               export_lim_cons + // Export limit constraint
-                               price_lim_cons +  // Price limit constraint
-                               activeTaxCaps +   // Tax limit constraints
-                               Params.n_followers * 3 * Params.LeaderParam.tax_revenue + // revenue tax
-                               1, // Export - import <= Domestic production
-                           Loc[Models::LeaderVars::End]);
-     arma::vec LeadRHS(import_lim_cons + export_lim_cons + price_lim_cons + activeTaxCaps +
+                                        export_lim_cons + // Export limit constraint
+                                        price_lim_cons +  // Price limit constraint
+                                        activeTaxCaps +   // Tax limit constraints
+                                        Params.n_followers * 3 * Params.LeaderParam.tax_revenue + // revenue tax
+                                        1, // Export - import <= Domestic production
+                                   Loc[Models::LeaderVars::End]);
+     arma::vec    LeadRHS(import_lim_cons + export_lim_cons + price_lim_cons + activeTaxCaps +
                            Params.n_followers * 3 * Params.LeaderParam.tax_revenue + 1,
                        arma::fill::zeros);
    
@@ -441,26 +444,33 @@ Program Listing for File epec_models.cpp
            Players.push_back(Foll);
         }
         // Make Leader Constraints
-        this->make_LL_LeadCons(LeadCons, LeadRHS, Params, Loc, import_lim_cons, export_lim_cons,
-                               price_lim_cons, activeTaxCaps);
+        this->make_LL_LeadCons(LeadCons,
+                                       LeadRHS,
+                                       Params,
+                                       Loc,
+                                       import_lim_cons,
+                                       export_lim_cons,
+                                       price_lim_cons,
+                                       activeTaxCaps);
      } catch (GRBException &e) {
         throw ZEROException(e);
      }
    
      // Lower level Market clearing constraints - empty
      arma::sp_mat MC(0, LeadVars + Params.n_followers);
-     arma::vec MCRHS(0, arma::fill::zeros);
+     arma::vec    MCRHS(0, arma::fill::zeros);
    
      // Convert the country QP to a NashGame
      auto N =
-         std::make_shared<Game::NashGame>(this->Env, Players, MC, MCRHS, LeadVars, LeadCons, LeadRHS);
+           std::make_shared<Game::NashGame>(this->Env, Players, MC, MCRHS, LeadVars, LeadCons, LeadRHS);
      this->name2nos[Params.name] = this->PlayersLowerLevels.size();
      this->PlayersLowerLevels.push_back(N);
-     Models::increaseVal(Loc, Models::LeaderVars::DualVar,
-                         N->getNumDualVars()); // N->getNumDualVars() will sum the number of
-                                               // constraints in each lower level QP and provide
-                                               // the sum. Indeed, this is the number of dual
-                                               // variables for the lower level.
+     Models::increaseVal(Loc,
+                                Models::LeaderVars::DualVar,
+                                N->getNumDualVars()); // N->getNumDualVars() will sum the number of
+                                                             // constraints in each lower level QP and provide
+                                                             // the sum. Indeed, this is the number of dual
+                                                             // variables for the lower level.
      this->Locations.push_back(Loc);
    
      this->EPEC::LocEnds.push_back(&this->Locations.back().at(LeaderVars::End));
@@ -474,12 +484,12 @@ Program Listing for File epec_models.cpp
    
    Models::EPEC &
    Models::EPEC::addTranspCosts(const arma::sp_mat &costs 
-                                )
+                                         )
    {
      if (this->Finalized)
         throw ZEROException(ZEROErrorCode::Assertion,
-                            "EPEC object Finalized. Call "
-                            "EPEC::unlock() to unlock this object first and then edit.");
+                                   "EPEC object Finalized. Call "
+                                   "EPEC::unlock() to unlock this object first and then edit.");
      try {
         if (this->getNumLeaders() != costs.n_rows || this->getNumLeaders() != costs.n_cols)
            throw ZEROException(ZEROErrorCode::Assertion, "Mismatch of size in Q");
@@ -496,9 +506,9 @@ Program Listing for File epec_models.cpp
    
    void Models::EPEC::preFinalize() {
      /*
-      * Below for loop adds space for each country's quantity imported from
-      * variable
-      */
+       * Below for loop adds space for each country's quantity imported from
+       * variable
+       */
      try {
         this->nImportMarkets = vector<unsigned int>(this->getNumLeaders());
         for (unsigned int i = 0; i < this->getNumLeaders(); i++)
@@ -514,8 +524,8 @@ Program Listing for File epec_models.cpp
    {
      if (i >= this->PlayersLowerLevels.size())
         throw ZEROException(ZEROErrorCode::OutOfRange, "Player does not exist");
-     int nImp      = 0;
-     LeadLocs &Loc = this->Locations.at(i);
+     int       nImp = 0;
+     LeadLocs &Loc  = this->Locations.at(i);
      // Counts the number of countries from which the current country imports
      for (auto val = TranspCosts.begin_col(i); val != TranspCosts.end_col(i); ++val)
         nImp++;
@@ -551,7 +561,7 @@ Program Listing for File epec_models.cpp
    {
      if (!this->Finalized)
         throw ZEROException(ZEROErrorCode::Assertion,
-                            "makeMCConstraints can be called after finalize()");
+                                   "makeMCConstraints can be called after finalize()");
      // Transportation matrix
      const arma::sp_mat &TrCo = this->TranspCosts;
      // Output matrices
@@ -563,7 +573,7 @@ Program Listing for File epec_models.cpp
            MCLHS(i, this->getPosition(i, LeaderVars::NetExport)) = 1;
            for (auto val = TrCo.begin_row(i); val != TrCo.end_row(i); ++val) {
              const unsigned int j = val.col(); // This is the country which is importing from "i"
-             unsigned int count{0};
+             unsigned int       count{0};
    
              for (auto val2 = TrCo.begin_col(j); val2 != TrCo.end_col(j); ++val2)
              // What position in the list of j's importing from countries  does i
@@ -585,16 +595,16 @@ Program Listing for File epec_models.cpp
      if (i >= this->getNumLeaders())
         throw ZEROException(ZEROErrorCode::OutOfRange, "Player does not exist");
      try {
-        const arma::sp_mat &TrCo       = this->TranspCosts;
-        const unsigned int nEPECvars   = this->getNumVar();
-        const unsigned int nThisMCvars = 1;
-        arma::sp_mat C(nThisMCvars, nEPECvars - nThisMCvars);
+        const arma::sp_mat &TrCo        = this->TranspCosts;
+        const unsigned int  nEPECvars   = this->getNumVar();
+        const unsigned int  nThisMCvars = 1;
+        arma::sp_mat        C(nThisMCvars, nEPECvars - nThisMCvars);
    
         C.at(0, this->getPosition(i, Models::LeaderVars::NetExport)) = 1;
    
         for (auto val = TrCo.begin_row(i); val != TrCo.end_row(i); ++val) {
            const unsigned int j = val.col(); // This is the country which the
-                                             // country "i" is importing from
+                                                        // country "i" is importing from
            unsigned int count{0};
    
            for (auto val2 = TrCo.begin_col(j); val2 != TrCo.end_col(j); ++val2)
@@ -607,7 +617,8 @@ Program Listing for File epec_models.cpp
                 count++;
            }
    
-           C.at(0, this->getPosition(j, Models::LeaderVars::CountryImport) + count -
+           C.at(0,
+                 this->getPosition(j, Models::LeaderVars::CountryImport) + count -
                        (j >= i ? nThisMCvars : 0)) = 1;
         }
    
@@ -615,11 +626,11 @@ Program Listing for File epec_models.cpp
         // Note Q = {{0}}, c={0}, the MC problem has no constraints. So A=B={{}},
         // b={}.
         this->MC_QP.at(i).get()->set(arma::sp_mat{1, 1},                       // Q
-                                     std::move(C),                             // C
-                                     arma::sp_mat{0, nEPECvars - nThisMCvars}, // A
-                                     arma::sp_mat{0, nThisMCvars},             // B
-                                     arma::vec{0},                             // c
-                                     arma::vec{}                               // b
+                                               std::move(C),                             // C
+                                               arma::sp_mat{0, nEPECvars - nThisMCvars}, // A
+                                               arma::sp_mat{0, nThisMCvars},             // B
+                                               arma::vec{0},                             // c
+                                               arma::vec{}                               // b
         );
      } catch (GRBException &e) {
         throw ZEROException(e);
@@ -629,16 +640,16 @@ Program Listing for File epec_models.cpp
    }
    
    bool Models::EPEC::dataCheck(
-       const bool chkAllLeadPars,  
-       const bool chkcountries_LL, 
-       const bool chkMC_QP,          
-       const bool chkLeadConses,     
-       const bool chkLeadRHSes,      
-       const bool chknImportMarkets, 
-       const bool chkLocations,       
-       const bool chkLeaderLocations, 
-       const bool chkLeadObjec 
-   ) const
+        const bool chkAllLeadPars,  
+        const bool chkcountries_LL, 
+        const bool chkMC_QP,          
+        const bool chkLeadConses,     
+        const bool chkLeadRHSes,      
+        const bool chknImportMarkets, 
+        const bool chkLocations,       
+        const bool chkLeaderLocations, 
+        const bool chkLeadObjec 
+        ) const
    {
      if (!chkAllLeadPars && AllLeadPars.size() != this->getNumLeaders())
         return false;
@@ -663,16 +674,16 @@ Program Listing for File epec_models.cpp
      return true;
    }
    
-   unsigned int Models::EPEC::getPosition(const unsigned int countryCount,
-                                          const Models::LeaderVars var) const
+   unsigned int Models::EPEC::getPosition(const unsigned int       countryCount,
+                                                       const Models::LeaderVars var) const
    {
      if (countryCount >= this->getNumLeaders())
         throw ZEROException(ZEROErrorCode::OutOfRange, "Player object is out of range");
      return this->LeaderLocations.at(countryCount) + this->Locations.at(countryCount).at(var);
    }
    
-   unsigned int Models::EPEC::getPosition(const string &countryName,
-                                          const Models::LeaderVars var) const
+   unsigned int Models::EPEC::getPosition(const string &           countryName,
+                                                       const Models::LeaderVars var) const
    {
      return this->getPosition(name2nos.at(countryName), var);
    }
@@ -689,28 +700,29 @@ Program Listing for File epec_models.cpp
    }
    
    void Models::EPEC::makeObjectivePlayer(
-       const unsigned int i,      
-       Game::QP_Objective &QP_obj 
-       )
+        const unsigned int  i,     
+        Game::QP_Objective &QP_obj 
+        )
    {
-     const unsigned int nEPECvars        = this->getNumVar();
-     const unsigned int nThisCountryvars = this->Locations.at(i).at(Models::LeaderVars::End);
-     const LeadAllPar &Params            = this->AllLeadPars.at(i);
-     const arma::sp_mat &TrCo            = this->TranspCosts;
-     const LeadLocs &Loc                 = this->Locations.at(i);
+     const unsigned int  nEPECvars        = this->getNumVar();
+     const unsigned int  nThisCountryvars = this->Locations.at(i).at(Models::LeaderVars::End);
+     const LeadAllPar &  Params           = this->AllLeadPars.at(i);
+     const arma::sp_mat &TrCo             = this->TranspCosts;
+     const LeadLocs &    Loc              = this->Locations.at(i);
    
      QP_obj.Q.zeros(nThisCountryvars, nThisCountryvars);
      QP_obj.c.zeros(nThisCountryvars);
      QP_obj.C.zeros(nThisCountryvars, nEPECvars - nThisCountryvars);
      // emission term
      for (unsigned int j = Loc.at(Models::LeaderVars::FollowerStart), count = 0;
-          count < Params.n_followers; j++, count++)
+            count < Params.n_followers;
+            j++, count++)
         QP_obj.c.at(j) = Params.FollowerParam.emission_costs.at(count);
    
      // revenue tax
      if (Params.LeaderParam.tax_revenue) {
         for (unsigned int j = Loc.at(Models::LeaderVars::TaxQuad), count = 0; count < this->taxVars;
-             j++, count++)
+               j++, count++)
            QP_obj.c.at(j) = 1;
      }
    
@@ -718,10 +730,10 @@ Program Listing for File epec_models.cpp
         // export revenue term
    
         QP_obj.C(Loc.at(Models::LeaderVars::NetExport),
-                 // this->getPosition(i, Models::LeaderVars::End) -
-                 // nThisCountryvars) = -1;
-                 this->getPosition(this->getNumLeaders() - 1, Models::LeaderVars::End) -
-                     nThisCountryvars + i) = -1;
+                    // this->getPosition(i, Models::LeaderVars::End) -
+                    // nThisCountryvars) = -1;
+                    this->getPosition(this->getNumLeaders() - 1, Models::LeaderVars::End) -
+                         nThisCountryvars + i) = -1;
    
         // Import cost term.
         unsigned int count{0};
@@ -730,8 +742,8 @@ Program Listing for File epec_models.cpp
            QP_obj.c.at(Loc.at(Models::LeaderVars::CountryImport) + count) = (*val);
            // \pi^I*q^{I\to A}_{imp} term
            QP_obj.C.at(Loc.at(Models::LeaderVars::CountryImport) + count,
-                       this->getPosition(this->getNumLeaders() - 1, Models::LeaderVars::End) -
-                           nThisCountryvars + val.row()) = 1;
+                           this->getPosition(this->getNumLeaders() - 1, Models::LeaderVars::End) -
+                                nThisCountryvars + val.row()) = 1;
            // this->Locations.at(val.row()).at(Models::LeaderVars::End)) = 1;
            // this->getPosition(val.row(), Models::LeaderVars::End)) = 1;
         }
@@ -746,15 +758,18 @@ Program Listing for File epec_models.cpp
    {
      for (unsigned int i = 0; i < this->getNumLeaders(); ++i) {
         LeadLocs &Loc = this->Locations.at(i);
-        Models::decreaseVal(Loc, Models::LeaderVars::ConvHullDummy,
-                            Loc[Models::LeaderVars::ConvHullDummy + 1] -
-                                Loc[Models::LeaderVars::ConvHullDummy]);
+        Models::decreaseVal(Loc,
+                                   Models::LeaderVars::ConvHullDummy,
+                                   Loc[Models::LeaderVars::ConvHullDummy + 1] -
+                                        Loc[Models::LeaderVars::ConvHullDummy]);
         Models::increaseVal(Loc, Models::LeaderVars::ConvHullDummy, this->ConvexHullVariables.at(i));
      }
    }
    
-   void Models::increaseVal(LeadLocs &L, const LeaderVars start, const unsigned int val,
-                            const bool startnext)
+   void Models::increaseVal(LeadLocs &         L,
+                                    const LeaderVars   start,
+                                    const unsigned int val,
+                                    const bool         startnext)
    {
      LeaderVars start_rl = (LeaderVars)(startnext ? start + 1 : start);
      for (LeaderVars l = start_rl; l != Models::LeaderVars::End; l = l + 1)
@@ -764,8 +779,10 @@ Program Listing for File epec_models.cpp
      // "<<L[Models::LeaderVars::End];
    }
    
-   void Models::decreaseVal(LeadLocs &L, const LeaderVars start, const unsigned int val,
-                            const bool startnext)
+   void Models::decreaseVal(LeadLocs &         L,
+                                    const LeaderVars   start,
+                                    const unsigned int val,
+                                    const bool         startnext)
    {
      LeaderVars start_rl = (LeaderVars)(startnext ? start + 1 : start);
      for (LeaderVars l = start_rl; l != Models::LeaderVars::End; l = l + 1)
@@ -782,7 +799,7 @@ Program Listing for File epec_models.cpp
    }
    
    Models::FollPar operator+(const Models::FollPar &F1, const Models::FollPar &F2) {
-     std::vector<double> cq, cl, cap, ec, tc;
+     std::vector<double>      cq, cl, cap, ec, tc;
      std::vector<std::string> nm;
    
      cq.insert(cq.end(), F1.costs_quad.begin(), F1.costs_quad.end());
@@ -810,8 +827,8 @@ Program Listing for File epec_models.cpp
    }
    
    string to_string(const GRBConstr &cons, const GRBModel &model) {
-     const GRBVar *vars = model.getVars();
-     const int nVars    = model.get(GRB_IntAttr_NumVars);
+     const GRBVar *vars  = model.getVars();
+     const int     nVars = model.get(GRB_IntAttr_NumVars);
      ostringstream oss;
      oss << cons.get(GRB_StringAttr_ConstrName) << ":\t\t";
      constexpr double eps = 1e-5;
@@ -859,7 +876,7 @@ Program Listing for File epec_models.cpp
    }
    
    void Models::EPEC::writeSolutionJSON(string filename, const arma::vec x, const arma::vec z) const {
-     StringBuffer s;
+     StringBuffer               s;
      PrettyWriter<StringBuffer> writer(s);
      writer.StartObject();
      writer.Key("Meta");
@@ -927,7 +944,7 @@ Program Listing for File epec_models.cpp
      ifstream ifs(filename + ".json");
      if (ifs.good()) {
         IStreamWrapper isw(ifs);
-        Document d;
+        Document       d;
         try {
            d.ParseStream(isw);
            const Value &x = d["Solution"].GetObject()["x"];
@@ -970,7 +987,7 @@ Program Listing for File epec_models.cpp
    }
    
    void Models::EPECInstance::save(string filename) {
-     StringBuffer s;
+     StringBuffer               s;
      PrettyWriter<StringBuffer> writer(s);
      writer.StartObject();
      writer.Key("nCountries");
@@ -985,7 +1002,7 @@ Program Listing for File epec_models.cpp
    
         writer.Key("Name");
         string currName = this->Countries.at(i).name;
-        char nameArray[currName.length() + 1];
+        char   nameArray[currName.length() + 1];
         strcpy(nameArray, currName.c_str());
         writer.String(nameArray);
    
@@ -1084,18 +1101,18 @@ Program Listing for File epec_models.cpp
      ifstream ifs(filename + ".json");
      if (ifs.good()) {
         IStreamWrapper isw(ifs);
-        Document d;
+        Document       d;
         try {
            d.ParseStream(isw);
-           vector<Models::LeadAllPar> LAP = {};
-           int nCountries                 = d["nCountries"].GetInt();
-           arma::sp_mat TrCo;
+           vector<Models::LeadAllPar> LAP        = {};
+           int                        nCountries = d["nCountries"].GetInt();
+           arma::sp_mat               TrCo;
            TrCo.zeros(nCountries, nCountries);
            for (int j = 0; j < nCountries; ++j) {
              const Value &c = d["Countries"].GetArray()[j].GetObject();
    
              Models::FollPar FP;
-             const Value &cap = c["Followers"]["Capacities"];
+             const Value &   cap = c["Followers"]["Capacities"];
              for (SizeType i = 0; i < cap.GetArray().Size(); i++) {
                 FP.capacities.push_back(cap[i].GetDouble());
              }
@@ -1130,13 +1147,16 @@ Program Listing for File epec_models.cpp
              if (c["LeaderParam"].HasMember("TaxationType")) {
                 tax_type = c["LeaderParam"].GetObject()["TaxationType"].GetInt();
              }
-             LAP.push_back(Models::LeadAllPar(FP.capacities.size(), c["Name"].GetString(), FP,
-                                              {c["DemandParam"].GetObject()["Alpha"].GetDouble(),
-                                               c["DemandParam"].GetObject()["Beta"].GetDouble()},
-                                              {c["LeaderParam"].GetObject()["ImportLimit"].GetDouble(),
-                                               c["LeaderParam"].GetObject()["ExportLimit"].GetDouble(),
-                                               c["LeaderParam"].GetObject()["PriceLimit"].GetDouble(),
-                                               tax_revenue, tax_type}));
+             LAP.push_back(Models::LeadAllPar(FP.capacities.size(),
+                                                         c["Name"].GetString(),
+                                                         FP,
+                                                         {c["DemandParam"].GetObject()["Alpha"].GetDouble(),
+                                                           c["DemandParam"].GetObject()["Beta"].GetDouble()},
+                                                         {c["LeaderParam"].GetObject()["ImportLimit"].GetDouble(),
+                                                           c["LeaderParam"].GetObject()["ExportLimit"].GetDouble(),
+                                                           c["LeaderParam"].GetObject()["PriceLimit"].GetDouble(),
+                                                           tax_revenue,
+                                                           tax_type}));
            }
            ifs.close();
            this->Countries           = LAP;
@@ -1151,8 +1171,10 @@ Program Listing for File epec_models.cpp
      }
    }
    
-   void Models::EPEC::WriteCountry(const unsigned int i, const string filename, const arma::vec x,
-                                   const bool append) const {
+   void Models::EPEC::WriteCountry(const unsigned int i,
+                                             const string       filename,
+                                             const arma::vec    x,
+                                             const bool         append) const {
      // if (!TheLCP) return;
      // const LeadLocs& Loc = this->Locations.at(i);
    
@@ -1173,32 +1195,33 @@ Program Listing for File epec_models.cpp
      // Trade
      double Export{x.at(this->getPosition(i, Models::LeaderVars::NetExport))};
      double exportPrice{
-         x.at(this->getPosition(this->getNumLeaders() - 1, Models::LeaderVars::End) + i)};
+           x.at(this->getPosition(this->getNumLeaders() - 1, Models::LeaderVars::End) + i)};
      double import{0};
      for (unsigned int j = this->getPosition(i, Models::LeaderVars::CountryImport);
-          j < this->getPosition(i, Models::LeaderVars::CountryImport + 1); ++j)
+            j < this->getPosition(i, Models::LeaderVars::CountryImport + 1);
+            ++j)
         import += x.at(j);
      // Writing national level details
      file << "PureStrategy:" << this->isPureStrategy(i) << "\n";
      file << Models::prn::label << "Domestic production"
-          << ":" << Models::prn::val << prod << "\n";
+            << ":" << Models::prn::val << prod << "\n";
      if (Export >= import)
         file << Models::prn::label << "Net exports"
-             << ":" << Models::prn::val << Export - import << "\n";
+               << ":" << Models::prn::val << Export - import << "\n";
      else
         file << Models::prn::label << "Net imports"
-             << ":" << Models::prn::val << import - Export << "\n";
+               << ":" << Models::prn::val << import - Export << "\n";
      file << Models::prn::label << "Export price"
-          << ":" << Models::prn::val << exportPrice << "\n";
+            << ":" << Models::prn::val << exportPrice << "\n";
      file << Models::prn::label << " -> Total Export"
-          << ":" << Models::prn::val << Export << "\n";
+            << ":" << Models::prn::val << Export << "\n";
      file << Models::prn::label << " -> Total Import"
-          << ":" << Models::prn::val << import << '\n';
+            << ":" << Models::prn::val << import << '\n';
      file << Models::prn::label << "Domestic consumed quantity"
-          << ":" << Models::prn::val << import - Export + prod << "\n";
+            << ":" << Models::prn::val << import - Export + prod << "\n";
      file << Models::prn::label << "Domestic price"
-          << ":" << Models::prn::val
-          << Params.DemandParam.alpha - Params.DemandParam.beta * (import - Export + prod) << "\n";
+            << ":" << Models::prn::val
+            << Params.DemandParam.alpha - Params.DemandParam.beta * (import - Export + prod) << "\n";
    
      file.close();
    
@@ -1212,14 +1235,16 @@ Program Listing for File epec_models.cpp
      // FILE OPERATIONS END
    }
    
-   void Models::EPEC::WriteFollower(const unsigned int i, const unsigned int j, const string filename,
-                                    const arma::vec x) const {
+   void Models::EPEC::WriteFollower(const unsigned int i,
+                                               const unsigned int j,
+                                               const string       filename,
+                                               const arma::vec    x) const {
      ofstream file;
      file.open(filename, ios::app);
    
      // Country Variables
      const LeadAllPar &Params = this->AllLeadPars.at(i);
-     unsigned int foll_prod, foll_tax, foll_lim, foll_taxQ = 0;
+     unsigned int      foll_prod, foll_tax, foll_lim, foll_taxQ = 0;
      foll_prod = this->getPosition(i, Models::LeaderVars::FollowerStart);
      foll_tax  = this->getPosition(i, Models::LeaderVars::Tax);
      foll_lim  = this->getPosition(i, Models::LeaderVars::Caps);
@@ -1239,8 +1264,8 @@ Program Listing for File epec_models.cpp
         tax = x.at(foll_tax + j);
      else
         tax = x.at(foll_tax);
-     const double q = x.at(foll_prod + j);
-     double taxQ    = 0;
+     const double q    = x.at(foll_prod + j);
+     double       taxQ = 0;
      if (Params.LeaderParam.tax_revenue)
         taxQ = q > 0 ? x.at(foll_taxQ + j) / q : x.at(foll_taxQ + j);
      const double lim  = x.at(foll_lim + j);
@@ -1248,15 +1273,15 @@ Program Listing for File epec_models.cpp
      const double quad = Params.FollowerParam.costs_quad.at(j);
    
      file << Models::prn::label << "Quantity produced"
-          << ":" << Models::prn::val << q << '\n';
+            << ":" << Models::prn::val << q << '\n';
      // file << "x(): " << foll_prod + j << '\n';
      file << Models::prn::label << "Capacity of production"
-          << ":" << Models::prn::val << Params.FollowerParam.capacities.at(j) << "\n";
+            << ":" << Models::prn::val << Params.FollowerParam.capacities.at(j) << "\n";
      file << Models::prn::label << "Limit on production"
-          << ":" << Models::prn::val << lim << "\n";
+            << ":" << Models::prn::val << lim << "\n";
      // file << "x(): " << foll_lim + j << '\n';
      file << Models::prn::label << "Tax imposed"
-          << ":" << Models::prn::val << tax;
+            << ":" << Models::prn::val << tax;
      if (Params.LeaderParam.tax_type == Models::TaxType::CarbonTax) {
         tax = tax * Params.FollowerParam.emission_costs.at(j);
         file << " per unit emission; " << tax << " per unit energy";
@@ -1264,25 +1289,25 @@ Program Listing for File epec_models.cpp
      file << "\n";
      if (Params.LeaderParam.tax_revenue)
         file << Models::prn::label << "Tax imposed (Q)"
-             << ":" << Models::prn::val << taxQ << "\n";
+               << ":" << Models::prn::val << taxQ << "\n";
      // file << Models::prn::label << "Tax cap" << ":" <<
      // Params.FollowerParam.tax_caps.at(j) << tax << "\n";
      // file << "x(): " << foll_tax + j << '\n';
      file << Models::prn::label << "  -Production cost function"
-          << ":"
-          << "\t C(q) = (" << lin << " + " << tax << ")*q + 0.5*" << quad << "*q^2\n"
-          << Models::prn::label << " "
-          << "=" << Models::prn::val << (lin + tax) * q + 0.5 * quad * q * q << "\n";
+            << ":"
+            << "\t C(q) = (" << lin << " + " << tax << ")*q + 0.5*" << quad << "*q^2\n"
+            << Models::prn::label << " "
+            << "=" << Models::prn::val << (lin + tax) * q + 0.5 * quad * q * q << "\n";
      file << Models::prn::label << "  -Marginal cost of production"
-          << ":" << Models::prn::val << quad * q + lin + tax << "\n";
+            << ":" << Models::prn::val << quad * q + lin + tax << "\n";
      file << Models::prn::label << "Emission cost"
-          << ":" << Models::prn::val << Params.FollowerParam.emission_costs.at(j) << '\n';
+            << ":" << Models::prn::val << Params.FollowerParam.emission_costs.at(j) << '\n';
    
      file.close();
    }
    
    void Models::EPEC::testLCP(const unsigned int i) {
-     auto country = this->get_LowerLevelNash(i);
+     auto      country = this->get_LowerLevelNash(i);
      Game::LCP CountryLCP(this->Env, *country);
      CountryLCP.write("dat/LCP_" + to_string(i));
      auto model = CountryLCP.LCPasMIP(true);

@@ -94,7 +94,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="47" column="3" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="5" bodyend="46"/>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="47" column="3" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="5" bodyend="47"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a291dab58d5014bc5be3477ed500c43f5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
@@ -115,7 +115,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="48" column="6" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="48" bodyend="53"/>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="48" column="6" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="49" bodyend="54"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a5631dd8fb9bd2d7aef4cd4137a905d15" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -133,7 +133,7 @@
         <inbodydescription>
 <para>Given that <ref refid="class_game_1_1_e_p_e_c_1a38b32268297c5cdf5334853d3ee2ba82" kindref="member">Game::EPEC::LCPModel</ref> is filled with the final LCP, directs the search toward a pure nash EQ. If such an equilibrium does not exist, then the model will return anyway a MNE. The original LCP is stored in the field <ref refid="class_game_1_1_e_p_e_c_1ada0cf8c4cefee9d0e3f6fcd29aa4fac0" kindref="member">Game::EPEC::LCPModelBase</ref>. <computeroutput>Indicators</computeroutput> dictates whether the resulting LCP should use indicator constraints instead of general binaries. In general, there are advantages in using the binary variables instead of such constraints, since there is no BigM involved in the formulation.</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="49" column="6" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="206" bodyend="264"/>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="49" column="6" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="209" bodyend="271"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a9266e3d1190be52164d30b2134236f93" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -164,7 +164,7 @@
         <inbodydescription>
 <para>For the i-th leader, gets the k-th pure strategy for i-th leader at position j</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="52" column="1" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="168" bodyend="185"/>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="52" column="1" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="169" bodyend="187"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a1d7e28a9c5842d4b1fc8f9e9f4a61c71" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -195,7 +195,7 @@
         <inbodydescription>
 <para>For the i-th leader, gets the k-th pure strategy for i-th leader at non-follower leader position j</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="55" column="1" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="187" bodyend="204"/>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="55" column="1" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="189" bodyend="207"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a22f4df7130fcc3ba15d904214e59114f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -217,7 +217,7 @@
         <inbodydescription>
 <para>Get the probability associated with the k-th polyhedron (k-th pure strategy) of the i-th leader.</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="57" column="8" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="156" bodyend="166"/>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="57" column="8" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="157" bodyend="167"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ac1be48a137ea071862794beba97ff02a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -240,7 +240,7 @@
         <inbodydescription>
 <para>Checks if the returned strategy leader is a pure strategy for the leader i. The strategy is considered a pure strategy, if it is played with a probability greater than 1 - Tolerance;</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="59" column="6" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="123" bodyend="136"/>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="59" column="6" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="124" bodyend="137"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1aa8a48f84931889820bd8f05e250f945b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
@@ -262,7 +262,7 @@
         <inbodydescription>
 <para>Checks if the returned strategy leader is a pure strategy for the leader i. The strategy is considered a pure strategy, if it is played with a probability greater than 1 - Tolerance;</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="61" column="6" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="110" bodyend="121"/>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="61" column="6" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="111" bodyend="122"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ac6d224591f7862a5da5dcf3607016c92" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; unsigned int &gt;</type>
@@ -285,7 +285,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="63" column="13" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="138" bodyend="154"/>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="63" column="13" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="139" bodyend="155"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a9a5a1f8d89b1049326165049b123e109" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned int</type>
@@ -312,7 +312,7 @@
 <para>Get the position of the k-th follower variable of the i-th leader, in the j-th feasible polyhedron.</para>
 <para>Indeed it should hold that <formula id="2">$ j &lt; $</formula> Algorithms::EPEC::PolyBase::getNumPolyLead(i)</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="64" column="14" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="55" bodyend="69"/>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="64" column="14" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="56" bodyend="70"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a6f83e7a8d82218dcbaf6e43255d949c7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned int</type>
@@ -339,7 +339,7 @@
 <para>Get the position of the k-th leader variable of the i-th leader, in the j-th feasible polyhedron.</para>
 <para>Indeed it should hold that <formula id="2">$ j &lt; $</formula> Algorithms::EPEC::PolyBase::getNumPolyLead(i)</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="66" column="14" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="71" bodyend="85"/>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="66" column="14" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="72" bodyend="86"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a0e0cfcb04c622946a00441e7460f9959" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned int</type>
@@ -357,7 +357,7 @@
         <inbodydescription>
 <para>Get the number of polyhedra used in the inner approximation of the feasible region of the i-th leader.*</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="68" column="14" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="87" bodyend="93"/>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="68" column="14" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="88" bodyend="94"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ad7777a11c5b70da40af2780802b31fab" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned int</type>
@@ -379,7 +379,7 @@
         <inbodydescription>
 <para>Get the position of the probability associated with the k-th polyhedron (k-th pure strategy) of the i-th leader. However, if the leader has an inner approximation with exactly 1 polyhedron, it returns 0;</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="70" column="14" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="95" bodyend="108"/>
+        <location file="include/algorithms/EPEC/epec_polybase.h" line="70" column="14" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="96" bodyend="109"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

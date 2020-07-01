@@ -39,7 +39,7 @@ Program Listing for File ipg.cpp
         GRBVar y[this->Ny];
         for (unsigned int i = 0; i < this->Ny; i++) {
            y[i] =
-               model->addVar(0, this->bounds.at(i), c.at(i), GRB_CONTINUOUS, "y_" + std::to_string(i));
+                model->addVar(0, this->bounds.at(i), c.at(i), GRB_CONTINUOUS, "y_" + std::to_string(i));
         }
         for (unsigned int i = 0; i < this->integers.size(); ++i)
            y[integers.at(i)].set(GRB_CharAttr_VType, GRB_INTEGER);
@@ -55,22 +55,22 @@ Program Listing for File ipg.cpp
    
      } catch (GRBException &e) {
         throw ZEROException(ZEROErrorCode::SolverError,
-                            std::to_string(e.getErrorCode()) + e.getMessage());
+                                   std::to_string(e.getErrorCode()) + e.getMessage());
      }
      this->madeModel = true;
    }
    
    std::unique_ptr<GRBModel> Game::IP_Param::solveFixed(
-       arma::vec x, bool solve) 
+        arma::vec x, bool solve) 
    {
      if (x.size() != this->Nx)
         throw ZEROException(ZEROErrorCode::Assertion,
-                            "Invalid argument size: " + std::to_string(x.size()) +
-                                " != " + std::to_string(Nx));
+                                   "Invalid argument size: " + std::to_string(x.size()) +
+                                        " != " + std::to_string(Nx));
      std::unique_ptr<GRBModel> model(new GRBModel(this->IPModel));
      try {
         GRBQuadExpr obj = model->getObjective();
-        arma::vec Cx;
+        arma::vec   Cx;
         Cx = this->C * x;
         GRBVar y[this->Ny];
         for (unsigned int i = 0; i < this->Ny; i++) {
@@ -96,9 +96,12 @@ Program Listing for File ipg.cpp
      return *this;
    }
    
-   Game::IP_Param &Game::IP_Param::set(const arma::sp_mat &C, const arma::sp_mat &B,
-                                       const arma::vec &b, const arma::vec &c, const arma::vec &bounds,
-                                       const std::vector<int> &integers)
+   Game::IP_Param &Game::IP_Param::set(const arma::sp_mat &    C,
+                                                   const arma::sp_mat &    B,
+                                                   const arma::vec &       b,
+                                                   const arma::vec &       c,
+                                                   const arma::vec &       bounds,
+                                                   const std::vector<int> &integers)
    {
      this->Q.zeros(0);
      this->A.zeros(0);
@@ -108,27 +111,39 @@ Program Listing for File ipg.cpp
      return *this;
    }
    
-   Game::IP_Param &Game::IP_Param::set(arma::sp_mat &C, arma::sp_mat &&B, arma::vec &&b, arma::vec &&c,
-                                       arma::vec &&bounds, std::vector<int> &&integers)
+   Game::IP_Param &Game::IP_Param::set(arma::sp_mat &     C,
+                                                   arma::sp_mat &&    B,
+                                                   arma::vec &&       b,
+                                                   arma::vec &&       c,
+                                                   arma::vec &&       bounds,
+                                                   std::vector<int> &&integers)
    {
      this->madeModel = false;
      MP_Param::set(Q, C, A, B, c, b);
      return *this;
    }
    
-   Game::IP_Param &Game::IP_Param::set(QP_Objective &&obj, QP_Constraints &&cons, arma::vec &&bounds,
-                                       std::vector<int> &&integers)
+   Game::IP_Param &Game::IP_Param::set(QP_Objective &&    obj,
+                                                   QP_Constraints &&  cons,
+                                                   arma::vec &&       bounds,
+                                                   std::vector<int> &&integers)
    {
      if (integers.empty())
         throw ZEROException(ZEROErrorCode::InvalidData,
-                            "Invalid vector of integers. Refer to QP_Param is no "
-                            "integers are involved");
-     return this->set(std::move(obj.C), std::move(cons.B), std::move(cons.b), std::move(obj.c),
-                      std::move(bounds), std::move(this->integers));
+                                   "Invalid vector of integers. Refer to QP_Param is no "
+                                   "integers are involved");
+     return this->set(std::move(obj.C),
+                            std::move(cons.B),
+                            std::move(cons.b),
+                            std::move(obj.c),
+                            std::move(bounds),
+                            std::move(this->integers));
    }
    
-   Game::IP_Param &Game::IP_Param::set(const QP_Objective &obj, const QP_Constraints &cons,
-                                       const arma::vec &bounds, const std::vector<int> &integers) {
+   Game::IP_Param &Game::IP_Param::set(const QP_Objective &    obj,
+                                                   const QP_Constraints &  cons,
+                                                   const arma::vec &       bounds,
+                                                   const std::vector<int> &integers) {
      return this->set(obj.C, cons.B, cons.b, obj.c, bounds, this->integers);
    }
    
@@ -142,8 +157,10 @@ Program Listing for File ipg.cpp
      return slack;
    }
    
-   double Game::IP_Param::computeObjective(const arma::vec &y, const arma::vec &x, bool checkFeas,
-                                           double tol) const {
+   double Game::IP_Param::computeObjective(const arma::vec &y,
+                                                        const arma::vec &x,
+                                                        bool             checkFeas,
+                                                        double           tol) const {
      if (y.n_rows != this->getNy())
         throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of y");
      if (x.n_rows != this->getNx())
@@ -167,11 +184,12 @@ Program Listing for File ipg.cpp
      return obj(0);
    }
    void Game::IP_Param::addConstraints(arma::sp_mat Ain, 
-                                       arma::vec bin     
+                                                   arma::vec    bin  
    ) {
      if (this->B.n_cols != Ain.n_cols)
-        throw ZEROException(ZEROErrorCode::Assertion, "Mismatch between the variables of the input "
-                                                      "constraints and the stored ones");
+        throw ZEROException(ZEROErrorCode::Assertion,
+                                   "Mismatch between the variables of the input "
+                                   "constraints and the stored ones");
      if (bin.size() != Ain.n_rows)
         throw ZEROException(ZEROErrorCode::Assertion, "Invalid number of rows between Ain and Bin");
    
@@ -192,8 +210,8 @@ Program Listing for File ipg.cpp
    }
    
    Game::IPG::IPG(
-       GRBEnv *env,                                         
-       std::vector<std::shared_ptr<Game::IP_Param>> players 
+        GRBEnv *                                     env,    
+        std::vector<std::shared_ptr<Game::IP_Param>> players 
    ) {
      this->Env       = env;
      this->PlayersIP = players;
@@ -212,10 +230,10 @@ Program Listing for File ipg.cpp
    }
    
    void Game::IPG::getXMinusI(
-       const arma::vec &x,    
-       const unsigned int &i, 
-       arma::vec &xMinusI     
-   ) const {
+        const arma::vec &x,         
+        const unsigned int &i,      
+        arma::vec &         xMinusI 
+        ) const {
      if (this->NumVariables != x.size())
         throw ZEROException(ZEROErrorCode::Assertion, "Invalid size of x");
    
@@ -224,7 +242,7 @@ Program Listing for File ipg.cpp
      for (unsigned int j = 0, posIn = 0, posOut = 0; j < this->NumPlayers; ++j) {
         if (i != j) {
            xMinusI.subvec(posOut, posOut + this->PlayerVariables.at(j) - 1) =
-               x.subvec(posIn, posIn + this->PlayerVariables.at(j) - 1);
+                x.subvec(posIn, posIn + this->PlayerVariables.at(j) - 1);
            posOut += this->PlayerVariables.at(j);
         }
         posIn += this->PlayerVariables.at(j);
@@ -232,9 +250,9 @@ Program Listing for File ipg.cpp
    }
    
    void Game::IPG::getXofI(const arma::vec &x, 
-                           const unsigned int &i, 
-                           arma::vec &xOfI        
-   ) const {
+                                   const unsigned int &i,   
+                                   arma::vec &         xOfI 
+                                   ) const {
      if (this->NumVariables != x.size())
         throw ZEROException(ZEROErrorCode::Assertion, "Invalid size of x");
    

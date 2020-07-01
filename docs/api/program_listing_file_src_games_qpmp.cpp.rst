@@ -20,7 +20,7 @@ Program Listing for File qpmp.cpp
    std::ostream &operator<<(std::ostream &ost, const perps &C) {
      for (auto p : C)
         ost << "<" << p.first << ", " << p.second << ">"
-            << "\t";
+             << "\t";
      return ost;
    }
    
@@ -82,7 +82,7 @@ Program Listing for File qpmp.cpp
      default:
         if (pars) {
            arma::sp_mat A_temp =
-               arma::join_rows(A.cols(0, position - 1), arma::zeros<arma::sp_mat>(this->Ncons, pars));
+                arma::join_rows(A.cols(0, position - 1), arma::zeros<arma::sp_mat>(this->Ncons, pars));
            if (static_cast<unsigned int>(position) < A.n_cols) {
              A = arma::join_rows(A_temp, A.cols(position, A.n_cols - 1));
            } else {
@@ -92,7 +92,7 @@ Program Listing for File qpmp.cpp
         if (vars || pars) {
            C = Utils::resizePatch(C, this->Ny, C.n_cols);
            arma::sp_mat C_temp =
-               arma::join_rows(C.cols(0, position - 1), arma::zeros<arma::sp_mat>(this->Ny, pars));
+                arma::join_rows(C.cols(0, position - 1), arma::zeros<arma::sp_mat>(this->Ny, pars));
            if (static_cast<unsigned int>(position) < C.n_cols) {
              C = arma::join_rows(C_temp, C.cols(position, C.n_cols - 1));
            } else {
@@ -115,9 +115,12 @@ Program Listing for File qpmp.cpp
      return this->Ny;
    }
    
-   Game::MP_Param &Game::MP_Param::set(const arma::sp_mat &Q, const arma::sp_mat &C,
-                                       const arma::sp_mat &A, const arma::sp_mat &B,
-                                       const arma::vec &c, const arma::vec &b)
+   Game::MP_Param &Game::MP_Param::set(const arma::sp_mat &Q,
+                                                   const arma::sp_mat &C,
+                                                   const arma::sp_mat &A,
+                                                   const arma::sp_mat &B,
+                                                   const arma::vec &   c,
+                                                   const arma::vec &   b)
    {
      this->Q = (Q);
      this->C = (C);
@@ -130,8 +133,12 @@ Program Listing for File qpmp.cpp
      return *this;
    }
    
-   Game::MP_Param &Game::MP_Param::set(arma::sp_mat &&Q, arma::sp_mat &&C, arma::sp_mat &&A,
-                                       arma::sp_mat &&B, arma::vec &&c, arma::vec &&b)
+   Game::MP_Param &Game::MP_Param::set(arma::sp_mat &&Q,
+                                                   arma::sp_mat &&C,
+                                                   arma::sp_mat &&A,
+                                                   arma::sp_mat &&B,
+                                                   arma::vec &&   c,
+                                                   arma::vec &&   b)
    {
      this->Q = std::move(Q);
      this->C = std::move(C);
@@ -182,8 +189,10 @@ Program Listing for File qpmp.cpp
      return true;
    }
    
-   bool Game::MP_Param::dataCheck(const QP_Objective &obj, const QP_Constraints &cons, bool checkobj,
-                                  bool checkcons) {
+   bool Game::MP_Param::dataCheck(const QP_Objective &  obj,
+                                            const QP_Constraints &cons,
+                                            bool                  checkobj,
+                                            bool                  checkcons) {
      unsigned int Ny    = obj.Q.n_rows;
      unsigned int Nx    = obj.C.n_cols;
      unsigned int Ncons = cons.b.size();
@@ -237,9 +246,9 @@ Program Listing for File qpmp.cpp
      GRBQuadExpr yQy{0};
      for (auto val = Q.begin(); val != Q.end(); ++val) {
         unsigned int i, j;
-        double value = (*val);
-        i            = val.row();
-        j            = val.col();
+        double       value = (*val);
+        i                  = val.row();
+        j                  = val.col();
         yQy += 0.5 * y[i] * value * y[j];
      }
      QuadModel.setObjective(yQy, GRB_MINIMIZE);
@@ -249,17 +258,17 @@ Program Listing for File qpmp.cpp
    }
    
    std::unique_ptr<GRBModel> Game::QP_Param::solveFixed(
-       arma::vec x, bool solve) 
+        arma::vec x, bool solve) 
    {
      this->makeyQy(); 
      if (x.size() != this->Nx)
         throw ZEROException(ZEROErrorCode::Assertion,
-                            "Mismatch in x size: " + std::to_string(x.size()) +
-                                " != " + std::to_string(Nx));
+                                   "Mismatch in x size: " + std::to_string(x.size()) +
+                                        " != " + std::to_string(Nx));
      std::unique_ptr<GRBModel> model(new GRBModel(this->QuadModel));
      try {
         GRBQuadExpr yQy = model->getObjective();
-        arma::vec Cx, Ax;
+        arma::vec   Cx, Ax;
         Cx = this->C * x;
         Ax = this->A * x;
         GRBVar y[this->Ny];
@@ -305,10 +314,10 @@ Program Listing for File qpmp.cpp
         throw ZEROException(ZEROErrorCode::Assertion, "dataCheck() failed on KKT");
      }
      M = arma::join_cols( // In armadillo join_cols(A, B) is same as [A;B] in
-                          // Matlab
-                          //  join_rows(A, B) is same as [A B] in Matlab
-         arma::join_rows(this->Q, this->B.t()),
-         arma::join_rows(-this->B, arma::zeros<arma::sp_mat>(this->Ncons, this->Ncons)));
+                                 // Matlab
+                                 //  join_rows(A, B) is same as [A B] in Matlab
+           arma::join_rows(this->Q, this->B.t()),
+           arma::join_rows(-this->B, arma::zeros<arma::sp_mat>(this->Ncons, this->Ncons)));
      // M.print_dense();
      N = arma::join_cols(this->C, -this->A);
      // N.print_dense();
@@ -317,17 +326,24 @@ Program Listing for File qpmp.cpp
      return M.n_rows;
    }
    
-   Game::QP_Param &Game::QP_Param::set(const arma::sp_mat &Q, const arma::sp_mat &C,
-                                       const arma::sp_mat &A, const arma::sp_mat &B,
-                                       const arma::vec &c, const arma::vec &b)
+   Game::QP_Param &Game::QP_Param::set(const arma::sp_mat &Q,
+                                                   const arma::sp_mat &C,
+                                                   const arma::sp_mat &A,
+                                                   const arma::sp_mat &B,
+                                                   const arma::vec &   c,
+                                                   const arma::vec &   b)
    {
      this->madeyQy = false;
      MP_Param::set(Q, C, A, B, c, b);
      return *this;
    }
    
-   Game::QP_Param &Game::QP_Param::set(arma::sp_mat &&Q, arma::sp_mat &&C, arma::sp_mat &&A,
-                                       arma::sp_mat &&B, arma::vec &&c, arma::vec &&b)
+   Game::QP_Param &Game::QP_Param::set(arma::sp_mat &&Q,
+                                                   arma::sp_mat &&C,
+                                                   arma::sp_mat &&A,
+                                                   arma::sp_mat &&B,
+                                                   arma::vec &&   c,
+                                                   arma::vec &&   b)
    {
      this->madeyQy = false;
      MP_Param::set(Q, C, A, B, c, b);
@@ -336,16 +352,20 @@ Program Listing for File qpmp.cpp
    
    Game::QP_Param &Game::QP_Param::set(QP_Objective &&obj, QP_Constraints &&cons)
    {
-     return this->set(std::move(obj.Q), std::move(obj.C), std::move(cons.A), std::move(cons.B),
-                      std::move(obj.c), std::move(cons.b));
+     return this->set(std::move(obj.Q),
+                            std::move(obj.C),
+                            std::move(cons.A),
+                            std::move(cons.B),
+                            std::move(obj.c),
+                            std::move(cons.b));
    }
    
    Game::QP_Param &Game::QP_Param::set(const QP_Objective &obj, const QP_Constraints &cons) {
      return this->set(obj.Q, obj.C, cons.A, cons.B, obj.c, cons.b);
    }
    
-   arma::vec Game::QP_Param::getConstraintViolations(const arma::vec x, const arma::vec y,
-                                                     double tol = 1e-5) {
+   arma::vec
+   Game::QP_Param::getConstraintViolations(const arma::vec x, const arma::vec y, double tol = 1e-5) {
      arma::vec xN, yN;
      if (x.size() < B.n_cols)
         arma::vec xN = Utils::resizePatch(x, B.n_cols);
@@ -359,8 +379,10 @@ Program Listing for File qpmp.cpp
      return slack;
    }
    
-   double Game::QP_Param::computeObjective(const arma::vec &y, const arma::vec &x, bool checkFeas,
-                                           double tol) const {
+   double Game::QP_Param::computeObjective(const arma::vec &y,
+                                                        const arma::vec &x,
+                                                        bool             checkFeas,
+                                                        double           tol) const {
      if (y.n_rows != this->getNy())
         throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of y");
      if (x.n_rows != this->getNx())
@@ -397,8 +419,8 @@ Program Listing for File qpmp.cpp
    
    long int Game::QP_Param::load(const std::string &filename, long int pos) {
      arma::sp_mat Q, A, B, C;
-     arma::vec c, b;
-     std::string headercheck;
+     arma::vec    c, b;
+     std::string  headercheck;
      pos = Utils::appendRead(headercheck, filename, pos);
      if (headercheck != "QP_Param")
         throw ZEROException(ZEROErrorCode::IOError, "Invalid header");

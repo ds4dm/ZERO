@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Program Listing for File epec_combinatorialpne.cpp &mdash; Python 1.0.0 documentation</title>
+  <title>Program Listing for File epec_combinatorialpne.cpp &mdash; ZERO 1.0.0 documentation</title>
   
 
   
@@ -93,7 +93,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#downloading-and-compiling">Downloading and Compiling</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
@@ -696,7 +697,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Python</a>
+          <a href="../index.html">ZERO</a>
         
       </nav>
 
@@ -756,7 +757,7 @@
 <span class="cp">#include</span> <span class="cpf">&lt;set&gt;</span><span class="cp"></span>
 
 <span class="kt">void</span> <span class="n">Algorithms</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">CombinatorialPNE</span><span class="o">::</span><span class="n">solveWithExcluded</span><span class="p">(</span>
-    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">excludeList</span><span class="p">)</span> <span class="p">{</span>
+     <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">excludeList</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">TimeLimit</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
      <span class="c1">// Checking the function hasn&#39;t been called from InnerApproximation</span>
      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">NumIterations</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
@@ -773,18 +774,18 @@
 <span class="p">}</span>
 
 <span class="kt">void</span> <span class="n">Algorithms</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">CombinatorialPNE</span><span class="o">::</span><span class="n">combPNE</span><span class="p">(</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">combination</span><span class="p">,</span>
-    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">excludeList</span><span class="p">)</span> <span class="p">{</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span> <span class="kt">int</span><span class="o">&gt;</span>                           <span class="n">combination</span><span class="p">,</span>
+     <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">excludeList</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">((</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">Status</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="n">ZEROStatus</span><span class="o">::</span><span class="n">NashEqFound</span> <span class="o">&amp;&amp;</span>
-       <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">PureNashEquilibrium</span><span class="p">.</span><span class="n">get</span><span class="p">())</span> <span class="o">||</span>
-      <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">Status</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="n">ZEROStatus</span><span class="o">::</span><span class="n">TimeLimit</span><span class="p">)</span>
+         <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">PureNashEquilibrium</span><span class="p">.</span><span class="n">get</span><span class="p">())</span> <span class="o">||</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">Status</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="n">ZEROStatus</span><span class="o">::</span><span class="n">TimeLimit</span><span class="p">)</span>
      <span class="k">return</span><span class="p">;</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">TimeLimit</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
      <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">timeElapsed</span> <span class="o">=</span>
-         <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">InitTime</span><span class="p">;</span>
+          <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">InitTime</span><span class="p">;</span>
      <span class="k">const</span> <span class="kt">double</span> <span class="n">timeRemaining</span> <span class="o">=</span>
-         <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">TimeLimit</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">-</span> <span class="n">timeElapsed</span><span class="p">.</span><span class="n">count</span><span class="p">();</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">TimeLimit</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">-</span> <span class="n">timeElapsed</span><span class="p">.</span><span class="n">count</span><span class="p">();</span>
      <span class="k">if</span> <span class="p">(</span><span class="n">timeRemaining</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">Status</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">TimeLimit</span><span class="p">);</span>
         <span class="k">return</span><span class="p">;</span>
@@ -792,8 +793,8 @@
   <span class="p">}</span>
 
   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">childCombination</span><span class="p">(</span><span class="n">combination</span><span class="p">);</span>
-  <span class="kt">bool</span> <span class="n">found</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+  <span class="kt">bool</span>                  <span class="n">found</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span>          <span class="n">i</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
   <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
      <span class="k">if</span> <span class="p">(</span><span class="n">childCombination</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">found</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
@@ -811,13 +812,13 @@
      <span class="c1">// Combination is filled and ready!</span>
      <span class="c1">// Check that this combination is not in the excluded list</span>
      <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::CombinatorialPNE::combPNE: &quot;</span>
-                                 <span class="s">&quot;considering a FULL combination&quot;</span><span class="p">;</span>
+                                          <span class="s">&quot;considering a FULL combination&quot;</span><span class="p">;</span>
      <span class="kt">bool</span> <span class="n">excluded</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">excludeList</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
         <span class="n">excluded</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
         <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
           <span class="k">if</span> <span class="p">(</span><span class="n">excludeList</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">j</span><span class="p">).</span><span class="n">find</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">childCombination</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">j</span><span class="p">)))</span> <span class="o">==</span>
-              <span class="n">excludeList</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">j</span><span class="p">).</span><span class="n">end</span><span class="p">())</span> <span class="p">{</span>
+                <span class="n">excludeList</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">j</span><span class="p">).</span><span class="n">end</span><span class="p">())</span> <span class="p">{</span>
              <span class="n">excluded</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
           <span class="p">}</span>
         <span class="p">}</span>
@@ -825,7 +826,7 @@
 
      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">excluded</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::CombinatorialPNE::combPNE: considering a &quot;</span>
-                                    <span class="s">&quot;FEASIBLE combination of polyhedra.&quot;</span><span class="p">;</span>
+                                             <span class="s">&quot;FEASIBLE combination of polyhedra.&quot;</span><span class="p">;</span>
         <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
           <span class="k">this</span><span class="o">-&gt;</span><span class="n">PolyLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">j</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">clearPolyhedra</span><span class="p">();</span>
           <span class="k">this</span><span class="o">-&gt;</span><span class="n">PolyLCP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">j</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">addThePoly</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">childCombination</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">j</span><span class="p">)));</span>
@@ -834,9 +835,9 @@
         <span class="kt">bool</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
         <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">TimeLimit</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
           <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">timeElapsed</span> <span class="o">=</span>
-              <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">InitTime</span><span class="p">;</span>
+                <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">InitTime</span><span class="p">;</span>
           <span class="k">const</span> <span class="kt">double</span> <span class="n">timeRemaining</span> <span class="o">=</span>
-              <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">TimeLimit</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">-</span> <span class="n">timeElapsed</span><span class="p">.</span><span class="n">count</span><span class="p">();</span>
+                <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">TimeLimit</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">-</span> <span class="n">timeElapsed</span><span class="p">.</span><span class="n">count</span><span class="p">();</span>
           <span class="n">res</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">computeNashEq</span><span class="p">(</span><span class="nb">false</span><span class="p">,</span> <span class="n">timeRemaining</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
         <span class="p">}</span> <span class="k">else</span>
           <span class="n">res</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">computeNashEq</span><span class="p">(</span><span class="nb">false</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
@@ -846,7 +847,7 @@
              <span class="c1">// Check that the equilibrium is a pure strategy</span>
              <span class="k">if</span> <span class="p">((</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">isPureStrategy</span><span class="p">()))</span> <span class="p">{</span>
                 <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">info</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::CombinatorialPNE::combPNE: &quot;</span>
-                                           <span class="s">&quot;found a pure strategy.&quot;</span><span class="p">;</span>
+                                                    <span class="s">&quot;found a pure strategy.&quot;</span><span class="p">;</span>
                 <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">Status</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">NashEqFound</span><span class="p">);</span>
                 <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">PureNashEquilibrium</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
                 <span class="k">return</span><span class="p">;</span>
@@ -855,7 +856,7 @@
         <span class="p">}</span>
      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
         <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::CombinatorialPNE::combPNE:&quot;</span>
-                                    <span class="s">&quot; configuration pruned.&quot;</span><span class="p">;</span>
+                                             <span class="s">&quot; configuration pruned.&quot;</span><span class="p">;</span>
         <span class="k">return</span><span class="p">;</span>
      <span class="p">}</span>
   <span class="p">}</span>

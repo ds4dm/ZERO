@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Program Listing for File poly_lcp.cpp &mdash; Python 1.0.0 documentation</title>
+  <title>Program Listing for File poly_lcp.cpp &mdash; ZERO 1.0.0 documentation</title>
   
 
   
@@ -93,7 +93,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#downloading-and-compiling">Downloading and Compiling</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
@@ -696,7 +697,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Python</a>
+          <a href="../index.html">ZERO</a>
         
       </nav>
 
@@ -790,19 +791,19 @@
 
 <span class="n">Game</span><span class="o">::</span><span class="n">PolyLCP</span> <span class="o">&amp;</span><span class="n">Game</span><span class="o">::</span><span class="n">PolyLCP</span><span class="o">::</span><span class="n">addPolyFromX</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="kt">bool</span> <span class="o">&amp;</span><span class="n">ret</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="k">const</span> <span class="k">auto</span> <span class="n">numCompl</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-  <span class="k">auto</span> <span class="n">encoding</span>       <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">solEncode</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+  <span class="k">const</span> <span class="k">auto</span>        <span class="n">numCompl</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+  <span class="k">auto</span>              <span class="n">encoding</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">solEncode</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
   <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="n">encStr</span><span class="p">;</span>
   <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">vv</span> <span class="p">:</span> <span class="n">encoding</span><span class="p">)</span>
      <span class="n">encStr</span> <span class="o">&lt;&lt;</span> <span class="n">vv</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
   <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Game::PolyLCP::addPolyFromX: Handling deviation with encoding: &quot;</span>
-                           <span class="o">&lt;&lt;</span> <span class="n">encStr</span><span class="p">.</span><span class="n">str</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+                                    <span class="o">&lt;&lt;</span> <span class="n">encStr</span><span class="p">.</span><span class="n">str</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
   <span class="c1">// Check if the encoding polyhedron is already in this-&gt;AllPolyhedra</span>
   <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="o">&amp;</span><span class="nl">i</span> <span class="p">:</span> <span class="n">AllPolyhedra</span><span class="p">)</span> <span class="p">{</span>
      <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">short</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">bin</span> <span class="o">=</span> <span class="n">Utils</span><span class="o">::</span><span class="n">numToVec</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">numCompl</span><span class="p">);</span>
      <span class="k">if</span> <span class="p">(</span><span class="n">encoding</span> <span class="o">&lt;</span> <span class="n">bin</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Game::PolyLCP::addPolyFromX: Encoding &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span>
-                                 <span class="o">&lt;&lt;</span> <span class="s">&quot; already in All Polyhedra! &quot;</span><span class="p">;</span>
+                                         <span class="o">&lt;&lt;</span> <span class="s">&quot; already in All Polyhedra! &quot;</span><span class="p">;</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
         <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
      <span class="p">}</span>
@@ -822,16 +823,16 @@
 <span class="p">}</span>
 
 <span class="kt">bool</span> <span class="n">Game</span><span class="o">::</span><span class="n">PolyLCP</span><span class="o">::</span><span class="n">addPolyFromEncoding</span><span class="p">(</span>
-    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">short</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">encoding</span><span class="p">,</span>
-    <span class="kt">bool</span> <span class="n">checkFeas</span><span class="p">,</span>
-    <span class="kt">bool</span> <span class="n">custom</span><span class="p">,</span>
-    <span class="n">spmat_Vec</span> <span class="o">*</span><span class="n">custAi</span><span class="p">,</span>
-    <span class="n">vec_Vec</span> <span class="o">*</span><span class="n">custbi</span>
-    <span class="p">)</span>
+     <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">short</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">encoding</span><span class="p">,</span>
+     <span class="kt">bool</span> <span class="n">checkFeas</span><span class="p">,</span>
+     <span class="kt">bool</span> <span class="n">custom</span><span class="p">,</span>
+     <span class="n">spmat_Vec</span> <span class="o">*</span><span class="n">custAi</span><span class="p">,</span>
+     <span class="n">vec_Vec</span> <span class="o">*</span><span class="n">custbi</span>
+     <span class="p">)</span>
 <span class="p">{</span>
   <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">encodingNumber</span> <span class="o">=</span> <span class="n">Utils</span><span class="o">::</span><span class="n">vecToNum</span><span class="p">(</span><span class="n">encoding</span><span class="p">);</span>
   <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Game::PolyLCP::addPolyFromEncoding: Working on polyhedron #&quot;</span>
-                           <span class="o">&lt;&lt;</span> <span class="n">encodingNumber</span><span class="p">;</span>
+                                    <span class="o">&lt;&lt;</span> <span class="n">encodingNumber</span><span class="p">;</span>
 
   <span class="kt">bool</span> <span class="n">eval</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">checkFeas</span><span class="p">)</span>
@@ -843,15 +844,15 @@
      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">custom</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">AllPolyhedra</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">AllPolyhedra</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">encodingNumber</span><span class="p">)</span> <span class="o">!=</span> <span class="n">AllPolyhedra</span><span class="p">.</span><span class="n">end</span><span class="p">())</span> <span class="p">{</span>
           <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Game::PolyLCP::addPolyFromEncoding: &quot;</span>
-                                      <span class="s">&quot;Previously added polyhedron #&quot;</span>
-                                   <span class="o">&lt;&lt;</span> <span class="n">encodingNumber</span><span class="p">;</span>
+                                                <span class="s">&quot;Previously added polyhedron #&quot;</span>
+                                            <span class="o">&lt;&lt;</span> <span class="n">encodingNumber</span><span class="p">;</span>
           <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
         <span class="p">}</span>
      <span class="p">}</span>
      <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="o">&gt;</span> <span class="n">Aii</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="o">&gt;</span><span class="p">(</span><span class="k">new</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="p">(</span><span class="n">nR</span><span class="p">,</span> <span class="n">nC</span><span class="p">));</span>
      <span class="n">Aii</span><span class="o">-&gt;</span><span class="n">zeros</span><span class="p">();</span>
      <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span> <span class="n">bii</span> <span class="o">=</span>
-         <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span><span class="p">(</span><span class="k">new</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="p">(</span><span class="n">nR</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">fill</span><span class="o">::</span><span class="n">zeros</span><span class="p">));</span>
+          <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span><span class="p">(</span><span class="k">new</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="p">(</span><span class="n">nR</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">fill</span><span class="o">::</span><span class="n">zeros</span><span class="p">));</span>
      <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">nR</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">encoding</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
           <span class="k">throw</span> <span class="n">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">InvalidData</span><span class="p">,</span> <span class="s">&quot;Non-allowed encoding&quot;</span><span class="p">);</span>
@@ -863,7 +864,7 @@
                 <span class="n">Aii</span><span class="o">-&gt;</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">.</span><span class="n">col</span><span class="p">())</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">j</span><span class="p">);</span> <span class="c1">// Only mess with non-zero elements of a sparse matrix!</span>
           <span class="n">bii</span><span class="o">-&gt;</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">q</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
         <span class="p">}</span> <span class="k">else</span> <span class="c1">// Variable to be fixed to zero, i.e. x(j) &lt;= 0 constraint to be</span>
-               <span class="c1">// added</span>
+                 <span class="c1">// added</span>
         <span class="p">{</span>
           <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">variablePosition</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">LeadStart</span><span class="p">)</span> <span class="o">?</span> <span class="n">i</span> <span class="o">+</span> <span class="k">this</span><span class="o">-&gt;</span><span class="nl">NumberLeader</span> <span class="p">:</span> <span class="n">i</span><span class="p">;</span>
           <span class="n">Aii</span><span class="o">-&gt;</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">variablePosition</span><span class="p">)</span>  <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
@@ -881,23 +882,23 @@
      <span class="k">return</span> <span class="nb">true</span><span class="p">;</span> <span class="c1">// Successfully added</span>
   <span class="p">}</span>
   <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Game::PolyLCP::addPolyFromEncoding: Checkfeas + &quot;</span>
-                              <span class="s">&quot;Infeasible polyhedron #&quot;</span>
-                           <span class="o">&lt;&lt;</span> <span class="n">encodingNumber</span><span class="p">;</span>
+                                        <span class="s">&quot;Infeasible polyhedron #&quot;</span>
+                                    <span class="o">&lt;&lt;</span> <span class="n">encodingNumber</span><span class="p">;</span>
   <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="n">Game</span><span class="o">::</span><span class="n">PolyLCP</span> <span class="o">&amp;</span><span class="n">Game</span><span class="o">::</span><span class="n">PolyLCP</span><span class="o">::</span><span class="n">addPoliesFromEncoding</span><span class="p">(</span>
-    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">short</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">encoding</span><span class="p">,</span>
-    <span class="kt">bool</span> <span class="n">checkFeas</span><span class="p">,</span>
-    <span class="kt">bool</span> <span class="n">custom</span><span class="p">,</span>
-    <span class="n">spmat_Vec</span> <span class="o">*</span><span class="n">custAi</span><span class="p">,</span>
-    <span class="n">vec_Vec</span> <span class="o">*</span><span class="n">custbi</span>
-    <span class="p">)</span>
+     <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">short</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">encoding</span><span class="p">,</span>
+     <span class="kt">bool</span> <span class="n">checkFeas</span><span class="p">,</span>
+     <span class="kt">bool</span> <span class="n">custom</span><span class="p">,</span>
+     <span class="n">spmat_Vec</span> <span class="o">*</span><span class="n">custAi</span><span class="p">,</span>
+     <span class="n">vec_Vec</span> <span class="o">*</span><span class="n">custbi</span>
+     <span class="p">)</span>
 <span class="p">{</span>
   <span class="kt">bool</span> <span class="n">flag</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span> <span class="c1">// flag that there may be multiple polyhedra, i.e. 0 in</span>
   <span class="c1">// some encoding entry</span>
   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">short</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">encodingCopy</span><span class="p">(</span><span class="n">encoding</span><span class="p">);</span>
-  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span>           <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">nR</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
      <span class="k">if</span> <span class="p">(</span><span class="n">encoding</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">flag</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
@@ -915,14 +916,14 @@
 <span class="p">}</span>
 
 <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">Game</span><span class="o">::</span><span class="n">PolyLCP</span><span class="o">::</span><span class="n">getNextPoly</span><span class="p">(</span>
-    <span class="n">Data</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">PolyhedraStrategy</span> <span class="n">method</span>
+     <span class="n">Data</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">PolyhedraStrategy</span> <span class="n">method</span>
 <span class="p">)</span> <span class="p">{</span>
   <span class="k">switch</span> <span class="p">(</span><span class="n">method</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">case</span> <span class="n">Data</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">PolyhedraStrategy</span><span class="o">::</span><span class="nl">Sequential</span><span class="p">:</span> <span class="p">{</span>
      <span class="k">while</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">SequentialPolyCounter</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MaxTheoreticalPoly</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">const</span> <span class="k">auto</span> <span class="n">isAll</span> <span class="o">=</span> <span class="n">AllPolyhedra</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">SequentialPolyCounter</span><span class="p">)</span> <span class="o">!=</span> <span class="n">AllPolyhedra</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
         <span class="k">const</span> <span class="k">auto</span> <span class="n">isInfeas</span> <span class="o">=</span>
-            <span class="n">InfeasiblePoly</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">SequentialPolyCounter</span><span class="p">)</span> <span class="o">!=</span> <span class="n">InfeasiblePoly</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+             <span class="n">InfeasiblePoly</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">SequentialPolyCounter</span><span class="p">)</span> <span class="o">!=</span> <span class="n">InfeasiblePoly</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
         <span class="k">this</span><span class="o">-&gt;</span><span class="n">SequentialPolyCounter</span><span class="o">++</span><span class="p">;</span>
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isAll</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">isInfeas</span><span class="p">)</span> <span class="p">{</span>
           <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">SequentialPolyCounter</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
@@ -933,9 +934,9 @@
   <span class="k">case</span> <span class="n">Data</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">PolyhedraStrategy</span><span class="o">::</span><span class="nl">ReverseSequential</span><span class="p">:</span> <span class="p">{</span>
      <span class="k">while</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">ReverseSequentialPolyCounter</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">const</span> <span class="k">auto</span> <span class="n">isAll</span> <span class="o">=</span>
-            <span class="n">AllPolyhedra</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">ReverseSequentialPolyCounter</span><span class="p">)</span> <span class="o">!=</span> <span class="n">AllPolyhedra</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+             <span class="n">AllPolyhedra</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">ReverseSequentialPolyCounter</span><span class="p">)</span> <span class="o">!=</span> <span class="n">AllPolyhedra</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
         <span class="k">const</span> <span class="k">auto</span> <span class="n">isInfeas</span> <span class="o">=</span>
-            <span class="n">InfeasiblePoly</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">ReverseSequentialPolyCounter</span><span class="p">)</span> <span class="o">!=</span> <span class="n">InfeasiblePoly</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+             <span class="n">InfeasiblePoly</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">ReverseSequentialPolyCounter</span><span class="p">)</span> <span class="o">!=</span> <span class="n">InfeasiblePoly</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
         <span class="k">this</span><span class="o">-&gt;</span><span class="n">ReverseSequentialPolyCounter</span><span class="o">--</span><span class="p">;</span>
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isAll</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">isInfeas</span><span class="p">)</span> <span class="p">{</span>
           <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">ReverseSequentialPolyCounter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
@@ -944,14 +945,14 @@
      <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MaxTheoreticalPoly</span><span class="p">;</span>
   <span class="p">}</span> <span class="k">break</span><span class="p">;</span>
   <span class="k">case</span> <span class="n">Data</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">PolyhedraStrategy</span><span class="o">::</span><span class="nl">Random</span><span class="p">:</span> <span class="p">{</span>
-     <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">mt19937</span> <span class="n">engine</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">AddPolyMethodSeed</span><span class="p">);</span>
+     <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">mt19937</span>                              <span class="n">engine</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">AddPolyMethodSeed</span><span class="p">);</span>
      <span class="n">std</span><span class="o">::</span><span class="n">uniform_int_distribution</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">dist</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MaxTheoreticalPoly</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
      <span class="k">if</span> <span class="p">((</span><span class="n">InfeasiblePoly</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">+</span> <span class="n">AllPolyhedra</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="o">==</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MaxTheoreticalPoly</span><span class="p">)</span>
         <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MaxTheoreticalPoly</span><span class="p">;</span>
      <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">auto</span> <span class="n">randomPolyId</span>   <span class="o">=</span> <span class="n">dist</span><span class="p">(</span><span class="n">engine</span><span class="p">);</span>
-        <span class="k">const</span> <span class="k">auto</span> <span class="n">isAll</span>    <span class="o">=</span> <span class="n">AllPolyhedra</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">randomPolyId</span><span class="p">)</span> <span class="o">!=</span> <span class="n">AllPolyhedra</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
-        <span class="k">const</span> <span class="k">auto</span> <span class="n">isInfeas</span> <span class="o">=</span> <span class="n">InfeasiblePoly</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">randomPolyId</span><span class="p">)</span> <span class="o">!=</span> <span class="n">InfeasiblePoly</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+        <span class="k">auto</span>       <span class="n">randomPolyId</span> <span class="o">=</span> <span class="n">dist</span><span class="p">(</span><span class="n">engine</span><span class="p">);</span>
+        <span class="k">const</span> <span class="k">auto</span> <span class="n">isAll</span>        <span class="o">=</span> <span class="n">AllPolyhedra</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">randomPolyId</span><span class="p">)</span> <span class="o">!=</span> <span class="n">AllPolyhedra</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+        <span class="k">const</span> <span class="k">auto</span> <span class="n">isInfeas</span>     <span class="o">=</span> <span class="n">InfeasiblePoly</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">randomPolyId</span><span class="p">)</span> <span class="o">!=</span> <span class="n">InfeasiblePoly</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isAll</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">isInfeas</span><span class="p">)</span>
           <span class="k">return</span> <span class="n">randomPolyId</span><span class="p">;</span>
      <span class="p">}</span>
@@ -962,8 +963,9 @@
 <span class="p">}</span>
 
 <span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">short</span> <span class="kt">int</span><span class="o">&gt;&gt;</span>
-<span class="n">Game</span><span class="o">::</span><span class="n">PolyLCP</span><span class="o">::</span><span class="n">addAPoly</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">nPoly</span><span class="p">,</span> <span class="n">Data</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">PolyhedraStrategy</span> <span class="n">method</span><span class="p">,</span>
-                        <span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">short</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">polyhedra</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">Game</span><span class="o">::</span><span class="n">PolyLCP</span><span class="o">::</span><span class="n">addAPoly</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span>                <span class="n">nPoly</span><span class="p">,</span>
+                                <span class="n">Data</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">PolyhedraStrategy</span>     <span class="n">method</span><span class="p">,</span>
+                                <span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">short</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">polyhedra</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// We already have polyhedra AllPolyhedra and in</span>
   <span class="c1">// InfeasiblePoly, that are known to be infeasible.</span>
   <span class="c1">// Effective maximum of number of polyhedra that can be added</span>
@@ -972,9 +974,9 @@
 
   <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">MaxTheoreticalPoly</span> <span class="o">&lt;</span> <span class="n">nPoly</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// If you cannot add that numVariablesY polyhedra</span>
      <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">warning</span><span class="p">)</span>            <span class="c1">// Then issue a warning</span>
-         <span class="o">&lt;&lt;</span> <span class="s">&quot;Warning in Game::PolyLCP::randomPoly: &quot;</span>
-         <span class="o">&lt;&lt;</span> <span class="s">&quot;Cannot add &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">nPoly</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; polyhedra. Promising a maximum of &quot;</span>
-         <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MaxTheoreticalPoly</span><span class="p">;</span>
+          <span class="o">&lt;&lt;</span> <span class="s">&quot;Warning in Game::PolyLCP::randomPoly: &quot;</span>
+          <span class="o">&lt;&lt;</span> <span class="s">&quot;Cannot add &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">nPoly</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; polyhedra. Promising a maximum of &quot;</span>
+          <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MaxTheoreticalPoly</span><span class="p">;</span>
      <span class="n">nPoly</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MaxTheoreticalPoly</span><span class="p">;</span> <span class="c1">// and update maximum possibly addable</span>
   <span class="p">}</span>
 
@@ -991,7 +993,7 @@
         <span class="k">return</span> <span class="n">polyhedra</span><span class="p">;</span>
 
      <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">short</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">choice</span> <span class="o">=</span> <span class="n">Utils</span><span class="o">::</span><span class="n">numToVec</span><span class="p">(</span><span class="n">choiceDecimal</span><span class="p">,</span> <span class="n">numCompl</span><span class="p">);</span>
-     <span class="k">auto</span> <span class="n">added</span>                          <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">addPolyFromEncoding</span><span class="p">(</span><span class="n">choice</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+     <span class="k">auto</span>                         <span class="n">added</span>  <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">addPolyFromEncoding</span><span class="p">(</span><span class="n">choice</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
      <span class="k">if</span> <span class="p">(</span><span class="n">added</span><span class="p">)</span> <span class="c1">// If choice is added to All Polyhedra</span>
      <span class="p">{</span>
         <span class="n">polyhedra</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">choice</span><span class="p">);</span> <span class="c1">// Add it to set of added polyhedra</span>
@@ -1006,17 +1008,17 @@
   <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">MaxTheoreticalPoly</span> <span class="o">&lt;</span> <span class="n">decimalEncoding</span><span class="p">)</span> <span class="p">{</span>
      <span class="c1">// This polyhedron does not exist</span>
      <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">warning</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Warning in Game::PolyLCP::addThePoly: Cannot add &quot;</span>
-                                <span class="o">&lt;&lt;</span> <span class="n">decimalEncoding</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; polyhedra, since it does not exist!&quot;</span><span class="p">;</span>
+                                         <span class="o">&lt;&lt;</span> <span class="n">decimalEncoding</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; polyhedra, since it does not exist!&quot;</span><span class="p">;</span>
      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
   <span class="p">}</span>
-  <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">numCompl</span>         <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-  <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">short</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">choice</span> <span class="o">=</span> <span class="n">Utils</span><span class="o">::</span><span class="n">numToVec</span><span class="p">(</span><span class="n">decimalEncoding</span><span class="p">,</span> <span class="n">numCompl</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span>           <span class="n">numCompl</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+  <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">short</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">choice</span>   <span class="o">=</span> <span class="n">Utils</span><span class="o">::</span><span class="n">numToVec</span><span class="p">(</span><span class="n">decimalEncoding</span><span class="p">,</span> <span class="n">numCompl</span><span class="p">);</span>
   <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">addPolyFromEncoding</span><span class="p">(</span><span class="n">choice</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="n">Game</span><span class="o">::</span><span class="n">PolyLCP</span> <span class="o">&amp;</span><span class="n">Game</span><span class="o">::</span><span class="n">PolyLCP</span><span class="o">::</span><span class="n">enumerateAll</span><span class="p">(</span>
-    <span class="k">const</span> <span class="kt">bool</span> <span class="n">solveLP</span>
-    <span class="p">)</span>
+     <span class="k">const</span> <span class="kt">bool</span> <span class="n">solveLP</span>
+     <span class="p">)</span>
 <span class="p">{</span>
   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">short</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">encoding</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">short</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">nR</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
   <span class="k">this</span><span class="o">-&gt;</span><span class="n">Ai</span><span class="o">-&gt;</span><span class="n">clear</span><span class="p">();</span>
@@ -1024,10 +1026,10 @@
   <span class="k">this</span><span class="o">-&gt;</span><span class="n">addPoliesFromEncoding</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="n">solveLP</span><span class="p">);</span>
   <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Ai</span><span class="o">-&gt;</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
      <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">warning</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Empty vector of polyhedra given! Problem might be infeasible.&quot;</span>
-                                <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+                                         <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
      <span class="c1">// 0 &lt;= -1 for infeasability</span>
      <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="o">&gt;</span> <span class="n">A</span><span class="p">(</span><span class="k">new</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">M</span><span class="p">.</span><span class="n">n_cols</span><span class="p">));</span>
-     <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">(</span><span class="k">new</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span>    <span class="n">b</span><span class="p">(</span><span class="k">new</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
      <span class="n">b</span><span class="o">-&gt;</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Ai</span><span class="o">-&gt;</span><span class="n">push_back</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">A</span><span class="p">));</span>
      <span class="k">this</span><span class="o">-&gt;</span><span class="n">bi</span><span class="o">-&gt;</span><span class="n">push_back</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">b</span><span class="p">));</span>
@@ -1074,27 +1076,27 @@
 <span class="p">}</span>
 
 <span class="kt">bool</span> <span class="n">Game</span><span class="o">::</span><span class="n">PolyLCP</span><span class="o">::</span><span class="n">checkPolyFeas</span><span class="p">(</span>
-    <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">decimalEncoding</span>
+     <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">decimalEncoding</span>
 <span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">checkPolyFeas</span><span class="p">(</span><span class="n">Utils</span><span class="o">::</span><span class="n">numToVec</span><span class="p">(</span><span class="n">decimalEncoding</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">.</span><span class="n">size</span><span class="p">()));</span>
 <span class="p">}</span>
 
 <span class="kt">bool</span> <span class="n">Game</span><span class="o">::</span><span class="n">PolyLCP</span><span class="o">::</span><span class="n">checkPolyFeas</span><span class="p">(</span>
-    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">short</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">encoding</span>
+     <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">short</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">encoding</span>
 <span class="p">)</span> <span class="p">{</span>
   <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">encodingNumber</span> <span class="o">=</span> <span class="n">Utils</span><span class="o">::</span><span class="n">vecToNum</span><span class="p">(</span><span class="n">encoding</span><span class="p">);</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="n">InfeasiblePoly</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">encodingNumber</span><span class="p">)</span> <span class="o">!=</span> <span class="n">InfeasiblePoly</span><span class="p">.</span><span class="n">end</span><span class="p">())</span> <span class="p">{</span>
      <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Game::PolyLCP::checkPolyFeas: Previously known &quot;</span>
-                                 <span class="s">&quot;infeasible polyhedron. &quot;</span>
-                              <span class="o">&lt;&lt;</span> <span class="n">encodingNumber</span><span class="p">;</span>
+                                          <span class="s">&quot;infeasible polyhedron. &quot;</span>
+                                      <span class="o">&lt;&lt;</span> <span class="n">encodingNumber</span><span class="p">;</span>
      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
   <span class="p">}</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="n">FeasiblePoly</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">encodingNumber</span><span class="p">)</span> <span class="o">!=</span> <span class="n">FeasiblePoly</span><span class="p">.</span><span class="n">end</span><span class="p">())</span> <span class="p">{</span>
      <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Game::PolyLCP::checkPolyFeas: Previously known &quot;</span>
-                                 <span class="s">&quot;feasible polyhedron.&quot;</span>
-                              <span class="o">&lt;&lt;</span> <span class="n">encodingNumber</span><span class="p">;</span>
+                                          <span class="s">&quot;feasible polyhedron.&quot;</span>
+                                      <span class="o">&lt;&lt;</span> <span class="n">encodingNumber</span><span class="p">;</span>
      <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
   <span class="p">}</span>
 
@@ -1107,9 +1109,9 @@
           <span class="n">model</span><span class="p">.</span><span class="n">getVarByName</span><span class="p">(</span><span class="s">&quot;z_&quot;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">count</span><span class="p">)).</span><span class="n">set</span><span class="p">(</span><span class="n">GRB_DoubleAttr_UB</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
           <span class="n">model</span>
-              <span class="p">.</span><span class="n">getVarByName</span><span class="p">(</span><span class="s">&quot;x_&quot;</span> <span class="o">+</span>
-                            <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">LeadStart</span> <span class="o">?</span> <span class="n">count</span> <span class="o">+</span> <span class="nl">NumberLeader</span> <span class="p">:</span> <span class="n">count</span><span class="p">))</span>
-              <span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">GRB_DoubleAttr_UB</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+                <span class="p">.</span><span class="n">getVarByName</span><span class="p">(</span><span class="s">&quot;x_&quot;</span> <span class="o">+</span>
+                                  <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">LeadStart</span> <span class="o">?</span> <span class="n">count</span> <span class="o">+</span> <span class="nl">NumberLeader</span> <span class="p">:</span> <span class="n">count</span><span class="p">))</span>
+                <span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">GRB_DoubleAttr_UB</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
         <span class="n">count</span><span class="o">++</span><span class="p">;</span>
      <span class="p">}</span>
      <span class="n">model</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">GRB_IntParam_OutputFlag</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
@@ -1119,8 +1121,8 @@
         <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
         <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Game::PolyLCP::checkPolyFeas: Detected infeasibility of &quot;</span>
-                                 <span class="o">&lt;&lt;</span> <span class="n">encodingNumber</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; (GRB_STATUS=&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">model</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">GRB_IntAttr_Status</span><span class="p">)</span>
-                                 <span class="o">&lt;&lt;</span> <span class="s">&quot;)&quot;</span><span class="p">;</span>
+                                         <span class="o">&lt;&lt;</span> <span class="n">encodingNumber</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; (GRB_STATUS=&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">model</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">GRB_IntAttr_Status</span><span class="p">)</span>
+                                         <span class="o">&lt;&lt;</span> <span class="s">&quot;)&quot;</span><span class="p">;</span>
         <span class="n">InfeasiblePoly</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">encodingNumber</span><span class="p">);</span>
         <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
      <span class="p">}</span>

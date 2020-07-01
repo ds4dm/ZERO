@@ -304,7 +304,7 @@
         <inbodydescription>
 <para>To be used in interaction with <ref refid="class_game_1_1_l_c_p_1aab450b015162c87d06194c0cd36b26e2" kindref="member">Game::LCP::convexHull</ref>. Gives the number of polyhedra in the current inner approximation of the <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref> feasible region.</para>
         </inbodydescription>
-        <location file="include/lcp/poly_lcp.h" line="61" column="16" bodyfile="src/lcp/poly_lcp.cpp" bodystart="383" bodyend="390"/>
+        <location file="include/lcp/poly_lcp.h" line="61" column="16" bodyfile="src/lcp/poly_lcp.cpp" bodystart="384" bodyend="391"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1a2e14a1d94151b08c878386de507793b4" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned int</type>
@@ -322,7 +322,7 @@
         <inbodydescription>
 <para>For the convex hull of the <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref> feasible region computed, a bunch of variables are added for extended formulation and the added variables c</para>
         </inbodydescription>
-        <location file="include/lcp/poly_lcp.h" line="62" column="16" bodyfile="src/lcp/poly_lcp.cpp" bodystart="392" bodyend="403"/>
+        <location file="include/lcp/poly_lcp.h" line="62" column="16" bodyfile="src/lcp/poly_lcp.cpp" bodystart="393" bodyend="404"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1a6bd110dfdf561badc1e3f7624589e1e1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned int</type>
@@ -341,7 +341,7 @@
 <para>To be used in interaction with <ref refid="class_game_1_1_l_c_p_1aab450b015162c87d06194c0cd36b26e2" kindref="member">Game::LCP::convexHull</ref>. Gives the position of the variable, which assigns the convex weight to the i-th polyhedron.</para>
 <para>However, if the inner approximation has exactly one polyhedron, then returns 0.</para>
         </inbodydescription>
-        <location file="include/lcp/poly_lcp.h" line="63" column="16" bodyfile="src/lcp/poly_lcp.cpp" bodystart="405" bodyend="424"/>
+        <location file="include/lcp/poly_lcp.h" line="63" column="16" bodyfile="src/lcp/poly_lcp.cpp" bodystart="406" bodyend="425"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1a4cd4171844f271bba06c271bbe9e02e5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>std::set&lt; unsigned long int &gt;</type>
@@ -396,7 +396,7 @@
         <inbodydescription>
 <para>Tries to add at most <computeroutput>nPoly</computeroutput> number of polyhedra to the inner approximation representation of the current <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref>. The set of added polyhedra (+1/-1 encoding) is appended to <computeroutput>polyhedra</computeroutput> and returned. The only reason fewer polyhedra might be added is that the fewer polyhedra already represent the feasible region of the <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref>. <computeroutput>method</computeroutput> is casted from Game::EPEC::EPECAddPolyMethod</para>
         </inbodydescription>
-        <location file="include/lcp/poly_lcp.h" line="68" column="1" bodyfile="src/lcp/poly_lcp.cpp" bodystart="280" bodyend="328"/>
+        <location file="include/lcp/poly_lcp.h" line="68" column="1" bodyfile="src/lcp/poly_lcp.cpp" bodystart="280" bodyend="329"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1a6cbd0139e8f432d15287387b7be7bfeb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -413,7 +413,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/lcp/poly_lcp.h" line="71" column="7" bodyfile="src/lcp/poly_lcp.cpp" bodystart="329" bodyend="339"/>
+        <location file="include/lcp/poly_lcp.h" line="71" column="7" bodyfile="src/lcp/poly_lcp.cpp" bodystart="330" bodyend="340"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1abfb1de17bc930bc70bb32b845a0e5479" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -432,7 +432,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/lcp/poly_lcp.h" line="72" column="7" bodyfile="src/lcp/poly_lcp.cpp" bodystart="426" bodyend="430"/>
+        <location file="include/lcp/poly_lcp.h" line="72" column="7" bodyfile="src/lcp/poly_lcp.cpp" bodystart="427" bodyend="431"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1ace347a389d26d3151793b09e57efa84f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -453,7 +453,7 @@
 <para>Check whether the given polyhedron is or is not feasible. @detail Given a +1/-1 encoding of a polyhedron, first checks if the polyhedron is a previously known feasible polyhedron or previously known infeasible polyhedron. If yes, returns the result appropriately. If not, solves a linear program to decide the feasibility of the given polyhedra.</para>
 <para>Not <computeroutput>const</computeroutput> because it could update <ref refid="class_game_1_1_poly_l_c_p_1a43b7818d5d08faf88fb9c1ab51a7a6dc" kindref="member">Game::PolyLCP::InfeasiblePoly</ref> and <ref refid="class_game_1_1_poly_l_c_p_1aeb53a1e8548bb1e802c5fa000ec98009" kindref="member">Game::PolyLCP::FeasiblePoly</ref>.</para>
         </inbodydescription>
-        <location file="include/lcp/poly_lcp.h" line="73" column="7" bodyfile="src/lcp/poly_lcp.cpp" bodystart="432" bodyend="494"/>
+        <location file="include/lcp/poly_lcp.h" line="73" column="7" bodyfile="src/lcp/poly_lcp.cpp" bodystart="433" bodyend="495"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1a284ba47f087abd272c48e77c20060d45" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -510,7 +510,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/lcp/poly_lcp.h" line="80" column="14" bodyfile="src/lcp/poly_lcp.cpp" bodystart="341" bodyend="365"/>
+        <location file="include/lcp/poly_lcp.h" line="80" column="14" bodyfile="src/lcp/poly_lcp.cpp" bodystart="342" bodyend="366"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1ab3da884aa6d7966d9482c8e3830aa464" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
@@ -524,7 +524,7 @@
         <inbodydescription>
 <para>Returns a string that has the decimal encoding of all polyhedra which are part of <ref refid="class_game_1_1_poly_l_c_p_1ad54ed6c8eacb53c2d56bece722cf8bc4" kindref="member">Game::PolyLCP::AllPolyhedra</ref></para>
         </inbodydescription>
-        <location file="include/lcp/poly_lcp.h" line="81" column="15" bodyfile="src/lcp/poly_lcp.cpp" bodystart="367" bodyend="381"/>
+        <location file="include/lcp/poly_lcp.h" line="81" column="15" bodyfile="src/lcp/poly_lcp.cpp" bodystart="368" bodyend="382"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_poly_l_c_p_1a8bf2b9f101f4dacc2d4e7a115d795a36" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>unsigned int</type>

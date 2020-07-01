@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Program Listing for File lcp.cpp &mdash; Python 1.0.0 documentation</title>
+  <title>Program Listing for File lcp.cpp &mdash; ZERO 1.0.0 documentation</title>
   
 
   
@@ -93,7 +93,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#downloading-and-compiling">Downloading and Compiling</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
@@ -696,7 +697,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Python</a>
+          <a href="../index.html">ZERO</a>
         
       </nav>
 
@@ -767,21 +768,22 @@
   <span class="k">this</span><span class="o">-&gt;</span><span class="n">nC</span>  <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">M</span><span class="p">.</span><span class="n">n_cols</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">LCP</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span>
-               <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">M</span><span class="p">,</span>
-               <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">q</span><span class="p">,</span>
-               <span class="n">perps</span> <span class="n">Compl</span><span class="p">,</span>
-               <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">A</span><span class="p">,</span>
-               <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">b</span>
-               <span class="p">)</span>
-    <span class="o">:</span> <span class="n">M</span><span class="p">{</span><span class="n">M</span><span class="p">},</span> <span class="n">q</span><span class="p">{</span><span class="n">q</span><span class="p">},</span> <span class="n">_A</span><span class="p">{</span><span class="n">A</span><span class="p">},</span> <span class="n">_b</span><span class="p">{</span><span class="n">b</span><span class="p">},</span> <span class="n">RlxdModel</span><span class="p">(</span><span class="o">*</span><span class="n">env</span><span class="p">)</span>
+<span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">LCP</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span>     <span class="n">env</span><span class="p">,</span>
+                    <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">M</span><span class="p">,</span>
+                    <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>    <span class="n">q</span><span class="p">,</span>
+                    <span class="n">perps</span>        <span class="n">Compl</span><span class="p">,</span>
+                    <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">A</span><span class="p">,</span>
+                    <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>    <span class="n">b</span>
+                    <span class="p">)</span>
+     <span class="o">:</span> <span class="n">M</span><span class="p">{</span><span class="n">M</span><span class="p">},</span> <span class="n">q</span><span class="p">{</span><span class="n">q</span><span class="p">},</span> <span class="n">_A</span><span class="p">{</span><span class="n">A</span><span class="p">},</span> <span class="n">_b</span><span class="p">{</span><span class="n">b</span><span class="p">},</span> <span class="n">RlxdModel</span><span class="p">(</span><span class="o">*</span><span class="n">env</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">defConst</span><span class="p">(</span><span class="n">env</span><span class="p">);</span>
   <span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span> <span class="o">=</span> <span class="n">perps</span><span class="p">(</span><span class="n">Compl</span><span class="p">);</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
-            <span class="p">[](</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
-               <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">first</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
-            <span class="p">});</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span>
+                <span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+                <span class="p">[](</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+                  <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">first</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+                <span class="p">});</span>
   <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">p</span> <span class="p">:</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">)</span>
      <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span> <span class="o">!=</span> <span class="n">p</span><span class="p">.</span><span class="n">second</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">this</span><span class="o">-&gt;</span><span class="n">LeadStart</span>    <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
@@ -792,15 +794,15 @@
      <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">LCP</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span>
-               <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">M</span><span class="p">,</span>
-               <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">q</span><span class="p">,</span>
-               <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">leadStart</span><span class="p">,</span>
-               <span class="kt">unsigned</span> <span class="n">leadEnd</span><span class="p">,</span>
-               <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">A</span><span class="p">,</span>
-               <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">b</span>
-               <span class="p">)</span>
-    <span class="o">:</span> <span class="n">M</span><span class="p">{</span><span class="n">M</span><span class="p">},</span> <span class="n">q</span><span class="p">{</span><span class="n">q</span><span class="p">},</span> <span class="n">_A</span><span class="p">{</span><span class="n">A</span><span class="p">},</span> <span class="n">_b</span><span class="p">{</span><span class="n">b</span><span class="p">},</span> <span class="n">RlxdModel</span><span class="p">(</span><span class="o">*</span><span class="n">env</span><span class="p">)</span>
+<span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">LCP</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span>     <span class="n">env</span><span class="p">,</span>
+                    <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">M</span><span class="p">,</span>
+                    <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>    <span class="n">q</span><span class="p">,</span>
+                    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">leadStart</span><span class="p">,</span>
+                    <span class="kt">unsigned</span> <span class="n">leadEnd</span><span class="p">,</span>
+                    <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">A</span><span class="p">,</span>
+                    <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>    <span class="n">b</span>
+                    <span class="p">)</span>
+     <span class="o">:</span> <span class="n">M</span><span class="p">{</span><span class="n">M</span><span class="p">},</span> <span class="n">q</span><span class="p">{</span><span class="n">q</span><span class="p">},</span> <span class="n">_A</span><span class="p">{</span><span class="n">A</span><span class="p">},</span> <span class="n">_b</span><span class="p">{</span><span class="n">b</span><span class="p">},</span> <span class="n">RlxdModel</span><span class="p">(</span><span class="o">*</span><span class="n">env</span><span class="p">)</span>
 
 <span class="p">{</span>
   <span class="n">defConst</span><span class="p">(</span><span class="n">env</span><span class="p">);</span>
@@ -812,18 +814,19 @@
      <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">leadStart</span> <span class="o">?</span> <span class="nl">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">NumberLeader</span><span class="p">;</span>
      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="n">i</span><span class="p">,</span> <span class="n">count</span><span class="p">});</span>
   <span class="p">}</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
-            <span class="p">[](</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
-               <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">first</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
-            <span class="p">});</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span>
+                <span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+                <span class="p">[](</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+                  <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">first</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+                <span class="p">});</span>
 <span class="p">}</span>
 
 <span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">LCP</span><span class="p">(</span><span class="n">GRBEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="k">const</span> <span class="n">NashGame</span> <span class="o">&amp;</span><span class="n">N</span><span class="p">)</span>
-    <span class="o">:</span> <span class="n">RlxdModel</span><span class="p">(</span><span class="o">*</span><span class="n">env</span><span class="p">)</span>
+     <span class="o">:</span> <span class="n">RlxdModel</span><span class="p">(</span><span class="o">*</span><span class="n">env</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">M_local</span><span class="p">;</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">q_local</span><span class="p">;</span>
-  <span class="n">perps</span> <span class="n">Compl_local</span><span class="p">;</span>
+  <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>    <span class="n">q_local</span><span class="p">;</span>
+  <span class="n">perps</span>        <span class="n">Compl_local</span><span class="p">;</span>
   <span class="n">N</span><span class="p">.</span><span class="n">formulateLCP</span><span class="p">(</span><span class="n">M_local</span><span class="p">,</span> <span class="n">q_local</span><span class="p">,</span> <span class="n">Compl_local</span><span class="p">);</span>
   <span class="c1">// LCP(Env, M, q, Compl, N.rewriteLeadCons(), N.getMCLeadRHS());</span>
 
@@ -834,10 +837,11 @@
   <span class="k">this</span><span class="o">-&gt;</span><span class="n">_b</span>    <span class="o">=</span> <span class="n">N</span><span class="p">.</span><span class="n">getMCLeadRHS</span><span class="p">();</span>
   <span class="n">defConst</span><span class="p">(</span><span class="n">env</span><span class="p">);</span>
   <span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span> <span class="o">=</span> <span class="n">perps</span><span class="p">(</span><span class="n">Compl</span><span class="p">);</span>
-  <span class="n">sort</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
-       <span class="p">[](</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
-          <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">first</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
-       <span class="p">});</span>
+  <span class="n">sort</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span>
+         <span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+         <span class="p">[](</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">first</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+         <span class="p">});</span>
   <span class="c1">// Delete no more!</span>
   <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">p</span> <span class="p">:</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">)</span> <span class="p">{</span>
      <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span> <span class="o">!=</span> <span class="n">p</span><span class="p">.</span><span class="n">second</span><span class="p">)</span> <span class="p">{</span>
@@ -856,7 +860,7 @@
      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">MadeRlxdModel</span><span class="p">)</span>
         <span class="k">return</span><span class="p">;</span>
      <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Game::LCP::makeRelaxed: Creating a model with : &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">nR</span>
-                              <span class="o">&lt;&lt;</span> <span class="s">&quot; variables and  &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">nC</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; constraints&quot;</span><span class="p">;</span>
+                                      <span class="o">&lt;&lt;</span> <span class="s">&quot; variables and  &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">nC</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; constraints&quot;</span><span class="p">;</span>
      <span class="n">GRBVar</span> <span class="n">x</span><span class="p">[</span><span class="n">nC</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">nR</span><span class="p">];</span>
      <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Game::LCP::makeRelaxed: Initializing variables&quot;</span><span class="p">;</span>
      <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nC</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
@@ -876,7 +880,7 @@
      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">_A</span><span class="p">.</span><span class="n">n_nonzero</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">_b</span><span class="p">.</span><span class="n">n_rows</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">_A</span><span class="p">.</span><span class="n">n_cols</span> <span class="o">!=</span> <span class="n">nC</span> <span class="o">||</span> <span class="n">_A</span><span class="p">.</span><span class="n">n_rows</span> <span class="o">!=</span> <span class="n">_b</span><span class="p">.</span><span class="n">n_rows</span><span class="p">)</span> <span class="p">{</span>
           <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;(&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">_A</span><span class="p">.</span><span class="n">n_rows</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;,&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">_A</span><span class="p">.</span><span class="n">n_cols</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;)</span><span class="se">\t</span><span class="s">&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">_b</span><span class="p">.</span><span class="n">n_rows</span>
-                                   <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">nC</span><span class="p">;</span>
+                                            <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">nC</span><span class="p">;</span>
           <span class="k">throw</span> <span class="nf">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">InvalidData</span><span class="p">,</span> <span class="s">&quot;A and b are incompatible&quot;</span><span class="p">);</span>
         <span class="p">}</span>
         <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">_A</span><span class="p">.</span><span class="n">n_rows</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -898,9 +902,9 @@
 <span class="p">}</span>
 
 <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">GRBModel</span><span class="o">&gt;</span> <span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">LCPasMIP</span><span class="p">(</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">short</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">Fixes</span><span class="p">,</span>
-    <span class="kt">bool</span> <span class="n">solve</span>
-    <span class="p">)</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">short</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">Fixes</span><span class="p">,</span>
+     <span class="kt">bool</span> <span class="n">solve</span>
+     <span class="p">)</span>
 <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">Fixes</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">!=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">nR</span><span class="p">)</span>
      <span class="k">throw</span> <span class="n">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">InvalidData</span><span class="p">,</span> <span class="s">&quot;Mismatch in size of fixes&quot;</span><span class="p">);</span>
@@ -915,10 +919,10 @@
 <span class="p">}</span>
 
 <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">GRBModel</span><span class="o">&gt;</span> <span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">LCPasMIP</span><span class="p">(</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">FixEq</span><span class="p">,</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">FixVar</span><span class="p">,</span>
-    <span class="kt">bool</span> <span class="n">solve</span>
-    <span class="p">)</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">FixEq</span><span class="p">,</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">FixVar</span><span class="p">,</span>
+     <span class="kt">bool</span>                      <span class="n">solve</span>
+     <span class="p">)</span>
 <span class="p">{</span>
   <span class="n">makeRelaxed</span><span class="p">();</span>
   <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">GRBModel</span><span class="o">&gt;</span> <span class="n">model</span><span class="p">{</span><span class="k">new</span> <span class="n">GRBModel</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">RlxdModel</span><span class="p">)};</span>
@@ -940,10 +944,10 @@
 
      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">UseIndicators</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Game::LCP::LCPasMIP: Using indicator &quot;</span>
-                                    <span class="s">&quot;constraints for complementarities.&quot;</span><span class="p">;</span>
+                                             <span class="s">&quot;constraints for complementarities.&quot;</span><span class="p">;</span>
      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
         <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Game::LCP::LCPasMIP: Using BigM for complementarities with M=&quot;</span>
-                                 <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">BigM</span><span class="p">;</span>
+                                         <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">BigM</span><span class="p">;</span>
      <span class="p">}</span>
 
      <span class="n">GRBLinExpr</span> <span class="n">expr</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -953,27 +957,39 @@
         <span class="c1">// u[j]=0 --&gt; z[i] &lt;=0</span>
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">UseIndicators</span><span class="p">)</span> <span class="p">{</span>
           <span class="n">expr</span> <span class="o">=</span> <span class="n">BigM</span> <span class="o">*</span> <span class="n">u</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">];</span>
-          <span class="n">model</span><span class="o">-&gt;</span><span class="n">addConstr</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">GRB_GREATER_EQUAL</span><span class="p">,</span> <span class="n">z</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">],</span>
-                           <span class="s">&quot;z&quot;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;_L_Mu&quot;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">));</span>
+          <span class="n">model</span><span class="o">-&gt;</span><span class="n">addConstr</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span>
+                                 <span class="n">GRB_GREATER_EQUAL</span><span class="p">,</span>
+                                 <span class="n">z</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">],</span>
+                                 <span class="s">&quot;z&quot;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;_L_Mu&quot;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">));</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-          <span class="n">model</span><span class="o">-&gt;</span><span class="n">addGenConstrIndicator</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">],</span> <span class="n">GRB_LESS_EQUAL</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
-                                       <span class="s">&quot;z_ind_&quot;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;_L_Mu_&quot;</span> <span class="o">+</span>
-                                           <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">));</span>
+          <span class="n">model</span><span class="o">-&gt;</span><span class="n">addGenConstrIndicator</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">],</span>
+                                                 <span class="mi">1</span><span class="p">,</span>
+                                                 <span class="n">z</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">],</span>
+                                                 <span class="n">GRB_LESS_EQUAL</span><span class="p">,</span>
+                                                 <span class="mi">0</span><span class="p">,</span>
+                                                 <span class="s">&quot;z_ind_&quot;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;_L_Mu_&quot;</span> <span class="o">+</span>
+                                                      <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">));</span>
         <span class="p">}</span>
         <span class="c1">// x[i] &lt;= M(1-u) constraint</span>
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">UseIndicators</span><span class="p">)</span> <span class="p">{</span>
           <span class="n">expr</span> <span class="o">=</span> <span class="n">BigM</span> <span class="o">-</span> <span class="n">BigM</span> <span class="o">*</span> <span class="n">u</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">];</span>
-          <span class="n">model</span><span class="o">-&gt;</span><span class="n">addConstr</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">GRB_GREATER_EQUAL</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">second</span><span class="p">],</span>
-                           <span class="s">&quot;x&quot;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;_L_MuDash&quot;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">));</span>
+          <span class="n">model</span><span class="o">-&gt;</span><span class="n">addConstr</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span>
+                                 <span class="n">GRB_GREATER_EQUAL</span><span class="p">,</span>
+                                 <span class="n">x</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">second</span><span class="p">],</span>
+                                 <span class="s">&quot;x&quot;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;_L_MuDash&quot;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">));</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-          <span class="n">model</span><span class="o">-&gt;</span><span class="n">addGenConstrIndicator</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">second</span><span class="p">],</span> <span class="n">GRB_LESS_EQUAL</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
-                                       <span class="s">&quot;x_ind_&quot;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;_L_MuDash_&quot;</span> <span class="o">+</span>
-                                           <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">));</span>
+          <span class="n">model</span><span class="o">-&gt;</span><span class="n">addGenConstrIndicator</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">],</span>
+                                                 <span class="mi">1</span><span class="p">,</span>
+                                                 <span class="n">x</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">second</span><span class="p">],</span>
+                                                 <span class="n">GRB_LESS_EQUAL</span><span class="p">,</span>
+                                                 <span class="mi">0</span><span class="p">,</span>
+                                                 <span class="s">&quot;x_ind_&quot;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;_L_MuDash_&quot;</span> <span class="o">+</span>
+                                                      <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">));</span>
         <span class="p">}</span>
 
         <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">UseIndicators</span><span class="p">)</span>
-          <span class="n">model</span><span class="o">-&gt;</span><span class="n">addConstr</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">]</span> <span class="o">+</span> <span class="n">v</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">],</span> <span class="n">GRB_EQUAL</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
-                           <span class="s">&quot;uv_sum_&quot;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">));</span>
+          <span class="n">model</span><span class="o">-&gt;</span><span class="n">addConstr</span><span class="p">(</span>
+                <span class="n">u</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">]</span> <span class="o">+</span> <span class="n">v</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">],</span> <span class="n">GRB_EQUAL</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;uv_sum_&quot;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">));</span>
      <span class="p">}</span>
      <span class="c1">// If any equation or variable is to be fixed to zero, that happens here!</span>
      <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">i</span> <span class="p">:</span> <span class="n">FixVar</span><span class="p">)</span>
@@ -1000,7 +1016,7 @@
 <span class="p">}</span>
 
 <span class="kt">bool</span> <span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">errorCheck</span><span class="p">(</span><span class="kt">bool</span> <span class="n">throwErr</span>
-<span class="p">)</span> <span class="k">const</span>
+                                    <span class="p">)</span> <span class="k">const</span>
 <span class="p">{</span>
   <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">nR_t</span> <span class="o">=</span> <span class="n">M</span><span class="p">.</span><span class="n">n_rows</span><span class="p">;</span>
   <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">nC_t</span> <span class="o">=</span> <span class="n">M</span><span class="p">.</span><span class="n">n_cols</span><span class="p">;</span>
@@ -1009,9 +1025,9 @@
         <span class="k">throw</span> <span class="n">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">InvalidData</span><span class="p">,</span> <span class="s">&quot;Mismatch in size of M and q (rows)&quot;</span><span class="p">);</span>
      <span class="k">if</span> <span class="p">(</span><span class="n">nR_t</span> <span class="o">+</span> <span class="n">NumberLeader</span> <span class="o">!=</span> <span class="n">nC</span><span class="p">)</span>
         <span class="k">throw</span> <span class="n">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">InvalidData</span><span class="p">,</span>
-                            <span class="s">&quot;Mismatch in size of M and q (columns) -- &quot;</span> <span class="o">+</span>
-                                <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">NumberLeader</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;, number of rows &quot;</span> <span class="o">+</span>
-                                <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">nR_t</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; and number of cols &quot;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">nC</span><span class="p">));</span>
+                                  <span class="s">&quot;Mismatch in size of M and q (columns) -- &quot;</span> <span class="o">+</span>
+                                        <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">NumberLeader</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;, number of rows &quot;</span> <span class="o">+</span>
+                                        <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">nR_t</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; and number of cols &quot;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">nC</span><span class="p">));</span>
   <span class="p">}</span>
   <span class="k">return</span> <span class="p">(</span><span class="n">nR_t</span> <span class="o">==</span> <span class="n">q</span><span class="p">.</span><span class="n">n_rows</span> <span class="o">&amp;&amp;</span> <span class="n">nR_t</span> <span class="o">+</span> <span class="n">NumberLeader</span> <span class="o">==</span> <span class="n">nC_t</span><span class="p">);</span>
 <span class="p">}</span>
@@ -1021,11 +1037,11 @@
 <span class="p">}</span>
 
 <span class="kt">bool</span> <span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">extractSols</span><span class="p">(</span>
-    <span class="n">GRBModel</span> <span class="o">*</span><span class="n">model</span><span class="p">,</span>
-    <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">z</span><span class="p">,</span>
-    <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span>
-    <span class="kt">bool</span> <span class="n">extractZ</span>
-<span class="p">)</span> <span class="k">const</span>
+     <span class="n">GRBModel</span> <span class="o">*</span><span class="n">model</span><span class="p">,</span>
+     <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">z</span><span class="p">,</span>
+     <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span>
+     <span class="kt">bool</span>       <span class="n">extractZ</span>
+     <span class="p">)</span> <span class="k">const</span>
 <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">model</span><span class="o">-&gt;</span><span class="n">get</span><span class="p">(</span><span class="n">GRB_IntAttr_Status</span><span class="p">)</span> <span class="o">==</span> <span class="n">GRB_LOADED</span><span class="p">)</span>
      <span class="n">model</span><span class="o">-&gt;</span><span class="n">optimize</span><span class="p">();</span>
@@ -1053,8 +1069,8 @@
 <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">zFromX</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">M</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">q</span><span class="p">);</span> <span class="p">}</span>
 
 <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">short</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">solEncode</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">z</span><span class="p">,</span>
-                                            <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span>
-<span class="p">)</span> <span class="k">const</span>
+                                                          <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x</span>
+                                                          <span class="p">)</span> <span class="k">const</span>
 <span class="p">{</span>
   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">short</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">solEncoded</span><span class="p">(</span><span class="n">nR</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
   <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="nl">p</span> <span class="p">:</span> <span class="n">Compl</span><span class="p">)</span> <span class="p">{</span>
@@ -1067,7 +1083,7 @@
         <span class="n">solEncoded</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">--</span><span class="p">;</span>
      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isZero</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">j</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">isZero</span><span class="p">(</span><span class="n">z</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span>
         <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Infeasible point given! Stay alert! &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">x</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">z</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-                                 <span class="o">&lt;&lt;</span> <span class="s">&quot; with i=&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+                                         <span class="o">&lt;&lt;</span> <span class="s">&quot; with i=&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
   <span class="p">};</span>
   <span class="c1">// std::stringstream enc_str;</span>
   <span class="c1">// for(auto vv:solEncoded) enc_str &lt;&lt; vv &lt;&lt;&quot; &quot;;</span>
@@ -1089,9 +1105,9 @@
 <span class="p">{</span>
   <span class="k">this</span><span class="o">-&gt;</span><span class="n">makeRelaxed</span><span class="p">();</span>
   <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">GRBModel</span><span class="o">&gt;</span> <span class="n">model</span><span class="p">(</span><span class="k">new</span> <span class="n">GRBModel</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">RlxdModel</span><span class="p">));</span>
-  <span class="n">GRBQuadExpr</span> <span class="n">obj</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="n">GRBVar</span> <span class="n">x</span><span class="p">[</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">nR</span><span class="p">];</span>
-  <span class="n">GRBVar</span> <span class="n">z</span><span class="p">[</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">nR</span><span class="p">];</span>
+  <span class="n">GRBQuadExpr</span>               <span class="n">obj</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">GRBVar</span>                    <span class="n">x</span><span class="p">[</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">nR</span><span class="p">];</span>
+  <span class="n">GRBVar</span>                    <span class="n">z</span><span class="p">[</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">nR</span><span class="p">];</span>
   <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="nl">p</span> <span class="p">:</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">)</span> <span class="p">{</span>
      <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
      <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">second</span><span class="p">;</span>
@@ -1120,8 +1136,10 @@
   <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">LCPasMIP</span><span class="p">({},</span> <span class="p">{},</span> <span class="n">solve</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">GRBModel</span><span class="o">&gt;</span> <span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">MPECasMILP</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">C</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">,</span>
-                                                <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x_minus_i</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">solve</span><span class="p">)</span>
+<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">GRBModel</span><span class="o">&gt;</span> <span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">MPECasMILP</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">C</span><span class="p">,</span>
+                                                                <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span>   <span class="n">c</span><span class="p">,</span>
+                                                                <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span>   <span class="n">x_minus_i</span><span class="p">,</span>
+                                                                <span class="kt">bool</span>                <span class="n">solve</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">GRBModel</span><span class="o">&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">LCPasMIP</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
   <span class="c1">// Reset the solution limit. We need to solve to optimality</span>
@@ -1138,7 +1156,7 @@
   <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
      <span class="k">throw</span> <span class="n">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">Numeric</span><span class="p">,</span> <span class="n">e</span><span class="p">);</span>
   <span class="p">}</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">c</span> <span class="o">+</span> <span class="n">Cx</span><span class="p">;</span>
+  <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>  <span class="n">obj</span> <span class="o">=</span> <span class="n">c</span> <span class="o">+</span> <span class="n">Cx</span><span class="p">;</span>
   <span class="n">GRBLinExpr</span> <span class="n">expr</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
   <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">obj</span><span class="p">.</span><span class="n">n_rows</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
      <span class="n">expr</span> <span class="o">+=</span> <span class="n">obj</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">model</span><span class="o">-&gt;</span><span class="n">getVarByName</span><span class="p">(</span><span class="s">&quot;x_&quot;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
@@ -1150,9 +1168,11 @@
   <span class="k">return</span> <span class="n">model</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">GRBModel</span><span class="o">&gt;</span> <span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">MPECasMIQP</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">Q</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">C</span><span class="p">,</span>
-                                                <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">x_minus_i</span><span class="p">,</span>
-                                                <span class="kt">bool</span> <span class="n">solve</span><span class="p">)</span>
+<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">GRBModel</span><span class="o">&gt;</span> <span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">MPECasMIQP</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">Q</span><span class="p">,</span>
+                                                                <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">C</span><span class="p">,</span>
+                                                                <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span>   <span class="n">c</span><span class="p">,</span>
+                                                                <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span>   <span class="n">x_minus_i</span><span class="p">,</span>
+                                                                <span class="kt">bool</span>                <span class="n">solve</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">auto</span> <span class="n">model</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MPECasMILP</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">x_minus_i</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">Q</span><span class="p">.</span><span class="n">n_nonzero</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">// If Q is zero, then just solve MIP as opposed to MIQP!</span>
@@ -1160,7 +1180,7 @@
      <span class="n">GRBQuadExpr</span> <span class="n">expr</span><span class="p">{</span><span class="n">model</span><span class="o">-&gt;</span><span class="n">getObjective</span><span class="p">()};</span>
      <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">Q</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">Q</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">it</span><span class="p">)</span>
         <span class="n">expr</span> <span class="o">+=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="o">*</span><span class="n">it</span><span class="p">)</span> <span class="o">*</span> <span class="n">model</span><span class="o">-&gt;</span><span class="n">getVarByName</span><span class="p">(</span><span class="s">&quot;x_&quot;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">row</span><span class="p">()))</span> <span class="o">*</span>
-                <span class="n">model</span><span class="o">-&gt;</span><span class="n">getVarByName</span><span class="p">(</span><span class="s">&quot;x_&quot;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">col</span><span class="p">()));</span>
+                  <span class="n">model</span><span class="o">-&gt;</span><span class="n">getVarByName</span><span class="p">(</span><span class="s">&quot;x_&quot;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">col</span><span class="p">()));</span>
      <span class="n">model</span><span class="o">-&gt;</span><span class="n">setObjective</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">GRB_MINIMIZE</span><span class="p">);</span>
   <span class="p">}</span>
   <span class="n">model</span><span class="o">-&gt;</span><span class="n">update</span><span class="p">();</span>
@@ -1174,14 +1194,14 @@
 
   <span class="n">outfile</span> <span class="o">&lt;&lt;</span> <span class="n">nR</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; rows and &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">nC</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; columns in the LCP</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
   <span class="n">outfile</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;LeadStart: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">LeadStart</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; </span><span class="se">\n</span><span class="s">LeadEnd: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">LeadEnd</span>
-          <span class="o">&lt;&lt;</span> <span class="s">&quot; </span><span class="se">\n</span><span class="s">nLeader: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">NumberLeader</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">;</span>
+             <span class="o">&lt;&lt;</span> <span class="s">&quot; </span><span class="se">\n</span><span class="s">nLeader: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">NumberLeader</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">;</span>
 
   <span class="n">outfile</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;M: &quot;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">M</span><span class="p">;</span>
   <span class="n">outfile</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;q: &quot;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">q</span><span class="p">;</span>
   <span class="n">outfile</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Complementarity: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
   <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="o">&amp;</span><span class="nl">p</span> <span class="p">:</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Compl</span><span class="p">)</span>
      <span class="n">outfile</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;&lt;&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">.</span><span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">.</span><span class="n">second</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;&gt;&quot;</span>
-             <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">;</span>
+                <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">;</span>
   <span class="n">outfile</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;A: &quot;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">_A</span><span class="p">;</span>
   <span class="n">outfile</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;b: &quot;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">_b</span><span class="p">;</span>
   <span class="n">outfile</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
@@ -1204,8 +1224,8 @@
 <span class="kt">long</span> <span class="kt">int</span> <span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">load</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">filename</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">pos</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Env</span><span class="p">)</span>
      <span class="k">throw</span> <span class="n">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">Assertion</span><span class="p">,</span>
-                         <span class="s">&quot; To load LCP from file, it has to be constructed &quot;</span>
-                         <span class="s">&quot;using LCP(GRBEnv*) constructor&quot;</span><span class="p">);</span>
+                                <span class="s">&quot; To load LCP from file, it has to be constructed &quot;</span>
+                                <span class="s">&quot;using LCP(GRBEnv*) constructor&quot;</span><span class="p">);</span>
 
   <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">headercheck</span><span class="p">;</span>
   <span class="n">pos</span> <span class="o">=</span> <span class="n">Utils</span><span class="o">::</span><span class="n">appendRead</span><span class="p">(</span><span class="n">headercheck</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">pos</span><span class="p">);</span>
@@ -1213,7 +1233,7 @@
      <span class="k">throw</span> <span class="n">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">IOError</span><span class="p">,</span> <span class="s">&quot;Invalid header&quot;</span><span class="p">);</span>
 
   <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">M_t</span><span class="p">,</span> <span class="n">A</span><span class="p">;</span>
-  <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">q_t</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+  <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>    <span class="n">q_t</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
   <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">LeadStart_t</span><span class="p">,</span> <span class="n">LeadEnd_t</span><span class="p">;</span>
   <span class="n">pos</span> <span class="o">=</span> <span class="n">Utils</span><span class="o">::</span><span class="n">appendRead</span><span class="p">(</span><span class="n">M_t</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;LCP::M&quot;</span><span class="p">));</span>
   <span class="n">pos</span> <span class="o">=</span> <span class="n">Utils</span><span class="o">::</span><span class="n">appendRead</span><span class="p">(</span><span class="n">q_t</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;LCP::q&quot;</span><span class="p">));</span>
@@ -1236,15 +1256,16 @@
      <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">LeadStart</span> <span class="o">?</span> <span class="nl">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">NumberLeader</span><span class="p">;</span>
      <span class="n">Compl</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="n">i</span><span class="p">,</span> <span class="n">count</span><span class="p">});</span>
   <span class="p">}</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">Compl</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">Compl</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
-            <span class="p">[](</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
-               <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">first</span> <span class="o">&lt;=</span> <span class="n">b</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
-            <span class="p">});</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">Compl</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span>
+                <span class="n">Compl</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+                <span class="p">[](</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+                  <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">first</span> <span class="o">&lt;=</span> <span class="n">b</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+                <span class="p">});</span>
   <span class="k">return</span> <span class="n">pos</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">convexHull</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">&amp;</span><span class="n">A</span><span class="p">,</span>
-                                   <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+                                              <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
 
 <span class="p">{</span>
   <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="o">*&gt;</span> <span class="n">tempAi</span> <span class="o">=</span> <span class="p">[](</span><span class="n">spmat_Vec</span> <span class="o">&amp;</span><span class="n">uv</span><span class="p">)</span> <span class="p">{</span>
@@ -1255,8 +1276,9 @@
   <span class="p">}(</span><span class="o">*</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Ai</span><span class="p">);</span>
   <span class="k">const</span> <span class="k">auto</span> <span class="n">tempbi</span> <span class="o">=</span> <span class="p">[](</span><span class="n">vec_Vec</span> <span class="o">&amp;</span><span class="n">uv</span><span class="p">)</span> <span class="p">{</span>
      <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="o">*&gt;</span> <span class="n">v</span><span class="p">{};</span>
-     <span class="n">std</span><span class="o">::</span><span class="n">for_each</span><span class="p">(</span><span class="n">uv</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">uv</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
-                   <span class="p">[</span><span class="o">&amp;</span><span class="n">v</span><span class="p">](</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">ptr</span><span class="p">)</span> <span class="p">{</span> <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">ptr</span><span class="p">.</span><span class="n">get</span><span class="p">());</span> <span class="p">});</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">for_each</span><span class="p">(</span><span class="n">uv</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">uv</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">v</span><span class="p">](</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">ptr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">ptr</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+     <span class="p">});</span>
      <span class="k">return</span> <span class="n">v</span><span class="p">;</span>
   <span class="p">}(</span><span class="o">*</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">bi</span><span class="p">);</span>
   <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">A_common</span> <span class="o">=</span> <span class="n">arma</span><span class="o">::</span><span class="n">join_cols</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">_A</span><span class="p">,</span> <span class="o">-</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">M</span><span class="p">);</span>
@@ -1275,7 +1297,7 @@
 <span class="p">}</span>
 
 <span class="kt">void</span> <span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">makeQP</span><span class="p">(</span><span class="n">Game</span><span class="o">::</span><span class="n">QP_Objective</span> <span class="o">&amp;</span><span class="n">QP_obj</span><span class="p">,</span>
-                       <span class="n">Game</span><span class="o">::</span><span class="n">QP_Param</span> <span class="o">&amp;</span><span class="n">QP</span>
+                              <span class="n">Game</span><span class="o">::</span><span class="n">QP_Param</span> <span class="o">&amp;</span><span class="n">QP</span>
 <span class="p">)</span> <span class="p">{</span>
   <span class="c1">// Original sizes</span>
   <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Ai</span><span class="o">-&gt;</span><span class="n">empty</span><span class="p">())</span>
@@ -1283,7 +1305,7 @@
   <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">oldNumVariablesX</span><span class="p">{</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">QP_obj</span><span class="p">.</span><span class="n">C</span><span class="p">.</span><span class="n">n_cols</span><span class="p">)};</span>
 
   <span class="n">Game</span><span class="o">::</span><span class="n">QP_Constraints</span> <span class="n">QP_cons</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">components</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">convexHull</span><span class="p">(</span><span class="n">QP_cons</span><span class="p">.</span><span class="n">B</span><span class="p">,</span> <span class="n">QP_cons</span><span class="p">.</span><span class="n">b</span><span class="p">);</span>
+  <span class="kt">int</span>                  <span class="n">components</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">convexHull</span><span class="p">(</span><span class="n">QP_cons</span><span class="p">.</span><span class="n">B</span><span class="p">,</span> <span class="n">QP_cons</span><span class="p">.</span><span class="n">b</span><span class="p">);</span>
   <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;OuterLCP::makeQP: No. components: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">components</span><span class="p">;</span>
   <span class="c1">// Updated size after convex hull has been computed.</span>
   <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">numConstraints</span><span class="p">{</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">QP_cons</span><span class="p">.</span><span class="n">B</span><span class="p">.</span><span class="n">n_rows</span><span class="p">)};</span>
@@ -1297,7 +1319,7 @@
   <span class="n">QP</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">QP_obj</span><span class="p">,</span> <span class="n">QP_cons</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="kt">void</span> <span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">addCustomCuts</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">A</span><span class="p">,</span>
-                              <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">b</span>
+                                        <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>    <span class="n">b</span>
 <span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">_A</span><span class="p">.</span><span class="n">n_cols</span> <span class="o">!=</span> <span class="n">A</span><span class="p">.</span><span class="n">n_cols</span><span class="p">)</span>
      <span class="k">throw</span> <span class="n">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">InvalidData</span><span class="p">,</span> <span class="s">&quot;Mismatch in A columns&quot;</span><span class="p">);</span>
@@ -1312,8 +1334,8 @@
 <span class="p">}</span>
 
 <span class="kt">bool</span> <span class="n">Game</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">containCut</span><span class="p">(</span><span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">LHS</span><span class="p">,</span>
-                           <span class="k">const</span> <span class="kt">double</span> <span class="n">RHS</span><span class="p">,</span>
-                           <span class="kt">double</span> <span class="n">tol</span>
+                                    <span class="k">const</span> <span class="kt">double</span>    <span class="n">RHS</span><span class="p">,</span>
+                                    <span class="kt">double</span>          <span class="n">tol</span>
 <span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="n">Utils</span><span class="o">::</span><span class="n">containsConstraint</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">_Acut</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">_bcut</span><span class="p">,</span> <span class="n">LHS</span><span class="p">,</span> <span class="n">RHS</span><span class="p">,</span> <span class="n">tol</span><span class="p">);</span>
 <span class="p">}</span>

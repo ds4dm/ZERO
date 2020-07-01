@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Program Listing for File ipg_oracle.cpp &mdash; Python 1.0.0 documentation</title>
+  <title>Program Listing for File ipg_oracle.cpp &mdash; ZERO 1.0.0 documentation</title>
   
 
   
@@ -93,7 +93,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#cmake">CMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#downloading-and-compiling">Downloading and Compiling</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
@@ -696,7 +697,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Python</a>
+          <a href="../index.html">ZERO</a>
         
       </nav>
 
@@ -759,18 +760,19 @@
 
 <span class="kt">bool</span> <span class="n">Algorithms</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Oracle</span><span class="o">::</span><span class="n">isSolved</span><span class="p">(</span><span class="kt">double</span> <span class="n">tol</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Feasible</span><span class="p">;</span> <span class="p">}</span>
 
-<span class="kt">void</span> <span class="n">Algorithms</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Oracle</span><span class="o">::</span><span class="n">addValueCut</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">xOfIBestResponse</span><span class="p">,</span>
-                                          <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">xMinusI</span><span class="p">)</span> <span class="p">{</span>
+<span class="kt">void</span> <span class="n">Algorithms</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Oracle</span><span class="o">::</span><span class="n">addValueCut</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span>
+                                                        <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>    <span class="n">xOfIBestResponse</span><span class="p">,</span>
+                                                        <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>    <span class="n">xMinusI</span><span class="p">)</span> <span class="p">{</span>
 
   <span class="kt">double</span> <span class="n">cutRHS</span> <span class="o">=</span>
-      <span class="k">this</span><span class="o">-&gt;</span><span class="n">IPG</span><span class="o">-&gt;</span><span class="n">PlayersIP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">player</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">computeObjective</span><span class="p">(</span><span class="n">xOfIBestResponse</span><span class="p">,</span> <span class="n">xMinusI</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">IPG</span><span class="o">-&gt;</span><span class="n">PlayersIP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">player</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">computeObjective</span><span class="p">(</span><span class="n">xOfIBestResponse</span><span class="p">,</span> <span class="n">xMinusI</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
   <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">LHS</span> <span class="o">=</span>
-      <span class="k">this</span><span class="o">-&gt;</span><span class="n">IPG</span><span class="o">-&gt;</span><span class="n">PlayersIP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">player</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getc</span><span class="p">()</span> <span class="o">+</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">IPG</span><span class="o">-&gt;</span><span class="n">PlayersIP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">player</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getC</span><span class="p">()</span> <span class="o">*</span> <span class="n">xMinusI</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">IPG</span><span class="o">-&gt;</span><span class="n">PlayersIP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">player</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getc</span><span class="p">()</span> <span class="o">+</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">IPG</span><span class="o">-&gt;</span><span class="n">PlayersIP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">player</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getC</span><span class="p">()</span> <span class="o">*</span> <span class="n">xMinusI</span><span class="p">;</span>
   <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">cutLHS</span> <span class="o">=</span>
-      <span class="n">Utils</span><span class="o">::</span><span class="n">resizePatch</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="p">{</span><span class="n">LHS</span><span class="p">}.</span><span class="n">t</span><span class="p">(),</span> <span class="mi">1</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">IPG</span><span class="o">-&gt;</span><span class="n">PlayersIP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">player</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getC</span><span class="p">().</span><span class="n">n_cols</span><span class="p">);</span>
+        <span class="n">Utils</span><span class="o">::</span><span class="n">resizePatch</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="p">{</span><span class="n">LHS</span><span class="p">}.</span><span class="n">t</span><span class="p">(),</span> <span class="mi">1</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">IPG</span><span class="o">-&gt;</span><span class="n">PlayersIP</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">player</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getC</span><span class="p">().</span><span class="n">n_cols</span><span class="p">);</span>
   <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">info</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::IPG::Oracle::addValueCut: &quot;</span>
-                             <span class="s">&quot;adding cut for Player &quot;</span>
-                          <span class="o">&lt;&lt;</span> <span class="n">player</span><span class="p">;</span>
+                                      <span class="s">&quot;adding cut for Player &quot;</span>
+                                  <span class="o">&lt;&lt;</span> <span class="n">player</span><span class="p">;</span>
   <span class="c1">//@todo add cut</span>
   <span class="c1">// this-&gt;outerLCP.at(player)-&gt;addCustomCuts(-cutLHS, arma::vec{-cutRHS});</span>
 <span class="p">}</span>
@@ -782,16 +784,16 @@
      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
 
   <span class="c1">// Then, the feasibility is implied also by the deviations</span>
-  <span class="kt">bool</span> <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="nb">true</span><span class="p">};</span>
+  <span class="kt">bool</span>      <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="nb">true</span><span class="p">};</span>
   <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">bestResponse</span><span class="p">;</span>
   <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">currentPayoffs</span> <span class="o">=</span>
-      <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">TheNashGame</span><span class="o">-&gt;</span><span class="n">computeQPObjectiveValues</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">SolutionX</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">TheNashGame</span><span class="o">-&gt;</span><span class="n">computeQPObjectiveValues</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">SolutionX</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
   <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">NumPlayers</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Trees</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">resetFeasibility</span><span class="p">();</span>
      <span class="kt">double</span> <span class="n">val</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">respondSol</span><span class="p">(</span><span class="n">bestResponse</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">SolutionX</span><span class="p">);</span>
      <span class="k">if</span> <span class="p">(</span><span class="n">val</span> <span class="o">==</span> <span class="n">GRB_INFINITY</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::OuterApproximation:: Unbounded deviation for &quot;</span>
-                                 <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+                                         <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
         <span class="n">addedCuts</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
         <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
      <span class="p">}</span>
@@ -805,10 +807,10 @@
           <span class="c1">//@todo can this happen?</span>
 
           <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">warning</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::OuterApproximation::&quot;</span>
-                                        <span class="s">&quot;isFeasible: No best response for Player &quot;</span>
-                                     <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+                                                  <span class="s">&quot;isFeasible: No best response for Player &quot;</span>
+                                              <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
           <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::OuterApproximation:: &quot;</span>
-                                   <span class="o">&lt;&lt;</span> <span class="n">currentPayoffs</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; vs &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">val</span><span class="p">;</span>
+                                            <span class="o">&lt;&lt;</span> <span class="n">currentPayoffs</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; vs &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">val</span><span class="p">;</span>
           <span class="n">result</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
           <span class="c1">// throw;</span>
           <span class="c1">// throw;</span>
@@ -820,8 +822,8 @@
           <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">getXMinusI</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">SolutionX</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">xMinusI</span><span class="p">);</span>
           <span class="k">this</span><span class="o">-&gt;</span><span class="n">addValueCut</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">bestResponse</span><span class="p">,</span> <span class="n">xMinusI</span><span class="p">);</span>
           <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">info</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::OuterApproximation::isFeasible: &quot;</span>
-                                     <span class="s">&quot;Value cut at for Player &quot;</span>
-                                  <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+                                              <span class="s">&quot;Value cut at for Player &quot;</span>
+                                          <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
           <span class="n">result</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
         <span class="p">}</span>
      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -836,12 +838,12 @@
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">Utils</span><span class="o">::</span><span class="n">containsRow</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Trees</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getV</span><span class="p">(),</span> <span class="n">vertex</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Tolerance</span><span class="p">))</span> <span class="p">{</span>
           <span class="k">this</span><span class="o">-&gt;</span><span class="n">Trees</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">addVertex</span><span class="p">(</span><span class="n">vertex</span><span class="p">);</span>
           <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">info</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::OuterApproximation::isFeasible: &quot;</span>
-                                     <span class="s">&quot;Adding vertex as of best response for Player &quot;</span>
-                                  <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; (Best Response)&quot;</span><span class="p">;</span>
+                                              <span class="s">&quot;Adding vertex as of best response for Player &quot;</span>
+                                          <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; (Best Response)&quot;</span><span class="p">;</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
           <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">info</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::OuterApproximation::isFeasible: &quot;</span>
-                                     <span class="s">&quot;Already known best response for Player &quot;</span>
-                                  <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; (Best Response)&quot;</span><span class="p">;</span>
+                                              <span class="s">&quot;Already known best response for Player &quot;</span>
+                                          <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; (Best Response)&quot;</span><span class="p">;</span>
         <span class="p">}</span>
 
         <span class="c1">// Check if best response coincides with the strategy in the equilibrium</span>
@@ -861,8 +863,8 @@
           <span class="kt">int</span> <span class="n">budget</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span>
           <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">separationOracle</span><span class="p">(</span><span class="n">xOfI</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">EPECObject</span><span class="o">-&gt;</span><span class="n">SolutionX</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">budget</span><span class="p">,</span> <span class="n">addedCuts</span><span class="p">))</span> <span class="p">{</span>
              <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::OuterApproximation::isFeasible: &quot;</span>
-                                         <span class="s">&quot;Oracle gave a negative answer for Player &quot;</span>
-                                      <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+                                                  <span class="s">&quot;Oracle gave a negative answer for Player &quot;</span>
+                                              <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
              <span class="n">result</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
           <span class="p">}</span>
 
@@ -870,8 +872,8 @@
           <span class="k">this</span><span class="o">-&gt;</span><span class="n">Trees</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">setFeasible</span><span class="p">();</span>
           <span class="k">this</span><span class="o">-&gt;</span><span class="n">Trees</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">setPure</span><span class="p">();</span>
           <span class="n">BOOST_LOG_TRIVIAL</span><span class="p">(</span><span class="n">info</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Algorithms::EPEC::OuterApproximation::isFeasible: &quot;</span>
-                                     <span class="s">&quot;Feasible strategy for Player &quot;</span>
-                                  <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; (Best Response)&quot;</span><span class="p">;</span>
+                                              <span class="s">&quot;Feasible strategy for Player &quot;</span>
+                                          <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; (Best Response)&quot;</span><span class="p">;</span>
         <span class="p">}</span>
      <span class="p">}</span>
   <span class="p">}</span>
@@ -879,18 +881,18 @@
 <span class="p">}</span>
 
 <span class="kt">bool</span> <span class="n">Algorithms</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Oracle</span><span class="o">::</span><span class="n">addConstraintsToPool</span><span class="p">(</span>
-    <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">A</span><span class="p">,</span>
-    <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span> <span class="n">b</span><span class="p">,</span>
-    <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span>
-    <span class="kt">bool</span> <span class="n">check</span>
+     <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">A</span><span class="p">,</span>
+     <span class="k">const</span> <span class="n">arma</span><span class="o">::</span><span class="n">vec</span>    <span class="n">b</span><span class="p">,</span>
+     <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">player</span><span class="p">,</span>
+     <span class="kt">bool</span>               <span class="n">check</span>
 <span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">CutPool_A</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">player</span> <span class="o">||</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">CutPool_b</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">player</span><span class="p">)</span>
      <span class="k">throw</span> <span class="n">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">InvalidData</span><span class="p">,</span>
-                         <span class="s">&quot;Mismatch between CutPool size and player number&quot;</span><span class="p">);</span>
+                                <span class="s">&quot;Mismatch between CutPool size and player number&quot;</span><span class="p">);</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">CutPool_A</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">player</span><span class="p">).</span><span class="n">n_cols</span> <span class="o">!=</span> <span class="n">A</span><span class="p">.</span><span class="n">n_cols</span><span class="p">)</span>
      <span class="k">throw</span> <span class="n">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">InvalidData</span><span class="p">,</span>
-                         <span class="s">&quot;Mismatch between the CutPool of the player and the input matrix&quot;</span><span class="p">);</span>
+                                <span class="s">&quot;Mismatch between the CutPool of the player and the input matrix&quot;</span><span class="p">);</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">!=</span> <span class="n">A</span><span class="p">.</span><span class="n">n_rows</span><span class="p">)</span>
      <span class="k">throw</span> <span class="n">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">InvalidData</span><span class="p">,</span> <span class="s">&quot;Mismatch between the rows of the inputs&quot;</span><span class="p">);</span>
 
@@ -899,8 +901,11 @@
      <span class="kt">bool</span> <span class="n">ret</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
   <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">A</span><span class="p">.</span><span class="n">n_rows</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
      <span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span> <span class="n">Ai</span> <span class="o">=</span> <span class="n">A</span><span class="p">.</span><span class="n">submat</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">A</span><span class="p">.</span><span class="n">n_cols</span><span class="p">);</span>
-     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">Utils</span><span class="o">::</span><span class="n">containsConstraint</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">CutPool_A</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">player</span><span class="p">),</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">CutPool_b</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">player</span><span class="p">),</span> <span class="n">Ai</span><span class="p">,</span>
-                                    <span class="n">b</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">player</span><span class="p">),</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Tolerance</span><span class="p">))</span> <span class="p">{</span>
+     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">Utils</span><span class="o">::</span><span class="n">containsConstraint</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">CutPool_A</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">player</span><span class="p">),</span>
+                                              <span class="k">this</span><span class="o">-&gt;</span><span class="n">CutPool_b</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">player</span><span class="p">),</span>
+                                              <span class="n">Ai</span><span class="p">,</span>
+                                              <span class="n">b</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">player</span><span class="p">),</span>
+                                              <span class="k">this</span><span class="o">-&gt;</span><span class="n">Tolerance</span><span class="p">))</span> <span class="p">{</span>
         <span class="c1">// This constraint does not exist</span>
         <span class="n">ret</span>                        <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
         <span class="k">this</span><span class="o">-&gt;</span><span class="n">CutPool_A</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">player</span><span class="p">)</span> <span class="o">=</span> <span class="n">arma</span><span class="o">::</span><span class="n">join_cols</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">CutPool_A</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">player</span><span class="p">),</span> <span class="n">Ai</span><span class="p">);</span>

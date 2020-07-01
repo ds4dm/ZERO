@@ -20,18 +20,19 @@ Program Listing for File ipg_oracle.cpp
    
    bool Algorithms::IPG::Oracle::isSolved(double tol) const { return this->Feasible; }
    
-   void Algorithms::IPG::Oracle::addValueCut(unsigned int player, arma::vec xOfIBestResponse,
-                                             arma::vec xMinusI) {
+   void Algorithms::IPG::Oracle::addValueCut(unsigned int player,
+                                                           arma::vec    xOfIBestResponse,
+                                                           arma::vec    xMinusI) {
    
      double cutRHS =
-         this->IPG->PlayersIP.at(player)->computeObjective(xOfIBestResponse, xMinusI, false);
+           this->IPG->PlayersIP.at(player)->computeObjective(xOfIBestResponse, xMinusI, false);
      arma::vec LHS =
-         this->IPG->PlayersIP.at(player)->getc() + this->IPG->PlayersIP.at(player)->getC() * xMinusI;
+           this->IPG->PlayersIP.at(player)->getc() + this->IPG->PlayersIP.at(player)->getC() * xMinusI;
      arma::sp_mat cutLHS =
-         Utils::resizePatch(arma::sp_mat{LHS}.t(), 1, this->IPG->PlayersIP.at(player)->getC().n_cols);
+           Utils::resizePatch(arma::sp_mat{LHS}.t(), 1, this->IPG->PlayersIP.at(player)->getC().n_cols);
      BOOST_LOG_TRIVIAL(info) << "Algorithms::IPG::Oracle::addValueCut: "
-                                "adding cut for Player "
-                             << player;
+                                         "adding cut for Player "
+                                     << player;
      //@todo add cut
      // this->outerLCP.at(player)->addCustomCuts(-cutLHS, arma::vec{-cutRHS});
    }
@@ -43,16 +44,16 @@ Program Listing for File ipg_oracle.cpp
         return false;
    
      // Then, the feasibility is implied also by the deviations
-     bool result = {true};
+     bool      result = {true};
      arma::vec bestResponse;
      arma::vec currentPayoffs =
-         this->EPECObject->TheNashGame->computeQPObjectiveValues(this->EPECObject->SolutionX, true);
+           this->EPECObject->TheNashGame->computeQPObjectiveValues(this->EPECObject->SolutionX, true);
      for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i) {
         this->Trees.at(i)->resetFeasibility();
         double val = this->EPECObject->respondSol(bestResponse, i, this->EPECObject->SolutionX);
         if (val == GRB_INFINITY) {
            BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::OuterApproximation:: Unbounded deviation for "
-                                    << i;
+                                            << i;
            addedCuts = false;
            return false;
         }
@@ -66,10 +67,10 @@ Program Listing for File ipg_oracle.cpp
              //@todo can this happen?
    
              BOOST_LOG_TRIVIAL(warning) << "Algorithms::EPEC::OuterApproximation::"
-                                           "isFeasible: No best response for Player "
-                                        << i;
+                                                     "isFeasible: No best response for Player "
+                                                 << i;
              BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::OuterApproximation:: "
-                                      << currentPayoffs.at(i) << " vs " << val;
+                                               << currentPayoffs.at(i) << " vs " << val;
              result = false;
              // throw;
              // throw;
@@ -81,8 +82,8 @@ Program Listing for File ipg_oracle.cpp
              this->EPECObject->getXMinusI(this->EPECObject->SolutionX, i, xMinusI);
              this->addValueCut(i, bestResponse, xMinusI);
              BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::isFeasible: "
-                                        "Value cut at for Player "
-                                     << i;
+                                                 "Value cut at for Player "
+                                             << i;
              result = false;
            }
         } else {
@@ -97,12 +98,12 @@ Program Listing for File ipg_oracle.cpp
            if (!Utils::containsRow(*this->Trees.at(i)->getV(), vertex, this->Tolerance)) {
              this->Trees.at(i)->addVertex(vertex);
              BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::isFeasible: "
-                                        "Adding vertex as of best response for Player "
-                                     << i << " (Best Response)";
+                                                 "Adding vertex as of best response for Player "
+                                             << i << " (Best Response)";
            } else {
              BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::isFeasible: "
-                                        "Already known best response for Player "
-                                     << i << " (Best Response)";
+                                                 "Already known best response for Player "
+                                             << i << " (Best Response)";
            }
    
            // Check if best response coincides with the strategy in the equilibrium
@@ -122,8 +123,8 @@ Program Listing for File ipg_oracle.cpp
              int budget = 15;
              if (!this->separationOracle(xOfI, this->EPECObject->SolutionX, i, budget, addedCuts)) {
                 BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::OuterApproximation::isFeasible: "
-                                            "Oracle gave a negative answer for Player "
-                                         << i;
+                                                     "Oracle gave a negative answer for Player "
+                                                 << i;
                 result = false;
              }
    
@@ -131,8 +132,8 @@ Program Listing for File ipg_oracle.cpp
              this->Trees.at(i)->setFeasible();
              this->Trees.at(i)->setPure();
              BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::isFeasible: "
-                                        "Feasible strategy for Player "
-                                     << i << " (Best Response)";
+                                                 "Feasible strategy for Player "
+                                             << i << " (Best Response)";
            }
         }
      }
@@ -140,18 +141,18 @@ Program Listing for File ipg_oracle.cpp
    }
    
    bool Algorithms::IPG::Oracle::addConstraintsToPool(
-       const arma::sp_mat A,      
-       const arma::vec b,         
-       const unsigned int player, 
-       bool check                 
+        const arma::sp_mat A,      
+        const arma::vec    b,      
+        const unsigned int player, 
+        bool               check   
    ) {
      if (this->CutPool_A.size() < player || this->CutPool_b.size() < player)
         throw ZEROException(ZEROErrorCode::InvalidData,
-                            "Mismatch between CutPool size and player number");
+                                   "Mismatch between CutPool size and player number");
    
      if (this->CutPool_A.at(player).n_cols != A.n_cols)
         throw ZEROException(ZEROErrorCode::InvalidData,
-                            "Mismatch between the CutPool of the player and the input matrix");
+                                   "Mismatch between the CutPool of the player and the input matrix");
      if (b.size() != A.n_rows)
         throw ZEROException(ZEROErrorCode::InvalidData, "Mismatch between the rows of the inputs");
    
@@ -160,8 +161,11 @@ Program Listing for File ipg_oracle.cpp
         bool ret = true;
      for (unsigned int i = 0; i < A.n_rows; i++) {
         arma::sp_mat Ai = A.submat(i, 0, i, A.n_cols);
-        if (!Utils::containsConstraint(this->CutPool_A.at(player), this->CutPool_b.at(player), Ai,
-                                       b.at(player), this->Tolerance)) {
+        if (!Utils::containsConstraint(this->CutPool_A.at(player),
+                                                 this->CutPool_b.at(player),
+                                                 Ai,
+                                                 b.at(player),
+                                                 this->Tolerance)) {
            // This constraint does not exist
            ret                        = true;
            this->CutPool_A.at(player) = arma::join_cols(this->CutPool_A.at(player), Ai);

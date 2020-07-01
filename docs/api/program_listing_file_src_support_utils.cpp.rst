@@ -18,8 +18,8 @@ Program Listing for File utils.cpp
    using namespace std;
    using namespace arma;
    
-   arma::sp_mat Utils::resizePatch(const arma::sp_mat &mat, const unsigned int nR,
-                                   const unsigned int nC) {
+   arma::sp_mat
+   Utils::resizePatch(const arma::sp_mat &mat, const unsigned int nR, const unsigned int nC) {
      arma::sp_mat mMat(nR, nC);
      mMat.zeros();
      if (nR >= mat.n_rows && nC >= mat.n_cols) {
@@ -30,7 +30,7 @@ Program Listing for File utils.cpp
            mMat = mat.submat(0, 0, nR, nC);
         else
            throw ZEROException(ZEROErrorCode::OutOfRange,
-                               "Either both dimension should be smaller or larger.");
+                                     "Either both dimension should be smaller or larger.");
      }
      return mMat;
    }
@@ -47,7 +47,7 @@ Program Listing for File utils.cpp
            mMat = mat.submat(0, 0, nR, nC);
         else
            throw ZEROException(ZEROErrorCode::OutOfRange,
-                               "Either both dimension should be smaller or larger.");
+                                     "Either both dimension should be smaller or larger.");
      }
      return mMat;
    }
@@ -64,10 +64,10 @@ Program Listing for File utils.cpp
    }
    
    void Utils::appendSave(const sp_mat &matrix, 
-                          const string out,     
-                          const string header,  
-                          bool erase            
-                          )
+                                 const string  out,    
+                                 const string  header, 
+                                 bool erase            
+                                 )
    {
      // Using C++ file operations to copy the data into the target given by @out
      unsigned int nR{0}, nC{0}, nnz{0};
@@ -82,16 +82,16 @@ Program Listing for File utils.cpp
      outfile << nR << "\t" << nC << "\t" << nnz << "\n";
      for (auto it = matrix.begin(); it != matrix.end(); ++it)
         outfile << it.row() << "\t" << it.col() << "\t" << (*it)
-                << "\n"; // Write the required information of sp_mat
+                   << "\n"; // Write the required information of sp_mat
      outfile << "\n";
      outfile.close(); // and close it
    }
    
-   long int Utils::appendRead(sp_mat &matrix,  
-                              const string in, 
-                              long int pos, 
-                              const string header 
-                              )
+   long int Utils::appendRead(sp_mat &     matrix, 
+                                       const string in, 
+                                       long int pos, 
+                                       const string header 
+                                       )
    {
      unsigned int nR = 0, nC = 0, nnz = 0;
    
@@ -103,17 +103,17 @@ Program Listing for File utils.cpp
    
      if (header != "" && header != headerCheckwith)
         throw ZEROException(ZEROErrorCode::InvalidData,
-                            "Wrong header. Expected " + header + " found " + headerCheckwith);
+                                   "Wrong header. Expected " + header + " found " + headerCheckwith);
    
      infile >> nR >> nC >> nnz;
      if (nR == 0 || nC == 0)
         matrix.set_size(nR, nC);
      else {
         arma::umat locations(2, nnz);
-        arma::vec values(nnz);
+        arma::vec  values(nnz);
    
         unsigned int r = 0, c = 0;
-        double val = 0;
+        double       val = 0;
    
         for (unsigned int i = 0; i < nnz; ++i) {
            infile >> r >> c >> val;
@@ -140,14 +140,14 @@ Program Listing for File utils.cpp
    
    long int appendRead(vector<double> &v, const string in, long int pos, const string header) {
      unsigned long int size = 0;
-     ifstream infile(in, ios::in);
+     ifstream          infile(in, ios::in);
      infile.seekg(pos);
      string headerCheckwith;
      infile >> headerCheckwith;
    
      if (header != "" && header != headerCheckwith)
         throw ZEROException(ZEROErrorCode::InvalidData,
-                            "Wrong header. Expected " + header + " found " + headerCheckwith);
+                                   "Wrong header. Expected " + header + " found " + headerCheckwith);
    
      infile >> size;
    
@@ -159,10 +159,10 @@ Program Listing for File utils.cpp
      return pos;
    }
    
-   void Utils::appendSave(const vec &matrix,   
-                          const string out,    
-                          const string header, 
-                          bool erase           
+   void Utils::appendSave(const vec &  matrix, 
+                                 const string out,    
+                                 const string header, 
+                                 bool erase           
    ) {
      // Using C++ file operations to copy the data into the target given by @out
      unsigned int nR{0};
@@ -180,21 +180,21 @@ Program Listing for File utils.cpp
      outfile.close(); // and close it
    }
    
-   long int Utils::appendRead(vec &matrix,     
-                              const string in, 
-                              long int pos, 
-                              const string header 
+   long int Utils::appendRead(vec &        matrix, 
+                                       const string in, 
+                                       long int pos, 
+                                       const string header 
    ) {
      unsigned int nR;
-     string buffers;
-     string checkwith;
-     ifstream inFile(in, ios::in);
+     string       buffers;
+     string       checkwith;
+     ifstream     inFile(in, ios::in);
      inFile.seekg(pos);
    
      inFile >> checkwith;
      if (header != "" && checkwith != header)
         throw ZEROException(ZEROErrorCode::InvalidData,
-                            "Wrong header. Expected " + header + " found " + checkwith);
+                                   "Wrong header. Expected " + header + " found " + checkwith);
      inFile >> nR;
      matrix.zeros(nR);
      for (unsigned int i = 0; i < nR; ++i) {
@@ -226,7 +226,7 @@ Program Listing for File utils.cpp
    
      if (header != "" && header != headerCheckwith)
         throw ZEROException(ZEROErrorCode::InvalidData,
-                            "Wrong header. Expected " + header + " found " + headerCheckwith);
+                                   "Wrong header. Expected " + header + " found " + headerCheckwith);
    
      long int val;
      infile >> val;
@@ -255,7 +255,7 @@ Program Listing for File utils.cpp
    
      if (header != "" && header != headerCheckwith)
         throw ZEROException(ZEROErrorCode::InvalidData,
-                            "Wrong header. Expected " + header + " found " + headerCheckwith);
+                                   "Wrong header. Expected " + header + " found " + headerCheckwith);
    
      unsigned int val;
      infile >> val;
@@ -289,7 +289,7 @@ Program Listing for File utils.cpp
    }
    unsigned long int Utils::vecToNum(std::vector<short int> binary) {
      unsigned long int number = 0;
-     unsigned int posn        = 1;
+     unsigned int      posn   = 1;
      while (!binary.empty()) {
         short int bit = (binary.back() + 1) / 2; // The least significant bit
         number += (bit * posn);
@@ -310,8 +310,8 @@ Program Listing for File utils.cpp
      return binary;
    }
    
-   bool Utils::containsConstraint(arma::sp_mat &A, const vec &b, const arma::vec &lhs,
-                                  const double &rhs, const double tol) {
+   bool Utils::containsConstraint(
+        arma::sp_mat &A, const vec &b, const arma::vec &lhs, const double &rhs, const double tol) {
      if (lhs.size() != A.n_cols)
         return false;
      for (int i = 0; i < A.n_rows; ++i) {
@@ -354,8 +354,8 @@ Program Listing for File utils.cpp
      }
      return false;
    }
-   bool Utils::containsConstraint(sp_mat &A, const vec &b, const sp_mat &lhs, const double &rhs,
-                                  const double tol) {
+   bool Utils::containsConstraint(
+        sp_mat &A, const vec &b, const sp_mat &lhs, const double &rhs, const double tol) {
      if (lhs.n_rows > 1)
         return false;
      arma::vec Ai = arma::vec{lhs};

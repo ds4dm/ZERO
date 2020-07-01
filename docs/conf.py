@@ -1,4 +1,5 @@
 import textwrap
+project = "ZERO"
 copyright = "Gabriele Dragotto, Sriram Sankaranarayanan"
 version = "1.0.0"
 release = "@1.0.0"

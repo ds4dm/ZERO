@@ -41,13 +41,13 @@ Program Listing for File epec_innerapproximation.cpp
      std::vector<arma::vec> prevDevns(this->EPECObject->NumPlayers);
      this->EPECObject->Stats.NumIterations = 0;
      if (this->EPECObject->Stats.AlgorithmData.PolyhedraStrategy.get() ==
-         Data::LCP::PolyhedraStrategy::Random) {
+           Data::LCP::PolyhedraStrategy::Random) {
         for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i) {
            // 42 is the answer, we all know
            long int seed = this->EPECObject->Stats.AlgorithmData.RandomSeed.get() < 0
-                               ? std::chrono::high_resolution_clock::now().time_since_epoch().count() +
-                                     42 + PolyLCP.at(i)->getNumRows()
-                               : this->EPECObject->Stats.AlgorithmData.RandomSeed.get();
+                                     ? std::chrono::high_resolution_clock::now().time_since_epoch().count() +
+                                             42 + PolyLCP.at(i)->getNumRows()
+                                     : this->EPECObject->Stats.AlgorithmData.RandomSeed.get();
            PolyLCP.at(i)->AddPolyMethodSeed = seed;
         }
      }
@@ -59,39 +59,39 @@ Program Listing for File epec_innerapproximation.cpp
      while (!solved) {
         this->EPECObject->Stats.NumIterations.set(this->EPECObject->Stats.NumIterations.get() + 1);
         BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::InnerApproximation::solve: Iteration "
-                                << std::to_string(this->EPECObject->Stats.NumIterations.get());
+                                        << std::to_string(this->EPECObject->Stats.NumIterations.get());
    
         if (addRandPoly) {
            BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::InnerApproximation::solve: using "
-                                      "heuristical polyhedra selection";
+                                               "heuristical polyhedra selection";
            bool success =
-               this->addRandomPoly2All(this->EPECObject->Stats.AlgorithmData.Aggressiveness.get(),
-                                       this->EPECObject->Stats.NumIterations.get() == 1);
+                this->addRandomPoly2All(this->EPECObject->Stats.AlgorithmData.Aggressiveness.get(),
+                                                this->EPECObject->Stats.NumIterations.get() == 1);
            if (!success) {
              this->EPECObject->Stats.Status.set(ZEROStatus::NashEqNotFound);
              return;
            }
         } else { // else we are in the case of finding deviations.
            unsigned int deviatedCountry{0};
-           arma::vec countryDeviation{};
+           arma::vec    countryDeviation{};
            if (this->isSolved(&deviatedCountry, &countryDeviation)) {
              this->EPECObject->Stats.Status.set(ZEROStatus::NashEqFound);
              this->EPECObject->Stats.PureNashEquilibrium = this->isPureStrategy();
              if ((this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get() &&
-                  !this->EPECObject->Stats.PureNashEquilibrium.get())) {
+                    !this->EPECObject->Stats.PureNashEquilibrium.get())) {
                 // We are seeking for a pure strategy. Then, here we switch between an
                 // incremental
                 // enumeration or combinations of pure strategies.
                 if (this->EPECObject->Stats.AlgorithmData.RecoverStrategy.get() ==
-                    Data::EPEC::RecoverStrategy::IncrementalEnumeration) {
+                     Data::EPEC::RecoverStrategy::IncrementalEnumeration) {
                    BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::InnerApproximation::solve: "
-                                              "triggering recover strategy "
-                                              "(IncrementalEnumeration)";
+                                                       "triggering recover strategy "
+                                                       "(IncrementalEnumeration)";
                    incrementalEnumeration = true;
                 } else if (this->EPECObject->Stats.AlgorithmData.RecoverStrategy.get() ==
-                           Data::EPEC::RecoverStrategy::Combinatorial) {
+                               Data::EPEC::RecoverStrategy::Combinatorial) {
                    BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::InnerApproximation::solve: triggering "
-                                              "recover strategy (Combinatorial)";
+                                                       "recover strategy (Combinatorial)";
                    // In this case, we want to try all the combinations of pure
                    // strategies, except the ones between polyhedra we already tested.
                    std::vector<std::set<unsigned long int>> excludeList;
@@ -112,16 +112,16 @@ Program Listing for File epec_innerapproximation.cpp
            prevDevns              = devns;
            unsigned int addedPoly = this->addDeviatedPolyhedron(devns, infeasCheck);
            if (addedPoly == 0 && this->EPECObject->Stats.NumIterations.get() > 1 &&
-               !incrementalEnumeration) {
+                !incrementalEnumeration) {
              BOOST_LOG_TRIVIAL(error) << " In Algorithms::EPEC::InnerApproximation::solve: Not "
-                                         "Solved, but no deviation? Error!\n This might be due to "
-                                         "Numerical issues (tolerances)";
+                                                   "Solved, but no deviation? Error!\n This might be due to "
+                                                   "Numerical issues (tolerances)";
              this->EPECObject->Stats.Status.set(ZEROStatus::Numerical);
              solved = true;
            }
            if (infeasCheck && this->EPECObject->Stats.NumIterations.get() == 1) {
              BOOST_LOG_TRIVIAL(warning) << " In Algorithms::EPEC::InnerApproximation::solve: Problem is "
-                                           "infeasible";
+                                                     "infeasible";
              this->EPECObject->Stats.Status.set(ZEROStatus::NashEqNotFound);
              return;
            }
@@ -132,22 +132,22 @@ Program Listing for File epec_innerapproximation.cpp
         // TimeLimit
         if (this->EPECObject->Stats.AlgorithmData.TimeLimit.get() > 0) {
            const std::chrono::duration<double> timeElapsed =
-               std::chrono::high_resolution_clock::now() - this->EPECObject->InitTime;
+                std::chrono::high_resolution_clock::now() - this->EPECObject->InitTime;
            const double timeRemaining =
-               this->EPECObject->Stats.AlgorithmData.TimeLimit.get() - timeElapsed.count();
+                this->EPECObject->Stats.AlgorithmData.TimeLimit.get() - timeElapsed.count();
            addRandPoly =
-               !this->EPECObject->computeNashEq(
-                   this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(), timeRemaining) &&
-               !incrementalEnumeration;
+                !this->EPECObject->computeNashEq(
+                     this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(), timeRemaining) &&
+                !incrementalEnumeration;
         } else {
            // No Time Limit
            addRandPoly = !this->EPECObject->computeNashEq(
-                             this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get()) &&
-                         !incrementalEnumeration;
+                                   this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get()) &&
+                             !incrementalEnumeration;
         }
         if (addRandPoly)
            this->EPECObject->Stats.AlgorithmData.LostIntermediateEq.set(
-               this->EPECObject->Stats.AlgorithmData.LostIntermediateEq.get() + 1);
+                this->EPECObject->Stats.AlgorithmData.LostIntermediateEq.get() + 1);
         for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i) {
            BOOST_LOG_TRIVIAL(info) << "Country " << i << PolyLCP.at(i)->feasabilityDetailString();
         }
@@ -155,9 +155,9 @@ Program Listing for File epec_innerapproximation.cpp
         // Anyway, we are over the TimeLimit and we should stop
         if (this->EPECObject->Stats.AlgorithmData.TimeLimit.get() > 0) {
            const std::chrono::duration<double> timeElapsed =
-               std::chrono::high_resolution_clock::now() - this->EPECObject->InitTime;
+                std::chrono::high_resolution_clock::now() - this->EPECObject->InitTime;
            const double timeRemaining =
-               this->EPECObject->Stats.AlgorithmData.TimeLimit.get() - timeElapsed.count();
+                this->EPECObject->Stats.AlgorithmData.TimeLimit.get() - timeElapsed.count();
            if (timeRemaining <= 0) {
              if (!incrementalEnumeration)
                 this->EPECObject->Stats.Status.set(ZEROStatus::TimeLimit);
@@ -168,18 +168,18 @@ Program Listing for File epec_innerapproximation.cpp
    }
    
    bool Algorithms::EPEC::InnerApproximation::addRandomPoly2All(unsigned int aggressiveLevel,
-                                                                bool stopOnSingleInfeasibility)
+                                                                                    bool         stopOnSingleInfeasibility)
    {
      BOOST_LOG_TRIVIAL(trace) << "Adding Random polyhedra to countries";
      bool infeasible{true};
      for (unsigned int i = 0; i < this->EPECObject->NumPlayers; i++) {
         auto addedPolySet = PolyLCP.at(i)->addAPoly(
-            aggressiveLevel, this->EPECObject->Stats.AlgorithmData.PolyhedraStrategy.get());
+             aggressiveLevel, this->EPECObject->Stats.AlgorithmData.PolyhedraStrategy.get());
         if (stopOnSingleInfeasibility && addedPolySet.empty()) {
            BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::InnerApproximation::addRandomPoly2All: No Nash "
-                                      "equilibrium. due to "
-                                      "infeasibility of country "
-                                   << i;
+                                               "equilibrium. due to "
+                                               "infeasibility of country "
+                                           << i;
            return false;
         }
         if (!addedPolySet.empty())
@@ -189,10 +189,10 @@ Program Listing for File epec_innerapproximation.cpp
    }
    
    bool Algorithms::EPEC::InnerApproximation::getAllDeviations(
-       std::vector<arma::vec> &deviations,   
-       const arma::vec &guessSol,            
-       const std::vector<arma::vec> &prevDev //<[in] The previous vector of deviations, if any exist.
-   ) const
+        std::vector<arma::vec> &      deviations, 
+        const arma::vec &             guessSol,   
+        const std::vector<arma::vec> &prevDev //<[in] The previous vector of deviations, if any exist.
+        ) const
    {
      deviations = std::vector<arma::vec>(this->EPECObject->NumPlayers);
    
@@ -207,9 +207,9 @@ Program Listing for File epec_innerapproximation.cpp
    }
    
    unsigned int Algorithms::EPEC::InnerApproximation::addDeviatedPolyhedron(
-       const std::vector<arma::vec> &deviations, 
-       bool &infeasCheck 
-   ) const {
+        const std::vector<arma::vec> &deviations, 
+        bool &infeasCheck 
+        ) const {
      infeasCheck        = false;
      unsigned int added = 0;
      for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i) { // For each country
@@ -218,15 +218,15 @@ Program Listing for File epec_innerapproximation.cpp
            PolyLCP.at(i)->addPolyFromX(deviations.at(i), ret);
         if (ret) {
            BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::InnerApproximation::"
-                                       "addDeviatedPolyhedron: added "
-                                       "polyhedron for player "
-                                    << i;
+                                                "addDeviatedPolyhedron: added "
+                                                "polyhedron for player "
+                                            << i;
            ++added;
         } else {
            infeasCheck = true;
            BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::InnerApproximation::addDeviatedPolyhedron: NO "
-                                       "polyhedron added for player "
-                                    << i;
+                                                "polyhedron added for player "
+                                            << i;
         }
      }
      return added;

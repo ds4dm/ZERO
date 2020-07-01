@@ -35,8 +35,8 @@ Program Listing for File outer_lcp.cpp
    
    void Game::OuterLCP::addChildComponents(const std::vector<short int> encoding) {
      std::vector<short int> localEncoding(encoding);
-     unsigned int i = 0;
-     bool flag      = false;
+     unsigned int           i    = 0;
+     bool                   flag = false;
      for (i = 0; i < this->nR; i++) {
         if (encoding.at(i) == 2) {
            flag = true;
@@ -53,11 +53,11 @@ Program Listing for File outer_lcp.cpp
    }
    
    bool Game::OuterLCP::addComponent(
-       const std::vector<short int> encoding, 
-       bool checkFeas,    
-       bool custom,       
-       spmat_Vec *custAi, 
-       vec_Vec *custbi    
+        const std::vector<short int> encoding, 
+        bool checkFeas,    
+        bool custom,       
+        spmat_Vec *custAi, 
+        vec_Vec *custbi    
    
    ) {
      unsigned long fixNumber = Utils::vecToNum(encoding);
@@ -73,14 +73,14 @@ Program Listing for File outer_lcp.cpp
         if (!custom && !this->Approximation.empty()) {
            if (this->Approximation.find(fixNumber) != this->Approximation.end()) {
              BOOST_LOG_TRIVIAL(trace) << "Game::OuterLCP::addComponent: Previously added polyhedron #"
-                                      << fixNumber;
+                                               << fixNumber;
              return false;
            }
         }
         std::unique_ptr<arma::sp_mat> Aii = std::unique_ptr<arma::sp_mat>(new arma::sp_mat(nR, nC));
         Aii->zeros();
         std::unique_ptr<arma::vec> bii =
-            std::unique_ptr<arma::vec>(new arma::vec(nR, arma::fill::zeros));
+             std::unique_ptr<arma::vec>(new arma::vec(nR, arma::fill::zeros));
         for (unsigned int i = 0; i < this->nR; i++) {
            switch (encoding.at(i)) {
            case 1: {
@@ -112,33 +112,33 @@ Program Listing for File outer_lcp.cpp
         return true; // Successfully added
      }
      BOOST_LOG_TRIVIAL(trace) << "Game::OuterLCP::addComponent: Checkfeas + Infeasible polyhedron #"
-                              << fixNumber;
+                                       << fixNumber;
      return false;
    }
    
    bool Game::OuterLCP::checkComponentFeas(
-       const std::vector<short int> &encoding 
+        const std::vector<short int> &encoding 
    ) {
      unsigned long int fixNumber = Utils::vecToNum(encoding);
      if (InfeasibleComponents.find(fixNumber) != InfeasibleComponents.end()) {
         BOOST_LOG_TRIVIAL(trace) << "Game::OuterLCP::checkComponentFeas: Previously known "
-                                    "infeasible component #"
-                                 << fixNumber;
+                                             "infeasible component #"
+                                         << fixNumber;
         return false;
      }
    
      if (FeasibleComponents.find(fixNumber) != FeasibleComponents.end()) {
         BOOST_LOG_TRIVIAL(trace) << "Game::OuterLCP::checkComponentFeas: Previously known "
-                                    "feasible polyhedron #"
-                                 << fixNumber;
+                                             "feasible polyhedron #"
+                                         << fixNumber;
         return true;
      }
      for (auto element : InfeasibleComponents) {
         if (this->isParent(Utils::numToVec(element, this->Compl.size()), encoding)) {
            BOOST_LOG_TRIVIAL(trace) << "Game::OuterLCP::checkComponentFeas: #" << fixNumber
-                                    << " is a child "
-                                       "of the infeasible polyhedron: "
-                                    << element;
+                                            << " is a child "
+                                                "of the infeasible polyhedron: "
+                                            << element;
            return false;
         }
      }
@@ -152,9 +152,9 @@ Program Listing for File outer_lcp.cpp
              model.getVarByName("z_" + std::to_string(count)).set(GRB_DoubleAttr_UB, 0);
            if (i < 0)
              model
-                 .getVarByName("x_" +
-                               std::to_string(count >= this->LeadStart ? count + NumberLeader : count))
-                 .set(GRB_DoubleAttr_UB, 0);
+                   .getVarByName("x_" +
+                                     std::to_string(count >= this->LeadStart ? count + NumberLeader : count))
+                   .set(GRB_DoubleAttr_UB, 0);
            count++;
         }
         model.set(GRB_IntParam_OutputFlag, 0);
@@ -164,8 +164,8 @@ Program Listing for File outer_lcp.cpp
            return true;
         } else {
            BOOST_LOG_TRIVIAL(trace) << "Game::OuterLCP::checkComponentFeas: Detected infeasibility of #"
-                                    << fixNumber << " (GRB_STATUS=" << model.get(GRB_IntAttr_Status)
-                                    << ")";
+                                            << fixNumber << " (GRB_STATUS=" << model.get(GRB_IntAttr_Status)
+                                            << ")";
            InfeasibleComponents.insert(fixNumber);
            return false;
         }
@@ -176,7 +176,7 @@ Program Listing for File outer_lcp.cpp
    }
    
    bool Game::OuterLCP::isParent(const std::vector<short int> &father,
-                                 const std::vector<short int> &child) {
+                                           const std::vector<short int> &child) {
      for (unsigned long i = 0; i < father.size(); ++i) {
         if (father.at(i) != 0) {
            if (child.at(i) != father.at(i))

@@ -178,7 +178,7 @@ Program Listing for File epec.cpp
                                  const arma::vec &x, 
                                  const arma::vec &prevDev
                                  //< [in] if any, the std::vector of previous deviations.
-   ) const {
+                                 ) const {
      auto model = this->respond(player, x);
      BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::respondSol: Writing dat/RespondSol" +
                                                 std::to_string(player) + ".lp to disk";

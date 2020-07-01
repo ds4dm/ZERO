@@ -74,9 +74,9 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_namespace_game_1a774057f73ba2c3cbf2bc3870b8136f63`
-
 - :ref:`exhale_function_namespace_game_1ae84120c7363ce11ee8cb58b113eaf6a8`
+
+- :ref:`exhale_function_namespace_game_1a774057f73ba2c3cbf2bc3870b8136f63`
 
 - :ref:`exhale_function_namespace_game_1ae10005492ee312cb7baba9b3d09c77d3`
 

@@ -19,9 +19,9 @@ Program Listing for File epec_fullenumeration.cpp
         this->PolyLCP.at(i)->enumerateAll(true);
      this->EPECObject->makePlayersQPs();
      BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::FullEnumeration::solve: "
-                                 "Starting FullEnumeration search";
+                                           "Starting FullEnumeration search";
      this->EPECObject->computeNashEq(this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(),
-                                     this->EPECObject->Stats.AlgorithmData.TimeLimit.get());
+                                                this->EPECObject->Stats.AlgorithmData.TimeLimit.get());
      if (this->isSolved()) {
         this->EPECObject->Stats.Status.set(ZEROStatus::NashEqFound);
         if (this->isPureStrategy())
