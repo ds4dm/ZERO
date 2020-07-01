@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 # Additional options
-set(EXECUTABLE_OUTPUT_PATH "bin")
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Project setting
@@ -71,7 +71,8 @@ add_library(
   src/algorithms/EPEC/epec_combinatorialpne.cpp
   src/algorithms/EPEC/epec_fullenumeration.cpp
   src/algorithms/EPEC/epec_outerapproximation.cpp
-  src/algorithms/IPG/ipg_oracle.cpp)
+  # src/algorithms/IPG/ipg_oracle.cpp
+)
 set_target_properties(
   ZERO PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
                   VISIBILITY_INLINES_HIDDEN ON)
@@ -123,6 +124,10 @@ set_target_properties(
 add_executable(EPECTests test/EPEC/epec.cpp)
 target_include_directories(EPECTests PRIVATE test)
 target_link_libraries(EPECTests ZERO CONAN_PKG::boost)
+set_target_properties(
+  EPECTests
+  PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
+             VISIBILITY_INLINES_HIDDEN ON)
 # ##############################################################################
 # ##############################################################################
 
