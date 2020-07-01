@@ -35,6 +35,8 @@ using vec_Vec   = std::vector<std::unique_ptr<arma::vec>>;
 class ZEROException;
 enum class ZEROErrorCode;
 
+namespace MathOptParam {}
+
 namespace Game {
   /**
 	* @brief This namespace contains the definition of the games and their
@@ -76,9 +78,14 @@ class ZEROAlgorithmData;
 namespace Data {
   /**
 	* @brief This namespace contains the Data support structures for the
-	* algorithms
+	* algorithms. For any game for which an algorithm is available, the class DataObject contains the
+	* control parameters. Other objects (enum classes, etc) are control parameters for their relative
+	* objects.
 	*/
   namespace EPEC {
+	 class DataObject;
+  }
+  namespace IPG {
 	 class DataObject;
   }
   namespace LCP {
@@ -86,8 +93,7 @@ namespace Data {
   }
 
 } // namespace Data
-#include "games/epec.h"
 #include "games/games.h"
 #include "games/nash.h"
-#include "games/qpmp.h"
 #include "lcp/lcp.h"
+#include "paramopt/mp_param.h"
