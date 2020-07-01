@@ -44,7 +44,6 @@ conan_cmake_run(
   BUILD
   missing
   ENV
-  CONAN_CMAKE_TOOLCHAIN_FILE="${CMAKE_TOOLCHAIN_FILE}"
   OUTPUT_QUIET)
 
 configure_file(src/support/CMakeConfig.h.in include/support/version.h)
@@ -60,18 +59,19 @@ add_library(
   src/lcp/lcp.cpp
   src/lcp/poly_lcp.cpp
   src/lcp/outer_lcp.cpp
-  src/games/qpmp.cpp
+  src/paramopt/mp_param.cpp
+  src/paramopt/qp_param.cpp
+  src/paramopt/ip_param.cpp
   src/games/nash.cpp
   src/games/epec.cpp
-  # src/games/ipg.cpp
+  src/games/ipg.cpp
   src/interfaces/epec_models.cpp
   src/algorithms/EPEC/epec_polybase.cpp
   src/algorithms/EPEC/epec_innerapproximation.cpp
   src/algorithms/EPEC/epec_combinatorialpne.cpp
   src/algorithms/EPEC/epec_fullenumeration.cpp
   src/algorithms/EPEC/epec_outerapproximation.cpp
-  # src/algorithms/IPG/ipg_oracle.cpp
-)
+  src/algorithms/IPG/ipg_oracle.cpp)
 set_target_properties(
   ZERO PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
                   VISIBILITY_INLINES_HIDDEN ON)

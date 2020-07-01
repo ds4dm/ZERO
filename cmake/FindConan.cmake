@@ -1,7 +1,7 @@
 # ##############################################################################
 # CONAN
 # ##############################################################################
-# TODO: temporary workaround
+# TODO: temporary workaround to fix 0.15 bugs on mac
 set(CONAN_GIT
     "https://raw.githubusercontent.com/dforsten/cmake-conan/be876ddc9a45401aa842ad45e3de75e597c6d263/conan.cmake"
 )
