@@ -1,3 +1,16 @@
+/* #############################################
+ *             This file is part of
+ *                    ZERO
+ *
+ *             Copyright (c) 2020
+ *     Released under the Creative Commons
+ *        Zero v1.0 Universal License
+ *
+ *              Find out more at
+ *        https://github.com/ds4dm/ZERO
+ * #############################################*/
+
+
 #pragma once
 
 #include <armadillo>
@@ -73,7 +86,7 @@ namespace Data {
   }
 
 } // namespace Data
-#include "games/EPEC_test.h"
+#include "games/epec.h"
 #include "games/games.h"
 #include "games/nash.h"
 #include "games/qpmp.h"

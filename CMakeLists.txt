@@ -120,7 +120,7 @@ set_target_properties(
 # ##############################################################################
 # ZERO - EPEC TESTS
 # ##############################################################################
-add_executable(EPECTests test/EPEC/EPEC_test.cpp)
+add_executable(EPECTests test/EPEC/epec.cpp)
 target_include_directories(EPECTests PRIVATE test)
 target_link_libraries(EPECTests ZERO CONAN_PKG::boost)
 # ##############################################################################
