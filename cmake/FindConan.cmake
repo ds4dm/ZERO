@@ -23,3 +23,28 @@ if(CONAN_DOWNLOAD)
     EXPECTED_HASH SHA1=${CONAN_SHA1})
 endif()
 include(${CMAKE_BINARY_DIR}/conan.cmake)
+
+find_program(CONAN_CMD conan)
+if(NOT CONAN_CMD)
+  message(FATAL_ERROR "Conan executable not found!")
+endif()
+execute_process(COMMAND ${CONAN_CMD} --version
+                OUTPUT_VARIABLE CONAN_VERSION_OUTPUT)
+string(REGEX MATCH ".*Conan version ([0-9]+\.[0-9]+\.[0-9]+)" FOO
+             "${CONAN_VERSION_OUTPUT}")
+set(CONAN_VERSION_REQUIRED 1.0.0)
+if(${CMAKE_MATCH_1} VERSION_LESS ${CONAN_VERSION_REQUIRED})
+  message(
+    FATAL_ERROR
+      "Conan outdated. Installed: ${CONAN_VERSION}, \
+        required: ${CONAN_VERSION_REQUIRED}. Consider updating via 'pip \
+        install conan --upgrade'.")
+endif()
+
+execute_process(COMMAND ${CONAN_CMD} remote list OUTPUT_VARIABLE CONAN_REMOTES)
+
+if(NOT ("${CONAN_REMOTES}" MATCHES ".*darcamo-bintray:.*"))
+  message(STATUS "Conan adding community remote repositoy dracamo-bintray")
+  execute_process(COMMAND ${CONAN_CMD} remote add -i 1 darcamo-bintray
+                          https://api.bintray.com/conan/darcamo/cppsim)
+endif()
