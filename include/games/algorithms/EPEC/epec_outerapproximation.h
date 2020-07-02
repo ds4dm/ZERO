@@ -182,6 +182,7 @@ namespace Algorithms {
 		OuterApproximation(GRBEnv *env, Game::EPEC *EpecObj) {
 		  this->EPECObject = EpecObj;
 		  this->Env        = env;
+		  this->Tolerance  = this->EPECObject->Stats.AlgorithmData.DeviationTolerance.get();
 		  /*
 			*  The constructor re-builds the LCP fields in the EPEC object as new
 			* OuterLCP objects

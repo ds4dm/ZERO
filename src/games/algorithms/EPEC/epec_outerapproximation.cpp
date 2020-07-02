@@ -446,8 +446,6 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 	 this->EPECObject->InitTime = std::chrono::high_resolution_clock::now();
 
   this->EPECObject->Stats.NumIterations.set(0);
-  if (this->EPECObject->Stats.AlgorithmData.TimeLimit.get() > 0)
-	 this->EPECObject->InitTime = std::chrono::high_resolution_clock::now();
 
   // Initialize Trees
   this->Trees     = std::vector<OuterTree *>(this->EPECObject->NumPlayers, 0);
