@@ -165,6 +165,10 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(QP_Objective &&  obj,
 	 throw ZEROException(ZEROErrorCode::InvalidData,
 								"Invalid vector of integers. Refer to QP_Param is no "
 								"integers are involved");
+  if (obj.Q.size() > 0)
+	 BOOST_LOG_TRIVIAL(warning) << "MathOpt::IP_Param::set: obj.Q will be ignored";
+  if (cons.A.size() > 0)
+	 BOOST_LOG_TRIVIAL(warning) << "MathOpt::IP_Param::set: cons.A will be ignored";
   return this->set(std::move(obj.C),
 						 std::move(cons.B),
 						 std::move(cons.b),
