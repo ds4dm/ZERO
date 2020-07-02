@@ -10,12 +10,20 @@ Program Listing for File epec.cpp
 
 .. code-block:: cpp
 
-   #include "algorithms/EPEC/epec_algorithms.h"
-   #include "algorithms/EPEC/epec_combinatorialpne.h"
-   #include "algorithms/EPEC/epec_fullenumeration.h"
-   #include "algorithms/EPEC/epec_innerapproximation.h"
-   #include "algorithms/EPEC/epec_outerapproximation.h"
-   #include "games/EPEC_test.h"
+   /* #############################################
+    *             This file is part of
+    *                    ZERO
+    *
+    *             Copyright (c) 2020
+    *     Released under the Creative Commons
+    *        Zero v1.0 Universal License
+    *
+    *              Find out more at
+    *        https://github.com/ds4dm/ZERO
+    * #############################################*/
+   
+   #include "games/epec.h"
+   #include "games/algorithms/EPEC/epec_algorithms.h"
    #include "zero.h"
    #include <armadillo>
    #include <boost/log/trivial.hpp>
@@ -33,25 +41,26 @@ Program Listing for File epec.cpp
      if (this->Finalized)
         std::cerr << "Warning in Game::EPEC::finalize: Model already Finalized\n";
    
-     this->NumPlayers = this->getNumLeaders();
+     this->NumPlayers = static_cast<int>(this->PlayersLowerLevels.size());
+     ;
      this->preFinalize();
    
      this->ConvexHullVariables = std::vector<unsigned int>(this->NumPlayers, 0);
      this->Stats.AlgorithmData.FeasiblePolyhedra.set(std::vector<unsigned int>(this->NumPlayers, 0));
      this->computeLeaderLocations(this->numMCVariables);
      // Initialize leader objective and PlayersQP
-     this->LeaderObjective           = std::vector<std::shared_ptr<Game::QP_Objective>>(NumPlayers);
-     this->LeaderObjectiveConvexHull = std::vector<std::shared_ptr<Game::QP_Objective>>(NumPlayers);
-     this->PlayersQP                 = std::vector<std::shared_ptr<Game::QP_Param>>(NumPlayers);
-     this->PlayersLCP                = std::vector<std::shared_ptr<Game::LCP>>(NumPlayers);
+     this->LeaderObjective           = std::vector<std::shared_ptr<MathOpt::QP_Objective>>(NumPlayers);
+     this->LeaderObjectiveConvexHull = std::vector<std::shared_ptr<MathOpt::QP_Objective>>(NumPlayers);
+     this->PlayersQP                 = std::vector<std::shared_ptr<MathOpt::QP_Param>>(NumPlayers);
+     this->PlayersLCP                = std::vector<std::shared_ptr<MathOpt::LCP>>(NumPlayers);
      this->SizesWithoutHull          = std::vector<unsigned int>(NumPlayers, 0);
    
      for (unsigned int i = 0; i < this->NumPlayers; i++) {
         this->addDummyLead(i);
-        this->LeaderObjective.at(i)           = std::make_shared<Game::QP_Objective>();
-        this->LeaderObjectiveConvexHull.at(i) = std::make_shared<Game::QP_Objective>();
+        this->LeaderObjective.at(i)           = std::make_shared<MathOpt::QP_Objective>();
+        this->LeaderObjectiveConvexHull.at(i) = std::make_shared<MathOpt::QP_Objective>();
         this->makeObjectivePlayer(i, *this->LeaderObjective.at(i).get());
-        // this->PlayersLCP.at(i) =std::shared_ptr<Game::PolyLCP>(new
+        // this->PlayersLCP.at(i) =std::shared_ptr<MathOpt::PolyLCP>(new
         // PolyLCP(this->Env,*this->PlayersLowerLevels.at(i).get()));
         this->SizesWithoutHull.at(i) = *this->LocEnds.at(i);
      }
@@ -244,11 +253,11 @@ Program Listing for File epec.cpp
         throw ZEROException(ZEROErrorCode::OutOfRange, "The player id is out of range");
      // if (!this->PlayersQP.at(i).get())
      {
-        this->PlayersQP.at(i)     = std::make_shared<Game::QP_Param>(this->Env);
+        this->PlayersQP.at(i)     = std::make_shared<MathOpt::QP_Param>(this->Env);
         const auto &origLeadObjec = *this->LeaderObjective.at(i).get();
    
         this->LeaderObjectiveConvexHull.at(i).reset(
-             new Game::QP_Objective{origLeadObjec.Q, origLeadObjec.C, origLeadObjec.c});
+             new MathOpt::QP_Objective{origLeadObjec.Q, origLeadObjec.C, origLeadObjec.c});
         this->PlayersLCP.at(i)->makeQP(*this->LeaderObjectiveConvexHull.at(i).get(),
                                                  *this->PlayersQP.at(i).get());
      }
@@ -312,7 +321,7 @@ Program Listing for File epec.cpp
      this->TheNashGame = std::unique_ptr<Game::NashGame>(
            new Game::NashGame(this->Env, this->PlayersQP, MC, MCRHS, 0, dumA, dumb));
      BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makeTheLCP(): NashGame is ready";
-     this->TheLCP = std::unique_ptr<Game::LCP>(new Game::LCP(this->Env, *TheNashGame));
+     this->TheLCP = std::unique_ptr<MathOpt::LCP>(new MathOpt::LCP(this->Env, *TheNashGame));
      BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makeTheLCP(): LCP is ready";
      BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makeTheLCP(): Indicators set to "
                                        << this->Stats.AlgorithmData.IndicatorConstraints.get();
@@ -383,8 +392,8 @@ Program Listing for File epec.cpp
            }
         } else {
            this->NashEquilibrium = true;
-           this->SolutionX.save("dat/X.dat", arma::file_type::arma_ascii);
-           this->SolutionZ.save("dat/Z.dat", arma::file_type::arma_ascii);
+           // this->SolutionX.save("dat/X.dat", arma::file_type::arma_ascii);
+           // this->SolutionZ.save("dat/Z.dat", arma::file_type::arma_ascii);
            BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
         }
    

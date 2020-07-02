@@ -1,0 +1,26 @@
+.. _dir_src_mathopt:
+
+
+Directory mathopt
+=================
+
+
+|exhale_lsh| :ref:`Parent directory <dir_src>` (``src``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+*Directory path:* ``src/mathopt``
+
+Subdirectories
+--------------
+
+- :ref:`dir_src_mathopt_lcp`
+- :ref:`dir_src_mathopt_mp_param`
+
+
+Files
+-----
+
+- :ref:`file_src_mathopt_mathopt.cpp`
+
+

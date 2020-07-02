@@ -1,0 +1,13 @@
+.. _exhale_function_namespace_math_opt_1af3d7bfcf9b11cefb7f4521d685211934:
+
+Function MathOpt::compConvSize
+==============================
+
+- Defined in :ref:`file_include_mathopt_mathopt.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: MathOpt::compConvSize(arma::sp_mat&, unsigned int, unsigned int, const std::vector<arma::sp_mat *> *, const std::vector<arma::vec *> *, const arma::sp_mat&, const arma::vec&)

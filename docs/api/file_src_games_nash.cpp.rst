@@ -29,7 +29,7 @@ Includes
 --------
 
 
-- ``algorithm`` (:ref:`file_include_algorithms_EPEC_epec_algorithms.h`)
+- ``algorithm`` (:ref:`file_include_games_algorithms_EPEC_epec_algorithms.h`)
 
 - ``armadillo``
 

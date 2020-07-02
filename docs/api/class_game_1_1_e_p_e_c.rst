@@ -3,11 +3,17 @@
 Class EPEC
 ==========
 
-- Defined in :ref:`file_include_games_EPEC_test.h`
+- Defined in :ref:`file_include_games_epec.h`
 
 
 Inheritance Relationships
 -------------------------
+
+Base Type
+*********
+
+- ``public Game::AbstractGame< Data::EPEC::DataObject >`` (:ref:`exhale_class_class_game_1_1_abstract_game`)
+
 
 Derived Type
 ************

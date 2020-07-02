@@ -19,4 +19,6 @@ Namespaces
 
 - :ref:`namespace_Data__EPEC`
 
+- :ref:`namespace_Data__IPG`
+
 - :ref:`namespace_Data__LCP`

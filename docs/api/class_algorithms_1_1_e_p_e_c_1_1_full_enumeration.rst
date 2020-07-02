@@ -3,7 +3,7 @@
 Class FullEnumeration
 =====================
 
-- Defined in :ref:`file_include_algorithms_EPEC_epec_fullenumeration.h`
+- Defined in :ref:`file_include_games_algorithms_EPEC_epec_fullenumeration.h`
 
 
 Inheritance Relationships

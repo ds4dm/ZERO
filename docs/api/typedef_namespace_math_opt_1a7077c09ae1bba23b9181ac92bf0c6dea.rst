@@ -1,0 +1,13 @@
+.. _exhale_typedef_namespace_math_opt_1a7077c09ae1bba23b9181ac92bf0c6dea:
+
+Typedef MathOpt::QP_constraints
+===============================
+
+- Defined in :ref:`file_include_mathopt_mathopt.h`
+
+
+Typedef Documentation
+---------------------
+
+
+.. doxygentypedef:: MathOpt::QP_constraints

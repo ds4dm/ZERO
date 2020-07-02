@@ -1,0 +1,43 @@
+
+.. _file_src_mathopt_mathopt.cpp:
+
+File mathopt.cpp
+================
+
+|exhale_lsh| :ref:`Parent directory <dir_src_mathopt>` (``src/mathopt``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``src/mathopt/mathopt.cpp``)
+----------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file_src_mathopt_mathopt.cpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``armadillo``
+
+- ``boost/log/trivial.hpp``
+
+- ``iostream``
+
+- ``mathopt/mathopt.h`` (:ref:`file_include_mathopt_mathopt.h`)
+
+
+
+
+

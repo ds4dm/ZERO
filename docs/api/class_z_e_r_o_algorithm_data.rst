@@ -9,10 +9,11 @@ Class ZEROAlgorithmData
 Inheritance Relationships
 -------------------------
 
-Derived Type
-************
+Derived Types
+*************
 
 - ``public Data::EPEC::DataObject`` (:ref:`exhale_class_class_data_1_1_e_p_e_c_1_1_data_object`)
+- ``public Data::IPG::DataObject`` (:ref:`exhale_class_class_data_1_1_i_p_g_1_1_data_object`)
 
 
 Class Documentation

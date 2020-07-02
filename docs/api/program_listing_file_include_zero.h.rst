@@ -10,6 +10,19 @@ Program Listing for File zero.h
 
 .. code-block:: cpp
 
+   /* #############################################
+    *             This file is part of
+    *                    ZERO
+    *
+    *             Copyright (c) 2020
+    *     Released under the Creative Commons
+    *        Zero v1.0 Universal License
+    *
+    *              Find out more at
+    *        https://github.com/ds4dm/ZERO
+    * #############################################*/
+   
+   
    #pragma once
    
    #include <armadillo>
@@ -34,14 +47,17 @@ Program Listing for File zero.h
    class ZEROException;
    enum class ZEROErrorCode;
    
-   namespace Game {
+   namespace MathOpt {
      struct QP_Objective;
      struct QP_Constraints;
      class MP_Param;
      class QP_Param;
      class IP_Param;
-     class NashGame;
      class LCP;
+   } // namespace MathOpt
+   
+   namespace Game {
+     class NashGame;
      class PolyLCP;
      class OuterLCP;
      class EPEC;
@@ -67,13 +83,13 @@ Program Listing for File zero.h
      namespace EPEC {
         class DataObject;
      }
+     namespace IPG {
+        class DataObject;
+     }
      namespace LCP {
         enum class PolyhedraStrategy;
      }
    
    } // namespace Data
-   #include "games/EPEC_test.h"
    #include "games/games.h"
-   #include "games/nash.h"
-   #include "games/qpmp.h"
-   #include "lcp/lcp.h"
+   #include "mathopt/mathopt.h"

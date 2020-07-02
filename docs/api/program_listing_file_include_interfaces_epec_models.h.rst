@@ -10,6 +10,19 @@ Program Listing for File epec_models.h
 
 .. code-block:: cpp
 
+   /* #############################################
+    *             This file is part of
+    *                    ZERO
+    *
+    *             Copyright (c) 2020
+    *     Released under the Creative Commons
+    *        Zero v1.0 Universal License
+    *
+    *              Find out more at
+    *        https://github.com/ds4dm/ZERO
+    * #############################################*/
+   
+   
    #pragma once
    
    #include "zero.h"
@@ -167,7 +180,7 @@ Program Listing for File epec_models.h
      class EPEC : public Game::EPEC {
         // Mandatory virtuals
      private:
-        void makeObjectivePlayer(const unsigned int i, Game::QP_Objective &QP_obj) final;
+        void makeObjectivePlayer(const unsigned int i, MathOpt::QP_Objective &QP_obj) final;
    
         void updateLocations() override;
    
@@ -180,7 +193,7 @@ Program Listing for File epec_models.h
         // Rest
      private:
         std::vector<LeadAllPar> AllLeadPars = {}; 
-        std::vector<std::shared_ptr<Game::QP_Param>> MC_QP =
+        std::vector<std::shared_ptr<MathOpt::QP_Param>> MC_QP =
              {}; 
         arma::sp_mat              TranspCosts = {}; 
         std::vector<unsigned int> nImportMarkets =
@@ -207,7 +220,7 @@ Program Listing for File epec_models.h
    
         void make_LL_QP(const LeadAllPar & Params,
                              const unsigned int follower,
-                             Game::QP_Param *   Foll,
+                             MathOpt::QP_Param *Foll,
                              const LeadLocs &   Loc) noexcept;
    
         void make_LL_LeadCons(arma::sp_mat &          LeadCons,

@@ -10,6 +10,19 @@ Program Listing for File nash.cpp
 
 .. code-block:: cpp
 
+   /* #############################################
+    *             This file is part of
+    *                    ZERO
+    *
+    *             Copyright (c) 2020
+    *     Released under the Creative Commons
+    *        Zero v1.0 Universal License
+    *
+    *              Find out more at
+    *        https://github.com/ds4dm/ZERO
+    * #############################################*/
+   
+   
    #include "games/nash.h"
    #include <algorithm>
    #include <armadillo>
@@ -17,13 +30,13 @@ Program Listing for File nash.cpp
    #include <boost/log/trivial.hpp>
    #include <iostream>
    #include <memory>
-   Game::NashGame::NashGame(GRBEnv *                               e,
-                                    std::vector<std::shared_ptr<QP_Param>> players,
-                                    arma::sp_mat                           MC,
-                                    arma::vec                              MCRHS,
-                                    unsigned int                           nLeadVar,
-                                    arma::sp_mat                           leadA,
-                                    arma::vec                              leadRHS)
+   Game::NashGame::NashGame(GRBEnv *                                        e,
+                                    std::vector<std::shared_ptr<MathOpt::QP_Param>> players,
+                                    arma::sp_mat                                    MC,
+                                    arma::vec                                       MCRHS,
+                                    unsigned int                                    nLeadVar,
+                                    arma::sp_mat                                    leadA,
+                                    arma::vec                                       leadRHS)
         : Env{e}, LeaderConstraints{leadA}, LeaderConstraintsRHS{leadRHS}
    {
      // Setting the class variables
@@ -72,11 +85,11 @@ Program Listing for File nash.cpp
         throw ZEROException(ZEROErrorCode::IOError, "File header is invalid");
      unsigned int numPlayersLocal = 0;
      pos = Utils::appendRead(numPlayersLocal, filename, pos, std::string("NashGame::NumPlayers"));
-     std::vector<std::shared_ptr<QP_Param>> players;
+     std::vector<std::shared_ptr<MathOpt::QP_Param>> players;
      players.resize(numPlayersLocal);
      for (unsigned int i = 0; i < numPlayersLocal; ++i) {
-        // Players.at(i) = std::make_shared<Game::QP_Param>(this->Env);
-        auto temp     = std::shared_ptr<Game::QP_Param>(new Game::QP_Param(this->Env));
+        // Players.at(i) = std::make_shared<MathOpt::QP_Param>(this->Env);
+        auto temp     = std::shared_ptr<MathOpt::QP_Param>(new MathOpt::QP_Param(this->Env));
         players.at(i) = temp;
         pos           = players.at(i)->load(filename, pos);
      }

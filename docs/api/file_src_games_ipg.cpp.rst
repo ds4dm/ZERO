@@ -35,8 +35,6 @@ Includes
 
 - ``games/ipg.h`` (:ref:`file_include_games_ipg.h`)
 
-- ``iostream``
-
 - ``memory``
 
 

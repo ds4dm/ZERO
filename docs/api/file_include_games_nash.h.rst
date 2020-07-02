@@ -51,7 +51,7 @@ Included By
 
 - :ref:`file_src_games_nash.cpp`
 
-- :ref:`file_include_zero.h`
+- :ref:`file_include_games_games.h`
 
 
 
@@ -74,9 +74,7 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_namespace_game_1ae84120c7363ce11ee8cb58b113eaf6a8`
-
 - :ref:`exhale_function_namespace_game_1a774057f73ba2c3cbf2bc3870b8136f63`
 
-- :ref:`exhale_function_namespace_game_1ae10005492ee312cb7baba9b3d09c77d3`
+- :ref:`exhale_function_namespace_game_1a5d3d08630420c0dc48957de240545f21`
 

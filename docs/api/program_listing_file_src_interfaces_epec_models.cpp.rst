@@ -10,6 +10,19 @@ Program Listing for File epec_models.cpp
 
 .. code-block:: cpp
 
+   /* #############################################
+    *             This file is part of
+    *                    ZERO
+    *
+    *             Copyright (c) 2020
+    *     Released under the Creative Commons
+    *        Zero v1.0 Universal License
+    *
+    *              Find out more at
+    *        https://github.com/ds4dm/ZERO
+    * #############################################*/
+   
+   
    #include "interfaces/epec_models.h"
    #include <armadillo>
    #include <boost/log/trivial.hpp>
@@ -180,7 +193,7 @@ Program Listing for File epec_models.cpp
    void Models::EPEC::make_LL_QP(
         const LeadAllPar &      Params,   
         const unsigned int      follower, 
-        Game::QP_Param *        Foll,     
+        MathOpt::QP_Param *     Foll,     
         const Models::LeadLocs &Loc       
         ) noexcept
    {
@@ -435,11 +448,11 @@ Program Listing for File epec_models.cpp
                            Params.n_followers * 3 * Params.LeaderParam.tax_revenue + 1,
                        arma::fill::zeros);
    
-     vector<shared_ptr<Game::QP_Param>> Players{};
+     vector<shared_ptr<MathOpt::QP_Param>> Players{};
      // Create the QP_Param* for each follower
      try {
         for (unsigned int follower = 0; follower < Params.n_followers; follower++) {
-           auto Foll = make_shared<Game::QP_Param>(this->Env);
+           auto Foll = make_shared<MathOpt::QP_Param>(this->Env);
            this->make_LL_QP(Params, follower, Foll.get(), Loc);
            Players.push_back(Foll);
         }
@@ -479,6 +492,7 @@ Program Listing for File epec_models.cpp
      this->LeadConses.push_back(N->rewriteLeadCons()); // Not mandatory!
      this->AllLeadPars.push_back(Params);
      this->Game::EPEC::numMCVariables++;
+     this->NumPlayers++;
      return *this;
    }
    
@@ -491,7 +505,7 @@ Program Listing for File epec_models.cpp
                                    "EPEC object Finalized. Call "
                                    "EPEC::unlock() to unlock this object first and then edit.");
      try {
-        if (this->getNumLeaders() != costs.n_rows || this->getNumLeaders() != costs.n_cols)
+        if (this->getNumPlayers() != costs.n_rows || this->getNumPlayers() != costs.n_cols)
            throw ZEROException(ZEROErrorCode::Assertion, "Mismatch of size in Q");
         else
            this->TranspCosts = arma::sp_mat(costs);
@@ -510,8 +524,8 @@ Program Listing for File epec_models.cpp
        * variable
        */
      try {
-        this->nImportMarkets = vector<unsigned int>(this->getNumLeaders());
-        for (unsigned int i = 0; i < this->getNumLeaders(); i++)
+        this->nImportMarkets = vector<unsigned int>(this->getNumPlayers());
+        for (unsigned int i = 0; i < this->getNumPlayers(); i++)
            this->add_Leaders_tradebalance_constraints(i);
      } catch (GRBException &e) {
         throw ZEROException(e);
@@ -565,11 +579,11 @@ Program Listing for File epec_models.cpp
      // Transportation matrix
      const arma::sp_mat &TrCo = this->TranspCosts;
      // Output matrices
-     MCRHS.zeros(this->getNumLeaders());
-     MCLHS.zeros(this->getNumLeaders(), this->getNumVar());
+     MCRHS.zeros(this->getNumPlayers());
+     MCLHS.zeros(this->getNumPlayers(), this->getNumVar());
      // The MC constraint for each leader country
-     if (this->getNumLeaders() > 1) {
-        for (unsigned int i = 0; i < this->getNumLeaders(); ++i) {
+     if (this->getNumPlayers() > 1) {
+        for (unsigned int i = 0; i < this->getNumPlayers(); ++i) {
            MCLHS(i, this->getPosition(i, LeaderVars::NetExport)) = 1;
            for (auto val = TrCo.begin_row(i); val != TrCo.end_row(i); ++val) {
              const unsigned int j = val.col(); // This is the country which is importing from "i"
@@ -592,7 +606,7 @@ Program Listing for File epec_models.cpp
    
    void Models::EPEC::make_MC_leader(const unsigned int i)
    {
-     if (i >= this->getNumLeaders())
+     if (i >= this->getNumPlayers())
         throw ZEROException(ZEROErrorCode::OutOfRange, "Player does not exist");
      try {
         const arma::sp_mat &TrCo        = this->TranspCosts;
@@ -622,7 +636,7 @@ Program Listing for File epec_models.cpp
                        (j >= i ? nThisMCvars : 0)) = 1;
         }
    
-        this->MC_QP.at(i) = std::make_shared<Game::QP_Param>(this->Env);
+        this->MC_QP.at(i) = std::make_shared<MathOpt::QP_Param>(this->Env);
         // Note Q = {{0}}, c={0}, the MC problem has no constraints. So A=B={{}},
         // b={}.
         this->MC_QP.at(i).get()->set(arma::sp_mat{1, 1},                       // Q
@@ -651,25 +665,25 @@ Program Listing for File epec_models.cpp
         const bool chkLeadObjec 
         ) const
    {
-     if (!chkAllLeadPars && AllLeadPars.size() != this->getNumLeaders())
+     if (!chkAllLeadPars && AllLeadPars.size() != this->getNumPlayers())
         return false;
-     if (!chkcountries_LL && PlayersLowerLevels.size() != this->getNumLeaders())
+     if (!chkcountries_LL && PlayersLowerLevels.size() != this->getNumPlayers())
         return false;
-     if (!chkMC_QP && MC_QP.size() != this->getNumLeaders())
+     if (!chkMC_QP && MC_QP.size() != this->getNumPlayers())
         return false;
-     if (!chkLeadConses && LeadConses.size() != this->getNumLeaders())
+     if (!chkLeadConses && LeadConses.size() != this->getNumPlayers())
         return false;
-     if (!chkLeadRHSes && LeadRHSes.size() != this->getNumLeaders())
+     if (!chkLeadRHSes && LeadRHSes.size() != this->getNumPlayers())
         return false;
-     if (!chknImportMarkets && nImportMarkets.size() != this->getNumLeaders())
+     if (!chknImportMarkets && nImportMarkets.size() != this->getNumPlayers())
         return false;
-     if (!chkLocations && Locations.size() != this->getNumLeaders())
+     if (!chkLocations && Locations.size() != this->getNumPlayers())
         return false;
-     if (!chkLeaderLocations && LeaderLocations.size() != this->getNumLeaders())
+     if (!chkLeaderLocations && LeaderLocations.size() != this->getNumPlayers())
         return false;
      if (!chkLeaderLocations && this->getNumVar() == 0)
         return false;
-     if (!chkLeadObjec && LeaderObjective.size() != this->getNumLeaders())
+     if (!chkLeadObjec && LeaderObjective.size() != this->getNumPlayers())
         return false;
      return true;
    }
@@ -677,7 +691,7 @@ Program Listing for File epec_models.cpp
    unsigned int Models::EPEC::getPosition(const unsigned int       countryCount,
                                                        const Models::LeaderVars var) const
    {
-     if (countryCount >= this->getNumLeaders())
+     if (countryCount >= this->getNumPlayers())
         throw ZEROException(ZEROErrorCode::OutOfRange, "Player object is out of range");
      return this->LeaderLocations.at(countryCount) + this->Locations.at(countryCount).at(var);
    }
@@ -700,8 +714,8 @@ Program Listing for File epec_models.cpp
    }
    
    void Models::EPEC::makeObjectivePlayer(
-        const unsigned int  i,     
-        Game::QP_Objective &QP_obj 
+        const unsigned int     i,     
+        MathOpt::QP_Objective &QP_obj 
         )
    {
      const unsigned int  nEPECvars        = this->getNumVar();
@@ -726,13 +740,13 @@ Program Listing for File epec_models.cpp
            QP_obj.c.at(j) = 1;
      }
    
-     if (this->getNumLeaders() > 1) {
+     if (this->getNumPlayers() > 1) {
         // export revenue term
    
         QP_obj.C(Loc.at(Models::LeaderVars::NetExport),
                     // this->getPosition(i, Models::LeaderVars::End) -
                     // nThisCountryvars) = -1;
-                    this->getPosition(this->getNumLeaders() - 1, Models::LeaderVars::End) -
+                    this->getPosition(this->getNumPlayers() - 1, Models::LeaderVars::End) -
                          nThisCountryvars + i) = -1;
    
         // Import cost term.
@@ -742,7 +756,7 @@ Program Listing for File epec_models.cpp
            QP_obj.c.at(Loc.at(Models::LeaderVars::CountryImport) + count) = (*val);
            // \pi^I*q^{I\to A}_{imp} term
            QP_obj.C.at(Loc.at(Models::LeaderVars::CountryImport) + count,
-                           this->getPosition(this->getNumLeaders() - 1, Models::LeaderVars::End) -
+                           this->getPosition(this->getNumPlayers() - 1, Models::LeaderVars::End) -
                                 nThisCountryvars + val.row()) = 1;
            // this->Locations.at(val.row()).at(Models::LeaderVars::End)) = 1;
            // this->getPosition(val.row(), Models::LeaderVars::End)) = 1;
@@ -756,7 +770,7 @@ Program Listing for File epec_models.cpp
    
    void Models::EPEC::updateLocations()
    {
-     for (unsigned int i = 0; i < this->getNumLeaders(); ++i) {
+     for (unsigned int i = 0; i < this->getNumPlayers(); ++i) {
         LeadLocs &Loc = this->Locations.at(i);
         Models::decreaseVal(Loc,
                                    Models::LeaderVars::ConvHullDummy,
@@ -871,7 +885,7 @@ Program Listing for File epec_models.cpp
         file << "############### COUNTRY PARAMETERS ###############\n";
         file << "##################################################\n";
      }
-     for (unsigned int i = 0; i < this->getNumLeaders(); ++i)
+     for (unsigned int i = 0; i < this->getNumPlayers(); ++i)
         this->write(filename, i, (append || i));
    }
    
@@ -884,15 +898,15 @@ Program Listing for File epec_models.cpp
      writer.Key("isPureEquilibrium");
      writer.Bool(this->isPureStrategy());
      writer.Key("nCountries");
-     writer.Uint(this->getNumLeaders());
+     writer.Uint(this->getNumPlayers());
      writer.Key("nFollowers");
      writer.StartArray();
-     for (unsigned i = 0; i < this->getNumLeaders(); i++)
+     for (unsigned i = 0; i < this->getNumPlayers(); i++)
         writer.Uint(this->AllLeadPars.at(i).n_followers);
      writer.EndArray();
      writer.Key("Countries");
      writer.StartArray();
-     for (unsigned i = 0; i < this->getNumLeaders(); i++) {
+     for (unsigned i = 0; i < this->getNumPlayers(); i++) {
         writer.StartObject();
         writer.Key("FollowerStart");
         writer.Uint(this->getPosition(i, Models::LeaderVars::FollowerStart));
@@ -917,7 +931,7 @@ Program Listing for File epec_models.cpp
         writer.Key("End");
         writer.Uint(this->getPosition(i, Models::LeaderVars::End));
         writer.Key("ShadowPrice");
-        writer.Uint(this->getPosition(this->getNumLeaders() - 1, Models::LeaderVars::End) + i);
+        writer.Uint(this->getPosition(this->getNumPlayers() - 1, Models::LeaderVars::End) + i);
         writer.EndObject();
      }
      writer.EndArray();
@@ -975,7 +989,7 @@ Program Listing for File epec_models.cpp
      if (this->Stats.Status.get() == ZEROStatus::NashEqFound) {
         if (writeLevel == 1 || writeLevel == 2) {
            this->WriteCountry(0, filename + ".txt", this->SolutionX, false);
-           for (unsigned int ell = 1; ell < this->getNumLeaders(); ++ell)
+           for (unsigned int ell = 1; ell < this->getNumPlayers(); ++ell)
              this->WriteCountry(ell, filename + ".txt", this->SolutionX, true);
            this->write(filename + ".txt", true);
         }
@@ -1195,7 +1209,7 @@ Program Listing for File epec_models.cpp
      // Trade
      double Export{x.at(this->getPosition(i, Models::LeaderVars::NetExport))};
      double exportPrice{
-           x.at(this->getPosition(this->getNumLeaders() - 1, Models::LeaderVars::End) + i)};
+           x.at(this->getPosition(this->getNumPlayers() - 1, Models::LeaderVars::End) + i)};
      double import{0};
      for (unsigned int j = this->getPosition(i, Models::LeaderVars::CountryImport);
             j < this->getPosition(i, Models::LeaderVars::CountryImport + 1);
@@ -1307,8 +1321,8 @@ Program Listing for File epec_models.cpp
    }
    
    void Models::EPEC::testLCP(const unsigned int i) {
-     auto      country = this->get_LowerLevelNash(i);
-     Game::LCP CountryLCP(this->Env, *country);
+     auto         country = this->get_LowerLevelNash(i);
+     MathOpt::LCP CountryLCP(this->Env, *country);
      CountryLCP.write("dat/LCP_" + to_string(i));
      auto model = CountryLCP.LCPasMIP(true);
      model->write("dat/CountryLCP_" + to_string(i) + ".lp");

@@ -8,9 +8,9 @@
     <derivedcompoundref refid="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation" prot="public" virt="non-virtual">Algorithms::EPEC::InnerApproximation</derivedcompoundref>
     <includes refid="epec__polybase_8h" local="no">epec_polybase.h</includes>
       <sectiondef kind="protected-attrib">
-      <memberdef kind="variable" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a07f74282d7751de285a7e72b0377c8d6" prot="protected" static="no" mutable="no">
-        <type>std::vector&lt; std::shared_ptr&lt; <ref refid="class_game_1_1_poly_l_c_p" kindref="compound">Game::PolyLCP</ref> &gt; &gt;</type>
-        <definition>std::vector&lt;std::shared_ptr&lt;Game::PolyLCP&gt; &gt; Algorithms::EPEC::PolyBase::PolyLCP</definition>
+      <memberdef kind="variable" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1af4b04767398229a7773932f5ff27f74b" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; std::shared_ptr&lt; <ref refid="class_math_opt_1_1_poly_l_c_p" kindref="compound">MathOpt::PolyLCP</ref> &gt; &gt;</type>
+        <definition>std::vector&lt;std::shared_ptr&lt;MathOpt::PolyLCP&gt; &gt; Algorithms::EPEC::PolyBase::PolyLCP</definition>
         <argsstring></argsstring>
         <name>PolyLCP</name>
         <initializer>{}</initializer>
@@ -21,7 +21,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="15" column="13" bodyfile="include/algorithms/EPEC/epec_polybase.h" bodystart="15" bodyend="-1"/>
+        <location file="include/games/algorithms/EPEC/epec_polybase.h" line="29" column="13" bodyfile="include/games/algorithms/EPEC/epec_polybase.h" bodystart="29" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -39,7 +39,7 @@
         <inbodydescription>
 <para>Perform postSolving operations. For instance, it updates the statistics associated with the feasible polyhedra. The responsability for calling this method is left to the inheritor</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="17" column="6" bodyfile="include/algorithms/EPEC/epec_polybase.h" bodystart="17" bodyend="29"/>
+        <location file="include/games/algorithms/EPEC/epec_polybase.h" line="31" column="6" bodyfile="include/games/algorithms/EPEC/epec_polybase.h" bodystart="31" bodyend="43"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -62,7 +62,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="32" column="1" bodyfile="include/algorithms/EPEC/epec_polybase.h" bodystart="32" bodyend="45"/>
+        <location file="include/games/algorithms/EPEC/epec_polybase.h" line="46" column="1" bodyfile="include/games/algorithms/EPEC/epec_polybase.h" bodystart="46" bodyend="59"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a5943ee10262cc33bbeb18d5a902e1b90" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -94,7 +94,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="47" column="3" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="5" bodyend="47"/>
+        <location file="include/games/algorithms/EPEC/epec_polybase.h" line="61" column="3" bodyfile="src/games/algorithms/EPEC/epec_polybase.cpp" bodystart="18" bodyend="60"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a291dab58d5014bc5be3477ed500c43f5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
@@ -115,7 +115,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="48" column="6" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="49" bodyend="54"/>
+        <location file="include/games/algorithms/EPEC/epec_polybase.h" line="62" column="6" bodyfile="src/games/algorithms/EPEC/epec_polybase.cpp" bodystart="62" bodyend="67"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a5631dd8fb9bd2d7aef4cd4137a905d15" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -133,7 +133,7 @@
         <inbodydescription>
 <para>Given that <ref refid="class_game_1_1_e_p_e_c_1a38b32268297c5cdf5334853d3ee2ba82" kindref="member">Game::EPEC::LCPModel</ref> is filled with the final LCP, directs the search toward a pure nash EQ. If such an equilibrium does not exist, then the model will return anyway a MNE. The original LCP is stored in the field <ref refid="class_game_1_1_e_p_e_c_1ada0cf8c4cefee9d0e3f6fcd29aa4fac0" kindref="member">Game::EPEC::LCPModelBase</ref>. <computeroutput>Indicators</computeroutput> dictates whether the resulting LCP should use indicator constraints instead of general binaries. In general, there are advantages in using the binary variables instead of such constraints, since there is no BigM involved in the formulation.</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="49" column="6" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="209" bodyend="271"/>
+        <location file="include/games/algorithms/EPEC/epec_polybase.h" line="63" column="6" bodyfile="src/games/algorithms/EPEC/epec_polybase.cpp" bodystart="222" bodyend="285"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a9266e3d1190be52164d30b2134236f93" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -164,7 +164,7 @@
         <inbodydescription>
 <para>For the i-th leader, gets the k-th pure strategy for i-th leader at position j</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="52" column="1" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="169" bodyend="187"/>
+        <location file="include/games/algorithms/EPEC/epec_polybase.h" line="66" column="1" bodyfile="src/games/algorithms/EPEC/epec_polybase.cpp" bodystart="182" bodyend="200"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a1d7e28a9c5842d4b1fc8f9e9f4a61c71" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -195,7 +195,7 @@
         <inbodydescription>
 <para>For the i-th leader, gets the k-th pure strategy for i-th leader at non-follower leader position j</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="55" column="1" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="189" bodyend="207"/>
+        <location file="include/games/algorithms/EPEC/epec_polybase.h" line="69" column="1" bodyfile="src/games/algorithms/EPEC/epec_polybase.cpp" bodystart="202" bodyend="220"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a22f4df7130fcc3ba15d904214e59114f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -217,7 +217,7 @@
         <inbodydescription>
 <para>Get the probability associated with the k-th polyhedron (k-th pure strategy) of the i-th leader.</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="57" column="8" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="157" bodyend="167"/>
+        <location file="include/games/algorithms/EPEC/epec_polybase.h" line="71" column="8" bodyfile="src/games/algorithms/EPEC/epec_polybase.cpp" bodystart="170" bodyend="180"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ac1be48a137ea071862794beba97ff02a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -240,7 +240,7 @@
         <inbodydescription>
 <para>Checks if the returned strategy leader is a pure strategy for the leader i. The strategy is considered a pure strategy, if it is played with a probability greater than 1 - Tolerance;</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="59" column="6" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="124" bodyend="137"/>
+        <location file="include/games/algorithms/EPEC/epec_polybase.h" line="73" column="6" bodyfile="src/games/algorithms/EPEC/epec_polybase.cpp" bodystart="137" bodyend="150"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1aa8a48f84931889820bd8f05e250f945b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
@@ -262,7 +262,7 @@
         <inbodydescription>
 <para>Checks if the returned strategy leader is a pure strategy for the leader i. The strategy is considered a pure strategy, if it is played with a probability greater than 1 - Tolerance;</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="61" column="6" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="111" bodyend="122"/>
+        <location file="include/games/algorithms/EPEC/epec_polybase.h" line="75" column="6" bodyfile="src/games/algorithms/EPEC/epec_polybase.cpp" bodystart="124" bodyend="135"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ac6d224591f7862a5da5dcf3607016c92" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; unsigned int &gt;</type>
@@ -285,7 +285,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="63" column="13" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="139" bodyend="155"/>
+        <location file="include/games/algorithms/EPEC/epec_polybase.h" line="77" column="13" bodyfile="src/games/algorithms/EPEC/epec_polybase.cpp" bodystart="152" bodyend="168"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a9a5a1f8d89b1049326165049b123e109" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned int</type>
@@ -312,7 +312,7 @@
 <para>Get the position of the k-th follower variable of the i-th leader, in the j-th feasible polyhedron.</para>
 <para>Indeed it should hold that <formula id="2">$ j &lt; $</formula> Algorithms::EPEC::PolyBase::getNumPolyLead(i)</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="64" column="14" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="56" bodyend="70"/>
+        <location file="include/games/algorithms/EPEC/epec_polybase.h" line="78" column="14" bodyfile="src/games/algorithms/EPEC/epec_polybase.cpp" bodystart="69" bodyend="83"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a6f83e7a8d82218dcbaf6e43255d949c7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned int</type>
@@ -339,7 +339,7 @@
 <para>Get the position of the k-th leader variable of the i-th leader, in the j-th feasible polyhedron.</para>
 <para>Indeed it should hold that <formula id="2">$ j &lt; $</formula> Algorithms::EPEC::PolyBase::getNumPolyLead(i)</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="66" column="14" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="72" bodyend="86"/>
+        <location file="include/games/algorithms/EPEC/epec_polybase.h" line="80" column="14" bodyfile="src/games/algorithms/EPEC/epec_polybase.cpp" bodystart="85" bodyend="99"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a0e0cfcb04c622946a00441e7460f9959" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned int</type>
@@ -357,7 +357,7 @@
         <inbodydescription>
 <para>Get the number of polyhedra used in the inner approximation of the feasible region of the i-th leader.*</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="68" column="14" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="88" bodyend="94"/>
+        <location file="include/games/algorithms/EPEC/epec_polybase.h" line="82" column="14" bodyfile="src/games/algorithms/EPEC/epec_polybase.cpp" bodystart="101" bodyend="107"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ad7777a11c5b70da40af2780802b31fab" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned int</type>
@@ -379,7 +379,7 @@
         <inbodydescription>
 <para>Get the position of the probability associated with the k-th polyhedron (k-th pure strategy) of the i-th leader. However, if the leader has an inner approximation with exactly 1 polyhedron, it returns 0;</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_polybase.h" line="70" column="14" bodyfile="src/algorithms/EPEC/epec_polybase.cpp" bodystart="96" bodyend="109"/>
+        <location file="include/games/algorithms/EPEC/epec_polybase.h" line="84" column="14" bodyfile="src/games/algorithms/EPEC/epec_polybase.cpp" bodystart="109" bodyend="122"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -417,38 +417,38 @@
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="11">
+      <node id="12">
         <label>Attr&lt; std::vector&lt; unsigned int &gt; &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="4">
+      <node id="5">
         <label>ZEROStatistics&lt; Data::EPEC::DataObject &gt;</label>
         <link refid="struct_z_e_r_o_statistics"/>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>WallClockTime</edgelabel>
         </childnode>
-        <childnode refid="6" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>AlgorithmData</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>NumConstraints</edgelabel>
           <edgelabel>NumNonZero</edgelabel>
           <edgelabel>NumIterations</edgelabel>
           <edgelabel>NumVar</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>PureNashEquilibrium</edgelabel>
           <edgelabel>NumericalIssues</edgelabel>
         </childnode>
-        <childnode refid="16" relation="usage">
+        <childnode refid="17" relation="usage">
           <edgelabel>Status</edgelabel>
         </childnode>
       </node>
-      <node id="16">
+      <node id="17">
         <label>Attr&lt; ZEROStatus &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="9">
+      <node id="10">
         <label>Attr&lt; int &gt;</label>
         <link refid="class_attr"/>
       </node>
@@ -458,7 +458,7 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="15">
+      <node id="16">
         <label>Attr&lt; Data::LCP::PolyhedraStrategy &gt;</label>
         <link refid="class_attr"/>
       </node>
@@ -469,87 +469,93 @@
           <edgelabel>EPECObject</edgelabel>
         </childnode>
       </node>
-      <node id="14">
+      <node id="15">
         <label>Attr&lt; Data::EPEC::Algorithms &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="10">
+      <node id="11">
         <label>Attr&lt; bool &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="6">
+      <node id="7">
         <label>Data::EPEC::DataObject</label>
         <link refid="class_data_1_1_e_p_e_c_1_1_data_object"/>
-        <childnode refid="7" relation="public-inheritance">
+        <childnode refid="8" relation="public-inheritance">
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>BoundBigM</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>FeasiblePolyhedra</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>LostIntermediateEq</edgelabel>
         </childnode>
-        <childnode refid="12" relation="usage">
+        <childnode refid="13" relation="usage">
           <edgelabel>Aggressiveness</edgelabel>
         </childnode>
-        <childnode refid="13" relation="usage">
+        <childnode refid="14" relation="usage">
           <edgelabel>RecoverStrategy</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>BoundPrimals</edgelabel>
         </childnode>
-        <childnode refid="14" relation="usage">
+        <childnode refid="15" relation="usage">
           <edgelabel>Algorithm</edgelabel>
         </childnode>
-        <childnode refid="15" relation="usage">
+        <childnode refid="16" relation="usage">
           <edgelabel>PolyhedraStrategy</edgelabel>
         </childnode>
       </node>
       <node id="3">
         <label>Game::EPEC</label>
         <link refid="class_game_1_1_e_p_e_c"/>
-        <childnode refid="4" relation="usage">
-          <edgelabel>Stats</edgelabel>
+        <childnode refid="4" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="12">
+      <node id="13">
         <label>Attr&lt; unsigned int &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="5">
+      <node id="6">
         <label>Attr&lt; double &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="7">
+      <node id="8">
         <label>ZEROAlgorithmData</label>
         <link refid="class_z_e_r_o_algorithm_data"/>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>DeviationTolerance</edgelabel>
           <edgelabel>TimeLimit</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="9" relation="usage">
           <edgelabel>RandomSeed</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>Threads</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>PureNashEquilibrium</edgelabel>
           <edgelabel>IndicatorConstraints</edgelabel>
         </childnode>
       </node>
-      <node id="8">
+      <node id="9">
         <label>Attr&lt; unsigned long int &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="13">
+      <node id="4">
+        <label>Game::AbstractGame&lt; Data::EPEC::DataObject &gt;</label>
+        <link refid="class_game_1_1_abstract_game"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>Stats</edgelabel>
+        </childnode>
+      </node>
+      <node id="14">
         <label>Attr&lt; Data::EPEC::RecoverStrategy &gt;</label>
         <link refid="class_attr"/>
       </node>
     </collaborationgraph>
-    <location file="include/algorithms/EPEC/epec_polybase.h" line="8" column="33" bodyfile="include/algorithms/EPEC/epec_polybase.h" bodystart="8" bodyend="71"/>
+    <location file="include/games/algorithms/EPEC/epec_polybase.h" line="22" column="33" bodyfile="include/games/algorithms/EPEC/epec_polybase.h" bodystart="22" bodyend="85"/>
     <listofallmembers>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1aad636a41bb0353f0c632430b6fb20937" prot="protected" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>Env</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" prot="protected" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>EPECObject</name></member>
@@ -567,7 +573,7 @@
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a5631dd8fb9bd2d7aef4cd4137a905d15" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>makeThePureLCP</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ac6d224591f7862a5da5dcf3607016c92" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>mixedStrategyPoly</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a3232baf0efbe5fe82c3168937a6a8d20" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>PolyBase</name></member>
-      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a07f74282d7751de285a7e72b0377c8d6" prot="protected" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>PolyLCP</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1af4b04767398229a7773932f5ff27f74b" prot="protected" virt="non-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>PolyLCP</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ae32c59d87b904dd0b6bff19a4bf954f7" prot="protected" virt="virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>postSolving</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1afb53fa0b28accf7ffb71f38b7127cd8a" prot="public" virt="pure-virtual"><scope>Algorithms::EPEC::PolyBase</scope><name>solve</name></member>
     </listofallmembers>

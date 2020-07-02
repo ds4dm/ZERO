@@ -3,15 +3,36 @@
   <compounddef id="ipg_8h" kind="file" language="C++">
     <compoundname>ipg.h</compoundname>
     <includes refid="zero_8h" local="yes">zero.h</includes>
-    <includes refid="ipg__oracle_8h" local="no">algorithms/IPG/ipg_oracle.h</includes>
     <includes local="no">armadillo</includes>
     <includes local="no">gurobi_c++.h</includes>
     <includes local="no">iostream</includes>
     <includes local="no">memory</includes>
     <includes local="no">set</includes>
     <includes local="no">string</includes>
+    <includes refid="ipg__oracle_8h" local="yes">algorithms/IPG/ipg_oracle.h</includes>
     <includedby refid="ipg_8cpp" local="yes">src/games/ipg.cpp</includedby>
+    <includedby refid="games_8h" local="yes">include/games/games.h</includedby>
     <incdepgraph>
+      <node id="17">
+        <label>games/epec.h</label>
+        <link refid="epec_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
       <node id="12">
         <label>support/utils.h</label>
         <link refid="utils_8h"/>
@@ -24,7 +45,25 @@
         <childnode refid="14" relation="include">
         </childnode>
       </node>
-      <node id="23">
+      <node id="22">
+        <label>poly_lcp.h</label>
+        <link refid="poly__lcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
         <label>algorithms/IPG/ipg_oracle.h</label>
         <link refid="ipg__oracle_8h"/>
         <childnode refid="2" relation="include">
@@ -42,7 +81,7 @@
         <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="18">
         <label>games/nash.h</label>
         <link refid="nash_8h"/>
         <childnode refid="2" relation="include">
@@ -76,12 +115,56 @@
       <node id="5">
         <label>map</label>
       </node>
-      <node id="20">
+      <node id="16">
         <label>games/games.h</label>
         <link refid="games_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>outer_lcp.h</label>
+        <link refid="outer__lcp_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>ip_param.h</label>
+        <link refid="ip__param_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
@@ -100,60 +183,6 @@
       </node>
       <node id="13">
         <label>fstream</label>
-      </node>
-      <node id="18">
-        <label>lcp/outer_lcp.h</label>
-        <link refid="outer__lcp_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="19">
-        <label>lcp/poly_lcp.h</label>
-        <link refid="poly__lcp_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-      </node>
-      <node id="22">
-        <label>games/qpmp.h</label>
-        <link refid="qpmp_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
       </node>
       <node id="2">
         <label>zero.h</label>
@@ -178,13 +207,29 @@
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+      </node>
+      <node id="23">
+        <label>mathopt/mp_param/mp_param.h</label>
+        <link refid="mp__param_8h"/>
+        <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
+        <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="17" relation="include">
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
         </childnode>
       </node>
       <node id="8">
@@ -196,7 +241,33 @@
         <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="4">
+        <label>iostream</label>
+      </node>
+      <node id="1">
+        <label>include/games/ipg.h</label>
+        <link refid="ipg_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>gurobi_c++.h</label>
+      </node>
+      <node id="20">
         <label>lcp/lcp.h</label>
         <link refid="lcp_8h"/>
         <childnode refid="2" relation="include">
@@ -211,267 +282,456 @@
         </childnode>
         <childnode refid="14" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
+        <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
-      </node>
-      <node id="16">
-        <label>games/EPEC_test.h</label>
-        <link refid="_e_p_e_c__test_8h"/>
-        <childnode refid="17" relation="include">
-        </childnode>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-      </node>
-      <node id="4">
-        <label>iostream</label>
-      </node>
-      <node id="1">
-        <label>include/games/ipg.h</label>
-        <link refid="ipg_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-      </node>
-      <node id="11">
-        <label>gurobi_c++.h</label>
       </node>
       <node id="14">
         <label>set</label>
       </node>
+      <node id="25">
+        <label>qp_param.h</label>
+        <link refid="qp__param_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
       <node id="6">
         <label>memory</label>
       </node>
+      <node id="19">
+        <label>mathopt/mathopt.h</label>
+        <link refid="mathopt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="37">
+        <label>src/mathopt/mp_param/mp_param.cpp</label>
+        <link refid="mp__param_8cpp"/>
+      </node>
+      <node id="12">
+        <label>include/games/algorithms/EPEC/epec_algorithms.h</label>
+        <link refid="epec__algorithms_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>include/games/epec.h</label>
+        <link refid="epec_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>include/support/utils.h</label>
+        <link refid="utils_8h"/>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>src/mathopt/mp_param/ip_param.cpp</label>
+        <link refid="ip__param_8cpp"/>
+      </node>
+      <node id="5">
+        <label>src/games/algorithms/EPEC/epec_innerapproximation.cpp</label>
+        <link refid="epec__innerapproximation_8cpp"/>
+      </node>
+      <node id="33">
+        <label>include/mathopt/lcp/poly_lcp.h</label>
+        <link refid="poly__lcp_8h"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>include/games/algorithms/EPEC/epec_fullenumeration.h</label>
+        <link refid="epec__fullenumeration_8h"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>src/mathopt/lcp/poly_lcp.cpp</label>
+        <link refid="poly__lcp_8cpp"/>
+      </node>
+      <node id="21">
+        <label>include/games/algorithms/IPG/ipg_oracle.h</label>
+        <link refid="ipg__oracle_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>include/games/nash.h</label>
+        <link refid="nash_8h"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>include/games/algorithms/EPEC/epec_innerapproximation.h</label>
+        <link refid="epec__innerapproximation_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>include/games/games.h</label>
+        <link refid="games_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>src/mathopt/lcp/outer_lcp.cpp</label>
+        <link refid="outer__lcp_8cpp"/>
+      </node>
+      <node id="39">
+        <label>src/mathopt/mp_param/qp_param.cpp</label>
+        <link refid="qp__param_8cpp"/>
+      </node>
+      <node id="31">
+        <label>include/mathopt/lcp/outer_lcp.h</label>
+        <link refid="outer__lcp_8h"/>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>include/mathopt/mp_param/ip_param.h</label>
+        <link refid="ip__param_8h"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>include/interfaces/epec_models.h</label>
+        <link refid="epec__models_8h"/>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>src/games/algorithms/EPEC/epec_polybase.cpp</label>
+        <link refid="epec__polybase_8cpp"/>
+      </node>
+      <node id="11">
+        <label>src/shells/epec.cpp</label>
+        <link refid="shells_2epec_8cpp"/>
+      </node>
+      <node id="28">
+        <label>src/mathopt/lcp/lcp.cpp</label>
+        <link refid="lcp_8cpp"/>
+      </node>
+      <node id="4">
+        <label>include/zero.h</label>
+        <link refid="zero_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>src/games/games.cpp</label>
+        <link refid="games_8cpp"/>
+      </node>
+      <node id="36">
+        <label>include/mathopt/mp_param/mp_param.h</label>
+        <link refid="mp__param_8h"/>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>src/support/utils.cpp</label>
+        <link refid="utils_8cpp"/>
+      </node>
       <node id="2">
         <label>src/games/ipg.cpp</label>
         <link refid="ipg_8cpp"/>
+      </node>
+      <node id="8">
+        <label>src/games/epec.cpp</label>
+        <link refid="games_2epec_8cpp"/>
+      </node>
+      <node id="17">
+        <label>src/games/algorithms/EPEC/epec_combinatorialpne.cpp</label>
+        <link refid="epec__combinatorialpne_8cpp"/>
+      </node>
+      <node id="24">
+        <label>src/games/nash.cpp</label>
+        <link refid="nash_8cpp"/>
+      </node>
+      <node id="15">
+        <label>include/games/algorithms/EPEC/epec_polybase.h</label>
+        <link refid="epec__polybase_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>include/games/algorithms/EPEC/epec_combinatorialpne.h</label>
+        <link refid="epec__combinatorialpne_8h"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>src/mathopt/mathopt.cpp</label>
+        <link refid="mathopt_8cpp"/>
       </node>
       <node id="1">
         <label>include/games/ipg.h</label>
         <link refid="ipg_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>src/games/algorithms/EPEC/epec_fullenumeration.cpp</label>
+        <link refid="epec__fullenumeration_8cpp"/>
+      </node>
+      <node id="14">
+        <label>src/games/algorithms/EPEC/epec_outerapproximation.cpp</label>
+        <link refid="epec__outerapproximation_8cpp"/>
+      </node>
+      <node id="27">
+        <label>include/mathopt/lcp/lcp.h</label>
+        <link refid="lcp_8h"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>src/interfaces/epec_models.cpp</label>
+        <link refid="epec__models_8cpp"/>
+      </node>
+      <node id="7">
+        <label>src/games/algorithms/IPG/ipg_oracle.cpp</label>
+        <link refid="ipg__oracle_8cpp"/>
+      </node>
+      <node id="13">
+        <label>include/games/algorithms/EPEC/epec_outerapproximation.h</label>
+        <link refid="epec__outerapproximation_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>include/mathopt/mp_param/qp_param.h</label>
+        <link refid="qp__param_8h"/>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>include/mathopt/mathopt.h</label>
+        <link refid="mathopt_8h"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
-    <innerclass refid="class_game_1_1_i_p___param" prot="public">Game::IP_Param</innerclass>
+    <innerclass refid="class_data_1_1_i_p_g_1_1_data_object" prot="public">Data::IPG::DataObject</innerclass>
     <innerclass refid="class_game_1_1_i_p_g" prot="public">Game::IPG</innerclass>
+    <innernamespace refid="namespace_data">Data</innernamespace>
+    <innernamespace refid="namespace_data_1_1_i_p_g">Data::IPG</innernamespace>
     <innernamespace refid="namespace_game">Game</innernamespace>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
     <programlisting>
-<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="zero_8h" kindref="compound">zero.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="ipg__oracle_8h" kindref="compound">algorithms/IPG/ipg_oracle.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;armadillo&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;gurobi_c++.h&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;set&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight></codeline>
-<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_game" kindref="compound">Game</ref><sp/>{</highlight></codeline>
-<codeline lineno="13" refid="class_game_1_1_i_p___param" refkind="compound"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_game_1_1_i_p___param" kindref="compound">IP_Param</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_m_p___param" kindref="compound">MP_Param</ref></highlight></codeline>
-<codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Shape<sp/>of<sp/>C<sp/>is<sp/>Ny\times<sp/>Nx</highlight></codeline>
-<codeline lineno="26"><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Gurobi<sp/>environment<sp/>and<sp/>model</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="29" refid="class_game_1_1_i_p___param_1afc6816cad3450d94f18dfb4d29d3d91c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>GRBEnv<sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p___param_1afc6816cad3450d94f18dfb4d29d3d91c" kindref="member">Env</ref>;</highlight></codeline>
-<codeline lineno="30" refid="class_game_1_1_i_p___param_1ab350d5b25881473e58f382afa4451faf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>GRBModel<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p___param_1ab350d5b25881473e58f382afa4451faf" kindref="member">IPModel</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="31" refid="class_game_1_1_i_p___param_1ae69f427daafdadccfd11a1f769038dc2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>arma::vec<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p___param_1ae69f427daafdadccfd11a1f769038dc2" kindref="member">bounds</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="32" refid="class_game_1_1_i_p___param_1a3b8e2133a9eb621c48c1dc8e1d5164ad" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>std::vector&lt;int&gt;<sp/><ref refid="class_game_1_1_i_p___param_1a3b8e2133a9eb621c48c1dc8e1d5164ad" kindref="member">integers</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="33" refid="class_game_1_1_i_p___param_1ad2a53db91304aad8942edbc0e18d410c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p___param_1ad2a53db91304aad8942edbc0e18d410c" kindref="member">madeModel</ref>{</highlight><highlight class="keyword">false</highlight><highlight class="normal">};<sp/></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>These<sp/>methods<sp/>should<sp/>be<sp/>inaccessible<sp/>to<sp/>the<sp/>inheritor,<sp/>since<sp/>we<sp/>have<sp/>a</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>different<sp/>structure.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_m_p___param_1a97d7a955cb93ff14144bdce152e906b6" kindref="member">MP_Param::set</ref>;</highlight></codeline>
+<codeline lineno="1"><highlight class="comment">/*<sp/>#############################################</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>file<sp/>is<sp/>part<sp/>of</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ZERO</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Copyright<sp/>(c)<sp/>2020</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/>Released<sp/>under<sp/>the<sp/>Creative<sp/>Commons</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Zero<sp/>v1.0<sp/>Universal<sp/>License</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Find<sp/>out<sp/>more<sp/>at</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>https://github.com/ds4dm/ZERO</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>#############################################*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="zero_8h" kindref="compound">zero.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;armadillo&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;gurobi_c++.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;set&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_data" kindref="compound">Data</ref><sp/>{</highlight></codeline>
+<codeline lineno="24" refid="namespace_data_1_1_i_p_g" refkind="compound"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">IPG<sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26" refid="namespace_data_1_1_i_p_g_1a34d343f554ac089c3cb14de04aa6d294" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum<sp/>class</highlight><highlight class="normal"><sp/><ref refid="namespace_algorithms" kindref="compound">Algorithms</ref><sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_data_1_1_i_p_g_1a34d343f554ac089c3cb14de04aa6d294a30162ed78b6c10f731411f2fc440c24f" kindref="member">Oracle</ref><sp/></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30" refid="class_data_1_1_i_p_g_1_1_data_object" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_data_1_1_i_p_g_1_1_data_object" kindref="compound">DataObject</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_z_e_r_o_algorithm_data" kindref="compound">ZEROAlgorithmData</ref><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="32" refid="class_data_1_1_i_p_g_1_1_data_object_1a5343763d51f0a9b208d97907c0d2782e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_attr" kindref="compound">Attr&lt;Data::IPG::Algorithms&gt;</ref><sp/><ref refid="class_data_1_1_i_p_g_1_1_data_object_1a5343763d51f0a9b208d97907c0d2782e" kindref="member">Algorithm</ref><sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_data_1_1_i_p_g_1a34d343f554ac089c3cb14de04aa6d294a30162ed78b6c10f731411f2fc440c24f" kindref="member">Data::IPG::Algorithms::Oracle</ref>};<sp/></highlight></codeline>
+<codeline lineno="34" refid="class_data_1_1_i_p_g_1_1_data_object_1a586b9beef91556d36089bb539f0211a4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_data_1_1_i_p_g_1_1_data_object_1a586b9beef91556d36089bb539f0211a4" kindref="member">DataObject</ref>(){};</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>IPG</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>Data</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="38"><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:<sp/></highlight><highlight class="comment">//<sp/>Constructors</highlight></codeline>
-<codeline lineno="41" refid="class_game_1_1_i_p___param_1ad710e7e048db05e226b431f31806e264" refkind="member"><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p___param_1ad710e7e048db05e226b431f31806e264" kindref="member">IP_Param</ref>(GRBEnv<sp/>*env<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>:<sp/><ref refid="class_game_1_1_i_p___param_1afc6816cad3450d94f18dfb4d29d3d91c" kindref="member">Env</ref>{env},<sp/><ref refid="class_game_1_1_i_p___param_1ab350d5b25881473e58f382afa4451faf" kindref="member">IPModel</ref>{(*env)}<sp/>{<sp/>this-&gt;<ref refid="class_game_1_1_m_p___param_1aa2528bd94216c15b6c655040cecea5fe" kindref="member">size</ref>();<sp/>}</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight></codeline>
-<codeline lineno="44" refid="class_game_1_1_i_p___param_1ae4ee8d18baa66ad6f7c2282ec74ba223" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p___param_1ae4ee8d18baa66ad6f7c2282ec74ba223" kindref="member">IP_Param</ref>(arma::sp_mat<sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_m_p___param_1ab17ec9cd0030436cd5c443cfcfe08ad1" kindref="member">C</ref>,</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arma::sp_mat<sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_m_p___param_1a3d517547d70f75e43060785fe66ad091" kindref="member">B</ref>,</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arma::vec<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_m_p___param_1a97fc7b4d0d1ef97e4115f0114bbfdfcc" kindref="member">b</ref>,</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arma::vec<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_m_p___param_1ac0e65580b83e8e6441d6e964b515dff8" kindref="member">c</ref>,</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arma::vec<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p___param_1ae69f427daafdadccfd11a1f769038dc2" kindref="member">bounds</ref>,</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;int&gt;<sp/><ref refid="class_game_1_1_i_p___param_1a3b8e2133a9eb621c48c1dc8e1d5164ad" kindref="member">integers</ref>,</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GRBEnv<sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>env<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="class_game_1_1_i_p___param_1afc6816cad3450d94f18dfb4d29d3d91c" kindref="member">Env</ref>{env},<sp/><ref refid="class_game_1_1_i_p___param_1ab350d5b25881473e58f382afa4451faf" kindref="member">IPModel</ref>{(*env)}<sp/>{</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_game_1_1_m_p___param_1ad1ec9489e7f1959f468e459c881cd63d" kindref="member">Q</ref>.zeros(0);</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_game_1_1_m_p___param_1aa0b31310fd4f138fe3e3771d2b077c3e" kindref="member">A</ref>.zeros(0);</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_game_1_1_i_p___param_1a93830476669f3c32cf5110d922c848bf" kindref="member">set</ref>(<ref refid="class_game_1_1_m_p___param_1ad1ec9489e7f1959f468e459c881cd63d" kindref="member">Q</ref>,<sp/><ref refid="class_game_1_1_m_p___param_1ab17ec9cd0030436cd5c443cfcfe08ad1" kindref="member">C</ref>,<sp/><ref refid="class_game_1_1_m_p___param_1aa0b31310fd4f138fe3e3771d2b077c3e" kindref="member">A</ref>,<sp/><ref refid="class_game_1_1_m_p___param_1a3d517547d70f75e43060785fe66ad091" kindref="member">B</ref>,<sp/><ref refid="class_game_1_1_m_p___param_1ac0e65580b83e8e6441d6e964b515dff8" kindref="member">c</ref>,<sp/><ref refid="class_game_1_1_m_p___param_1a97fc7b4d0d1ef97e4115f0114bbfdfcc" kindref="member">b</ref>);</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;bounds<sp/><sp/><sp/>=<sp/><ref refid="class_game_1_1_i_p___param_1ae69f427daafdadccfd11a1f769038dc2" kindref="member">bounds</ref>;</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;integers<sp/>=<sp/><ref refid="class_game_1_1_i_p___param_1a3b8e2133a9eb621c48c1dc8e1d5164ad" kindref="member">integers</ref>;</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_game_1_1_m_p___param_1aa2528bd94216c15b6c655040cecea5fe" kindref="member">size</ref>();</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!this-&gt;<ref refid="class_game_1_1_m_p___param_1acb2f6575e0f7613303287d6966eacd61" kindref="member">dataCheck</ref>())</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="class_z_e_r_o_exception" kindref="compound">ZEROException</ref>(<ref refid="codes_8h_1aec3f6d9705d82787080ef99b37b7efeaa3c4b6828f5a12280debdb5a12e0e72ba" kindref="member">ZEROErrorCode::InvalidData</ref>,<sp/></highlight><highlight class="stringliteral">&quot;dataCheck()<sp/>failed&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"></highlight></codeline>
-<codeline lineno="71" refid="class_game_1_1_i_p___param_1af03bb090c6c553fdac3f299b7958a452" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>std::vector&lt;int&gt;<sp/><ref refid="class_game_1_1_i_p___param_1af03bb090c6c553fdac3f299b7958a452" kindref="member">getIntegers</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_game_1_1_i_p___param_1a3b8e2133a9eb621c48c1dc8e1d5164ad" kindref="member">integers</ref>;<sp/>}</highlight></codeline>
-<codeline lineno="72" refid="class_game_1_1_i_p___param_1a53055361adaee922a797fc90d9ce247a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>arma::vec<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p___param_1a53055361adaee922a797fc90d9ce247a" kindref="member">getBounds</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_game_1_1_i_p___param_1ae69f427daafdadccfd11a1f769038dc2" kindref="member">bounds</ref>;<sp/>}</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p___param_1a990ad2af9bc94af6e8662fedc84ba83c" kindref="member">makeModel</ref>();</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p___param_1a28b141637cb670fb51f330dcd3f67d37" kindref="member">addConstraints</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::sp_mat<sp/><ref refid="class_game_1_1_m_p___param_1aa0b31310fd4f138fe3e3771d2b077c3e" kindref="member">A</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/><ref refid="class_game_1_1_m_p___param_1a97fc7b4d0d1ef97e4115f0114bbfdfcc" kindref="member">b</ref>);</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"></highlight></codeline>
-<codeline lineno="77" refid="class_game_1_1_i_p___param_1ab308072a2b83eba38823d1a9cfcbb6a0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p___param_1ab308072a2b83eba38823d1a9cfcbb6a0" kindref="member">IP_Param</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p___param" kindref="compound">IP_Param</ref><sp/>&amp;ipg)</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="class_game_1_1_m_p___param" kindref="compound">MP_Param</ref>(ipg),<sp/><ref refid="class_game_1_1_i_p___param_1afc6816cad3450d94f18dfb4d29d3d91c" kindref="member">Env</ref>{ipg.<ref refid="class_game_1_1_i_p___param_1afc6816cad3450d94f18dfb4d29d3d91c" kindref="member">Env</ref>},<sp/><ref refid="class_game_1_1_i_p___param_1ab350d5b25881473e58f382afa4451faf" kindref="member">IPModel</ref>{ipg.IPModel},<sp/><ref refid="class_game_1_1_i_p___param_1ad2a53db91304aad8942edbc0e18d410c" kindref="member">madeModel</ref>{ipg.madeModel}<sp/>{</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_game_1_1_m_p___param_1aa2528bd94216c15b6c655040cecea5fe" kindref="member">size</ref>();</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Override<sp/>setters</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p___param_1ad710e7e048db05e226b431f31806e264" kindref="member">IP_Param</ref><sp/>&amp;<ref refid="class_game_1_1_i_p___param_1a93830476669f3c32cf5110d922c848bf" kindref="member">set</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::sp_mat<sp/>&amp;<sp/><sp/><sp/><sp/><ref refid="class_game_1_1_m_p___param_1ab17ec9cd0030436cd5c443cfcfe08ad1" kindref="member">C</ref>,</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::sp_mat<sp/>&amp;<sp/><sp/><sp/><sp/><ref refid="class_game_1_1_m_p___param_1a3d517547d70f75e43060785fe66ad091" kindref="member">B</ref>,</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_m_p___param_1a97fc7b4d0d1ef97e4115f0114bbfdfcc" kindref="member">b</ref>,</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_m_p___param_1ac0e65580b83e8e6441d6e964b515dff8" kindref="member">c</ref>,</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p___param_1ae69f427daafdadccfd11a1f769038dc2" kindref="member">bounds</ref>,</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;int&gt;<sp/>&amp;<ref refid="class_game_1_1_i_p___param_1a3b8e2133a9eb621c48c1dc8e1d5164ad" kindref="member">integers</ref>);<sp/></highlight><highlight class="comment">//<sp/>Copy<sp/>data<sp/>into<sp/>this</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p___param_1ad710e7e048db05e226b431f31806e264" kindref="member">IP_Param</ref><sp/>&amp;<ref refid="class_game_1_1_i_p___param_1a93830476669f3c32cf5110d922c848bf" kindref="member">set</ref>(arma::sp_mat<sp/>&amp;<sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_m_p___param_1ab17ec9cd0030436cd5c443cfcfe08ad1" kindref="member">C</ref>,</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arma::sp_mat<sp/>&amp;&amp;<sp/><sp/><sp/><sp/><ref refid="class_game_1_1_m_p___param_1a3d517547d70f75e43060785fe66ad091" kindref="member">B</ref>,</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arma::vec<sp/>&amp;&amp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_m_p___param_1a97fc7b4d0d1ef97e4115f0114bbfdfcc" kindref="member">b</ref>,</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arma::vec<sp/>&amp;&amp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_m_p___param_1ac0e65580b83e8e6441d6e964b515dff8" kindref="member">c</ref>,</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arma::vec<sp/>&amp;&amp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p___param_1ae69f427daafdadccfd11a1f769038dc2" kindref="member">bounds</ref>,</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;int&gt;<sp/>&amp;&amp;<ref refid="class_game_1_1_i_p___param_1a3b8e2133a9eb621c48c1dc8e1d5164ad" kindref="member">integers</ref>);<sp/></highlight><highlight class="comment">//<sp/>Copy<sp/>data<sp/>into<sp/>this</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="95"><highlight class="normal"></highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p___param_1ad710e7e048db05e226b431f31806e264" kindref="member">IP_Param</ref><sp/>&amp;<ref refid="class_game_1_1_i_p___param_1a93830476669f3c32cf5110d922c848bf" kindref="member">set</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>QP_Objective<sp/>&amp;<sp/><sp/><sp/><sp/>obj,</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>QP_Constraints<sp/>&amp;<sp/><sp/>cons,</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p___param_1ae69f427daafdadccfd11a1f769038dc2" kindref="member">bounds</ref><sp/><sp/><sp/>=<sp/>{},</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;int&gt;<sp/>&amp;<ref refid="class_game_1_1_i_p___param_1a3b8e2133a9eb621c48c1dc8e1d5164ad" kindref="member">integers</ref><sp/>=<sp/>{});</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p___param_1ad710e7e048db05e226b431f31806e264" kindref="member">IP_Param</ref><sp/>&amp;<ref refid="class_game_1_1_i_p___param_1a93830476669f3c32cf5110d922c848bf" kindref="member">set</ref>(QP_Objective<sp/>&amp;&amp;<sp/><sp/><sp/><sp/>obj,</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>QP_Constraints<sp/>&amp;&amp;<sp/><sp/>cons,</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arma::vec<sp/>&amp;&amp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p___param_1ae69f427daafdadccfd11a1f769038dc2" kindref="member">bounds</ref><sp/><sp/><sp/>=<sp/>{},</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;int&gt;<sp/>&amp;&amp;<ref refid="class_game_1_1_i_p___param_1a3b8e2133a9eb621c48c1dc8e1d5164ad" kindref="member">integers</ref><sp/>=<sp/>{});</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"></highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p___param_1a922cfe6dcf78da845462aafaf72e0083" kindref="member">operator==</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p___param_1ad710e7e048db05e226b431f31806e264" kindref="member">IP_Param</ref><sp/>&amp;IPG2)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>std::unique_ptr&lt;GRBModel&gt;<sp/><ref refid="class_game_1_1_i_p___param_1a170e9bf8ae4eebe9397d01887c517582" kindref="member">solveFixed</ref>(arma::vec<sp/>x,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>solve);</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"></highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p___param_1a516b956199b99813297debbaac5442f4" kindref="member">computeObjective</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;y,</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;x,</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>checkFeas<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tol<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>1e-6)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"></highlight></codeline>
-<codeline lineno="116" refid="class_game_1_1_i_p___param_1a9b8b7c1cec87693da7d99508d4f4cfa3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p___param_1a9b8b7c1cec87693da7d99508d4f4cfa3" kindref="member">isPlayable</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p___param" kindref="compound">IP_Param</ref><sp/>&amp;P)<sp/></highlight><highlight class="keyword">const</highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>b1,<sp/>b2,<sp/>b3;</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b1<sp/>=<sp/>(this-&gt;<ref refid="class_game_1_1_m_p___param_1aac9e6425fcc953b69c7aae411f011e58" kindref="member">Nx</ref><sp/>+<sp/>this-&gt;<ref refid="class_game_1_1_m_p___param_1ab889087a490f40f114002c92fea62b2d" kindref="member">Ny</ref>)<sp/>==<sp/>(P.getNx()<sp/>+<sp/>P.getNy());</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b2<sp/>=<sp/>this-&gt;<ref refid="class_game_1_1_m_p___param_1aac9e6425fcc953b69c7aae411f011e58" kindref="member">Nx</ref><sp/>&gt;=<sp/>P.getNy();</highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b3<sp/>=<sp/>this-&gt;<ref refid="class_game_1_1_m_p___param_1ab889087a490f40f114002c92fea62b2d" kindref="member">Ny</ref><sp/>&lt;=<sp/>P.getNx();</highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>b1<sp/>&amp;&amp;<sp/>b2<sp/>&amp;&amp;<sp/>b3;</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"></highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p___param" kindref="compound">IP_Param</ref><sp/>&amp;<ref refid="class_game_1_1_i_p___param_1a567edec8068732bc7447a02490f98b1e" kindref="member">addDummy</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>pars,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>vars<sp/>=<sp/>0,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>position<sp/>=<sp/>-1)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="128"><highlight class="normal"></highlight></codeline>
-<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p___param_1a386613a0547b8b1ab08524471394cd75" kindref="member">write</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;filename,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>append)<sp/></highlight><highlight class="keyword">const<sp/>override</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"></highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p___param_1aefe2c5f7d30212248f97dc1cef150178" kindref="member">computeObjectiveWithoutOthers</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;y)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>arma::vec<sp/><ref refid="class_game_1_1_i_p___param_1a7244cefbe65e5e0220e1a5924ea6cbcf" kindref="member">getConstraintViolations</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>y,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
-<codeline lineno="136"><highlight class="normal"></highlight></codeline>
-<codeline lineno="138" refid="class_game_1_1_i_p_g" refkind="compound"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_game_1_1_i_p_g" kindref="compound">IPG</ref><sp/>{</highlight></codeline>
-<codeline lineno="139"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="140" refid="class_game_1_1_i_p_g_1ab6ba37c89a84e5bbe0959c740c167732" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1ab6ba37c89a84e5bbe0959c740c167732" kindref="member">NumVariables</ref>{0};</highlight></codeline>
-<codeline lineno="141" refid="class_game_1_1_i_p_g_1af8db3a3876f89c90ffbcc57e3bed52ce" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1af8db3a3876f89c90ffbcc57e3bed52ce" kindref="member">NumPlayers</ref>{0};</highlight></codeline>
-<codeline lineno="142"><highlight class="normal"></highlight></codeline>
-<codeline lineno="143"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:<sp/></highlight><highlight class="comment">//<sp/>Datafields</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>std::vector&lt;std::shared_ptr&lt;Game::IP_Param&gt;&gt;</highlight></codeline>
-<codeline lineno="145" refid="class_game_1_1_i_p_g_1a6c87d0fc735ba6ae67d3f2cb6296427b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p_g_1a6c87d0fc735ba6ae67d3f2cb6296427b" kindref="member">PlayersIP</ref>{};<sp/></highlight></codeline>
-<codeline lineno="146"><highlight class="normal"></highlight></codeline>
-<codeline lineno="147" refid="class_game_1_1_i_p_g_1a728a80ade416a2f36cd5a8833a0cf2ee" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>std::vector&lt;unsigned<sp/>int&gt;<sp/><ref refid="class_game_1_1_i_p_g_1a728a80ade416a2f36cd5a8833a0cf2ee" kindref="member">PlayerVariables</ref>{};<sp/></highlight></codeline>
-<codeline lineno="148"><highlight class="normal"></highlight></codeline>
-<codeline lineno="149" refid="class_game_1_1_i_p_g_1af823c71b1936c594d5b7eeea4857a572" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>GRBEnv<sp/>*<ref refid="class_game_1_1_i_p_g_1af823c71b1936c594d5b7eeea4857a572" kindref="member">Env</ref>;</highlight></codeline>
-<codeline lineno="150" refid="class_game_1_1_i_p_g_1ae0fcd4871cd997f56ca1796e13a43112" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p_g_1ae0fcd4871cd997f56ca1796e13a43112" kindref="member">Finalized</ref>{</highlight><highlight class="keyword">false</highlight><highlight class="normal">};<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1a84c42d31656fb21d722937aa227dd55f" kindref="member">NashEquilibrium</ref>{</highlight><highlight class="keyword">false</highlight><highlight class="normal">};<sp/></highlight></codeline>
-<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>std::chrono::high_resolution_clock::time_point<sp/><ref refid="class_game_1_1_i_p_g_1a159f8c1e930ef3c1258e75f76b7b75ed" kindref="member">InitTime</ref>;</highlight></codeline>
-<codeline lineno="156" refid="class_game_1_1_i_p_g_1a3f0bd8944769dc7e8ceedbeaffd43fc3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>Data::EPEC::EPECStatistics<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p_g_1a3f0bd8944769dc7e8ceedbeaffd43fc3" kindref="member">Stats</ref>;<sp/></highlight></codeline>
-<codeline lineno="157" refid="class_game_1_1_i_p_g_1a81a4ccc616e5facf3ee599761bf3fc9a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>std::vector&lt;arma::vec&gt;<sp/><ref refid="class_game_1_1_i_p_g_1a81a4ccc616e5facf3ee599761bf3fc9a" kindref="member">Solution</ref>;<sp/></highlight></codeline>
-<codeline lineno="158"><highlight class="normal"></highlight></codeline>
-<codeline lineno="159"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1a7ea608210b56699c2a76da364b2214d6" kindref="member">getXMinusI</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;x,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>&amp;i,<sp/>arma::vec<sp/>&amp;xMinusI)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1aec5449ea62ceaa82411c7d7a454f2b57" kindref="member">getXofI</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;x,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>&amp;i,<sp/>arma::vec<sp/>&amp;xOfI)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="162"><highlight class="normal"></highlight></codeline>
-<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1ab3fa5c1de6f4089de6f130740a12e89c" kindref="member">computeNashEq</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>localTimeLimit<sp/>=<sp/>-1.0,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>check<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1a448677cf65ae15178c27da7ec294b5d3" kindref="member">finalize</ref>();</highlight></codeline>
-<codeline lineno="165"><highlight class="normal"></highlight></codeline>
-<codeline lineno="166"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:<sp/></highlight><highlight class="comment">//<sp/>functions</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="167" refid="class_game_1_1_i_p_g_1a84836887d30b770869453f4943bdbfe2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_algorithms_1_1_i_p_g_1_1_oracle" kindref="compound">Algorithms::IPG::Oracle</ref>;</highlight></codeline>
-<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p_g_1a57571cf2dcfacdd28031048e4f9268cb" kindref="member">IPG</ref>()<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;<sp/><sp/></highlight><highlight class="comment">//<sp/>No<sp/>default<sp/>constructor</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p_g_1a57571cf2dcfacdd28031048e4f9268cb" kindref="member">IPG</ref>(<ref refid="class_game_1_1_i_p_g" kindref="compound">IPG</ref><sp/>&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;<sp/><sp/></highlight><highlight class="comment">//<sp/>Abstract<sp/>class<sp/>-<sp/>no<sp/>copy<sp/>constructor</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p_g_1a06a6b5ce17d4a4e8504a8dee37ffe9b5" kindref="member">~IPG</ref>()<sp/><sp/><sp/><sp/><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;<sp/></highlight><highlight class="comment">//<sp/>Destructor<sp/>to<sp/>free<sp/>data</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="171"><highlight class="normal"></highlight></codeline>
-<codeline lineno="172" refid="class_game_1_1_i_p_g_1a89b4c1e57b17bba4438541c3a488198e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p_g_1a89b4c1e57b17bba4438541c3a488198e" kindref="member">IPG</ref>(GRBEnv<sp/>*env)<sp/>:<sp/><ref refid="class_game_1_1_i_p_g_1af823c71b1936c594d5b7eeea4857a572" kindref="member">Env</ref>{env}<sp/>{};<sp/></highlight></codeline>
-<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p_g_1a57571cf2dcfacdd28031048e4f9268cb" kindref="member">IPG</ref>(GRBEnv<sp/>*env,<sp/>std::vector&lt;std::shared_ptr&lt;Game::IP_Param&gt;&gt;<sp/>players);</highlight></codeline>
-<codeline lineno="174"><highlight class="normal"></highlight></codeline>
-<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1a18868152fb1a2eddcea41e8dd352ebdf" kindref="member">findNashEq</ref>();</highlight></codeline>
-<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p_g_1a6e8da1e4710937dc60a075599848a5e4" kindref="member">isSolved</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>tol<sp/>=<sp/>1e-5)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p_g_1a53ad9c43291da9f16d7a91ed5a77bd1c" kindref="member">isPureStrategy</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>tol<sp/>=<sp/>1e-5)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;<sp/></highlight></codeline>
-<codeline lineno="178"><highlight class="normal"></highlight></codeline>
-<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>std::unique_ptr&lt;GRBModel&gt;<sp/><ref refid="class_game_1_1_i_p_g_1a7804df943f87684d0f85bce02bc1995b" kindref="member">respondModel</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;x)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="181"><highlight class="normal"></highlight></codeline>
-<codeline lineno="182" refid="class_game_1_1_i_p_g_1a0b7aa88f9e4b730c1ffdae30e07e5744" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;arma::vec&gt;<sp/><ref refid="class_game_1_1_i_p_g_1a0b7aa88f9e4b730c1ffdae30e07e5744" kindref="member">getX</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_game_1_1_i_p_g_1a81a4ccc616e5facf3ee599761bf3fc9a" kindref="member">Solution</ref>;<sp/>}</highlight></codeline>
-<codeline lineno="183"><highlight class="normal"></highlight></codeline>
-<codeline lineno="185" refid="class_game_1_1_i_p_g_1a70ca7fa095aa0c334df3850ed580db3e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Data::EPEC::EPECStatistics<sp/><ref refid="class_game_1_1_i_p_g_1a70ca7fa095aa0c334df3850ed580db3e" kindref="member">getStatistics</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_game_1_1_i_p_g_1a3f0bd8944769dc7e8ceedbeaffd43fc3" kindref="member">Stats</ref>;<sp/>}</highlight></codeline>
-<codeline lineno="186"><highlight class="normal"></highlight></codeline>
-<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1a4f6ad510b569bd7dff2a50ab3b691135" kindref="member">setAlgorithm</ref>(Data::EPEC::EPECalgorithm<sp/>algorithm);</highlight></codeline>
-<codeline lineno="188"><highlight class="normal"></highlight></codeline>
-<codeline lineno="189" refid="class_game_1_1_i_p_g_1a7d1f7076afd659fc67fb34af72beb720" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>Data::EPEC::EPECalgorithm<sp/><ref refid="class_game_1_1_i_p_g_1a7d1f7076afd659fc67fb34af72beb720" kindref="member">getAlgorithm</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;Stats.AlgorithmParam.Algorithm;<sp/>}</highlight></codeline>
-<codeline lineno="190"><highlight class="normal"></highlight></codeline>
-<codeline lineno="191" refid="class_game_1_1_i_p_g_1ac1609950d4af1ac2e1701b7efb52969c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1ac1609950d4af1ac2e1701b7efb52969c" kindref="member">setNumThreads</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>t)<sp/>{</highlight></codeline>
-<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;Stats.AlgorithmParam.Threads<sp/>=<sp/>t;</highlight></codeline>
-<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;Env-&gt;set(GRB_IntParam_Threads,<sp/>t);</highlight></codeline>
-<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="195"><highlight class="normal"></highlight></codeline>
-<codeline lineno="196" refid="class_game_1_1_i_p_g_1ada5374c647c6214e67af332ffe397e31" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1ada5374c647c6214e67af332ffe397e31" kindref="member">getNumThreads</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;Stats.AlgorithmParam.Threads;<sp/>}</highlight></codeline>
-<codeline lineno="197"><highlight class="normal"></highlight></codeline>
-<codeline lineno="198" refid="class_game_1_1_i_p_g_1a551aaf750f145d0d48f558af3fe353d7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1a551aaf750f145d0d48f558af3fe353d7" kindref="member">setPureNashEquilibrium</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>val)<sp/>{<sp/>this-&gt;Stats.AlgorithmParam.PureNashEquilibrium<sp/>=<sp/>val;<sp/>}</highlight></codeline>
-<codeline lineno="199"><highlight class="normal"></highlight></codeline>
-<codeline lineno="200" refid="class_game_1_1_i_p_g_1a904409dfe71edf7bc34590c1c17c33ec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1a904409dfe71edf7bc34590c1c17c33ec" kindref="member">getPureNashEquilibrium</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;Stats.AlgorithmParam.PureNashEquilibrium;<sp/>}</highlight></codeline>
-<codeline lineno="201"><highlight class="normal"></highlight></codeline>
-<codeline lineno="202" refid="class_game_1_1_i_p_g_1a43f8a770761600bf4d66f052896bd28c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1a43f8a770761600bf4d66f052896bd28c" kindref="member">setDeviationTolerance</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>val)<sp/>{<sp/>this-&gt;Stats.AlgorithmParam.DeviationTolerance<sp/>=<sp/>val;<sp/>}</highlight></codeline>
-<codeline lineno="203"><highlight class="normal"></highlight></codeline>
-<codeline lineno="204" refid="class_game_1_1_i_p_g_1ae4840c88d9aea3b809a95978e99fcf69" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1ae4840c88d9aea3b809a95978e99fcf69" kindref="member">getDeviationTolerance</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;Stats.AlgorithmParam.DeviationTolerance;<sp/>}</highlight></codeline>
-<codeline lineno="205"><highlight class="normal"></highlight></codeline>
-<codeline lineno="206" refid="class_game_1_1_i_p_g_1a6599a275df1a3d8014cecbd38075d95b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1a6599a275df1a3d8014cecbd38075d95b" kindref="member">setTimeLimit</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>val)<sp/>{<sp/>this-&gt;Stats.AlgorithmParam.TimeLimit<sp/>=<sp/>val;<sp/>}</highlight></codeline>
-<codeline lineno="207"><highlight class="normal"></highlight></codeline>
-<codeline lineno="208" refid="class_game_1_1_i_p_g_1a8d7b5265beca3edc01518ccfb9a4e49e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1a8d7b5265beca3edc01518ccfb9a4e49e" kindref="member">getTimeLimit</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;Stats.AlgorithmParam.TimeLimit;<sp/>}</highlight></codeline>
-<codeline lineno="209"><highlight class="normal"></highlight></codeline>
-<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Methods<sp/>to<sp/>get<sp/>positions<sp/>of<sp/>variables</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>below<sp/>are<sp/>all<sp/>const<sp/>functions<sp/>which<sp/>return<sp/>an<sp/>unsigned<sp/>int.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="212" refid="class_game_1_1_i_p_g_1ac752afba6e018ba32bc8ce636ed58203" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1ac752afba6e018ba32bc8ce636ed58203" kindref="member">getNumVar</ref>()<sp/>const<sp/>noexcept<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_game_1_1_i_p_g_1ab6ba37c89a84e5bbe0959c740c167732" kindref="member">NumVariables</ref>;<sp/>}</highlight></codeline>
-<codeline lineno="213"><highlight class="normal"></highlight></codeline>
-<codeline lineno="214" refid="class_game_1_1_i_p_g_1adf243581db4bc50acb485b9e6e5bde20" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1adf243581db4bc50acb485b9e6e5bde20" kindref="member">getNumPlayers</ref>()<sp/>const<sp/>noexcept<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_game_1_1_i_p_g_1af8db3a3876f89c90ffbcc57e3bed52ce" kindref="member">NumPlayers</ref>;<sp/>}</highlight></codeline>
-<codeline lineno="215"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
-<codeline lineno="216"><highlight class="normal"></highlight></codeline>
-<codeline lineno="217"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>Game</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_game" kindref="compound">Game</ref><sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="class_game_1_1_i_p_g" refkind="compound"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_game_1_1_i_p_g" kindref="compound">IPG</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_abstract_game" kindref="compound">AbstractGame</ref>&lt;Data::IPG::DataObject&gt;<sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:<sp/></highlight><highlight class="comment">//<sp/>Datafields</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>std::vector&lt;std::shared_ptr&lt;MathOpt::IP_Param&gt;&gt;</highlight></codeline>
+<codeline lineno="48" refid="class_game_1_1_i_p_g_1a3a939675fddeb5adda31e7c7be895e6c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p_g_1a3a939675fddeb5adda31e7c7be895e6c" kindref="member">PlayersIP</ref>{};<sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="class_game_1_1_i_p_g_1a728a80ade416a2f36cd5a8833a0cf2ee" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>std::vector&lt;unsigned<sp/>int&gt;<sp/><ref refid="class_game_1_1_i_p_g_1a728a80ade416a2f36cd5a8833a0cf2ee" kindref="member">PlayerVariables</ref>{};<sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="class_game_1_1_i_p_g_1ae0fcd4871cd997f56ca1796e13a43112" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1ae0fcd4871cd997f56ca1796e13a43112" kindref="member">Finalized</ref>{</highlight><highlight class="keyword">false</highlight><highlight class="normal">};<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>std::vector&lt;arma::vec&gt;<sp/><ref refid="class_game_1_1_i_p_g_1a81a4ccc616e5facf3ee599761bf3fc9a" kindref="member">Solution</ref>;<sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1a7ea608210b56699c2a76da364b2214d6" kindref="member">getXMinusI</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;x,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>&amp;i,<sp/>arma::vec<sp/>&amp;xMinusI)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1aec5449ea62ceaa82411c7d7a454f2b57" kindref="member">getXofI</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;x,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>&amp;i,<sp/>arma::vec<sp/>&amp;xOfI)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1ab3fa5c1de6f4089de6f130740a12e89c" kindref="member">computeNashEq</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>localTimeLimit<sp/>=<sp/>-1.0,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>check<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1a448677cf65ae15178c27da7ec294b5d3" kindref="member">finalize</ref>();</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:<sp/></highlight><highlight class="comment">//<sp/>functions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="class_game_1_1_i_p_g_1a84836887d30b770869453f4943bdbfe2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_algorithms_1_1_i_p_g_1_1_oracle" kindref="compound">Algorithms::IPG::Oracle</ref>;</highlight></codeline>
+<codeline lineno="65" refid="class_game_1_1_i_p_g_1a89b4c1e57b17bba4438541c3a488198e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p_g_1a89b4c1e57b17bba4438541c3a488198e" kindref="member">IPG</ref>(GRBEnv<sp/>*env)<sp/>{<sp/>this-&gt;<ref refid="class_game_1_1_abstract_game_1ad6cd844e2dcfbc9ce2b8069c6ef3e2be" kindref="member">Env</ref><sp/>=<sp/>env;<sp/>};</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p_g_1a89b4c1e57b17bba4438541c3a488198e" kindref="member">IPG</ref>(GRBEnv<sp/>*env,<sp/>std::vector&lt;std::shared_ptr&lt;MathOpt::IP_Param&gt;&gt;<sp/>players);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1a1b2c4bee27025af5921780ca2a41fe28" kindref="member">findNashEq</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_game_1_1_i_p_g_1ad999f9085c75eed024e09b87b3b832b4" kindref="member">isSolved</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>tol<sp/>=<sp/>1e-5)<sp/></highlight><highlight class="keyword">const<sp/>override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1ad66d221d1f3e15ec6b7cca5cdc5ef5aa" kindref="member">isPureStrategy</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>tol<sp/>=<sp/>1e-5)<sp/></highlight><highlight class="keyword">const<sp/>override</highlight><highlight class="normal">;<sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>std::unique_ptr&lt;GRBModel&gt;<sp/><ref refid="class_game_1_1_i_p_g_1a7804df943f87684d0f85bce02bc1995b" kindref="member">respondModel</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;x)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75" refid="class_game_1_1_i_p_g_1a0b7aa88f9e4b730c1ffdae30e07e5744" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;arma::vec&gt;<sp/><ref refid="class_game_1_1_i_p_g_1a0b7aa88f9e4b730c1ffdae30e07e5744" kindref="member">getX</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_game_1_1_i_p_g_1a81a4ccc616e5facf3ee599761bf3fc9a" kindref="member">Solution</ref>;<sp/>}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78" refid="class_game_1_1_i_p_g_1a84d50a99870b84fb93840b46856c0b22" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="struct_z_e_r_o_statistics" kindref="compound">ZEROStatistics&lt;Data::IPG::DataObject&gt;</ref><sp/><ref refid="class_game_1_1_i_p_g_1a84d50a99870b84fb93840b46856c0b22" kindref="member">getStatistics</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_game_1_1_abstract_game_1a5ecc6e6433baef6b13f35d7bb45856ce" kindref="member">Stats</ref>;<sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g_1ae76562a954b222a124b34052b6a0d5ae" kindref="member">setAlgorithm</ref>(<ref refid="namespace_data_1_1_i_p_g_1a34d343f554ac089c3cb14de04aa6d294" kindref="member">Data::IPG::Algorithms</ref><sp/>algorithm);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>Game</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="ipg__oracle_8h" kindref="compound">algorithms/IPG/ipg_oracle.h</ref>&quot;</highlight></codeline>
     </programlisting>
     <location file="include/games/ipg.h"/>
   </compounddef>

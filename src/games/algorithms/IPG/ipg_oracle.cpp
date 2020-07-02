@@ -34,7 +34,7 @@ void Algorithms::IPG::Oracle::addValueCut(unsigned int player,
 									  "adding cut for Player "
 								  << player;
   //@todo add cut
-  // this->outerLCP.at(player)->addCustomCuts(-cutLHS, arma::vec{-cutRHS});
+  this->IPG->PlayersIP.at(player)->addConstraints(-cutLHS, arma::vec{-cutRHS});
 }
 
 bool Algorithms::IPG::Oracle::isFeasible(bool &addedCuts, double tol) {

@@ -2,93 +2,10 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
   <compounddef id="class_game_1_1_e_p_e_c" kind="class" language="C++" prot="public" abstract="yes">
     <compoundname>Game::EPEC</compoundname>
+    <basecompoundref refid="class_game_1_1_abstract_game" prot="public" virt="non-virtual">Game::AbstractGame&lt; Data::EPEC::DataObject &gt;</basecompoundref>
     <derivedcompoundref refid="class_models_1_1_e_p_e_c" prot="public" virt="non-virtual">Models::EPEC</derivedcompoundref>
-    <includes refid="_e_p_e_c__test_8h" local="no">EPEC_test.h</includes>
+    <includes refid="epec_8h" local="no">epec.h</includes>
       <sectiondef kind="private-attrib">
-      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1ad0c30f87298df78ec8b2275fc272745f" prot="private" static="no" mutable="no">
-        <type>std::vector&lt; unsigned int &gt;</type>
-        <definition>std::vector&lt;unsigned int&gt; Game::EPEC::SizesWithoutHull</definition>
-        <argsstring></argsstring>
-        <name>SizesWithoutHull</name>
-        <initializer>{}</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="68" column="15" bodyfile="include/games/EPEC_test.h" bodystart="68" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1a1f958d036ee7569e9488f454158d9c8a" prot="private" static="no" mutable="no">
-        <type>std::unique_ptr&lt; <ref refid="class_game_1_1_l_c_p" kindref="compound">Game::LCP</ref> &gt;</type>
-        <definition>std::unique_ptr&lt;Game::LCP&gt; Game::EPEC::TheLCP</definition>
-        <argsstring></argsstring>
-        <name>TheLCP</name>
-        <briefdescription>
-<para>The <ref refid="class_game_1_1_e_p_e_c" kindref="compound">EPEC</ref> nash game written as an <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref>. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="69" column="18" bodyfile="include/games/EPEC_test.h" bodystart="69" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1a38b32268297c5cdf5334853d3ee2ba82" prot="private" static="no" mutable="no">
-        <type>std::unique_ptr&lt; GRBModel &gt;</type>
-        <definition>std::unique_ptr&lt;GRBModel&gt; Game::EPEC::LCPModel</definition>
-        <argsstring></argsstring>
-        <name>LCPModel</name>
-        <briefdescription>
-<para>A Gurobi mode object of the <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref> form of <ref refid="class_game_1_1_e_p_e_c" kindref="compound">EPEC</ref>. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="70" column="19" bodyfile="include/games/EPEC_test.h" bodystart="70" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1ada0cf8c4cefee9d0e3f6fcd29aa4fac0" prot="private" static="no" mutable="no">
-        <type>std::unique_ptr&lt; GRBModel &gt;</type>
-        <definition>std::unique_ptr&lt;GRBModel&gt; Game::EPEC::LCPModelBase</definition>
-        <argsstring></argsstring>
-        <name>LCPModelBase</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>A Gurobi mode object of the <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref> form of <ref refid="class_game_1_1_e_p_e_c" kindref="compound">EPEC</ref>. If we are searching for a pure NE, the <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref> which is indifferent to pure or mixed NE is stored in this object. </para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="71" column="19" bodyfile="include/games/EPEC_test.h" bodystart="71" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1afc5252004b0a5c875fdf4517ba60fecd" prot="private" static="no" mutable="no">
-        <type>unsigned int</type>
-        <definition>unsigned int Game::EPEC::NumVariables</definition>
-        <argsstring></argsstring>
-        <name>NumVariables</name>
-        <initializer>{0}</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="75" column="47" bodyfile="include/games/EPEC_test.h" bodystart="75" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1a8e4aa5e6b5baa41c7a977b3b66cdfdf2" prot="private" static="no" mutable="no">
-        <type>unsigned int</type>
-        <definition>unsigned int Game::EPEC::NumPlayers</definition>
-        <argsstring></argsstring>
-        <name>NumPlayers</name>
-        <initializer>{0}</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="76" column="47" bodyfile="include/games/EPEC_test.h" bodystart="76" bodyend="-1"/>
-      </memberdef>
       <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1a085ac9ace1a3aef12e61c03463dee800" prot="private" static="no" mutable="no">
         <type>std::shared_ptr&lt; <ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm" kindref="compound">Algorithms::EPEC::Algorithm</ref> &gt;</type>
         <definition>std::shared_ptr&lt;Algorithms::EPEC::Algorithm&gt; Game::EPEC::Algorithm</definition>
@@ -101,7 +18,63 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="77" column="18" bodyfile="include/games/EPEC_test.h" bodystart="77" bodyend="-1"/>
+        <location file="include/games/epec.h" line="80" column="18" bodyfile="include/games/epec.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1ad0c30f87298df78ec8b2275fc272745f" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; unsigned int &gt;</type>
+        <definition>std::vector&lt;unsigned int&gt; Game::EPEC::SizesWithoutHull</definition>
+        <argsstring></argsstring>
+        <name>SizesWithoutHull</name>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/epec.h" line="81" column="33" bodyfile="include/games/epec.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1a81fe60e0415d65cf8d300c2aa4050cc5" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">MathOpt::LCP</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;MathOpt::LCP&gt; Game::EPEC::TheLCP</definition>
+        <argsstring></argsstring>
+        <name>TheLCP</name>
+        <briefdescription>
+<para>The <ref refid="class_game_1_1_e_p_e_c" kindref="compound">EPEC</ref> nash game written as an LCP. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/epec.h" line="82" column="33" bodyfile="include/games/epec.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1a38b32268297c5cdf5334853d3ee2ba82" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; GRBModel &gt;</type>
+        <definition>std::unique_ptr&lt;GRBModel&gt; Game::EPEC::LCPModel</definition>
+        <argsstring></argsstring>
+        <name>LCPModel</name>
+        <briefdescription>
+<para>A Gurobi mode object of the LCP form of <ref refid="class_game_1_1_e_p_e_c" kindref="compound">EPEC</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/epec.h" line="83" column="18" bodyfile="include/games/epec.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1ada0cf8c4cefee9d0e3f6fcd29aa4fac0" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; GRBModel &gt;</type>
+        <definition>std::unique_ptr&lt;GRBModel&gt; Game::EPEC::LCPModelBase</definition>
+        <argsstring></argsstring>
+        <name>LCPModelBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>A Gurobi mode object of the LCP form of <ref refid="class_game_1_1_e_p_e_c" kindref="compound">EPEC</ref>. If we are searching for a pure NE, the LCP which is indifferent to pure or mixed NE is stored in this object. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/epec.h" line="84" column="18" bodyfile="include/games/epec.h" bodystart="84" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-attrib">
@@ -117,11 +90,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="80" column="14" bodyfile="include/games/EPEC_test.h" bodystart="80" bodyend="-1"/>
+        <location file="include/games/epec.h" line="89" column="14" bodyfile="include/games/epec.h" bodystart="89" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1ae133b3254fa8258788d60f994d1f8e9f" prot="protected" static="no" mutable="no">
-        <type>std::vector&lt; std::shared_ptr&lt; <ref refid="class_game_1_1_l_c_p" kindref="compound">Game::LCP</ref> &gt; &gt;</type>
-        <definition>std::vector&lt;std::shared_ptr&lt;Game::LCP&gt; &gt; Game::EPEC::PlayersLCP</definition>
+      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1a5301b68b3b37d23c444784282f9c9c9c" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; std::shared_ptr&lt; <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">MathOpt::LCP</ref> &gt; &gt;</type>
+        <definition>std::vector&lt;std::shared_ptr&lt;MathOpt::LCP&gt; &gt; Game::EPEC::PlayersLCP</definition>
         <argsstring></argsstring>
         <name>PlayersLCP</name>
         <initializer>{}</initializer>
@@ -131,11 +104,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="81" column="19" bodyfile="include/games/EPEC_test.h" bodystart="81" bodyend="-1"/>
+        <location file="include/games/epec.h" line="90" column="16" bodyfile="include/games/epec.h" bodystart="90" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1a7e5d7741f612c5cf33e9bd44fad4e620" prot="protected" static="no" mutable="no">
-        <type>std::vector&lt; std::shared_ptr&lt; <ref refid="class_game_1_1_q_p___param" kindref="compound">Game::QP_Param</ref> &gt; &gt;</type>
-        <definition>std::vector&lt;std::shared_ptr&lt;Game::QP_Param&gt; &gt; Game::EPEC::PlayersQP</definition>
+      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1a6ea789c5d7ad13d9874038b605a98137" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; std::shared_ptr&lt; <ref refid="class_math_opt_1_1_q_p___param" kindref="compound">MathOpt::QP_Param</ref> &gt; &gt;</type>
+        <definition>std::vector&lt;std::shared_ptr&lt;MathOpt::QP_Param&gt; &gt; Game::EPEC::PlayersQP</definition>
         <argsstring></argsstring>
         <name>PlayersQP</name>
         <initializer>{}</initializer>
@@ -146,11 +119,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="84" column="3" bodyfile="include/games/EPEC_test.h" bodystart="84" bodyend="-1"/>
+        <location file="include/games/epec.h" line="93" column="3" bodyfile="include/games/epec.h" bodystart="93" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1a191a899d044f94263965f8d184259e5b" prot="protected" static="no" mutable="no">
-        <type>std::vector&lt; std::shared_ptr&lt; <ref refid="struct_game_1_1_q_p___objective" kindref="compound">Game::QP_Objective</ref> &gt; &gt;</type>
-        <definition>std::vector&lt;std::shared_ptr&lt;Game::QP_Objective&gt; &gt; Game::EPEC::LeaderObjective</definition>
+      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1a65834e121a2b29b9205ceb6a237e9e26" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; std::shared_ptr&lt; <ref refid="struct_math_opt_1_1_q_p___objective" kindref="compound">MathOpt::QP_Objective</ref> &gt; &gt;</type>
+        <definition>std::vector&lt;std::shared_ptr&lt;MathOpt::QP_Objective&gt; &gt; Game::EPEC::LeaderObjective</definition>
         <argsstring></argsstring>
         <name>LeaderObjective</name>
         <initializer>{}</initializer>
@@ -161,11 +134,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="86" column="3" bodyfile="include/games/EPEC_test.h" bodystart="86" bodyend="-1"/>
+        <location file="include/games/epec.h" line="95" column="3" bodyfile="include/games/epec.h" bodystart="95" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1a08077df159307f005f5254e8f72eb5d8" prot="protected" static="no" mutable="no">
-        <type>std::vector&lt; std::shared_ptr&lt; <ref refid="struct_game_1_1_q_p___objective" kindref="compound">Game::QP_Objective</ref> &gt; &gt;</type>
-        <definition>std::vector&lt;std::shared_ptr&lt;Game::QP_Objective&gt; &gt; Game::EPEC::LeaderObjectiveConvexHull</definition>
+      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1af5076cedacee25f93af12fa10dc78c26" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; std::shared_ptr&lt; <ref refid="struct_math_opt_1_1_q_p___objective" kindref="compound">MathOpt::QP_Objective</ref> &gt; &gt;</type>
+        <definition>std::vector&lt;std::shared_ptr&lt;MathOpt::QP_Objective&gt; &gt; Game::EPEC::LeaderObjectiveConvexHull</definition>
         <argsstring></argsstring>
         <name>LeaderObjectiveConvexHull</name>
         <initializer>{}</initializer>
@@ -177,7 +150,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="88" column="3" bodyfile="include/games/EPEC_test.h" bodystart="88" bodyend="-1"/>
+        <location file="include/games/epec.h" line="97" column="3" bodyfile="include/games/epec.h" bodystart="97" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1a92ad8e8ed1ff48bcd5509dcbf893c185" prot="protected" static="no" mutable="no">
         <type>std::unique_ptr&lt; <ref refid="class_game_1_1_nash_game" kindref="compound">Game::NashGame</ref> &gt;</type>
@@ -191,7 +164,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="91" column="18" bodyfile="include/games/EPEC_test.h" bodystart="91" bodyend="-1"/>
+        <location file="include/games/epec.h" line="100" column="18" bodyfile="include/games/epec.h" bodystart="100" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1a59b0ccd12c05db259bb7ca056daf453d" prot="protected" static="no" mutable="no">
         <type>std::vector&lt; unsigned int &gt;</type>
@@ -206,7 +179,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="93" column="14" bodyfile="include/games/EPEC_test.h" bodystart="93" bodyend="-1"/>
+        <location file="include/games/epec.h" line="102" column="14" bodyfile="include/games/epec.h" bodystart="102" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1a618f3df2c40a9d456f9ceaf00802967c" prot="protected" static="no" mutable="no">
         <type>std::vector&lt; const unsigned int * &gt;</type>
@@ -221,7 +194,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="98" column="14" bodyfile="include/games/EPEC_test.h" bodystart="98" bodyend="-1"/>
+        <location file="include/games/epec.h" line="107" column="14" bodyfile="include/games/epec.h" bodystart="107" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1afd414e30d05368455d9a2eaa166b6bfb" prot="protected" static="no" mutable="no">
         <type>std::vector&lt; unsigned int &gt;</type>
@@ -235,7 +208,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="99" column="22" bodyfile="include/games/EPEC_test.h" bodystart="99" bodyend="-1"/>
+        <location file="include/games/epec.h" line="108" column="22" bodyfile="include/games/epec.h" bodystart="108" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1aacadd9d4fb3fd17d2f142db8758f1be9" prot="protected" static="no" mutable="no">
         <type>unsigned int</type>
@@ -249,20 +222,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="100" column="36" bodyfile="include/games/EPEC_test.h" bodystart="100" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1a19ac846f7e3a018c47b61dc8b5089b60" prot="protected" static="no" mutable="no">
-        <type>GRBEnv *</type>
-        <definition>GRBEnv* Game::EPEC::Env</definition>
-        <argsstring></argsstring>
-        <name>Env</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="102" column="9" bodyfile="include/games/EPEC_test.h" bodystart="102" bodyend="-1"/>
+        <location file="include/games/epec.h" line="109" column="36" bodyfile="include/games/epec.h" bodystart="109" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1a9e4f44f67e4a2956673398847e5db614" prot="protected" static="no" mutable="no">
         <type>bool</type>
@@ -276,52 +236,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="103" column="10" bodyfile="include/games/EPEC_test.h" bodystart="103" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1a3dd72f644df2168162d60b12d0993a9d" prot="protected" static="no" mutable="no">
-        <type>bool</type>
-        <definition>bool Game::EPEC::NashEquilibrium</definition>
-        <argsstring></argsstring>
-        <name>NashEquilibrium</name>
-        <initializer>{false}</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>True if computeNashEq returned an equilibrium. Note that this can be the equilibrium of an approximation, and not to the original game </para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="104" column="7" bodyfile="include/games/EPEC_test.h" bodystart="104" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1a157723e234e69a264e9ccf3dec0ec745" prot="protected" static="no" mutable="no">
-        <type>std::chrono::high_resolution_clock::time_point</type>
-        <definition>std::chrono::high_resolution_clock::time_point Game::EPEC::InitTime</definition>
-        <argsstring></argsstring>
-        <name>InitTime</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="107" column="49" bodyfile="include/games/EPEC_test.h" bodystart="107" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1a6bf4f89d2d8a9818da7d698da2c07f05" prot="protected" static="no" mutable="no">
-        <type><ref refid="struct_z_e_r_o_statistics" kindref="compound">ZEROStatistics</ref>&lt; <ref refid="class_data_1_1_e_p_e_c_1_1_data_object" kindref="compound">Data::EPEC::DataObject</ref> &gt;</type>
-        <definition>ZEROStatistics&lt;Data::EPEC::DataObject&gt; Game::EPEC::Stats</definition>
-        <argsstring></argsstring>
-        <name>Stats</name>
-        <initializer>= <ref refid="struct_z_e_r_o_statistics" kindref="compound">ZEROStatistics</ref>&lt;<ref refid="class_data_1_1_e_p_e_c_1_1_data_object" kindref="compound">Data::EPEC::DataObject</ref>&gt;(
-        <ref refid="class_data_1_1_e_p_e_c_1_1_data_object" kindref="compound">Data::EPEC::DataObject</ref>())</initializer>
-        <briefdescription>
-<para>algorithm params </para>
-        </briefdescription>
-        <detaileddescription>
-<para>Store run time information and </para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="108" column="25" bodyfile="include/games/EPEC_test.h" bodystart="108" bodyend="-1"/>
+        <location file="include/games/epec.h" line="111" column="12" bodyfile="include/games/epec.h" bodystart="111" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1aa1a2f0e5df60ca00ccad7b9a8a4f1c8a" prot="protected" static="no" mutable="no">
         <type>arma::vec</type>
@@ -335,7 +250,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="111" column="12" bodyfile="include/games/EPEC_test.h" bodystart="111" bodyend="-1"/>
+        <location file="include/games/epec.h" line="112" column="12" bodyfile="include/games/epec.h" bodystart="112" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1ac897450f8b0afb2346e872de2fbc82eb" prot="protected" static="no" mutable="no">
         <type>arma::vec</type>
@@ -349,7 +264,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="112" column="3" bodyfile="include/games/EPEC_test.h" bodystart="111" bodyend="-1"/>
+        <location file="include/games/epec.h" line="113" column="3" bodyfile="include/games/epec.h" bodystart="112" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="friend">
@@ -364,7 +279,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="149" column="2" bodyfile="include/games/EPEC_test.h" bodystart="145" bodyend="-1"/>
+        <location file="include/games/epec.h" line="148" column="2" bodyfile="include/games/epec.h" bodystart="144" bodyend="-1"/>
       </memberdef>
       <memberdef kind="friend" id="class_game_1_1_e_p_e_c_1a41b53d96774790dfc8a32772af70baf3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>friend class</type>
@@ -377,7 +292,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="151" column="2" bodyfile="include/games/EPEC_test.h" bodystart="151" bodyend="-1"/>
+        <location file="include/games/epec.h" line="150" column="2" bodyfile="include/games/epec.h" bodystart="150" bodyend="-1"/>
       </memberdef>
       <memberdef kind="friend" id="class_game_1_1_e_p_e_c_1a80f54ad000b35c06eb75fff05048f326" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>friend class</type>
@@ -390,7 +305,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="153" column="2" bodyfile="include/games/EPEC_test.h" bodystart="153" bodyend="-1"/>
+        <location file="include/games/epec.h" line="152" column="2" bodyfile="include/games/epec.h" bodystart="152" bodyend="-1"/>
       </memberdef>
       <memberdef kind="friend" id="class_game_1_1_e_p_e_c_1a5b55eef6b23b0411244d2b6b012a9f91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>friend class</type>
@@ -403,7 +318,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="155" column="2" bodyfile="include/games/EPEC_test.h" bodystart="155" bodyend="-1"/>
+        <location file="include/games/epec.h" line="154" column="2" bodyfile="include/games/epec.h" bodystart="154" bodyend="-1"/>
       </memberdef>
       <memberdef kind="friend" id="class_game_1_1_e_p_e_c_1aaeeb633997197e4d131dc59f9f79ddbc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>friend class</type>
@@ -416,7 +331,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="157" column="2" bodyfile="include/games/EPEC_test.h" bodystart="157" bodyend="-1"/>
+        <location file="include/games/epec.h" line="156" column="2" bodyfile="include/games/epec.h" bodystart="156" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -438,47 +353,29 @@
 <para><xrefsect id="todo_1_todo000001"><xreftitle>Todo</xreftitle><xrefdescription><para><ref refid="class_game_1_1_e_p_e_c_1a219d10c724c0165cc0d8a1a7d613580d" kindref="member">Game::EPEC::warmstart</ref> - to complete implementation? </para>
 </xrefdescription></xrefsect></para>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="113" column="7" bodyfile="src/games/epec.cpp" bodystart="464" bodyend="492"/>
+        <location file="include/games/epec.h" line="114" column="7" bodyfile="src/games/epec.cpp" bodystart="473" bodyend="501"/>
       </memberdef>
-      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a2323518f6af325c254eaad444cea1317" prot="protected" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
-        <type></type>
-        <definition>Game::EPEC::EPEC</definition>
-        <argsstring>(GRBEnv *env)</argsstring>
-        <name>EPEC</name>
-        <param>
-          <type>GRBEnv *</type>
-          <declname>env</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="130" column="11" bodyfile="include/games/EPEC_test.h" bodystart="130" bodyend="130"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a2ee93319f7d964f4c5df850bcf27504e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a7a0e7de74d0311d4903f97dfd21c0bab" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>void</type>
         <definition>virtual void Game::EPEC::makeObjectivePlayer</definition>
-        <argsstring>(const unsigned int i, Game::QP_Objective &amp;QP_obj)=0</argsstring>
+        <argsstring>(const unsigned int i, MathOpt::QP_Objective &amp;QP_obj)=0</argsstring>
         <name>makeObjectivePlayer</name>
-        <reimplementedby refid="class_models_1_1_e_p_e_c_1a189ce1f5b375df11455f428a40738039">makeObjectivePlayer</reimplementedby>
+        <reimplementedby refid="class_models_1_1_e_p_e_c_1a79766ac616149fc4a17b1b4478ff569a">makeObjectivePlayer</reimplementedby>
         <param>
           <type>const unsigned int</type>
           <declname>i</declname>
         </param>
         <param>
-          <type><ref refid="struct_game_1_1_q_p___objective" kindref="compound">Game::QP_Objective</ref> &amp;</type>
+          <type><ref refid="struct_math_opt_1_1_q_p___objective" kindref="compound">MathOpt::QP_Objective</ref> &amp;</type>
           <declname>QP_obj</declname>
         </param>
         <briefdescription>
-<para>Can be instantiated by a derived class only! </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="133" column="15"/>
+        <location file="include/games/epec.h" line="132" column="15"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1abea72c0ff571c5168047e9a42e4182af" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -487,14 +384,14 @@
         <name>preFinalize</name>
         <reimplementedby refid="class_models_1_1_e_p_e_c_1aa9dacf6f8965a70a18d47e196cb6f03f">preFinalize</reimplementedby>
         <briefdescription>
-<para>Empty function - optionally reimplementable in derived class. </para>
+<para>Empty function - optionally re-implementable in derived class. </para>
         </briefdescription>
         <detaileddescription>
 <para>This function can be optionally implemented by the derived class. Code in this class will be run <emphasis>before</emphasis> calling <ref refid="class_game_1_1_e_p_e_c_1ab32d89068adc66f100a266bbf31bf63e" kindref="member">Game::EPEC::finalize()</ref>. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="136" column="15" bodyfile="src/games/epec.cpp" bodystart="13" bodyend="20"/>
+        <location file="include/games/epec.h" line="135" column="15" bodyfile="src/games/epec.cpp" bodystart="21" bodyend="28"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1aba9fd1fa8c9ee2e70afc62232ecfd6b0" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -510,7 +407,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="138" column="15" bodyfile="src/games/epec.cpp" bodystart="22" bodyend="29"/>
+        <location file="include/games/epec.h" line="137" column="15" bodyfile="src/games/epec.cpp" bodystart="30" bodyend="37"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a54e18b35ce3b7ce266daedf76759bef9" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>void</type>
@@ -524,7 +421,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="140" column="15"/>
+        <location file="include/games/epec.h" line="139" column="15"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1abd1f66626593e9f02132467bec62573c" prot="protected" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type>void</type>
@@ -546,7 +443,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="142" column="15" bodyfile="include/games/EPEC_test.h" bodystart="142" bodyend="145"/>
+        <location file="include/games/epec.h" line="141" column="15" bodyfile="include/games/epec.h" bodystart="141" bodyend="144"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -569,7 +466,7 @@
         <inbodydescription>
 <para>Adds dummy variables to the leader of an <ref refid="class_game_1_1_e_p_e_c" kindref="compound">EPEC</ref> - useful after computing the convex hull.</para>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="116" column="13" bodyfile="src/games/epec.cpp" bodystart="77" bodyend="92"/>
+        <location file="include/games/epec.h" line="117" column="13" bodyfile="src/games/epec.cpp" bodystart="86" bodyend="101"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a66b446e508a6079805e7d8900f5db4ed" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const void</type>
@@ -581,13 +478,13 @@
           <declname>i</declname>
         </param>
         <briefdescription>
-<para>Makes the <ref refid="class_game_1_1_q_p___param" kindref="compound">Game::QP_Param</ref> corresponding to the <computeroutput>i-th</computeroutput> country. </para>
+<para>Makes the <ref refid="class_math_opt_1_1_q_p___param" kindref="compound">MathOpt::QP_Param</ref> corresponding to the <computeroutput>i-th</computeroutput> country. </para>
         </briefdescription>
         <detaileddescription>
 <para><itemizedlist>
-<listitem><para>First gets the <ref refid="class_game_1_1_l_c_p" kindref="compound">Game::LCP</ref> object from <computeroutput><ref refid="class_game_1_1_e_p_e_c_1a1dc1b8bd642e450bc1e30eefe963fe13" kindref="member">Game::EPEC::PlayersLowerLevels</ref></computeroutput> and makes a <ref refid="class_game_1_1_q_p___param" kindref="compound">Game::QP_Param</ref> with this <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref> as the lower level</para>
-</listitem><listitem><para>This is achieved by calling <ref refid="class_game_1_1_l_c_p_1a6d217671aff04dd01e69f2311352611b" kindref="member">LCP::makeQP</ref> and using the objective value object in <computeroutput><ref refid="class_game_1_1_e_p_e_c_1a191a899d044f94263965f8d184259e5b" kindref="member">Game::EPEC::LeaderObjective</ref></computeroutput> </para>
-</listitem><listitem><para>Finally the locations are updated owing to the complete convex hull calculated during the call to <ref refid="class_game_1_1_l_c_p_1a6d217671aff04dd01e69f2311352611b" kindref="member">LCP::makeQP</ref> <simplesect kind="note"><para>Overloaded as <ref refid="class_game_1_1_e_p_e_c_1a66b446e508a6079805e7d8900f5db4ed" kindref="member">Models::EPEC::makePlayerQP()</ref> </para>
+<listitem><para>First gets the Game::LCP object from <computeroutput><ref refid="class_game_1_1_e_p_e_c_1a1dc1b8bd642e450bc1e30eefe963fe13" kindref="member">Game::EPEC::PlayersLowerLevels</ref></computeroutput> and makes a <ref refid="class_math_opt_1_1_q_p___param" kindref="compound">MathOpt::QP_Param</ref> with this LCP as the lower level</para>
+</listitem><listitem><para>This is achieved by calling LCP::makeQP and using the objective value object in <computeroutput><ref refid="class_game_1_1_e_p_e_c_1a65834e121a2b29b9205ceb6a237e9e26" kindref="member">Game::EPEC::LeaderObjective</ref></computeroutput> </para>
+</listitem><listitem><para>Finally the locations are updated owing to the complete convex hull calculated during the call to LCP::makeQP <simplesect kind="note"><para>Overloaded as <ref refid="class_game_1_1_e_p_e_c_1a66b446e508a6079805e7d8900f5db4ed" kindref="member">Models::EPEC::makePlayerQP()</ref> </para>
 </simplesect>
 </para>
 </listitem></itemizedlist>
@@ -595,7 +492,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="117" column="13" bodyfile="src/games/epec.cpp" bodystart="272" bodyend="302"/>
+        <location file="include/games/epec.h" line="118" column="13" bodyfile="src/games/epec.cpp" bodystart="281" bodyend="311"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a5db4c964c3d451ab55a5630e565753d0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -603,7 +500,7 @@
         <argsstring>()</argsstring>
         <name>makePlayersQPs</name>
         <briefdescription>
-<para>Makes the <ref refid="class_game_1_1_q_p___param" kindref="compound">Game::QP_Param</ref> for all the countries. </para>
+<para>Makes the <ref refid="class_math_opt_1_1_q_p___param" kindref="compound">MathOpt::QP_Param</ref> for all the countries. </para>
         </briefdescription>
         <detaileddescription>
 <para>Calls are made to <ref refid="class_game_1_1_e_p_e_c_1a66b446e508a6079805e7d8900f5db4ed" kindref="member">Models::EPEC::makePlayerQP(const unsigned int i)</ref> for each valid <computeroutput>i</computeroutput> <simplesect kind="note"><para>Overloaded as <ref refid="class_game_1_1_e_p_e_c_1a66b446e508a6079805e7d8900f5db4ed" kindref="member">EPEC::makePlayerQP(unsigned int)</ref> </para>
@@ -612,7 +509,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="119" column="7" bodyfile="src/games/epec.cpp" bodystart="304" bodyend="347"/>
+        <location file="include/games/epec.h" line="120" column="7" bodyfile="src/games/epec.cpp" bodystart="313" bodyend="356"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a4d84d3af33242733ec32b89f91d49158" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -625,7 +522,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="121" column="7"/>
+        <location file="include/games/epec.h" line="122" column="7"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1afcd0018e01a696881c8da744a3a05048" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -643,7 +540,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="123" column="7" bodyfile="src/games/epec.cpp" bodystart="94" bodyend="101"/>
+        <location file="include/games/epec.h" line="124" column="7" bodyfile="src/games/epec.cpp" bodystart="103" bodyend="110"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a03f5dc3947750c69b9c3bfdf675ab394" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -668,7 +565,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="125" column="7" bodyfile="src/games/epec.cpp" bodystart="103" bodyend="130"/>
+        <location file="include/games/epec.h" line="126" column="7" bodyfile="src/games/epec.cpp" bodystart="112" bodyend="139"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a37dca6fc0a76c12bc4bc0eac602e3633" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -701,34 +598,22 @@
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
-<para>Given that <ref refid="class_game_1_1_e_p_e_c_1a7e5d7741f612c5cf33e9bd44fad4e620" kindref="member">Game::EPEC::PlayersQP</ref> are all filled with a each country&apos;s <ref refid="class_game_1_1_q_p___param" kindref="compound">Game::QP_Param</ref> problem (either exact or approximate), computes the Nash equilibrium. <simplesect kind="return"><para>true if a Nash equilibrium is found</para>
+<para>Given that <ref refid="class_game_1_1_e_p_e_c_1a6ea789c5d7ad13d9874038b605a98137" kindref="member">Game::EPEC::PlayersQP</ref> are all filled with a each country&apos;s <ref refid="class_math_opt_1_1_q_p___param" kindref="compound">MathOpt::QP_Param</ref> problem (either exact or approximate), computes the Nash equilibrium. <simplesect kind="return"><para>true if a Nash equilibrium is found</para>
 </simplesect>
 </para>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="127" column="7" bodyfile="src/games/epec.cpp" bodystart="382" bodyend="462"/>
+        <location file="include/games/epec.h" line="128" column="7" bodyfile="src/games/epec.cpp" bodystart="391" bodyend="471"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a1b8553cd89efb9951f7cec24b8c09b5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a2323518f6af325c254eaad444cea1317" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
         <definition>Game::EPEC::EPEC</definition>
-        <argsstring>()=delete</argsstring>
-        <name>EPEC</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="159" column="2"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1ae88d958afd4f98f1bb7638759ff1c753" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>Game::EPEC::EPEC</definition>
-        <argsstring>(EPEC &amp;)=delete</argsstring>
+        <argsstring>(GRBEnv *env)</argsstring>
         <name>EPEC</name>
         <param>
-          <type><ref refid="class_game_1_1_e_p_e_c" kindref="compound">EPEC</ref> &amp;</type>
+          <type>GRBEnv *</type>
+          <declname>env</declname>
         </param>
         <briefdescription>
         </briefdescription>
@@ -736,20 +621,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="160" column="2"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a695b5ed41fdbbf18f2cea05383c2081f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>Game::EPEC::~EPEC</definition>
-        <argsstring>()=default</argsstring>
-        <name>~EPEC</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="161" column="2"/>
+        <location file="include/games/epec.h" line="158" column="2" bodyfile="include/games/epec.h" bodystart="158" bodyend="158"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1ab32d89068adc66f100a266bbf31bf63e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -769,14 +641,16 @@
 <para><ref refid="class_game_1_1_e_p_e_c_1abea72c0ff571c5168047e9a42e4182af" kindref="member">Game::EPEC::preFinalize()</ref> can be overridden, and that code will run before calling <ref refid="class_game_1_1_e_p_e_c_1ab32d89068adc66f100a266bbf31bf63e" kindref="member">Game::EPEC::finalize()</ref></para>
 <para><ref refid="class_game_1_1_e_p_e_c_1aba9fd1fa8c9ee2e70afc62232ecfd6b0" kindref="member">Game::EPEC::postFinalize()</ref> can be overridden, and that code will run after calling <ref refid="class_game_1_1_e_p_e_c_1ab32d89068adc66f100a266bbf31bf63e" kindref="member">Game::EPEC::finalize()</ref></para>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="163" column="7" bodyfile="src/games/epec.cpp" bodystart="31" bodyend="75"/>
+        <location file="include/games/epec.h" line="160" column="7" bodyfile="src/games/epec.cpp" bodystart="39" bodyend="84"/>
       </memberdef>
-      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a71db5d5bacd5a7b97437795d797f882b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a0ccc0813ba049fed45db48d398b04c6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>const void</type>
         <definition>const void Game::EPEC::findNashEq</definition>
-        <argsstring>()</argsstring>
+        <argsstring>() override</argsstring>
         <name>findNashEq</name>
+        <reimplements refid="class_game_1_1_abstract_game_1a5b8636444d39891af65972566270dcc6">findNashEq</reimplements>
         <briefdescription>
+<para>The main method to start the solving process. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -784,26 +658,50 @@
 <para>Computes Nash equilibrium using the Algorithm set in <ref refid="class_game_1_1_e_p_e_c_1a085ac9ace1a3aef12e61c03463dee800" kindref="member">Game::EPEC::Algorithm</ref></para>
 <para>Checks the value of <ref refid="class_game_1_1_e_p_e_c_1a085ac9ace1a3aef12e61c03463dee800" kindref="member">Game::EPEC::Algorithm</ref> and delegates the task to appropriate Algorithm wrappers.</para>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="165" column="13" bodyfile="src/games/epec.cpp" bodystart="508" bodyend="584"/>
+        <location file="include/games/epec.h" line="163" column="13" bodyfile="src/games/epec.cpp" bodystart="517" bodyend="593"/>
       </memberdef>
-      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a9c3a719fb69eb3866aa6b440e9a31192" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1aee023f968cf0b8587a5150c52fe3368c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
         <definition>bool Game::EPEC::isSolved</definition>
-        <argsstring>(double tol=1e-5) const</argsstring>
+        <argsstring>(double tol=1e-5) const override</argsstring>
         <name>isSolved</name>
+        <reimplements refid="class_game_1_1_abstract_game_1af46405f6383d00abaa8320ac49d88066">isSolved</reimplements>
         <param>
           <type>double</type>
           <declname>tol</declname>
           <defval>1e-5</defval>
         </param>
         <briefdescription>
+<para>Return a bool true if the strategies are all pure, for any player. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
 <para>Call the delegated Algorithm and return true if the <ref refid="class_game_1_1_e_p_e_c" kindref="compound">EPEC</ref> has been solved.</para>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="166" column="13" bodyfile="src/games/epec.cpp" bodystart="500" bodyend="506"/>
+        <location file="include/games/epec.h" line="164" column="13" bodyfile="src/games/epec.cpp" bodystart="509" bodyend="515"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1aace867d4b45457e8758741ed9db7b349" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool Game::EPEC::isPureStrategy</definition>
+        <argsstring>(double tol=1e-5) const override</argsstring>
+        <name>isPureStrategy</name>
+        <reimplements refid="class_game_1_1_abstract_game_1a4efc3116423b078421949dc18cfb3e32">isPureStrategy</reimplements>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+          <defval>1e-5</defval>
+        </param>
+        <briefdescription>
+<para>equilibrium is a pure strategy </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Return a bool indicating whether the </para>
+        </detaileddescription>
+        <inbodydescription>
+<para>Call the delegated Algorithm and return true if the equilibrium is pure</para>
+        </inbodydescription>
+        <location file="include/games/epec.h" line="165" column="13" bodyfile="src/games/epec.cpp" bodystart="502" bodyend="508"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a6dc4295a2c585a695ca5c1b54f8a7883" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::unique_ptr&lt; GRBModel &gt;</type>
@@ -824,7 +722,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="168" column="18" bodyfile="src/games/epec.cpp" bodystart="181" bodyend="199"/>
+        <location file="include/games/epec.h" line="167" column="18" bodyfile="src/games/epec.cpp" bodystart="190" bodyend="208"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a3fcda0d435da9c183b73df244ac863a0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -864,7 +762,7 @@
 </simplesect>
 </para>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="170" column="9" bodyfile="src/games/epec.cpp" bodystart="202" bodyend="270"/>
+        <location file="include/games/epec.h" line="169" column="9" bodyfile="src/games/epec.cpp" bodystart="211" bodyend="279"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1aacb304f764e52114fdedef15a0a90558" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>const arma::vec</type>
@@ -877,7 +775,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="175" column="18" bodyfile="include/games/EPEC_test.h" bodystart="175" bodyend="175"/>
+        <location file="include/games/epec.h" line="174" column="18" bodyfile="include/games/epec.h" bodystart="174" bodyend="174"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1ad53ac72b21e5d73db9e552aa23fb2fec" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -890,7 +788,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="177" column="7" bodyfile="include/games/EPEC_test.h" bodystart="177" bodyend="177"/>
+        <location file="include/games/epec.h" line="176" column="7" bodyfile="include/games/epec.h" bodystart="176" bodyend="176"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1aaaca9d7917b658c77e2fe048bf7a7214" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>const arma::vec</type>
@@ -903,42 +801,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="179" column="18" bodyfile="include/games/EPEC_test.h" bodystart="179" bodyend="179"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1af02848579e2409da28ce975b8d116adc" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>bool</type>
-        <definition>bool Game::EPEC::isPureStrategy</definition>
-        <argsstring>(double tol=1e-5) const</argsstring>
-        <name>isPureStrategy</name>
-        <param>
-          <type>double</type>
-          <declname>tol</declname>
-          <defval>1e-5</defval>
-        </param>
-        <briefdescription>
-<para>equilibrium is a pure strategy </para>
-        </briefdescription>
-        <detaileddescription>
-<para>Return a bool indicating whether the </para>
-        </detaileddescription>
-        <inbodydescription>
-<para>Call the delegated Algorithm and return true if the equilibrium is pure</para>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="181" column="7" bodyfile="src/games/epec.cpp" bodystart="493" bodyend="499"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1ac17da3390473477503b076e4867710ac" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="struct_z_e_r_o_statistics" kindref="compound">ZEROStatistics</ref>&lt; <ref refid="class_data_1_1_e_p_e_c_1_1_data_object" kindref="compound">Data::EPEC::DataObject</ref> &gt;</type>
-        <definition>ZEROStatistics&lt;Data::EPEC::DataObject&gt; Game::EPEC::getStatistics</definition>
-        <argsstring>() const</argsstring>
-        <name>getStatistics</name>
-        <briefdescription>
-<para>Get the EPECStatistics object for the current instance. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="185" column="17" bodyfile="include/games/EPEC_test.h" bodystart="185" bodyend="185"/>
+        <location file="include/games/epec.h" line="178" column="18" bodyfile="include/games/epec.h" bodystart="178" bodyend="178"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1acbc098323dd83d07fa249630c8a56536" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -956,7 +819,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="187" column="7" bodyfile="src/games/epec.cpp" bodystart="586" bodyend="593"/>
+        <location file="include/games/epec.h" line="180" column="7" bodyfile="src/games/epec.cpp" bodystart="595" bodyend="602"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1ac14487f892f9d94d7d783e874fe4b5d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -974,7 +837,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="189" column="7" bodyfile="src/games/epec.cpp" bodystart="595" bodyend="602"/>
+        <location file="include/games/epec.h" line="182" column="7" bodyfile="src/games/epec.cpp" bodystart="604" bodyend="611"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a3425d5ca9abea1e5ab18f5e53bf91bd5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -991,75 +854,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="191" column="7" bodyfile="include/games/EPEC_test.h" bodystart="191" bodyend="191"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a19e56d50e5ca900bb05247d7e4028772" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Game::EPEC::setNumThreads</definition>
-        <argsstring>(unsigned int t)</argsstring>
-        <name>setNumThreads</name>
-        <param>
-          <type>unsigned int</type>
-          <declname>t</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="193" column="7" bodyfile="include/games/EPEC_test.h" bodystart="193" bodyend="196"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a572fac1c8fb7571abbd3ccf002c7e650" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Game::EPEC::setRandomSeed</definition>
-        <argsstring>(unsigned int t)</argsstring>
-        <name>setRandomSeed</name>
-        <param>
-          <type>unsigned int</type>
-          <declname>t</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="198" column="7" bodyfile="include/games/EPEC_test.h" bodystart="198" bodyend="198"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a3b2335bc68d6464ad5af7e74ab91f243" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Game::EPEC::setIndicators</definition>
-        <argsstring>(bool val)</argsstring>
-        <name>setIndicators</name>
-        <param>
-          <type>bool</type>
-          <declname>val</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="200" column="7" bodyfile="include/games/EPEC_test.h" bodystart="200" bodyend="200"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a437840f2bb7687b81585fc793b5be0d6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Game::EPEC::setPureNashEquilibrium</definition>
-        <argsstring>(bool val)</argsstring>
-        <name>setPureNashEquilibrium</name>
-        <param>
-          <type>bool</type>
-          <declname>val</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="202" column="7" bodyfile="include/games/EPEC_test.h" bodystart="202" bodyend="202"/>
+        <location file="include/games/epec.h" line="184" column="7" bodyfile="include/games/epec.h" bodystart="184" bodyend="184"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a4b6238b4052069f2fd7122f327bb70c5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -1076,7 +871,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="204" column="7" bodyfile="include/games/EPEC_test.h" bodystart="204" bodyend="204"/>
+        <location file="include/games/epec.h" line="186" column="7" bodyfile="include/games/epec.h" bodystart="186" bodyend="186"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1aab6e24f25d193a514b2c97681a5d2df8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -1093,41 +888,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="206" column="7" bodyfile="include/games/EPEC_test.h" bodystart="206" bodyend="206"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a9e0fb6903f40b26e00ab1289300b2c8c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Game::EPEC::setDeviationTolerance</definition>
-        <argsstring>(double val)</argsstring>
-        <name>setDeviationTolerance</name>
-        <param>
-          <type>double</type>
-          <declname>val</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="208" column="7" bodyfile="include/games/EPEC_test.h" bodystart="208" bodyend="210"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a3e714cdf0c2eac38a3d6cb17acde2109" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Game::EPEC::setTimeLimit</definition>
-        <argsstring>(double val)</argsstring>
-        <name>setTimeLimit</name>
-        <param>
-          <type>double</type>
-          <declname>val</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="212" column="7" bodyfile="include/games/EPEC_test.h" bodystart="212" bodyend="212"/>
+        <location file="include/games/epec.h" line="188" column="7" bodyfile="include/games/epec.h" bodystart="188" bodyend="188"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a73bc0d776af3885481aafab39cff90d9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -1144,33 +905,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="214" column="7" bodyfile="include/games/EPEC_test.h" bodystart="214" bodyend="216"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a7bf2d222ff193b83713849a89c4291ba" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
-        <type>int</type>
-        <definition>int Game::EPEC::getNumVar</definition>
-        <argsstring>() const noexcept</argsstring>
-        <name>getNumVar</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="219" column="6" bodyfile="include/games/EPEC_test.h" bodystart="219" bodyend="219"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a676146ffcd3ae1c43462afefebf77f02" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
-        <type>unsigned int</type>
-        <definition>unsigned int Game::EPEC::getNumLeaders</definition>
-        <argsstring>() const noexcept</argsstring>
-        <name>getNumLeaders</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="221" column="15" bodyfile="include/games/EPEC_test.h" bodystart="221" bodyend="223"/>
+        <location file="include/games/epec.h" line="190" column="7" bodyfile="include/games/epec.h" bodystart="190" bodyend="192"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a0bf1c7483795c1f08baabf2426ca933d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned int</type>
@@ -1192,7 +927,7 @@
         <inbodydescription>
 <para>Get the position of the j-th variable in the i-th leader Querying <ref refid="class_game_1_1_e_p_e_c_1a38b32268297c5cdf5334853d3ee2ba82" kindref="member">Game::EPEC::LCPModel</ref> for x[return-value] variable gives the appropriate variable</para>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="225" column="15" bodyfile="src/games/epec.cpp" bodystart="604" bodyend="612"/>
+        <location file="include/games/epec.h" line="196" column="15" bodyfile="src/games/epec.cpp" bodystart="613" bodyend="621"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1aec1b59c633f797063362b0ae4323f8ea" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned int</type>
@@ -1214,7 +949,7 @@
         <inbodydescription>
 <para>Get the position of the j-th Follower variable in the i-th leader Querying <ref refid="class_game_1_1_e_p_e_c_1a38b32268297c5cdf5334853d3ee2ba82" kindref="member">Game::EPEC::LCPModel</ref> for x[return-value] variable gives the appropriate variable</para>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="227" column="15" bodyfile="src/games/epec.cpp" bodystart="614" bodyend="622"/>
+        <location file="include/games/epec.h" line="198" column="15" bodyfile="src/games/epec.cpp" bodystart="623" bodyend="631"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a723c245afbc41788c993566aca9f238c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -1236,7 +971,7 @@
         <inbodydescription>
 <para>Get the value of the j-th variable in i-th leader</para>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="230" column="9" bodyfile="src/games/epec.cpp" bodystart="624" bodyend="632"/>
+        <location file="include/games/epec.h" line="201" column="9" bodyfile="src/games/epec.cpp" bodystart="633" bodyend="641"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a24faf8f9033094c380f38fe3f6609a27" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -1258,21 +993,21 @@
         <inbodydescription>
 <para>Get the value of the j-th non-follower variable in i-th leader</para>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="232" column="9" bodyfile="src/games/epec.cpp" bodystart="634" bodyend="642"/>
+        <location file="include/games/epec.h" line="203" column="9" bodyfile="src/games/epec.cpp" bodystart="643" bodyend="651"/>
       </memberdef>
-      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1aa9f848f3d44b529af6c7b7fb3b4789cf" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>const <ref refid="class_game_1_1_l_c_p" kindref="compound">LCP</ref> &amp;</type>
-        <definition>const LCP&amp; Game::EPEC::getLCPDescription</definition>
+      <memberdef kind="function" id="class_game_1_1_e_p_e_c_1ad22d714e49ed16225baa3ff71abf27b1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">MathOpt::LCP</ref> &amp;</type>
+        <definition>const MathOpt::LCP&amp; Game::EPEC::getLCPDescription</definition>
         <argsstring>() const</argsstring>
         <name>getLCPDescription</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Get the <ref refid="class_game_1_1_l_c_p" kindref="compound">Game::LCP</ref> object solved in the last iteration either to solve the problem or to prove non-existence of Nash equilibrium. Object is returned using constant reference. </para>
+<para>Get the Game::LCP object solved in the last iteration either to solve the problem or to prove non-existence of Nash equilibrium. Object is returned using constant reference. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="237" column="12" bodyfile="include/games/EPEC_test.h" bodystart="237" bodyend="237"/>
+        <location file="include/games/epec.h" line="208" column="21" bodyfile="include/games/epec.h" bodystart="208" bodyend="208"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1af4ba9e089745932ff3bf24897af53e5f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>const GRBModel &amp;</type>
@@ -1286,7 +1021,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="242" column="17" bodyfile="include/games/EPEC_test.h" bodystart="242" bodyend="242"/>
+        <location file="include/games/epec.h" line="213" column="17" bodyfile="include/games/epec.h" bodystart="213" bodyend="213"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a37fed0d5194d7d4a25953e117593b3a4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -1304,7 +1039,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="246" column="7" bodyfile="include/games/EPEC_test.h" bodystart="246" bodyend="246"/>
+        <location file="include/games/epec.h" line="217" column="7" bodyfile="include/games/epec.h" bodystart="217" bodyend="217"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1aa20feaa35c98de9e134190579a400cf7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1326,7 +1061,7 @@
         <inbodydescription>
 <para>Given the the solution <computeroutput>x</computeroutput>, the method returns in <computeroutput>xWithoutHull</computeroutput> the x vector without the convex-hull&apos;s variables. Also, no MC variables are included</para>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="248" column="7" bodyfile="src/games/epec.cpp" bodystart="157" bodyend="179"/>
+        <location file="include/games/epec.h" line="219" column="7" bodyfile="src/games/epec.cpp" bodystart="166" bodyend="188"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1a6f84ee2018f9bb85d0b1b53e65ff85e4" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1357,7 +1092,7 @@
         <inbodydescription>
 <para>Given the player id <computeroutput>i</computeroutput> and the solution <computeroutput>x</computeroutput>, the method returns in <computeroutput>xWithoutHull</computeroutput> the x vector for the given player, with the convex-hull&apos;s variables in case <computeroutput>hull</computeroutput> is false. Also, no MC variables are included</para>
         </inbodydescription>
-        <location file="include/games/EPEC_test.h" line="250" column="2" bodyfile="src/games/epec.cpp" bodystart="132" bodyend="155"/>
+        <location file="include/games/epec.h" line="221" column="2" bodyfile="src/games/epec.cpp" bodystart="141" bodyend="164"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1366,7 +1101,7 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="2">
+      <node id="3">
         <label>Models::EPEC</label>
         <link refid="class_models_1_1_e_p_e_c"/>
         <childnode refid="1" relation="public-inheritance">
@@ -1375,130 +1110,145 @@
       <node id="1">
         <label>Game::EPEC</label>
         <link refid="class_game_1_1_e_p_e_c"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Game::AbstractGame&lt; Data::EPEC::DataObject &gt;</label>
+        <link refid="class_game_1_1_abstract_game"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="9">
+      <node id="10">
         <label>Attr&lt; std::vector&lt; unsigned int &gt; &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="2">
+      <node id="3">
         <label>ZEROStatistics&lt; Data::EPEC::DataObject &gt;</label>
         <link refid="struct_z_e_r_o_statistics"/>
-        <childnode refid="3" relation="usage">
+        <childnode refid="4" relation="usage">
           <edgelabel>WallClockTime</edgelabel>
         </childnode>
-        <childnode refid="4" relation="usage">
+        <childnode refid="5" relation="usage">
           <edgelabel>AlgorithmData</edgelabel>
         </childnode>
-        <childnode refid="7" relation="usage">
+        <childnode refid="8" relation="usage">
           <edgelabel>NumConstraints</edgelabel>
           <edgelabel>NumNonZero</edgelabel>
           <edgelabel>NumIterations</edgelabel>
           <edgelabel>NumVar</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="9" relation="usage">
           <edgelabel>PureNashEquilibrium</edgelabel>
           <edgelabel>NumericalIssues</edgelabel>
         </childnode>
-        <childnode refid="14" relation="usage">
+        <childnode refid="15" relation="usage">
           <edgelabel>Status</edgelabel>
         </childnode>
       </node>
-      <node id="14">
+      <node id="15">
         <label>Attr&lt; ZEROStatus &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="7">
+      <node id="8">
         <label>Attr&lt; int &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="13">
+      <node id="14">
         <label>Attr&lt; Data::LCP::PolyhedraStrategy &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="12">
+      <node id="13">
         <label>Attr&lt; Data::EPEC::Algorithms &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="8">
+      <node id="9">
         <label>Attr&lt; bool &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="4">
+      <node id="5">
         <label>Data::EPEC::DataObject</label>
         <link refid="class_data_1_1_e_p_e_c_1_1_data_object"/>
-        <childnode refid="5" relation="public-inheritance">
+        <childnode refid="6" relation="public-inheritance">
         </childnode>
-        <childnode refid="3" relation="usage">
+        <childnode refid="4" relation="usage">
           <edgelabel>BoundBigM</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>FeasiblePolyhedra</edgelabel>
         </childnode>
-        <childnode refid="7" relation="usage">
+        <childnode refid="8" relation="usage">
           <edgelabel>LostIntermediateEq</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>Aggressiveness</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>RecoverStrategy</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="9" relation="usage">
           <edgelabel>BoundPrimals</edgelabel>
         </childnode>
-        <childnode refid="12" relation="usage">
+        <childnode refid="13" relation="usage">
           <edgelabel>Algorithm</edgelabel>
         </childnode>
-        <childnode refid="13" relation="usage">
+        <childnode refid="14" relation="usage">
           <edgelabel>PolyhedraStrategy</edgelabel>
         </childnode>
       </node>
       <node id="1">
         <label>Game::EPEC</label>
         <link refid="class_game_1_1_e_p_e_c"/>
-        <childnode refid="2" relation="usage">
-          <edgelabel>Stats</edgelabel>
+        <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="10">
+      <node id="11">
         <label>Attr&lt; unsigned int &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="3">
+      <node id="4">
         <label>Attr&lt; double &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="5">
+      <node id="6">
         <label>ZEROAlgorithmData</label>
         <link refid="class_z_e_r_o_algorithm_data"/>
-        <childnode refid="3" relation="usage">
+        <childnode refid="4" relation="usage">
           <edgelabel>DeviationTolerance</edgelabel>
           <edgelabel>TimeLimit</edgelabel>
         </childnode>
-        <childnode refid="6" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>RandomSeed</edgelabel>
         </childnode>
-        <childnode refid="7" relation="usage">
+        <childnode refid="8" relation="usage">
           <edgelabel>Threads</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="9" relation="usage">
           <edgelabel>PureNashEquilibrium</edgelabel>
           <edgelabel>IndicatorConstraints</edgelabel>
         </childnode>
       </node>
-      <node id="6">
+      <node id="7">
         <label>Attr&lt; unsigned long int &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="11">
+      <node id="2">
+        <label>Game::AbstractGame&lt; Data::EPEC::DataObject &gt;</label>
+        <link refid="class_game_1_1_abstract_game"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Stats</edgelabel>
+        </childnode>
+      </node>
+      <node id="12">
         <label>Attr&lt; Data::EPEC::RecoverStrategy &gt;</label>
         <link refid="class_attr"/>
       </node>
     </collaborationgraph>
-    <location file="include/games/EPEC_test.h" line="66" column="13" bodyfile="include/games/EPEC_test.h" bodystart="66" bodyend="251"/>
+    <location file="include/games/epec.h" line="78" column="34" bodyfile="include/games/epec.h" bodystart="78" bodyend="222"/>
     <listofallmembers>
+      <member refid="class_game_1_1_abstract_game_1a994e78ea9cbe14be8786836082024e9a" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>AbstractGame</name></member>
+      <member refid="class_game_1_1_abstract_game_1a112372b7b49c59c64538fa065fdbe54f" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>AbstractGame</name></member>
+      <member refid="class_game_1_1_abstract_game_1a29232b09b7a9b7f61e5d04ce83fe8f1d" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>AbstractGame</name></member>
       <member refid="class_game_1_1_e_p_e_c_1ae0bd0fb7910bc4735c0c6481e1ab7c60" prot="private" virt="non-virtual"><scope>Game::EPEC</scope><name>addDummyLead</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a085ac9ace1a3aef12e61c03463dee800" prot="private" virt="non-virtual"><scope>Game::EPEC</scope><name>Algorithm</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a5b55eef6b23b0411244d2b6b012a9f91" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>Algorithms::EPEC::CombinatorialPNE</name></member>
@@ -1509,20 +1259,18 @@
       <member refid="class_game_1_1_e_p_e_c_1afcd0018e01a696881c8da744a3a05048" prot="private" virt="non-virtual"><scope>Game::EPEC</scope><name>computeLeaderLocations</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a37dca6fc0a76c12bc4bc0eac602e3633" prot="private" virt="non-virtual"><scope>Game::EPEC</scope><name>computeNashEq</name></member>
       <member refid="class_game_1_1_e_p_e_c_1afd414e30d05368455d9a2eaa166b6bfb" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>ConvexHullVariables</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a19ac846f7e3a018c47b61dc8b5089b60" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>Env</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a2323518f6af325c254eaad444cea1317" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>EPEC</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a1b8553cd89efb9951f7cec24b8c09b5f" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>EPEC</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1ae88d958afd4f98f1bb7638759ff1c753" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>EPEC</name></member>
+      <member refid="class_game_1_1_abstract_game_1ad6cd844e2dcfbc9ce2b8069c6ef3e2be" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>Env</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a2323518f6af325c254eaad444cea1317" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>EPEC</name></member>
       <member refid="class_game_1_1_e_p_e_c_1ab32d89068adc66f100a266bbf31bf63e" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>finalize</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a9e4f44f67e4a2956673398847e5db614" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>Finalized</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a71db5d5bacd5a7b97437795d797f882b" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>findNashEq</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1aa9f848f3d44b529af6c7b7fb3b4789cf" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>getLCPDescription</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a0ccc0813ba049fed45db48d398b04c6e" prot="public" virt="virtual"><scope>Game::EPEC</scope><name>findNashEq</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1ad22d714e49ed16225baa3ff71abf27b1" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>getLCPDescription</name></member>
       <member refid="class_game_1_1_e_p_e_c_1af4ba9e089745932ff3bf24897af53e5f" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>getLCPModel</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a676146ffcd3ae1c43462afefebf77f02" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>getNumLeaders</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a7bf2d222ff193b83713849a89c4291ba" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>getNumVar</name></member>
+      <member refid="class_game_1_1_abstract_game_1a6a84032e333484d0313064cfee3ba46c" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>getNumPlayers</name></member>
+      <member refid="class_game_1_1_abstract_game_1ad3f7c02e978d71834bc13b74162571f4" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>getNumVar</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a0bf1c7483795c1f08baabf2426ca933d" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>getPositionLeadFoll</name></member>
       <member refid="class_game_1_1_e_p_e_c_1aec1b59c633f797063362b0ae4323f8ea" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>getPositionLeadLead</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1ac17da3390473477503b076e4867710ac" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>getStatistics</name></member>
+      <member refid="class_game_1_1_abstract_game_1a8db787260e01e0a9004d00f2a19fcf5a" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>getStatistics</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a723c245afbc41788c993566aca9f238c" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>getValLeadFoll</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a24faf8f9033094c380f38fe3f6609a27" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>getValLeadLead</name></member>
       <member refid="class_game_1_1_e_p_e_c_1aacb304f764e52114fdedef15a0a90558" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>getX</name></member>
@@ -1530,27 +1278,27 @@
       <member refid="class_game_1_1_e_p_e_c_1a6f84ee2018f9bb85d0b1b53e65ff85e4" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>getXofI</name></member>
       <member refid="class_game_1_1_e_p_e_c_1aa20feaa35c98de9e134190579a400cf7" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>getXWithoutHull</name></member>
       <member refid="class_game_1_1_e_p_e_c_1aaaca9d7917b658c77e2fe048bf7a7214" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>getZ</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a157723e234e69a264e9ccf3dec0ec745" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>InitTime</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1af02848579e2409da28ce975b8d116adc" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>isPureStrategy</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a9c3a719fb69eb3866aa6b440e9a31192" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>isSolved</name></member>
+      <member refid="class_game_1_1_abstract_game_1a6d06c8b5fe1f191283a9926b30d6b1d0" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>InitTime</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1aace867d4b45457e8758741ed9db7b349" prot="public" virt="virtual"><scope>Game::EPEC</scope><name>isPureStrategy</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1aee023f968cf0b8587a5150c52fe3368c" prot="public" virt="virtual"><scope>Game::EPEC</scope><name>isSolved</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a38b32268297c5cdf5334853d3ee2ba82" prot="private" virt="non-virtual"><scope>Game::EPEC</scope><name>LCPModel</name></member>
       <member refid="class_game_1_1_e_p_e_c_1ada0cf8c4cefee9d0e3f6fcd29aa4fac0" prot="private" virt="non-virtual"><scope>Game::EPEC</scope><name>LCPModelBase</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a59b0ccd12c05db259bb7ca056daf453d" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>LeaderLocations</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a191a899d044f94263965f8d184259e5b" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>LeaderObjective</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a08077df159307f005f5254e8f72eb5d8" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>LeaderObjectiveConvexHull</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a65834e121a2b29b9205ceb6a237e9e26" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>LeaderObjective</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1af5076cedacee25f93af12fa10dc78c26" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>LeaderObjectiveConvexHull</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a618f3df2c40a9d456f9ceaf00802967c" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>LocEnds</name></member>
       <member refid="class_game_1_1_e_p_e_c_1abd1f66626593e9f02132467bec62573c" prot="protected" virt="virtual"><scope>Game::EPEC</scope><name>makeMCConstraints</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a2ee93319f7d964f4c5df850bcf27504e" prot="protected" virt="pure-virtual"><scope>Game::EPEC</scope><name>makeObjectivePlayer</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a7a0e7de74d0311d4903f97dfd21c0bab" prot="protected" virt="pure-virtual"><scope>Game::EPEC</scope><name>makeObjectivePlayer</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a66b446e508a6079805e7d8900f5db4ed" prot="private" virt="non-virtual"><scope>Game::EPEC</scope><name>makePlayerQP</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a5db4c964c3d451ab55a5630e565753d0" prot="private" virt="non-virtual"><scope>Game::EPEC</scope><name>makePlayersQPs</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a4d84d3af33242733ec32b89f91d49158" prot="private" virt="non-virtual"><scope>Game::EPEC</scope><name>makeTheLCP</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a3dd72f644df2168162d60b12d0993a9d" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>NashEquilibrium</name></member>
+      <member refid="class_game_1_1_abstract_game_1ab8f814c2c71542d1aa73bd66ef93befc" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>NashEquilibrium</name></member>
       <member refid="class_game_1_1_e_p_e_c_1aacadd9d4fb3fd17d2f142db8758f1be9" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>numMCVariables</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a8e4aa5e6b5baa41c7a977b3b66cdfdf2" prot="private" virt="non-virtual"><scope>Game::EPEC</scope><name>NumPlayers</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1afc5252004b0a5c875fdf4517ba60fecd" prot="private" virt="non-virtual"><scope>Game::EPEC</scope><name>NumVariables</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1ae133b3254fa8258788d60f994d1f8e9f" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>PlayersLCP</name></member>
+      <member refid="class_game_1_1_abstract_game_1a01da21edfe49ed5771a9eed714b87418" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>NumPlayers</name></member>
+      <member refid="class_game_1_1_abstract_game_1a2fd0ab6ee7cda7a9a582b79e94705bc7" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>NumVariables</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a5301b68b3b37d23c444784282f9c9c9c" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>PlayersLCP</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a1dc1b8bd642e450bc1e30eefe963fe13" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>PlayersLowerLevels</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a7e5d7741f612c5cf33e9bd44fad4e620" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>PlayersQP</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a6ea789c5d7ad13d9874038b605a98137" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>PlayersQP</name></member>
       <member refid="class_game_1_1_e_p_e_c_1aba9fd1fa8c9ee2e70afc62232ecfd6b0" prot="protected" virt="virtual"><scope>Game::EPEC</scope><name>postFinalize</name></member>
       <member refid="class_game_1_1_e_p_e_c_1abea72c0ff571c5168047e9a42e4182af" prot="protected" virt="virtual"><scope>Game::EPEC</scope><name>preFinalize</name></member>
       <member refid="class_game_1_1_e_p_e_c_1ad53ac72b21e5d73db9e552aa23fb2fec" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>reset</name></member>
@@ -1561,23 +1309,23 @@
       <member refid="class_game_1_1_e_p_e_c_1acbc098323dd83d07fa249630c8a56536" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>setAlgorithm</name></member>
       <member refid="class_game_1_1_e_p_e_c_1aab6e24f25d193a514b2c97681a5d2df8" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>setBoundBigM</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a4b6238b4052069f2fd7122f327bb70c5" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>setBoundPrimals</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a9e0fb6903f40b26e00ab1289300b2c8c" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>setDeviationTolerance</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a3b2335bc68d6464ad5af7e74ab91f243" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>setIndicators</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a19e56d50e5ca900bb05247d7e4028772" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>setNumThreads</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a437840f2bb7687b81585fc793b5be0d6" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>setPureNashEquilibrium</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a572fac1c8fb7571abbd3ccf002c7e650" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>setRandomSeed</name></member>
+      <member refid="class_game_1_1_abstract_game_1a4b5301f753b2f1dacdb354971d2511ee" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>setDeviationTolerance</name></member>
+      <member refid="class_game_1_1_abstract_game_1af08964bd9ddff0910b3e3f7d4c91ba95" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>setIndicators</name></member>
+      <member refid="class_game_1_1_abstract_game_1a8b891e54ad22f7364e8f164c37848aa8" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>setNumThreads</name></member>
+      <member refid="class_game_1_1_abstract_game_1ab3f40775d56c9ca540961b99ce646960" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>setPureNashEquilibrium</name></member>
+      <member refid="class_game_1_1_abstract_game_1a8f9d5a9d366c2604993c3e3df4e69b6a" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>setRandomSeed</name></member>
       <member refid="class_game_1_1_e_p_e_c_1ac14487f892f9d94d7d783e874fe4b5d9" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>setRecoverStrategy</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a3e714cdf0c2eac38a3d6cb17acde2109" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>setTimeLimit</name></member>
+      <member refid="class_game_1_1_abstract_game_1a44346c2909132d7977b6fb4ac4852723" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>setTimeLimit</name></member>
       <member refid="class_game_1_1_e_p_e_c_1ad0c30f87298df78ec8b2275fc272745f" prot="private" virt="non-virtual"><scope>Game::EPEC</scope><name>SizesWithoutHull</name></member>
       <member refid="class_game_1_1_e_p_e_c_1ac897450f8b0afb2346e872de2fbc82eb" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>SolutionX</name></member>
       <member refid="class_game_1_1_e_p_e_c_1aa1a2f0e5df60ca00ccad7b9a8a4f1c8a" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>SolutionZ</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a6bf4f89d2d8a9818da7d698da2c07f05" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>Stats</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a1f958d036ee7569e9488f454158d9c8a" prot="private" virt="non-virtual"><scope>Game::EPEC</scope><name>TheLCP</name></member>
+      <member refid="class_game_1_1_abstract_game_1a5ecc6e6433baef6b13f35d7bb45856ce" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>Stats</name></member>
+      <member refid="class_game_1_1_e_p_e_c_1a81fe60e0415d65cf8d300c2aa4050cc5" prot="private" virt="non-virtual"><scope>Game::EPEC</scope><name>TheLCP</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a92ad8e8ed1ff48bcd5509dcbf893c185" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>TheNashGame</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a54e18b35ce3b7ce266daedf76759bef9" prot="protected" virt="pure-virtual"><scope>Game::EPEC</scope><name>updateLocations</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a219d10c724c0165cc0d8a1a7d613580d" prot="protected" virt="non-virtual"><scope>Game::EPEC</scope><name>warmstart</name></member>
       <member refid="class_game_1_1_e_p_e_c_1a37fed0d5194d7d4a25953e117593b3a4" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>writeLCPModel</name></member>
-      <member refid="class_game_1_1_e_p_e_c_1a695b5ed41fdbbf18f2cea05383c2081f" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>~EPEC</name></member>
+      <member refid="class_game_1_1_abstract_game_1a1c50cfa3e8b728eebb8662ed184b206a" prot="public" virt="non-virtual"><scope>Game::EPEC</scope><name>~AbstractGame</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

@@ -5,9 +5,9 @@
     <basecompoundref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm" prot="public" virt="non-virtual">Algorithms::EPEC::Algorithm</basecompoundref>
     <includes refid="epec__outerapproximation_8h" local="no">epec_outerapproximation.h</includes>
       <sectiondef kind="private-attrib">
-      <memberdef kind="variable" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a91415a4528304332a386e0f9a6f5692f" prot="private" static="no" mutable="no">
-        <type>std::vector&lt; std::shared_ptr&lt; <ref refid="class_game_1_1_outer_l_c_p" kindref="compound">Game::OuterLCP</ref> &gt; &gt;</type>
-        <definition>std::vector&lt;std::shared_ptr&lt;Game::OuterLCP&gt; &gt; Algorithms::EPEC::OuterApproximation::outerLCP</definition>
+      <memberdef kind="variable" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1ac390d4bbad95a8684661d0308bdd5a93" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::shared_ptr&lt; <ref refid="class_math_opt_1_1_outer_l_c_p" kindref="compound">MathOpt::OuterLCP</ref> &gt; &gt;</type>
+        <definition>std::vector&lt;std::shared_ptr&lt;MathOpt::OuterLCP&gt; &gt; Algorithms::EPEC::OuterApproximation::outerLCP</definition>
         <argsstring></argsstring>
         <name>outerLCP</name>
         <initializer>{}</initializer>
@@ -17,7 +17,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="147" column="13" bodyfile="include/algorithms/EPEC/epec_outerapproximation.h" bodystart="147" bodyend="-1"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="160" column="13" bodyfile="include/games/algorithms/EPEC/epec_outerapproximation.h" bodystart="160" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a85e89500db296c34d113434f4d67a8c2" prot="private" static="no" mutable="no">
         <type>std::vector&lt; <ref refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree" kindref="compound">OuterTree</ref> * &gt;</type>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="148" column="33" bodyfile="include/algorithms/EPEC/epec_outerapproximation.h" bodystart="148" bodyend="-1"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="161" column="36" bodyfile="include/games/algorithms/EPEC/epec_outerapproximation.h" bodystart="161" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a6ef46fd71fbb68dff6e0cbf04945f03a" prot="private" static="no" mutable="no">
         <type>std::vector&lt; <ref refid="struct_algorithms_1_1_e_p_e_c_1_1_outer_tree_1_1_node" kindref="compound">OuterTree::Node</ref> * &gt;</type>
@@ -43,7 +43,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="149" column="27" bodyfile="include/algorithms/EPEC/epec_outerapproximation.h" bodystart="149" bodyend="-1"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="162" column="30" bodyfile="include/games/algorithms/EPEC/epec_outerapproximation.h" bodystart="162" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a428e145851cd068dff487afe752a6811" prot="private" static="no" mutable="no">
         <type>bool</type>
@@ -57,7 +57,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="150" column="46" bodyfile="include/algorithms/EPEC/epec_outerapproximation.h" bodystart="150" bodyend="-1"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="163" column="49" bodyfile="include/games/algorithms/EPEC/epec_outerapproximation.h" bodystart="163" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a88d849ac89f2ff3c05dec504d1967029" prot="private" static="no" mutable="no">
         <type>double</type>
@@ -71,7 +71,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="151" column="46" bodyfile="include/algorithms/EPEC/epec_outerapproximation.h" bodystart="151" bodyend="-1"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="164" column="49" bodyfile="include/games/algorithms/EPEC/epec_outerapproximation.h" bodystart="164" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="friend">
@@ -86,7 +86,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="167" column="1" bodyfile="include/algorithms/EPEC/epec_outerapproximation.h" bodystart="164" bodyend="-1"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="180" column="1" bodyfile="include/games/algorithms/EPEC/epec_outerapproximation.h" bodystart="177" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -101,7 +101,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="154" column="8" bodyfile="include/algorithms/EPEC/epec_outerapproximation.h" bodystart="154" bodyend="154"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="167" column="8" bodyfile="include/games/algorithms/EPEC/epec_outerapproximation.h" bodystart="167" bodyend="167"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1afd22d0776d23682ab1b4e0529f5db054" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -118,7 +118,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="155" column="8" bodyfile="include/algorithms/EPEC/epec_outerapproximation.h" bodystart="155" bodyend="155"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="168" column="8" bodyfile="include/games/algorithms/EPEC/epec_outerapproximation.h" bodystart="168" bodyend="168"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a2447342d745dbdf5914747b072022de0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -139,7 +139,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="169" column="1" bodyfile="include/algorithms/EPEC/epec_outerapproximation.h" bodystart="169" bodyend="183"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="182" column="1" bodyfile="include/games/algorithms/EPEC/epec_outerapproximation.h" bodystart="182" bodyend="196"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1aee27604e761a72b3629ca85e56ce9f2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -156,7 +156,7 @@
         <inbodydescription>
 <para>Given the referenced <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref> instance, this method solves it through the outer approximation <ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm" kindref="compound">Algorithm</ref> mainly with the hybrid branching rule, with lookahead feature.</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="185" column="6" bodyfile="src/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="425" bodyend="575"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="198" column="6" bodyfile="src/games/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="436" bodyend="586"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a6a1f2a8e6e9e1a75f702fab2b3f9f493" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
@@ -177,7 +177,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="188" column="6" bodyfile="src/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="9" bodyend="9"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="201" column="6" bodyfile="src/games/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="22" bodyend="22"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a438cc549d7b6e4c270467be326036cb1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -200,7 +200,7 @@
         <inbodydescription>
 <para>Check whether the current outer approximation equilibrium is feasible and solves the outer approximation. Otherwise, add cuts, or generate useful points for next iterations.</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="189" column="6" bodyfile="src/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="11" bodyend="118"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="202" column="6" bodyfile="src/games/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="24" bodyend="131"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a08f0d6ead0a0a6442657e0144dc1d441" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
@@ -221,7 +221,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="190" column="6" bodyfile="src/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="862" bodyend="872"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="203" column="6" bodyfile="src/games/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="874" bodyend="884"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a790a3f3444ae60dc3f1c3f61e652c191" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -235,7 +235,7 @@
         <inbodydescription>
 <para>Returns a log message containing the encoding at the current outer approximation iteration</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="192" column="6" bodyfile="src/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="837" bodyend="851"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="205" column="6" bodyfile="src/games/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="847" bodyend="861"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1afa74ae41105d75cb05f9e6cff62f0ac2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -257,7 +257,7 @@
         <inbodydescription>
 <para>Given <computeroutput>player</computeroutput> <ndash/> containing the id of the player, returns the branching decision for that node given by a hybrid branching rule. In particular, the method return the complementarity id maximizing a combination of constraint violations and number of violated constraints. <computeroutput>node</computeroutput> contains the tree&apos;s node. It isn&apos;t const since a branching candidate can be pruned if infeasibility is detected</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="193" column="6" bodyfile="src/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="605" bodyend="675"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="206" column="6" bodyfile="src/games/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="616" bodyend="686"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1ac4fcf7a9ae6f65600fa0cc139dfde8d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -281,7 +281,7 @@
 </simplesect>
 </para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="194" column="6" bodyfile="src/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="677" bodyend="715"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="207" column="6" bodyfile="src/games/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="688" bodyend="726"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1ace18259b4a3330a5b30d66ee597f00cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -305,7 +305,7 @@
 </simplesect>
 </para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="195" column="6" bodyfile="src/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="717" bodyend="747"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="208" column="6" bodyfile="src/games/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="728" bodyend="758"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a878ac7da8284f786c20a2fbe2ba38db8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -323,7 +323,7 @@
         <inbodydescription>
 <para>Given the vector of branching logs, prints a sum up of the decision taken</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="196" column="6" bodyfile="src/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="852" bodyend="861"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="209" column="6" bodyfile="src/games/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="863" bodyend="872"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1afb01d89e4560cbd6aa6644b835625ee7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::unique_ptr&lt; GRBModel &gt;</type>
@@ -345,7 +345,7 @@
         <inbodydescription>
 <para>Given <computeroutput>player</computeroutput> <ndash/> containing the id of the player, returns the feasibility QP associated with the current QP made and the point <computeroutput>x</computeroutput>. In other words, it returns the model deciding whether <computeroutput>x</computeroutput> belongs to the feasible region of the QP or not. Note that Game::make_player_QP(player) has to be called before, otherwise the method will return an error.</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="197" column="17" bodyfile="src/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="577" bodyend="603"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="210" column="17" bodyfile="src/games/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="588" bodyend="614"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a2abed130c5f6de76fc561de3dc2597a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -370,7 +370,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="198" column="6" bodyfile="src/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="407" bodyend="423"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="211" column="6" bodyfile="src/games/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="418" bodyend="434"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a4a4ea2a40ab91b0d57b39fda0af1b43d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -403,7 +403,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="199" column="6" bodyfile="src/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="235" bodyend="405"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="212" column="6" bodyfile="src/games/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="248" bodyend="416"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a3e86829da49eedb333730761bc566426" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>GRBModel *</type>
@@ -429,7 +429,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="202" column="1" bodyfile="src/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="120" bodyend="233"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="215" column="1" bodyfile="src/games/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="133" bodyend="246"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -455,7 +455,7 @@
 </simplesect>
 </para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="158" column="13" bodyfile="src/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="797" bodyend="835"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="171" column="13" bodyfile="src/games/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="807" bodyend="845"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a6d153e3874b880485be7ad34d95f7455" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -479,7 +479,7 @@
 </simplesect>
 </para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="159" column="5" bodyfile="src/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="749" bodyend="794"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="172" column="5" bodyfile="src/games/algorithms/EPEC/epec_outerapproximation.cpp" bodystart="760" bodyend="804"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -496,7 +496,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="162" column="6" bodyfile="include/algorithms/EPEC/epec_outerapproximation.h" bodystart="162" bodyend="164"/>
+        <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="175" column="6" bodyfile="include/games/algorithms/EPEC/epec_outerapproximation.h" bodystart="175" bodyend="177"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -523,42 +523,42 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="11">
+      <node id="12">
         <label>Attr&lt; std::vector&lt; unsigned int &gt; &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="4">
+      <node id="5">
         <label>ZEROStatistics&lt; Data::EPEC::DataObject &gt;</label>
         <link refid="struct_z_e_r_o_statistics"/>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>WallClockTime</edgelabel>
         </childnode>
-        <childnode refid="6" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>AlgorithmData</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>NumConstraints</edgelabel>
           <edgelabel>NumNonZero</edgelabel>
           <edgelabel>NumIterations</edgelabel>
           <edgelabel>NumVar</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>PureNashEquilibrium</edgelabel>
           <edgelabel>NumericalIssues</edgelabel>
         </childnode>
-        <childnode refid="16" relation="usage">
+        <childnode refid="17" relation="usage">
           <edgelabel>Status</edgelabel>
         </childnode>
       </node>
-      <node id="16">
+      <node id="17">
         <label>Attr&lt; ZEROStatus &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="9">
+      <node id="10">
         <label>Attr&lt; int &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="15">
+      <node id="16">
         <label>Attr&lt; Data::LCP::PolyhedraStrategy &gt;</label>
         <link refid="class_attr"/>
       </node>
@@ -569,87 +569,93 @@
           <edgelabel>EPECObject</edgelabel>
         </childnode>
       </node>
-      <node id="14">
+      <node id="15">
         <label>Attr&lt; Data::EPEC::Algorithms &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="10">
+      <node id="11">
         <label>Attr&lt; bool &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="6">
+      <node id="7">
         <label>Data::EPEC::DataObject</label>
         <link refid="class_data_1_1_e_p_e_c_1_1_data_object"/>
-        <childnode refid="7" relation="public-inheritance">
+        <childnode refid="8" relation="public-inheritance">
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>BoundBigM</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>FeasiblePolyhedra</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>LostIntermediateEq</edgelabel>
         </childnode>
-        <childnode refid="12" relation="usage">
+        <childnode refid="13" relation="usage">
           <edgelabel>Aggressiveness</edgelabel>
         </childnode>
-        <childnode refid="13" relation="usage">
+        <childnode refid="14" relation="usage">
           <edgelabel>RecoverStrategy</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>BoundPrimals</edgelabel>
         </childnode>
-        <childnode refid="14" relation="usage">
+        <childnode refid="15" relation="usage">
           <edgelabel>Algorithm</edgelabel>
         </childnode>
-        <childnode refid="15" relation="usage">
+        <childnode refid="16" relation="usage">
           <edgelabel>PolyhedraStrategy</edgelabel>
         </childnode>
       </node>
       <node id="3">
         <label>Game::EPEC</label>
         <link refid="class_game_1_1_e_p_e_c"/>
-        <childnode refid="4" relation="usage">
-          <edgelabel>Stats</edgelabel>
+        <childnode refid="4" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="12">
+      <node id="13">
         <label>Attr&lt; unsigned int &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="5">
+      <node id="6">
         <label>Attr&lt; double &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="7">
+      <node id="8">
         <label>ZEROAlgorithmData</label>
         <link refid="class_z_e_r_o_algorithm_data"/>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>DeviationTolerance</edgelabel>
           <edgelabel>TimeLimit</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="9" relation="usage">
           <edgelabel>RandomSeed</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>Threads</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>PureNashEquilibrium</edgelabel>
           <edgelabel>IndicatorConstraints</edgelabel>
         </childnode>
       </node>
-      <node id="8">
+      <node id="9">
         <label>Attr&lt; unsigned long int &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="13">
+      <node id="4">
+        <label>Game::AbstractGame&lt; Data::EPEC::DataObject &gt;</label>
+        <link refid="class_game_1_1_abstract_game"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>Stats</edgelabel>
+        </childnode>
+      </node>
+      <node id="14">
         <label>Attr&lt; Data::EPEC::RecoverStrategy &gt;</label>
         <link refid="class_attr"/>
       </node>
     </collaborationgraph>
-    <location file="include/algorithms/EPEC/epec_outerapproximation.h" line="145" column="43" bodyfile="include/algorithms/EPEC/epec_outerapproximation.h" bodystart="145" bodyend="203"/>
+    <location file="include/games/algorithms/EPEC/epec_outerapproximation.h" line="158" column="43" bodyfile="include/games/algorithms/EPEC/epec_outerapproximation.h" bodystart="158" bodyend="216"/>
     <listofallmembers>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a2abed130c5f6de76fc561de3dc2597a1" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::OuterApproximation</scope><name>addValueCut</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1ace18259b4a3330a5b30d66ee597f00cb" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::OuterApproximation</scope><name>deviationBranching</name></member>
@@ -669,7 +675,7 @@
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a08f0d6ead0a0a6442657e0144dc1d441" prot="public" virt="virtual"><scope>Algorithms::EPEC::OuterApproximation</scope><name>isPureStrategy</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a6a1f2a8e6e9e1a75f702fab2b3f9f493" prot="public" virt="virtual"><scope>Algorithms::EPEC::OuterApproximation</scope><name>isSolved</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a2447342d745dbdf5914747b072022de0" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::OuterApproximation</scope><name>OuterApproximation</name></member>
-      <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a91415a4528304332a386e0f9a6f5692f" prot="private" virt="non-virtual"><scope>Algorithms::EPEC::OuterApproximation</scope><name>outerLCP</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1ac390d4bbad95a8684661d0308bdd5a93" prot="private" virt="non-virtual"><scope>Algorithms::EPEC::OuterApproximation</scope><name>outerLCP</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1ab546c0ac19d77b306800f29f2562b27f" prot="protected" virt="virtual"><scope>Algorithms::EPEC::OuterApproximation</scope><name>postSolving</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a878ac7da8284f786c20a2fbe2ba38db8" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::OuterApproximation</scope><name>printBranchingLog</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a790a3f3444ae60dc3f1c3f61e652c191" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::OuterApproximation</scope><name>printCurrentApprox</name></member>

@@ -1,0 +1,1339 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="class_math_opt_1_1_l_c_p" kind="class" language="C++" prot="public">
+    <compoundname>MathOpt::LCP</compoundname>
+    <derivedcompoundref refid="class_math_opt_1_1_outer_l_c_p" prot="public" virt="non-virtual">MathOpt::OuterLCP</derivedcompoundref>
+    <derivedcompoundref refid="class_math_opt_1_1_poly_l_c_p" prot="public" virt="non-virtual">MathOpt::PolyLCP</derivedcompoundref>
+    <includes refid="lcp_8h" local="no">lcp.h</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_math_opt_1_1_l_c_p_1addeb38537d9e7cf4223fd2ba33bf72dc" prot="protected" static="no" mutable="no">
+        <type>GRBEnv *</type>
+        <definition>GRBEnv* MathOpt::LCP::Env</definition>
+        <argsstring></argsstring>
+        <name>Env</name>
+        <briefdescription>
+<para>Gurobi Env. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="56" column="14" bodyfile="include/mathopt/lcp/lcp.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_math_opt_1_1_l_c_p_1a4e0d245b9c77ff47fc160df5edcfe3b5" prot="protected" static="no" mutable="no">
+        <type>arma::sp_mat</type>
+        <definition>arma::sp_mat MathOpt::LCP::M</definition>
+        <argsstring></argsstring>
+        <name>M</name>
+        <briefdescription>
+<para>M in <formula id="22">$Mx+q$</formula> that defines the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="57" column="15" bodyfile="include/mathopt/lcp/lcp.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_math_opt_1_1_l_c_p_1ad99482b12ec46aabc831b55c28b49bbe" prot="protected" static="no" mutable="no">
+        <type>arma::vec</type>
+        <definition>arma::vec MathOpt::LCP::q</definition>
+        <argsstring></argsstring>
+        <name>q</name>
+        <briefdescription>
+<para>q in <formula id="22">$Mx+q$</formula> that defines the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="58" column="15" bodyfile="include/mathopt/lcp/lcp.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_math_opt_1_1_l_c_p_1a1d50200c05752a28083272b4a5b124fc" prot="protected" static="no" mutable="no">
+        <type><ref refid="zero_8h_1ad87785d9eb3e6e48c0895b348f6660ca" kindref="member">perps</ref></type>
+        <definition>perps MathOpt::LCP::Compl</definition>
+        <argsstring></argsstring>
+        <name>Compl</name>
+        <briefdescription>
+<para>Compl stores data in &lt;Eqn, Var&gt; form. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="59" column="15" bodyfile="include/mathopt/lcp/lcp.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_math_opt_1_1_l_c_p_1ab74625ec0c212d9d3c40ad8870741515" prot="protected" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int MathOpt::LCP::LeadStart</definition>
+        <argsstring></argsstring>
+        <name>LeadStart</name>
+        <initializer>{1}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="60" column="15" bodyfile="include/mathopt/lcp/lcp.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_math_opt_1_1_l_c_p_1a12e4cee5104b8155fdaf499701fb36fb" prot="protected" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int MathOpt::LCP::LeadEnd</definition>
+        <argsstring></argsstring>
+        <name>LeadEnd</name>
+        <initializer>{0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="60" column="25" bodyfile="include/mathopt/lcp/lcp.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_math_opt_1_1_l_c_p_1ae64bd8eab0264253a226b482b1cdaa99" prot="protected" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int MathOpt::LCP::NumberLeader</definition>
+        <argsstring></argsstring>
+        <name>NumberLeader</name>
+        <initializer>{0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="60" column="33" bodyfile="include/mathopt/lcp/lcp.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_math_opt_1_1_l_c_p_1ab0e3f41a96438e66929d6d1846d81cd3" prot="protected" static="no" mutable="no">
+        <type>arma::sp_mat</type>
+        <definition>arma::sp_mat MathOpt::LCP::_A</definition>
+        <argsstring></argsstring>
+        <name>_A</name>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="61" column="15" bodyfile="include/mathopt/lcp/lcp.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_math_opt_1_1_l_c_p_1a6d68d41581d8d52c72fc0e078d11cd4d" prot="protected" static="no" mutable="no">
+        <type>arma::vec</type>
+        <definition>arma::vec MathOpt::LCP::_b</definition>
+        <argsstring></argsstring>
+        <name>_b</name>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Apart from <formula id="38">$0 \le x \perp Mx+q\ge 0$</formula>, one needs <formula id="39">$ &lt; Ax\le b$</formula> too! </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="62" column="15" bodyfile="include/mathopt/lcp/lcp.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_math_opt_1_1_l_c_p_1ac2b4526135fb3ac4f70c6ee5f7b4cf65" prot="protected" static="no" mutable="no">
+        <type>arma::sp_mat</type>
+        <definition>arma::sp_mat MathOpt::LCP::_Acut</definition>
+        <argsstring></argsstring>
+        <name>_Acut</name>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="64" column="15" bodyfile="include/mathopt/lcp/lcp.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_math_opt_1_1_l_c_p_1a086d7e92afd51302f70f2288ade6f512" prot="protected" static="no" mutable="no">
+        <type>arma::vec</type>
+        <definition>arma::vec MathOpt::LCP::_bcut</definition>
+        <argsstring></argsstring>
+        <name>_bcut</name>
+        <initializer>= {}</initializer>
+        <briefdescription>
+<para>Cutting planes eventually added to the model. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="65" column="15" bodyfile="include/mathopt/lcp/lcp.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_math_opt_1_1_l_c_p_1ab6a55bca1cd889aa17ef14f5301a70bc" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MathOpt::LCP::MadeRlxdModel</definition>
+        <argsstring></argsstring>
+        <name>MadeRlxdModel</name>
+        <initializer>{false}</initializer>
+        <briefdescription>
+<para>Keep track if <ref refid="class_math_opt_1_1_l_c_p_1a0e47a3545027a6d9d26d1e3e499b24a2" kindref="member">LCP::RlxdModel</ref> is made. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="66" column="15" bodyfile="include/mathopt/lcp/lcp.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_math_opt_1_1_l_c_p_1a07fa9bee7040e1e5103a3933dec33b9f" prot="protected" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int MathOpt::LCP::nR</definition>
+        <argsstring></argsstring>
+        <name>nR</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="67" column="15" bodyfile="include/mathopt/lcp/lcp.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_math_opt_1_1_l_c_p_1a39957fb3b0729294ea8ec7a71465a22e" prot="protected" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int MathOpt::LCP::nC</definition>
+        <argsstring></argsstring>
+        <name>nC</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="67" column="18" bodyfile="include/mathopt/lcp/lcp.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_math_opt_1_1_l_c_p_1a0e47a3545027a6d9d26d1e3e499b24a2" prot="protected" static="no" mutable="no">
+        <type>GRBModel</type>
+        <definition>GRBModel MathOpt::LCP::RlxdModel</definition>
+        <argsstring></argsstring>
+        <name>RlxdModel</name>
+        <briefdescription>
+<para>removed. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A gurobi model with all complementarity constraints </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="69" column="11" bodyfile="include/mathopt/lcp/lcp.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_math_opt_1_1_l_c_p_1af19b7809bfaf15311371d9a7ce3b9a9e" prot="protected" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="zero_8h_1a47898f11e7a4b7433acbc77588a0dc03" kindref="member">spmat_Vec</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;spmat_Vec&gt; MathOpt::LCP::Ai</definition>
+        <argsstring></argsstring>
+        <name>Ai</name>
+        <briefdescription>
+<para>approximated) of the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref>&apos;s feasible region </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Vector to contain the LHSs of a description (either exact or </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="85" column="18" bodyfile="include/mathopt/lcp/lcp.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_math_opt_1_1_l_c_p_1a5b68d054b67aab64a123395ec12f4ba8" prot="protected" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="zero_8h_1a8d8c882d060c4d307810fdf04a6314c6" kindref="member">vec_Vec</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;vec_Vec&gt; MathOpt::LCP::bi</definition>
+        <argsstring></argsstring>
+        <name>bi</name>
+        <briefdescription>
+<para>approximated) of the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref>&apos;s feasible region </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Vector to contain the RHSs of a description (either exact or </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="87" column="18" bodyfile="include/mathopt/lcp/lcp.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_math_opt_1_1_l_c_p_1a0919c037468073eacc198bc6dcc2363f" prot="public" static="no" mutable="no">
+        <type>long double</type>
+        <definition>long double MathOpt::LCP::BigM</definition>
+        <argsstring></argsstring>
+        <name>BigM</name>
+        <initializer>{1e7}</initializer>
+        <briefdescription>
+<para>BigM used to rewrite the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> as MIP. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="95" column="14" bodyfile="include/mathopt/lcp/lcp.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_math_opt_1_1_l_c_p_1a59bf18d06c235e380dc2f3a6f1419ab5" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double MathOpt::LCP::Eps</definition>
+        <argsstring></argsstring>
+        <name>Eps</name>
+        <initializer>{1e-6}</initializer>
+        <briefdescription>
+<para>The threshold for optimality and feasability tolerances. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="96" column="14" bodyfile="include/mathopt/lcp/lcp.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_math_opt_1_1_l_c_p_1a424a4d9eb7509a97d9cf4b800d957cb0" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double MathOpt::LCP::EpsInt</definition>
+        <argsstring></argsstring>
+        <name>EpsInt</name>
+        <initializer>{1e-8}</initializer>
+        <briefdescription>
+<para>considered to be zero. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The threshold, below which a number would be </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="97" column="14" bodyfile="include/mathopt/lcp/lcp.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_math_opt_1_1_l_c_p_1adc9c91af096bffbfeb0ef91b20fc58bc" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MathOpt::LCP::UseIndicators</definition>
+        <argsstring></argsstring>
+        <name>UseIndicators</name>
+        <initializer>{true}</initializer>
+        <briefdescription>
+<para>constraints. BigM formulation otherwise </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If true, complementarities will be handled with indicator </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="99" column="7" bodyfile="include/mathopt/lcp/lcp.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1ab73a1b2e9b4343a90974e0d07922541b" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MathOpt::LCP::errorCheck</definition>
+        <argsstring>(bool throwErr=true) const</argsstring>
+        <name>errorCheck</name>
+        <param>
+          <type>bool</type>
+          <declname>throwErr</declname>
+          <defval>true</defval>
+          <briefdescription><para>If this is true, function throws an error, else, it just returns false </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Checks if the <computeroutput>M</computeroutput> and <computeroutput>q</computeroutput> given to create the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> object are of compatible size, given the number of leader variables </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="72" column="7" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="323" bodyend="343"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a8e481dfd12ac9d6090370e8d15e80c2f" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MathOpt::LCP::defConst</definition>
+        <argsstring>(GRBEnv *env)</argsstring>
+        <name>defConst</name>
+        <param>
+          <type>GRBEnv *</type>
+          <declname>env</declname>
+        </param>
+        <briefdescription>
+<para>Assign default values to <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> attributes. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Internal member that can be called from multiple constructors to assign default values to some attributes of the class. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="74" column="7" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="23" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1ac5d12cc6265d68850db41c47e69b7c4b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MathOpt::LCP::makeRelaxed</definition>
+        <argsstring>()</argsstring>
+        <name>makeRelaxed</name>
+        <briefdescription>
+<para>Makes a Gurobi object that relaxes complementarity constraints in an <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A Gurobi object is stored in the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> object, that has all complementarity constraints removed. A copy of this object is used by other member functions </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="76" column="7" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="135" bodyend="185"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1ac554a16ac9497952c31b3f84d68662ff" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::unique_ptr&lt; GRBModel &gt;</type>
+        <definition>std::unique_ptr&lt; GRBModel &gt; MathOpt::LCP::LCPasMIP</definition>
+        <argsstring>(std::vector&lt; unsigned int &gt; FixEq={}, std::vector&lt; unsigned int &gt; FixVar={}, bool solve=false)</argsstring>
+        <name>LCPasMIP</name>
+        <param>
+          <type>std::vector&lt; unsigned int &gt;</type>
+          <declname>FixEq</declname>
+          <defval>{}</defval>
+          <briefdescription><para>If any equation is to be fixed to equality </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>std::vector&lt; unsigned int &gt;</type>
+          <declname>FixVar</declname>
+          <defval>{}</defval>
+          <briefdescription><para>If any variable is to be fixed to equality </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>solve</declname>
+          <defval>false</defval>
+          <briefdescription><para>Whether the model should be solved in the function before returned. </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Uses the big M method to solve the complementarity problem. The variables and equations to be set to equality can be given in FixVar and FixEq. <simplesect kind="note"><para>Returned model is <emphasis>always</emphasis> a restriction. For <computeroutput>FixEq = FixVar = {}</computeroutput>, the returned model would solve the exact <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref>. </para>
+</simplesect>
+<simplesect kind="warning"><para>Note that the model returned by this function has to be explicitly deleted using the delete operator. </para>
+</simplesect>
+<simplesect kind="return"><para>unique pointer to a GRBModel </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="79" column="18" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="216" bodyend="321"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a42175395b990e8069a18963fc2666b4c" prot="protected" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MathOpt::LCP::isZero</definition>
+        <argsstring>(const T val) const</argsstring>
+        <name>isZero</name>
+        <param>
+          <type>const T</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="83" column="26" bodyfile="include/mathopt/lcp/lcp.h" bodystart="83" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1ad59aa4e9848f45e477e67eb1e273c9ef" prot="protected" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; short int &gt;</type>
+        <definition>std::vector&lt; short int &gt; MathOpt::LCP::solEncode</definition>
+        <argsstring>(GRBModel *model) const</argsstring>
+        <name>solEncode</name>
+        <param>
+          <type>GRBModel *</type>
+          <declname>model</declname>
+        </param>
+        <briefdescription>
+<para>Given a Gurobi model, extracts variable values and equation values, encodes it in 0/+1/-1 format and returns it. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="warning"><para>Note that the std::vector returned by this function might have to be explicitly deleted using the delete operator. For specific uses in LCP::BranchAndPrune, this delete is handled by the class destructor. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="90" column="21" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="424" bodyend="436"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a0b54da5cf1c56c79ae2addf5742aea81" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int MathOpt::LCP::convexHull</definition>
+        <argsstring>(arma::sp_mat &amp;A, arma::vec &amp;b)</argsstring>
+        <name>convexHull</name>
+        <param>
+          <type>arma::sp_mat &amp;</type>
+          <declname>A</declname>
+          <briefdescription><para>Convex hull inequality description LHS to be stored here </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>arma::vec &amp;</type>
+          <declname>b</declname>
+          <briefdescription><para>Convex hull inequality description RHS </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Computes the convex hull of the feasible region of the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref>. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="92" column="15" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="640" bodyend="673"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a3c5956541410e906ce7d5c1ad844ba3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MathOpt::LCP::LCP</definition>
+        <argsstring>()=delete</argsstring>
+        <name>LCP</name>
+        <briefdescription>
+<para>Class has no default constructors. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Constructors </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="104" column="2"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1ae15300807444d65f55acf76e632431b1" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MathOpt::LCP::LCP</definition>
+        <argsstring>(GRBEnv *e)</argsstring>
+        <name>LCP</name>
+        <param>
+          <type>GRBEnv *</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="106" column="11" bodyfile="include/mathopt/lcp/lcp.h" bodystart="106" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1aeae3c06657dd721a859f42ef06352645" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MathOpt::LCP::LCP</definition>
+        <argsstring>(GRBEnv *env, arma::sp_mat M, arma::vec q, unsigned int leadStart, unsigned leadEnd, arma::sp_mat A={}, arma::vec b={})</argsstring>
+        <name>LCP</name>
+        <param>
+          <type>GRBEnv *</type>
+          <declname>env</declname>
+          <briefdescription><para>Gurobi environment required </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>arma::sp_mat</type>
+          <declname>M</declname>
+          <briefdescription><para><computeroutput>M</computeroutput> in <formula id="22">$Mx+q$</formula> </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>arma::vec</type>
+          <declname>q</declname>
+          <briefdescription><para><computeroutput>q</computeroutput> in <formula id="22">$Mx+q$</formula> </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>leadStart</declname>
+          <briefdescription><para>Position where variables which are not complementary to any equation starts </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>leadEnd</declname>
+          <briefdescription><para>Position where variables which are not complementary to any equation ends </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>arma::sp_mat</type>
+          <declname>A</declname>
+          <defval>{}</defval>
+          <briefdescription><para>Any equations without a complemntarity variable </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>arma::vec</type>
+          <declname>b</declname>
+          <defval>{}</defval>
+          <briefdescription><para>RHS of equations without complementarity variables </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+<para>This constructor flor loading <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> from a file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="warning"><para>This might be deprecated to support <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> functioning without sticking to the output format of NashGame </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="109" column="2" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="63" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1ad7a5f1af658e2be2c4a0f24000f184c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MathOpt::LCP::LCP</definition>
+        <argsstring>(GRBEnv *env, arma::sp_mat M, arma::vec q, perps Compl, arma::sp_mat A={}, arma::vec b={})</argsstring>
+        <name>LCP</name>
+        <param>
+          <type>GRBEnv *</type>
+          <declname>env</declname>
+          <briefdescription><para>Gurobi environment required </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>arma::sp_mat</type>
+          <declname>M</declname>
+          <briefdescription><para><computeroutput>M</computeroutput> in <formula id="22">$Mx+q$</formula> </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>arma::vec</type>
+          <declname>q</declname>
+          <briefdescription><para><computeroutput>q</computeroutput> in <formula id="22">$Mx+q$</formula> </para>
+</briefdescription>
+        </param>
+        <param>
+          <type><ref refid="zero_8h_1ad87785d9eb3e6e48c0895b348f6660ca" kindref="member">perps</ref></type>
+          <declname>Compl</declname>
+          <briefdescription><para>Pairing equations and variables for complementarity </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>arma::sp_mat</type>
+          <declname>A</declname>
+          <defval>{}</defval>
+          <briefdescription><para>Any equations without a complementarity variable </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>arma::vec</type>
+          <declname>b</declname>
+          <defval>{}</defval>
+          <briefdescription><para>RHS of equations without complementarity variables </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="116" column="2" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="36" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1abc0c893675e33ccab28c3f3659faaf42" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MathOpt::LCP::LCP</definition>
+        <argsstring>(GRBEnv *env, const Game::NashGame &amp;N)</argsstring>
+        <name>LCP</name>
+        <param>
+          <type>GRBEnv *</type>
+          <declname>env</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_game_1_1_nash_game" kindref="compound">Game::NashGame</ref> &amp;</type>
+          <declname>N</declname>
+        </param>
+        <briefdescription>
+<para>Constructor given a NashGame. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Given a NashGame, computes the KKT of the lower levels, and makes the appropriate <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> object. This constructor is the most suited for high-level usage. <simplesect kind="note"><para>Most preferred constructor for user interface. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="122" column="2" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="96" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1aba79835cd3e9ead070a2f2cc56da151a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MathOpt::LCP::~LCP</definition>
+        <argsstring>()=default</argsstring>
+        <name>~LCP</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Destructor - to delete the objects created with new operator </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="125" column="2"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a964119e24dee54beaacfe6bb9d5db829" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>arma::sp_mat</type>
+        <definition>arma::sp_mat MathOpt::LCP::getM</definition>
+        <argsstring>()</argsstring>
+        <name>getM</name>
+        <briefdescription>
+<para>Read-only access to <ref refid="class_math_opt_1_1_l_c_p_1a4e0d245b9c77ff47fc160df5edcfe3b5" kindref="member">LCP::M</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Return data and address </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="128" column="23" bodyfile="include/mathopt/lcp/lcp.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a1d76692175585da4d03037d65a79a6d1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>arma::sp_mat *</type>
+        <definition>arma::sp_mat* MathOpt::LCP::getMstar</definition>
+        <argsstring>()</argsstring>
+        <name>getMstar</name>
+        <briefdescription>
+<para>Reference access to <ref refid="class_math_opt_1_1_l_c_p_1a4e0d245b9c77ff47fc160df5edcfe3b5" kindref="member">LCP::M</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="129" column="22" bodyfile="include/mathopt/lcp/lcp.h" bodystart="129" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a6344bfaefa0cba43e2c6cd0293dfb710" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>arma::vec</type>
+        <definition>arma::vec MathOpt::LCP::getq</definition>
+        <argsstring>()</argsstring>
+        <name>getq</name>
+        <briefdescription>
+<para>Read-only access to <ref refid="class_math_opt_1_1_l_c_p_1ad99482b12ec46aabc831b55c28b49bbe" kindref="member">LCP::q</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="130" column="23" bodyfile="include/mathopt/lcp/lcp.h" bodystart="130" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a6d1d8b31629fd893b90b5e246db85b65" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int MathOpt::LCP::getNumberLeader</definition>
+        <argsstring>()</argsstring>
+        <name>getNumberLeader</name>
+        <briefdescription>
+<para>Read-only access to <ref refid="class_math_opt_1_1_l_c_p_1ad99482b12ec46aabc831b55c28b49bbe" kindref="member">LCP::q</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="131" column="23" bodyfile="include/mathopt/lcp/lcp.h" bodystart="131" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a4b84d3c1a933d5fb208494f1097da4c3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>arma::vec *</type>
+        <definition>arma::vec* MathOpt::LCP::getqstar</definition>
+        <argsstring>()</argsstring>
+        <name>getqstar</name>
+        <briefdescription>
+<para>Reference access to <ref refid="class_math_opt_1_1_l_c_p_1ad99482b12ec46aabc831b55c28b49bbe" kindref="member">LCP::q</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="134" column="27" bodyfile="include/mathopt/lcp/lcp.h" bodystart="134" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1ab29d11d93c2bf1eead879847370fb9bd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const unsigned int</type>
+        <definition>const unsigned int MathOpt::LCP::getLStart</definition>
+        <argsstring>()</argsstring>
+        <name>getLStart</name>
+        <briefdescription>
+<para>Read-only access to <ref refid="class_math_opt_1_1_l_c_p_1ab74625ec0c212d9d3c40ad8870741515" kindref="member">LCP::LeadStart</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="135" column="28" bodyfile="include/mathopt/lcp/lcp.h" bodystart="135" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a8e98d36e2af38da1b66013be86b4b856" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const unsigned int</type>
+        <definition>const unsigned int MathOpt::LCP::getLEnd</definition>
+        <argsstring>()</argsstring>
+        <name>getLEnd</name>
+        <briefdescription>
+<para>Read-only access to <ref refid="class_math_opt_1_1_l_c_p_1a12e4cee5104b8155fdaf499701fb36fb" kindref="member">LCP::LeadEnd</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="138" column="28" bodyfile="include/mathopt/lcp/lcp.h" bodystart="138" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a5f0cfd505da46652224d6ddf80b28a0d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="zero_8h_1ad87785d9eb3e6e48c0895b348f6660ca" kindref="member">perps</ref></type>
+        <definition>perps MathOpt::LCP::getCompl</definition>
+        <argsstring>()</argsstring>
+        <name>getCompl</name>
+        <briefdescription>
+<para>Read-only access to <ref refid="class_math_opt_1_1_l_c_p_1a1d50200c05752a28083272b4a5b124fc" kindref="member">LCP::Compl</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="139" column="28" bodyfile="include/mathopt/lcp/lcp.h" bodystart="139" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1ace92b15384c30cf9099a8b03eedb0fe0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MathOpt::LCP::print</definition>
+        <argsstring>(std::string end=&quot;\n&quot;)</argsstring>
+        <name>print</name>
+        <param>
+          <type>std::string</type>
+          <declname>end</declname>
+          <defval>&quot;\n&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Print a summary of the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="140" column="28" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="345" bodyend="347"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1ae30ffe7036c4bfd6d20cb400dd004b3d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int MathOpt::LCP::getNumCols</definition>
+        <argsstring>()</argsstring>
+        <name>getNumCols</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="141" column="28" bodyfile="include/mathopt/lcp/lcp.h" bodystart="141" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a3594c0c215a8fc483f0f611574ced3dd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int MathOpt::LCP::getNumRows</definition>
+        <argsstring>()</argsstring>
+        <name>getNumRows</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="143" column="22" bodyfile="include/mathopt/lcp/lcp.h" bodystart="143" bodyend="143"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a21b65610e8c23cbfb018d8d61ad2aa30" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MathOpt::LCP::extractSols</definition>
+        <argsstring>(GRBModel *model, arma::vec &amp;z, arma::vec &amp;x, bool extractZ=false) const</argsstring>
+        <name>extractSols</name>
+        <param>
+          <type>GRBModel *</type>
+          <declname>model</declname>
+          <briefdescription><para>The Gurobi Model that was solved (perhaps using <ref refid="class_math_opt_1_1_l_c_p_1ac554a16ac9497952c31b3f84d68662ff" kindref="member">MathOpt::LCP::LCPasMIP</ref>) </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>arma::vec &amp;</type>
+          <declname>z</declname>
+          <briefdescription><para>Output variable - where the equation values are stored </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>arma::vec &amp;</type>
+          <declname>x</declname>
+          <briefdescription><para>Output variable - where the variable values are stored </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>extractZ</declname>
+          <defval>false</defval>
+          <briefdescription><para>z values are filled only if this is true </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+<para>Extracts variable and equation values from a solved Gurobi model for <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="warning"><para>This solves the model if the model is not already solve </para>
+</simplesect>
+<simplesect kind="return"><para><computeroutput>false</computeroutput> if the model is not solved to optimality. <computeroutput>true</computeroutput> otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="145" column="7" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="349" bodyend="378"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1adb271830c46c32ab236961199edde62b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::unique_ptr&lt; GRBModel &gt;</type>
+        <definition>std::unique_ptr&lt; GRBModel &gt; MathOpt::LCP::LCPasQP</definition>
+        <argsstring>(bool solve=false)</argsstring>
+        <name>LCPasQP</name>
+        <param>
+          <type>bool</type>
+          <declname>solve</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Solves the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> as a QP using Gurobi. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Removes all complementarity constraints from the QP&apos;s constraints. Instead, the sum of products of complementarity pairs is minimized. If the optimal value turns out to be 0, then it is actually a solution of the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref>. Else the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> is infeasible. <simplesect kind="warning"><para>Solves the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> feasibility problem. Not the MPEC optimization problem. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="148" column="18" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="438" bodyend="474"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1ae6cc1d9683368334cc4df920b95402af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::unique_ptr&lt; GRBModel &gt;</type>
+        <definition>std::unique_ptr&lt; GRBModel &gt; MathOpt::LCP::LCPasMIP</definition>
+        <argsstring>(bool solve=false)</argsstring>
+        <name>LCPasMIP</name>
+        <param>
+          <type>bool</type>
+          <declname>solve</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Helps solving an <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> as an MIP using BigM constraints. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>A std::unique_ptr to GRBModel that has the equivalent MIP</para>
+</simplesect>
+The MIP problem that is returned by this function is equivalent to the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> problem provided the value of BigM is large enough. <simplesect kind="note"><para>This solves just the feasibility problem. Should you need a leader&apos;s objective function, use <ref refid="class_math_opt_1_1_l_c_p_1a9aef94716ce8262f55ee7c49d4398f74" kindref="member">LCP::MPECasMILP</ref> or <ref refid="class_math_opt_1_1_l_c_p_1ac5053d434e646ec85b9d276aedee5bcd" kindref="member">LCP::MPECasMIQP</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="150" column="18" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="476" bodyend="487"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a9aef94716ce8262f55ee7c49d4398f74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::unique_ptr&lt; GRBModel &gt;</type>
+        <definition>std::unique_ptr&lt; GRBModel &gt; MathOpt::LCP::MPECasMILP</definition>
+        <argsstring>(const arma::sp_mat &amp;C, const arma::vec &amp;c, const arma::vec &amp;x_minus_i, bool solve=false)</argsstring>
+        <name>MPECasMILP</name>
+        <param>
+          <type>const arma::sp_mat &amp;</type>
+          <declname>C</declname>
+        </param>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>x_minus_i</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>solve</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Helps solving an <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> as an MIP. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>A std::unique_ptr to GRBModel that has the equivalent MIP</para>
+</simplesect>
+The MIP problem that is returned by this function is equivalent to the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> problem. The function differs from <ref refid="class_math_opt_1_1_l_c_p_1ac554a16ac9497952c31b3f84d68662ff" kindref="member">LCP::LCPasMIP</ref> by the fact that, this explicitly takes a leader objective, and returns an object with this objective. <simplesect kind="note"><para>The leader&apos;s objective has to be linear here. For quadratic objectives, refer <ref refid="class_math_opt_1_1_l_c_p_1ac5053d434e646ec85b9d276aedee5bcd" kindref="member">LCP::MPECasMIQP</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="152" column="18" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="489" bodyend="529"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a7136a8dfea61785975d36090ce3e6c01" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; short int &gt;</type>
+        <definition>std::vector&lt; short int &gt; MathOpt::LCP::solEncode</definition>
+        <argsstring>(const arma::vec &amp;z, const arma::vec &amp;x) const</argsstring>
+        <name>solEncode</name>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>z</declname>
+          <briefdescription><para>Equation values </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>x</declname>
+          <briefdescription><para>Variable values </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+<para>Given variable values and equation values, encodes it in 0/+1/-1 format and returns it. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="157" column="14" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="398" bodyend="422"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1ac5053d434e646ec85b9d276aedee5bcd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::unique_ptr&lt; GRBModel &gt;</type>
+        <definition>std::unique_ptr&lt; GRBModel &gt; MathOpt::LCP::MPECasMIQP</definition>
+        <argsstring>(const arma::sp_mat &amp;Q, const arma::sp_mat &amp;C, const arma::vec &amp;c, const arma::vec &amp;x_minus_i, bool solve=false)</argsstring>
+        <name>MPECasMIQP</name>
+        <param>
+          <type>const arma::sp_mat &amp;</type>
+          <declname>Q</declname>
+        </param>
+        <param>
+          <type>const arma::sp_mat &amp;</type>
+          <declname>C</declname>
+        </param>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>x_minus_i</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>solve</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Helps solving an <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> as an MIQPs. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>A std::unique_ptr to GRBModel that has the equivalent MIQP</para>
+</simplesect>
+The MIQP problem that is returned by this function is equivalent to the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> problem provided the value of BigM is large enough. The function differs from <ref refid="class_math_opt_1_1_l_c_p_1ac554a16ac9497952c31b3f84d68662ff" kindref="member">LCP::LCPasMIP</ref> by the fact that, this explicitly takes a leader objective, and returns an object with this objective. This allows quadratic leader objective. If you are aware that the leader&apos;s objective is linear, use the faster method <ref refid="class_math_opt_1_1_l_c_p_1a9aef94716ce8262f55ee7c49d4398f74" kindref="member">LCP::MPECasMILP</ref> </para>
+        </detaileddescription>
+        <inbodydescription>
+<para>Note that if the matrix Q is a zero matrix, then this returns a Gurobi MILP model as opposed to MIQP model. This enables Gurobi to use its much advanced MIP solver</para>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="159" column="18" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="531" bodyend="563"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1aa317c31cd870d32811b704fe6437a125" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::unique_ptr&lt; GRBModel &gt;</type>
+        <definition>std::unique_ptr&lt; GRBModel &gt; MathOpt::LCP::LCPasMIP</definition>
+        <argsstring>(std::vector&lt; short int &gt; Fixes, bool solve)</argsstring>
+        <name>LCPasMIP</name>
+        <param>
+          <type>std::vector&lt; short int &gt;</type>
+          <declname>Fixes</declname>
+          <briefdescription><para>For each Variable, +1 fixes the equation to equality and -1 fixes the variable to equality. A value of 0 fixes neither. </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>solve</declname>
+          <briefdescription><para>Whether the model is to be solved before returned </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Uses the big M method to solve the complementarity problem. The variables and eqns to be set to equality can be given in Fixes in 0/+1/-1 notation <simplesect kind="note"><para>Returned model is <emphasis>always</emphasis> a restriction. For <computeroutput>Fixes = {0,...,0}</computeroutput>, the returned model would solve the exact <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref>. </para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>string</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if <computeroutput> Fixes.size()!= </computeroutput> number of equations (for complementarity). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="warning"><para>Note that the model returned by this function has to be explicitly deleted using the delete operator. </para>
+</simplesect>
+<simplesect kind="return"><para>unique pointer to a GRBModel </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="165" column="18" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="187" bodyend="214"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a6261825711653d2af9aacef1887384a2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MathOpt::LCP::write</definition>
+        <argsstring>(std::string filename, bool append=true) const</argsstring>
+        <name>write</name>
+        <param>
+          <type>std::string</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>append</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="167" column="7" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="565" bodyend="581"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a8bedfd755996b18fa86121ffaabb92d0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MathOpt::LCP::save</definition>
+        <argsstring>(std::string filename, bool erase=true) const</argsstring>
+        <name>save</name>
+        <param>
+          <type>std::string</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>erase</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="169" column="7" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="583" bodyend="595"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a71496aeafa52792d00211240f51aa5ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long int</type>
+        <definition>long int MathOpt::LCP::load</definition>
+        <argsstring>(std::string filename, long int pos=0)</argsstring>
+        <name>load</name>
+        <param>
+          <type>std::string</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>long int</type>
+          <declname>pos</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="171" column="11" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="597" bodyend="638"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a59993bce1206d9d5dfa04c616ea572e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void MathOpt::LCP::makeQP</definition>
+        <argsstring>(QP_Objective &amp;QP_obj, QP_Param &amp;QP)</argsstring>
+        <name>makeQP</name>
+        <param>
+          <type><ref refid="struct_math_opt_1_1_q_p___objective" kindref="compound">QP_Objective</ref> &amp;</type>
+          <declname>QP_obj</declname>
+          <briefdescription><para>Objective function of the final QP that has to be made </para>
+</briefdescription>
+        </param>
+        <param>
+          <type><ref refid="class_math_opt_1_1_q_p___param" kindref="compound">QP_Param</ref> &amp;</type>
+          <declname>QP</declname>
+          <briefdescription><para>This is the <ref refid="class_math_opt_1_1_q_p___param" kindref="compound">MathOpt::QP_Param</ref> that results from the input objective and the convex hull of the region defined by <ref refid="class_math_opt_1_1_outer_l_c_p" kindref="compound">MathOpt::OuterLCP</ref> </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Given that the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">MathOpt::LCP</ref> stores a description of the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> feasible region, calls <ref refid="class_math_opt_1_1_l_c_p_1a0b54da5cf1c56c79ae2addf5742aea81" kindref="member">MathOpt::LCP::convexHull</ref> to construct the convex hull. The polyhedral convex hull and the given objective are combined to create the output <ref refid="class_math_opt_1_1_q_p___param" kindref="compound">MathOpt::QP_Param</ref>.</para>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="173" column="15" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="675" bodyend="705"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1abb3d2bcb70270704f7b96cd406d681e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MathOpt::LCP::addCustomCuts</definition>
+        <argsstring>(const arma::sp_mat A, const arma::vec b)</argsstring>
+        <name>addCustomCuts</name>
+        <param>
+          <type>const arma::sp_mat</type>
+          <declname>A</declname>
+          <briefdescription><para>The LHS of the added cuts </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>const arma::vec</type>
+          <declname>b</declname>
+          <briefdescription><para>The RHS of the added cuts </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Given that the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">MathOpt::LCP</ref> stores a description of the new cuts of <computeroutput>A</computeroutput> (and RHS <computeroutput>b</computeroutput>) in <ref refid="class_math_opt_1_1_l_c_p_1ac2b4526135fb3ac4f70c6ee5f7b4cf65" kindref="member">LCP::_Acut</ref> and <ref refid="class_math_opt_1_1_l_c_p_1a086d7e92afd51302f70f2288ade6f512" kindref="member">LCP::_bcut</ref></para>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="175" column="7" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="706" bodyend="724"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a824d162366e30bcb729ede444f51af71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MathOpt::LCP::containCut</definition>
+        <argsstring>(const arma::vec LHS, const double RHS, double tol=1e-5)</argsstring>
+        <name>containCut</name>
+        <param>
+          <type>const arma::vec</type>
+          <declname>LHS</declname>
+          <briefdescription><para>The LHS of the cut </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>RHS</declname>
+          <briefdescription><para>The rHS of the cut </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+          <defval>1e-5</defval>
+          <briefdescription><para>optional tolerance </para>
+</briefdescription>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Given that the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">MathOpt::LCP</ref> stores a description of a cut in <ref refid="class_math_opt_1_1_l_c_p_1ac2b4526135fb3ac4f70c6ee5f7b4cf65" kindref="member">LCP::_Acut</ref> and <ref refid="class_math_opt_1_1_l_c_p_1a086d7e92afd51302f70f2288ade6f512" kindref="member">LCP::_bcut</ref>, this method check if <computeroutput>LHS</computeroutput> and <computeroutput>RHS</computeroutput> are part of this description</para>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="177" column="7" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="726" bodyend="736"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a580e72a782e479fee8c4d8680ef8b87f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; short int &gt;</type>
+        <definition>std::vector&lt; short int &gt; MathOpt::LCP::solEncode</definition>
+        <argsstring>(const arma::vec &amp;x) const</argsstring>
+        <name>solEncode</name>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Given variable values, encodes it in 0/+1/-1 format and returns it. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Gives the 0/+1/-1 notation. The notation is defined as follows. Note that, if the input is feasible, then in each complementarity pair (Eqn, Var), at least one of the two is zero.</para>
+<para><itemizedlist>
+<listitem><para>If the equation is zero in a certain index and the variable is non-zero, then that index is noted by +1.</para>
+</listitem><listitem><para>If the variable is zero in a certain index and the equation is non-zero, then that index is noted by +1.</para>
+</listitem><listitem><para>If both the variable and equation are zero, then that index is noted by 0. </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="179" column="14" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="380" bodyend="394"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_l_c_p_1a2d0f2ec3d8fa860d0db32402dbb22451" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>arma::vec</type>
+        <definition>arma::vec MathOpt::LCP::zFromX</definition>
+        <argsstring>(const arma::vec x)</argsstring>
+        <name>zFromX</name>
+        <param>
+          <type>const arma::vec</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/lcp/lcp.h" line="181" column="12" bodyfile="src/mathopt/lcp/lcp.cpp" bodystart="396" bodyend="396"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Class to handle and solve linear complementarity problems. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>A class to handle linear complementarity problems (<ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref>) especially as MIPs with BigM constraints </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>MathOpt::LCP</label>
+        <link refid="class_math_opt_1_1_l_c_p"/>
+      </node>
+      <node id="2">
+        <label>MathOpt::OuterLCP</label>
+        <link refid="class_math_opt_1_1_outer_l_c_p"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>MathOpt::PolyLCP</label>
+        <link refid="class_math_opt_1_1_poly_l_c_p"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="include/mathopt/lcp/lcp.h" line="52" column="12" bodyfile="include/mathopt/lcp/lcp.h" bodystart="52" bodyend="182"/>
+    <listofallmembers>
+      <member refid="class_math_opt_1_1_l_c_p_1ab0e3f41a96438e66929d6d1846d81cd3" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>_A</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1ac2b4526135fb3ac4f70c6ee5f7b4cf65" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>_Acut</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a6d68d41581d8d52c72fc0e078d11cd4d" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>_b</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a086d7e92afd51302f70f2288ade6f512" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>_bcut</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1abb3d2bcb70270704f7b96cd406d681e2" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>addCustomCuts</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1af19b7809bfaf15311371d9a7ce3b9a9e" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>Ai</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a5b68d054b67aab64a123395ec12f4ba8" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>bi</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a0919c037468073eacc198bc6dcc2363f" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>BigM</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a1d50200c05752a28083272b4a5b124fc" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>Compl</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a824d162366e30bcb729ede444f51af71" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>containCut</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a0b54da5cf1c56c79ae2addf5742aea81" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>convexHull</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a8e481dfd12ac9d6090370e8d15e80c2f" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>defConst</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1addeb38537d9e7cf4223fd2ba33bf72dc" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>Env</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a59bf18d06c235e380dc2f3a6f1419ab5" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>Eps</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a424a4d9eb7509a97d9cf4b800d957cb0" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>EpsInt</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1ab73a1b2e9b4343a90974e0d07922541b" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>errorCheck</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a21b65610e8c23cbfb018d8d61ad2aa30" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>extractSols</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a5f0cfd505da46652224d6ddf80b28a0d" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>getCompl</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a8e98d36e2af38da1b66013be86b4b856" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>getLEnd</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1ab29d11d93c2bf1eead879847370fb9bd" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>getLStart</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a964119e24dee54beaacfe6bb9d5db829" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>getM</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a1d76692175585da4d03037d65a79a6d1" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>getMstar</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a6d1d8b31629fd893b90b5e246db85b65" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>getNumberLeader</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1ae30ffe7036c4bfd6d20cb400dd004b3d" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>getNumCols</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a3594c0c215a8fc483f0f611574ced3dd" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>getNumRows</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a6344bfaefa0cba43e2c6cd0293dfb710" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>getq</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a4b84d3c1a933d5fb208494f1097da4c3" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>getqstar</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a42175395b990e8069a18963fc2666b4c" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>isZero</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a3c5956541410e906ce7d5c1ad844ba3e" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>LCP</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1ae15300807444d65f55acf76e632431b1" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>LCP</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1aeae3c06657dd721a859f42ef06352645" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>LCP</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1ad7a5f1af658e2be2c4a0f24000f184c7" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>LCP</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1abc0c893675e33ccab28c3f3659faaf42" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>LCP</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1ac554a16ac9497952c31b3f84d68662ff" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>LCPasMIP</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1ae6cc1d9683368334cc4df920b95402af" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>LCPasMIP</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1aa317c31cd870d32811b704fe6437a125" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>LCPasMIP</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1adb271830c46c32ab236961199edde62b" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>LCPasQP</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a12e4cee5104b8155fdaf499701fb36fb" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>LeadEnd</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1ab74625ec0c212d9d3c40ad8870741515" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>LeadStart</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a71496aeafa52792d00211240f51aa5ce" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>load</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a4e0d245b9c77ff47fc160df5edcfe3b5" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>M</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1ab6a55bca1cd889aa17ef14f5301a70bc" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>MadeRlxdModel</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a59993bce1206d9d5dfa04c616ea572e6" prot="public" virt="virtual"><scope>MathOpt::LCP</scope><name>makeQP</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1ac5d12cc6265d68850db41c47e69b7c4b" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>makeRelaxed</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a9aef94716ce8262f55ee7c49d4398f74" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>MPECasMILP</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1ac5053d434e646ec85b9d276aedee5bcd" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>MPECasMIQP</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a39957fb3b0729294ea8ec7a71465a22e" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>nC</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a07fa9bee7040e1e5103a3933dec33b9f" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>nR</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1ae64bd8eab0264253a226b482b1cdaa99" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>NumberLeader</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1ace92b15384c30cf9099a8b03eedb0fe0" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>print</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1ad99482b12ec46aabc831b55c28b49bbe" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>q</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a0e47a3545027a6d9d26d1e3e499b24a2" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>RlxdModel</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a8bedfd755996b18fa86121ffaabb92d0" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>save</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1ad59aa4e9848f45e477e67eb1e273c9ef" prot="protected" virt="non-virtual"><scope>MathOpt::LCP</scope><name>solEncode</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a7136a8dfea61785975d36090ce3e6c01" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>solEncode</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a580e72a782e479fee8c4d8680ef8b87f" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>solEncode</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1adc9c91af096bffbfeb0ef91b20fc58bc" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>UseIndicators</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a6261825711653d2af9aacef1887384a2" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>write</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1a2d0f2ec3d8fa860d0db32402dbb22451" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>zFromX</name></member>
+      <member refid="class_math_opt_1_1_l_c_p_1aba79835cd3e9ead070a2f2cc56da151a" prot="public" virt="non-virtual"><scope>MathOpt::LCP</scope><name>~LCP</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

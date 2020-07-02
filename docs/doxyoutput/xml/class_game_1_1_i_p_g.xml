@@ -2,52 +2,24 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
   <compounddef id="class_game_1_1_i_p_g" kind="class" language="C++" prot="public">
     <compoundname>Game::IPG</compoundname>
+    <basecompoundref refid="class_game_1_1_abstract_game" prot="public" virt="non-virtual">Game::AbstractGame&lt; Data::IPG::DataObject &gt;</basecompoundref>
     <includes refid="ipg_8h" local="no">ipg.h</includes>
-      <sectiondef kind="private-attrib">
-      <memberdef kind="variable" id="class_game_1_1_i_p_g_1ab6ba37c89a84e5bbe0959c740c167732" prot="private" static="no" mutable="no">
-        <type>unsigned int</type>
-        <definition>unsigned int Game::IPG::NumVariables</definition>
-        <argsstring></argsstring>
-        <name>NumVariables</name>
-        <initializer>{0}</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/ipg.h" line="140" column="15" bodyfile="include/games/ipg.h" bodystart="140" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_game_1_1_i_p_g_1af8db3a3876f89c90ffbcc57e3bed52ce" prot="private" static="no" mutable="no">
-        <type>unsigned int</type>
-        <definition>unsigned int Game::IPG::NumPlayers</definition>
-        <argsstring></argsstring>
-        <name>NumPlayers</name>
-        <initializer>{0}</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/ipg.h" line="141" column="15" bodyfile="include/games/ipg.h" bodystart="141" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
       <sectiondef kind="protected-attrib">
-      <memberdef kind="variable" id="class_game_1_1_i_p_g_1a6c87d0fc735ba6ae67d3f2cb6296427b" prot="protected" static="no" mutable="no">
-        <type>std::vector&lt; std::shared_ptr&lt; <ref refid="class_game_1_1_i_p___param" kindref="compound">Game::IP_Param</ref> &gt; &gt;</type>
-        <definition>std::vector&lt;std::shared_ptr&lt;Game::IP_Param&gt; &gt; Game::IPG::PlayersIP</definition>
+      <memberdef kind="variable" id="class_game_1_1_i_p_g_1a3a939675fddeb5adda31e7c7be895e6c" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; std::shared_ptr&lt; <ref refid="class_math_opt_1_1_i_p___param" kindref="compound">MathOpt::IP_Param</ref> &gt; &gt;</type>
+        <definition>std::vector&lt;std::shared_ptr&lt;MathOpt::IP_Param&gt; &gt; Game::IPG::PlayersIP</definition>
         <argsstring></argsstring>
         <name>PlayersIP</name>
         <initializer>{}</initializer>
         <briefdescription>
-<para>The Integer Programs associated to each player. </para>
+<para>This class handles Integer Programming Games (<ref refid="class_game_1_1_i_p_g" kindref="compound">IPG</ref>), namely multiple agents solving an integer programming game. </para>
         </briefdescription>
         <detaileddescription>
+<para>&lt; The Integer Programs associated to each player </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="145" column="3" bodyfile="include/games/ipg.h" bodystart="145" bodyend="-1"/>
+        <location file="include/games/ipg.h" line="48" column="3" bodyfile="include/games/ipg.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_game_1_1_i_p_g_1a728a80ade416a2f36cd5a8833a0cf2ee" prot="protected" static="no" mutable="no">
         <type>std::vector&lt; unsigned int &gt;</type>
@@ -62,20 +34,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="147" column="14" bodyfile="include/games/ipg.h" bodystart="147" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_game_1_1_i_p_g_1af823c71b1936c594d5b7eeea4857a572" prot="protected" static="no" mutable="no">
-        <type>GRBEnv *</type>
-        <definition>GRBEnv* Game::IPG::Env</definition>
-        <argsstring></argsstring>
-        <name>Env</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/ipg.h" line="149" column="9" bodyfile="include/games/ipg.h" bodystart="149" bodyend="-1"/>
+        <location file="include/games/ipg.h" line="50" column="14" bodyfile="include/games/ipg.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_game_1_1_i_p_g_1ae0fcd4871cd997f56ca1796e13a43112" prot="protected" static="no" mutable="no">
         <type>bool</type>
@@ -91,49 +50,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="150" column="10" bodyfile="include/games/ipg.h" bodystart="150" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_game_1_1_i_p_g_1a84c42d31656fb21d722937aa227dd55f" prot="protected" static="no" mutable="no">
-        <type>bool</type>
-        <definition>bool Game::IPG::NashEquilibrium</definition>
-        <argsstring></argsstring>
-        <name>NashEquilibrium</name>
-        <initializer>{false}</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>True if computeNashEq returned an equilibrium. Note that this can be the equilibrium of an approximation, and not to the original game </para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/ipg.h" line="152" column="7" bodyfile="include/games/ipg.h" bodystart="152" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_game_1_1_i_p_g_1a159f8c1e930ef3c1258e75f76b7b75ed" prot="protected" static="no" mutable="no">
-        <type>std::chrono::high_resolution_clock::time_point</type>
-        <definition>std::chrono::high_resolution_clock::time_point Game::IPG::InitTime</definition>
-        <argsstring></argsstring>
-        <name>InitTime</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/ipg.h" line="155" column="49" bodyfile="include/games/ipg.h" bodystart="155" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_game_1_1_i_p_g_1a3f0bd8944769dc7e8ceedbeaffd43fc3" prot="protected" static="no" mutable="no">
-        <type>Data::EPEC::EPECStatistics</type>
-        <definition>Data::EPEC::EPECStatistics Game::IPG::Stats</definition>
-        <argsstring></argsstring>
-        <name>Stats</name>
-        <briefdescription>
-<para>Store run time information. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/ipg.h" line="156" column="49" bodyfile="include/games/ipg.h" bodystart="156" bodyend="-1"/>
+        <location file="include/games/ipg.h" line="52" column="7" bodyfile="include/games/ipg.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_game_1_1_i_p_g_1a81a4ccc616e5facf3ee599761bf3fc9a" prot="protected" static="no" mutable="no">
         <type>std::vector&lt; arma::vec &gt;</type>
@@ -147,7 +64,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="157" column="14" bodyfile="include/games/ipg.h" bodystart="157" bodyend="-1"/>
+        <location file="include/games/ipg.h" line="54" column="14" bodyfile="include/games/ipg.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="friend">
@@ -162,7 +79,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="167" column="2" bodyfile="include/games/ipg.h" bodystart="167" bodyend="-1"/>
+        <location file="include/games/ipg.h" line="64" column="2" bodyfile="include/games/ipg.h" bodystart="64" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -196,7 +113,7 @@
         <inbodydescription>
 <para>Given <computeroutput>x</computeroutput> as the solution vector and <computeroutput>i</computeroutput> as index of player, the method returns x^{-i}</para>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="160" column="7" bodyfile="src/games/ipg.cpp" bodystart="264" bodyend="287"/>
+        <location file="include/games/ipg.h" line="57" column="7" bodyfile="src/games/ipg.cpp" bodystart="51" bodyend="74"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_i_p_g_1aec5449ea62ceaa82411c7d7a454f2b57" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -228,7 +145,7 @@
         <inbodydescription>
 <para>Given <computeroutput>x</computeroutput> as the solution vector and <computeroutput>i</computeroutput> as index of player, the method returns x^i</para>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="161" column="7" bodyfile="src/games/ipg.cpp" bodystart="289" bodyend="307"/>
+        <location file="include/games/ipg.h" line="58" column="7" bodyfile="src/games/ipg.cpp" bodystart="76" bodyend="94"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_i_p_g_1ab3fa5c1de6f4089de6f130740a12e89c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -251,7 +168,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="163" column="7"/>
+        <location file="include/games/ipg.h" line="60" column="7"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_i_p_g_1a448677cf65ae15178c27da7ec294b5d3" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -265,52 +182,10 @@
         <inbodydescription>
 <para>This methods finalizes the model by disabling any edits to the number of players. The proper object (for instance, the ones counting players variables) are initialized with the right values.</para>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="164" column="7" bodyfile="src/games/ipg.cpp" bodystart="247" bodyend="262"/>
+        <location file="include/games/ipg.h" line="61" column="7" bodyfile="src/games/ipg.cpp" bodystart="34" bodyend="49"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="class_game_1_1_i_p_g_1a57571cf2dcfacdd28031048e4f9268cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>Game::IPG::IPG</definition>
-        <argsstring>()=delete</argsstring>
-        <name>IPG</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/ipg.h" line="168" column="2"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_i_p_g_1a88ca6ddad33437dfe341a0e54db5fce1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>Game::IPG::IPG</definition>
-        <argsstring>(IPG &amp;)=delete</argsstring>
-        <name>IPG</name>
-        <param>
-          <type><ref refid="class_game_1_1_i_p_g" kindref="compound">IPG</ref> &amp;</type>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/ipg.h" line="169" column="2"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_i_p_g_1a06a6b5ce17d4a4e8504a8dee37ffe9b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>Game::IPG::~IPG</definition>
-        <argsstring>()=default</argsstring>
-        <name>~IPG</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/ipg.h" line="170" column="2"/>
-      </memberdef>
       <memberdef kind="function" id="class_game_1_1_i_p_g_1a89b4c1e57b17bba4438541c3a488198e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
         <definition>Game::IPG::IPG</definition>
@@ -326,12 +201,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="172" column="2" bodyfile="include/games/ipg.h" bodystart="172" bodyend="172"/>
+        <location file="include/games/ipg.h" line="65" column="2" bodyfile="include/games/ipg.h" bodystart="65" bodyend="65"/>
       </memberdef>
-      <memberdef kind="function" id="class_game_1_1_i_p_g_1ad9b1e0f6e626537e686c62ff191ce80f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_game_1_1_i_p_g_1aba1ab31c35f012e48e1a47fec318ad3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>Game::IPG::IPG</definition>
-        <argsstring>(GRBEnv *env, std::vector&lt; std::shared_ptr&lt; Game::IP_Param &gt;&gt; players)</argsstring>
+        <argsstring>(GRBEnv *env, std::vector&lt; std::shared_ptr&lt; MathOpt::IP_Param &gt;&gt; players)</argsstring>
         <name>IPG</name>
         <param>
           <type>GRBEnv *</type>
@@ -340,57 +215,61 @@
 </briefdescription>
         </param>
         <param>
-          <type>std::vector&lt; std::shared_ptr&lt; <ref refid="class_game_1_1_i_p___param" kindref="compound">Game::IP_Param</ref> &gt;&gt;</type>
+          <type>std::vector&lt; std::shared_ptr&lt; <ref refid="class_math_opt_1_1_i_p___param" kindref="compound">MathOpt::IP_Param</ref> &gt;&gt;</type>
           <declname>players</declname>
           <briefdescription><para>A vector containing the pointers to the IP param for each player </para>
 </briefdescription>
         </param>
         <briefdescription>
-<para>Can be instantiated by a derived class only! </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
 <para>This constructors initializes the integer programming game with the gurobi environment <computeroutput>env</computeroutput> and the vector of shared pointers to the IP_Params in <computeroutput>players</computeroutput> </para>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="173" column="2" bodyfile="src/games/ipg.cpp" bodystart="232" bodyend="246"/>
+        <location file="include/games/ipg.h" line="66" column="2" bodyfile="src/games/ipg.cpp" bodystart="19" bodyend="33"/>
       </memberdef>
-      <memberdef kind="function" id="class_game_1_1_i_p_g_1a18868152fb1a2eddcea41e8dd352ebdf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_game_1_1_i_p_g_1a1b2c4bee27025af5921780ca2a41fe28" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>const void</type>
         <definition>const void Game::IPG::findNashEq</definition>
-        <argsstring>()</argsstring>
+        <argsstring>() override</argsstring>
         <name>findNashEq</name>
+        <reimplements refid="class_game_1_1_abstract_game_1a5b8636444d39891af65972566270dcc6">findNashEq</reimplements>
         <briefdescription>
+<para>The main method to start the solving process. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="175" column="13"/>
+        <location file="include/games/ipg.h" line="68" column="13" bodyfile="src/games/ipg.cpp" bodystart="97" bodyend="97"/>
       </memberdef>
-      <memberdef kind="function" id="class_game_1_1_i_p_g_1a6e8da1e4710937dc60a075599848a5e4" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_game_1_1_i_p_g_1ad999f9085c75eed024e09b87b3b832b4" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
         <definition>bool Game::IPG::isSolved</definition>
-        <argsstring>(double tol=1e-5) const</argsstring>
+        <argsstring>(double tol=1e-5) const override</argsstring>
         <name>isSolved</name>
+        <reimplements refid="class_game_1_1_abstract_game_1af46405f6383d00abaa8320ac49d88066">isSolved</reimplements>
         <param>
           <type>double</type>
           <declname>tol</declname>
           <defval>1e-5</defval>
         </param>
         <briefdescription>
+<para>Return a bool true if the strategies are all pure, for any player. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="176" column="13"/>
+        <location file="include/games/ipg.h" line="69" column="13" bodyfile="src/games/ipg.cpp" bodystart="100" bodyend="100"/>
       </memberdef>
-      <memberdef kind="function" id="class_game_1_1_i_p_g_1a53ad9c43291da9f16d7a91ed5a77bd1c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_game_1_1_i_p_g_1ad66d221d1f3e15ec6b7cca5cdc5ef5aa" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
         <definition>bool Game::IPG::isPureStrategy</definition>
-        <argsstring>(double tol=1e-5) const</argsstring>
+        <argsstring>(double tol=1e-5) const override</argsstring>
         <name>isPureStrategy</name>
+        <reimplements refid="class_game_1_1_abstract_game_1a4efc3116423b078421949dc18cfb3e32">isPureStrategy</reimplements>
         <param>
           <type>double</type>
           <declname>tol</declname>
@@ -404,7 +283,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="177" column="13"/>
+        <location file="include/games/ipg.h" line="70" column="7" bodyfile="src/games/ipg.cpp" bodystart="99" bodyend="99"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_i_p_g_1a7804df943f87684d0f85bce02bc1995b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::unique_ptr&lt; GRBModel &gt;</type>
@@ -425,7 +304,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="180" column="18"/>
+        <location file="include/games/ipg.h" line="73" column="18"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_i_p_g_1a0b7aa88f9e4b730c1ffdae30e07e5744" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>const std::vector&lt; arma::vec &gt;</type>
@@ -438,11 +317,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="182" column="20" bodyfile="include/games/ipg.h" bodystart="182" bodyend="182"/>
+        <location file="include/games/ipg.h" line="75" column="20" bodyfile="include/games/ipg.h" bodystart="75" bodyend="75"/>
       </memberdef>
-      <memberdef kind="function" id="class_game_1_1_i_p_g_1a70ca7fa095aa0c334df3850ed580db3e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>const Data::EPEC::EPECStatistics</type>
-        <definition>const Data::EPEC::EPECStatistics Game::IPG::getStatistics</definition>
+      <memberdef kind="function" id="class_game_1_1_i_p_g_1a84d50a99870b84fb93840b46856c0b22" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="struct_z_e_r_o_statistics" kindref="compound">ZEROStatistics</ref>&lt; <ref refid="class_data_1_1_i_p_g_1_1_data_object" kindref="compound">Data::IPG::DataObject</ref> &gt;</type>
+        <definition>ZEROStatistics&lt;Data::IPG::DataObject&gt; Game::IPG::getStatistics</definition>
         <argsstring>() const</argsstring>
         <name>getStatistics</name>
         <briefdescription>
@@ -452,15 +331,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="185" column="35" bodyfile="include/games/ipg.h" bodystart="185" bodyend="185"/>
+        <location file="include/games/ipg.h" line="78" column="17" bodyfile="include/games/ipg.h" bodystart="78" bodyend="78"/>
       </memberdef>
-      <memberdef kind="function" id="class_game_1_1_i_p_g_1a4f6ad510b569bd7dff2a50ab3b691135" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_game_1_1_i_p_g_1ae76562a954b222a124b34052b6a0d5ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void Game::IPG::setAlgorithm</definition>
-        <argsstring>(Data::EPEC::EPECalgorithm algorithm)</argsstring>
+        <argsstring>(Data::IPG::Algorithms algorithm)</argsstring>
         <name>setAlgorithm</name>
         <param>
-          <type>Data::EPEC::EPECalgorithm</type>
+          <type><ref refid="namespace_data_1_1_i_p_g_1a34d343f554ac089c3cb14de04aa6d294" kindref="member">Data::IPG::Algorithms</ref></type>
           <declname>algorithm</declname>
         </param>
         <briefdescription>
@@ -469,213 +348,152 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="187" column="7"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_i_p_g_1a7d1f7076afd659fc67fb34af72beb720" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>Data::EPEC::EPECalgorithm</type>
-        <definition>Data::EPEC::EPECalgorithm Game::IPG::getAlgorithm</definition>
-        <argsstring>() const</argsstring>
-        <name>getAlgorithm</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/ipg.h" line="189" column="28" bodyfile="include/games/ipg.h" bodystart="189" bodyend="189"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_i_p_g_1ac1609950d4af1ac2e1701b7efb52969c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Game::IPG::setNumThreads</definition>
-        <argsstring>(unsigned int t)</argsstring>
-        <name>setNumThreads</name>
-        <param>
-          <type>unsigned int</type>
-          <declname>t</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/ipg.h" line="191" column="7" bodyfile="include/games/ipg.h" bodystart="191" bodyend="194"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_i_p_g_1ada5374c647c6214e67af332ffe397e31" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>unsigned int</type>
-        <definition>unsigned int Game::IPG::getNumThreads</definition>
-        <argsstring>() const</argsstring>
-        <name>getNumThreads</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/ipg.h" line="196" column="15" bodyfile="include/games/ipg.h" bodystart="196" bodyend="196"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_i_p_g_1a551aaf750f145d0d48f558af3fe353d7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Game::IPG::setPureNashEquilibrium</definition>
-        <argsstring>(bool val)</argsstring>
-        <name>setPureNashEquilibrium</name>
-        <param>
-          <type>bool</type>
-          <declname>val</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/ipg.h" line="198" column="7" bodyfile="include/games/ipg.h" bodystart="198" bodyend="198"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_i_p_g_1a904409dfe71edf7bc34590c1c17c33ec" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>bool</type>
-        <definition>bool Game::IPG::getPureNashEquilibrium</definition>
-        <argsstring>() const</argsstring>
-        <name>getPureNashEquilibrium</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/ipg.h" line="200" column="7" bodyfile="include/games/ipg.h" bodystart="200" bodyend="200"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_i_p_g_1a43f8a770761600bf4d66f052896bd28c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Game::IPG::setDeviationTolerance</definition>
-        <argsstring>(double val)</argsstring>
-        <name>setDeviationTolerance</name>
-        <param>
-          <type>double</type>
-          <declname>val</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/ipg.h" line="202" column="7" bodyfile="include/games/ipg.h" bodystart="202" bodyend="202"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_i_p_g_1ae4840c88d9aea3b809a95978e99fcf69" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>double</type>
-        <definition>double Game::IPG::getDeviationTolerance</definition>
-        <argsstring>() const</argsstring>
-        <name>getDeviationTolerance</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/ipg.h" line="204" column="9" bodyfile="include/games/ipg.h" bodystart="204" bodyend="204"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_i_p_g_1a6599a275df1a3d8014cecbd38075d95b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Game::IPG::setTimeLimit</definition>
-        <argsstring>(double val)</argsstring>
-        <name>setTimeLimit</name>
-        <param>
-          <type>double</type>
-          <declname>val</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/ipg.h" line="206" column="7" bodyfile="include/games/ipg.h" bodystart="206" bodyend="206"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_i_p_g_1a8d7b5265beca3edc01518ccfb9a4e49e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>double</type>
-        <definition>double Game::IPG::getTimeLimit</definition>
-        <argsstring>() const</argsstring>
-        <name>getTimeLimit</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/ipg.h" line="208" column="9" bodyfile="include/games/ipg.h" bodystart="208" bodyend="208"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_i_p_g_1ac752afba6e018ba32bc8ce636ed58203" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
-        <type>int</type>
-        <definition>int Game::IPG::getNumVar</definition>
-        <argsstring>() const noexcept</argsstring>
-        <name>getNumVar</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/ipg.h" line="212" column="6" bodyfile="include/games/ipg.h" bodystart="212" bodyend="212"/>
-      </memberdef>
-      <memberdef kind="function" id="class_game_1_1_i_p_g_1adf243581db4bc50acb485b9e6e5bde20" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
-        <type>unsigned int</type>
-        <definition>unsigned int Game::IPG::getNumPlayers</definition>
-        <argsstring>() const noexcept</argsstring>
-        <name>getNumPlayers</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/ipg.h" line="214" column="15" bodyfile="include/games/ipg.h" bodystart="214" bodyend="214"/>
+        <location file="include/games/ipg.h" line="80" column="7"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Class to handle Integer Programming Games (<ref refid="class_game_1_1_i_p_g" kindref="compound">IPG</ref>) </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="include/games/ipg.h" line="138" column="12" bodyfile="include/games/ipg.h" bodystart="138" bodyend="215"/>
+    <inheritancegraph>
+      <node id="1">
+        <label>Game::IPG</label>
+        <link refid="class_game_1_1_i_p_g"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Game::AbstractGame&lt; Data::IPG::DataObject &gt;</label>
+        <link refid="class_game_1_1_abstract_game"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="11">
+        <label>Attr&lt; ZEROStatus &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="8">
+        <label>Attr&lt; int &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="10">
+        <label>Attr&lt; Data::IPG::Algorithms &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="3">
+        <label>ZEROStatistics&lt; Data::IPG::DataObject &gt;</label>
+        <link refid="struct_z_e_r_o_statistics"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>WallClockTime</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>AlgorithmData</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>NumConstraints</edgelabel>
+          <edgelabel>NumNonZero</edgelabel>
+          <edgelabel>NumIterations</edgelabel>
+          <edgelabel>NumVar</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>PureNashEquilibrium</edgelabel>
+          <edgelabel>NumericalIssues</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>Status</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Game::IPG</label>
+        <link refid="class_game_1_1_i_p_g"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Data::IPG::DataObject</label>
+        <link refid="class_data_1_1_i_p_g_1_1_data_object"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>Algorithm</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>Attr&lt; bool &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="2">
+        <label>Game::AbstractGame&lt; Data::IPG::DataObject &gt;</label>
+        <link refid="class_game_1_1_abstract_game"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Stats</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Attr&lt; double &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+      <node id="6">
+        <label>ZEROAlgorithmData</label>
+        <link refid="class_z_e_r_o_algorithm_data"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>DeviationTolerance</edgelabel>
+          <edgelabel>TimeLimit</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>RandomSeed</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>Threads</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>PureNashEquilibrium</edgelabel>
+          <edgelabel>IndicatorConstraints</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Attr&lt; unsigned long int &gt;</label>
+        <link refid="class_attr"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/games/ipg.h" line="42" column="33" bodyfile="include/games/ipg.h" bodystart="42" bodyend="81"/>
     <listofallmembers>
+      <member refid="class_game_1_1_abstract_game_1a994e78ea9cbe14be8786836082024e9a" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>AbstractGame</name></member>
+      <member refid="class_game_1_1_abstract_game_1a112372b7b49c59c64538fa065fdbe54f" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>AbstractGame</name></member>
+      <member refid="class_game_1_1_abstract_game_1a29232b09b7a9b7f61e5d04ce83fe8f1d" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>AbstractGame</name></member>
       <member refid="class_game_1_1_i_p_g_1a84836887d30b770869453f4943bdbfe2" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>Algorithms::IPG::Oracle</name></member>
       <member refid="class_game_1_1_i_p_g_1ab3fa5c1de6f4089de6f130740a12e89c" prot="private" virt="non-virtual"><scope>Game::IPG</scope><name>computeNashEq</name></member>
-      <member refid="class_game_1_1_i_p_g_1af823c71b1936c594d5b7eeea4857a572" prot="protected" virt="non-virtual"><scope>Game::IPG</scope><name>Env</name></member>
+      <member refid="class_game_1_1_abstract_game_1ad6cd844e2dcfbc9ce2b8069c6ef3e2be" prot="protected" virt="non-virtual"><scope>Game::IPG</scope><name>Env</name></member>
       <member refid="class_game_1_1_i_p_g_1a448677cf65ae15178c27da7ec294b5d3" prot="private" virt="non-virtual"><scope>Game::IPG</scope><name>finalize</name></member>
       <member refid="class_game_1_1_i_p_g_1ae0fcd4871cd997f56ca1796e13a43112" prot="protected" virt="non-virtual"><scope>Game::IPG</scope><name>Finalized</name></member>
-      <member refid="class_game_1_1_i_p_g_1a18868152fb1a2eddcea41e8dd352ebdf" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>findNashEq</name></member>
-      <member refid="class_game_1_1_i_p_g_1a7d1f7076afd659fc67fb34af72beb720" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>getAlgorithm</name></member>
-      <member refid="class_game_1_1_i_p_g_1ae4840c88d9aea3b809a95978e99fcf69" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>getDeviationTolerance</name></member>
-      <member refid="class_game_1_1_i_p_g_1adf243581db4bc50acb485b9e6e5bde20" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>getNumPlayers</name></member>
-      <member refid="class_game_1_1_i_p_g_1ada5374c647c6214e67af332ffe397e31" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>getNumThreads</name></member>
-      <member refid="class_game_1_1_i_p_g_1ac752afba6e018ba32bc8ce636ed58203" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>getNumVar</name></member>
-      <member refid="class_game_1_1_i_p_g_1a904409dfe71edf7bc34590c1c17c33ec" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>getPureNashEquilibrium</name></member>
-      <member refid="class_game_1_1_i_p_g_1a70ca7fa095aa0c334df3850ed580db3e" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>getStatistics</name></member>
-      <member refid="class_game_1_1_i_p_g_1a8d7b5265beca3edc01518ccfb9a4e49e" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>getTimeLimit</name></member>
+      <member refid="class_game_1_1_i_p_g_1a1b2c4bee27025af5921780ca2a41fe28" prot="public" virt="virtual"><scope>Game::IPG</scope><name>findNashEq</name></member>
+      <member refid="class_game_1_1_abstract_game_1a6a84032e333484d0313064cfee3ba46c" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>getNumPlayers</name></member>
+      <member refid="class_game_1_1_abstract_game_1ad3f7c02e978d71834bc13b74162571f4" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>getNumVar</name></member>
+      <member refid="class_game_1_1_i_p_g_1a84d50a99870b84fb93840b46856c0b22" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>getStatistics</name></member>
       <member refid="class_game_1_1_i_p_g_1a0b7aa88f9e4b730c1ffdae30e07e5744" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>getX</name></member>
       <member refid="class_game_1_1_i_p_g_1a7ea608210b56699c2a76da364b2214d6" prot="private" virt="non-virtual"><scope>Game::IPG</scope><name>getXMinusI</name></member>
       <member refid="class_game_1_1_i_p_g_1aec5449ea62ceaa82411c7d7a454f2b57" prot="private" virt="non-virtual"><scope>Game::IPG</scope><name>getXofI</name></member>
-      <member refid="class_game_1_1_i_p_g_1a159f8c1e930ef3c1258e75f76b7b75ed" prot="protected" virt="non-virtual"><scope>Game::IPG</scope><name>InitTime</name></member>
-      <member refid="class_game_1_1_i_p_g_1a57571cf2dcfacdd28031048e4f9268cb" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>IPG</name></member>
-      <member refid="class_game_1_1_i_p_g_1a88ca6ddad33437dfe341a0e54db5fce1" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>IPG</name></member>
+      <member refid="class_game_1_1_abstract_game_1a6d06c8b5fe1f191283a9926b30d6b1d0" prot="protected" virt="non-virtual"><scope>Game::IPG</scope><name>InitTime</name></member>
       <member refid="class_game_1_1_i_p_g_1a89b4c1e57b17bba4438541c3a488198e" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>IPG</name></member>
-      <member refid="class_game_1_1_i_p_g_1ad9b1e0f6e626537e686c62ff191ce80f" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>IPG</name></member>
-      <member refid="class_game_1_1_i_p_g_1a53ad9c43291da9f16d7a91ed5a77bd1c" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>isPureStrategy</name></member>
-      <member refid="class_game_1_1_i_p_g_1a6e8da1e4710937dc60a075599848a5e4" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>isSolved</name></member>
-      <member refid="class_game_1_1_i_p_g_1a84c42d31656fb21d722937aa227dd55f" prot="protected" virt="non-virtual"><scope>Game::IPG</scope><name>NashEquilibrium</name></member>
-      <member refid="class_game_1_1_i_p_g_1af8db3a3876f89c90ffbcc57e3bed52ce" prot="private" virt="non-virtual"><scope>Game::IPG</scope><name>NumPlayers</name></member>
-      <member refid="class_game_1_1_i_p_g_1ab6ba37c89a84e5bbe0959c740c167732" prot="private" virt="non-virtual"><scope>Game::IPG</scope><name>NumVariables</name></member>
-      <member refid="class_game_1_1_i_p_g_1a6c87d0fc735ba6ae67d3f2cb6296427b" prot="protected" virt="non-virtual"><scope>Game::IPG</scope><name>PlayersIP</name></member>
+      <member refid="class_game_1_1_i_p_g_1aba1ab31c35f012e48e1a47fec318ad3e" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>IPG</name></member>
+      <member refid="class_game_1_1_i_p_g_1ad66d221d1f3e15ec6b7cca5cdc5ef5aa" prot="public" virt="virtual"><scope>Game::IPG</scope><name>isPureStrategy</name></member>
+      <member refid="class_game_1_1_i_p_g_1ad999f9085c75eed024e09b87b3b832b4" prot="public" virt="virtual"><scope>Game::IPG</scope><name>isSolved</name></member>
+      <member refid="class_game_1_1_abstract_game_1ab8f814c2c71542d1aa73bd66ef93befc" prot="protected" virt="non-virtual"><scope>Game::IPG</scope><name>NashEquilibrium</name></member>
+      <member refid="class_game_1_1_abstract_game_1a01da21edfe49ed5771a9eed714b87418" prot="protected" virt="non-virtual"><scope>Game::IPG</scope><name>NumPlayers</name></member>
+      <member refid="class_game_1_1_abstract_game_1a2fd0ab6ee7cda7a9a582b79e94705bc7" prot="protected" virt="non-virtual"><scope>Game::IPG</scope><name>NumVariables</name></member>
+      <member refid="class_game_1_1_i_p_g_1a3a939675fddeb5adda31e7c7be895e6c" prot="protected" virt="non-virtual"><scope>Game::IPG</scope><name>PlayersIP</name></member>
       <member refid="class_game_1_1_i_p_g_1a728a80ade416a2f36cd5a8833a0cf2ee" prot="protected" virt="non-virtual"><scope>Game::IPG</scope><name>PlayerVariables</name></member>
       <member refid="class_game_1_1_i_p_g_1a7804df943f87684d0f85bce02bc1995b" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>respondModel</name></member>
-      <member refid="class_game_1_1_i_p_g_1a4f6ad510b569bd7dff2a50ab3b691135" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>setAlgorithm</name></member>
-      <member refid="class_game_1_1_i_p_g_1a43f8a770761600bf4d66f052896bd28c" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>setDeviationTolerance</name></member>
-      <member refid="class_game_1_1_i_p_g_1ac1609950d4af1ac2e1701b7efb52969c" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>setNumThreads</name></member>
-      <member refid="class_game_1_1_i_p_g_1a551aaf750f145d0d48f558af3fe353d7" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>setPureNashEquilibrium</name></member>
-      <member refid="class_game_1_1_i_p_g_1a6599a275df1a3d8014cecbd38075d95b" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>setTimeLimit</name></member>
+      <member refid="class_game_1_1_i_p_g_1ae76562a954b222a124b34052b6a0d5ae" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>setAlgorithm</name></member>
+      <member refid="class_game_1_1_abstract_game_1a4b5301f753b2f1dacdb354971d2511ee" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>setDeviationTolerance</name></member>
+      <member refid="class_game_1_1_abstract_game_1af08964bd9ddff0910b3e3f7d4c91ba95" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>setIndicators</name></member>
+      <member refid="class_game_1_1_abstract_game_1a8b891e54ad22f7364e8f164c37848aa8" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>setNumThreads</name></member>
+      <member refid="class_game_1_1_abstract_game_1ab3f40775d56c9ca540961b99ce646960" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>setPureNashEquilibrium</name></member>
+      <member refid="class_game_1_1_abstract_game_1a8f9d5a9d366c2604993c3e3df4e69b6a" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>setRandomSeed</name></member>
+      <member refid="class_game_1_1_abstract_game_1a44346c2909132d7977b6fb4ac4852723" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>setTimeLimit</name></member>
       <member refid="class_game_1_1_i_p_g_1a81a4ccc616e5facf3ee599761bf3fc9a" prot="protected" virt="non-virtual"><scope>Game::IPG</scope><name>Solution</name></member>
-      <member refid="class_game_1_1_i_p_g_1a3f0bd8944769dc7e8ceedbeaffd43fc3" prot="protected" virt="non-virtual"><scope>Game::IPG</scope><name>Stats</name></member>
-      <member refid="class_game_1_1_i_p_g_1a06a6b5ce17d4a4e8504a8dee37ffe9b5" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>~IPG</name></member>
+      <member refid="class_game_1_1_abstract_game_1a5ecc6e6433baef6b13f35d7bb45856ce" prot="protected" virt="non-virtual"><scope>Game::IPG</scope><name>Stats</name></member>
+      <member refid="class_game_1_1_abstract_game_1a1c50cfa3e8b728eebb8662ed184b206a" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>~AbstractGame</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

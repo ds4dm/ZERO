@@ -24,7 +24,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_innerapproximation.h" line="17" column="1" bodyfile="include/algorithms/EPEC/epec_innerapproximation.h" bodystart="17" bodyend="17"/>
+        <location file="include/games/algorithms/EPEC/epec_innerapproximation.h" line="30" column="1" bodyfile="include/games/algorithms/EPEC/epec_innerapproximation.h" bodystart="30" bodyend="30"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1a3f57f11002bbe86fe0b002eb155d26f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -40,7 +40,7 @@
         <inbodydescription>
 <para>Wraps the <ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm" kindref="compound">Algorithm</ref> with the postSolving operations</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_innerapproximation.h" line="18" column="6" bodyfile="src/algorithms/EPEC/epec_innerapproximation.cpp" bodystart="12" bodyend="18"/>
+        <location file="include/games/algorithms/EPEC/epec_innerapproximation.h" line="31" column="6" bodyfile="src/games/algorithms/EPEC/epec_innerapproximation.cpp" bodystart="24" bodyend="30"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -56,7 +56,7 @@
         <inbodydescription>
 <para>Given the referenced <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref> instance, this method solves it through the inner approximation <ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm" kindref="compound">Algorithm</ref>.</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_innerapproximation.h" line="21" column="14" bodyfile="src/algorithms/EPEC/epec_innerapproximation.cpp" bodystart="20" bodyend="163"/>
+        <location file="include/games/algorithms/EPEC/epec_innerapproximation.h" line="34" column="14" bodyfile="src/games/algorithms/EPEC/epec_innerapproximation.cpp" bodystart="32" bodyend="175"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1ae73f1a2a080486ee9c64c49d8343fd89" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -76,14 +76,14 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Makes a call to to Game::LCP::addAPoly for each member in <ref refid="class_game_1_1_e_p_e_c_1ae133b3254fa8258788d60f994d1f8e9f" kindref="member">Game::EPEC::PlayersLCP</ref> and tries to add a polyhedron to get a better inner approximation for the LCP. <computeroutput>aggressiveLevel</computeroutput> is the maximum number of polyhedra it will try to add to each country. Setting it to an arbitrarily high value will mimic complete enumeration.</para>
+<para>Makes a call to to Game::LCP::addAPoly for each member in <ref refid="class_game_1_1_e_p_e_c_1a5301b68b3b37d23c444784282f9c9c9c" kindref="member">Game::EPEC::PlayersLCP</ref> and tries to add a polyhedron to get a better inner approximation for the LCP. <computeroutput>aggressiveLevel</computeroutput> is the maximum number of polyhedra it will try to add to each country. Setting it to an arbitrarily high value will mimic complete enumeration.</para>
 <para>If <computeroutput>stopOnSingleInfeasibility</computeroutput> is true, then the function returns false and aborts all operation as soon as it finds that it cannot add polyhedra to some country. On the other hand if <computeroutput>stopOnSingleInfeasibility</computeroutput> is false, the function returns false, only if it is not possible to add polyhedra to <emphasis>any</emphasis> of the countries. <simplesect kind="return"><para>true if successfully added the maximum possible number of polyhedra not greater than aggressiveLevel. </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_innerapproximation.h" line="22" column="14" bodyfile="src/algorithms/EPEC/epec_innerapproximation.cpp" bodystart="165" bodyend="199"/>
+        <location file="include/games/algorithms/EPEC/epec_innerapproximation.h" line="35" column="14" bodyfile="src/games/algorithms/EPEC/epec_innerapproximation.cpp" bodystart="177" bodyend="211"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1aac90b8b215e9baf1fd5e41b60a96cc1c" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -122,7 +122,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_innerapproximation.h" line="24" column="14" bodyfile="src/algorithms/EPEC/epec_innerapproximation.cpp" bodystart="201" bodyend="224"/>
+        <location file="include/games/algorithms/EPEC/epec_innerapproximation.h" line="37" column="14" bodyfile="src/games/algorithms/EPEC/epec_innerapproximation.cpp" bodystart="213" bodyend="236"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1afde7daf1886fefed019bb2ff135c2051" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned int</type>
@@ -146,10 +146,10 @@
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
-<para>Given a profitable deviation for each country, adds <emphasis>a</emphasis> polyhedron in the feasible region of each country to the corresponding country&apos;s <ref refid="class_game_1_1_l_c_p" kindref="compound">Game::LCP</ref> object (this-&gt;PlayersLCP.at(i)) &apos;s vector of feasible polyhedra.</para>
-<para>Naturally, this makes the inner approximation of the <ref refid="class_game_1_1_l_c_p" kindref="compound">Game::LCP</ref> better, by including one additional polyhedron.</para>
+<para>Given a profitable deviation for each country, adds <emphasis>a</emphasis> polyhedron in the feasible region of each country to the corresponding country&apos;s Game::LCP object (this-&gt;PlayersLCP.at(i)) &apos;s vector of feasible polyhedra.</para>
+<para>Naturally, this makes the inner approximation of the Game::LCP better, by including one additional polyhedron.</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_innerapproximation.h" line="27" column="14" bodyfile="src/algorithms/EPEC/epec_innerapproximation.cpp" bodystart="226" bodyend="264"/>
+        <location file="include/games/algorithms/EPEC/epec_innerapproximation.h" line="40" column="14" bodyfile="src/games/algorithms/EPEC/epec_innerapproximation.cpp" bodystart="238" bodyend="276"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -176,38 +176,38 @@
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="12">
+      <node id="13">
         <label>Attr&lt; std::vector&lt; unsigned int &gt; &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="5">
+      <node id="6">
         <label>ZEROStatistics&lt; Data::EPEC::DataObject &gt;</label>
         <link refid="struct_z_e_r_o_statistics"/>
-        <childnode refid="6" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>WallClockTime</edgelabel>
         </childnode>
-        <childnode refid="7" relation="usage">
+        <childnode refid="8" relation="usage">
           <edgelabel>AlgorithmData</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>NumConstraints</edgelabel>
           <edgelabel>NumNonZero</edgelabel>
           <edgelabel>NumIterations</edgelabel>
           <edgelabel>NumVar</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>PureNashEquilibrium</edgelabel>
           <edgelabel>NumericalIssues</edgelabel>
         </childnode>
-        <childnode refid="17" relation="usage">
+        <childnode refid="18" relation="usage">
           <edgelabel>Status</edgelabel>
         </childnode>
       </node>
-      <node id="17">
+      <node id="18">
         <label>Attr&lt; ZEROStatus &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="10">
+      <node id="11">
         <label>Attr&lt; int &gt;</label>
         <link refid="class_attr"/>
       </node>
@@ -217,7 +217,7 @@
         <childnode refid="3" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="16">
+      <node id="17">
         <label>Attr&lt; Data::LCP::PolyhedraStrategy &gt;</label>
         <link refid="class_attr"/>
       </node>
@@ -228,41 +228,41 @@
           <edgelabel>EPECObject</edgelabel>
         </childnode>
       </node>
-      <node id="15">
+      <node id="16">
         <label>Attr&lt; Data::EPEC::Algorithms &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="11">
+      <node id="12">
         <label>Attr&lt; bool &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="7">
+      <node id="8">
         <label>Data::EPEC::DataObject</label>
         <link refid="class_data_1_1_e_p_e_c_1_1_data_object"/>
-        <childnode refid="8" relation="public-inheritance">
+        <childnode refid="9" relation="public-inheritance">
         </childnode>
-        <childnode refid="6" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>BoundBigM</edgelabel>
         </childnode>
-        <childnode refid="12" relation="usage">
+        <childnode refid="13" relation="usage">
           <edgelabel>FeasiblePolyhedra</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>LostIntermediateEq</edgelabel>
         </childnode>
-        <childnode refid="13" relation="usage">
+        <childnode refid="14" relation="usage">
           <edgelabel>Aggressiveness</edgelabel>
         </childnode>
-        <childnode refid="14" relation="usage">
+        <childnode refid="15" relation="usage">
           <edgelabel>RecoverStrategy</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>BoundPrimals</edgelabel>
         </childnode>
-        <childnode refid="15" relation="usage">
+        <childnode refid="16" relation="usage">
           <edgelabel>Algorithm</edgelabel>
         </childnode>
-        <childnode refid="16" relation="usage">
+        <childnode refid="17" relation="usage">
           <edgelabel>PolyhedraStrategy</edgelabel>
         </childnode>
       </node>
@@ -275,46 +275,52 @@
       <node id="4">
         <label>Game::EPEC</label>
         <link refid="class_game_1_1_e_p_e_c"/>
-        <childnode refid="5" relation="usage">
-          <edgelabel>Stats</edgelabel>
+        <childnode refid="5" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="13">
+      <node id="14">
         <label>Attr&lt; unsigned int &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="6">
+      <node id="7">
         <label>Attr&lt; double &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="8">
+      <node id="9">
         <label>ZEROAlgorithmData</label>
         <link refid="class_z_e_r_o_algorithm_data"/>
-        <childnode refid="6" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>DeviationTolerance</edgelabel>
           <edgelabel>TimeLimit</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>RandomSeed</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>Threads</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>PureNashEquilibrium</edgelabel>
           <edgelabel>IndicatorConstraints</edgelabel>
         </childnode>
       </node>
-      <node id="9">
+      <node id="10">
         <label>Attr&lt; unsigned long int &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="14">
+      <node id="5">
+        <label>Game::AbstractGame&lt; Data::EPEC::DataObject &gt;</label>
+        <link refid="class_game_1_1_abstract_game"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>Stats</edgelabel>
+        </childnode>
+      </node>
+      <node id="15">
         <label>Attr&lt; Data::EPEC::RecoverStrategy &gt;</label>
         <link refid="class_attr"/>
       </node>
     </collaborationgraph>
-    <location file="include/algorithms/EPEC/epec_innerapproximation.h" line="14" column="42" bodyfile="include/algorithms/EPEC/epec_innerapproximation.h" bodystart="14" bodyend="29"/>
+    <location file="include/games/algorithms/EPEC/epec_innerapproximation.h" line="27" column="42" bodyfile="include/games/algorithms/EPEC/epec_innerapproximation.h" bodystart="27" bodyend="42"/>
     <listofallmembers>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1afde7daf1886fefed019bb2ff135c2051" prot="private" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>addDeviatedPolyhedron</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1ae73f1a2a080486ee9c64c49d8343fd89" prot="private" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>addRandomPoly2All</name></member>
@@ -336,7 +342,7 @@
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a5631dd8fb9bd2d7aef4cd4137a905d15" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>makeThePureLCP</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ac6d224591f7862a5da5dcf3607016c92" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>mixedStrategyPoly</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a3232baf0efbe5fe82c3168937a6a8d20" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>PolyBase</name></member>
-      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a07f74282d7751de285a7e72b0377c8d6" prot="protected" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>PolyLCP</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1af4b04767398229a7773932f5ff27f74b" prot="protected" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>PolyLCP</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ae32c59d87b904dd0b6bff19a4bf954f7" prot="protected" virt="virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>postSolving</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1a3f57f11002bbe86fe0b002eb155d26f9" prot="public" virt="virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>solve</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1a003f173148410c570746da4bd29e7202" prot="private" virt="non-virtual"><scope>Algorithms::EPEC::InnerApproximation</scope><name>start</name></member>

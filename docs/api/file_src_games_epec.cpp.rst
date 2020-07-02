@@ -29,21 +29,13 @@ Includes
 --------
 
 
-- ``algorithms/EPEC/epec_algorithms.h`` (:ref:`file_include_algorithms_EPEC_epec_algorithms.h`)
-
-- ``algorithms/EPEC/epec_combinatorialpne.h`` (:ref:`file_include_algorithms_EPEC_epec_combinatorialpne.h`)
-
-- ``algorithms/EPEC/epec_fullenumeration.h`` (:ref:`file_include_algorithms_EPEC_epec_fullenumeration.h`)
-
-- ``algorithms/EPEC/epec_innerapproximation.h`` (:ref:`file_include_algorithms_EPEC_epec_innerapproximation.h`)
-
-- ``algorithms/EPEC/epec_outerapproximation.h`` (:ref:`file_include_algorithms_EPEC_epec_outerapproximation.h`)
-
 - ``armadillo``
 
 - ``boost/log/trivial.hpp``
 
-- ``games/EPEC_test.h`` (:ref:`file_include_games_EPEC_test.h`)
+- ``games/algorithms/EPEC/epec_algorithms.h`` (:ref:`file_include_games_algorithms_EPEC_epec_algorithms.h`)
+
+- ``games/epec.h`` (:ref:`file_include_games_epec.h`)
 
 - ``iostream``
 

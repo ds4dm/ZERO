@@ -1,5 +1,29 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.16">
+  <compound refid="class_game_1_1_abstract_game" kind="class"><name>Game::AbstractGame</name>
+    <member refid="class_game_1_1_abstract_game_1a6d06c8b5fe1f191283a9926b30d6b1d0" kind="variable"><name>InitTime</name></member>
+    <member refid="class_game_1_1_abstract_game_1a5ecc6e6433baef6b13f35d7bb45856ce" kind="variable"><name>Stats</name></member>
+    <member refid="class_game_1_1_abstract_game_1ad6cd844e2dcfbc9ce2b8069c6ef3e2be" kind="variable"><name>Env</name></member>
+    <member refid="class_game_1_1_abstract_game_1a2fd0ab6ee7cda7a9a582b79e94705bc7" kind="variable"><name>NumVariables</name></member>
+    <member refid="class_game_1_1_abstract_game_1a01da21edfe49ed5771a9eed714b87418" kind="variable"><name>NumPlayers</name></member>
+    <member refid="class_game_1_1_abstract_game_1ab8f814c2c71542d1aa73bd66ef93befc" kind="variable"><name>NashEquilibrium</name></member>
+    <member refid="class_game_1_1_abstract_game_1a994e78ea9cbe14be8786836082024e9a" kind="function"><name>AbstractGame</name></member>
+    <member refid="class_game_1_1_abstract_game_1a112372b7b49c59c64538fa065fdbe54f" kind="function"><name>AbstractGame</name></member>
+    <member refid="class_game_1_1_abstract_game_1a29232b09b7a9b7f61e5d04ce83fe8f1d" kind="function"><name>AbstractGame</name></member>
+    <member refid="class_game_1_1_abstract_game_1a1c50cfa3e8b728eebb8662ed184b206a" kind="function"><name>~AbstractGame</name></member>
+    <member refid="class_game_1_1_abstract_game_1a5b8636444d39891af65972566270dcc6" kind="function"><name>findNashEq</name></member>
+    <member refid="class_game_1_1_abstract_game_1af46405f6383d00abaa8320ac49d88066" kind="function"><name>isSolved</name></member>
+    <member refid="class_game_1_1_abstract_game_1a4efc3116423b078421949dc18cfb3e32" kind="function"><name>isPureStrategy</name></member>
+    <member refid="class_game_1_1_abstract_game_1a8db787260e01e0a9004d00f2a19fcf5a" kind="function"><name>getStatistics</name></member>
+    <member refid="class_game_1_1_abstract_game_1a8b891e54ad22f7364e8f164c37848aa8" kind="function"><name>setNumThreads</name></member>
+    <member refid="class_game_1_1_abstract_game_1a8f9d5a9d366c2604993c3e3df4e69b6a" kind="function"><name>setRandomSeed</name></member>
+    <member refid="class_game_1_1_abstract_game_1af08964bd9ddff0910b3e3f7d4c91ba95" kind="function"><name>setIndicators</name></member>
+    <member refid="class_game_1_1_abstract_game_1ab3f40775d56c9ca540961b99ce646960" kind="function"><name>setPureNashEquilibrium</name></member>
+    <member refid="class_game_1_1_abstract_game_1a4b5301f753b2f1dacdb354971d2511ee" kind="function"><name>setDeviationTolerance</name></member>
+    <member refid="class_game_1_1_abstract_game_1a44346c2909132d7977b6fb4ac4852723" kind="function"><name>setTimeLimit</name></member>
+    <member refid="class_game_1_1_abstract_game_1ad3f7c02e978d71834bc13b74162571f4" kind="function"><name>getNumVar</name></member>
+    <member refid="class_game_1_1_abstract_game_1a6a84032e333484d0313064cfee3ba46c" kind="function"><name>getNumPlayers</name></member>
+  </compound>
   <compound refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm" kind="class"><name>Algorithms::EPEC::Algorithm</name>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1aad636a41bb0353f0c632430b6fb20937" kind="variable"><name>Env</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" kind="variable"><name>EPECObject</name></member>
@@ -31,95 +55,18 @@
     <member refid="class_data_1_1_e_p_e_c_1_1_data_object_1ae2da0b5c689db3d3724bd4f8566da456" kind="variable"><name>LostIntermediateEq</name></member>
     <member refid="class_data_1_1_e_p_e_c_1_1_data_object_1a94ed7140f84cc7cfe62b1250c372ecac" kind="function"><name>DataObject</name></member>
   </compound>
+  <compound refid="class_data_1_1_i_p_g_1_1_data_object" kind="class"><name>Data::IPG::DataObject</name>
+    <member refid="class_data_1_1_i_p_g_1_1_data_object_1a5343763d51f0a9b208d97907c0d2782e" kind="variable"><name>Algorithm</name></member>
+    <member refid="class_data_1_1_i_p_g_1_1_data_object_1a586b9beef91556d36089bb539f0211a4" kind="function"><name>DataObject</name></member>
+  </compound>
   <compound refid="struct_models_1_1_dem_par" kind="struct"><name>Models::DemPar</name>
     <member refid="struct_models_1_1_dem_par_1a698f9479dec96509d9623d450e207d10" kind="variable"><name>alpha</name></member>
     <member refid="struct_models_1_1_dem_par_1a3b366b018a89e5affe7a1cc46edcaff4" kind="variable"><name>beta</name></member>
     <member refid="struct_models_1_1_dem_par_1a7430025a1817fde9953404cba115397e" kind="function"><name>DemPar</name></member>
   </compound>
-  <compound refid="class_game_1_1_e_p_e_c" kind="class"><name>Game::EPEC</name>
-    <member refid="class_game_1_1_e_p_e_c_1ad0c30f87298df78ec8b2275fc272745f" kind="variable"><name>SizesWithoutHull</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a1f958d036ee7569e9488f454158d9c8a" kind="variable"><name>TheLCP</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a38b32268297c5cdf5334853d3ee2ba82" kind="variable"><name>LCPModel</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1ada0cf8c4cefee9d0e3f6fcd29aa4fac0" kind="variable"><name>LCPModelBase</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1afc5252004b0a5c875fdf4517ba60fecd" kind="variable"><name>NumVariables</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a8e4aa5e6b5baa41c7a977b3b66cdfdf2" kind="variable"><name>NumPlayers</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a085ac9ace1a3aef12e61c03463dee800" kind="variable"><name>Algorithm</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a1dc1b8bd642e450bc1e30eefe963fe13" kind="variable"><name>PlayersLowerLevels</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1ae133b3254fa8258788d60f994d1f8e9f" kind="variable"><name>PlayersLCP</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a7e5d7741f612c5cf33e9bd44fad4e620" kind="variable"><name>PlayersQP</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a191a899d044f94263965f8d184259e5b" kind="variable"><name>LeaderObjective</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a08077df159307f005f5254e8f72eb5d8" kind="variable"><name>LeaderObjectiveConvexHull</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a92ad8e8ed1ff48bcd5509dcbf893c185" kind="variable"><name>TheNashGame</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a59b0ccd12c05db259bb7ca056daf453d" kind="variable"><name>LeaderLocations</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a618f3df2c40a9d456f9ceaf00802967c" kind="variable"><name>LocEnds</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1afd414e30d05368455d9a2eaa166b6bfb" kind="variable"><name>ConvexHullVariables</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1aacadd9d4fb3fd17d2f142db8758f1be9" kind="variable"><name>numMCVariables</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a19ac846f7e3a018c47b61dc8b5089b60" kind="variable"><name>Env</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a9e4f44f67e4a2956673398847e5db614" kind="variable"><name>Finalized</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a3dd72f644df2168162d60b12d0993a9d" kind="variable"><name>NashEquilibrium</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a157723e234e69a264e9ccf3dec0ec745" kind="variable"><name>InitTime</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a6bf4f89d2d8a9818da7d698da2c07f05" kind="variable"><name>Stats</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1aa1a2f0e5df60ca00ccad7b9a8a4f1c8a" kind="variable"><name>SolutionZ</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1ac897450f8b0afb2346e872de2fbc82eb" kind="variable"><name>SolutionX</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a74fd85ddbe859b15e8c68da3e5ff1fa5" kind="friend"><name>Algorithms::EPEC::PolyBase</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a41b53d96774790dfc8a32772af70baf3" kind="friend"><name>Algorithms::EPEC::InnerApproximation</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a80f54ad000b35c06eb75fff05048f326" kind="friend"><name>Algorithms::EPEC::OuterApproximation</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a5b55eef6b23b0411244d2b6b012a9f91" kind="friend"><name>Algorithms::EPEC::CombinatorialPNE</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1aaeeb633997197e4d131dc59f9f79ddbc" kind="friend"><name>Algorithms::EPEC::FullEnumeration</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a219d10c724c0165cc0d8a1a7d613580d" kind="function"><name>warmstart</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a2323518f6af325c254eaad444cea1317" kind="function"><name>EPEC</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a2ee93319f7d964f4c5df850bcf27504e" kind="function"><name>makeObjectivePlayer</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1abea72c0ff571c5168047e9a42e4182af" kind="function"><name>preFinalize</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1aba9fd1fa8c9ee2e70afc62232ecfd6b0" kind="function"><name>postFinalize</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a54e18b35ce3b7ce266daedf76759bef9" kind="function"><name>updateLocations</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1abd1f66626593e9f02132467bec62573c" kind="function"><name>makeMCConstraints</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1ae0bd0fb7910bc4735c0c6481e1ab7c60" kind="function"><name>addDummyLead</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a66b446e508a6079805e7d8900f5db4ed" kind="function"><name>makePlayerQP</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a5db4c964c3d451ab55a5630e565753d0" kind="function"><name>makePlayersQPs</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a4d84d3af33242733ec32b89f91d49158" kind="function"><name>makeTheLCP</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1afcd0018e01a696881c8da744a3a05048" kind="function"><name>computeLeaderLocations</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a03f5dc3947750c69b9c3bfdf675ab394" kind="function"><name>getXMinusI</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a37dca6fc0a76c12bc4bc0eac602e3633" kind="function"><name>computeNashEq</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a1b8553cd89efb9951f7cec24b8c09b5f" kind="function"><name>EPEC</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1ae88d958afd4f98f1bb7638759ff1c753" kind="function"><name>EPEC</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a695b5ed41fdbbf18f2cea05383c2081f" kind="function"><name>~EPEC</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1ab32d89068adc66f100a266bbf31bf63e" kind="function"><name>finalize</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a71db5d5bacd5a7b97437795d797f882b" kind="function"><name>findNashEq</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a9c3a719fb69eb3866aa6b440e9a31192" kind="function"><name>isSolved</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a6dc4295a2c585a695ca5c1b54f8a7883" kind="function"><name>respond</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a3fcda0d435da9c183b73df244ac863a0" kind="function"><name>respondSol</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1aacb304f764e52114fdedef15a0a90558" kind="function"><name>getX</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1ad53ac72b21e5d73db9e552aa23fb2fec" kind="function"><name>reset</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1aaaca9d7917b658c77e2fe048bf7a7214" kind="function"><name>getZ</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1af02848579e2409da28ce975b8d116adc" kind="function"><name>isPureStrategy</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1ac17da3390473477503b076e4867710ac" kind="function"><name>getStatistics</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1acbc098323dd83d07fa249630c8a56536" kind="function"><name>setAlgorithm</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1ac14487f892f9d94d7d783e874fe4b5d9" kind="function"><name>setRecoverStrategy</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a3425d5ca9abea1e5ab18f5e53bf91bd5" kind="function"><name>setAggressiveness</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a19e56d50e5ca900bb05247d7e4028772" kind="function"><name>setNumThreads</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a572fac1c8fb7571abbd3ccf002c7e650" kind="function"><name>setRandomSeed</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a3b2335bc68d6464ad5af7e74ab91f243" kind="function"><name>setIndicators</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a437840f2bb7687b81585fc793b5be0d6" kind="function"><name>setPureNashEquilibrium</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a4b6238b4052069f2fd7122f327bb70c5" kind="function"><name>setBoundPrimals</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1aab6e24f25d193a514b2c97681a5d2df8" kind="function"><name>setBoundBigM</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a9e0fb6903f40b26e00ab1289300b2c8c" kind="function"><name>setDeviationTolerance</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a3e714cdf0c2eac38a3d6cb17acde2109" kind="function"><name>setTimeLimit</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a73bc0d776af3885481aafab39cff90d9" kind="function"><name>setAddPolyMethod</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a7bf2d222ff193b83713849a89c4291ba" kind="function"><name>getNumVar</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a676146ffcd3ae1c43462afefebf77f02" kind="function"><name>getNumLeaders</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a0bf1c7483795c1f08baabf2426ca933d" kind="function"><name>getPositionLeadFoll</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1aec1b59c633f797063362b0ae4323f8ea" kind="function"><name>getPositionLeadLead</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a723c245afbc41788c993566aca9f238c" kind="function"><name>getValLeadFoll</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a24faf8f9033094c380f38fe3f6609a27" kind="function"><name>getValLeadLead</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1aa9f848f3d44b529af6c7b7fb3b4789cf" kind="function"><name>getLCPDescription</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1af4ba9e089745932ff3bf24897af53e5f" kind="function"><name>getLCPModel</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a37fed0d5194d7d4a25953e117593b3a4" kind="function"><name>writeLCPModel</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1aa20feaa35c98de9e134190579a400cf7" kind="function"><name>getXWithoutHull</name></member>
-    <member refid="class_game_1_1_e_p_e_c_1a6f84ee2018f9bb85d0b1b53e65ff85e4" kind="function"><name>getXofI</name></member>
-  </compound>
   <compound refid="class_models_1_1_e_p_e_c" kind="class"><name>Models::EPEC</name>
     <member refid="class_models_1_1_e_p_e_c_1abf67fd852539ed21d238381efec1affa" kind="variable"><name>AllLeadPars</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1adde9b8a110bf03c10b036f5004bc721e" kind="variable"><name>MC_QP</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1a7066d31597fbec8ff4ff5e35d8de9936" kind="variable"><name>MC_QP</name></member>
     <member refid="class_models_1_1_e_p_e_c_1afe2b46d396e7980d8336099d8d916b19" kind="variable"><name>TranspCosts</name></member>
     <member refid="class_models_1_1_e_p_e_c_1a4de4147addd36ee7df8e0944bfa017ea" kind="variable"><name>nImportMarkets</name></member>
     <member refid="class_models_1_1_e_p_e_c_1ac8aaf82d32d88e211018505a5c99907a" kind="variable"><name>Locations</name></member>
@@ -128,13 +75,13 @@
     <member refid="class_models_1_1_e_p_e_c_1ac2c5e7306ea5ab51ea953abdf9e4447f" kind="variable"><name>LeadConses</name></member>
     <member refid="class_models_1_1_e_p_e_c_1af6b6f5d1fb8f3eb3ba888bc5fd656bc6" kind="variable"><name>LeadRHSes</name></member>
     <member refid="class_models_1_1_e_p_e_c_1a967c713d494e56a70652d0b5aad10045" kind="variable"><name>quadraticTax</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a189ce1f5b375df11455f428a40738039" kind="function"><name>makeObjectivePlayer</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1a79766ac616149fc4a17b1b4478ff569a" kind="function"><name>makeObjectivePlayer</name></member>
     <member refid="class_models_1_1_e_p_e_c_1adb4f3499fa2c03522ce997f0c3f63316" kind="function"><name>updateLocations</name></member>
     <member refid="class_models_1_1_e_p_e_c_1aa9dacf6f8965a70a18d47e196cb6f03f" kind="function"><name>preFinalize</name></member>
     <member refid="class_models_1_1_e_p_e_c_1a2e38c1ac580d46b2a0bdaa36a8d46e63" kind="function"><name>postFinalize</name></member>
     <member refid="class_models_1_1_e_p_e_c_1a78f228dd404eb6167125d1de1df3340a" kind="function"><name>dataCheck</name></member>
     <member refid="class_models_1_1_e_p_e_c_1a043aff53098136d5f60d53a839b0ed85" kind="function"><name>ParamValid</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1afc7d4b6c72f488300b31cf51db2f81d6" kind="function"><name>make_LL_QP</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1aa86fd7f644d3e3e26645f5cabb48d29a" kind="function"><name>make_LL_QP</name></member>
     <member refid="class_models_1_1_e_p_e_c_1ac0317095ef32ba34772c9e73f26dc0ad" kind="function"><name>make_LL_LeadCons</name></member>
     <member refid="class_models_1_1_e_p_e_c_1a926d12ae3829db9068a6ce813fbbdfce" kind="function"><name>add_Leaders_tradebalance_constraints</name></member>
     <member refid="class_models_1_1_e_p_e_c_1a295ae8dd8ca635a407940bc78ce8875a" kind="function"><name>make_MC_leader</name></member>
@@ -157,6 +104,69 @@
     <member refid="class_models_1_1_e_p_e_c_1a0b4f42c3d7a8bac1673ecd63faee254b" kind="function"><name>writeSolutionJSON</name></member>
     <member refid="class_models_1_1_e_p_e_c_1a52dd1bf3d61d40aa3f461403377d73de" kind="function"><name>writeSolution</name></member>
     <member refid="class_models_1_1_e_p_e_c_1a32f76f4e828f8f7ffa6d76f889b60bc5" kind="function"><name>getInstance</name></member>
+  </compound>
+  <compound refid="class_game_1_1_e_p_e_c" kind="class"><name>Game::EPEC</name>
+    <member refid="class_game_1_1_e_p_e_c_1a085ac9ace1a3aef12e61c03463dee800" kind="variable"><name>Algorithm</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1ad0c30f87298df78ec8b2275fc272745f" kind="variable"><name>SizesWithoutHull</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a81fe60e0415d65cf8d300c2aa4050cc5" kind="variable"><name>TheLCP</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a38b32268297c5cdf5334853d3ee2ba82" kind="variable"><name>LCPModel</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1ada0cf8c4cefee9d0e3f6fcd29aa4fac0" kind="variable"><name>LCPModelBase</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a1dc1b8bd642e450bc1e30eefe963fe13" kind="variable"><name>PlayersLowerLevels</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a5301b68b3b37d23c444784282f9c9c9c" kind="variable"><name>PlayersLCP</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a6ea789c5d7ad13d9874038b605a98137" kind="variable"><name>PlayersQP</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a65834e121a2b29b9205ceb6a237e9e26" kind="variable"><name>LeaderObjective</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1af5076cedacee25f93af12fa10dc78c26" kind="variable"><name>LeaderObjectiveConvexHull</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a92ad8e8ed1ff48bcd5509dcbf893c185" kind="variable"><name>TheNashGame</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a59b0ccd12c05db259bb7ca056daf453d" kind="variable"><name>LeaderLocations</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a618f3df2c40a9d456f9ceaf00802967c" kind="variable"><name>LocEnds</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1afd414e30d05368455d9a2eaa166b6bfb" kind="variable"><name>ConvexHullVariables</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1aacadd9d4fb3fd17d2f142db8758f1be9" kind="variable"><name>numMCVariables</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a9e4f44f67e4a2956673398847e5db614" kind="variable"><name>Finalized</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1aa1a2f0e5df60ca00ccad7b9a8a4f1c8a" kind="variable"><name>SolutionZ</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1ac897450f8b0afb2346e872de2fbc82eb" kind="variable"><name>SolutionX</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a74fd85ddbe859b15e8c68da3e5ff1fa5" kind="friend"><name>Algorithms::EPEC::PolyBase</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a41b53d96774790dfc8a32772af70baf3" kind="friend"><name>Algorithms::EPEC::InnerApproximation</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a80f54ad000b35c06eb75fff05048f326" kind="friend"><name>Algorithms::EPEC::OuterApproximation</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a5b55eef6b23b0411244d2b6b012a9f91" kind="friend"><name>Algorithms::EPEC::CombinatorialPNE</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1aaeeb633997197e4d131dc59f9f79ddbc" kind="friend"><name>Algorithms::EPEC::FullEnumeration</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a219d10c724c0165cc0d8a1a7d613580d" kind="function"><name>warmstart</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a7a0e7de74d0311d4903f97dfd21c0bab" kind="function"><name>makeObjectivePlayer</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1abea72c0ff571c5168047e9a42e4182af" kind="function"><name>preFinalize</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1aba9fd1fa8c9ee2e70afc62232ecfd6b0" kind="function"><name>postFinalize</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a54e18b35ce3b7ce266daedf76759bef9" kind="function"><name>updateLocations</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1abd1f66626593e9f02132467bec62573c" kind="function"><name>makeMCConstraints</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1ae0bd0fb7910bc4735c0c6481e1ab7c60" kind="function"><name>addDummyLead</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a66b446e508a6079805e7d8900f5db4ed" kind="function"><name>makePlayerQP</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a5db4c964c3d451ab55a5630e565753d0" kind="function"><name>makePlayersQPs</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a4d84d3af33242733ec32b89f91d49158" kind="function"><name>makeTheLCP</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1afcd0018e01a696881c8da744a3a05048" kind="function"><name>computeLeaderLocations</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a03f5dc3947750c69b9c3bfdf675ab394" kind="function"><name>getXMinusI</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a37dca6fc0a76c12bc4bc0eac602e3633" kind="function"><name>computeNashEq</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a2323518f6af325c254eaad444cea1317" kind="function"><name>EPEC</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1ab32d89068adc66f100a266bbf31bf63e" kind="function"><name>finalize</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a0ccc0813ba049fed45db48d398b04c6e" kind="function"><name>findNashEq</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1aee023f968cf0b8587a5150c52fe3368c" kind="function"><name>isSolved</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1aace867d4b45457e8758741ed9db7b349" kind="function"><name>isPureStrategy</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a6dc4295a2c585a695ca5c1b54f8a7883" kind="function"><name>respond</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a3fcda0d435da9c183b73df244ac863a0" kind="function"><name>respondSol</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1aacb304f764e52114fdedef15a0a90558" kind="function"><name>getX</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1ad53ac72b21e5d73db9e552aa23fb2fec" kind="function"><name>reset</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1aaaca9d7917b658c77e2fe048bf7a7214" kind="function"><name>getZ</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1acbc098323dd83d07fa249630c8a56536" kind="function"><name>setAlgorithm</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1ac14487f892f9d94d7d783e874fe4b5d9" kind="function"><name>setRecoverStrategy</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a3425d5ca9abea1e5ab18f5e53bf91bd5" kind="function"><name>setAggressiveness</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a4b6238b4052069f2fd7122f327bb70c5" kind="function"><name>setBoundPrimals</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1aab6e24f25d193a514b2c97681a5d2df8" kind="function"><name>setBoundBigM</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a73bc0d776af3885481aafab39cff90d9" kind="function"><name>setAddPolyMethod</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a0bf1c7483795c1f08baabf2426ca933d" kind="function"><name>getPositionLeadFoll</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1aec1b59c633f797063362b0ae4323f8ea" kind="function"><name>getPositionLeadLead</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a723c245afbc41788c993566aca9f238c" kind="function"><name>getValLeadFoll</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a24faf8f9033094c380f38fe3f6609a27" kind="function"><name>getValLeadLead</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1ad22d714e49ed16225baa3ff71abf27b1" kind="function"><name>getLCPDescription</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1af4ba9e089745932ff3bf24897af53e5f" kind="function"><name>getLCPModel</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a37fed0d5194d7d4a25953e117593b3a4" kind="function"><name>writeLCPModel</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1aa20feaa35c98de9e134190579a400cf7" kind="function"><name>getXWithoutHull</name></member>
+    <member refid="class_game_1_1_e_p_e_c_1a6f84ee2018f9bb85d0b1b53e65ff85e4" kind="function"><name>getXofI</name></member>
   </compound>
   <compound refid="struct_models_1_1_e_p_e_c_instance" kind="struct"><name>Models::EPECInstance</name>
     <member refid="struct_models_1_1_e_p_e_c_instance_1ae244048e3bb0509d1ec35afa8eb97903" kind="variable"><name>Countries</name></member>
@@ -187,137 +197,119 @@
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1aac90b8b215e9baf1fd5e41b60a96cc1c" kind="function"><name>getAllDeviations</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1afde7daf1886fefed019bb2ff135c2051" kind="function"><name>addDeviatedPolyhedron</name></member>
   </compound>
-  <compound refid="class_game_1_1_i_p___param" kind="class"><name>Game::IP_Param</name>
-    <member refid="class_game_1_1_i_p___param_1afc6816cad3450d94f18dfb4d29d3d91c" kind="variable"><name>Env</name></member>
-    <member refid="class_game_1_1_i_p___param_1ab350d5b25881473e58f382afa4451faf" kind="variable"><name>IPModel</name></member>
-    <member refid="class_game_1_1_i_p___param_1ae69f427daafdadccfd11a1f769038dc2" kind="variable"><name>bounds</name></member>
-    <member refid="class_game_1_1_i_p___param_1a3b8e2133a9eb621c48c1dc8e1d5164ad" kind="variable"><name>integers</name></member>
-    <member refid="class_game_1_1_i_p___param_1ad2a53db91304aad8942edbc0e18d410c" kind="variable"><name>madeModel</name></member>
-    <member refid="class_game_1_1_i_p___param_1ad710e7e048db05e226b431f31806e264" kind="function"><name>IP_Param</name></member>
-    <member refid="class_game_1_1_i_p___param_1ae4ee8d18baa66ad6f7c2282ec74ba223" kind="function"><name>IP_Param</name></member>
-    <member refid="class_game_1_1_i_p___param_1af03bb090c6c553fdac3f299b7958a452" kind="function"><name>getIntegers</name></member>
-    <member refid="class_game_1_1_i_p___param_1a53055361adaee922a797fc90d9ce247a" kind="function"><name>getBounds</name></member>
-    <member refid="class_game_1_1_i_p___param_1a990ad2af9bc94af6e8662fedc84ba83c" kind="function"><name>makeModel</name></member>
-    <member refid="class_game_1_1_i_p___param_1a28b141637cb670fb51f330dcd3f67d37" kind="function"><name>addConstraints</name></member>
-    <member refid="class_game_1_1_i_p___param_1ab308072a2b83eba38823d1a9cfcbb6a0" kind="function"><name>IP_Param</name></member>
-    <member refid="class_game_1_1_i_p___param_1a93830476669f3c32cf5110d922c848bf" kind="function"><name>set</name></member>
-    <member refid="class_game_1_1_i_p___param_1a4ea31e1116d154a29c2938e8c649e13c" kind="function"><name>set</name></member>
-    <member refid="class_game_1_1_i_p___param_1a14166f25a9e6bc6efe69ad9592fb44ff" kind="function"><name>set</name></member>
-    <member refid="class_game_1_1_i_p___param_1afbec7b4bbb15bd16298eb80fd65f9747" kind="function"><name>set</name></member>
-    <member refid="class_game_1_1_i_p___param_1a922cfe6dcf78da845462aafaf72e0083" kind="function"><name>operator==</name></member>
-    <member refid="class_game_1_1_i_p___param_1a170e9bf8ae4eebe9397d01887c517582" kind="function"><name>solveFixed</name></member>
-    <member refid="class_game_1_1_i_p___param_1a516b956199b99813297debbaac5442f4" kind="function"><name>computeObjective</name></member>
-    <member refid="class_game_1_1_i_p___param_1a9b8b7c1cec87693da7d99508d4f4cfa3" kind="function"><name>isPlayable</name></member>
-    <member refid="class_game_1_1_i_p___param_1a567edec8068732bc7447a02490f98b1e" kind="function"><name>addDummy</name></member>
-    <member refid="class_game_1_1_i_p___param_1a386613a0547b8b1ab08524471394cd75" kind="function"><name>write</name></member>
-    <member refid="class_game_1_1_i_p___param_1aefe2c5f7d30212248f97dc1cef150178" kind="function"><name>computeObjectiveWithoutOthers</name></member>
-    <member refid="class_game_1_1_i_p___param_1a7244cefbe65e5e0220e1a5924ea6cbcf" kind="function"><name>getConstraintViolations</name></member>
-    <member refid="class_game_1_1_i_p___param_1a97d7a955cb93ff14144bdce152e906b6" kind="function"><name>set</name></member>
-    <member refid="class_game_1_1_i_p___param_1a4ba89f81adc04cf5e21478f8a7f7748f" kind="function"><name>set</name></member>
-    <member refid="class_game_1_1_i_p___param_1aca00f56e28145a26a763a8ea0b90b2f3" kind="function"><name>set</name></member>
-    <member refid="class_game_1_1_i_p___param_1a068537c1f3d09c882d6d797e45bdc8e1" kind="function"><name>set</name></member>
+  <compound refid="class_math_opt_1_1_i_p___param" kind="class"><name>MathOpt::IP_Param</name>
+    <member refid="class_math_opt_1_1_i_p___param_1a380c60da09ec270dda7a013d8a952f24" kind="variable"><name>Env</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a63062903806f710f9707dcb941aff195" kind="variable"><name>IPModel</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a2036320e64735f1814e8e8349e3a7245" kind="variable"><name>bounds</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a4236364f917ce6e9e7c957aca00168dc" kind="variable"><name>integers</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a6fee5815fd45b9e2168f359e2c41aa71" kind="variable"><name>madeModel</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a3462b6f8f73d14cdaf8e6ced0c1dc5da" kind="function"><name>IP_Param</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1abcccf3e9856fa07d2ba3fc7fdf1c65cc" kind="function"><name>IP_Param</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1ab6737563695f1be14be71ae09619a5a6" kind="function"><name>getIntegers</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a7ff09814850d66b2f0183df879b412c2" kind="function"><name>getBounds</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a507189acd43a7c90b06da473d37533da" kind="function"><name>makeModel</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a8be970f7d412fd15877e2fc17616bfbd" kind="function"><name>addConstraints</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a5b3c69e1aaf283425fd1164355e53bdc" kind="function"><name>IP_Param</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a15338aa42e6a2d00ba0e8818562c7b60" kind="function"><name>set</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a2090df6b8aa1b63334432208ff8cc9b5" kind="function"><name>set</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a31d5eb35213c2af4718e28e3ceafea8e" kind="function"><name>set</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1abcc0f5b3570052bd57d1a6ee5c195681" kind="function"><name>set</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a9f8d5f79b5329bbfec6d0c4618f1bbee" kind="function"><name>operator==</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a19f85599f566f4bf679d6e4c85730ae2" kind="function"><name>solveFixed</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a45ab3e761fba334e064bee33c06c5ec6" kind="function"><name>computeObjective</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a1e7437399eedd12036eb3709c48e7ca0" kind="function"><name>isPlayable</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1aa1c20d474c1ece38aaea97a20679167d" kind="function"><name>addDummy</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a4ab6392b44a5b6a7cb2b481267f5a83e" kind="function"><name>write</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a0dca8704e1356405b6b607248ecc995c" kind="function"><name>load</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a6cf36efa0134f74b75d485135314a498" kind="function"><name>computeObjectiveWithoutOthers</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a17cda9a634b46017b7d7579eb9a8f8c7" kind="function"><name>getConstraintViolations</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1ae80499b37080521e2d12b6c944fa23e2" kind="function"><name>forceDataCheck</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1ad78a4a1bd3566acdcc5c61feedca9f8a" kind="function"><name>set</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1af8b3e3a4717541860fcb72634e1723ab" kind="function"><name>set</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1ae632d6f5348fc84bebe05ab01288e448" kind="function"><name>set</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1ae0389084bac5b495c773cf647b7e9bff" kind="function"><name>set</name></member>
   </compound>
   <compound refid="class_game_1_1_i_p_g" kind="class"><name>Game::IPG</name>
-    <member refid="class_game_1_1_i_p_g_1ab6ba37c89a84e5bbe0959c740c167732" kind="variable"><name>NumVariables</name></member>
-    <member refid="class_game_1_1_i_p_g_1af8db3a3876f89c90ffbcc57e3bed52ce" kind="variable"><name>NumPlayers</name></member>
-    <member refid="class_game_1_1_i_p_g_1a6c87d0fc735ba6ae67d3f2cb6296427b" kind="variable"><name>PlayersIP</name></member>
+    <member refid="class_game_1_1_i_p_g_1a3a939675fddeb5adda31e7c7be895e6c" kind="variable"><name>PlayersIP</name></member>
     <member refid="class_game_1_1_i_p_g_1a728a80ade416a2f36cd5a8833a0cf2ee" kind="variable"><name>PlayerVariables</name></member>
-    <member refid="class_game_1_1_i_p_g_1af823c71b1936c594d5b7eeea4857a572" kind="variable"><name>Env</name></member>
     <member refid="class_game_1_1_i_p_g_1ae0fcd4871cd997f56ca1796e13a43112" kind="variable"><name>Finalized</name></member>
-    <member refid="class_game_1_1_i_p_g_1a84c42d31656fb21d722937aa227dd55f" kind="variable"><name>NashEquilibrium</name></member>
-    <member refid="class_game_1_1_i_p_g_1a159f8c1e930ef3c1258e75f76b7b75ed" kind="variable"><name>InitTime</name></member>
-    <member refid="class_game_1_1_i_p_g_1a3f0bd8944769dc7e8ceedbeaffd43fc3" kind="variable"><name>Stats</name></member>
     <member refid="class_game_1_1_i_p_g_1a81a4ccc616e5facf3ee599761bf3fc9a" kind="variable"><name>Solution</name></member>
     <member refid="class_game_1_1_i_p_g_1a84836887d30b770869453f4943bdbfe2" kind="friend"><name>Algorithms::IPG::Oracle</name></member>
     <member refid="class_game_1_1_i_p_g_1a7ea608210b56699c2a76da364b2214d6" kind="function"><name>getXMinusI</name></member>
     <member refid="class_game_1_1_i_p_g_1aec5449ea62ceaa82411c7d7a454f2b57" kind="function"><name>getXofI</name></member>
     <member refid="class_game_1_1_i_p_g_1ab3fa5c1de6f4089de6f130740a12e89c" kind="function"><name>computeNashEq</name></member>
     <member refid="class_game_1_1_i_p_g_1a448677cf65ae15178c27da7ec294b5d3" kind="function"><name>finalize</name></member>
-    <member refid="class_game_1_1_i_p_g_1a57571cf2dcfacdd28031048e4f9268cb" kind="function"><name>IPG</name></member>
-    <member refid="class_game_1_1_i_p_g_1a88ca6ddad33437dfe341a0e54db5fce1" kind="function"><name>IPG</name></member>
-    <member refid="class_game_1_1_i_p_g_1a06a6b5ce17d4a4e8504a8dee37ffe9b5" kind="function"><name>~IPG</name></member>
     <member refid="class_game_1_1_i_p_g_1a89b4c1e57b17bba4438541c3a488198e" kind="function"><name>IPG</name></member>
-    <member refid="class_game_1_1_i_p_g_1ad9b1e0f6e626537e686c62ff191ce80f" kind="function"><name>IPG</name></member>
-    <member refid="class_game_1_1_i_p_g_1a18868152fb1a2eddcea41e8dd352ebdf" kind="function"><name>findNashEq</name></member>
-    <member refid="class_game_1_1_i_p_g_1a6e8da1e4710937dc60a075599848a5e4" kind="function"><name>isSolved</name></member>
-    <member refid="class_game_1_1_i_p_g_1a53ad9c43291da9f16d7a91ed5a77bd1c" kind="function"><name>isPureStrategy</name></member>
+    <member refid="class_game_1_1_i_p_g_1aba1ab31c35f012e48e1a47fec318ad3e" kind="function"><name>IPG</name></member>
+    <member refid="class_game_1_1_i_p_g_1a1b2c4bee27025af5921780ca2a41fe28" kind="function"><name>findNashEq</name></member>
+    <member refid="class_game_1_1_i_p_g_1ad999f9085c75eed024e09b87b3b832b4" kind="function"><name>isSolved</name></member>
+    <member refid="class_game_1_1_i_p_g_1ad66d221d1f3e15ec6b7cca5cdc5ef5aa" kind="function"><name>isPureStrategy</name></member>
     <member refid="class_game_1_1_i_p_g_1a7804df943f87684d0f85bce02bc1995b" kind="function"><name>respondModel</name></member>
     <member refid="class_game_1_1_i_p_g_1a0b7aa88f9e4b730c1ffdae30e07e5744" kind="function"><name>getX</name></member>
-    <member refid="class_game_1_1_i_p_g_1a70ca7fa095aa0c334df3850ed580db3e" kind="function"><name>getStatistics</name></member>
-    <member refid="class_game_1_1_i_p_g_1a4f6ad510b569bd7dff2a50ab3b691135" kind="function"><name>setAlgorithm</name></member>
-    <member refid="class_game_1_1_i_p_g_1a7d1f7076afd659fc67fb34af72beb720" kind="function"><name>getAlgorithm</name></member>
-    <member refid="class_game_1_1_i_p_g_1ac1609950d4af1ac2e1701b7efb52969c" kind="function"><name>setNumThreads</name></member>
-    <member refid="class_game_1_1_i_p_g_1ada5374c647c6214e67af332ffe397e31" kind="function"><name>getNumThreads</name></member>
-    <member refid="class_game_1_1_i_p_g_1a551aaf750f145d0d48f558af3fe353d7" kind="function"><name>setPureNashEquilibrium</name></member>
-    <member refid="class_game_1_1_i_p_g_1a904409dfe71edf7bc34590c1c17c33ec" kind="function"><name>getPureNashEquilibrium</name></member>
-    <member refid="class_game_1_1_i_p_g_1a43f8a770761600bf4d66f052896bd28c" kind="function"><name>setDeviationTolerance</name></member>
-    <member refid="class_game_1_1_i_p_g_1ae4840c88d9aea3b809a95978e99fcf69" kind="function"><name>getDeviationTolerance</name></member>
-    <member refid="class_game_1_1_i_p_g_1a6599a275df1a3d8014cecbd38075d95b" kind="function"><name>setTimeLimit</name></member>
-    <member refid="class_game_1_1_i_p_g_1a8d7b5265beca3edc01518ccfb9a4e49e" kind="function"><name>getTimeLimit</name></member>
-    <member refid="class_game_1_1_i_p_g_1ac752afba6e018ba32bc8ce636ed58203" kind="function"><name>getNumVar</name></member>
-    <member refid="class_game_1_1_i_p_g_1adf243581db4bc50acb485b9e6e5bde20" kind="function"><name>getNumPlayers</name></member>
+    <member refid="class_game_1_1_i_p_g_1a84d50a99870b84fb93840b46856c0b22" kind="function"><name>getStatistics</name></member>
+    <member refid="class_game_1_1_i_p_g_1ae76562a954b222a124b34052b6a0d5ae" kind="function"><name>setAlgorithm</name></member>
   </compound>
-  <compound refid="class_game_1_1_l_c_p" kind="class"><name>Game::LCP</name>
-    <member refid="class_game_1_1_l_c_p_1a5e9a233a5316fb7f3f7c63bb75f4abf6" kind="variable"><name>Env</name></member>
-    <member refid="class_game_1_1_l_c_p_1a220ce78f11a0e9550cec63d65411c5f4" kind="variable"><name>M</name></member>
-    <member refid="class_game_1_1_l_c_p_1afffdded2f61d6dee34f312c8a2e4b356" kind="variable"><name>q</name></member>
-    <member refid="class_game_1_1_l_c_p_1a6dbcd747d3b7a82fcd9079916da001df" kind="variable"><name>Compl</name></member>
-    <member refid="class_game_1_1_l_c_p_1a3626cacccb0d8ab0e1a88f8f1a3659f9" kind="variable"><name>LeadStart</name></member>
-    <member refid="class_game_1_1_l_c_p_1a5842889dd444dceda535c0e464775d80" kind="variable"><name>LeadEnd</name></member>
-    <member refid="class_game_1_1_l_c_p_1a0a8544f8b93d3ed9f7c07580f48c3151" kind="variable"><name>NumberLeader</name></member>
-    <member refid="class_game_1_1_l_c_p_1a75112da9c4219c166062a928b437ae60" kind="variable"><name>_A</name></member>
-    <member refid="class_game_1_1_l_c_p_1a0c531992ff29a14f598a54fa67a789a6" kind="variable"><name>_b</name></member>
-    <member refid="class_game_1_1_l_c_p_1aba71ce89427bac3178dd053b0f92855f" kind="variable"><name>_Acut</name></member>
-    <member refid="class_game_1_1_l_c_p_1ae44ef5e71958457bc4c12097f9bdc206" kind="variable"><name>_bcut</name></member>
-    <member refid="class_game_1_1_l_c_p_1a2145443fd73ae38b4e4b02637bf6a0e2" kind="variable"><name>MadeRlxdModel</name></member>
-    <member refid="class_game_1_1_l_c_p_1aa209e8dc6b817bff5750b1f98f1a6a6d" kind="variable"><name>nR</name></member>
-    <member refid="class_game_1_1_l_c_p_1abeaadbce4a891d3575dddae796592c72" kind="variable"><name>nC</name></member>
-    <member refid="class_game_1_1_l_c_p_1a187fe2df5192bc2354944d807a361333" kind="variable"><name>RlxdModel</name></member>
-    <member refid="class_game_1_1_l_c_p_1a8f71d6ee194330de1441c3911b74bff6" kind="variable"><name>Ai</name></member>
-    <member refid="class_game_1_1_l_c_p_1afcae3294d6a3492d4a1b77a1d72ccf60" kind="variable"><name>bi</name></member>
-    <member refid="class_game_1_1_l_c_p_1aa729a92224dec4a4bf895a34ca711190" kind="variable"><name>BigM</name></member>
-    <member refid="class_game_1_1_l_c_p_1af88f1e7ee2425f584c5acb4868c1b531" kind="variable"><name>Eps</name></member>
-    <member refid="class_game_1_1_l_c_p_1a98d96c73d2ec4a19517c6c633d2130b7" kind="variable"><name>EpsInt</name></member>
-    <member refid="class_game_1_1_l_c_p_1ac7b07ba8761ea4fbd7164febaf25d696" kind="variable"><name>UseIndicators</name></member>
-    <member refid="class_game_1_1_l_c_p_1a2d2876ada5a9d435754561cbbc5b6352" kind="function"><name>errorCheck</name></member>
-    <member refid="class_game_1_1_l_c_p_1a99d7d4a906d78149e7ff1701f6d7d4aa" kind="function"><name>defConst</name></member>
-    <member refid="class_game_1_1_l_c_p_1a777726134bf9ffc8fa0c6bfe8ffdb6fc" kind="function"><name>makeRelaxed</name></member>
-    <member refid="class_game_1_1_l_c_p_1a4c22fc6e301f34d6649e255e692d5799" kind="function"><name>LCPasMIP</name></member>
-    <member refid="class_game_1_1_l_c_p_1a4530c61c56c08e195e93f52a15875dd8" kind="function"><name>isZero</name></member>
-    <member refid="class_game_1_1_l_c_p_1a9cb1d44937ea87d794352f94bf1f6fe3" kind="function"><name>solEncode</name></member>
-    <member refid="class_game_1_1_l_c_p_1aab450b015162c87d06194c0cd36b26e2" kind="function"><name>convexHull</name></member>
-    <member refid="class_game_1_1_l_c_p_1a8f354ec1846b682d4e8d526c4408e702" kind="function"><name>LCP</name></member>
-    <member refid="class_game_1_1_l_c_p_1affd1945600584a97ee0b95a803e70a93" kind="function"><name>LCP</name></member>
-    <member refid="class_game_1_1_l_c_p_1af6442053d33eb07c14bdfcad02d4cbea" kind="function"><name>LCP</name></member>
-    <member refid="class_game_1_1_l_c_p_1a26af85e6c2bca5744cf2148da9539f31" kind="function"><name>LCP</name></member>
-    <member refid="class_game_1_1_l_c_p_1aced553b2e3edc31b20e4668c6146f583" kind="function"><name>LCP</name></member>
-    <member refid="class_game_1_1_l_c_p_1acd69c7ff6422ebbb8ab0b5d83812e262" kind="function"><name>~LCP</name></member>
-    <member refid="class_game_1_1_l_c_p_1a3ced9ff9dd3e3075326335ebeecc4229" kind="function"><name>getM</name></member>
-    <member refid="class_game_1_1_l_c_p_1ae84003685742b9de4c91b21e91055970" kind="function"><name>getMstar</name></member>
-    <member refid="class_game_1_1_l_c_p_1a3cc8c85eca98fb717a4487dc7ed692cd" kind="function"><name>getq</name></member>
-    <member refid="class_game_1_1_l_c_p_1aba5830b8f67b850954ac372aaf420e19" kind="function"><name>getNumberLeader</name></member>
-    <member refid="class_game_1_1_l_c_p_1a52df9c31f5d00c00803fe1a6f4b60534" kind="function"><name>getqstar</name></member>
-    <member refid="class_game_1_1_l_c_p_1a351c9d968ca93d32bb183bbd56c539c5" kind="function"><name>getLStart</name></member>
-    <member refid="class_game_1_1_l_c_p_1a7706f73777b1d3b66b1e5b97b04660c1" kind="function"><name>getLEnd</name></member>
-    <member refid="class_game_1_1_l_c_p_1a56d3a73e7eea32833e3fc4f08c910e7f" kind="function"><name>getCompl</name></member>
-    <member refid="class_game_1_1_l_c_p_1a0b673739018e4626f4f08b453e580eab" kind="function"><name>print</name></member>
-    <member refid="class_game_1_1_l_c_p_1a1bfe98fa1f54f78e2e7524737b573bfd" kind="function"><name>getNumCols</name></member>
-    <member refid="class_game_1_1_l_c_p_1abebfd11b7cab3a214c31b9ca3442f72e" kind="function"><name>getNumRows</name></member>
-    <member refid="class_game_1_1_l_c_p_1a25b0cf47517b0adc600ba5e71f8b98e5" kind="function"><name>extractSols</name></member>
-    <member refid="class_game_1_1_l_c_p_1ae9389315873f8bf470c9ed80250c65f5" kind="function"><name>LCPasQP</name></member>
-    <member refid="class_game_1_1_l_c_p_1a460788245a88de27ebea9aece253a832" kind="function"><name>LCPasMIP</name></member>
-    <member refid="class_game_1_1_l_c_p_1a966ef9dc503c215501e27dcfe02af8ff" kind="function"><name>MPECasMILP</name></member>
-    <member refid="class_game_1_1_l_c_p_1ae7cfc28ee5fe3b678522e191cf265fe3" kind="function"><name>solEncode</name></member>
-    <member refid="class_game_1_1_l_c_p_1a7e9ffaa72ecfd60e2fa3155d011f720b" kind="function"><name>MPECasMIQP</name></member>
-    <member refid="class_game_1_1_l_c_p_1aac1de9da2006efce0cecc1881efba0b6" kind="function"><name>LCPasMIP</name></member>
-    <member refid="class_game_1_1_l_c_p_1abd4348549394ab1692315b26620eceab" kind="function"><name>write</name></member>
-    <member refid="class_game_1_1_l_c_p_1a7c3f4e815fd66dd5d516d911f588857c" kind="function"><name>save</name></member>
-    <member refid="class_game_1_1_l_c_p_1a474418dda015aabcfde678cfe45b4080" kind="function"><name>load</name></member>
-    <member refid="class_game_1_1_l_c_p_1a6d217671aff04dd01e69f2311352611b" kind="function"><name>makeQP</name></member>
-    <member refid="class_game_1_1_l_c_p_1a01cc591a0ab7e4930de2cca20ff623ff" kind="function"><name>addCustomCuts</name></member>
-    <member refid="class_game_1_1_l_c_p_1abdf05d0d0fb6926b10445bf01707cb20" kind="function"><name>containCut</name></member>
-    <member refid="class_game_1_1_l_c_p_1a33a303e1e3643475f06dd1204dd6c27c" kind="function"><name>solEncode</name></member>
-    <member refid="class_game_1_1_l_c_p_1ab5c2258c4d017ca269c42ba1d689c5ed" kind="function"><name>zFromX</name></member>
+  <compound refid="class_math_opt_1_1_l_c_p" kind="class"><name>MathOpt::LCP</name>
+    <member refid="class_math_opt_1_1_l_c_p_1addeb38537d9e7cf4223fd2ba33bf72dc" kind="variable"><name>Env</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a4e0d245b9c77ff47fc160df5edcfe3b5" kind="variable"><name>M</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1ad99482b12ec46aabc831b55c28b49bbe" kind="variable"><name>q</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a1d50200c05752a28083272b4a5b124fc" kind="variable"><name>Compl</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1ab74625ec0c212d9d3c40ad8870741515" kind="variable"><name>LeadStart</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a12e4cee5104b8155fdaf499701fb36fb" kind="variable"><name>LeadEnd</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1ae64bd8eab0264253a226b482b1cdaa99" kind="variable"><name>NumberLeader</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1ab0e3f41a96438e66929d6d1846d81cd3" kind="variable"><name>_A</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a6d68d41581d8d52c72fc0e078d11cd4d" kind="variable"><name>_b</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1ac2b4526135fb3ac4f70c6ee5f7b4cf65" kind="variable"><name>_Acut</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a086d7e92afd51302f70f2288ade6f512" kind="variable"><name>_bcut</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1ab6a55bca1cd889aa17ef14f5301a70bc" kind="variable"><name>MadeRlxdModel</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a07fa9bee7040e1e5103a3933dec33b9f" kind="variable"><name>nR</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a39957fb3b0729294ea8ec7a71465a22e" kind="variable"><name>nC</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a0e47a3545027a6d9d26d1e3e499b24a2" kind="variable"><name>RlxdModel</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1af19b7809bfaf15311371d9a7ce3b9a9e" kind="variable"><name>Ai</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a5b68d054b67aab64a123395ec12f4ba8" kind="variable"><name>bi</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a0919c037468073eacc198bc6dcc2363f" kind="variable"><name>BigM</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a59bf18d06c235e380dc2f3a6f1419ab5" kind="variable"><name>Eps</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a424a4d9eb7509a97d9cf4b800d957cb0" kind="variable"><name>EpsInt</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1adc9c91af096bffbfeb0ef91b20fc58bc" kind="variable"><name>UseIndicators</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1ab73a1b2e9b4343a90974e0d07922541b" kind="function"><name>errorCheck</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a8e481dfd12ac9d6090370e8d15e80c2f" kind="function"><name>defConst</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1ac5d12cc6265d68850db41c47e69b7c4b" kind="function"><name>makeRelaxed</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1ac554a16ac9497952c31b3f84d68662ff" kind="function"><name>LCPasMIP</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a42175395b990e8069a18963fc2666b4c" kind="function"><name>isZero</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1ad59aa4e9848f45e477e67eb1e273c9ef" kind="function"><name>solEncode</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a0b54da5cf1c56c79ae2addf5742aea81" kind="function"><name>convexHull</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a3c5956541410e906ce7d5c1ad844ba3e" kind="function"><name>LCP</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1ae15300807444d65f55acf76e632431b1" kind="function"><name>LCP</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1aeae3c06657dd721a859f42ef06352645" kind="function"><name>LCP</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1ad7a5f1af658e2be2c4a0f24000f184c7" kind="function"><name>LCP</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1abc0c893675e33ccab28c3f3659faaf42" kind="function"><name>LCP</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1aba79835cd3e9ead070a2f2cc56da151a" kind="function"><name>~LCP</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a964119e24dee54beaacfe6bb9d5db829" kind="function"><name>getM</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a1d76692175585da4d03037d65a79a6d1" kind="function"><name>getMstar</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a6344bfaefa0cba43e2c6cd0293dfb710" kind="function"><name>getq</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a6d1d8b31629fd893b90b5e246db85b65" kind="function"><name>getNumberLeader</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a4b84d3c1a933d5fb208494f1097da4c3" kind="function"><name>getqstar</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1ab29d11d93c2bf1eead879847370fb9bd" kind="function"><name>getLStart</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a8e98d36e2af38da1b66013be86b4b856" kind="function"><name>getLEnd</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a5f0cfd505da46652224d6ddf80b28a0d" kind="function"><name>getCompl</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1ace92b15384c30cf9099a8b03eedb0fe0" kind="function"><name>print</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1ae30ffe7036c4bfd6d20cb400dd004b3d" kind="function"><name>getNumCols</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a3594c0c215a8fc483f0f611574ced3dd" kind="function"><name>getNumRows</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a21b65610e8c23cbfb018d8d61ad2aa30" kind="function"><name>extractSols</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1adb271830c46c32ab236961199edde62b" kind="function"><name>LCPasQP</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1ae6cc1d9683368334cc4df920b95402af" kind="function"><name>LCPasMIP</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a9aef94716ce8262f55ee7c49d4398f74" kind="function"><name>MPECasMILP</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a7136a8dfea61785975d36090ce3e6c01" kind="function"><name>solEncode</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1ac5053d434e646ec85b9d276aedee5bcd" kind="function"><name>MPECasMIQP</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1aa317c31cd870d32811b704fe6437a125" kind="function"><name>LCPasMIP</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a6261825711653d2af9aacef1887384a2" kind="function"><name>write</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a8bedfd755996b18fa86121ffaabb92d0" kind="function"><name>save</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a71496aeafa52792d00211240f51aa5ce" kind="function"><name>load</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a59993bce1206d9d5dfa04c616ea572e6" kind="function"><name>makeQP</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1abb3d2bcb70270704f7b96cd406d681e2" kind="function"><name>addCustomCuts</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a824d162366e30bcb729ede444f51af71" kind="function"><name>containCut</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a580e72a782e479fee8c4d8680ef8b87f" kind="function"><name>solEncode</name></member>
+    <member refid="class_math_opt_1_1_l_c_p_1a2d0f2ec3d8fa860d0db32402dbb22451" kind="function"><name>zFromX</name></member>
   </compound>
   <compound refid="struct_models_1_1_lead_all_par" kind="struct"><name>Models::LeadAllPar</name>
     <member refid="struct_models_1_1_lead_all_par_1a50316bb42793ad51f81470ec2c75deaa" kind="variable"><name>n_followers</name></member>
@@ -335,49 +327,49 @@
     <member refid="struct_models_1_1_lead_par_1a65333bb2bb9c2060513f920f126bfe53" kind="variable"><name>tax_revenue</name></member>
     <member refid="struct_models_1_1_lead_par_1a49d19ccb406e39c14e865e2cd53f1bc5" kind="function"><name>LeadPar</name></member>
   </compound>
-  <compound refid="class_game_1_1_m_p___param" kind="class"><name>Game::MP_Param</name>
-    <member refid="class_game_1_1_m_p___param_1ad1ec9489e7f1959f468e459c881cd63d" kind="variable"><name>Q</name></member>
-    <member refid="class_game_1_1_m_p___param_1aa0b31310fd4f138fe3e3771d2b077c3e" kind="variable"><name>A</name></member>
-    <member refid="class_game_1_1_m_p___param_1a3d517547d70f75e43060785fe66ad091" kind="variable"><name>B</name></member>
-    <member refid="class_game_1_1_m_p___param_1ab17ec9cd0030436cd5c443cfcfe08ad1" kind="variable"><name>C</name></member>
-    <member refid="class_game_1_1_m_p___param_1ac0e65580b83e8e6441d6e964b515dff8" kind="variable"><name>c</name></member>
-    <member refid="class_game_1_1_m_p___param_1a97fc7b4d0d1ef97e4115f0114bbfdfcc" kind="variable"><name>b</name></member>
-    <member refid="class_game_1_1_m_p___param_1aac9e6425fcc953b69c7aae411f011e58" kind="variable"><name>Nx</name></member>
-    <member refid="class_game_1_1_m_p___param_1ab889087a490f40f114002c92fea62b2d" kind="variable"><name>Ny</name></member>
-    <member refid="class_game_1_1_m_p___param_1a786341129b4f7a0501ab1784cac70c9e" kind="variable"><name>Ncons</name></member>
-    <member refid="class_game_1_1_m_p___param_1aa2528bd94216c15b6c655040cecea5fe" kind="function"><name>size</name></member>
-    <member refid="class_game_1_1_m_p___param_1acb2f6575e0f7613303287d6966eacd61" kind="function"><name>dataCheck</name></member>
-    <member refid="class_game_1_1_m_p___param_1ad99f19eae314bd3ca720d75d219167c3" kind="function"><name>finalize</name></member>
-    <member refid="class_game_1_1_m_p___param_1aa4be3148e505ff9012f47c9966a1475b" kind="function"><name>MP_Param</name></member>
-    <member refid="class_game_1_1_m_p___param_1a51f2d17e5151e8da6361c0382f62758f" kind="function"><name>MP_Param</name></member>
-    <member refid="class_game_1_1_m_p___param_1ac2db5cff1ae7f287200f82e3c729121b" kind="function"><name>getQ</name></member>
-    <member refid="class_game_1_1_m_p___param_1af07f091c9b546357d5d90d67a87e340c" kind="function"><name>getC</name></member>
-    <member refid="class_game_1_1_m_p___param_1a40ef5cb837a54abc27ff415f01bbcce2" kind="function"><name>getA</name></member>
-    <member refid="class_game_1_1_m_p___param_1a10c33b4453cbbfd1d9d1511a8db415b7" kind="function"><name>getB</name></member>
-    <member refid="class_game_1_1_m_p___param_1a859e717089861c86bffe656f352b105e" kind="function"><name>getc</name></member>
-    <member refid="class_game_1_1_m_p___param_1a30d991dc4a735cc7ae66005d33fa74e5" kind="function"><name>getb</name></member>
-    <member refid="class_game_1_1_m_p___param_1a5beeddbd8425ac08b12fd041c647b922" kind="function"><name>getNx</name></member>
-    <member refid="class_game_1_1_m_p___param_1acf2be6a9980b50736064b0eb11103e5e" kind="function"><name>getNy</name></member>
-    <member refid="class_game_1_1_m_p___param_1aba24e357b5034e0fe7869e1ceaa5dadf" kind="function"><name>setQ</name></member>
-    <member refid="class_game_1_1_m_p___param_1af28bfbe4728fdd28e44f71e29ff3974d" kind="function"><name>setC</name></member>
-    <member refid="class_game_1_1_m_p___param_1a720cd86de42cfb6054f0d7363c371f39" kind="function"><name>setA</name></member>
-    <member refid="class_game_1_1_m_p___param_1a16f75a8bb8525cd80ccec416bcc57c4e" kind="function"><name>setB</name></member>
-    <member refid="class_game_1_1_m_p___param_1a5d18a93a4335e8e9bed6633aa095b5d1" kind="function"><name>setc</name></member>
-    <member refid="class_game_1_1_m_p___param_1a5855ef8253dd3776b04d916e2e7f4b1b" kind="function"><name>setb</name></member>
-    <member refid="class_game_1_1_m_p___param_1a97d7a955cb93ff14144bdce152e906b6" kind="function"><name>set</name></member>
-    <member refid="class_game_1_1_m_p___param_1a4ba89f81adc04cf5e21478f8a7f7748f" kind="function"><name>set</name></member>
-    <member refid="class_game_1_1_m_p___param_1aca00f56e28145a26a763a8ea0b90b2f3" kind="function"><name>set</name></member>
-    <member refid="class_game_1_1_m_p___param_1a068537c1f3d09c882d6d797e45bdc8e1" kind="function"><name>set</name></member>
-    <member refid="class_game_1_1_m_p___param_1adf8d38d835f6cb716b7ea661d2fd4a7d" kind="function"><name>addDummy</name></member>
-    <member refid="class_game_1_1_m_p___param_1a21a9898b1fbebb1fbece40995aa7e9d6" kind="function"><name>write</name></member>
-    <member refid="class_game_1_1_m_p___param_1a83c92dfab0346ffbc2c8fb68267a4471" kind="function"><name>dataCheck</name></member>
+  <compound refid="class_math_opt_1_1_m_p___param" kind="class"><name>MathOpt::MP_Param</name>
+    <member refid="class_math_opt_1_1_m_p___param_1aae8144b23a29ea99d5ef793729438feb" kind="variable"><name>Q</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1a69e39bfe4a58e5c43dbcb7ac16be3fe5" kind="variable"><name>A</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1adb541edcb7083da9bde8e6615063acd3" kind="variable"><name>B</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1a13727398531ec805acd474fa5da89056" kind="variable"><name>C</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1a270fad22decf1dbdc2227ff9a4875e34" kind="variable"><name>c</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1af6e726c09d1d43359c2dad586b0fb4d5" kind="variable"><name>b</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1ab74a22bf304936286282f869cb646873" kind="variable"><name>Nx</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1a1a69f24fcb92ebf76ea29c9407859f0a" kind="variable"><name>Ny</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1a5c20eb5e9dac543042b9888e012ab99b" kind="variable"><name>Ncons</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1a70400a4046b1ab099f6c2ebbdceab6d5" kind="function"><name>size</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1aff8f3f085bd5938a352874c020f8ef23" kind="function"><name>dataCheck</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1a77c1f71200e55ee2fe1abe3c9eb13005" kind="function"><name>finalize</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1af1d48cd18c52aaab1e99e11dfa4cce67" kind="function"><name>MP_Param</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1a2593388bfb462f7a5e36708f8c6f9770" kind="function"><name>MP_Param</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1a0f1cc247264404e29747200c7ddfc1ab" kind="function"><name>getQ</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1ab6633d7091d1e470230773cfbe53bf3d" kind="function"><name>getC</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1a40fff25cfb814374938f83ce9b3786de" kind="function"><name>getA</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1af9a8eaa4d0d2034f3bc221757ebba7e2" kind="function"><name>getB</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1a5e6b2cba9aee0d780957a2e0c7329e02" kind="function"><name>getc</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1a1f0114c151fc557843e39364bca6e1a7" kind="function"><name>getb</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1a202eba6a77a560f6db64104eccc34d00" kind="function"><name>getNx</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1af1070c3cbcafa07a86aa96f4e015a361" kind="function"><name>getNy</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1aa91dd679cf1572f215d95ecfbeaff20f" kind="function"><name>setQ</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1a371da389ffb48698912345747dcc74b4" kind="function"><name>setC</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1ade7514774a87da1d741203de23084141" kind="function"><name>setA</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1a3d1cfea15e1d90c8d599b7f43fbce99e" kind="function"><name>setB</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1aef703db3b2617b1e7f2918c98742ebae" kind="function"><name>setc</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1acf30858c84ca9134645bfdc00e5c3c01" kind="function"><name>setb</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1ad78a4a1bd3566acdcc5c61feedca9f8a" kind="function"><name>set</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1af8b3e3a4717541860fcb72634e1723ab" kind="function"><name>set</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1ae632d6f5348fc84bebe05ab01288e448" kind="function"><name>set</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1ae0389084bac5b495c773cf647b7e9bff" kind="function"><name>set</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1a802628bc47d8e985d77e6184440af534" kind="function"><name>addDummy</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1a68ac30e9ab415719ab7be25357899617" kind="function"><name>write</name></member>
+    <member refid="class_math_opt_1_1_m_p___param_1af137f454eef5ef1e9ef3edd7c7b16261" kind="function"><name>dataCheck</name></member>
   </compound>
   <compound refid="class_game_1_1_nash_game" kind="class"><name>Game::NashGame</name>
     <member refid="class_game_1_1_nash_game_1a9d644ce0882320934b9b723ab804ca01" kind="variable"><name>Env</name></member>
     <member refid="class_game_1_1_nash_game_1a69062fef79730d6d87aea99352524bfb" kind="variable"><name>LeaderConstraints</name></member>
     <member refid="class_game_1_1_nash_game_1a54cddc6679f55f88af4b6e6fcdf9aa9e" kind="variable"><name>LeaderConstraintsRHS</name></member>
     <member refid="class_game_1_1_nash_game_1a42cc938da995c37fbd84806463c9aaca" kind="variable"><name>NumPlayers</name></member>
-    <member refid="class_game_1_1_nash_game_1a726f63874022ff64ca272a158b3a8a20" kind="variable"><name>Players</name></member>
+    <member refid="class_game_1_1_nash_game_1a8c26fbd59829c845f6d07770bed67971" kind="variable"><name>Players</name></member>
     <member refid="class_game_1_1_nash_game_1a77402999e8c65c0e8b406dd20e95f534" kind="variable"><name>MarketClearing</name></member>
     <member refid="class_game_1_1_nash_game_1a61332b6f39e1dff806c15e5b4f831634" kind="variable"><name>MCRHS</name></member>
     <member refid="class_game_1_1_nash_game_1aec5719e31a1487539116400c71f55cbb" kind="variable"><name>PrimalPosition</name></member>
@@ -387,7 +379,7 @@
     <member refid="class_game_1_1_nash_game_1a0e956dd244cc178612c475dcdcad0110" kind="variable"><name>numLeaderVar</name></member>
     <member refid="class_game_1_1_nash_game_1a93574f4ebf6ce5a16334043a67c21f03" kind="function"><name>setPositions</name></member>
     <member refid="class_game_1_1_nash_game_1aacdedcbc71d5ed952f81afad5bca50be" kind="function"><name>NashGame</name></member>
-    <member refid="class_game_1_1_nash_game_1a0d1c45c298a06114290b292ef7f26de9" kind="function"><name>NashGame</name></member>
+    <member refid="class_game_1_1_nash_game_1acc613f10dcd5d2189170b4c4e171f4d0" kind="function"><name>NashGame</name></member>
     <member refid="class_game_1_1_nash_game_1ac2aa48fd0039afc8d593b4bda813f60d" kind="function"><name>NashGame</name></member>
     <member refid="class_game_1_1_nash_game_1a7ad163b3b089c26ba55648b9fe70ba7e" kind="function"><name>~NashGame</name></member>
     <member refid="class_game_1_1_nash_game_1ad1d3b9de9fde00bb56f21784174145e5" kind="function"><name>getNprimals</name></member>
@@ -454,7 +446,7 @@
     <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1af6e543428074105a7c1435031c779e1f" kind="function"><name>normalizeRay</name></member>
   </compound>
   <compound refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation" kind="class"><name>Algorithms::EPEC::OuterApproximation</name>
-    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a91415a4528304332a386e0f9a6f5692f" kind="variable"><name>outerLCP</name></member>
+    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1ac390d4bbad95a8684661d0308bdd5a93" kind="variable"><name>outerLCP</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a85e89500db296c34d113434f4d67a8c2" kind="variable"><name>Trees</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a6ef46fd71fbb68dff6e0cbf04945f03a" kind="variable"><name>Incumbent</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a428e145851cd068dff487afe752a6811" kind="variable"><name>Feasible</name></member>
@@ -480,19 +472,19 @@
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a6d153e3874b880485be7ad34d95f7455" kind="function"><name>getFirstBranchLocation</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1ab546c0ac19d77b306800f29f2562b27f" kind="function"><name>postSolving</name></member>
   </compound>
-  <compound refid="class_game_1_1_outer_l_c_p" kind="class"><name>Game::OuterLCP</name>
-    <member refid="class_game_1_1_outer_l_c_p_1ab3fb535154e08fd094ed7e08df809cee" kind="variable"><name>Approximation</name></member>
-    <member refid="class_game_1_1_outer_l_c_p_1af56857ffaa5b3d712489da9d28194908" kind="variable"><name>FeasibleComponents</name></member>
-    <member refid="class_game_1_1_outer_l_c_p_1a9f71efb4deed7d8ba14deece12845594" kind="variable"><name>InfeasibleComponents</name></member>
-    <member refid="class_game_1_1_outer_l_c_p_1a1a081ed1bfa405d89b43e4ad70b875a1" kind="variable"><name>feasApprox</name></member>
-    <member refid="class_game_1_1_outer_l_c_p_1a6a84c10498757527c68cc1135ceb9063" kind="function"><name>OuterLCP</name></member>
-    <member refid="class_game_1_1_outer_l_c_p_1a9664ca829b2c05162e0a198e44b4215d" kind="function"><name>clearApproximation</name></member>
-    <member refid="class_game_1_1_outer_l_c_p_1ab29af9baedc1637efb028b98941c6ac9" kind="function"><name>checkComponentFeas</name></member>
-    <member refid="class_game_1_1_outer_l_c_p_1a5140d968036f715a1841592a6b8e7681" kind="function"><name>outerApproximate</name></member>
-    <member refid="class_game_1_1_outer_l_c_p_1a9b8c0d84d0bb98a04c536048c75c875a" kind="function"><name>addComponent</name></member>
-    <member refid="class_game_1_1_outer_l_c_p_1a25721203c63194fbc4af9dd23783aa89" kind="function"><name>getFeasApprox</name></member>
-    <member refid="class_game_1_1_outer_l_c_p_1acff9aaf2b09b9c15051a1d227b144772" kind="function"><name>isParent</name></member>
-    <member refid="class_game_1_1_outer_l_c_p_1af3363c7d16b79f8314aa57169da8a20a" kind="function"><name>addChildComponents</name></member>
+  <compound refid="class_math_opt_1_1_outer_l_c_p" kind="class"><name>MathOpt::OuterLCP</name>
+    <member refid="class_math_opt_1_1_outer_l_c_p_1a9c5696dd783d06c1b3e8adda6350d832" kind="variable"><name>Approximation</name></member>
+    <member refid="class_math_opt_1_1_outer_l_c_p_1ad7b8f927dd37a21500c0126db1892889" kind="variable"><name>FeasibleComponents</name></member>
+    <member refid="class_math_opt_1_1_outer_l_c_p_1aa3ee14aee58bd6659864b73089e429f5" kind="variable"><name>InfeasibleComponents</name></member>
+    <member refid="class_math_opt_1_1_outer_l_c_p_1a5571e20c414ce55e14a55ee4c590be9d" kind="variable"><name>feasApprox</name></member>
+    <member refid="class_math_opt_1_1_outer_l_c_p_1a41bf3e2f0eedfc3c69425c718ad934e5" kind="function"><name>OuterLCP</name></member>
+    <member refid="class_math_opt_1_1_outer_l_c_p_1a4c84086c989477404d13a9fdd272c90e" kind="function"><name>clearApproximation</name></member>
+    <member refid="class_math_opt_1_1_outer_l_c_p_1a3a0e1b8b756f03a5ecc519006f6a540a" kind="function"><name>checkComponentFeas</name></member>
+    <member refid="class_math_opt_1_1_outer_l_c_p_1af65666a72ac63d22eb132c9c4b90077a" kind="function"><name>outerApproximate</name></member>
+    <member refid="class_math_opt_1_1_outer_l_c_p_1ab39b555e7623b81f27f832671202ce48" kind="function"><name>addComponent</name></member>
+    <member refid="class_math_opt_1_1_outer_l_c_p_1a64d698dbc4e46c6431e6a7ed363357a3" kind="function"><name>getFeasApprox</name></member>
+    <member refid="class_math_opt_1_1_outer_l_c_p_1a90ae9a06c71be14c6db2ad63c82fa966" kind="function"><name>isParent</name></member>
+    <member refid="class_math_opt_1_1_outer_l_c_p_1a1fb71486c866dde33188d593abb5faa9" kind="function"><name>addChildComponents</name></member>
   </compound>
   <compound refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree" kind="class"><name>Algorithms::EPEC::OuterTree</name>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1a6dafa9836ba225cd64efc84c8a2a44ea" kind="variable"><name>Root</name></member>
@@ -534,7 +526,7 @@
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1a0d152a388b593a4011ccaaee8881a2d0" kind="function"><name>multipleBranch</name></member>
   </compound>
   <compound refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base" kind="class"><name>Algorithms::EPEC::PolyBase</name>
-    <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a07f74282d7751de285a7e72b0377c8d6" kind="variable"><name>PolyLCP</name></member>
+    <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1af4b04767398229a7773932f5ff27f74b" kind="variable"><name>PolyLCP</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ae32c59d87b904dd0b6bff19a4bf954f7" kind="function"><name>postSolving</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a3232baf0efbe5fe82c3168937a6a8d20" kind="function"><name>PolyBase</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a5943ee10262cc33bbeb18d5a902e1b90" kind="function"><name>isSolved</name></member>
@@ -551,68 +543,69 @@
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a0e0cfcb04c622946a00441e7460f9959" kind="function"><name>getNumPolyLead</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ad7777a11c5b70da40af2780802b31fab" kind="function"><name>getPositionProbab</name></member>
   </compound>
-  <compound refid="class_game_1_1_poly_l_c_p" kind="class"><name>Game::PolyLCP</name>
-    <member refid="class_game_1_1_poly_l_c_p_1ae58d2fb3672f8962a238caa500239aee" kind="variable"><name>FeasiblePolyhedra</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1aa0dc3451597d6e1d1c97018ed19b6168" kind="variable"><name>SequentialPolyCounter</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1a32f2873bad1c17318ceca6e60663a85f" kind="variable"><name>ReverseSequentialPolyCounter</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1ad54ed6c8eacb53c2d56bece722cf8bc4" kind="variable"><name>AllPolyhedra</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1aeb53a1e8548bb1e802c5fa000ec98009" kind="variable"><name>FeasiblePoly</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1a43b7818d5d08faf88fb9c1ab51a7a6dc" kind="variable"><name>InfeasiblePoly</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1addf773dfc5bf76c80c04b0f68c7285fc" kind="variable"><name>MaxTheoreticalPoly</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1a1afb8ebbf1672cc4d0398c0f7265ed56" kind="variable"><name>AddPolyMethodSeed</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1a216d9f17996fe72731dd33cc2062153e" kind="function"><name>initializeNotProcessed</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1a7488a38884fff8804d17024c3a1c1433" kind="function"><name>addPolyFromEncoding</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1af818f34c0c90869f0d0f31400908174a" kind="function"><name>addPoliesFromEncoding</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1a9949b98dad6c12d90251f3c8ede80b51" kind="function"><name>getNextPoly</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1a2e7688ed525a53df2640f8059c0c0dd7" kind="function"><name>PolyLCP</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1a82da25777affce68da206232f9a91704" kind="function"><name>convNumPoly</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1a2e14a1d94151b08c878386de507793b4" kind="function"><name>convPolyPosition</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1a6bd110dfdf561badc1e3f7624589e1e1" kind="function"><name>convPolyWeight</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1a4cd4171844f271bba06c271bbe9e02e5" kind="function"><name>getAllPolyhedra</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1a7894d5934693fb66db0170026e049ff1" kind="function"><name>getNumTheoreticalPoly</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1a3ca012eb137a6dd7bb98f23691ea5d41" kind="function"><name>addAPoly</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1a6cbd0139e8f432d15287387b7be7bfeb" kind="function"><name>addThePoly</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1abfb1de17bc930bc70bb32b845a0e5479" kind="function"><name>checkPolyFeas</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1ace347a389d26d3151793b09e57efa84f" kind="function"><name>checkPolyFeas</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1a284ba47f087abd272c48e77c20060d45" kind="function"><name>clearPolyhedra</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1ad0a82937558cb85efccde85308ce6997" kind="function"><name>addPolyFromX</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1aebdc0ed41bb918c136f40c01b0c9fef2" kind="function"><name>enumerateAll</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1ab3da884aa6d7966d9482c8e3830aa464" kind="function"><name>feasabilityDetailString</name></member>
-    <member refid="class_game_1_1_poly_l_c_p_1a8bf2b9f101f4dacc2d4e7a115d795a36" kind="function"><name>getFeasiblePolyhedra</name></member>
+  <compound refid="class_math_opt_1_1_poly_l_c_p" kind="class"><name>MathOpt::PolyLCP</name>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1a687fa5b9af020a7bdbad9afedad26d51" kind="variable"><name>FeasiblePolyhedra</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1af3a1691f40196980cb8ee61a6e0d91af" kind="variable"><name>SequentialPolyCounter</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1ab43383118b5bcce85fb3f828361bd545" kind="variable"><name>ReverseSequentialPolyCounter</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1a41bf2044b6ad68197af7e99828272b65" kind="variable"><name>AllPolyhedra</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1ad962f5694ca99925cb511c87e3a18304" kind="variable"><name>FeasiblePoly</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1a7122e88a2136476d1985e612aea1a08d" kind="variable"><name>InfeasiblePoly</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1ac1da99adac1bc2319d98469d4b7a6095" kind="variable"><name>MaxTheoreticalPoly</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1a311ae5d83b9b32f2248574e9bbfbefe4" kind="variable"><name>AddPolyMethodSeed</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1a963f8d9de472745b2b84f9fd2fdc488c" kind="function"><name>initializeNotProcessed</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1a639732691310aa030aba6df57d6db05b" kind="function"><name>addPolyFromEncoding</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1aa8450eefba5e3314531da61c24834981" kind="function"><name>addPoliesFromEncoding</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1a33ac36a0429a514f29ef878cc0d4ce41" kind="function"><name>getNextPoly</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1a99a436649fd0660fc858b13eab382366" kind="function"><name>PolyLCP</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1a32a725d75b2cd80d2216b8205134034f" kind="function"><name>convNumPoly</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1ad40f1aa516b67c372228e81a5ec10c3f" kind="function"><name>convPolyPosition</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1ac72e99768d37fafac502070c3a9a39d4" kind="function"><name>convPolyWeight</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1abf2bd458140e65f2f94392723a83f045" kind="function"><name>getAllPolyhedra</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1a39ba37c8309a30307965c1caee642cdc" kind="function"><name>getNumTheoreticalPoly</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1a1f2925288011d11c496cfa5b737dfa0b" kind="function"><name>addAPoly</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1a93bf0c8c5905b7fd14918342fcf3e004" kind="function"><name>addThePoly</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1a238df41fff2985429a7515b0759d07af" kind="function"><name>checkPolyFeas</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1a570be5109ab1098adebdcba2edc77d72" kind="function"><name>checkPolyFeas</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1a24f22494090ebbf1e0d66d41cfff4ba4" kind="function"><name>clearPolyhedra</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1afc0cb20b5b7f034371acb5f7b91005c9" kind="function"><name>addPolyFromX</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1ae8680cc331be8b9b068038e9f49d84e1" kind="function"><name>enumerateAll</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1aaa14174641821a6951ab8fcd8193a37e" kind="function"><name>feasabilityDetailString</name></member>
+    <member refid="class_math_opt_1_1_poly_l_c_p_1a7d4e45b2d94615e9ed571b7238437713" kind="function"><name>getFeasiblePolyhedra</name></member>
   </compound>
-  <compound refid="struct_game_1_1_q_p___constraints" kind="struct"><name>Game::QP_Constraints</name>
-    <member refid="struct_game_1_1_q_p___constraints_1a28cc415e4216e04eaf68c242797082e6" kind="variable"><name>A</name></member>
-    <member refid="struct_game_1_1_q_p___constraints_1ae55287ebde6f89df7b811480e8120f85" kind="variable"><name>B</name></member>
-    <member refid="struct_game_1_1_q_p___constraints_1ab569fe1ffbf493e55425bda31ca17dc9" kind="variable"><name>b</name></member>
+  <compound refid="struct_math_opt_1_1_q_p___constraints" kind="struct"><name>MathOpt::QP_Constraints</name>
+    <member refid="struct_math_opt_1_1_q_p___constraints_1a999fed1e5607efea33becaace462d2ef" kind="variable"><name>A</name></member>
+    <member refid="struct_math_opt_1_1_q_p___constraints_1a11418e2a3ba28e689d32efbfd152d96b" kind="variable"><name>B</name></member>
+    <member refid="struct_math_opt_1_1_q_p___constraints_1ae3de451a322c37902672b69ba7e113a0" kind="variable"><name>b</name></member>
   </compound>
-  <compound refid="struct_game_1_1_q_p___objective" kind="struct"><name>Game::QP_Objective</name>
-    <member refid="struct_game_1_1_q_p___objective_1a218aa1a64146ae80139df889478e6b2a" kind="variable"><name>Q</name></member>
-    <member refid="struct_game_1_1_q_p___objective_1add673a5bdd83c489163095c1e222ff92" kind="variable"><name>C</name></member>
-    <member refid="struct_game_1_1_q_p___objective_1a39b7897a7133018eaf3046e063c1dd10" kind="variable"><name>c</name></member>
+  <compound refid="struct_math_opt_1_1_q_p___objective" kind="struct"><name>MathOpt::QP_Objective</name>
+    <member refid="struct_math_opt_1_1_q_p___objective_1a2ad3dd91164bc2eedfa8992e011e5486" kind="variable"><name>Q</name></member>
+    <member refid="struct_math_opt_1_1_q_p___objective_1a8a6054a50c55d502968f2528e9e4c7d5" kind="variable"><name>C</name></member>
+    <member refid="struct_math_opt_1_1_q_p___objective_1ab86453c213b8688c314ae7882d7cf6fb" kind="variable"><name>c</name></member>
   </compound>
-  <compound refid="class_game_1_1_q_p___param" kind="class"><name>Game::QP_Param</name>
-    <member refid="class_game_1_1_q_p___param_1a2247b8e3a40f8529152469826c28e464" kind="variable"><name>Env</name></member>
-    <member refid="class_game_1_1_q_p___param_1ad06f1cf8e5c84e2c6f5de0aaf95d6bb1" kind="variable"><name>QuadModel</name></member>
-    <member refid="class_game_1_1_q_p___param_1a336917f832b509890d122c133e859ee0" kind="variable"><name>madeyQy</name></member>
-    <member refid="class_game_1_1_q_p___param_1ab7adef7ab5eea6a66dc5a78c2973c79b" kind="function"><name>makeyQy</name></member>
-    <member refid="class_game_1_1_q_p___param_1aca8de136cfd5597acf66de448dce9edd" kind="function"><name>QP_Param</name></member>
-    <member refid="class_game_1_1_q_p___param_1a61008ed53ae0d7bf482724c6495931fe" kind="function"><name>QP_Param</name></member>
-    <member refid="class_game_1_1_q_p___param_1ad02ba73442c9556bae3c184ac3ae7ee8" kind="function"><name>QP_Param</name></member>
-    <member refid="class_game_1_1_q_p___param_1a3fb0950b780c847e97f34043068ca758" kind="function"><name>set</name></member>
-    <member refid="class_game_1_1_q_p___param_1ac1555a30b8ba903db65a3fe0b6763ec4" kind="function"><name>set</name></member>
-    <member refid="class_game_1_1_q_p___param_1a3f02452cc0c46075b899e44859ace8dc" kind="function"><name>set</name></member>
-    <member refid="class_game_1_1_q_p___param_1a5048a36ffe7ce26720fda054ba570a3e" kind="function"><name>set</name></member>
-    <member refid="class_game_1_1_q_p___param_1a5a9582b9b43875c771cec657f627e947" kind="function"><name>operator==</name></member>
-    <member refid="class_game_1_1_q_p___param_1aa9042eb407e5768c793f17e490e8a5bd" kind="function"><name>KKT</name></member>
-    <member refid="class_game_1_1_q_p___param_1a6063c18689d5a489fb3ce79d7e8303d5" kind="function"><name>solveFixed</name></member>
-    <member refid="class_game_1_1_q_p___param_1aad40a0f721956c78c03be4d39a4b1710" kind="function"><name>computeObjective</name></member>
-    <member refid="class_game_1_1_q_p___param_1a8339624c0944723a19d58c8d66f1a729" kind="function"><name>isPlayable</name></member>
-    <member refid="class_game_1_1_q_p___param_1a5313f28073ba60f90ca422e2da6a369a" kind="function"><name>addDummy</name></member>
-    <member refid="class_game_1_1_q_p___param_1a23ff06e9e2f2bcc5c8925d3535bb13cc" kind="function"><name>write</name></member>
-    <member refid="class_game_1_1_q_p___param_1ad19060753eec41c341607f9f197f6771" kind="function"><name>save</name></member>
-    <member refid="class_game_1_1_q_p___param_1addb5647d7fd877b6559561df5ba7f198" kind="function"><name>load</name></member>
-    <member refid="class_game_1_1_q_p___param_1a3e8ae28e0b8f163149e05247b87bab6c" kind="function"><name>computeObjectiveWithoutOthers</name></member>
-    <member refid="class_game_1_1_q_p___param_1a4fda0fa63c08186f3441f1adcb30efcd" kind="function"><name>getConstraintViolations</name></member>
+  <compound refid="class_math_opt_1_1_q_p___param" kind="class"><name>MathOpt::QP_Param</name>
+    <member refid="class_math_opt_1_1_q_p___param_1a586b0d0f753d0a23ede54085e1aa4765" kind="variable"><name>Env</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1afaa5051e768ccdc909bbb797933f8533" kind="variable"><name>QuadModel</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1a6ce3df06821c3a515cef666c26b2aecc" kind="variable"><name>madeyQy</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1a150faeba4b9ca64bae9ec5336571aac8" kind="function"><name>makeyQy</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1a369bfb063b7bc01d8bce018df9639bce" kind="function"><name>QP_Param</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1afcddf16e9642adac737e504711af5109" kind="function"><name>QP_Param</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1afbcaa320bb50521e5c45efb3289c6356" kind="function"><name>QP_Param</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1a4f627c9b4d4028d180df71c50059c67b" kind="function"><name>forceDataCheck</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1a5f530bb9242f5be3a5e43cbc331bc5a3" kind="function"><name>set</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1a0934db94b23d326f04837f38505d3832" kind="function"><name>set</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1a23967c411b09fc63f44ed0d54b6d7e6f" kind="function"><name>set</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1affbb9b4e6ed757951d385324883c6961" kind="function"><name>set</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1a169dc264349acd9dd9095c5b22c90c4e" kind="function"><name>operator==</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1a7d40a13333c56987a46fd5fc298702d4" kind="function"><name>KKT</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1a8048abca2c92c8cb32033de1eacfc5cb" kind="function"><name>solveFixed</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1abb8b63d5dc4dc0519df2a876cf7d28b7" kind="function"><name>computeObjective</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1a7b08581092f727e9066306df7cbaeb68" kind="function"><name>isPlayable</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1a11957fd90b5bfeacc4fa94fdb7c3a622" kind="function"><name>addDummy</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1a593d1432623f387270b6298c7a41f3f3" kind="function"><name>write</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1abb45677c8119447c93235369bfad3eaa" kind="function"><name>save</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1ab09ea78b2a6647432ef8186686f9a0f9" kind="function"><name>load</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1a0353da74066b38a7f5fa5a6c11485564" kind="function"><name>computeObjectiveWithoutOthers</name></member>
+    <member refid="class_math_opt_1_1_q_p___param_1a57583e7acd32f13e21b020e22cc1a724" kind="function"><name>getConstraintViolations</name></member>
   </compound>
   <compound refid="class_z_e_r_o_algorithm_data" kind="class"><name>ZEROAlgorithmData</name>
     <member refid="class_z_e_r_o_algorithm_data_1afe337205095acb78bb3ecc97e6f44d18" kind="variable"><name>DeviationTolerance</name></member>
@@ -667,6 +660,10 @@
     <member refid="namespace_data_1_1_e_p_e_c_1a347af28b83353df8afdbd4ee171565b3a5e796cd9e20e235896671171d02f037c" kind="enumvalue"><name>IncrementalEnumeration</name></member>
     <member refid="namespace_data_1_1_e_p_e_c_1a347af28b83353df8afdbd4ee171565b3aa58ab0c1d0ca6a34c8b02c75b78755e0" kind="enumvalue"><name>Combinatorial</name></member>
   </compound>
+  <compound refid="namespace_data_1_1_i_p_g" kind="namespace"><name>Data::IPG</name>
+    <member refid="namespace_data_1_1_i_p_g_1a34d343f554ac089c3cb14de04aa6d294" kind="enum"><name>Algorithms</name></member>
+    <member refid="namespace_data_1_1_i_p_g_1a34d343f554ac089c3cb14de04aa6d294a30162ed78b6c10f731411f2fc440c24f" kind="enumvalue"><name>Oracle</name></member>
+  </compound>
   <compound refid="namespace_data_1_1_l_c_p" kind="namespace"><name>Data::LCP</name>
     <member refid="namespace_data_1_1_l_c_p_1aa8773225c810ac45575f86ac803105ab" kind="enum"><name>PolyhedraStrategy</name></member>
     <member refid="namespace_data_1_1_l_c_p_1aa8773225c810ac45575f86ac803105abaa7e82daa7280af25afbaa076ac16eb1e" kind="enumvalue"><name>Sequential</name></member>
@@ -674,16 +671,18 @@
     <member refid="namespace_data_1_1_l_c_p_1aa8773225c810ac45575f86ac803105aba64663f4646781c9c0110838b905daa23" kind="enumvalue"><name>Random</name></member>
   </compound>
   <compound refid="namespace_game" kind="namespace"><name>Game</name>
-    <member refid="namespace_game_1a541b6d502d1d6b4c9f6a149826bdfc2f" kind="typedef"><name>QP_objective</name></member>
-    <member refid="namespace_game_1a8529ffcabd12b5c6d7292f4dd6fe42cc" kind="typedef"><name>QP_constraints</name></member>
-    <member refid="namespace_game_1a26d63d30b983cbd740dd5a7037a1f9b6" kind="function"><name>LPSolve</name></member>
-    <member refid="namespace_game_1ab51edb9870dec0f53df966c51ac8221f" kind="function"><name>convexHull</name></member>
-    <member refid="namespace_game_1a4e0a017b2135a46c9e20866274e1127d" kind="function"><name>compConvSize</name></member>
-    <member refid="namespace_game_1a33e82b9df7ee413620f2b5d26c289f98" kind="function"><name>isZero</name></member>
-    <member refid="namespace_game_1a1c0adf3888db1939dc071c64c6e80d3f" kind="function"><name>isZero</name></member>
-    <member refid="namespace_game_1ae84120c7363ce11ee8cb58b113eaf6a8" kind="function"><name>operator&lt;&lt;</name></member>
+    <member refid="namespace_game_1a5d3d08630420c0dc48957de240545f21" kind="function"><name>operator&lt;&lt;</name></member>
     <member refid="namespace_game_1a774057f73ba2c3cbf2bc3870b8136f63" kind="function"><name>operator&lt;&lt;</name></member>
-    <member refid="namespace_game_1ae10005492ee312cb7baba9b3d09c77d3" kind="function"><name>print</name></member>
+  </compound>
+  <compound refid="namespace_math_opt" kind="namespace"><name>MathOpt</name>
+    <member refid="namespace_math_opt_1aa0a70822f74c1fc679e018023c08905e" kind="typedef"><name>QP_objective</name></member>
+    <member refid="namespace_math_opt_1a7077c09ae1bba23b9181ac92bf0c6dea" kind="typedef"><name>QP_constraints</name></member>
+    <member refid="namespace_math_opt_1aa4eaa00160eb2098969ef087c92eea5d" kind="function"><name>LPSolve</name></member>
+    <member refid="namespace_math_opt_1a0a13d06524e3ad2baf756e15a794a745" kind="function"><name>convexHull</name></member>
+    <member refid="namespace_math_opt_1af3d7bfcf9b11cefb7f4521d685211934" kind="function"><name>compConvSize</name></member>
+    <member refid="namespace_math_opt_1a8b4c66568c38b6a5b08a7fca9372a7dd" kind="function"><name>print</name></member>
+    <member refid="namespace_math_opt_1aedd7c328cf667c15244fec225b90a65d" kind="function"><name>operator&lt;&lt;</name></member>
+    <member refid="namespace_math_opt_1a81f3217167710fd7c3d4211658cfa5d6" kind="function"><name>operator&lt;&lt;</name></member>
   </compound>
   <compound refid="namespace_models" kind="namespace"><name>Models</name>
     <member refid="namespace_models_1a8fcea6b0a4c8c1403d8151c8a85f02c4" kind="enum"><name>TaxType</name></member>
@@ -751,6 +750,8 @@
     <member refid="namespace_utils_1a048882f6fb236cfd507d3b091c7aa831" kind="function"><name>appendRead</name></member>
     <member refid="namespace_utils_1a6b312d0a6805b263fbf4e3219d27ba13" kind="function"><name>vecToNum</name></member>
     <member refid="namespace_utils_1a3e6fb0ca43609e12a88d037acfd84d2d" kind="function"><name>numToVec</name></member>
+    <member refid="namespace_utils_1a11aefd04593b7eba9a60fe5a003eccb3" kind="function"><name>isZero</name></member>
+    <member refid="namespace_utils_1aa580da91e3cbe8df451f84747c1e2872" kind="function"><name>isZero</name></member>
   </compound>
   <compound refid="epec__algorithms_8h" kind="file"><name>epec_algorithms.h</name>
   </compound>
@@ -766,15 +767,13 @@
   </compound>
   <compound refid="ipg__oracle_8h" kind="file"><name>ipg_oracle.h</name>
   </compound>
-  <compound refid="_e_p_e_c__test_8h" kind="file"><name>EPEC_test.h</name>
+  <compound refid="epec_8h" kind="file"><name>epec.h</name>
   </compound>
   <compound refid="games_8h" kind="file"><name>games.h</name>
   </compound>
   <compound refid="ipg_8h" kind="file"><name>ipg.h</name>
   </compound>
   <compound refid="nash_8h" kind="file"><name>nash.h</name>
-  </compound>
-  <compound refid="qpmp_8h" kind="file"><name>qpmp.h</name>
   </compound>
   <compound refid="epec__models_8h" kind="file"><name>epec_models.h</name>
     <member refid="epec__models_8h_1a0cb07b2258983336a21ed1a2cdaffd9e" kind="function"><name>to_string</name></member>
@@ -786,6 +785,14 @@
   <compound refid="outer__lcp_8h" kind="file"><name>outer_lcp.h</name>
   </compound>
   <compound refid="poly__lcp_8h" kind="file"><name>poly_lcp.h</name>
+  </compound>
+  <compound refid="mathopt_8h" kind="file"><name>mathopt.h</name>
+  </compound>
+  <compound refid="ip__param_8h" kind="file"><name>ip_param.h</name>
+  </compound>
+  <compound refid="mp__param_8h" kind="file"><name>mp_param.h</name>
+  </compound>
+  <compound refid="qp__param_8h" kind="file"><name>qp_param.h</name>
   </compound>
   <compound refid="codes_8h" kind="file"><name>codes.h</name>
     <member refid="codes_8h_1adc92fa8b12e5abec0a79ad40bedc1ccf" kind="enum"><name>ZEROStatus</name></member>
@@ -848,9 +855,6 @@
   </compound>
   <compound refid="nash_8cpp" kind="file"><name>nash.cpp</name>
   </compound>
-  <compound refid="qpmp_8cpp" kind="file"><name>qpmp.cpp</name>
-    <member refid="qpmp_8cpp_1a185c4d44ddefa06e6ca35f0c5e13c3e3" kind="function"><name>operator&lt;&lt;</name></member>
-  </compound>
   <compound refid="epec__models_8cpp" kind="file"><name>epec_models.cpp</name>
     <member refid="epec__models_8cpp_1a068bbe67e10741d18e41e9390ecd95b0" kind="function"><name>operator+</name></member>
     <member refid="epec__models_8cpp_1ac1662fe1a2beec43dc10c18c10ff00d2" kind="function"><name>to_string</name></member>
@@ -865,6 +869,14 @@
     <member refid="poly__lcp_8cpp_1a7081ce5a943e65900f98444637bcb7c1" kind="function"><name>operator&lt;</name></member>
     <member refid="poly__lcp_8cpp_1a71a85978f94cee44e3edd97887a3126c" kind="function"><name>operator&gt;</name></member>
   </compound>
+  <compound refid="mathopt_8cpp" kind="file"><name>mathopt.cpp</name>
+  </compound>
+  <compound refid="ip__param_8cpp" kind="file"><name>ip_param.cpp</name>
+  </compound>
+  <compound refid="mp__param_8cpp" kind="file"><name>mp_param.cpp</name>
+  </compound>
+  <compound refid="qp__param_8cpp" kind="file"><name>qp_param.cpp</name>
+  </compound>
   <compound refid="codes_8cpp" kind="file"><name>codes.cpp</name>
   </compound>
   <compound refid="utils_8cpp" kind="file"><name>utils.cpp</name>
@@ -875,13 +887,13 @@
   </compound>
   <compound refid="todo" kind="page"><name>todo</name>
   </compound>
-  <compound refid="dir_6b92e76864548cad5abed9ff7db49a2b" kind="dir"><name>include/algorithms</name>
+  <compound refid="dir_eab76fda721d10d1611c1a97cca6ef20" kind="dir"><name>include/games/algorithms</name>
   </compound>
-  <compound refid="dir_e6df591b0639d4c4807ef64d058833e2" kind="dir"><name>src/algorithms</name>
+  <compound refid="dir_e3bf570b413179f513c8cd689f572a8b" kind="dir"><name>src/games/algorithms</name>
   </compound>
-  <compound refid="dir_7315358a64ef79cb6fd6498d0b8241d2" kind="dir"><name>src/algorithms/EPEC</name>
+  <compound refid="dir_3dd518168d0cd1a7729f67d54235ff66" kind="dir"><name>include/games/algorithms/EPEC</name>
   </compound>
-  <compound refid="dir_c1dc270182fa92ea108ba140c31593a9" kind="dir"><name>include/algorithms/EPEC</name>
+  <compound refid="dir_2df90e25cc98651fe37dcd78abb5687c" kind="dir"><name>src/games/algorithms/EPEC</name>
   </compound>
   <compound refid="dir_46067384b2eb3ec16f46ec75fab7dc96" kind="dir"><name>include/games</name>
   </compound>
@@ -889,24 +901,32 @@
   </compound>
   <compound refid="dir_d44c64559bbebec7f509842c48db8b23" kind="dir"><name>include</name>
   </compound>
-  <compound refid="dir_b6a1b25c97174b03ee33ad89b32089b9" kind="dir"><name>include/interfaces</name>
-  </compound>
   <compound refid="dir_ee3f1a7951c308657a65f8199076c1d6" kind="dir"><name>src/interfaces</name>
   </compound>
-  <compound refid="dir_1f6231d3c68a8afd6659626f02bf7252" kind="dir"><name>include/algorithms/IPG</name>
+  <compound refid="dir_b6a1b25c97174b03ee33ad89b32089b9" kind="dir"><name>include/interfaces</name>
   </compound>
-  <compound refid="dir_504afe389aed229a36c1c5275273359a" kind="dir"><name>src/algorithms/IPG</name>
+  <compound refid="dir_b62316454a59925fae7b4f30769646f6" kind="dir"><name>include/games/algorithms/IPG</name>
   </compound>
-  <compound refid="dir_447dff130ee83231751cde8e4aa98d0f" kind="dir"><name>include/lcp</name>
+  <compound refid="dir_a9408a301005247e86186509d571beae" kind="dir"><name>src/games/algorithms/IPG</name>
   </compound>
-  <compound refid="dir_9ad71e3832d8aa789cf24e53918372b9" kind="dir"><name>src/lcp</name>
+  <compound refid="dir_42b94082d3450fd522568c46ff128ec4" kind="dir"><name>include/mathopt/lcp</name>
+  </compound>
+  <compound refid="dir_ba3e9b780e5df08903cef6dbae262c72" kind="dir"><name>src/mathopt/lcp</name>
+  </compound>
+  <compound refid="dir_e9db9d455d19d7d8c954043f7e170d9d" kind="dir"><name>src/mathopt</name>
+  </compound>
+  <compound refid="dir_2c35ab32983b2b588a5ce4f0f891c74b" kind="dir"><name>include/mathopt</name>
+  </compound>
+  <compound refid="dir_4739b04952666c599952ee698373b1b1" kind="dir"><name>src/mathopt/mp_param</name>
+  </compound>
+  <compound refid="dir_4b2c62b85a843cab9f572cd5c66f8b21" kind="dir"><name>include/mathopt/mp_param</name>
   </compound>
   <compound refid="dir_29b860e9c9ac690763981c5841b0b243" kind="dir"><name>src/shells</name>
   </compound>
   <compound refid="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir"><name>src</name>
   </compound>
-  <compound refid="dir_021c64f412f6b3b6708367bb6d6ca209" kind="dir"><name>src/support</name>
-  </compound>
   <compound refid="dir_9cc744cbadd04295c89741230f7690b9" kind="dir"><name>include/support</name>
+  </compound>
+  <compound refid="dir_021c64f412f6b3b6708367bb6d6ca209" kind="dir"><name>src/support</name>
   </compound>
 </doxygenindex>

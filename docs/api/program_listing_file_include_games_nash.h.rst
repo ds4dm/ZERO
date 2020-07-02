@@ -10,6 +10,19 @@ Program Listing for File nash.h
 
 .. code-block:: cpp
 
+   /* #############################################
+    *             This file is part of
+    *                    ZERO
+    *
+    *             Copyright (c) 2020
+    *     Released under the Creative Commons
+    *        Zero v1.0 Universal License
+    *
+    *              Find out more at
+    *        https://github.com/ds4dm/ZERO
+    * #############################################*/
+   
+   
    #pragma once
    #include "zero.h"
    #include <armadillo>
@@ -23,12 +36,12 @@ Program Listing for File nash.h
      class NashGame {
      private:
         GRBEnv *     Env = nullptr;
-        arma::sp_mat LeaderConstraints;                        
-        arma::vec    LeaderConstraintsRHS;                     
-        unsigned int NumPlayers;                               
-        std::vector<std::shared_ptr<QP_Param>> Players;        
-        arma::sp_mat                           MarketClearing; 
-        arma::vec                              MCRHS; 
+        arma::sp_mat LeaderConstraints;                          
+        arma::vec    LeaderConstraintsRHS;                       
+        unsigned int NumPlayers;                                 
+        std::vector<std::shared_ptr<MathOpt::QP_Param>> Players; 
+        arma::sp_mat                                    MarketClearing; 
+        arma::vec MCRHS; 
    
         std::vector<unsigned int> PrimalPosition;
         std::vector<unsigned int> DualPosition;
@@ -41,13 +54,13 @@ Program Listing for File nash.h
      public: // Constructors
         explicit NashGame(GRBEnv *e) noexcept : Env{e} {};
    
-        explicit NashGame(GRBEnv *                               e,
-                                std::vector<std::shared_ptr<QP_Param>> players,
-                                arma::sp_mat                           MC,
-                                arma::vec                              MCRHS,
-                                unsigned int                           nLeadVar = 0,
-                                arma::sp_mat                           leadA    = {},
-                                arma::vec                              leadRHS  = {});
+        explicit NashGame(GRBEnv *                                        e,
+                                std::vector<std::shared_ptr<MathOpt::QP_Param>> players,
+                                arma::sp_mat                                    MC,
+                                arma::vec                                       MCRHS,
+                                unsigned int                                    nLeadVar = 0,
+                                arma::sp_mat                                    leadA    = {},
+                                arma::vec                                       leadRHS  = {});
    
         // Copy constructor
         NashGame(const NashGame &N);
@@ -77,7 +90,7 @@ Program Listing for File nash.h
         inline unsigned int getNprimals() const {
            /***
             * Number of primal variables is the sum of the "y" variables present in
-            * each player's Game::QP_Param
+            * each player's MathOpt::QP_Param
             */
            return this->PrimalPosition.back();
         }
@@ -144,9 +157,8 @@ Program Listing for File nash.h
         arma::vec computeQPObjectiveValuesWithoutOthers(const arma::vec &x) const;
      };
    
-     std::ostream &operator<<(std::ostream &os, const QP_Param &Q);
+     std::ostream &operator<<(std::ostream &os, const MathOpt::QP_Param &Q);
    
      std::ostream &operator<<(std::ostream &ost, const perps &C);
    
-     void print(const perps &C) noexcept;
    } // namespace Game

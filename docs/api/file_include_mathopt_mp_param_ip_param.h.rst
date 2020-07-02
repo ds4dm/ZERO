@@ -1,0 +1,80 @@
+
+.. _file_include_mathopt_mp_param_ip_param.h:
+
+File ip_param.h
+===============
+
+|exhale_lsh| :ref:`Parent directory <dir_include_mathopt_mp_param>` (``include/mathopt/mp_param``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``include/mathopt/mp_param/ip_param.h``)
+----------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file_include_mathopt_mp_param_ip_param.h.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``armadillo``
+
+- ``gurobi_c++.h``
+
+- ``iostream``
+
+- ``memory``
+
+- ``set``
+
+- ``string``
+
+- ``support/codes.h`` (:ref:`file_include_support_codes.h`)
+
+- ``zero.h`` (:ref:`file_include_zero.h`)
+
+
+
+Included By
+-----------
+
+
+- :ref:`file_src_mathopt_mp_param_ip_param.cpp`
+
+- :ref:`file_include_mathopt_mp_param_mp_param.h`
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_MathOpt`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_class_math_opt_1_1_i_p___param`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespace_math_opt_1aedd7c328cf667c15244fec225b90a65d`
+

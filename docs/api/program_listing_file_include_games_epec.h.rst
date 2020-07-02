@@ -1,0 +1,211 @@
+
+.. _program_listing_file_include_games_epec.h:
+
+Program Listing for File epec.h
+===============================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_games_epec.h>` (``include/games/epec.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /* #############################################
+    *             This file is part of
+    *                    ZERO
+    *
+    *             Copyright (c) 2020
+    *     Released under the Creative Commons
+    *        Zero v1.0 Universal License
+    *
+    *              Find out more at
+    *        https://github.com/ds4dm/ZERO
+    * #############################################*/
+   
+   
+   #pragma once
+   #include "support/codes.h"
+   #include "zero.h"
+   #include <armadillo>
+   #include <gurobi_c++.h>
+   #include <iostream>
+   #include <memory>
+   #include <set>
+   #include <string>
+   
+   namespace Data {
+     namespace EPEC {
+   
+        enum class Algorithms {
+           FullEnumeration, 
+           InnerApproximation, 
+           CombinatorialPne, 
+           OuterApproximation 
+        };
+   
+        enum class RecoverStrategy {
+           IncrementalEnumeration, 
+           Combinatorial           
+        };
+   
+        class DataObject : public ZEROAlgorithmData {
+        public:
+           Attr<Data::EPEC::Algorithms> Algorithm = {
+                Data::EPEC::Algorithms::FullEnumeration}; 
+           Attr<Data::EPEC::RecoverStrategy> RecoverStrategy = {
+                Data::EPEC::RecoverStrategy::IncrementalEnumeration}; 
+           Attr<Data::LCP::PolyhedraStrategy>
+                                    PolyhedraStrategy; 
+           Attr<unsigned int> Aggressiveness{
+                1}; 
+           Attr<std::vector<unsigned int>> FeasiblePolyhedra =
+                std::vector<unsigned int>(); 
+           Attr<bool> BoundPrimals{false};  
+           Attr<double> BoundBigM{1e5};           
+           Attr<int>    LostIntermediateEq = {0}; 
+           DataObject() : PolyhedraStrategy{static_cast<LCP::PolyhedraStrategy>(0)} {};
+        };
+   
+     } // namespace EPEC
+   } // namespace Data
+   
+   namespace Game {
+   
+     class EPEC : public AbstractGame<Data::EPEC::DataObject> {
+     private:
+        std::shared_ptr<Algorithms::EPEC::Algorithm> Algorithm{};
+        std::vector<unsigned int>                    SizesWithoutHull{};
+        std::unique_ptr<MathOpt::LCP>                TheLCP; 
+        std::unique_ptr<GRBModel> LCPModel;     
+        std::unique_ptr<GRBModel> LCPModelBase; 
+     protected:
+        std::vector<std::shared_ptr<Game::NashGame>> PlayersLowerLevels{};
+        std::vector<std::shared_ptr<MathOpt::LCP>>   PlayersLCP{};
+   
+        std::vector<std::shared_ptr<MathOpt::QP_Param>>
+             PlayersQP{}; 
+        std::vector<std::shared_ptr<MathOpt::QP_Objective>>
+             LeaderObjective{}; 
+        std::vector<std::shared_ptr<MathOpt::QP_Objective>>
+             LeaderObjectiveConvexHull{}; 
+   
+        std::unique_ptr<Game::NashGame> TheNashGame; 
+   
+        std::vector<unsigned int> LeaderLocations{}; 
+        std::vector<const unsigned int *> LocEnds{};
+        std::vector<unsigned int>         ConvexHullVariables{};
+        unsigned int                      numMCVariables{0};
+   
+        bool      Finalized{false};
+        arma::vec SolutionZ,         
+             SolutionX;               
+        bool warmstart(arma::vec x); 
+   
+     private:
+        void       addDummyLead(unsigned int i); 
+        const void makePlayerQP(unsigned int i);
+   
+        void makePlayersQPs();
+   
+        void makeTheLCP();
+   
+        void computeLeaderLocations(unsigned int addSpaceForMC = 0);
+   
+        void getXMinusI(const arma::vec &x, const unsigned int &i, arma::vec &solOther) const;
+   
+        bool computeNashEq(bool pureNE = false, double localTimeLimit = -1.0, bool check = false);
+   
+     protected:
+        // virtual function to be implemented by the inheritor.
+        virtual void makeObjectivePlayer(const unsigned int i, MathOpt::QP_Objective &QP_obj) = 0;
+   
+        // virtual function to be optionally implemented by the inheritor.
+        virtual void preFinalize();
+   
+        virtual void postFinalize();
+   
+        virtual void updateLocations() = 0; // If any location tracking system is implemented, that
+        // can be called from in here.
+        virtual void makeMCConstraints(arma::sp_mat &MC, arma::vec &RHS) const {
+           MC.zeros();
+           RHS.zeros();
+        };
+   
+     public: // functions
+        // Friends algorithmic classes
+        friend class Algorithms::EPEC::PolyBase;
+   
+        friend class Algorithms::EPEC::InnerApproximation;
+   
+        friend class Algorithms::EPEC::OuterApproximation;
+   
+        friend class Algorithms::EPEC::CombinatorialPNE;
+   
+        friend class Algorithms::EPEC::FullEnumeration;
+   
+        EPEC(GRBEnv *env) { this->Env = env; };
+   
+        void finalize();
+   
+        // Override AbstractGame methods
+        const void findNashEq() override;
+        bool       isSolved(double tol = 1e-5) const override;
+        bool       isPureStrategy(double tol = 1e-5) const override;
+   
+        std::unique_ptr<GRBModel> respond(const unsigned int i, const arma::vec &x) const;
+   
+        double respondSol(arma::vec &      sol,
+                                unsigned int     player,
+                                const arma::vec &x,
+                                const arma::vec &prevDev = {}) const;
+   
+        const arma::vec getX() const { return this->SolutionX; }
+   
+        void reset() { this->SolutionX.ones(); }
+   
+        const arma::vec getZ() const { return this->SolutionZ; }
+   
+        void setAlgorithm(Data::EPEC::Algorithms algorithm);
+   
+        void setRecoverStrategy(Data::EPEC::RecoverStrategy strategy);
+   
+        void setAggressiveness(unsigned int a) { this->Stats.AlgorithmData.Aggressiveness = a; }
+   
+        void setBoundPrimals(bool val) { this->Stats.AlgorithmData.BoundPrimals.set(val); }
+   
+        void setBoundBigM(double val) { this->Stats.AlgorithmData.BoundBigM.set(val); }
+   
+        void setAddPolyMethod(Data::LCP::PolyhedraStrategy add) {
+           this->Stats.AlgorithmData.PolyhedraStrategy.set(add);
+        }
+        // Methods to get positions of variables
+        // The below are all const functions which return an unsigned int.
+   
+        unsigned int getPositionLeadFoll(unsigned int i, unsigned int j) const;
+   
+        unsigned int getPositionLeadLead(unsigned int i, unsigned int j) const;
+   
+        // The following obtain the variable values
+        double getValLeadFoll(unsigned int i, unsigned int j) const;
+   
+        double getValLeadLead(unsigned int i, unsigned int j) const;
+   
+        const MathOpt::LCP &getLCPDescription() const { return *this->TheLCP.get(); }
+   
+        const GRBModel &getLCPModel() const { return *this->LCPModel.get(); }
+   
+        void writeLCPModel(const std::string &filename) const { this->LCPModel->write(filename); }
+   
+        void getXWithoutHull(const arma::vec &x, arma::vec &xWithoutHull) const;
+        void
+        getXofI(const arma::vec &x, const unsigned int &i, arma::vec &solI, bool hull = false) const;
+     };
+   }; // namespace Game
+   
+   namespace std {
+   
+     string to_string(Data::EPEC::Algorithms al);
+   
+     string to_string(Data::EPEC::RecoverStrategy st);
+   
+   }; // namespace std

@@ -31,10 +31,6 @@ Includes
 
 - ``armadillo``
 
-- ``boost/log/trivial.hpp``
-
-- ``iostream``
-
 - ``zero.h`` (:ref:`file_include_zero.h`)
 
 

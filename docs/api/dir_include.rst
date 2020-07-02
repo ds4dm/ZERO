@@ -10,10 +10,9 @@ Directory include
 Subdirectories
 --------------
 
-- :ref:`dir_include_algorithms`
 - :ref:`dir_include_games`
 - :ref:`dir_include_interfaces`
-- :ref:`dir_include_lcp`
+- :ref:`dir_include_mathopt`
 - :ref:`dir_include_support`
 
 

@@ -11,6 +11,11 @@ Directory games
 
 *Directory path:* ``src/games``
 
+Subdirectories
+--------------
+
+- :ref:`dir_src_games_algorithms`
+
 
 Files
 -----
@@ -19,6 +24,5 @@ Files
 - :ref:`file_src_games_games.cpp`
 - :ref:`file_src_games_ipg.cpp`
 - :ref:`file_src_games_nash.cpp`
-- :ref:`file_src_games_qpmp.cpp`
 
 

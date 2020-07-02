@@ -1,0 +1,13 @@
+.. _exhale_function_namespace_math_opt_1aedd7c328cf667c15244fec225b90a65d:
+
+Function MathOpt::operator<<(std::ostream&, const IP_Param&)
+============================================================
+
+- Defined in :ref:`file_include_mathopt_mp_param_ip_param.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: MathOpt::operator<<(std::ostream&, const IP_Param&)

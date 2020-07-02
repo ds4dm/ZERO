@@ -1,0 +1,22 @@
+.. _dir_src_mathopt_mp_param:
+
+
+Directory param
+===============
+
+
+|exhale_lsh| :ref:`Parent directory <dir_src_mathopt>` (``src/mathopt``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+*Directory path:* ``src/mathopt/mp_param``
+
+
+Files
+-----
+
+- :ref:`file_src_mathopt_mp_param_ip_param.cpp`
+- :ref:`file_src_mathopt_mp_param_mp_param.cpp`
+- :ref:`file_src_mathopt_mp_param_qp_param.cpp`
+
+

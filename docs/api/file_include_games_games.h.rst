@@ -31,6 +31,12 @@ Includes
 
 - ``armadillo``
 
+- ``games/epec.h`` (:ref:`file_include_games_epec.h`)
+
+- ``games/ipg.h`` (:ref:`file_include_games_ipg.h`)
+
+- ``games/nash.h`` (:ref:`file_include_games_nash.h`)
+
 - ``iostream``
 
 - ``memory``
@@ -39,7 +45,7 @@ Includes
 
 - ``string``
 
-- ``zero.h`` (:ref:`file_include_zero.h`)
+- ``support/codes.h`` (:ref:`file_include_support_codes.h`)
 
 
 
@@ -63,31 +69,5 @@ Classes
 -------
 
 
-- :ref:`exhale_struct_struct_game_1_1_q_p___constraints`
-
-- :ref:`exhale_struct_struct_game_1_1_q_p___objective`
-
-
-Functions
----------
-
-
-- :ref:`exhale_function_namespace_game_1a4e0a017b2135a46c9e20866274e1127d`
-
-- :ref:`exhale_function_namespace_game_1ab51edb9870dec0f53df966c51ac8221f`
-
-- :ref:`exhale_function_namespace_game_1a33e82b9df7ee413620f2b5d26c289f98`
-
-- :ref:`exhale_function_namespace_game_1a1c0adf3888db1939dc071c64c6e80d3f`
-
-- :ref:`exhale_function_namespace_game_1a26d63d30b983cbd740dd5a7037a1f9b6`
-
-
-Typedefs
---------
-
-
-- :ref:`exhale_typedef_namespace_game_1a8529ffcabd12b5c6d7292f4dd6fe42cc`
-
-- :ref:`exhale_typedef_namespace_game_1a541b6d502d1d6b4c9f6a149826bdfc2f`
+- :ref:`exhale_class_class_game_1_1_abstract_game`
 

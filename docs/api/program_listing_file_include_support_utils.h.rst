@@ -10,6 +10,19 @@ Program Listing for File utils.h
 
 .. code-block:: cpp
 
+   /* #############################################
+    *             This file is part of
+    *                    ZERO
+    *
+    *             Copyright (c) 2020
+    *     Released under the Creative Commons
+    *        Zero v1.0 Universal License
+    *
+    *              Find out more at
+    *        https://github.com/ds4dm/ZERO
+    * #############################################*/
+   
+   
    #pragma once
    
    #include "zero.h"
@@ -96,6 +109,10 @@ Program Listing for File utils.h
      unsigned long int vecToNum(std::vector<short int> binary);
    
      std::vector<short int> numToVec(unsigned long int number, const unsigned long nCompl);
+   
+     bool isZero(arma::mat M, double tol = 1e-6) noexcept;
+   
+     bool isZero(arma::sp_mat M, double tol = 1e-6) noexcept;
    
    } // namespace Utils
    

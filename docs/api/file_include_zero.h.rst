@@ -31,19 +31,13 @@ Includes
 
 - ``armadillo``
 
-- ``games/EPEC_test.h`` (:ref:`file_include_games_EPEC_test.h`)
-
 - ``games/games.h`` (:ref:`file_include_games_games.h`)
-
-- ``games/nash.h`` (:ref:`file_include_games_nash.h`)
-
-- ``games/qpmp.h`` (:ref:`file_include_games_qpmp.h`)
 
 - ``iostream``
 
-- ``lcp/lcp.h`` (:ref:`file_include_lcp_lcp.h`)
-
 - ``map``
+
+- ``mathopt/mathopt.h`` (:ref:`file_include_mathopt_mathopt.h`)
 
 - ``memory``
 
@@ -63,43 +57,55 @@ Included By
 -----------
 
 
-- :ref:`file_src_algorithms_EPEC_epec_innerapproximation.cpp`
+- :ref:`file_src_games_algorithms_EPEC_epec_innerapproximation.cpp`
 
-- :ref:`file_src_algorithms_EPEC_epec_polybase.cpp`
+- :ref:`file_src_games_algorithms_EPEC_epec_polybase.cpp`
+
+- :ref:`file_src_games_algorithms_IPG_ipg_oracle.cpp`
 
 - :ref:`file_src_games_epec.cpp`
 
 - :ref:`file_src_games_games.cpp`
 
-- :ref:`file_include_lcp_lcp.h`
-
-- :ref:`file_src_lcp_poly_lcp.cpp`
+- :ref:`file_src_mathopt_lcp_poly_lcp.cpp`
 
 - :ref:`file_src_shells_epec.cpp`
 
-- :ref:`file_include_algorithms_EPEC_epec_algorithms.h`
+- :ref:`file_include_games_algorithms_EPEC_epec_algorithms.h`
 
-- :ref:`file_include_algorithms_EPEC_epec_polybase.h`
+- :ref:`file_include_games_algorithms_EPEC_epec_outerapproximation.h`
 
-- :ref:`file_include_algorithms_EPEC_epec_outerapproximation.h`
+- :ref:`file_include_games_algorithms_EPEC_epec_polybase.h`
 
-- :ref:`file_include_algorithms_IPG_ipg_oracle.h`
+- :ref:`file_include_games_algorithms_EPEC_epec_combinatorialpne.h`
 
-- :ref:`file_include_games_EPEC_test.h`
+- :ref:`file_include_games_algorithms_EPEC_epec_fullenumeration.h`
 
-- :ref:`file_include_games_games.h`
+- :ref:`file_include_games_algorithms_EPEC_epec_innerapproximation.h`
+
+- :ref:`file_include_games_algorithms_IPG_ipg_oracle.h`
+
+- :ref:`file_include_games_epec.h`
 
 - :ref:`file_include_games_ipg.h`
 
 - :ref:`file_include_games_nash.h`
 
-- :ref:`file_include_games_qpmp.h`
-
 - :ref:`file_include_interfaces_epec_models.h`
 
-- :ref:`file_include_lcp_outer_lcp.h`
+- :ref:`file_include_mathopt_lcp_lcp.h`
 
-- :ref:`file_include_lcp_poly_lcp.h`
+- :ref:`file_include_mathopt_lcp_outer_lcp.h`
+
+- :ref:`file_include_mathopt_lcp_poly_lcp.h`
+
+- :ref:`file_include_mathopt_mathopt.h`
+
+- :ref:`file_include_mathopt_mp_param_ip_param.h`
+
+- :ref:`file_include_mathopt_mp_param_mp_param.h`
+
+- :ref:`file_include_mathopt_mp_param_qp_param.h`
 
 - :ref:`file_include_support_utils.h`
 
@@ -120,9 +126,13 @@ Namespaces
 
 - :ref:`namespace_Data__EPEC`
 
+- :ref:`namespace_Data__IPG`
+
 - :ref:`namespace_Data__LCP`
 
 - :ref:`namespace_Game`
+
+- :ref:`namespace_MathOpt`
 
 
 Functions

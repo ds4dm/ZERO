@@ -19,7 +19,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_algorithms.h" line="23" column="13" bodyfile="include/algorithms/EPEC/epec_algorithms.h" bodystart="23" bodyend="-1"/>
+        <location file="include/games/algorithms/EPEC/epec_algorithms.h" line="35" column="13" bodyfile="include/games/algorithms/EPEC/epec_algorithms.h" bodystart="35" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" prot="protected" static="no" mutable="no">
         <type><ref refid="class_game_1_1_e_p_e_c" kindref="compound">Game::EPEC</ref> *</type>
@@ -33,7 +33,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_algorithms.h" line="24" column="13" bodyfile="include/algorithms/EPEC/epec_algorithms.h" bodystart="24" bodyend="-1"/>
+        <location file="include/games/algorithms/EPEC/epec_algorithms.h" line="36" column="13" bodyfile="include/games/algorithms/EPEC/epec_algorithms.h" bodystart="36" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -51,7 +51,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_algorithms.h" line="25" column="14"/>
+        <location file="include/games/algorithms/EPEC/epec_algorithms.h" line="37" column="14"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -71,7 +71,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_algorithms.h" line="28" column="14"/>
+        <location file="include/games/algorithms/EPEC/epec_algorithms.h" line="40" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1a596d3003e279074929df8118e6bdd5e2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
         <type>bool</type>
@@ -93,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_algorithms.h" line="30" column="1"/>
+        <location file="include/games/algorithms/EPEC/epec_algorithms.h" line="42" column="1"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1a0321c963e7d9b76815e0e3eb54655912" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
         <type>bool</type>
@@ -115,7 +115,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_algorithms.h" line="32" column="14"/>
+        <location file="include/games/algorithms/EPEC/epec_algorithms.h" line="44" column="14"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -160,42 +160,42 @@
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="10">
+      <node id="11">
         <label>Attr&lt; std::vector&lt; unsigned int &gt; &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="3">
+      <node id="4">
         <label>ZEROStatistics&lt; Data::EPEC::DataObject &gt;</label>
         <link refid="struct_z_e_r_o_statistics"/>
-        <childnode refid="4" relation="usage">
+        <childnode refid="5" relation="usage">
           <edgelabel>WallClockTime</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>AlgorithmData</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="9" relation="usage">
           <edgelabel>NumConstraints</edgelabel>
           <edgelabel>NumNonZero</edgelabel>
           <edgelabel>NumIterations</edgelabel>
           <edgelabel>NumVar</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>PureNashEquilibrium</edgelabel>
           <edgelabel>NumericalIssues</edgelabel>
         </childnode>
-        <childnode refid="15" relation="usage">
+        <childnode refid="16" relation="usage">
           <edgelabel>Status</edgelabel>
         </childnode>
       </node>
-      <node id="15">
+      <node id="16">
         <label>Attr&lt; ZEROStatus &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="8">
+      <node id="9">
         <label>Attr&lt; int &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="14">
+      <node id="15">
         <label>Attr&lt; Data::LCP::PolyhedraStrategy &gt;</label>
         <link refid="class_attr"/>
       </node>
@@ -206,87 +206,93 @@
           <edgelabel>EPECObject</edgelabel>
         </childnode>
       </node>
-      <node id="13">
+      <node id="14">
         <label>Attr&lt; Data::EPEC::Algorithms &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="9">
+      <node id="10">
         <label>Attr&lt; bool &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="5">
+      <node id="6">
         <label>Data::EPEC::DataObject</label>
         <link refid="class_data_1_1_e_p_e_c_1_1_data_object"/>
-        <childnode refid="6" relation="public-inheritance">
+        <childnode refid="7" relation="public-inheritance">
         </childnode>
-        <childnode refid="4" relation="usage">
+        <childnode refid="5" relation="usage">
           <edgelabel>BoundBigM</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>FeasiblePolyhedra</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="9" relation="usage">
           <edgelabel>LostIntermediateEq</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>Aggressiveness</edgelabel>
         </childnode>
-        <childnode refid="12" relation="usage">
+        <childnode refid="13" relation="usage">
           <edgelabel>RecoverStrategy</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>BoundPrimals</edgelabel>
         </childnode>
-        <childnode refid="13" relation="usage">
+        <childnode refid="14" relation="usage">
           <edgelabel>Algorithm</edgelabel>
         </childnode>
-        <childnode refid="14" relation="usage">
+        <childnode refid="15" relation="usage">
           <edgelabel>PolyhedraStrategy</edgelabel>
         </childnode>
       </node>
       <node id="2">
         <label>Game::EPEC</label>
         <link refid="class_game_1_1_e_p_e_c"/>
-        <childnode refid="3" relation="usage">
-          <edgelabel>Stats</edgelabel>
+        <childnode refid="3" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="11">
+      <node id="12">
         <label>Attr&lt; unsigned int &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="4">
+      <node id="5">
         <label>Attr&lt; double &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="6">
+      <node id="7">
         <label>ZEROAlgorithmData</label>
         <link refid="class_z_e_r_o_algorithm_data"/>
-        <childnode refid="4" relation="usage">
+        <childnode refid="5" relation="usage">
           <edgelabel>DeviationTolerance</edgelabel>
           <edgelabel>TimeLimit</edgelabel>
         </childnode>
-        <childnode refid="7" relation="usage">
+        <childnode refid="8" relation="usage">
           <edgelabel>RandomSeed</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="9" relation="usage">
           <edgelabel>Threads</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>PureNashEquilibrium</edgelabel>
           <edgelabel>IndicatorConstraints</edgelabel>
         </childnode>
       </node>
-      <node id="7">
+      <node id="8">
         <label>Attr&lt; unsigned long int &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="12">
+      <node id="3">
+        <label>Game::AbstractGame&lt; Data::EPEC::DataObject &gt;</label>
+        <link refid="class_game_1_1_abstract_game"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>Stats</edgelabel>
+        </childnode>
+      </node>
+      <node id="13">
         <label>Attr&lt; Data::EPEC::RecoverStrategy &gt;</label>
         <link refid="class_attr"/>
       </node>
     </collaborationgraph>
-    <location file="include/algorithms/EPEC/epec_algorithms.h" line="17" column="17" bodyfile="include/algorithms/EPEC/epec_algorithms.h" bodystart="17" bodyend="35"/>
+    <location file="include/games/algorithms/EPEC/epec_algorithms.h" line="29" column="17" bodyfile="include/games/algorithms/EPEC/epec_algorithms.h" bodystart="29" bodyend="47"/>
     <listofallmembers>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1aad636a41bb0353f0c632430b6fb20937" prot="protected" virt="non-virtual"><scope>Algorithms::EPEC::Algorithm</scope><name>Env</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" prot="protected" virt="non-virtual"><scope>Algorithms::EPEC::Algorithm</scope><name>EPECObject</name></member>

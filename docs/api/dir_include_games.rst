@@ -11,14 +11,18 @@ Directory games
 
 *Directory path:* ``include/games``
 
+Subdirectories
+--------------
+
+- :ref:`dir_include_games_algorithms`
+
 
 Files
 -----
 
-- :ref:`file_include_games_EPEC_test.h`
+- :ref:`file_include_games_epec.h`
 - :ref:`file_include_games_games.h`
 - :ref:`file_include_games_ipg.h`
 - :ref:`file_include_games_nash.h`
-- :ref:`file_include_games_qpmp.h`
 
 

@@ -10,6 +10,19 @@ Program Listing for File utils.cpp
 
 .. code-block:: cpp
 
+   /* #############################################
+    *             This file is part of
+    *                    ZERO
+    *
+    *             Copyright (c) 2020
+    *     Released under the Creative Commons
+    *        Zero v1.0 Universal License
+    *
+    *              Find out more at
+    *        https://github.com/ds4dm/ZERO
+    * #############################################*/
+   
+   
    #include "support/utils.h"
    #include <armadillo>
    #include <boost/log/trivial.hpp>
@@ -372,4 +385,16 @@ Program Listing for File utils.cpp
         norm = min;
    
      return input / norm;
+   }
+   
+   
+   bool Utils::isZero(arma::mat M, double tol) noexcept {
+     return (arma::min(arma::min(abs(M))) <= tol);
+   }
+   
+   bool Utils::isZero(arma::sp_mat M, double tol) noexcept {
+     if (M.n_nonzero == 0)
+        return true;
+   
+     return (arma::min(arma::min(abs(M))) <= tol);
    }

@@ -3,7 +3,7 @@
 Class CombinatorialPNE
 ======================
 
-- Defined in :ref:`file_include_algorithms_EPEC_epec_combinatorialpne.h`
+- Defined in :ref:`file_include_games_algorithms_EPEC_epec_combinatorialpne.h`
 
 
 Inheritance Relationships

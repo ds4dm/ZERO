@@ -3,7 +3,7 @@
 Enum RecoverStrategy
 ====================
 
-- Defined in :ref:`file_include_games_EPEC_test.h`
+- Defined in :ref:`file_include_games_epec.h`
 
 
 Enum Documentation

@@ -3,7 +3,7 @@
 Class OuterApproximation
 ========================
 
-- Defined in :ref:`file_include_algorithms_EPEC_epec_outerapproximation.h`
+- Defined in :ref:`file_include_games_algorithms_EPEC_epec_outerapproximation.h`
 
 
 Inheritance Relationships

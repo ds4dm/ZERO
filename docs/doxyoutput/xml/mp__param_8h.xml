@@ -1,0 +1,768 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="mp__param_8h" kind="file" language="C++">
+    <compoundname>mp_param.h</compoundname>
+    <includes refid="zero_8h" local="yes">zero.h</includes>
+    <includes local="no">armadillo</includes>
+    <includes local="no">gurobi_c++.h</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">memory</includes>
+    <includes local="no">set</includes>
+    <includes local="no">string</includes>
+    <includes refid="ip__param_8h" local="yes">ip_param.h</includes>
+    <includes refid="qp__param_8h" local="yes">qp_param.h</includes>
+    <includedby refid="mp__param_8cpp" local="yes">src/mathopt/mp_param/mp_param.cpp</includedby>
+    <includedby refid="mathopt_8h" local="yes">include/mathopt/mathopt.h</includedby>
+    <incdepgraph>
+      <node id="17">
+        <label>games/epec.h</label>
+        <link refid="epec_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>support/utils.h</label>
+        <link refid="utils_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>poly_lcp.h</label>
+        <link refid="poly__lcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>algorithms/IPG/ipg_oracle.h</label>
+        <link refid="ipg__oracle_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>games/nash.h</label>
+        <link refid="nash_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>support/codes.h</label>
+        <link refid="codes_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>string</label>
+      </node>
+      <node id="5">
+        <label>map</label>
+      </node>
+      <node id="16">
+        <label>games/games.h</label>
+        <link refid="games_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>outer_lcp.h</label>
+        <link refid="outer__lcp_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>ip_param.h</label>
+        <link refid="ip__param_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>armadillo</label>
+      </node>
+      <node id="10">
+        <label>exception</label>
+      </node>
+      <node id="13">
+        <label>fstream</label>
+      </node>
+      <node id="2">
+        <label>zero.h</label>
+        <link refid="zero_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>include/mathopt/mp_param/mp_param.h</label>
+        <link refid="mp__param_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>vector</label>
+      </node>
+      <node id="15">
+        <label>support/version.h</label>
+        <link refid="version_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>iostream</label>
+      </node>
+      <node id="18">
+        <label>games/ipg.h</label>
+        <link refid="ipg_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>gurobi_c++.h</label>
+      </node>
+      <node id="22">
+        <label>lcp/lcp.h</label>
+        <link refid="lcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>set</label>
+      </node>
+      <node id="26">
+        <label>qp_param.h</label>
+        <link refid="qp__param_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>memory</label>
+      </node>
+      <node id="21">
+        <label>mathopt/mathopt.h</label>
+        <link refid="mathopt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>src/mathopt/mp_param/mp_param.cpp</label>
+        <link refid="mp__param_8cpp"/>
+      </node>
+      <node id="13">
+        <label>include/games/algorithms/EPEC/epec_algorithms.h</label>
+        <link refid="epec__algorithms_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>include/games/epec.h</label>
+        <link refid="epec_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>include/support/utils.h</label>
+        <link refid="utils_8h"/>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>src/mathopt/mp_param/ip_param.cpp</label>
+        <link refid="ip__param_8cpp"/>
+      </node>
+      <node id="6">
+        <label>src/games/algorithms/EPEC/epec_innerapproximation.cpp</label>
+        <link refid="epec__innerapproximation_8cpp"/>
+      </node>
+      <node id="35">
+        <label>include/mathopt/lcp/poly_lcp.h</label>
+        <link refid="poly__lcp_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>include/games/algorithms/EPEC/epec_fullenumeration.h</label>
+        <link refid="epec__fullenumeration_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>src/mathopt/lcp/poly_lcp.cpp</label>
+        <link refid="poly__lcp_8cpp"/>
+      </node>
+      <node id="22">
+        <label>include/games/algorithms/IPG/ipg_oracle.h</label>
+        <link refid="ipg__oracle_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>include/games/nash.h</label>
+        <link refid="nash_8h"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>include/games/algorithms/EPEC/epec_innerapproximation.h</label>
+        <link refid="epec__innerapproximation_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>include/games/games.h</label>
+        <link refid="games_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>src/mathopt/lcp/outer_lcp.cpp</label>
+        <link refid="outer__lcp_8cpp"/>
+      </node>
+      <node id="39">
+        <label>src/mathopt/mp_param/qp_param.cpp</label>
+        <link refid="qp__param_8cpp"/>
+      </node>
+      <node id="33">
+        <label>include/mathopt/lcp/outer_lcp.h</label>
+        <link refid="outer__lcp_8h"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>include/mathopt/mp_param/ip_param.h</label>
+        <link refid="ip__param_8h"/>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>include/interfaces/epec_models.h</label>
+        <link refid="epec__models_8h"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>src/games/algorithms/EPEC/epec_polybase.cpp</label>
+        <link refid="epec__polybase_8cpp"/>
+      </node>
+      <node id="12">
+        <label>src/shells/epec.cpp</label>
+        <link refid="shells_2epec_8cpp"/>
+      </node>
+      <node id="32">
+        <label>src/mathopt/lcp/lcp.cpp</label>
+        <link refid="lcp_8cpp"/>
+      </node>
+      <node id="5">
+        <label>include/zero.h</label>
+        <link refid="zero_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>src/games/games.cpp</label>
+        <link refid="games_8cpp"/>
+      </node>
+      <node id="1">
+        <label>include/mathopt/mp_param/mp_param.h</label>
+        <link refid="mp__param_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>src/support/utils.cpp</label>
+        <link refid="utils_8cpp"/>
+      </node>
+      <node id="24">
+        <label>src/games/ipg.cpp</label>
+        <link refid="ipg_8cpp"/>
+      </node>
+      <node id="9">
+        <label>src/games/epec.cpp</label>
+        <link refid="games_2epec_8cpp"/>
+      </node>
+      <node id="18">
+        <label>src/games/algorithms/EPEC/epec_combinatorialpne.cpp</label>
+        <link refid="epec__combinatorialpne_8cpp"/>
+      </node>
+      <node id="28">
+        <label>src/games/nash.cpp</label>
+        <link refid="nash_8cpp"/>
+      </node>
+      <node id="16">
+        <label>include/games/algorithms/EPEC/epec_polybase.h</label>
+        <link refid="epec__polybase_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>include/games/algorithms/EPEC/epec_combinatorialpne.h</label>
+        <link refid="epec__combinatorialpne_8h"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>src/mathopt/mathopt.cpp</label>
+        <link refid="mathopt_8cpp"/>
+      </node>
+      <node id="23">
+        <label>include/games/ipg.h</label>
+        <link refid="ipg_8h"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>src/games/algorithms/EPEC/epec_fullenumeration.cpp</label>
+        <link refid="epec__fullenumeration_8cpp"/>
+      </node>
+      <node id="15">
+        <label>src/games/algorithms/EPEC/epec_outerapproximation.cpp</label>
+        <link refid="epec__outerapproximation_8cpp"/>
+      </node>
+      <node id="31">
+        <label>include/mathopt/lcp/lcp.h</label>
+        <link refid="lcp_8h"/>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>src/interfaces/epec_models.cpp</label>
+        <link refid="epec__models_8cpp"/>
+      </node>
+      <node id="8">
+        <label>src/games/algorithms/IPG/ipg_oracle.cpp</label>
+        <link refid="ipg__oracle_8cpp"/>
+      </node>
+      <node id="14">
+        <label>include/games/algorithms/EPEC/epec_outerapproximation.h</label>
+        <link refid="epec__outerapproximation_8h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>include/mathopt/mp_param/qp_param.h</label>
+        <link refid="qp__param_8h"/>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>include/mathopt/mathopt.h</label>
+        <link refid="mathopt_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_math_opt_1_1_m_p___param" prot="public">MathOpt::MP_Param</innerclass>
+    <innernamespace refid="namespace_math_opt">MathOpt</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*<sp/>#############################################</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>file<sp/>is<sp/>part<sp/>of</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ZERO</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Copyright<sp/>(c)<sp/>2020</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/>Released<sp/>under<sp/>the<sp/>Creative<sp/>Commons</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Zero<sp/>v1.0<sp/>Universal<sp/>License</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Find<sp/>out<sp/>more<sp/>at</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>https://github.com/ds4dm/ZERO</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>#############################################*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="zero_8h" kindref="compound">zero.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;armadillo&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;gurobi_c++.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;set&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_math_opt" kindref="compound">MathOpt</ref><sp/>{</highlight></codeline>
+<codeline lineno="25" refid="class_math_opt_1_1_m_p___param" refkind="compound"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_math_opt_1_1_m_p___param" kindref="compound">MP_Param</ref><sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Data<sp/>representing<sp/>the<sp/>parameterized<sp/>QP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28" refid="class_math_opt_1_1_m_p___param_1aae8144b23a29ea99d5ef793729438feb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>arma::sp_mat<sp/><ref refid="class_math_opt_1_1_m_p___param_1aae8144b23a29ea99d5ef793729438feb" kindref="member">Q</ref>,<sp/><ref refid="class_math_opt_1_1_m_p___param_1a69e39bfe4a58e5c43dbcb7ac16be3fe5" kindref="member">A</ref>,<sp/><ref refid="class_math_opt_1_1_m_p___param_1adb541edcb7083da9bde8e6615063acd3" kindref="member">B</ref>,<sp/><ref refid="class_math_opt_1_1_m_p___param_1a13727398531ec805acd474fa5da89056" kindref="member">C</ref>;</highlight></codeline>
+<codeline lineno="29" refid="class_math_opt_1_1_m_p___param_1a270fad22decf1dbdc2227ff9a4875e34" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>arma::vec<sp/><sp/><sp/><sp/><ref refid="class_math_opt_1_1_m_p___param_1a270fad22decf1dbdc2227ff9a4875e34" kindref="member">c</ref>,<sp/><ref refid="class_math_opt_1_1_m_p___param_1af6e726c09d1d43359c2dad586b0fb4d5" kindref="member">b</ref>;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Object<sp/>for<sp/>sizes<sp/>and<sp/>integrity<sp/>check</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="class_math_opt_1_1_m_p___param_1a1a69f24fcb92ebf76ea29c9407859f0a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_math_opt_1_1_m_p___param_1ab74a22bf304936286282f869cb646873" kindref="member">Nx</ref>,<sp/><ref refid="class_math_opt_1_1_m_p___param_1a1a69f24fcb92ebf76ea29c9407859f0a" kindref="member">Ny</ref>,<sp/><ref refid="class_math_opt_1_1_m_p___param_1a5c20eb5e9dac543042b9888e012ab99b" kindref="member">Ncons</ref>;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_math_opt_1_1_m_p___param_1a70400a4046b1ab099f6c2ebbdceab6d5" kindref="member">size</ref>();</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_math_opt_1_1_m_p___param_1aff8f3f085bd5938a352874c020f8ef23" kindref="member">dataCheck</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>forceSymmetry<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="class_math_opt_1_1_m_p___param_1a77c1f71200e55ee2fe1abe3c9eb13005" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_math_opt_1_1_m_p___param_1a77c1f71200e55ee2fe1abe3c9eb13005" kindref="member">finalize</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_math_opt_1_1_m_p___param_1a70400a4046b1ab099f6c2ebbdceab6d5" kindref="member">size</ref>();</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_math_opt_1_1_m_p___param_1aff8f3f085bd5938a352874c020f8ef23" kindref="member">dataCheck</ref>();</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Default<sp/>constructors</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_math_opt_1_1_m_p___param_1af1d48cd18c52aaab1e99e11dfa4cce67" kindref="member">MP_Param</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_math_opt_1_1_m_p___param_1af1d48cd18c52aaab1e99e11dfa4cce67" kindref="member">MP_Param</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_math_opt_1_1_m_p___param" kindref="compound">MP_Param</ref><sp/>&amp;M)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Getters<sp/>and<sp/>setters</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="class_math_opt_1_1_m_p___param_1a0f1cc247264404e29747200c7ddfc1ab" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>arma::sp_mat<sp/><ref refid="class_math_opt_1_1_m_p___param_1a0f1cc247264404e29747200c7ddfc1ab" kindref="member">getQ</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_math_opt_1_1_m_p___param_1aae8144b23a29ea99d5ef793729438feb" kindref="member">Q</ref>;<sp/>}<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50" refid="class_math_opt_1_1_m_p___param_1ab6633d7091d1e470230773cfbe53bf3d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>arma::sp_mat<sp/><ref refid="class_math_opt_1_1_m_p___param_1ab6633d7091d1e470230773cfbe53bf3d" kindref="member">getC</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_math_opt_1_1_m_p___param_1a13727398531ec805acd474fa5da89056" kindref="member">C</ref>;<sp/>}<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51" refid="class_math_opt_1_1_m_p___param_1a40fff25cfb814374938f83ce9b3786de" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>arma::sp_mat<sp/><ref refid="class_math_opt_1_1_m_p___param_1a40fff25cfb814374938f83ce9b3786de" kindref="member">getA</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_math_opt_1_1_m_p___param_1a69e39bfe4a58e5c43dbcb7ac16be3fe5" kindref="member">A</ref>;<sp/>}<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52" refid="class_math_opt_1_1_m_p___param_1af9a8eaa4d0d2034f3bc221757ebba7e2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>arma::sp_mat<sp/><ref refid="class_math_opt_1_1_m_p___param_1af9a8eaa4d0d2034f3bc221757ebba7e2" kindref="member">getB</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_math_opt_1_1_m_p___param_1adb541edcb7083da9bde8e6615063acd3" kindref="member">B</ref>;<sp/>}<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53" refid="class_math_opt_1_1_m_p___param_1a5e6b2cba9aee0d780957a2e0c7329e02" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>arma::vec<sp/><sp/><sp/><sp/><ref refid="class_math_opt_1_1_m_p___param_1a5e6b2cba9aee0d780957a2e0c7329e02" kindref="member">getc</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_math_opt_1_1_m_p___param_1a270fad22decf1dbdc2227ff9a4875e34" kindref="member">c</ref>;<sp/>}<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="class_math_opt_1_1_m_p___param_1a1f0114c151fc557843e39364bca6e1a7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>arma::vec<sp/><sp/><sp/><sp/><ref refid="class_math_opt_1_1_m_p___param_1a1f0114c151fc557843e39364bca6e1a7" kindref="member">getb</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_math_opt_1_1_m_p___param_1af6e726c09d1d43359c2dad586b0fb4d5" kindref="member">b</ref>;<sp/>}<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="class_math_opt_1_1_m_p___param_1a202eba6a77a560f6db64104eccc34d00" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_math_opt_1_1_m_p___param_1a202eba6a77a560f6db64104eccc34d00" kindref="member">getNx</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_math_opt_1_1_m_p___param_1ab74a22bf304936286282f869cb646873" kindref="member">Nx</ref>;<sp/>}<sp/></highlight></codeline>
+<codeline lineno="56" refid="class_math_opt_1_1_m_p___param_1af1070c3cbcafa07a86aa96f4e015a361" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_math_opt_1_1_m_p___param_1af1070c3cbcafa07a86aa96f4e015a361" kindref="member">getNy</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_math_opt_1_1_m_p___param_1a1a69f24fcb92ebf76ea29c9407859f0a" kindref="member">Ny</ref>;<sp/>}<sp/></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58" refid="class_math_opt_1_1_m_p___param_1aa91dd679cf1572f215d95ecfbeaff20f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_math_opt_1_1_m_p___param" kindref="compound">MP_Param</ref><sp/>&amp;<ref refid="class_math_opt_1_1_m_p___param_1aa91dd679cf1572f215d95ecfbeaff20f" kindref="member">setQ</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::sp_mat<sp/>&amp;<ref refid="class_math_opt_1_1_m_p___param_1aae8144b23a29ea99d5ef793729438feb" kindref="member">Q</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;Q<sp/>=<sp/><ref refid="class_math_opt_1_1_m_p___param_1aae8144b23a29ea99d5ef793729438feb" kindref="member">Q</ref>;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight></codeline>
+<codeline lineno="62" refid="class_math_opt_1_1_m_p___param_1a371da389ffb48698912345747dcc74b4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_math_opt_1_1_m_p___param" kindref="compound">MP_Param</ref><sp/>&amp;<ref refid="class_math_opt_1_1_m_p___param_1a371da389ffb48698912345747dcc74b4" kindref="member">setC</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::sp_mat<sp/>&amp;<ref refid="class_math_opt_1_1_m_p___param_1a13727398531ec805acd474fa5da89056" kindref="member">C</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;C<sp/>=<sp/><ref refid="class_math_opt_1_1_m_p___param_1a13727398531ec805acd474fa5da89056" kindref="member">C</ref>;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight></codeline>
+<codeline lineno="66" refid="class_math_opt_1_1_m_p___param_1ade7514774a87da1d741203de23084141" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_math_opt_1_1_m_p___param" kindref="compound">MP_Param</ref><sp/>&amp;<ref refid="class_math_opt_1_1_m_p___param_1ade7514774a87da1d741203de23084141" kindref="member">setA</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::sp_mat<sp/>&amp;<ref refid="class_math_opt_1_1_m_p___param_1a69e39bfe4a58e5c43dbcb7ac16be3fe5" kindref="member">A</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;A<sp/>=<sp/><ref refid="class_math_opt_1_1_m_p___param_1a69e39bfe4a58e5c43dbcb7ac16be3fe5" kindref="member">A</ref>;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight></codeline>
+<codeline lineno="70" refid="class_math_opt_1_1_m_p___param_1a3d1cfea15e1d90c8d599b7f43fbce99e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_math_opt_1_1_m_p___param" kindref="compound">MP_Param</ref><sp/>&amp;<ref refid="class_math_opt_1_1_m_p___param_1a3d1cfea15e1d90c8d599b7f43fbce99e" kindref="member">setB</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::sp_mat<sp/>&amp;<ref refid="class_math_opt_1_1_m_p___param_1adb541edcb7083da9bde8e6615063acd3" kindref="member">B</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;B<sp/>=<sp/><ref refid="class_math_opt_1_1_m_p___param_1adb541edcb7083da9bde8e6615063acd3" kindref="member">B</ref>;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight></codeline>
+<codeline lineno="74" refid="class_math_opt_1_1_m_p___param_1aef703db3b2617b1e7f2918c98742ebae" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_math_opt_1_1_m_p___param" kindref="compound">MP_Param</ref><sp/>&amp;<ref refid="class_math_opt_1_1_m_p___param_1aef703db3b2617b1e7f2918c98742ebae" kindref="member">setc</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;<ref refid="class_math_opt_1_1_m_p___param_1a270fad22decf1dbdc2227ff9a4875e34" kindref="member">c</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;c<sp/>=<sp/><ref refid="class_math_opt_1_1_m_p___param_1a270fad22decf1dbdc2227ff9a4875e34" kindref="member">c</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight></codeline>
+<codeline lineno="78" refid="class_math_opt_1_1_m_p___param_1acf30858c84ca9134645bfdc00e5c3c01" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_math_opt_1_1_m_p___param" kindref="compound">MP_Param</ref><sp/>&amp;<ref refid="class_math_opt_1_1_m_p___param_1acf30858c84ca9134645bfdc00e5c3c01" kindref="member">setb</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;<ref refid="class_math_opt_1_1_m_p___param_1af6e726c09d1d43359c2dad586b0fb4d5" kindref="member">b</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;b<sp/>=<sp/><ref refid="class_math_opt_1_1_m_p___param_1af6e726c09d1d43359c2dad586b0fb4d5" kindref="member">b</ref>;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Setters<sp/>and<sp/>advanced<sp/>constructors</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_math_opt_1_1_m_p___param" kindref="compound">MP_Param</ref><sp/>&amp;<ref refid="class_math_opt_1_1_m_p___param_1ad78a4a1bd3566acdcc5c61feedca9f8a" kindref="member">set</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::sp_mat<sp/>&amp;<ref refid="class_math_opt_1_1_m_p___param_1aae8144b23a29ea99d5ef793729438feb" kindref="member">Q</ref>,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::sp_mat<sp/>&amp;<ref refid="class_math_opt_1_1_m_p___param_1a13727398531ec805acd474fa5da89056" kindref="member">C</ref>,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::sp_mat<sp/>&amp;<ref refid="class_math_opt_1_1_m_p___param_1a69e39bfe4a58e5c43dbcb7ac16be3fe5" kindref="member">A</ref>,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::sp_mat<sp/>&amp;<ref refid="class_math_opt_1_1_m_p___param_1adb541edcb7083da9bde8e6615063acd3" kindref="member">B</ref>,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;<sp/><sp/><sp/><ref refid="class_math_opt_1_1_m_p___param_1a270fad22decf1dbdc2227ff9a4875e34" kindref="member">c</ref>,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;<sp/><sp/><sp/><ref refid="class_math_opt_1_1_m_p___param_1af6e726c09d1d43359c2dad586b0fb4d5" kindref="member">b</ref>);<sp/></highlight><highlight class="comment">//<sp/>Copy<sp/>data<sp/>into<sp/>this</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_math_opt_1_1_m_p___param" kindref="compound">MP_Param</ref><sp/>&amp;<ref refid="class_math_opt_1_1_m_p___param_1ad78a4a1bd3566acdcc5c61feedca9f8a" kindref="member">set</ref>(arma::sp_mat<sp/>&amp;&amp;<ref refid="class_math_opt_1_1_m_p___param_1aae8144b23a29ea99d5ef793729438feb" kindref="member">Q</ref>,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arma::sp_mat<sp/>&amp;&amp;<ref refid="class_math_opt_1_1_m_p___param_1a13727398531ec805acd474fa5da89056" kindref="member">C</ref>,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arma::sp_mat<sp/>&amp;&amp;<ref refid="class_math_opt_1_1_m_p___param_1a69e39bfe4a58e5c43dbcb7ac16be3fe5" kindref="member">A</ref>,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arma::sp_mat<sp/>&amp;&amp;<ref refid="class_math_opt_1_1_m_p___param_1adb541edcb7083da9bde8e6615063acd3" kindref="member">B</ref>,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arma::vec<sp/>&amp;&amp;<sp/><sp/><sp/><ref refid="class_math_opt_1_1_m_p___param_1a270fad22decf1dbdc2227ff9a4875e34" kindref="member">c</ref>,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arma::vec<sp/>&amp;&amp;<sp/><sp/><sp/><ref refid="class_math_opt_1_1_m_p___param_1af6e726c09d1d43359c2dad586b0fb4d5" kindref="member">b</ref>);<sp/></highlight><highlight class="comment">//<sp/>Move<sp/>data<sp/>into<sp/>this</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_math_opt_1_1_m_p___param" kindref="compound">MP_Param</ref><sp/>&amp;<ref refid="class_math_opt_1_1_m_p___param_1ad78a4a1bd3566acdcc5c61feedca9f8a" kindref="member">set</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_math_opt_1_1_q_p___objective" kindref="compound">QP_Objective</ref><sp/>&amp;obj,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_math_opt_1_1_q_p___constraints" kindref="compound">QP_Constraints</ref><sp/>&amp;cons);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_math_opt_1_1_m_p___param" kindref="compound">MP_Param</ref><sp/>&amp;<ref refid="class_math_opt_1_1_m_p___param_1ad78a4a1bd3566acdcc5c61feedca9f8a" kindref="member">set</ref>(<ref refid="struct_math_opt_1_1_q_p___objective" kindref="compound">QP_Objective</ref><sp/>&amp;&amp;obj,<sp/><ref refid="struct_math_opt_1_1_q_p___constraints" kindref="compound">QP_Constraints</ref><sp/>&amp;&amp;cons);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_math_opt_1_1_m_p___param" kindref="compound">MP_Param</ref><sp/>&amp;<ref refid="class_math_opt_1_1_m_p___param_1a802628bc47d8e985d77e6184440af534" kindref="member">addDummy</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>pars,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>vars<sp/>=<sp/>0,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>position<sp/>=<sp/>-1);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_math_opt_1_1_m_p___param_1a68ac30e9ab415719ab7be25357899617" kindref="member">write</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;filename,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>append<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_math_opt_1_1_m_p___param_1aff8f3f085bd5938a352874c020f8ef23" kindref="member">dataCheck</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_math_opt_1_1_q_p___objective" kindref="compound">QP_Objective</ref><sp/>&amp;<sp/><sp/>obj,</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_math_opt_1_1_q_p___constraints" kindref="compound">QP_Constraints</ref><sp/>&amp;cons,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>checkObj<sp/><sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>checkCons<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>MathOpt</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="ip__param_8h" kindref="compound">ip_param.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="qp__param_8h" kindref="compound">qp_param.h</ref>&quot;</highlight></codeline>
+    </programlisting>
+    <location file="include/mathopt/mp_param/mp_param.h"/>
+  </compounddef>
+</doxygen>

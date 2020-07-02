@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_combinatorialpne.h" line="17" column="1" bodyfile="include/algorithms/EPEC/epec_combinatorialpne.h" bodystart="17" bodyend="18"/>
+        <location file="include/games/algorithms/EPEC/epec_combinatorialpne.h" line="30" column="1" bodyfile="include/games/algorithms/EPEC/epec_combinatorialpne.h" bodystart="30" bodyend="31"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_combinatorial_p_n_e_1a7be7a3f2ee2b67ac3d29407313ede988" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>void</type>
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_combinatorialpne.h" line="20" column="6" bodyfile="include/algorithms/EPEC/epec_combinatorialpne.h" bodystart="20" bodyend="20"/>
+        <location file="include/games/algorithms/EPEC/epec_combinatorialpne.h" line="33" column="6" bodyfile="include/games/algorithms/EPEC/epec_combinatorialpne.h" bodystart="33" bodyend="33"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_combinatorial_p_n_e_1a57d1cf8a606921df8a404ce501d4a434" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -63,7 +63,7 @@
         <inbodydescription>
 <para>Solve the referenced <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref> instance with the Combinatorial pure-equilibrium <ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm" kindref="compound">Algorithm</ref> <computeroutput>exclude-list</computeroutput> contains the set of excluded polyhedra combinations.</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_combinatorialpne.h" line="21" column="6" bodyfile="src/algorithms/EPEC/epec_combinatorialpne.cpp" bodystart="7" bodyend="26"/>
+        <location file="include/games/algorithms/EPEC/epec_combinatorialpne.h" line="34" column="6" bodyfile="src/games/algorithms/EPEC/epec_combinatorialpne.cpp" bodystart="20" bodyend="39"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -87,7 +87,7 @@
         <inbodydescription>
 <para>Starting from <computeroutput>combination</computeroutput>, the methods builds the recursion to generate the subproblems associated with all the existing combinations of polyhedra. Then, it solves each subproblem, and if a solution is found, it terminates and stores the solution into the referenced <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref> object. <computeroutput>excludeList</computeroutput> contains the excluded combinations of polyhedra.</para>
         </inbodydescription>
-        <location file="include/algorithms/EPEC/epec_combinatorialpne.h" line="25" column="6" bodyfile="src/algorithms/EPEC/epec_combinatorialpne.cpp" bodystart="28" bodyend="121"/>
+        <location file="include/games/algorithms/EPEC/epec_combinatorialpne.h" line="38" column="6" bodyfile="src/games/algorithms/EPEC/epec_combinatorialpne.cpp" bodystart="41" bodyend="134"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -114,38 +114,38 @@
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="12">
+      <node id="13">
         <label>Attr&lt; std::vector&lt; unsigned int &gt; &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="5">
+      <node id="6">
         <label>ZEROStatistics&lt; Data::EPEC::DataObject &gt;</label>
         <link refid="struct_z_e_r_o_statistics"/>
-        <childnode refid="6" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>WallClockTime</edgelabel>
         </childnode>
-        <childnode refid="7" relation="usage">
+        <childnode refid="8" relation="usage">
           <edgelabel>AlgorithmData</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>NumConstraints</edgelabel>
           <edgelabel>NumNonZero</edgelabel>
           <edgelabel>NumIterations</edgelabel>
           <edgelabel>NumVar</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>PureNashEquilibrium</edgelabel>
           <edgelabel>NumericalIssues</edgelabel>
         </childnode>
-        <childnode refid="17" relation="usage">
+        <childnode refid="18" relation="usage">
           <edgelabel>Status</edgelabel>
         </childnode>
       </node>
-      <node id="17">
+      <node id="18">
         <label>Attr&lt; ZEROStatus &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="10">
+      <node id="11">
         <label>Attr&lt; int &gt;</label>
         <link refid="class_attr"/>
       </node>
@@ -155,7 +155,7 @@
         <childnode refid="3" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="16">
+      <node id="17">
         <label>Attr&lt; Data::LCP::PolyhedraStrategy &gt;</label>
         <link refid="class_attr"/>
       </node>
@@ -166,82 +166,88 @@
           <edgelabel>EPECObject</edgelabel>
         </childnode>
       </node>
-      <node id="15">
+      <node id="16">
         <label>Attr&lt; Data::EPEC::Algorithms &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="11">
+      <node id="12">
         <label>Attr&lt; bool &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="7">
+      <node id="8">
         <label>Data::EPEC::DataObject</label>
         <link refid="class_data_1_1_e_p_e_c_1_1_data_object"/>
-        <childnode refid="8" relation="public-inheritance">
+        <childnode refid="9" relation="public-inheritance">
         </childnode>
-        <childnode refid="6" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>BoundBigM</edgelabel>
         </childnode>
-        <childnode refid="12" relation="usage">
+        <childnode refid="13" relation="usage">
           <edgelabel>FeasiblePolyhedra</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>LostIntermediateEq</edgelabel>
         </childnode>
-        <childnode refid="13" relation="usage">
+        <childnode refid="14" relation="usage">
           <edgelabel>Aggressiveness</edgelabel>
         </childnode>
-        <childnode refid="14" relation="usage">
+        <childnode refid="15" relation="usage">
           <edgelabel>RecoverStrategy</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>BoundPrimals</edgelabel>
         </childnode>
-        <childnode refid="15" relation="usage">
+        <childnode refid="16" relation="usage">
           <edgelabel>Algorithm</edgelabel>
         </childnode>
-        <childnode refid="16" relation="usage">
+        <childnode refid="17" relation="usage">
           <edgelabel>PolyhedraStrategy</edgelabel>
         </childnode>
       </node>
       <node id="4">
         <label>Game::EPEC</label>
         <link refid="class_game_1_1_e_p_e_c"/>
-        <childnode refid="5" relation="usage">
-          <edgelabel>Stats</edgelabel>
+        <childnode refid="5" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="13">
+      <node id="14">
         <label>Attr&lt; unsigned int &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="6">
+      <node id="7">
         <label>Attr&lt; double &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="8">
+      <node id="9">
         <label>ZEROAlgorithmData</label>
         <link refid="class_z_e_r_o_algorithm_data"/>
-        <childnode refid="6" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>DeviationTolerance</edgelabel>
           <edgelabel>TimeLimit</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>RandomSeed</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>Threads</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>PureNashEquilibrium</edgelabel>
           <edgelabel>IndicatorConstraints</edgelabel>
         </childnode>
       </node>
-      <node id="9">
+      <node id="10">
         <label>Attr&lt; unsigned long int &gt;</label>
         <link refid="class_attr"/>
       </node>
-      <node id="14">
+      <node id="5">
+        <label>Game::AbstractGame&lt; Data::EPEC::DataObject &gt;</label>
+        <link refid="class_game_1_1_abstract_game"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>Stats</edgelabel>
+        </childnode>
+      </node>
+      <node id="15">
         <label>Attr&lt; Data::EPEC::RecoverStrategy &gt;</label>
         <link refid="class_attr"/>
       </node>
@@ -252,7 +258,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="include/algorithms/EPEC/epec_combinatorialpne.h" line="15" column="40" bodyfile="include/algorithms/EPEC/epec_combinatorialpne.h" bodystart="15" bodyend="27"/>
+    <location file="include/games/algorithms/EPEC/epec_combinatorialpne.h" line="28" column="40" bodyfile="include/games/algorithms/EPEC/epec_combinatorialpne.h" bodystart="28" bodyend="40"/>
     <listofallmembers>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_combinatorial_p_n_e_1a37d536d2f764509b2372bd33cd1cf8e2" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::CombinatorialPNE</scope><name>CombinatorialPNE</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_combinatorial_p_n_e_1a518b30cb79720fdc2184f888caac67ad" prot="private" virt="non-virtual"><scope>Algorithms::EPEC::CombinatorialPNE</scope><name>combPNE</name></member>
@@ -272,7 +278,7 @@
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a5631dd8fb9bd2d7aef4cd4137a905d15" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::CombinatorialPNE</scope><name>makeThePureLCP</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ac6d224591f7862a5da5dcf3607016c92" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::CombinatorialPNE</scope><name>mixedStrategyPoly</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a3232baf0efbe5fe82c3168937a6a8d20" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::CombinatorialPNE</scope><name>PolyBase</name></member>
-      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a07f74282d7751de285a7e72b0377c8d6" prot="protected" virt="non-virtual"><scope>Algorithms::EPEC::CombinatorialPNE</scope><name>PolyLCP</name></member>
+      <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1af4b04767398229a7773932f5ff27f74b" prot="protected" virt="non-virtual"><scope>Algorithms::EPEC::CombinatorialPNE</scope><name>PolyLCP</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ae32c59d87b904dd0b6bff19a4bf954f7" prot="protected" virt="virtual"><scope>Algorithms::EPEC::CombinatorialPNE</scope><name>postSolving</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_combinatorial_p_n_e_1a7be7a3f2ee2b67ac3d29407313ede988" prot="public" virt="virtual"><scope>Algorithms::EPEC::CombinatorialPNE</scope><name>solve</name></member>
       <member refid="class_algorithms_1_1_e_p_e_c_1_1_combinatorial_p_n_e_1a57d1cf8a606921df8a404ce501d4a434" prot="public" virt="non-virtual"><scope>Algorithms::EPEC::CombinatorialPNE</scope><name>solveWithExcluded</name></member>

@@ -3,7 +3,7 @@
 Function operator>
 ==================
 
-- Defined in :ref:`file_src_lcp_poly_lcp.cpp`
+- Defined in :ref:`file_src_mathopt_lcp_poly_lcp.cpp`
 
 
 Function Documentation

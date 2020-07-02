@@ -4,9 +4,27 @@
     <compoundname>games.cpp</compoundname>
     <includes refid="zero_8h" local="yes">zero.h</includes>
     <includes local="no">armadillo</includes>
-    <includes local="no">boost/log/trivial.hpp</includes>
-    <includes local="no">iostream</includes>
     <incdepgraph>
+      <node id="17">
+        <label>games/epec.h</label>
+        <link refid="epec_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
       <node id="12">
         <label>support/utils.h</label>
         <link refid="utils_8h"/>
@@ -19,7 +37,43 @@
         <childnode refid="14" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="24">
+        <label>poly_lcp.h</label>
+        <link refid="poly__lcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>algorithms/IPG/ipg_oracle.h</label>
+        <link refid="ipg__oracle_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
         <label>games/nash.h</label>
         <link refid="nash_8h"/>
         <childnode refid="2" relation="include">
@@ -53,10 +107,10 @@
       <node id="5">
         <label>map</label>
       </node>
-      <node id="20">
+      <node id="16">
         <label>games/games.h</label>
         <link refid="games_8h"/>
-        <childnode refid="2" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
@@ -68,21 +122,15 @@
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
-      </node>
-      <node id="3">
-        <label>armadillo</label>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
       </node>
       <node id="23">
-        <label>boost/log/trivial.hpp</label>
-      </node>
-      <node id="10">
-        <label>exception</label>
-      </node>
-      <node id="13">
-        <label>fstream</label>
-      </node>
-      <node id="18">
-        <label>lcp/outer_lcp.h</label>
+        <label>outer_lcp.h</label>
         <link refid="outer__lcp_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
@@ -99,9 +147,11 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="19">
-        <label>lcp/poly_lcp.h</label>
-        <link refid="poly__lcp_8h"/>
+      <node id="26">
+        <label>ip_param.h</label>
+        <link refid="ip__param_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
@@ -117,23 +167,14 @@
         <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="22">
-        <label>games/qpmp.h</label>
-        <link refid="qpmp_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
+      <node id="3">
+        <label>armadillo</label>
+      </node>
+      <node id="10">
+        <label>exception</label>
+      </node>
+      <node id="13">
+        <label>fstream</label>
       </node>
       <node id="2">
         <label>zero.h</label>
@@ -158,13 +199,7 @@
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
         <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -174,9 +209,27 @@
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
+      </node>
+      <node id="25">
+        <label>mathopt/mp_param/mp_param.h</label>
+        <link refid="mp__param_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
         </childnode>
       </node>
       <node id="8">
@@ -188,7 +241,33 @@
         <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="4">
+        <label>iostream</label>
+      </node>
+      <node id="18">
+        <label>games/ipg.h</label>
+        <link refid="ipg_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>gurobi_c++.h</label>
+      </node>
+      <node id="22">
         <label>lcp/lcp.h</label>
         <link refid="lcp_8h"/>
         <childnode refid="2" relation="include">
@@ -203,16 +282,17 @@
         </childnode>
         <childnode refid="14" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
+        <childnode refid="23" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="24" relation="include">
         </childnode>
       </node>
-      <node id="16">
-        <label>games/EPEC_test.h</label>
-        <link refid="_e_p_e_c__test_8h"/>
-        <childnode refid="17" relation="include">
-        </childnode>
+      <node id="14">
+        <label>set</label>
+      </node>
+      <node id="27">
+        <label>qp_param.h</label>
+        <link refid="qp__param_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
@@ -227,20 +307,29 @@
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-      </node>
-      <node id="4">
-        <label>iostream</label>
-      </node>
-      <node id="11">
-        <label>gurobi_c++.h</label>
-      </node>
-      <node id="14">
-        <label>set</label>
       </node>
       <node id="6">
         <label>memory</label>
+      </node>
+      <node id="21">
+        <label>mathopt/mathopt.h</label>
+        <link refid="mathopt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <briefdescription>
@@ -248,227 +337,21 @@
     <detaileddescription>
     </detaileddescription>
     <programlisting>
-<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="zero_8h" kindref="compound">zero.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;armadillo&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/log/trivial.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="5"><highlight class="normal"></highlight></codeline>
-<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal"><ref refid="namespace_game_1ab51edb9870dec0f53df966c51ac8221f" kindref="member">Game::convexHull</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;arma::sp_mat<sp/>*&gt;</highlight></codeline>
-<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Ai,<sp/></highlight></codeline>
-<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;arma::vec<sp/>*&gt;<sp/>*bi,<sp/></highlight></codeline>
-<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arma::sp_mat<sp/>&amp;<sp/><sp/><sp/><sp/><sp/>A,<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arma::vec<sp/>&amp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b,<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::sp_mat<sp/>Acom,<sp/></highlight></codeline>
-<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/><sp/><sp/><sp/>bcom<sp/><sp/></highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
-<codeline lineno="30"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Count<sp/>number<sp/>of<sp/>polyhedra<sp/>and<sp/>the<sp/>space<sp/>we<sp/>are<sp/>in!</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nPoly{static_cast&lt;unsigned<sp/>int&gt;(Ai-&gt;size())};</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Error<sp/>check</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(nPoly<sp/>==<sp/>0)</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="class_z_e_r_o_exception" kindref="compound">ZEROException</ref>(<ref refid="codes_8h_1aec3f6d9705d82787080ef99b37b7efeaa33d5079ef27d71f50b0b934dd31c1d81" kindref="member">ZEROErrorCode::Assertion</ref>,<sp/></highlight><highlight class="stringliteral">&quot;There<sp/>are<sp/>no<sp/>polyhedra&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>consider</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nC{static_cast&lt;unsigned<sp/>int&gt;(Ai-&gt;front()-&gt;n_cols)};</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nComm{static_cast&lt;unsigned<sp/>int&gt;(Acom.n_rows)};</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(nComm<sp/>&gt;<sp/>0<sp/>&amp;&amp;<sp/>Acom.n_cols<sp/>!=<sp/>nC)</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="class_z_e_r_o_exception" kindref="compound">ZEROException</ref>(<ref refid="codes_8h_1aec3f6d9705d82787080ef99b37b7efeaa33d5079ef27d71f50b0b934dd31c1d81" kindref="member">ZEROErrorCode::Assertion</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Inconsistend<sp/>number<sp/>of<sp/>variables&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(nComm<sp/>&gt;<sp/>0<sp/>&amp;&amp;<sp/>nComm<sp/>!=<sp/>bcom.n_rows)</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="class_z_e_r_o_exception" kindref="compound">ZEROException</ref>(<ref refid="codes_8h_1aec3f6d9705d82787080ef99b37b7efeaa33d5079ef27d71f50b0b934dd31c1d81" kindref="member">ZEROErrorCode::Assertion</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Inconsistent<sp/>number<sp/>of<sp/>rows&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Count<sp/>the<sp/>number<sp/>of<sp/>variables<sp/>in<sp/>the<sp/>convex<sp/>hull.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nFinCons{0},<sp/>nFinVar{0};</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(nPoly<sp/>!=<sp/>bi-&gt;size())</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="class_z_e_r_o_exception" kindref="compound">ZEROException</ref>(<ref refid="codes_8h_1aec3f6d9705d82787080ef99b37b7efeaa33d5079ef27d71f50b0b934dd31c1d81" kindref="member">ZEROErrorCode::Assertion</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Inconsistent<sp/>number<sp/>of<sp/>rows<sp/>in<sp/>the<sp/>polyhedron&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>!=<sp/>nPoly;<sp/>i++)<sp/>{</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Ai-&gt;at(i)-&gt;n_cols<sp/>!=<sp/>nC)</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="class_z_e_r_o_exception" kindref="compound">ZEROException</ref>(<ref refid="codes_8h_1aec3f6d9705d82787080ef99b37b7efeaa33d5079ef27d71f50b0b934dd31c1d81" kindref="member">ZEROErrorCode::Assertion</ref>,</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Inconsistent<sp/>number<sp/>of<sp/>variables:<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(i)<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;;<sp/>&quot;</highlight><highlight class="normal"><sp/>+</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(Ai-&gt;at(i)-&gt;n_cols)<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;!=&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(nC));</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Ai-&gt;at(i)-&gt;n_rows<sp/>!=<sp/>bi-&gt;at(i)-&gt;n_rows)</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="class_z_e_r_o_exception" kindref="compound">ZEROException</ref>(<ref refid="codes_8h_1aec3f6d9705d82787080ef99b37b7efeaa33d5079ef27d71f50b0b934dd31c1d81" kindref="member">ZEROErrorCode::Assertion</ref>,</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Inconsistent<sp/>number<sp/>of<sp/>rows:<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(i)<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;;&quot;</highlight><highlight class="normal"><sp/>+</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(Ai-&gt;at(i)-&gt;n_rows)<sp/>+</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;!=&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(bi-&gt;at(i)-&gt;n_rows));</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>nFinCons<sp/>+=<sp/>Ai-&gt;at(i)-&gt;n_rows;</highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>For<sp/>common<sp/>constraint<sp/>copy</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/>nFinCons<sp/>+=<sp/>nPoly<sp/>*<sp/>nComm;</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"></highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>FirstCons<sp/>=<sp/>nFinCons;</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"></highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>2nd<sp/>constraint<sp/>in<sp/>Eqn<sp/>4.31<sp/>of<sp/>Conforti<sp/>-<sp/>twice<sp/>so<sp/>we<sp/>have<sp/>2<sp/>ineq<sp/>instead<sp/>of</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>1<sp/>eq<sp/>constr</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/>nFinCons<sp/>+=<sp/>nC<sp/>*<sp/>2;</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>3rd<sp/>constr<sp/>in<sp/>Eqn<sp/>4.31.<sp/>Again<sp/>as<sp/>two<sp/>ineq<sp/>constr.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/>nFinCons<sp/>+=<sp/>2;</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Common<sp/>constraints</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>nFinCons<sp/>+=<sp/>Acom.n_rows;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="73"><highlight class="normal"></highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/>nFinVar<sp/>=<sp/>nPoly<sp/>*<sp/>nC<sp/>+<sp/>nPoly<sp/>+<sp/>nC;<sp/></highlight><highlight class="comment">//<sp/>All<sp/>x^i<sp/>variables<sp/>+<sp/>delta<sp/>variables+<sp/>original<sp/>x<sp/>variables</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/>A.zeros(nFinCons,<sp/>nFinVar);</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/>b.zeros(nFinCons);</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>A.zeros(nFinCons,<sp/>nFinVar);<sp/>b.zeros(nFinCons);</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Implements<sp/>the<sp/>first<sp/>constraint<sp/>more<sp/>efficiently<sp/>using<sp/>better<sp/>constructors</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>for<sp/>sparse<sp/>matrix</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><ref refid="namespace_game_1a4e0a017b2135a46c9e20866274e1127d" kindref="member">Game::compConvSize</ref>(A,<sp/>nFinCons,<sp/>nFinVar,<sp/>Ai,<sp/>bi,<sp/>Acom,<sp/>bcom);</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Counting<sp/>rows<sp/>completed</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment"><sp/><sp/>/******************<sp/>SLOW<sp/>LOOP<sp/>BEWARE<sp/>*******************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>nPoly;<sp/>i++)<sp/>{</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>BOOST_LOG_TRIVIAL(trace)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Game::convexHull:<sp/>Handling<sp/>Polyhedron<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>i<sp/>+<sp/>1<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>out<sp/>of<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>nPoly;</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>First<sp/>constraint<sp/>in<sp/>(4.31)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>A.submat(complRow,<sp/>i*nC,<sp/>complRow+nConsInPoly-1,<sp/>(i+1)*nC-1)<sp/>=</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>*Ai-&gt;at(i);<sp/>//<sp/>Slowest<sp/>line.<sp/>Will<sp/>arma<sp/>improve<sp/>this?<sp/>First<sp/>constraint<sp/>RHS</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>A.submat(complRow,<sp/>nPoly*nC+i,<sp/>complRow+nConsInPoly-1,<sp/>nPoly*nC+i)<sp/>=</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>-*bi-&gt;at(i);<sp/>Second<sp/>constraint<sp/>in<sp/>(4.31)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>nC;<sp/>j++)<sp/>{</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>A.at(FirstCons<sp/>+<sp/>2<sp/>*<sp/>j,<sp/>nC<sp/>+<sp/>(i<sp/>*<sp/>nC)<sp/>+<sp/>j)<sp/><sp/><sp/><sp/><sp/>=<sp/>1;</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>A.at(FirstCons<sp/>+<sp/>2<sp/>*<sp/>j<sp/>+<sp/>1,<sp/>nC<sp/>+<sp/>(i<sp/>*<sp/>nC)<sp/>+<sp/>j)<sp/>=<sp/>-1;</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Third<sp/>constraint<sp/>in<sp/>(4.31)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>A.at(FirstCons<sp/>+<sp/>nC<sp/>*<sp/>2,<sp/>nC<sp/>+<sp/>nPoly<sp/>*<sp/>nC<sp/>+<sp/>i)<sp/><sp/><sp/><sp/><sp/>=<sp/>1;</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>A.at(FirstCons<sp/>+<sp/>nC<sp/>*<sp/>2<sp/>+<sp/>1,<sp/>nC<sp/>+<sp/>nPoly<sp/>*<sp/>nC<sp/>+<sp/>i)<sp/>=<sp/>-1;</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment"><sp/><sp/>/******************<sp/>SLOW<sp/>LOOP<sp/>BEWARE<sp/>*******************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Second<sp/>Constraint<sp/>RHS</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>nC;<sp/>j++)<sp/>{</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>A.at(FirstCons<sp/>+<sp/>2<sp/>*<sp/>j,<sp/>j)<sp/><sp/><sp/><sp/><sp/>=<sp/>-1;</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>A.at(FirstCons<sp/>+<sp/>2<sp/>*<sp/>j<sp/>+<sp/>1,<sp/>j)<sp/>=<sp/>1;</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Third<sp/>Constraint<sp/>RHS</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/>b.at(FirstCons<sp/>+<sp/>nC<sp/>*<sp/>2)<sp/><sp/><sp/><sp/><sp/>=<sp/>1;</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/>b.at(FirstCons<sp/>+<sp/>nC<sp/>*<sp/>2<sp/>+<sp/>1)<sp/>=<sp/>-1;</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>nPoly;<sp/></highlight></codeline>
-<codeline lineno="110"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"></highlight></codeline>
-<codeline lineno="113"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespace_game_1a4e0a017b2135a46c9e20866274e1127d" kindref="member">Game::compConvSize</ref>(</highlight></codeline>
-<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>arma::sp_mat<sp/>&amp;<sp/><sp/><sp/><sp/><sp/>A,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nFinCons,<sp/></highlight></codeline>
-<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nFinVar,<sp/><sp/></highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;arma::sp_mat<sp/>*&gt;</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Ai,<sp/></highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;arma::vec<sp/>*&gt;<sp/>*bi,<sp/></highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::sp_mat<sp/>&amp;Acom,<sp/></highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;<sp/><sp/><sp/>bcom<sp/><sp/></highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
-<codeline lineno="134"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nPoly{static_cast&lt;unsigned<sp/>int&gt;(Ai-&gt;size())};</highlight></codeline>
-<codeline lineno="136"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nC{static_cast&lt;unsigned<sp/>int&gt;(Ai-&gt;front()-&gt;n_cols)};</highlight></codeline>
-<codeline lineno="137"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>N{0};<sp/></highlight><highlight class="comment">//<sp/>Total<sp/>number<sp/>of<sp/>nonzero<sp/>elements<sp/>in<sp/>the<sp/>final<sp/>matrix</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="138"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>numCommon{static_cast&lt;unsigned<sp/>int&gt;(Acom.n_nonzero<sp/>+<sp/>bcom.n_rows)};</highlight></codeline>
-<codeline lineno="139"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>nPoly;<sp/>i++)<sp/>{</highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>N<sp/>+=<sp/>Ai-&gt;at(i)-&gt;n_nonzero;</highlight></codeline>
-<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>N<sp/>+=<sp/>bi-&gt;at(i)-&gt;n_rows;</highlight></codeline>
-<codeline lineno="142"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="143"><highlight class="normal"><sp/><sp/>N<sp/>+=<sp/>numCommon<sp/>*<sp/>nPoly;<sp/></highlight><highlight class="comment">//<sp/>The<sp/>common<sp/>constraints<sp/>have<sp/>to<sp/>be<sp/>copied<sp/>for<sp/>each<sp/>polyhedron.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="144"><highlight class="normal"></highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Now<sp/>computed<sp/>N<sp/>which<sp/>is<sp/>the<sp/>total<sp/>number<sp/>of<sp/>nonzeros.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="146"><highlight class="normal"><sp/><sp/>arma::umat<sp/>locations;<sp/></highlight><highlight class="comment">//<sp/>location<sp/>of<sp/>nonzeros</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="147"><highlight class="normal"><sp/><sp/>arma::vec<sp/><sp/><ref refid="namespace_models_1a54b54aa6ddb1d9e337f9fea85a2d0ceba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>nonzero<sp/>values</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="148"><highlight class="normal"><sp/><sp/>locations.zeros(2,<sp/>N);</highlight></codeline>
-<codeline lineno="149"><highlight class="normal"><sp/><sp/><ref refid="namespace_models_1a54b54aa6ddb1d9e337f9fea85a2d0ceba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>.zeros(N);</highlight></codeline>
-<codeline lineno="150"><highlight class="normal"></highlight></codeline>
-<codeline lineno="151"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>count{0},<sp/>rowCount{0},<sp/>colCount{nC};</highlight></codeline>
-<codeline lineno="152"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>nPoly;<sp/>i++)<sp/>{</highlight></codeline>
-<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>it<sp/>=<sp/>Ai-&gt;at(i)-&gt;begin();<sp/>it<sp/>!=<sp/>Ai-&gt;at(i)-&gt;end();<sp/>++it)<sp/></highlight><highlight class="comment">//<sp/>First<sp/>constraint</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>locations(0,<sp/>count)<sp/>=<sp/>rowCount<sp/>+<sp/>it.row();</highlight></codeline>
-<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>locations(1,<sp/>count)<sp/>=<sp/>colCount<sp/>+<sp/>it.col();</highlight></codeline>
-<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_models_1a54b54aa6ddb1d9e337f9fea85a2d0ceba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>(count)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>*it;</highlight></codeline>
-<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++count;</highlight></codeline>
-<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>bi-&gt;at(i)-&gt;n_rows;<sp/>++j)<sp/></highlight><highlight class="comment">//<sp/>RHS<sp/>of<sp/>first<sp/>constraint</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>locations(0,<sp/>count)<sp/>=<sp/>rowCount<sp/>+<sp/>j;</highlight></codeline>
-<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>locations(1,<sp/>count)<sp/>=<sp/>nC<sp/>+<sp/>nC<sp/>*<sp/>nPoly<sp/>+<sp/>i;</highlight></codeline>
-<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_models_1a54b54aa6ddb1d9e337f9fea85a2d0ceba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>(count)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>-bi-&gt;at(i)-&gt;at(j);</highlight></codeline>
-<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++count;</highlight></codeline>
-<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>rowCount<sp/>+=<sp/>Ai-&gt;at(i)-&gt;n_rows;</highlight></codeline>
-<codeline lineno="168"><highlight class="normal"></highlight></codeline>
-<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>For<sp/>common<sp/>constraints</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>it<sp/>=<sp/>Acom.begin();<sp/>it<sp/>!=<sp/>Acom.end();<sp/>++it)<sp/></highlight><highlight class="comment">//<sp/>First<sp/>constraint</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>locations(0,<sp/>count)<sp/>=<sp/>rowCount<sp/>+<sp/>it.row();</highlight></codeline>
-<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>locations(1,<sp/>count)<sp/>=<sp/>colCount<sp/>+<sp/>it.col();</highlight></codeline>
-<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_models_1a54b54aa6ddb1d9e337f9fea85a2d0ceba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>(count)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>*it;</highlight></codeline>
-<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++count;</highlight></codeline>
-<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>bcom.n_rows;<sp/>++j)<sp/></highlight><highlight class="comment">//<sp/>RHS<sp/>of<sp/>first<sp/>constraint</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>locations(0,<sp/>count)<sp/>=<sp/>rowCount<sp/>+<sp/>j;</highlight></codeline>
-<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>locations(1,<sp/>count)<sp/>=<sp/>nC<sp/>+<sp/>nC<sp/>*<sp/>nPoly<sp/>+<sp/>i;</highlight></codeline>
-<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_models_1a54b54aa6ddb1d9e337f9fea85a2d0ceba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>(count)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>-bcom.at(j);</highlight></codeline>
-<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++count;</highlight></codeline>
-<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>rowCount<sp/>+=<sp/>Acom.n_rows;</highlight></codeline>
-<codeline lineno="185"><highlight class="normal"></highlight></codeline>
-<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>colCount<sp/>+=<sp/>nC;</highlight></codeline>
-<codeline lineno="187"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="188"><highlight class="normal"><sp/><sp/>A<sp/>=<sp/>arma::sp_mat(locations,<sp/>val,<sp/>nFinCons,<sp/>nFinVar);</highlight></codeline>
-<codeline lineno="189"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="190"><highlight class="normal"></highlight></codeline>
-<codeline lineno="191"><highlight class="normal">arma::vec<sp/><ref refid="namespace_game_1a26d63d30b983cbd740dd5a7037a1f9b6" kindref="member">Game::LPSolve</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::sp_mat<sp/>&amp;A,<sp/></highlight></codeline>
-<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;<sp/><sp/><sp/>b,<sp/></highlight></codeline>
-<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;<sp/><sp/><sp/>c,<sp/></highlight></codeline>
-<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>&amp;status,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>positivity<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
-<codeline lineno="204"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="205"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nR,<sp/>nC;</highlight></codeline>
-<codeline lineno="206"><highlight class="normal"><sp/><sp/>nR<sp/>=<sp/>A.n_rows;</highlight></codeline>
-<codeline lineno="207"><highlight class="normal"><sp/><sp/>nC<sp/>=<sp/>A.n_cols;</highlight></codeline>
-<codeline lineno="208"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(c.n_rows<sp/>!=<sp/>nC)</highlight></codeline>
-<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="class_z_e_r_o_exception" kindref="compound">ZEROException</ref>(<ref refid="codes_8h_1aec3f6d9705d82787080ef99b37b7efeaa33d5079ef27d71f50b0b934dd31c1d81" kindref="member">ZEROErrorCode::Assertion</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Inconsistent<sp/>number<sp/>of<sp/>variables&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="210"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(b.n_rows<sp/>!=<sp/>nR)</highlight></codeline>
-<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="class_z_e_r_o_exception" kindref="compound">ZEROException</ref>(<ref refid="codes_8h_1aec3f6d9705d82787080ef99b37b7efeaa33d5079ef27d71f50b0b934dd31c1d81" kindref="member">ZEROErrorCode::Assertion</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Inconsistent<sp/>number<sp/>of<sp/>constraints&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="212"><highlight class="normal"></highlight></codeline>
-<codeline lineno="213"><highlight class="normal"><sp/><sp/>arma::vec<sp/><sp/><sp/><sp/>sol<sp/>=<sp/>arma::vec(c.n_rows,<sp/>arma::fill::zeros);</highlight></codeline>
-<codeline lineno="214"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>lb<sp/><sp/>=<sp/>positivity<sp/>?<sp/>0<sp/>:<sp/>-GRB_INFINITY;</highlight></codeline>
-<codeline lineno="215"><highlight class="normal"></highlight></codeline>
-<codeline lineno="216"><highlight class="normal"><sp/><sp/>GRBEnv<sp/><sp/><sp/><sp/>env;</highlight></codeline>
-<codeline lineno="217"><highlight class="normal"><sp/><sp/>GRBModel<sp/><sp/>model<sp/>=<sp/>GRBModel(env);</highlight></codeline>
-<codeline lineno="218"><highlight class="normal"><sp/><sp/>GRBVar<sp/><sp/><sp/><sp/>x[nC];</highlight></codeline>
-<codeline lineno="219"><highlight class="normal"><sp/><sp/>GRBConstr<sp/>a[nR];</highlight></codeline>
-<codeline lineno="220"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Adding<sp/>Variables</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="221"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>nC;<sp/>i++)</highlight></codeline>
-<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>x[i]<sp/>=<sp/>model.addVar(lb,<sp/>GRB_INFINITY,<sp/>c.at(i),<sp/>GRB_CONTINUOUS,<sp/></highlight><highlight class="stringliteral">&quot;x_&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(i));</highlight></codeline>
-<codeline lineno="223"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Adding<sp/>constraints</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="224"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>nR;<sp/>i++)<sp/>{</highlight></codeline>
-<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>GRBLinExpr<sp/>lin{0};</highlight></codeline>
-<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>A.begin_row(i);<sp/>j<sp/>!=<sp/>A.end_row(i);<sp/>++j)</highlight></codeline>
-<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lin<sp/>+=<sp/>(*j)<sp/>*<sp/>x[j.col()];</highlight></codeline>
-<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>a[i]<sp/>=<sp/>model.addConstr(lin,<sp/>GRB_LESS_EQUAL,<sp/>b.at(i));</highlight></codeline>
-<codeline lineno="229"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="230"><highlight class="normal"><sp/><sp/>model.set(GRB_IntParam_OutputFlag,<sp/>0);</highlight></codeline>
-<codeline lineno="231"><highlight class="normal"><sp/><sp/>model.set(GRB_IntParam_DualReductions,<sp/>0);</highlight></codeline>
-<codeline lineno="232"><highlight class="normal"><sp/><sp/>model.optimize();</highlight></codeline>
-<codeline lineno="233"><highlight class="normal"><sp/><sp/>status<sp/>=<sp/>model.get(GRB_IntAttr_Status);</highlight></codeline>
-<codeline lineno="234"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(status<sp/>==<sp/>GRB_OPTIMAL)</highlight></codeline>
-<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>nC;<sp/>i++)</highlight></codeline>
-<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sol.at(i)<sp/>=<sp/>x[i].get(GRB_DoubleAttr_X);</highlight></codeline>
-<codeline lineno="237"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>sol;</highlight></codeline>
-<codeline lineno="238"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="239"><highlight class="normal"></highlight></codeline>
-<codeline lineno="240"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="namespace_game_1a33e82b9df7ee413620f2b5d26c289f98" kindref="member">Game::isZero</ref>(arma::mat<sp/>M,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>tol)<sp/>noexcept<sp/>{</highlight></codeline>
-<codeline lineno="249"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(arma::min(arma::min(abs(M)))<sp/>&lt;=<sp/>tol);</highlight></codeline>
-<codeline lineno="250"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="251"><highlight class="normal"></highlight></codeline>
-<codeline lineno="252"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="namespace_game_1a33e82b9df7ee413620f2b5d26c289f98" kindref="member">Game::isZero</ref>(arma::sp_mat<sp/>M,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>tol)<sp/>noexcept<sp/>{</highlight></codeline>
-<codeline lineno="260"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(M.n_nonzero<sp/>==<sp/>0)</highlight></codeline>
-<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="262"><highlight class="normal"></highlight></codeline>
-<codeline lineno="263"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(arma::min(arma::min(abs(M)))<sp/>&lt;=<sp/>tol);</highlight></codeline>
-<codeline lineno="264"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="265"><highlight class="normal"></highlight></codeline>
-<codeline lineno="266"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespace_game_1ae10005492ee312cb7baba9b3d09c77d3" kindref="member">Game::print</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="zero_8h_1ad87785d9eb3e6e48c0895b348f6660ca" kindref="member">perps</ref><sp/>&amp;C)<sp/>noexcept<sp/>{</highlight></codeline>
-<codeline lineno="267"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>p<sp/>:<sp/>C)</highlight></codeline>
-<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;&lt;&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>p.first<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>p.second<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;&gt;&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\t&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="270"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="1"><highlight class="comment">/*<sp/>#############################################</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>file<sp/>is<sp/>part<sp/>of</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ZERO</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Copyright<sp/>(c)<sp/>2020</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/>Released<sp/>under<sp/>the<sp/>Creative<sp/>Commons</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Zero<sp/>v1.0<sp/>Universal<sp/>License</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Find<sp/>out<sp/>more<sp/>at</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>https://github.com/ds4dm/ZERO</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>#############################################*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="zero_8h" kindref="compound">zero.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;armadillo&gt;</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="src/games/games.cpp"/>
   </compounddef>

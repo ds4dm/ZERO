@@ -34,12 +34,22 @@ Namespaces
 .. toctree::
    :maxdepth: 5
 
+   namespace_Data__IPG.rst
+
+.. toctree::
+   :maxdepth: 5
+
    namespace_Data__LCP.rst
 
 .. toctree::
    :maxdepth: 5
 
    namespace_Game.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   namespace_MathOpt.rst
 
 .. toctree::
    :maxdepth: 5
@@ -68,12 +78,12 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
-   struct_game_1_1_q_p___constraints.rst
+   struct_math_opt_1_1_q_p___constraints.rst
 
 .. toctree::
    :maxdepth: 5
 
-   struct_game_1_1_q_p___objective.rst
+   struct_math_opt_1_1_q_p___objective.rst
 
 .. toctree::
    :maxdepth: 5
@@ -158,12 +168,17 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
-   class_game_1_1_e_p_e_c.rst
+   class_data_1_1_i_p_g_1_1_data_object.rst
 
 .. toctree::
    :maxdepth: 5
 
-   class_game_1_1_i_p___param.rst
+   class_game_1_1_abstract_game.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   class_game_1_1_e_p_e_c.rst
 
 .. toctree::
    :maxdepth: 5
@@ -173,32 +188,37 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
-   class_game_1_1_l_c_p.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   class_game_1_1_m_p___param.rst
-
-.. toctree::
-   :maxdepth: 5
-
    class_game_1_1_nash_game.rst
 
 .. toctree::
    :maxdepth: 5
 
-   class_game_1_1_outer_l_c_p.rst
+   class_math_opt_1_1_i_p___param.rst
 
 .. toctree::
    :maxdepth: 5
 
-   class_game_1_1_poly_l_c_p.rst
+   class_math_opt_1_1_l_c_p.rst
 
 .. toctree::
    :maxdepth: 5
 
-   class_game_1_1_q_p___param.rst
+   class_math_opt_1_1_m_p___param.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   class_math_opt_1_1_outer_l_c_p.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   class_math_opt_1_1_poly_l_c_p.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   class_math_opt_1_1_q_p___param.rst
 
 .. toctree::
    :maxdepth: 5
@@ -233,6 +253,11 @@ Enums
    :maxdepth: 5
 
    enum_namespace_data_1_1_e_p_e_c_1a347af28b83353df8afdbd4ee171565b3.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   enum_namespace_data_1_1_i_p_g_1a34d343f554ac089c3cb14de04aa6d294.rst
 
 .. toctree::
    :maxdepth: 5
@@ -281,32 +306,7 @@ Functions
 .. toctree::
    :maxdepth: 5
 
-   function_namespace_game_1a4e0a017b2135a46c9e20866274e1127d.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   function_namespace_game_1ab51edb9870dec0f53df966c51ac8221f.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   function_namespace_game_1a33e82b9df7ee413620f2b5d26c289f98.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   function_namespace_game_1a1c0adf3888db1939dc071c64c6e80d3f.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   function_namespace_game_1a26d63d30b983cbd740dd5a7037a1f9b6.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   function_namespace_game_1ae84120c7363ce11ee8cb58b113eaf6a8.rst
+   function_namespace_game_1a5d3d08630420c0dc48957de240545f21.rst
 
 .. toctree::
    :maxdepth: 5
@@ -316,12 +316,37 @@ Functions
 .. toctree::
    :maxdepth: 5
 
-   function_namespace_game_1ae10005492ee312cb7baba9b3d09c77d3.rst
+   function_shells_2epec_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627.rst
 
 .. toctree::
    :maxdepth: 5
 
-   function_shells_2epec_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627.rst
+   function_namespace_math_opt_1af3d7bfcf9b11cefb7f4521d685211934.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   function_namespace_math_opt_1a0a13d06524e3ad2baf756e15a794a745.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   function_namespace_math_opt_1aa4eaa00160eb2098969ef087c92eea5d.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   function_namespace_math_opt_1aedd7c328cf667c15244fec225b90a65d.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   function_namespace_math_opt_1a81f3217167710fd7c3d4211658cfa5d6.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   function_namespace_math_opt_1a8b4c66568c38b6a5b08a7fca9372a7dd.rst
 
 .. toctree::
    :maxdepth: 5
@@ -407,11 +432,6 @@ Functions
    :maxdepth: 5
 
    function_zero_8h_1ad1ffe1b9a16567d2d765c957692925fb.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   function_qpmp_8cpp_1a185c4d44ddefa06e6ca35f0c5e13c3e3.rst
 
 .. toctree::
    :maxdepth: 5
@@ -551,6 +571,16 @@ Functions
 .. toctree::
    :maxdepth: 5
 
+   function_namespace_utils_1a11aefd04593b7eba9a60fe5a003eccb3.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   function_namespace_utils_1aa580da91e3cbe8df451f84747c1e2872.rst
+
+.. toctree::
+   :maxdepth: 5
+
    function_namespace_utils_1a80a70a196c537123d7e8542e2501e12c.rst
 
 .. toctree::
@@ -609,12 +639,12 @@ Typedefs
 .. toctree::
    :maxdepth: 5
 
-   typedef_namespace_game_1a8529ffcabd12b5c6d7292f4dd6fe42cc.rst
+   typedef_namespace_math_opt_1a7077c09ae1bba23b9181ac92bf0c6dea.rst
 
 .. toctree::
    :maxdepth: 5
 
-   typedef_namespace_game_1a541b6d502d1d6b4c9f6a149826bdfc2f.rst
+   typedef_namespace_math_opt_1aa0a70822f74c1fc679e018023c08905e.rst
 
 .. toctree::
    :maxdepth: 5

@@ -2,7 +2,7 @@ Welcome
 =====================================
 
 
-ZERO is a multi-purpose game solver written in C++. Currently, it manages NASPs (EPECs) and Integer Programming Games.
+ZERO is a multi-purpose C++ solver for Mathematical Programming Games. Currently, it manages NASPs (EPECs) and Integer Programming Games.
 
 
 References

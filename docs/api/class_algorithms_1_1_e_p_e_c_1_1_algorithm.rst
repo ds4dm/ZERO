@@ -3,7 +3,7 @@
 Class Algorithm
 ===============
 
-- Defined in :ref:`file_include_algorithms_EPEC_epec_algorithms.h`
+- Defined in :ref:`file_include_games_algorithms_EPEC_epec_algorithms.h`
 
 
 Inheritance Relationships

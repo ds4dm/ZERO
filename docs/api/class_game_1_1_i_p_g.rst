@@ -6,6 +6,15 @@ Class IPG
 - Defined in :ref:`file_include_games_ipg.h`
 
 
+Inheritance Relationships
+-------------------------
+
+Base Type
+*********
+
+- ``public Game::AbstractGame< Data::IPG::DataObject >`` (:ref:`exhale_class_class_game_1_1_abstract_game`)
+
+
 Class Documentation
 -------------------
 

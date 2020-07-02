@@ -2,217 +2,225 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
   <compounddef id="epec__fullenumeration_8cpp" kind="file" language="C++">
     <compoundname>epec_fullenumeration.cpp</compoundname>
-    <includes refid="epec__fullenumeration_8h" local="yes">algorithms/EPEC/epec_fullenumeration.h</includes>
-    <includes refid="poly__lcp_8h" local="yes">lcp/poly_lcp.h</includes>
+    <includes refid="epec__fullenumeration_8h" local="yes">games/algorithms/EPEC/epec_fullenumeration.h</includes>
+    <includes refid="poly__lcp_8h" local="yes">mathopt/lcp/poly_lcp.h</includes>
     <includes local="no">boost/log/trivial.hpp</includes>
     <incdepgraph>
-      <node id="1">
-        <label>src/algorithms/EPEC/epec_fullenumeration.cpp</label>
-        <link refid="epec__fullenumeration_8cpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
-      </node>
-      <node id="14">
-        <label>support/utils.h</label>
-        <link refid="utils_8h"/>
-        <childnode refid="4" relation="include">
-        </childnode>
+      <node id="4">
+        <label>epec_algorithms.h</label>
+        <link refid="epec__algorithms_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
+        <childnode refid="31" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="27">
-        <label>epec_combinatorialpne.h</label>
-        <link refid="epec__combinatorialpne_8h"/>
-        <childnode refid="25" relation="include">
+      <node id="20">
+        <label>games/epec.h</label>
+        <link refid="epec_8h"/>
+        <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>support/utils.h</label>
+        <link refid="utils_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>poly_lcp.h</label>
+        <link refid="poly__lcp_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
         <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>games/algorithms/EPEC/epec_fullenumeration.h</label>
+        <link refid="epec__fullenumeration_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>algorithms/IPG/ipg_oracle.h</label>
+        <link refid="ipg__oracle_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
         </childnode>
       </node>
       <node id="23">
         <label>games/nash.h</label>
         <link refid="nash_8h"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-      </node>
-      <node id="11">
-        <label>support/codes.h</label>
-        <link refid="codes_8h"/>
-        <childnode refid="12" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-      </node>
-      <node id="9">
-        <label>string</label>
-      </node>
-      <node id="7">
-        <label>map</label>
-      </node>
-      <node id="22">
-        <label>games/games.h</label>
-        <link refid="games_8h"/>
-        <childnode refid="4" relation="include">
-        </childnode>
         <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="7" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
-      </node>
-      <node id="25">
-        <label>epec_polybase.h</label>
-        <link refid="epec__polybase_8h"/>
-        <childnode refid="3" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="4" relation="include">
+        <childnode refid="10" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
-      </node>
-      <node id="5">
-        <label>armadillo</label>
-      </node>
-      <node id="26">
-        <label>boost/log/trivial.hpp</label>
       </node>
       <node id="12">
-        <label>exception</label>
-      </node>
-      <node id="15">
-        <label>fstream</label>
-      </node>
-      <node id="2">
-        <label>algorithms/EPEC/epec_fullenumeration.h</label>
-        <link refid="epec__fullenumeration_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-      </node>
-      <node id="20">
-        <label>lcp/outer_lcp.h</label>
-        <link refid="outer__lcp_8h"/>
-        <childnode refid="5" relation="include">
-        </childnode>
+        <label>support/codes.h</label>
+        <link refid="codes_8h"/>
         <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="6" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
+        <childnode refid="10" relation="include">
         </childnode>
       </node>
-      <node id="21">
-        <label>lcp/poly_lcp.h</label>
-        <link refid="poly__lcp_8h"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-      </node>
-      <node id="24">
-        <label>games/qpmp.h</label>
-        <link refid="qpmp_8h"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-      </node>
-      <node id="28">
+      <node id="34">
         <label>epec_innerapproximation.h</label>
         <link refid="epec__innerapproximation_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
         <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="7" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
       </node>
-      <node id="4">
-        <label>zero.h</label>
-        <link refid="zero_8h"/>
+      <node id="10">
+        <label>string</label>
+      </node>
+      <node id="8">
+        <label>map</label>
+      </node>
+      <node id="19">
+        <label>games/games.h</label>
+        <link refid="games_8h"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>outer_lcp.h</label>
+        <link refid="outer__lcp_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
         <childnode refid="5" relation="include">
         </childnode>
+      </node>
+      <node id="29">
+        <label>ip_param.h</label>
+        <link refid="ip__param_8h"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>armadillo</label>
+      </node>
+      <node id="32">
+        <label>boost/log/trivial.hpp</label>
+      </node>
+      <node id="13">
+        <label>exception</label>
+      </node>
+      <node id="16">
+        <label>fstream</label>
+      </node>
+      <node id="5">
+        <label>zero.h</label>
+        <link refid="zero_8h"/>
         <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="7" relation="include">
@@ -225,89 +233,207 @@
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="14" relation="include">
+        <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="17" relation="include">
+        <childnode refid="15" relation="include">
         </childnode>
         <childnode refid="18" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
         <childnode refid="24" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
       </node>
-      <node id="10">
-        <label>vector</label>
-      </node>
-      <node id="17">
-        <label>support/version.h</label>
-        <link refid="version_8h"/>
-        <childnode refid="9" relation="include">
-        </childnode>
-      </node>
-      <node id="19">
-        <label>lcp/lcp.h</label>
-        <link refid="lcp_8h"/>
-        <childnode refid="4" relation="include">
-        </childnode>
+      <node id="28">
+        <label>mathopt/mp_param/mp_param.h</label>
+        <link refid="mp__param_8h"/>
         <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>vector</label>
+      </node>
+      <node id="3">
+        <label>epec_polybase.h</label>
+        <link refid="epec__polybase_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
         </childnode>
       </node>
       <node id="18">
-        <label>games/EPEC_test.h</label>
-        <link refid="_e_p_e_c__test_8h"/>
-        <childnode refid="19" relation="include">
+        <label>support/version.h</label>
+        <link refid="version_8h"/>
+        <childnode refid="10" relation="include">
         </childnode>
+      </node>
+      <node id="33">
+        <label>epec_combinatorialpne.h</label>
+        <link refid="epec__combinatorialpne_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>iostream</label>
+      </node>
+      <node id="21">
+        <label>games/ipg.h</label>
+        <link refid="ipg_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/games/algorithms/EPEC/epec_fullenumeration.cpp</label>
+        <link refid="epec__fullenumeration_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>gurobi_c++.h</label>
+      </node>
+      <node id="25">
+        <label>lcp/lcp.h</label>
+        <link refid="lcp_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>set</label>
+      </node>
+      <node id="31">
+        <label>epec_outerapproximation.h</label>
+        <link refid="epec__outerapproximation_8h"/>
         <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="7" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
         </childnode>
       </node>
-      <node id="6">
-        <label>iostream</label>
-      </node>
-      <node id="13">
-        <label>gurobi_c++.h</label>
-      </node>
-      <node id="16">
-        <label>set</label>
-      </node>
-      <node id="3">
-        <label>epec_algorithms.h</label>
-        <link refid="epec__algorithms_8h"/>
-        <childnode refid="4" relation="include">
+      <node id="30">
+        <label>qp_param.h</label>
+        <link refid="qp__param_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
         </childnode>
       </node>
-      <node id="8">
+      <node id="9">
         <label>memory</label>
+      </node>
+      <node id="24">
+        <label>mathopt/mathopt.h</label>
+        <link refid="mathopt_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <briefdescription>
@@ -315,27 +441,40 @@
     <detaileddescription>
     </detaileddescription>
     <programlisting>
-<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="epec__fullenumeration_8h" kindref="compound">algorithms/EPEC/epec_fullenumeration.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="poly__lcp_8h" kindref="compound">lcp/poly_lcp.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/log/trivial.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="4"><highlight class="normal"></highlight></codeline>
-<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_algorithms_1_1_e_p_e_c_1_1_full_enumeration_1ade43af2f102ebdc5bc88657e2e3dc490" kindref="member">Algorithms::EPEC::FullEnumeration::solve</ref>()<sp/>{</highlight></codeline>
-<codeline lineno="9"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" kindref="member">EPECObject</ref>-&gt;<ref refid="class_game_1_1_e_p_e_c_1a8e4aa5e6b5baa41c7a977b3b66cdfdf2" kindref="member">NumPlayers</ref>;<sp/>++i)</highlight></codeline>
-<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a07f74282d7751de285a7e72b0377c8d6" kindref="member">PolyLCP</ref>.at(i)-&gt;enumerateAll(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="11"><highlight class="normal"><sp/><sp/>this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" kindref="member">EPECObject</ref>-&gt;<ref refid="class_game_1_1_e_p_e_c_1a5db4c964c3d451ab55a5630e565753d0" kindref="member">makePlayersQPs</ref>();</highlight></codeline>
-<codeline lineno="12"><highlight class="normal"><sp/><sp/>BOOST_LOG_TRIVIAL(trace)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Algorithms::EPEC::FullEnumeration::solve:<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Starting<sp/>FullEnumeration<sp/>search&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="14"><highlight class="normal"><sp/><sp/>this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" kindref="member">EPECObject</ref>-&gt;<ref refid="class_game_1_1_e_p_e_c_1a37dca6fc0a76c12bc4bc0eac602e3633" kindref="member">computeNashEq</ref>(this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" kindref="member">EPECObject</ref>-&gt;<ref refid="class_game_1_1_e_p_e_c_1a6bf4f89d2d8a9818da7d698da2c07f05" kindref="member">Stats</ref>.<ref refid="struct_z_e_r_o_statistics_1a3bbab496765289014fa98e5714b8ac30" kindref="member">AlgorithmData</ref>.<ref refid="class_z_e_r_o_algorithm_data_1a6ef089b859867830e6bf74a536b59371" kindref="member">PureNashEquilibrium</ref>.<ref refid="class_attr_1a34874d6fd5cc30ddc6175895e7138237" kindref="member">get</ref>(),</highlight></codeline>
-<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" kindref="member">EPECObject</ref>-&gt;<ref refid="class_game_1_1_e_p_e_c_1a6bf4f89d2d8a9818da7d698da2c07f05" kindref="member">Stats</ref>.<ref refid="struct_z_e_r_o_statistics_1a3bbab496765289014fa98e5714b8ac30" kindref="member">AlgorithmData</ref>.<ref refid="class_z_e_r_o_algorithm_data_1a72eb898105c8d34b295e902e1c39b9d7" kindref="member">TimeLimit</ref>.<ref refid="class_attr_1a34874d6fd5cc30ddc6175895e7138237" kindref="member">get</ref>());</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a5943ee10262cc33bbeb18d5a902e1b90" kindref="member">isSolved</ref>())<sp/>{</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" kindref="member">EPECObject</ref>-&gt;<ref refid="class_game_1_1_e_p_e_c_1a6bf4f89d2d8a9818da7d698da2c07f05" kindref="member">Stats</ref>.<ref refid="struct_z_e_r_o_statistics_1aa05a26f02afdbbe90ecb0aadd0789dce" kindref="member">Status</ref>.<ref refid="class_attr_1a24bbc4c3b07403b20655c22ac4d2abef" kindref="member">set</ref>(<ref refid="codes_8h_1adc92fa8b12e5abec0a79ad40bedc1ccfa3d60fdec6877b4daac062502aab319a8" kindref="member">ZEROStatus::NashEqFound</ref>);</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ac1be48a137ea071862794beba97ff02a" kindref="member">isPureStrategy</ref>())</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" kindref="member">EPECObject</ref>-&gt;<ref refid="class_game_1_1_e_p_e_c_1a6bf4f89d2d8a9818da7d698da2c07f05" kindref="member">Stats</ref>.<ref refid="struct_z_e_r_o_statistics_1a9a10dad73be547159bc38cbaaf5e7f72" kindref="member">PureNashEquilibrium</ref><sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Post<sp/>Solving</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/>this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ae32c59d87b904dd0b6bff19a4bf954f7" kindref="member">postSolving</ref>();</highlight></codeline>
-<codeline lineno="23"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="1"><highlight class="comment">/*<sp/>#############################################</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>file<sp/>is<sp/>part<sp/>of</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ZERO</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Copyright<sp/>(c)<sp/>2020</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/>Released<sp/>under<sp/>the<sp/>Creative<sp/>Commons</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Zero<sp/>v1.0<sp/>Universal<sp/>License</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Find<sp/>out<sp/>more<sp/>at</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>https://github.com/ds4dm/ZERO</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>#############################################*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="epec__fullenumeration_8h" kindref="compound">games/algorithms/EPEC/epec_fullenumeration.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="poly__lcp_8h" kindref="compound">mathopt/lcp/poly_lcp.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/log/trivial.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_algorithms_1_1_e_p_e_c_1_1_full_enumeration_1ade43af2f102ebdc5bc88657e2e3dc490" kindref="member">Algorithms::EPEC::FullEnumeration::solve</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" kindref="member">EPECObject</ref>-&gt;<ref refid="class_game_1_1_abstract_game_1a01da21edfe49ed5771a9eed714b87418" kindref="member">NumPlayers</ref>;<sp/>++i)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1af4b04767398229a7773932f5ff27f74b" kindref="member">PolyLCP</ref>.at(i)-&gt;enumerateAll(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/>this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" kindref="member">EPECObject</ref>-&gt;<ref refid="class_game_1_1_e_p_e_c_1a5db4c964c3d451ab55a5630e565753d0" kindref="member">makePlayersQPs</ref>();</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/>BOOST_LOG_TRIVIAL(trace)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Algorithms::EPEC::FullEnumeration::solve:<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Starting<sp/>FullEnumeration<sp/>search&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" kindref="member">EPECObject</ref>-&gt;<ref refid="class_game_1_1_e_p_e_c_1a37dca6fc0a76c12bc4bc0eac602e3633" kindref="member">computeNashEq</ref>(this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" kindref="member">EPECObject</ref>-&gt;<ref refid="class_game_1_1_abstract_game_1a5ecc6e6433baef6b13f35d7bb45856ce" kindref="member">Stats</ref>.<ref refid="struct_z_e_r_o_statistics_1a3bbab496765289014fa98e5714b8ac30" kindref="member">AlgorithmData</ref>.<ref refid="class_z_e_r_o_algorithm_data_1a6ef089b859867830e6bf74a536b59371" kindref="member">PureNashEquilibrium</ref>.<ref refid="class_attr_1a34874d6fd5cc30ddc6175895e7138237" kindref="member">get</ref>(),</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" kindref="member">EPECObject</ref>-&gt;<ref refid="class_game_1_1_abstract_game_1a5ecc6e6433baef6b13f35d7bb45856ce" kindref="member">Stats</ref>.<ref refid="struct_z_e_r_o_statistics_1a3bbab496765289014fa98e5714b8ac30" kindref="member">AlgorithmData</ref>.<ref refid="class_z_e_r_o_algorithm_data_1a72eb898105c8d34b295e902e1c39b9d7" kindref="member">TimeLimit</ref>.<ref refid="class_attr_1a34874d6fd5cc30ddc6175895e7138237" kindref="member">get</ref>());</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1a5943ee10262cc33bbeb18d5a902e1b90" kindref="member">isSolved</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" kindref="member">EPECObject</ref>-&gt;<ref refid="class_game_1_1_abstract_game_1a5ecc6e6433baef6b13f35d7bb45856ce" kindref="member">Stats</ref>.<ref refid="struct_z_e_r_o_statistics_1aa05a26f02afdbbe90ecb0aadd0789dce" kindref="member">Status</ref>.<ref refid="class_attr_1a24bbc4c3b07403b20655c22ac4d2abef" kindref="member">set</ref>(<ref refid="codes_8h_1adc92fa8b12e5abec0a79ad40bedc1ccfa3d60fdec6877b4daac062502aab319a8" kindref="member">ZEROStatus::NashEqFound</ref>);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ac1be48a137ea071862794beba97ff02a" kindref="member">isPureStrategy</ref>())</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" kindref="member">EPECObject</ref>-&gt;<ref refid="class_game_1_1_abstract_game_1a5ecc6e6433baef6b13f35d7bb45856ce" kindref="member">Stats</ref>.<ref refid="struct_z_e_r_o_statistics_1a9a10dad73be547159bc38cbaaf5e7f72" kindref="member">PureNashEquilibrium</ref><sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Post<sp/>Solving</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>this-&gt;<ref refid="class_algorithms_1_1_e_p_e_c_1_1_poly_base_1ae32c59d87b904dd0b6bff19a4bf954f7" kindref="member">postSolving</ref>();</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="src/algorithms/EPEC/epec_fullenumeration.cpp"/>
+    <location file="src/games/algorithms/EPEC/epec_fullenumeration.cpp"/>
   </compounddef>
 </doxygen>

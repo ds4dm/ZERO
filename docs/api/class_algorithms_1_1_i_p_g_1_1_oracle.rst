@@ -3,7 +3,7 @@
 Class Oracle
 ============
 
-- Defined in :ref:`file_include_algorithms_IPG_ipg_oracle.h`
+- Defined in :ref:`file_include_games_algorithms_IPG_ipg_oracle.h`
 
 
 Inheritance Relationships

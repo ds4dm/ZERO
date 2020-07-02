@@ -3,7 +3,7 @@
 Function std::to_string(Data::EPEC::RecoverStrategy)
 ====================================================
 
-- Defined in :ref:`file_include_games_EPEC_test.h`
+- Defined in :ref:`file_include_games_epec.h`
 
 
 Function Documentation

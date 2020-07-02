@@ -3,7 +3,7 @@
 Enum PolyhedraStrategy
 ======================
 
-- Defined in :ref:`file_include_lcp_lcp.h`
+- Defined in :ref:`file_include_mathopt_lcp_lcp.h`
 
 
 Enum Documentation
