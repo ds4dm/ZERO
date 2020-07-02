@@ -406,10 +406,8 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 										"Unknown status for leaderModel for player " +
 											 std::to_string(player));
 		} // end for
-		// no separation
-	 }
-
-	 else {
+		  // no separation
+	 } else {
 		throw ZEROException(ZEROErrorCode::Assertion,
 								  "Unknown status for convexModel for player " + std::to_string(player));
 	 }
@@ -512,7 +510,7 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 		  if (*std::max_element(branchingLocations.begin(), branchingLocations.end()) < 0) {
 			 BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::solve: "
 												 "No more branching candidates.";
-			 this->isSolved();
+			 this->EPECObject->Stats.Status.set(ZEROStatus::NashEqNotFound);
 			 break;
 		  }
 		}
@@ -777,10 +775,8 @@ int Algorithms::EPEC::OuterApproximation::getFirstBranchLocation(const unsigned 
   unsigned int nR    = this->outerLCP.at(player)->getNumRows();
   int          pos   = -nR;
   arma::vec    z, x;
-  if (this->outerLCP.at(player)->extractSols(model.get(),
-															z,
-															x,
-															true)) // If already infeasible, nothing to branch!
+  if (this->outerLCP.at(player)->extractSols(
+			 model.get(), z, x, true)) // If already infeasible, nothing to branch!
   {
 	 std::vector<short int> v1 = this->outerLCP.at(player)->solEncode(z, x);
 
@@ -801,7 +797,8 @@ int Algorithms::EPEC::OuterApproximation::getFirstBranchLocation(const unsigned 
 	 }
 	 pos = maxvalz > maxvalx ? maxposz : maxposx;
   } else {
-	 BOOST_LOG_TRIVIAL(debug) << "The problem is infeasible";
+	 // The problem is infeasible!
+	 return -1;
   }
   return pos;
 }
@@ -862,6 +859,7 @@ void Algorithms::EPEC::OuterApproximation::printCurrentApprox() {
 	 BOOST_LOG_TRIVIAL(info) << msg.str();
   }
 }
+
 void Algorithms::EPEC::OuterApproximation::printBranchingLog(std::vector<int> vector) {
   /**
 	* Given the vector of branching logs, prints a sum up of the decision taken
@@ -872,6 +870,7 @@ void Algorithms::EPEC::OuterApproximation::printBranchingLog(std::vector<int> ve
   BOOST_LOG_TRIVIAL(info) << "\tHybridBranching: " << vector.at(2);
   BOOST_LOG_TRIVIAL(info) << "\tFirstAvail: " << vector.at(3);
 }
+
 bool Algorithms::EPEC::OuterApproximation::isPureStrategy(double tol) const {
   if (!this->Feasible)
 	 return false;
