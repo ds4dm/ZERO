@@ -12,13 +12,9 @@
 
 
 #include "EPEC_test.h"
-#include "algorithms/EPEC/epec_algorithms.h"
+#include "games/algorithms/EPEC/epec_algorithms.h"
 
 
-using namespace std;
-using namespace arma;
-using namespace Models;
-using namespace Game;
 
 BOOST_AUTO_TEST_CASE(LoggingOff) {
   boost::log::core::get()->set_filter(boost::log::trivial::severity >=
@@ -34,7 +30,7 @@ BOOST_AUTO_TEST_SUITE(Core__Tests)
 
 BOOST_AUTO_TEST_CASE(QPParam_test) {
   BOOST_TEST_MESSAGE("\n\n");
-  BOOST_TEST_MESSAGE("Testing Game::QP_Param");
+  BOOST_TEST_MESSAGE("Testing MathOpt::QP_Param");
 
   /* Random data
   arma_rng::set_seed(rand_int(g));
@@ -75,24 +71,24 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
 	*
 	*/
   unsigned int Nx = 2, Ny = 3, Ncons = 2;
-  mat          Qd(3, 3);
-  Qd << 1 << 1 << -2 << endr << 1 << 1 << -2 << endr << -2 << -2 << 4 << endr;
-  sp_mat Q = sp_mat(2 * Qd);
-  sp_mat C(3, 2);
+  arma::mat    Qd(3, 3);
+  Qd << 1 << 1 << -2 << arma::endr << 1 << 1 << -2 << arma::endr << -2 << -2 << 4 << arma::endr;
+  arma::sp_mat Q = arma::sp_mat(2 * Qd);
+  arma::sp_mat C(3, 2);
   C.zeros();
   C(0, 0) = 2;
   C(0, 1) = 2;
   C(2, 0) = 3;
-  vec c(3);
-  c << 1 << endr << -1 << endr << 1 << endr;
-  sp_mat A(2, 2);
+  arma::vec c(3);
+  c << 1 << arma::endr << -1 << arma::endr << 1 << arma::endr;
+  arma::sp_mat A(2, 2);
   A.zeros();
   A(1, 0) = -1;
   A(1, 1) = -1;
-  mat Bd(2, 3);
-  Bd << 1 << 1 << 1 << endr << -1 << 1 << -2 << endr;
-  sp_mat B = sp_mat(Bd);
-  vec    b(2);
+  arma::mat Bd(2, 3);
+  Bd << 1 << 1 << 1 << arma::endr << -1 << 1 << -2 << arma::endr;
+  arma::sp_mat B = arma::sp_mat(Bd);
+  arma::vec    b(2);
   b(0) = 10;
   b(1) = -1;
   /* Manual data over */
@@ -101,9 +97,9 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
 
   // Constructor
   BOOST_TEST_MESSAGE("Constructor tests");
-  QP_Param       q1(Q, C, A, B, c, b, &env);
-  const QP_Param q_ref(q1);
-  QP_Param       q2(&env);
+  MathOpt::QP_Param       q1(Q, C, A, B, c, b, &env);
+  const MathOpt::QP_Param q_ref(q1);
+  MathOpt::QP_Param       q2(&env);
   q2.set(Q, C, A, B, c, b);
   BOOST_CHECK(q1 == q2);
   // Checking if the constructor is sensible
@@ -116,7 +112,7 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
   x(1)                 = 0.5;
   auto      FixedModel = q2.solveFixed(x, true);
   arma::vec sol(3);
-  sol << 0.5417 << endr << 5.9861 << endr
+  sol << 0.5417 << arma::endr << 5.9861 << arma::endr
 		<< 3.4722; // Hard-coding the solution as calculated outside
   for (unsigned int i = 0; i < Ny; i++)
 	 BOOST_WARN_CLOSE(sol(i), FixedModel->getVar(i).get(GRB_DoubleAttr_X), 0.01);
@@ -124,28 +120,30 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
 
   // KKT conditions for a QPC
   BOOST_TEST_MESSAGE("QP_Param.KKT() test");
-  sp_mat M, N;
-  vec    q;
+  arma::sp_mat M, N;
+  arma::vec    q;
   // Hard coding the expected values for M, N and q
-  mat Mhard(5, 5), Nhard(5, 2);
-  vec qhard(5);
-  Mhard << 2 << 2 << -4 << 1 << -1 << endr << 2 << 2 << -4 << 1 << 1 << endr << -4 << -4 << 8 << 1
-		  << -2 << endr << -1 << -1 << -1 << 0 << 0 << endr << 1 << -1 << 2 << 0 << 0 << endr;
-  Nhard << 2 << 2 << endr << 0 << 0 << endr << 3 << 0 << endr << 0 << 0 << endr << 1 << 1 << endr;
+  arma::mat Mhard(5, 5), Nhard(5, 2);
+  arma::vec qhard(5);
+  Mhard << 2 << 2 << -4 << 1 << -1 << arma::endr << 2 << 2 << -4 << 1 << 1 << arma::endr << -4 << -4
+		  << 8 << 1 << -2 << arma::endr << -1 << -1 << -1 << 0 << 0 << arma::endr << 1 << -1 << 2 << 0
+		  << 0 << arma::endr;
+  Nhard << 2 << 2 << arma::endr << 0 << 0 << arma::endr << 3 << 0 << arma::endr << 0 << 0
+		  << arma::endr << 1 << 1 << arma::endr;
   qhard << 1 << -1 << 1 << 10 << -1;
   BOOST_CHECK_NO_THROW(q1.KKT(M, N, q)); // Should not throw any exception!
   // Following are hard requirements, if this fails, then addDummy test
   // following this is not sensible
-  BOOST_REQUIRE(Game::isZero(mat(M) - Mhard));
-  BOOST_REQUIRE(Game::isZero(mat(N) - Nhard));
-  BOOST_REQUIRE(Game::isZero(mat(q) - qhard));
+  BOOST_REQUIRE(Utils::isZero(arma::mat(M) - Mhard));
+  BOOST_REQUIRE(Utils::isZero(arma::mat(N) - Nhard));
+  BOOST_REQUIRE(Utils::isZero(arma::mat(q) - qhard));
 
   // addDummy
   BOOST_TEST_MESSAGE("QP_Param.addDummy(0, 1, 1) test");
   // First adding a dummy variable using QP_Param::addDummy(var, param, pos);
   q1.addDummy(0, 1, 1);
   // Position should not matter for variable addition
-  Game::QP_Param q3 = QP_Param(q_ref);
+  MathOpt::QP_Param q3 = MathOpt::QP_Param(q_ref);
   q3.addDummy(0, 1, 0);
   BOOST_CHECK_MESSAGE(q1 == q3, "Checking location should not matter for variables");
 
@@ -153,41 +151,41 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
   // zeros
   arma::sp_mat temp_spmat1 =
 		q1.getQ().submat(0, 0, Ny - 1, Ny - 1); // The top left part should not have changed.
-  BOOST_CHECK_MESSAGE(Game::isZero(temp_spmat1 - q_ref.getQ()), "Q check after addDummy(0, 1, 1)");
+  BOOST_CHECK_MESSAGE(Utils::isZero(temp_spmat1 - q_ref.getQ()), "Q check after addDummy(0, 1, 1)");
   temp_spmat1 = q1.getQ().cols(Ny, Ny);
-  BOOST_CHECK_MESSAGE(Game::isZero(temp_spmat1), "Q check after addDummy(0, 1, 1)");
+  BOOST_CHECK_MESSAGE(Utils::isZero(temp_spmat1), "Q check after addDummy(0, 1, 1)");
   temp_spmat1 = q1.getQ().rows(Ny, Ny);
-  BOOST_CHECK_MESSAGE(Game::isZero(temp_spmat1), "Q check after addDummy(0, 1, 1)");
+  BOOST_CHECK_MESSAGE(Utils::isZero(temp_spmat1), "Q check after addDummy(0, 1, 1)");
   // C  should have a new zero row below
   temp_spmat1 = q1.getC().submat(0, 0, Ny - 1, Nx - 1);
-  BOOST_CHECK_MESSAGE(Game::isZero(temp_spmat1 - q_ref.getC()), "C check after addDummy(0, 1, 1)");
+  BOOST_CHECK_MESSAGE(Utils::isZero(temp_spmat1 - q_ref.getC()), "C check after addDummy(0, 1, 1)");
   temp_spmat1 = q1.getC().row(Ny);
-  BOOST_CHECK_MESSAGE(Game::isZero(temp_spmat1), "C check after addDummy(0, 1, 1)");
+  BOOST_CHECK_MESSAGE(Utils::isZero(temp_spmat1), "C check after addDummy(0, 1, 1)");
 
   // A should not change
-  BOOST_CHECK_MESSAGE(Game::isZero(q_ref.getA() - q1.getA()), "A check after addDummy(0, 1, 1)");
+  BOOST_CHECK_MESSAGE(Utils::isZero(q_ref.getA() - q1.getA()), "A check after addDummy(0, 1, 1)");
 
   // B
   temp_spmat1 = q1.getB().submat(0, 0, Ncons - 1, Ny - 1);
-  BOOST_CHECK_MESSAGE(Game::isZero(temp_spmat1 - q_ref.getB()), "B check after addDummy(0, 1, 1)");
+  BOOST_CHECK_MESSAGE(Utils::isZero(temp_spmat1 - q_ref.getB()), "B check after addDummy(0, 1, 1)");
   temp_spmat1 = q1.getB().col(Ny);
-  BOOST_CHECK_MESSAGE(Game::isZero(temp_spmat1), "B check after addDummy(0, 1, 1)");
+  BOOST_CHECK_MESSAGE(Utils::isZero(temp_spmat1), "B check after addDummy(0, 1, 1)");
 
   // b
-  BOOST_CHECK_MESSAGE(Game::isZero(q_ref.getb() - q1.getb()), "b check after addDummy(0, 1, 1)");
+  BOOST_CHECK_MESSAGE(Utils::isZero(q_ref.getb() - q1.getb()), "b check after addDummy(0, 1, 1)");
 
   // c
   temp_spmat1 = q1.getc().subvec(0, Ny - 1);
-  BOOST_CHECK_MESSAGE(Game::isZero(temp_spmat1 - q_ref.getc()), "c check after addDummy(0, 1, 1)");
+  BOOST_CHECK_MESSAGE(Utils::isZero(temp_spmat1 - q_ref.getc()), "c check after addDummy(0, 1, 1)");
   BOOST_CHECK_MESSAGE(abs(q1.getc().at(Ny)) < 1e-4, "c check after addDummy(0, 1, 1)");
 
   BOOST_TEST_MESSAGE("QP_Param test for file save");
   q1.save("../test/EPEC/q1.dat", true);
   q2.save("../test/EPEC/q2.dat", true);
   BOOST_TEST_MESSAGE("Saved QP_Param objects");
-  QP_Param q1loader(&env);
+  MathOpt::QP_Param q1loader(&env);
   q1loader.load("../test/EPEC/q1.dat", 0);
-  QP_Param q2loader(&env);
+  MathOpt::QP_Param q2loader(&env);
   q2loader.load("../test/EPEC/q2.dat", 0);
 
   BOOST_CHECK_MESSAGE(q1loader == q1, "Save/load test 1 works well");
@@ -220,22 +218,22 @@ BOOST_AUTO_TEST_CASE(NashGame_test) {
   Q(0, 0) = 2 * 1.1;
   C(0, 0) = 1;
   c(0)    = -90;
-  auto q1 = std::make_shared<Game::QP_Param>(Q, C, A, B, c, b, &env);
+  auto q1 = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, &env);
   Q(0, 0) = 2 * 1.2;
   c(0)    = -95;
-  auto q2 = std::make_shared<Game::QP_Param>(Q, C, A, B, c, b, &env);
+  auto q2 = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, &env);
 
   // Creating the Nashgame
-  std::vector<shared_ptr<Game::QP_Param>> q{q1, q2};
-  sp_mat                                  MC(0, 2);
-  vec                                     MCRHS;
+  std::vector<std::shared_ptr<MathOpt::QP_Param>> q{q1, q2};
+  arma::sp_mat                                    MC(0, 2);
+  arma::vec                                       MCRHS;
   MCRHS.set_size(0);
   Game::NashGame Nash = Game::NashGame(&env, q, MC, MCRHS);
 
   // Master check  -  LCP should be proper!
-  sp_mat MM, MM_ref;
-  vec    qq, qq_ref;
-  perps  Compl;
+  arma::sp_mat MM, MM_ref;
+  arma::vec    qq, qq_ref;
+  perps        Compl;
   BOOST_TEST_MESSAGE("NashGame.formulateLCP test");
   BOOST_CHECK_NO_THROW(Nash.formulateLCP(MM, qq, Compl));
   BOOST_CHECK_MESSAGE(MM(0, 0) == 2.2, "checking q1 coefficient in M-LCP (0,0)");
@@ -246,8 +244,8 @@ BOOST_AUTO_TEST_CASE(NashGame_test) {
   BOOST_CHECK_MESSAGE(qq(1) == -95, "checking rhs coefficient in Q-LCP (1)");
 
   BOOST_TEST_MESSAGE("LCP.LCPasMIP test");
-  Game::LCP            lcp(&env, Nash);
-  unique_ptr<GRBModel> lcpmodel = lcp.LCPasMIP(true);
+  MathOpt::LCP              lcp(&env, Nash);
+  std::unique_ptr<GRBModel> lcpmodel = lcp.LCPasMIP(true);
 
   // int Nvar = Nash.getNprimals() + Nash.getNumDualVars() + Nash.getNumShadow() +
   // Nash.getNumLeaderVars();
@@ -259,16 +257,17 @@ BOOST_AUTO_TEST_CASE(NashGame_test) {
   BOOST_TEST_MESSAGE("NashGame load/save test");
   BOOST_CHECK_NO_THROW(Nash.save("../test/EPEC/Nash.dat"));
 
-  NashGame N2(&env);
+  Game::NashGame N2(&env);
   BOOST_CHECK_NO_THROW(N2.load("../test/EPEC/Nash.dat"));
   BOOST_CHECK_NO_THROW(N2.save("../test/EPEC/Nash2.dat"));
 
   BOOST_TEST_MESSAGE("LCP load/save test");
   BOOST_CHECK_NO_THROW(lcp.save("../test/EPEC/TheLCP.dat"));
 
-  LCP lcp2(&env);
+  MathOpt::LCP lcp2(&env);
   BOOST_CHECK_NO_THROW(lcp2.load("../test/EPEC/TheLCP.dat"));
   BOOST_CHECK_NO_THROW(lcp2.save("../test/EPEC/lcp2.dat"));
+
 
   arma::vec Nashsol(2);
   Nashsol(0) = 28.271028;
@@ -319,8 +318,8 @@ BOOST_AUTO_TEST_CASE(LCP_test) {
   A(1, 2) = 1;
   b(1)    = 12;
   // Creating the LCP object
-  GRBEnv env;
-  LCP    lcp(&env, M, q, 1, 1, A, b);
+  GRBEnv       env;
+  MathOpt::LCP lcp(&env, M, q, 1, 1, A, b);
 }
 
 BOOST_AUTO_TEST_CASE(ConvexHull_test) {
@@ -332,11 +331,11 @@ BOOST_AUTO_TEST_CASE(ConvexHull_test) {
   BOOST_TEST_MESSAGE("\n\n");
   BOOST_TEST_MESSAGE("Testing Game::convexHull");
 
-  GRBEnv                 env;
-  arma::sp_mat           A1, A2, A3, A;
-  arma::vec              b1, b2, b3, b;
-  vector<arma::sp_mat *> Ai;
-  vector<arma::vec *>    bi;
+  GRBEnv                      env;
+  arma::sp_mat                A1, A2, A3, A;
+  arma::vec                   b1, b2, b3, b;
+  std::vector<arma::sp_mat *> Ai;
+  std::vector<arma::vec *>    bi;
 
   A.zeros();
   b.zeros();
@@ -398,11 +397,11 @@ BOOST_AUTO_TEST_CASE(ConvexHull_test) {
 
   GRBModel model = GRBModel(env);
   BOOST_TEST_MESSAGE("Testing Game::convexHull with a two dimensional problem.");
-  Game::convexHull(&Ai, &bi, A, b);
+  MathOpt::convexHull(&Ai, &bi, A, b);
   GRBVar    x[A.n_cols];
   GRBConstr a[A.n_rows];
   for (unsigned int i = 0; i < A.n_cols; i++)
-	 x[i] = model.addVar(-GRB_INFINITY, +GRB_INFINITY, 0, GRB_CONTINUOUS, "x_" + to_string(i));
+	 x[i] = model.addVar(-GRB_INFINITY, +GRB_INFINITY, 0, GRB_CONTINUOUS, "x_" + std::to_string(i));
   for (unsigned int i = 0; i < A.n_rows; i++) {
 	 GRBLinExpr lin{0};
 	 for (auto j = A.begin_row(i); j != A.end_row(i); ++j)

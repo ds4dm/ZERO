@@ -37,12 +37,12 @@ namespace Game {
   class NashGame {
   private:
 	 GRBEnv *     Env = nullptr;
-	 arma::sp_mat LeaderConstraints;                        ///< Upper level leader constraints LHS
-	 arma::vec    LeaderConstraintsRHS;                     ///< Upper level leader constraints RHS
-	 unsigned int NumPlayers;                               ///< Number of players in the Nash Game
-	 std::vector<std::shared_ptr<QP_Param>> Players;        ///< The QP that each player solves
-	 arma::sp_mat                           MarketClearing; ///< Market clearing constraints
-	 arma::vec                              MCRHS; ///< RHS to the Market Clearing constraints
+	 arma::sp_mat LeaderConstraints;                          ///< Upper level leader constraints LHS
+	 arma::vec    LeaderConstraintsRHS;                       ///< Upper level leader constraints RHS
+	 unsigned int NumPlayers;                                 ///< Number of players in the Nash Game
+	 std::vector<std::shared_ptr<MathOpt::QP_Param>> Players; ///< The QP that each player solves
+	 arma::sp_mat                                    MarketClearing; ///< Market clearing constraints
+	 arma::vec MCRHS; ///< RHS to the Market Clearing constraints
 
 	 /// @internal In the vector of variables of all players,
 	 /// which position does the variable corrresponding to this player starts.
@@ -64,15 +64,15 @@ namespace Game {
 	 /// To be used only when NashGame is being loaded from a file.
 	 explicit NashGame(GRBEnv *e) noexcept : Env{e} {};
 
-	 /// Constructing a NashGame from a set of Game::QP_Param, Market clearing
+	 /// Constructing a NashGame from a set of MathOpt::QP_Param, Market clearing
 	 /// constraints
-	 explicit NashGame(GRBEnv *                               e,
-							 std::vector<std::shared_ptr<QP_Param>> players,
-							 arma::sp_mat                           MC,
-							 arma::vec                              MCRHS,
-							 unsigned int                           nLeadVar = 0,
-							 arma::sp_mat                           leadA    = {},
-							 arma::vec                              leadRHS  = {});
+	 explicit NashGame(GRBEnv *                                        e,
+							 std::vector<std::shared_ptr<MathOpt::QP_Param>> players,
+							 arma::sp_mat                                    MC,
+							 arma::vec                                       MCRHS,
+							 unsigned int                                    nLeadVar = 0,
+							 arma::sp_mat                                    leadA    = {},
+							 arma::vec                                       leadRHS  = {});
 
 	 // Copy constructor
 	 NashGame(const NashGame &N);
@@ -103,7 +103,7 @@ namespace Game {
 	 inline unsigned int getNprimals() const {
 		/***
 		 * Number of primal variables is the sum of the "y" variables present in
-		 * each player's Game::QP_Param
+		 * each player's MathOpt::QP_Param
 		 */
 		return this->PrimalPosition.back();
 	 }
@@ -127,7 +127,7 @@ namespace Game {
 		 * of the number dual variables each player has. And the number of dual
 		 * variables for any player is equal to the number of linear constraints
 		 * they have which is given by the number of rows in the player's
-		 * Game::QP_Param::A
+		 * MathOpt::QP_Param::A
 		 */
 		return this->DualPosition.back() - this->DualPosition.front() + 0;
 	 }
@@ -192,9 +192,8 @@ namespace Game {
 	 arma::vec computeQPObjectiveValuesWithoutOthers(const arma::vec &x) const;
   };
 
-  std::ostream &operator<<(std::ostream &os, const QP_Param &Q);
+  std::ostream &operator<<(std::ostream &os, const MathOpt::QP_Param &Q);
 
   std::ostream &operator<<(std::ostream &ost, const perps &C);
 
-  void print(const perps &C) noexcept;
 } // namespace Game

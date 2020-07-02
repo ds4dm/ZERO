@@ -17,9 +17,9 @@
 #include <memory>
 
 Game::IPG::IPG(
-	 GRBEnv *                                     env,    ///< A pointer to the Gurobi Environment
-	 std::vector<std::shared_ptr<Game::IP_Param>> players ///< A vector containing the pointers to
-																			///< the IP param for each player
+	 GRBEnv *                                        env,    ///< A pointer to the Gurobi Environment
+	 std::vector<std::shared_ptr<MathOpt::IP_Param>> players ///< A vector containing the pointers to
+																				///< the IP param for each player
 ) {
   /**
 	* @brief This constructors initializes the integer programming game with the

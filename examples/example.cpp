@@ -71,7 +71,7 @@ std::shared_ptr<Game::NashGame> uvLeader(GRBEnv *env) {
   B(0, 1)   = 1;
   B(1, 0)   = 1;
   B(1, 1)   = -2;
-  auto foll = std::make_shared<Game::QP_Param>(Q, C, A, B, c, b, env);
+  auto foll = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, env);
 
   // Lower level Market clearing constraints - empty
   arma::sp_mat MC(0, 3);
@@ -85,7 +85,7 @@ std::shared_ptr<Game::NashGame> uvLeader(GRBEnv *env) {
   LeadRHS(0)     = 5;
 
   auto N = std::make_shared<Game::NashGame>(
-		env, std::vector<std::shared_ptr<Game::QP_Param>>{foll}, MC, MCRHS, 1, LeadCons, LeadRHS);
+		env, std::vector<std::shared_ptr<MathOpt::QP_Param>>{foll}, MC, MCRHS, 1, LeadCons, LeadRHS);
   return N;
 }
 
@@ -110,7 +110,7 @@ std::shared_ptr<Game::NashGame> xy_leader(GRBEnv *env) {
   // b
   b(0)      = 5;
   b(1)      = -3;
-  auto foll = std::make_shared<Game::QP_Param>(Q, C, A, B, c, b, env);
+  auto foll = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, env);
 
   // Lower level Market clearing constraints - empty
   arma::sp_mat MC(0, 3);
@@ -129,7 +129,7 @@ std::shared_ptr<Game::NashGame> xy_leader(GRBEnv *env) {
   LeadRHS(1)     = 0;
 
   auto N = std::make_shared<Game::NashGame>(
-		env, std::vector<std::shared_ptr<Game::QP_Param>>{foll}, MC, MCRHS, 1, LeadCons, LeadRHS);
+		env, std::vector<std::shared_ptr<MathOpt::QP_Param>>{foll}, MC, MCRHS, 1, LeadCons, LeadRHS);
   return N;
 }
 

@@ -14,9 +14,9 @@
 #pragma once
 #define TEST_NUM_THREADS 4
 
-#include "algorithms/EPEC/epec_algorithms.h"
+#include "games/algorithms/EPEC/epec_algorithms.h"
 #include "interfaces/epec_models.h"
-#include "lcp/lcp.h"
+#include "mathopt/lcp/lcp.h"
 #include "zero.h"
 #include <armadillo>
 #include <boost/log/core.hpp>

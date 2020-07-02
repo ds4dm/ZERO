@@ -12,7 +12,7 @@
 
 
 #pragma once
-#include "lcp/lcp.h"
+#include "support/codes.h"
 #include "zero.h"
 #include <armadillo>
 #include <gurobi_c++.h>
@@ -20,7 +20,6 @@
 #include <memory>
 #include <set>
 #include <string>
-#include <support/codes.h>
 
 namespace Data {
   namespace EPEC {
@@ -80,7 +79,7 @@ namespace Game {
   private:
 	 std::shared_ptr<Algorithms::EPEC::Algorithm> Algorithm{};
 	 std::vector<unsigned int>                    SizesWithoutHull{};
-	 std::unique_ptr<Game::LCP>                   TheLCP; ///< The EPEC nash game written as an LCP
+	 std::unique_ptr<MathOpt::LCP>                TheLCP; ///< The EPEC nash game written as an LCP
 	 std::unique_ptr<GRBModel> LCPModel;     ///< A Gurobi mode object of the LCP form of EPEC
 	 std::unique_ptr<GRBModel> LCPModelBase; ///< A Gurobi mode object of the LCP form of EPEC. If
 	 ///< we are searching for a pure NE,
@@ -88,13 +87,13 @@ namespace Game {
 	 ///< object.
   protected:
 	 std::vector<std::shared_ptr<Game::NashGame>> PlayersLowerLevels{};
-	 std::vector<std::shared_ptr<Game::LCP>>      PlayersLCP{};
+	 std::vector<std::shared_ptr<MathOpt::LCP>>   PlayersLCP{};
 
-	 std::vector<std::shared_ptr<Game::QP_Param>>
+	 std::vector<std::shared_ptr<MathOpt::QP_Param>>
 		  PlayersQP{}; ///< The QP corresponding to each player
-	 std::vector<std::shared_ptr<Game::QP_Objective>>
+	 std::vector<std::shared_ptr<MathOpt::QP_Objective>>
 		  LeaderObjective{}; ///< Objective of each leader
-	 std::vector<std::shared_ptr<Game::QP_Objective>>
+	 std::vector<std::shared_ptr<MathOpt::QP_Objective>>
 		  LeaderObjectiveConvexHull{}; ///< Objective of each leader, given the
 	 ///< convex hull computation
 
@@ -130,7 +129,7 @@ namespace Game {
 
   protected:
 	 // virtual function to be implemented by the inheritor.
-	 virtual void makeObjectivePlayer(const unsigned int i, Game::QP_Objective &QP_obj) = 0;
+	 virtual void makeObjectivePlayer(const unsigned int i, MathOpt::QP_Objective &QP_obj) = 0;
 
 	 // virtual function to be optionally implemented by the inheritor.
 	 virtual void preFinalize();
@@ -206,7 +205,7 @@ namespace Game {
 	 /// Get the Game::LCP object solved in the last iteration either to solve the
 	 /// problem or to prove non-existence of Nash equilibrium. Object is returned
 	 /// using constant reference.
-	 const LCP &getLCPDescription() const { return *this->TheLCP.get(); }
+	 const MathOpt::LCP &getLCPDescription() const { return *this->TheLCP.get(); }
 
 	 /// Get the GRBModel solved in the last iteration to solve the problem or to
 	 /// prove non-existence of Nash equilibrium. Object is returned using constant

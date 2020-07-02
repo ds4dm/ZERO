@@ -10,13 +10,8 @@
  *        https://github.com/ds4dm/ZERO
  * #############################################*/
 
-
 #include "games/epec.h"
-#include "algorithms/EPEC/epec_algorithms.h"
-#include "algorithms/EPEC/epec_combinatorialpne.h"
-#include "algorithms/EPEC/epec_fullenumeration.h"
-#include "algorithms/EPEC/epec_innerapproximation.h"
-#include "algorithms/EPEC/epec_outerapproximation.h"
+#include "games/algorithms/EPEC/epec_algorithms.h"
 #include "zero.h"
 #include <armadillo>
 #include <boost/log/trivial.hpp>
@@ -65,18 +60,18 @@ void Game::EPEC::finalize()
   this->Stats.AlgorithmData.FeasiblePolyhedra.set(std::vector<unsigned int>(this->NumPlayers, 0));
   this->computeLeaderLocations(this->numMCVariables);
   // Initialize leader objective and PlayersQP
-  this->LeaderObjective           = std::vector<std::shared_ptr<Game::QP_Objective>>(NumPlayers);
-  this->LeaderObjectiveConvexHull = std::vector<std::shared_ptr<Game::QP_Objective>>(NumPlayers);
-  this->PlayersQP                 = std::vector<std::shared_ptr<Game::QP_Param>>(NumPlayers);
-  this->PlayersLCP                = std::vector<std::shared_ptr<Game::LCP>>(NumPlayers);
+  this->LeaderObjective           = std::vector<std::shared_ptr<MathOpt::QP_Objective>>(NumPlayers);
+  this->LeaderObjectiveConvexHull = std::vector<std::shared_ptr<MathOpt::QP_Objective>>(NumPlayers);
+  this->PlayersQP                 = std::vector<std::shared_ptr<MathOpt::QP_Param>>(NumPlayers);
+  this->PlayersLCP                = std::vector<std::shared_ptr<MathOpt::LCP>>(NumPlayers);
   this->SizesWithoutHull          = std::vector<unsigned int>(NumPlayers, 0);
 
   for (unsigned int i = 0; i < this->NumPlayers; i++) {
 	 this->addDummyLead(i);
-	 this->LeaderObjective.at(i)           = std::make_shared<Game::QP_Objective>();
-	 this->LeaderObjectiveConvexHull.at(i) = std::make_shared<Game::QP_Objective>();
+	 this->LeaderObjective.at(i)           = std::make_shared<MathOpt::QP_Objective>();
+	 this->LeaderObjectiveConvexHull.at(i) = std::make_shared<MathOpt::QP_Objective>();
 	 this->makeObjectivePlayer(i, *this->LeaderObjective.at(i).get());
-	 // this->PlayersLCP.at(i) =std::shared_ptr<Game::PolyLCP>(new
+	 // this->PlayersLCP.at(i) =std::shared_ptr<MathOpt::PolyLCP>(new
 	 // PolyLCP(this->Env,*this->PlayersLowerLevels.at(i).get()));
 	 this->SizesWithoutHull.at(i) = *this->LocEnds.at(i);
   }
@@ -285,10 +280,10 @@ Game::EPEC::respondSol(arma::vec &      sol,    ///< [out] Optimal response
 
 const void Game::EPEC::makePlayerQP(const unsigned int i)
 /**
- * @brief Makes the Game::QP_Param corresponding to the @p i-th country.
+ * @brief Makes the MathOpt::QP_Param corresponding to the @p i-th country.
  * @details
  *  - First gets the Game::LCP object from @p Game::EPEC::PlayersLowerLevels and
- * makes a Game::QP_Param with this LCP as the lower level
+ * makes a MathOpt::QP_Param with this LCP as the lower level
  *  - This is achieved by calling LCP::makeQP and using the objective value
  * object in @p Game::EPEC::LeaderObjective
  *  - Finally the locations are updated owing to the complete convex hull
@@ -305,11 +300,11 @@ const void Game::EPEC::makePlayerQP(const unsigned int i)
 	 throw ZEROException(ZEROErrorCode::OutOfRange, "The player id is out of range");
   // if (!this->PlayersQP.at(i).get())
   {
-	 this->PlayersQP.at(i)     = std::make_shared<Game::QP_Param>(this->Env);
+	 this->PlayersQP.at(i)     = std::make_shared<MathOpt::QP_Param>(this->Env);
 	 const auto &origLeadObjec = *this->LeaderObjective.at(i).get();
 
 	 this->LeaderObjectiveConvexHull.at(i).reset(
-		  new Game::QP_Objective{origLeadObjec.Q, origLeadObjec.C, origLeadObjec.c});
+		  new MathOpt::QP_Objective{origLeadObjec.Q, origLeadObjec.C, origLeadObjec.c});
 	 this->PlayersLCP.at(i)->makeQP(*this->LeaderObjectiveConvexHull.at(i).get(),
 											  *this->PlayersQP.at(i).get());
   }
@@ -317,7 +312,7 @@ const void Game::EPEC::makePlayerQP(const unsigned int i)
 
 void Game::EPEC::makePlayersQPs()
 /**
- * @brief Makes the Game::QP_Param for all the countries
+ * @brief Makes the MathOpt::QP_Param for all the countries
  * @details
  * Calls are made to Models::EPEC::makePlayerQP(const unsigned int i) for
  * each valid @p i
@@ -380,7 +375,7 @@ void ::Game::EPEC::makeTheLCP() {
   this->TheNashGame = std::unique_ptr<Game::NashGame>(
 		new Game::NashGame(this->Env, this->PlayersQP, MC, MCRHS, 0, dumA, dumb));
   BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makeTheLCP(): NashGame is ready";
-  this->TheLCP = std::unique_ptr<Game::LCP>(new Game::LCP(this->Env, *TheNashGame));
+  this->TheLCP = std::unique_ptr<MathOpt::LCP>(new MathOpt::LCP(this->Env, *TheNashGame));
   BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makeTheLCP(): LCP is ready";
   BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makeTheLCP(): Indicators set to "
 									<< this->Stats.AlgorithmData.IndicatorConstraints.get();
@@ -401,7 +396,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
 ) {
   /**
 	* Given that Game::EPEC::PlayersQP are all filled with a each country's
-	* Game::QP_Param problem (either exact or approximate), computes the Nash
+	* MathOpt::QP_Param problem (either exact or approximate), computes the Nash
 	* equilibrium.
 	* @returns true if a Nash equilibrium is found
 	*/

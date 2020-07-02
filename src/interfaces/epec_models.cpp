@@ -190,7 +190,7 @@ bool Models::EPEC::ParamValid(const LeadAllPar &Params ///< Object whose validit
 void Models::EPEC::make_LL_QP(
 	 const LeadAllPar &      Params,   ///< The Parameters object
 	 const unsigned int      follower, ///< Which follower's QP has to be made?
-	 Game::QP_Param *        Foll,     ///< Non-owning pointer to the Follower QP_Param object
+	 MathOpt::QP_Param *     Foll,     ///< Non-owning pointer to the Follower QP_Param object
 	 const Models::LeadLocs &Loc       ///< LeadLocs object for accessing different leader locations.
 	 ) noexcept
 /**
@@ -513,11 +513,11 @@ Models::EPEC &Models::EPEC::addCountry(Models::LeadAllPar Params, const unsigned
                         Params.n_followers * 3 * Params.LeaderParam.tax_revenue + 1,
                     arma::fill::zeros);
 
-  vector<shared_ptr<Game::QP_Param>> Players{};
+  vector<shared_ptr<MathOpt::QP_Param>> Players{};
   // Create the QP_Param* for each follower
   try {
 	 for (unsigned int follower = 0; follower < Params.n_followers; follower++) {
-		auto Foll = make_shared<Game::QP_Param>(this->Env);
+		auto Foll = make_shared<MathOpt::QP_Param>(this->Env);
 		this->make_LL_QP(Params, follower, Foll.get(), Loc);
 		Players.push_back(Foll);
 	 }
@@ -698,7 +698,7 @@ void Models::EPEC::makeMCConstraints(arma::sp_mat &MCLHS, arma::vec &MCRHS) cons
 void Models::EPEC::make_MC_leader(const unsigned int i)
 /**
  * @brief Makes the market clearing constraint for country @p i
- * @details Writes the market clearing constraint as a Game::QP_Param and stores
+ * @details Writes the market clearing constraint as a MathOpt::QP_Param and stores
  * it in Models::EPEC::MC_QP
  */
 {
@@ -732,7 +732,7 @@ void Models::EPEC::make_MC_leader(const unsigned int i)
 					(j >= i ? nThisMCvars : 0)) = 1;
 	 }
 
-	 this->MC_QP.at(i) = std::make_shared<Game::QP_Param>(this->Env);
+	 this->MC_QP.at(i) = std::make_shared<MathOpt::QP_Param>(this->Env);
 	 // Note Q = {{0}}, c={0}, the MC problem has no constraints. So A=B={{}},
 	 // b={}.
 	 this->MC_QP.at(i).get()->set(arma::sp_mat{1, 1},                       // Q
@@ -835,8 +835,8 @@ Models::EPEC &Models::EPEC::unlock()
 }
 
 void Models::EPEC::makeObjectivePlayer(
-	 const unsigned int  i,     ///< The location of the country whose objective is to be made
-	 Game::QP_Objective &QP_obj ///< The object where the objective parameters are to be stored.
+	 const unsigned int     i,     ///< The location of the country whose objective is to be made
+	 MathOpt::QP_Objective &QP_obj ///< The object where the objective parameters are to be stored.
 	 )
 /**
  * Makes the objective function of each country.
@@ -1477,8 +1477,8 @@ void Models::EPEC::WriteFollower(const unsigned int i,
 }
 
 void Models::EPEC::testLCP(const unsigned int i) {
-  auto      country = this->get_LowerLevelNash(i);
-  Game::LCP CountryLCP(this->Env, *country);
+  auto         country = this->get_LowerLevelNash(i);
+  MathOpt::LCP CountryLCP(this->Env, *country);
   CountryLCP.write("dat/LCP_" + to_string(i));
   auto model = CountryLCP.LCPasMIP(true);
   model->write("dat/CountryLCP_" + to_string(i) + ".lp");

@@ -35,20 +35,24 @@ using vec_Vec   = std::vector<std::unique_ptr<arma::vec>>;
 class ZEROException;
 enum class ZEROErrorCode;
 
-namespace MathOptParam {}
-
-namespace Game {
+namespace MathOpt {
   /**
-	* @brief This namespace contains the definition of the games and their
-	* support structures.
-	*/
+	* @brief This namespace contains the definition of the support structures for the mathematical
+	*optimization
+	**/
   struct QP_Objective;
   struct QP_Constraints;
   class MP_Param;
   class QP_Param;
   class IP_Param;
-  class NashGame;
   class LCP;
+} // namespace MathOpt
+
+namespace Game {
+  /**
+	* @brief This namespace contains the definitions of the games
+	**/
+  class NashGame;
   class PolyLCP;
   class OuterLCP;
   class EPEC;
@@ -94,6 +98,4 @@ namespace Data {
 
 } // namespace Data
 #include "games/games.h"
-#include "games/nash.h"
-#include "lcp/lcp.h"
-#include "paramopt/mp_param.h"
+#include "mathopt/mathopt.h"

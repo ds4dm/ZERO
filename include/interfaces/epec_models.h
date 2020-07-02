@@ -192,7 +192,7 @@ namespace Models {
   class EPEC : public Game::EPEC {
 	 // Mandatory virtuals
   private:
-	 void makeObjectivePlayer(const unsigned int i, Game::QP_Objective &QP_obj) final;
+	 void makeObjectivePlayer(const unsigned int i, MathOpt::QP_Objective &QP_obj) final;
 
 	 void updateLocations() override;
 
@@ -205,7 +205,7 @@ namespace Models {
 	 // Rest
   private:
 	 std::vector<LeadAllPar> AllLeadPars = {}; ///< The parameters of each leader in the EPEC game
-	 std::vector<std::shared_ptr<Game::QP_Param>> MC_QP =
+	 std::vector<std::shared_ptr<MathOpt::QP_Param>> MC_QP =
 		  {}; ///< The QP corresponding to the market clearing condition of each
 	 ///< player
 	 arma::sp_mat              TranspCosts = {}; ///< Transportation costs between pairs of countries
@@ -236,7 +236,7 @@ namespace Models {
 	 /// Makes the lower level quadratic program object for each follower.
 	 void make_LL_QP(const LeadAllPar & Params,
 						  const unsigned int follower,
-						  Game::QP_Param *   Foll,
+						  MathOpt::QP_Param *Foll,
 						  const LeadLocs &   Loc) noexcept;
 
 	 /// Makes the leader constraint matrix and RHS

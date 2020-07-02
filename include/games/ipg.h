@@ -13,7 +13,6 @@
 
 #pragma once
 #include "zero.h"
-#include <algorithms/IPG/ipg_oracle.h>
 #include <armadillo>
 #include <gurobi_c++.h>
 #include <iostream>
@@ -45,7 +44,7 @@ namespace Game {
 	 ///< integer programming game.
 
   protected: // Datafields
-	 std::vector<std::shared_ptr<Game::IP_Param>>
+	 std::vector<std::shared_ptr<MathOpt::IP_Param>>
 		  PlayersIP{}; ///< The Integer Programs associated to each player
 
 	 std::vector<unsigned int> PlayerVariables{}; ///< The number of variables for each player
@@ -63,7 +62,7 @@ namespace Game {
 
   public: // functions
 	 friend class Algorithms::IPG::Oracle;
-	 IPG(GRBEnv *env, std::vector<std::shared_ptr<Game::IP_Param>> players);
+	 IPG(GRBEnv *env, std::vector<std::shared_ptr<MathOpt::IP_Param>> players);
 
 	 const void findNashEq() override;
 	 bool       isSolved(double tol = 1e-5) const override;
@@ -81,3 +80,5 @@ namespace Game {
   };
 
 } // namespace Game
+
+#include "algorithms/IPG/ipg_oracle.h"

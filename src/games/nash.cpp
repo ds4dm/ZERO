@@ -18,13 +18,13 @@
 #include <boost/log/trivial.hpp>
 #include <iostream>
 #include <memory>
-Game::NashGame::NashGame(GRBEnv *                               e,
-								 std::vector<std::shared_ptr<QP_Param>> players,
-								 arma::sp_mat                           MC,
-								 arma::vec                              MCRHS,
-								 unsigned int                           nLeadVar,
-								 arma::sp_mat                           leadA,
-								 arma::vec                              leadRHS)
+Game::NashGame::NashGame(GRBEnv *                                        e,
+								 std::vector<std::shared_ptr<MathOpt::QP_Param>> players,
+								 arma::sp_mat                                    MC,
+								 arma::vec                                       MCRHS,
+								 unsigned int                                    nLeadVar,
+								 arma::sp_mat                                    leadA,
+								 arma::vec                                       leadRHS)
 	 : Env{e}, LeaderConstraints{leadA}, LeaderConstraintsRHS{leadRHS}
 /**
  * @brief
@@ -33,7 +33,7 @@ Game::NashGame::NashGame(GRBEnv *                               e,
  * A set of Market clearing constraints and its RHS
  * And if there are leader variables, the number of leader vars.
  * @details
- * Have a std::vector of pointers to Game::QP_Param ready such that
+ * Have a std::vector of pointers to MathOpt::QP_Param ready such that
  * the variables are separated in \f$x^{i}\f$ and \f$x^{-i}\f$
  * format.
  *
@@ -111,11 +111,11 @@ long int Game::NashGame::load(const std::string &filename, long int pos) {
 	 throw ZEROException(ZEROErrorCode::IOError, "File header is invalid");
   unsigned int numPlayersLocal = 0;
   pos = Utils::appendRead(numPlayersLocal, filename, pos, std::string("NashGame::NumPlayers"));
-  std::vector<std::shared_ptr<QP_Param>> players;
+  std::vector<std::shared_ptr<MathOpt::QP_Param>> players;
   players.resize(numPlayersLocal);
   for (unsigned int i = 0; i < numPlayersLocal; ++i) {
-	 // Players.at(i) = std::make_shared<Game::QP_Param>(this->Env);
-	 auto temp     = std::shared_ptr<Game::QP_Param>(new Game::QP_Param(this->Env));
+	 // Players.at(i) = std::make_shared<MathOpt::QP_Param>(this->Env);
+	 auto temp     = std::shared_ptr<MathOpt::QP_Param>(new MathOpt::QP_Param(this->Env));
 	 players.at(i) = temp;
 	 pos           = players.at(i)->load(filename, pos);
   }

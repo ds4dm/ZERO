@@ -55,24 +55,24 @@ add_library(
   ZERO
   src/support/utils.cpp
   src/support/codes.cpp
+  src/mathopt/mathopt.cpp
   src/games/games.cpp
-  src/lcp/lcp.cpp
-  src/lcp/poly_lcp.cpp
-  src/lcp/outer_lcp.cpp
-  src/paramopt/mp_param.cpp
-  src/paramopt/qp_param.cpp
-  src/paramopt/ip_param.cpp
+  src/mathopt/lcp/lcp.cpp
+  src/mathopt/lcp/poly_lcp.cpp
+  src/mathopt/lcp/outer_lcp.cpp
+  src/mathopt/mp_param/mp_param.cpp
+  src/mathopt/mp_param/qp_param.cpp
+  src/mathopt/mp_param/ip_param.cpp
   src/games/nash.cpp
   src/games/epec.cpp
   src/games/ipg.cpp
-  src/interfaces/epec_models.cpp
-  src/algorithms/EPEC/epec_polybase.cpp
-  src/algorithms/EPEC/epec_innerapproximation.cpp
-  src/algorithms/EPEC/epec_combinatorialpne.cpp
-  src/algorithms/EPEC/epec_fullenumeration.cpp
-  src/algorithms/EPEC/epec_outerapproximation.cpp
+  src/games/algorithms/EPEC/epec_polybase.cpp
+  src/games/algorithms/EPEC/epec_innerapproximation.cpp
+  src/games/algorithms/EPEC/epec_combinatorialpne.cpp
+  src/games/algorithms/EPEC/epec_fullenumeration.cpp
+  src/games/algorithms/EPEC/epec_outerapproximation.cpp
   # src/algorithms/IPG/ipg_oracle.cpp
-)
+  src/interfaces/epec_models.cpp)
 set_target_properties(
   ZERO PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
                   VISIBILITY_INLINES_HIDDEN ON)

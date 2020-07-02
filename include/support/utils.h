@@ -102,6 +102,10 @@ namespace Utils {
 
   std::vector<short int> numToVec(unsigned long int number, const unsigned long nCompl);
 
+  bool isZero(arma::mat M, double tol = 1e-6) noexcept;
+
+  bool isZero(arma::sp_mat M, double tol = 1e-6) noexcept;
+
 } // namespace Utils
 
 // namespace Utils

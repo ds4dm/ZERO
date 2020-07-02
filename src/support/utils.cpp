@@ -437,3 +437,30 @@ arma::vec Utils::normalize(const arma::vec input) {
 
   return input / norm;
 }
+
+
+bool Utils::isZero(arma::mat M, double tol) noexcept {
+  /**
+	* @brief
+	* Checking if a given matrix M is a zero matrix
+	*
+	* @param tol Tolerance, below which a number is treated as 0
+	* @warning Tolerance < 0 always returns @p false with no error.
+	*
+	*/
+  return (arma::min(arma::min(abs(M))) <= tol);
+}
+
+bool Utils::isZero(arma::sp_mat M, double tol) noexcept {
+  /**
+	* @brief
+	* Checking if a given sparse matrix M is a zero matrix
+	*
+	* @param tol Tolerance, below which a number is treated as 0
+	*
+	*/
+  if (M.n_nonzero == 0)
+	 return true;
+
+  return (arma::min(arma::min(abs(M))) <= tol);
+}
