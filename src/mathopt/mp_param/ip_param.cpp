@@ -17,36 +17,17 @@
 #include <iostream>
 #include <memory>
 
+std::ostream &MathOpt::operator<<(std::ostream &os, const MathOpt::IP_Param &I) {
+  os << "Parametrized Integer Program with bi-linear objective: " << '\n';
+  os << I.getNy() << " decision variables parametrized by " << I.getNx() << " variables" << '\n';
+  os << I.getb().n_rows << " linear inequalities" << '\n' << '\n';
+  return os;
+}
 
-MathOpt::IP_Param::IP_Param(arma::sp_mat     C,
-									 arma::sp_mat     B,
-									 arma::vec        b,
-									 arma::vec        c,
-									 arma::vec        bounds,
-									 std::vector<int> integers,
-									 GRBEnv *         env) {
-  /**
-	** This provides a high level constructor for a parametrized integer
-	*program
-	* @p B and @p b builds up the constraints, @p c and @p C are the vector and
-	*matrix in the objective function, while @p bounds contains the explicit
-	*bounds on the variables. The object @p integers contains the indexes of
-	*integer variables. The notation difers from the one of an MP_Param. Q,A
-	*from MP_Param are empty objects
-	**/
-  this->Env     = env;
-  this->IPModel = new GRBModel(*env);
-  this->Q.zeros(0);
-  this->A.zeros(0);
-  this->set(Q, C, A, B, c, b);
-  this->bounds   = bounds;
-  this->integers = integers;
-  this->size();
-
+void MathOpt::IP_Param::forceDataCheck() {
   if (!this->dataCheck())
 	 throw ZEROException(ZEROErrorCode::InvalidData, "dataCheck() failed");
 }
-
 
 bool MathOpt::IP_Param::operator==(const IP_Param &IPG2) const {
   if (!Utils::isZero(this->B - IPG2.getB()))
@@ -59,7 +40,9 @@ bool MathOpt::IP_Param::operator==(const IP_Param &IPG2) const {
 	 return false;
   if (!Utils::isZero(this->bounds - IPG2.getBounds()))
 	 return false;
-  return !(this->integers != IPG2.getIntegers());
+  if (!Utils::isZero(this->integers - IPG2.getIntegers()))
+	 return false;
+  return true;
 }
 
 void MathOpt::IP_Param::makeModel() {
@@ -78,7 +61,7 @@ void MathOpt::IP_Param::makeModel() {
 			 model->addVar(0, this->bounds.at(i), c.at(i), GRB_CONTINUOUS, "y_" + std::to_string(i));
 	 }
 	 for (unsigned int i = 0; i < this->integers.size(); ++i)
-		y[integers.at(i)].set(GRB_CharAttr_VType, GRB_INTEGER);
+		y[static_cast<int>(integers.at(i))].set(GRB_CharAttr_VType, GRB_INTEGER);
 
 	 for (unsigned int i = 0; i < this->Ncons; i++) {
 		GRBLinExpr LHS{0};
@@ -142,12 +125,12 @@ MathOpt::IP_Param &MathOpt::IP_Param::addDummy(unsigned int pars, unsigned int v
   return *this;
 }
 
-MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &    C,
-														const arma::sp_mat &    B,
-														const arma::vec &       b,
-														const arma::vec &       c,
-														const arma::vec &       bounds,
-														const std::vector<int> &integers)
+MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &C,
+														const arma::sp_mat &B,
+														const arma::vec &   b,
+														const arma::vec &   c,
+														const arma::vec &   bounds,
+														const arma::vec &   integers)
 /// Setting the data, while keeping the input objects intact
 {
   this->Q.zeros(0);
@@ -158,12 +141,12 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &    C,
   return *this;
 }
 
-MathOpt::IP_Param &MathOpt::IP_Param::set(arma::sp_mat &     C,
-														arma::sp_mat &&    B,
-														arma::vec &&       b,
-														arma::vec &&       c,
-														arma::vec &&       bounds,
-														std::vector<int> &&integers)
+MathOpt::IP_Param &MathOpt::IP_Param::set(arma::sp_mat & C,
+														arma::sp_mat &&B,
+														arma::vec &&   b,
+														arma::vec &&   c,
+														arma::vec &&   bounds,
+														arma::vec &&   integers)
 /// Faster means to set data. But the input objects might be corrupted now.
 {
   this->madeModel = false;
@@ -171,10 +154,10 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(arma::sp_mat &     C,
   return *this;
 }
 
-MathOpt::IP_Param &MathOpt::IP_Param::set(QP_Objective &&    obj,
-														QP_Constraints &&  cons,
-														arma::vec &&       bounds,
-														std::vector<int> &&integers)
+MathOpt::IP_Param &MathOpt::IP_Param::set(QP_Objective &&  obj,
+														QP_Constraints &&cons,
+														arma::vec &&     bounds,
+														arma::vec &&     integers)
 /// Setting the data with the inputs being a struct MathOpt::QP_Objective and
 /// struct MathOpt::QP_Constraints.
 {
@@ -190,10 +173,10 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(QP_Objective &&    obj,
 						 std::move(this->integers));
 }
 
-MathOpt::IP_Param &MathOpt::IP_Param::set(const QP_Objective &    obj,
-														const QP_Constraints &  cons,
-														const arma::vec &       bounds,
-														const std::vector<int> &integers) {
+MathOpt::IP_Param &MathOpt::IP_Param::set(const QP_Objective &  obj,
+														const QP_Constraints &cons,
+														const arma::vec &     bounds,
+														const arma::vec &     integers) {
   return this->set(obj.C, cons.B, cons.b, obj.c, bounds, this->integers);
 }
 
@@ -267,9 +250,65 @@ void MathOpt::IP_Param::addConstraints(arma::sp_mat Ain, ///< [in] The LHSs of t
 	 for (unsigned int i = 0; i < Ain.n_rows; i++) {
 		GRBLinExpr LHS{0};
 		for (auto j = Ain.begin_row(i); j != Ain.end_row(i); ++j)
-		  LHS += (*j) * this->IPModel->getVarByName("y_" + std::to_string(j.col()));
-		this->IPModel->addConstr(LHS, GRB_LESS_EQUAL, b[i]);
+		  LHS += (*j) * this->IPModel.getVarByName("y_" + std::to_string(j.col()));
+		this->IPModel.addConstr(LHS, GRB_LESS_EQUAL, b[i]);
 	 }
-	 this->IPModel->update();
+	 this->IPModel.update();
   }
+}
+
+
+long int MathOpt::IP_Param::load(const std::string &filename, long int pos) {
+  /**
+	* @details  Before calling this function, use the constructor
+	* IP_Param::IP_Param(GRBEnv *Env) to initialize.
+	*
+	* Example usage:
+	* @code{.cpp}
+	* int main()
+	* {
+	* 		GRBEnv Env;
+	* 		MathOpt::IP_Param ip(&Env);
+	* 		ip.load("./dat/q1data.dat");
+	* 		std::cout<<ip<<'\n';
+	* 		return 0;
+	* }
+	* @endcode
+	*
+	*/
+
+  arma::sp_mat _C, _B;
+  arma::vec    _b, _c, _bounds, _integers;
+  std::string  headercheck;
+  pos = Utils::appendRead(headercheck, filename, pos);
+  if (headercheck != "IP_Param")
+	 throw ZEROException(ZEROErrorCode::IOError, "Invalid header");
+  pos = Utils::appendRead(_C, filename, pos, std::string("IP_Param::C"));
+  pos = Utils::appendRead(_B, filename, pos, std::string("IP_Param::B"));
+  pos = Utils::appendRead(_b, filename, pos, std::string("IP_Param::b"));
+  pos = Utils::appendRead(_c, filename, pos, std::string("IP_Param::c"));
+  pos = Utils::appendRead(_bounds, filename, pos, std::string("IP_Param::bounds"));
+  pos = Utils::appendRead(_integers, filename, pos, std::string("IP_Param::integers"));
+  this->Q.zeros(0);
+  this->A.zeros(0);
+  this->set(Q, _C, A, _B, _c, _b);
+  this->bounds   = _bounds;
+  this->integers = _integers;
+  return pos;
+}
+
+void MathOpt::IP_Param::write(const std::string &filename, bool append) const {
+  std::ofstream file;
+  file.open(filename, append ? arma::ios::app : arma::ios::out);
+  file << *this;
+  file << "\n\nOBJECTIVES\n";
+  file << "C:" << this->getC();
+  file << "c\n" << this->getc();
+  file << "\n\nCONSTRAINTS\n";
+  file << "A:" << this->getA();
+  file << "B:" << this->getB();
+  file << "b\n" << this->getb();
+  file << "bounds\n" << this->getBounds();
+  file << "integers\n" << this->getIntegers();
+  file.close();
 }

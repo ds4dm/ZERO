@@ -12,6 +12,7 @@
 
 
 #pragma once
+
 #include "support/codes.h"
 #include "zero.h"
 #include <armadillo>
@@ -22,6 +23,10 @@
 #include <string>
 
 namespace MathOpt {
+
+
+  std::ostream &operator<<(std::ostream &os, const IP_Param &I);
+
   ///@brief This class handles parametrized integer programs.
   class IP_Param : public MP_Param
   // Shape of C is Ny\times Nx
@@ -39,11 +44,11 @@ namespace MathOpt {
   {
   private:
 	 // Gurobi environment and model
-	 GRBEnv *         Env;
-	 GRBModel *       IPModel;          ///< Stores the IP model associated with the object
-	 arma::vec        bounds;           ///< Stores the explicit bounds on variables
-	 std::vector<int> integers;         ///< Stores the indexes of integer variables
-	 bool             madeModel{false}; ///< True if the model has been made
+	 GRBEnv *  Env;
+	 GRBModel  IPModel;          ///< Stores the IP model associated with the object
+	 arma::vec bounds;           ///< Stores the explicit bounds on variables
+	 arma::vec integers;         ///< Stores the indexes of integer variables
+	 bool      madeModel{false}; ///< True if the model has been made
 
 	 // These methods should be inaccessible to the inheritor, since we have a
 	 // different structure.
@@ -51,24 +56,33 @@ namespace MathOpt {
 
   public: // Constructors
 	 /// Initialize only the size. Everything else is empty (can be updated later)
-	 explicit IP_Param(GRBEnv *env = nullptr) : Env{env} {
-		this->IPModel = new GRBModel(*env);
-		this->size();
-	 }
+	 explicit IP_Param(GRBEnv *env = nullptr) : Env{env}, IPModel{(*env)} { this->size(); }
 
 	 /// Set data at construct time
-	 explicit IP_Param(arma::sp_mat     C,
-							 arma::sp_mat     B,
-							 arma::vec        b,
-							 arma::vec        c,
-							 arma::vec        bounds,
-							 std::vector<int> integers,
-							 GRBEnv *         env = nullptr);
+	 explicit IP_Param(arma::sp_mat C,
+							 arma::sp_mat B,
+							 arma::vec    b,
+							 arma::vec    c,
+							 arma::vec    bounds,
+							 arma::vec    integers,
+							 GRBEnv *     env = nullptr)
+		  : Env{env}, IPModel{(*env)} {
+		this->Q.zeros(0);
+		this->A.zeros(0);
+		this->set(Q, C, A, B, c, b);
+		this->bounds   = bounds;
+		this->integers = integers;
+		this->size();
+		this->forceDataCheck();
+	 };
 
-	 std::vector<int> getIntegers() const { return this->integers; }
-	 arma::vec        getBounds() const { return this->bounds; }
-	 void             makeModel();
-	 void             addConstraints(const arma::sp_mat A, const arma::vec b);
+	 arma::vec getIntegers() const { return this->integers; }
+
+	 arma::vec getBounds() const { return this->bounds; }
+
+	 void makeModel();
+
+	 void addConstraints(const arma::sp_mat A, const arma::vec b);
 
 	 /// Copy constructor
 	 IP_Param(const IP_Param &ipg)
@@ -77,27 +91,28 @@ namespace MathOpt {
 	 };
 
 	 // Override setters
-	 IP_Param &set(const arma::sp_mat &    C,
-						const arma::sp_mat &    B,
-						const arma::vec &       b,
-						const arma::vec &       c,
-						const arma::vec &       bounds,
-						const std::vector<int> &integers); // Copy data into this
-	 IP_Param &set(arma::sp_mat &     C,
-						arma::sp_mat &&    B,
-						arma::vec &&       b,
-						arma::vec &&       c,
-						arma::vec &&       bounds,
-						std::vector<int> &&integers); // Copy data into this
+	 IP_Param &set(const arma::sp_mat &C,
+						const arma::sp_mat &B,
+						const arma::vec &   b,
+						const arma::vec &   c,
+						const arma::vec &   bounds,
+						const arma::vec &   integers); // Copy data into this
+	 IP_Param &set(arma::sp_mat & C,
+						arma::sp_mat &&B,
+						arma::vec &&   b,
+						arma::vec &&   c,
+						arma::vec &&   bounds,
+						arma::vec &&   integers); // Copy data into this
 
-	 IP_Param &set(const QP_Objective &    obj,
-						const QP_Constraints &  cons,
-						const arma::vec &       bounds   = {},
-						const std::vector<int> &integers = {});
-	 IP_Param &set(QP_Objective &&    obj,
-						QP_Constraints &&  cons,
-						arma::vec &&       bounds   = {},
-						std::vector<int> &&integers = {});
+	 IP_Param &set(const QP_Objective &  obj,
+						const QP_Constraints &cons,
+						const arma::vec &     bounds   = {},
+						const arma::vec &     integers = {});
+
+	 IP_Param &set(QP_Objective &&  obj,
+						QP_Constraints &&cons,
+						arma::vec &&     bounds   = {},
+						arma::vec &&     integers = {});
 
 	 bool operator==(const IP_Param &IPG2) const;
 
@@ -123,11 +138,13 @@ namespace MathOpt {
 
 	 IP_Param &addDummy(unsigned int pars, unsigned int vars = 0, int position = -1) override;
 
-	 /// @brief  Writes a given parameterized Mathematical program to a set of
-	 /// files.
 	 void write(const std::string &filename, bool append) const override;
+	 long load(const std::string &filename, long pos);
 
-	 double    computeObjectiveWithoutOthers(const arma::vec &y) const;
+	 double computeObjectiveWithoutOthers(const arma::vec &y) const;
+
 	 arma::vec getConstraintViolations(const arma::vec y, double tol);
+
+	 void forceDataCheck();
   };
 } // namespace MathOpt
