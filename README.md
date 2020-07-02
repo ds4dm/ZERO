@@ -11,6 +11,6 @@ The documentation is available [here](https://ds4dm.github.io/ZERO/html/index.ht
 This code is distributed under the CC0 1.0 Universal license.
 
 ## Maintenance
-[@gdragotto](https://github.com/gdragotto) - Contact: [gabriele.dragotto@polymtl.ca](mailto:gabriele.dragotto@polymtl.ca)
-[@ssriram1992](https://github.com/ssriram1992/) - Contact: [sriram.sankaranarayanan@polymtl.ca](mailto:sriram.sankaranarayanan@polymtl.ca)
+- [@gdragotto](https://github.com/gdragotto) - Contact: [gabriele.dragotto@polymtl.ca](mailto:gabriele.dragotto@polymtl.ca)
+- [@ssriram1992](https://github.com/ssriram1992/) - Contact: [sriram.sankaranarayanan@polymtl.ca](mailto:sriram.sankaranarayanan@polymtl.ca)
 
