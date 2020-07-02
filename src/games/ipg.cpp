@@ -92,3 +92,9 @@ void Game::IPG::getXofI(const arma::vec &x, ///< The vector containing the full 
   xOfI.zeros(this->PlayerVariables.at(i));
   xOfI = x.subvec(count, count + this->PlayerVariables.at(i) - 1);
 }
+
+
+const void Game::IPG::findNashEq() { return; }
+
+bool Game::IPG::isPureStrategy(double tol) const { return false; }
+bool Game::IPG::isSolved(double tol) const { return false; }

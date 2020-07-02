@@ -62,6 +62,7 @@ namespace Game {
 
   public: // functions
 	 friend class Algorithms::IPG::Oracle;
+	 IPG(GRBEnv *env) { this->Env = env; };
 	 IPG(GRBEnv *env, std::vector<std::shared_ptr<MathOpt::IP_Param>> players);
 
 	 const void findNashEq() override;
