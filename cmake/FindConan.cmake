@@ -44,7 +44,7 @@ endif()
 execute_process(COMMAND ${CONAN_CMD} remote list OUTPUT_VARIABLE CONAN_REMOTES)
 
 if(NOT ("${CONAN_REMOTES}" MATCHES ".*darcamo-bintray:.*"))
-  message(STATUS "Conan adding community remote repositoy dracamo-bintray")
+  message(STATUS "FindConan.cmake: adding the repository dracamo-bintray")
   execute_process(COMMAND ${CONAN_CMD} remote add -i 1 darcamo-bintray
                           https://api.bintray.com/conan/darcamo/cppsim)
 endif()

@@ -21,6 +21,7 @@ set(ZERO_AUTHORS "Gabriele Dragotto, Sriram Sankaranarayanan")
 # CUSTOM HINTS AND CUSTOM CONFIGURATIONS
 # ##############################################################################
 
+set(ortools_dir "/Users/gabrieledragotto/Documents/or-tools")
 set(GUROBI_DIR "/home/gurobi/9.0.0/linux64" "/Library/gurobi900/mac64"
                "C:\\dev\\gurobi900\\win64")
 # ##############################################################################
@@ -32,6 +33,9 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 include(${CMAKE_MODULE_PATH}/FindGUROBI.cmake)
 include(${CMAKE_MODULE_PATH}/FindSphinx.cmake)
 include(${CMAKE_MODULE_PATH}/FindConan.cmake)
+
+# find_package(ortools CONFIG REQUIRED)
+# include(${CMAKE_MODULE_PATH}/FindORTools.cmake)
 
 conan_cmake_run(
   CONANFILE
