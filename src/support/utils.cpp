@@ -425,18 +425,6 @@ bool Utils::containsConstraint(
   arma::vec Ai = arma::vec{lhs};
   return Utils::containsConstraint(A, b, Ai, rhs, tol);
 }
-arma::vec Utils::normalize(const arma::vec input) {
-  double max  = input.max();
-  double min  = std::abs(input.min());
-  double norm = 0;
-
-  if (max > min)
-	 norm = max;
-  else
-	 norm = min;
-
-  return input / norm;
-}
 
 
 bool Utils::isZero(arma::mat M, double tol) noexcept {
