@@ -34,7 +34,11 @@ void Algorithms::IPG::IPG_Player::updateIPModel(std::unique_ptr<GRBModel> IPmode
 }
 
 bool Algorithms::IPG::IPG_Player::addVertex(const arma::vec vertex, const bool checkDuplicate) {
-
+  /**
+	* @brief Given @param vertex, it adds a vertex to the field R. If @param checkDuplicate is true,
+	* it will check whether the vertex is already contained in the bool.
+	* @return true if the vertex is added.
+	*/
   bool go{true};
   if (checkDuplicate)
 	 go = Utils::containsRow(this->V, vertex, this->Tolerance);
@@ -49,6 +53,12 @@ bool Algorithms::IPG::IPG_Player::addVertex(const arma::vec vertex, const bool c
 bool Algorithms::IPG::IPG_Player::addCut(const arma::vec LHS,
 													  const double    b,
 													  const bool      checkDuplicate) {
+  /**
+	* @brief Given @param LHS, @param b, it adds the inequality to the field CutPool_A and b. If
+	* @param checkDuplicate is true, it will check whether the inequality is already contained in the
+	* bool.
+	* @return true if the inequality is added.
+	*/
 
   bool go{true};
   if (checkDuplicate)
@@ -64,6 +74,11 @@ bool Algorithms::IPG::IPG_Player::addCut(const arma::vec LHS,
 
 
 bool Algorithms::IPG::IPG_Player::addRay(const arma::vec ray, const bool checkDuplicate) {
+  /**
+	* @brief Given @param ray, it adds a ray to the field R. If @param checkDuplicate is true, it
+	* will check whether the ray is already contained in the bool.
+	* @return true if the ray is added.
+	*/
   bool go{true};
   if (checkDuplicate)
 	 go = Utils::containsRow(this->R, ray, this->Tolerance);
@@ -76,12 +91,17 @@ bool Algorithms::IPG::IPG_Player::addRay(const arma::vec ray, const bool checkDu
 }
 
 
-bool Algorithms::IPG::Oracle::isSolved(double tol) const { return this->Solved; }
-
 bool Algorithms::IPG::Oracle::addValueCut(unsigned int player,
 														arma::vec    xOfIBestResponse,
 														arma::vec    xMinusI,
 														bool         checkDuplicate) {
+  /**
+	* @brief Given a player @param player, one of its best responses @param xOfIBestResponses, the
+	* strategies of the other players @param xMinusI, it adds an inequality of the type \f[ f^i(x^i,
+	* &\bar& x^{-i}) \geq f^i(\hat x^i, \bar x^{-i})\f] to the cut pool of that player.
+	* @param checkDuplicate controls whether the methods search for duplicate inequalities in the
+	* pool.
+	*/
 
   double cutRHS =
 		this->IPG->PlayersIP.at(player)->computeObjective(xOfIBestResponse, xMinusI, false);
@@ -94,9 +114,18 @@ bool Algorithms::IPG::Oracle::addValueCut(unsigned int player,
 
 
 void Algorithms::IPG::Oracle::solve() {
+  /**
+	* @brief Solves the IPG with the Oracle algorithm.
+	*/
 
 
   this->initialize();
+  if (this->Infeasible) {
+	 this->IPG->Stats.Status.set(ZEROStatus::NashEqNotFound);
+	 BOOST_LOG_TRIVIAL(info) << "Algorithms::IPG::Oracle::solve: A Nash Equilibrium has not been "
+										 "found. At least one of the players problem is infeasible.";
+	 return;
+  }
 
   bool solved{false};
   while (!solved) {
@@ -128,15 +157,31 @@ void Algorithms::IPG::Oracle::solve() {
 		  solved = false;
   }
 
-  if (solved)
+  if (solved) {
+	 BOOST_LOG_TRIVIAL(info) << "Algorithms::IPG::Oracle::solve: A Nash Equilibrium has been found";
+	 this->Solved = true;
+	 bool pure    = true;
+	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i)
+		if (!this->Players.at(i).Pure) {
+		  pure = false;
+		  break;
+		}
+	 this->Pure = pure;
 	 this->IPG->Stats.Status.set(ZEROStatus::NashEqFound);
-  else
+  } else {
+	 BOOST_LOG_TRIVIAL(info) << "Algorithms::IPG::Oracle::solve: No Nash Equilibrium has been found";
+	 this->Solved = false;
 	 this->IPG->Stats.Status.set(ZEROStatus::NashEqNotFound);
+  }
 }
 
 
 
 bool Algorithms::IPG::Oracle::separationOracle(const unsigned int player) {
+  /**
+	* @brief Given the player id @param player, checks whether the current strategy is feasible or
+	* not. In order to do so, a more complex separation technique may be called.
+	*/
   BOOST_LOG_TRIVIAL(trace) << "Algorithms::IPG::Oracle::addValueCut: "
 										"The Oracle has been called for "
 									<< player;
@@ -197,6 +242,15 @@ bool Algorithms::IPG::Oracle::separationOracle(const unsigned int player) {
   return false;
 }
 
+bool Algorithms::IPG::Oracle::isPureStrategy() {
+  /**
+	* @brief Returns true if all players are playing a pure strategy in a Nash Equilibrium
+	*/
+  if (this->Solved)
+	 return this->Pure;
+  else
+	 return false;
+}
 
 bool Algorithms::IPG::Oracle::membershipSeparation(const unsigned int player,
 																	const unsigned int iterations,
@@ -428,6 +482,10 @@ bool Algorithms::IPG::Oracle::computeStrategy(const unsigned int i, ///< [in] Th
 }
 
 void Algorithms::IPG::Oracle::initialize() {
+  /**
+	* @brief This method initializes some fields for the algorithm. Also, it warm starts the initial
+	* strategies to pure best reponses.
+	*/
   if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0)
 	 this->IPG->InitTime = std::chrono::high_resolution_clock::now();
   this->IPG->Stats.NumIterations.set(0);
@@ -452,6 +510,7 @@ void Algorithms::IPG::Oracle::initialize() {
 	 if (status == GRB_INFEASIBLE) {
 		// Game ended, player is infeasible
 		this->IPG->Stats.Status.set(ZEROStatus::NashEqNotFound);
+		this->Infeasible = true;
 		return;
 	 } else if (status == GRB_OPTIMAL) {
 		// We have a vertex

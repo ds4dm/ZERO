@@ -84,9 +84,11 @@ namespace Algorithms {
 	 private:
 		Game::IPG *             IPG;
 		GRBEnv *                Env;
-		bool                    Solved{false};    ///< True if the IPG has been solved
-		double                  Tolerance = 1e-6; ///< The numeric tolerance
-		std::vector<IPG_Player> Players;          ///< The support structures
+		bool                    Solved{false}; ///< True if the IPG has been solved
+		bool                    Pure{false}; ///< True if all the players are playing a pure strategy.
+		bool                    Infeasible{false}; ///< True if the game is infeasible
+		double                  Tolerance = 1e-6;  ///< The numeric tolerance
+		std::vector<IPG_Player> Players;           ///< The support structures
 		bool                    addConstraintsToPool(const arma::sp_mat A,
 																	const arma::vec    b,
 																	const unsigned int player,
@@ -126,11 +128,9 @@ namespace Algorithms {
 
 		void solve();
 
-		bool isSolved(double tol = 1e-4) const;
+		bool isSolved() { return this->Solved; };
 
-		bool isFeasible(bool &addedCuts, double tol = 1e-4);
-
-		bool isPureStrategy(double tol = 1e-4);
+		bool isPureStrategy();
 	 };
   } // namespace IPG
 
