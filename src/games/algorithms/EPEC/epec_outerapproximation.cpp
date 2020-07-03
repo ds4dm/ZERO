@@ -21,7 +21,7 @@
 
 bool Algorithms::EPEC::OuterApproximation::isSolved(double tol) const { return this->Feasible; }
 
-bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts, double tol) {
+bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
 
   /**
 	* Check whether the current outer approximation equilibrium is feasible and
@@ -48,9 +48,10 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts, double to
 		return false;
 	 }
 	 // minimization standard
-	 if (std::abs(currentPayoffs.at(i) - val) > tol) {
+	 // @todo check the direction of the inequality
+	 if (std::abs(currentPayoffs.at(i) - val) > this->Tolerance) {
 		// Discrepancy between payoffs! Need to investigate.
-		if ((currentPayoffs.at(i) - val) > tol) {
+		if (currentPayoffs.at(i) - val > this->Tolerance) {
 		  // It means the current payoff is more than then optimal response. Then
 		  // this is not a best response. Theoretically, this cannot happen from
 		  // an outer approximation. This if case is a warning case then
@@ -61,10 +62,13 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts, double to
 											  << i;
 		  BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::OuterApproximation:: "
 											<< currentPayoffs.at(i) << " vs " << val;
-		  result = false;
+
+		  throw ZEROException(ZEROErrorCode::Numeric,
+									 "Invalid payoffs relation (better best response)");
 		  // throw;
 		  // throw;
-		} else if ((currentPayoffs.at(i) - val) < tol) {
+		} else {
+		  // if ((val - currentPayoffs.at(i) ) > tol)
 		  // It means the current payoff is less than the optimal response. The
 		  // approximation is not good, and this point is infeasible. Then, we can
 		  // generate a value-cut
@@ -99,7 +103,7 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts, double to
 		// Check if best response coincides with the strategy in the equilibrium
 		bool same = true;
 		for (unsigned int k = 0; k < xOfI.size(); ++k) {
-		  if (std::abs(xOfI.at(k) - bestResponse.at(k)) > tol) {
+		  if (std::abs(xOfI.at(k) - bestResponse.at(k)) > this->Tolerance) {
 			 same = false;
 			 break;
 		  }
