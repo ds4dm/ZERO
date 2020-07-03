@@ -100,7 +100,7 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
 										  << i << " (Best Response)";
 		}
 
-		if (!Utils::isZero(xOfI - bestResponse.subvec(0, xOfI.size()), this->Tolerance)) {
+		if (!Utils::isZero(xOfI - bestResponse.subvec(0, xOfI.size() - 1), this->Tolerance)) {
 		  // Then, if the answers do not coincide, we need to refine the
 		  // approximation or determine if this strategy is anyhow feasible.
 		  // We search for a convex combination of best responses so that we can
@@ -126,119 +126,22 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
   return result;
 }
 
-GRBModel *Algorithms::EPEC::OuterApproximation::getDualMembershipLP(unsigned int player,
-																						  arma::vec    vertex,
-																						  bool         normalization) {
-  auto                convexModel = this->Trees.at(player)->getMembershipLP();
-  const arma::sp_mat *V           = this->Trees.at(player)->getV();
-  const arma::sp_mat *R           = this->Trees.at(player)->getR();
+void Algorithms::EPEC::OuterApproximation::updateMembership(const unsigned int &player,
+																				const arma::vec &   xOfI,
+																				bool                normalization) {
+  /**
+	* @brief Updates the membership LP in the Tree for the @param player, the point @param xOfI, and
+	* @param normalization
+	*/
 
-  V->print_dense("V");
-  R->print_dense("R");
-
-  if (V->n_rows < 1 && R->n_rows < 1) {
-	 throw ZEROException(ZEROErrorCode::Assertion,
-								"no points or rays in the membershipLP of " + std::to_string(player));
-  }
-  if (V->n_cols != vertex.size())
-	 throw ZEROException(ZEROErrorCode::Assertion,
-								" invalid "
-								"dimension of vertex");
-
-  if (!this->Trees.at(player)->getMembershipInit()) {
-	 // Initialize the model
-	 GRBVar     y[V->n_cols];
-	 GRBVar     z[R->n_cols];
-	 GRBVar     a[V->n_cols + 1];
-	 GRBVar     x;
-	 GRBLinExpr expr = 0;
-	 for (unsigned int i = 0; i < vertex.size(); i++) {
-		y[i] = convexModel->addVar(
-			 -GRB_INFINITY, GRB_INFINITY, 0, GRB_CONTINUOUS, "y_" + std::to_string(i));
-		a[i] = convexModel->addVar(
-			 0, GRB_INFINITY, 0, GRB_CONTINUOUS, "abs(y_" + std::to_string(i) + ")");
-
-		convexModel->addConstr(
-			 GRBLinExpr{y[i] - a[i]}, GRB_LESS_EQUAL, 0, "Abs_1_y_" + std::to_string(i));
-		convexModel->addConstr(
-			 GRBLinExpr{-y[i] - a[i]}, GRB_LESS_EQUAL, 0, "Abs_2_y_" + std::to_string(i));
-		expr += a[i];
-	 }
-
-	 x            = convexModel->addVar(-GRB_INFINITY, GRB_INFINITY, 0, GRB_CONTINUOUS, "x");
-	 a[V->n_cols] = convexModel->addVar(0, GRB_INFINITY, 0, GRB_CONTINUOUS, "abs(x)");
-	 convexModel->addConstr(GRBLinExpr{x - a[V->n_cols]}, GRB_GREATER_EQUAL, 0, "Abs_1_x");
-	 convexModel->addConstr(GRBLinExpr{-x - a[V->n_cols]}, GRB_GREATER_EQUAL, 0, "Abs_2_x");
-	 expr += a[V->n_cols];
-	 if (normalization)
-		convexModel->addConstr(expr, GRB_LESS_EQUAL, 1, "Normalization");
-
-	 // Hyperplanes for vertices
-	 for (unsigned int i = 0; i < V->n_rows; i++) {
-		expr = x;
-		for (auto j = V->begin_row(i); j != V->end_row(i); ++j)
-		  expr += (*j) * y[j.col()];
-		convexModel->addConstr(expr, GRB_LESS_EQUAL, 0, "V_" + std::to_string(i));
-	 }
-	 this->Trees.at(player)->incrementVertices(V->n_rows);
-
-	 for (unsigned int i = 0; i < R->n_rows; i++) {
-		for (auto j = R->begin_row(i); j != R->end_row(i); ++j)
-		  expr += (*j) * y[j.col()];
-		convexModel->addConstr(expr, GRB_LESS_EQUAL, 0, "R_" + std::to_string(i));
-	 }
-
-	 this->Trees.at(player)->incrementRays(R->n_rows);
-
-	 // For the eventual Farkas' proof of infeasibility
-	 convexModel->set(GRB_IntParam_InfUnbdInfo, 1);
-	 convexModel->set(GRB_IntParam_DualReductions, 0);
-	 convexModel->set(GRB_IntParam_OutputFlag, 0);
-	 convexModel->set(GRB_IntParam_SolutionLimit, 100);
-	 this->Trees.at(player)->setMembershipInit();
-	 BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::OuterApproximation::"
-										  "getDualMembershipLP: created model";
-  } else {
-	 // current number of vertices in the model
-	 if (this->Trees.at(player)->getVertexCount() < V->n_rows) {
-		// Then, we need to update the model by adding new constraints
-		GRBLinExpr expr = 0;
-		for (unsigned int i = this->Trees.at(player)->getVertexCount(); i < V->n_rows; i++) {
-		  expr = convexModel->getVarByName("x");
-		  for (auto j = V->begin_row(i); j != V->end_row(i); ++j)
-			 expr += (*j) * convexModel->getVarByName("y_" + std::to_string(j.col()));
-
-		  convexModel->addConstr(expr, GRB_LESS_EQUAL, 0, "V_" + std::to_string(i));
-		}
-		this->Trees.at(player)->incrementVertices(V->n_rows -
-																this->Trees.at(player)->getVertexCount());
-	 }
-
-	 // current number of rays in the model
-	 if (this->Trees.at(player)->getRayCount() < R->n_rows) {
-		// Then, we need to update the model by adding new constraints
-		GRBLinExpr expr = 0;
-		for (unsigned int i = this->Trees.at(player)->getRayCount(); i < R->n_rows; i++) {
-		  for (auto j = R->begin_row(i); j != R->end_row(i); ++j)
-			 expr += (*j) * convexModel->getVarByName("y_" + std::to_string(j.col()));
-
-		  convexModel->addConstr(expr, GRB_LESS_EQUAL, 0, "R_" + std::to_string(i));
-		}
-
-		this->Trees.at(player)->incrementRays(R->n_rows - this->Trees.at(player)->getRayCount());
-	 }
-
-	 BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::OuterApproximation::"
-										  "getDualMembershipLP: updated model";
-  }
-  convexModel->update();
-  GRBLinExpr expr = convexModel->getVarByName("x");
-  for (int j = 0; j < vertex.size(); ++j)
-	 expr += vertex.at(j) * convexModel->getVarByName("y_" + std::to_string(j));
-
-  convexModel->setObjective(expr, GRB_MAXIMIZE);
-  convexModel->update();
-  return convexModel;
+  auto PlayerTree = Trees.at(player);
+  MathOpt::getDualMembershipLP(PlayerTree->MembershipLP,
+										 PlayerTree->VertexCounter,
+										 PlayerTree->V,
+										 PlayerTree->RayCounter,
+										 PlayerTree->R,
+										 xOfI,
+										 normalization);
 }
 
 bool Algorithms::EPEC::OuterApproximation::separationOracle(
@@ -248,20 +151,21 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 	 // First, we check whether the point is a convex combination of feasible
 	 // KNOWN points
 
+	 auto V = this->Trees.at(player)->V;
+
 	 xOfI.print("Point to separate: ");
-	 const arma::sp_mat *V           = this->Trees.at(player)->getV();
-	 auto                convexModel = this->getDualMembershipLP(player, xOfI, true);
 
-	 convexModel->write("dat/Convex" + std::to_string(player) + ".lp");
-	 convexModel->optimize();
+	 this->updateMembership(player, xOfI, true);
+	 auto convexModel = *this->Trees.at(player)->MembershipLP;
+	 convexModel.optimize();
 
-	 int status = convexModel->get(GRB_IntAttr_Status);
+	 int status = convexModel.get(GRB_IntAttr_Status);
 	 BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::OuterApproximation::separationOracle: "
 										  "MermbershipLP status is "
 									  << status;
 	 if (status == GRB_OPTIMAL) {
-		if (convexModel->getObjective().getValue() == 0 &&
-			 convexModel->getConstrByName("Normalization").get(GRB_DoubleAttr_Slack) == 1) {
+		if (convexModel.getObjective().getValue() == 0 &&
+			 convexModel.getConstrByName("Normalization").get(GRB_DoubleAttr_Slack) == 1) {
 		  // this->Trees.at(player)->addVertex(xOfI);
 		  BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::separationOracle: "
 											  "The point is a convex combination of known points! Player "
@@ -271,11 +175,11 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 
 		  arma::vec support;
 		  support.zeros(this->Trees.at(player)->getVertexCount());
-		  auto test = convexModel->getVarByName("x").get(GRB_DoubleAttr_X);
+		  auto test = convexModel.getVarByName("x").get(GRB_DoubleAttr_X);
 		  for (unsigned int v = 0; v < this->Trees.at(player)->getVertexCount(); ++v) {
 			 // abs to avoid misunderstanding with sign conventions
 			 support.at(v) =
-				  convexModel->getConstrByName("V_" + std::to_string(v)).get(GRB_DoubleAttr_Pi);
+				  convexModel.getConstrByName("V_" + std::to_string(v)).get(GRB_DoubleAttr_Pi);
 		  }
 		  support.print("MNE Support: ");
 		  if (support.max() == 1)
@@ -290,15 +194,15 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 		// dualMembershipLP (the primal)
 		BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::separationOracle: "
 											"The point is NOT a convex combination of known points! Found "
-										<< convexModel->get(GRB_IntAttr_SolCount) << " solutions. Player "
+										<< convexModel.get(GRB_IntAttr_SolCount) << " solutions. Player "
 										<< player;
-		for (int z = 0; z < convexModel->get(GRB_IntAttr_SolCount); ++z) {
-		  convexModel->getEnv().set(GRB_IntParam_SolutionNumber, z);
+		for (int z = 0; z < convexModel.get(GRB_IntAttr_SolCount); ++z) {
+		  convexModel.getEnv().set(GRB_IntParam_SolutionNumber, z);
 		  arma::vec cutLHS;
 		  cutLHS.zeros(xOfI.size());
 
 		  for (unsigned int i = 0; i < xOfI.size(); i++)
-			 cutLHS.at(i) = convexModel->getVarByName("y_" + std::to_string(i)).get(GRB_DoubleAttr_X);
+			 cutLHS.at(i) = convexModel.getVarByName("y_" + std::to_string(i)).get(GRB_DoubleAttr_X);
 		  cutLHS.print("Separating hyperplane: ");
 
 		  // Optimize the resulting inequality over the original feasible set
@@ -323,7 +227,7 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 					  "LeaderModel status = "
 				  << std::to_string(status) << " with objective=" << cutV << " for Player " << player;
 			 arma::vec val  = cutLHS.t() * xOfI; // c^T xOfI
-			 arma::vec val2 = cutLHS.t() * V->row(0).t();
+			 arma::vec val2 = cutLHS.t() * V.row(0).t();
 			 BOOST_LOG_TRIVIAL(trace)
 				  << "Algorithms::EPEC::OuterApproximation::separationOracle: c^Tv=" << cutV
 				  << " -- c^TxOfI=" << val.at(0) << " -- c^TV(0)=" << val2.at(0);
@@ -352,8 +256,8 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 			 } else {
 				// We found a new vertex
 				arma::vec v;
-				v.zeros(V->n_cols);
-				for (unsigned int i = 0; i < V->n_cols; ++i) {
+				v.zeros(V.n_cols);
+				for (unsigned int i = 0; i < V.n_cols; ++i) {
 				  v[i] = leaderModel->getVarByName("x_" + std::to_string(i)).get(GRB_DoubleAttr_X);
 				}
 

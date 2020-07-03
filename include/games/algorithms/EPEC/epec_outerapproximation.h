@@ -27,6 +27,7 @@ namespace Algorithms {
 
 	 class OuterTree {
 	 public:
+		friend Algorithms::EPEC::OuterApproximation;
 		struct Node {
 		public:
 		  friend class OuterTree;
@@ -76,16 +77,7 @@ namespace Algorithms {
 		///< number of complementarity equations
 		unsigned int      NodeCounter = 1; ///< The counter for node ids
 		std::vector<Node> Nodes{};         ///< Storage of nodes in the tree
-		arma::sp_mat      V{};             ///< This object stores points that are inside the feasible
-		///< region of the respective leader. Thesee are used to derive
-		///< valid cuts, or certify that an equilibrium is inside
-		///< (outside) the convex-hull of the feasible region.
-		arma::sp_mat R{}; ///< As in V, but instead of vertices, this object contains rays
-		unsigned int VertexCounter = 0; ///< The counter for node ids
-		unsigned int RayCounter    = 0; ///< The counter for node ids
-		GRBModel *   MembershipLP;      ///< This member stores the membership LP associated
 		///< with the vertices in V
-		bool MembershipInit{false};
 		bool isPure{false};
 		bool isFeasible{false};
 
@@ -94,6 +86,16 @@ namespace Algorithms {
 		  return (this->NodeCounter - 1);
 		} ///< Increments the node counter and get the id of the new node.
 
+	 protected:
+		std::unique_ptr<GRBModel> MembershipLP; ///< This member stores the membership LP associated
+		arma::sp_mat              V{}; ///< This object stores points that are inside the feasible
+		///< region of the respective leader. Thesee are used to derive
+		///< valid cuts, or certify that an equilibrium is inside
+		///< (outside) the convex-hull of the feasible region.
+		arma::sp_mat R{}; ///< As in V, but instead of vertices, this object contains rays
+		unsigned int VertexCounter = 0; ///< The counter for node ids
+		unsigned int RayCounter    = 0; ///< The counter for node ids
+
 	 public:
 		OuterTree(unsigned int encSize, GRBEnv *env) : MembershipLP(new GRBModel(*env)) {
 		  this->Root         = Node(encSize);
@@ -101,11 +103,6 @@ namespace Algorithms {
 		  this->Nodes.push_back(this->Root);
 		} ///< Constructor of the Tree given the encoding size
 
-		GRBModel *getMembershipLP() { return this->MembershipLP; }
-
-		const bool getMembershipInit() { return this->MembershipInit; }
-
-		inline void setMembershipInit() { this->MembershipInit = true; }
 
 		inline void resetFeasibility() {
 		  this->isPure     = false;
@@ -125,9 +122,6 @@ namespace Algorithms {
 		inline const arma::sp_mat *getV() { return &this->V; }
 
 		inline const arma::sp_mat *getR() { return &this->R; }
-
-		void incrementVertices(unsigned int increment) { this->VertexCounter += increment; }
-		void incrementRays(unsigned int increment) { this->RayCounter += increment; }
 
 		inline const unsigned int getVertexCount() { return this->VertexCounter; }
 		inline const unsigned int getRayCount() { return this->RayCounter; }
@@ -176,6 +170,17 @@ namespace Algorithms {
 			 //@todo implement
 		};
 
+		void updateMembership(const unsigned int &player,
+									 const arma::vec &   xOfI,
+									 bool                normalization = true);
+		int  hybridBranching(const unsigned int player, OuterTree::Node *node);
+		int  infeasibleBranching(const unsigned int player, const OuterTree::Node *node);
+		int  deviationBranching(const unsigned int player, const OuterTree::Node *node);
+		std::unique_ptr<GRBModel> getFeasQP(const unsigned int player, arma::vec x);
+		void addValueCut(unsigned int player, arma::vec xOfIBestResponse, arma::vec xMinusI);
+		bool separationOracle(
+			 arma::vec &xOfI, arma::vec &x, unsigned int player, int budget, bool &addedCuts);
+
 	 public:
 		friend class EPEC;
 
@@ -202,18 +207,8 @@ namespace Algorithms {
 		bool isSolved(double tol = 1e-4) const override;
 		bool isFeasible(bool &addedCuts);
 		bool isPureStrategy(double tol = 1e-4) const override;
-
 		void printCurrentApprox();
-		int  hybridBranching(const unsigned int player, OuterTree::Node *node);
-		int  infeasibleBranching(const unsigned int player, const OuterTree::Node *node);
-		int  deviationBranching(const unsigned int player, const OuterTree::Node *node);
 		void printBranchingLog(std::vector<int> vector);
-		std::unique_ptr<GRBModel> getFeasQP(const unsigned int player, arma::vec x);
-		void addValueCut(unsigned int player, arma::vec xOfIBestResponse, arma::vec xMinusI);
-		bool separationOracle(
-			 arma::vec &xOfI, arma::vec &x, unsigned int player, int budget, bool &addedCuts);
-		GRBModel *
-		getDualMembershipLP(unsigned int player, arma::vec vertex, bool normalization = true);
 	 };
   } // namespace EPEC
 
