@@ -58,6 +58,14 @@ namespace MathOpt {
 						  const arma::sp_mat &               Acom,
 						  const arma::vec &                  bcom);
 
+  void getDualMembershipLP(std::unique_ptr<GRBModel> &ConvexModel,
+									unsigned int &             numV,
+									const arma::sp_mat &       V,
+									unsigned int &             numR,
+									const arma::sp_mat &       R,
+									const arma::vec &          vertex,
+									const bool &               normalization);
+
   void print(const perps &C) noexcept;
 } // namespace MathOpt
 
