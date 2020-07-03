@@ -24,58 +24,76 @@
 namespace Algorithms {
   namespace IPG {
 
-	 struct IPG_Player {
-		///@brief This structures manages the IPG data for each player of the game, given the Oracle
-		/// algorithm
-		IPG_Player(GRBEnv e, unsigned int incumbentSize, std::shared_ptr<GRBModel> model)
-			 : MembershipLP{(e)}, IPModel{model} {
+	 class IPG_Player : public GRBCallback {
+		///@brief This structures manages the IPG data for each player of the game, given the
+		/// Oracle.It inherits
+		/// a GRBCallback to handle Gurobi callback
+	 public:
+		IPG_Player(GRBEnv e, unsigned int incumbentSize, std::shared_ptr<GRBModel> model, double tol)
+			 : MembershipLP{(e)}, Model{model}, Tolerance{tol} {
 		  /**
 			* @brief Given the @param e as the Gurobi environment, the size of the player's own
 			* decision variables @param incumentSize, and the pointer @param model to the original IP
 			* model, initializes the data structure.
 			*/
 		  this->Incumbent.zeros(incumbentSize);
+		  this->Model->relax();
 		};
+
+	 private:
 		arma::sp_mat V = {}; ///< This object stores an array of points -- for each player -- that are
-									///< descriptor for the convex-hull of the integer programming game.
+		///< descriptor for the convex-hull of the integer programming game.
 		arma::sp_mat R             = {}; ///< As in V, but for rays.
 		unsigned int VertexCounter = 0;  ///< The number of Vertices in the membership LP
 		unsigned int RayCounter    = 0;  ///< The number or Rays in the membership LP
 		GRBModel     MembershipLP;       ///< Stores the membership problem for the given player
 		arma::sp_mat CutPool_A =
 			 {}; ///< Stores the LHS of the valids cuts for the convex hull of the player's IPG
-		arma::sp_mat CutPool_b =
+		arma::vec CutPool_b =
 			 {}; ///< Stores the RHS of the valids cuts for the convex hull of the player's IPG
-		double                    Payoff; ///< Stores the current payof
-		std::shared_ptr<GRBModel> IPModel;
+		double                    Tolerance = 1e-6; ///< Numerical tolerance
+		double                    Payoff;           ///< Stores the current payof
+		std::shared_ptr<GRBModel> Model;
+
+	 public:
 		arma::vec Incumbent; ///< Stores the current strategy of the player at a given iteration
+
+		bool addVertex(const arma::vec vertex, const bool checkDuplicate = true);
+
+		bool addRay(const arma::vec ray, const bool checkDuplicate = true);
+
+		void callback();
+
+		const double getPayoff() { return this->Payoff; }
+
+		const arma::sp_mat getCutPoolA() { return this->CutPool_A; }
+		const arma::vec    getCutPoolb() { return this->CutPool_b; }
+
+		std::shared_ptr<GRBModel> getIPModel() { return this->Model; }
+
+		void updateIPModel(std::shared_ptr<GRBModel> IPmodel) {
+		  this->Model = IPmodel;
+		  this->Model->relax();
+		}
 	 };
 
 
-	 ///@brief This class is responsible for the Oracle algorithm for IPG. It inherit
-	 /// a GRBCallback to handle Gurobi callbacks
-	 class Oracle : public GRBCallback {
+	 ///@brief This class is responsible for the Oracle algorithm for IPG.
+	 class Oracle {
 	 private:
 		Game::IPG *             IPG;
 		GRBEnv *                Env;
-		bool                    Feasible{false};
+		bool                    Solved{false};    ///< True if the IPG has been solved
 		double                  Tolerance = 1e-6; ///< The numeric tolerance
 		std::vector<IPG_Player> Players;          ///< The support structures
-		unsigned int            WorkingPlayer;
-
-		bool addConstraintsToPool(const arma::sp_mat A,
-										  const arma::vec    b,
-										  const unsigned int player,
-										  bool               check = true);
+		bool                    addConstraintsToPool(const arma::sp_mat A,
+																	const arma::vec    b,
+																	const unsigned int player,
+																	bool               check = true);
+		void                    initialize();
 
 	 public:
-		bool addVertex(const unsigned int player,
-							const arma::vec    vertex,
-							const bool         checkDuplicate = true);
-		bool addRay(const unsigned int player, const arma::vec ray, const bool checkDuplicate = true);
 		void separationCallback(const unsigned int player);
-
-		void callback();
 
 		double getTol() const { return Tolerance; }
 
@@ -100,7 +118,10 @@ namespace Algorithms {
 
 		bool isPureStrategy(double tol = 1e-4);
 
-		void addValueCut(unsigned int player, arma::vec xOfIBestResponse, arma::vec xMinusI);
+		bool addValueCut(unsigned int player,
+							  arma::vec    xOfIBestResponse,
+							  arma::vec    xMinusI,
+							  bool         check = true);
 
 		bool separationOracle(
 			 arma::vec &xOfI, arma::vec &x, unsigned int player, int budget, bool &addedCuts);

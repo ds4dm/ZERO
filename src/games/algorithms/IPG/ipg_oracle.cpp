@@ -15,71 +15,99 @@
 #include <boost/log/trivial.hpp>
 #include <chrono>
 #include <gurobi_c++.h>
-#include <set>
 #include <string>
 
-bool Algorithms::IPG::Oracle::addVertex(const unsigned int player,
-													 const arma::vec    vertex,
-													 const bool         checkDuplicate) {
-  if ((checkDuplicate &&
-		 !Utils::containsRow(this->Players.at(player).V, vertex, this->Tolerance)) ||
-		!checkDuplicate) {
-	 this->Players.at(player).V =
-		  arma::join_cols(this->Players.at(player).V, arma::sp_mat{vertex.t()});
+bool Algorithms::IPG::IPG_Player::addVertex(const arma::vec vertex, const bool checkDuplicate) {
+
+  bool go{true};
+  if (checkDuplicate)
+	 go = Utils::containsRow(this->V, vertex, this->Tolerance);
+
+  if (go) {
+	 this->V = arma::join_cols(this->V, arma::sp_mat{vertex.t()});
 	 return true;
   }
   return false;
 }
 
-bool Algorithms::IPG::Oracle::addRay(const unsigned int player,
-												 const arma::vec    ray,
-												 const bool         checkDuplicate) {
-  if ((checkDuplicate && !Utils::containsRow(this->Players.at(player).R, ray, this->Tolerance)) ||
-		!checkDuplicate) {
-	 this->Players.at(player).V = arma::join_cols(this->Players.at(player).R, arma::sp_mat{ray.t()});
+bool Algorithms::IPG::IPG_Player::addRay(const arma::vec ray, const bool checkDuplicate) {
+  bool go{true};
+  if (checkDuplicate)
+	 go = Utils::containsRow(this->R, ray, this->Tolerance);
+
+  if (go) {
+	 this->R = arma::join_cols(this->R, arma::sp_mat{ray.t()});
 	 return true;
   }
   return false;
 }
 
 
-bool Algorithms::IPG::Oracle::isSolved(double tol) const { return this->Feasible; }
+bool Algorithms::IPG::Oracle::isSolved(double tol) const { return this->Solved; }
 
-void Algorithms::IPG::Oracle::addValueCut(unsigned int player,
+bool Algorithms::IPG::Oracle::addValueCut(unsigned int player,
 														arma::vec    xOfIBestResponse,
-														arma::vec    xMinusI) {
+														arma::vec    xMinusI,
+														bool         checkDuplicate) {
 
   double cutRHS =
 		this->IPG->PlayersIP.at(player)->computeObjective(xOfIBestResponse, xMinusI, false);
   arma::vec LHS =
 		this->IPG->PlayersIP.at(player)->getc() + this->IPG->PlayersIP.at(player)->getC() * xMinusI;
-  arma::sp_mat cutLHS =
-		Utils::resizePatch(arma::sp_mat{LHS}.t(), 1, this->IPG->PlayersIP.at(player)->getC().n_cols);
-  BOOST_LOG_TRIVIAL(info) << "Algorithms::IPG::Oracle::addValueCut: "
-									  "adding cut for Player "
-								  << player;
-  //@todo add cut
-  this->IPG->PlayersIP.at(player)->addConstraints(-cutLHS, arma::vec{-cutRHS});
+  arma::sp_mat cutLHS = arma::sp_mat{LHS}.t();
+
+  bool go{true};
+  if (checkDuplicate)
+	 go = Utils::containsConstraint(this->Players.at(player).getCutPoolA(),
+											  this->Players.at(player).getCutPoolb(),
+											  LHS,
+											  cutRHS,
+											  this->Tolerance);
+
+  if (go) {
+	 BOOST_LOG_TRIVIAL(info) << "Algorithms::IPG::Oracle::addValueCut: "
+										 "adding cut for Player "
+									 << player;
+
+	 this->IPG->PlayersIP.at(player)->addConstraints(-cutLHS, arma::vec{-cutRHS});
+	 return true;
+  }
+  return false;
 }
 
 void Algorithms::IPG::Oracle::solve() {
 
-  bool solved = {false};
+
+  this->initialize();
+
+  while (!this->Solved) {
+
+	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
+	 }
+  }
+}
+
+void Algorithms::IPG::Oracle::initialize() {
   if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0)
 	 this->IPG->InitTime = std::chrono::high_resolution_clock::now();
   this->IPG->Stats.NumIterations.set(0);
 
   // Initialize the working objects
-  for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i)
-	 this->Players.push_back(IPG_Player(
-		  this->Env, this->IPG->PlayersIP.at(i)->getNy(), this->IPG->PlayersIP.at(i)->getIPModel()));
+  for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
+	 IPG_Player player = IPG_Player(this->Env,
+											  this->IPG->PlayersIP.at(i)->getNy(),
+											  this->IPG->PlayersIP.at(i)->getIPModel(),
+											  this->Tolerance);
+	 this->Players.push_back(player);
+	 // Set GRBCallback
+	 this->Players.at(i).getIPModel()->setCallback(&player);
+  }
 
 
   // Reset the working strategies to a pure strategy given by the IP
   // Push back the IP_Param copies in WorkingIPs
   for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
 	 unsigned int Ny      = this->IPG->PlayerVariables.at(i); // Equals to Ny by definition
-	 unsigned int Nx      = this->IPG->PlayersIP.at(i)->getNx();
 	 arma::vec    xMinusI = this->buildXminusI(i);
 
 	 // Update working strategies with "educated guesses"
@@ -95,7 +123,7 @@ void Algorithms::IPG::Oracle::solve() {
 		  this->Players.at(i).Incumbent.at(k) =
 				PureIP->getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_X);
 		  // This is also a free best response
-		  this->addVertex(i, this->Players.at(i).Incumbent, true);
+		  this->Players.at(i).addVertex(this->Players.at(i).Incumbent, true);
 		}
 	 } else if (status == GRB_UNBOUNDED) {
 		PureIP->relax();
@@ -106,11 +134,12 @@ void Algorithms::IPG::Oracle::solve() {
 		for (unsigned int k = 0; k < Ny; ++k) {
 		  ray.at(k) = PureIP->getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_UnbdRay);
 		  // This is also a free ray
-		  this->addRay(i, ray, true);
+		  this->Players.at(i).addRay(ray, true);
 		}
 	 }
   }
 }
+
 
 arma::vec Algorithms::IPG::Oracle::buildXminusI(const unsigned int i) {
   /**
