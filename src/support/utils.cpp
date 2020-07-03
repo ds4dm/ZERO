@@ -374,8 +374,11 @@ std::vector<short int> Utils::numToVec(unsigned long int number, const unsigned 
   return binary;
 }
 
-bool Utils::containsConstraint(
-	 arma::sp_mat &A, const vec &b, const arma::vec &lhs, const double &rhs, const double tol) {
+bool Utils::containsConstraint(const arma::sp_mat &A,
+										 const vec &         b,
+										 const arma::vec &   lhs,
+										 const double &      rhs,
+										 const double        tol) {
   if (lhs.size() != A.n_cols)
 	 return false;
   for (int i = 0; i < A.n_rows; ++i) {
@@ -419,7 +422,7 @@ bool Utils::containsRow(const sp_mat &A, const arma::vec &row, const double tol)
   return false;
 }
 bool Utils::containsConstraint(
-	 sp_mat &A, const vec &b, const sp_mat &lhs, const double &rhs, const double tol) {
+	 const sp_mat &A, const vec &b, const sp_mat &lhs, const double &rhs, const double tol) {
   if (lhs.n_rows > 1)
 	 return false;
   arma::vec Ai = arma::vec{lhs};
