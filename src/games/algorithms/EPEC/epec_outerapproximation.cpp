@@ -384,13 +384,11 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 		  } // status optimal for leaderModel
 		  else if (status == GRB_UNBOUNDED) {
 			 // Check for a new ray
-			 arma::vec normalizedRay = arma::normalise(cutLHS);
-			 if (!Utils::containsRow(
-						*this->Trees.at(player)->getR(), normalizedRay, this->Tolerance)) {
+			 if (!Utils::containsRow(*this->Trees.at(player)->getR(), cutLHS, this->Tolerance)) {
 				BOOST_LOG_TRIVIAL(warning) << "Algorithms::EPEC::OuterApproximation::separationOracle: "
 														"new ray for  player "
 													<< player;
-				this->Trees.at(player)->addRay(normalizedRay);
+				this->Trees.at(player)->addRay(cutLHS);
 				break;
 			 } else {
 				BOOST_LOG_TRIVIAL(warning) << "Algorithms::EPEC::OuterApproximation::separationOracle: "
