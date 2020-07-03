@@ -42,6 +42,7 @@ public:
   // } operator T() { std::cerr << "Operation not allowed. Use get()"; }
 };
 
+
 class ZEROAlgorithmData {
 public:
   Attr<double> DeviationTolerance{
