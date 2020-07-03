@@ -76,7 +76,9 @@ bool MathOpt::IP_Param::finalize() {
 		this->Objective_c += y[i] * c.at(i);
 
 	 model->update();
-	 model->set(GRB_IntParam_OutputFlag, 0);
+	 this->IPModel.set(GRB_IntParam_OutputFlag, 0);
+	 this->IPModel.set(GRB_IntParam_InfUnbdInfo, 1);
+	 this->IPModel.set(GRB_IntParam_DualReductions, 0);
 
   } catch (GRBException &e) {
 	 throw ZEROException(ZEROErrorCode::SolverError,
@@ -112,30 +114,29 @@ void MathOpt::IP_Param::updateModelObjective(const arma::vec x) {
   }
 }
 
-std::unique_ptr<GRBModel> MathOpt::IP_Param::solveFixed(
-	 arma::vec x, bool solve) /**
-										* Given a value for the parameters @f$x@f$ in the
-										* definition of IP_Param, solve           the
-										* parameterized MIP program to  optimality.
-										*
-										* In terms of game theory, this can be viewed as
-										* <i>the best response</i> for a set of
-										* decisions by other players.
-										*@p solve decides whether the model has to be optimized or not
-										*/
+std::unique_ptr<GRBModel> MathOpt::IP_Param::solveFixed(arma::vec x, bool solve)
+/**
+ * Given a value for the parameters @f$x@f$ in the
+ * definition of IP_Param, solve
+ * the parameterized MIP program to  optimality. Note that the method @return a pointer to a copy of
+ *the model. In this way, valid cuts and cut pools are kept each time the method is invoked.
+ *
+ * In terms of game theory, this can be viewed as
+ * <i>the best response</i> for a set of
+ * decisions by other players.
+ *@p solve decides whether the model has to be optimized or not
+ */
 {
   if (!this->finalized)
 	 throw ZEROException(ZEROErrorCode::Assertion, "The model is not finalized!");
-  std::unique_ptr<GRBModel> model(new GRBModel(this->IPModel));
   try {
 	 this->updateModelObjective(x);
-	 model->set(GRB_IntParam_OutputFlag, 0);
 	 if (solve)
-		model->optimize();
+		IPModel.optimize();
   } catch (GRBException &e) {
 	 throw ZEROException(e);
   }
-  return model;
+  return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel));
 }
 
 
