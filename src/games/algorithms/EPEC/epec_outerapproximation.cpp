@@ -100,15 +100,7 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
 										  << i << " (Best Response)";
 		}
 
-		// Check if best response coincides with the strategy in the equilibrium
-		bool same = true;
-		for (unsigned int k = 0; k < xOfI.size(); ++k) {
-		  if (std::abs(xOfI.at(k) - bestResponse.at(k)) > this->Tolerance) {
-			 same = false;
-			 break;
-		  }
-		}
-		if (!same) {
+		if (!Utils::isZero(xOfI - bestResponse.subvec(0, xOfI.size()), this->Tolerance)) {
 		  // Then, if the answers do not coincide, we need to refine the
 		  // approximation or determine if this strategy is anyhow feasible.
 		  // We search for a convex combination of best responses so that we can
