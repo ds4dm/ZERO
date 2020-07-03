@@ -45,14 +45,14 @@ bool MathOpt::IP_Param::operator==(const IP_Param &IPG2) const {
   return true;
 }
 
-void MathOpt::IP_Param::makeModel() {
+bool MathOpt::IP_Param::finalize() {
 
   /** This method creates the (mixed)-integer program for the game, where the
-	*objective omits the bilinear part.
+	*objective omits the bilinear part. The flag finalized in the object is then set to true.
 	**/
 
-  if (this->madeModel)
-	 return;
+  if (this->finalized)
+	 return true;
   std::unique_ptr<GRBModel> model(new GRBModel(this->IPModel));
   try {
 	 GRBVar y[this->Ny];
@@ -69,6 +69,12 @@ void MathOpt::IP_Param::makeModel() {
 		  LHS += (*j) * y[j.col()];
 		model->addConstr(LHS, GRB_LESS_EQUAL, b[i]);
 	 }
+
+	 // Make the linear part of the objective
+	 this->Objective_c = 0;
+	 for (unsigned int i = 0; i < this->Ny; ++i)
+		this->Objective_c += y[i] * c.at(i);
+
 	 model->update();
 	 model->set(GRB_IntParam_OutputFlag, 0);
 
@@ -76,7 +82,34 @@ void MathOpt::IP_Param::makeModel() {
 	 throw ZEROException(ZEROErrorCode::SolverError,
 								std::to_string(e.getErrorCode()) + e.getMessage());
   }
-  this->madeModel = true;
+  this->finalized = true;
+  return true;
+}
+
+void MathOpt::IP_Param::updateModelObjective(const arma::vec x) {
+  /**
+	* @brief This method updates the model objective by setting x to @p x
+	*/
+  if (x.size() != this->Nx)
+	 throw ZEROException(ZEROErrorCode::Assertion,
+								"Invalid argument size: " + std::to_string(x.size()) +
+									 " != " + std::to_string(Nx));
+  if (!this->finalized)
+	 throw ZEROException(ZEROErrorCode::Assertion, "The model is not finalized!");
+  try {
+	 GRBQuadExpr obj = this->Objective_c;
+	 arma::vec   Cx;
+	 Cx = this->C * x;
+	 GRBVar y[this->Ny];
+	 for (unsigned int i = 0; i < this->Ny; i++) {
+		y[i] = this->IPModel.getVarByName("y_" + std::to_string(i));
+		obj += Cx[i] * y[i];
+	 }
+	 IPModel.setObjective(obj, GRB_MINIMIZE);
+	 IPModel.update();
+  } catch (GRBException &e) {
+	 throw ZEROException(e);
+  }
 }
 
 std::unique_ptr<GRBModel> MathOpt::IP_Param::solveFixed(
@@ -91,24 +124,11 @@ std::unique_ptr<GRBModel> MathOpt::IP_Param::solveFixed(
 										*@p solve decides whether the model has to be optimized or not
 										*/
 {
-  /// compatible with the MathOpt::IP_Param definition.
-  if (x.size() != this->Nx)
-	 throw ZEROException(ZEROErrorCode::Assertion,
-								"Invalid argument size: " + std::to_string(x.size()) +
-									 " != " + std::to_string(Nx));
+  if (!this->finalized)
+	 throw ZEROException(ZEROErrorCode::Assertion, "The model is not finalized!");
   std::unique_ptr<GRBModel> model(new GRBModel(this->IPModel));
   try {
-	 GRBQuadExpr obj = model->getObjective();
-	 arma::vec   Cx;
-	 Cx = this->C * x;
-	 GRBVar y[this->Ny];
-	 for (unsigned int i = 0; i < this->Ny; i++) {
-		y[i] = model->getVarByName("y_" + std::to_string(i));
-		obj += Cx[i] * y[i];
-	 }
-	 model->setObjective(obj, GRB_MINIMIZE);
-
-	 model->update();
+	 this->updateModelObjective(x);
 	 model->set(GRB_IntParam_OutputFlag, 0);
 	 if (solve)
 		model->optimize();
@@ -118,12 +138,6 @@ std::unique_ptr<GRBModel> MathOpt::IP_Param::solveFixed(
   return model;
 }
 
-MathOpt::IP_Param &MathOpt::IP_Param::addDummy(unsigned int pars, unsigned int vars, int position) {
-
-  // Call the superclass function
-  MP_Param::addDummy(pars, vars, position);
-  return *this;
-}
 
 MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &C,
 														const arma::sp_mat &B,
@@ -149,7 +163,7 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(arma::sp_mat & C,
 														arma::vec &&   integers)
 /// Faster means to set data. But the input objects might be corrupted now.
 {
-  this->madeModel = false;
+  this->finalized = false;
   MP_Param::set(Q, C, A, B, c, b);
   return *this;
 }
@@ -236,7 +250,7 @@ void MathOpt::IP_Param::addConstraints(arma::sp_mat Ain, ///< [in] The LHSs of t
 ) {
   /**
 	* This method stores a description of the new cuts of @p Ain (and
-	* RHS @p bin) in B and b, respectively
+	* RHS @p bin) in B and b, respectively. This works also when the IP_Param is finalized.
 	*/
   if (this->B.n_cols != Ain.n_cols)
 	 throw ZEROException(ZEROErrorCode::Assertion,
@@ -250,7 +264,7 @@ void MathOpt::IP_Param::addConstraints(arma::sp_mat Ain, ///< [in] The LHSs of t
   this->size();
 
   // If model hasn't been made, we do not need to update it
-  if (this->madeModel) {
+  if (this->finalized) {
 	 for (unsigned int i = 0; i < Ain.n_rows; i++) {
 		GRBLinExpr LHS{0};
 		for (auto j = Ain.begin_row(i); j != Ain.end_row(i); ++j)

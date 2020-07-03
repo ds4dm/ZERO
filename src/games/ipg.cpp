@@ -44,6 +44,7 @@ void Game::IPG::finalize() {
   for (unsigned int i = 0; i < this->NumPlayers; ++i) {
 	 PlayerVariables.at(i) = this->PlayersIP.at(i)->getNy();
 	 this->NumVariables += PlayerVariables.at(i);
+	 this->PlayersIP.at(i)->finalize();
   }
   this->Finalized = true;
 }
@@ -94,7 +95,7 @@ void Game::IPG::getXofI(const arma::vec &x, ///< The vector containing the full 
 }
 
 
-const void Game::IPG::findNashEq() { return; }
+const void Game::IPG::findNashEq() {}
 
 bool Game::IPG::isPureStrategy(double tol) const { return false; }
 bool Game::IPG::isSolved(double tol) const { return false; }

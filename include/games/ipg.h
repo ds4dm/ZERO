@@ -80,6 +80,7 @@ namespace Game {
 	 void setAlgorithm(Data::IPG::Algorithms algorithm);
   };
 
+
 } // namespace Game
 
 #include "algorithms/IPG/ipg_oracle.h"

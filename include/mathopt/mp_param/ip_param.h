@@ -44,11 +44,12 @@ namespace MathOpt {
   {
   private:
 	 // Gurobi environment and model
-	 GRBEnv *  Env;
-	 GRBModel  IPModel;          ///< Stores the IP model associated with the object
-	 arma::vec bounds;           ///< Stores the explicit bounds on variables
-	 arma::vec integers;         ///< Stores the indexes of integer variables
-	 bool      madeModel{false}; ///< True if the model has been made
+	 GRBEnv *    Env;
+	 GRBModel    IPModel;     ///< Stores the IP model associated with the object
+	 GRBQuadExpr Objective_c; ///< Stores the objective part relative to c^Ty
+	 arma::vec   bounds;      ///< Stores the explicit bounds on variables
+	 arma::vec   integers;    ///< Stores the indexes of integer variables
+	 bool finalized{false};   ///< True if the model has been made and constraints cannot be changed
 
 	 // These methods should be inaccessible to the inheritor, since we have a
 	 // different structure.
@@ -80,13 +81,12 @@ namespace MathOpt {
 
 	 arma::vec getBounds() const { return this->bounds; }
 
-	 void makeModel();
+	 bool finalize() override;
 
 	 void addConstraints(const arma::sp_mat A, const arma::vec b);
 
 	 /// Copy constructor
-	 IP_Param(const IP_Param &ipg)
-		  : MP_Param(ipg), Env{ipg.Env}, IPModel{ipg.IPModel}, madeModel{ipg.madeModel} {
+	 IP_Param(const IP_Param &ipg) : MP_Param(ipg), Env{ipg.Env}, IPModel{ipg.IPModel} {
 		this->size();
 	 };
 
@@ -136,8 +136,6 @@ namespace MathOpt {
 		return b1 && b2 && b3;
 	 }
 
-	 IP_Param &addDummy(unsigned int pars, unsigned int vars = 0, int position = -1) override;
-
 	 void write(const std::string &filename, bool append) const override;
 	 long load(const std::string &filename, long pos);
 
@@ -146,5 +144,9 @@ namespace MathOpt {
 	 arma::vec getConstraintViolations(const arma::vec y, double tol);
 
 	 void forceDataCheck();
+
+	 void updateModelObjective(const arma::vec x);
+
+	 std::shared_ptr<GRBModel> getIPModel() { return std::shared_ptr<GRBModel>(&this->IPModel); }
   };
 } // namespace MathOpt
