@@ -234,7 +234,7 @@ double MathOpt::QP_Param::computeObjective(const arma::vec &y,
 	* Computes @f$\frac{1}{2} y^TQy + (Cx)^Ty + c^Ty@f$ given the input values @p
 	* y and
 	* @p x.
-	* @param checkFeas if @p true, checks if the given @f$(x,y)@f$ satisfies the
+	* @p checkFeas if @p true, checks if the given @f$(x,y)@f$ satisfies the
 	* constraints of the problem, namely @f$Ax + By \leq b@f$.
 	*/
   if (y.n_rows != this->getNy())

@@ -19,7 +19,7 @@ bool Algorithms::EPEC::PolyBase::isSolved(unsigned int *countryNumber,
 														arma::vec *   profitableDeviation,
 														double        tol) const
 /**
- * @briefs Checks if Game::EPEC is solved, otherwise it returns a proof.
+ * @brief Checks if Game::EPEC is solved, otherwise it returns a proof.
  * @details
  * Analogous to Game::NashGame::isSolved but checks if the given Game::EPEC is
  * solved. If it is solved, then retruns true. If not, it returns the country

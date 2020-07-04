@@ -13,11 +13,6 @@
 
 #pragma once
 
-/**
- * @file src/models.h Solve problems arising in
- * international energy markets with climate-conscious
- * countries.
- */
 
 #include "zero.h"
 #include <armadillo>
@@ -28,6 +23,11 @@
 
 namespace Models {
   namespace EPEC {
+	 /**
+	  * @brief This namespace contains modeling tools for international energy markets with
+	  *climate-conscious countries.
+	  **/
+
 	 typedef struct FollPar    FollPar;
 	 typedef struct DemPar     DemPar;
 	 typedef struct LeadPar    LeadPar;

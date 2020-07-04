@@ -41,6 +41,8 @@ namespace Algorithms {
 		virtual bool
 		isSolved(double tol = -1) const = 0; ///< A method to check whether the EPEC is solved or not,
 														 ///< given a numerical tolerance
+
+
 		virtual bool isPureStrategy(
 			 double tol = -1) const = 0; ///< A method to check whether the EPEC solution is a pure
 												  ///< equilibrium or not, given a numerical tolerance

@@ -13,6 +13,7 @@
 
 #pragma once
 
+#include "ipg_algorithms.h"
 #include "zero.h"
 #include <armadillo>
 #include <gurobi_c++.h>
@@ -33,8 +34,8 @@ namespace Algorithms {
 		IPG_Player(GRBEnv e, unsigned int incumbentSize, std::shared_ptr<GRBModel> model, double tol)
 			 : MembershipLP{}, Tolerance{tol} {
 		  /**
-			* @brief Given the @param e as the Gurobi environment, the size of the player's own
-			* decision variables @param incumentSize, and the pointer @param model to the original IP
+			* @brief Given the @p e as the Gurobi environment, the size of the player's own
+			* decision variables @p incumentSize, and the pointer @p model to the original IP
 			* model, initializes the data structure.
 			*/
 		  this->Model = std::unique_ptr<GRBModel>(model.get());
@@ -80,15 +81,9 @@ namespace Algorithms {
 
 
 	 ///@brief This class is responsible for the Oracle algorithm for IPG.
-	 class Oracle {
+	 class Oracle : public Algorithm {
 	 private:
-		Game::IPG *             IPG;
-		GRBEnv *                Env;
-		bool                    Solved{false}; ///< True if the IPG has been solved
-		bool                    Pure{false}; ///< True if all the players are playing a pure strategy.
-		bool                    Infeasible{false}; ///< True if the game is infeasible
-		double                  Tolerance = 1e-6;  ///< The numeric tolerance
-		std::vector<IPG_Player> Players;           ///< The support structures
+		std::vector<IPG_Player> Players; ///< The support structures
 		bool                    addConstraintsToPool(const arma::sp_mat A,
 																	const arma::vec    b,
 																	const unsigned int player,
@@ -113,24 +108,13 @@ namespace Algorithms {
 	 public:
 		friend class Game::IPG;
 
-		double getTol() const { return Tolerance; }
-
-		void setTol(double tol) { this->Tolerance = tol; }
-
-		Oracle(GRBEnv *env, Game::IPG *IPGObj) : IPG{IPGObj}, Env{env} {
-		  /**
-			* @brief Given the Games::IPG object @p IPGObj and the GRBEnv @p env, initializes the field
-			* required by the algorithm
-			*/
-		  this->Tolerance = this->IPG->Stats.AlgorithmData.DeviationTolerance.get();
-		}; ///< The constructor requires the Gurobi
-		///< environment and the Game::IPG object.
+		Oracle(GRBEnv *env, Game::IPG *IPGObj) : Algorithm(env, IPGObj){};
 
 		void solve();
 
-		bool isSolved() { return this->Solved; };
+		bool isSolved() const { return this->Solved; };
 
-		bool isPureStrategy();
+		bool isPureStrategy() const;
 	 };
   } // namespace IPG
 

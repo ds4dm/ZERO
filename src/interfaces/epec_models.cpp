@@ -24,10 +24,8 @@
 #include <rapidjson/prettywriter.h>
 #include <vector>
 
-using namespace rapidjson;
-using namespace std;
 
-ostream &Models::EPEC::operator<<(ostream &ost, const Models::EPEC::prn l) {
+std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::prn l) {
   switch (l) {
   case Models::EPEC::prn::label:
 	 ost << std::left << std::setw(50);
@@ -39,7 +37,7 @@ ostream &Models::EPEC::operator<<(ostream &ost, const Models::EPEC::prn l) {
   return ost;
 }
 
-ostream &Models::EPEC::operator<<(ostream &ost, const Models::EPEC::FollPar P) {
+std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::FollPar P) {
   ost << "Follower Parameters: " << '\n';
   ost << "********************" << '\n';
   ost << Models::EPEC::prn::label << "Linear Costs"
@@ -65,14 +63,14 @@ ostream &Models::EPEC::operator<<(ostream &ost, const Models::EPEC::FollPar P) {
   return ost;
 }
 
-ostream &Models::EPEC::operator<<(ostream &ost, const Models::EPEC::DemPar P) {
+std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::DemPar P) {
   ost << "Demand Parameters: " << '\n';
   ost << "******************" << '\n';
   ost << "Price\t\t =\t\t " << P.alpha << "\t-\t" << P.beta << "  x   Quantity" << '\n';
   return ost;
 }
 
-ostream &Models::EPEC::operator<<(ostream &ost, const Models::EPEC::LeadPar P) {
+std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::LeadPar P) {
   ost << "Leader Parameters: " << '\n';
   ost << "******************" << '\n';
   ost << std::fixed;
@@ -91,7 +89,7 @@ ostream &Models::EPEC::operator<<(ostream &ost, const Models::EPEC::LeadPar P) {
   return ost;
 }
 
-ostream &Models::EPEC::operator<<(ostream &ost, const Models::EPEC::EPECInstance I) {
+std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::EPECInstance I) {
   ost << "EPEC Instance: " << '\n';
   ost << "******************" << '\n';
   for (auto a : I.Countries)
@@ -100,7 +98,7 @@ ostream &Models::EPEC::operator<<(ostream &ost, const Models::EPEC::EPECInstance
   return ost;
 }
 
-ostream &Models::EPEC::operator<<(ostream &ost, const Models::EPEC::LeadAllPar P) {
+std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::LeadAllPar P) {
   ost << "\n\n";
   ost << "***************************"
 		<< "\n";
@@ -119,7 +117,7 @@ ostream &Models::EPEC::operator<<(ostream &ost, const Models::EPEC::LeadAllPar P
   return ost;
 }
 
-ostream &Models::EPEC::operator<<(ostream &ost, const Models::EPEC::LeaderVars l) {
+std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::LeaderVars l) {
   switch (l) {
   case Models::EPEC::LeaderVars::FollowerStart:
 	 ost << "Models::EPEC::LeaderVars::FollowerStart";
@@ -430,11 +428,11 @@ Models::EPEC::EPEC &Models::EPEC::EPEC::addCountry(Models::EPEC::LeadAllPar Para
   try {
 	 noError = this->ParamValid(Params);
   } catch (const char *e) {
-	 cerr << "Error in Models::EPEC::EPEC::addCountry: " << e << '\n';
-  } catch (string &e) {
-	 cerr << "String: Error in Models::EPEC::EPEC::addCountry: " << e << '\n';
-  } catch (exception &e) {
-	 cerr << "Exception: Error in Models::EPEC::EPEC::addCountry: " << e.what() << '\n';
+	 std::cerr << "Error in Models::EPEC::EPEC::addCountry: " << e << '\n';
+  } catch (std::string &e) {
+	 std::cerr << "String: Error in Models::EPEC::EPEC::addCountry: " << e << '\n';
+  } catch (std::exception &e) {
+	 std::cerr << "Exception: Error in Models::EPEC::EPEC::addCountry: " << e.what() << '\n';
   }
   if (!noError)
 	 return *this;
@@ -515,11 +513,11 @@ Models::EPEC::EPEC &Models::EPEC::EPEC::addCountry(Models::EPEC::LeadAllPar Para
                         Params.n_followers * 3 * Params.LeaderParam.tax_revenue + 1,
                     arma::fill::zeros);
 
-  vector<shared_ptr<MathOpt::QP_Param>> Players{};
+  std::vector<std::shared_ptr<MathOpt::QP_Param>> Players{};
   // Create the QP_Param* for each follower
   try {
 	 for (unsigned int follower = 0; follower < Params.n_followers; follower++) {
-		auto Foll = make_shared<MathOpt::QP_Param>(this->Env);
+		auto Foll = std::make_shared<MathOpt::QP_Param>(this->Env);
 		this->make_LL_QP(Params, follower, Foll.get(), Loc);
 		Players.push_back(Foll);
 	 }
@@ -605,7 +603,7 @@ void Models::EPEC::EPEC::preFinalize() {
 	* variable
 	*/
   try {
-	 this->nImportMarkets = vector<unsigned int>(this->getNumPlayers());
+	 this->nImportMarkets = std::vector<unsigned int>(this->getNumPlayers());
 	 for (unsigned int i = 0; i < this->getNumPlayers(); i++)
 		this->add_Leaders_tradebalance_constraints(i);
   } catch (GRBException &e) {
@@ -806,7 +804,7 @@ unsigned int Models::EPEC::EPEC::getPosition(const unsigned int             coun
   return this->LeaderLocations.at(countryCount) + this->Locations.at(countryCount).at(var);
 }
 
-unsigned int Models::EPEC::EPEC::getPosition(const string &                 countryName,
+unsigned int Models::EPEC::EPEC::getPosition(const std::string &            countryName,
 															const Models::EPEC::LeaderVars var) const
 /**
  * @brief Gets position of a variable in a country given the country name and
@@ -893,7 +891,8 @@ void Models::EPEC::EPEC::makeObjectivePlayer(
   }
 }
 
-unique_ptr<GRBModel> Models::EPEC::EPEC::Respond(const string name, const arma::vec &x) const {
+std::unique_ptr<GRBModel> Models::EPEC::EPEC::Respond(const std::string name,
+																		const arma::vec & x) const {
   return this->Game::EPEC::respond(this->name2nos.at(name), x);
 }
 
@@ -980,10 +979,10 @@ Models::EPEC::LeaderVars Models::EPEC::operator+(Models::EPEC::LeaderVars a, int
   return static_cast<LeaderVars>(static_cast<int>(a) + b);
 }
 
-string to_string(const GRBConstr &cons, const GRBModel &model) {
-  const GRBVar *vars  = model.getVars();
-  const int     nVars = model.get(GRB_IntAttr_NumVars);
-  ostringstream oss;
+std::string to_string(const GRBConstr &cons, const GRBModel &model) {
+  const GRBVar *     vars  = model.getVars();
+  const int          nVars = model.get(GRB_IntAttr_NumVars);
+  std::ostringstream oss;
   oss << cons.get(GRB_StringAttr_ConstrName) << ":\t\t";
   constexpr double eps = 1e-5;
   // LHS
@@ -999,14 +998,16 @@ string to_string(const GRBConstr &cons, const GRBModel &model) {
   return oss.str();
 }
 
-string to_string(const GRBVar &var) {
-  string name = var.get(GRB_StringAttr_VarName);
+std::string to_string(const GRBVar &var) {
+  std::string name = var.get(GRB_StringAttr_VarName);
   return name.empty() ? "unNamedvar" : name;
 }
 
-void Models::EPEC::EPEC::write(const string filename, const unsigned int i, bool append) const {
-  ofstream file;
-  file.open(filename, append ? ios::app : ios::out);
+void Models::EPEC::EPEC::write(const std::string  filename,
+										 const unsigned int i,
+										 bool               append) const {
+  std::ofstream file;
+  file.open(filename, append ? std::ios::app : std::ios::out);
   const LeadAllPar &Params = this->AllLeadPars.at(i);
   file << "**************************************************\n";
   file << "COUNTRY: " << Params.name << '\n';
@@ -1016,10 +1017,10 @@ void Models::EPEC::EPEC::write(const string filename, const unsigned int i, bool
   file.close();
 }
 
-void Models::EPEC::EPEC::write(const string filename, bool append) const {
+void Models::EPEC::EPEC::write(const std::string filename, bool append) const {
   if (append) {
-	 ofstream file;
-	 file.open(filename, ios::app);
+	 std::ofstream file;
+	 file.open(filename, std::ios::app);
 	 file << "\n\n\n\n\n";
 	 file << "##################################################\n";
 	 file << "############### COUNTRY PARAMETERS ###############\n";
@@ -1029,7 +1030,7 @@ void Models::EPEC::EPEC::write(const string filename, bool append) const {
 	 this->write(filename, i, (append || i));
 }
 
-void Models::EPEC::EPEC::writeSolutionJSON(string          filename,
+void Models::EPEC::EPEC::writeSolutionJSON(std::string     filename,
 														 const arma::vec x,
 														 const arma::vec z) const {
   /**
@@ -1037,8 +1038,8 @@ void Models::EPEC::EPEC::writeSolutionJSON(string          filename,
 	* file
 	* @p filename dictates the name of the .JSON solution file
 	*/
-  StringBuffer               s;
-  PrettyWriter<StringBuffer> writer(s);
+  rapidjson::StringBuffer                          s;
+  rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(s);
   writer.StartObject();
   writer.Key("Meta");
   writer.StartObject();
@@ -1097,35 +1098,35 @@ void Models::EPEC::EPEC::writeSolutionJSON(string          filename,
   writer.EndArray();
   writer.EndObject();
   writer.EndObject();
-  ofstream file(filename + ".json");
+  std::ofstream file(filename + ".json");
   file << s.GetString();
 }
 
-void Models::EPEC::EPEC::readSolutionJSON(const string filename) {
+void Models::EPEC::EPEC::readSolutionJSON(const std::string filename) {
   /**
 	* @brief Reads the solution file and load it in the current EPEC instance
 	* **/
-  ifstream ifs(filename + ".json");
+  std::ifstream ifs(filename + ".json");
   if (ifs.good()) {
-	 IStreamWrapper isw(ifs);
-	 Document       d;
+	 rapidjson::IStreamWrapper isw(ifs);
+	 rapidjson::Document       d;
 	 try {
 		d.ParseStream(isw);
-		const Value &x = d["Solution"].GetObject()["x"];
+		const rapidjson::Value &x = d["Solution"].GetObject()["x"];
 		// const Value &z = d["Solution"].GetObject()["z"];
 		arma::vec new_x;
 		// arma::vec new_z;
 		new_x.zeros(x.GetArray().Size());
 		// new_z.zeros(z.GetArray().Size());
 
-		for (SizeType i = 0; i < this->getNumVar(); i++)
+		for (rapidjson::SizeType i = 0; i < this->getNumVar(); i++)
 		  new_x.at(i) = x[i].GetDouble();
 
 		// for (SizeType i = 0; i < this->getNumVar(); i++)
 		// new_z.at(i) = z[i].GetDouble();
 		ifs.close();
 		this->warmstart(new_x);
-	 } catch (exception &e) {
+	 } catch (std::exception &e) {
 		throw ZEROException(ZEROErrorCode::IOError, e.what());
 	 } catch (...) {
 		throw ZEROException(ZEROErrorCode::Unknown, "Unknown errorin readSolutionJSON()");
@@ -1135,7 +1136,7 @@ void Models::EPEC::EPEC::readSolutionJSON(const string filename) {
   }
 }
 
-void Models::EPEC::EPEC::writeSolution(const int writeLevel, string filename) const {
+void Models::EPEC::EPEC::writeSolution(const int writeLevel, std::string filename) const {
   /**
 	* @brief Writes the computed Nash Equilibrium in the EPEC instance
 	* @p writeLevel is an integer representing the write configuration. 0: only
@@ -1151,18 +1152,18 @@ void Models::EPEC::EPEC::writeSolution(const int writeLevel, string filename) co
 	 if (writeLevel == 2 || writeLevel == 0)
 		this->writeSolutionJSON(filename, this->SolutionX, this->SolutionZ);
   } else {
-	 cerr << "Error in Models::EPEC::EPEC::writeSolution: no solution to write." << '\n';
+	 std::cerr << "Error in Models::EPEC::EPEC::writeSolution: no solution to write." << '\n';
   }
 }
 
-void Models::EPEC::EPECInstance::save(string filename) {
+void Models::EPEC::EPECInstance::save(std::string filename) {
   /**
 	* @brief Writes the current EPEC instance to the standard JSON instance file
 	* @p filename dictates the name of the JSON instance file
 	* @p epec contains the @p EPECInstance object with the data
 	*/
-  StringBuffer               s;
-  PrettyWriter<StringBuffer> writer(s);
+  rapidjson::StringBuffer                          s;
+  rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(s);
   writer.StartObject();
   writer.Key("nCountries");
   writer.Uint(this->Countries.size());
@@ -1175,8 +1176,8 @@ void Models::EPEC::EPECInstance::save(string filename) {
 	 writer.Uint(this->Countries.at(i).n_followers);
 
 	 writer.Key("Name");
-	 string currName = this->Countries.at(i).name;
-	 char   nameArray[currName.length() + 1];
+	 std::string currName = this->Countries.at(i).name;
+	 char        nameArray[currName.length() + 1];
 	 strcpy(nameArray, currName.c_str());
 	 writer.String(nameArray);
 
@@ -1266,56 +1267,56 @@ void Models::EPEC::EPECInstance::save(string filename) {
   }
   writer.EndArray();
   writer.EndObject();
-  ofstream file(filename + ".json");
+  std::ofstream file(filename + ".json");
   file << s.GetString();
   file.close();
 }
 
-void Models::EPEC::EPECInstance::load(string filename) {
+void Models::EPEC::EPECInstance::load(std::string filename) {
   /**
 	* @brief Reads an instance file and return a vector of @p LeadAllPar that can
 	* be fed to the EPEC class
 	* @p filename dictates the name of the JSON instance file
 	*/
-  ifstream ifs(filename + ".json");
+  std::ifstream ifs(filename + ".json");
   if (ifs.good()) {
-	 IStreamWrapper isw(ifs);
-	 Document       d;
+	 rapidjson::IStreamWrapper isw(ifs);
+	 rapidjson::Document       d;
 	 try {
 		d.ParseStream(isw);
-		vector<Models::EPEC::LeadAllPar> LAP        = {};
-		int                              nCountries = d["nCountries"].GetInt();
-		arma::sp_mat                     TrCo;
+		std::vector<Models::EPEC::LeadAllPar> LAP        = {};
+		int                                   nCountries = d["nCountries"].GetInt();
+		arma::sp_mat                          TrCo;
 		TrCo.zeros(nCountries, nCountries);
 		for (int j = 0; j < nCountries; ++j) {
-		  const Value &c = d["Countries"].GetArray()[j].GetObject();
+		  const rapidjson::Value &c = d["Countries"].GetArray()[j].GetObject();
 
-		  Models::EPEC::FollPar FP;
-		  const Value &         cap = c["Followers"]["Capacities"];
-		  for (SizeType i = 0; i < cap.GetArray().Size(); i++) {
+		  Models::EPEC::FollPar   FP;
+		  const rapidjson::Value &cap = c["Followers"]["Capacities"];
+		  for (rapidjson::SizeType i = 0; i < cap.GetArray().Size(); i++) {
 			 FP.capacities.push_back(cap[i].GetDouble());
 		  }
-		  const Value &lc = c["Followers"]["LinearCosts"];
-		  for (SizeType i = 0; i < lc.GetArray().Size(); i++) {
+		  const rapidjson::Value &lc = c["Followers"]["LinearCosts"];
+		  for (rapidjson::SizeType i = 0; i < lc.GetArray().Size(); i++) {
 			 FP.costs_lin.push_back(lc[i].GetDouble());
 		  }
-		  const Value &qc = c["Followers"]["QuadraticCosts"];
-		  for (SizeType i = 0; i < qc.GetArray().Size(); i++) {
+		  const rapidjson::Value &qc = c["Followers"]["QuadraticCosts"];
+		  for (rapidjson::SizeType i = 0; i < qc.GetArray().Size(); i++) {
 			 FP.costs_quad.push_back(qc[i].GetDouble());
 		  }
-		  const Value &ec = c["Followers"]["EmissionCosts"];
-		  for (SizeType i = 0; i < ec.GetArray().Size(); i++) {
+		  const rapidjson::Value &ec = c["Followers"]["EmissionCosts"];
+		  for (rapidjson::SizeType i = 0; i < ec.GetArray().Size(); i++) {
 			 FP.emission_costs.push_back(ec[i].GetDouble());
 		  }
-		  const Value &tc = c["Followers"]["TaxCaps"];
-		  for (SizeType i = 0; i < tc.GetArray().Size(); i++) {
+		  const rapidjson::Value &tc = c["Followers"]["TaxCaps"];
+		  for (rapidjson::SizeType i = 0; i < tc.GetArray().Size(); i++) {
 			 FP.tax_caps.push_back(tc[i].GetDouble());
 		  }
-		  const Value &nm = c["Followers"]["Names"];
-		  for (SizeType i = 0; i < nm.GetArray().Size(); i++) {
+		  const rapidjson::Value &nm = c["Followers"]["Names"];
+		  for (rapidjson::SizeType i = 0; i < nm.GetArray().Size(); i++) {
 			 FP.names.push_back(nm[i].GetString());
 		  }
-		  for (SizeType i = 0; i < c["TransportationCosts"].GetArray().Size(); i++) {
+		  for (rapidjson::SizeType i = 0; i < c["TransportationCosts"].GetArray().Size(); i++) {
 			 TrCo.at(j, i) = c["TransportationCosts"].GetArray()[i].GetDouble();
 		  }
 		  bool tax_revenue = false;
@@ -1341,7 +1342,7 @@ void Models::EPEC::EPECInstance::load(string filename) {
 		ifs.close();
 		this->Countries           = LAP;
 		this->TransportationCosts = TrCo;
-	 } catch (exception &e) {
+	 } catch (std::exception &e) {
 		throw ZEROException(ZEROErrorCode::IOError, e.what());
 	 } catch (...) {
 		throw ZEROException(ZEROErrorCode::IOError, "Unknown error in load()");
@@ -1352,14 +1353,14 @@ void Models::EPEC::EPECInstance::load(string filename) {
 }
 
 void Models::EPEC::EPEC::WriteCountry(const unsigned int i,
-												  const string       filename,
+												  const std::string  filename,
 												  const arma::vec    x,
 												  const bool         append) const {
   // if (!TheLCP) return;
   // const LeadLocs& Loc = this->Locations.at(i);
 
-  ofstream file;
-  file.open(filename, append ? ios::app : ios::out);
+  std::ofstream file;
+  file.open(filename, append ? std::ios::app : std::ios::out);
   // FILE OPERATIONS START
   const LeadAllPar &Params = this->AllLeadPars.at(i);
   file << "**************************************************\n";
@@ -1417,10 +1418,10 @@ void Models::EPEC::EPEC::WriteCountry(const unsigned int i,
 
 void Models::EPEC::EPEC::WriteFollower(const unsigned int i,
 													const unsigned int j,
-													const string       filename,
+													const std::string  filename,
 													const arma::vec    x) const {
-  ofstream file;
-  file.open(filename, ios::app);
+  std::ofstream file;
+  file.open(filename, std::ios::app);
 
   // Country Variables
   const LeadAllPar &Params = this->AllLeadPars.at(i);
@@ -1431,11 +1432,11 @@ void Models::EPEC::EPEC::WriteFollower(const unsigned int i,
   if (Params.LeaderParam.tax_revenue)
 	 foll_taxQ = this->getPosition(i, Models::EPEC::LeaderVars::TaxQuad);
 
-  string name;
+  std::string name;
   try {
 	 name = Params.name + " --- " + Params.FollowerParam.names.at(j);
   } catch (...) {
-	 name = "Follower " + to_string(j) + " of leader " + to_string(i);
+	 name = "Follower " + std::to_string(j) + " of leader " + std::to_string(i);
   }
 
   file << "\n" << name << "\n\n"; //<<" named "<<Params.FollowerParam.names.at(j)<<"\n";

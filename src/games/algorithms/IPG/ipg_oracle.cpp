@@ -35,7 +35,7 @@ void Algorithms::IPG::IPG_Player::updateIPModel(std::unique_ptr<GRBModel> IPmode
 
 bool Algorithms::IPG::IPG_Player::addVertex(const arma::vec vertex, const bool checkDuplicate) {
   /**
-	* @brief Given @param vertex, it adds a vertex to the field R. If @param checkDuplicate is true,
+	* @brief Given @p vertex, it adds a vertex to the field R. If @p checkDuplicate is true,
 	* it will check whether the vertex is already contained in the bool.
 	* @return true if the vertex is added.
 	*/
@@ -54,8 +54,8 @@ bool Algorithms::IPG::IPG_Player::addCut(const arma::vec LHS,
 													  const double    b,
 													  const bool      checkDuplicate) {
   /**
-	* @brief Given @param LHS, @param b, it adds the inequality to the field CutPool_A and b. If
-	* @param checkDuplicate is true, it will check whether the inequality is already contained in the
+	* @brief Given @p LHS, @p b, it adds the inequality to the field CutPool_A and b. If
+	* @p checkDuplicate is true, it will check whether the inequality is already contained in the
 	* bool.
 	* @return true if the inequality is added.
 	*/
@@ -75,7 +75,7 @@ bool Algorithms::IPG::IPG_Player::addCut(const arma::vec LHS,
 
 bool Algorithms::IPG::IPG_Player::addRay(const arma::vec ray, const bool checkDuplicate) {
   /**
-	* @brief Given @param ray, it adds a ray to the field R. If @param checkDuplicate is true, it
+	* @brief Given @p ray, it adds a ray to the field R. If @p checkDuplicate is true, it
 	* will check whether the ray is already contained in the bool.
 	* @return true if the ray is added.
 	*/
@@ -96,10 +96,10 @@ bool Algorithms::IPG::Oracle::addValueCut(unsigned int player,
 														arma::vec    xMinusI,
 														bool         checkDuplicate) {
   /**
-	* @brief Given a player @param player, one of its best responses @param xOfIBestResponses, the
-	* strategies of the other players @param xMinusI, it adds an inequality of the type \f[ f^i(x^i,
+	* @brief Given a player @p player, one of its best responses @p xOfIBestResponses, the
+	* strategies of the other players @p xMinusI, it adds an inequality of the type \f[ f^i(x^i,
 	* &\bar& x^{-i}) \geq f^i(\hat x^i, \bar x^{-i})\f] to the cut pool of that player.
-	* @param checkDuplicate controls whether the methods search for duplicate inequalities in the
+	* @p checkDuplicate controls whether the methods search for duplicate inequalities in the
 	* pool.
 	*/
 
@@ -179,7 +179,7 @@ void Algorithms::IPG::Oracle::solve() {
 
 bool Algorithms::IPG::Oracle::separationOracle(const unsigned int player) {
   /**
-	* @brief Given the player id @param player, checks whether the current strategy is feasible or
+	* @brief Given the player id @p player, checks whether the current strategy is feasible or
 	* not. In order to do so, a more complex separation technique may be called.
 	*/
   BOOST_LOG_TRIVIAL(trace) << "Algorithms::IPG::Oracle::addValueCut: "
@@ -242,7 +242,7 @@ bool Algorithms::IPG::Oracle::separationOracle(const unsigned int player) {
   return false;
 }
 
-bool Algorithms::IPG::Oracle::isPureStrategy() {
+bool Algorithms::IPG::Oracle::isPureStrategy() const {
   /**
 	* @brief Returns true if all players are playing a pure strategy in a Nash Equilibrium
 	*/
@@ -260,7 +260,7 @@ bool Algorithms::IPG::Oracle::membershipSeparation(const unsigned int player,
 	* @brief Given the player and a bound on the number of iterations, tries to decide whether the
 	* given strategy belongs to the feasible region of the player by building the convex-hull with
 	* the known rays and vertices. @return true if the point belongs to the feasible region.
-	* @param xOfI is the given point to separate.
+	* @p xOfI is the given point to separate.
 	*/
 
   for (int k = 0; k < iterations; ++k) {
@@ -288,7 +288,6 @@ bool Algorithms::IPG::Oracle::membershipSeparation(const unsigned int player,
 
 		  arma::vec support;
 		  support.zeros(this->Players.at(player).VertexCounter);
-		  auto test = convexModel.getVarByName("x").get(GRB_DoubleAttr_X);
 		  for (unsigned int v = 0; v < this->Players.at(player).VertexCounter; ++v) {
 			 // abs to avoid misunderstanding with sign conventions
 			 support.at(v) =
@@ -424,9 +423,9 @@ void Algorithms::IPG::Oracle::updateMembership(const unsigned int &player,
 															  const arma::vec &   vertex,
 															  bool                normalization) {
   /**
-	* @brief Updates the membership LP in the Player vector for the @param player, the point @param
+	* @brief Updates the membership LP in the Player vector for the @p player, the point @p
 	* xOfI, and
-	* @param normalization
+	* @p normalization
 	*/
   MathOpt::getDualMembershipLP(this->Players.at(player).MembershipLP,
 										 this->Players.at(player).VertexCounter,
@@ -442,9 +441,9 @@ bool Algorithms::IPG::Oracle::computeStrategy(const unsigned int i, ///< [in] Th
 															 double &   payoff     ///< [out] The payoff
 ) {
   /**
-	* @brief Given the @param i as the id of the player, retrieves the relaxation of the integer
+	* @brief Given the @p i as the id of the player, retrieves the relaxation of the integer
 	* problem of that player and solves it to find any mixed strategies. The resulting strategy is
-	* pushed into @param strategy. In general, the result might not be feasible. In other words, the
+	* pushed into @p strategy. In general, the result might not be feasible. In other words, the
 	* solution may be outside the mixed-integer convex hull. To check whether this is true or not,
 	* ask to the separationOracle. The computed strategy is pushed into an IPG_Player object in the
 	* field Players of this class.

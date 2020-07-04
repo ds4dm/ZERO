@@ -13,9 +13,6 @@
 
 #pragma once
 
-/**
- * @file src/lcptolp.h To handle Linear Complementarity Problems.
- */
 
 #include "zero.h"
 #include <armadillo>

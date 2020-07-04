@@ -39,8 +39,8 @@ namespace MathOpt {
 	* Ay &\leq& b \\
 	* y &\geq& 0 \\
 	* y_i &\in& &\mathbb{Z}&^{z_i} &\forall& i &\in& I
-	* \f
-	*/
+	* \f}
+	**/
   {
   private:
 	 // Gurobi environment and model

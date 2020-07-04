@@ -213,14 +213,13 @@ bool Algorithms::EPEC::InnerApproximation::addRandomPoly2All(unsigned int aggres
 bool Algorithms::EPEC::InnerApproximation::getAllDeviations(
 	 std::vector<arma::vec> &      deviations, ///< [out] The vector of deviations for all players
 	 const arma::vec &             guessSol,   ///< [in] The guess for the solution vector
-	 const std::vector<arma::vec> &prevDev //<[in] The previous vector of deviations, if any exist.
+	 const std::vector<arma::vec> &prevDev ///<[in] The previous vector of deviations, if any exist.
 	 ) const
 /**
  * @brief Given a potential solution vector, returns a profitable deviation (if
- * it exists) for all players. @param
+ * it exists) for all players.
  * @return a vector of computed deviations, which empty if at least one
- * deviation cannot be computed
- * @param prevDev can be empty
+ * deviation cannot be computed @p prevDev can be empty
  */
 {
   deviations = std::vector<arma::vec>(this->EPECObject->NumPlayers);

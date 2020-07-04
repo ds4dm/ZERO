@@ -130,8 +130,8 @@ void Algorithms::EPEC::OuterApproximation::updateMembership(const unsigned int &
 																				const arma::vec &   xOfI,
 																				bool                normalization) {
   /**
-	* @brief Updates the membership LP in the Tree for the @param player, the point @param xOfI, and
-	* @param normalization
+	* @brief Updates the membership LP in the Tree for the @p player, the point @p xOfI, and
+	* @p normalization
 	*/
 
   auto PlayerTree = Trees.at(player);
@@ -781,8 +781,8 @@ bool Algorithms::EPEC::OuterApproximation::isPureStrategy(double tol) const {
 
 Algorithms::EPEC::OuterTree::Node::Node(Node &parent, unsigned int idComp, unsigned long int id) {
   /**
-	* Given the parent node address @param parent, the @param idComp to branch
-	* on, and the @param id, creates a new node
+	* Given the parent node address @p parent, the @p idComp to branch
+	* on, and the @p id, creates a new node
 	*/
   this->IdComps                      = std::vector<unsigned int>{idComp};
   this->Encoding                     = parent.Encoding;
@@ -806,9 +806,9 @@ Algorithms::EPEC::OuterTree::Node::Node(unsigned int encSize) {
 void Algorithms::EPEC::OuterTree::denyBranchingLocation(Algorithms::EPEC::OuterTree::Node &node,
 																		  const unsigned int &location) {
   /**
-	* If a complementarity equation @param location  has proven to be infeasible
+	* If a complementarity equation @p location  has proven to be infeasible
 	* or it isn't a candidate for branching, this method prevents any further
-	* branching on it for the node @param node.
+	* branching on it for the node @p node.
 	*/
   if (location >= this->EncodingSize)
 	 throw ZEROException(ZEROErrorCode::OutOfRange, "idComp is larger than the encoding size");
@@ -821,9 +821,9 @@ void Algorithms::EPEC::OuterTree::denyBranchingLocation(Algorithms::EPEC::OuterT
 void Algorithms::EPEC::OuterTree::denyBranchingLocations(Algorithms::EPEC::OuterTree::Node &node,
 																			const std::vector<int> &locations) {
   /**
-	* If a complementarity equation @param location  has proven to be infeasible
+	* If a complementarity equation @p location  has proven to be infeasible
 	* or it isn't a candidate for branching, this method prevents any further
-	* branching on it for the node @param node.
+	* branching on it for the node @p node.
 	*/
   for (auto &location : locations) {
 	 if (location < 0)
@@ -836,8 +836,8 @@ std::vector<long int>
 Algorithms::EPEC::OuterTree::singleBranch(const unsigned int                 idComp,
 														Algorithms::EPEC::OuterTree::Node &t) {
   /**
-	* Given the @param idComp and the parent node @param t, creates a single
-	* child by branching on @param idComp.
+	* Given the @p idComp and the parent node @p t, creates a single
+	* child by branching on @p idComp.
 	*/
   if (idComp >= this->EncodingSize)
 	 throw ZEROException(ZEROErrorCode::OutOfRange, "idComp is larger than the encoding size");
@@ -856,8 +856,8 @@ Algorithms::EPEC::OuterTree::singleBranch(const unsigned int                 idC
 std::vector<long int> Algorithms::EPEC::OuterTree::multipleBranch(const std::vector<int> idsComp,
 																						Node &                 t) {
   /**
-	* Given the @param idComp and the parent node @param t, creates a single
-	* child by branching on @param idComp.
+	* Given the @p idComp and the parent node @p t, creates a single
+	* child by branching on @p idComp.
 	*/
   for (auto &idComp : idsComp) {
 	 if (idComp >= this->EncodingSize)
@@ -879,8 +879,8 @@ Algorithms::EPEC::OuterTree::Node::Node(Node &            parent,
 													 std::vector<int>  idsComp,
 													 unsigned long int id) {
   /**
-	* Given the parent node address @param parent, the @param idsComp to branch
-	* on (containing all the complementarities ids), and the @param id, creates a
+	* Given the parent node address @p parent, the @p idsComp to branch
+	* on (containing all the complementarities ids), and the @p id, creates a
 	* new node
 	*/
   this->IdComps           = std::vector<unsigned int>();

@@ -213,7 +213,7 @@ Game::EPEC::respondSol(arma::vec &      sol,    ///< [out] Optimal response
 							  const arma::vec &x, ///< A std::vector of pure strategies (either for all
 							  ///< players or all other players
 							  const arma::vec &prevDev
-							  //< [in] if any, the std::vector of previous deviations.
+							  ///< [in] if any, the std::vector of previous deviations.
 							  ) const {
   /**
 	* @brief Returns the optimal objective value that is obtainable for the
@@ -355,7 +355,7 @@ void Game::EPEC::makePlayersQPs()
   this->computeLeaderLocations(this->numMCVariables);
 }
 
-void ::Game::EPEC::makeTheLCP() {
+void Game::EPEC::makeTheLCP() {
   if (this->PlayersQP.front() == nullptr) {
 	 BOOST_LOG_TRIVIAL(error) << "Exception in Game::EPEC::makeTheLCP : "
 										  "no country QP has been "

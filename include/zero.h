@@ -74,18 +74,22 @@ namespace Algorithms {
 	 class OuterApproximation;
   } // namespace EPEC
   namespace IPG {
+	 class Algorithm;
 	 class Oracle;
   } // namespace IPG
 } // namespace Algorithms
 
 class ZEROAlgorithmData;
+
+
+/**
+ * @brief This namespace contains the Data support structures for the
+ * algorithms. For any game for which an algorithm is available, the class DataObject contains the
+ * control parameters. Other objects (enum classes, etc) are control parameters for their relative
+ * objects.
+ */
 namespace Data {
-  /**
-	* @brief This namespace contains the Data support structures for the
-	* algorithms. For any game for which an algorithm is available, the class DataObject contains the
-	* control parameters. Other objects (enum classes, etc) are control parameters for their relative
-	* objects.
-	*/
+
   namespace EPEC {
 	 class DataObject;
   }
@@ -97,5 +101,7 @@ namespace Data {
   }
 
 } // namespace Data
+
+
 #include "games/games.h"
 #include "mathopt/mathopt.h"

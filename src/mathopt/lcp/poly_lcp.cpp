@@ -448,8 +448,8 @@ bool MathOpt::PolyLCP::checkPolyFeas(
 														 ///< equations and variables are taking 0 value.)
 ) {
   /**
-	* Check whether the given polyhedron is or is not feasible.
-	* @detail Given a +1/-1 encoding of a polyhedron, first checks
+	* @brief Check whether the given polyhedron is or is not feasible.
+	* Given a +1/-1 encoding of a polyhedron, first checks
 	* if the polyhedron is a previously known feasible polyhedron
 	* or previously known infeasible polyhedron. If yes, returns the
 	* result appropriately. If not, solves a linear program to

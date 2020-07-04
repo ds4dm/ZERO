@@ -13,9 +13,6 @@
 
 #pragma once
 
-/**
- * @file src/utils.h Basic utilities
- */
 
 #include "zero.h"
 #include <armadillo>

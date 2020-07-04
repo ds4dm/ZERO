@@ -37,7 +37,7 @@ void MathOpt::OuterLCP::outerApproximate(const std::vector<bool> encoding, bool 
 
 void MathOpt::OuterLCP::addChildComponents(const std::vector<short int> encoding) {
   /**
-	* @param encoding - Each element is either 0, 1, -1 or 2 in this std::vector
+	* @p encoding - Each element is either 0, 1, -1 or 2 in this std::vector
 	* of size equal to MathOpt::OuterLCP::nR.
 	*
 	* 0 implies it is an unprocessed complementarity condition, and don't process
@@ -157,8 +157,8 @@ bool MathOpt::OuterLCP::checkComponentFeas(
 														 ///< feasibility has to be checked
 ) {
   /**
-	* Checks the feasibility of a given encoding's polyhedron
-	* @detail First, checks if this polyhedra is already known to be infeasible.
+	* @brief Checks the feasibility of a given encoding's polyhedron
+	* First, checks if this polyhedra is already known to be infeasible.
 	* Then, checks if it is already known to be feasible. Finally it checks, if a
 	* parent polyhedron, i.e., a polyhedron with fewer variables/equations fixed
 	* is already infeasible. If none of those give the required details, solves a
