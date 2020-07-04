@@ -90,6 +90,8 @@ namespace MathOpt {
 		this->size();
 	 };
 
+	 void setEnv(GRBEnv *env) { this->Env = env; }
+
 	 // Override setters
 	 IP_Param &set(const arma::sp_mat &C,
 						const arma::sp_mat &B,
@@ -137,7 +139,7 @@ namespace MathOpt {
 	 }
 
 	 void write(const std::string &filename, bool append) const override;
-	 long load(const std::string &filename, long pos);
+	 long load(const std::string &filename, long pos = 0);
 
 	 double computeObjectiveWithoutOthers(const arma::vec &y) const;
 

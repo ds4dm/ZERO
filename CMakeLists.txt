@@ -76,7 +76,8 @@ add_library(
   src/games/algorithms/EPEC/epec_fullenumeration.cpp
   src/games/algorithms/EPEC/epec_outerapproximation.cpp
   src/games/algorithms/IPG/ipg_oracle.cpp
-  src/interfaces/epec_models.cpp)
+  src/interfaces/epec_models.cpp
+  src/interfaces/ipg_models.cpp)
 set_target_properties(
   ZERO PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
                   VISIBILITY_INLINES_HIDDEN ON)
