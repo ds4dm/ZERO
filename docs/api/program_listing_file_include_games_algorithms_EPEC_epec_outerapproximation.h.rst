@@ -39,6 +39,7 @@ Program Listing for File epec_outerapproximation.h
    
         class OuterTree {
         public:
+           friend Algorithms::EPEC::OuterApproximation;
            struct Node {
            public:
              friend class OuterTree;
@@ -80,12 +81,6 @@ Program Listing for File epec_outerapproximation.h
            unsigned int EncodingSize = 0;       
            unsigned int      NodeCounter = 1; 
            std::vector<Node> Nodes{};         
-           arma::sp_mat      V{};             
-           arma::sp_mat R{}; 
-           unsigned int VertexCounter = 0; 
-           unsigned int RayCounter    = 0; 
-           GRBModel *   MembershipLP;      
-           bool MembershipInit{false};
            bool isPure{false};
            bool isFeasible{false};
    
@@ -94,6 +89,13 @@ Program Listing for File epec_outerapproximation.h
              return (this->NodeCounter - 1);
            } 
    
+        protected:
+           std::unique_ptr<GRBModel> MembershipLP; 
+           arma::sp_mat              V{}; 
+           arma::sp_mat R{}; 
+           unsigned int VertexCounter = 0; 
+           unsigned int RayCounter    = 0; 
+   
         public:
            OuterTree(unsigned int encSize, GRBEnv *env) : MembershipLP(new GRBModel(*env)) {
              this->Root         = Node(encSize);
@@ -101,11 +103,6 @@ Program Listing for File epec_outerapproximation.h
              this->Nodes.push_back(this->Root);
            } 
    
-           GRBModel *getMembershipLP() { return this->MembershipLP; }
-   
-           const bool getMembershipInit() { return this->MembershipInit; }
-   
-           inline void setMembershipInit() { this->MembershipInit = true; }
    
            inline void resetFeasibility() {
              this->isPure     = false;
@@ -125,9 +122,6 @@ Program Listing for File epec_outerapproximation.h
            inline const arma::sp_mat *getV() { return &this->V; }
    
            inline const arma::sp_mat *getR() { return &this->R; }
-   
-           void incrementVertices(unsigned int increment) { this->VertexCounter += increment; }
-           void incrementRays(unsigned int increment) { this->RayCounter += increment; }
    
            inline const unsigned int getVertexCount() { return this->VertexCounter; }
            inline const unsigned int getRayCount() { return this->RayCounter; }
@@ -175,12 +169,24 @@ Program Listing for File epec_outerapproximation.h
                 //@todo implement
            };
    
+           void updateMembership(const unsigned int &player,
+                                        const arma::vec &   xOfI,
+                                        bool                normalization = true);
+           int  hybridBranching(const unsigned int player, OuterTree::Node *node);
+           int  infeasibleBranching(const unsigned int player, const OuterTree::Node *node);
+           int  deviationBranching(const unsigned int player, const OuterTree::Node *node);
+           std::unique_ptr<GRBModel> getFeasQP(const unsigned int player, arma::vec x);
+           void addValueCut(unsigned int player, arma::vec xOfIBestResponse, arma::vec xMinusI);
+           bool separationOracle(
+                arma::vec &xOfI, arma::vec &x, unsigned int player, int budget, bool &addedCuts);
+   
         public:
            friend class EPEC;
    
            OuterApproximation(GRBEnv *env, Game::EPEC *EpecObj) {
              this->EPECObject = EpecObj;
              this->Env        = env;
+             this->Tolerance  = this->EPECObject->Stats.AlgorithmData.DeviationTolerance.get();
              /*
                *  The constructor re-builds the LCP fields in the EPEC object as new
                * OuterLCP objects
@@ -197,20 +203,10 @@ Program Listing for File epec_outerapproximation.h
    
            //@todo define these for the outer approximation
            bool isSolved(double tol = 1e-4) const override;
-           bool isFeasible(bool &addedCuts, double tol = 1e-4);
+           bool isFeasible(bool &addedCuts);
            bool isPureStrategy(double tol = 1e-4) const override;
-   
            void printCurrentApprox();
-           int  hybridBranching(const unsigned int player, OuterTree::Node *node);
-           int  infeasibleBranching(const unsigned int player, const OuterTree::Node *node);
-           int  deviationBranching(const unsigned int player, const OuterTree::Node *node);
            void printBranchingLog(std::vector<int> vector);
-           std::unique_ptr<GRBModel> getFeasQP(const unsigned int player, arma::vec x);
-           void addValueCut(unsigned int player, arma::vec xOfIBestResponse, arma::vec xMinusI);
-           bool separationOracle(
-                arma::vec &xOfI, arma::vec &x, unsigned int player, int budget, bool &addedCuts);
-           GRBModel *
-           getDualMembershipLP(unsigned int player, arma::vec vertex, bool normalization = true);
         };
      } // namespace EPEC
    

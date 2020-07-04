@@ -39,7 +39,7 @@
         <childnode refid="15" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="25">
         <label>poly_lcp.h</label>
         <link refid="poly__lcp_8h"/>
         <childnode refid="3" relation="include">
@@ -57,9 +57,19 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
+      <node id="21">
+        <label>ipg_algorithms.h</label>
+        <link refid="ipg__algorithms_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
       <node id="20">
         <label>algorithms/IPG/ipg_oracle.h</label>
         <link refid="ipg__oracle_8h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
@@ -75,7 +85,7 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="22">
         <label>games/nash.h</label>
         <link refid="nash_8h"/>
         <childnode refid="3" relation="include">
@@ -128,10 +138,10 @@
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
       </node>
-      <node id="23">
+      <node id="24">
         <label>outer_lcp.h</label>
         <link refid="outer__lcp_8h"/>
         <childnode refid="4" relation="include">
@@ -149,7 +159,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="27">
         <label>ip_param.h</label>
         <link refid="ip__param_8h"/>
         <childnode refid="10" relation="include">
@@ -172,7 +182,7 @@
       <node id="4">
         <label>armadillo</label>
       </node>
-      <node id="28">
+      <node id="29">
         <label>boost/log/trivial.hpp</label>
       </node>
       <node id="11">
@@ -207,7 +217,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="26">
         <label>mathopt/mp_param/mp_param.h</label>
         <link refid="mp__param_8h"/>
         <childnode refid="3" relation="include">
@@ -224,9 +234,9 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
         <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
         </childnode>
       </node>
       <node id="9">
@@ -245,7 +255,7 @@
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
+        <childnode refid="29" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
@@ -276,7 +286,7 @@
       <node id="12">
         <label>gurobi_c++.h</label>
       </node>
-      <node id="22">
+      <node id="23">
         <label>lcp/lcp.h</label>
         <link refid="lcp_8h"/>
         <childnode refid="3" relation="include">
@@ -291,15 +301,15 @@
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
         <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
         </childnode>
       </node>
       <node id="15">
         <label>set</label>
       </node>
-      <node id="27">
+      <node id="28">
         <label>qp_param.h</label>
         <link refid="qp__param_8h"/>
         <childnode refid="3" relation="include">
@@ -335,9 +345,9 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
+        <childnode refid="23" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
+        <childnode refid="26" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -476,9 +486,9 @@
 <codeline lineno="155"><highlight class="normal"></highlight></codeline>
 <codeline lineno="156"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Now<sp/>computed<sp/>N<sp/>which<sp/>is<sp/>the<sp/>total<sp/>number<sp/>of<sp/>nonzeros.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="157"><highlight class="normal"><sp/><sp/>arma::umat<sp/>locations;<sp/></highlight><highlight class="comment">//<sp/>location<sp/>of<sp/>nonzeros</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="158"><highlight class="normal"><sp/><sp/>arma::vec<sp/><sp/><ref refid="namespace_models_1a54b54aa6ddb1d9e337f9fea85a2d0ceba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>nonzero<sp/>values</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/>arma::vec<sp/><sp/><ref refid="namespace_models_1_1_e_p_e_c_1ac6f525119967602609afe99f64ef4a1ba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>nonzero<sp/>values</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="159"><highlight class="normal"><sp/><sp/>locations.zeros(2,<sp/>N);</highlight></codeline>
-<codeline lineno="160"><highlight class="normal"><sp/><sp/><ref refid="namespace_models_1a54b54aa6ddb1d9e337f9fea85a2d0ceba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>.zeros(N);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><ref refid="namespace_models_1_1_e_p_e_c_1ac6f525119967602609afe99f64ef4a1ba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>.zeros(N);</highlight></codeline>
 <codeline lineno="161"><highlight class="normal"></highlight></codeline>
 <codeline lineno="162"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>count{0},<sp/>rowCount{0},<sp/>colCount{nC};</highlight></codeline>
 <codeline lineno="163"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>nPoly;<sp/>i++)<sp/>{</highlight></codeline>
@@ -486,14 +496,14 @@
 <codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>locations(0,<sp/>count)<sp/>=<sp/>rowCount<sp/>+<sp/>it.row();</highlight></codeline>
 <codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>locations(1,<sp/>count)<sp/>=<sp/>colCount<sp/>+<sp/>it.col();</highlight></codeline>
-<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_models_1a54b54aa6ddb1d9e337f9fea85a2d0ceba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>(count)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>*it;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_models_1_1_e_p_e_c_1ac6f525119967602609afe99f64ef4a1ba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>(count)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>*it;</highlight></codeline>
 <codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++count;</highlight></codeline>
 <codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>bi-&gt;at(i)-&gt;n_rows;<sp/>++j)<sp/></highlight><highlight class="comment">//<sp/>RHS<sp/>of<sp/>first<sp/>constraint</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>locations(0,<sp/>count)<sp/>=<sp/>rowCount<sp/>+<sp/>j;</highlight></codeline>
 <codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>locations(1,<sp/>count)<sp/>=<sp/>nC<sp/>+<sp/>nC<sp/>*<sp/>nPoly<sp/>+<sp/>i;</highlight></codeline>
-<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_models_1a54b54aa6ddb1d9e337f9fea85a2d0ceba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>(count)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>-bi-&gt;at(i)-&gt;at(j);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_models_1_1_e_p_e_c_1ac6f525119967602609afe99f64ef4a1ba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>(count)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>-bi-&gt;at(i)-&gt;at(j);</highlight></codeline>
 <codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++count;</highlight></codeline>
 <codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>rowCount<sp/>+=<sp/>Ai-&gt;at(i)-&gt;n_rows;</highlight></codeline>
@@ -503,14 +513,14 @@
 <codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>locations(0,<sp/>count)<sp/>=<sp/>rowCount<sp/>+<sp/>it.row();</highlight></codeline>
 <codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>locations(1,<sp/>count)<sp/>=<sp/>colCount<sp/>+<sp/>it.col();</highlight></codeline>
-<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_models_1a54b54aa6ddb1d9e337f9fea85a2d0ceba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>(count)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>*it;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_models_1_1_e_p_e_c_1ac6f525119967602609afe99f64ef4a1ba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>(count)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>*it;</highlight></codeline>
 <codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++count;</highlight></codeline>
 <codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>bcom.n_rows;<sp/>++j)<sp/></highlight><highlight class="comment">//<sp/>RHS<sp/>of<sp/>first<sp/>constraint</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>locations(0,<sp/>count)<sp/>=<sp/>rowCount<sp/>+<sp/>j;</highlight></codeline>
 <codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>locations(1,<sp/>count)<sp/>=<sp/>nC<sp/>+<sp/>nC<sp/>*<sp/>nPoly<sp/>+<sp/>i;</highlight></codeline>
-<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_models_1a54b54aa6ddb1d9e337f9fea85a2d0ceba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>(count)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>-bcom.at(j);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_models_1_1_e_p_e_c_1ac6f525119967602609afe99f64ef4a1ba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>(count)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>-bcom.at(j);</highlight></codeline>
 <codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++count;</highlight></codeline>
 <codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>rowCount<sp/>+=<sp/>Acom.n_rows;</highlight></codeline>
@@ -567,6 +577,117 @@
 <codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;&lt;&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>p.first<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>p.second<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;&gt;&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\t&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="255"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespace_math_opt_1aabf121bcb871000488825dd64750500c" kindref="member">MathOpt::getDualMembershipLP</ref>(</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>std::unique_ptr&lt;GRBModel&gt;<sp/>&amp;convexModel,<sp/></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>&amp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>numV,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::sp_mat<sp/>&amp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/>V,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>&amp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>numR,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::sp_mat<sp/>&amp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/>R,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>arma::vec<sp/>&amp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vertex,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>&amp;normalization<sp/></highlight></codeline>
+<codeline lineno="267"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(V.n_rows<sp/>&lt;<sp/>1<sp/>&amp;&amp;<sp/>R.n_rows<sp/>&lt;<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="class_z_e_r_o_exception" kindref="compound">ZEROException</ref>(<ref refid="codes_8h_1aec3f6d9705d82787080ef99b37b7efeaa3c4b6828f5a12280debdb5a12e0e72ba" kindref="member">ZEROErrorCode::InvalidData</ref>,<sp/></highlight><highlight class="stringliteral">&quot;no<sp/>points<sp/>or<sp/>rays<sp/>specified.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(V.n_cols<sp/>!=<sp/>vertex.size())</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="class_z_e_r_o_exception" kindref="compound">ZEROException</ref>(<ref refid="codes_8h_1aec3f6d9705d82787080ef99b37b7efeaa3c4b6828f5a12280debdb5a12e0e72ba" kindref="member">ZEROErrorCode::InvalidData</ref>,</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Invalid<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;dimension<sp/>of<sp/>the<sp/>input<sp/>vertex&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(numV<sp/>==<sp/>0<sp/>&amp;&amp;<sp/>numR<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Initialize<sp/>the<sp/>model</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>convexModel-&gt;reset(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>GRBVar<sp/><sp/><sp/><sp/><sp/>y[V.n_cols];</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>GRBVar<sp/><sp/><sp/><sp/><sp/>z[R.n_cols];</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>GRBVar<sp/><sp/><sp/><sp/><sp/>a[V.n_cols<sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>GRBVar<sp/><sp/><sp/><sp/><sp/>x;</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>GRBLinExpr<sp/>expr<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>vertex.size();<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y[i]<sp/>=<sp/>convexModel-&gt;addVar(</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-GRB_INFINITY,<sp/>GRB_INFINITY,<sp/>0,<sp/>GRB_CONTINUOUS,<sp/></highlight><highlight class="stringliteral">&quot;y_&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(i));</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>a[i]<sp/>=<sp/>convexModel-&gt;addVar(</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0,<sp/>GRB_INFINITY,<sp/>0,<sp/>GRB_CONTINUOUS,<sp/></highlight><highlight class="stringliteral">&quot;abs(y_&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(i)<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;)&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>convexModel-&gt;addConstr(</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GRBLinExpr{y[i]<sp/>-<sp/>a[i]},<sp/>GRB_LESS_EQUAL,<sp/>0,<sp/></highlight><highlight class="stringliteral">&quot;Abs_1_y_&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(i));</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>convexModel-&gt;addConstr(</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GRBLinExpr{-y[i]<sp/>-<sp/>a[i]},<sp/>GRB_LESS_EQUAL,<sp/>0,<sp/></highlight><highlight class="stringliteral">&quot;Abs_2_y_&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(i));</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>expr<sp/>+=<sp/>a[i];</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>x<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>convexModel-&gt;addVar(-GRB_INFINITY,<sp/>GRB_INFINITY,<sp/>0,<sp/>GRB_CONTINUOUS,<sp/></highlight><highlight class="stringliteral">&quot;x&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>a[V.n_cols]<sp/>=<sp/>convexModel-&gt;addVar(0,<sp/>GRB_INFINITY,<sp/>0,<sp/>GRB_CONTINUOUS,<sp/></highlight><highlight class="stringliteral">&quot;abs(x)&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>convexModel-&gt;addConstr(GRBLinExpr{x<sp/>-<sp/>a[V.n_cols]},<sp/>GRB_GREATER_EQUAL,<sp/>0,<sp/></highlight><highlight class="stringliteral">&quot;Abs_1_x&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>convexModel-&gt;addConstr(GRBLinExpr{-x<sp/>-<sp/>a[V.n_cols]},<sp/>GRB_GREATER_EQUAL,<sp/>0,<sp/></highlight><highlight class="stringliteral">&quot;Abs_2_x&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>expr<sp/>+=<sp/>a[V.n_cols];</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(normalization)</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>convexModel-&gt;addConstr(expr,<sp/>GRB_LESS_EQUAL,<sp/>1,<sp/></highlight><highlight class="stringliteral">&quot;Normalization&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Hyperplanes<sp/>for<sp/>vertices</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>V.n_rows;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>expr<sp/>=<sp/>x;</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>V.begin_row(i);<sp/>j<sp/>!=<sp/>V.end_row(i);<sp/>++j)</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>expr<sp/>+=<sp/>(*j)<sp/>*<sp/>y[j.col()];</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>convexModel-&gt;addConstr(expr,<sp/>GRB_LESS_EQUAL,<sp/>0,<sp/></highlight><highlight class="stringliteral">&quot;V_&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(i));</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>numV<sp/>=<sp/>V.n_rows;</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>R.n_rows;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>R.begin_row(i);<sp/>j<sp/>!=<sp/>R.end_row(i);<sp/>++j)</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>expr<sp/>+=<sp/>(*j)<sp/>*<sp/>y[j.col()];</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>convexModel-&gt;addConstr(expr,<sp/>GRB_LESS_EQUAL,<sp/>0,<sp/></highlight><highlight class="stringliteral">&quot;R_&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(i));</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>numR<sp/>=<sp/>R.n_rows;</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>For<sp/>the<sp/>eventual<sp/>Farkas&apos;<sp/>proof<sp/>of<sp/>infeasibility</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>convexModel-&gt;set(GRB_IntParam_InfUnbdInfo,<sp/>1);</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>convexModel-&gt;set(GRB_IntParam_DualReductions,<sp/>0);</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>convexModel-&gt;set(GRB_IntParam_OutputFlag,<sp/>0);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>convexModel-&gt;set(GRB_IntParam_SolutionLimit,<sp/>100);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>BOOST_LOG_TRIVIAL(trace)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;MathOpt::getDualMembershipLP:<sp/>created<sp/>model&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>current<sp/>number<sp/>of<sp/>vertices<sp/>in<sp/>the<sp/>model</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(numV<sp/>&lt;<sp/>V.n_rows)<sp/>{</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Then,<sp/>we<sp/>need<sp/>to<sp/>update<sp/>the<sp/>model<sp/>by<sp/>adding<sp/>new<sp/>constraints</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GRBLinExpr<sp/>expr<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>numV;<sp/>i<sp/>&lt;<sp/>V.n_rows;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>expr<sp/>=<sp/>convexModel-&gt;getVarByName(</highlight><highlight class="stringliteral">&quot;x&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>V.begin_row(i);<sp/>j<sp/>!=<sp/>V.end_row(i);<sp/>++j)</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>expr<sp/>+=<sp/>(*j)<sp/>*<sp/>convexModel-&gt;getVarByName(</highlight><highlight class="stringliteral">&quot;y_&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(j.col()));</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>convexModel-&gt;addConstr(expr,<sp/>GRB_LESS_EQUAL,<sp/>0,<sp/></highlight><highlight class="stringliteral">&quot;V_&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(i));</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>numV<sp/>=<sp/>V.n_rows;</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>current<sp/>number<sp/>of<sp/>rays<sp/>in<sp/>the<sp/>model</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(numR<sp/>&lt;<sp/>R.n_rows)<sp/>{</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Then,<sp/>we<sp/>need<sp/>to<sp/>update<sp/>the<sp/>model<sp/>by<sp/>adding<sp/>new<sp/>constraints</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GRBLinExpr<sp/>expr<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>numR;<sp/>i<sp/>&lt;<sp/>R.n_rows;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>R.begin_row(i);<sp/>j<sp/>!=<sp/>R.end_row(i);<sp/>++j)</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>expr<sp/>+=<sp/>(*j)<sp/>*<sp/>convexModel-&gt;getVarByName(</highlight><highlight class="stringliteral">&quot;y_&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(j.col()));</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>convexModel-&gt;addConstr(expr,<sp/>GRB_LESS_EQUAL,<sp/>0,<sp/></highlight><highlight class="stringliteral">&quot;R_&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(i));</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>numR<sp/>=<sp/>R.n_rows;</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>BOOST_LOG_TRIVIAL(trace)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;MathOpt::getDualMembershipLP:<sp/>updated<sp/>model&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/>convexModel-&gt;update();</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/>GRBLinExpr<sp/>expr<sp/>=<sp/>convexModel-&gt;getVarByName(</highlight><highlight class="stringliteral">&quot;x&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>vertex.size();<sp/>++j)</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>expr<sp/>+=<sp/>vertex.at(j)<sp/>*<sp/>convexModel-&gt;getVarByName(</highlight><highlight class="stringliteral">&quot;y_&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(j));</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/>convexModel-&gt;setObjective(expr,<sp/>GRB_MAXIMIZE);</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/>convexModel-&gt;update();</highlight></codeline>
+<codeline lineno="376"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="src/mathopt/mathopt.cpp"/>
   </compounddef>

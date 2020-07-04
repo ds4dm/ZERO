@@ -18,7 +18,7 @@ Base Type
 Derived Type
 ************
 
-- ``public Models::EPEC`` (:ref:`exhale_class_class_models_1_1_e_p_e_c`)
+- ``public Models::EPEC::EPEC`` (:ref:`exhale_class_class_models_1_1_e_p_e_c_1_1_e_p_e_c`)
 
 
 Class Documentation

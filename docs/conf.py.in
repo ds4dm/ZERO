@@ -6,6 +6,7 @@ release = "@@PROJECT_VERSION@"
 author = "@ZERO_AUTHORS@"
 
 
+
 # The full version, including alpha/beta/rc tags
 release = '1.0.0'
 extensions = [
@@ -54,14 +55,17 @@ exhale_args = {
     "createTreeView":        True,
     "exhaleExecutesDoxygen": True,
     "exhaleDoxygenStdin":    textwrap.dedent('''
-            INPUT   = ../README.md  ../src/ ../include
+            INPUT   = @ZERO_SOURCE_LIST_ESCAPED@
             IMAGE_PATH      = ./
             EXCLUDE_SYMBOLS = arma::* rapidjson::* boost::* arma rapidjson boost
             DOT_IMAGE_FORMAT= png
             RECURSIVE       = YES
             EXTRACT_ALL     = YES
+			MULTILINE_CPP_IS_BRIEF = YES
+			QT_AUTOBRIEF = NO
             EXTRACT_PRIVATE = YES
             EXTERNAL_PAGES  = YES
+			OPTIMIZE_OUTPUT_FOR_C = YES
             FILE_PATTERNS   = *.c *.h *.cpp
             GENERATE_XML = YES
     ''')

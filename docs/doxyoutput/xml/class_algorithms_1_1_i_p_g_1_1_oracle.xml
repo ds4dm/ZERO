@@ -2,88 +2,22 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
   <compounddef id="class_algorithms_1_1_i_p_g_1_1_oracle" kind="class" language="C++" prot="public">
     <compoundname>Algorithms::IPG::Oracle</compoundname>
-    <basecompoundref prot="public" virt="non-virtual">GRBCallback</basecompoundref>
+    <basecompoundref refid="class_algorithms_1_1_i_p_g_1_1_algorithm" prot="public" virt="non-virtual">Algorithms::IPG::Algorithm</basecompoundref>
     <includes refid="ipg__oracle_8h" local="no">ipg_oracle.h</includes>
       <sectiondef kind="private-attrib">
-      <memberdef kind="variable" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a6f4c087a18a1edee79b0dbda0e0f53a5" prot="private" static="no" mutable="no">
-        <type>std::vector&lt; arma::sp_mat &gt;</type>
-        <definition>std::vector&lt;arma::sp_mat&gt; Algorithms::IPG::Oracle::CutPool_A</definition>
+      <memberdef kind="variable" id="class_algorithms_1_1_i_p_g_1_1_oracle_1aa3f3390c9842014a9bba5f4d0060b004" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player" kindref="compound">IPG_Player</ref> &gt;</type>
+        <definition>std::vector&lt;IPG_Player&gt; Algorithms::IPG::Oracle::Players</definition>
         <argsstring></argsstring>
-        <name>CutPool_A</name>
+        <name>Players</name>
         <briefdescription>
+<para>The support structures. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="31" column="13" bodyfile="include/games/algorithms/IPG/ipg_oracle.h" bodystart="31" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a42be1de2032c127df22e5dc39e4de6b7" prot="private" static="no" mutable="no">
-        <type>std::vector&lt; arma::vec &gt;</type>
-        <definition>std::vector&lt;arma::vec&gt; Algorithms::IPG::Oracle::CutPool_b</definition>
-        <argsstring></argsstring>
-        <name>CutPool_b</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="32" column="16" bodyfile="include/games/algorithms/IPG/ipg_oracle.h" bodystart="32" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a54bc1bf00ab99cd50b3fe9bab3426de1" prot="private" static="no" mutable="no">
-        <type><ref refid="class_game_1_1_i_p_g" kindref="compound">Game::IPG</ref> *</type>
-        <definition>Game::IPG* Algorithms::IPG::Oracle::IPG</definition>
-        <argsstring></argsstring>
-        <name>IPG</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="33" column="26" bodyfile="include/games/algorithms/IPG/ipg_oracle.h" bodystart="33" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_algorithms_1_1_i_p_g_1_1_oracle_1ae9f340daa7581607eb018602fde4c6c8" prot="private" static="no" mutable="no">
-        <type>GRBEnv *</type>
-        <definition>GRBEnv* Algorithms::IPG::Oracle::Env</definition>
-        <argsstring></argsstring>
-        <name>Env</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="34" column="26" bodyfile="include/games/algorithms/IPG/ipg_oracle.h" bodystart="34" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_algorithms_1_1_i_p_g_1_1_oracle_1ab7e1ec6e969bf8eb12e3d4c6dd46aaf4" prot="private" static="no" mutable="no">
-        <type>bool</type>
-        <definition>bool Algorithms::IPG::Oracle::Feasible</definition>
-        <argsstring></argsstring>
-        <name>Feasible</name>
-        <initializer>{false}</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="35" column="27" bodyfile="include/games/algorithms/IPG/ipg_oracle.h" bodystart="35" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a50b35e01a55ee2c42be09fedf3dae6da" prot="private" static="no" mutable="no">
-        <type>double</type>
-        <definition>double Algorithms::IPG::Oracle::Tolerance</definition>
-        <argsstring></argsstring>
-        <name>Tolerance</name>
-        <initializer>= 1e-6</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="36" column="27" bodyfile="include/games/algorithms/IPG/ipg_oracle.h" bodystart="36" bodyend="-1"/>
+        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="86" column="13" bodyfile="include/games/algorithms/IPG/ipg_oracle.h" bodystart="86" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="friend">
@@ -98,7 +32,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="48" column="1" bodyfile="include/games/algorithms/IPG/ipg_oracle.h" bodystart="48" bodyend="-1"/>
+        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="109" column="1" bodyfile="include/games/algorithms/IPG/ipg_oracle.h" bodystart="109" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -110,46 +44,96 @@
         <param>
           <type>const arma::sp_mat</type>
           <declname>A</declname>
-          <briefdescription><para>The LHS of the constraints to add </para>
-</briefdescription>
         </param>
         <param>
           <type>const arma::vec</type>
           <declname>b</declname>
-          <briefdescription><para>The RHS of the constraints to add </para>
-</briefdescription>
         </param>
         <param>
           <type>const unsigned int</type>
           <declname>player</declname>
-          <briefdescription><para>The index of the player </para>
-</briefdescription>
         </param>
         <param>
           <type>bool</type>
           <declname>check</declname>
           <defval>true</defval>
-          <briefdescription><para>A boolean controling whether the method check for the uniqueness of the constraints </para>
-</briefdescription>
         </param>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
-<para>This method adds to the members CutPool_A and CutPool_b the content of <computeroutput>A</computeroutput> and <computeroutput>b</computeroutput>. If <computeroutput>check</computeroutput> is set to true, then the methods checks that the content of A and b is unique. In case a duplicate is detected, the copy is not added to the class&apos; members. <simplesect kind="return"><para>true in at least one constraint has been added</para>
-</simplesect>
-</para>
         </inbodydescription>
-        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="38" column="6" bodyfile="src/games/algorithms/IPG/ipg_oracle.cpp" bodystart="149" bodyend="192"/>
+        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="87" column="25"/>
       </memberdef>
-      </sectiondef>
-      <sectiondef kind="public-func">
-      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a1c47f767db7479a9f5f6d6aa397200c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a15f8a07f595766be374f5b19ce100727" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
-        <definition>void Algorithms::IPG::Oracle::separationCallback</definition>
+        <definition>void Algorithms::IPG::Oracle::initialize</definition>
+        <argsstring>()</argsstring>
+        <name>initialize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>This method initializes some fields for the algorithm. Also, it warm starts the initial strategies to pure best reponses.</para>
+        </inbodydescription>
+        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="91" column="25" bodyfile="src/games/algorithms/IPG/ipg_oracle.cpp" bodystart="483" bodyend="535"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a3100d6edc24930a27619934911ce50c9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>arma::vec</type>
+        <definition>arma::vec Algorithms::IPG::Oracle::buildXminusI</definition>
+        <argsstring>(const unsigned int i)</argsstring>
+        <name>buildXminusI</name>
+        <param>
+          <type>const unsigned int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Given the player id <computeroutput>i</computeroutput>, builds the vector x^{-i} from the current working strategies.</para>
+        </inbodydescription>
+        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="92" column="25" bodyfile="src/games/algorithms/IPG/ipg_oracle.cpp" bodystart="538" bodyend="553"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a743b09cfa2823edee22e9aae62c5907d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Algorithms::IPG::Oracle::addValueCut</definition>
+        <argsstring>(unsigned int player, arma::vec xOfIBestResponse, arma::vec xMinusI, bool check=true)</argsstring>
+        <name>addValueCut</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>player</declname>
+        </param>
+        <param>
+          <type>arma::vec</type>
+          <declname>xOfIBestResponse</declname>
+        </param>
+        <param>
+          <type>arma::vec</type>
+          <declname>xMinusI</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>check</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Given a player <computeroutput>player</computeroutput>, one of its best responses <computeroutput>xOfIBestResponses</computeroutput>, the strategies of the other players <computeroutput>xMinusI</computeroutput>, it adds an inequality of the type <formula id="9">\[ f^i(x^i, &amp;\bar&amp; x^{-i}) \geq f^i(\hat x^i, \bar x^{-i})\]</formula> to the cut pool of that player. <computeroutput>checkDuplicate</computeroutput> controls whether the methods search for duplicate inequalities in the pool.</para>
+        </inbodydescription>
+        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="93" column="25" bodyfile="src/games/algorithms/IPG/ipg_oracle.cpp" bodystart="94" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a3f3bc1854c42d87e6b83c2e61acab342" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Algorithms::IPG::Oracle::separationOracle</definition>
         <argsstring>(const unsigned int player)</argsstring>
-        <name>separationCallback</name>
+        <name>separationOracle</name>
         <param>
           <type>const unsigned int</type>
           <declname>player</declname>
@@ -159,39 +143,104 @@
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
+<para>Given the player id <computeroutput>player</computeroutput>, checks whether the current strategy is feasible or not. In order to do so, a more complex separation technique may be called.</para>
         </inbodydescription>
-        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="44" column="8"/>
+        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="97" column="25" bodyfile="src/games/algorithms/IPG/ipg_oracle.cpp" bodystart="180" bodyend="243"/>
       </memberdef>
-      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a13e1568ed2f4792824da4ab6eb94c8b7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>double</type>
-        <definition>double Algorithms::IPG::Oracle::getTol</definition>
-        <argsstring>() const</argsstring>
-        <name>getTol</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="45" column="8" bodyfile="include/games/algorithms/IPG/ipg_oracle.h" bodystart="45" bodyend="45"/>
-      </memberdef>
-      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1aae8a97c1ae287128f8a40df277084507" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Algorithms::IPG::Oracle::setTol</definition>
-        <argsstring>(double tol)</argsstring>
-        <name>setTol</name>
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1ad1f3c6ace031f0dfcf588421ecdd7050" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Algorithms::IPG::Oracle::computeStrategy</definition>
+        <argsstring>(const unsigned int i, arma::vec &amp;strategy, double &amp;payoff)</argsstring>
+        <name>computeStrategy</name>
         <param>
-          <type>double</type>
-          <declname>tol</declname>
+          <type>const unsigned int</type>
+          <declname>i</declname>
+          <briefdescription><para>The player id </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>arma::vec &amp;</type>
+          <declname>strategy</declname>
+          <briefdescription><para>The computed strategy </para>
+</briefdescription>
+        </param>
+        <param>
+          <type>double &amp;</type>
+          <declname>payoff</declname>
+          <briefdescription><para>The payoff </para>
+</briefdescription>
         </param>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
+<para>Given the <computeroutput>i</computeroutput> as the id of the player, retrieves the relaxation of the integer problem of that player and solves it to find any mixed strategies. The resulting strategy is pushed into <computeroutput>strategy</computeroutput>. In general, the result might not be feasible. In other words, the solution may be outside the mixed-integer convex hull. To check whether this is true or not, ask to the separationOracle. The computed strategy is pushed into an <ref refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player" kindref="compound">IPG_Player</ref> object in the field Players of this class. <simplesect kind="return"><para>true if the i-th player problem is feasible</para>
+</simplesect>
+</para>
         </inbodydescription>
-        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="46" column="8" bodyfile="include/games/algorithms/IPG/ipg_oracle.h" bodystart="46" bodyend="46"/>
+        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="98" column="6" bodyfile="src/games/algorithms/IPG/ipg_oracle.cpp" bodystart="439" bodyend="481"/>
       </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a00d4bf43f954bb0c20b5a9facdd85f8a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Algorithms::IPG::Oracle::updateMembership</definition>
+        <argsstring>(const unsigned int &amp;player, const arma::vec &amp;vertex, bool normalization)</argsstring>
+        <name>updateMembership</name>
+        <param>
+          <type>const unsigned int &amp;</type>
+          <declname>player</declname>
+        </param>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>vertex</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>normalization</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Updates the membership LP in the Player vector for the <computeroutput>player</computeroutput>, the point <computeroutput>xOfI</computeroutput>, and <computeroutput>normalization</computeroutput> </para>
+        </inbodydescription>
+        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="101" column="1" bodyfile="src/games/algorithms/IPG/ipg_oracle.cpp" bodystart="422" bodyend="437"/>
+      </memberdef>
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1adcb941e5b55a8ee41b1fa1b9378e3005" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Algorithms::IPG::Oracle::membershipSeparation</definition>
+        <argsstring>(const unsigned int player, const unsigned int iterations, const arma::vec &amp;xOfI, const arma::vec &amp;xMinusI)</argsstring>
+        <name>membershipSeparation</name>
+        <param>
+          <type>const unsigned int</type>
+          <declname>player</declname>
+        </param>
+        <param>
+          <type>const unsigned int</type>
+          <declname>iterations</declname>
+        </param>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>xOfI</declname>
+        </param>
+        <param>
+          <type>const arma::vec &amp;</type>
+          <declname>xMinusI</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Given the player and a bound on the number of iterations, tries to decide whether the given strategy belongs to the feasible region of the player by building the convex-hull with the known rays and vertices. <simplesect kind="return"><para>true if the point belongs to the feasible region. <computeroutput>xOfI</computeroutput> is the given point to separate.</para>
+</simplesect>
+</para>
+        </inbodydescription>
+        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="103" column="6" bodyfile="src/games/algorithms/IPG/ipg_oracle.cpp" bodystart="255" bodyend="420"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
       <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a4e0a7a531afabba100b286af02b70221" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
         <definition>Algorithms::IPG::Oracle::Oracle</definition>
@@ -211,186 +260,58 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="50" column="1" bodyfile="include/games/algorithms/IPG/ipg_oracle.h" bodystart="50" bodyend="51"/>
+        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="111" column="1" bodyfile="include/games/algorithms/IPG/ipg_oracle.h" bodystart="111" bodyend="111"/>
       </memberdef>
-      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1ab3fd0b8a91fda4a9b1f75fb890ed9dd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1ab3fd0b8a91fda4a9b1f75fb890ed9dd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void Algorithms::IPG::Oracle::solve</definition>
         <argsstring>()</argsstring>
         <name>solve</name>
+        <reimplements refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1a22cc835ab46ad965dc6c92dd34c5be41">solve</reimplements>
         <briefdescription>
-<para>environment and the <ref refid="class_game_1_1_i_p_g" kindref="compound">Game::IPG</ref> object. </para>
+<para>A method to solve the <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref>. </para>
         </briefdescription>
         <detaileddescription>
-<para>The constructor requires the Gurobi </para>
         </detaileddescription>
         <inbodydescription>
+<para>Solves the <ref refid="namespace_algorithms_1_1_i_p_g" kindref="compound">IPG</ref> with the <ref refid="class_algorithms_1_1_i_p_g_1_1_oracle" kindref="compound">Oracle</ref> algorithm.</para>
         </inbodydescription>
-        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="54" column="6"/>
+        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="113" column="6" bodyfile="src/games/algorithms/IPG/ipg_oracle.cpp" bodystart="116" bodyend="176"/>
       </memberdef>
-      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1af9643974292bf18d18f985b657302082" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a7b65df4f88ad56ce0ff025afbabeae79" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type>bool</type>
         <definition>bool Algorithms::IPG::Oracle::isSolved</definition>
-        <argsstring>(double tol=1e-4) const</argsstring>
+        <argsstring>() const</argsstring>
         <name>isSolved</name>
-        <param>
-          <type>double</type>
-          <declname>tol</declname>
-          <defval>1e-4</defval>
-        </param>
+        <reimplements refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1ab36d94d4206b3099ab32158b3dbdf33c">isSolved</reimplements>
         <briefdescription>
+<para>A method to check whether the <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref> is solved or not, given a numerical tolerance. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="56" column="6" bodyfile="src/games/algorithms/IPG/ipg_oracle.cpp" bodystart="21" bodyend="21"/>
+        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="115" column="6" bodyfile="include/games/algorithms/IPG/ipg_oracle.h" bodystart="115" bodyend="115"/>
       </memberdef>
-      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1ad8cc03386421c974dbbd8803a670f1cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>bool</type>
-        <definition>bool Algorithms::IPG::Oracle::isFeasible</definition>
-        <argsstring>(bool &amp;addedCuts, double tol=1e-4)</argsstring>
-        <name>isFeasible</name>
-        <param>
-          <type>bool &amp;</type>
-          <declname>addedCuts</declname>
-        </param>
-        <param>
-          <type>double</type>
-          <declname>tol</declname>
-          <defval>1e-4</defval>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-<para>Check whether the current outer approximation equilibrium is feasible and solves the outer approximation. Otherwise, add cuts, or generate useful points for next iterations.</para>
-        </inbodydescription>
-        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="57" column="6" bodyfile="src/games/algorithms/IPG/ipg_oracle.cpp" bodystart="40" bodyend="147"/>
-      </memberdef>
-      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a0cfe2936ac2ca9a8d757a6854ba99c88" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a6fa92345c24a912a81586c7fea09b4dd" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
         <definition>bool Algorithms::IPG::Oracle::isPureStrategy</definition>
-        <argsstring>(double tol=1e-4) const</argsstring>
+        <argsstring>() const</argsstring>
         <name>isPureStrategy</name>
-        <param>
-          <type>double</type>
-          <declname>tol</declname>
-          <defval>1e-4</defval>
-        </param>
+        <reimplements refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1a7e8e3622436e6a7a4c499a72b5c41ffe">isPureStrategy</reimplements>
         <briefdescription>
+<para>A method to check whether the <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref> solution is a pure equilibrium or not, given a numerical tolerance. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
+<para>Returns true if all players are playing a pure strategy in a Nash Equilibrium</para>
         </inbodydescription>
-        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="58" column="6"/>
-      </memberdef>
-      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1aa8c1709f46d7fe840eff6579d2f02cb8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Algorithms::IPG::Oracle::addValueCut</definition>
-        <argsstring>(unsigned int player, arma::vec xOfIBestResponse, arma::vec xMinusI)</argsstring>
-        <name>addValueCut</name>
-        <param>
-          <type>unsigned int</type>
-          <declname>player</declname>
-        </param>
-        <param>
-          <type>arma::vec</type>
-          <declname>xOfIBestResponse</declname>
-        </param>
-        <param>
-          <type>arma::vec</type>
-          <declname>xMinusI</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="60" column="6" bodyfile="src/games/algorithms/IPG/ipg_oracle.cpp" bodystart="23" bodyend="38"/>
-      </memberdef>
-      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1a29de59b270cb690c35f157e9cabeb2b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>bool</type>
-        <definition>bool Algorithms::IPG::Oracle::separationOracle</definition>
-        <argsstring>(arma::vec &amp;xOfI, arma::vec &amp;x, unsigned int player, int budget, bool &amp;addedCuts)</argsstring>
-        <name>separationOracle</name>
-        <param>
-          <type>arma::vec &amp;</type>
-          <declname>xOfI</declname>
-        </param>
-        <param>
-          <type>arma::vec &amp;</type>
-          <declname>x</declname>
-        </param>
-        <param>
-          <type>unsigned int</type>
-          <declname>player</declname>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>budget</declname>
-        </param>
-        <param>
-          <type>bool &amp;</type>
-          <declname>addedCuts</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="61" column="6"/>
-      </memberdef>
-      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1af77308976c6553e2120a5428f25b166e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>GRBModel *</type>
-        <definition>GRBModel* Algorithms::IPG::Oracle::getDualMembershipLP</definition>
-        <argsstring>(unsigned int player, arma::vec vertex, bool normalization=true)</argsstring>
-        <name>getDualMembershipLP</name>
-        <param>
-          <type>unsigned int</type>
-          <declname>player</declname>
-        </param>
-        <param>
-          <type>arma::vec</type>
-          <declname>vertex</declname>
-        </param>
-        <param>
-          <type>bool</type>
-          <declname>normalization</declname>
-          <defval>true</defval>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="64" column="2"/>
-      </memberdef>
-      <memberdef kind="function" id="class_algorithms_1_1_i_p_g_1_1_oracle_1af6e543428074105a7c1435031c779e1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>arma::vec</type>
-        <definition>arma::vec Algorithms::IPG::Oracle::normalizeRay</definition>
-        <argsstring>(const arma::vec ray)</argsstring>
-        <name>normalizeRay</name>
-        <param>
-          <type>const arma::vec</type>
-          <declname>ray</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="65" column="11"/>
+        <location file="include/games/algorithms/IPG/ipg_oracle.h" line="117" column="6" bodyfile="src/games/algorithms/IPG/ipg_oracle.cpp" bodystart="245" bodyend="253"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>This class is responsible for the <ref refid="class_algorithms_1_1_i_p_g_1_1_oracle" kindref="compound">Oracle</ref> algorithm for <ref refid="namespace_algorithms_1_1_i_p_g" kindref="compound">IPG</ref>. It inherit a GRBCallback to handle Gurobi callbacks. </para>
+<para>This class is responsible for the <ref refid="class_algorithms_1_1_i_p_g_1_1_oracle" kindref="compound">Oracle</ref> algorithm for <ref refid="namespace_algorithms_1_1_i_p_g" kindref="compound">IPG</ref>. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
@@ -402,7 +323,8 @@
         </childnode>
       </node>
       <node id="2">
-        <label>GRBCallback</label>
+        <label>Algorithms::IPG::Algorithm</label>
+        <link refid="class_algorithms_1_1_i_p_g_1_1_algorithm"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
@@ -418,9 +340,6 @@
         <label>Algorithms::IPG::Oracle</label>
         <link refid="class_algorithms_1_1_i_p_g_1_1_oracle"/>
         <childnode refid="2" relation="public-inheritance">
-        </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>IPG</edgelabel>
         </childnode>
       </node>
       <node id="12">
@@ -477,7 +396,11 @@
         </childnode>
       </node>
       <node id="2">
-        <label>GRBCallback</label>
+        <label>Algorithms::IPG::Algorithm</label>
+        <link refid="class_algorithms_1_1_i_p_g_1_1_algorithm"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>IPG</edgelabel>
+        </childnode>
       </node>
       <node id="6">
         <label>Attr&lt; double &gt;</label>
@@ -506,28 +429,31 @@
         <link refid="class_attr"/>
       </node>
     </collaborationgraph>
-    <location file="include/games/algorithms/IPG/ipg_oracle.h" line="29" column="33" bodyfile="include/games/algorithms/IPG/ipg_oracle.h" bodystart="29" bodyend="66"/>
+    <location file="include/games/algorithms/IPG/ipg_oracle.h" line="84" column="31" bodyfile="include/games/algorithms/IPG/ipg_oracle.h" bodystart="84" bodyend="118"/>
     <listofallmembers>
       <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1aaecad506e4669fe8a442470d4140991f" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>addConstraintsToPool</name></member>
-      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1aa8c1709f46d7fe840eff6579d2f02cb8" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>addValueCut</name></member>
-      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a6f4c087a18a1edee79b0dbda0e0f53a5" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>CutPool_A</name></member>
-      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a42be1de2032c127df22e5dc39e4de6b7" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>CutPool_b</name></member>
-      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1ae9f340daa7581607eb018602fde4c6c8" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>Env</name></member>
-      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1ab7e1ec6e969bf8eb12e3d4c6dd46aaf4" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>Feasible</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a743b09cfa2823edee22e9aae62c5907d" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>addValueCut</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1aa874865ba1f03bc7bad0f768889085ea" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>Algorithm</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a3100d6edc24930a27619934911ce50c9" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>buildXminusI</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1ad1f3c6ace031f0dfcf588421ecdd7050" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>computeStrategy</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1abab001b5624574eb693522338601547e" prot="protected" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>Env</name></member>
       <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1ad14dbf2e3fe53a8a7ce0a4fb555e0714" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>Game::IPG</name></member>
-      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1af77308976c6553e2120a5428f25b166e" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>getDualMembershipLP</name></member>
-      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a13e1568ed2f4792824da4ab6eb94c8b7" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>getTol</name></member>
-      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a54bc1bf00ab99cd50b3fe9bab3426de1" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>IPG</name></member>
-      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1ad8cc03386421c974dbbd8803a670f1cf" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>isFeasible</name></member>
-      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a0cfe2936ac2ca9a8d757a6854ba99c88" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>isPureStrategy</name></member>
-      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1af9643974292bf18d18f985b657302082" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>isSolved</name></member>
-      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1af6e543428074105a7c1435031c779e1f" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>normalizeRay</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1a2ebafd05ba2ad887c5f17a7aa02c857c" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>getTol</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1a7b13566b24556f5bbbf8d9988c1d3112" prot="protected" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>Infeasible</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a15f8a07f595766be374f5b19ce100727" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>initialize</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1a40fd8d23d5b7378a844f2a8f2eb7c5e7" prot="protected" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>IPG</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a6fa92345c24a912a81586c7fea09b4dd" prot="public" virt="virtual"><scope>Algorithms::IPG::Oracle</scope><name>isPureStrategy</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a7b65df4f88ad56ce0ff025afbabeae79" prot="public" virt="virtual"><scope>Algorithms::IPG::Oracle</scope><name>isSolved</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1adcb941e5b55a8ee41b1fa1b9378e3005" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>membershipSeparation</name></member>
       <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a4e0a7a531afabba100b286af02b70221" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>Oracle</name></member>
-      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a1c47f767db7479a9f5f6d6aa397200c0" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>separationCallback</name></member>
-      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a29de59b270cb690c35f157e9cabeb2b2" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>separationOracle</name></member>
-      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1aae8a97c1ae287128f8a40df277084507" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>setTol</name></member>
-      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1ab3fd0b8a91fda4a9b1f75fb890ed9dd7" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>solve</name></member>
-      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a50b35e01a55ee2c42be09fedf3dae6da" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>Tolerance</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1aa3f3390c9842014a9bba5f4d0060b004" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>Players</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1ac9f81f880503bc0b4ec00e28bbd18052" prot="protected" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>Pure</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a3f3bc1854c42d87e6b83c2e61acab342" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>separationOracle</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1a33a58e32c58669adf927ffa3d14c5c4b" prot="public" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>setTol</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1ab3fd0b8a91fda4a9b1f75fb890ed9dd7" prot="public" virt="virtual"><scope>Algorithms::IPG::Oracle</scope><name>solve</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1a2879b27d2e02bb11f9a25e66768a2952" prot="protected" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>Solved</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1afd2fddfa89835af78760431d69746d27" prot="protected" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>Tolerance</name></member>
+      <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a00d4bf43f954bb0c20b5a9facdd85f8a" prot="private" virt="non-virtual"><scope>Algorithms::IPG::Oracle</scope><name>updateMembership</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

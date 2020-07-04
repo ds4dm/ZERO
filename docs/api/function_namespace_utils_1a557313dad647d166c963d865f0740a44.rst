@@ -1,0 +1,13 @@
+.. _exhale_function_namespace_utils_1a557313dad647d166c963d865f0740a44:
+
+Function Utils::containsConstraint(const arma::sp_mat&, const arma::vec&, const arma::sp_mat&, const double&, const double)
+===========================================================================================================================
+
+- Defined in :ref:`file_include_support_utils.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: Utils::containsConstraint(const arma::sp_mat&, const arma::vec&, const arma::sp_mat&, const double&, const double)

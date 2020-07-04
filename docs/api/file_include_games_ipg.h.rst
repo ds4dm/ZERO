@@ -51,9 +51,9 @@ Included By
 -----------
 
 
-- :ref:`file_src_games_ipg.cpp`
-
 - :ref:`file_include_games_games.h`
+
+- :ref:`file_src_games_ipg.cpp`
 
 
 
@@ -67,6 +67,8 @@ Namespaces
 - :ref:`namespace_Data__IPG`
 
 - :ref:`namespace_Game`
+
+- :ref:`namespace_std`
 
 
 Classes
@@ -83,4 +85,11 @@ Enums
 
 
 - :ref:`exhale_enum_namespace_data_1_1_i_p_g_1a34d343f554ac089c3cb14de04aa6d294`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacestd_1a0dfa5d4281dfdd7bab35dfebd9a5382e`
 

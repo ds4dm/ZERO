@@ -24,6 +24,20 @@
     <member refid="class_game_1_1_abstract_game_1ad3f7c02e978d71834bc13b74162571f4" kind="function"><name>getNumVar</name></member>
     <member refid="class_game_1_1_abstract_game_1a6a84032e333484d0313064cfee3ba46c" kind="function"><name>getNumPlayers</name></member>
   </compound>
+  <compound refid="class_algorithms_1_1_i_p_g_1_1_algorithm" kind="class"><name>Algorithms::IPG::Algorithm</name>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1a40fd8d23d5b7378a844f2a8f2eb7c5e7" kind="variable"><name>IPG</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1abab001b5624574eb693522338601547e" kind="variable"><name>Env</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1a2879b27d2e02bb11f9a25e66768a2952" kind="variable"><name>Solved</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1ac9f81f880503bc0b4ec00e28bbd18052" kind="variable"><name>Pure</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1a7b13566b24556f5bbbf8d9988c1d3112" kind="variable"><name>Infeasible</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1afd2fddfa89835af78760431d69746d27" kind="variable"><name>Tolerance</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1a22cc835ab46ad965dc6c92dd34c5be41" kind="function"><name>solve</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1ab36d94d4206b3099ab32158b3dbdf33c" kind="function"><name>isSolved</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1a7e8e3622436e6a7a4c499a72b5c41ffe" kind="function"><name>isPureStrategy</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1a2ebafd05ba2ad887c5f17a7aa02c857c" kind="function"><name>getTol</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1a33a58e32c58669adf927ffa3d14c5c4b" kind="function"><name>setTol</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_algorithm_1aa874865ba1f03bc7bad0f768889085ea" kind="function"><name>Algorithm</name></member>
+  </compound>
   <compound refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm" kind="class"><name>Algorithms::EPEC::Algorithm</name>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1aad636a41bb0353f0c632430b6fb20937" kind="variable"><name>Env</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_algorithm_1ad46009aeb82c18d485cbba1060cd325a" kind="variable"><name>EPECObject</name></member>
@@ -59,51 +73,50 @@
     <member refid="class_data_1_1_i_p_g_1_1_data_object_1a5343763d51f0a9b208d97907c0d2782e" kind="variable"><name>Algorithm</name></member>
     <member refid="class_data_1_1_i_p_g_1_1_data_object_1a586b9beef91556d36089bb539f0211a4" kind="function"><name>DataObject</name></member>
   </compound>
-  <compound refid="struct_models_1_1_dem_par" kind="struct"><name>Models::DemPar</name>
-    <member refid="struct_models_1_1_dem_par_1a698f9479dec96509d9623d450e207d10" kind="variable"><name>alpha</name></member>
-    <member refid="struct_models_1_1_dem_par_1a3b366b018a89e5affe7a1cc46edcaff4" kind="variable"><name>beta</name></member>
-    <member refid="struct_models_1_1_dem_par_1a7430025a1817fde9953404cba115397e" kind="function"><name>DemPar</name></member>
+  <compound refid="struct_models_1_1_e_p_e_c_1_1_dem_par" kind="struct"><name>Models::EPEC::DemPar</name>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_dem_par_1a79a08398e095d31f70722ead0944a64e" kind="variable"><name>alpha</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_dem_par_1a0929cd327d703fbb5e327efb92c0235d" kind="variable"><name>beta</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_dem_par_1a7aaf14ef8ec546f1edb96ad6018615f9" kind="function"><name>DemPar</name></member>
   </compound>
-  <compound refid="class_models_1_1_e_p_e_c" kind="class"><name>Models::EPEC</name>
-    <member refid="class_models_1_1_e_p_e_c_1abf67fd852539ed21d238381efec1affa" kind="variable"><name>AllLeadPars</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a7066d31597fbec8ff4ff5e35d8de9936" kind="variable"><name>MC_QP</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1afe2b46d396e7980d8336099d8d916b19" kind="variable"><name>TranspCosts</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a4de4147addd36ee7df8e0944bfa017ea" kind="variable"><name>nImportMarkets</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1ac8aaf82d32d88e211018505a5c99907a" kind="variable"><name>Locations</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1af93e428bf0f642c3f46dc9d34641a74d" kind="variable"><name>name2nos</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a90bc7510117aa20be8fb042f35351320" kind="variable"><name>taxVars</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1ac2c5e7306ea5ab51ea953abdf9e4447f" kind="variable"><name>LeadConses</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1af6b6f5d1fb8f3eb3ba888bc5fd656bc6" kind="variable"><name>LeadRHSes</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a967c713d494e56a70652d0b5aad10045" kind="variable"><name>quadraticTax</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a79766ac616149fc4a17b1b4478ff569a" kind="function"><name>makeObjectivePlayer</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1adb4f3499fa2c03522ce997f0c3f63316" kind="function"><name>updateLocations</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1aa9dacf6f8965a70a18d47e196cb6f03f" kind="function"><name>preFinalize</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a2e38c1ac580d46b2a0bdaa36a8d46e63" kind="function"><name>postFinalize</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a78f228dd404eb6167125d1de1df3340a" kind="function"><name>dataCheck</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a043aff53098136d5f60d53a839b0ed85" kind="function"><name>ParamValid</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1aa86fd7f644d3e3e26645f5cabb48d29a" kind="function"><name>make_LL_QP</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1ac0317095ef32ba34772c9e73f26dc0ad" kind="function"><name>make_LL_LeadCons</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a926d12ae3829db9068a6ce813fbbdfce" kind="function"><name>add_Leaders_tradebalance_constraints</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a295ae8dd8ca635a407940bc78ce8875a" kind="function"><name>make_MC_leader</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a92ed1b673ace45b835bc07cc9b30e6ea" kind="function"><name>makeMCConstraints</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a8400c73da6cca24c5e7fdfd390a19838" kind="function"><name>WriteCountry</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a27f68538976f6d41d93dbc51f6711166" kind="function"><name>WriteFollower</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1ad2ed81668039c974d5710bac7c1bd8b7" kind="function"><name>EPEC</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a05bb954912158ca39f123ec1c6cdba9a" kind="function"><name>EPEC</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1ad4eddf9e6d7fa0391db41f647af25fc5" kind="function"><name>testLCP</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a14962535c0ee6c0f2669508d850dbfe1" kind="function"><name>addCountry</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1ae7423f15fd8596aeebc38d31f04d03c6" kind="function"><name>addTranspCosts</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a1d74390d88d7f5236d502eba172864ca" kind="function"><name>getPosition</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1ab76060f9c18689c85f20583322d3084d" kind="function"><name>getPosition</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a356a22aff221fad903b911014783651f" kind="function"><name>unlock</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a536a82c1fa0aa9b3a4e9f84669b17166" kind="function"><name>Respond</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1aea86a7ca6a2f4d0bcedd2d7a02a4db89" kind="function"><name>get_LowerLevelNash</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a7ab042a6cac2e61ce8039f25d9a8a0db" kind="function"><name>write</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1ad6045931d0e213e1897f6b018b93575a" kind="function"><name>write</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1abdfa0a37634cbecc7a0d1a953d9dae44" kind="function"><name>readSolutionJSON</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a0b4f42c3d7a8bac1673ecd63faee254b" kind="function"><name>writeSolutionJSON</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a52dd1bf3d61d40aa3f461403377d73de" kind="function"><name>writeSolution</name></member>
-    <member refid="class_models_1_1_e_p_e_c_1a32f76f4e828f8f7ffa6d76f889b60bc5" kind="function"><name>getInstance</name></member>
+  <compound refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c" kind="class"><name>Models::EPEC::EPEC</name>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a69697419a0ea756dd5022dcbe1ee7de3" kind="variable"><name>AllLeadPars</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a2ccddf5a2e6c51171c6ac3d2956e12b3" kind="variable"><name>MC_QP</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1ae4a170ddb96851a3c1b776a4c6467978" kind="variable"><name>TranspCosts</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a5f3279a7696f3e2b4c23daffbd717b7a" kind="variable"><name>nImportMarkets</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1af0a58c85d840088f79b601e24ab9a74f" kind="variable"><name>Locations</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a2295d58cdcea06cd142ff9bfd6e531ae" kind="variable"><name>name2nos</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a11ee844677fcd746018f279d4fc611d2" kind="variable"><name>taxVars</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a49be3a42fdf9b574ca76f628d889e0c4" kind="variable"><name>LeadConses</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a9f80ff122ac9a8d1838f9441e89427fa" kind="variable"><name>LeadRHSes</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1afde63c75410c93072061aed0a6eaa91b" kind="variable"><name>quadraticTax</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1af9b5969ab223aee61ec00ab7be39694c" kind="function"><name>makeObjectivePlayer</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a3a25799be8d18f62c5d91d248a2bed5f" kind="function"><name>updateLocations</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1aa7d051d95e2c72c1250f3555c6d46cd1" kind="function"><name>preFinalize</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1aa05e61126be41d14b21f20da2bbfc877" kind="function"><name>postFinalize</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a154b8c059d6ba5d1cc9c9e663a418ea5" kind="function"><name>dataCheck</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1ae87273bcce3c01602cc63184a55938d9" kind="function"><name>ParamValid</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a122117d4c57bee405be243a8bd5b3900" kind="function"><name>make_LL_QP</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a6d6ce5abcdff2aaaf4642280a2ef8c28" kind="function"><name>make_LL_LeadCons</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a7acddde752207371fc45b45aa7e50051" kind="function"><name>add_Leaders_tradebalance_constraints</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a635714c3f1ec34be9a065b3dd038d7e0" kind="function"><name>make_MC_leader</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a57ed71a45cb81cc4535077b226e29cd3" kind="function"><name>makeMCConstraints</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1ad6ecc1d83f7bf33da132c565c02e5607" kind="function"><name>WriteCountry</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a20a5f242a9dd5978bd870e513f8c5d0b" kind="function"><name>WriteFollower</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1ae10e18bed4eac1c033eed3be039845f8" kind="function"><name>EPEC</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a960798d05fd3e8859898849f15313c8a" kind="function"><name>EPEC</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a8a8cff4155357f72cb79e0e20fee2b15" kind="function"><name>addCountry</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a26d79f1a96b8af1db717230d13e2745d" kind="function"><name>addTranspCosts</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a849ce1188daf628c3f38e36f1a62d560" kind="function"><name>getPosition</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1abf53e0176e1a6a4fde2e1dc3a8323875" kind="function"><name>getPosition</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1ac2a5f4108c8156d8cd278e3d166ddef9" kind="function"><name>unlock</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1ae844cbd36b22ca25d746a88a3425bb6e" kind="function"><name>Respond</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a35c05b8bba47be6ae9c5b65ede8730ca" kind="function"><name>get_LowerLevelNash</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a90dd7d8a4e173ffcc557fba0baa22397" kind="function"><name>write</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a445a1100d51a9e39b1d4e36c9ecdcf53" kind="function"><name>write</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a696d901ed61f65d46c722e9536d21dbf" kind="function"><name>readSolutionJSON</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a6e7e98497395831e6c65cc7c5096839d" kind="function"><name>writeSolutionJSON</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a44202edc587c0a8d03f159238e8a90cf" kind="function"><name>writeSolution</name></member>
+    <member refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a4253f88333be71b7ea62819394a9e275" kind="function"><name>getInstance</name></member>
   </compound>
   <compound refid="class_game_1_1_e_p_e_c" kind="class"><name>Game::EPEC</name>
     <member refid="class_game_1_1_e_p_e_c_1a085ac9ace1a3aef12e61c03463dee800" kind="variable"><name>Algorithm</name></member>
@@ -168,22 +181,22 @@
     <member refid="class_game_1_1_e_p_e_c_1aa20feaa35c98de9e134190579a400cf7" kind="function"><name>getXWithoutHull</name></member>
     <member refid="class_game_1_1_e_p_e_c_1a6f84ee2018f9bb85d0b1b53e65ff85e4" kind="function"><name>getXofI</name></member>
   </compound>
-  <compound refid="struct_models_1_1_e_p_e_c_instance" kind="struct"><name>Models::EPECInstance</name>
-    <member refid="struct_models_1_1_e_p_e_c_instance_1ae244048e3bb0509d1ec35afa8eb97903" kind="variable"><name>Countries</name></member>
-    <member refid="struct_models_1_1_e_p_e_c_instance_1a66f78f8fc226176952be87b1d61b32ec" kind="variable"><name>TransportationCosts</name></member>
-    <member refid="struct_models_1_1_e_p_e_c_instance_1a3f4f3e937cc617a809040c035b8ddae0" kind="function"><name>EPECInstance</name></member>
-    <member refid="struct_models_1_1_e_p_e_c_instance_1a4dfd3b98d5ce7b325b0b6f345186169c" kind="function"><name>EPECInstance</name></member>
-    <member refid="struct_models_1_1_e_p_e_c_instance_1a1224e238323bb6387cea74f8c59acefc" kind="function"><name>load</name></member>
-    <member refid="struct_models_1_1_e_p_e_c_instance_1aa2ef90d0954b07bb4a947905aa1468c2" kind="function"><name>save</name></member>
+  <compound refid="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance" kind="struct"><name>Models::EPEC::EPECInstance</name>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance_1a86500bf211ca0527c532341f69de04cf" kind="variable"><name>Countries</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance_1aecf166f99ef21d1f1362a39b733eb596" kind="variable"><name>TransportationCosts</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance_1a3d85a739d7f38f47697d6c405ca6cbb4" kind="function"><name>EPECInstance</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance_1aa0c7b629481820864480529c319a3713" kind="function"><name>EPECInstance</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance_1abeb3c486d7d184ff2d6655776aba711c" kind="function"><name>load</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance_1a07cffebf01df00583134bda73a81fe50" kind="function"><name>save</name></member>
   </compound>
-  <compound refid="struct_models_1_1_foll_par" kind="struct"><name>Models::FollPar</name>
-    <member refid="struct_models_1_1_foll_par_1ad460e71610da45ad9e267820374c0a17" kind="variable"><name>costs_quad</name></member>
-    <member refid="struct_models_1_1_foll_par_1a28ab4749fcbce704060cd859c1b5bb87" kind="variable"><name>costs_lin</name></member>
-    <member refid="struct_models_1_1_foll_par_1a717a560bd0298a462aaf9f0493b7bb84" kind="variable"><name>capacities</name></member>
-    <member refid="struct_models_1_1_foll_par_1a3b94162d1b65ef8c7d6ab77d4ba22c82" kind="variable"><name>emission_costs</name></member>
-    <member refid="struct_models_1_1_foll_par_1adc4cbeeec17377c3d52e056b940ade99" kind="variable"><name>tax_caps</name></member>
-    <member refid="struct_models_1_1_foll_par_1aaafe051ffea4e71c3744ab655e0109a9" kind="variable"><name>names</name></member>
-    <member refid="struct_models_1_1_foll_par_1aee58264b73959ba267ed181829c6ab97" kind="function"><name>FollPar</name></member>
+  <compound refid="struct_models_1_1_e_p_e_c_1_1_foll_par" kind="struct"><name>Models::EPEC::FollPar</name>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_foll_par_1ac57404b2c776fc7deb2515a351359593" kind="variable"><name>costs_quad</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_foll_par_1a310fb22160f252faf7750ad1767ce299" kind="variable"><name>costs_lin</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_foll_par_1abb8a29173712d65ca2587d50ad231807" kind="variable"><name>capacities</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_foll_par_1ae0f9f835c80c44df8c6b013bbd1ba864" kind="variable"><name>emission_costs</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_foll_par_1a9c3d8a38f226b75a401c1ce3cf57315e" kind="variable"><name>tax_caps</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_foll_par_1ac65aea541dd0ab4502938c629ba85b90" kind="variable"><name>names</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_foll_par_1afd8e5da8172424552185f726f03d48be" kind="function"><name>FollPar</name></member>
   </compound>
   <compound refid="class_algorithms_1_1_e_p_e_c_1_1_full_enumeration" kind="class"><name>Algorithms::EPEC::FullEnumeration</name>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_full_enumeration_1ad0589899005e20af7072de46cc5b7a1e" kind="function"><name>FullEnumeration</name></member>
@@ -200,16 +213,18 @@
   <compound refid="class_math_opt_1_1_i_p___param" kind="class"><name>MathOpt::IP_Param</name>
     <member refid="class_math_opt_1_1_i_p___param_1a380c60da09ec270dda7a013d8a952f24" kind="variable"><name>Env</name></member>
     <member refid="class_math_opt_1_1_i_p___param_1a63062903806f710f9707dcb941aff195" kind="variable"><name>IPModel</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1ac349565f8febfdf47dc0db3b252ebe15" kind="variable"><name>Objective_c</name></member>
     <member refid="class_math_opt_1_1_i_p___param_1a2036320e64735f1814e8e8349e3a7245" kind="variable"><name>bounds</name></member>
     <member refid="class_math_opt_1_1_i_p___param_1a4236364f917ce6e9e7c957aca00168dc" kind="variable"><name>integers</name></member>
-    <member refid="class_math_opt_1_1_i_p___param_1a6fee5815fd45b9e2168f359e2c41aa71" kind="variable"><name>madeModel</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a032027557ecff64721133fa11cb38a80" kind="variable"><name>finalized</name></member>
     <member refid="class_math_opt_1_1_i_p___param_1a3462b6f8f73d14cdaf8e6ced0c1dc5da" kind="function"><name>IP_Param</name></member>
     <member refid="class_math_opt_1_1_i_p___param_1abcccf3e9856fa07d2ba3fc7fdf1c65cc" kind="function"><name>IP_Param</name></member>
     <member refid="class_math_opt_1_1_i_p___param_1ab6737563695f1be14be71ae09619a5a6" kind="function"><name>getIntegers</name></member>
     <member refid="class_math_opt_1_1_i_p___param_1a7ff09814850d66b2f0183df879b412c2" kind="function"><name>getBounds</name></member>
-    <member refid="class_math_opt_1_1_i_p___param_1a507189acd43a7c90b06da473d37533da" kind="function"><name>makeModel</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a551cbd1d23a9dee94d55144f3149a9ac" kind="function"><name>finalize</name></member>
     <member refid="class_math_opt_1_1_i_p___param_1a8be970f7d412fd15877e2fc17616bfbd" kind="function"><name>addConstraints</name></member>
     <member refid="class_math_opt_1_1_i_p___param_1a5b3c69e1aaf283425fd1164355e53bdc" kind="function"><name>IP_Param</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1ad88739b3e708a90212f9b4e2deef9602" kind="function"><name>setEnv</name></member>
     <member refid="class_math_opt_1_1_i_p___param_1a15338aa42e6a2d00ba0e8818562c7b60" kind="function"><name>set</name></member>
     <member refid="class_math_opt_1_1_i_p___param_1a2090df6b8aa1b63334432208ff8cc9b5" kind="function"><name>set</name></member>
     <member refid="class_math_opt_1_1_i_p___param_1a31d5eb35213c2af4718e28e3ceafea8e" kind="function"><name>set</name></member>
@@ -218,12 +233,13 @@
     <member refid="class_math_opt_1_1_i_p___param_1a19f85599f566f4bf679d6e4c85730ae2" kind="function"><name>solveFixed</name></member>
     <member refid="class_math_opt_1_1_i_p___param_1a45ab3e761fba334e064bee33c06c5ec6" kind="function"><name>computeObjective</name></member>
     <member refid="class_math_opt_1_1_i_p___param_1a1e7437399eedd12036eb3709c48e7ca0" kind="function"><name>isPlayable</name></member>
-    <member refid="class_math_opt_1_1_i_p___param_1aa1c20d474c1ece38aaea97a20679167d" kind="function"><name>addDummy</name></member>
     <member refid="class_math_opt_1_1_i_p___param_1a4ab6392b44a5b6a7cb2b481267f5a83e" kind="function"><name>write</name></member>
-    <member refid="class_math_opt_1_1_i_p___param_1a0dca8704e1356405b6b607248ecc995c" kind="function"><name>load</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1a5bf559b27b9291c61aa692239e3b96ce" kind="function"><name>load</name></member>
     <member refid="class_math_opt_1_1_i_p___param_1a6cf36efa0134f74b75d485135314a498" kind="function"><name>computeObjectiveWithoutOthers</name></member>
     <member refid="class_math_opt_1_1_i_p___param_1a17cda9a634b46017b7d7579eb9a8f8c7" kind="function"><name>getConstraintViolations</name></member>
     <member refid="class_math_opt_1_1_i_p___param_1ae80499b37080521e2d12b6c944fa23e2" kind="function"><name>forceDataCheck</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1ada1ae3f91dbdf6deb185dc9bde677e7f" kind="function"><name>updateModelObjective</name></member>
+    <member refid="class_math_opt_1_1_i_p___param_1afe0b4bb6151ac00f2c77a3edec9fee1f" kind="function"><name>getIPModel</name></member>
     <member refid="class_math_opt_1_1_i_p___param_1ad78a4a1bd3566acdcc5c61feedca9f8a" kind="function"><name>set</name></member>
     <member refid="class_math_opt_1_1_i_p___param_1af8b3e3a4717541860fcb72634e1723ab" kind="function"><name>set</name></member>
     <member refid="class_math_opt_1_1_i_p___param_1ae632d6f5348fc84bebe05ab01288e448" kind="function"><name>set</name></member>
@@ -234,10 +250,14 @@
     <member refid="class_game_1_1_i_p_g_1a728a80ade416a2f36cd5a8833a0cf2ee" kind="variable"><name>PlayerVariables</name></member>
     <member refid="class_game_1_1_i_p_g_1ae0fcd4871cd997f56ca1796e13a43112" kind="variable"><name>Finalized</name></member>
     <member refid="class_game_1_1_i_p_g_1a81a4ccc616e5facf3ee599761bf3fc9a" kind="variable"><name>Solution</name></member>
+    <member refid="class_game_1_1_i_p_g_1aed0e301658da5321d151fad5f10db21b" kind="variable"><name>Algorithm</name></member>
+    <member refid="class_game_1_1_i_p_g_1aebd561777cc9e2b5149ebb7e1f6e1b0d" kind="friend"><name>Algorithms::IPG::Algorithm</name></member>
     <member refid="class_game_1_1_i_p_g_1a84836887d30b770869453f4943bdbfe2" kind="friend"><name>Algorithms::IPG::Oracle</name></member>
     <member refid="class_game_1_1_i_p_g_1a7ea608210b56699c2a76da364b2214d6" kind="function"><name>getXMinusI</name></member>
     <member refid="class_game_1_1_i_p_g_1aec5449ea62ceaa82411c7d7a454f2b57" kind="function"><name>getXofI</name></member>
     <member refid="class_game_1_1_i_p_g_1ab3fa5c1de6f4089de6f130740a12e89c" kind="function"><name>computeNashEq</name></member>
+    <member refid="class_game_1_1_i_p_g_1acabbd4441f684af0f9ba5d3ee2e2c615" kind="function"><name>preFinalize</name></member>
+    <member refid="class_game_1_1_i_p_g_1a14cb516689f5fc0e43d1113647249847" kind="function"><name>postFinalize</name></member>
     <member refid="class_game_1_1_i_p_g_1a448677cf65ae15178c27da7ec294b5d3" kind="function"><name>finalize</name></member>
     <member refid="class_game_1_1_i_p_g_1a89b4c1e57b17bba4438541c3a488198e" kind="function"><name>IPG</name></member>
     <member refid="class_game_1_1_i_p_g_1aba1ab31c35f012e48e1a47fec318ad3e" kind="function"><name>IPG</name></member>
@@ -249,6 +269,48 @@
     <member refid="class_game_1_1_i_p_g_1a84d50a99870b84fb93840b46856c0b22" kind="function"><name>getStatistics</name></member>
     <member refid="class_game_1_1_i_p_g_1ae76562a954b222a124b34052b6a0d5ae" kind="function"><name>setAlgorithm</name></member>
   </compound>
+  <compound refid="class_models_1_1_i_p_g_1_1_i_p_g" kind="class"><name>Models::IPG::IPG</name>
+    <member refid="class_models_1_1_i_p_g_1_1_i_p_g_1ab16091dec42c539439a2711b83045b36" kind="variable"><name>Instance</name></member>
+    <member refid="class_models_1_1_i_p_g_1_1_i_p_g_1a56225f2c6e524b815820059d29fec93a" kind="function"><name>preFinalize</name></member>
+    <member refid="class_models_1_1_i_p_g_1_1_i_p_g_1a930819b85589289847d52abd6a06c803" kind="function"><name>postFinalize</name></member>
+    <member refid="class_models_1_1_i_p_g_1_1_i_p_g_1af3c0fbccd3633b7dd80962d400c26274" kind="function"><name>IPG</name></member>
+    <member refid="class_models_1_1_i_p_g_1_1_i_p_g_1a622355f908e9be25f070e9003d1a9a09" kind="function"><name>IPG</name></member>
+    <member refid="class_models_1_1_i_p_g_1_1_i_p_g_1a4d9d938d21d578728cce3cc1ea8b4f5e" kind="function"><name>unlock</name></member>
+    <member refid="class_models_1_1_i_p_g_1_1_i_p_g_1a5433dde0f68aeac56eb555f5021aed2c" kind="function"><name>writeSolution</name></member>
+    <member refid="class_models_1_1_i_p_g_1_1_i_p_g_1a8f2358557a2d5ee0ebe6ef714768a358" kind="function"><name>getInstance</name></member>
+  </compound>
+  <compound refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player" kind="class"><name>Algorithms::IPG::IPG_Player</name>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1a84836887d30b770869453f4943bdbfe2" kind="friend"><name>Algorithms::IPG::Oracle</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1a6e8254c30f352093fa6350fc8db563bb" kind="variable"><name>Model</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1a398ed920aeb477c77538dadef1ef33b8" kind="variable"><name>MembershipLP</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1a5b65eb80d5d0e5a3f6b1432a35d01224" kind="variable"><name>V</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1aea720c4309cef88548398e920e71a904" kind="variable"><name>R</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1aef57ff8821ab83f94d9c0e0b87d637a7" kind="variable"><name>VertexCounter</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1a25b389df8596b50a64191cac6000f783" kind="variable"><name>RayCounter</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1a2b91a7f9164abb1f10d188d6a561932e" kind="variable"><name>CutPool_A</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1a3cf7e5a53a2680b0ae7ff706fb83e5a7" kind="variable"><name>CutPool_b</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1a3fdbed53232ff46305161fa54a90443d" kind="variable"><name>Tolerance</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1a16b2bd1139fafc77cf5c8939fff68a4b" kind="variable"><name>Incumbent</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1aaf2a399c6a31b7facf0d126d64e656ef" kind="variable"><name>Payoff</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1a6d6bc1314ea29425f1c912e0c8ebd1bd" kind="variable"><name>Pure</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1ab3310ec7c7a9695692297f51bea13f1d" kind="variable"><name>Feasible</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1a9b63af05c7eaf1155aabb9093c270e43" kind="function"><name>IPG_Player</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1a15c7dd2c56366421b381137bc946c8fb" kind="function"><name>addVertex</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1a007c148aa0174f9aea1785ae466d1874" kind="function"><name>addRay</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1a3f55c6dbb6be3356752680663ee52c8b" kind="function"><name>addCut</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1ae72b1a293f7f009a042beb4192e04939" kind="function"><name>getPayoff</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1a80cd7126850dffe3aa820062d2bcf1e9" kind="function"><name>getCutPoolA</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1a2c9bc848b39e027271c4856ceb168fe1" kind="function"><name>getCutPoolb</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_i_p_g___player_1a25459199d67614abfa84874a8fb311b7" kind="function"><name>updateIPModel</name></member>
+  </compound>
+  <compound refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance" kind="struct"><name>Models::IPG::IPGInstance</name>
+    <member refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1a803ee962f419f6a951e80f57d044f56d" kind="variable"><name>IPs</name></member>
+    <member refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1a30e4be71b780b264a0abd874b64b6591" kind="variable"><name>IPFiles</name></member>
+    <member refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1ab869317eb55ee443fad962a79e3f7b36" kind="variable"><name>NumVariables</name></member>
+    <member refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1a3264608e01b6d5fadcf08c71025d225b" kind="variable"><name>PlayerVariables</name></member>
+    <member refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1aa91608dd6c7bb1762690e92f98bf6bb9" kind="function"><name>load</name></member>
+    <member refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1aea4a2e3e8937c06adbea4abc60158121" kind="function"><name>save</name></member>
+  </compound>
   <compound refid="class_math_opt_1_1_l_c_p" kind="class"><name>MathOpt::LCP</name>
     <member refid="class_math_opt_1_1_l_c_p_1addeb38537d9e7cf4223fd2ba33bf72dc" kind="variable"><name>Env</name></member>
     <member refid="class_math_opt_1_1_l_c_p_1a4e0d245b9c77ff47fc160df5edcfe3b5" kind="variable"><name>M</name></member>
@@ -259,21 +321,12 @@
     <member refid="class_math_opt_1_1_l_c_p_1ae64bd8eab0264253a226b482b1cdaa99" kind="variable"><name>NumberLeader</name></member>
     <member refid="class_math_opt_1_1_l_c_p_1ab0e3f41a96438e66929d6d1846d81cd3" kind="variable"><name>_A</name></member>
     <member refid="class_math_opt_1_1_l_c_p_1a6d68d41581d8d52c72fc0e078d11cd4d" kind="variable"><name>_b</name></member>
-    <member refid="class_math_opt_1_1_l_c_p_1ac2b4526135fb3ac4f70c6ee5f7b4cf65" kind="variable"><name>_Acut</name></member>
-    <member refid="class_math_opt_1_1_l_c_p_1a086d7e92afd51302f70f2288ade6f512" kind="variable"><name>_bcut</name></member>
-    <member refid="class_math_opt_1_1_l_c_p_1ab6a55bca1cd889aa17ef14f5301a70bc" kind="variable"><name>MadeRlxdModel</name></member>
-    <member refid="class_math_opt_1_1_l_c_p_1a07fa9bee7040e1e5103a3933dec33b9f" kind="variable"><name>nR</name></member>
-    <member refid="class_math_opt_1_1_l_c_p_1a39957fb3b0729294ea8ec7a71465a22e" kind="variable"><name>nC</name></member>
-    <member refid="class_math_opt_1_1_l_c_p_1a0e47a3545027a6d9d26d1e3e499b24a2" kind="variable"><name>RlxdModel</name></member>
     <member refid="class_math_opt_1_1_l_c_p_1af19b7809bfaf15311371d9a7ce3b9a9e" kind="variable"><name>Ai</name></member>
     <member refid="class_math_opt_1_1_l_c_p_1a5b68d054b67aab64a123395ec12f4ba8" kind="variable"><name>bi</name></member>
     <member refid="class_math_opt_1_1_l_c_p_1a0919c037468073eacc198bc6dcc2363f" kind="variable"><name>BigM</name></member>
     <member refid="class_math_opt_1_1_l_c_p_1a59bf18d06c235e380dc2f3a6f1419ab5" kind="variable"><name>Eps</name></member>
     <member refid="class_math_opt_1_1_l_c_p_1a424a4d9eb7509a97d9cf4b800d957cb0" kind="variable"><name>EpsInt</name></member>
     <member refid="class_math_opt_1_1_l_c_p_1adc9c91af096bffbfeb0ef91b20fc58bc" kind="variable"><name>UseIndicators</name></member>
-    <member refid="class_math_opt_1_1_l_c_p_1ab73a1b2e9b4343a90974e0d07922541b" kind="function"><name>errorCheck</name></member>
-    <member refid="class_math_opt_1_1_l_c_p_1a8e481dfd12ac9d6090370e8d15e80c2f" kind="function"><name>defConst</name></member>
-    <member refid="class_math_opt_1_1_l_c_p_1ac5d12cc6265d68850db41c47e69b7c4b" kind="function"><name>makeRelaxed</name></member>
     <member refid="class_math_opt_1_1_l_c_p_1ac554a16ac9497952c31b3f84d68662ff" kind="function"><name>LCPasMIP</name></member>
     <member refid="class_math_opt_1_1_l_c_p_1a42175395b990e8069a18963fc2666b4c" kind="function"><name>isZero</name></member>
     <member refid="class_math_opt_1_1_l_c_p_1ad59aa4e9848f45e477e67eb1e273c9ef" kind="function"><name>solEncode</name></member>
@@ -311,21 +364,21 @@
     <member refid="class_math_opt_1_1_l_c_p_1a580e72a782e479fee8c4d8680ef8b87f" kind="function"><name>solEncode</name></member>
     <member refid="class_math_opt_1_1_l_c_p_1a2d0f2ec3d8fa860d0db32402dbb22451" kind="function"><name>zFromX</name></member>
   </compound>
-  <compound refid="struct_models_1_1_lead_all_par" kind="struct"><name>Models::LeadAllPar</name>
-    <member refid="struct_models_1_1_lead_all_par_1a50316bb42793ad51f81470ec2c75deaa" kind="variable"><name>n_followers</name></member>
-    <member refid="struct_models_1_1_lead_all_par_1a285c3f95be3345e51b85c1180b2e3e4e" kind="variable"><name>name</name></member>
-    <member refid="struct_models_1_1_lead_all_par_1adf8e44c2a1e3018f3393a2af5ae16ca3" kind="variable"><name>FollowerParam</name></member>
-    <member refid="struct_models_1_1_lead_all_par_1a5e652d9a446b3d9c37d3f201ff2aec78" kind="variable"><name>DemandParam</name></member>
-    <member refid="struct_models_1_1_lead_all_par_1a825a28d96986f5e148db46f1f6ebdfa9" kind="variable"><name>LeaderParam</name></member>
-    <member refid="struct_models_1_1_lead_all_par_1ab0e167d9b5b94d15b96d0ef4b8404659" kind="function"><name>LeadAllPar</name></member>
+  <compound refid="struct_models_1_1_e_p_e_c_1_1_lead_all_par" kind="struct"><name>Models::EPEC::LeadAllPar</name>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_lead_all_par_1ab696bcbbb309a9a673115005997a317a" kind="variable"><name>n_followers</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_lead_all_par_1a46d9cd37e4795c702d73e03c09880962" kind="variable"><name>name</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_lead_all_par_1a62bc7dade634b7db36e63cec064f2c31" kind="variable"><name>FollowerParam</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_lead_all_par_1aff1107294713fd28b0a6c980f328fecb" kind="variable"><name>DemandParam</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_lead_all_par_1a9d2ecaf0a04552eb74116a9c59dee2ad" kind="variable"><name>LeaderParam</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_lead_all_par_1af247391a0d877b22fe1422f000117ee9" kind="function"><name>LeadAllPar</name></member>
   </compound>
-  <compound refid="struct_models_1_1_lead_par" kind="struct"><name>Models::LeadPar</name>
-    <member refid="struct_models_1_1_lead_par_1a5a386cd2610335a095d37ed48ac283c1" kind="variable"><name>import_limit</name></member>
-    <member refid="struct_models_1_1_lead_par_1a2bb797f5041c71bdd70266531ebd1d0d" kind="variable"><name>export_limit</name></member>
-    <member refid="struct_models_1_1_lead_par_1a7b7a2d7ccc4d246c261728f347d23263" kind="variable"><name>price_limit</name></member>
-    <member refid="struct_models_1_1_lead_par_1ae3bef9b0949e2239fcf0b9d82e8f01fe" kind="variable"><name>tax_type</name></member>
-    <member refid="struct_models_1_1_lead_par_1a65333bb2bb9c2060513f920f126bfe53" kind="variable"><name>tax_revenue</name></member>
-    <member refid="struct_models_1_1_lead_par_1a49d19ccb406e39c14e865e2cd53f1bc5" kind="function"><name>LeadPar</name></member>
+  <compound refid="struct_models_1_1_e_p_e_c_1_1_lead_par" kind="struct"><name>Models::EPEC::LeadPar</name>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_lead_par_1a7b196c903710f27aa80a0fc36951d851" kind="variable"><name>import_limit</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_lead_par_1a2b27e4e4f7660445145cfa50cea8fbba" kind="variable"><name>export_limit</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_lead_par_1af31bec6f088e85f573528595e0ec331c" kind="variable"><name>price_limit</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_lead_par_1afd5e0484eaee7aea6922cfb97e614a16" kind="variable"><name>tax_type</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_lead_par_1ad35206db7977e4aff373df3215dadbe5" kind="variable"><name>tax_revenue</name></member>
+    <member refid="struct_models_1_1_e_p_e_c_1_1_lead_par_1a0c786e927e1630f9cec57d1c082eb58e" kind="function"><name>LeadPar</name></member>
   </compound>
   <compound refid="class_math_opt_1_1_m_p___param" kind="class"><name>MathOpt::MP_Param</name>
     <member refid="class_math_opt_1_1_m_p___param_1aae8144b23a29ea99d5ef793729438feb" kind="variable"><name>Q</name></member>
@@ -424,26 +477,20 @@
     <member refid="struct_algorithms_1_1_e_p_e_c_1_1_outer_tree_1_1_node_1a3ee450763243241c3c94899f2789ffea" kind="function"><name>getParent</name></member>
   </compound>
   <compound refid="class_algorithms_1_1_i_p_g_1_1_oracle" kind="class"><name>Algorithms::IPG::Oracle</name>
-    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a6f4c087a18a1edee79b0dbda0e0f53a5" kind="variable"><name>CutPool_A</name></member>
-    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a42be1de2032c127df22e5dc39e4de6b7" kind="variable"><name>CutPool_b</name></member>
-    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a54bc1bf00ab99cd50b3fe9bab3426de1" kind="variable"><name>IPG</name></member>
-    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1ae9f340daa7581607eb018602fde4c6c8" kind="variable"><name>Env</name></member>
-    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1ab7e1ec6e969bf8eb12e3d4c6dd46aaf4" kind="variable"><name>Feasible</name></member>
-    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a50b35e01a55ee2c42be09fedf3dae6da" kind="variable"><name>Tolerance</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1aa3f3390c9842014a9bba5f4d0060b004" kind="variable"><name>Players</name></member>
     <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1ad14dbf2e3fe53a8a7ce0a4fb555e0714" kind="friend"><name>Game::IPG</name></member>
     <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1aaecad506e4669fe8a442470d4140991f" kind="function"><name>addConstraintsToPool</name></member>
-    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a1c47f767db7479a9f5f6d6aa397200c0" kind="function"><name>separationCallback</name></member>
-    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a13e1568ed2f4792824da4ab6eb94c8b7" kind="function"><name>getTol</name></member>
-    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1aae8a97c1ae287128f8a40df277084507" kind="function"><name>setTol</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a15f8a07f595766be374f5b19ce100727" kind="function"><name>initialize</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a3100d6edc24930a27619934911ce50c9" kind="function"><name>buildXminusI</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a743b09cfa2823edee22e9aae62c5907d" kind="function"><name>addValueCut</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a3f3bc1854c42d87e6b83c2e61acab342" kind="function"><name>separationOracle</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1ad1f3c6ace031f0dfcf588421ecdd7050" kind="function"><name>computeStrategy</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a00d4bf43f954bb0c20b5a9facdd85f8a" kind="function"><name>updateMembership</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1adcb941e5b55a8ee41b1fa1b9378e3005" kind="function"><name>membershipSeparation</name></member>
     <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a4e0a7a531afabba100b286af02b70221" kind="function"><name>Oracle</name></member>
     <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1ab3fd0b8a91fda4a9b1f75fb890ed9dd7" kind="function"><name>solve</name></member>
-    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1af9643974292bf18d18f985b657302082" kind="function"><name>isSolved</name></member>
-    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1ad8cc03386421c974dbbd8803a670f1cf" kind="function"><name>isFeasible</name></member>
-    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a0cfe2936ac2ca9a8d757a6854ba99c88" kind="function"><name>isPureStrategy</name></member>
-    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1aa8c1709f46d7fe840eff6579d2f02cb8" kind="function"><name>addValueCut</name></member>
-    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a29de59b270cb690c35f157e9cabeb2b2" kind="function"><name>separationOracle</name></member>
-    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1af77308976c6553e2120a5428f25b166e" kind="function"><name>getDualMembershipLP</name></member>
-    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1af6e543428074105a7c1435031c779e1f" kind="function"><name>normalizeRay</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a7b65df4f88ad56ce0ff025afbabeae79" kind="function"><name>isSolved</name></member>
+    <member refid="class_algorithms_1_1_i_p_g_1_1_oracle_1a6fa92345c24a912a81586c7fea09b4dd" kind="function"><name>isPureStrategy</name></member>
   </compound>
   <compound refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation" kind="class"><name>Algorithms::EPEC::OuterApproximation</name>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1ac390d4bbad95a8684661d0308bdd5a93" kind="variable"><name>outerLCP</name></member>
@@ -457,20 +504,20 @@
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a2447342d745dbdf5914747b072022de0" kind="function"><name>OuterApproximation</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1aee27604e761a72b3629ca85e56ce9f2e" kind="function"><name>solve</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a6a1f2a8e6e9e1a75f702fab2b3f9f493" kind="function"><name>isSolved</name></member>
-    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a438cc549d7b6e4c270467be326036cb1" kind="function"><name>isFeasible</name></member>
+    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a65fe424f25ab13ea3def88fb34931a3e" kind="function"><name>isFeasible</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a08f0d6ead0a0a6442657e0144dc1d441" kind="function"><name>isPureStrategy</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a790a3f3444ae60dc3f1c3f61e652c191" kind="function"><name>printCurrentApprox</name></member>
-    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1afa74ae41105d75cb05f9e6cff62f0ac2" kind="function"><name>hybridBranching</name></member>
-    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1ac4fcf7a9ae6f65600fa0cc139dfde8d7" kind="function"><name>infeasibleBranching</name></member>
-    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1ace18259b4a3330a5b30d66ee597f00cb" kind="function"><name>deviationBranching</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a878ac7da8284f786c20a2fbe2ba38db8" kind="function"><name>printBranchingLog</name></member>
-    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1afb01d89e4560cbd6aa6644b835625ee7" kind="function"><name>getFeasQP</name></member>
-    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a2abed130c5f6de76fc561de3dc2597a1" kind="function"><name>addValueCut</name></member>
-    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a4a4ea2a40ab91b0d57b39fda0af1b43d" kind="function"><name>separationOracle</name></member>
-    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a3e86829da49eedb333730761bc566426" kind="function"><name>getDualMembershipLP</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a5ea3256ebd4ee7d69262ab8fe6294264" kind="function"><name>getNextBranchLocation</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a6d153e3874b880485be7ad34d95f7455" kind="function"><name>getFirstBranchLocation</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1ab546c0ac19d77b306800f29f2562b27f" kind="function"><name>postSolving</name></member>
+    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a9e48bead4e590e6487e8e6da0daf178f" kind="function"><name>updateMembership</name></member>
+    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1afa74ae41105d75cb05f9e6cff62f0ac2" kind="function"><name>hybridBranching</name></member>
+    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1ac4fcf7a9ae6f65600fa0cc139dfde8d7" kind="function"><name>infeasibleBranching</name></member>
+    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1ace18259b4a3330a5b30d66ee597f00cb" kind="function"><name>deviationBranching</name></member>
+    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1afb01d89e4560cbd6aa6644b835625ee7" kind="function"><name>getFeasQP</name></member>
+    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a2abed130c5f6de76fc561de3dc2597a1" kind="function"><name>addValueCut</name></member>
+    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_approximation_1a4a4ea2a40ab91b0d57b39fda0af1b43d" kind="function"><name>separationOracle</name></member>
   </compound>
   <compound refid="class_math_opt_1_1_outer_l_c_p" kind="class"><name>MathOpt::OuterLCP</name>
     <member refid="class_math_opt_1_1_outer_l_c_p_1a9c5696dd783d06c1b3e8adda6350d832" kind="variable"><name>Approximation</name></member>
@@ -491,19 +538,15 @@
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1acc6ae51ee98e21b58808b7bc536cb0ba" kind="variable"><name>EncodingSize</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1a4e2e3020f620a2aec15b81121623bfd2" kind="variable"><name>NodeCounter</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1a5fbf30100832b1f1469c18eef23502ba" kind="variable"><name>Nodes</name></member>
+    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1ac0a409408dc27aab47cd057f29d3384b" kind="variable"><name>isPure</name></member>
+    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1a0e3f528da7c28f362a24e3458e6dca03" kind="variable"><name>isFeasible</name></member>
+    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1aff7323811a3dbb82de87f555e3b481bb" kind="variable"><name>MembershipLP</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1a52c8cfb47fec23b4d0d28ebdc4329001" kind="variable"><name>V</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1a8515614ef3e61061f2baba3aa8c61e14" kind="variable"><name>R</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1ac64343e5298f6cf3710126158f63e94f" kind="variable"><name>VertexCounter</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1ae1de66800e983880fe1cfe422f77bff7" kind="variable"><name>RayCounter</name></member>
-    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1a617209624cf00544964baaca2a4b5ce3" kind="variable"><name>MembershipLP</name></member>
-    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1ad7da8a8769b39b4f8c8aa2f5ec13ebab" kind="variable"><name>MembershipInit</name></member>
-    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1ac0a409408dc27aab47cd057f29d3384b" kind="variable"><name>isPure</name></member>
-    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1a0e3f528da7c28f362a24e3458e6dca03" kind="variable"><name>isFeasible</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1a448ecf43fd2cce8e03601159dcb56445" kind="function"><name>nextIdentifier</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1a1f98c3bc8310acefc0dbc8ee3d4f535e" kind="function"><name>OuterTree</name></member>
-    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1a78b318a692cb7e87d5e0cde48235c04c" kind="function"><name>getMembershipLP</name></member>
-    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1ab09c71f946d082ba6dd9a682667b0a3a" kind="function"><name>getMembershipInit</name></member>
-    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1a3365af8e6543f7c84e96bf687b87380c" kind="function"><name>setMembershipInit</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1ab042e5e576e3e36126ea2fada5793203" kind="function"><name>resetFeasibility</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1abc38eb3539e40c988a44d20dc4dc7a7a" kind="function"><name>getPure</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1ab8f9d433168626ccfa0e16c797274409" kind="function"><name>setFeasible</name></member>
@@ -511,8 +554,6 @@
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1af6b43e57b655edf67c27aa64bdc60daa" kind="function"><name>getEncodingSize</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1a0cd344e6e7e3cd36f675b1bc2a8029be" kind="function"><name>getV</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1a937b54a35f9938fed119b518ea0ec6fe" kind="function"><name>getR</name></member>
-    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1ae89b4e6491ba1ba3aa4b6a08b2891bea" kind="function"><name>incrementVertices</name></member>
-    <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1ad04a49fb0fc517728048e21da591e34e" kind="function"><name>incrementRays</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1a022edd21f8df8e14e877382a59979334" kind="function"><name>getVertexCount</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1acbf26730c7f0743b535463a59a5ab24e" kind="function"><name>getRayCount</name></member>
     <member refid="class_algorithms_1_1_e_p_e_c_1_1_outer_tree_1ad54a708e3290968a2f6ea1359bfdb212" kind="function"><name>getNodeCount</name></member>
@@ -680,49 +721,56 @@
     <member refid="namespace_math_opt_1aa4eaa00160eb2098969ef087c92eea5d" kind="function"><name>LPSolve</name></member>
     <member refid="namespace_math_opt_1a0a13d06524e3ad2baf756e15a794a745" kind="function"><name>convexHull</name></member>
     <member refid="namespace_math_opt_1af3d7bfcf9b11cefb7f4521d685211934" kind="function"><name>compConvSize</name></member>
+    <member refid="namespace_math_opt_1aabf121bcb871000488825dd64750500c" kind="function"><name>getDualMembershipLP</name></member>
     <member refid="namespace_math_opt_1a8b4c66568c38b6a5b08a7fca9372a7dd" kind="function"><name>print</name></member>
     <member refid="namespace_math_opt_1aedd7c328cf667c15244fec225b90a65d" kind="function"><name>operator&lt;&lt;</name></member>
     <member refid="namespace_math_opt_1a81f3217167710fd7c3d4211658cfa5d6" kind="function"><name>operator&lt;&lt;</name></member>
   </compound>
   <compound refid="namespace_models" kind="namespace"><name>Models</name>
-    <member refid="namespace_models_1a8fcea6b0a4c8c1403d8151c8a85f02c4" kind="enum"><name>TaxType</name></member>
-    <member refid="namespace_models_1a8fcea6b0a4c8c1403d8151c8a85f02c4a6cf964532157ab0f02d24e287a383f67" kind="enumvalue"><name>StandardTax</name></member>
-    <member refid="namespace_models_1a8fcea6b0a4c8c1403d8151c8a85f02c4ab73afec7571c480b11f1a595a161a2bf" kind="enumvalue"><name>SingleTax</name></member>
-    <member refid="namespace_models_1a8fcea6b0a4c8c1403d8151c8a85f02c4a3836ce10651ef6e6f12d27e27f257f41" kind="enumvalue"><name>CarbonTax</name></member>
-    <member refid="namespace_models_1a64b758b38a6e4004b84630ec087bf76e" kind="enum"><name>LeaderVars</name></member>
-    <member refid="namespace_models_1a64b758b38a6e4004b84630ec087bf76eaf2dcda11a77f92f3c0cd7e08f37ce122" kind="enumvalue"><name>FollowerStart</name></member>
-    <member refid="namespace_models_1a64b758b38a6e4004b84630ec087bf76eabd2f8eff3cf4fc193002ef846a45c155" kind="enumvalue"><name>NetImport</name></member>
-    <member refid="namespace_models_1a64b758b38a6e4004b84630ec087bf76eab352c19b5ee483451acb8039d5b92edd" kind="enumvalue"><name>NetExport</name></member>
-    <member refid="namespace_models_1a64b758b38a6e4004b84630ec087bf76eabaf050cedcda40eabc94d4a7bd5116cb" kind="enumvalue"><name>CountryImport</name></member>
-    <member refid="namespace_models_1a64b758b38a6e4004b84630ec087bf76ea55dd587cdc4a278be6a5c37f9e539de1" kind="enumvalue"><name>Caps</name></member>
-    <member refid="namespace_models_1a64b758b38a6e4004b84630ec087bf76ea4b78ac8eb158840e9638a3aeb26c4a9d" kind="enumvalue"><name>Tax</name></member>
-    <member refid="namespace_models_1a64b758b38a6e4004b84630ec087bf76ea24a98047b142b17863fc0bbdde6c6321" kind="enumvalue"><name>TaxQuad</name></member>
-    <member refid="namespace_models_1a64b758b38a6e4004b84630ec087bf76ea17d72d09ea044ac3506cece93e19f6b8" kind="enumvalue"><name>DualVar</name></member>
-    <member refid="namespace_models_1a64b758b38a6e4004b84630ec087bf76ea2afd0bab7c35873bc8dd372c6d255448" kind="enumvalue"><name>ConvHullDummy</name></member>
-    <member refid="namespace_models_1a64b758b38a6e4004b84630ec087bf76ea87557f11575c0ad78e4e28abedc13b6e" kind="enumvalue"><name>End</name></member>
-    <member refid="namespace_models_1a54b54aa6ddb1d9e337f9fea85a2d0ceb" kind="enum"><name>prn</name></member>
-    <member refid="namespace_models_1a54b54aa6ddb1d9e337f9fea85a2d0cebad304ba20e96d87411588eeabac850e34" kind="enumvalue"><name>label</name></member>
-    <member refid="namespace_models_1a54b54aa6ddb1d9e337f9fea85a2d0ceba3a6d0284e743dc4a9b86f97d6dd1a3bf" kind="enumvalue"><name>val</name></member>
-    <member refid="namespace_models_1a75c15ea53b50caf905986359bbc23cab" kind="typedef"><name>FollPar</name></member>
-    <member refid="namespace_models_1ac928cbc777ce5f362354f5f3ae42d5d7" kind="typedef"><name>DemPar</name></member>
-    <member refid="namespace_models_1a14e4af73d28e599c41f07e8ae3edac52" kind="typedef"><name>LeadPar</name></member>
-    <member refid="namespace_models_1ad7371f9c9faadf542226ce85ac1cb596" kind="typedef"><name>LeadAllPar</name></member>
-    <member refid="namespace_models_1aec9f0d1d113730ec8734d5f6ab9cab9d" kind="typedef"><name>LeadLocs</name></member>
-    <member refid="namespace_models_1a322ba4df5ecd2c7fbec05df2e81ae9e2" kind="function"><name>operator&lt;&lt;</name></member>
-    <member refid="namespace_models_1a6ec9acc07b1d1a1f52c7fd06a2abaa6d" kind="function"><name>operator&lt;&lt;</name></member>
-    <member refid="namespace_models_1a04343873a820be679edc66592061ae3b" kind="function"><name>operator&lt;&lt;</name></member>
-    <member refid="namespace_models_1a2fcae411a4fb11391d08cc950951ee73" kind="function"><name>operator&lt;&lt;</name></member>
-    <member refid="namespace_models_1accb1703e798e52c5b4685207c9d83e06" kind="function"><name>operator&lt;&lt;</name></member>
-    <member refid="namespace_models_1a7eee90a2b5343b09c570e48040eb39f1" kind="function"><name>operator&lt;&lt;</name></member>
-    <member refid="namespace_models_1a81197aab1f9d6801996579a891f07791" kind="function"><name>increaseVal</name></member>
-    <member refid="namespace_models_1ad589f24f13f96365aa0198322e5a11dc" kind="function"><name>decreaseVal</name></member>
-    <member refid="namespace_models_1a723b05bd3c4740451512f73d0c75ceb6" kind="function"><name>init</name></member>
-    <member refid="namespace_models_1ae235f93cb5c937e10ef640f9fe99cba0" kind="function"><name>operator+</name></member>
-    <member refid="namespace_models_1a147b30b6b9732e5afb0d48274c2ec356" kind="function"><name>operator&lt;&lt;</name></member>
+  </compound>
+  <compound refid="namespace_models_1_1_e_p_e_c" kind="namespace"><name>Models::EPEC</name>
+    <member refid="namespace_models_1_1_e_p_e_c_1a72626ff0ddf65191cd9b8f82563d38f4" kind="enum"><name>TaxType</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a72626ff0ddf65191cd9b8f82563d38f4a6cf964532157ab0f02d24e287a383f67" kind="enumvalue"><name>StandardTax</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a72626ff0ddf65191cd9b8f82563d38f4ab73afec7571c480b11f1a595a161a2bf" kind="enumvalue"><name>SingleTax</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a72626ff0ddf65191cd9b8f82563d38f4a3836ce10651ef6e6f12d27e27f257f41" kind="enumvalue"><name>CarbonTax</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5f" kind="enum"><name>LeaderVars</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5faf2dcda11a77f92f3c0cd7e08f37ce122" kind="enumvalue"><name>FollowerStart</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5fabd2f8eff3cf4fc193002ef846a45c155" kind="enumvalue"><name>NetImport</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5fab352c19b5ee483451acb8039d5b92edd" kind="enumvalue"><name>NetExport</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5fabaf050cedcda40eabc94d4a7bd5116cb" kind="enumvalue"><name>CountryImport</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5fa55dd587cdc4a278be6a5c37f9e539de1" kind="enumvalue"><name>Caps</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5fa4b78ac8eb158840e9638a3aeb26c4a9d" kind="enumvalue"><name>Tax</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5fa24a98047b142b17863fc0bbdde6c6321" kind="enumvalue"><name>TaxQuad</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5fa17d72d09ea044ac3506cece93e19f6b8" kind="enumvalue"><name>DualVar</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5fa2afd0bab7c35873bc8dd372c6d255448" kind="enumvalue"><name>ConvHullDummy</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5fa87557f11575c0ad78e4e28abedc13b6e" kind="enumvalue"><name>End</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1ac6f525119967602609afe99f64ef4a1b" kind="enum"><name>prn</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1ac6f525119967602609afe99f64ef4a1bad304ba20e96d87411588eeabac850e34" kind="enumvalue"><name>label</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1ac6f525119967602609afe99f64ef4a1ba3a6d0284e743dc4a9b86f97d6dd1a3bf" kind="enumvalue"><name>val</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1aca30953c80dcd155a7ab0ee85975d805" kind="typedef"><name>FollPar</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a62149827d4c351dd603cbcc7625f7772" kind="typedef"><name>DemPar</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1ab279a6d9a0241b15c0bd1a7312f8dd3e" kind="typedef"><name>LeadPar</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a2f9cbaec7516972a7acc4285cb46bb65" kind="typedef"><name>LeadAllPar</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1af533424de8789ffd456165af21ac7e02" kind="typedef"><name>LeadLocs</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1aa732ff410b4c32a84be09a6ed7f55ae7" kind="function"><name>operator&lt;&lt;</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1ad8eaa0861bd3da4627c98c72ab0ed286" kind="function"><name>operator&lt;&lt;</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a3ae165ae70cb8c87e3c2ff2e3412481a" kind="function"><name>operator&lt;&lt;</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a4e4c4e18bf05a12b53b88e7eaa41a5ab" kind="function"><name>operator&lt;&lt;</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a636ebefa1cdfa3e167761452792129f8" kind="function"><name>operator&lt;&lt;</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a2c4c41c1a12f3393f92719601bceb38a" kind="function"><name>operator&lt;&lt;</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1aea666749029b52e914764ccb9fd3cea8" kind="function"><name>increaseVal</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a3da7b11be5cb5a4f32e65fb62d8cd7f8" kind="function"><name>decreaseVal</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a0dc1dfc75744d5af1ffcb99bfbd2e0be" kind="function"><name>init</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a6bf8d5d3a77dddc264c34df3c1412eb0" kind="function"><name>operator+</name></member>
+    <member refid="namespace_models_1_1_e_p_e_c_1a04179db61b0d9fed3a91f88ef4f5f2b3" kind="function"><name>operator&lt;&lt;</name></member>
+  </compound>
+  <compound refid="namespace_models_1_1_i_p_g" kind="namespace"><name>Models::IPG</name>
+    <member refid="namespace_models_1_1_i_p_g_1af0de748364bb8991a02668d7bf3b2983" kind="function"><name>operator&lt;&lt;</name></member>
   </compound>
   <compound refid="namespacestd" kind="namespace"><name>std</name>
     <member refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kind="function"><name>to_string</name></member>
     <member refid="namespacestd_1a7cb6029320750b8c7452b372647f21f8" kind="function"><name>to_string</name></member>
+    <member refid="namespacestd_1a0dfa5d4281dfdd7bab35dfebd9a5382e" kind="function"><name>to_string</name></member>
     <member refid="namespacestd_1ad178135c94273bc34663a0949faeb80c" kind="function"><name>to_string</name></member>
     <member refid="namespacestd_1a202599342150a29353173dfe178792f6" kind="function"><name>to_string</name></member>
     <member refid="namespacestd_1abd408a35c54877a4f9f899672a834bf5" kind="function"><name>to_string</name></member>
@@ -733,9 +781,8 @@
     <member refid="namespace_utils_1a8748d4160459a637b32e309336969c81" kind="function"><name>resizePatch</name></member>
     <member refid="namespace_utils_1ac18b4a9ad0028ecef8c39abe3673fa51" kind="function"><name>containsRow</name></member>
     <member refid="namespace_utils_1acc29a13b2b25cfa7102edf2229af4813" kind="function"><name>containsElement</name></member>
-    <member refid="namespace_utils_1a011561a3cbaf28e7e6cb4f802ec9ed91" kind="function"><name>containsConstraint</name></member>
-    <member refid="namespace_utils_1a2be4a26366e1854d81a8493bec6bba2e" kind="function"><name>containsConstraint</name></member>
-    <member refid="namespace_utils_1a80a70a196c537123d7e8542e2501e12c" kind="function"><name>normalize</name></member>
+    <member refid="namespace_utils_1a03c80abd5bb5411608a27a29bf29cfe2" kind="function"><name>containsConstraint</name></member>
+    <member refid="namespace_utils_1a557313dad647d166c963d865f0740a44" kind="function"><name>containsConstraint</name></member>
     <member refid="namespace_utils_1a61870426848613ebcd38331a4e05e716" kind="function"><name>appendSave</name></member>
     <member refid="namespace_utils_1a5564b70694570623dc79e723715dfdfe" kind="function"><name>appendRead</name></member>
     <member refid="namespace_utils_1a5f5f645750d3b82e63e5f96723c62ee1" kind="function"><name>appendSave</name></member>
@@ -765,6 +812,8 @@
   </compound>
   <compound refid="epec__polybase_8h" kind="file"><name>epec_polybase.h</name>
   </compound>
+  <compound refid="ipg__algorithms_8h" kind="file"><name>ipg_algorithms.h</name>
+  </compound>
   <compound refid="ipg__oracle_8h" kind="file"><name>ipg_oracle.h</name>
   </compound>
   <compound refid="epec_8h" kind="file"><name>epec.h</name>
@@ -778,7 +827,9 @@
   <compound refid="epec__models_8h" kind="file"><name>epec_models.h</name>
     <member refid="epec__models_8h_1a0cb07b2258983336a21ed1a2cdaffd9e" kind="function"><name>to_string</name></member>
     <member refid="epec__models_8h_1a5a58b1d925b1f8570e1a81372a7869f8" kind="function"><name>to_string</name></member>
-    <member refid="epec__models_8h_1a068bbe67e10741d18e41e9390ecd95b0" kind="function"><name>operator+</name></member>
+    <member refid="epec__models_8h_1a179b9a250911142576a44e24929a3a8e" kind="function"><name>operator+</name></member>
+  </compound>
+  <compound refid="ipg__models_8h" kind="file"><name>ipg_models.h</name>
   </compound>
   <compound refid="lcp_8h" kind="file"><name>lcp.h</name>
   </compound>
@@ -830,8 +881,6 @@
     <member refid="zero_8h_1a2227f7d55cb0efe274cd8776e16f717d" kind="function"><name>operator&lt;&lt;</name></member>
     <member refid="zero_8h_1ad1ffe1b9a16567d2d765c957692925fb" kind="function"><name>operator&lt;&lt;</name></member>
   </compound>
-  <compound refid="_r_e_a_d_m_e_8md" kind="file"><name>README.md</name>
-  </compound>
   <compound refid="epec__combinatorialpne_8cpp" kind="file"><name>epec_combinatorialpne.cpp</name>
   </compound>
   <compound refid="epec__fullenumeration_8cpp" kind="file"><name>epec_fullenumeration.cpp</name>
@@ -856,9 +905,11 @@
   <compound refid="nash_8cpp" kind="file"><name>nash.cpp</name>
   </compound>
   <compound refid="epec__models_8cpp" kind="file"><name>epec_models.cpp</name>
-    <member refid="epec__models_8cpp_1a068bbe67e10741d18e41e9390ecd95b0" kind="function"><name>operator+</name></member>
-    <member refid="epec__models_8cpp_1ac1662fe1a2beec43dc10c18c10ff00d2" kind="function"><name>to_string</name></member>
-    <member refid="epec__models_8cpp_1aea048442ba1b089376473071654d3358" kind="function"><name>to_string</name></member>
+    <member refid="epec__models_8cpp_1a179b9a250911142576a44e24929a3a8e" kind="function"><name>operator+</name></member>
+    <member refid="epec__models_8cpp_1a5a58b1d925b1f8570e1a81372a7869f8" kind="function"><name>to_string</name></member>
+    <member refid="epec__models_8cpp_1a0cb07b2258983336a21ed1a2cdaffd9e" kind="function"><name>to_string</name></member>
+  </compound>
+  <compound refid="ipg__models_8cpp" kind="file"><name>ipg_models.cpp</name>
   </compound>
   <compound refid="lcp_8cpp" kind="file"><name>lcp.cpp</name>
   </compound>
@@ -880,10 +931,8 @@
   <compound refid="codes_8cpp" kind="file"><name>codes.cpp</name>
   </compound>
   <compound refid="utils_8cpp" kind="file"><name>utils.cpp</name>
-    <member refid="utils_8cpp_1aa44609e9c72c3b487f9315a2722bd77b" kind="function"><name>appendSave</name></member>
-    <member refid="utils_8cpp_1a6141782364a882df606206a15b8f1c53" kind="function"><name>appendRead</name></member>
-  </compound>
-  <compound refid="md__r_e_a_d_m_e" kind="page"><name>md_README</name>
+    <member refid="utils_8cpp_1a8a3281f033159773e6047a595cfa129a" kind="function"><name>appendSave</name></member>
+    <member refid="utils_8cpp_1ad85f66e4cbb90a0976aa1e9e49571c93" kind="function"><name>appendRead</name></member>
   </compound>
   <compound refid="todo" kind="page"><name>todo</name>
   </compound>

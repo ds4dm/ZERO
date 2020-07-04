@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance" kind="struct" language="C++" prot="public">
+    <compoundname>Models::EPEC::EPECInstance</compoundname>
+    <includes refid="epec__models_8h" local="no">epec_models.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance_1a86500bf211ca0527c532341f69de04cf" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="struct_models_1_1_e_p_e_c_1_1_lead_all_par" kindref="compound">Models::EPEC::LeadAllPar</ref> &gt;</type>
+        <definition>std::vector&lt;Models::EPEC::LeadAllPar&gt; Models::EPEC::EPECInstance::Countries</definition>
+        <argsstring></argsstring>
+        <name>Countries</name>
+        <initializer>= {}</initializer>
+        <briefdescription>
+<para><ref refid="struct_models_1_1_e_p_e_c_1_1_lead_all_par" kindref="compound">LeadAllPar</ref> vector. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="135" column="13" bodyfile="include/interfaces/epec_models.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance_1aecf166f99ef21d1f1362a39b733eb596" prot="public" static="no" mutable="no">
+        <type>arma::sp_mat</type>
+        <definition>arma::sp_mat Models::EPEC::EPECInstance::TransportationCosts</definition>
+        <argsstring></argsstring>
+        <name>TransportationCosts</name>
+        <initializer>= {}</initializer>
+        <briefdescription>
+<para>Transportation costs matrix. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="136" column="14" bodyfile="include/interfaces/epec_models.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance_1a3d85a739d7f38f47697d6c405ca6cbb4" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Models::EPEC::EPECInstance::EPECInstance</definition>
+        <argsstring>(std::string filename)</argsstring>
+        <name>EPECInstance</name>
+        <param>
+          <type>std::string</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+<para>Constructor from instance file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="138" column="10" bodyfile="include/interfaces/epec_models.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance_1aa0c7b629481820864480529c319a3713" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Models::EPEC::EPECInstance::EPECInstance</definition>
+        <argsstring>(std::vector&lt; Models::EPEC::LeadAllPar &gt; Countries_, arma::sp_mat Transp_)</argsstring>
+        <name>EPECInstance</name>
+        <param>
+          <type>std::vector&lt; <ref refid="struct_models_1_1_e_p_e_c_1_1_lead_all_par" kindref="compound">Models::EPEC::LeadAllPar</ref> &gt;</type>
+          <declname>Countries_</declname>
+        </param>
+        <param>
+          <type>arma::sp_mat</type>
+          <declname>Transp_</declname>
+        </param>
+        <briefdescription>
+<para>Constructor from instance objects. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="141" column="1" bodyfile="include/interfaces/epec_models.h" bodystart="141" bodyend="140"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance_1abeb3c486d7d184ff2d6655776aba711c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::EPECInstance::load</definition>
+        <argsstring>(std::string filename)</argsstring>
+        <name>load</name>
+        <param>
+          <type>std::string</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+<para>Reads the <ref refid="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance" kindref="compound">EPECInstance</ref> from a file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Reads an instance file and return a vector of <computeroutput><ref refid="struct_models_1_1_e_p_e_c_1_1_lead_all_par" kindref="compound">LeadAllPar</ref></computeroutput> that can be fed to the <ref refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c" kindref="compound">EPEC</ref> class <computeroutput>filename</computeroutput> dictates the name of the JSON instance file</para>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="145" column="6" bodyfile="src/interfaces/epec_models.cpp" bodystart="1275" bodyend="1353"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance_1a07cffebf01df00583134bda73a81fe50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::EPECInstance::save</definition>
+        <argsstring>(std::string filename)</argsstring>
+        <name>save</name>
+        <param>
+          <type>std::string</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+<para>Writes the <ref refid="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance" kindref="compound">EPECInstance</ref> from a file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Writes the current <ref refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c" kindref="compound">EPEC</ref> instance to the standard JSON instance file <computeroutput>filename</computeroutput> dictates the name of the JSON instance file <computeroutput>epec</computeroutput> contains the <computeroutput><ref refid="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance" kindref="compound">EPECInstance</ref></computeroutput> object with the data</para>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="148" column="6" bodyfile="src/interfaces/epec_models.cpp" bodystart="1159" bodyend="1273"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Stores a single Instance. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/interfaces/epec_models.h" line="134" column="20" bodyfile="include/interfaces/epec_models.h" bodystart="134" bodyend="150"/>
+    <listofallmembers>
+      <member refid="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance_1a86500bf211ca0527c532341f69de04cf" prot="public" virt="non-virtual"><scope>Models::EPEC::EPECInstance</scope><name>Countries</name></member>
+      <member refid="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance_1a3d85a739d7f38f47697d6c405ca6cbb4" prot="public" virt="non-virtual"><scope>Models::EPEC::EPECInstance</scope><name>EPECInstance</name></member>
+      <member refid="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance_1aa0c7b629481820864480529c319a3713" prot="public" virt="non-virtual"><scope>Models::EPEC::EPECInstance</scope><name>EPECInstance</name></member>
+      <member refid="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance_1abeb3c486d7d184ff2d6655776aba711c" prot="public" virt="non-virtual"><scope>Models::EPEC::EPECInstance</scope><name>load</name></member>
+      <member refid="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance_1a07cffebf01df00583134bda73a81fe50" prot="public" virt="non-virtual"><scope>Models::EPEC::EPECInstance</scope><name>save</name></member>
+      <member refid="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance_1aecf166f99ef21d1f1362a39b733eb596" prot="public" virt="non-virtual"><scope>Models::EPEC::EPECInstance</scope><name>TransportationCosts</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

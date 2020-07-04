@@ -53,9 +53,9 @@ Included By
 -----------
 
 
-- :ref:`file_src_mathopt_mp_param_mp_param.cpp`
-
 - :ref:`file_include_mathopt_mathopt.h`
+
+- :ref:`file_src_mathopt_mp_param_mp_param.cpp`
 
 
 

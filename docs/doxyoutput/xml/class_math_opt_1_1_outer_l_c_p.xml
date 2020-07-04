@@ -13,10 +13,9 @@
         <initializer>=
 		  {}</initializer>
         <briefdescription>
-<para>Analogous to <ref refid="class_math_opt_1_1_poly_l_c_p_1a41bf2044b6ad68197af7e99828272b65" kindref="member">MathOpt::PolyLCP::AllPolyhedra</ref>. </para>
+<para>Decimal encoding of polyhedra that have been enumerated. Analogous to <ref refid="class_math_opt_1_1_poly_l_c_p_1a41bf2044b6ad68197af7e99828272b65" kindref="member">MathOpt::PolyLCP::AllPolyhedra</ref>. </para>
         </briefdescription>
         <detaileddescription>
-<para>Decimal encoding of polyhedra that have been enumerated. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -121,7 +120,7 @@
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
-<para>Checks the feasibility of a given encoding&apos;s polyhedron @detail First, checks if this polyhedra is already known to be infeasible. Then, checks if it is already known to be feasible. Finally it checks, if a parent polyhedron, i.e., a polyhedron with fewer variables/equations fixed is already infeasible. If none of those give the required details, solves a linear program to check feasibility.</para>
+<para>Checks the feasibility of a given encoding&apos;s polyhedron First, checks if this polyhedra is already known to be infeasible. Then, checks if it is already known to be feasible. Finally it checks, if a parent polyhedron, i.e., a polyhedron with fewer variables/equations fixed is already infeasible. If none of those give the required details, solves a linear program to check feasibility.</para>
         </inbodydescription>
         <location file="include/mathopt/lcp/outer_lcp.h" line="45" column="7" bodyfile="src/mathopt/lcp/outer_lcp.cpp" bodystart="155" bodyend="225"/>
       </memberdef>
@@ -244,17 +243,9 @@
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>encoding</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>- Each element is either 0, 1, -1 or 2 in this std::vector of size equal to <ref refid="class_math_opt_1_1_l_c_p_1a07fa9bee7040e1e5103a3933dec33b9f" kindref="member">MathOpt::OuterLCP::nR</ref>.</para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-0 implies it is an unprocessed complementarity condition, and don&apos;t process it now. +1/-1 implies it is a processed complementarity condition, nothing more has to be done. 2 implies it is an unprocessed complementarity condition and process it now.</para>
-<para>So, if given an input, which has 2s, adds the polyhedra corresponding to those parameters which were set to 2 into +1 and -1 now. So, if there are k 2s in the input, this will add <formula id="23">$2^k$</formula> polyhedra by calling <ref refid="class_math_opt_1_1_outer_l_c_p_1ab39b555e7623b81f27f832671202ce48" kindref="member">MathOpt::OuterLCP::addComponent</ref>.</para>
+<para><computeroutput>encoding</computeroutput> - Each element is either 0, 1, -1 or 2 in this std::vector of size equal to MathOpt::OuterLCP::nR.</para>
+<para>0 implies it is an unprocessed complementarity condition, and don&apos;t process it now. +1/-1 implies it is a processed complementarity condition, nothing more has to be done. 2 implies it is an unprocessed complementarity condition and process it now.</para>
+<para>So, if given an input, which has 2s, adds the polyhedra corresponding to those parameters which were set to 2 into +1 and -1 now. So, if there are k 2s in the input, this will add <formula id="29">$2^k$</formula> polyhedra by calling <ref refid="class_math_opt_1_1_outer_l_c_p_1ab39b555e7623b81f27f832671202ce48" kindref="member">MathOpt::OuterLCP::addComponent</ref>.</para>
         </inbodydescription>
         <location file="include/mathopt/lcp/outer_lcp.h" line="66" column="7" bodyfile="src/mathopt/lcp/outer_lcp.cpp" bodystart="38" bodyend="72"/>
       </memberdef>
@@ -290,9 +281,7 @@
     <location file="include/mathopt/lcp/outer_lcp.h" line="26" column="28" bodyfile="include/mathopt/lcp/outer_lcp.h" bodystart="26" bodyend="69"/>
     <listofallmembers>
       <member refid="class_math_opt_1_1_l_c_p_1ab0e3f41a96438e66929d6d1846d81cd3" prot="protected" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>_A</name></member>
-      <member refid="class_math_opt_1_1_l_c_p_1ac2b4526135fb3ac4f70c6ee5f7b4cf65" prot="protected" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>_Acut</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1a6d68d41581d8d52c72fc0e078d11cd4d" prot="protected" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>_b</name></member>
-      <member refid="class_math_opt_1_1_l_c_p_1a086d7e92afd51302f70f2288ade6f512" prot="protected" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>_bcut</name></member>
       <member refid="class_math_opt_1_1_outer_l_c_p_1a1fb71486c866dde33188d593abb5faa9" prot="private" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>addChildComponents</name></member>
       <member refid="class_math_opt_1_1_outer_l_c_p_1ab39b555e7623b81f27f832671202ce48" prot="public" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>addComponent</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1abb3d2bcb70270704f7b96cd406d681e2" prot="public" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>addCustomCuts</name></member>
@@ -305,11 +294,9 @@
       <member refid="class_math_opt_1_1_l_c_p_1a1d50200c05752a28083272b4a5b124fc" prot="protected" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>Compl</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1a824d162366e30bcb729ede444f51af71" prot="public" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>containCut</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1a0b54da5cf1c56c79ae2addf5742aea81" prot="protected" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>convexHull</name></member>
-      <member refid="class_math_opt_1_1_l_c_p_1a8e481dfd12ac9d6090370e8d15e80c2f" prot="protected" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>defConst</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1addeb38537d9e7cf4223fd2ba33bf72dc" prot="protected" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>Env</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1a59bf18d06c235e380dc2f3a6f1419ab5" prot="public" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>Eps</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1a424a4d9eb7509a97d9cf4b800d957cb0" prot="public" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>EpsInt</name></member>
-      <member refid="class_math_opt_1_1_l_c_p_1ab73a1b2e9b4343a90974e0d07922541b" prot="protected" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>errorCheck</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1a21b65610e8c23cbfb018d8d61ad2aa30" prot="public" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>extractSols</name></member>
       <member refid="class_math_opt_1_1_outer_l_c_p_1a5571e20c414ce55e14a55ee4c590be9d" prot="private" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>feasApprox</name></member>
       <member refid="class_math_opt_1_1_outer_l_c_p_1ad7b8f927dd37a21500c0126db1892889" prot="private" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>FeasibleComponents</name></member>
@@ -340,19 +327,14 @@
       <member refid="class_math_opt_1_1_l_c_p_1ab74625ec0c212d9d3c40ad8870741515" prot="protected" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>LeadStart</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1a71496aeafa52792d00211240f51aa5ce" prot="public" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>load</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1a4e0d245b9c77ff47fc160df5edcfe3b5" prot="protected" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>M</name></member>
-      <member refid="class_math_opt_1_1_l_c_p_1ab6a55bca1cd889aa17ef14f5301a70bc" prot="protected" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>MadeRlxdModel</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1a59993bce1206d9d5dfa04c616ea572e6" prot="public" virt="virtual"><scope>MathOpt::OuterLCP</scope><name>makeQP</name></member>
-      <member refid="class_math_opt_1_1_l_c_p_1ac5d12cc6265d68850db41c47e69b7c4b" prot="protected" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>makeRelaxed</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1a9aef94716ce8262f55ee7c49d4398f74" prot="public" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>MPECasMILP</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1ac5053d434e646ec85b9d276aedee5bcd" prot="public" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>MPECasMIQP</name></member>
-      <member refid="class_math_opt_1_1_l_c_p_1a39957fb3b0729294ea8ec7a71465a22e" prot="protected" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>nC</name></member>
-      <member refid="class_math_opt_1_1_l_c_p_1a07fa9bee7040e1e5103a3933dec33b9f" prot="protected" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>nR</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1ae64bd8eab0264253a226b482b1cdaa99" prot="protected" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>NumberLeader</name></member>
       <member refid="class_math_opt_1_1_outer_l_c_p_1af65666a72ac63d22eb132c9c4b90077a" prot="public" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>outerApproximate</name></member>
       <member refid="class_math_opt_1_1_outer_l_c_p_1a41bf3e2f0eedfc3c69425c718ad934e5" prot="public" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>OuterLCP</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1ace92b15384c30cf9099a8b03eedb0fe0" prot="public" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>print</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1ad99482b12ec46aabc831b55c28b49bbe" prot="protected" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>q</name></member>
-      <member refid="class_math_opt_1_1_l_c_p_1a0e47a3545027a6d9d26d1e3e499b24a2" prot="protected" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>RlxdModel</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1a8bedfd755996b18fa86121ffaabb92d0" prot="public" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>save</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1ad59aa4e9848f45e477e67eb1e273c9ef" prot="protected" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>solEncode</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1a7136a8dfea61785975d36090ce3e6c01" prot="public" virt="non-virtual"><scope>MathOpt::OuterLCP</scope><name>solEncode</name></member>

@@ -91,9 +91,9 @@
         <name>NashEquilibrium</name>
         <initializer>{false}</initializer>
         <briefdescription>
+<para>True if computeNashEq returned an equilibrium. Note that this can be the equilibrium of an approximation, and not to the original game. Refer to <ref refid="class_game_1_1_abstract_game_1af46405f6383d00abaa8320ac49d88066" kindref="member">isSolved()</ref> to get a definitive answer. </para>
         </briefdescription>
         <detaileddescription>
-<para>True if computeNashEq returned an equilibrium. Note that this can be the equilibrium of an approximation, and not to the original game. Refer to <ref refid="class_game_1_1_abstract_game_1af46405f6383d00abaa8320ac49d88066" kindref="member">isSolved()</ref> to get a definitive answer </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -210,10 +210,9 @@
           <defval>1e-5</defval>
         </param>
         <briefdescription>
-<para>equilibrium is a pure strategy </para>
+<para>Return a bool indicating whether the equilibrium is a pure strategy. </para>
         </briefdescription>
         <detaileddescription>
-<para>Return a bool indicating whether the </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>

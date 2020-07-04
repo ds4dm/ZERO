@@ -9,18 +9,18 @@
     <includes refid="epec__combinatorialpne_8h" local="yes">epec_combinatorialpne.h</includes>
     <includes refid="epec__fullenumeration_8h" local="yes">epec_fullenumeration.h</includes>
     <includes refid="epec__innerapproximation_8h" local="yes">epec_innerapproximation.h</includes>
-    <includedby refid="epec__polybase_8cpp" local="yes">src/games/algorithms/EPEC/epec_polybase.cpp</includedby>
     <includedby refid="epec__algorithms_8h" local="yes">include/games/algorithms/EPEC/epec_algorithms.h</includedby>
     <includedby refid="epec__combinatorialpne_8h" local="yes">include/games/algorithms/EPEC/epec_combinatorialpne.h</includedby>
     <includedby refid="epec__fullenumeration_8h" local="yes">include/games/algorithms/EPEC/epec_fullenumeration.h</includedby>
     <includedby refid="epec__innerapproximation_8h" local="yes">include/games/algorithms/EPEC/epec_innerapproximation.h</includedby>
+    <includedby refid="epec__polybase_8cpp" local="yes">src/games/algorithms/EPEC/epec_polybase.cpp</includedby>
     <incdepgraph>
       <node id="2">
         <label>epec_algorithms.h</label>
         <link refid="epec__algorithms_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="1" relation="include">
         </childnode>
@@ -57,7 +57,7 @@
         <childnode refid="15" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="26">
         <label>poly_lcp.h</label>
         <link refid="poly__lcp_8h"/>
         <childnode refid="3" relation="include">
@@ -75,7 +75,7 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="33">
         <label>epec_fullenumeration.h</label>
         <link refid="epec__fullenumeration_8h"/>
         <childnode refid="1" relation="include">
@@ -83,9 +83,19 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
+      <node id="21">
+        <label>ipg_algorithms.h</label>
+        <link refid="ipg__algorithms_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
       <node id="20">
         <label>algorithms/IPG/ipg_oracle.h</label>
         <link refid="ipg__oracle_8h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
@@ -101,7 +111,7 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="22">
         <label>games/nash.h</label>
         <link refid="nash_8h"/>
         <childnode refid="3" relation="include">
@@ -129,7 +139,7 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="33">
+      <node id="34">
         <label>epec_innerapproximation.h</label>
         <link refid="epec__innerapproximation_8h"/>
         <childnode refid="1" relation="include">
@@ -174,10 +184,10 @@
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="25">
         <label>outer_lcp.h</label>
         <link refid="outer__lcp_8h"/>
         <childnode refid="4" relation="include">
@@ -195,7 +205,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="28">
         <label>ip_param.h</label>
         <link refid="ip__param_8h"/>
         <childnode refid="10" relation="include">
@@ -218,7 +228,7 @@
       <node id="4">
         <label>armadillo</label>
       </node>
-      <node id="30">
+      <node id="31">
         <label>boost/log/trivial.hpp</label>
       </node>
       <node id="11">
@@ -250,10 +260,10 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
+        <childnode refid="23" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="27">
         <label>mathopt/mp_param/mp_param.h</label>
         <link refid="mp__param_8h"/>
         <childnode refid="3" relation="include">
@@ -270,9 +280,9 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
         <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
         </childnode>
       </node>
       <node id="9">
@@ -283,17 +293,17 @@
         <link refid="epec__polybase_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
+        <childnode refid="24" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
         <childnode refid="32" relation="include">
         </childnode>
         <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
         </childnode>
       </node>
       <node id="16">
@@ -302,7 +312,7 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="32">
         <label>epec_combinatorialpne.h</label>
         <link refid="epec__combinatorialpne_8h"/>
         <childnode refid="1" relation="include">
@@ -311,7 +321,7 @@
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="30" relation="include">
+        <childnode refid="31" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
@@ -350,7 +360,7 @@
       <node id="12">
         <label>gurobi_c++.h</label>
       </node>
-      <node id="23">
+      <node id="24">
         <label>lcp/lcp.h</label>
         <link refid="lcp_8h"/>
         <childnode refid="3" relation="include">
@@ -365,15 +375,15 @@
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
         <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
         </childnode>
       </node>
       <node id="15">
         <label>set</label>
       </node>
-      <node id="29">
+      <node id="30">
         <label>epec_outerapproximation.h</label>
         <link refid="epec__outerapproximation_8h"/>
         <childnode refid="2" relation="include">
@@ -393,7 +403,7 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="29">
         <label>qp_param.h</label>
         <link refid="qp__param_8h"/>
         <childnode refid="3" relation="include">
@@ -414,7 +424,7 @@
       <node id="7">
         <label>memory</label>
       </node>
-      <node id="22">
+      <node id="23">
         <label>mathopt/mathopt.h</label>
         <link refid="mathopt_8h"/>
         <childnode refid="3" relation="include">
@@ -429,52 +439,52 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
+        <childnode refid="24" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
+        <childnode refid="27" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="3">
+      <node id="2">
         <label>include/games/algorithms/EPEC/epec_algorithms.h</label>
         <link refid="epec__algorithms_8h"/>
-        <childnode refid="4" relation="include">
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="1" relation="include">
-        </childnode>
       </node>
-      <node id="9">
+      <node id="8">
         <label>src/games/algorithms/EPEC/epec_innerapproximation.cpp</label>
         <link refid="epec__innerapproximation_8cpp"/>
       </node>
-      <node id="10">
+      <node id="9">
         <label>include/games/algorithms/EPEC/epec_fullenumeration.h</label>
         <link refid="epec__fullenumeration_8h"/>
-        <childnode refid="11" relation="include">
-        </childnode>
         <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>include/games/algorithms/EPEC/epec_innerapproximation.h</label>
+        <link refid="epec__innerapproximation_8h"/>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
         </childnode>
       </node>
       <node id="12">
-        <label>include/games/algorithms/EPEC/epec_innerapproximation.h</label>
-        <link refid="epec__innerapproximation_8h"/>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="1" relation="include">
-        </childnode>
-      </node>
-      <node id="2">
         <label>src/games/algorithms/EPEC/epec_polybase.cpp</label>
         <link refid="epec__polybase_8cpp"/>
       </node>
-      <node id="4">
+      <node id="5">
         <label>src/games/epec.cpp</label>
         <link refid="games_2epec_8cpp"/>
       </node>
-      <node id="8">
+      <node id="7">
         <label>src/games/algorithms/EPEC/epec_combinatorialpne.cpp</label>
         <link refid="epec__combinatorialpne_8cpp"/>
       </node>
@@ -483,39 +493,39 @@
         <link refid="epec__polybase_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="3" relation="include">
+        <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
+        <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="7">
+      <node id="6">
         <label>include/games/algorithms/EPEC/epec_combinatorialpne.h</label>
         <link refid="epec__combinatorialpne_8h"/>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
         <childnode refid="1" relation="include">
         </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
       </node>
-      <node id="11">
+      <node id="10">
         <label>src/games/algorithms/EPEC/epec_fullenumeration.cpp</label>
         <link refid="epec__fullenumeration_8cpp"/>
       </node>
-      <node id="6">
+      <node id="4">
         <label>src/games/algorithms/EPEC/epec_outerapproximation.cpp</label>
         <link refid="epec__outerapproximation_8cpp"/>
       </node>
-      <node id="5">
+      <node id="3">
         <label>include/games/algorithms/EPEC/epec_outerapproximation.h</label>
         <link refid="epec__outerapproximation_8h"/>
-        <childnode refid="6" relation="include">
+        <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="3" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
     </invincdepgraph>

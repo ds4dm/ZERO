@@ -51,9 +51,9 @@ Included By
 -----------
 
 
-- :ref:`file_src_mathopt_mathopt.cpp`
-
 - :ref:`file_include_zero.h`
+
+- :ref:`file_src_mathopt_mathopt.cpp`
 
 
 
@@ -81,6 +81,8 @@ Functions
 - :ref:`exhale_function_namespace_math_opt_1af3d7bfcf9b11cefb7f4521d685211934`
 
 - :ref:`exhale_function_namespace_math_opt_1a0a13d06524e3ad2baf756e15a794a745`
+
+- :ref:`exhale_function_namespace_math_opt_1aabf121bcb871000488825dd64750500c`
 
 - :ref:`exhale_function_namespace_math_opt_1aa4eaa00160eb2098969ef087c92eea5d`
 

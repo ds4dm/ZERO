@@ -51,11 +51,11 @@ Included By
 -----------
 
 
-- :ref:`file_src_mathopt_lcp_lcp.cpp`
-
 - :ref:`file_include_games_algorithms_EPEC_epec_polybase.h`
 
 - :ref:`file_include_mathopt_mathopt.h`
+
+- :ref:`file_src_mathopt_lcp_lcp.cpp`
 
 
 

@@ -43,7 +43,7 @@
         <childnode refid="15" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="28">
         <label>poly_lcp.h</label>
         <link refid="poly__lcp_8h"/>
         <childnode refid="3" relation="include">
@@ -61,9 +61,19 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
+      <node id="21">
+        <label>ipg_algorithms.h</label>
+        <link refid="ipg__algorithms_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
       <node id="20">
         <label>algorithms/IPG/ipg_oracle.h</label>
         <link refid="ipg__oracle_8h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
@@ -79,7 +89,7 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="22">
         <label>games/nash.h</label>
         <link refid="nash_8h"/>
         <childnode refid="3" relation="include">
@@ -132,10 +142,10 @@
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="27">
         <label>outer_lcp.h</label>
         <link refid="outer__lcp_8h"/>
         <childnode refid="4" relation="include">
@@ -153,7 +163,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="25">
         <label>ip_param.h</label>
         <link refid="ip__param_8h"/>
         <childnode refid="10" relation="include">
@@ -176,7 +186,7 @@
       <node id="4">
         <label>armadillo</label>
       </node>
-      <node id="29">
+      <node id="30">
         <label>boost/log/trivial.hpp</label>
       </node>
       <node id="11">
@@ -190,11 +200,11 @@
         <link refid="lcp_8cpp"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
+        <childnode refid="29" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
@@ -228,10 +238,10 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
+        <childnode refid="23" relation="include">
         </childnode>
       </node>
-      <node id="23">
+      <node id="24">
         <label>mathopt/mp_param/mp_param.h</label>
         <link refid="mp__param_8h"/>
         <childnode refid="3" relation="include">
@@ -248,9 +258,9 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
         <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
         </childnode>
       </node>
       <node id="9">
@@ -303,15 +313,15 @@
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
         <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
         </childnode>
       </node>
       <node id="15">
         <label>set</label>
       </node>
-      <node id="25">
+      <node id="26">
         <label>qp_param.h</label>
         <link refid="qp__param_8h"/>
         <childnode refid="3" relation="include">
@@ -329,13 +339,13 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="29">
         <label>algorithm</label>
       </node>
       <node id="7">
         <label>memory</label>
       </node>
-      <node id="22">
+      <node id="23">
         <label>mathopt/mathopt.h</label>
         <link refid="mathopt_8h"/>
         <childnode refid="3" relation="include">
@@ -352,7 +362,7 @@
         </childnode>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
+        <childnode refid="24" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -383,12 +393,12 @@
 <codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="22"><highlight class="normal"></highlight></codeline>
-<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_math_opt_1_1_l_c_p_1a8e481dfd12ac9d6090370e8d15e80c2f" kindref="member">MathOpt::LCP::defConst</ref>(GRBEnv<sp/>*env)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>MathOpt::LCP::defConst(GRBEnv<sp/>*env)</highlight></codeline>
 <codeline lineno="29"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/>this-&gt;<ref refid="class_math_opt_1_1_l_c_p_1a0e47a3545027a6d9d26d1e3e499b24a2" kindref="member">RlxdModel</ref>.set(GRB_IntParam_OutputFlag,<sp/>0);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/>this-&gt;RlxdModel.set(GRB_IntParam_OutputFlag,<sp/>0);</highlight></codeline>
 <codeline lineno="31"><highlight class="normal"><sp/><sp/>this-&gt;<ref refid="class_math_opt_1_1_l_c_p_1addeb38537d9e7cf4223fd2ba33bf72dc" kindref="member">Env</ref><sp/>=<sp/>env;</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/>this-&gt;<ref refid="class_math_opt_1_1_l_c_p_1a07fa9bee7040e1e5103a3933dec33b9f" kindref="member">nR</ref><sp/><sp/>=<sp/>this-&gt;<ref refid="class_math_opt_1_1_l_c_p_1a4e0d245b9c77ff47fc160df5edcfe3b5" kindref="member">M</ref>.n_rows;</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/>this-&gt;<ref refid="class_math_opt_1_1_l_c_p_1a39957fb3b0729294ea8ec7a71465a22e" kindref="member">nC</ref><sp/><sp/>=<sp/>this-&gt;<ref refid="class_math_opt_1_1_l_c_p_1a4e0d245b9c77ff47fc160df5edcfe3b5" kindref="member">M</ref>.n_cols;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>this-&gt;nR<sp/><sp/>=<sp/>this-&gt;<ref refid="class_math_opt_1_1_l_c_p_1a4e0d245b9c77ff47fc160df5edcfe3b5" kindref="member">M</ref>.n_rows;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>this-&gt;nC<sp/><sp/>=<sp/>this-&gt;<ref refid="class_math_opt_1_1_l_c_p_1a4e0d245b9c77ff47fc160df5edcfe3b5" kindref="member">M</ref>.n_cols;</highlight></codeline>
 <codeline lineno="34"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="35"><highlight class="normal"></highlight></codeline>
 <codeline lineno="36"><highlight class="normal"><ref refid="class_math_opt_1_1_l_c_p_1a3c5956541410e906ce7d5c1ad844ba3e" kindref="member">MathOpt::LCP::LCP</ref>(GRBEnv<sp/>*<sp/><sp/><sp/><sp/><sp/>env,<sp/><sp/><sp/></highlight></codeline>
@@ -477,45 +487,45 @@
 <codeline lineno="132"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="133"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="134"><highlight class="normal"></highlight></codeline>
-<codeline lineno="135"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_math_opt_1_1_l_c_p_1ac5d12cc6265d68850db41c47e69b7c4b" kindref="member">MathOpt::LCP::makeRelaxed</ref>()</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>MathOpt::LCP::makeRelaxed()</highlight></codeline>
 <codeline lineno="141"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="142"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this-&gt;<ref refid="class_math_opt_1_1_l_c_p_1ab6a55bca1cd889aa17ef14f5301a70bc" kindref="member">MadeRlxdModel</ref>)</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this-&gt;MadeRlxdModel)</highlight></codeline>
 <codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>BOOST_LOG_TRIVIAL(trace)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;MathOpt::LCP::makeRelaxed:<sp/>Creating<sp/>a<sp/>model<sp/>with<sp/>:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="class_math_opt_1_1_l_c_p_1a07fa9bee7040e1e5103a3933dec33b9f" kindref="member">nR</ref></highlight></codeline>
-<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>variables<sp/>and<sp/><sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="class_math_opt_1_1_l_c_p_1a39957fb3b0729294ea8ec7a71465a22e" kindref="member">nC</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>constraints&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>GRBVar<sp/>x[<ref refid="class_math_opt_1_1_l_c_p_1a39957fb3b0729294ea8ec7a71465a22e" kindref="member">nC</ref>],<sp/>z[<ref refid="class_math_opt_1_1_l_c_p_1a07fa9bee7040e1e5103a3933dec33b9f" kindref="member">nR</ref>];</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>BOOST_LOG_TRIVIAL(trace)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;MathOpt::LCP::makeRelaxed:<sp/>Creating<sp/>a<sp/>model<sp/>with<sp/>:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>nR</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>variables<sp/>and<sp/><sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>nC<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>constraints&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>GRBVar<sp/>x[nC],<sp/>z[nR];</highlight></codeline>
 <codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>BOOST_LOG_TRIVIAL(trace)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;MathOpt::LCP::makeRelaxed:<sp/>Initializing<sp/>variables&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="class_math_opt_1_1_l_c_p_1a39957fb3b0729294ea8ec7a71465a22e" kindref="member">nC</ref>;<sp/>i++)</highlight></codeline>
-<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x[i]<sp/>=<sp/><ref refid="class_math_opt_1_1_l_c_p_1a0e47a3545027a6d9d26d1e3e499b24a2" kindref="member">RlxdModel</ref>.addVar(0,<sp/>GRB_INFINITY,<sp/>1,<sp/>GRB_CONTINUOUS,<sp/></highlight><highlight class="stringliteral">&quot;x_&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(i));</highlight></codeline>
-<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="class_math_opt_1_1_l_c_p_1a07fa9bee7040e1e5103a3933dec33b9f" kindref="member">nR</ref>;<sp/>i++)</highlight></codeline>
-<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>z[i]<sp/>=<sp/><ref refid="class_math_opt_1_1_l_c_p_1a0e47a3545027a6d9d26d1e3e499b24a2" kindref="member">RlxdModel</ref>.addVar(0,<sp/>GRB_INFINITY,<sp/>1,<sp/>GRB_CONTINUOUS,<sp/></highlight><highlight class="stringliteral">&quot;z_&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(i));</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>nC;<sp/>i++)</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x[i]<sp/>=<sp/>RlxdModel.addVar(0,<sp/>GRB_INFINITY,<sp/>1,<sp/>GRB_CONTINUOUS,<sp/></highlight><highlight class="stringliteral">&quot;x_&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(i));</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>nR;<sp/>i++)</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>z[i]<sp/>=<sp/>RlxdModel.addVar(0,<sp/>GRB_INFINITY,<sp/>1,<sp/>GRB_CONTINUOUS,<sp/></highlight><highlight class="stringliteral">&quot;z_&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(i));</highlight></codeline>
 <codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>BOOST_LOG_TRIVIAL(trace)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;MathOpt::LCP::makeRelaxed:<sp/>Added<sp/>variables&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="class_math_opt_1_1_l_c_p_1a07fa9bee7040e1e5103a3933dec33b9f" kindref="member">nR</ref>;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>nR;<sp/>i++)<sp/>{</highlight></codeline>
 <codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GRBLinExpr<sp/>expr<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>v<sp/>=<sp/><ref refid="class_math_opt_1_1_l_c_p_1a4e0d245b9c77ff47fc160df5edcfe3b5" kindref="member">M</ref>.begin_row(i);<sp/>v<sp/>!=<sp/><ref refid="class_math_opt_1_1_l_c_p_1a4e0d245b9c77ff47fc160df5edcfe3b5" kindref="member">M</ref>.end_row(i);<sp/>++v)</highlight></codeline>
 <codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>expr<sp/>+=<sp/>(*v)<sp/>*<sp/>x[v.col()];</highlight></codeline>
 <codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>expr<sp/>+=<sp/><ref refid="class_math_opt_1_1_l_c_p_1ad99482b12ec46aabc831b55c28b49bbe" kindref="member">q</ref>(i);</highlight></codeline>
-<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_math_opt_1_1_l_c_p_1a0e47a3545027a6d9d26d1e3e499b24a2" kindref="member">RlxdModel</ref>.addConstr(expr,<sp/>GRB_EQUAL,<sp/>z[i],<sp/></highlight><highlight class="stringliteral">&quot;z_&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(i)<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;_def&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RlxdModel.addConstr(expr,<sp/>GRB_EQUAL,<sp/>z[i],<sp/></highlight><highlight class="stringliteral">&quot;z_&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(i)<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;_def&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>BOOST_LOG_TRIVIAL(trace)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;MathOpt::LCP::makeRelaxed:<sp/>Added<sp/>equation<sp/>definitions&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>If<sp/>@f$Ax<sp/>\leq<sp/>b@f$<sp/>constraints<sp/>are<sp/>there,<sp/>they<sp/>should<sp/>be<sp/>included<sp/>too!</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this-&gt;<ref refid="class_math_opt_1_1_l_c_p_1ab0e3f41a96438e66929d6d1846d81cd3" kindref="member">_A</ref>.n_nonzero<sp/>!=<sp/>0<sp/>&amp;&amp;<sp/>this-&gt;_b.n_rows<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_math_opt_1_1_l_c_p_1ab0e3f41a96438e66929d6d1846d81cd3" kindref="member">_A</ref>.n_cols<sp/>!=<sp/><ref refid="class_math_opt_1_1_l_c_p_1a39957fb3b0729294ea8ec7a71465a22e" kindref="member">nC</ref><sp/>||<sp/><ref refid="class_math_opt_1_1_l_c_p_1ab0e3f41a96438e66929d6d1846d81cd3" kindref="member">_A</ref>.n_rows<sp/>!=<sp/><ref refid="class_math_opt_1_1_l_c_p_1a6d68d41581d8d52c72fc0e078d11cd4d" kindref="member">_b</ref>.n_rows)<sp/>{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_math_opt_1_1_l_c_p_1ab0e3f41a96438e66929d6d1846d81cd3" kindref="member">_A</ref>.n_cols<sp/>!=<sp/>nC<sp/>||<sp/><ref refid="class_math_opt_1_1_l_c_p_1ab0e3f41a96438e66929d6d1846d81cd3" kindref="member">_A</ref>.n_rows<sp/>!=<sp/><ref refid="class_math_opt_1_1_l_c_p_1a6d68d41581d8d52c72fc0e078d11cd4d" kindref="member">_b</ref>.n_rows)<sp/>{</highlight></codeline>
 <codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_LOG_TRIVIAL(trace)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;(&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="class_math_opt_1_1_l_c_p_1ab0e3f41a96438e66929d6d1846d81cd3" kindref="member">_A</ref>.n_rows<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="class_math_opt_1_1_l_c_p_1ab0e3f41a96438e66929d6d1846d81cd3" kindref="member">_A</ref>.n_cols<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;)\t&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="class_math_opt_1_1_l_c_p_1a6d68d41581d8d52c72fc0e078d11cd4d" kindref="member">_b</ref>.n_rows</highlight></codeline>
-<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="class_math_opt_1_1_l_c_p_1a39957fb3b0729294ea8ec7a71465a22e" kindref="member">nC</ref>;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>nC;</highlight></codeline>
 <codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="class_z_e_r_o_exception" kindref="compound">ZEROException</ref>(<ref refid="codes_8h_1aec3f6d9705d82787080ef99b37b7efeaa3c4b6828f5a12280debdb5a12e0e72ba" kindref="member">ZEROErrorCode::InvalidData</ref>,<sp/></highlight><highlight class="stringliteral">&quot;A<sp/>and<sp/>b<sp/>are<sp/>incompatible&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="class_math_opt_1_1_l_c_p_1ab0e3f41a96438e66929d6d1846d81cd3" kindref="member">_A</ref>.n_rows;<sp/>i++)<sp/>{</highlight></codeline>
 <codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GRBLinExpr<sp/>expr<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>a<sp/>=<sp/><ref refid="class_math_opt_1_1_l_c_p_1ab0e3f41a96438e66929d6d1846d81cd3" kindref="member">_A</ref>.begin_row(i);<sp/>a<sp/>!=<sp/><ref refid="class_math_opt_1_1_l_c_p_1ab0e3f41a96438e66929d6d1846d81cd3" kindref="member">_A</ref>.end_row(i);<sp/>++a)</highlight></codeline>
 <codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>expr<sp/>+=<sp/>(*a)<sp/>*<sp/>x[a.col()];</highlight></codeline>
-<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_math_opt_1_1_l_c_p_1a0e47a3545027a6d9d26d1e3e499b24a2" kindref="member">RlxdModel</ref>.addConstr(expr,<sp/>GRB_LESS_EQUAL,<sp/><ref refid="class_math_opt_1_1_l_c_p_1a6d68d41581d8d52c72fc0e078d11cd4d" kindref="member">_b</ref>(i),<sp/></highlight><highlight class="stringliteral">&quot;commonCons_&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(i));</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RlxdModel.addConstr(expr,<sp/>GRB_LESS_EQUAL,<sp/><ref refid="class_math_opt_1_1_l_c_p_1a6d68d41581d8d52c72fc0e078d11cd4d" kindref="member">_b</ref>(i),<sp/></highlight><highlight class="stringliteral">&quot;commonCons_&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(i));</highlight></codeline>
 <codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_LOG_TRIVIAL(trace)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;MathOpt::LCP::makeRelaxed:<sp/>Added<sp/>common<sp/>constraints&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_math_opt_1_1_l_c_p_1a0e47a3545027a6d9d26d1e3e499b24a2" kindref="member">RlxdModel</ref>.update();</highlight></codeline>
-<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_math_opt_1_1_l_c_p_1ab6a55bca1cd889aa17ef14f5301a70bc" kindref="member">MadeRlxdModel</ref><sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>RlxdModel.update();</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>this-&gt;MadeRlxdModel<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="179"><highlight class="normal"></highlight></codeline>
 <codeline lineno="180"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(GRBException<sp/>&amp;e)<sp/>{</highlight></codeline>
 <codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="class_z_e_r_o_exception" kindref="compound">ZEROException</ref>(e);</highlight></codeline>
@@ -638,7 +648,7 @@
 <codeline lineno="320"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="321"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="322"><highlight class="normal"></highlight></codeline>
-<codeline lineno="323"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_math_opt_1_1_l_c_p_1ab73a1b2e9b4343a90974e0d07922541b" kindref="member">MathOpt::LCP::errorCheck</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>throwErr<sp/></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>MathOpt::LCP::errorCheck(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>throwErr<sp/></highlight></codeline>
 <codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)<sp/></highlight><highlight class="keyword">const</highlight></codeline>
 <codeline lineno="330"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="331"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nR_t<sp/>=<sp/>M.n_rows;</highlight></codeline>
@@ -960,7 +970,7 @@
 <codeline lineno="727"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><sp/><sp/><sp/>RHS,<sp/></highlight></codeline>
 <codeline lineno="728"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tol<sp/><sp/></highlight></codeline>
 <codeline lineno="729"><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="735"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespace_utils_1a011561a3cbaf28e7e6cb4f802ec9ed91" kindref="member">Utils::containsConstraint</ref>(this-&gt;_Acut,<sp/>this-&gt;_bcut,<sp/>LHS,<sp/>RHS,<sp/>tol);</highlight></codeline>
+<codeline lineno="735"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespace_utils_1a03c80abd5bb5411608a27a29bf29cfe2" kindref="member">Utils::containsConstraint</ref>(this-&gt;_Acut,<sp/>this-&gt;_bcut,<sp/>LHS,<sp/>RHS,<sp/>tol);</highlight></codeline>
 <codeline lineno="736"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="737"><highlight class="normal"></highlight></codeline>
 <codeline lineno="738"><highlight class="normal">std::string<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespace_data_1_1_l_c_p_1aa8773225c810ac45575f86ac803105ab" kindref="member">Data::LCP::PolyhedraStrategy</ref><sp/>add)<sp/>{</highlight></codeline>

@@ -1,0 +1,13 @@
+.. _exhale_function_namespace_models_1_1_e_p_e_c_1aea666749029b52e914764ccb9fd3cea8:
+
+Function Models::EPEC::increaseVal
+==================================
+
+- Defined in :ref:`file_include_interfaces_epec_models.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: Models::EPEC::increaseVal(LeadLocs&, const LeaderVars, const unsigned int, const bool)

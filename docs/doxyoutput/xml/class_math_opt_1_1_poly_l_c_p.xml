@@ -56,10 +56,10 @@
         <initializer>=
 		  {}</initializer>
         <briefdescription>
-<para>Decimal encoding of polyhedra that have been enumerated. </para>
+<para><ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> feasible region is a union of polyhedra. Keeps track which of those inequalities are fixed to equality to get the individual polyhedra. </para>
         </briefdescription>
         <detaileddescription>
-<para><ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> feasible region is a union of polyhedra. Keeps track which of those inequalities are fixed to equality to get the individual polyhedra </para>
+<para>Decimal encoding of polyhedra that have been enumerated </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -121,10 +121,9 @@
         <initializer>= {
 		  -1}</initializer>
         <briefdescription>
-<para>Should be a positive value. </para>
+<para>Seeds the Random generator for the Random polyhedra selection. Should be a positive value. </para>
         </briefdescription>
         <detaileddescription>
-<para>Seeds the Random generator for the Random polyhedra selection. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -450,7 +449,7 @@
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
-<para>Check whether the given polyhedron is or is not feasible. @detail Given a +1/-1 encoding of a polyhedron, first checks if the polyhedron is a previously known feasible polyhedron or previously known infeasible polyhedron. If yes, returns the result appropriately. If not, solves a linear program to decide the feasibility of the given polyhedra.</para>
+<para>Check whether the given polyhedron is or is not feasible. Given a +1/-1 encoding of a polyhedron, first checks if the polyhedron is a previously known feasible polyhedron or previously known infeasible polyhedron. If yes, returns the result appropriately. If not, solves a linear program to decide the feasibility of the given polyhedra.</para>
 <para>Not <computeroutput>const</computeroutput> because it could update <ref refid="class_math_opt_1_1_poly_l_c_p_1a7122e88a2136476d1985e612aea1a08d" kindref="member">MathOpt::PolyLCP::InfeasiblePoly</ref> and <ref refid="class_math_opt_1_1_poly_l_c_p_1ad962f5694ca99925cb511c87e3a18304" kindref="member">MathOpt::PolyLCP::FeasiblePoly</ref>.</para>
         </inbodydescription>
         <location file="include/mathopt/lcp/poly_lcp.h" line="86" column="7" bodyfile="src/mathopt/lcp/poly_lcp.cpp" bodystart="446" bodyend="508"/>
@@ -506,7 +505,7 @@
 <para>Brute force computation of <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> feasible region. </para>
         </briefdescription>
         <detaileddescription>
-<para>Computes all <formula id="24">$2^n$</formula> polyhedra defining the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> feasible region. Th ese are always added to <ref refid="class_math_opt_1_1_l_c_p_1af19b7809bfaf15311371d9a7ce3b9a9e" kindref="member">LCP::Ai</ref> and <ref refid="class_math_opt_1_1_l_c_p_1a5b68d054b67aab64a123395ec12f4ba8" kindref="member">LCP::bi</ref> </para>
+<para>Computes all <formula id="30">$2^n$</formula> polyhedra defining the <ref refid="class_math_opt_1_1_l_c_p" kindref="compound">LCP</ref> feasible region. Th ese are always added to <ref refid="class_math_opt_1_1_l_c_p_1af19b7809bfaf15311371d9a7ce3b9a9e" kindref="member">LCP::Ai</ref> and <ref refid="class_math_opt_1_1_l_c_p_1a5b68d054b67aab64a123395ec12f4ba8" kindref="member">LCP::bi</ref> </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -571,9 +570,7 @@
     <location file="include/mathopt/lcp/poly_lcp.h" line="24" column="27" bodyfile="include/mathopt/lcp/poly_lcp.h" bodystart="24" bodyend="96"/>
     <listofallmembers>
       <member refid="class_math_opt_1_1_l_c_p_1ab0e3f41a96438e66929d6d1846d81cd3" prot="protected" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>_A</name></member>
-      <member refid="class_math_opt_1_1_l_c_p_1ac2b4526135fb3ac4f70c6ee5f7b4cf65" prot="protected" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>_Acut</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1a6d68d41581d8d52c72fc0e078d11cd4d" prot="protected" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>_b</name></member>
-      <member refid="class_math_opt_1_1_l_c_p_1a086d7e92afd51302f70f2288ade6f512" prot="protected" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>_bcut</name></member>
       <member refid="class_math_opt_1_1_poly_l_c_p_1a1f2925288011d11c496cfa5b737dfa0b" prot="public" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>addAPoly</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1abb3d2bcb70270704f7b96cd406d681e2" prot="public" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>addCustomCuts</name></member>
       <member refid="class_math_opt_1_1_poly_l_c_p_1aa8450eefba5e3314531da61c24834981" prot="private" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>addPoliesFromEncoding</name></member>
@@ -594,12 +591,10 @@
       <member refid="class_math_opt_1_1_poly_l_c_p_1a32a725d75b2cd80d2216b8205134034f" prot="public" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>convNumPoly</name></member>
       <member refid="class_math_opt_1_1_poly_l_c_p_1ad40f1aa516b67c372228e81a5ec10c3f" prot="public" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>convPolyPosition</name></member>
       <member refid="class_math_opt_1_1_poly_l_c_p_1ac72e99768d37fafac502070c3a9a39d4" prot="public" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>convPolyWeight</name></member>
-      <member refid="class_math_opt_1_1_l_c_p_1a8e481dfd12ac9d6090370e8d15e80c2f" prot="protected" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>defConst</name></member>
       <member refid="class_math_opt_1_1_poly_l_c_p_1ae8680cc331be8b9b068038e9f49d84e1" prot="public" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>enumerateAll</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1addeb38537d9e7cf4223fd2ba33bf72dc" prot="protected" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>Env</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1a59bf18d06c235e380dc2f3a6f1419ab5" prot="public" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>Eps</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1a424a4d9eb7509a97d9cf4b800d957cb0" prot="public" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>EpsInt</name></member>
-      <member refid="class_math_opt_1_1_l_c_p_1ab73a1b2e9b4343a90974e0d07922541b" prot="protected" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>errorCheck</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1a21b65610e8c23cbfb018d8d61ad2aa30" prot="public" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>extractSols</name></member>
       <member refid="class_math_opt_1_1_poly_l_c_p_1aaa14174641821a6951ab8fcd8193a37e" prot="public" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>feasabilityDetailString</name></member>
       <member refid="class_math_opt_1_1_poly_l_c_p_1ad962f5694ca99925cb511c87e3a18304" prot="private" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>FeasiblePoly</name></member>
@@ -634,20 +629,15 @@
       <member refid="class_math_opt_1_1_l_c_p_1ab74625ec0c212d9d3c40ad8870741515" prot="protected" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>LeadStart</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1a71496aeafa52792d00211240f51aa5ce" prot="public" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>load</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1a4e0d245b9c77ff47fc160df5edcfe3b5" prot="protected" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>M</name></member>
-      <member refid="class_math_opt_1_1_l_c_p_1ab6a55bca1cd889aa17ef14f5301a70bc" prot="protected" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>MadeRlxdModel</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1a59993bce1206d9d5dfa04c616ea572e6" prot="public" virt="virtual"><scope>MathOpt::PolyLCP</scope><name>makeQP</name></member>
-      <member refid="class_math_opt_1_1_l_c_p_1ac5d12cc6265d68850db41c47e69b7c4b" prot="protected" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>makeRelaxed</name></member>
       <member refid="class_math_opt_1_1_poly_l_c_p_1ac1da99adac1bc2319d98469d4b7a6095" prot="private" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>MaxTheoreticalPoly</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1a9aef94716ce8262f55ee7c49d4398f74" prot="public" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>MPECasMILP</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1ac5053d434e646ec85b9d276aedee5bcd" prot="public" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>MPECasMIQP</name></member>
-      <member refid="class_math_opt_1_1_l_c_p_1a39957fb3b0729294ea8ec7a71465a22e" prot="protected" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>nC</name></member>
-      <member refid="class_math_opt_1_1_l_c_p_1a07fa9bee7040e1e5103a3933dec33b9f" prot="protected" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>nR</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1ae64bd8eab0264253a226b482b1cdaa99" prot="protected" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>NumberLeader</name></member>
       <member refid="class_math_opt_1_1_poly_l_c_p_1a99a436649fd0660fc858b13eab382366" prot="public" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>PolyLCP</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1ace92b15384c30cf9099a8b03eedb0fe0" prot="public" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>print</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1ad99482b12ec46aabc831b55c28b49bbe" prot="protected" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>q</name></member>
       <member refid="class_math_opt_1_1_poly_l_c_p_1ab43383118b5bcce85fb3f828361bd545" prot="private" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>ReverseSequentialPolyCounter</name></member>
-      <member refid="class_math_opt_1_1_l_c_p_1a0e47a3545027a6d9d26d1e3e499b24a2" prot="protected" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>RlxdModel</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1a8bedfd755996b18fa86121ffaabb92d0" prot="public" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>save</name></member>
       <member refid="class_math_opt_1_1_poly_l_c_p_1af3a1691f40196980cb8ee61a6e0d91af" prot="private" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>SequentialPolyCounter</name></member>
       <member refid="class_math_opt_1_1_l_c_p_1ad59aa4e9848f45e477e67eb1e273c9ef" prot="protected" virt="non-virtual"><scope>MathOpt::PolyLCP</scope><name>solEncode</name></member>

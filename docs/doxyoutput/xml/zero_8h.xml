@@ -13,24 +13,19 @@
     <includes refid="version_8h" local="yes">support/version.h</includes>
     <includes refid="games_8h" local="yes">games/games.h</includes>
     <includes refid="mathopt_8h" local="yes">mathopt/mathopt.h</includes>
-    <includedby refid="epec__innerapproximation_8cpp" local="yes">src/games/algorithms/EPEC/epec_innerapproximation.cpp</includedby>
-    <includedby refid="epec__polybase_8cpp" local="yes">src/games/algorithms/EPEC/epec_polybase.cpp</includedby>
-    <includedby refid="ipg__oracle_8cpp" local="yes">src/games/algorithms/IPG/ipg_oracle.cpp</includedby>
-    <includedby refid="games_2epec_8cpp" local="yes">src/games/epec.cpp</includedby>
-    <includedby refid="games_8cpp" local="yes">src/games/games.cpp</includedby>
-    <includedby refid="poly__lcp_8cpp" local="yes">src/mathopt/lcp/poly_lcp.cpp</includedby>
-    <includedby refid="shells_2epec_8cpp" local="yes">src/shells/epec.cpp</includedby>
     <includedby refid="epec__algorithms_8h" local="yes">include/games/algorithms/EPEC/epec_algorithms.h</includedby>
     <includedby refid="epec__outerapproximation_8h" local="yes">include/games/algorithms/EPEC/epec_outerapproximation.h</includedby>
     <includedby refid="epec__polybase_8h" local="yes">include/games/algorithms/EPEC/epec_polybase.h</includedby>
     <includedby refid="epec__combinatorialpne_8h" local="yes">include/games/algorithms/EPEC/epec_combinatorialpne.h</includedby>
     <includedby refid="epec__fullenumeration_8h" local="yes">include/games/algorithms/EPEC/epec_fullenumeration.h</includedby>
     <includedby refid="epec__innerapproximation_8h" local="yes">include/games/algorithms/EPEC/epec_innerapproximation.h</includedby>
+    <includedby refid="ipg__algorithms_8h" local="yes">include/games/algorithms/IPG/ipg_algorithms.h</includedby>
     <includedby refid="ipg__oracle_8h" local="yes">include/games/algorithms/IPG/ipg_oracle.h</includedby>
     <includedby refid="epec_8h" local="yes">include/games/epec.h</includedby>
     <includedby refid="ipg_8h" local="yes">include/games/ipg.h</includedby>
     <includedby refid="nash_8h" local="yes">include/games/nash.h</includedby>
     <includedby refid="epec__models_8h" local="yes">include/interfaces/epec_models.h</includedby>
+    <includedby refid="ipg__models_8h" local="yes">include/interfaces/ipg_models.h</includedby>
     <includedby refid="lcp_8h" local="yes">include/mathopt/lcp/lcp.h</includedby>
     <includedby refid="outer__lcp_8h" local="no">include/mathopt/lcp/outer_lcp.h</includedby>
     <includedby refid="poly__lcp_8h" local="yes">include/mathopt/lcp/poly_lcp.h</includedby>
@@ -39,6 +34,14 @@
     <includedby refid="mp__param_8h" local="yes">include/mathopt/mp_param/mp_param.h</includedby>
     <includedby refid="qp__param_8h" local="yes">include/mathopt/mp_param/qp_param.h</includedby>
     <includedby refid="utils_8h" local="yes">include/support/utils.h</includedby>
+    <includedby refid="epec__innerapproximation_8cpp" local="yes">src/games/algorithms/EPEC/epec_innerapproximation.cpp</includedby>
+    <includedby refid="epec__polybase_8cpp" local="yes">src/games/algorithms/EPEC/epec_polybase.cpp</includedby>
+    <includedby refid="ipg__oracle_8cpp" local="yes">src/games/algorithms/IPG/ipg_oracle.cpp</includedby>
+    <includedby refid="games_2epec_8cpp" local="yes">src/games/epec.cpp</includedby>
+    <includedby refid="games_8cpp" local="yes">src/games/games.cpp</includedby>
+    <includedby refid="ipg_8cpp" local="yes">src/games/ipg.cpp</includedby>
+    <includedby refid="poly__lcp_8cpp" local="yes">src/mathopt/lcp/poly_lcp.cpp</includedby>
+    <includedby refid="shells_2epec_8cpp" local="yes">src/shells/epec.cpp</includedby>
     <incdepgraph>
       <node id="16">
         <label>games/epec.h</label>
@@ -72,7 +75,7 @@
         <childnode refid="13" relation="include">
         </childnode>
       </node>
-      <node id="23">
+      <node id="24">
         <label>poly_lcp.h</label>
         <link refid="poly__lcp_8h"/>
         <childnode refid="1" relation="include">
@@ -90,9 +93,19 @@
         <childnode refid="6" relation="include">
         </childnode>
       </node>
+      <node id="19">
+        <label>ipg_algorithms.h</label>
+        <link refid="ipg__algorithms_8h"/>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
       <node id="18">
         <label>algorithms/IPG/ipg_oracle.h</label>
         <link refid="ipg__oracle_8h"/>
+        <childnode refid="19" relation="include">
+        </childnode>
         <childnode refid="1" relation="include">
         </childnode>
         <childnode refid="2" relation="include">
@@ -108,7 +121,7 @@
         <childnode refid="6" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="20">
         <label>games/nash.h</label>
         <link refid="nash_8h"/>
         <childnode refid="1" relation="include">
@@ -161,10 +174,10 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="23">
         <label>outer_lcp.h</label>
         <link refid="outer__lcp_8h"/>
         <childnode refid="2" relation="include">
@@ -182,7 +195,7 @@
         <childnode refid="1" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="26">
         <label>ip_param.h</label>
         <link refid="ip__param_8h"/>
         <childnode refid="8" relation="include">
@@ -234,10 +247,10 @@
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="21" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="25">
         <label>mathopt/mp_param/mp_param.h</label>
         <link refid="mp__param_8h"/>
         <childnode refid="1" relation="include">
@@ -254,9 +267,9 @@
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
         <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
         </childnode>
       </node>
       <node id="7">
@@ -294,7 +307,7 @@
       <node id="10">
         <label>gurobi_c++.h</label>
       </node>
-      <node id="21">
+      <node id="22">
         <label>lcp/lcp.h</label>
         <link refid="lcp_8h"/>
         <childnode refid="1" relation="include">
@@ -309,15 +322,15 @@
         </childnode>
         <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
         <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
         </childnode>
       </node>
       <node id="13">
         <label>set</label>
       </node>
-      <node id="26">
+      <node id="27">
         <label>qp_param.h</label>
         <link refid="qp__param_8h"/>
         <childnode refid="1" relation="include">
@@ -338,7 +351,7 @@
       <node id="5">
         <label>memory</label>
       </node>
-      <node id="20">
+      <node id="21">
         <label>mathopt/mathopt.h</label>
         <link refid="mathopt_8h"/>
         <childnode refid="1" relation="include">
@@ -353,146 +366,160 @@
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+        <childnode refid="25" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="37">
+      <node id="38">
         <label>src/mathopt/mp_param/mp_param.cpp</label>
         <link refid="mp__param_8cpp"/>
       </node>
-      <node id="9">
+      <node id="2">
         <label>include/games/algorithms/EPEC/epec_algorithms.h</label>
         <link refid="epec__algorithms_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>include/games/epec.h</label>
+        <link refid="epec_8h"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>include/support/utils.h</label>
+        <link refid="utils_8h"/>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>src/mathopt/mp_param/ip_param.cpp</label>
+        <link refid="ip__param_8cpp"/>
+      </node>
+      <node id="8">
+        <label>src/games/algorithms/EPEC/epec_innerapproximation.cpp</label>
+        <link refid="epec__innerapproximation_8cpp"/>
+      </node>
+      <node id="34">
+        <label>include/mathopt/lcp/poly_lcp.h</label>
+        <link refid="poly__lcp_8h"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>include/games/algorithms/EPEC/epec_fullenumeration.h</label>
+        <link refid="epec__fullenumeration_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
-      </node>
-      <node id="22">
-        <label>include/games/epec.h</label>
-        <link refid="epec_8h"/>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-      </node>
-      <node id="40">
-        <label>include/support/utils.h</label>
-        <link refid="utils_8h"/>
-        <childnode refid="41" relation="include">
-        </childnode>
-        <childnode refid="1" relation="include">
-        </childnode>
       </node>
       <node id="35">
-        <label>src/mathopt/mp_param/ip_param.cpp</label>
-        <link refid="ip__param_8cpp"/>
-      </node>
-      <node id="2">
-        <label>src/games/algorithms/EPEC/epec_innerapproximation.cpp</label>
-        <link refid="epec__innerapproximation_8cpp"/>
-      </node>
-      <node id="33">
-        <label>include/mathopt/lcp/poly_lcp.h</label>
-        <link refid="poly__lcp_8h"/>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-      </node>
-      <node id="15">
-        <label>include/games/algorithms/EPEC/epec_fullenumeration.h</label>
-        <link refid="epec__fullenumeration_8h"/>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
-      </node>
-      <node id="7">
         <label>src/mathopt/lcp/poly_lcp.cpp</label>
         <link refid="poly__lcp_8cpp"/>
       </node>
-      <node id="18">
+      <node id="14">
+        <label>include/games/algorithms/IPG/ipg_algorithms.h</label>
+        <link refid="ipg__algorithms_8h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
         <label>include/games/algorithms/IPG/ipg_oracle.h</label>
         <link refid="ipg__oracle_8h"/>
-        <childnode refid="4" relation="include">
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
       </node>
-      <node id="23">
+      <node id="21">
         <label>include/games/nash.h</label>
         <link refid="nash_8h"/>
-        <childnode refid="24" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>include/games/algorithms/EPEC/epec_innerapproximation.h</label>
+        <link refid="epec__innerapproximation_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
         </childnode>
       </node>
       <node id="17">
-        <label>include/games/algorithms/EPEC/epec_innerapproximation.h</label>
-        <link refid="epec__innerapproximation_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
-      </node>
-      <node id="21">
         <label>include/games/games.h</label>
         <link refid="games_8h"/>
         <childnode refid="1" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="33">
         <label>src/mathopt/lcp/outer_lcp.cpp</label>
         <link refid="outer__lcp_8cpp"/>
       </node>
-      <node id="39">
+      <node id="41">
         <label>src/mathopt/mp_param/qp_param.cpp</label>
         <link refid="qp__param_8cpp"/>
       </node>
-      <node id="31">
+      <node id="32">
         <label>include/mathopt/lcp/outer_lcp.h</label>
         <link refid="outer__lcp_8h"/>
-        <childnode refid="32" relation="include">
+        <childnode refid="28" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
       </node>
-      <node id="34">
+      <node id="36">
         <label>include/mathopt/mp_param/ip_param.h</label>
         <link refid="ip__param_8h"/>
-        <childnode refid="35" relation="include">
+        <childnode refid="37" relation="include">
         </childnode>
-        <childnode refid="36" relation="include">
+        <childnode refid="39" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="23">
         <label>include/interfaces/epec_models.h</label>
         <link refid="epec__models_8h"/>
-        <childnode refid="26" relation="include">
+        <childnode refid="24" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="25" relation="include">
         </childnode>
       </node>
-      <node id="3">
+      <node id="12">
         <label>src/games/algorithms/EPEC/epec_polybase.cpp</label>
         <link refid="epec__polybase_8cpp"/>
       </node>
-      <node id="8">
+      <node id="25">
         <label>src/shells/epec.cpp</label>
         <link refid="shells_2epec_8cpp"/>
       </node>
-      <node id="28">
+      <node id="31">
         <label>src/mathopt/lcp/lcp.cpp</label>
         <link refid="lcp_8cpp"/>
+      </node>
+      <node id="27">
+        <label>src/interfaces/ipg_models.cpp</label>
+        <link refid="ipg__models_8cpp"/>
       </node>
       <node id="1">
         <label>include/zero.h</label>
@@ -501,171 +528,183 @@
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
         <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
         <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
+        <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
-        <childnode refid="17" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="21" relation="include">
         </childnode>
         <childnode refid="23" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
+        <childnode refid="26" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
+        <childnode refid="28" relation="include">
         </childnode>
-        <childnode refid="31" relation="include">
-        </childnode>
-        <childnode refid="33" relation="include">
-        </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="32" relation="include">
         </childnode>
         <childnode refid="34" relation="include">
         </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
         <childnode refid="36" relation="include">
         </childnode>
-        <childnode refid="38" relation="include">
+        <childnode refid="37" relation="include">
         </childnode>
         <childnode refid="40" relation="include">
         </childnode>
-      </node>
-      <node id="6">
-        <label>src/games/games.cpp</label>
-        <link refid="games_8cpp"/>
-      </node>
-      <node id="36">
-        <label>include/mathopt/mp_param/mp_param.h</label>
-        <link refid="mp__param_8h"/>
-        <childnode refid="37" relation="include">
+        <childnode refid="42" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="8" relation="include">
         </childnode>
-      </node>
-      <node id="41">
-        <label>src/support/utils.cpp</label>
-        <link refid="utils_8cpp"/>
-      </node>
-      <node id="20">
-        <label>src/games/ipg.cpp</label>
-        <link refid="ipg_8cpp"/>
-      </node>
-      <node id="5">
-        <label>src/games/epec.cpp</label>
-        <link refid="games_2epec_8cpp"/>
-      </node>
-      <node id="14">
-        <label>src/games/algorithms/EPEC/epec_combinatorialpne.cpp</label>
-        <link refid="epec__combinatorialpne_8cpp"/>
-      </node>
-      <node id="24">
-        <label>src/games/nash.cpp</label>
-        <link refid="nash_8cpp"/>
-      </node>
-      <node id="12">
-        <label>include/games/algorithms/EPEC/epec_polybase.h</label>
-        <link refid="epec__polybase_8h"/>
-        <childnode refid="3" relation="include">
+        <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
         <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
+        <childnode refid="44" relation="include">
         </childnode>
-        <childnode refid="17" relation="include">
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
         </childnode>
       </node>
-      <node id="13">
-        <label>include/games/algorithms/EPEC/epec_combinatorialpne.h</label>
-        <link refid="epec__combinatorialpne_8h"/>
-        <childnode refid="14" relation="include">
+      <node id="44">
+        <label>src/games/games.cpp</label>
+        <link refid="games_8cpp"/>
+      </node>
+      <node id="37">
+        <label>include/mathopt/mp_param/mp_param.h</label>
+        <link refid="mp__param_8h"/>
+        <childnode refid="29" relation="include">
         </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>src/support/utils.cpp</label>
+        <link refid="utils_8cpp"/>
+      </node>
+      <node id="18">
+        <label>src/games/ipg.cpp</label>
+        <link refid="ipg_8cpp"/>
+      </node>
+      <node id="13">
+        <label>src/games/epec.cpp</label>
+        <link refid="games_2epec_8cpp"/>
+      </node>
+      <node id="7">
+        <label>src/games/algorithms/EPEC/epec_combinatorialpne.cpp</label>
+        <link refid="epec__combinatorialpne_8cpp"/>
+      </node>
+      <node id="22">
+        <label>src/games/nash.cpp</label>
+        <link refid="nash_8cpp"/>
+      </node>
+      <node id="5">
+        <label>include/games/algorithms/EPEC/epec_polybase.h</label>
+        <link refid="epec__polybase_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
         <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>include/games/algorithms/EPEC/epec_combinatorialpne.h</label>
+        <link refid="epec__combinatorialpne_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
         </childnode>
       </node>
       <node id="30">
         <label>src/mathopt/mathopt.cpp</label>
         <link refid="mathopt_8cpp"/>
       </node>
-      <node id="19">
+      <node id="16">
         <label>include/games/ipg.h</label>
         <link refid="ipg_8h"/>
-        <childnode refid="20" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="18" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="10">
         <label>src/games/algorithms/EPEC/epec_fullenumeration.cpp</label>
         <link refid="epec__fullenumeration_8cpp"/>
       </node>
-      <node id="11">
+      <node id="4">
         <label>src/games/algorithms/EPEC/epec_outerapproximation.cpp</label>
         <link refid="epec__outerapproximation_8cpp"/>
       </node>
-      <node id="27">
+      <node id="28">
         <label>include/mathopt/lcp/lcp.h</label>
         <link refid="lcp_8h"/>
-        <childnode refid="28" relation="include">
-        </childnode>
-        <childnode refid="12" relation="include">
+        <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
         </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
       </node>
-      <node id="26">
+      <node id="24">
         <label>src/interfaces/epec_models.cpp</label>
         <link refid="epec__models_8cpp"/>
       </node>
-      <node id="4">
+      <node id="19">
         <label>src/games/algorithms/IPG/ipg_oracle.cpp</label>
         <link refid="ipg__oracle_8cpp"/>
       </node>
-      <node id="10">
+      <node id="3">
         <label>include/games/algorithms/EPEC/epec_outerapproximation.h</label>
         <link refid="epec__outerapproximation_8h"/>
-        <childnode refid="11" relation="include">
+        <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="38">
+      <node id="40">
         <label>include/mathopt/mp_param/qp_param.h</label>
         <link refid="qp__param_8h"/>
-        <childnode refid="39" relation="include">
+        <childnode refid="37" relation="include">
         </childnode>
-        <childnode refid="36" relation="include">
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>include/interfaces/ipg_models.h</label>
+        <link refid="ipg__models_8h"/>
+        <childnode refid="27" relation="include">
         </childnode>
       </node>
       <node id="29">
         <label>include/mathopt/mathopt.h</label>
         <link refid="mathopt_8h"/>
-        <childnode refid="30" relation="include">
-        </childnode>
         <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -866,25 +905,31 @@
 <codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="namespace_data_1_1_e_p_e_c_1a3f4c2ba1ad7ce924bed99ddf193fd318a70afb7e25afff4def2541133e5a7ae9d" kindref="member">OuterApproximation</ref>;</highlight></codeline>
 <codeline lineno="75"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>EPEC</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">IPG<sp/>{</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="namespace_data_1_1_i_p_g_1a34d343f554ac089c3cb14de04aa6d294a30162ed78b6c10f731411f2fc440c24f" kindref="member">Oracle</ref>;</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>IPG</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="79"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>Algorithms</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_z_e_r_o_algorithm_data" kindref="compound">ZEROAlgorithmData</ref>;</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_data" kindref="compound">Data</ref><sp/>{</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">EPEC<sp/>{</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">DataObject;</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">IPG<sp/>{</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">DataObject;</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">LCP<sp/>{</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum<sp/>class</highlight><highlight class="normal"><sp/><ref refid="namespace_data_1_1_l_c_p_1aa8773225c810ac45575f86ac803105ab" kindref="member">PolyhedraStrategy</ref>;</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>Data</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="games_8h" kindref="compound">games/games.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mathopt_8h" kindref="compound">mathopt/mathopt.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Algorithm;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="namespace_data_1_1_i_p_g_1a34d343f554ac089c3cb14de04aa6d294a30162ed78b6c10f731411f2fc440c24f" kindref="member">Oracle</ref>;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>IPG</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>Algorithms</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_z_e_r_o_algorithm_data" kindref="compound">ZEROAlgorithmData</ref>;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_data" kindref="compound">Data</ref><sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">EPEC<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">DataObject;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">IPG<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">DataObject;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">LCP<sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum<sp/>class</highlight><highlight class="normal"><sp/><ref refid="namespace_data_1_1_l_c_p_1aa8773225c810ac45575f86ac803105ab" kindref="member">PolyhedraStrategy</ref>;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>Data</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="games_8h" kindref="compound">games/games.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mathopt_8h" kindref="compound">mathopt/mathopt.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="include/zero.h"/>
   </compounddef>

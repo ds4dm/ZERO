@@ -16,5 +16,6 @@ Files
 -----
 
 - :ref:`file_src_interfaces_epec_models.cpp`
+- :ref:`file_src_interfaces_ipg_models.cpp`
 
 

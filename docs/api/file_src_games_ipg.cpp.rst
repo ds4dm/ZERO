@@ -33,9 +33,13 @@ Includes
 
 - ``boost/log/trivial.hpp``
 
+- ``games/algorithms/IPG/ipg_algorithms.h`` (:ref:`file_include_games_algorithms_IPG_ipg_algorithms.h`)
+
 - ``games/ipg.h`` (:ref:`file_include_games_ipg.h`)
 
 - ``memory``
+
+- ``zero.h`` (:ref:`file_include_zero.h`)
 
 
 

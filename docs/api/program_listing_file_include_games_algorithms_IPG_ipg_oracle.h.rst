@@ -25,6 +25,7 @@ Program Listing for File ipg_oracle.h
    
    #pragma once
    
+   #include "ipg_algorithms.h"
    #include "zero.h"
    #include <armadillo>
    #include <gurobi_c++.h>
@@ -36,42 +37,86 @@ Program Listing for File ipg_oracle.h
    namespace Algorithms {
      namespace IPG {
    
-        class Oracle : public GRBCallback {
-        private:
-           std::vector<arma::sp_mat> CutPool_A;
-           std::vector<arma::vec>    CutPool_b;
-           Game::IPG *               IPG;
-           GRBEnv *                  Env;
-           bool                      Feasible{false};
-           double                    Tolerance = 1e-6;
+        class IPG_Player {
+        public:
+           friend class Algorithms::IPG::Oracle;
+           IPG_Player(GRBEnv e, unsigned int incumbentSize, std::shared_ptr<GRBModel> model, double tol)
+                : MembershipLP{}, Tolerance{tol} {
+             this->Model = std::unique_ptr<GRBModel>(model.get());
+             this->Incumbent.zeros(incumbentSize);
+             this->Model->relax();
+           };
    
-           bool addConstraintsToPool(const arma::sp_mat A,
-                                             const arma::vec    b,
-                                             const unsigned int player,
-                                             bool               check = true);
+        private:
+           std::unique_ptr<GRBModel> Model;
+   
+        protected:
+           std::unique_ptr<GRBModel>
+                            MembershipLP; 
+           arma::sp_mat V = {}; 
+           arma::sp_mat R             = {}; 
+           unsigned int VertexCounter = 0;  
+           unsigned int RayCounter    = 0;  
+           arma::sp_mat CutPool_A =
+                {}; 
+           arma::vec CutPool_b =
+                {}; 
+           double    Tolerance = 1e-6; 
+           arma::vec Incumbent; 
+           double    Payoff;    
+           bool      Pure;
+           bool      Feasible = false;
    
         public:
-           void   separationCallback(const unsigned int player);
-           double getTol() const { return Tolerance; }
-           void   setTol(double tol) { this->Tolerance = tol; }
+           bool addVertex(const arma::vec vertex, const bool checkDuplicate = true);
    
+           bool addRay(const arma::vec ray, const bool checkDuplicate = true);
+   
+           bool addCut(const arma::vec LHS, const double b, const bool checkDuplicate = true);
+   
+           const double getPayoff() { return this->Payoff; }
+   
+           const arma::sp_mat getCutPoolA() { return this->CutPool_A; }
+           const arma::vec    getCutPoolb() { return this->CutPool_b; }
+   
+           void updateIPModel(std::unique_ptr<GRBModel> IPmodel);
+        };
+   
+   
+        class Oracle : public Algorithm {
+        private:
+           std::vector<IPG_Player> Players; 
+           bool                    addConstraintsToPool(const arma::sp_mat A,
+                                                                       const arma::vec    b,
+                                                                       const unsigned int player,
+                                                                       bool               check = true);
+           void                    initialize();
+           arma::vec               buildXminusI(const unsigned int i);
+           bool                    addValueCut(unsigned int player,
+                                                           arma::vec    xOfIBestResponse,
+                                                           arma::vec    xMinusI,
+                                                           bool         check = true);
+           bool                    separationOracle(const unsigned int player);
+           bool computeStrategy(const unsigned int i, arma::vec &strategy, double &payoff);
+   
+           void
+           updateMembership(const unsigned int &player, const arma::vec &vertex, bool normalization);
+   
+           bool membershipSeparation(const unsigned int player,
+                                             const unsigned int iterations,
+                                             const arma::vec &  xOfI,
+                                             const arma::vec &  xMinusI);
+   
+        public:
            friend class Game::IPG;
    
-           Oracle(GRBEnv *env, Game::IPG *IPGObj)
-                : IPG{IPGObj}, Env{env} {}; 
+           Oracle(GRBEnv *env, Game::IPG *IPGObj) : Algorithm(env, IPGObj){};
    
            void solve();
    
-           bool isSolved(double tol = 1e-4) const;
-           bool isFeasible(bool &addedCuts, double tol = 1e-4);
-           bool isPureStrategy(double tol = 1e-4) const;
+           bool isSolved() const { return this->Solved; };
    
-           void addValueCut(unsigned int player, arma::vec xOfIBestResponse, arma::vec xMinusI);
-           bool separationOracle(
-                arma::vec &xOfI, arma::vec &x, unsigned int player, int budget, bool &addedCuts);
-           GRBModel *
-                        getDualMembershipLP(unsigned int player, arma::vec vertex, bool normalization = true);
-           arma::vec normalizeRay(const arma::vec ray);
+           bool isPureStrategy() const;
         };
      } // namespace IPG
    

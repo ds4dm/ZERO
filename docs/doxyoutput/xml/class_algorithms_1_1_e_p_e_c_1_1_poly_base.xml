@@ -83,11 +83,11 @@
           <defval>-1</defval>
         </param>
         <briefdescription>
+<para>Checks if <ref refid="class_game_1_1_e_p_e_c" kindref="compound">Game::EPEC</ref> is solved, otherwise it returns a proof. </para>
         </briefdescription>
         <detaileddescription>
-<para>@briefs Checks if <ref refid="class_game_1_1_e_p_e_c" kindref="compound">Game::EPEC</ref> is solved, otherwise it returns a proof.</para>
 <para>Analogous to <ref refid="class_game_1_1_nash_game_1a28ff99cbe8f408add01afcbda9249934" kindref="member">Game::NashGame::isSolved</ref> but checks if the given <ref refid="class_game_1_1_e_p_e_c" kindref="compound">Game::EPEC</ref> is solved. If it is solved, then retruns true. If not, it returns the country which has a profitable deviation in <computeroutput>countryNumber</computeroutput> and the profitable deviation in <computeroutput>profitableDeviation</computeroutput>. <computeroutput>Tolerance</computeroutput> is the tolerance for the check. If the <emphasis> improved objective </emphasis> after the deviation is less than <computeroutput>Tolerance</computeroutput>, then it is not considered as a profitable deviation.</para>
-<para>Thus we check if the given point is an <formula id="0">$\epsilon$</formula>-equilibrium. Value of <formula id="1">$\epsilon $</formula> can be chosen sufficiently close to 0.</para>
+<para>Thus we check if the given point is an <formula id="6">$\epsilon$</formula>-equilibrium. Value of <formula id="7">$\epsilon $</formula> can be chosen sufficiently close to 0.</para>
 <para><simplesect kind="warning"><para>Setting <computeroutput>Tolerance</computeroutput> = 0 might even reject a real solution as not solved. This is due to Numerical issues arising from the LCP solver (Gurobi). </para>
 </simplesect>
 </para>
@@ -108,10 +108,9 @@
           <defval>-1</defval>
         </param>
         <briefdescription>
-<para>given a numerical tolerance </para>
+<para>A method to check whether the <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref> is solved or not, given a numerical tolerance. </para>
         </briefdescription>
         <detaileddescription>
-<para>A method to check whether the <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref> is solved or not, </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -254,10 +253,9 @@
           <defval>1e-5</defval>
         </param>
         <briefdescription>
-<para>equilibrium or not, given a numerical tolerance </para>
+<para>A method to check whether the <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref> solution is a pure equilibrium or not, given a numerical tolerance. </para>
         </briefdescription>
         <detaileddescription>
-<para>A method to check whether the <ref refid="namespace_algorithms_1_1_e_p_e_c" kindref="compound">EPEC</ref> solution is a pure </para>
         </detaileddescription>
         <inbodydescription>
 <para>Checks if the returned strategy leader is a pure strategy for the leader i. The strategy is considered a pure strategy, if it is played with a probability greater than 1 - Tolerance;</para>
@@ -310,7 +308,7 @@
         </detaileddescription>
         <inbodydescription>
 <para>Get the position of the k-th follower variable of the i-th leader, in the j-th feasible polyhedron.</para>
-<para>Indeed it should hold that <formula id="2">$ j &lt; $</formula> Algorithms::EPEC::PolyBase::getNumPolyLead(i)</para>
+<para>Indeed it should hold that <formula id="8">$ j &lt; $</formula> Algorithms::EPEC::PolyBase::getNumPolyLead(i)</para>
         </inbodydescription>
         <location file="include/games/algorithms/EPEC/epec_polybase.h" line="78" column="14" bodyfile="src/games/algorithms/EPEC/epec_polybase.cpp" bodystart="69" bodyend="83"/>
       </memberdef>
@@ -337,7 +335,7 @@
         </detaileddescription>
         <inbodydescription>
 <para>Get the position of the k-th leader variable of the i-th leader, in the j-th feasible polyhedron.</para>
-<para>Indeed it should hold that <formula id="2">$ j &lt; $</formula> Algorithms::EPEC::PolyBase::getNumPolyLead(i)</para>
+<para>Indeed it should hold that <formula id="8">$ j &lt; $</formula> Algorithms::EPEC::PolyBase::getNumPolyLead(i)</para>
         </inbodydescription>
         <location file="include/games/algorithms/EPEC/epec_polybase.h" line="80" column="14" bodyfile="src/games/algorithms/EPEC/epec_polybase.cpp" bodystart="85" bodyend="99"/>
       </memberdef>

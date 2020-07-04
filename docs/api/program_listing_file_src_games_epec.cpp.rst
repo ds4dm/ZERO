@@ -186,7 +186,6 @@ Program Listing for File epec.cpp
                                  unsigned int     player, 
                                  const arma::vec &x, 
                                  const arma::vec &prevDev
-                                 //< [in] if any, the std::vector of previous deviations.
                                  ) const {
      auto model = this->respond(player, x);
      BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::respondSol: Writing dat/RespondSol" +
@@ -301,7 +300,7 @@ Program Listing for File epec.cpp
      this->computeLeaderLocations(this->numMCVariables);
    }
    
-   void ::Game::EPEC::makeTheLCP() {
+   void Game::EPEC::makeTheLCP() {
      if (this->PlayersQP.front() == nullptr) {
         BOOST_LOG_TRIVIAL(error) << "Exception in Game::EPEC::makeTheLCP : "
                                              "no country QP has been "

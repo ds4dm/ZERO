@@ -160,9 +160,9 @@
         <argsstring></argsstring>
         <name>numLeaderVar</name>
         <briefdescription>
+<para>Number of leader variables. These many variables will not have a matching complementary equation. </para>
         </briefdescription>
         <detaileddescription>
-<para>Number of leader variables. These many variables will not have a matching complementary equation. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -242,11 +242,11 @@
           <defval>{}</defval>
         </param>
         <briefdescription>
-<para>Construct a <ref refid="class_game_1_1_nash_game" kindref="compound">NashGame</ref> by giving a std::vector of pointers to QP_Param, defining each player&apos;s game A set of Market clearing constraints and its RHS And if there are leader variables, the number of leader vars. </para>
+<para>Constructing a <ref refid="class_game_1_1_nash_game" kindref="compound">NashGame</ref> from a set of <ref refid="class_math_opt_1_1_q_p___param" kindref="compound">MathOpt::QP_Param</ref>, Market clearing constraints. </para>
         </briefdescription>
         <detaileddescription>
-<para>Constructing a <ref refid="class_game_1_1_nash_game" kindref="compound">NashGame</ref> from a set of <ref refid="class_math_opt_1_1_q_p___param" kindref="compound">MathOpt::QP_Param</ref>, Market clearing constraints</para>
-<para>Have a std::vector of pointers to <ref refid="class_math_opt_1_1_q_p___param" kindref="compound">MathOpt::QP_Param</ref> ready such that the variables are separated in <formula id="3">$x^{i}$</formula> and <formula id="4">$x^{-i}$</formula> format.</para>
+<para>Construct a <ref refid="class_game_1_1_nash_game" kindref="compound">NashGame</ref> by giving a std::vector of pointers to QP_Param, defining each player&apos;s game A set of Market clearing constraints and its RHS And if there are leader variables, the number of leader vars.</para>
+<para>Have a std::vector of pointers to <ref refid="class_math_opt_1_1_q_p___param" kindref="compound">MathOpt::QP_Param</ref> ready such that the variables are separated in <formula id="10">$x^{i}$</formula> and <formula id="11">$x^{-i}$</formula> format.</para>
 <para>In the correct ordering of variables, have the Market clearing equations ready.</para>
 <para>Now call this constructor. It will allocate appropriate space for the dual variables for each player. </para>
         </detaileddescription>
@@ -460,7 +460,7 @@
         <inbodydescription>
 <para>Formulates the LCP corresponding to the Nash game. <simplesect kind="warning"><para>Does not return the leader constraints. Use <ref refid="class_game_1_1_nash_game_1a1dbbf2ec7e19794d3bf5365c9c677c3c" kindref="member">NashGame::rewriteLeadCons()</ref> to handle them</para>
 </simplesect>
-Computes the KKT conditions for each Player, calling QP_Param::KKT. Arranges them systematically to return M, q as an LCP <formula id="5">$0\leq q \perp Mx+q \geq 0 $</formula>. The way the variables of the players get distributed is shown in the image below <image type="html" name="formulateLCP.png"></image>
+Computes the KKT conditions for each Player, calling QP_Param::KKT. Arranges them systematically to return M, q as an LCP <formula id="12">$0\leq q \perp Mx+q \geq 0 $</formula>. The way the variables of the players get distributed is shown in the image below <image type="html" name="formulateLCP.png"></image>
  <image type="latex" name="formulateLCP.png"></image>
 </para>
         </inbodydescription>
@@ -718,7 +718,7 @@ Computes the KKT conditions for each Player, calling QP_Param::KKT. Arranges the
 <para>Adds Leader constraint to a <ref refid="class_game_1_1_nash_game" kindref="compound">NashGame</ref> object. </para>
         </briefdescription>
         <detaileddescription>
-<para>In case common constraint to all followers is to be added (like a leader constraint in an MPEC), this function can be used. It adds a single constraint <formula id="6">$ a^Tx \leq b$</formula> </para>
+<para>In case common constraint to all followers is to be added (like a leader constraint in an MPEC), this function can be used. It adds a single constraint <formula id="13">$ a^Tx \leq b$</formula> </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>

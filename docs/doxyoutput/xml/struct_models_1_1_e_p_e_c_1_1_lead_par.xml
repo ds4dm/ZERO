@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="struct_models_1_1_e_p_e_c_1_1_lead_par" kind="struct" language="C++" prot="public">
+    <compoundname>Models::EPEC::LeadPar</compoundname>
+    <includes refid="epec__models_8h" local="no">epec_models.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_models_1_1_e_p_e_c_1_1_lead_par_1a7b196c903710f27aa80a0fc36951d851" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Models::EPEC::LeadPar::import_limit</definition>
+        <argsstring></argsstring>
+        <name>import_limit</name>
+        <initializer>= -1</initializer>
+        <briefdescription>
+<para>Maximum net import in the country. If no limit, set the value as -1;. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="76" column="8" bodyfile="include/interfaces/epec_models.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_e_p_e_c_1_1_lead_par_1a2b27e4e4f7660445145cfa50cea8fbba" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Models::EPEC::LeadPar::export_limit</definition>
+        <argsstring></argsstring>
+        <name>export_limit</name>
+        <initializer>= -1</initializer>
+        <briefdescription>
+<para>Maximum net export in the country. If no limit, set the value as -1;. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="78" column="8" bodyfile="include/interfaces/epec_models.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_e_p_e_c_1_1_lead_par_1af31bec6f088e85f573528595e0ec331c" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Models::EPEC::LeadPar::price_limit</definition>
+        <argsstring></argsstring>
+        <name>price_limit</name>
+        <initializer>= -1</initializer>
+        <briefdescription>
+<para>Government does not want the price to exceed this limit. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="80" column="8" bodyfile="include/interfaces/epec_models.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_e_p_e_c_1_1_lead_par_1afd5e0484eaee7aea6922cfb97e614a16" prot="public" static="no" mutable="no">
+        <type><ref refid="namespace_models_1_1_e_p_e_c_1a72626ff0ddf65191cd9b8f82563d38f4" kindref="member">Models::EPEC::TaxType</ref></type>
+        <definition>Models::EPEC::TaxType Models::EPEC::LeadPar::tax_type</definition>
+        <argsstring></argsstring>
+        <name>tax_type</name>
+        <initializer>=
+			 <ref refid="namespace_models_1_1_e_p_e_c_1a72626ff0ddf65191cd9b8f82563d38f4a6cf964532157ab0f02d24e287a383f67" kindref="member">Models::EPEC::TaxType::StandardTax</ref></initializer>
+        <briefdescription>
+<para>0 For standard, 1 for constant tax, 2 for carbon tax </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="82" column="23" bodyfile="include/interfaces/epec_models.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_e_p_e_c_1_1_lead_par_1ad35206db7977e4aff373df3215dadbe5" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Models::EPEC::LeadPar::tax_revenue</definition>
+        <argsstring></argsstring>
+        <name>tax_revenue</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+<para>Dictates whether the leader objective will include tax revenues. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="85" column="6" bodyfile="include/interfaces/epec_models.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_models_1_1_e_p_e_c_1_1_lead_par_1a0c786e927e1630f9cec57d1c082eb58e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Models::EPEC::LeadPar::LeadPar</definition>
+        <argsstring>(double imp_lim=-1, double exp_lim=-1, double price_limit=-1, bool tax_revenue=false, unsigned int tax_type_=0)</argsstring>
+        <name>LeadPar</name>
+        <param>
+          <type>double</type>
+          <declname>imp_lim</declname>
+          <defval>-1</defval>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>exp_lim</declname>
+          <defval>-1</defval>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>price_limit</declname>
+          <defval>-1</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>tax_revenue</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>tax_type_</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="92" column="1" bodyfile="include/interfaces/epec_models.h" bodystart="92" bodyend="112"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Stores the parameters of the leader in a country model. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/interfaces/epec_models.h" line="75" column="15" bodyfile="include/interfaces/epec_models.h" bodystart="75" bodyend="113"/>
+    <listofallmembers>
+      <member refid="struct_models_1_1_e_p_e_c_1_1_lead_par_1a2b27e4e4f7660445145cfa50cea8fbba" prot="public" virt="non-virtual"><scope>Models::EPEC::LeadPar</scope><name>export_limit</name></member>
+      <member refid="struct_models_1_1_e_p_e_c_1_1_lead_par_1a7b196c903710f27aa80a0fc36951d851" prot="public" virt="non-virtual"><scope>Models::EPEC::LeadPar</scope><name>import_limit</name></member>
+      <member refid="struct_models_1_1_e_p_e_c_1_1_lead_par_1a0c786e927e1630f9cec57d1c082eb58e" prot="public" virt="non-virtual"><scope>Models::EPEC::LeadPar</scope><name>LeadPar</name></member>
+      <member refid="struct_models_1_1_e_p_e_c_1_1_lead_par_1af31bec6f088e85f573528595e0ec331c" prot="public" virt="non-virtual"><scope>Models::EPEC::LeadPar</scope><name>price_limit</name></member>
+      <member refid="struct_models_1_1_e_p_e_c_1_1_lead_par_1ad35206db7977e4aff373df3215dadbe5" prot="public" virt="non-virtual"><scope>Models::EPEC::LeadPar</scope><name>tax_revenue</name></member>
+      <member refid="struct_models_1_1_e_p_e_c_1_1_lead_par_1afd5e0484eaee7aea6922cfb97e614a16" prot="public" virt="non-virtual"><scope>Models::EPEC::LeadPar</scope><name>tax_type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -57,20 +57,6 @@ Included By
 -----------
 
 
-- :ref:`file_src_games_algorithms_EPEC_epec_innerapproximation.cpp`
-
-- :ref:`file_src_games_algorithms_EPEC_epec_polybase.cpp`
-
-- :ref:`file_src_games_algorithms_IPG_ipg_oracle.cpp`
-
-- :ref:`file_src_games_epec.cpp`
-
-- :ref:`file_src_games_games.cpp`
-
-- :ref:`file_src_mathopt_lcp_poly_lcp.cpp`
-
-- :ref:`file_src_shells_epec.cpp`
-
 - :ref:`file_include_games_algorithms_EPEC_epec_algorithms.h`
 
 - :ref:`file_include_games_algorithms_EPEC_epec_outerapproximation.h`
@@ -83,6 +69,8 @@ Included By
 
 - :ref:`file_include_games_algorithms_EPEC_epec_innerapproximation.h`
 
+- :ref:`file_include_games_algorithms_IPG_ipg_algorithms.h`
+
 - :ref:`file_include_games_algorithms_IPG_ipg_oracle.h`
 
 - :ref:`file_include_games_epec.h`
@@ -92,6 +80,8 @@ Included By
 - :ref:`file_include_games_nash.h`
 
 - :ref:`file_include_interfaces_epec_models.h`
+
+- :ref:`file_include_interfaces_ipg_models.h`
 
 - :ref:`file_include_mathopt_lcp_lcp.h`
 
@@ -108,6 +98,22 @@ Included By
 - :ref:`file_include_mathopt_mp_param_qp_param.h`
 
 - :ref:`file_include_support_utils.h`
+
+- :ref:`file_src_games_algorithms_EPEC_epec_innerapproximation.cpp`
+
+- :ref:`file_src_games_algorithms_EPEC_epec_polybase.cpp`
+
+- :ref:`file_src_games_algorithms_IPG_ipg_oracle.cpp`
+
+- :ref:`file_src_games_epec.cpp`
+
+- :ref:`file_src_games_games.cpp`
+
+- :ref:`file_src_games_ipg.cpp`
+
+- :ref:`file_src_mathopt_lcp_poly_lcp.cpp`
+
+- :ref:`file_src_shells_epec.cpp`
 
 
 

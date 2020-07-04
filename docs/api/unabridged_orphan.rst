@@ -240,6 +240,21 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_include_games_algorithms_IPG_ipg_algorithms.h.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_src_interfaces_ipg_models.cpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_include_interfaces_ipg_models.h.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_src_games_algorithms_IPG_ipg_oracle.cpp.rst
 
 .. toctree::
@@ -316,11 +331,6 @@ Files
    :maxdepth: 5
 
    file_include_mathopt_mp_param_qp_param.h.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_README.md.rst
 
 .. toctree::
    :maxdepth: 5

@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="struct_models_1_1_e_p_e_c_1_1_lead_all_par" kind="struct" language="C++" prot="public">
+    <compoundname>Models::EPEC::LeadAllPar</compoundname>
+    <includes refid="epec__models_8h" local="no">epec_models.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_models_1_1_e_p_e_c_1_1_lead_all_par_1ab696bcbbb309a9a673115005997a317a" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int Models::EPEC::LeadAllPar::n_followers</definition>
+        <argsstring></argsstring>
+        <name>n_followers</name>
+        <briefdescription>
+<para>Number of followers in the country. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="117" column="23" bodyfile="include/interfaces/epec_models.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_e_p_e_c_1_1_lead_all_par_1a46d9cd37e4795c702d73e03c09880962" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string Models::EPEC::LeadAllPar::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>Country Name. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="118" column="23" bodyfile="include/interfaces/epec_models.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_e_p_e_c_1_1_lead_all_par_1a62bc7dade634b7db36e63cec064f2c31" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_models_1_1_e_p_e_c_1_1_foll_par" kindref="compound">Models::EPEC::FollPar</ref></type>
+        <definition>Models::EPEC::FollPar Models::EPEC::LeadAllPar::FollowerParam</definition>
+        <argsstring></argsstring>
+        <name>FollowerParam</name>
+        <initializer>= {}</initializer>
+        <briefdescription>
+<para>A struct to hold Follower Parameters. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="119" column="23" bodyfile="include/interfaces/epec_models.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_e_p_e_c_1_1_lead_all_par_1aff1107294713fd28b0a6c980f328fecb" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_models_1_1_e_p_e_c_1_1_dem_par" kindref="compound">Models::EPEC::DemPar</ref></type>
+        <definition>Models::EPEC::DemPar Models::EPEC::LeadAllPar::DemandParam</definition>
+        <argsstring></argsstring>
+        <name>DemandParam</name>
+        <initializer>= {}</initializer>
+        <briefdescription>
+<para>A struct to hold Demand Parameters. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="120" column="23" bodyfile="include/interfaces/epec_models.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_e_p_e_c_1_1_lead_all_par_1a9d2ecaf0a04552eb74116a9c59dee2ad" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_models_1_1_e_p_e_c_1_1_lead_par" kindref="compound">Models::EPEC::LeadPar</ref></type>
+        <definition>Models::EPEC::LeadPar Models::EPEC::LeadAllPar::LeaderParam</definition>
+        <argsstring></argsstring>
+        <name>LeaderParam</name>
+        <initializer>= {}</initializer>
+        <briefdescription>
+<para>A struct to hold Leader Parameters. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="121" column="23" bodyfile="include/interfaces/epec_models.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_models_1_1_e_p_e_c_1_1_lead_all_par_1af247391a0d877b22fe1422f000117ee9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Models::EPEC::LeadAllPar::LeadAllPar</definition>
+        <argsstring>(unsigned int n_foll, std::string name, Models::EPEC::FollPar FP={}, Models::EPEC::DemPar DP={}, Models::EPEC::LeadPar LP={})</argsstring>
+        <name>LeadAllPar</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>n_foll</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_models_1_1_e_p_e_c_1_1_foll_par" kindref="compound">Models::EPEC::FollPar</ref></type>
+          <declname>FP</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type><ref refid="struct_models_1_1_e_p_e_c_1_1_dem_par" kindref="compound">Models::EPEC::DemPar</ref></type>
+          <declname>DP</declname>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type><ref refid="struct_models_1_1_e_p_e_c_1_1_lead_par" kindref="compound">Models::EPEC::LeadPar</ref></type>
+          <declname>LP</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="122" column="1" bodyfile="include/interfaces/epec_models.h" bodystart="122" bodyend="130"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Stores the parameters of a country model. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="4">
+        <label>Models::EPEC::FollPar</label>
+        <link refid="struct_models_1_1_e_p_e_c_1_1_foll_par"/>
+      </node>
+      <node id="2">
+        <label>Models::EPEC::DemPar</label>
+        <link refid="struct_models_1_1_e_p_e_c_1_1_dem_par"/>
+      </node>
+      <node id="1">
+        <label>Models::EPEC::LeadAllPar</label>
+        <link refid="struct_models_1_1_e_p_e_c_1_1_lead_all_par"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>DemandParam</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>LeaderParam</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>FollowerParam</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Models::EPEC::LeadPar</label>
+        <link refid="struct_models_1_1_e_p_e_c_1_1_lead_par"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/interfaces/epec_models.h" line="116" column="18" bodyfile="include/interfaces/epec_models.h" bodystart="116" bodyend="131"/>
+    <listofallmembers>
+      <member refid="struct_models_1_1_e_p_e_c_1_1_lead_all_par_1aff1107294713fd28b0a6c980f328fecb" prot="public" virt="non-virtual"><scope>Models::EPEC::LeadAllPar</scope><name>DemandParam</name></member>
+      <member refid="struct_models_1_1_e_p_e_c_1_1_lead_all_par_1a62bc7dade634b7db36e63cec064f2c31" prot="public" virt="non-virtual"><scope>Models::EPEC::LeadAllPar</scope><name>FollowerParam</name></member>
+      <member refid="struct_models_1_1_e_p_e_c_1_1_lead_all_par_1af247391a0d877b22fe1422f000117ee9" prot="public" virt="non-virtual"><scope>Models::EPEC::LeadAllPar</scope><name>LeadAllPar</name></member>
+      <member refid="struct_models_1_1_e_p_e_c_1_1_lead_all_par_1a9d2ecaf0a04552eb74116a9c59dee2ad" prot="public" virt="non-virtual"><scope>Models::EPEC::LeadAllPar</scope><name>LeaderParam</name></member>
+      <member refid="struct_models_1_1_e_p_e_c_1_1_lead_all_par_1ab696bcbbb309a9a673115005997a317a" prot="public" virt="non-virtual"><scope>Models::EPEC::LeadAllPar</scope><name>n_followers</name></member>
+      <member refid="struct_models_1_1_e_p_e_c_1_1_lead_all_par_1a46d9cd37e4795c702d73e03c09880962" prot="public" virt="non-virtual"><scope>Models::EPEC::LeadAllPar</scope><name>name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

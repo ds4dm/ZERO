@@ -28,8 +28,6 @@ Program Listing for File utils.cpp
    #include <boost/log/trivial.hpp>
    #include <fstream>
    
-   using namespace std;
-   using namespace arma;
    
    arma::sp_mat
    Utils::resizePatch(const arma::sp_mat &mat, const unsigned int nR, const unsigned int nC) {
@@ -76,16 +74,16 @@ Program Listing for File utils.cpp
      return mMat;
    }
    
-   void Utils::appendSave(const sp_mat &matrix, 
-                                 const string  out,    
-                                 const string  header, 
-                                 bool erase            
+   void Utils::appendSave(const arma::sp_mat &matrix, 
+                                 const std::string   out,    
+                                 const std::string   header, 
+                                 bool erase                  
                                  )
    {
      // Using C++ file operations to copy the data into the target given by @out
      unsigned int nR{0}, nC{0}, nnz{0};
    
-     ofstream outfile(out, erase ? ios::out : ios::app);
+     std::ofstream outfile(out, erase ? std::ios::out : std::ios::app);
    
      nR  = matrix.n_rows;
      nC  = matrix.n_cols;
@@ -95,23 +93,23 @@ Program Listing for File utils.cpp
      outfile << nR << "\t" << nC << "\t" << nnz << "\n";
      for (auto it = matrix.begin(); it != matrix.end(); ++it)
         outfile << it.row() << "\t" << it.col() << "\t" << (*it)
-                   << "\n"; // Write the required information of sp_mat
+                   << "\n"; // Write the required information of arma::sp_mat
      outfile << "\n";
      outfile.close(); // and close it
    }
    
-   long int Utils::appendRead(sp_mat &     matrix, 
-                                       const string in, 
+   long int Utils::appendRead(arma::sp_mat &matrix, 
+                                       const std::string in, 
                                        long int pos, 
-                                       const string header 
+                                       const std::string header 
                                        )
    {
      unsigned int nR = 0, nC = 0, nnz = 0;
    
-     ifstream infile(in, ios::in);
+     std::ifstream infile(in, std::ios::in);
      infile.seekg(pos);
    
-     string headerCheckwith;
+     std::string headerCheckwith;
      infile >> headerCheckwith;
    
      if (header != "" && header != headerCheckwith)
@@ -143,19 +141,23 @@ Program Listing for File utils.cpp
      return pos;
    }
    
-   void appendSave(const vector<double> v, const string out, const string header, bool erase) {
-     ofstream outfile(out, erase ? ios::out : ios::app);
+   void appendSave(const std::vector<double> v,
+                        const std::string         out,
+                        const std::string         header,
+                        bool                      erase) {
+     std::ofstream outfile(out, erase ? std::ios::out : std::ios::app);
      outfile << header << "\n" << v.size() << "\n";
      for (const double x : v)
         outfile << x << "\n";
      outfile.close();
    }
    
-   long int appendRead(vector<double> &v, const string in, long int pos, const string header) {
+   long int
+   appendRead(std::vector<double> &v, const std::string in, long int pos, const std::string header) {
      unsigned long int size = 0;
-     ifstream          infile(in, ios::in);
+     std::ifstream     infile(in, std::ios::in);
      infile.seekg(pos);
-     string headerCheckwith;
+     std::string headerCheckwith;
      infile >> headerCheckwith;
    
      if (header != "" && header != headerCheckwith)
@@ -172,15 +174,15 @@ Program Listing for File utils.cpp
      return pos;
    }
    
-   void Utils::appendSave(const vec &  matrix, 
-                                 const string out,    
-                                 const string header, 
-                                 bool erase           
+   void Utils::appendSave(const arma::vec & matrix, 
+                                 const std::string out,    
+                                 const std::string header, 
+                                 bool erase                
    ) {
      // Using C++ file operations to copy the data into the target given by @out
      unsigned int nR{0};
    
-     ofstream outfile(out, erase ? ios::out : ios::app);
+     std::ofstream outfile(out, erase ? std::ios::out : std::ios::app);
    
      nR = matrix.n_rows;
    
@@ -188,20 +190,20 @@ Program Listing for File utils.cpp
    
      outfile << nR << "\n";
      for (auto it = matrix.begin(); it != matrix.end(); ++it)
-        outfile << (*it) << "\n"; // Write the required information of sp_mat
+        outfile << (*it) << "\n"; // Write the required information of arma::sp_mat
      outfile << "\n";
      outfile.close(); // and close it
    }
    
-   long int Utils::appendRead(vec &        matrix, 
-                                       const string in, 
+   long int Utils::appendRead(arma::vec &matrix,    
+                                       const std::string in, 
                                        long int pos, 
-                                       const string header 
+                                       const std::string header 
    ) {
-     unsigned int nR;
-     string       buffers;
-     string       checkwith;
-     ifstream     inFile(in, ios::in);
+     unsigned int  nR;
+     std::string   buffers;
+     std::string   checkwith;
+     std::ifstream inFile(in, std::ios::in);
      inFile.seekg(pos);
    
      inFile >> checkwith;
@@ -222,19 +224,23 @@ Program Listing for File utils.cpp
      return pos;
    }
    
-   void Utils::appendSave(const long int v, const string out, const string header, bool erase)
+   void Utils::appendSave(const long int    v,
+                                 const std::string out,
+                                 const std::string header,
+                                 bool              erase)
    {
-     ofstream outfile(out, erase ? ios::out : ios::app);
+     std::ofstream outfile(out, erase ? std::ios::out : std::ios::app);
      outfile << header << "\n";
      outfile << v << "\n";
      outfile.close();
    }
    
-   long int Utils::appendRead(long int &v, const string in, long int pos, const string header) {
-     ifstream infile(in, ios::in);
+   long int
+   Utils::appendRead(long int &v, const std::string in, long int pos, const std::string header) {
+     std::ifstream infile(in, std::ios::in);
      infile.seekg(pos);
    
-     string headerCheckwith;
+     std::string headerCheckwith;
      infile >> headerCheckwith;
    
      if (header != "" && header != headerCheckwith)
@@ -251,19 +257,23 @@ Program Listing for File utils.cpp
      return pos;
    }
    
-   void Utils::appendSave(const unsigned int v, const string out, const string header, bool erase)
+   void Utils::appendSave(const unsigned int v,
+                                 const std::string  out,
+                                 const std::string  header,
+                                 bool               erase)
    {
-     ofstream outfile(out, erase ? ios::out : ios::app);
+     std::ofstream outfile(out, erase ? std::ios::out : std::ios::app);
      outfile << header << "\n";
      outfile << v << "\n";
      outfile.close();
    }
    
-   long int Utils::appendRead(unsigned int &v, const string in, long int pos, const string header) {
-     ifstream infile(in, ios::in);
+   long int
+   Utils::appendRead(unsigned int &v, const std::string in, long int pos, const std::string header) {
+     std::ifstream infile(in, std::ios::in);
      infile.seekg(pos);
    
-     string headerCheckwith;
+     std::string headerCheckwith;
      infile >> headerCheckwith;
    
      if (header != "" && header != headerCheckwith)
@@ -280,18 +290,18 @@ Program Listing for File utils.cpp
      return pos;
    }
    
-   void Utils::appendSave(const string v, const string out, bool erase)
+   void Utils::appendSave(const std::string v, const std::string out, bool erase)
    {
-     ofstream outfile(out, erase ? ios::out : ios::app);
+     std::ofstream outfile(out, erase ? std::ios::out : std::ios::app);
      outfile << v << "\n";
      outfile.close();
    }
    
-   long int Utils::appendRead(string &v, const string in, long int pos) {
-     ifstream infile(in, ios::in);
+   long int Utils::appendRead(std::string &v, const std::string in, long int pos) {
+     std::ifstream infile(in, std::ios::in);
      infile.seekg(pos);
    
-     string val;
+     std::string val;
      infile >> val;
      v = val;
    
@@ -323,8 +333,11 @@ Program Listing for File utils.cpp
      return binary;
    }
    
-   bool Utils::containsConstraint(
-        arma::sp_mat &A, const vec &b, const arma::vec &lhs, const double &rhs, const double tol) {
+   bool Utils::containsConstraint(const arma::sp_mat &A,
+                                            const arma::vec &   b,
+                                            const arma::vec &   lhs,
+                                            const double &      rhs,
+                                            const double        tol) {
      if (lhs.size() != A.n_cols)
         return false;
      for (int i = 0; i < A.n_rows; ++i) {
@@ -342,7 +355,7 @@ Program Listing for File utils.cpp
      return false;
    }
    
-   bool Utils::containsElement(const vec &b, const double &element, const double tol) {
+   bool Utils::containsElement(const arma::vec &b, const double &element, const double tol) {
      for (unsigned int i = 0; i < b.size(); ++i) {
         if (std::abs(b.at(i) - element) < tol)
            return true;
@@ -350,7 +363,7 @@ Program Listing for File utils.cpp
      return false;
    }
    
-   bool Utils::containsRow(const sp_mat &A, const arma::vec &row, const double tol) {
+   bool Utils::containsRow(const arma::sp_mat &A, const arma::vec &row, const double tol) {
    
      if (row.size() != A.n_cols)
         return false;
@@ -367,24 +380,15 @@ Program Listing for File utils.cpp
      }
      return false;
    }
-   bool Utils::containsConstraint(
-        sp_mat &A, const vec &b, const sp_mat &lhs, const double &rhs, const double tol) {
+   bool Utils::containsConstraint(const arma::sp_mat &A,
+                                            const arma::vec &   b,
+                                            const arma::sp_mat &lhs,
+                                            const double &      rhs,
+                                            const double        tol) {
      if (lhs.n_rows > 1)
         return false;
      arma::vec Ai = arma::vec{lhs};
      return Utils::containsConstraint(A, b, Ai, rhs, tol);
-   }
-   arma::vec Utils::normalize(const arma::vec input) {
-     double max  = input.max();
-     double min  = std::abs(input.min());
-     double norm = 0;
-   
-     if (max > min)
-        norm = max;
-     else
-        norm = min;
-   
-     return input / norm;
    }
    
    

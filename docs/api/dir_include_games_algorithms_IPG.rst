@@ -15,6 +15,7 @@ Directory IPG
 Files
 -----
 
+- :ref:`file_include_games_algorithms_IPG_ipg_algorithms.h`
 - :ref:`file_include_games_algorithms_IPG_ipg_oracle.h`
 
 

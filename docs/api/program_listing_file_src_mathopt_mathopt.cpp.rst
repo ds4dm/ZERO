@@ -231,3 +231,114 @@ Program Listing for File mathopt.cpp
         std::cout << "<" << p.first << ", " << p.second << ">"
                      << "\t";
    }
+   
+   
+   
+   void MathOpt::getDualMembershipLP(
+        std::unique_ptr<GRBModel> &convexModel, 
+        unsigned int &             numV,        
+        const arma::sp_mat &       V,           
+        unsigned int &             numR,        
+        const arma::sp_mat &       R,           
+        const arma::vec &          vertex,      
+        const bool &normalization 
+   ) {
+     if (V.n_rows < 1 && R.n_rows < 1) {
+        throw ZEROException(ZEROErrorCode::InvalidData, "no points or rays specified.");
+     }
+     if (V.n_cols != vertex.size())
+        throw ZEROException(ZEROErrorCode::InvalidData,
+                                   "Invalid "
+                                   "dimension of the input vertex");
+   
+     if (numV == 0 && numR == 0) {
+        // Initialize the model
+        convexModel->reset(true);
+        GRBVar     y[V.n_cols];
+        GRBVar     z[R.n_cols];
+        GRBVar     a[V.n_cols + 1];
+        GRBVar     x;
+        GRBLinExpr expr = 0;
+        for (unsigned int i = 0; i < vertex.size(); i++) {
+           y[i] = convexModel->addVar(
+                -GRB_INFINITY, GRB_INFINITY, 0, GRB_CONTINUOUS, "y_" + std::to_string(i));
+           a[i] = convexModel->addVar(
+                0, GRB_INFINITY, 0, GRB_CONTINUOUS, "abs(y_" + std::to_string(i) + ")");
+   
+           convexModel->addConstr(
+                GRBLinExpr{y[i] - a[i]}, GRB_LESS_EQUAL, 0, "Abs_1_y_" + std::to_string(i));
+           convexModel->addConstr(
+                GRBLinExpr{-y[i] - a[i]}, GRB_LESS_EQUAL, 0, "Abs_2_y_" + std::to_string(i));
+           expr += a[i];
+        }
+   
+        x           = convexModel->addVar(-GRB_INFINITY, GRB_INFINITY, 0, GRB_CONTINUOUS, "x");
+        a[V.n_cols] = convexModel->addVar(0, GRB_INFINITY, 0, GRB_CONTINUOUS, "abs(x)");
+        convexModel->addConstr(GRBLinExpr{x - a[V.n_cols]}, GRB_GREATER_EQUAL, 0, "Abs_1_x");
+        convexModel->addConstr(GRBLinExpr{-x - a[V.n_cols]}, GRB_GREATER_EQUAL, 0, "Abs_2_x");
+        expr += a[V.n_cols];
+        if (normalization)
+           convexModel->addConstr(expr, GRB_LESS_EQUAL, 1, "Normalization");
+   
+        // Hyperplanes for vertices
+        for (unsigned int i = 0; i < V.n_rows; i++) {
+           expr = x;
+           for (auto j = V.begin_row(i); j != V.end_row(i); ++j)
+             expr += (*j) * y[j.col()];
+           convexModel->addConstr(expr, GRB_LESS_EQUAL, 0, "V_" + std::to_string(i));
+        }
+        numV = V.n_rows;
+   
+        for (unsigned int i = 0; i < R.n_rows; i++) {
+           for (auto j = R.begin_row(i); j != R.end_row(i); ++j)
+             expr += (*j) * y[j.col()];
+           convexModel->addConstr(expr, GRB_LESS_EQUAL, 0, "R_" + std::to_string(i));
+        }
+   
+        numR = R.n_rows;
+   
+        // For the eventual Farkas' proof of infeasibility
+        convexModel->set(GRB_IntParam_InfUnbdInfo, 1);
+        convexModel->set(GRB_IntParam_DualReductions, 0);
+        convexModel->set(GRB_IntParam_OutputFlag, 0);
+        convexModel->set(GRB_IntParam_SolutionLimit, 100);
+        BOOST_LOG_TRIVIAL(trace) << "MathOpt::getDualMembershipLP: created model";
+     } else {
+        // current number of vertices in the model
+        if (numV < V.n_rows) {
+           // Then, we need to update the model by adding new constraints
+           GRBLinExpr expr = 0;
+           for (unsigned int i = numV; i < V.n_rows; i++) {
+             expr = convexModel->getVarByName("x");
+             for (auto j = V.begin_row(i); j != V.end_row(i); ++j)
+                expr += (*j) * convexModel->getVarByName("y_" + std::to_string(j.col()));
+   
+             convexModel->addConstr(expr, GRB_LESS_EQUAL, 0, "V_" + std::to_string(i));
+           }
+           numV = V.n_rows;
+        }
+   
+        // current number of rays in the model
+        if (numR < R.n_rows) {
+           // Then, we need to update the model by adding new constraints
+           GRBLinExpr expr = 0;
+           for (unsigned int i = numR; i < R.n_rows; i++) {
+             for (auto j = R.begin_row(i); j != R.end_row(i); ++j)
+                expr += (*j) * convexModel->getVarByName("y_" + std::to_string(j.col()));
+   
+             convexModel->addConstr(expr, GRB_LESS_EQUAL, 0, "R_" + std::to_string(i));
+           }
+   
+           numR = R.n_rows;
+        }
+   
+        BOOST_LOG_TRIVIAL(trace) << "MathOpt::getDualMembershipLP: updated model";
+     }
+     convexModel->update();
+     GRBLinExpr expr = convexModel->getVarByName("x");
+     for (int j = 0; j < vertex.size(); ++j)
+        expr += vertex.at(j) * convexModel->getVarByName("y_" + std::to_string(j));
+   
+     convexModel->setObjective(expr, GRB_MAXIMIZE);
+     convexModel->update();
+   }

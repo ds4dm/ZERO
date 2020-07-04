@@ -270,9 +270,9 @@
           <declname>cons</declname>
         </param>
         <briefdescription>
+<para>Setting the data with the inputs being a struct <ref refid="struct_math_opt_1_1_q_p___objective" kindref="compound">MathOpt::QP_Objective</ref> and struct <ref refid="struct_math_opt_1_1_q_p___constraints" kindref="compound">MathOpt::QP_Constraints</ref>. </para>
         </briefdescription>
         <detaileddescription>
-<para>Setting the data with the inputs being a struct <ref refid="struct_math_opt_1_1_q_p___objective" kindref="compound">MathOpt::QP_Objective</ref> and struct <ref refid="struct_math_opt_1_1_q_p___constraints" kindref="compound">MathOpt::QP_Constraints</ref> </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -316,7 +316,7 @@
 <para>Compute the KKT conditions for the given QP. </para>
         </briefdescription>
         <detaileddescription>
-<para>Writes the KKT condition of the parameterized QP As per the convention, y is the decision variable for the QP and that is parameterized in x The KKT conditions are <formula id="35">$0 \leq y \perp My + Nx + q \geq 0$</formula> </para>
+<para>Writes the KKT condition of the parameterized QP As per the convention, y is the decision variable for the QP and that is parameterized in x The KKT conditions are <formula id="41">$0 \leq y \perp My + Nx + q \geq 0$</formula> </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -338,7 +338,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Given a value for the parameters <formula id="29">$x$</formula> in the definition of <ref refid="class_math_opt_1_1_q_p___param" kindref="compound">QP_Param</ref>, solve the parameterized quadratic program to optimality.</para>
+<para>Given a value for the parameters <formula id="35">$x$</formula> in the definition of <ref refid="class_math_opt_1_1_q_p___param" kindref="compound">QP_Param</ref>, solve the parameterized quadratic program to optimality.</para>
 <para>In terms of game theory, this can be viewed as <emphasis>the best response</emphasis> for a set of decisions by other players. <computeroutput>solve</computeroutput> decides whether the model has to be optimized or not </para>
         </detaileddescription>
         <inbodydescription>
@@ -347,11 +347,11 @@
 <parametername>GRBException</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>if argument std::vector size is not</para>
+<para>if argument std::vector size is not compatible with the <ref refid="class_math_opt_1_1_q_p___param" kindref="compound">MathOpt::QP_Param</ref> definition.</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-compatible with the <ref refid="class_math_opt_1_1_q_p___param" kindref="compound">MathOpt::QP_Param</ref> definition.</para>
+</para>
         </inbodydescription>
         <location file="include/mathopt/mp_param/qp_param.h" line="99" column="18" bodyfile="src/mathopt/mp_param/qp_param.cpp" bodystart="81" bodyend="125"/>
       </memberdef>
@@ -379,21 +379,12 @@ compatible with the <ref refid="class_math_opt_1_1_q_p___param" kindref="compoun
           <defval>1e-6</defval>
         </param>
         <briefdescription>
+<para>Computes the objective value, given a vector <computeroutput>y</computeroutput> and a parameterizing vector <computeroutput>x</computeroutput>. </para>
         </briefdescription>
         <detaileddescription>
-<para>Computes the objective value, given a vector <computeroutput>y</computeroutput> and a parameterizing vector <computeroutput>x</computeroutput> </para>
         </detaileddescription>
         <inbodydescription>
-<para>Computes <formula id="36">$\frac{1}{2} y^TQy + (Cx)^Ty + c^Ty$</formula> given the input values <computeroutput>y</computeroutput> and <computeroutput>x</computeroutput>. <parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>checkFeas</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>if <computeroutput>true</computeroutput>, checks if the given <formula id="32">$(x,y)$</formula> satisfies the constraints of the problem, namely <formula id="33">$Ax + By \leq b$</formula>.</para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>
+<para>Computes <formula id="42">$\frac{1}{2} y^TQy + (Cx)^Ty + c^Ty$</formula> given the input values <computeroutput>y</computeroutput> and <computeroutput>x</computeroutput>. <computeroutput>checkFeas</computeroutput> if <computeroutput>true</computeroutput>, checks if the given <formula id="38">$(x,y)$</formula> satisfies the constraints of the problem, namely <formula id="39">$Ax + By \leq b$</formula>.</para>
         </inbodydescription>
         <location file="include/mathopt/mp_param/qp_param.h" line="103" column="9" bodyfile="src/mathopt/mp_param/qp_param.cpp" bodystart="229" bodyend="254"/>
       </memberdef>
@@ -407,9 +398,9 @@ compatible with the <ref refid="class_math_opt_1_1_q_p___param" kindref="compoun
           <declname>P</declname>
         </param>
         <briefdescription>
+<para>Checks if the current object can play a game with another <ref refid="class_math_opt_1_1_q_p___param" kindref="compound">MathOpt::QP_Param</ref> object <computeroutput>P</computeroutput>. </para>
         </briefdescription>
         <detaileddescription>
-<para>Checks if the current object can play a game with another <ref refid="class_math_opt_1_1_q_p___param" kindref="compound">MathOpt::QP_Param</ref> object <computeroutput>P</computeroutput>. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -542,7 +533,7 @@ compatible with the <ref refid="class_math_opt_1_1_q_p___param" kindref="compoun
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
-<para>Computes <formula id="37">$\frac{1}{2} y^TQy + c^Ty $</formula> given the input values <computeroutput>y</computeroutput>;</para>
+<para>Computes <formula id="43">$\frac{1}{2} y^TQy + c^Ty $</formula> given the input values <computeroutput>y</computeroutput>;</para>
         </inbodydescription>
         <location file="include/mathopt/mp_param/qp_param.h" line="130" column="12" bodyfile="src/mathopt/mp_param/qp_param.cpp" bodystart="256" bodyend="264"/>
       </memberdef>
@@ -576,7 +567,7 @@ compatible with the <ref refid="class_math_opt_1_1_q_p___param" kindref="compoun
 <para>Class to handle parameterized quadratic programs(QP) </para>
     </briefdescription>
     <detaileddescription>
-<para>Represents a Parameterized QP as <formula id="42">\[ \min_y \frac{1}{2}y^TQy + c^Ty + (Cx)^T y \]</formula> Subject to <formula id="43">\begin{eqnarray} Ax + By &amp;\leq&amp; b \\ y &amp;\geq&amp; 0 \end{eqnarray}</formula> </para>
+<para>Represents a Parameterized QP as <formula id="4">\[ \min_y \frac{1}{2}y^TQy + c^Ty + (Cx)^T y \]</formula> Subject to <formula id="5">\begin{eqnarray} Ax + By &amp;\leq&amp; b \\ y &amp;\geq&amp; 0 \end{eqnarray}</formula> </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="2">

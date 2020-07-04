@@ -42,11 +42,13 @@ Functions
 
 - :ref:`exhale_function_namespace_math_opt_1a0a13d06524e3ad2baf756e15a794a745`
 
+- :ref:`exhale_function_namespace_math_opt_1aabf121bcb871000488825dd64750500c`
+
 - :ref:`exhale_function_namespace_math_opt_1aa4eaa00160eb2098969ef087c92eea5d`
 
-- :ref:`exhale_function_namespace_math_opt_1a81f3217167710fd7c3d4211658cfa5d6`
-
 - :ref:`exhale_function_namespace_math_opt_1aedd7c328cf667c15244fec225b90a65d`
+
+- :ref:`exhale_function_namespace_math_opt_1a81f3217167710fd7c3d4211658cfa5d6`
 
 - :ref:`exhale_function_namespace_math_opt_1a8b4c66568c38b6a5b08a7fca9372a7dd`
 

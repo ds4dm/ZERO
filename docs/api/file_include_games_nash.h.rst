@@ -49,9 +49,9 @@ Included By
 -----------
 
 
-- :ref:`file_src_games_nash.cpp`
-
 - :ref:`file_include_games_games.h`
+
+- :ref:`file_src_games_nash.cpp`
 
 
 
@@ -74,7 +74,7 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_namespace_game_1a774057f73ba2c3cbf2bc3870b8136f63`
-
 - :ref:`exhale_function_namespace_game_1a5d3d08630420c0dc48957de240545f21`
+
+- :ref:`exhale_function_namespace_game_1a774057f73ba2c3cbf2bc3870b8136f63`
 

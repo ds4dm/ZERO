@@ -40,7 +40,7 @@
         <childnode refid="15" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="26">
         <label>poly_lcp.h</label>
         <link refid="poly__lcp_8h"/>
         <childnode refid="3" relation="include">
@@ -58,9 +58,19 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
+      <node id="21">
+        <label>ipg_algorithms.h</label>
+        <link refid="ipg__algorithms_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
       <node id="20">
         <label>algorithms/IPG/ipg_oracle.h</label>
         <link refid="ipg__oracle_8h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
@@ -76,7 +86,7 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="22">
         <label>games/nash.h</label>
         <link refid="nash_8h"/>
         <childnode refid="3" relation="include">
@@ -129,10 +139,10 @@
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="25">
         <label>outer_lcp.h</label>
         <link refid="outer__lcp_8h"/>
         <childnode refid="4" relation="include">
@@ -157,14 +167,14 @@
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
+        <childnode refid="29" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="28">
         <label>ip_param.h</label>
         <link refid="ip__param_8h"/>
         <childnode refid="10" relation="include">
@@ -187,7 +197,7 @@
       <node id="4">
         <label>armadillo</label>
       </node>
-      <node id="28">
+      <node id="29">
         <label>boost/log/trivial.hpp</label>
       </node>
       <node id="11">
@@ -219,10 +229,10 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
+        <childnode refid="23" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="27">
         <label>mathopt/mp_param/mp_param.h</label>
         <link refid="mp__param_8h"/>
         <childnode refid="3" relation="include">
@@ -239,7 +249,7 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
+        <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="2" relation="include">
         </childnode>
@@ -279,7 +289,7 @@
       <node id="12">
         <label>gurobi_c++.h</label>
       </node>
-      <node id="23">
+      <node id="24">
         <label>lcp/lcp.h</label>
         <link refid="lcp_8h"/>
         <childnode refid="3" relation="include">
@@ -294,9 +304,9 @@
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
         <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
         </childnode>
       </node>
       <node id="15">
@@ -323,7 +333,7 @@
       <node id="7">
         <label>memory</label>
       </node>
-      <node id="22">
+      <node id="23">
         <label>mathopt/mathopt.h</label>
         <link refid="mathopt_8h"/>
         <childnode refid="3" relation="include">
@@ -338,9 +348,9 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
+        <childnode refid="24" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
+        <childnode refid="27" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -415,11 +425,11 @@
 <codeline lineno="65"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>Ny;<sp/>i++)</highlight></codeline>
 <codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>y[i]<sp/>=<sp/>this-&gt;QuadModel.addVar(0,<sp/>GRB_INFINITY,<sp/>0,<sp/>GRB_CONTINUOUS,<sp/></highlight><highlight class="stringliteral">&quot;y_&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacestd_1a2a85a94ce6c0c8e65db695187b07d4be" kindref="member">std::to_string</ref>(i));</highlight></codeline>
 <codeline lineno="67"><highlight class="normal"><sp/><sp/>GRBQuadExpr<sp/>yQy{0};</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>val<sp/>=<sp/>Q.begin();<sp/><ref refid="namespace_models_1a54b54aa6ddb1d9e337f9fea85a2d0ceba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref><sp/>!=<sp/>Q.end();<sp/>++<ref refid="namespace_models_1a54b54aa6ddb1d9e337f9fea85a2d0ceba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>val<sp/>=<sp/>Q.begin();<sp/><ref refid="namespace_models_1_1_e_p_e_c_1ac6f525119967602609afe99f64ef4a1ba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref><sp/>!=<sp/>Q.end();<sp/>++<ref refid="namespace_models_1_1_e_p_e_c_1ac6f525119967602609afe99f64ef4a1ba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>)<sp/>{</highlight></codeline>
 <codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i,<sp/>j;</highlight></codeline>
 <codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>value<sp/>=<sp/>(*val);</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>i<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="namespace_models_1a54b54aa6ddb1d9e337f9fea85a2d0ceba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>.row();</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>j<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="namespace_models_1a54b54aa6ddb1d9e337f9fea85a2d0ceba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>.col();</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>i<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="namespace_models_1_1_e_p_e_c_1ac6f525119967602609afe99f64ef4a1ba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>.row();</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>j<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="namespace_models_1_1_e_p_e_c_1ac6f525119967602609afe99f64ef4a1ba3a6d0284e743dc4a9b86f97d6dd1a3bf" kindref="member">val</ref>.col();</highlight></codeline>
 <codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>yQy<sp/>+=<sp/>0.5<sp/>*<sp/>y[i]<sp/>*<sp/>value<sp/>*<sp/>y[j];</highlight></codeline>
 <codeline lineno="74"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="75"><highlight class="normal"><sp/><sp/>QuadModel.setObjective(yQy,<sp/>GRB_MINIMIZE);</highlight></codeline>

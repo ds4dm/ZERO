@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="47" column="11" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="47" bodyend="-1"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="47" column="13" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_math_opt_1_1_i_p___param_1a63062903806f710f9707dcb941aff195" prot="private" static="no" mutable="no">
         <type>GRBModel</type>
@@ -30,7 +30,21 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="48" column="12" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="48" bodyend="-1"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="48" column="14" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_math_opt_1_1_i_p___param_1ac349565f8febfdf47dc0db3b252ebe15" prot="private" static="no" mutable="no">
+        <type>GRBQuadExpr</type>
+        <definition>GRBQuadExpr MathOpt::IP_Param::Objective_c</definition>
+        <argsstring></argsstring>
+        <name>Objective_c</name>
+        <briefdescription>
+<para>Stores the objective part relative to c^Ty. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/mp_param/ip_param.h" line="49" column="14" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_math_opt_1_1_i_p___param_1a2036320e64735f1814e8e8349e3a7245" prot="private" static="no" mutable="no">
         <type>arma::vec</type>
@@ -44,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="49" column="12" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="49" bodyend="-1"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="50" column="14" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_math_opt_1_1_i_p___param_1a4236364f917ce6e9e7c957aca00168dc" prot="private" static="no" mutable="no">
         <type>arma::vec</type>
@@ -58,22 +72,22 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="50" column="12" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="50" bodyend="-1"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="51" column="14" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="51" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="class_math_opt_1_1_i_p___param_1a6fee5815fd45b9e2168f359e2c41aa71" prot="private" static="no" mutable="no">
+      <memberdef kind="variable" id="class_math_opt_1_1_i_p___param_1a032027557ecff64721133fa11cb38a80" prot="private" static="no" mutable="no">
         <type>bool</type>
-        <definition>bool MathOpt::IP_Param::madeModel</definition>
+        <definition>bool MathOpt::IP_Param::finalized</definition>
         <argsstring></argsstring>
-        <name>madeModel</name>
+        <name>finalized</name>
         <initializer>{false}</initializer>
         <briefdescription>
-<para>True if the model has been made. </para>
+<para>True if the model has been made and constraints cannot be changed. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="51" column="12" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="51" bodyend="-1"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="52" column="7" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -94,7 +108,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="59" column="11" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="59" bodyend="59"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="60" column="11" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="60" bodyend="60"/>
       </memberdef>
       <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1abcccf3e9856fa07d2ba3fc7fdf1c65cc" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
         <type></type>
@@ -137,7 +151,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="62" column="11" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="62" bodyend="77"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="63" column="11" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="63" bodyend="78"/>
       </memberdef>
       <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1ab6737563695f1be14be71ae09619a5a6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>arma::vec</type>
@@ -150,7 +164,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="79" column="12" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="79" bodyend="79"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="80" column="12" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="80" bodyend="80"/>
       </memberdef>
       <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1a7ff09814850d66b2f0183df879b412c2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>arma::vec</type>
@@ -163,21 +177,23 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="81" column="12" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="81" bodyend="81"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="82" column="12" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="82" bodyend="82"/>
       </memberdef>
-      <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1a507189acd43a7c90b06da473d37533da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void MathOpt::IP_Param::makeModel</definition>
-        <argsstring>()</argsstring>
-        <name>makeModel</name>
+      <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1a551cbd1d23a9dee94d55144f3149a9ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool MathOpt::IP_Param::finalize</definition>
+        <argsstring>() override</argsstring>
+        <name>finalize</name>
+        <reimplements refid="class_math_opt_1_1_m_p___param_1a77c1f71200e55ee2fe1abe3c9eb13005">finalize</reimplements>
         <briefdescription>
+<para>Finalize the <ref refid="class_math_opt_1_1_m_p___param" kindref="compound">MP_Param</ref> object. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
-<para>This method creates the (mixed)-integer program for the game, where the objective omits the bilinear part.</para>
+<para>This method creates the (mixed)-integer program for the game, where the objective omits the bilinear part. The flag finalized in the object is then set to true.</para>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="83" column="7" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="48" bodyend="80"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="84" column="7" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="48" bodyend="89"/>
       </memberdef>
       <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1a8be970f7d412fd15877e2fc17616bfbd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -201,9 +217,9 @@
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
-<para>This method stores a description of the new cuts of <computeroutput>Ain</computeroutput> (and RHS <computeroutput>bin</computeroutput>) in B and b, respectively</para>
+<para>This method stores a description of the new cuts of <computeroutput>Ain</computeroutput> (and RHS <computeroutput>bin</computeroutput>) in B and b, respectively. This works also when the <ref refid="class_math_opt_1_1_i_p___param" kindref="compound">IP_Param</ref> is finalized.</para>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="85" column="7" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="230" bodyend="258"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="86" column="7" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="249" bodyend="277"/>
       </memberdef>
       <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1a5b3c69e1aaf283425fd1164355e53bdc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -221,7 +237,24 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="88" column="2" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="88" bodyend="91"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="89" column="2" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="89" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1ad88739b3e708a90212f9b4e2deef9602" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MathOpt::IP_Param::setEnv</definition>
+        <argsstring>(GRBEnv *env)</argsstring>
+        <name>setEnv</name>
+        <param>
+          <type>GRBEnv *</type>
+          <declname>env</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/mp_param/ip_param.h" line="93" column="7" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="93" bodyend="93"/>
       </memberdef>
       <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1a15338aa42e6a2d00ba0e8818562c7b60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_math_opt_1_1_i_p___param" kindref="compound">IP_Param</ref> &amp;</type>
@@ -259,7 +292,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="94" column="11" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="128" bodyend="142"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="96" column="11" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="143" bodyend="157"/>
       </memberdef>
       <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1a2090df6b8aa1b63334432208ff8cc9b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_math_opt_1_1_i_p___param" kindref="compound">IP_Param</ref> &amp;</type>
@@ -297,7 +330,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="100" column="11" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="144" bodyend="155"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="102" column="11" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="159" bodyend="170"/>
       </memberdef>
       <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1a31d5eb35213c2af4718e28e3ceafea8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_math_opt_1_1_i_p___param" kindref="compound">IP_Param</ref> &amp;</type>
@@ -328,7 +361,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="107" column="11" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="176" bodyend="181"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="109" column="11" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="195" bodyend="200"/>
       </memberdef>
       <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1abcc0f5b3570052bd57d1a6ee5c195681" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_math_opt_1_1_i_p___param" kindref="compound">IP_Param</ref> &amp;</type>
@@ -354,13 +387,13 @@
           <defval>{}</defval>
         </param>
         <briefdescription>
+<para>Setting the data with the inputs being a struct <ref refid="struct_math_opt_1_1_q_p___objective" kindref="compound">MathOpt::QP_Objective</ref> and struct <ref refid="struct_math_opt_1_1_q_p___constraints" kindref="compound">MathOpt::QP_Constraints</ref>. </para>
         </briefdescription>
         <detaileddescription>
-<para>Setting the data with the inputs being a struct <ref refid="struct_math_opt_1_1_q_p___objective" kindref="compound">MathOpt::QP_Objective</ref> and struct <ref refid="struct_math_opt_1_1_q_p___constraints" kindref="compound">MathOpt::QP_Constraints</ref>. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="112" column="11" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="157" bodyend="174"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="114" column="11" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="172" bodyend="193"/>
       </memberdef>
       <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1a9f8d5f79b5329bbfec6d0c4618f1bbee" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -377,7 +410,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="117" column="7" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="32" bodyend="46"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="119" column="7" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="32" bodyend="46"/>
       </memberdef>
       <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1a19f85599f566f4bf679d6e4c85730ae2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::unique_ptr&lt; GRBModel &gt;</type>
@@ -395,13 +428,13 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Given a value for the parameters <formula id="29">$x$</formula> in the definition of <ref refid="class_math_opt_1_1_i_p___param" kindref="compound">IP_Param</ref>, solve the parameterized MIP program to optimality.</para>
-<para>In terms of game theory, this can be viewed as <emphasis>the best response</emphasis> for a set of decisions by other players. <computeroutput>solve</computeroutput> decides whether the model has to be optimized or not </para>
+<para>Given a value for the parameters <formula id="35">$x$</formula> in the definition of <ref refid="class_math_opt_1_1_i_p___param" kindref="compound">IP_Param</ref>, solve the parameterized MIP program to optimality. Note that the method <simplesect kind="return"><para>a pointer to a copy of the model. In this way, valid cuts and cut pools are kept each time the method is invoked.</para>
+</simplesect>
+In terms of game theory, this can be viewed as <emphasis>the best response</emphasis> for a set of decisions by other players. <computeroutput>solve</computeroutput> decides whether the model has to be optimized or not </para>
         </detaileddescription>
         <inbodydescription>
-<para>compatible with the <ref refid="class_math_opt_1_1_i_p___param" kindref="compound">MathOpt::IP_Param</ref> definition.</para>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="119" column="18" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="82" bodyend="119"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="121" column="18" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="117" bodyend="140"/>
       </memberdef>
       <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1a45ab3e761fba334e064bee33c06c5ec6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -427,23 +460,14 @@
           <defval>1e-6</defval>
         </param>
         <briefdescription>
+<para>Computes the objective value, given a vector <computeroutput>y</computeroutput> and a parameterizing vector <computeroutput>x</computeroutput>. </para>
         </briefdescription>
         <detaileddescription>
-<para>Computes the objective value, given a vector <computeroutput>y</computeroutput> and a parameterizing vector <computeroutput>x</computeroutput> </para>
         </detaileddescription>
         <inbodydescription>
-<para>Computes <formula id="31">$(Cx)^Ty + c^Ty$</formula> given the input values <computeroutput>y</computeroutput> and <computeroutput>x</computeroutput>. <parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>checkFeas</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>if <computeroutput>true</computeroutput>, checks if the given <formula id="32">$(x,y)$</formula> satisfies the constraints of the problem, namely <formula id="33">$Ax + By \leq b$</formula>.</para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>
+<para>Computes <formula id="37">$(Cx)^Ty + c^Ty$</formula> given the input values <computeroutput>y</computeroutput> and <computeroutput>x</computeroutput>. <computeroutput>checkFeas</computeroutput> if <computeroutput>true</computeroutput>, checks if the given <formula id="38">$(x,y)$</formula> satisfies the constraints of the problem, namely <formula id="39">$Ax + By \leq b$</formula>.</para>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="123" column="9" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="193" bodyend="218"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="125" column="9" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="212" bodyend="237"/>
       </memberdef>
       <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1a1e7437399eedd12036eb3709c48e7ca0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -455,44 +479,13 @@
           <declname>P</declname>
         </param>
         <briefdescription>
-        </briefdescription>
-        <detaileddescription>
 <para>Checks if the current object can play a game with another <ref refid="class_math_opt_1_1_i_p___param" kindref="compound">MathOpt::IP_Param</ref> object <computeroutput>P</computeroutput>. </para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="128" column="14" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="128" bodyend="137"/>
-      </memberdef>
-      <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1aa1c20d474c1ece38aaea97a20679167d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type><ref refid="class_math_opt_1_1_i_p___param" kindref="compound">IP_Param</ref> &amp;</type>
-        <definition>MathOpt::IP_Param &amp; MathOpt::IP_Param::addDummy</definition>
-        <argsstring>(unsigned int pars, unsigned int vars=0, int position=-1) override</argsstring>
-        <name>addDummy</name>
-        <reimplements refid="class_math_opt_1_1_m_p___param_1a802628bc47d8e985d77e6184440af534">addDummy</reimplements>
-        <param>
-          <type>unsigned int</type>
-          <declname>pars</declname>
-        </param>
-        <param>
-          <type>unsigned int</type>
-          <declname>vars</declname>
-          <defval>0</defval>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>position</declname>
-          <defval>-1</defval>
-        </param>
-        <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Adds dummy variables to a parameterized mathematical program <computeroutput>position</computeroutput> dictates the position at which the parameters can be added. -1 for adding at the end. <simplesect kind="warning"><para><computeroutput>position</computeroutput> cannot be set for <computeroutput>vars</computeroutput>. <computeroutput>vars</computeroutput> always added at the end. </para>
-</simplesect>
-</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="139" column="11" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="121" bodyend="126"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="130" column="14" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="130" bodyend="139"/>
       </memberdef>
       <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1a4ab6392b44a5b6a7cb2b481267f5a83e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -514,12 +507,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="141" column="7" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="300" bodyend="314"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="141" column="7" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="319" bodyend="333"/>
       </memberdef>
-      <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1a0dca8704e1356405b6b607248ecc995c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1a5bf559b27b9291c61aa692239e3b96ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>long</type>
         <definition>long int MathOpt::IP_Param::load</definition>
-        <argsstring>(const std::string &amp;filename, long pos)</argsstring>
+        <argsstring>(const std::string &amp;filename, long pos=0)</argsstring>
         <name>load</name>
         <param>
           <type>const std::string &amp;</type>
@@ -528,6 +521,7 @@
         <param>
           <type>long</type>
           <declname>pos</declname>
+          <defval>0</defval>
         </param>
         <briefdescription>
         </briefdescription>
@@ -545,7 +539,7 @@
 <codeline><highlight class="normal">}</highlight></codeline>
 </programlisting></para>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="142" column="7" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="261" bodyend="298"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="142" column="7" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="280" bodyend="317"/>
       </memberdef>
       <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1a6cf36efa0134f74b75d485135314a498" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -561,9 +555,9 @@
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
-<para>Computes <formula id="34">$c^Ty $</formula> given the input values <computeroutput>y</computeroutput>;</para>
+<para>Computes <formula id="40">$c^Ty $</formula> given the input values <computeroutput>y</computeroutput>;</para>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="144" column="9" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="220" bodyend="228"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="144" column="9" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="239" bodyend="247"/>
       </memberdef>
       <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1a17cda9a634b46017b7d7579eb9a8f8c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>arma::vec</type>
@@ -584,7 +578,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="146" column="12" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="183" bodyend="191"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="146" column="12" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="202" bodyend="210"/>
       </memberdef>
       <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1ae80499b37080521e2d12b6c944fa23e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -598,6 +592,37 @@
         <inbodydescription>
         </inbodydescription>
         <location file="include/mathopt/mp_param/ip_param.h" line="148" column="7" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="27" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1ada1ae3f91dbdf6deb185dc9bde677e7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MathOpt::IP_Param::updateModelObjective</definition>
+        <argsstring>(const arma::vec x)</argsstring>
+        <name>updateModelObjective</name>
+        <param>
+          <type>const arma::vec</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>This method updates the model objective by setting x to <computeroutput>x</computeroutput> </para>
+        </inbodydescription>
+        <location file="include/mathopt/mp_param/ip_param.h" line="150" column="7" bodyfile="src/mathopt/mp_param/ip_param.cpp" bodystart="91" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1afe0b4bb6151ac00f2c77a3edec9fee1f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::shared_ptr&lt; GRBModel &gt;</type>
+        <definition>std::shared_ptr&lt;GRBModel&gt; MathOpt::IP_Param::getIPModel</definition>
+        <argsstring>()</argsstring>
+        <name>getIPModel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mathopt/mp_param/ip_param.h" line="152" column="18" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="152" bodyend="152"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -613,7 +638,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="55" column="2" bodyfile="src/mathopt/mp_param/mp_param.cpp" bodystart="122" bodyend="139"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="56" column="2" bodyfile="src/mathopt/mp_param/mp_param.cpp" bodystart="122" bodyend="139"/>
       </memberdef>
       <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1af8b3e3a4717541860fcb72634e1723ab" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_math_opt_1_1_m_p___param" kindref="compound">MP_Param</ref> &amp;</type>
@@ -627,7 +652,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="55" column="2" bodyfile="src/mathopt/mp_param/mp_param.cpp" bodystart="141" bodyend="158"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="56" column="2" bodyfile="src/mathopt/mp_param/mp_param.cpp" bodystart="141" bodyend="158"/>
       </memberdef>
       <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1ae632d6f5348fc84bebe05ab01288e448" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_math_opt_1_1_m_p___param" kindref="compound">MP_Param</ref> &amp;</type>
@@ -640,7 +665,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="55" column="2" bodyfile="src/mathopt/mp_param/mp_param.cpp" bodystart="160" bodyend="162"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="56" column="2" bodyfile="src/mathopt/mp_param/mp_param.cpp" bodystart="160" bodyend="162"/>
       </memberdef>
       <memberdef kind="function" id="class_math_opt_1_1_i_p___param_1ae0389084bac5b495c773cf647b7e9bff" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_math_opt_1_1_m_p___param" kindref="compound">MP_Param</ref> &amp;</type>
@@ -653,14 +678,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/mathopt/mp_param/ip_param.h" line="55" column="2" bodyfile="src/mathopt/mp_param/mp_param.cpp" bodystart="164" bodyend="166"/>
+        <location file="include/mathopt/mp_param/ip_param.h" line="56" column="2" bodyfile="src/mathopt/mp_param/mp_param.cpp" bodystart="164" bodyend="166"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This class handles parametrized integer programs. </para>
     </briefdescription>
     <detaileddescription>
-<para>Represents a Parameterized QP as <formula id="40">\[ \min_y c^Ty + (Cx)^T y \]</formula> Subject to <formula id="41">\begin{eqnarray} Ay &amp;\leq&amp; b \\ y &amp;\geq&amp; 0 y_i &amp;\in&amp; &amp;\mathbb{Z}&amp;^{z_i} &amp;\forall&amp; i &amp;\in&amp; I \end{eqnarray}</formula> </para>
+<para>Represents a Parameterized QP as <formula id="2">\[ \min_y c^Ty + (Cx)^T y \]</formula> Subject to <formula id="3">\begin{eqnarray} Ay &amp;\leq&amp; b \\ y &amp;\geq&amp; 0 \\ y_i &amp;\in&amp; &amp;\mathbb{Z}&amp;^{z_i} &amp;\forall&amp; i &amp;\in&amp; I \end{eqnarray}</formula> </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="1">
@@ -686,22 +711,23 @@
         <link refid="class_math_opt_1_1_m_p___param"/>
       </node>
     </collaborationgraph>
-    <location file="include/mathopt/mp_param/ip_param.h" line="44" column="1" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="31" bodyend="149"/>
+    <location file="include/mathopt/mp_param/ip_param.h" line="44" column="1" bodyfile="include/mathopt/mp_param/ip_param.h" bodystart="31" bodyend="153"/>
     <listofallmembers>
       <member refid="class_math_opt_1_1_m_p___param_1a69e39bfe4a58e5c43dbcb7ac16be3fe5" prot="protected" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>A</name></member>
       <member refid="class_math_opt_1_1_i_p___param_1a8be970f7d412fd15877e2fc17616bfbd" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>addConstraints</name></member>
-      <member refid="class_math_opt_1_1_i_p___param_1aa1c20d474c1ece38aaea97a20679167d" prot="public" virt="virtual"><scope>MathOpt::IP_Param</scope><name>addDummy</name></member>
+      <member refid="class_math_opt_1_1_m_p___param_1a802628bc47d8e985d77e6184440af534" prot="public" virt="virtual"><scope>MathOpt::IP_Param</scope><name>addDummy</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1adb541edcb7083da9bde8e6615063acd3" prot="protected" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>B</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1af6e726c09d1d43359c2dad586b0fb4d5" prot="protected" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>b</name></member>
       <member refid="class_math_opt_1_1_i_p___param_1a2036320e64735f1814e8e8349e3a7245" prot="private" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>bounds</name></member>
-      <member refid="class_math_opt_1_1_m_p___param_1a13727398531ec805acd474fa5da89056" prot="protected" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>C</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1a270fad22decf1dbdc2227ff9a4875e34" prot="protected" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>c</name></member>
+      <member refid="class_math_opt_1_1_m_p___param_1a13727398531ec805acd474fa5da89056" prot="protected" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>C</name></member>
       <member refid="class_math_opt_1_1_i_p___param_1a45ab3e761fba334e064bee33c06c5ec6" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>computeObjective</name></member>
       <member refid="class_math_opt_1_1_i_p___param_1a6cf36efa0134f74b75d485135314a498" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>computeObjectiveWithoutOthers</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1aff8f3f085bd5938a352874c020f8ef23" prot="protected" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>dataCheck</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1af137f454eef5ef1e9ef3edd7c7b16261" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>dataCheck</name></member>
       <member refid="class_math_opt_1_1_i_p___param_1a380c60da09ec270dda7a013d8a952f24" prot="private" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>Env</name></member>
-      <member refid="class_math_opt_1_1_m_p___param_1a77c1f71200e55ee2fe1abe3c9eb13005" prot="protected" virt="virtual"><scope>MathOpt::IP_Param</scope><name>finalize</name></member>
+      <member refid="class_math_opt_1_1_i_p___param_1a551cbd1d23a9dee94d55144f3149a9ac" prot="public" virt="virtual"><scope>MathOpt::IP_Param</scope><name>finalize</name></member>
+      <member refid="class_math_opt_1_1_i_p___param_1a032027557ecff64721133fa11cb38a80" prot="private" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>finalized</name></member>
       <member refid="class_math_opt_1_1_i_p___param_1ae80499b37080521e2d12b6c944fa23e2" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>forceDataCheck</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1a40fff25cfb814374938f83ce9b3786de" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>getA</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1af9a8eaa4d0d2034f3bc221757ebba7e2" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>getB</name></member>
@@ -711,6 +737,7 @@
       <member refid="class_math_opt_1_1_m_p___param_1a5e6b2cba9aee0d780957a2e0c7329e02" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>getc</name></member>
       <member refid="class_math_opt_1_1_i_p___param_1a17cda9a634b46017b7d7579eb9a8f8c7" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>getConstraintViolations</name></member>
       <member refid="class_math_opt_1_1_i_p___param_1ab6737563695f1be14be71ae09619a5a6" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>getIntegers</name></member>
+      <member refid="class_math_opt_1_1_i_p___param_1afe0b4bb6151ac00f2c77a3edec9fee1f" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>getIPModel</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1a202eba6a77a560f6db64104eccc34d00" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>getNx</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1af1070c3cbcafa07a86aa96f4e015a361" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>getNy</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1a0f1cc247264404e29747200c7ddfc1ab" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>getQ</name></member>
@@ -720,14 +747,13 @@
       <member refid="class_math_opt_1_1_i_p___param_1a5b3c69e1aaf283425fd1164355e53bdc" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>IP_Param</name></member>
       <member refid="class_math_opt_1_1_i_p___param_1a63062903806f710f9707dcb941aff195" prot="private" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>IPModel</name></member>
       <member refid="class_math_opt_1_1_i_p___param_1a1e7437399eedd12036eb3709c48e7ca0" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>isPlayable</name></member>
-      <member refid="class_math_opt_1_1_i_p___param_1a0dca8704e1356405b6b607248ecc995c" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>load</name></member>
-      <member refid="class_math_opt_1_1_i_p___param_1a6fee5815fd45b9e2168f359e2c41aa71" prot="private" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>madeModel</name></member>
-      <member refid="class_math_opt_1_1_i_p___param_1a507189acd43a7c90b06da473d37533da" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>makeModel</name></member>
+      <member refid="class_math_opt_1_1_i_p___param_1a5bf559b27b9291c61aa692239e3b96ce" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>load</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1af1d48cd18c52aaab1e99e11dfa4cce67" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>MP_Param</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1a2593388bfb462f7a5e36708f8c6f9770" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>MP_Param</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1a5c20eb5e9dac543042b9888e012ab99b" prot="protected" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>Ncons</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1ab74a22bf304936286282f869cb646873" prot="protected" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>Nx</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1a1a69f24fcb92ebf76ea29c9407859f0a" prot="protected" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>Ny</name></member>
+      <member refid="class_math_opt_1_1_i_p___param_1ac349565f8febfdf47dc0db3b252ebe15" prot="private" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>Objective_c</name></member>
       <member refid="class_math_opt_1_1_i_p___param_1a9f8d5f79b5329bbfec6d0c4618f1bbee" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>operator==</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1aae8144b23a29ea99d5ef793729438feb" prot="protected" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>Q</name></member>
       <member refid="class_math_opt_1_1_i_p___param_1a15338aa42e6a2d00ba0e8818562c7b60" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>set</name></member>
@@ -743,13 +769,15 @@
       <member refid="class_math_opt_1_1_m_p___param_1ae632d6f5348fc84bebe05ab01288e448" prot="public" virt="virtual" ambiguityscope="MathOpt::MP_Param::"><scope>MathOpt::IP_Param</scope><name>set</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1ae0389084bac5b495c773cf647b7e9bff" prot="public" virt="virtual" ambiguityscope="MathOpt::MP_Param::"><scope>MathOpt::IP_Param</scope><name>set</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1ade7514774a87da1d741203de23084141" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>setA</name></member>
-      <member refid="class_math_opt_1_1_m_p___param_1a3d1cfea15e1d90c8d599b7f43fbce99e" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>setB</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1acf30858c84ca9134645bfdc00e5c3c01" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>setb</name></member>
+      <member refid="class_math_opt_1_1_m_p___param_1a3d1cfea15e1d90c8d599b7f43fbce99e" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>setB</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1aef703db3b2617b1e7f2918c98742ebae" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>setc</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1a371da389ffb48698912345747dcc74b4" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>setC</name></member>
+      <member refid="class_math_opt_1_1_i_p___param_1ad88739b3e708a90212f9b4e2deef9602" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>setEnv</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1aa91dd679cf1572f215d95ecfbeaff20f" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>setQ</name></member>
       <member refid="class_math_opt_1_1_m_p___param_1a70400a4046b1ab099f6c2ebbdceab6d5" prot="protected" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>size</name></member>
       <member refid="class_math_opt_1_1_i_p___param_1a19f85599f566f4bf679d6e4c85730ae2" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>solveFixed</name></member>
+      <member refid="class_math_opt_1_1_i_p___param_1ada1ae3f91dbdf6deb185dc9bde677e7f" prot="public" virt="non-virtual"><scope>MathOpt::IP_Param</scope><name>updateModelObjective</name></member>
       <member refid="class_math_opt_1_1_i_p___param_1a4ab6392b44a5b6a7cb2b481267f5a83e" prot="public" virt="virtual"><scope>MathOpt::IP_Param</scope><name>write</name></member>
     </listofallmembers>
   </compounddef>

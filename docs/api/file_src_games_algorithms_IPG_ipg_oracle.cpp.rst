@@ -37,8 +37,6 @@ Includes
 
 - ``gurobi_c++.h``
 
-- ``set``
-
 - ``string``
 
 - ``zero.h`` (:ref:`file_include_zero.h`)

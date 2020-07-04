@@ -17,4 +17,8 @@ Classes
 -------
 
 
+- :ref:`exhale_class_class_algorithms_1_1_i_p_g_1_1_algorithm`
+
+- :ref:`exhale_class_class_algorithms_1_1_i_p_g_1_1_i_p_g___player`
+
 - :ref:`exhale_class_class_algorithms_1_1_i_p_g_1_1_oracle`

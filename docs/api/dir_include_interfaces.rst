@@ -16,5 +16,6 @@ Files
 -----
 
 - :ref:`file_include_interfaces_epec_models.h`
+- :ref:`file_include_interfaces_ipg_models.h`
 
 

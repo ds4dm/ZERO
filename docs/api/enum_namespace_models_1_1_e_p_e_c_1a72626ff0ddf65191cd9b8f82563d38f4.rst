@@ -1,0 +1,13 @@
+.. _exhale_enum_namespace_models_1_1_e_p_e_c_1a72626ff0ddf65191cd9b8f82563d38f4:
+
+Enum TaxType
+============
+
+- Defined in :ref:`file_include_interfaces_epec_models.h`
+
+
+Enum Documentation
+------------------
+
+
+.. doxygenenum:: Models::EPEC::TaxType

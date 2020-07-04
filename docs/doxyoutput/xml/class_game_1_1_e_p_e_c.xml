@@ -3,7 +3,7 @@
   <compounddef id="class_game_1_1_e_p_e_c" kind="class" language="C++" prot="public" abstract="yes">
     <compoundname>Game::EPEC</compoundname>
     <basecompoundref refid="class_game_1_1_abstract_game" prot="public" virt="non-virtual">Game::AbstractGame&lt; Data::EPEC::DataObject &gt;</basecompoundref>
-    <derivedcompoundref refid="class_models_1_1_e_p_e_c" prot="public" virt="non-virtual">Models::EPEC</derivedcompoundref>
+    <derivedcompoundref refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c" prot="public" virt="non-virtual">Models::EPEC::EPEC</derivedcompoundref>
     <includes refid="epec_8h" local="no">epec.h</includes>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="class_game_1_1_e_p_e_c_1a085ac9ace1a3aef12e61c03463dee800" prot="private" static="no" mutable="no">
@@ -68,9 +68,9 @@
         <argsstring></argsstring>
         <name>LCPModelBase</name>
         <briefdescription>
+<para>A Gurobi mode object of the LCP form of <ref refid="class_game_1_1_e_p_e_c" kindref="compound">EPEC</ref>. If we are searching for a pure NE, the LCP which is indifferent to pure or mixed NE is stored in this object. </para>
         </briefdescription>
         <detaileddescription>
-<para>A Gurobi mode object of the LCP form of <ref refid="class_game_1_1_e_p_e_c" kindref="compound">EPEC</ref>. If we are searching for a pure NE, the LCP which is indifferent to pure or mixed NE is stored in this object. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -143,10 +143,9 @@
         <name>LeaderObjectiveConvexHull</name>
         <initializer>{}</initializer>
         <briefdescription>
-<para>convex hull computation </para>
+<para>Objective of each leader, given the convex hull computation. </para>
         </briefdescription>
         <detaileddescription>
-<para>Objective of each leader, given the </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -173,9 +172,9 @@
         <name>LeaderLocations</name>
         <initializer>{}</initializer>
         <briefdescription>
+<para>Location of each leader Number of variables in the current player, including any number of convex hull variables at the current moment. The used, i.e., the inheritor of <ref refid="class_game_1_1_e_p_e_c" kindref="compound">Game::EPEC</ref> has the responsibility to keep this correct by implementing an override of <ref refid="class_game_1_1_e_p_e_c_1a54e18b35ce3b7ce266daedf76759bef9" kindref="member">Game::EPEC::updateLocations</ref>. </para>
         </briefdescription>
         <detaileddescription>
-<para>Location of each leader </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -190,7 +189,6 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Number of variables in the current player, including any number of convex hull variables at the current moment. The used, i.e., the inheritor of <ref refid="class_game_1_1_e_p_e_c" kindref="compound">Game::EPEC</ref> has the responsibility to keep this correct by implementing an override of <ref refid="class_game_1_1_e_p_e_c_1a54e18b35ce3b7ce266daedf76759bef9" kindref="member">Game::EPEC::updateLocations</ref>. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -360,7 +358,7 @@
         <definition>virtual void Game::EPEC::makeObjectivePlayer</definition>
         <argsstring>(const unsigned int i, MathOpt::QP_Objective &amp;QP_obj)=0</argsstring>
         <name>makeObjectivePlayer</name>
-        <reimplementedby refid="class_models_1_1_e_p_e_c_1a79766ac616149fc4a17b1b4478ff569a">makeObjectivePlayer</reimplementedby>
+        <reimplementedby refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1af9b5969ab223aee61ec00ab7be39694c">makeObjectivePlayer</reimplementedby>
         <param>
           <type>const unsigned int</type>
           <declname>i</declname>
@@ -382,7 +380,7 @@
         <definition>void Game::EPEC::preFinalize</definition>
         <argsstring>()</argsstring>
         <name>preFinalize</name>
-        <reimplementedby refid="class_models_1_1_e_p_e_c_1aa9dacf6f8965a70a18d47e196cb6f03f">preFinalize</reimplementedby>
+        <reimplementedby refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1aa7d051d95e2c72c1250f3555c6d46cd1">preFinalize</reimplementedby>
         <briefdescription>
 <para>Empty function - optionally re-implementable in derived class. </para>
         </briefdescription>
@@ -398,7 +396,7 @@
         <definition>void Game::EPEC::postFinalize</definition>
         <argsstring>()</argsstring>
         <name>postFinalize</name>
-        <reimplementedby refid="class_models_1_1_e_p_e_c_1a2e38c1ac580d46b2a0bdaa36a8d46e63">postFinalize</reimplementedby>
+        <reimplementedby refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1aa05e61126be41d14b21f20da2bbfc877">postFinalize</reimplementedby>
         <briefdescription>
 <para>Empty function - optionally reimplementable in derived class. </para>
         </briefdescription>
@@ -414,7 +412,7 @@
         <definition>virtual void Game::EPEC::updateLocations</definition>
         <argsstring>()=0</argsstring>
         <name>updateLocations</name>
-        <reimplementedby refid="class_models_1_1_e_p_e_c_1adb4f3499fa2c03522ce997f0c3f63316">updateLocations</reimplementedby>
+        <reimplementedby refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a3a25799be8d18f62c5d91d248a2bed5f">updateLocations</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -428,7 +426,7 @@
         <definition>virtual void Game::EPEC::makeMCConstraints</definition>
         <argsstring>(arma::sp_mat &amp;MC, arma::vec &amp;RHS) const</argsstring>
         <name>makeMCConstraints</name>
-        <reimplementedby refid="class_models_1_1_e_p_e_c_1a92ed1b673ace45b835bc07cc9b30e6ea">makeMCConstraints</reimplementedby>
+        <reimplementedby refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c_1a57ed71a45cb81cc4535077b226e29cd3">makeMCConstraints</reimplementedby>
         <param>
           <type>arma::sp_mat &amp;</type>
           <declname>MC</declname>
@@ -484,7 +482,7 @@
 <para><itemizedlist>
 <listitem><para>First gets the Game::LCP object from <computeroutput><ref refid="class_game_1_1_e_p_e_c_1a1dc1b8bd642e450bc1e30eefe963fe13" kindref="member">Game::EPEC::PlayersLowerLevels</ref></computeroutput> and makes a <ref refid="class_math_opt_1_1_q_p___param" kindref="compound">MathOpt::QP_Param</ref> with this LCP as the lower level</para>
 </listitem><listitem><para>This is achieved by calling LCP::makeQP and using the objective value object in <computeroutput><ref refid="class_game_1_1_e_p_e_c_1a65834e121a2b29b9205ceb6a237e9e26" kindref="member">Game::EPEC::LeaderObjective</ref></computeroutput> </para>
-</listitem><listitem><para>Finally the locations are updated owing to the complete convex hull calculated during the call to LCP::makeQP <simplesect kind="note"><para>Overloaded as <ref refid="class_game_1_1_e_p_e_c_1a66b446e508a6079805e7d8900f5db4ed" kindref="member">Models::EPEC::makePlayerQP()</ref> </para>
+</listitem><listitem><para>Finally the locations are updated owing to the complete convex hull calculated during the call to LCP::makeQP <simplesect kind="note"><para>Overloaded as Models::EPEC::makePlayerQP() </para>
 </simplesect>
 </para>
 </listitem></itemizedlist>
@@ -503,7 +501,7 @@
 <para>Makes the <ref refid="class_math_opt_1_1_q_p___param" kindref="compound">MathOpt::QP_Param</ref> for all the countries. </para>
         </briefdescription>
         <detaileddescription>
-<para>Calls are made to <ref refid="class_game_1_1_e_p_e_c_1a66b446e508a6079805e7d8900f5db4ed" kindref="member">Models::EPEC::makePlayerQP(const unsigned int i)</ref> for each valid <computeroutput>i</computeroutput> <simplesect kind="note"><para>Overloaded as <ref refid="class_game_1_1_e_p_e_c_1a66b446e508a6079805e7d8900f5db4ed" kindref="member">EPEC::makePlayerQP(unsigned int)</ref> </para>
+<para>Calls are made to Models::EPEC::makePlayerQP(const unsigned int i) for each valid <computeroutput>i</computeroutput> <simplesect kind="note"><para>Overloaded as <ref refid="class_game_1_1_e_p_e_c_1a66b446e508a6079805e7d8900f5db4ed" kindref="member">EPEC::makePlayerQP(unsigned int)</ref> </para>
 </simplesect>
 </para>
         </detaileddescription>
@@ -522,7 +520,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/epec.h" line="122" column="7"/>
+        <location file="include/games/epec.h" line="122" column="7" bodyfile="src/games/epec.cpp" bodystart="358" bodyend="389"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_e_p_e_c_1afcd0018e01a696881c8da744a3a05048" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -632,7 +630,7 @@
 <para>Finalizes the creation of a <ref refid="class_game_1_1_e_p_e_c" kindref="compound">Game::EPEC</ref> object. </para>
         </briefdescription>
         <detaileddescription>
-<para>Performs a bunch of job after all data for a <ref refid="class_game_1_1_e_p_e_c" kindref="compound">Game::EPEC</ref> object are given, namely. <ref refid="class_game_1_1_e_p_e_c_1afcd0018e01a696881c8da744a3a05048" kindref="member">Models::EPEC::computeLeaderLocations</ref> - Adds the required dummy variables to each leader&apos;s problem so that a game among the leaders can be defined. Calls <ref refid="class_game_1_1_e_p_e_c_1ae0bd0fb7910bc4735c0c6481e1ab7c60" kindref="member">Game::EPEC::addDummyLead</ref><itemizedlist>
+<para>Performs a bunch of job after all data for a <ref refid="class_game_1_1_e_p_e_c" kindref="compound">Game::EPEC</ref> object are given, namely. Models::EPEC::computeLeaderLocations - Adds the required dummy variables to each leader&apos;s problem so that a game among the leaders can be defined. Calls <ref refid="class_game_1_1_e_p_e_c_1ae0bd0fb7910bc4735c0c6481e1ab7c60" kindref="member">Game::EPEC::addDummyLead</ref><itemizedlist>
 <listitem><para>Makes the market clearing constraint in each country. Calls </para>
 </listitem></itemizedlist>
 </para>
@@ -693,10 +691,9 @@
           <defval>1e-5</defval>
         </param>
         <briefdescription>
-<para>equilibrium is a pure strategy </para>
+<para>Return a bool indicating whether the equilibrium is a pure strategy. </para>
         </briefdescription>
         <detaileddescription>
-<para>Return a bool indicating whether the </para>
         </detaileddescription>
         <inbodydescription>
 <para>Call the delegated Algorithm and return true if the equilibrium is pure</para>
@@ -751,6 +748,8 @@
           <type>const arma::vec &amp;</type>
           <declname>prevDev</declname>
           <defval>{}</defval>
+          <briefdescription><para>if any, the std::vector of previous deviations. </para>
+</briefdescription>
         </param>
         <briefdescription>
         </briefdescription>
@@ -1001,9 +1000,9 @@
         <argsstring>() const</argsstring>
         <name>getLCPDescription</name>
         <briefdescription>
+<para>Get the Game::LCP object solved in the last iteration either to solve the problem or to prove non-existence of Nash equilibrium. Object is returned using constant reference. </para>
         </briefdescription>
         <detaileddescription>
-<para>Get the Game::LCP object solved in the last iteration either to solve the problem or to prove non-existence of Nash equilibrium. Object is returned using constant reference. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1015,9 +1014,9 @@
         <argsstring>() const</argsstring>
         <name>getLCPModel</name>
         <briefdescription>
+<para>Get the GRBModel solved in the last iteration to solve the problem or to prove non-existence of Nash equilibrium. Object is returned using constant reference. </para>
         </briefdescription>
         <detaileddescription>
-<para>Get the GRBModel solved in the last iteration to solve the problem or to prove non-existence of Nash equilibrium. Object is returned using constant reference. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1033,9 +1032,9 @@
           <declname>filename</declname>
         </param>
         <briefdescription>
+<para>Writes the GRBModel solved in the last iteration to solve the problem or to prove non-existence of Nash equilibrium to a file. </para>
         </briefdescription>
         <detaileddescription>
-<para>Writes the GRBModel solved in the last iteration to solve the problem or to prove non-existence of Nash equilibrium to a file. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1102,8 +1101,8 @@
     </detaileddescription>
     <inheritancegraph>
       <node id="3">
-        <label>Models::EPEC</label>
-        <link refid="class_models_1_1_e_p_e_c"/>
+        <label>Models::EPEC::EPEC</label>
+        <link refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>

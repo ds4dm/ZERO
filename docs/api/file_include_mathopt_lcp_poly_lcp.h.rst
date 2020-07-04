@@ -49,11 +49,11 @@ Included By
 -----------
 
 
+- :ref:`file_include_mathopt_lcp_lcp.h`
+
 - :ref:`file_src_games_algorithms_EPEC_epec_fullenumeration.cpp`
 
 - :ref:`file_src_mathopt_lcp_poly_lcp.cpp`
-
-- :ref:`file_include_mathopt_lcp_lcp.h`
 
 
 

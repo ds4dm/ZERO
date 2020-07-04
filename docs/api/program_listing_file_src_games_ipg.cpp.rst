@@ -24,6 +24,8 @@ Program Listing for File ipg.cpp
    
    
    #include "games/ipg.h"
+   #include "games/algorithms/IPG/ipg_algorithms.h"
+   #include "zero.h"
    #include <armadillo>
    #include <boost/log/trivial.hpp>
    #include <memory>
@@ -44,6 +46,7 @@ Program Listing for File ipg.cpp
      for (unsigned int i = 0; i < this->NumPlayers; ++i) {
         PlayerVariables.at(i) = this->PlayersIP.at(i)->getNy();
         this->NumVariables += PlayerVariables.at(i);
+        this->PlayersIP.at(i)->finalize();
      }
      this->Finalized = true;
    }
@@ -84,7 +87,30 @@ Program Listing for File ipg.cpp
    }
    
    
-   const void Game::IPG::findNashEq() { return; }
+   const void Game::IPG::findNashEq() {
+     std::stringstream final_msg;
+     if (!this->Finalized)
+        this->finalize();
    
-   bool Game::IPG::isPureStrategy(double tol) const { return false; }
-   bool Game::IPG::isSolved(double tol) const { return false; }
+     switch (this->Stats.AlgorithmData.Algorithm.get()) {
+     case Data::IPG::Algorithms::Oracle: {
+        final_msg << "Oracle Algorithm completed. ";
+        this->Algorithm = std::shared_ptr<Algorithms::IPG::Oracle>(
+             new class Algorithms::IPG::Oracle(this->Env, this));
+        this->Algorithm->solve();
+     } break;
+     }
+   }
+   
+   bool Game::IPG::isPureStrategy(double tol) const { return this->Algorithm->isPureStrategy(); }
+   bool Game::IPG::isSolved(double tol) const { return this->Algorithm->isSolved(); }
+   
+   
+   std::string std::to_string(const Data::IPG::Algorithms al) {
+     switch (al) {
+     case Data::IPG::Algorithms::Oracle:
+        return std::string("Oracle");
+     default:
+        return std::string("UNKNOWN_ALGORITHM_") + std::to_string(static_cast<int>(al));
+     }
+   }

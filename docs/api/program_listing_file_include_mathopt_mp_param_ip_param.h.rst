@@ -44,11 +44,12 @@ Program Listing for File ip_param.h
      {
      private:
         // Gurobi environment and model
-        GRBEnv *  Env;
-        GRBModel  IPModel;          
-        arma::vec bounds;           
-        arma::vec integers;         
-        bool      madeModel{false}; 
+        GRBEnv *    Env;
+        GRBModel    IPModel;     
+        GRBQuadExpr Objective_c; 
+        arma::vec   bounds;      
+        arma::vec   integers;    
+        bool finalized{false};   
    
         // These methods should be inaccessible to the inheritor, since we have a
         // different structure.
@@ -78,14 +79,15 @@ Program Listing for File ip_param.h
    
         arma::vec getBounds() const { return this->bounds; }
    
-        void makeModel();
+        bool finalize() override;
    
         void addConstraints(const arma::sp_mat A, const arma::vec b);
    
-        IP_Param(const IP_Param &ipg)
-             : MP_Param(ipg), Env{ipg.Env}, IPModel{ipg.IPModel}, madeModel{ipg.madeModel} {
+        IP_Param(const IP_Param &ipg) : MP_Param(ipg), Env{ipg.Env}, IPModel{ipg.IPModel} {
            this->size();
         };
+   
+        void setEnv(GRBEnv *env) { this->Env = env; }
    
         // Override setters
         IP_Param &set(const arma::sp_mat &C,
@@ -129,15 +131,17 @@ Program Listing for File ip_param.h
            return b1 && b2 && b3;
         }
    
-        IP_Param &addDummy(unsigned int pars, unsigned int vars = 0, int position = -1) override;
-   
         void write(const std::string &filename, bool append) const override;
-        long load(const std::string &filename, long pos);
+        long load(const std::string &filename, long pos = 0);
    
         double computeObjectiveWithoutOthers(const arma::vec &y) const;
    
         arma::vec getConstraintViolations(const arma::vec y, double tol);
    
         void forceDataCheck();
+   
+        void updateModelObjective(const arma::vec x);
+   
+        std::shared_ptr<GRBModel> getIPModel() { return std::shared_ptr<GRBModel>(&this->IPModel); }
      };
    } // namespace MathOpt

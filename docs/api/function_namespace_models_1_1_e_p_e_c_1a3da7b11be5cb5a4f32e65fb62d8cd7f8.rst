@@ -1,0 +1,13 @@
+.. _exhale_function_namespace_models_1_1_e_p_e_c_1a3da7b11be5cb5a4f32e65fb62d8cd7f8:
+
+Function Models::EPEC::decreaseVal
+==================================
+
+- Defined in :ref:`file_include_interfaces_epec_models.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: Models::EPEC::decreaseVal(LeadLocs&, const LeaderVars, const unsigned int, const bool)

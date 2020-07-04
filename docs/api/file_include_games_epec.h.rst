@@ -51,9 +51,9 @@ Included By
 -----------
 
 
-- :ref:`file_src_games_epec.cpp`
-
 - :ref:`file_include_games_games.h`
+
+- :ref:`file_src_games_epec.cpp`
 
 
 

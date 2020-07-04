@@ -74,12 +74,16 @@ Program Listing for File zero.h
         class OuterApproximation;
      } // namespace EPEC
      namespace IPG {
+        class Algorithm;
         class Oracle;
      } // namespace IPG
    } // namespace Algorithms
    
    class ZEROAlgorithmData;
+   
+   
    namespace Data {
+   
      namespace EPEC {
         class DataObject;
      }
@@ -91,5 +95,7 @@ Program Listing for File zero.h
      }
    
    } // namespace Data
+   
+   
    #include "games/games.h"
    #include "mathopt/mathopt.h"

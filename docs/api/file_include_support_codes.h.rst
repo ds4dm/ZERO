@@ -41,8 +41,6 @@ Included By
 -----------
 
 
-- :ref:`file_src_support_codes.cpp`
-
 - :ref:`file_include_games_epec.h`
 
 - :ref:`file_include_games_games.h`
@@ -50,6 +48,8 @@ Included By
 - :ref:`file_include_mathopt_mp_param_ip_param.h`
 
 - :ref:`file_include_zero.h`
+
+- :ref:`file_src_support_codes.cpp`
 
 
 

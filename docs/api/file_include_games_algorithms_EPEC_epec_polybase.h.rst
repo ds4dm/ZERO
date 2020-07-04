@@ -49,8 +49,6 @@ Included By
 -----------
 
 
-- :ref:`file_src_games_algorithms_EPEC_epec_polybase.cpp`
-
 - :ref:`file_include_games_algorithms_EPEC_epec_algorithms.h`
 
 - :ref:`file_include_games_algorithms_EPEC_epec_combinatorialpne.h`
@@ -58,6 +56,8 @@ Included By
 - :ref:`file_include_games_algorithms_EPEC_epec_fullenumeration.h`
 
 - :ref:`file_include_games_algorithms_EPEC_epec_innerapproximation.h`
+
+- :ref:`file_src_games_algorithms_EPEC_epec_polybase.cpp`
 
 
 

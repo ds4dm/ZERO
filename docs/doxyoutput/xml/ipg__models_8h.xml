@@ -1,0 +1,449 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="ipg__models_8h" kind="file" language="C++">
+    <compoundname>ipg_models.h</compoundname>
+    <includes refid="zero_8h" local="yes">zero.h</includes>
+    <includes local="no">armadillo</includes>
+    <includes local="no">gurobi_c++.h</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">memory</includes>
+    <includes local="no">utility</includes>
+    <includedby refid="ipg__models_8cpp" local="yes">src/interfaces/ipg_models.cpp</includedby>
+    <incdepgraph>
+      <node id="17">
+        <label>games/epec.h</label>
+        <link refid="epec_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>support/utils.h</label>
+        <link refid="utils_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>poly_lcp.h</label>
+        <link refid="poly__lcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>ipg_algorithms.h</label>
+        <link refid="ipg__algorithms_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>algorithms/IPG/ipg_oracle.h</label>
+        <link refid="ipg__oracle_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>games/nash.h</label>
+        <link refid="nash_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>support/codes.h</label>
+        <link refid="codes_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>string</label>
+      </node>
+      <node id="5">
+        <label>map</label>
+      </node>
+      <node id="16">
+        <label>games/games.h</label>
+        <link refid="games_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>outer_lcp.h</label>
+        <link refid="outer__lcp_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>ip_param.h</label>
+        <link refid="ip__param_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>armadillo</label>
+      </node>
+      <node id="10">
+        <label>exception</label>
+      </node>
+      <node id="13">
+        <label>fstream</label>
+      </node>
+      <node id="2">
+        <label>zero.h</label>
+        <link refid="zero_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>mathopt/mp_param/mp_param.h</label>
+        <link refid="mp__param_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>vector</label>
+      </node>
+      <node id="29">
+        <label>utility</label>
+      </node>
+      <node id="15">
+        <label>support/version.h</label>
+        <link refid="version_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>iostream</label>
+      </node>
+      <node id="18">
+        <label>games/ipg.h</label>
+        <link refid="ipg_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>gurobi_c++.h</label>
+      </node>
+      <node id="23">
+        <label>lcp/lcp.h</label>
+        <link refid="lcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>set</label>
+      </node>
+      <node id="28">
+        <label>qp_param.h</label>
+        <link refid="qp__param_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>include/interfaces/ipg_models.h</label>
+        <link refid="ipg__models_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>memory</label>
+      </node>
+      <node id="22">
+        <label>mathopt/mathopt.h</label>
+        <link refid="mathopt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>src/interfaces/ipg_models.cpp</label>
+        <link refid="ipg__models_8cpp"/>
+      </node>
+      <node id="1">
+        <label>include/interfaces/ipg_models.h</label>
+        <link refid="ipg__models_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance" prot="public">Models::IPG::IPGInstance</innerclass>
+    <innerclass refid="class_models_1_1_i_p_g_1_1_i_p_g" prot="public">Models::IPG::IPG</innerclass>
+    <innernamespace refid="namespace_models">Models</innernamespace>
+    <innernamespace refid="namespace_models_1_1_i_p_g">Models::IPG</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*<sp/>#############################################</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>file<sp/>is<sp/>part<sp/>of</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ZERO</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Copyright<sp/>(c)<sp/>2020</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/>Released<sp/>under<sp/>the<sp/>Creative<sp/>Commons</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Zero<sp/>v1.0<sp/>Universal<sp/>License</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Find<sp/>out<sp/>more<sp/>at</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>https://github.com/ds4dm/ZERO</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>#############################################*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="zero_8h" kindref="compound">zero.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;armadillo&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;gurobi_c++.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;utility&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_models" kindref="compound">Models</ref><sp/>{</highlight></codeline>
+<codeline lineno="25" refid="namespace_models_1_1_i_p_g" refkind="compound"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="class_models_1_1_i_p_g_1_1_i_p_g" kindref="compound">IPG</ref><sp/>{</highlight></codeline>
+<codeline lineno="27" refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance" kindref="compound">IPGInstance</ref><sp/>{</highlight></codeline>
+<codeline lineno="28" refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1a803ee962f419f6a951e80f57d044f56d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;MathOpt::IP_Param&gt;<sp/><ref refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1a803ee962f419f6a951e80f57d044f56d" kindref="member">IPs</ref><sp/><sp/><sp/><sp/><sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="29" refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1a30e4be71b780b264a0abd874b64b6591" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;std::string&gt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1a30e4be71b780b264a0abd874b64b6591" kindref="member">IPFiles</ref><sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="30" refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1ab869317eb55ee443fad962a79e3f7b36" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1ab869317eb55ee443fad962a79e3f7b36" kindref="member">NumVariables</ref>;</highlight></codeline>
+<codeline lineno="31" refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1a3264608e01b6d5fadcf08c71025d225b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;unsigned<sp/>int&gt;<sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1a3264608e01b6d5fadcf08c71025d225b" kindref="member">PlayerVariables</ref>;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1aa91608dd6c7bb1762690e92f98bf6bb9" kindref="member">load</ref>(std::string<sp/>filename);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1aea4a2e3e8937c06adbea4abc60158121" kindref="member">save</ref>(std::string<sp/>filename);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>std::ostream<sp/>&amp;<ref refid="namespace_models_1_1_i_p_g_1af0de748364bb8991a02668d7bf3b2983" kindref="member">operator&lt;&lt;</ref>(std::ostream<sp/>&amp;ost,<sp/><ref refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance" kindref="compound">IPGInstance</ref><sp/>I);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="class_models_1_1_i_p_g_1_1_i_p_g" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_models_1_1_i_p_g_1_1_i_p_g" kindref="compound">IPG</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_game_1_1_i_p_g" kindref="compound">Game::IPG</ref><sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="43" refid="class_models_1_1_i_p_g_1_1_i_p_g_1a56225f2c6e524b815820059d29fec93a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_models_1_1_i_p_g_1_1_i_p_g_1a56225f2c6e524b815820059d29fec93a" kindref="member">preFinalize</ref>()</highlight><highlight class="keyword"><sp/>override</highlight><highlight class="normal">{};</highlight></codeline>
+<codeline lineno="44" refid="class_models_1_1_i_p_g_1_1_i_p_g_1a930819b85589289847d52abd6a06c803" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_models_1_1_i_p_g_1_1_i_p_g_1a930819b85589289847d52abd6a06c803" kindref="member">postFinalize</ref>()</highlight><highlight class="keyword"><sp/>override</highlight><highlight class="normal">{};</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance" kindref="compound">IPGInstance</ref><sp/><ref refid="class_models_1_1_i_p_g_1_1_i_p_g_1ab16091dec42c539439a2711b83045b36" kindref="member">Instance</ref>;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_models_1_1_i_p_g_1_1_i_p_g_1af3c0fbccd3633b7dd80962d400c26274" kindref="member">IPG</ref>()<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="class_models_1_1_i_p_g_1_1_i_p_g_1a622355f908e9be25f070e9003d1a9a09" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_models_1_1_i_p_g_1_1_i_p_g_1a622355f908e9be25f070e9003d1a9a09" kindref="member">IPG</ref>(GRBEnv<sp/>*env,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>instanceFileName)<sp/>:<sp/><ref refid="namespace_game" kindref="compound">Game</ref>::<ref refid="class_models_1_1_i_p_g_1_1_i_p_g" kindref="compound">IPG</ref>(env)<sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;Instance.<ref refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1aa91608dd6c7bb1762690e92f98bf6bb9" kindref="member">load</ref>(instanceFileName);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_game_1_1_i_p_g_1a3a939675fddeb5adda31e7c7be895e6c" kindref="member">PlayersIP</ref>.empty();</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>this-&gt;Instance.<ref refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1a803ee962f419f6a951e80f57d044f56d" kindref="member">IPs</ref>.size();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;Instance.<ref refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1a803ee962f419f6a951e80f57d044f56d" kindref="member">IPs</ref>.at(i).setEnv(env);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_game_1_1_i_p_g_1a3a939675fddeb5adda31e7c7be895e6c" kindref="member">PlayersIP</ref>.push_back(std::shared_ptr&lt;MathOpt::IP_Param&gt;(&amp;this-&gt;Instance.<ref refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1a803ee962f419f6a951e80f57d044f56d" kindref="member">IPs</ref>.at(i)));</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_models_1_1_i_p_g_1_1_i_p_g" kindref="compound">IPG</ref><sp/>&amp;<ref refid="class_models_1_1_i_p_g_1_1_i_p_g_1a4d9d938d21d578728cce3cc1ea8b4f5e" kindref="member">unlock</ref>();</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_models_1_1_i_p_g_1_1_i_p_g_1a5433dde0f68aeac56eb555f5021aed2c" kindref="member">writeSolution</ref>(std::string<sp/>filename)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="class_models_1_1_i_p_g_1_1_i_p_g_1a8f2358557a2d5ee0ebe6ef714768a358" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance" kindref="compound">IPGInstance</ref><sp/><ref refid="class_models_1_1_i_p_g_1_1_i_p_g_1a8f2358557a2d5ee0ebe6ef714768a358" kindref="member">getInstance</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_models_1_1_i_p_g_1_1_i_p_g_1ab16091dec42c539439a2711b83045b36" kindref="member">Instance</ref>;<sp/>}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>IPG</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>Models</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="include/interfaces/ipg_models.h"/>
+  </compounddef>
+</doxygen>

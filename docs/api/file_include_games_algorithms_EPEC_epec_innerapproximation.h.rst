@@ -51,9 +51,9 @@ Included By
 -----------
 
 
-- :ref:`file_src_games_algorithms_EPEC_epec_innerapproximation.cpp`
-
 - :ref:`file_include_games_algorithms_EPEC_epec_polybase.h`
+
+- :ref:`file_src_games_algorithms_EPEC_epec_innerapproximation.cpp`
 
 
 

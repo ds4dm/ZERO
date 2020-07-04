@@ -1,8 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
-  <compounddef id="class_game_1_1_i_p_g" kind="class" language="C++" prot="public">
+  <compounddef id="class_game_1_1_i_p_g" kind="class" language="C++" prot="public" abstract="yes">
     <compoundname>Game::IPG</compoundname>
     <basecompoundref refid="class_game_1_1_abstract_game" prot="public" virt="non-virtual">Game::AbstractGame&lt; Data::IPG::DataObject &gt;</basecompoundref>
+    <derivedcompoundref refid="class_models_1_1_i_p_g_1_1_i_p_g" prot="public" virt="non-virtual">Models::IPG::IPG</derivedcompoundref>
     <includes refid="ipg_8h" local="no">ipg.h</includes>
       <sectiondef kind="protected-attrib">
       <memberdef kind="variable" id="class_game_1_1_i_p_g_1a3a939675fddeb5adda31e7c7be895e6c" prot="protected" static="no" mutable="no">
@@ -12,10 +13,10 @@
         <name>PlayersIP</name>
         <initializer>{}</initializer>
         <briefdescription>
-<para>This class handles Integer Programming Games (<ref refid="class_game_1_1_i_p_g" kindref="compound">IPG</ref>), namely multiple agents solving an integer programming game. </para>
+<para>&lt; </para>
         </briefdescription>
         <detaileddescription>
-<para>&lt; The Integer Programs associated to each player </para>
+<para>This class handles Integer Programming Games (<ref refid="class_game_1_1_i_p_g" kindref="compound">IPG</ref>), namely multiple agents solving an integer programming game. The Integer Programs associated to each player </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -43,10 +44,9 @@
         <name>Finalized</name>
         <initializer>{false}</initializer>
         <briefdescription>
-<para>can start. No players can be added. </para>
+<para>When the object is finalized, the solving process can start. No players can be added. </para>
         </briefdescription>
         <detaileddescription>
-<para>When the object is finalized, the solving process </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -67,7 +67,36 @@
         <location file="include/games/ipg.h" line="54" column="14" bodyfile="include/games/ipg.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_game_1_1_i_p_g_1aed0e301658da5321d151fad5f10db21b" prot="private" static="no" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="class_algorithms_1_1_i_p_g_1_1_algorithm" kindref="compound">Algorithms::IPG::Algorithm</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;Algorithms::IPG::Algorithm&gt; Game::IPG::Algorithm</definition>
+        <argsstring></argsstring>
+        <name>Algorithm</name>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/ipg.h" line="57" column="18" bodyfile="include/games/ipg.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
       <sectiondef kind="friend">
+      <memberdef kind="friend" id="class_game_1_1_i_p_g_1aebd561777cc9e2b5149ebb7e1f6e1b0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class Algorithms::IPG::Algorithm</definition>
+        <argsstring></argsstring>
+        <name>Algorithms::IPG::Algorithm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/ipg.h" line="68" column="2" bodyfile="include/games/ipg.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
       <memberdef kind="friend" id="class_game_1_1_i_p_g_1a84836887d30b770869453f4943bdbfe2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>friend class</type>
         <definition>friend class Algorithms::IPG::Oracle</definition>
@@ -79,7 +108,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="64" column="2" bodyfile="include/games/ipg.h" bodystart="64" bodyend="-1"/>
+        <location file="include/games/ipg.h" line="69" column="2" bodyfile="include/games/ipg.h" bodystart="69" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -113,7 +142,7 @@
         <inbodydescription>
 <para>Given <computeroutput>x</computeroutput> as the solution vector and <computeroutput>i</computeroutput> as index of player, the method returns x^{-i}</para>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="57" column="7" bodyfile="src/games/ipg.cpp" bodystart="51" bodyend="74"/>
+        <location file="include/games/ipg.h" line="58" column="7" bodyfile="src/games/ipg.cpp" bodystart="54" bodyend="77"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_i_p_g_1aec5449ea62ceaa82411c7d7a454f2b57" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -145,7 +174,7 @@
         <inbodydescription>
 <para>Given <computeroutput>x</computeroutput> as the solution vector and <computeroutput>i</computeroutput> as index of player, the method returns x^i</para>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="58" column="7" bodyfile="src/games/ipg.cpp" bodystart="76" bodyend="94"/>
+        <location file="include/games/ipg.h" line="59" column="7" bodyfile="src/games/ipg.cpp" bodystart="79" bodyend="97"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_i_p_g_1ab3fa5c1de6f4089de6f130740a12e89c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -170,7 +199,39 @@
         </inbodydescription>
         <location file="include/games/ipg.h" line="60" column="7"/>
       </memberdef>
-      <memberdef kind="function" id="class_game_1_1_i_p_g_1a448677cf65ae15178c27da7ec294b5d3" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_game_1_1_i_p_g_1acabbd4441f684af0f9ba5d3ee2e2c615" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void Game::IPG::preFinalize</definition>
+        <argsstring>()=0</argsstring>
+        <name>preFinalize</name>
+        <reimplementedby refid="class_models_1_1_i_p_g_1_1_i_p_g_1a56225f2c6e524b815820059d29fec93a">preFinalize</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/ipg.h" line="64" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_game_1_1_i_p_g_1a14cb516689f5fc0e43d1113647249847" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void Game::IPG::postFinalize</definition>
+        <argsstring>()=0</argsstring>
+        <name>postFinalize</name>
+        <reimplementedby refid="class_models_1_1_i_p_g_1_1_i_p_g_1a930819b85589289847d52abd6a06c803">postFinalize</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/games/ipg.h" line="65" column="15"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_game_1_1_i_p_g_1a448677cf65ae15178c27da7ec294b5d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void Game::IPG::finalize</definition>
         <argsstring>()</argsstring>
@@ -182,10 +243,8 @@
         <inbodydescription>
 <para>This methods finalizes the model by disabling any edits to the number of players. The proper object (for instance, the ones counting players variables) are initialized with the right values.</para>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="61" column="7" bodyfile="src/games/ipg.cpp" bodystart="34" bodyend="49"/>
+        <location file="include/games/ipg.h" line="70" column="7" bodyfile="src/games/ipg.cpp" bodystart="36" bodyend="52"/>
       </memberdef>
-      </sectiondef>
-      <sectiondef kind="public-func">
       <memberdef kind="function" id="class_game_1_1_i_p_g_1a89b4c1e57b17bba4438541c3a488198e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
         <definition>Game::IPG::IPG</definition>
@@ -201,7 +260,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="65" column="2" bodyfile="include/games/ipg.h" bodystart="65" bodyend="65"/>
+        <location file="include/games/ipg.h" line="71" column="2" bodyfile="include/games/ipg.h" bodystart="71" bodyend="71"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_i_p_g_1aba1ab31c35f012e48e1a47fec318ad3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -227,7 +286,7 @@
         <inbodydescription>
 <para>This constructors initializes the integer programming game with the gurobi environment <computeroutput>env</computeroutput> and the vector of shared pointers to the IP_Params in <computeroutput>players</computeroutput> </para>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="66" column="2" bodyfile="src/games/ipg.cpp" bodystart="19" bodyend="33"/>
+        <location file="include/games/ipg.h" line="72" column="2" bodyfile="src/games/ipg.cpp" bodystart="21" bodyend="35"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_i_p_g_1a1b2c4bee27025af5921780ca2a41fe28" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>const void</type>
@@ -242,7 +301,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="68" column="13" bodyfile="src/games/ipg.cpp" bodystart="97" bodyend="97"/>
+        <location file="include/games/ipg.h" line="74" column="13" bodyfile="src/games/ipg.cpp" bodystart="100" bodyend="113"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_i_p_g_1ad999f9085c75eed024e09b87b3b832b4" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
@@ -262,7 +321,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="69" column="13" bodyfile="src/games/ipg.cpp" bodystart="100" bodyend="100"/>
+        <location file="include/games/ipg.h" line="75" column="13" bodyfile="src/games/ipg.cpp" bodystart="116" bodyend="116"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_i_p_g_1ad66d221d1f3e15ec6b7cca5cdc5ef5aa" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
@@ -276,14 +335,13 @@
           <defval>1e-5</defval>
         </param>
         <briefdescription>
-<para>equilibrium is a pure strategy </para>
+<para>Return a bool indicating whether the equilibrium is a pure strategy. </para>
         </briefdescription>
         <detaileddescription>
-<para>Return a bool indicating whether the </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="70" column="7" bodyfile="src/games/ipg.cpp" bodystart="99" bodyend="99"/>
+        <location file="include/games/ipg.h" line="76" column="7" bodyfile="src/games/ipg.cpp" bodystart="115" bodyend="115"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_i_p_g_1a7804df943f87684d0f85bce02bc1995b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::unique_ptr&lt; GRBModel &gt;</type>
@@ -304,7 +362,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="73" column="18"/>
+        <location file="include/games/ipg.h" line="79" column="18"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_i_p_g_1a0b7aa88f9e4b730c1ffdae30e07e5744" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>const std::vector&lt; arma::vec &gt;</type>
@@ -317,7 +375,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="75" column="20" bodyfile="include/games/ipg.h" bodystart="75" bodyend="75"/>
+        <location file="include/games/ipg.h" line="81" column="20" bodyfile="include/games/ipg.h" bodystart="81" bodyend="81"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_i_p_g_1a84d50a99870b84fb93840b46856c0b22" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="struct_z_e_r_o_statistics" kindref="compound">ZEROStatistics</ref>&lt; <ref refid="class_data_1_1_i_p_g_1_1_data_object" kindref="compound">Data::IPG::DataObject</ref> &gt;</type>
@@ -331,7 +389,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="78" column="17" bodyfile="include/games/ipg.h" bodystart="78" bodyend="78"/>
+        <location file="include/games/ipg.h" line="84" column="17" bodyfile="include/games/ipg.h" bodystart="84" bodyend="84"/>
       </memberdef>
       <memberdef kind="function" id="class_game_1_1_i_p_g_1ae76562a954b222a124b34052b6a0d5ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -348,7 +406,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/ipg.h" line="80" column="7"/>
+        <location file="include/games/ipg.h" line="86" column="7"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -365,6 +423,12 @@
       <node id="2">
         <label>Game::AbstractGame&lt; Data::IPG::DataObject &gt;</label>
         <link refid="class_game_1_1_abstract_game"/>
+      </node>
+      <node id="3">
+        <label>Models::IPG::IPG</label>
+        <link refid="class_models_1_1_i_p_g_1_1_i_p_g"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
@@ -456,15 +520,17 @@
         <link refid="class_attr"/>
       </node>
     </collaborationgraph>
-    <location file="include/games/ipg.h" line="42" column="33" bodyfile="include/games/ipg.h" bodystart="42" bodyend="81"/>
+    <location file="include/games/ipg.h" line="42" column="33" bodyfile="include/games/ipg.h" bodystart="42" bodyend="87"/>
     <listofallmembers>
       <member refid="class_game_1_1_abstract_game_1a994e78ea9cbe14be8786836082024e9a" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>AbstractGame</name></member>
       <member refid="class_game_1_1_abstract_game_1a112372b7b49c59c64538fa065fdbe54f" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>AbstractGame</name></member>
       <member refid="class_game_1_1_abstract_game_1a29232b09b7a9b7f61e5d04ce83fe8f1d" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>AbstractGame</name></member>
+      <member refid="class_game_1_1_i_p_g_1aed0e301658da5321d151fad5f10db21b" prot="private" virt="non-virtual"><scope>Game::IPG</scope><name>Algorithm</name></member>
+      <member refid="class_game_1_1_i_p_g_1aebd561777cc9e2b5149ebb7e1f6e1b0d" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>Algorithms::IPG::Algorithm</name></member>
       <member refid="class_game_1_1_i_p_g_1a84836887d30b770869453f4943bdbfe2" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>Algorithms::IPG::Oracle</name></member>
       <member refid="class_game_1_1_i_p_g_1ab3fa5c1de6f4089de6f130740a12e89c" prot="private" virt="non-virtual"><scope>Game::IPG</scope><name>computeNashEq</name></member>
       <member refid="class_game_1_1_abstract_game_1ad6cd844e2dcfbc9ce2b8069c6ef3e2be" prot="protected" virt="non-virtual"><scope>Game::IPG</scope><name>Env</name></member>
-      <member refid="class_game_1_1_i_p_g_1a448677cf65ae15178c27da7ec294b5d3" prot="private" virt="non-virtual"><scope>Game::IPG</scope><name>finalize</name></member>
+      <member refid="class_game_1_1_i_p_g_1a448677cf65ae15178c27da7ec294b5d3" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>finalize</name></member>
       <member refid="class_game_1_1_i_p_g_1ae0fcd4871cd997f56ca1796e13a43112" prot="protected" virt="non-virtual"><scope>Game::IPG</scope><name>Finalized</name></member>
       <member refid="class_game_1_1_i_p_g_1a1b2c4bee27025af5921780ca2a41fe28" prot="public" virt="virtual"><scope>Game::IPG</scope><name>findNashEq</name></member>
       <member refid="class_game_1_1_abstract_game_1a6a84032e333484d0313064cfee3ba46c" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>getNumPlayers</name></member>
@@ -483,6 +549,8 @@
       <member refid="class_game_1_1_abstract_game_1a2fd0ab6ee7cda7a9a582b79e94705bc7" prot="protected" virt="non-virtual"><scope>Game::IPG</scope><name>NumVariables</name></member>
       <member refid="class_game_1_1_i_p_g_1a3a939675fddeb5adda31e7c7be895e6c" prot="protected" virt="non-virtual"><scope>Game::IPG</scope><name>PlayersIP</name></member>
       <member refid="class_game_1_1_i_p_g_1a728a80ade416a2f36cd5a8833a0cf2ee" prot="protected" virt="non-virtual"><scope>Game::IPG</scope><name>PlayerVariables</name></member>
+      <member refid="class_game_1_1_i_p_g_1a14cb516689f5fc0e43d1113647249847" prot="protected" virt="pure-virtual"><scope>Game::IPG</scope><name>postFinalize</name></member>
+      <member refid="class_game_1_1_i_p_g_1acabbd4441f684af0f9ba5d3ee2e2c615" prot="protected" virt="pure-virtual"><scope>Game::IPG</scope><name>preFinalize</name></member>
       <member refid="class_game_1_1_i_p_g_1a7804df943f87684d0f85bce02bc1995b" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>respondModel</name></member>
       <member refid="class_game_1_1_i_p_g_1ae76562a954b222a124b34052b6a0d5ae" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>setAlgorithm</name></member>
       <member refid="class_game_1_1_abstract_game_1a4b5301f753b2f1dacdb354971d2511ee" prot="public" virt="non-virtual"><scope>Game::IPG</scope><name>setDeviationTolerance</name></member>

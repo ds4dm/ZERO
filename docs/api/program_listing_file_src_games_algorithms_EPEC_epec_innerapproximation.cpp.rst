@@ -203,7 +203,7 @@ Program Listing for File epec_innerapproximation.cpp
    bool Algorithms::EPEC::InnerApproximation::getAllDeviations(
         std::vector<arma::vec> &      deviations, 
         const arma::vec &             guessSol,   
-        const std::vector<arma::vec> &prevDev //<[in] The previous vector of deviations, if any exist.
+        const std::vector<arma::vec> &prevDev 
         ) const
    {
      deviations = std::vector<arma::vec>(this->EPECObject->NumPlayers);

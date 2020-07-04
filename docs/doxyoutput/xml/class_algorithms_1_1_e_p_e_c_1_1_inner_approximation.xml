@@ -106,23 +106,20 @@
           <type>const std::vector&lt; arma::vec &gt; &amp;</type>
           <declname>prevDev</declname>
           <defval>{}</defval>
+          <briefdescription><para>The previous vector of deviations, if any exist. </para>
+</briefdescription>
         </param>
         <briefdescription>
 <para>Given a potential solution vector, returns a profitable deviation (if it exists) for all players. </para>
         </briefdescription>
         <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-</parameternamelist>
-<parameterdescription>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
+<para><simplesect kind="return"><para>a vector of computed deviations, which empty if at least one deviation cannot be computed <computeroutput>prevDev</computeroutput> can be empty </para>
+</simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/games/algorithms/EPEC/epec_innerapproximation.h" line="37" column="14" bodyfile="src/games/algorithms/EPEC/epec_innerapproximation.cpp" bodystart="213" bodyend="236"/>
+        <location file="include/games/algorithms/EPEC/epec_innerapproximation.h" line="37" column="14" bodyfile="src/games/algorithms/EPEC/epec_innerapproximation.cpp" bodystart="213" bodyend="235"/>
       </memberdef>
       <memberdef kind="function" id="class_algorithms_1_1_e_p_e_c_1_1_inner_approximation_1afde7daf1886fefed019bb2ff135c2051" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned int</type>
@@ -149,7 +146,7 @@
 <para>Given a profitable deviation for each country, adds <emphasis>a</emphasis> polyhedron in the feasible region of each country to the corresponding country&apos;s Game::LCP object (this-&gt;PlayersLCP.at(i)) &apos;s vector of feasible polyhedra.</para>
 <para>Naturally, this makes the inner approximation of the Game::LCP better, by including one additional polyhedron.</para>
         </inbodydescription>
-        <location file="include/games/algorithms/EPEC/epec_innerapproximation.h" line="40" column="14" bodyfile="src/games/algorithms/EPEC/epec_innerapproximation.cpp" bodystart="238" bodyend="276"/>
+        <location file="include/games/algorithms/EPEC/epec_innerapproximation.h" line="40" column="14" bodyfile="src/games/algorithms/EPEC/epec_innerapproximation.cpp" bodystart="237" bodyend="275"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

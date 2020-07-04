@@ -38,6 +38,8 @@ Program Listing for File epec_algorithms.h
            virtual void solve() = 0; 
            virtual bool
            isSolved(double tol = -1) const = 0; 
+   
+   
            virtual bool isPureStrategy(
                 double tol = -1) const = 0; 
         };

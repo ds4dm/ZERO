@@ -12,7 +12,7 @@ Inheritance Relationships
 Base Type
 *********
 
-- ``public GRBCallback``
+- ``public Algorithms::IPG::Algorithm`` (:ref:`exhale_class_class_algorithms_1_1_i_p_g_1_1_algorithm`)
 
 
 Class Documentation

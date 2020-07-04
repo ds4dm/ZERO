@@ -1,0 +1,474 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="namespace_models_1_1_e_p_e_c" kind="namespace" language="C++">
+    <compoundname>Models::EPEC</compoundname>
+    <innerclass refid="struct_models_1_1_e_p_e_c_1_1_dem_par" prot="public">Models::EPEC::DemPar</innerclass>
+    <innerclass refid="class_models_1_1_e_p_e_c_1_1_e_p_e_c" prot="public">Models::EPEC::EPEC</innerclass>
+    <innerclass refid="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance" prot="public">Models::EPEC::EPECInstance</innerclass>
+    <innerclass refid="struct_models_1_1_e_p_e_c_1_1_foll_par" prot="public">Models::EPEC::FollPar</innerclass>
+    <innerclass refid="struct_models_1_1_e_p_e_c_1_1_lead_all_par" prot="public">Models::EPEC::LeadAllPar</innerclass>
+    <innerclass refid="struct_models_1_1_e_p_e_c_1_1_lead_par" prot="public">Models::EPEC::LeadPar</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="namespace_models_1_1_e_p_e_c_1a72626ff0ddf65191cd9b8f82563d38f4" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>TaxType</name>
+        <enumvalue id="namespace_models_1_1_e_p_e_c_1a72626ff0ddf65191cd9b8f82563d38f4a6cf964532157ab0f02d24e287a383f67" prot="public">
+          <name>StandardTax</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_models_1_1_e_p_e_c_1a72626ff0ddf65191cd9b8f82563d38f4ab73afec7571c480b11f1a595a161a2bf" prot="public">
+          <name>SingleTax</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_models_1_1_e_p_e_c_1a72626ff0ddf65191cd9b8f82563d38f4a3836ce10651ef6e6f12d27e27f257f41" prot="public">
+          <name>CarbonTax</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="36" column="20" bodyfile="include/interfaces/epec_models.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="enum" id="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5f" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>LeaderVars</name>
+        <enumvalue id="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5faf2dcda11a77f92f3c0cd7e08f37ce122" prot="public">
+          <name>FollowerStart</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5fabd2f8eff3cf4fc193002ef846a45c155" prot="public">
+          <name>NetImport</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5fab352c19b5ee483451acb8039d5b92edd" prot="public">
+          <name>NetExport</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5fabaf050cedcda40eabc94d4a7bd5116cb" prot="public">
+          <name>CountryImport</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5fa55dd587cdc4a278be6a5c37f9e539de1" prot="public">
+          <name>Caps</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5fa4b78ac8eb158840e9638a3aeb26c4a9d" prot="public">
+          <name>Tax</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5fa24a98047b142b17863fc0bbdde6c6321" prot="public">
+          <name>TaxQuad</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5fa17d72d09ea044ac3506cece93e19f6b8" prot="public">
+          <name>DualVar</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5fa2afd0bab7c35873bc8dd372c6d255448" prot="public">
+          <name>ConvHullDummy</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5fa87557f11575c0ad78e4e28abedc13b6e" prot="public">
+          <name>End</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="152" column="23" bodyfile="include/interfaces/epec_models.h" bodystart="152" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="enum" id="namespace_models_1_1_e_p_e_c_1ac6f525119967602609afe99f64ef4a1b" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>prn</name>
+        <enumvalue id="namespace_models_1_1_e_p_e_c_1ac6f525119967602609afe99f64ef4a1bad304ba20e96d87411588eeabac850e34" prot="public">
+          <name>label</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_models_1_1_e_p_e_c_1ac6f525119967602609afe99f64ef4a1ba3a6d0284e743dc4a9b86f97d6dd1a3bf" prot="public">
+          <name>val</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="320" column="16" bodyfile="include/interfaces/epec_models.h" bodystart="320" bodyend="320"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="namespace_models_1_1_e_p_e_c_1aca30953c80dcd155a7ab0ee85975d805" prot="public" static="no">
+        <type>struct <ref refid="struct_models_1_1_e_p_e_c_1_1_foll_par" kindref="compound">FollPar</ref></type>
+        <definition>typedef struct FollPar Models::EPEC::FollPar</definition>
+        <argsstring></argsstring>
+        <name>FollPar</name>
+        <briefdescription>
+<para>This namespace contains modeling tools for international energy markets with climate-conscious countries. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="331" column="23" bodyfile="include/interfaces/epec_models.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespace_models_1_1_e_p_e_c_1a62149827d4c351dd603cbcc7625f7772" prot="public" static="no">
+        <type>struct <ref refid="struct_models_1_1_e_p_e_c_1_1_dem_par" kindref="compound">DemPar</ref></type>
+        <definition>typedef struct DemPar Models::EPEC::DemPar</definition>
+        <argsstring></argsstring>
+        <name>DemPar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="331" column="23" bodyfile="include/interfaces/epec_models.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespace_models_1_1_e_p_e_c_1ab279a6d9a0241b15c0bd1a7312f8dd3e" prot="public" static="no">
+        <type>struct <ref refid="struct_models_1_1_e_p_e_c_1_1_lead_par" kindref="compound">LeadPar</ref></type>
+        <definition>typedef struct LeadPar Models::EPEC::LeadPar</definition>
+        <argsstring></argsstring>
+        <name>LeadPar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="331" column="23" bodyfile="include/interfaces/epec_models.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespace_models_1_1_e_p_e_c_1a2f9cbaec7516972a7acc4285cb46bb65" prot="public" static="no">
+        <type>struct <ref refid="struct_models_1_1_e_p_e_c_1_1_lead_all_par" kindref="compound">LeadAllPar</ref></type>
+        <definition>typedef struct LeadAllPar Models::EPEC::LeadAllPar</definition>
+        <argsstring></argsstring>
+        <name>LeadAllPar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="331" column="23" bodyfile="include/interfaces/epec_models.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespace_models_1_1_e_p_e_c_1af533424de8789ffd456165af21ac7e02" prot="public" static="no">
+        <type>std::map&lt; <ref refid="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5f" kindref="member">LeaderVars</ref>, unsigned int &gt;</type>
+        <definition>using Models::EPEC::LeadLocs = typedef std::map&lt;LeaderVars, unsigned int&gt;</definition>
+        <argsstring></argsstring>
+        <name>LeadLocs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="177" column="2" bodyfile="include/interfaces/epec_models.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespace_models_1_1_e_p_e_c_1aa732ff410b4c32a84be09a6ed7f55ae7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; Models::EPEC::operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;ost, const FollPar P)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>ost</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_models_1_1_e_p_e_c_1_1_foll_par" kindref="compound">FollPar</ref></type>
+          <declname>P</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="165" column="2" bodyfile="src/interfaces/epec_models.cpp" bodystart="40" bodyend="64" declfile="include/interfaces/epec_models.h" declline="165" declcolumn="2"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_models_1_1_e_p_e_c_1ad8eaa0861bd3da4627c98c72ab0ed286" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; Models::EPEC::operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;ost, const DemPar P)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>ost</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_models_1_1_e_p_e_c_1_1_dem_par" kindref="compound">DemPar</ref></type>
+          <declname>P</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="167" column="2" bodyfile="src/interfaces/epec_models.cpp" bodystart="66" bodyend="71" declfile="include/interfaces/epec_models.h" declline="167" declcolumn="2"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_models_1_1_e_p_e_c_1a3ae165ae70cb8c87e3c2ff2e3412481a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; Models::EPEC::operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;ost, const LeadPar P)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>ost</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_models_1_1_e_p_e_c_1_1_lead_par" kindref="compound">LeadPar</ref></type>
+          <declname>P</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="169" column="2" bodyfile="src/interfaces/epec_models.cpp" bodystart="73" bodyend="90" declfile="include/interfaces/epec_models.h" declline="169" declcolumn="2"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_models_1_1_e_p_e_c_1a4e4c4e18bf05a12b53b88e7eaa41a5ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; Models::EPEC::operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;ost, const LeadAllPar P)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>ost</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_models_1_1_e_p_e_c_1_1_lead_all_par" kindref="compound">LeadAllPar</ref></type>
+          <declname>P</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="171" column="2" bodyfile="src/interfaces/epec_models.cpp" bodystart="101" bodyend="118" declfile="include/interfaces/epec_models.h" declline="171" declcolumn="2"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_models_1_1_e_p_e_c_1a636ebefa1cdfa3e167761452792129f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; Models::EPEC::operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;ost, const LeaderVars l)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>ost</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5f" kindref="member">LeaderVars</ref></type>
+          <declname>l</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="173" column="2" bodyfile="src/interfaces/epec_models.cpp" bodystart="120" bodyend="154" declfile="include/interfaces/epec_models.h" declline="173" declcolumn="2"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_models_1_1_e_p_e_c_1a2c4c41c1a12f3393f92719601bceb38a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; Models::EPEC::operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;ost, EPECInstance I)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>ost</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_models_1_1_e_p_e_c_1_1_e_p_e_c_instance" kindref="compound">EPECInstance</ref></type>
+          <declname>I</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="175" column="2" bodyfile="src/interfaces/epec_models.cpp" bodystart="92" bodyend="99" declfile="include/interfaces/epec_models.h" declline="175" declcolumn="2"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_models_1_1_e_p_e_c_1aea666749029b52e914764ccb9fd3cea8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::increaseVal</definition>
+        <argsstring>(LeadLocs &amp;L, const LeaderVars start, const unsigned int val, const bool startnext=true)</argsstring>
+        <name>increaseVal</name>
+        <param>
+          <type><ref refid="namespace_models_1_1_e_p_e_c_1af533424de8789ffd456165af21ac7e02" kindref="member">LeadLocs</ref> &amp;</type>
+          <declname>L</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5f" kindref="member">LeaderVars</ref></type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>const unsigned int</type>
+          <declname>val</declname>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>startnext</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Should be called ONLY after initializing <computeroutput>L</computeroutput> by calling <ref refid="namespace_models_1_1_e_p_e_c_1a0dc1dfc75744d5af1ffcb99bfbd2e0be" kindref="member">Models::EPEC::init</ref> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="179" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="915" bodyend="929" declfile="include/interfaces/epec_models.h" declline="179" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_models_1_1_e_p_e_c_1a3da7b11be5cb5a4f32e65fb62d8cd7f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::decreaseVal</definition>
+        <argsstring>(LeadLocs &amp;L, const LeaderVars start, const unsigned int val, const bool startnext=true)</argsstring>
+        <name>decreaseVal</name>
+        <param>
+          <type><ref refid="namespace_models_1_1_e_p_e_c_1af533424de8789ffd456165af21ac7e02" kindref="member">LeadLocs</ref> &amp;</type>
+          <declname>L</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5f" kindref="member">LeaderVars</ref></type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>const unsigned int</type>
+          <declname>val</declname>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>startnext</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Should be called ONLY after initializing <computeroutput>L</computeroutput> by calling <ref refid="namespace_models_1_1_e_p_e_c_1a0dc1dfc75744d5af1ffcb99bfbd2e0be" kindref="member">Models::EPEC::init</ref> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="184" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="931" bodyend="945" declfile="include/interfaces/epec_models.h" declline="184" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_models_1_1_e_p_e_c_1a0dc1dfc75744d5af1ffcb99bfbd2e0be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Models::EPEC::init</definition>
+        <argsstring>(LeadLocs &amp;L)</argsstring>
+        <name>init</name>
+        <param>
+          <type><ref refid="namespace_models_1_1_e_p_e_c_1af533424de8789ffd456165af21ac7e02" kindref="member">LeadLocs</ref> &amp;</type>
+          <declname>L</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="189" column="7" bodyfile="src/interfaces/epec_models.cpp" bodystart="947" bodyend="952" declfile="include/interfaces/epec_models.h" declline="189" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_models_1_1_e_p_e_c_1a6bf8d5d3a77dddc264c34df3c1412eb0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5f" kindref="member">LeaderVars</ref></type>
+        <definition>Models::EPEC::LeaderVars Models::EPEC::operator+</definition>
+        <argsstring>(Models::EPEC::LeaderVars a, int b)</argsstring>
+        <name>operator+</name>
+        <param>
+          <type><ref refid="namespace_models_1_1_e_p_e_c_1a20f448e9e7eadf005b6576ee74af0b5f" kindref="member">Models::EPEC::LeaderVars</ref></type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="191" column="13" bodyfile="src/interfaces/epec_models.cpp" bodystart="978" bodyend="980" declfile="include/interfaces/epec_models.h" declline="191" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_models_1_1_e_p_e_c_1a04179db61b0d9fed3a91f88ef4f5f2b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; Models::EPEC::operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;ost, Models::EPEC::prn l)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>ost</declname>
+        </param>
+        <param>
+          <type><ref refid="namespace_models_1_1_e_p_e_c_1ac6f525119967602609afe99f64ef4a1b" kindref="member">Models::EPEC::prn</ref></type>
+          <declname>l</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/epec_models.h" line="322" column="2" bodyfile="src/interfaces/epec_models.cpp" bodystart="28" bodyend="38" declfile="include/interfaces/epec_models.h" declline="322" declcolumn="2"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/interfaces/epec_models.h" line="25" column="16"/>
+  </compounddef>
+</doxygen>

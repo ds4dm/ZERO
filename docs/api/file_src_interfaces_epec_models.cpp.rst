@@ -62,9 +62,9 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_epec__models_8cpp_1a068bbe67e10741d18e41e9390ecd95b0`
+- :ref:`exhale_function_epec__models_8cpp_1a179b9a250911142576a44e24929a3a8e`
 
-- :ref:`exhale_function_epec__models_8cpp_1ac1662fe1a2beec43dc10c18c10ff00d2`
+- :ref:`exhale_function_epec__models_8cpp_1a5a58b1d925b1f8570e1a81372a7869f8`
 
-- :ref:`exhale_function_epec__models_8cpp_1aea048442ba1b089376473071654d3358`
+- :ref:`exhale_function_epec__models_8cpp_1a0cb07b2258983336a21ed1a2cdaffd9e`
 

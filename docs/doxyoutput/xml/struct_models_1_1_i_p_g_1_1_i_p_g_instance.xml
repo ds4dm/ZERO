@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="struct_models_1_1_i_p_g_1_1_i_p_g_instance" kind="struct" language="C++" prot="public">
+    <compoundname>Models::IPG::IPGInstance</compoundname>
+    <includes refid="ipg__models_8h" local="no">ipg_models.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1a803ee962f419f6a951e80f57d044f56d" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="class_math_opt_1_1_i_p___param" kindref="compound">MathOpt::IP_Param</ref> &gt;</type>
+        <definition>std::vector&lt;MathOpt::IP_Param&gt; Models::IPG::IPGInstance::IPs</definition>
+        <argsstring></argsstring>
+        <name>IPs</name>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/ipg_models.h" line="28" column="13" bodyfile="include/interfaces/ipg_models.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1a30e4be71b780b264a0abd874b64b6591" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; Models::IPG::IPGInstance::IPFiles</definition>
+        <argsstring></argsstring>
+        <name>IPFiles</name>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/ipg_models.h" line="29" column="19" bodyfile="include/interfaces/ipg_models.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1ab869317eb55ee443fad962a79e3f7b36" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int Models::IPG::IPGInstance::NumVariables</definition>
+        <argsstring></argsstring>
+        <name>NumVariables</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/ipg_models.h" line="30" column="32" bodyfile="include/interfaces/ipg_models.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1a3264608e01b6d5fadcf08c71025d225b" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; unsigned int &gt;</type>
+        <definition>std::vector&lt;unsigned int&gt; Models::IPG::IPGInstance::PlayerVariables</definition>
+        <argsstring></argsstring>
+        <name>PlayerVariables</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interfaces/ipg_models.h" line="31" column="18" bodyfile="include/interfaces/ipg_models.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1aa91608dd6c7bb1762690e92f98bf6bb9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Models::IPG::IPGInstance::load</definition>
+        <argsstring>(std::string filename)</argsstring>
+        <name>load</name>
+        <param>
+          <type>std::string</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+<para>Reads the <ref refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance" kindref="compound">IPGInstance</ref> from a file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Reads an instance file and fill the <ref refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance" kindref="compound">IPGInstance</ref> with IP_Param (s) that can be fed to the <ref refid="class_models_1_1_i_p_g_1_1_i_p_g" kindref="compound">IPG</ref> class <computeroutput>filename</computeroutput> dictates the name of the JSON instance file</para>
+        </inbodydescription>
+        <location file="include/interfaces/ipg_models.h" line="32" column="32" bodyfile="src/interfaces/ipg_models.cpp" bodystart="111" bodyend="153"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1aea4a2e3e8937c06adbea4abc60158121" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Models::IPG::IPGInstance::save</definition>
+        <argsstring>(std::string filename)</argsstring>
+        <name>save</name>
+        <param>
+          <type>std::string</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+<para>Writes the <ref refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance" kindref="compound">IPGInstance</ref> from a file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Writes the current <ref refid="class_models_1_1_i_p_g_1_1_i_p_g" kindref="compound">IPG</ref> instance to the standard JSON instance file <computeroutput>filename</computeroutput> dictates the name of the JSON instance file <computeroutput><ref refid="class_models_1_1_i_p_g_1_1_i_p_g" kindref="compound">IPG</ref></computeroutput> contains the <computeroutput><ref refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance" kindref="compound">IPGInstance</ref></computeroutput> object with the data</para>
+        </inbodydescription>
+        <location file="include/interfaces/ipg_models.h" line="35" column="6" bodyfile="src/interfaces/ipg_models.cpp" bodystart="82" bodyend="109"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Stores a single Instance. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/interfaces/ipg_models.h" line="27" column="19" bodyfile="include/interfaces/ipg_models.h" bodystart="27" bodyend="37"/>
+    <listofallmembers>
+      <member refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1a30e4be71b780b264a0abd874b64b6591" prot="public" virt="non-virtual"><scope>Models::IPG::IPGInstance</scope><name>IPFiles</name></member>
+      <member refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1a803ee962f419f6a951e80f57d044f56d" prot="public" virt="non-virtual"><scope>Models::IPG::IPGInstance</scope><name>IPs</name></member>
+      <member refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1aa91608dd6c7bb1762690e92f98bf6bb9" prot="public" virt="non-virtual"><scope>Models::IPG::IPGInstance</scope><name>load</name></member>
+      <member refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1ab869317eb55ee443fad962a79e3f7b36" prot="public" virt="non-virtual"><scope>Models::IPG::IPGInstance</scope><name>NumVariables</name></member>
+      <member refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1a3264608e01b6d5fadcf08c71025d225b" prot="public" virt="non-virtual"><scope>Models::IPG::IPGInstance</scope><name>PlayerVariables</name></member>
+      <member refid="struct_models_1_1_i_p_g_1_1_i_p_g_instance_1aea4a2e3e8937c06adbea4abc60158121" prot="public" virt="non-virtual"><scope>Models::IPG::IPGInstance</scope><name>save</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

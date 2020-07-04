@@ -49,9 +49,9 @@ Included By
 -----------
 
 
-- :ref:`file_src_mathopt_lcp_outer_lcp.cpp`
-
 - :ref:`file_include_mathopt_lcp_lcp.h`
+
+- :ref:`file_src_mathopt_lcp_outer_lcp.cpp`
 
 
 

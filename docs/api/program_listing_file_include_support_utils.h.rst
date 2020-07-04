@@ -25,6 +25,7 @@ Program Listing for File utils.h
    
    #pragma once
    
+   
    #include "zero.h"
    #include <armadillo>
    #include <fstream>
@@ -37,19 +38,18 @@ Program Listing for File utils.h
    
      arma::vec resizePatch(const arma::vec &mat, const unsigned int nR);
    
-     bool      containsRow(const arma::sp_mat &A, const arma::vec &row, const double tol = 1e-6);
-     bool      containsElement(const arma::vec &b, const double &element, const double tol = 1e-6);
-     bool      containsConstraint(arma::sp_mat &   A,
-                                            const arma::vec &b,
-                                            const arma::vec &lhs,
-                                            const double &   rhs,
-                                            const double     tol = 1e-6);
-     bool      containsConstraint(arma::sp_mat &      A,
-                                            const arma::vec &   b,
-                                            const arma::sp_mat &lhs,
-                                            const double &      rhs,
-                                            const double        tol = 1e-6);
-     arma::vec normalize(const arma::vec input);
+     bool containsRow(const arma::sp_mat &A, const arma::vec &row, const double tol = 1e-6);
+     bool containsElement(const arma::vec &b, const double &element, const double tol = 1e-6);
+     bool containsConstraint(const arma::sp_mat &A,
+                                     const arma::vec &   b,
+                                     const arma::vec &   lhs,
+                                     const double &      rhs,
+                                     const double        tol = 1e-6);
+     bool containsConstraint(const arma::sp_mat &A,
+                                     const arma::vec &   b,
+                                     const arma::sp_mat &lhs,
+                                     const double &      rhs,
+                                     const double        tol = 1e-6);
    
      // Saving and retrieving an arma::vec
      void appendSave(const arma::vec & matrix,

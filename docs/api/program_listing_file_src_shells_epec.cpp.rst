@@ -158,7 +158,7 @@ Program Listing for File epec.cpp
      // --------------------------------
      // LOADING INSTANCE
      // --------------------------------
-     Models::EPECInstance instance(instanceFile);
+     Models::EPEC::EPECInstance instance(instanceFile);
      if (instance.Countries.empty()) {
         cerr << "Error: instance is empty\n";
         return 1;
@@ -173,7 +173,7 @@ Program Listing for File epec.cpp
    
         // OPTIONS
         //------------
-        Models::EPEC epec(&env);
+        Models::EPEC::EPEC epec(&env);
         // Indicator constraints
         if (bigM == 1)
            epec.setIndicators(false);

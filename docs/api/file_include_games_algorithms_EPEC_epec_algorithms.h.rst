@@ -41,11 +41,11 @@ Included By
 -----------
 
 
-- :ref:`file_src_games_epec.cpp`
-
 - :ref:`file_include_games_algorithms_EPEC_epec_outerapproximation.h`
 
 - :ref:`file_include_games_algorithms_EPEC_epec_polybase.h`
+
+- :ref:`file_src_games_epec.cpp`
 
 
 

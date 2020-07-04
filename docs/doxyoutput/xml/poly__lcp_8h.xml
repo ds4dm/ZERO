@@ -9,9 +9,9 @@
     <includes local="no">memory</includes>
     <includes local="no">set</includes>
     <includes local="no">string</includes>
+    <includedby refid="lcp_8h" local="yes">include/mathopt/lcp/lcp.h</includedby>
     <includedby refid="epec__fullenumeration_8cpp" local="yes">src/games/algorithms/EPEC/epec_fullenumeration.cpp</includedby>
     <includedby refid="poly__lcp_8cpp" local="yes">src/mathopt/lcp/poly_lcp.cpp</includedby>
-    <includedby refid="lcp_8h" local="yes">include/mathopt/lcp/lcp.h</includedby>
     <incdepgraph>
       <node id="17">
         <label>games/epec.h</label>
@@ -63,9 +63,19 @@
         <childnode refid="7" relation="include">
         </childnode>
       </node>
+      <node id="20">
+        <label>ipg_algorithms.h</label>
+        <link refid="ipg__algorithms_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
       <node id="19">
         <label>algorithms/IPG/ipg_oracle.h</label>
         <link refid="ipg__oracle_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
@@ -81,7 +91,7 @@
         <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="21">
         <label>games/nash.h</label>
         <link refid="nash_8h"/>
         <childnode refid="2" relation="include">
@@ -134,10 +144,10 @@
         </childnode>
         <childnode refid="18" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="21" relation="include">
         </childnode>
       </node>
-      <node id="23">
+      <node id="24">
         <label>outer_lcp.h</label>
         <link refid="outer__lcp_8h"/>
         <childnode refid="3" relation="include">
@@ -155,7 +165,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="26">
         <label>ip_param.h</label>
         <link refid="ip__param_8h"/>
         <childnode refid="9" relation="include">
@@ -207,10 +217,10 @@
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="25">
         <label>mathopt/mp_param/mp_param.h</label>
         <link refid="mp__param_8h"/>
         <childnode refid="2" relation="include">
@@ -227,9 +237,9 @@
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
         <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
         </childnode>
       </node>
       <node id="8">
@@ -267,7 +277,7 @@
       <node id="11">
         <label>gurobi_c++.h</label>
       </node>
-      <node id="22">
+      <node id="23">
         <label>lcp/lcp.h</label>
         <link refid="lcp_8h"/>
         <childnode refid="2" relation="include">
@@ -282,7 +292,7 @@
         </childnode>
         <childnode refid="14" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
+        <childnode refid="24" relation="include">
         </childnode>
         <childnode refid="1" relation="include">
         </childnode>
@@ -290,7 +300,7 @@
       <node id="14">
         <label>set</label>
       </node>
-      <node id="26">
+      <node id="27">
         <label>qp_param.h</label>
         <link refid="qp__param_8h"/>
         <childnode refid="2" relation="include">
@@ -311,7 +321,7 @@
       <node id="6">
         <label>memory</label>
       </node>
-      <node id="21">
+      <node id="22">
         <label>mathopt/mathopt.h</label>
         <link refid="mathopt_8h"/>
         <childnode refid="2" relation="include">
@@ -326,48 +336,48 @@
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
+        <childnode refid="23" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+        <childnode refid="25" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="37">
+      <node id="35">
         <label>src/mathopt/mp_param/mp_param.cpp</label>
         <link refid="mp__param_8cpp"/>
       </node>
-      <node id="8">
+      <node id="4">
         <label>include/games/algorithms/EPEC/epec_algorithms.h</label>
         <link refid="epec__algorithms_8h"/>
-        <childnode refid="9" relation="include">
+        <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
+        <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="6" relation="include">
+        <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="23">
         <label>include/games/epec.h</label>
         <link refid="epec_8h"/>
-        <childnode refid="9" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
+        <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="40">
+      <node id="39">
         <label>include/support/utils.h</label>
         <link refid="utils_8h"/>
-        <childnode refid="41" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="40" relation="include">
         </childnode>
       </node>
-      <node id="35">
+      <node id="36">
         <label>src/mathopt/mp_param/ip_param.cpp</label>
         <link refid="ip__param_8cpp"/>
       </node>
-      <node id="14">
+      <node id="10">
         <label>src/games/algorithms/EPEC/epec_innerapproximation.cpp</label>
         <link refid="epec__innerapproximation_8cpp"/>
       </node>
@@ -376,269 +386,295 @@
         <link refid="poly__lcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="3" relation="include">
+        <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="4" relation="include">
+        <childnode refid="42" relation="include">
         </childnode>
       </node>
-      <node id="15">
+      <node id="11">
         <label>include/games/algorithms/EPEC/epec_fullenumeration.h</label>
         <link refid="epec__fullenumeration_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-      </node>
-      <node id="3">
-        <label>src/mathopt/lcp/poly_lcp.cpp</label>
-        <link refid="poly__lcp_8cpp"/>
-      </node>
-      <node id="23">
-        <label>include/games/algorithms/IPG/ipg_oracle.h</label>
-        <link refid="ipg__oracle_8h"/>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
-      </node>
-      <node id="28">
-        <label>include/games/nash.h</label>
-        <link refid="nash_8h"/>
-        <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
-      </node>
-      <node id="16">
-        <label>include/games/algorithms/EPEC/epec_innerapproximation.h</label>
-        <link refid="epec__innerapproximation_8h"/>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-      </node>
-      <node id="26">
-        <label>include/games/games.h</label>
-        <link refid="games_8h"/>
-        <childnode refid="19" relation="include">
-        </childnode>
-      </node>
-      <node id="33">
-        <label>src/mathopt/lcp/outer_lcp.cpp</label>
-        <link refid="outer__lcp_8cpp"/>
-      </node>
-      <node id="39">
-        <label>src/mathopt/mp_param/qp_param.cpp</label>
-        <link refid="qp__param_8cpp"/>
-      </node>
-      <node id="32">
-        <label>include/mathopt/lcp/outer_lcp.h</label>
-        <link refid="outer__lcp_8h"/>
-        <childnode refid="33" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="34">
-        <label>include/mathopt/mp_param/ip_param.h</label>
-        <link refid="ip__param_8h"/>
-        <childnode refid="35" relation="include">
-        </childnode>
-        <childnode refid="36" relation="include">
-        </childnode>
-      </node>
-      <node id="30">
-        <label>include/interfaces/epec_models.h</label>
-        <link refid="epec__models_8h"/>
-        <childnode refid="31" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-      </node>
-      <node id="7">
-        <label>src/games/algorithms/EPEC/epec_polybase.cpp</label>
-        <link refid="epec__polybase_8cpp"/>
-      </node>
-      <node id="22">
-        <label>src/shells/epec.cpp</label>
-        <link refid="shells_2epec_8cpp"/>
-      </node>
-      <node id="5">
-        <label>src/mathopt/lcp/lcp.cpp</label>
-        <link refid="lcp_8cpp"/>
-      </node>
-      <node id="19">
-        <label>include/zero.h</label>
-        <link refid="zero_8h"/>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
         <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
+      </node>
+      <node id="42">
+        <label>src/mathopt/lcp/poly_lcp.cpp</label>
+        <link refid="poly__lcp_8cpp"/>
+      </node>
+      <node id="17">
+        <label>include/games/algorithms/IPG/ipg_algorithms.h</label>
+        <link refid="ipg__algorithms_8h"/>
+        <childnode refid="18" relation="include">
         </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>include/games/algorithms/IPG/ipg_oracle.h</label>
+        <link refid="ipg__oracle_8h"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>include/games/nash.h</label>
+        <link refid="nash_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>include/games/algorithms/EPEC/epec_innerapproximation.h</label>
+        <link refid="epec__innerapproximation_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>include/games/games.h</label>
+        <link refid="games_8h"/>
         <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
+      </node>
+      <node id="32">
+        <label>src/mathopt/lcp/outer_lcp.cpp</label>
+        <link refid="outer__lcp_8cpp"/>
+      </node>
+      <node id="38">
+        <label>src/mathopt/mp_param/qp_param.cpp</label>
+        <link refid="qp__param_8cpp"/>
+      </node>
+      <node id="31">
+        <label>include/mathopt/lcp/outer_lcp.h</label>
+        <link refid="outer__lcp_8h"/>
+        <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="32" relation="include">
         </childnode>
-        <childnode refid="1" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
+      </node>
+      <node id="33">
+        <label>include/mathopt/mp_param/ip_param.h</label>
+        <link refid="ip__param_8h"/>
         <childnode refid="34" relation="include">
         </childnode>
         <childnode refid="36" relation="include">
         </childnode>
-        <childnode refid="38" relation="include">
-        </childnode>
-        <childnode refid="40" relation="include">
-        </childnode>
       </node>
-      <node id="21">
-        <label>src/games/games.cpp</label>
-        <link refid="games_8cpp"/>
-      </node>
-      <node id="36">
-        <label>include/mathopt/mp_param/mp_param.h</label>
-        <link refid="mp__param_8h"/>
-        <childnode refid="37" relation="include">
+      <node id="26">
+        <label>include/interfaces/epec_models.h</label>
+        <link refid="epec__models_8h"/>
+        <childnode refid="27" relation="include">
         </childnode>
-        <childnode refid="17" relation="include">
+        <childnode refid="28" relation="include">
         </childnode>
       </node>
-      <node id="41">
-        <label>src/support/utils.cpp</label>
-        <link refid="utils_8cpp"/>
+      <node id="14">
+        <label>src/games/algorithms/EPEC/epec_polybase.cpp</label>
+        <link refid="epec__polybase_8cpp"/>
       </node>
-      <node id="25">
-        <label>src/games/ipg.cpp</label>
-        <link refid="ipg_8cpp"/>
+      <node id="28">
+        <label>src/shells/epec.cpp</label>
+        <link refid="shells_2epec_8cpp"/>
       </node>
-      <node id="9">
-        <label>src/games/epec.cpp</label>
-        <link refid="games_2epec_8cpp"/>
+      <node id="44">
+        <label>src/mathopt/lcp/lcp.cpp</label>
+        <link refid="lcp_8cpp"/>
       </node>
-      <node id="13">
-        <label>src/games/algorithms/EPEC/epec_combinatorialpne.cpp</label>
-        <link refid="epec__combinatorialpne_8cpp"/>
+      <node id="30">
+        <label>src/interfaces/ipg_models.cpp</label>
+        <link refid="ipg__models_8cpp"/>
       </node>
-      <node id="29">
-        <label>src/games/nash.cpp</label>
-        <link refid="nash_8cpp"/>
-      </node>
-      <node id="6">
-        <label>include/games/algorithms/EPEC/epec_polybase.h</label>
-        <link refid="epec__polybase_8h"/>
-        <childnode refid="7" relation="include">
+      <node id="16">
+        <label>include/zero.h</label>
+        <link refid="zero_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
         </childnode>
       </node>
-      <node id="12">
-        <label>include/games/algorithms/EPEC/epec_combinatorialpne.h</label>
-        <link refid="epec__combinatorialpne_8h"/>
+      <node id="41">
+        <label>src/games/games.cpp</label>
+        <link refid="games_8cpp"/>
+      </node>
+      <node id="34">
+        <label>include/mathopt/mp_param/mp_param.h</label>
+        <link refid="mp__param_8h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>src/support/utils.cpp</label>
+        <link refid="utils_8cpp"/>
+      </node>
+      <node id="21">
+        <label>src/games/ipg.cpp</label>
+        <link refid="ipg_8cpp"/>
+      </node>
+      <node id="7">
+        <label>src/games/epec.cpp</label>
+        <link refid="games_2epec_8cpp"/>
+      </node>
+      <node id="9">
+        <label>src/games/algorithms/EPEC/epec_combinatorialpne.cpp</label>
+        <link refid="epec__combinatorialpne_8cpp"/>
+      </node>
+      <node id="25">
+        <label>src/games/nash.cpp</label>
+        <link refid="nash_8cpp"/>
+      </node>
+      <node id="3">
+        <label>include/games/algorithms/EPEC/epec_polybase.h</label>
+        <link refid="epec__polybase_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
         <childnode refid="13" relation="include">
         </childnode>
         <childnode refid="14" relation="include">
         </childnode>
-        <childnode refid="6" relation="include">
+      </node>
+      <node id="8">
+        <label>include/games/algorithms/EPEC/epec_combinatorialpne.h</label>
+        <link refid="epec__combinatorialpne_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="43">
         <label>src/mathopt/mathopt.cpp</label>
         <link refid="mathopt_8cpp"/>
       </node>
-      <node id="24">
+      <node id="19">
         <label>include/games/ipg.h</label>
         <link refid="ipg_8h"/>
-        <childnode refid="25" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
+        <childnode refid="21" relation="include">
         </childnode>
       </node>
-      <node id="2">
+      <node id="12">
         <label>src/games/algorithms/EPEC/epec_fullenumeration.cpp</label>
         <link refid="epec__fullenumeration_8cpp"/>
       </node>
-      <node id="11">
+      <node id="6">
         <label>src/games/algorithms/EPEC/epec_outerapproximation.cpp</label>
         <link refid="epec__outerapproximation_8cpp"/>
       </node>
-      <node id="4">
+      <node id="2">
         <label>include/mathopt/lcp/lcp.h</label>
         <link refid="lcp_8h"/>
-        <childnode refid="5" relation="include">
+        <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="6" relation="include">
+        <childnode refid="15" relation="include">
         </childnode>
-        <childnode refid="17" relation="include">
+        <childnode refid="44" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="27">
         <label>src/interfaces/epec_models.cpp</label>
         <link refid="epec__models_8cpp"/>
       </node>
-      <node id="20">
+      <node id="22">
         <label>src/games/algorithms/IPG/ipg_oracle.cpp</label>
         <link refid="ipg__oracle_8cpp"/>
       </node>
-      <node id="10">
+      <node id="5">
         <label>include/games/algorithms/EPEC/epec_outerapproximation.h</label>
         <link refid="epec__outerapproximation_8h"/>
-        <childnode refid="11" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="6" relation="include">
         </childnode>
       </node>
-      <node id="38">
+      <node id="37">
         <label>include/mathopt/mp_param/qp_param.h</label>
         <link refid="qp__param_8h"/>
-        <childnode refid="39" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
-        <childnode refid="36" relation="include">
+        <childnode refid="38" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="29">
+        <label>include/interfaces/ipg_models.h</label>
+        <link refid="ipg__models_8h"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
         <label>include/mathopt/mathopt.h</label>
         <link refid="mathopt_8h"/>
-        <childnode refid="18" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="43" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
