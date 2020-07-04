@@ -57,7 +57,7 @@ exhale_args = {
     "exhaleDoxygenStdin":    textwrap.dedent('''
             INPUT   = @ZERO_SOURCE_LIST_ESCAPED@
             IMAGE_PATH      = ./
-            EXCLUDE_SYMBOLS = arma::* rapidjson::* boost::* arma rapidjson boost
+            EXCLUDE_SYMBOLS = arma rapidjson boost std
             DOT_IMAGE_FORMAT= png
             RECURSIVE       = YES
             EXTRACT_ALL     = YES
