@@ -564,9 +564,9 @@ BOOST_AUTO_TEST_CASE(C2F1_test) {
 	**/
   BOOST_TEST_MESSAGE("Testing 2 Countries with a follower each -  with tax cap "
 							"and price cap.");
-  testInst           inst;
-  Models::LeadAllPar Country(1, "One", FP_Blu(), {300, 0.05}, {-1, -1, 295, false, 0});
-  Models::LeadAllPar Country2(1, "Two", FP_Blu(), {300, 0.07}, {-1, -1, 350, false, 0});
+  testInst                 inst;
+  Models::EPEC::LeadAllPar Country(1, "One", FP_Blu(), {300, 0.05}, {-1, -1, 295, false, 0});
+  Models::EPEC::LeadAllPar Country2(1, "Two", FP_Blu(), {300, 0.07}, {-1, -1, 350, false, 0});
   inst.instance.Countries           = {Country, Country2};
   inst.instance.TransportationCosts = TranspCost(2);
   testEPECInstance(inst, allAlgo(), TestType::simpleCheck);
@@ -660,8 +660,8 @@ BOOST_AUTO_TEST_CASE(HardToEnum2_test) {
 
 BOOST_AUTO_TEST_SUITE_END()
 
-Models::FollPar FP_Rosso() {
-  Models::FollPar FP_Rosso;
+Models::EPEC::FollPar FP_Rosso() {
+  Models::EPEC::FollPar FP_Rosso;
   FP_Rosso.capacities     = {550};
   FP_Rosso.costs_lin      = {200};
   FP_Rosso.costs_quad     = {0.3};
@@ -670,8 +670,8 @@ Models::FollPar FP_Rosso() {
   FP_Rosso.names          = {"Rosso"};
   return FP_Rosso;
 }
-Models::FollPar FP_Blu() {
-  Models::FollPar FP_Blu;
+Models::EPEC::FollPar FP_Blu() {
+  Models::EPEC::FollPar FP_Blu;
   FP_Blu.capacities     = {100};
   FP_Blu.costs_lin      = {10};
   FP_Blu.costs_quad     = {0.5};
@@ -681,8 +681,8 @@ Models::FollPar FP_Blu() {
   return FP_Blu;
 }
 
-Models::FollPar FP_Bianco() {
-  Models::FollPar FP_Bianco;
+Models::EPEC::FollPar FP_Bianco() {
+  Models::EPEC::FollPar FP_Bianco;
   FP_Bianco.capacities     = {30};
   FP_Bianco.costs_lin      = {225};
   FP_Bianco.costs_quad     = {0.2};
@@ -692,8 +692,8 @@ Models::FollPar FP_Bianco() {
   return FP_Bianco;
 }
 
-Models::FollPar FP_C3F1() {
-  Models::FollPar FP_C3F1;
+Models::EPEC::FollPar FP_C3F1() {
+  Models::EPEC::FollPar FP_C3F1;
   FP_C3F1.capacities     = {550};
   FP_C3F1.costs_lin      = {140};
   FP_C3F1.costs_quad     = {0.3};
@@ -703,8 +703,8 @@ Models::FollPar FP_C3F1() {
   return FP_C3F1;
 }
 
-Models::FollPar OneGas() {
-  Models::FollPar OneGas;
+Models::EPEC::FollPar OneGas() {
+  Models::EPEC::FollPar OneGas;
   OneGas.capacities     = {100};
   OneGas.costs_lin      = {130};
   OneGas.costs_quad     = {0.5};
@@ -714,8 +714,8 @@ Models::FollPar OneGas() {
   return OneGas;
 }
 
-Models::FollPar OneCoal() {
-  Models::FollPar OneCoal;
+Models::EPEC::FollPar OneCoal() {
+  Models::EPEC::FollPar OneCoal;
   OneCoal.capacities     = {150};
   OneCoal.costs_lin      = {120};
   OneCoal.costs_quad     = {0.3};
@@ -725,8 +725,8 @@ Models::FollPar OneCoal() {
   return OneCoal;
 }
 
-Models::FollPar OneSolar() {
-  Models::FollPar OneSolar;
+Models::EPEC::FollPar OneSolar() {
+  Models::EPEC::FollPar OneSolar;
   OneSolar.capacities     = {80};
   OneSolar.costs_lin      = {140};
   OneSolar.costs_quad     = {0.9};
@@ -747,15 +747,15 @@ arma::sp_mat TranspCost(unsigned int n) {
   return TrCo;
 }
 
-Models::LeadAllPar
-LAP_LowDem(Models::FollPar followers, Models::LeadPar leader, const std::string &a) {
-  return Models::LeadAllPar(
+Models::EPEC::LeadAllPar
+LAP_LowDem(Models::EPEC::FollPar followers, Models::EPEC::LeadPar leader, const std::string &a) {
+  return Models::EPEC::LeadAllPar(
 		followers.capacities.size(), "Low demand country " + a, followers, {300, 0.7}, leader);
 }
 
-Models::LeadAllPar
-LAP_HiDem(Models::FollPar followers, Models::LeadPar leader, const std::string &a) {
-  return Models::LeadAllPar(
+Models::EPEC::LeadAllPar
+LAP_HiDem(Models::EPEC::FollPar followers, Models::EPEC::LeadPar leader, const std::string &a) {
+  return Models::EPEC::LeadAllPar(
 		followers.capacities.size(), "High demand country " + a, followers, {350, 0.5}, leader);
 }
 
@@ -774,10 +774,10 @@ testInst CH_S_F0_CL_SC_F0() {
 }
 
 testInst C2F2_Base() {
-  testInst           inst;
-  Models::LeadAllPar One(2, "One", OneGas() + OneCoal(), {300, 0.5}, {0, 0, 230, false, 0});
+  testInst                 inst;
+  Models::EPEC::LeadAllPar One(2, "One", OneGas() + OneCoal(), {300, 0.5}, {0, 0, 230, false, 0});
 
-  Models::LeadAllPar Two(2, "Two", OneGas() + OneSolar(), {300, 0.5}, {0, 0, 240, false, 0});
+  Models::EPEC::LeadAllPar Two(2, "Two", OneGas() + OneSolar(), {300, 0.5}, {0, 0, 240, false, 0});
   inst.instance.Countries           = {One, Two};
   inst.instance.TransportationCosts = TranspCost(2);
 
@@ -790,12 +790,12 @@ testInst C2F2_Base() {
 
 testInst SimpleViola() {
   // Problem
-  testInst           inst;
-  Models::LeadAllPar Country(5,
-									  "One",
-									  FP_Blu() + FP_Bianco() + OneCoal() + OneGas() + OneSolar(),
-									  {300, 0.05},
-									  {-1, -1, -1, false, 0});
+  testInst                 inst;
+  Models::EPEC::LeadAllPar Country(5,
+											  "One",
+											  FP_Blu() + FP_Bianco() + OneCoal() + OneGas() + OneSolar(),
+											  {300, 0.05},
+											  {-1, -1, -1, false, 0});
   inst.instance.Countries           = {Country};
   inst.instance.TransportationCosts = TranspCost(1);
 
@@ -806,8 +806,8 @@ testInst SimpleViola() {
 
 testInst SimpleBlu() {
 
-  testInst           inst;
-  Models::LeadAllPar Country(1, "One", FP_Blu(), {300, 0.05}, {-1, -1, -1, false, 0});
+  testInst                 inst;
+  Models::EPEC::LeadAllPar Country(1, "One", FP_Blu(), {300, 0.05}, {-1, -1, -1, false, 0});
   inst.instance.Countries           = {Country};
   inst.instance.TransportationCosts = TranspCost(1);
 
@@ -817,8 +817,9 @@ testInst SimpleBlu() {
 }
 
 testInst SimpleVerde() {
-  testInst           inst;
-  Models::LeadAllPar Country(2, "One", OneGas() + OneSolar(), {300, 0.05}, {-1, -1, 300, false, 0});
+  testInst                 inst;
+  Models::EPEC::LeadAllPar Country(
+		2, "One", OneGas() + OneSolar(), {300, 0.05}, {-1, -1, 300, false, 0});
   inst.instance.Countries           = {Country};
   inst.instance.TransportationCosts = TranspCost(1);
 
@@ -829,12 +830,12 @@ testInst SimpleVerde() {
 
 testInst HardToEnum_1() {
   // Problem
-  testInst           inst;
-  Models::LeadAllPar Country0(
+  testInst                 inst;
+  Models::EPEC::LeadAllPar Country0(
 		2, "One", FP_Rosso() + FP_Bianco(), {300, 0.7}, {-1, -1, 295, false, 0});
-  Models::LeadAllPar Country1(
+  Models::EPEC::LeadAllPar Country1(
 		2, "Two", FP_Rosso() + FP_Bianco(), {325, 0.5}, {-1, -1, 285, false, 0});
-  Models::LeadAllPar Country2(
+  Models::EPEC::LeadAllPar Country2(
 		2, "Three", FP_Rosso() + FP_Bianco(), {350, 0.5}, {-1, -1, 295, false, 0});
   arma::sp_mat TrCo(3, 3);
   TrCo.zeros(3, 3);
@@ -857,12 +858,12 @@ testInst HardToEnum_1() {
 
 testInst HardToEnum_2() {
   // Problem
-  testInst           inst;
-  Models::LeadAllPar Country0(
+  testInst                 inst;
+  Models::EPEC::LeadAllPar Country0(
 		2, "One", FP_Rosso() + FP_Bianco(), {300, 0.7}, {-1, -1, 295, false, 0});
-  Models::LeadAllPar Country1(
+  Models::EPEC::LeadAllPar Country1(
 		2, "Two", FP_Rosso() + FP_Bianco(), {325, 0.5}, {-1, -1, 285, false, 1});
-  Models::LeadAllPar Country2(
+  Models::EPEC::LeadAllPar Country2(
 		2, "Three", FP_Rosso() + FP_Bianco(), {350, 0.5}, {-1, -1, 295, false, 2});
   arma::sp_mat TrCo(3, 3);
   TrCo.zeros(3, 3);

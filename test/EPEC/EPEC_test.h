@@ -45,8 +45,8 @@ struct countrySol {
 enum class TestType { resultCheck, simpleCheck, infeasabilityCheck };
 
 struct testInst {
-  Models::EPECInstance    instance = {{}, {}};
-  std::vector<countrySol> solution;
+  Models::EPEC::EPECInstance instance = {{}, {}};
+  std::vector<countrySol>    solution;
 };
 
 std::vector<Data::EPEC::DataObject> allAlgo(Data::EPEC::DataObject common_params    = {},
@@ -91,9 +91,9 @@ void testEPECInstance(const testInst                            inst,
 		ss << "\nMethod to add polyhedra: " << std::to_string(algorithm.PolyhedraStrategy.get());
 	 }
 	 BOOST_TEST_MESSAGE(ss.str());
-	 GRBEnv        env;
-	 Models::EPEC  epec(&env);
-	 unsigned long nCountr = inst.instance.Countries.size();
+	 GRBEnv             env;
+	 Models::EPEC::EPEC epec(&env);
+	 unsigned long      nCountr = inst.instance.Countries.size();
 	 for (unsigned int i = 0; i < nCountr; i++)
 		epec.addCountry(inst.instance.Countries.at(i));
 	 epec.addTranspCosts(inst.instance.TransportationCosts);
@@ -126,25 +126,25 @@ void testEPECInstance(const testInst                            inst,
 		  for (unsigned int j = 0; j < countryAns.foll_prod.size(); j++) {
 			 // Follower production
 			 BOOST_CHECK_CLOSE(
-				  epec.getX().at(epec.getPosition(i, Models::LeaderVars::FollowerStart) + j),
+				  epec.getX().at(epec.getPosition(i, Models::EPEC::LeaderVars::FollowerStart) + j),
 				  countryAns.foll_prod.at(j),
 				  1);
 			 // Tax
-			 BOOST_WARN_CLOSE(epec.getX().at(epec.getPosition(i, Models::LeaderVars::Tax) + j),
+			 BOOST_WARN_CLOSE(epec.getX().at(epec.getPosition(i, Models::EPEC::LeaderVars::Tax) + j),
 									countryAns.foll_tax.at(j),
 									1);
 		  }
 		  // Export
-		  BOOST_CHECK_CLOSE(epec.getX().at(epec.getPosition(i, Models::LeaderVars::NetExport)),
+		  BOOST_CHECK_CLOSE(epec.getX().at(epec.getPosition(i, Models::EPEC::LeaderVars::NetExport)),
 								  countryAns.export_,
 								  1);
 		  // Import
-		  BOOST_CHECK_CLOSE(epec.getX().at(epec.getPosition(i, Models::LeaderVars::NetImport)),
+		  BOOST_CHECK_CLOSE(epec.getX().at(epec.getPosition(i, Models::EPEC::LeaderVars::NetImport)),
 								  countryAns.import,
 								  1);
 		  // Export price
 		  double exportPrice{
-				epec.getX().at(epec.getPosition(nCountr - 1, Models::LeaderVars::End) + i)};
+				epec.getX().at(epec.getPosition(nCountr - 1, Models::EPEC::LeaderVars::End) + i)};
 		  BOOST_WARN_CLOSE(exportPrice, countryAns.export_price, 10);
 		}
 	 } break;
@@ -166,17 +166,18 @@ testInst SimpleBlu();
 testInst SimpleVerde();
 testInst SimpleViola();
 // Getting Follower parameter
-Models::FollPar FP_Rosso();
-Models::FollPar FP_Bianco();
-Models::FollPar FP_Blu();
-Models::FollPar FP_C3F1();
-Models::FollPar OneGas();
-Models::FollPar OneCoal();
-Models::FollPar OneSolar();
-arma::sp_mat    TranspCost(unsigned int n);
+Models::EPEC::FollPar FP_Rosso();
+Models::EPEC::FollPar FP_Bianco();
+Models::EPEC::FollPar FP_Blu();
+Models::EPEC::FollPar FP_C3F1();
+Models::EPEC::FollPar OneGas();
+Models::EPEC::FollPar OneCoal();
+Models::EPEC::FollPar OneSolar();
+arma::sp_mat          TranspCost(unsigned int n);
 
-Models::LeadAllPar
-LAP_LowDem(Models::FollPar followers, Models::LeadPar leader, const std::string &a = "");
+Models::EPEC::LeadAllPar LAP_LowDem(Models::EPEC::FollPar followers,
+												Models::EPEC::LeadPar leader,
+												const std::string &   a = "");
 
-Models::LeadAllPar
-LAP_HiDem(Models::FollPar followers, Models::LeadPar leader, const std::string &a = "");
+Models::EPEC::LeadAllPar
+LAP_HiDem(Models::EPEC::FollPar followers, Models::EPEC::LeadPar leader, const std::string &a = "");
