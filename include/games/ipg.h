@@ -54,14 +54,20 @@ namespace Game {
 	 std::vector<arma::vec> Solution; ///< Solution variable values, for each player
 
   private:
+	 std::shared_ptr<Algorithms::IPG::Algorithm> Algorithm{};
 	 void getXMinusI(const arma::vec &x, const unsigned int &i, arma::vec &xMinusI) const;
 	 void getXofI(const arma::vec &x, const unsigned int &i, arma::vec &xOfI) const;
-
 	 bool computeNashEq(double localTimeLimit = -1.0, bool check = false);
-	 void finalize();
+
+
+  protected:
+	 virtual void preFinalize()  = 0;
+	 virtual void postFinalize() = 0;
 
   public: // functions
+	 friend class Algorithms::IPG::Algorithm;
 	 friend class Algorithms::IPG::Oracle;
+	 void finalize();
 	 IPG(GRBEnv *env) { this->Env = env; };
 	 IPG(GRBEnv *env, std::vector<std::shared_ptr<MathOpt::IP_Param>> players);
 
@@ -82,5 +88,10 @@ namespace Game {
 
 
 } // namespace Game
+namespace std {
+
+  string to_string(Data::IPG::Algorithms al);
+
+}; // namespace std
 
 #include "algorithms/IPG/ipg_oracle.h"
