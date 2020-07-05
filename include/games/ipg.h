@@ -39,10 +39,9 @@ namespace Data {
 
 namespace Game {
 
+  ///<@brief This class handles Integer Programming Games (IPG), namely multiple agents solving an
+  ///< integer programming game.
   class IPG : public AbstractGame<Data::IPG::DataObject> {
-	 ///<@brief This class handles Integer Programming Games (IPG), namely multiple agents solving an
-	 ///< integer programming game.
-
   protected: // Datafields
 	 std::vector<std::shared_ptr<MathOpt::IP_Param>>
 		  PlayersIP{}; ///< The Integer Programs associated to each player
@@ -83,7 +82,9 @@ namespace Game {
 	 ///@brief Get the EPECStatistics object for the current instance
 	 ZEROStatistics<Data::IPG::DataObject> getStatistics() const { return this->Stats; }
 
-	 void setAlgorithm(Data::IPG::Algorithms algorithm);
+	 void setAlgorithm(Data::IPG::Algorithms algorithm) {
+		this->Stats.AlgorithmData.Algorithm = algorithm;
+	 };
   };
 
 

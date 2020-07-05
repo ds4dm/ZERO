@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
   bool   bound = 0, pure = 0;
 
   po::options_description desc("ZERO-EPEC: Allowed options");
-  desc.add_options()("help,h", "Shows this help message")("version,v", "Shows EPEC version")(
+  desc.add_options()("help,h", "Shows this help message")("version,v", "Shows ZERO version")(
 		"input,i",
 		po::value<string>(&instanceFile),
 		"Sets the input path/filename of the instance file (.json appended "
@@ -108,13 +108,7 @@ int main(int argc, char **argv) {
 	 int                major = 0, minor = 0, technical = 0;
 	 string             M, m, p;
 	 ZEROVersion(M, m, p);
-	 BOOST_LOG_TRIVIAL(info) << "EPEC Solve Version: " << M << "." << m << "." << p;
-	 BOOST_LOG_TRIVIAL(info) << "Dependencies:";
-	 BOOST_LOG_TRIVIAL(info) << "\tARMAdillo: " << ver.as_string();
-	 GRBversion(&major, &minor, &technical);
-	 BOOST_LOG_TRIVIAL(info) << "\tGurobi: " << to_string(major) << "." << to_string(minor);
-	 BOOST_LOG_TRIVIAL(info) << "\tBoost: " << to_string(BOOST_VERSION / 100000) << "."
-									 << to_string(BOOST_VERSION / 100 % 1000);
+	 BOOST_LOG_TRIVIAL(info) << "ZERO Version: " << M << "." << m << "." << p;
 	 if (vm.count("version"))
 		return EXIT_SUCCESS;
   }

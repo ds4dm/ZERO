@@ -125,6 +125,17 @@ set_target_properties(
 # ##############################################################################
 
 # ##############################################################################
+# ZERO - IPG COMMAND LINE
+# ##############################################################################
+add_executable(IPGShell src/shells/ipg.cpp)
+target_link_libraries(IPGShell CONAN_PKG::boost ZERO)
+set_target_properties(
+  IPGShell PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
+                      VISIBILITY_INLINES_HIDDEN ON)
+# ##############################################################################
+# ##############################################################################
+
+# ##############################################################################
 # ZERO - EPEC TESTS
 # ##############################################################################
 add_executable(EPECTests test/EPEC/epec.cpp)
