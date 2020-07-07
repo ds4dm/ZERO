@@ -24,16 +24,22 @@
 namespace Models {
   namespace IPG {
 	 /// @brief Stores a single Instance
+	 class IPG; // Forward declaration for IPGInstance
 	 struct IPGInstance {
+	 protected:
 		std::vector<MathOpt::IP_Param> IPs     = {};
 		std::vector<std::string>       IPFiles = {};
 		unsigned int                   NumVariables;
 		std::vector<unsigned int>      PlayerVariables;
-		void                           load(std::string filename);
+
+	 public:
+		friend class Models::IPG::IPG;
+		void load(std::string filename);
 		///< Reads the IPGInstance from a file
 
 		void save(std::string filename);
 		///< Writes the IPGInstance from a file
+		void addIPParam(const MathOpt::IP_Param &ip, const std::string filename);
 	 };
 
 	 std::ostream &operator<<(std::ostream &ost, IPGInstance I);

@@ -95,13 +95,14 @@ void Models::IPG::IPGInstance::save(std::string filename) {
   writer.Key("Players");
   writer.StartArray();
   for (unsigned int i = 0, count = 0; i < this->IPs.size(); i++) {
+	 writer.StartObject();
 	 writer.Key("NumVariables");
-	 count += this->PlayerVariables.at(i);
+	 writer.Uint(this->PlayerVariables.at(i));
 	 writer.Key("IP_ParamFile");
 	 writer.Key(this->IPFiles.at(i).c_str());
+	 writer.EndObject();
   }
   writer.EndArray();
-  writer.EndObject();
   writer.EndObject();
   std::ofstream file(filename + ".json");
   file << s.GetString();
@@ -129,9 +130,10 @@ void Models::IPG::IPGInstance::load(std::string filename) {
 		for (int j = 0; j < nPlayers; ++j) {
 		  const rapidjson::Value &c = d["Players"].GetArray()[j].GetObject();
 
-		  MathOpt::IP_Param ParametrizedProblem;
+		  MathOpt::IP_Param ParametrizedProblem(new GRBEnv);
+		  std::string       fileName = c["IP_ParamFile"].GetString();
 		  try {
-			 ParametrizedProblem.load(c["IP_ParamFile"].GetString());
+			 ParametrizedProblem.load(fileName);
 		  } catch (...) {
 			 throw ZEROException(ZEROErrorCode::IOError,
 										"Cannot open the IP param for player " + std::to_string(j));
@@ -141,6 +143,7 @@ void Models::IPG::IPGInstance::load(std::string filename) {
 										"The IP param for player " + std::to_string(j) +
 											 " has a different number of variables y wrt the instance file");
 		  }
+		  this->IPFiles.push_back(fileName);
 		  this->IPs.push_back(ParametrizedProblem);
 		}
 		ifs.close();
@@ -149,5 +152,21 @@ void Models::IPG::IPGInstance::load(std::string filename) {
 	 }
   } else {
 	 throw ZEROException(ZEROErrorCode::IOError, "File not found");
+  }
+}
+void Models::IPG::IPGInstance::addIPParam(const MathOpt::IP_Param &ip, const std::string filename) {
+
+  try {
+	 std::ifstream ifs(filename);
+	 if (!ifs.good())
+		ip.save(filename, 0);
+	 this->IPFiles.push_back(filename);
+	 this->IPs.push_back(ip);
+	 this->PlayerVariables.push_back(ip.getNy());
+	 this->NumVariables += ip.getNy();
+
+
+  } catch (...) {
+	 throw ZEROException(ZEROErrorCode::IOError, "Cannot write the IPG data");
   }
 }
