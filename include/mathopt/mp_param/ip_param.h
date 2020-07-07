@@ -38,7 +38,7 @@ namespace MathOpt {
 	* \f{eqnarray}{
 	* Ay &\leq& b \\
 	* y &\geq& 0 \\
-	* y_i &\in& &\mathbb{Z}&^{z_i} &\forall& i &\in& I
+	* y_i &\in& &\mathbb{Z}& &\forall& i &\in& I
 	* \f}
 	**/
   {
@@ -47,7 +47,6 @@ namespace MathOpt {
 	 GRBEnv *    Env;
 	 GRBModel    IPModel;     ///< Stores the IP model associated with the object
 	 GRBQuadExpr Objective_c; ///< Stores the objective part relative to c^Ty
-	 arma::vec   bounds;      ///< Stores the explicit bounds on variables
 	 arma::vec   integers;    ///< Stores the indexes of integer variables
 	 bool finalized{false};   ///< True if the model has been made and constraints cannot be changed
 
@@ -64,29 +63,22 @@ namespace MathOpt {
 							 arma::sp_mat B,
 							 arma::vec    b,
 							 arma::vec    c,
-							 arma::vec    bounds,
-							 arma::vec    integers,
+							 arma::vec    _integers,
 							 GRBEnv *     env = nullptr)
 		  : Env{env}, IPModel{(*env)} {
-		this->Q.zeros(0);
-		this->A.zeros(0);
-		this->set(Q, C, A, B, c, b);
-		this->bounds   = bounds;
-		this->integers = integers;
-		this->size();
+		this->set(C, B, b, c, _integers);
 		this->forceDataCheck();
 	 };
 
 	 arma::vec getIntegers() const { return this->integers; }
-
-	 arma::vec getBounds() const { return this->bounds; }
 
 	 bool finalize() override;
 
 	 void addConstraints(const arma::sp_mat A, const arma::vec b);
 
 	 /// Copy constructor
-	 IP_Param(const IP_Param &ipg) : MP_Param(ipg), Env{ipg.Env}, IPModel{ipg.IPModel} {
+	 IP_Param(const IP_Param &ipg)
+		  : MP_Param(ipg), Env{ipg.Env}, IPModel{ipg.IPModel}, finalized{ipg.finalized} {
 		this->size();
 	 };
 
@@ -97,28 +89,20 @@ namespace MathOpt {
 						const arma::sp_mat &B,
 						const arma::vec &   b,
 						const arma::vec &   c,
-						const arma::vec &   bounds,
 						const arma::vec &   integers); // Copy data into this
-	 IP_Param &set(arma::sp_mat & C,
+	 IP_Param &set(arma::sp_mat &&C,
 						arma::sp_mat &&B,
 						arma::vec &&   b,
 						arma::vec &&   c,
-						arma::vec &&   bounds,
 						arma::vec &&   integers); // Copy data into this
 
-	 IP_Param &set(const QP_Objective &  obj,
-						const QP_Constraints &cons,
-						const arma::vec &     bounds   = {},
-						const arma::vec &     integers = {});
+	 IP_Param &
+	 set(const QP_Objective &obj, const QP_Constraints &cons, const arma::vec &integers = {});
 
-	 IP_Param &set(QP_Objective &&  obj,
-						QP_Constraints &&cons,
-						arma::vec &&     bounds   = {},
-						arma::vec &&     integers = {});
+	 IP_Param &set(QP_Objective &&obj, QP_Constraints &&cons, arma::vec &&integers = {});
 
 	 bool operator==(const IP_Param &IPG2) const;
 
-	 std::unique_ptr<GRBModel> solveFixed(arma::vec x, bool solve);
 
 	 /// Computes the objective value, given a vector @p y and
 	 /// a parameterizing vector @p x
@@ -138,8 +122,8 @@ namespace MathOpt {
 		return b1 && b2 && b3;
 	 }
 
-	 void write(const std::string &filename, bool append) const override;
-	 long load(const std::string &filename, long pos = 0);
+	 void save(const std::string &filename, bool append) const override;
+	 long load(const std::string &filename, long pos = 0) override;
 
 	 double computeObjectiveWithoutOthers(const arma::vec &y) const;
 
@@ -149,6 +133,8 @@ namespace MathOpt {
 
 	 void updateModelObjective(const arma::vec x);
 
-	 std::shared_ptr<GRBModel> getIPModel() { return std::shared_ptr<GRBModel>(&this->IPModel); }
+	 std::unique_ptr<GRBModel> getIPModel() { return std::unique_ptr<GRBModel>(&this->IPModel); }
+
+	 std::unique_ptr<GRBModel> getIPModel(const arma::vec x);
   };
 } // namespace MathOpt

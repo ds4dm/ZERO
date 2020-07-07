@@ -38,8 +38,6 @@ bool MathOpt::IP_Param::operator==(const IP_Param &IPG2) const {
 	 return false;
   if (!Utils::isZero(this->b - IPG2.getb()))
 	 return false;
-  if (!Utils::isZero(this->bounds - IPG2.getBounds()))
-	 return false;
   if (!Utils::isZero(this->integers - IPG2.getIntegers()))
 	 return false;
   return true;
@@ -53,12 +51,12 @@ bool MathOpt::IP_Param::finalize() {
 
   if (this->finalized)
 	 return true;
-  std::unique_ptr<GRBModel> model(new GRBModel(this->IPModel));
+  this->size();
   try {
 	 GRBVar y[this->Ny];
 	 for (unsigned int i = 0; i < this->Ny; i++) {
 		y[i] =
-			 model->addVar(0, this->bounds.at(i), c.at(i), GRB_CONTINUOUS, "y_" + std::to_string(i));
+			 this->IPModel.addVar(0, GRB_INFINITY, c.at(i), GRB_CONTINUOUS, "y_" + std::to_string(i));
 	 }
 	 for (unsigned int i = 0; i < this->integers.size(); ++i)
 		y[static_cast<int>(integers.at(i))].set(GRB_CharAttr_VType, GRB_INTEGER);
@@ -67,7 +65,7 @@ bool MathOpt::IP_Param::finalize() {
 		GRBLinExpr LHS{0};
 		for (auto j = B.begin_row(i); j != B.end_row(i); ++j)
 		  LHS += (*j) * y[j.col()];
-		model->addConstr(LHS, GRB_LESS_EQUAL, b[i]);
+		this->IPModel.addConstr(LHS, GRB_LESS_EQUAL, b[i]);
 	 }
 
 	 // Make the linear part of the objective
@@ -75,10 +73,15 @@ bool MathOpt::IP_Param::finalize() {
 	 for (unsigned int i = 0; i < this->Ny; ++i)
 		this->Objective_c += y[i] * c.at(i);
 
-	 model->update();
+	 this->IPModel.update();
 	 this->IPModel.set(GRB_IntParam_OutputFlag, 0);
 	 this->IPModel.set(GRB_IntParam_InfUnbdInfo, 1);
 	 this->IPModel.set(GRB_IntParam_DualReductions, 0);
+
+	 std::string text = "B" + std::to_string(this->B.n_rows) + " -- " +
+							  std::to_string(this->IPModel.get(GRB_IntAttr_NumConstrs));
+	 this->B.print_dense(text);
+
 
   } catch (GRBException &e) {
 	 throw ZEROException(ZEROErrorCode::SolverError,
@@ -114,25 +117,22 @@ void MathOpt::IP_Param::updateModelObjective(const arma::vec x) {
   }
 }
 
-std::unique_ptr<GRBModel> MathOpt::IP_Param::solveFixed(arma::vec x, bool solve)
+std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(const arma::vec x)
 /**
  * Given a value for the parameters @f$x@f$ in the
- * definition of IP_Param, solve
- * the parameterized MIP program to  optimality. Note that the method @return a pointer to a copy of
+ * definition of IP_Param, returns
+ * a pointer to the parameterized MIP program . Note that the method @return a pointer to a copy of
  *the model. In this way, valid cuts and cut pools are kept each time the method is invoked.
  *
  * In terms of game theory, this can be viewed as
  * <i>the best response</i> for a set of
  * decisions by other players.
- *@p solve decides whether the model has to be optimized or not
  */
 {
   if (!this->finalized)
 	 throw ZEROException(ZEROErrorCode::Assertion, "The model is not finalized!");
   try {
 	 this->updateModelObjective(x);
-	 if (solve)
-		IPModel.optimize();
   } catch (GRBException &e) {
 	 throw ZEROException(e);
   }
@@ -144,41 +144,45 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &C,
 														const arma::sp_mat &B,
 														const arma::vec &   b,
 														const arma::vec &   c,
-														const arma::vec &   bounds,
-														const arma::vec &   integers)
+														const arma::vec &   _integers)
 /// Setting the data, while keeping the input objects intact
 {
-  this->Q.zeros(0);
-  this->A.zeros(0);
-  this->set(Q, C, A, B, c, b);
-  this->bounds   = bounds;
-  this->integers = integers;
-  return *this;
-}
-
-MathOpt::IP_Param &MathOpt::IP_Param::set(arma::sp_mat & C,
-														arma::sp_mat &&B,
-														arma::vec &&   b,
-														arma::vec &&   c,
-														arma::vec &&   bounds,
-														arma::vec &&   integers)
-/// Faster means to set data. But the input objects might be corrupted now.
-{
+  if (_integers.is_empty())
+	 throw ZEROException(ZEROErrorCode::InvalidData,
+								"Invalid vector of integers. Refer to MP_Param is no "
+								"integers are involved");
+  this->Q.zeros(0, 0);
+  this->A.zeros(0, 0);
   this->finalized = false;
+  this->integers  = (_integers);
   MP_Param::set(Q, C, A, B, c, b);
   return *this;
 }
 
-MathOpt::IP_Param &MathOpt::IP_Param::set(QP_Objective &&  obj,
-														QP_Constraints &&cons,
-														arma::vec &&     bounds,
-														arma::vec &&     integers)
+MathOpt::IP_Param &MathOpt::IP_Param::set(
+	 arma::sp_mat &&C, arma::sp_mat &&B, arma::vec &&b, arma::vec &&c, arma::vec &&_integers)
+/// Faster means to set data. But the input objects might be corrupted now.
+{
+  if (_integers.is_empty())
+	 throw ZEROException(ZEROErrorCode::InvalidData,
+								"Invalid vector of integers. Refer to MP_Param is no "
+								"integers are involved");
+  this->Q.zeros(0, 0);
+  this->A.zeros(0, 0);
+  this->finalized = false;
+  this->integers  = std::move(_integers);
+  MP_Param::set(Q, C, A, B, c, b);
+  return *this;
+}
+
+MathOpt::IP_Param &
+MathOpt::IP_Param::set(QP_Objective &&obj, QP_Constraints &&cons, arma::vec &&_integers)
 /// Setting the data with the inputs being a struct MathOpt::QP_Objective and
 /// struct MathOpt::QP_Constraints.
 {
-  if (integers.empty())
+  if (_integers.is_empty())
 	 throw ZEROException(ZEROErrorCode::InvalidData,
-								"Invalid vector of integers. Refer to QP_Param is no "
+								"Invalid vector of integers. Refer to MP_Param is no "
 								"integers are involved");
   if (obj.Q.size() > 0)
 	 BOOST_LOG_TRIVIAL(warning) << "MathOpt::IP_Param::set: obj.Q will be ignored";
@@ -188,21 +192,19 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(QP_Objective &&  obj,
 						 std::move(cons.B),
 						 std::move(cons.b),
 						 std::move(obj.c),
-						 std::move(bounds),
-						 std::move(this->integers));
+						 std::move(_integers));
 }
 
 MathOpt::IP_Param &MathOpt::IP_Param::set(const QP_Objective &  obj,
 														const QP_Constraints &cons,
-														const arma::vec &     bounds,
-														const arma::vec &     integers) {
-  return this->set(obj.C, cons.B, cons.b, obj.c, bounds, this->integers);
+														const arma::vec &     _integers) {
+  return this->set(obj.C, cons.B, cons.b, obj.c, _integers);
 }
 
 arma::vec MathOpt::IP_Param::getConstraintViolations(const arma::vec y, double tol = 1e-5) {
   arma::vec slack;
   if (y.size() < A.n_cols) {
-	 arma::vec yN = Utils::resizePatch(y, A.n_cols);
+	 arma::vec yN = Utils::resizePatch(y, B.n_cols);
 	 slack        = B * yN - b;
   } else
 	 slack = B * y - b;
@@ -297,7 +299,7 @@ long int MathOpt::IP_Param::load(const std::string &filename, long int pos) {
 	*/
 
   arma::sp_mat _C, _B;
-  arma::vec    _b, _c, _bounds, _integers;
+  arma::vec    _b, _c, _integers;
   std::string  headercheck;
   pos = Utils::appendRead(headercheck, filename, pos);
   if (headercheck != "IP_Param")
@@ -306,28 +308,20 @@ long int MathOpt::IP_Param::load(const std::string &filename, long int pos) {
   pos = Utils::appendRead(_B, filename, pos, std::string("IP_Param::B"));
   pos = Utils::appendRead(_b, filename, pos, std::string("IP_Param::b"));
   pos = Utils::appendRead(_c, filename, pos, std::string("IP_Param::c"));
-  pos = Utils::appendRead(_bounds, filename, pos, std::string("IP_Param::bounds"));
   pos = Utils::appendRead(_integers, filename, pos, std::string("IP_Param::integers"));
-  this->Q.zeros(0);
-  this->A.zeros(0);
-  this->set(Q, _C, A, _B, _c, _b);
-  this->bounds   = _bounds;
-  this->integers = _integers;
+  this->set(_C, _B, _b, _c, _integers);
   return pos;
 }
 
-void MathOpt::IP_Param::write(const std::string &filename, bool append) const {
-  std::ofstream file;
-  file.open(filename, append ? arma::ios::app : arma::ios::out);
-  file << *this;
-  file << "\n\nOBJECTIVES\n";
-  file << "C:" << this->getC();
-  file << "c\n" << this->getc();
-  file << "\n\nCONSTRAINTS\n";
-  file << "A:" << this->getA();
-  file << "B:" << this->getB();
-  file << "b\n" << this->getb();
-  file << "bounds\n" << this->getBounds();
-  file << "integers\n" << this->getIntegers();
-  file.close();
+
+
+void MathOpt::IP_Param::save(const std::string &filename, bool append) const {
+
+  Utils::appendSave(std::string("IP_Param"), filename, append);
+  Utils::appendSave(this->C, filename, std::string("IP_Param::C"), false);
+  Utils::appendSave(this->B, filename, std::string("IP_Param::B"), false);
+  Utils::appendSave(this->b, filename, std::string("IP_Param::b"), false);
+  Utils::appendSave(this->c, filename, std::string("IP_Param::c"), false);
+  Utils::appendSave(this->integers, filename, std::string("IP_Param::integers"), false);
+  BOOST_LOG_TRIVIAL(trace) << "Saved IP_Param to file " << filename;
 }
