@@ -455,7 +455,7 @@ void Game::NashGame::write(const std::string &filename, bool append, bool KKT) c
 	 file.open(filename + ".nash", arma::ios::app);
 	 file << "\n\n\n\n PLAYER " << count++ << "\n\n";
 	 file.close();
-	 pl->QP_Param::write(filename + ".nash", true);
+	 pl->QP_Param::save(filename + ".nash", true);
   }
 
   file.open(filename + ".nash", arma::ios::app);

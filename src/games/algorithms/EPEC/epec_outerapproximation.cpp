@@ -197,7 +197,7 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 										<< convexModel.get(GRB_IntAttr_SolCount) << " solutions. Player "
 										<< player;
 		for (int z = 0; z < convexModel.get(GRB_IntAttr_SolCount); ++z) {
-		  convexModel.getEnv().set(GRB_IntParam_SolutionNumber, z);
+		  convexModel.set(GRB_IntParam_SolutionNumber, z);
 		  arma::vec cutLHS;
 		  cutLHS.zeros(xOfI.size());
 

@@ -443,7 +443,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
 		int scount = this->LCPModel->get(GRB_IntAttr_SolCount);
 		BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: number of equilibria is " << scount;
 		for (int k = 0, stop = 0; k < scount && stop == 0; ++k) {
-		  this->LCPModel->getEnv().set(GRB_IntParam_SolutionNumber, k);
+		  this->LCPModel->set(GRB_IntParam_SolutionNumber, k);
 		  this->NashEquilibrium =
 				this->TheLCP->extractSols(this->LCPModel.get(), this->SolutionZ, this->SolutionX, true);
 		  if (this->Algorithm->isSolved()) {
