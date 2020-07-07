@@ -120,13 +120,10 @@ namespace MathOpt {
 
 	 /// @brief  Writes a given parameterized Mathematical program to a set of
 	 /// files.
-	 void write(const std::string &filename, bool append) const override;
-
-	 /// @brief Saves the @p MathOpt::QP_Param object in a loadable file.
-	 void save(const std::string &filename, bool erase = true) const;
+	 void save(const std::string &filename, bool append) const override;
 
 	 /// @brief Loads the @p MathOpt::QP_Param object stored in a file.
-	 long int  load(const std::string &filename, long int pos = 0);
+	 long int  load(const std::string &filename, long int pos = 0) override;
 	 double    computeObjectiveWithoutOthers(const arma::vec &y) const;
 	 arma::vec getConstraintViolations(const arma::vec x, const arma::vec y, double tol);
   };

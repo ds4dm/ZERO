@@ -12,11 +12,12 @@
 
 
 #include "mathopt/mp_param/mp_param.h"
+#include "boost/log/trivial.hpp"
 #include <armadillo>
 #include <iostream>
 #include <memory>
 
-void MathOpt::MP_Param::write(const std::string &filename, bool) const {
+void MathOpt::MP_Param::save(const std::string &filename, bool append) const {
   /**
 	* @brief  Writes a given parameterized Mathematical program to a set of
 	* files.
@@ -34,12 +35,31 @@ void MathOpt::MP_Param::write(const std::string &filename, bool) const {
 	* single loadable file
 	*
 	*/
-  this->getQ().save(filename + "_Q.txt", arma::file_type::arma_ascii);
-  this->getC().save(filename + "_C.txt", arma::file_type::arma_ascii);
-  this->getA().save(filename + "_A.txt", arma::file_type::arma_ascii);
-  this->getB().save(filename + "_B.txt", arma::file_type::arma_ascii);
-  this->getc().save(filename + "_c.txt", arma::file_type::arma_ascii);
-  this->getb().save(filename + "_b.txt", arma::file_type::arma_ascii);
+  Utils::appendSave(std::string("MP_Param"), filename, append);
+  Utils::appendSave(this->Q, filename, std::string("MP_Param::Q"), false);
+  Utils::appendSave(this->A, filename, std::string("MP_Param::A"), false);
+  Utils::appendSave(this->B, filename, std::string("MP_Param::B"), false);
+  Utils::appendSave(this->C, filename, std::string("MP_Param::C"), false);
+  Utils::appendSave(this->b, filename, std::string("MP_Param::b"), false);
+  Utils::appendSave(this->c, filename, std::string("MP_Param::c"), false);
+  BOOST_LOG_TRIVIAL(trace) << "Saved MP_Param to file " << filename;
+}
+
+long int MathOpt::MP_Param::load(const std::string &filename, long int pos) {
+  arma::sp_mat Q, A, B, C;
+  arma::vec    c, b;
+  std::string  headercheck;
+  pos = Utils::appendRead(headercheck, filename, pos);
+  if (headercheck != "MP_Param")
+	 throw ZEROException(ZEROErrorCode::IOError, "Invalid header");
+  pos = Utils::appendRead(Q, filename, pos, std::string("MP_Param::Q"));
+  pos = Utils::appendRead(A, filename, pos, std::string("MP_Param::A"));
+  pos = Utils::appendRead(B, filename, pos, std::string("MP_Param::B"));
+  pos = Utils::appendRead(C, filename, pos, std::string("MP_Param::C"));
+  pos = Utils::appendRead(b, filename, pos, std::string("MP_Param::b"));
+  pos = Utils::appendRead(c, filename, pos, std::string("MP_Param::c"));
+  this->set(Q, C, A, B, c, b);
+  return pos;
 }
 
 MathOpt::MP_Param &MathOpt::MP_Param::addDummy(unsigned int pars, unsigned int vars, int position)
@@ -110,7 +130,7 @@ const unsigned int MathOpt::MP_Param::size()
  * 	@returns @p Ny, Number of variables in the quadratic program, QP
  */
 {
-  if (Q.n_rows < 1)
+  if (Q.n_elem < 1)
 	 this->Ny = this->c.size();
   else
 	 this->Ny = this->Q.n_rows;
@@ -182,29 +202,31 @@ bool MathOpt::MP_Param::dataCheck(bool forceSymmetry) const
  * 	@returns true if all above checks are cleared. false otherwise.
  */
 {
-  if (forceSymmetry) {
-	 if (!this->Q.is_symmetric())
+  if (!Q.is_empty()) {
+	 if (forceSymmetry) {
+		if (!this->Q.is_symmetric() && this->Q.n_rows > 0)
+		  return false;
+	 }
+	 if (this->Q.n_cols > 0 && this->Q.n_cols != Ny) {
 		return false;
+	 }
   }
-  if (this->Q.n_cols > 0 && this->Q.n_cols != Ny) {
+  if (!this->A.is_empty() && this->A.n_cols != Nx) {
 	 return false;
   }
-  if (this->A.n_cols > 0 && this->A.n_cols != Nx) {
+  if (!this->A.is_empty() && this->A.n_rows != Ncons) {
 	 return false;
   }
   if (this->B.n_cols != Ny) {
+	 return false;
+  }
+  if (this->B.n_rows != Ncons) {
 	 return false;
   }
   if (this->C.n_rows != Ny) {
 	 return false;
   }
   if (this->c.size() != Ny) {
-	 return false;
-  }
-  if (this->A.n_rows > 0 && this->A.n_rows != Ncons) {
-	 return false;
-  }
-  if (this->B.n_rows != Ncons) {
 	 return false;
   }
   return true;

@@ -99,7 +99,8 @@ namespace MathOpt {
 
 	 virtual MP_Param &addDummy(unsigned int pars, unsigned int vars = 0, int position = -1);
 
-	 virtual void write(const std::string &filename, bool append = true) const;
+	 virtual void     save(const std::string &filename, bool append) const;
+	 virtual long int load(const std::string &filename, long int pos = 0);
 
 	 static bool dataCheck(const QP_Objective &  obj,
 								  const QP_Constraints &cons,

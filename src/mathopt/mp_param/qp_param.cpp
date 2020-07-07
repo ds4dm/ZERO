@@ -24,21 +24,6 @@ std::ostream &MathOpt::operator<<(std::ostream &os, const MathOpt::QP_Param &Q) 
   return os;
 }
 
-void MathOpt::QP_Param::write(const std::string &filename, bool append) const {
-  std::ofstream file;
-  file.open(filename, append ? arma::ios::app : arma::ios::out);
-  file << *this;
-  file << "\n\nOBJECTIVES\n";
-  file << "Q:" << this->getQ();
-  file << "C:" << this->getC();
-  file << "c\n" << this->getc();
-  file << "\n\nCONSTRAINTS\n";
-  file << "A:" << this->getA();
-  file << "B:" << this->getB();
-  file << "b\n" << this->getb();
-  file.close();
-}
-
 
 bool MathOpt::QP_Param::operator==(const QP_Param &Q2) const {
   if (!Utils::isZero(this->Q - Q2.getQ()))
@@ -214,12 +199,12 @@ arma::vec MathOpt::QP_Param::getConstraintViolations(const arma::vec x,
 																	  const arma::vec y,
 																	  double          tol = 1e-5) {
   arma::vec xN, yN;
-  if (x.size() < B.n_cols)
-	 arma::vec xN = Utils::resizePatch(x, B.n_cols);
+  if (x.size() < A.n_cols)
+	 arma::vec xN = Utils::resizePatch(x, A.n_cols);
   else
 	 xN = x;
-  if (y.size() < A.n_cols)
-	 arma::vec yN = Utils::resizePatch(y, A.n_cols);
+  if (y.size() < B.n_cols)
+	 arma::vec yN = Utils::resizePatch(y, B.n_cols);
   else
 	 yN = y;
   arma::vec slack = A * xN + B * yN - b;
@@ -263,12 +248,12 @@ double MathOpt::QP_Param::computeObjectiveWithoutOthers(const arma::vec &y) cons
   return obj(0);
 }
 
-void MathOpt::QP_Param::save(const std::string &filename, bool erase) const {
+void MathOpt::QP_Param::save(const std::string &filename, bool append) const {
   /**
 	* The MathOpt::QP_Param object hence stored can be loaded back using
 	* MathOpt::QP_Param::load
 	*/
-  Utils::appendSave(std::string("QP_Param"), filename, erase);
+  Utils::appendSave(std::string("QP_Param"), filename, append);
   Utils::appendSave(this->Q, filename, std::string("QP_Param::Q"), false);
   Utils::appendSave(this->A, filename, std::string("QP_Param::A"), false);
   Utils::appendSave(this->B, filename, std::string("QP_Param::B"), false);
