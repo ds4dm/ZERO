@@ -25,20 +25,6 @@
 #include <vector>
 
 
-Models::IPG::IPG &Models::IPG::IPG::unlock()
-/**
- * @brief Unlocks an IPG model
- * @details A Finalized model cannot be edited unless it is unlocked first.
- * @internal EPEC::finalize() performs "finalizing" acts on an object.
- * @warning Exclusively for debugging purposes for developers. Don't call this
- * function, unless you know what you are doing.
- */
-{
-  this->Finalized = false;
-  return *this;
-}
-
-
 void Models::IPG::IPG::writeSolution(std::string filename) const {
   /**
 	* @brief Writes the computed Nash Equilibrium in the standard JSON solution
@@ -77,6 +63,26 @@ void Models::IPG::IPG::writeSolution(std::string filename) const {
   std::ofstream file(filename + ".json");
   file << s.GetString();
 }
+Models::IPG::IPG::IPG(GRBEnv *env, std::string instanceFileName) : Game::IPG::IPG(env) {
+  this->Env = env;
+  this->Instance.load(instanceFileName);
+  this->PlayersIP.empty();
+  for (unsigned int i = 0; i < this->Instance.PlayerVariables.size(); ++i) {
+	 auto player = std::make_shared<MathOpt::IP_Param>(this->Env);
+	 player->load(this->Instance.IPFiles.at(i));
+	 this->PlayersIP.push_back(player);
+  }
+}
+Models::IPG::IPG::IPG(GRBEnv *env, IPGInstance instance) : Game::IPG::IPG(env) {
+  this->Env      = env;
+  this->Instance = instance;
+  this->PlayersIP.empty();
+  for (unsigned int i = 0; i < this->Instance.PlayerVariables.size(); ++i) {
+	 auto player = std::make_shared<MathOpt::IP_Param>(this->Env);
+	 player->load(this->Instance.IPFiles.at(i));
+	 this->PlayersIP.push_back(player);
+  }
+}
 
 
 void Models::IPG::IPGInstance::save(std::string filename) {
@@ -88,13 +94,15 @@ void Models::IPG::IPGInstance::save(std::string filename) {
   rapidjson::StringBuffer                          s;
   rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(s);
   writer.StartObject();
+  writer.Key("IntegerProgrammingGame");
+  writer.StartObject();
   writer.Key("nPlayers");
-  writer.Uint(this->IPs.size());
+  writer.Uint(this->PlayerVariables.size());
   writer.Key("nVariables");
   writer.Uint(this->NumVariables);
   writer.Key("Players");
   writer.StartArray();
-  for (unsigned int i = 0, count = 0; i < this->IPs.size(); i++) {
+  for (unsigned int i = 0, count = 0; i < this->PlayerVariables.size(); i++) {
 	 writer.StartObject();
 	 writer.Key("NumVariables");
 	 writer.Uint(this->PlayerVariables.at(i));
@@ -103,6 +111,7 @@ void Models::IPG::IPGInstance::save(std::string filename) {
 	 writer.EndObject();
   }
   writer.EndArray();
+  writer.EndObject();
   writer.EndObject();
   std::ofstream file(filename + ".json");
   file << s.GetString();
@@ -122,13 +131,14 @@ void Models::IPG::IPGInstance::load(std::string filename) {
 	 try {
 		d.ParseStream(isw);
 		std::vector<MathOpt::IP_Param> LAP = {};
+		auto                           IPG = d["IntegerProgrammingGame"].GetObject();
 
-		unsigned int              nPlayers   = d["nPlayers"].GetInt();
-		unsigned int              nVariables = d["nVariables"].GetInt();
+		unsigned int              nPlayers   = IPG["nPlayers"].GetInt();
+		unsigned int              nVariables = IPG["nVariables"].GetInt();
 		std::vector<unsigned int> playerVariables;
 
 		for (int j = 0; j < nPlayers; ++j) {
-		  const rapidjson::Value &c = d["Players"].GetArray()[j].GetObject();
+		  const rapidjson::Value &c = IPG["Players"].GetArray()[j].GetObject();
 
 		  MathOpt::IP_Param ParametrizedProblem(new GRBEnv);
 		  std::string       fileName = c["IP_ParamFile"].GetString();
@@ -144,7 +154,8 @@ void Models::IPG::IPGInstance::load(std::string filename) {
 											 " has a different number of variables y wrt the instance file");
 		  }
 		  this->IPFiles.push_back(fileName);
-		  this->IPs.push_back(ParametrizedProblem);
+		  this->PlayerVariables.push_back(ParametrizedProblem.getNy());
+		  this->NumVariables += ParametrizedProblem.getNy();
 		}
 		ifs.close();
 	 } catch (...) {
@@ -161,10 +172,8 @@ void Models::IPG::IPGInstance::addIPParam(const MathOpt::IP_Param &ip, const std
 	 if (!ifs.good())
 		ip.save(filename, 0);
 	 this->IPFiles.push_back(filename);
-	 this->IPs.push_back(ip);
 	 this->PlayerVariables.push_back(ip.getNy());
 	 this->NumVariables += ip.getNy();
-
 
   } catch (...) {
 	 throw ZEROException(ZEROErrorCode::IOError, "Cannot write the IPG data");

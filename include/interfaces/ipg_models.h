@@ -27,10 +27,9 @@ namespace Models {
 	 class IPG; // Forward declaration for IPGInstance
 	 struct IPGInstance {
 	 protected:
-		std::vector<MathOpt::IP_Param> IPs     = {};
-		std::vector<std::string>       IPFiles = {};
-		unsigned int                   NumVariables;
-		std::vector<unsigned int>      PlayerVariables;
+		std::vector<std::string>  IPFiles = {};
+		unsigned int              NumVariables{0};
+		std::vector<unsigned int> PlayerVariables = {};
 
 	 public:
 		friend class Models::IPG::IPG;
@@ -51,18 +50,8 @@ namespace Models {
 		IPGInstance Instance;
 
 	 public:
-		IPG() = delete;
-
-		IPG(GRBEnv *env, const std::string instanceFileName) : Game::IPG(env) {
-		  this->Instance.load(instanceFileName);
-		  this->PlayersIP.empty();
-		  for (unsigned int i = 0; i < this->Instance.IPs.size(); ++i) {
-			 this->Instance.IPs.at(i).setEnv(env);
-			 this->PlayersIP.push_back(std::shared_ptr<MathOpt::IP_Param>(&this->Instance.IPs.at(i)));
-		  }
-		};
-
-		IPG &unlock();
+		IPG(GRBEnv *env, const std::string instanceFileName);
+		IPG(GRBEnv *env, IPGInstance instance);
 
 		void writeSolution(std::string filename) const;
 
