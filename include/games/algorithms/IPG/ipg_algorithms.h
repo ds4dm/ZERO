@@ -11,6 +11,8 @@
  * #############################################*/
 
 #pragma once
+#include <games/ipg.h>
+
 #include "zero.h"
 
 namespace Algorithms {
@@ -48,6 +50,7 @@ namespace Algorithms {
 		}; ///< The constructor requires the Gurobi
 		///< environment and the Game::IPG object.
 	 };
+
 
   } // namespace IPG
 } // namespace Algorithms
