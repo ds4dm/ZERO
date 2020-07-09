@@ -44,11 +44,10 @@ namespace MathOpt {
   {
   private:
 	 // Gurobi environment and model
-	 GRBEnv *    Env;
-	 GRBModel    IPModel;     ///< Stores the IP model associated with the object
-	 GRBQuadExpr Objective_c; ///< Stores the objective part relative to c^Ty
-	 arma::vec   integers;    ///< Stores the indexes of integer variables
-	 bool finalized{false};   ///< True if the model has been made and constraints cannot be changed
+	 GRBEnv *  Env;
+	 GRBModel  IPModel;     ///< Stores the IP model associated with the object
+	 arma::vec integers;    ///< Stores the indexes of integer variables
+	 bool finalized{false}; ///< True if the model has been made and constraints cannot be changed
 
 	 // These methods should be inaccessible to the inheritor, since we have a
 	 // different structure.
@@ -78,7 +77,8 @@ namespace MathOpt {
 
 	 /// Copy constructor
 	 IP_Param(const IP_Param &ipg)
-		  : MP_Param(ipg), Env{ipg.Env}, IPModel{ipg.IPModel}, finalized{ipg.finalized} {
+		  : MP_Param(ipg), Env{ipg.Env}, IPModel{ipg.IPModel}, finalized{ipg.finalized},
+			 integers{ipg.integers} {
 		this->size();
 	 };
 
@@ -133,8 +133,13 @@ namespace MathOpt {
 
 	 void updateModelObjective(const arma::vec x);
 
-	 std::unique_ptr<GRBModel> getIPModel() { return std::unique_ptr<GRBModel>(&this->IPModel); }
+	 std::unique_ptr<GRBModel> getIPModel(bool relax = false) {
+		if (relax)
+		  return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel.relax()));
+		else
+		  return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel));
+	 }
 
-	 std::unique_ptr<GRBModel> getIPModel(const arma::vec x);
+	 std::unique_ptr<GRBModel> getIPModel(const arma::vec x, bool relax = false);
   };
 } // namespace MathOpt

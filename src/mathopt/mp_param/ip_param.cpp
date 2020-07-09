@@ -59,7 +59,7 @@ bool MathOpt::IP_Param::finalize() {
 			 this->IPModel.addVar(0, GRB_INFINITY, c.at(i), GRB_CONTINUOUS, "y_" + std::to_string(i));
 	 }
 	 for (unsigned int i = 0; i < this->integers.size(); ++i)
-		y[static_cast<int>(integers.at(i))].set(GRB_CharAttr_VType, GRB_INTEGER);
+		y[static_cast<int>(integers.at(i))].set(GRB_CharAttr_VType, 'I');
 
 	 for (unsigned int i = 0; i < this->Ncons; i++) {
 		GRBLinExpr LHS{0};
@@ -68,20 +68,10 @@ bool MathOpt::IP_Param::finalize() {
 		this->IPModel.addConstr(LHS, GRB_LESS_EQUAL, b[i]);
 	 }
 
-	 // Make the linear part of the objective
-	 this->Objective_c = 0;
-	 for (unsigned int i = 0; i < this->Ny; ++i)
-		this->Objective_c += y[i] * c.at(i);
-
 	 this->IPModel.update();
-	 this->IPModel.set(GRB_IntParam_OutputFlag, 0);
+	 this->IPModel.set(GRB_IntParam_OutputFlag, 1);
 	 this->IPModel.set(GRB_IntParam_InfUnbdInfo, 1);
 	 this->IPModel.set(GRB_IntParam_DualReductions, 0);
-
-	 std::string text = "B" + std::to_string(this->B.n_rows) + " -- " +
-							  std::to_string(this->IPModel.get(GRB_IntAttr_NumConstrs));
-	 this->B.print_dense(text);
-
 
   } catch (GRBException &e) {
 	 throw ZEROException(ZEROErrorCode::SolverError,
@@ -102,22 +92,25 @@ void MathOpt::IP_Param::updateModelObjective(const arma::vec x) {
   if (!this->finalized)
 	 throw ZEROException(ZEROErrorCode::Assertion, "The model is not finalized!");
   try {
-	 GRBQuadExpr obj = this->Objective_c;
+	 // Make the linear part of the objective
+	 GRBQuadExpr Objective = 0;
 	 arma::vec   Cx;
 	 Cx = this->C * x;
-	 GRBVar y[this->Ny];
-	 for (unsigned int i = 0; i < this->Ny; i++) {
-		y[i] = this->IPModel.getVarByName("y_" + std::to_string(i));
-		obj += Cx[i] * y[i];
-	 }
-	 IPModel.setObjective(obj, GRB_MINIMIZE);
+	 for (unsigned int i = 0; i < this->Ny; i++)
+		Objective += (Cx[i] + this->c.at(i)) * this->IPModel.getVarByName("y_" + std::to_string(i));
+
+	 // this->c.print("c");
+	 // Cx.print("Cx");
+
+
+	 IPModel.setObjective(Objective, GRB_MINIMIZE);
 	 IPModel.update();
   } catch (GRBException &e) {
 	 throw ZEROException(e);
   }
 }
 
-std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(const arma::vec x)
+std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(const arma::vec x, bool relax)
 /**
  * Given a value for the parameters @f$x@f$ in the
  * definition of IP_Param, returns
@@ -136,7 +129,10 @@ std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(const arma::vec x)
   } catch (GRBException &e) {
 	 throw ZEROException(e);
   }
-  return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel));
+  if (relax) {
+	 return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel.relax()));
+  } else
+	 return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel));
 }
 
 
