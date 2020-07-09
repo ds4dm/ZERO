@@ -452,7 +452,7 @@ bool Utils::isZero(arma::mat M, double tol) noexcept {
 	* @warning Tolerance < 0 always returns @p false with no error.
 	*
 	*/
-  return (arma::min(arma::min(abs(M))) <= tol);
+  return ((abs(M).max() <= tol));
 }
 
 bool Utils::isZero(arma::sp_mat M, double tol) noexcept {
@@ -463,8 +463,8 @@ bool Utils::isZero(arma::sp_mat M, double tol) noexcept {
 	* @p tol Tolerance, below which a number is treated as 0
 	*
 	*/
-  if (M.n_nonzero == 0)
-	 return true;
+  if (M.n_nonzero != 0)
+	 return false;
 
-  return (arma::min(arma::min(abs(M))) <= tol);
+  return ((abs(M).max() <= tol));
 }
