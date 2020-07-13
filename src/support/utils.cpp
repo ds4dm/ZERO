@@ -77,7 +77,7 @@ arma::vec Utils::resizePatch(const arma::vec &mat, const unsigned int nR) {
 	 if (nR > mat.n_rows)
 		mMat.subvec(0, mat.n_rows - 1) = mat;
 	 else
-		mMat = mat.subvec(0, nR);
+		mMat = mat.subvec(0, nR - 1);
   }
   return mMat;
 }
