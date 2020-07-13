@@ -78,7 +78,7 @@ unsigned int Algorithms::EPEC::PolyBase::getPositionLeadFollPoly(const unsigned 
 	*/
   const auto LeaderStart = this->EPECObject->TheNashGame->getPrimalLoc(i);
   const auto FollPoly =
-		dynamic_cast<MathOpt::PolyLCP *>(this->PolyLCP.at(i).get())->convPolyPosition(k);
+		static_cast<MathOpt::PolyLCP *>(this->PolyLCP.at(i).get())->convPolyPosition(k);
   return LeaderStart + FollPoly + j;
 }
 
@@ -94,7 +94,7 @@ unsigned int Algorithms::EPEC::PolyBase::getPositionLeadLeadPoly(const unsigned 
 	*/
   const auto LeaderStart = this->EPECObject->TheNashGame->getPrimalLoc(i);
   const auto FollPoly =
-		dynamic_cast<MathOpt::PolyLCP *>(this->PolyLCP.at(i).get())->convPolyPosition(k);
+		static_cast<MathOpt::PolyLCP *>(this->PolyLCP.at(i).get())->convPolyPosition(k);
   return LeaderStart + FollPoly + this->PolyLCP.at(i)->getLStart() + j;
 }
 
@@ -103,7 +103,7 @@ unsigned int Algorithms::EPEC::PolyBase::getNumPolyLead(const unsigned int i) co
 	* Get the number of polyhedra used in the inner approximation of the
 	* feasible region of the i-th leader.*
 	*/
-  return dynamic_cast<MathOpt::PolyLCP *>(this->PolyLCP.at(i).get())->convNumPoly();
+  return static_cast<MathOpt::PolyLCP *>(this->PolyLCP.at(i).get())->convNumPoly();
 }
 
 unsigned int Algorithms::EPEC::PolyBase::getPositionProbab(const unsigned int i,
@@ -114,7 +114,7 @@ unsigned int Algorithms::EPEC::PolyBase::getPositionProbab(const unsigned int i,
 	* inner approximation with exactly 1 polyhedron, it returns 0;
 	*/
   const auto PolyProbab =
-		dynamic_cast<MathOpt::PolyLCP *>(this->EPECObject->PlayersLCP.at(i).get())->convPolyWeight(k);
+		static_cast<MathOpt::PolyLCP *>(this->EPECObject->PlayersLCP.at(i).get())->convPolyWeight(k);
   if (PolyProbab == 0)
 	 return 0;
   const auto LeaderStart = this->EPECObject->TheNashGame->getPrimalLoc(i);
