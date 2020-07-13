@@ -228,7 +228,12 @@ BOOST_AUTO_TEST_CASE(NashGame_test) {
   arma::sp_mat                                    MC(0, 2);
   arma::vec                                       MCRHS;
   MCRHS.set_size(0);
-  Game::NashGame Nash = Game::NashGame(&env, q, MC, MCRHS);
+  std::vector<std::shared_ptr<MathOpt::MP_Param>> MPCasted;
+  auto m1 = std::dynamic_pointer_cast<MathOpt::MP_Param>(q1);
+  MPCasted.push_back(m1);
+  auto m2 = std::dynamic_pointer_cast<MathOpt::MP_Param>(q2);
+  MPCasted.push_back(m2);
+  Game::NashGame Nash = Game::NashGame(&env, MPCasted, MC, MCRHS);
 
   // Master check  -  LCP should be proper!
   arma::sp_mat MM, MM_ref;

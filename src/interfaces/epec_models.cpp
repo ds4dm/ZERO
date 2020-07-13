@@ -538,9 +538,14 @@ Models::EPEC::EPEC &Models::EPEC::EPEC::addCountry(Models::EPEC::LeadAllPar Para
   arma::sp_mat MC(0, LeadVars + Params.n_followers);
   arma::vec    MCRHS(0, arma::fill::zeros);
 
+  std::vector<std::shared_ptr<MathOpt::MP_Param>> MPCasted;
+  for (auto &item : Players) {
+	 auto m = std::dynamic_pointer_cast<MathOpt::MP_Param>(item);
+	 MPCasted.push_back(m);
+  }
   // Convert the country QP to a NashGame
   auto N =
-		std::make_shared<Game::NashGame>(this->Env, Players, MC, MCRHS, LeadVars, LeadCons, LeadRHS);
+		std::make_shared<Game::NashGame>(this->Env, MPCasted, MC, MCRHS, LeadVars, LeadCons, LeadRHS);
   this->name2nos[Params.name] = this->PlayersLowerLevels.size();
   this->PlayersLowerLevels.push_back(N);
   Models::EPEC::increaseVal(Loc,

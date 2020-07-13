@@ -372,8 +372,13 @@ void Game::EPEC::makeTheLCP() {
   this->makeMCConstraints(MC, MCRHS);
   BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makeTheLCP(): Market Clearing "
 										"constraints are ready";
+  std::vector<std::shared_ptr<MathOpt::MP_Param>> MPCasted;
+  for (auto &item : this->PlayersQP) {
+	 auto m = std::dynamic_pointer_cast<MathOpt::MP_Param>(item);
+	 MPCasted.push_back(m);
+  }
   this->TheNashGame = std::unique_ptr<Game::NashGame>(
-		new Game::NashGame(this->Env, this->PlayersQP, MC, MCRHS, 0, dumA, dumb));
+		new Game::NashGame(this->Env, MPCasted, MC, MCRHS, 0, dumA, dumb));
   BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makeTheLCP(): NashGame is ready";
   this->TheLCP = std::unique_ptr<MathOpt::LCP>(new MathOpt::LCP(this->Env, *TheNashGame));
   BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makeTheLCP(): LCP is ready";
@@ -419,7 +424,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
 	 BOOST_LOG_TRIVIAL(info) << " Game::EPEC::computeNashEq: (PureNashEquilibrium flag is "
 										 "true) Searching for a pure NE.";
 	 if (this->Stats.AlgorithmData.Algorithm.get() != Data::EPEC::Algorithms::OuterApproximation)
-		dynamic_cast<Algorithms::EPEC::PolyBase *>(this->Algorithm.get())
+		static_cast<Algorithms::EPEC::PolyBase *>(this->Algorithm.get())
 			 ->makeThePureLCP(this->Stats.AlgorithmData.IndicatorConstraints.get());
   }
 
