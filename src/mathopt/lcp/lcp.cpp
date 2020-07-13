@@ -708,7 +708,7 @@ void MathOpt::LCP::addCustomCuts(const arma::sp_mat A, ///< [in] The LHS of the 
 ) {
   /**
 	* Given that the MathOpt::LCP stores a description of the new cuts of @p A (and
-	* RHS @p b) in LCP::_Acut and LCP::_bcut
+	* RHS @p b) in LCP::_Acut and LCP::_bcut. The cut is in the form of Ax &\le& b
 	*/
 
   if (this->_A.n_cols != A.n_cols)
@@ -723,9 +723,9 @@ void MathOpt::LCP::addCustomCuts(const arma::sp_mat A, ///< [in] The LHS of the 
   // debug this->_bcut.print("Vector bcut");
 }
 
-bool MathOpt::LCP::containCut(const arma::vec LHS, ///< [in] The LHS of the cut
-										const double    RHS, ///< [in] The rHS of the cut
-										double          tol  ///< [in] optional tolerance
+bool MathOpt::LCP::containsCut(const arma::vec LHS, ///< [in] The LHS of the cut
+										 const double    RHS, ///< [in] The rHS of the cut
+										 double          tol  ///< [in] optional tolerance
 ) {
   /**
 	* Given that the MathOpt::LCP stores a description of a cut in LCP::_Acut and
