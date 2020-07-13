@@ -177,7 +177,7 @@ namespace Algorithms {
 		int  infeasibleBranching(const unsigned int player, const OuterTree::Node *node);
 		int  deviationBranching(const unsigned int player, const OuterTree::Node *node);
 		std::unique_ptr<GRBModel> getFeasQP(const unsigned int player, arma::vec x);
-		void addValueCut(unsigned int player, arma::vec xOfIBestResponse, arma::vec xMinusI);
+		void addValueCut(const unsigned int player, const double RHS, const arma::vec xMinusI);
 		bool separationOracle(
 			 arma::vec &xOfI, arma::vec &x, unsigned int player, int budget, bool &addedCuts);
 

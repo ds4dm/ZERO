@@ -39,6 +39,8 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
   arma::vec currentPayoffs =
 		this->EPECObject->TheNashGame->computeQPObjectiveValues(this->EPECObject->SolutionX, true);
   for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i) {
+	 BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation:: Payoff of " << i << " is "
+									 << currentPayoffs.at(i);
 	 this->Trees.at(i)->resetFeasibility();
 	 double val = this->EPECObject->respondSol(bestResponse, i, this->EPECObject->SolutionX);
 	 if (val == GRB_INFINITY) {
@@ -59,9 +61,7 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
 
 		  BOOST_LOG_TRIVIAL(warning) << "Algorithms::EPEC::OuterApproximation::"
 												  "isFeasible: No best response for Player "
-											  << i;
-		  BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::OuterApproximation:: "
-											<< currentPayoffs.at(i) << " vs " << val;
+											  << i << " (" << currentPayoffs.at(i) << " vs " << val << ")";
 
 		  throw ZEROException(ZEROErrorCode::Numeric,
 									 "Invalid payoffs relation (better best response)");
@@ -74,7 +74,7 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
 		  // generate a value-cut
 		  arma::vec xMinusI;
 		  this->EPECObject->getXMinusI(this->EPECObject->SolutionX, i, xMinusI);
-		  this->addValueCut(i, bestResponse, xMinusI);
+		  this->addValueCut(i, val, xMinusI);
 		  BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::isFeasible: "
 											  "Value cut at for Player "
 										  << i;
@@ -163,9 +163,14 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 	 BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::OuterApproximation::separationOracle: "
 										  "MermbershipLP status is "
 									  << status;
-	 if (status == GRB_OPTIMAL) {
-		if (convexModel.getObjective().getValue() == 0 &&
-			 convexModel.getConstrByName("Normalization").get(GRB_DoubleAttr_Slack) == 1) {
+	 if (status == GRB_OPTIMAL && convexModel.get(GRB_IntAttr_SolCount) == 1) {
+		convexModel.set(GRB_IntParam_SolutionNumber, 0);
+		arma::vec sol(xOfI.size(), arma::fill::zeros);
+		for (unsigned int i = 0; i < xOfI.size(); i++)
+		  sol.at(i) =
+				std::abs(convexModel.getVarByName("y_" + std::to_string(i)).get(GRB_DoubleAttr_X));
+
+		if (convexModel.getObjective().getValue() == 0 && sol.max() == 0) {
 		  // this->Trees.at(player)->addVertex(xOfI);
 		  BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::separationOracle: "
 											  "The point is a convex combination of known points! Player "
@@ -237,7 +242,7 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 				cutV              = cutV;
 				arma::sp_mat cutL = Utils::resizePatch(
 					 arma::sp_mat{cutLHS}.t(), 1, this->outerLCP.at(player)->getNumCols());
-				if (this->outerLCP.at(player)->containCut(
+				if (this->outerLCP.at(player)->containsCut(
 						  Utils::resizePatch(cutLHS, this->outerLCP.at(player)->getNumCols()), cutV)) {
 				  BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::separationOracle: "
 													  "cut already added for Player "
@@ -313,14 +318,10 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
   return false;
 }
 
-void Algorithms::EPEC::OuterApproximation::addValueCut(unsigned int player,
-																		 arma::vec    xOfIBestResponse,
-																		 arma::vec    xMinusI) {
+void Algorithms::EPEC::OuterApproximation::addValueCut(const unsigned int player,
+																		 const double       RHS,
+																		 arma::vec          xMinusI) {
 
-  double cutRHS = this->EPECObject->PlayersQP.at(player)->computeObjective(
-		Utils::resizePatch(xOfIBestResponse, this->EPECObject->PlayersQP.at(player)->getNy(), 1),
-		Utils::resizePatch(xMinusI, this->EPECObject->PlayersQP.at(player)->getNx(), 1),
-		false);
   arma::vec LHS = this->EPECObject->LeaderObjective.at(player)->c +
 						this->EPECObject->LeaderObjective.at(player)->C * xMinusI;
   arma::sp_mat cutLHS =
@@ -328,7 +329,7 @@ void Algorithms::EPEC::OuterApproximation::addValueCut(unsigned int player,
   BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::addValueCut: "
 									  "adding cut for Player "
 								  << player;
-  this->outerLCP.at(player)->addCustomCuts(-cutLHS, arma::vec{-cutRHS});
+  this->outerLCP.at(player)->addCustomCuts(-cutLHS, arma::vec{-RHS});
 }
 
 void Algorithms::EPEC::OuterApproximation::solve() {
