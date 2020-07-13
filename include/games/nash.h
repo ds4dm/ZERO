@@ -40,7 +40,7 @@ namespace Game {
 	 arma::sp_mat LeaderConstraints;                          ///< Upper level leader constraints LHS
 	 arma::vec    LeaderConstraintsRHS;                       ///< Upper level leader constraints RHS
 	 unsigned int NumPlayers;                                 ///< Number of players in the Nash Game
-	 std::vector<std::shared_ptr<MathOpt::QP_Param>> Players; ///< The QP that each player solves
+	 std::vector<std::shared_ptr<MathOpt::MP_Param>> Players; ///< The QP that each player solves
 	 arma::sp_mat                                    MarketClearing; ///< Market clearing constraints
 	 arma::vec MCRHS; ///< RHS to the Market Clearing constraints
 
@@ -64,10 +64,10 @@ namespace Game {
 	 /// To be used only when NashGame is being loaded from a file.
 	 explicit NashGame(GRBEnv *e) noexcept : Env{e} {};
 
-	 /// Constructing a NashGame from a set of MathOpt::QP_Param, Market clearing
+	 /// Constructing a NashGame from a set of MathOpt::MP_Param, Market clearing
 	 /// constraints
 	 explicit NashGame(GRBEnv *                                        e,
-							 std::vector<std::shared_ptr<MathOpt::QP_Param>> players,
+							 std::vector<std::shared_ptr<MathOpt::MP_Param>> players,
 							 arma::sp_mat                                    MC,
 							 arma::vec                                       MCRHS,
 							 unsigned int                                    nLeadVar = 0,
@@ -103,7 +103,7 @@ namespace Game {
 	 inline unsigned int getNprimals() const {
 		/***
 		 * Number of primal variables is the sum of the "y" variables present in
-		 * each player's MathOpt::QP_Param
+		 * each player's MathOpt::MP_Param
 		 */
 		return this->PrimalPosition.back();
 	 }
@@ -127,7 +127,7 @@ namespace Game {
 		 * of the number dual variables each player has. And the number of dual
 		 * variables for any player is equal to the number of linear constraints
 		 * they have which is given by the number of rows in the player's
-		 * MathOpt::QP_Param::A
+		 * MathOpt::MP_Param::A
 		 */
 		return this->DualPosition.back() - this->DualPosition.front() + 0;
 	 }
@@ -192,8 +192,5 @@ namespace Game {
 	 arma::vec computeQPObjectiveValuesWithoutOthers(const arma::vec &x) const;
   };
 
-  std::ostream &operator<<(std::ostream &os, const MathOpt::QP_Param &Q);
-
-  std::ostream &operator<<(std::ostream &ost, const perps &C);
 
 } // namespace Game

@@ -12,14 +12,12 @@
 
 
 #include "games/nash.h"
-#include <algorithm>
 #include <armadillo>
-#include <array>
 #include <boost/log/trivial.hpp>
 #include <iostream>
 #include <memory>
 Game::NashGame::NashGame(GRBEnv *                                        e,
-								 std::vector<std::shared_ptr<MathOpt::QP_Param>> players,
+								 std::vector<std::shared_ptr<MathOpt::MP_Param>> players,
 								 arma::sp_mat                                    MC,
 								 arma::vec                                       MCRHS,
 								 unsigned int                                    nLeadVar,
@@ -29,11 +27,11 @@ Game::NashGame::NashGame(GRBEnv *                                        e,
 /**
  * @brief
  * Construct a NashGame by giving a std::vector of pointers to
- * QP_Param, defining each player's game
+ * MP_Param, defining each player's game
  * A set of Market clearing constraints and its RHS
  * And if there are leader variables, the number of leader vars.
  * @details
- * Have a std::vector of pointers to MathOpt::QP_Param ready such that
+ * Have a std::vector of pointers to MathOpt::MP_Param ready such that
  * the variables are separated in \f$x^{i}\f$ and \f$x^{-i}\f$
  * format.
  *
@@ -111,13 +109,23 @@ long int Game::NashGame::load(const std::string &filename, long int pos) {
 	 throw ZEROException(ZEROErrorCode::IOError, "File header is invalid");
   unsigned int numPlayersLocal = 0;
   pos = Utils::appendRead(numPlayersLocal, filename, pos, std::string("NashGame::NumPlayers"));
-  std::vector<std::shared_ptr<MathOpt::QP_Param>> players;
+  std::vector<std::shared_ptr<MathOpt::MP_Param>> players;
   players.resize(numPlayersLocal);
   for (unsigned int i = 0; i < numPlayersLocal; ++i) {
-	 // Players.at(i) = std::make_shared<MathOpt::QP_Param>(this->Env);
-	 auto temp     = std::shared_ptr<MathOpt::QP_Param>(new MathOpt::QP_Param(this->Env));
-	 players.at(i) = temp;
-	 pos           = players.at(i)->load(filename, pos);
+	 // Players.at(i) = std::make_shared<MathOpt::MP_Param>(this->Env);
+	 headercheck = "";
+	 Utils::appendRead(headercheck, filename, pos);
+	 if (headercheck == "QP_Param") {
+		auto temp     = std::shared_ptr<MathOpt::QP_Param>(new MathOpt::QP_Param(this->Env));
+		pos           = temp->load(filename, pos);
+		auto m        = std::dynamic_pointer_cast<MathOpt::MP_Param>(temp);
+		players.at(i) = temp;
+	 } else if (headercheck == "IP_Param") {
+		auto temp     = std::shared_ptr<MathOpt::IP_Param>(new MathOpt::IP_Param(this->Env));
+		pos           = temp->load(filename, pos);
+		auto m        = std::dynamic_pointer_cast<MathOpt::MP_Param>(temp);
+		players.at(i) = temp;
+	 }
   }
   arma::sp_mat marketClearing;
   pos = Utils::appendRead(marketClearing, filename, pos, std::string("NashGame::MarketClearing"));
@@ -185,7 +193,7 @@ const Game::NashGame &Game::NashGame::formulateLCP(
   /// @warning Does not return the leader constraints. Use
   /// NashGame::rewriteLeadCons() to handle them
   /**
-* Computes the KKT conditions for each Player, calling QP_Param::KKT.
+* Computes the KKT conditions for each Player, calling MP_Param::KKT.
 Arranges them systematically to return M, q
 * as an LCP @f$0\leq q \perp Mx+q \geq 0 @f$.
 				 The way the variables of the players get distributed is shown in
@@ -212,7 +220,7 @@ the image below
 	 this->Players[i]->KKT(Mi[i], Ni[i], qi[i]);
 	 unsigned int numPrim, numDual;
 	 numPrim = this->Players[i]->getNy();
-	 numDual = this->Players[i]->getA().n_rows;
+	 numDual = this->Players[i]->getb().n_rows;
 	 // Adding the primal equations
 	 // Region 1 in Formulate LCP.ipe
 	 BOOST_LOG_TRIVIAL(trace) << "Game::NashGame::formulateLCP: Region 1";
@@ -450,12 +458,12 @@ void Game::NashGame::write(const std::string &filename, bool append, bool KKT) c
 
   int count{0};
   for (const auto &pl : this->Players) {
-	 // pl->QP_Param::write(filename+"_Players_"+to_string(count++), append);
+	 // pl->MP_Param::write(filename+"_Players_"+to_string(count++), append);
 	 file << "--------------------------------------------------\n";
 	 file.open(filename + ".nash", arma::ios::app);
 	 file << "\n\n\n\n PLAYER " << count++ << "\n\n";
 	 file.close();
-	 pl->QP_Param::save(filename + ".nash", true);
+	 pl->MP_Param::save(filename + ".nash", true);
   }
 
   file.open(filename + ".nash", arma::ios::app);
@@ -591,42 +599,6 @@ arma::vec Game::NashGame::computeQPObjectiveValues(const arma::vec &x, bool chec
 	 x_i = x.subvec(nStart, nEnd - 1);
 
 	 vals.at(i) = this->Players.at(i)->computeObjective(x_i, x_minus_i, checkFeas);
-  }
-
-  return vals;
-}
-
-arma::vec Game::NashGame::computeQPObjectiveValuesWithoutOthers(const arma::vec &x) const {
-  /**
-	* @brief Computes players' objective without the part dependent on other
-	* players variable
-	* @details
-	* Computes the objective value of <i> each </i> player in the Game::NashGame
-	* where the objective related to other players is fixed to zero object.
-	* @returns An arma::vec with the objective values.
-	*/
-  arma::vec vals;
-  vals.zeros(this->NumPlayers);
-  for (unsigned int i = 0; i < this->NumPlayers; ++i) {
-	 unsigned int nVar{this->getNprimals() + this->getNumShadow() + this->getNumLeaderVars()};
-	 unsigned int nStart, nEnd;
-	 nStart = this->PrimalPosition.at(i);
-	 nEnd   = this->PrimalPosition.at(i + 1);
-
-	 arma::vec x_i, x_minus_i;
-
-	 x_minus_i.zeros(nVar - nEnd + nStart);
-	 if (nStart > 0) {
-		x_minus_i.subvec(0, nStart - 1) = x.subvec(0, nStart - 1);
-	 }
-	 if (nEnd < nVar) {
-		x_minus_i.subvec(nStart, nVar + nStart - nEnd - 1) =
-			 x.subvec(nEnd, nVar - 1); // Discard any dual variables in x
-	 }
-
-	 x_i = x.subvec(nStart, nEnd - 1);
-
-	 vals.at(i) = this->Players.at(i)->computeObjectiveWithoutOthers(x_i);
   }
 
   return vals;
