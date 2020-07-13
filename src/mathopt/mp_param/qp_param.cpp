@@ -42,13 +42,13 @@ bool MathOpt::QP_Param::operator==(const QP_Param &Q2) const {
 }
 
 int MathOpt::QP_Param::makeyQy()
-/// Adds the Gurobi Quadratic objective to the Gurobi model @p QuadModel.
+/// Adds the Gurobi Quadratic objective to the Gurobi model @p Model.
 {
   if (this->madeyQy)
 	 return 0;
   GRBVar y[this->Ny];
   for (unsigned int i = 0; i < Ny; i++)
-	 y[i] = this->QuadModel.addVar(0, GRB_INFINITY, 0, GRB_CONTINUOUS, "y_" + std::to_string(i));
+	 y[i] = this->Model.addVar(0, GRB_INFINITY, 0, GRB_CONTINUOUS, "y_" + std::to_string(i));
   GRBQuadExpr yQy{0};
   for (auto val = Q.begin(); val != Q.end(); ++val) {
 	 unsigned int i, j;
@@ -57,8 +57,8 @@ int MathOpt::QP_Param::makeyQy()
 	 j                  = val.col();
 	 yQy += 0.5 * y[i] * value * y[j];
   }
-  QuadModel.setObjective(yQy, GRB_MINIMIZE);
-  QuadModel.update();
+  Model.setObjective(yQy, GRB_MINIMIZE);
+  Model.update();
   this->madeyQy = true;
   return 0;
 }
@@ -81,7 +81,7 @@ std::unique_ptr<GRBModel> MathOpt::QP_Param::solveFixed(
 	 throw ZEROException(ZEROErrorCode::Assertion,
 								"Mismatch in x size: " + std::to_string(x.size()) +
 									 " != " + std::to_string(Nx));
-  std::unique_ptr<GRBModel> model(new GRBModel(this->QuadModel));
+  std::unique_ptr<GRBModel> model(new GRBModel(this->Model));
   try {
 	 GRBQuadExpr yQy = model->getObjective();
 	 arma::vec   Cx, Ax;

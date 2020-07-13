@@ -21,12 +21,26 @@
 #include <string>
 
 namespace MathOpt {
-  ///@brief class to handle parameterized mathematical programs(MP)
+  /**
+	* @brief This class handles parameterized mathematical programs (MP)
+	* Their form is the one of \f[
+	* \min_y \frac{1}{2}y^TQy + c^Ty + (Cx)^T y
+	* \f]
+	* Subject to
+	* \f{eqnarray}{
+	* Ax + By &\leq& b \\
+	* y &\geq& 0
+	* \f}
+	*/
+
+  enum class MPType { MP_Param = 0, QP_Param = 1, IP_Param = 2 };
   class MP_Param {
   protected:
 	 // Data representing the parameterized QP
 	 arma::sp_mat Q, A, B, C;
 	 arma::vec    c, b;
+	 GRBEnv *     Env;
+	 MPType       Type = MathOpt::MPType::MP_Param;
 	 // Object for sizes and integrity check
 	 unsigned int Nx, Ny, Ncons;
 
@@ -41,8 +55,7 @@ namespace MathOpt {
 
   public:
 	 // Default constructors
-	 MP_Param() = default;
-
+	 MP_Param(GRBEnv *env = nullptr) : Env{env} {};
 	 MP_Param(const MP_Param &M) = default;
 
 	 // Getters and setters
@@ -99,8 +112,16 @@ namespace MathOpt {
 
 	 virtual MP_Param &addDummy(unsigned int pars, unsigned int vars = 0, int position = -1);
 
-	 virtual void     save(const std::string &filename, bool append) const;
-	 virtual long int load(const std::string &filename, long int pos = 0);
+	 virtual void                      save(const std::string &filename, bool append) const;
+	 virtual long int                  load(const std::string &filename, long int pos = 0);
+	 virtual unsigned int              KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const;
+	 virtual std::unique_ptr<GRBModel> solveFixed(const arma::vec x, bool solve = false) {
+		return std::unique_ptr<GRBModel>(new GRBModel(this->Env));
+	 };
+	 virtual double computeObjective(const arma::vec &y,
+												const arma::vec &x,
+												bool             checkFeas = true,
+												double           tol       = 1e-6) const;
 
 	 static bool dataCheck(const QP_Objective &  obj,
 								  const QP_Constraints &cons,

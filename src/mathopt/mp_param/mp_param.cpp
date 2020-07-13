@@ -86,8 +86,12 @@ MathOpt::MP_Param &MathOpt::MP_Param::addDummy(unsigned int pars, unsigned int v
 		C = Utils::resizePatch(C, this->Ny, this->Nx);
 	 break;
   case 0:
-	 if (pars)
-		A = arma::join_rows(arma::zeros<arma::sp_mat>(this->Ncons, pars), A);
+	 if (pars) {
+		if (!A.is_empty())
+		  A = arma::join_rows(arma::zeros<arma::sp_mat>(this->Ncons, pars), A);
+		else
+		  A.zeros(this->Ncons, pars + A.n_cols);
+	 }
 	 if (vars || pars) {
 		C = Utils::resizePatch(C, this->Ny, C.n_cols);
 		C = arma::join_rows(arma::zeros<arma::sp_mat>(this->Ny, pars), C);
@@ -95,8 +99,13 @@ MathOpt::MP_Param &MathOpt::MP_Param::addDummy(unsigned int pars, unsigned int v
 	 break;
   default:
 	 if (pars) {
-		arma::sp_mat A_temp =
-			 arma::join_rows(A.cols(0, position - 1), arma::zeros<arma::sp_mat>(this->Ncons, pars));
+		arma::sp_mat A_temp;
+		if (!A.is_empty())
+		  A_temp =
+				arma::join_rows(A.cols(0, position - 1), arma::zeros<arma::sp_mat>(this->Ncons, pars));
+		else
+		  A.zeros(this->Ncons, pars + A.n_cols);
+
 		if (static_cast<unsigned int>(position) < A.n_cols) {
 		  A = arma::join_rows(A_temp, A.cols(position, A.n_cols - 1));
 		} else {
@@ -261,4 +270,19 @@ bool MathOpt::MP_Param::dataCheck(const QP_Objective &  obj,
 	 return false;
   }
   return true;
+}
+
+unsigned int MathOpt::MP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const {
+  M.zeros(0, 0);
+  N.zeros(0, 0);
+  q.zeros(0);
+  return 0;
+}
+
+double MathOpt::MP_Param::computeObjective(const arma::vec &y,
+														 const arma::vec &x,
+														 bool             checkFeas,
+														 double           tol) const {
+
+  return 0;
 }

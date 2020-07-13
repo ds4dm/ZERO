@@ -40,15 +40,14 @@ namespace MathOpt {
   {
   private:
 	 // Gurobi environment and model
-	 GRBEnv * Env;
-	 GRBModel QuadModel;
+	 GRBModel Model;
 	 bool     madeyQy;
 
 	 int makeyQy();
 
   public: // Constructors
 	 /// Initialize only the size. Everything else is empty (can be updated later)
-	 explicit QP_Param(GRBEnv *env = nullptr) : Env{env}, madeyQy{false}, QuadModel{(*env)} {
+	 explicit QP_Param(GRBEnv *env = nullptr) : MP_Param(env), madeyQy{false}, Model{(*env)} {
 		this->size();
 	 }
 
@@ -60,7 +59,7 @@ namespace MathOpt {
 				 arma::vec    c,
 				 arma::vec    b,
 				 GRBEnv *     env = nullptr)
-		  : Env{env}, madeyQy{false}, QuadModel{(*env)} {
+		  : MP_Param(env), madeyQy{false}, Model{(*env)} {
 		this->madeyQy = false;
 		this->set(Q, C, A, B, c, b);
 		this->size();
@@ -68,8 +67,7 @@ namespace MathOpt {
 	 };
 
 	 /// Copy constructor
-	 QP_Param(const QP_Param &Qu)
-		  : MP_Param(Qu), Env{Qu.Env}, QuadModel{Qu.QuadModel}, madeyQy{Qu.madeyQy} {
+	 QP_Param(const QP_Param &Qu) : MP_Param(Qu), Model{Qu.Model}, madeyQy{Qu.madeyQy} {
 		this->size();
 	 };
 
@@ -94,16 +92,16 @@ namespace MathOpt {
 	 bool operator==(const QP_Param &Q2) const;
 
 	 // Other methods
-	 unsigned int KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const;
+	 unsigned int KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const override;
 
-	 std::unique_ptr<GRBModel> solveFixed(arma::vec x, bool solve);
+	 std::unique_ptr<GRBModel> solveFixed(arma::vec x, bool solve) override;
 
 	 /// Computes the objective value, given a vector @p y and
 	 /// a parameterizing vector @p x
 	 double computeObjective(const arma::vec &y,
 									 const arma::vec &x,
 									 bool             checkFeas = true,
-									 double           tol       = 1e-6) const;
+									 double           tol       = 1e-6) const override;
 
 	 inline bool isPlayable(const QP_Param &P) const
 	 /// Checks if the current object can play a game with another MathOpt::QP_Param

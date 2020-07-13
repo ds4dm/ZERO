@@ -24,7 +24,7 @@ std::ostream &MathOpt::operator<<(std::ostream &os, const MathOpt::IP_Param &I) 
   return os;
 }
 
-void MathOpt::IP_Param::forceDataCheck() {
+void MathOpt::IP_Param::forceDataCheck() const {
   if (!this->dataCheck())
 	 throw ZEROException(ZEROErrorCode::InvalidData, "dataCheck() failed");
 }
@@ -38,9 +38,7 @@ bool MathOpt::IP_Param::operator==(const IP_Param &IPG2) const {
 	 return false;
   if (!Utils::isZero(this->b - IPG2.getb()))
 	 return false;
-  if (!Utils::isZero(this->integers - IPG2.getIntegers()))
-	 return false;
-  return true;
+  return Utils::isZero(this->integers - IPG2.getIntegers());
 }
 
 bool MathOpt::IP_Param::finalize() {
@@ -110,12 +108,39 @@ void MathOpt::IP_Param::updateModelObjective(const arma::vec x) {
   }
 }
 
+std::unique_ptr<GRBModel> MathOpt::IP_Param::solveFixed(const arma::vec x, bool solve)
+/**
+ * Given a value for the parameters @f$x@f$ in the
+ * definition of IP_Param, returns
+ * a pointer to the parameterized MIP program . Note that the method @return a pointer to a copy of
+ *the model. In this way, valid cuts and cut pools are kept each time the method is invoked.
+ * @p solve is true whenever the model has to be solved
+ *
+ * In terms of game theory, this can be viewed as
+ * <i>the best response</i> for a set of
+ * decisions by other players.
+ */
+{
+  std::unique_ptr<GRBModel> model(new GRBModel(this->IPModel));
+  if (!this->finalized)
+	 throw ZEROException(ZEROErrorCode::Assertion, "The model is not finalized!");
+  try {
+	 this->updateModelObjective(x);
+	 if (solve)
+		model->optimize();
+  } catch (GRBException &e) {
+	 throw ZEROException(e);
+  }
+  return model;
+}
+
 std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(const arma::vec x, bool relax)
 /**
  * Given a value for the parameters @f$x@f$ in the
  * definition of IP_Param, returns
  * a pointer to the parameterized MIP program . Note that the method @return a pointer to a copy of
  *the model. In this way, valid cuts and cut pools are kept each time the method is invoked.
+ * If @p relax is true, then the model is the linear relaxation of the MIP.
  *
  * In terms of game theory, this can be viewed as
  * <i>the best response</i> for a set of
@@ -147,8 +172,8 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &C,
 	 throw ZEROException(ZEROErrorCode::InvalidData,
 								"Invalid vector of integers. Refer to MP_Param is no "
 								"integers are involved");
-  this->Q.zeros(0, 0);
-  this->A.zeros(0, 0);
+  this->Q.zeros(c.size(), c.size());
+  this->A.zeros(b.size(), C.n_cols);
   this->finalized = false;
   this->integers  = (_integers);
   MP_Param::set(Q, C, A, B, c, b);
@@ -163,8 +188,8 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(
 	 throw ZEROException(ZEROErrorCode::InvalidData,
 								"Invalid vector of integers. Refer to MP_Param is no "
 								"integers are involved");
-  this->Q.zeros(0, 0);
-  this->A.zeros(0, 0);
+  this->Q.zeros(c.size(), c.size());
+  this->A.zeros(b.size(), C.n_cols);
   this->finalized = false;
   this->integers  = std::move(_integers);
   MP_Param::set(Q, C, A, B, c, b);
@@ -229,8 +254,11 @@ double MathOpt::IP_Param::computeObjective(const arma::vec &y,
 		  return GRB_INFINITY;
 	 if (y.min() <= -tol) // if infeasible
 		return GRB_INFINITY;
+	 for (const auto i : this->integers) // integers
+		if (y.at(i) != trunc(y.at(i)))
+		  return GRB_INFINITY;
   }
-  arma::vec obj = (C * x).t() * y + c.t() * y;
+  arma::vec obj = ((C * x).t() + c.t()) * y;
   return obj(0);
 }
 
@@ -244,34 +272,70 @@ double MathOpt::IP_Param::computeObjectiveWithoutOthers(const arma::vec &y) cons
   return obj(0);
 }
 
-void MathOpt::IP_Param::addConstraints(arma::sp_mat Ain, ///< [in] The LHSs of the added cuts
-													arma::vec    bin  ///< [in] The RHSs of the added cuts
+bool MathOpt::IP_Param::addConstraint(
+	 arma::vec Ain,            ///< [in] The LHSs of the added cut
+	 double    bin,            ///< [in] The RHSs of the added cut
+	 bool      checkDuplicate, ///< [in] If true, the constraint is added only if not present
+	 double    tol             ///<[in] The tolerance to check for similar constraints
 ) {
   /**
-	* This method stores a description of the new cuts of @p Ain (and
-	* RHS @p bin) in B and b, respectively. This works also when the IP_Param is finalized.
+	* This method stores a description of the new cut of @p Ain (and
+	* RHS @p bin) in B and b, respectively. @return true if the constraint has been added This works
+	* also when the IP_Param is finalized.
 	*/
-  if (this->B.n_cols != Ain.n_cols)
+
+  if (this->B.n_cols != Ain.size())
 	 throw ZEROException(ZEROErrorCode::Assertion,
 								"Mismatch between the variables of the input "
 								"constraints and the stored ones");
-  if (bin.size() != Ain.n_rows)
-	 throw ZEROException(ZEROErrorCode::Assertion, "Invalid number of rows between Ain and Bin");
 
-  this->B = arma::join_cols(this->B, Ain);
-  this->b = arma::join_cols(this->b, bin);
-  this->size();
+  bool go{true};
+  if (checkDuplicate)
+	 go = Utils::containsConstraint(this->B, this->b, Ain, bin, tol);
 
-  // If model hasn't been made, we do not need to update it
-  if (this->finalized) {
-	 for (unsigned int i = 0; i < Ain.n_rows; i++) {
+
+  if (!go) {
+	 this->B = arma::join_cols(this->B, arma::sp_mat{Ain.t()});
+	 this->b = arma::join_cols(this->b, arma::vec{bin});
+	 this->A = Utils::resizePatch(this->A, this->B.n_rows, this->Nx);
+	 this->size();
+
+	 // If model hasn't been made, we do not need to update it
+	 if (this->finalized && false) {
 		GRBLinExpr LHS{0};
-		for (auto j = Ain.begin_row(i); j != Ain.end_row(i); ++j)
-		  LHS += (*j) * this->IPModel.getVarByName("y_" + std::to_string(j.col()));
-		this->IPModel.addConstr(LHS, GRB_LESS_EQUAL, b[i]);
+		for (auto j = 0; j < Ain.size(); ++j)
+		  LHS += Ain.at(j) * this->IPModel.getVarByName("y_" + std::to_string(j));
+		this->IPModel.addConstr(LHS, GRB_LESS_EQUAL, bin);
+		this->IPModel.update();
 	 }
-	 this->IPModel.update();
-  }
+	 return true;
+  } else
+	 return false;
+}
+
+unsigned int MathOpt::IP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const
+/// @brief Compute the KKT conditions for the given IP relaxation, namely where integrality
+/// constraints are dropped.
+/**
+ * Writes the KKT condition of the parameterized IP
+ * As per the convention, y is the decision variable for the IP and
+ * that is parameterized in x
+ * The KKT conditions are
+ * \f$0 \leq y \perp  My + Nx + q \geq 0\f$
+ */
+{
+  this->forceDataCheck();
+  M = arma::join_cols( // In armadillo join_cols(A, B) is same as [A;B] in
+							  // Matlab
+							  //  join_rows(A, B) is same as [A B] in Matlab
+		arma::join_rows(this->Q, this->B.t()),
+		arma::join_rows(-this->B, arma::zeros<arma::sp_mat>(this->Ncons, this->Ncons)));
+  // M.print_dense();
+  N = arma::join_cols(this->C, -this->A);
+  // N.print_dense();
+  q = arma::join_cols(this->c, this->b);
+  // q.print();
+  return M.n_rows;
 }
 
 

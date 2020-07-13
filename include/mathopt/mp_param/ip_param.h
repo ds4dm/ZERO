@@ -44,7 +44,6 @@ namespace MathOpt {
   {
   private:
 	 // Gurobi environment and model
-	 GRBEnv *  Env;
 	 GRBModel  IPModel;     ///< Stores the IP model associated with the object
 	 arma::vec integers;    ///< Stores the indexes of integer variables
 	 bool finalized{false}; ///< True if the model has been made and constraints cannot be changed
@@ -55,7 +54,7 @@ namespace MathOpt {
 
   public: // Constructors
 	 /// Initialize only the size. Everything else is empty (can be updated later)
-	 explicit IP_Param(GRBEnv *env = nullptr) : Env{env}, IPModel{(*env)} { this->size(); }
+	 explicit IP_Param(GRBEnv *env = nullptr) : MP_Param(env), IPModel{(*env)} { this->size(); }
 
 	 /// Set data at construct time
 	 explicit IP_Param(arma::sp_mat C,
@@ -64,7 +63,7 @@ namespace MathOpt {
 							 arma::vec    c,
 							 arma::vec    _integers,
 							 GRBEnv *     env = nullptr)
-		  : Env{env}, IPModel{(*env)} {
+		  : MP_Param(env), IPModel{(*env)} {
 		this->set(C, B, b, c, _integers);
 		this->forceDataCheck();
 	 };
@@ -73,12 +72,14 @@ namespace MathOpt {
 
 	 bool finalize() override;
 
-	 void addConstraints(const arma::sp_mat A, const arma::vec b);
+	 bool addConstraint(const arma::vec Ain,
+							  const double    bin,
+							  const bool      checkDuplicate = true,
+							  const double    tol            = 1e-5);
 
 	 /// Copy constructor
 	 IP_Param(const IP_Param &ipg)
-		  : MP_Param(ipg), Env{ipg.Env}, IPModel{ipg.IPModel}, finalized{ipg.finalized},
-			 integers{ipg.integers} {
+		  : MP_Param(ipg), IPModel{ipg.IPModel}, finalized{ipg.finalized}, integers{ipg.integers} {
 		this->size();
 	 };
 
@@ -109,7 +110,7 @@ namespace MathOpt {
 	 double computeObjective(const arma::vec &y,
 									 const arma::vec &x,
 									 bool             checkFeas = true,
-									 double           tol       = 1e-6) const;
+									 double           tol       = 1e-6) const override;
 
 	 inline bool isPlayable(const IP_Param &P) const
 	 /// Checks if the current object can play a game with another MathOpt::IP_Param
@@ -129,7 +130,7 @@ namespace MathOpt {
 
 	 arma::vec getConstraintViolations(const arma::vec y, double tol);
 
-	 void forceDataCheck();
+	 void forceDataCheck() const;
 
 	 void updateModelObjective(const arma::vec x);
 
@@ -140,6 +141,9 @@ namespace MathOpt {
 		  return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel));
 	 }
 
+	 std::unique_ptr<GRBModel> solveFixed(const arma::vec x, bool solve = false) override;
+
 	 std::unique_ptr<GRBModel> getIPModel(const arma::vec x, bool relax = false);
+	 unsigned int              KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const override;
   };
 } // namespace MathOpt

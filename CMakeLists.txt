@@ -148,6 +148,18 @@ set_target_properties(
 # ##############################################################################
 # ##############################################################################
 
+# ##############################################################################
+# ZERO - IPG TESTS
+# ##############################################################################
+add_executable(IPGTests test/IPG/RandomKP.cpp)
+target_include_directories(IPGTests PRIVATE test)
+target_link_libraries(IPGTests ZERO CONAN_PKG::boost)
+set_target_properties(
+  IPGTests PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
+                      VISIBILITY_INLINES_HIDDEN ON)
+# ##############################################################################
+# ##############################################################################
+
 message("\n\nZERO Configuration:")
 message("\tVersion:\t\t\t${PROJECT_NAME}-${PROJECT_VERSION}")
 message("\tCopyright:\t\t\t${ZERO_AUTHORS}\n\n")
