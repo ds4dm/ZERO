@@ -102,17 +102,24 @@ class ZEROException : virtual public std::exception {
 
 protected:
   ZEROErrorCode error_code;           ///< Error code for the thrown exception
+  std::string   error_desc;           ///< The description of the error
   std::string error_additional = "-"; ///< Additional information about the error. This may be empty
 
 public:
-  explicit ZEROException(ZEROErrorCode code) : error_code(code){};
+  explicit ZEROException(ZEROErrorCode code) : error_code(code) {
+	 this->error_desc = std::to_string(error_code);
+  };
   explicit ZEROException(ZEROErrorCode code, const std::string &more)
-		: error_code(code), error_additional(more){};
+		: error_code(code), error_additional(more) {
+	 this->error_desc = std::to_string(error_code);
+  };
   ZEROException(GRBException &e)
 		: error_code(ZEROErrorCode::SolverError),
-		  error_additional(std::to_string(e.getErrorCode()) + e.getMessage()){};
+		  error_additional(std::to_string(e.getErrorCode()) + e.getMessage()) {
+	 this->error_desc = std::to_string(error_code);
+  };
   ~ZEROException() noexcept override = default;
-  const char *what() const noexcept override { return std::to_string(error_code).c_str(); };
+  const char *          what() const noexcept override { return this->error_desc.c_str(); };
   virtual ZEROErrorCode which() const noexcept { return error_code; };
   const char *          more() const noexcept { return error_additional.c_str(); };
 };
