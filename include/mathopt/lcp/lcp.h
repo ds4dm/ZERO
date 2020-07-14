@@ -167,7 +167,7 @@ namespace MathOpt {
 
 	 long int load(std::string filename, long int pos = 0);
 
-	 virtual void makeQP(QP_Objective &QP_obj, QP_Param &QP);
+	 virtual void makeQP(MathOpt::QP_Objective &QP_obj, MathOpt::QP_Param &QP);
 
 	 void addCustomCuts(const arma::sp_mat A, const arma::vec b);
 

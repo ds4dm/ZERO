@@ -279,7 +279,7 @@ bool MathOpt::IP_Param::addConstraint(
 	 double    tol             ///<[in] The tolerance to check for similar constraints
 ) {
   /**
-	* This method stores a description of the new cut of @p Ain (and
+	* This method stores a description of the new cut Ainx &\leq& bin of @p Ain (and
 	* RHS @p bin) in B and b, respectively. @return true if the constraint has been added This works
 	* also when the IP_Param is finalized.
 	*/
@@ -301,6 +301,7 @@ bool MathOpt::IP_Param::addConstraint(
 	 this->size();
 
 	 // If model hasn't been made, we do not need to update it
+	 //@todo
 	 if (this->finalized && false) {
 		GRBLinExpr LHS{0};
 		for (auto j = 0; j < Ain.size(); ++j)
