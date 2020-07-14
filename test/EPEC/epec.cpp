@@ -177,7 +177,7 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
   // c
   temp_spmat1 = q1.getc().subvec(0, Ny - 1);
   BOOST_CHECK_MESSAGE(Utils::isZero(temp_spmat1 - q_ref.getc()), "c check after addDummy(0, 1, 1)");
-  BOOST_CHECK_MESSAGE(abs(q1.getc().at(Ny)) < 1e-4, "c check after addDummy(0, 1, 1)");
+  BOOST_CHECK_MESSAGE(std::abs(q1.getc().at(Ny)) < 1e-4, "c check after addDummy(0, 1, 1)");
 
   BOOST_TEST_MESSAGE("QP_Param test for file save");
   q1.save("../test/EPEC/q1.dat", true);

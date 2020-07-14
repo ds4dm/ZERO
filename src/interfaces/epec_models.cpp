@@ -993,7 +993,7 @@ std::string to_string(const GRBConstr &cons, const GRBModel &model) {
   // LHS
   for (int i = 0; i < nVars; ++i) {
 	 double coeff = model.getCoeff(cons, vars[i]);
-	 if (abs(coeff) > eps) {
+	 if (std::abs(coeff) > eps) {
 		char sign = (coeff > eps) ? '+' : ' ';
 		oss << sign << coeff << to_string(vars[i]) << "\t";
 	 }
