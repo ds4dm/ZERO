@@ -12,7 +12,6 @@
 
 
 #include "games/ipg.h"
-#include "games/algorithms/IPG/ipg_algorithms.h"
 #include "zero.h"
 #include <armadillo>
 #include <boost/log/trivial.hpp>
@@ -88,7 +87,7 @@ void Game::IPG::getXofI(const arma::vec &x, ///< The vector containing the full 
   if (this->NumVariables != x.size())
 	 throw ZEROException(ZEROErrorCode::Assertion, "Invalid size of x");
 
-  int count = 0;
+  unsigned int count = 0;
   for (unsigned int j = 0; j < i; ++j)
 	 count += this->PlayerVariables.at(j);
 
@@ -120,7 +119,5 @@ std::string std::to_string(const Data::IPG::Algorithms al) {
   switch (al) {
   case Data::IPG::Algorithms::Oracle:
 	 return std::string("Oracle");
-  default:
-	 return std::string("UNKNOWN_ALGORITHM_") + std::to_string(static_cast<int>(al));
   }
 }

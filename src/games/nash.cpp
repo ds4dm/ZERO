@@ -78,7 +78,6 @@ void Game::NashGame::save(const std::string &filename, bool erase) const {
   Utils::appendSave(
 		this->LeaderConstraintsRHS, filename, std::string("NashGame::LeaderConstraintsRHS"), false);
   Utils::appendSave(this->numLeaderVar, filename, std::string("NashGame::numLeaderVar"), false);
-  BOOST_LOG_TRIVIAL(trace) << "Saved NashGame to file " << filename;
 }
 
 long int Game::NashGame::load(const std::string &filename, long int pos) {

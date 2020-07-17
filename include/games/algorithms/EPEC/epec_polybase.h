@@ -79,7 +79,7 @@ namespace Algorithms {
 
 		unsigned int getPositionLeadLeadPoly(unsigned int i, unsigned int j, unsigned int k) const;
 
-		unsigned int getNumPolyLead(unsigned int i) const;
+		unsigned long int getNumPolyLead(unsigned int i) const;
 
 		unsigned int getPositionProbab(unsigned int i, unsigned int k) const;
 	 };

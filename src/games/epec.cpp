@@ -325,8 +325,8 @@ void Game::EPEC::makePlayersQPs()
   for (unsigned int i = 0; i < this->NumPlayers; ++i) {
 	 // LeadLocs &Loc = this->Locations.at(i);
 	 // Adjusting "stuff" because we now have new convHull variables
-	 unsigned int originalSizeWithoutHull = this->LeaderObjective.at(i)->Q.n_rows;
-	 unsigned int convHullVarCount =
+	 unsigned long int originalSizeWithoutHull = this->LeaderObjective.at(i)->Q.n_rows;
+	 unsigned long int convHullVarCount =
 		  this->LeaderObjectiveConvexHull.at(i)->Q.n_rows - originalSizeWithoutHull;
 
 	 BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makePlayerQP: Added " << convHullVarCount
@@ -364,9 +364,9 @@ void Game::EPEC::makeTheLCP() {
 	 throw ZEROException(ZEROErrorCode::Assertion, "No country QP has been made");
   }
   // Preliminary set up to get the LCP ready
-  int          Nvar = this->PlayersQP.front()->getNx() + this->PlayersQP.front()->getNy();
-  arma::sp_mat MC(0, Nvar), dumA(0, Nvar);
-  arma::vec    MCRHS, dumb;
+  unsigned long int Nvar = this->PlayersQP.front()->getNx() + this->PlayersQP.front()->getNy();
+  arma::sp_mat      MC(0, Nvar), dumA(0, Nvar);
+  arma::vec         MCRHS, dumb;
   MCRHS.zeros(0);
   dumb.zeros(0);
   this->makeMCConstraints(MC, MCRHS);
@@ -665,8 +665,6 @@ std::string std::to_string(const Data::EPEC::Algorithms al) {
 	 return std::string("CombinatorialPNE");
   case Data::EPEC::Algorithms::OuterApproximation:
 	 return std::string("OuterApproximation");
-  default:
-	 return std::string("UNKNOWN_ALGORITHM_") + std::to_string(static_cast<int>(al));
   }
 }
 
@@ -676,7 +674,5 @@ std::string std::to_string(const Data::EPEC::RecoverStrategy strategy) {
 	 return std::string("IncrementalEnumeration");
   case Data::EPEC::RecoverStrategy::Combinatorial:
 	 return std::string("Combinatorial");
-  default:
-	 return std::string("Unknown");
   }
 }

@@ -70,7 +70,7 @@ void Algorithms::EPEC::InnerApproximation::start() {
 
 	 if (addRandPoly) {
 		BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::InnerApproximation::solve: using "
-											"heuristical polyhedra selection";
+											"heuristic polyhedra selection";
 		bool success =
 			 this->addRandomPoly2All(this->EPECObject->Stats.AlgorithmData.Aggressiveness.get(),
 											 this->EPECObject->Stats.NumIterations.get() == 1);

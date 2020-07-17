@@ -22,7 +22,7 @@ bool Algorithms::EPEC::PolyBase::isSolved(unsigned int *countryNumber,
  * @brief Checks if Game::EPEC is solved, otherwise it returns a proof.
  * @details
  * Analogous to Game::NashGame::isSolved but checks if the given Game::EPEC is
- * solved. If it is solved, then retruns true. If not, it returns the country
+ * solved. If it is solved, then returns true. If not, it returns the country
  * which has a profitable deviation in @p countryNumber and the profitable
  * deviation in @p profitableDeviation. @p Tolerance is the tolerance for the
  * check. If the <i> improved objective </i> after the deviation is less than @p
@@ -77,8 +77,7 @@ unsigned int Algorithms::EPEC::PolyBase::getPositionLeadFollPoly(const unsigned 
 	* Algorithms::EPEC::PolyBase::getNumPolyLead(i)
 	*/
   const auto LeaderStart = this->EPECObject->TheNashGame->getPrimalLoc(i);
-  const auto FollPoly =
-		static_cast<MathOpt::PolyLCP *>(this->PolyLCP.at(i).get())->convPolyPosition(k);
+  const auto FollPoly    = this->PolyLCP.at(i).get()->convPolyPosition(k);
   return LeaderStart + FollPoly + j;
 }
 
@@ -93,17 +92,16 @@ unsigned int Algorithms::EPEC::PolyBase::getPositionLeadLeadPoly(const unsigned 
 	* Algorithms::EPEC::PolyBase::getNumPolyLead(i)
 	*/
   const auto LeaderStart = this->EPECObject->TheNashGame->getPrimalLoc(i);
-  const auto FollPoly =
-		static_cast<MathOpt::PolyLCP *>(this->PolyLCP.at(i).get())->convPolyPosition(k);
+  const auto FollPoly    = this->PolyLCP.at(i).get()->convPolyPosition(k);
   return LeaderStart + FollPoly + this->PolyLCP.at(i)->getLStart() + j;
 }
 
-unsigned int Algorithms::EPEC::PolyBase::getNumPolyLead(const unsigned int i) const {
+unsigned long int Algorithms::EPEC::PolyBase::getNumPolyLead(const unsigned int i) const {
   /**
 	* Get the number of polyhedra used in the inner approximation of the
 	* feasible region of the i-th leader.*
 	*/
-  return static_cast<MathOpt::PolyLCP *>(this->PolyLCP.at(i).get())->convNumPoly();
+  return this->PolyLCP.at(i).get()->convNumPoly();
 }
 
 unsigned int Algorithms::EPEC::PolyBase::getPositionProbab(const unsigned int i,
