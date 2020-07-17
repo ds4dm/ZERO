@@ -25,24 +25,9 @@
 namespace Algorithms {
   namespace IPG {
 
-	 class IPG_Player {
-		///@brief This structures manages the IPG data for each player of the game, given the
-		/// Oracle.It inherits
-		/// a GRBCallback to handle Gurobi callback
-	 public:
-		friend class Algorithms::IPG::Oracle;
-		IPG_Player(GRBEnv e, unsigned int incumbentSize, std::shared_ptr<GRBModel> model, double tol)
-			 : MembershipLP{}, Tolerance{tol} {
-		  /**
-			* @brief Given the @p e as the Gurobi environment, the size of the player's own
-			* decision variables @p incumentSize, and the pointer @p model to the original IP
-			* model, initializes the data structure.
-			*/
-		  this->Model = std::unique_ptr<GRBModel>(model.get());
-		  this->Incumbent.zeros(incumbentSize);
-		  this->Model->relax();
-		};
-
+	 struct IPG_Player {
+		///@brief This structure manages the IPG data for each player of the game, given the
+		/// Oracle
 	 private:
 		std::unique_ptr<GRBModel> Model;
 
@@ -65,6 +50,20 @@ namespace Algorithms {
 		bool      Feasible = false;
 
 	 public:
+		~IPG_Player() = default;
+		friend class Algorithms::IPG::Oracle;
+		IPG_Player(unsigned int incumbentSize, double &tol) : Tolerance{tol} {
+		  /**
+			* @brief Given the @p e as the Gurobi environment, the size of the player's own
+			* decision variables @p incumentSize, and the pointer @p IPmodel to the original IP
+			* model, initializes the data structure.
+			*/
+
+		  this->Model        = std::unique_ptr<GRBModel>();
+		  this->MembershipLP = std::unique_ptr<GRBModel>();
+		  this->Incumbent.zeros(incumbentSize);
+		};
+
 		bool addVertex(const arma::vec vertex, const bool checkDuplicate = true);
 
 		bool addRay(const arma::vec ray, const bool checkDuplicate = true);
@@ -83,18 +82,15 @@ namespace Algorithms {
 	 ///@brief This class is responsible for the Oracle algorithm for IPG.
 	 class Oracle : public Algorithm {
 	 private:
-		std::vector<IPG_Player> Players; ///< The support structures
-		bool                    addConstraintsToPool(const arma::sp_mat A,
-																	const arma::vec    b,
-																	const unsigned int player,
-																	bool               check = true);
-		void                    initialize();
-		arma::vec               buildXminusI(const unsigned int i);
-		bool                    addValueCut(unsigned int player,
-														arma::vec    xOfIBestResponse,
-														arma::vec    xMinusI,
-														bool         check = true);
-		bool                    separationOracle(const unsigned int player);
+		std::vector<std::unique_ptr<IPG_Player>> Players; ///< The support structures
+		bool                                     addConstraintsToPool(const arma::sp_mat A,
+																						  const arma::vec    b,
+																						  const unsigned int player,
+																						  bool               check = true);
+		void                                     initialize();
+		arma::vec                                buildXminusI(const unsigned int i);
+		bool addValueCut(unsigned int player, double RHS, arma::vec xMinusI, bool check = true);
+		bool separationOracle(const unsigned int player);
 		bool computeStrategy(const unsigned int i, arma::vec &strategy, double &payoff);
 
 		void
@@ -115,6 +111,7 @@ namespace Algorithms {
 		bool isSolved() const { return this->Solved; };
 
 		bool isPureStrategy() const;
+		bool equilibriumLCP(double localTimeLimit);
 	 };
   } // namespace IPG
 
