@@ -94,6 +94,7 @@ int main(int argc, char **argv) {
 				Test.setDeviationTolerance(3e-4);
 				Test.setIndicators(true);
 				Test.setNumThreads(8);
+				Test.setTimeLimit(60);
 				Test.finalize();
 				Test.findNashEq();
 

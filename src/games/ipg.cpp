@@ -101,6 +101,7 @@ const void Game::IPG::findNashEq() {
   if (!this->Finalized)
 	 this->finalize();
 
+  this->InitTime = std::chrono::high_resolution_clock::now();
   switch (this->Stats.AlgorithmData.Algorithm.get()) {
   case Data::IPG::Algorithms::Oracle: {
 	 final_msg << "Oracle Algorithm completed. ";
@@ -109,6 +110,10 @@ const void Game::IPG::findNashEq() {
 	 this->Algorithm->solve();
   } break;
   }
+  const std::chrono::duration<double> timeElapsed =
+		std::chrono::high_resolution_clock::now() - this->InitTime;
+  this->Stats.WallClockTime.set(timeElapsed.count() * std::chrono::milliseconds::period::num /
+										  std::chrono::milliseconds::period::den);
 }
 
 bool Game::IPG::isPureStrategy(double tol) const { return this->Algorithm->isPureStrategy(); }

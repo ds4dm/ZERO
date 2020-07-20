@@ -100,6 +100,7 @@ namespace Algorithms {
 										  const unsigned int iterations,
 										  const arma::vec &  xOfI,
 										  const arma::vec &  xMinusI);
+		bool checkTime(double &remaining) const;
 
 	 public:
 		friend class Game::IPG;

@@ -432,8 +432,6 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
   if (check)
 	 this->LCPModel->set(GRB_IntParam_SolutionLimit, GRB_MAXINT);
   this->LCPModel->optimize();
-  this->Stats.WallClockTime.set(this->Stats.WallClockTime.get() +
-										  this->LCPModel->get(GRB_DoubleAttr_Runtime));
 
   // Search just for a feasible point
   try { // Try finding a Nash equilibrium for the approximation
@@ -568,6 +566,11 @@ const void Game::EPEC::findNashEq() {
 	 this->Algorithm->solve();
   } break;
   }
+  const std::chrono::duration<double> timeElapsed =
+		std::chrono::high_resolution_clock::now() - this->InitTime;
+  this->Stats.WallClockTime.set(timeElapsed.count() * std::chrono::milliseconds::period::num /
+										  std::chrono::milliseconds::period::den);
+
   // Handing EPECStatistics object to track performance of algorithm
   if (this->LCPModel) {
 	 this->Stats.NumVar         = this->LCPModel->get(GRB_IntAttr_NumVars);

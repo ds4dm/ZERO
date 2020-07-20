@@ -34,6 +34,7 @@ void Algorithms::IPG::IPG_Player::updateIPModel(std::unique_ptr<GRBModel> IPmode
   this->Model->update();
 }
 
+
 bool Algorithms::IPG::IPG_Player::addVertex(const arma::vec vertex, const bool checkDuplicate) {
   /**
 	* @brief Given @p vertex, it adds a vertex to the field R. If @p checkDuplicate is true,
@@ -122,6 +123,24 @@ bool Algorithms::IPG::Oracle::addValueCut(unsigned int player,
 	 return false;
 }
 
+bool Algorithms::IPG::Oracle::checkTime(double &remaining) const {
+  if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0) {
+	 const std::chrono::duration<double> timeElapsed =
+		  std::chrono::high_resolution_clock::now() - this->IPG->InitTime;
+	 remaining = this->IPG->Stats.AlgorithmData.TimeLimit.get() - timeElapsed.count();
+	 if (remaining <= 0) {
+		BOOST_LOG_TRIVIAL(trace) << "Algorithms::IPG::Oracle::checkTime: "
+											 "Time limit hit.";
+		this->IPG->Stats.Status.set(ZEROStatus::TimeLimit);
+		return false;
+	 } else
+		return true;
+  } else {
+	 remaining = -1;
+	 return true;
+  }
+}
+
 
 void Algorithms::IPG::Oracle::solve() {
   /**
@@ -139,20 +158,32 @@ void Algorithms::IPG::Oracle::solve() {
 
   bool solved{false};
   while (!solved) {
+
+	 // Increase the number of iterations
 	 this->IPG->Stats.NumIterations.set(this->IPG->Stats.NumIterations.get() + 1);
+	 // Check the time-limit and form the LCP for the simultaneous game
+	 if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0) {
+		double remaining;
+		if (this->checkTime(remaining) && remaining > 0)
+		  bool Eq = this->equilibriumLCP(remaining);
+		else
+		  return;
+	 } else
+		bool Eq = this->equilibriumLCP(-1);
 
-	 // First, check that the computer strategies are building an equilibrium
 
-
-	 bool Eq = this->equilibriumLCP(-1);
 	 // Now we have an equilibrium, then we need to check whether this is feasible or not
-
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i)
 		this->Players.at(i)->Incumbent.print("incumbent of " + std::to_string(i));
 	 solved = true;
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
 		if (!this->separationOracle(i))
 		  solved = false;
+	 }
+	 if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0) {
+		double remaining;
+		if (!this->checkTime(remaining) || remaining <= 0)
+		  return;
 	 }
   }
 
@@ -186,6 +217,12 @@ bool Algorithms::IPG::Oracle::separationOracle(const unsigned int player) {
   BOOST_LOG_TRIVIAL(trace) << "Algorithms::IPG::Oracle::separationOracle: "
 										"The Oracle has been called for "
 									<< player;
+
+  if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0) {
+	 double remaining;
+	 if (!this->checkTime(remaining) || remaining <= 0)
+		return false;
+  }
 
   unsigned int Ny      = this->IPG->PlayerVariables.at(player); // Equals to Ny by definition
   arma::vec    xMinusI = this->buildXminusI(player);
@@ -277,6 +314,11 @@ bool Algorithms::IPG::Oracle::membershipSeparation(const unsigned int player,
 	* @p xOfI is the given point to separate.
 	*/
 
+  if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0) {
+	 double remaining;
+	 if (!this->checkTime(remaining) || remaining <= 0)
+		return false;
+  }
   BOOST_LOG_TRIVIAL(info) << "Algorithms::IPG::Oracle::membershipSeparation: "
 									  "Starting separator for player "
 								  << player;
@@ -560,15 +602,17 @@ bool Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
 	 LCPModel->set(GRB_DoubleParam_TimeLimit, localTimeLimit);
   }
   LCPModel->set(GRB_IntParam_OutputFlag, 1);
-  LCPModel->setObjective(GRBQuadExpr{0}, GRB_MINIMIZE);
+  //
+  // LCPModel->setObjective(GRBQuadExpr{0}, GRB_MINIMIZE);
+  LCPModel->set(GRB_IntParam_MIPFocus, 1);
   LCPModel->write("dat/TheLCP.lp");
   LCPModel->optimize();
-  LCPModel->write("dat/sol.sol");
-  this->IPG->Stats.WallClockTime.set(this->IPG->Stats.WallClockTime.get() +
-												 LCPModel->get(GRB_DoubleAttr_Runtime));
+  if (LCPModel->get(GRB_IntAttr_Status) == 9)
+	 return false;
   arma::vec x, z;
   auto      EQ = LCP->extractSols(LCPModel.get(), z, x, true);
   if (EQ) {
+	 LCPModel->write("dat/sol.sol");
 	 BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
 		this->Players.at(i)->Incumbent = x.subvec(Nash.getPrimalLoc(i), Nash.getPrimalLoc(i + 1) - 1);
