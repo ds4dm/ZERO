@@ -1,5 +1,6 @@
 #include "include/PathLCP.h"
 #include "Error.h"
+#include "License.h"
 #include "MCP_Interface.h"
 #include "Macros.h"
 #include "Memory.h"
@@ -123,6 +124,11 @@ static CB_FUNC(void) mcp_typ(void *d, int nnz, int *typ) {
   }
   return;
 }
+
+static CB_FUNC(void) messageCB(void *data, int mode, char *buf) {
+  fprintf(stdout, "%s", buf);
+} /* messageCB */
+static Output_Interface outputInterface = {NULL, messageCB, NULL};
 
 
 static MCP_Interface mcp_interface = {
@@ -273,28 +279,24 @@ static void destroy(void) {
   return;
 }
 
-int PathLCP(int         variables,
-				int         m_nnz,
-				int *       m_i,
-				int *       m_j,
-				double *    m_ij,
-				double *    q,
-				double *    lb,
-				double *    ub,
-				double *    z,
-				const char *logFile) {
+int PathLCP(int     variables,
+				int     m_nnz,
+				int *   m_i,
+				int *   m_j,
+				double *m_ij,
+				double *q,
+				double *lb,
+				double *ub,
+				double *z,
+				int     verbose) {
   Options_Interface *o;
   MCP *              m;
 
   double *x;
   double  dnnz;
   int     i;
-  FILE *  log;
 
-  if (logFile[0] != '\0') {
-	 log = fopen(logFile, "a+");
-	 Output_SetLog(log);
-  }
+  Output_SetInterface(&outputInterface);
 
   o = Options_Create();
   Path_AddOptions(o);
@@ -307,9 +309,7 @@ int PathLCP(int         variables,
   if (problem.n == 0) {
 	 Output_Printf(Output_Log | Output_Status, "\n ** EXIT - solution found (degenerate model).\n");
 	 Options_Destroy(o);
-	 if (logFile[0] != '\0') {
-		fclose(log);
-	 }
+
 	 return MCP_Solved;
   }
 
@@ -317,9 +317,7 @@ int PathLCP(int         variables,
   if (dnnz > INT_MAX) {
 	 Output_Printf(Output_Log | Output_Status, "\n ** EXIT - model too large.\n");
 	 Options_Destroy(o);
-	 if (logFile[0] != '\0') {
-		fclose(log);
-	 }
+
 	 return MCP_Error;
   }
   problem.nnz = (int)dnnz;
@@ -330,7 +328,9 @@ int PathLCP(int         variables,
 					 problem.nnz,
 					 100.0 * problem.nnz / (1.0 * problem.n * problem.n));
 
-  m = MCP_Create(problem.n, problem.nnz + 1);
+
+  Path_Create(variables * 10e02, m_nnz * 10e02);
+  m = MCP_Create(problem.n * 10e02, problem.nnz * 10e02 + 1);
   MCP_Jacobian_Structure_Constant(m, 1);
   install_interface(m);
 
@@ -341,7 +341,16 @@ int PathLCP(int         variables,
   info.use_start       = True;
   info.use_basics      = True;
 
-  int status = Path_Solve(m, &info);
+
+  // License_SetString("2617827524&Courtesy&&&USR&64785&11_12_2017&1000&PATH&GEN&31_12_2020&0_0_0&5000&0_0");
+  /*Path_CheckLicense (problem.n,problem.nnz);
+  int _nn,_nnz;
+  License_GetRestrictions(&_nn, &_nnz);
+  int test = License_GetTermination();
+	*/
+
+
+  MCP_Termination term = Path_Solve(m, &info);
 
 
   x = MCP_GetX(m);
@@ -351,10 +360,8 @@ int PathLCP(int         variables,
   }
 
   MCP_Destroy(m);
+  Path_Destroy();
   destroy();
 
-  if (logFile[0] != '\0') {
-	 fclose(log);
-  }
-  return status;
+  return term;
 }
