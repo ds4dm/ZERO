@@ -12,6 +12,7 @@
 
 
 #include "mathopt/lcp/lcp.h"
+#include "PathLCP.h"
 #include <algorithm>
 #include <armadillo>
 #include <boost/log/trivial.hpp>
@@ -19,7 +20,6 @@
 #include <iostream>
 #include <memory>
 #include <string>
-
 void MathOpt::LCP::defConst(GRBEnv *env)
 /**
  * @brief Assign default values to LCP attributes
@@ -691,7 +691,7 @@ void MathOpt::LCP::makeQP(MathOpt::QP_Objective &QP_obj, ///< [in/out] Objective
 
   MathOpt::QP_Constraints QP_cons;
   int                     components = this->convexHull(QP_cons.B, QP_cons.b);
-  BOOST_LOG_TRIVIAL(trace) << "OuterLCP::makeQP: No. components: " << components;
+  BOOST_LOG_TRIVIAL(trace) << "LCP::makeQP: No. components: " << components;
   // Updated size after convex hull has been computed.
   const unsigned int numConstraints{static_cast<unsigned int>(QP_cons.B.n_rows)};
   const unsigned int oldNumVariablesY{static_cast<unsigned int>(QP_cons.B.n_cols)};
@@ -745,5 +745,65 @@ std::string std::to_string(const Data::LCP::PolyhedraStrategy add) {
 	 return std::string("Random");
   default:
 	 return std::string("Unknown");
+  }
+}
+
+bool MathOpt::LCP::solvePATH(double     timelimit, ///< A double containing the timelimit in seconds
+									  arma::vec &z,       ///< [out] the output vector for the Mx+q (=z) part
+									  arma::vec &x,       ///< [out] the output vector for the variables x
+									  std::string logFile ///< [in] an optional logfile path and name
+) {
+  /**
+	* @brief Solves the LCP model with the PATH solver.
+	*/
+
+  std::vector<double> Mij, ql, xsol, lb, ub;
+  std::vector<int>    Mi, Mj, xmap;
+  unsigned int        row = 1;
+  for (const auto p : Compl) {
+	 // For each complementarity
+	 // z[p.first] \perp x[p.second]
+	 for (auto v = M.begin_row(p.first); v != M.end_row(p.first); ++v) {
+		if (*v != 0) {
+		  Mi.push_back(row);
+		  Mj.push_back(v.col() + 1);
+		  Mij.push_back(*v);
+		}
+	 }
+	 ++row;
+	 ql.push_back(this->q.at(p.first));
+	 xsol.push_back(0);
+	 xmap.push_back(p.second);
+	 lb.push_back(0);
+	 ub.push_back(1e20); // infty
+  }
+  double *_q    = &ql[0];
+  int *   _Mi   = &Mi[0];
+  int *   _Mj   = &Mj[0];
+  double *_Mij  = &Mij[0];
+  double *_xsol = &xsol[0];
+  double *_lb   = &lb[0];
+  double *_ub   = &ub[0];
+
+
+  BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::solvePath: Calling PATH Solver";
+  auto status =
+		PathLCP(this->Compl.size(), Mij.size(), _Mi, _Mj, _Mij, _q, _lb, _ub, _xsol, logFile.c_str());
+
+  if (status == 1) {
+	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::solvePath: Found a solution";
+	 x.zeros(this->nC);
+	 for (unsigned int i = 0; i < xmap.size(); ++i)
+		x.at(xmap.at(i)) = xsol[i];
+	 z.zeros(this->nR);
+	 for (unsigned int i = 0; i < this->nR; ++i)
+		z.at(i) = arma::as_scalar(this->M.row(i) * x + this->q.at(i));
+	 z.print("z");
+	 x.print("x");
+	 return true;
+  } else {
+	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::solvePath: No solution found (STATUS="
+									  << std::to_string(status) << ")";
+	 return false;
   }
 }

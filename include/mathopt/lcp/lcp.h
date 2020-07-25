@@ -161,6 +161,11 @@ namespace MathOpt {
 
 	 std::unique_ptr<GRBModel> LCPasMIP(std::vector<short int> Fixes, bool solve);
 
+	 bool solvePATH(double      timelimit,
+						 arma::vec & z,
+						 arma::vec & x,
+						 std::string logFile = "dat/PathLog.txt");
+
 	 void write(std::string filename, bool append = true) const;
 
 	 void save(std::string filename, bool erase = true) const;
