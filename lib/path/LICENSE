@@ -1,0 +1,38 @@
+
+The PATH license can be set either in an environment variable called
+PATH_LICENSE_STRING or programatically with the Path_SetLicense()
+function.  
+
+For example, if you are running csh or a variant on a Solaris or
+Linux system,
+
+  setenv PATH_LICENSE_STRING "2617827524&Courtesy&&&USR&64785&11_12_2017&1000&PATH&GEN&31_12_2020&0_0_0&5000&0_0" 
+
+will set the PATH_LICENSE_STRING environment variable to the evaluation license.  
+If you are running bash or a variant on a Linux system,
+
+  export PATH_LICENSE_STRING="2617827524&Courtesy&&&USR&64785&11_12_2017&1000&PATH&GEN&31_12_2020&0_0_0&5000&0_0"
+
+will set the PATH_LICENSE_STRING variable.
+
+On a windows (XP) machine, you need to click on the "Control Panel", then
+on "System", then on then "Advanced" tab.  Within this tab, there is
+an "Environment Variables" button, that you should click.  You can
+then click on the button "New" and enter
+
+  Variable name: PATH_LICENSE_STRING
+
+  Variable value: "2617827524&Courtesy&&&USR&64785&11_12_2017&1000&PATH&GEN&31_12_2020&0_0_0&5000&0_0"
+
+Alternatively, (for advanced users) in your interface code, you can set the license with the following function call
+
+  License_SetString("2617827524&Courtesy&&&USR&64785&11_12_2017&1000&PATH&GEN&31_12_2020&0_0_0&5000&0_0");
+which, if used, must be issued before a call to Path_Solve() or any other
+license management functions.
+
+The above evaluation will allow you to solve problems of any size
+until December 31, 2020.  After that time, you will revert to a demonstration
+license which only solves problems with up to 300 variables and 2000 
+nonzeros.  Please contact either Michael Ferris (ferris@cs.wisc.edu) or
+Todd Munson (tmunson@mcs.anl.gov) for information on obtaining an 
+unrestricted license.
