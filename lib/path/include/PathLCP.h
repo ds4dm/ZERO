@@ -14,7 +14,8 @@ int PathLCP(int     variables,
 				double *lb,
 				double *ub,
 				double *z,
-				int     verbose);
+				int     verbose,
+				double  timeLimit);
 #ifdef __cplusplus
 }
 #endif

@@ -288,7 +288,8 @@ int PathLCP(int     variables,
 				double *lb,
 				double *ub,
 				double *z,
-				int     verbose) {
+				int     verbose,
+				double  timeLimit) {
   Options_Interface *o;
   MCP *              m;
 
@@ -299,6 +300,8 @@ int PathLCP(int     variables,
   Output_SetInterface(&outputInterface);
 
   o = Options_Create();
+  if (timeLimit > 0)
+	 Options_SetDouble(o, "time_limit", timeLimit);
   Path_AddOptions(o);
   Options_Default(o);
 
