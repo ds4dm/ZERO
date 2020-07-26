@@ -26,11 +26,16 @@ namespace Data {
 	 enum class Algorithms {
 		Oracle ///< Solves the IPG via the separation oracle algorithm
 	 };
+	 enum class LCPAlgorithms {
+		PATH, ///< Solves the LCPs via PATH
+		MIP   ///< Solves the LCPs via a MIP solver
+	 };
 
 	 class DataObject : public ZEROAlgorithmData {
 	 public:
 		Attr<Data::IPG::Algorithms> Algorithm = {
 			 Data::IPG::Algorithms::Oracle}; ///< The selected algorithm
+		Attr<Data::IPG::LCPAlgorithms> LCPSolver = {Data::IPG::LCPAlgorithms::PATH};
 		DataObject(){};
 	 };
   } // namespace IPG

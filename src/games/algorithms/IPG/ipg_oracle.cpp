@@ -173,12 +173,12 @@ void Algorithms::IPG::Oracle::solve() {
 
 
 	 // Now we have an equilibrium, then we need to check whether this is feasible or not
-	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i)
-		this->Players.at(i)->Incumbent.print("incumbent of " + std::to_string(i));
 	 solved = true;
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
-		if (!this->separationOracle(i))
+		if (!this->separationOracle(i)) {
 		  solved = false;
+		  break;
+		}
 	 }
 	 if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0) {
 		double remaining;
@@ -271,7 +271,6 @@ bool Algorithms::IPG::Oracle::separationOracle(const unsigned int player) {
 		for (unsigned int k = 0; k < Ny; ++k)
 		  bestResponse.at(k) = PureIP->getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_X);
 
-		bestResponse.print("best");
 		if (Utils::isZero(*xOfI - bestResponse, this->Tolerance)) {
 		  this->Players.at(player)->Pure = true;
 		  BOOST_LOG_TRIVIAL(info) << "Algorithms::IPG::Oracle::separationOracle: "
@@ -597,27 +596,31 @@ bool Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
   LCP->UseIndicators =
 		this->IPG->Stats.AlgorithmData.IndicatorConstraints.get(); // Using indicator constraints
 
-  auto LCPModel = LCP->LCPasMIP(false);
-  if (localTimeLimit > 0) {
-	 LCPModel->set(GRB_DoubleParam_TimeLimit, localTimeLimit);
-  }
-  LCPModel->set(GRB_IntParam_OutputFlag, 1);
-  //
-  // LCPModel->setObjective(GRBQuadExpr{0}, GRB_MINIMIZE);
-  LCPModel->set(GRB_IntParam_MIPFocus, 1);
-  LCPModel->write("dat/TheLCP.lp");
-  LCPModel->optimize();
-  if (LCPModel->get(GRB_IntAttr_Status) == 9)
-	 return false;
   arma::vec x, z;
-  auto      EQ = LCP->extractSols(LCPModel.get(), z, x, true);
-  if (EQ) {
-	 LCPModel->write("dat/sol.sol");
+  bool      eq = false;
+  if (this->IPG->Stats.AlgorithmData.LCPSolver.get() == Data::IPG::LCPAlgorithms::PATH)
+	 eq = LCP->solvePATH(localTimeLimit, z, x);
+  else if (this->IPG->Stats.AlgorithmData.LCPSolver.get() == Data::IPG::LCPAlgorithms::MIP) {
+
+	 auto LCPModel = LCP->LCPasMIP(false);
+	 if (localTimeLimit > 0) {
+		LCPModel->set(GRB_DoubleParam_TimeLimit, localTimeLimit);
+	 }
+	 LCPModel->set(GRB_IntParam_OutputFlag, 1);
+	 LCPModel->setObjective(GRBQuadExpr{0}, GRB_MINIMIZE);
+	 LCPModel->set(GRB_IntParam_MIPFocus, 1);
+	 LCPModel->optimize();
+	 if (LCPModel->get(GRB_IntAttr_Status) != (GRB_SOLUTION_LIMIT || GRB_OPTIMAL))
+		return false;
+	 eq = LCP->extractSols(LCPModel.get(), z, x, true);
+  }
+  if (eq) {
 	 BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
 		this->Players.at(i)->Incumbent = x.subvec(Nash.getPrimalLoc(i), Nash.getPrimalLoc(i + 1) - 1);
-		this->Players.at(i)->Feasible  = false;
-		this->Players.at(i)->Pure      = false;
+		this->Players.at(i)->Incumbent.print("Incumbent of " + std::to_string(i));
+		this->Players.at(i)->Feasible = false;
+		this->Players.at(i)->Pure     = false;
 	 }
 
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i)
@@ -677,10 +680,9 @@ void Algorithms::IPG::Oracle::initialize() {
 		  // This is also a f
 
 		  if (this->Players.at(i)->addVertex(this->Players.at(i)->Incumbent, true))
-			 this->Players.at(i)->Incumbent.print("incumbent_vertex");
-		  BOOST_LOG_TRIVIAL(trace) << "Algorithms::IPG::Oracle::initialize(): "
-												"Added vertex for player "
-											<< i;
+			 BOOST_LOG_TRIVIAL(trace) << "Algorithms::IPG::Oracle::initialize(): "
+												  "Added vertex for player "
+											  << i;
 		}
 
 		else if (status == GRB_UNBOUNDED) {
@@ -701,7 +703,6 @@ void Algorithms::IPG::Oracle::initialize() {
 		// Give the new IP
 		// this->Players.at(i)->updateIPModel(
 		//	 std::move(std::unique_ptr<GRBModel>(new GRBModel(PureIP->relax()))));
-		;
 	 }
   }
 }
