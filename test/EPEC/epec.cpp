@@ -24,8 +24,7 @@ BOOST_AUTO_TEST_CASE(LoggingOff) {
 BOOST_AUTO_TEST_SUITE(Core__Tests)
 
 /* This test suite perform basic unit tests for core components (eg, QP_Param,
- * NashGame, LCPs). Also, indicator constraints are being tested for Numerical
- * stability purposes
+ * NashGame, LCPs).
  */
 
 BOOST_AUTO_TEST_CASE(QPParam_test) {
@@ -236,11 +235,12 @@ BOOST_AUTO_TEST_CASE(NashGame_test) {
   Game::NashGame Nash = Game::NashGame(&env, MPCasted, MC, MCRHS);
 
   // Master check  -  LCP should be proper!
-  arma::sp_mat MM, MM_ref;
-  arma::vec    qq, qq_ref;
-  perps        Compl;
+  arma::sp_mat   MM, MM_ref;
+  arma::vec      qq, qq_ref;
+  perps          Compl;
+  DoubleAttrPair lb, ub;
   BOOST_TEST_MESSAGE("NashGame.formulateLCP test");
-  BOOST_CHECK_NO_THROW(Nash.formulateLCP(MM, qq, Compl));
+  BOOST_CHECK_NO_THROW(Nash.formulateLCP(MM, qq, Compl, lb, ub));
   BOOST_CHECK_MESSAGE(MM(0, 0) == 2.2, "checking q1 coefficient in M-LCP (0,0)");
   BOOST_CHECK_MESSAGE(MM(0, 1) == 1, "checking q2 coefficient in M-LCP (0,1)");
   BOOST_CHECK_MESSAGE(MM(1, 0) == 1, "checking q1 coefficient in M-LCP (1,0)");
@@ -426,22 +426,6 @@ BOOST_AUTO_TEST_CASE(ConvexHull_test) {
   BOOST_CHECK_MESSAGE(model.getVarByName("x_1").get(GRB_DoubleAttr_X) == 1, "checking x1==1");
 }
 
-BOOST_AUTO_TEST_CASE(IndicatorConstraints_test) {
-  /** Testing the indicator constraints switch
-	*  Two identical problems should have same solutions with BigM formulation
-	*and indicator constraints one Numerical issues in some instances suggest
-	*that Indicators are a safer choice for Numerical stability issues.
-	* @warning the test might fail depending on the thresholds. please see
-	*lcptolp BigM, Eps, eps_Int. For a better stability, Indicators constraints
-	*are suggested.
-	**/
-  BOOST_TEST_MESSAGE("Indicator constraints test");
-  Data::EPEC::DataObject common;
-  common.IndicatorConstraints.set(false);
-  testEPECInstance(SimpleBlu(), allAlgo(common, false));
-  BOOST_TEST_MESSAGE("Disabling indicator constraints.");
-  testEPECInstance(SimpleBlu(), allAlgo(common, true));
-}
 
 BOOST_AUTO_TEST_SUITE_END()
 

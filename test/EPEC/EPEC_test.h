@@ -70,7 +70,6 @@ std::vector<Data::EPEC::DataObject> allAlgo(Data::EPEC::DataObject common_params
 		alg_in.Aggressiveness = j;
 		if (readCommonConfig) {
 		  alg_in.TimeLimit.set(common_params.TimeLimit.get());
-		  alg_in.IndicatorConstraints.set(common_params.IndicatorConstraints.get());
 		  alg_in.RandomSeed = common_params.RandomSeed.get();
 		}
 		algs.push_back(alg_in);
@@ -102,7 +101,6 @@ void testEPECInstance(const testInst                            inst,
 	 epec.setAlgorithm(algorithm.Algorithm.get());
 	 epec.setAggressiveness(algorithm.Aggressiveness.get());
 	 epec.setAddPolyMethod(algorithm.PolyhedraStrategy.get());
-	 epec.setIndicators(algorithm.IndicatorConstraints.get());
 	 epec.setNumThreads(TEST_NUM_THREADS);
 	 epec.setRandomSeed(algorithm.RandomSeed.get());
 

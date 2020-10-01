@@ -230,7 +230,7 @@ int main(int argc, char **argv) {
 					  "Status;"
 					  "numFeasiblePolyhedra;"
 					  "NumVar;NumConstraints;NumNonZero;ClockTime"
-					  "(s);Threads;Indicators;numInnerIterations;LostIntermediateEq;"
+					  "(s);Threads;numInnerIterations;LostIntermediateEq;"
 					  "Aggressiveness;"
 					  "AddPolyMethod;NumericalIssues;bound;BoundBigM;"
 					  "recoveryStrategy\n";
@@ -250,8 +250,7 @@ int main(int argc, char **argv) {
 	 results << " ];" << to_string(epec.getStatistics().PureNashEquilibrium.get()) << ";"
 				<< to_string(pure) << ";" << to_string(stat.Status.get()) << ";[ " << polyT.str()
 				<< "];" << stat.NumVar.get() << ";" << stat.NumConstraints.get() << ";"
-				<< stat.NumNonZero.get() << ";" << wallClockTime << ";" << realThreads << ";"
-				<< to_string(stat.AlgorithmData.IndicatorConstraints.get());
+				<< stat.NumNonZero.get() << ";" << wallClockTime << ";" << realThreads;
 	 if (stat.AlgorithmData.Algorithm.get() == Data::EPEC::Algorithms::InnerApproximation) {
 		results << ";" << stat.NumIterations.get() << ";"
 				  << epec.getStatistics().AlgorithmData.LostIntermediateEq.get() << ";"
