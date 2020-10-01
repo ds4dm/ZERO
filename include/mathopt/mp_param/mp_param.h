@@ -37,18 +37,25 @@ namespace MathOpt {
   class MP_Param {
   protected:
 	 // Data representing the parameterized QP
-	 arma::sp_mat Q, A, B, C;
-	 arma::vec    c, b;
-	 GRBEnv *     Env;
-	 MPType       Type = MathOpt::MPType::MP_Param;
+	 arma::sp_mat   Q, A, B, C;
+	 arma::vec      c, b;
+	 GRBEnv *       Env;
+	 DoubleAttrPair lb, ub;
+	 MPType         Type = MathOpt::MPType::MP_Param;
 	 // Object for sizes and integrity check
 	 unsigned int Nx, Ny, Ncons;
 
 	 const unsigned int size();
 
 	 bool dataCheck(bool forceSymmetry = true) const;
+	 bool detectBounds();
 
 	 virtual inline bool finalize() {
+		/**
+		 * @brief Finalizes the MP_Param object, computing the object sizes and removing any explicit
+		 * bound constraint from the matrix.
+		 */
+		this->detectBounds();
 		this->size();
 		return this->dataCheck();
 	 } ///< Finalize the MP_Param object.
@@ -67,6 +74,12 @@ namespace MathOpt {
 	 arma::vec    getb() const { return this->b; }   ///< Read-only access to the private variable b
 	 unsigned int getNx() const { return this->Nx; } ///< Read-only access to the private variable Nx
 	 unsigned int getNy() const { return this->Ny; } ///< Read-only access to the private variable Ny
+	 DoubleAttrPair getLB() const {
+		return this->lb;
+	 } ///< Read-only access to the private variable lb
+	 DoubleAttrPair getUB() const {
+		return this->ub;
+	 } ///< Read-only access to the private variable ub
 
 	 MP_Param &setQ(const arma::sp_mat &Q) {
 		this->Q = Q;

@@ -30,6 +30,7 @@ enum class ZEROStatus {
   Uninitialized   ///< Not started to solve the problem.
 };
 
+
 template <typename T> class Attr {
 private:
   T Object;
@@ -46,10 +47,7 @@ public:
 class ZEROAlgorithmData {
 public:
   Attr<double> DeviationTolerance{
-		51e-4}; ///< The numerical tolerance to check for existing deviations
-  Attr<bool> IndicatorConstraints{
-		true};                  ///< If this is set to false, any MIP that can be reformulated with
-										///< indicator constraints will be reformulated with bigM-s
+		51e-4};                 ///< The numerical tolerance to check for existing deviations
   Attr<double> TimeLimit{-1}; ///< The timelimit for the solving procedure.
   Attr<int>    Threads{0};    ///< The number of threads for the solving process
   Attr<bool>   PureNashEquilibrium{false}; ///< If true, the algorithm will specifically

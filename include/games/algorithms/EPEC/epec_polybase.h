@@ -60,7 +60,7 @@ namespace Algorithms {
 		bool
 			  isSolved(unsigned int *countryNumber, arma::vec *profitableDeviation, double tol = -1) const;
 		bool isSolved(double tol = -1) const override;
-		void makeThePureLCP(bool indicators);
+		void makeThePureLCP();
 
 		double
 		getValLeadFollPoly(unsigned int i, unsigned int j, unsigned int k, double tol = 1e-5) const;

@@ -382,10 +382,6 @@ void Game::EPEC::makeTheLCP() {
   BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makeTheLCP(): NashGame is ready";
   this->TheLCP = std::unique_ptr<MathOpt::LCP>(new MathOpt::LCP(this->Env, *TheNashGame));
   BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makeTheLCP(): LCP is ready";
-  BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makeTheLCP(): Indicators set to "
-									<< this->Stats.AlgorithmData.IndicatorConstraints.get();
-  this->TheLCP->UseIndicators =
-		this->Stats.AlgorithmData.IndicatorConstraints.get(); // Using indicator constraints
 
   this->LCPModel = this->TheLCP->LCPasMIP(false);
   // this->LCPModel->setObjective(GRBLinExpr{0}, GRB_MINIMIZE);
@@ -424,8 +420,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
 	 BOOST_LOG_TRIVIAL(info) << " Game::EPEC::computeNashEq: (PureNashEquilibrium flag is "
 										 "true) Searching for a pure NE.";
 	 if (this->Stats.AlgorithmData.Algorithm.get() != Data::EPEC::Algorithms::OuterApproximation)
-		static_cast<Algorithms::EPEC::PolyBase *>(this->Algorithm.get())
-			 ->makeThePureLCP(this->Stats.AlgorithmData.IndicatorConstraints.get());
+		static_cast<Algorithms::EPEC::PolyBase *>(this->Algorithm.get())->makeThePureLCP();
   }
 
   this->LCPModel->set(GRB_IntParam_OutputFlag, 1);

@@ -45,11 +45,7 @@ MathOpt::LCP::LCP(GRBEnv *     env,   ///< Gurobi environment required
 {
   defConst(env);
   this->Compl = perps(Compl);
-  std::sort(this->Compl.begin(),
-				this->Compl.end(),
-				[](std::pair<unsigned int, unsigned int> a, std::pair<unsigned int, unsigned int> b) {
-				  return a.first < b.first;
-				});
+  this->sortPairs();
   for (auto p : this->Compl)
 	 if (p.first != p.second) {
 		this->LeadStart    = p.first;
@@ -58,6 +54,46 @@ MathOpt::LCP::LCP(GRBEnv *     env,   ///< Gurobi environment required
 		this->NumberLeader = this->NumberLeader > 0 ? this->NumberLeader : 0;
 		break;
 	 }
+}
+
+void MathOpt::LCP::sortPairs() {
+  if (this->ub.size() > 0) {
+	 std::sort(this->ub.begin(),
+				  this->ub.end(),
+				  [](std::pair<unsigned int, double> a, std::pair<unsigned int, double> b) {
+					 return a.first <= b.first;
+				  });
+  }
+  if (this->lb.size() > 0) {
+	 std::sort(this->lb.begin(),
+				  this->lb.end(),
+				  [](std::pair<unsigned int, unsigned int> a, std::pair<unsigned int, double> b) {
+					 return a.first <= b.first;
+				  });
+  }
+  sort(this->Compl.begin(),
+		 this->Compl.end(),
+		 [](std::pair<unsigned int, unsigned int> a, std::pair<unsigned int, unsigned int> b) {
+			return a.first < b.first;
+		 });
+
+
+  unsigned int j = 0;
+  for (unsigned int i = 0; i < this->lb.size(); ++i) {
+	 if (this->ub.at(j).first == this->lb.at(i).first) {
+		// Then we halso have an upper bound
+		activeBounds.push_back({this->lb.at(i).first, this->lb.at(i).second, this->ub.at(j).second});
+		++j;
+	 } else {
+		activeBounds.push_back({this->lb.at(i).first, this->lb.at(i).second, -1});
+	 }
+  }
+
+  // Fill remaining upper bounded variables without any lower bound greater than zero.
+  for (unsigned int i = j; i < this->ub.size(); ++i) {
+	 activeBounds.push_back({this->ub.at(i).first, -1, this->ub.at(i).second});
+  }
+  std::sort(this->activeBounds.begin(), this->activeBounds.end());
 }
 
 MathOpt::LCP::LCP(GRBEnv *     env,       ///< Gurobi environment required
@@ -86,11 +122,7 @@ MathOpt::LCP::LCP(GRBEnv *     env,       ///< Gurobi environment required
 	 unsigned int count = i < leadStart ? i : i + NumberLeader;
 	 this->Compl.push_back({i, count});
   }
-  std::sort(this->Compl.begin(),
-				this->Compl.end(),
-				[](std::pair<unsigned int, unsigned int> a, std::pair<unsigned int, unsigned int> b) {
-				  return a.first < b.first;
-				});
+  this->sortPairs();
 }
 
 MathOpt::LCP::LCP(GRBEnv *env, const Game::NashGame &N)
@@ -102,24 +134,23 @@ MathOpt::LCP::LCP(GRBEnv *env, const Game::NashGame &N)
 		  @note Most preferred constructor for user interface.
  */
 {
-  arma::sp_mat M_local;
-  arma::vec    q_local;
-  perps        Compl_local;
-  N.formulateLCP(M_local, q_local, Compl_local);
+  arma::sp_mat   M_local;
+  arma::vec      q_local;
+  perps          Compl_local;
+  DoubleAttrPair LB, UB;
+  N.formulateLCP(M_local, q_local, Compl_local, LB, UB);
   // LCP(Env, M, q, Compl, N.rewriteLeadCons(), N.getMCLeadRHS());
 
   this->M     = M_local;
   this->q     = q_local;
   this->Compl = Compl_local;
+  this->lb    = LB;
+  this->ub    = UB;
   this->_A    = N.rewriteLeadCons();
   this->_b    = N.getMCLeadRHS();
   defConst(env);
   this->Compl = perps(Compl);
-  sort(this->Compl.begin(),
-		 this->Compl.end(),
-		 [](std::pair<unsigned int, unsigned int> a, std::pair<unsigned int, unsigned int> b) {
-			return a.first < b.first;
-		 });
+  this->sortPairs();
   // Delete no more!
   for (auto p : this->Compl) {
 	 if (p.first != p.second) {
@@ -150,6 +181,17 @@ void MathOpt::LCP::makeRelaxed()
 		x[i] = RlxdModel.addVar(0, GRB_INFINITY, 1, GRB_CONTINUOUS, "x_" + std::to_string(i));
 	 for (unsigned int i = 0; i < nR; i++)
 		z[i] = RlxdModel.addVar(0, GRB_INFINITY, 1, GRB_CONTINUOUS, "z_" + std::to_string(i));
+
+
+	 // Add bounds
+	 for (const auto bound : activeBounds) {
+		if (std::get<1>(bound) > 0)
+		  x[std::get<0>(bound)].set(GRB_DoubleAttr_LB, std::get<1>(bound));
+		if (std::get<2>(bound) > 0)
+		  x[std::get<0>(bound)].set(GRB_DoubleAttr_UB, std::get<2>(bound));
+	 }
+
+
 	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::makeRelaxed: Added variables";
 	 for (unsigned int i = 0; i < nR; i++) {
 		GRBLinExpr expr = 0;
@@ -233,80 +275,120 @@ std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(
   std::unique_ptr<GRBModel> model{new GRBModel(this->RlxdModel)};
   // Creating the model
   try {
-	 GRBVar x[nC], z[nR], u[nR], v[nR];
+	 GRBVar x[nC], z[nR], l[nR], v[nR];
 	 // Get hold of the Variables and Eqn Variables
 	 for (unsigned int i = 0; i < nC; i++)
 		x[i] = model->getVarByName("x_" + std::to_string(i));
 	 for (unsigned int i = 0; i < nR; i++)
 		z[i] = model->getVarByName("z_" + std::to_string(i));
 	 // Define binary variables for BigM
+
 	 for (unsigned int i = 0; i < nR; i++)
-		u[i] = model->addVar(0, 1, 0, GRB_BINARY, "u_" + std::to_string(i));
-	 if (this->UseIndicators)
-		for (unsigned int i = 0; i < nR; i++)
-		  v[i] = model->addVar(0, 1, 0, GRB_BINARY, "v_" + std::to_string(i));
-	 // Include ALL Complementarity constraints using BigM
+		l[i] = model->addVar(0, 1, 0, GRB_BINARY, "l_" + std::to_string(i));
+	 for (unsigned int i = 0; i < nR; i++)
+		v[i] = model->addVar(0, 1, 0, GRB_BINARY, "v_" + std::to_string(i));
 
-	 if (this->UseIndicators) {
-		BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::LCPasMIP: Using indicator "
-											 "constraints for complementarities.";
-	 } else {
-		BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::LCPasMIP: Using BigM for complementarities with M="
-										 << this->BigM;
-	 }
 
-	 GRBLinExpr expr = 0;
+	 GRBLinExpr   expr       = 0;
+	 unsigned int j          = 0;
+	 bool         boundCheck = true;
 	 for (const auto p : Compl) {
-		// z[i] <= Mu constraint
+		bool hasBounds = false;
 
-		// u[j]=0 --> z[i] <=0
-		if (!this->UseIndicators) {
-		  expr = BigM * u[p.first];
-		  model->addConstr(expr,
-								 GRB_GREATER_EQUAL,
-								 z[p.first],
-								 "z" + std::to_string(p.first) + "_L_Mu" + std::to_string(p.first));
-		} else {
-		  model->addGenConstrIndicator(u[p.first],
-												 1,
-												 z[p.first],
-												 GRB_LESS_EQUAL,
-												 0,
-												 "z_ind_" + std::to_string(p.first) + "_L_Mu_" +
-													  std::to_string(p.first));
-		}
-		// x[i] <= M(1-u) constraint
-		if (!this->UseIndicators) {
-		  expr = BigM - BigM * u[p.first];
-		  model->addConstr(expr,
-								 GRB_GREATER_EQUAL,
-								 x[p.second],
-								 "x" + std::to_string(p.first) + "_L_MuDash" + std::to_string(p.first));
-		} else {
-		  model->addGenConstrIndicator(v[p.first],
-												 1,
-												 x[p.second],
-												 GRB_LESS_EQUAL,
-												 0,
-												 "x_ind_" + std::to_string(p.first) + "_L_MuDash_" +
-													  std::to_string(p.first));
+
+		if (boundCheck) {
+		  if (std::get<0>(this->activeBounds.at(j)) == p.second) {
+			 // Then we have some bounds, and we need to be careful
+			 hasBounds = true;
+
+			 double lower = std::get<1>(this->activeBounds.at(j));
+			 double upper = std::get<2>(this->activeBounds.at(j));
+			 // Double bound
+			 auto z_var = model->getVarByName("z_" + std::to_string(p.first));
+
+
+			 model->addGenConstrIndicator(l[p.first],
+													1,
+													x[p.second],
+													GRB_EQUAL,
+													(lower > 0) ? lower : 0,
+													"x_ind_lb_" + std::to_string(p.second));
+
+			 model->addGenConstrIndicator(
+				  v[p.first], 1, z_var, GRB_EQUAL, 0, "z_ind_" + std::to_string(p.second));
+
+			 // If we have an upper bound
+			 if (upper > 0) {
+				z_var.set(GRB_DoubleAttr_LB, -GRB_INFINITY);
+				GRBVar u    = model->addVar(0, 1, 0, GRB_BINARY, "u_" + std::to_string(p.second));
+				GRBVar z_up = model->addVar(0, 1, 0, GRB_BINARY, "z_up_" + std::to_string(p.second));
+				GRBVar z_down =
+					 model->addVar(0, 1, 0, GRB_BINARY, "z_down_" + std::to_string(p.second));
+				GRBVar opt[2];
+				for (unsigned int i = 0; i < 2; i++)
+				  opt[i] = model->addVar(
+						0, 1, 0, GRB_BINARY, "opt_" + std::to_string(i) + "_" + std::to_string(p.second));
+
+				model->addGenConstrIndicator(
+					 u, 1, x[p.second], GRB_EQUAL, upper, "x_ind_ub_" + std::to_string(p.second));
+
+				model->addGenConstrIndicator(
+					 z_down, 1, z_var, GRB_LESS_EQUAL, 0, "z_negative_" + std::to_string(p.second));
+				model->addGenConstrIndicator(
+					 z_up, 1, z_var, GRB_GREATER_EQUAL, 0, "z_positive_" + std::to_string(p.second));
+
+
+				// x=LB and z>=0
+				GRBVar a[2] = {l[p.first], z_up};
+				model->addGenConstrAnd(opt[0], a, 2, "opt_0_" + std::to_string(p.second));
+
+				// x=UB and z<=0
+				GRBVar b[2] = {u, z_down};
+				model->addGenConstrAnd(opt[1], b, 2, "opt_1_" + std::to_string(p.second));
+
+
+				model->addConstr(opt[0] + v[p.first] + opt[1],
+									  GRB_EQUAL,
+									  1,
+									  "uvl_options_" + std::to_string(p.first));
+
+			 } else {
+				model->addConstr(l[p.first] + v[p.first],
+									  GRB_GREATER_EQUAL,
+									  1,
+									  "lv_options_" + std::to_string(p.first));
+			 }
+			 ++j; // update j so that we can go on
+			 if (j >= this->activeBounds.size())
+				boundCheck = false;
+		  }
 		}
 
-		if (this->UseIndicators)
+		if (!hasBounds) {
+		  // Otherwise, no bounds and we are okay
+
+		  model->addGenConstrIndicator(
+				l[p.first], 1, x[p.second], GRB_EQUAL, 0, "x_ind_lb_" + std::to_string(p.second));
+
+		  model->addGenConstrIndicator(
+				v[p.first], 1, z[p.first], GRB_EQUAL, 0, "z_ind_" + std::to_string(p.second));
+
 		  model->addConstr(
-				u[p.first] + v[p.first], GRB_EQUAL, 1, "uv_sum_" + std::to_string(p.first));
+				l[p.first] + v[p.first], GRB_GREATER_EQUAL, 1, "lv_options_" + std::to_string(p.first));
+		}
 	 }
+
+
+
 	 // If any equation or variable is to be fixed to zero, that happens here!
 	 for (auto i : FixVar)
 		model->addConstr(x[i], GRB_EQUAL, 0.0);
 	 for (auto i : FixEq)
 		model->addConstr(z[i], GRB_EQUAL, 0.0);
 	 model->update();
-	 if (!this->UseIndicators) {
-		model->set(GRB_DoubleParam_IntFeasTol, this->EpsInt);
-		model->set(GRB_DoubleParam_FeasibilityTol, this->Eps);
-		model->set(GRB_DoubleParam_OptimalityTol, this->Eps);
-	 }
+	 model->set(GRB_DoubleParam_IntFeasTol, this->EpsInt);
+	 model->set(GRB_DoubleParam_FeasibilityTol, this->Eps);
+	 model->set(GRB_DoubleParam_OptimalityTol, this->Eps);
 	 // Get first Equilibrium
 	 model->set(GRB_IntParam_SolutionLimit, 1);
 	 if (solve)
@@ -629,11 +711,7 @@ long int MathOpt::LCP::load(std::string filename, long int pos) {
 	 unsigned int count = i < LeadStart ? i : i + NumberLeader;
 	 Compl.push_back({i, count});
   }
-  std::sort(Compl.begin(),
-				Compl.end(),
-				[](std::pair<unsigned int, unsigned int> a, std::pair<unsigned int, unsigned int> b) {
-				  return a.first <= b.first;
-				});
+  this->sortPairs();
   return pos;
 }
 
@@ -762,11 +840,16 @@ bool MathOpt::LCP::solvePATH(double     timelimit, ///< A double containing the 
 
   double       _q[n], _Mij[nnz], _lb[n], _ub[n], _xsol[n];
   int          _Mi[nnz], _Mj[nnz], _xmap[n];
-  unsigned int row    = 0;
-  unsigned int mcount = 0;
+  unsigned int row        = 0;
+  unsigned int mcount     = 0;
+  unsigned int j          = 0;
+  bool         boundCheck = true;
   for (const auto p : Compl) {
 	 // For each complementarity
 	 // z[p.first] \perp x[p.second]
+	 M.row(p.first).print_dense("Row " + std::to_string(p.first) +
+										 " with q=" + std::to_string(this->q.at(p.first)) +
+										 "complementary to x_" + std::to_string(p.second));
 	 for (auto v = M.begin_row(p.first); v != M.end_row(p.first); ++v) {
 		if (*v != 0) {
 		  _Mi[mcount]  = row + 1;
@@ -779,15 +862,31 @@ bool MathOpt::LCP::solvePATH(double     timelimit, ///< A double containing the 
 	 _xmap[row] = p.second;
 	 _lb[row]   = 0;
 	 _ub[row]   = 1e20;
+
+	 if (j >= this->activeBounds.size() && boundCheck)
+		boundCheck = false;
+	 if (boundCheck) {
+		const auto bound = this->activeBounds.at(j);
+		if (std::get<0>(bound) == row) {
+		  // There are bounds
+		  if (std::get<1>(bound) > 0)
+			 _lb[std::get<0>(bound)] = std::get<1>(bound);
+		  if (std::get<2>(bound) > 0)
+			 _ub[std::get<0>(bound)] = std::get<2>(bound);
+		  ++j;
+		}
+	 }
+
 	 ++row;
   }
+
 
   setenv("PATH_LICENSE_STRING",
 			"2617827524&Courtesy&&&USR&64785&11_12_2017&1000&PATH&GEN&31_12_2020&0_0_0&5000&0_0",
 			0);
   BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::solvePath: Calling PATH Solver";
   std::shared_ptr<int> status =
-		std::make_shared<int>(PathLCP(n, nnz, _Mi, _Mj, _Mij, _q, _lb, _ub, _xsol, true));
+		std::make_shared<int>(PathLCP(n, nnz, _Mi, _Mj, _Mij, _q, _lb, _ub, _xsol, true, timelimit));
 
   // PathLCP(n, nnz, _Mi, _Mj, _Mij, _q, _lb, _ub, _xsol, true, &status);
 

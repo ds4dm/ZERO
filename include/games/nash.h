@@ -36,10 +36,11 @@ namespace Game {
 	*/
   class NashGame {
   private:
-	 GRBEnv *     Env = nullptr;
-	 arma::sp_mat LeaderConstraints;                          ///< Upper level leader constraints LHS
-	 arma::vec    LeaderConstraintsRHS;                       ///< Upper level leader constraints RHS
-	 unsigned int NumPlayers;                                 ///< Number of players in the Nash Game
+	 GRBEnv *       Env = nullptr;
+	 arma::sp_mat   LeaderConstraints;    ///< Upper level leader constraints LHS
+	 arma::vec      LeaderConstraintsRHS; ///< Upper level leader constraints RHS
+	 unsigned int   NumPlayers;           ///< Number of players in the Nash Game
+	 DoubleAttrPair lb, ub;               ///< Lower and upper bounds on primal variables
 	 std::vector<std::shared_ptr<MathOpt::MP_Param>> Players; ///< The QP that each player solves
 	 arma::sp_mat                                    MarketClearing; ///< Market clearing constraints
 	 arma::vec MCRHS; ///< RHS to the Market Clearing constraints
@@ -99,59 +100,46 @@ namespace Game {
 		return os;
 	 }
 
-	 /// @brief Return the number of primal variables.
 	 inline unsigned int getNprimals() const {
-		/***
-		 * Number of primal variables is the sum of the "y" variables present in
-		 * each player's MathOpt::MP_Param
-		 */
 		return this->PrimalPosition.back();
-	 }
-	 /// @brief Gets the number of Market clearing Shadow prices
-	 /**
-	  * Number of shadow price variables is equal to the number of Market clearing
-	  * constraints.
-	  */
-	 inline unsigned int getNumShadow() const { return this->MCRHS.n_rows; }
-	 /// @brief Gets the number of leader variables
-	 /**
-	  * Leader variables are variables which do not have a complementarity relation
-	  * with any equation.
-	  */
-	 inline unsigned int getNumLeaderVars() const { return this->numLeaderVar; }
-
-	 /// @brief Gets the number of dual variables in the problem
+	 } ///< Read-only access to the number of of primal variables.
+	 inline unsigned int getNumShadow() const {
+		return this->MCRHS.n_rows;
+	 } ///< Read-only access to the number of Market clearing Shadow prices, equal to the number of
+		///< Market clearing constraints.
+	 inline unsigned int getNumLeaderVars() const {
+		return this->numLeaderVar;
+	 } ///< Read-only access to the number of the leader variables in the problem
 	 inline unsigned int getNumDualVars() const {
-		/**
-		 * This is the count of number of dual variables and that is indeed the sum
-		 * of the number dual variables each player has. And the number of dual
-		 * variables for any player is equal to the number of linear constraints
-		 * they have which is given by the number of rows in the player's
-		 * MathOpt::MP_Param::A
-		 */
 		return this->DualPosition.back() - this->DualPosition.front() + 0;
-	 }
+	 } ///< Read-only access to the number of dual variables and that is indeed the sum of the number
+		///< dual variables for each player.
 
-	 // Position of variables
-	 /// Gets the position of the primal variable of i th player
-	 inline unsigned int getPrimalLoc(unsigned int i = 0) const { return PrimalPosition.at(i); }
+	 inline unsigned int getPrimalLoc(unsigned int i = 0) const {
+		return PrimalPosition.at(i);
+	 } ///< Read-only access to the primal variable of i th player
 
-	 /// Gets the position where the Market-clearing dual variables start
-	 inline unsigned int getMCDualLoc() const { return MC_DualPosition; }
+	 inline unsigned int getMCDualLoc() const {
+		return MC_DualPosition;
+	 } ///< Read-only access to the Market-clearing dual variables start position
 
-	 /// Gets the position where the Leader  variables start
-	 inline unsigned int getLeaderLoc() const { return LeaderPosition; }
+	 inline unsigned int getLeaderLoc() const {
+		return LeaderPosition;
+	 } ///< Read-only access to the leaders' variables start position
 
-	 /// Gets the location where the dual variables start
-	 inline unsigned int getDualLoc(unsigned int i = 0) const { return DualPosition.at(i); }
+	 inline unsigned int getDualLoc(unsigned int i = 0) const {
+		return DualPosition.at(i);
+	 } ///< Read-only access to the dual variables start position
 
 	 // Members
-	 const NashGame &formulateLCP(arma::sp_mat &M,
-											arma::vec &   q,
-											perps &       Compl,
-											bool          writeToFile = false,
-											std::string   M_name      = "dat/LCP.txt",
-											std::string   q_name      = "dat/q.txt") const;
+	 const NashGame &formulateLCP(arma::sp_mat &  M,
+											arma::vec &     q,
+											perps &         Compl,
+											DoubleAttrPair &LB,
+											DoubleAttrPair &UB,
+											bool            writeToFile = false,
+											std::string     M_name      = "dat/LCP.txt",
+											std::string     q_name      = "dat/q.txt") const;
 
 	 arma::sp_mat rewriteLeadCons() const;
 
@@ -188,8 +176,7 @@ namespace Game {
 	 void save(const std::string &filename, bool erase = true) const;
 
 	 /// @brief Loads the @p Game::NashGame object stored in a file.
-	 long int  load(const std::string &filename, long int pos = 0);
-	 arma::vec computeQPObjectiveValuesWithoutOthers(const arma::vec &x) const;
+	 long int load(const std::string &filename, long int pos = 0);
   };
 
 

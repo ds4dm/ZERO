@@ -217,16 +217,12 @@ double Algorithms::EPEC::PolyBase::getValLeadLeadPoly(const unsigned int i,
 			  probab;
 }
 
-void Algorithms::EPEC::PolyBase::makeThePureLCP(bool indicators) {
+void Algorithms::EPEC::PolyBase::makeThePureLCP() {
   /**
 	* Given that Game::EPEC::LCPModel is filled with the final LCP,
 	* directs the search toward a pure nash EQ. If such an equilibrium does not
 	* exist, then the model will return anyway a MNE. The original LCP is
-	* stored in the field Game::EPEC::LCPModelBase. @p Indicators dictates
-	* whether the resulting LCP should use indicator constraints instead of
-	* general binaries. In general, there are advantages in using the binary
-	* variables instead of such constraints, since there is no BigM involved in
-	* the formulation.
+	* stored in the field Game::EPEC::LCPModelBase.
 	*/
   try {
 	 BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makeThePureLCP: editing the LCP model.";
@@ -248,34 +244,19 @@ void Algorithms::EPEC::PolyBase::makeThePureLCP(bool indicators) {
 		for (j = 0; j < this->getNumPolyLead(i); ++j) {
 		  pure_bin[count] = this->EPECObject->LCPModel->addVar(
 				0, 1, 0, GRB_BINARY, "pureBin_" + std::to_string(i) + "_" + std::to_string(j));
-		  if (indicators) {
-			 this->EPECObject->LCPModel->addGenConstrIndicator(
-				  pure_bin[count],
-				  1,
-				  this->EPECObject->LCPModel->getVarByName(
-						"x_" + std::to_string(this->getPositionProbab(i, j))),
-				  GRB_EQUAL,
-				  0,
-				  "Indicator_PNE_" + std::to_string(count));
-		  } else {
-			 this->EPECObject->LCPModel->addConstr(
-				  this->EPECObject->LCPModel->getVarByName(
-						"x_" + std::to_string(this->getPositionProbab(i, j))),
-				  GRB_GREATER_EQUAL,
-				  pure_bin[count]);
-		  }
+		  this->EPECObject->LCPModel->addGenConstrIndicator(
+				pure_bin[count],
+				1,
+				this->EPECObject->LCPModel->getVarByName("x_" +
+																	  std::to_string(this->getPositionProbab(i, j))),
+				GRB_EQUAL,
+				0,
+				"Indicator_PNE_" + std::to_string(count));
 		  objectiveTerm += pure_bin[count];
 		  count++;
 		}
 	 }
 	 this->EPECObject->LCPModel->setObjective(objectiveTerm, GRB_MAXIMIZE);
-	 if (indicators) {
-		BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::PolyBase::makeThePureLCP: using "
-											 "indicator constraints.";
-	 } else {
-		BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::PolyBase::makeThePureLCP: using "
-											 "indicator constraints.";
-	 }
   } catch (GRBException &e) {
 	 throw ZEROException(ZEROErrorCode::SolverError,
 								std::to_string(e.getErrorCode()) + e.getMessage());

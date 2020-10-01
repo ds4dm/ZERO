@@ -50,8 +50,6 @@ namespace Game {
 	 }
 	 void setRandomSeed(unsigned int t) { this->Stats.AlgorithmData.RandomSeed.set(t); }
 
-	 void setIndicators(bool val) { this->Stats.AlgorithmData.IndicatorConstraints.set(val); }
-
 	 void setPureNashEquilibrium(bool val) { this->Stats.AlgorithmData.PureNashEquilibrium = val; }
 	 void setDeviationTolerance(double val) {
 		this->Stats.AlgorithmData.DeviationTolerance.set(val);

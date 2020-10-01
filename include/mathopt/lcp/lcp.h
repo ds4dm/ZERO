@@ -58,10 +58,16 @@ namespace MathOpt {
 	 arma::sp_mat _A = {};
 	 arma::vec    _b = {}; ///< Apart from @f$0 \le x \perp Mx+q\ge 0@f$, one needs@f$
 	 ///< Ax\le b@f$ too!
-	 arma::sp_mat _Acut = {};
-	 arma::vec    _bcut = {};           ///< Cutting planes (eventually) added to the model
-	 bool         MadeRlxdModel{false}; ///< Keep track if LCP::RlxdModel is made
-	 unsigned int nR, nC;
+	 arma::sp_mat   _Acut = {};
+	 arma::vec      _bcut = {};           ///< Cutting planes (eventually) added to the model
+	 bool           MadeRlxdModel{false}; ///< Keep track if LCP::RlxdModel is made
+	 unsigned int   nR, nC;
+	 DoubleAttrPair lb, ub;
+	 std::vector<triple<int, double, double>>
+		  activeBounds; ///< Stores non-trivial upper and lowe bounds (both strictly greater than
+							 ///< zero, in as a triplet (i,j,k) where i is the variable index, j the lower
+							 ///< bound, and k the upper bound. When one between j or k is negative, then
+							 ///< the respective bound is inactive.
 
 	 GRBModel RlxdModel; ///< A gurobi model with all complementarity constraints
 	 ///< removed.
@@ -71,6 +77,8 @@ namespace MathOpt {
 	 void defConst(GRBEnv *env);
 
 	 void makeRelaxed();
+
+	 void sortPairs();
 
 	 /* Solving relaxations and restrictions */
 	 std::unique_ptr<GRBModel> LCPasMIP(std::vector<unsigned int> FixEq  = {},
@@ -89,12 +97,9 @@ namespace MathOpt {
 	 unsigned int convexHull(arma::sp_mat &A, arma::vec &b);
 
   public:
-	 long double BigM{1e7};    ///< BigM used to rewrite the LCP as MIP
-	 double      Eps{1e-6};    ///< The threshold for optimality and feasability tolerances
-	 double      EpsInt{1e-8}; ///< The threshold, below which a number would be
+	 double Eps{1e-6};    ///< The threshold for optimality and feasability tolerances
+	 double EpsInt{1e-8}; ///< The threshold, below which a number would be
 	 ///< considered to be zero.
-	 bool UseIndicators{true}; ///< If true, complementarities will be handled with indicator
-	 ///< constraints. BigM formulation otherwise
 
 	 /** Constructors */
 	 /// Class has no default constructors
