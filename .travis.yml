@@ -1,5 +1,7 @@
 language:
   - cpp
+dist: xenial
+os: linux
 
 
 env:
@@ -17,7 +19,6 @@ matrix:
   include:
     - os: linux
       dist: trusty
-      sudo: true
       compiler: gcc
       addons:
        apt:
@@ -51,5 +52,9 @@ install:
        fi
   
 script:
+  - cd ${TRAVIS_BUILD_DIR}
   - cmake ${CMAKE_OPTIONS} -DCMAKE_CXX_FLAGS=${CXX_FLAGS} -DCMAKE_BUILD_TYPE=Coverage .. 
   - make
+  
+after_success:
+
