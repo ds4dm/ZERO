@@ -1,7 +1,5 @@
 language:
   - cpp
-  - python
-python: "3.7"
 
 
 env:
@@ -28,11 +26,6 @@ matrix:
            - g++-4.8
            #- gcov-4.9
            - clang-3.7
-           - valgrind
-           # Misc
-           - python-yaml
-           - lcov
-           - libopencv-dev
          sources: &precise_latest_boost_sources
            - ubuntu-toolchain-r-test
            - llvm-toolchain-precise-3.7
@@ -48,7 +41,6 @@ install:
     - echo ${CXX}
     - ${CXX} --version
     - ${CXX} -v
-    - sudo pip install codecov
     
     # Download and install recent cmake
     - if [[ ${TRAVIS_OS_NAME} == "linux" ]]; then
@@ -57,11 +49,6 @@ install:
          travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C ${DEPS_DIR}/cmake;
          export PATH=${DEPS_DIR}/cmake/bin:${PATH};
        fi
-# Install conan
-    - pip install conan
-# Automatic detection of your arch, compiler, etc.
-    - conan user
-  
   
 script:
   - cmake ${CMAKE_OPTIONS} -DCMAKE_CXX_FLAGS=${CXX_FLAGS} -DCMAKE_BUILD_TYPE=Coverage .. 
