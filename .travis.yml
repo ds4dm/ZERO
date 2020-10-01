@@ -1,22 +1,13 @@
 language:
   - cpp
-  - python
-python: "3.6"
 dist: xenial
 os: linux
 
 
 env:
   global:
-    # Ubuntu version
-    - LINUX_DIST=trusty
     - DEPS_DIR=${TRAVIS_BUILD_DIR}/deps
-    # Global build options and C++ flags
     - CXX_FLAGS="-Wall -pedantic -Werror -Wno-variadic-macros -Wno-long-long -Wno-shadow"
-    # Misc
-    - RUN_TESTS=true
-    - COVERAGE=false
-
 matrix:
   include:
     - os: linux
@@ -27,24 +18,24 @@ matrix:
          packages: &precise_latest_boost_packages
            - gcc-4.8
            - g++-4.8
-           #- gcov-4.9
            - clang-3.7
          sources: &precise_latest_boost_sources
            - ubuntu-toolchain-r-test
            - llvm-toolchain-precise-3.7
     
 before_install:
-    # Combine global build options with OS/compiler-dependent options
     - export CMAKE_OPTIONS=${CMAKE_OPTIONS}" "${ENV_CMAKE_OPTIONS}
     - export CXX_FLAGS=${CXX_FLAGS}" "${ENV_CXX_FLAGS}
 
 install:
-    - sudo pip install conan
+    - pyenv shell 3.6
+    - pip install --upgrade pip
+    - sudo pip install conan sphinx breahe exhale
     - if [ "$CXX" = "clang++" ] && [ "$TRAVIS_OS_NAME" = "linux" ]; then export CXX="clang++-3.7" CC="clang-3.7"; fi
     - echo ${PATH}
     - echo ${CXX}
     - ${CXX} --version
-    - ${CXX} -v
+    - conan --version
     
     # Download and install recent cmake
     - if [[ ${TRAVIS_OS_NAME} == "linux" ]]; then
@@ -57,7 +48,7 @@ install:
 script:
   - cd ${TRAVIS_BUILD_DIR}
   - cmake  ${CMAKE_OPTIONS}  -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=${CXX_FLAGS} CMakeLists.txt
-  - cmake  --build . 
+  - make
   
 after_success:
 
