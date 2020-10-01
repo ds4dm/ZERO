@@ -117,7 +117,6 @@ int main(int argc, char **argv) {
 	 // OPTIONS
 	 //------------
 	 Models::IPG::IPG ipg(&env, instanceFile);
-	 // Indicator constraints
 	 // Num Threads
 	 if (nThreads != 0)
 		ipg.setNumThreads(nThreads);

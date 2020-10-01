@@ -32,8 +32,8 @@ namespace po = boost::program_options;
 
 int main(int argc, char **argv) {
   string resFile, instanceFile, logFile;
-  int    writeLevel = 0, nThreads = 0, verbosity = 0, bigM = 0, algorithm = 0, aggressiveness = 0,
-		add{0}, recover = 0;
+  int    writeLevel = 0, nThreads = 0, verbosity = 0, algorithm = 0, aggressiveness = 0, add{0},
+		recover      = 0;
   double timeLimit = NAN, boundBigM = NAN, devtol = NAN;
   bool   bound = 0, pure = 0;
 
@@ -71,7 +71,6 @@ int main(int argc, char **argv) {
 				  po::value<int>(&verbosity)->default_value(0),
 				  "Sets the verbosity level for info and warning messages. 0: "
 				  "warning and critical. 1: info. 2: debug. 3: trace")(
-		"BigM", po::value<int>(&bigM)->default_value(0), "Replaces indicator constraints with BigM.")(
 		"Threads,t",
 		po::value<int>(&nThreads)->default_value(1),
 		"Sets the number of Threads for Gurobi. (int): number of Threads. 0: "
@@ -156,9 +155,6 @@ int main(int argc, char **argv) {
 	 // OPTIONS
 	 //------------
 	 Models::EPEC::EPEC epec(&env);
-	 // Indicator constraints
-	 if (bigM == 1)
-		epec.setIndicators(false);
 	 // Num Threads
 	 if (nThreads != 0)
 		epec.setNumThreads(nThreads);
@@ -170,7 +166,6 @@ int main(int argc, char **argv) {
 	 // bound QPs
 	 if (bound) {
 		epec.setBoundPrimals(true);
-		epec.setBoundBigM(boundBigM);
 	 }
 	 if (devtol > 0)
 		epec.setDeviationTolerance(devtol);
