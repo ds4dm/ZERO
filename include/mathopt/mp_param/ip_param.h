@@ -36,7 +36,7 @@ namespace MathOpt {
 	* \f]
 	* Subject to
 	* \f{eqnarray}{
-	* Ay &\leq& b \\
+	* By &\leq& b \\
 	* y &\geq& 0 \\
 	* y_i &\in& &\mathbb{Z}& &\forall& i &\in& I
 	* \f}
