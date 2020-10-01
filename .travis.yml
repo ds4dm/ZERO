@@ -12,6 +12,7 @@ install:
 script:
 # Download dependencies and build project
   - conan install .
+  - conan remote add -i 1 darcamo-bintray https://api.bintray.com/conan/darcamo/cppsim
 # Call your build system
   - cmake . -G "Unix Makefiles"
   - cmake --build .
