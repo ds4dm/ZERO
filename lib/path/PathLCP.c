@@ -11,6 +11,7 @@
 #include "PathOptions.h"
 #include "Types.h"
 #include <limits.h>
+#include <math.h>
 #include <stdio.h>
 
 typedef struct {
@@ -300,10 +301,13 @@ int PathLCP(int     variables,
   Output_SetInterface(&outputInterface);
 
   o = Options_Create();
-  if (timeLimit > 0)
-	 Options_SetDouble(o, "time_limit", timeLimit);
   Path_AddOptions(o);
   Options_Default(o);
+
+  if (timeLimit > 0)
+	 Options_SetDouble(o, "time_limit", timeLimit);
+
+  Options_Display(o);
 
   Output_Printf(Output_Log | Output_Status | Output_Listing, "%s: LCP Link\n", Path_Version());
 
@@ -312,7 +316,6 @@ int PathLCP(int     variables,
   if (problem.n == 0) {
 	 Output_Printf(Output_Log | Output_Status, "\n ** EXIT - solution found (degenerate model).\n");
 	 Options_Destroy(o);
-
 	 return MCP_Solved;
   }
 
@@ -320,7 +323,6 @@ int PathLCP(int     variables,
   if (dnnz > INT_MAX) {
 	 Output_Printf(Output_Log | Output_Status, "\n ** EXIT - model too large.\n");
 	 Options_Destroy(o);
-
 	 return MCP_Error;
   }
   problem.nnz = (int)dnnz;
@@ -332,8 +334,9 @@ int PathLCP(int     variables,
 					 100.0 * problem.nnz / (1.0 * problem.n * problem.n));
 
 
-  Path_Create(variables * 10e02, m_nnz * 10e02);
-  m = MCP_Create(problem.n * 10e02, problem.nnz * 10e02 + 1);
+  // Path_Create(problem.n*1e3, problem.nnz*1e3);
+  Path_Size(problem.n, problem.nnz);
+  m = MCP_Create(problem.n, problem.nnz + 1);
   MCP_Jacobian_Structure_Constant(m, 1);
   install_interface(m);
 
@@ -363,7 +366,8 @@ int PathLCP(int     variables,
   }
 
   MCP_Destroy(m);
-  Path_Destroy();
+  // Path_Destroy();
+  Options_Destroy(o);
   destroy();
 
   return term;
