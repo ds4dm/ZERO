@@ -1,5 +1,7 @@
 language:
   - cpp
+  - python
+python: "3.7"
 dist: xenial
 os: linux
 
@@ -37,6 +39,7 @@ before_install:
     - export CXX_FLAGS=${CXX_FLAGS}" "${ENV_CXX_FLAGS}
 
 install:
+    - pip3 install conan
     - if [ "$CXX" = "clang++" ] && [ "$TRAVIS_OS_NAME" = "linux" ]; then export CXX="clang++-3.7" CC="clang-3.7"; fi
     - echo ${PATH}
     - echo ${CXX}
@@ -53,7 +56,7 @@ install:
   
 script:
   - cd ${TRAVIS_BUILD_DIR}
-  - cmake  ${CMAKE_OPTIONS} -DCMAKE_CXX_FLAGS=${CXX_FLAGS} CMakeLists.txt
+  - cmake  ${CMAKE_OPTIONS}  -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=${CXX_FLAGS} CMakeLists.txt
   - cmake  --build . 
   
 after_success:
