@@ -127,6 +127,150 @@ MathOpt::MP_Param &MathOpt::MP_Param::addDummy(unsigned int pars, unsigned int v
   return *this;
 }
 
+
+void MathOpt::MP_Param::detectBounds() {
+  /**
+	* @brief Detects explicit bounds stated in the MP_Param formulation, and stores them implicitly.
+	* This is useful when the formulation of the parametrized mathematical program is processed
+	* through other steps (e.g., KKT conditions, LCPs, etc...) since any bound constraint can
+	* possibly slow down the final problem solving.
+	*/
+
+  unsigned int nConstr = this->b.size();
+
+  // We claim that any bound is in the form of A_ix+B_iy <= b_i, where B_i contains a single
+  // non-zero element, A_i is a zero vector
+  std::vector<unsigned int> shedRows; // Keeps track of removed rows
+  this->ActiveBounds = 0;
+  this->Bounds.empty();
+  for (unsigned int i = 0; i < this->B.n_cols; i++)
+	 this->Bounds.push_back({0, -1});
+
+  for (unsigned int i = 0; i < nConstr; i++) {
+	 if (B.row(i).n_nonzero == 1) {
+		// Then we have a candidate bound constraint. Let's check for xs
+		if (A.row(i).n_nonzero == 0) {
+		  // This is a bound constraint
+		  for (auto it = B.row(i).begin(); it != B.row(i).end(); ++it) {
+			 unsigned int j = it.col();
+			 if (!isZero(B.at(i, j))) {
+
+
+				if (B.at(i, j) > 0) {
+				  if (b.at(i) >= 0) {
+					 // This is an upper bound on the variable.
+					 double mult  = this->isZero(B.at(i, j) - 1) ? 1 : (B.at(i, j));
+					 double bound = mult * b.at(i);
+
+					 if (bound < Bounds.at(j).second || Bounds.at(j).second == -1) {
+						// If we have an improving UB
+						if (bound != 0) {
+						  BOOST_LOG_TRIVIAL(debug)
+								<< "MathOpt::MP_Param::detectBounds: Variable " << std::to_string(j)
+								<< " has an upper bound of " << std::to_string(bound);
+						  // If this is a new bound, increase the counter.
+						  if (Bounds.at(j).second == -1)
+							 ++this->ActiveBounds;
+						  Bounds.at(j).second = bound;
+						} else {
+						  BOOST_LOG_TRIVIAL(debug)
+								<< "MathOpt::MP_Param::detectBounds: Variable " << std::to_string(j)
+								<< " is fixed to " << std::to_string(bound);
+						  if (Bounds.at(j).second == -1)
+							 ++this->ActiveBounds;
+						  Bounds.at(j).second = bound;
+						  Bounds.at(j).first  = bound;
+						}
+					 }
+					 // In any case, shed the row
+					 shedRows.push_back(i);
+				  } else {
+					 // This is a variable fixed to zero
+					 BOOST_LOG_TRIVIAL(debug) << "MathOpt::MP_Param::detectBounds: Variable "
+													  << std::to_string(j) << " is fixed to zero.";
+					 if (Bounds.at(j).second == -1)
+						++this->ActiveBounds;
+					 Bounds.at(j).second = 0;
+					 shedRows.push_back(i);
+				  }
+				}
+
+				else if (B.at(i, j) < 0) {
+				  if (b.at(i) < 0) {
+					 // This is a lower bound. We need to check that is actually useful (b(i)>0)
+					 double mult  = this->isZero(-B.at(i, j) - 1) ? 1 : (-B.at(i, j));
+					 double bound = -mult * b.at(i);
+
+					 if (bound > Bounds.at(j).first || Bounds.at(j).first == -1) {
+						// We have an improving bound
+						BOOST_LOG_TRIVIAL(debug)
+							 << "MathOpt::MP_Param::detectBounds: Variable " << std::to_string(j)
+							 << " has a lower bound of " << std::to_string(bound);
+						if (Bounds.at(j).first == 0)
+						  ++this->ActiveBounds;
+						Bounds.at(j).first = bound;
+					 }
+					 // In any case, shed the row
+					 shedRows.push_back(i);
+				  } else {
+					 // Trivial constraint. Can be removed
+					 BOOST_LOG_TRIVIAL(debug) << "MathOpt::MP_Param::detectBounds: Trivial constraint "
+													  << std::to_string(i) << " pruned";
+					 shedRows.push_back(i);
+				  }
+				}
+			 }
+		  }
+		}
+	 }
+  }
+
+
+  if (shedRows.size() > 0) {
+	 BOOST_LOG_TRIVIAL(debug) << "MathOpt::MP_Param::detectBounds: " << shedRows.size()
+									  << " bounds and trivial constraints detected.";
+
+	 // Shed the rows of A,B,b
+	 std::sort(shedRows.begin(), shedRows.end());
+
+	 for (int i = shedRows.size() - 1; i >= 0; --i) {
+		A.shed_row(shedRows.at(i));
+		B.shed_row(shedRows.at(i));
+		b.shed_row(shedRows.at(i));
+	 }
+  }
+}
+
+
+
+void MathOpt::MP_Param::rewriteBounds() {
+  /** @brief Given the description of the object, renders the bounds explicitly. This method is
+	*useful when building the KKT conditions for the MP_Param-
+	**/
+
+  if (this->ActiveBounds > 0) {
+	 for (unsigned int i = 0; i < this->Bounds.size(); ++i) {
+		auto bound = this->Bounds.at(i);
+		if (bound.first > 0 || bound.second >= 0) {
+
+		  this->B = Utils::resizePatch(this->B, this->B.n_rows + 1, this->B.n_cols);
+		  this->A = Utils::resizePatch(this->A, this->A.n_rows + 1, this->A.n_cols);
+		  this->b = Utils::resizePatch(this->b, this->b.size() + 1, 1);
+
+		  if (bound.first > 0) {
+			 this->b.at(this->b.size() - 1)    = bound.first;
+			 this->B.at(this->B.n_rows - 1, i) = 1;
+		  }
+		  if (bound.second >= 0) {
+			 this->b.at(this->b.size() - 1)    = -bound.second;
+			 this->B.at(this->B.n_rows - 1, i) = -1;
+		  }
+		}
+	 }
+  }
+}
+
+
 const unsigned int MathOpt::MP_Param::size()
 /** @brief Calculates @p Nx, @p Ny and @p Ncons
  *	Computes parameters in MP_Param:

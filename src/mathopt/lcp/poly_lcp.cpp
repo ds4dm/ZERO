@@ -133,6 +133,17 @@ bool MathOpt::PolyLCP::addPolyFromEncoding(
  */
 {
   unsigned int encodingNumber = Utils::vecToNum(encoding);
+
+
+  /**
+	  std::cout << std::endl << "Encoding number is: " << std::to_string(encodingNumber) <<
+std::endl; std::cout << "\n\n\n-----\n\n\nEncoding1:"; for (unsigned int i = 0; i < encoding.size();
+++i) std::cout << std::to_string(encoding.at(i)) << "\t"; std::vector<short int> encoding2 =
+Utils::numToVec(encodingNumber, this->Compl.size()); std::cout << "Encoding2:"; for (unsigned int i
+= 0; i < encoding2.size(); ++i) std::cout << std::to_string(encoding2.at(i)) << "\t"; unsigned int
+encodingNumber2 = Utils::vecToNum(encoding); std::cout << std::endl << "Encoding number2 is: " <<
+std::to_string(encodingNumber2) << std::endl;
+**/
   BOOST_LOG_TRIVIAL(trace) << "MathOpt::PolyLCP::addPolyFromEncoding: Working on polyhedron #"
 									<< encodingNumber;
 
@@ -155,22 +166,59 @@ bool MathOpt::PolyLCP::addPolyFromEncoding(
 	 Aii->zeros();
 	 std::unique_ptr<arma::vec> bii =
 		  std::unique_ptr<arma::vec>(new arma::vec(nR, arma::fill::zeros));
+
 	 for (unsigned int i = 0; i < this->nR; i++) {
 		if (encoding.at(i) == 0) {
 		  throw ZEROException(ZEROErrorCode::InvalidData, "Non-allowed encoding");
 		}
-		if (encoding.at(i) == 1) // Equation to be fixed top zero
+		if (encoding.at(i) == 1) // Equation to be fixed to zero
 		{
+
 		  for (auto j = this->M.begin_row(i); j != this->M.end_row(i); ++j)
-			 if (!this->isZero((*j)))
+			 if (!Utils::isZeroValue((*j)))
 				Aii->at(i, j.col()) = (*j); // Only mess with non-zero elements of a sparse matrix!
 		  bii->at(i) = -this->q(i);
-		} else // Variable to be fixed to zero, i.e. x(j) <= 0 constraint to be
-				 // added
+
+		  if (this->BoundsX.at(i).second > 0) {
+			 // There is an upper bound on the complementarity variable, so we need an extra equation
+
+			 Aii->resize(Aii->n_rows + 1, Aii->n_cols);
+
+			 // Since we resized, note that we also make sure that we set to zero the elements in the
+			 // row that are zeros in the equation
+			 for (auto j = this->M.begin_row(i); j != this->M.end_row(i); ++j)
+				if (!Utils::isZeroValue((*j)))
+				  Aii->at(Aii->n_rows - 1, j.col()) = -(*j);
+				else
+				  Aii->at(Aii->n_rows - 1, j.col()) = 0;
+
+			 bii->resize(bii->size() + 1);
+			 bii->at(bii->size() - 1) = this->q(i);
+		  }
+		}
+
+		if (encoding.at(i) ==
+			 2) // Variable to be fixed to its lower bound, i.e. x(j) <= 0 constraint added
 		{
+		  int _lb = this->BoundsX.at(i).first;
+
 		  unsigned int variablePosition = (i >= this->LeadStart) ? i + this->NumberLeader : i;
 		  Aii->at(i, variablePosition)  = 1;
-		  bii->at(i)                    = 0;
+		  bii->at(i)                    = _lb;
+		}
+
+		if (encoding.at(i) == 3) // Variable to be fixed to its upper bound
+		{
+
+		  int _ub = this->BoundsX.at(i).second;
+		  if (_ub < 0)
+			 throw ZEROException(
+				  ZEROErrorCode::InvalidData,
+				  "Non-allowed encoding: upper bound fixing without a valid upper bound.");
+
+		  unsigned int variablePosition = (i >= this->LeadStart) ? i + this->NumberLeader : i;
+		  Aii->at(i, variablePosition)  = -1;
+		  bii->at(i)                    = -_ub;
 		}
 	 }
 	 if (custom) {
@@ -229,10 +277,17 @@ MathOpt::PolyLCP &MathOpt::PolyLCP::addPoliesFromEncoding(
   if (flag) {
 	 encodingCopy[i] = 1;
 	 this->addPoliesFromEncoding(encodingCopy, checkFeas, custom, custAi, custbi);
-	 encodingCopy[i] = -1;
+	 encodingCopy[i] = 2;
 	 this->addPoliesFromEncoding(encodingCopy, checkFeas, custom, custAi, custbi);
-  } else
+	 if (this->BoundsX.at(i).second > 0) {
+		// There is also an upper bound
+		encodingCopy[i] = 3;
+		this->addPoliesFromEncoding(encodingCopy, checkFeas, custom, custAi, custbi);
+	 }
+
+  } else {
 	 this->addPolyFromEncoding(encoding, checkFeas, custom, custAi, custbi);
+  }
   return *this;
 }
 
@@ -349,6 +404,12 @@ bool MathOpt::PolyLCP::addThePoly(const unsigned long int &decimalEncoding) {
   }
   const unsigned int           numCompl = this->Compl.size();
   const std::vector<short int> choice   = Utils::numToVec(decimalEncoding, numCompl);
+  // Check the encoding is valid in terms of upper bounds
+  for (unsigned int i = 0; i < choice.size(); ++i) {
+	 auto comp = this->Compl.at(i);
+	 if (this->BoundsX.at(comp.second).second < 0 && choice.at(i) == 3)
+		return false;
+  }
   return this->addPolyFromEncoding(choice, true);
 }
 
@@ -438,9 +499,17 @@ unsigned int MathOpt::PolyLCP::convPolyWeight(const unsigned long int i) const {
 }
 
 bool MathOpt::PolyLCP::checkPolyFeas(
-	 const unsigned long int &decimalEncoding ///< Decimal encoding for the polyhedron
+	 const unsigned long int &decimalEncoding, ///< Decimal encoding for the polyhedron
+	 bool outerApproximation ///< If true, the associated vector encoding may contain zero, meaning
+									 ///< that some complementarity conditions may not be included in the
+									 ///< polyhedron description.
 ) {
-  return this->checkPolyFeas(Utils::numToVec(decimalEncoding, this->Compl.size()));
+  auto encoding = Utils::numToVec(decimalEncoding, this->Compl.size());
+  // zeros are not allowed if not in outer approximation
+  if (!outerApproximation && std::find(encoding.begin(), encoding.end(), 0) != encoding.end()) {
+	 return false;
+  }
+  return this->checkPolyFeas(encoding);
 }
 
 bool MathOpt::PolyLCP::checkPolyFeas(
@@ -459,7 +528,9 @@ bool MathOpt::PolyLCP::checkPolyFeas(
 	* and MathOpt::PolyLCP::FeasiblePoly.
 	*/
 
+
   unsigned long int encodingNumber = Utils::vecToNum(encoding);
+
 
   if (InfeasiblePoly.find(encodingNumber) != InfeasiblePoly.end()) {
 	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::PolyLCP::checkPolyFeas: Previously known "
@@ -480,19 +551,46 @@ bool MathOpt::PolyLCP::checkPolyFeas(
 	 makeRelaxed();
 	 GRBModel model(this->RlxdModel);
 	 for (auto i : encoding) {
-		if (i > 0)
-		  model.getVarByName("z_" + std::to_string(count)).set(GRB_DoubleAttr_UB, 0);
-		if (i < 0)
-		  model
-				.getVarByName("x_" +
-								  std::to_string(count >= this->LeadStart ? count + NumberLeader : count))
-				.set(GRB_DoubleAttr_UB, 0);
+		int varIndex = count >= this->LeadStart ? (count + NumberLeader) : count;
+		switch (i) {
+		case 1: {
+		  model.addConstr(model.getVarByName("z_" + std::to_string(count)), GRB_EQUAL, 0);
+		  GRBVar l = model.addVar(0, 1, 0, GRB_BINARY, "l_" + std::to_string(i));
+		  GRBVar u = model.addVar(0, 1, 0, GRB_BINARY, "u_" + std::to_string(i));
+		  model.addGenConstrIndicator(
+				l, 1, model.getVarByName("z_" + std::to_string(count)), GRB_LESS_EQUAL, 0);
+		  model.addGenConstrIndicator(
+				u, 1, model.getVarByName("z_" + std::to_string(count)), GRB_GREATER_EQUAL, 0);
+		  model.addConstr(l + u, GRB_EQUAL, 1, "either");
+		} break;
+		case 2: {
+		  model.addConstr(model.getVarByName("x_" + std::to_string(varIndex)),
+								GRB_EQUAL,
+								this->BoundsX.at(varIndex).first);
+		  model.addConstr(model.getVarByName("z_" + std::to_string(count)), GRB_GREATER_EQUAL, 0);
+		} break;
+		case 3: {
+		  if (this->BoundsX.at(count).second > 0) {
+			 model.addConstr(model.getVarByName("x_" + std::to_string(varIndex)),
+								  GRB_EQUAL,
+								  this->BoundsX.at(varIndex).second);
+			 model.addConstr(model.getVarByName("z_" + std::to_string(count)), GRB_LESS_EQUAL, 0);
+		  } else {
+			 return false;
+		  }
+		} break;
+		default:
+		  throw ZEROException(ZEROErrorCode::OutOfRange, "Non-allowed encoding.");
+		}
 		count++;
 	 }
 	 model.set(GRB_IntParam_OutputFlag, 0);
 	 model.optimize();
 	 if (model.get(GRB_IntAttr_Status) == GRB_OPTIMAL) {
 		FeasiblePoly.insert(encodingNumber);
+		BOOST_LOG_TRIVIAL(trace) << "MathOpt::PolyLCP::checkPolyFeas: Detected feasibility of "
+										 << encodingNumber << " (GRB_STATUS=" << model.get(GRB_IntAttr_Status)
+										 << ")";
 		return true;
 	 } else {
 		BOOST_LOG_TRIVIAL(trace) << "MathOpt::PolyLCP::checkPolyFeas: Detected infeasibility of "

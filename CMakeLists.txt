@@ -1,5 +1,13 @@
 cmake_minimum_required(VERSION 3.14)
 
+# Project setting
+project(
+  ZERO
+  VERSION 1.0.0
+  LANGUAGES CXX C
+  DESCRIPTION "ZERO is a multi-purpose game solver")
+set(ZERO_AUTHORS "Gabriele Dragotto, Sriram Sankaranarayanan")
+
 # CXX Options
 option(CXX "enable C++ compilation" ON)
 set(CMAKE_CXX_STANDARD 14)
@@ -13,14 +21,6 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release ... FORCE)
 endif()
-
-# Project setting
-project(
-  ZERO
-  VERSION 1.0.0
-  LANGUAGES CXX C
-  DESCRIPTION "ZERO is a multi-purpose game solver")
-set(ZERO_AUTHORS "Gabriele Dragotto, Sriram Sankaranarayanan")
 
 # ##############################################################################
 # CUSTOM HINTS AND CUSTOM CONFIGURATIONS
@@ -180,3 +180,4 @@ message("\tConan (libs):\t\t${CONAN_LIBS}")
 message("\tConan (includes):\t${CONAN_INCLUDE_DIRS}")
 message("\tGurobi (lib):\t\t${GUROBI_LIBRARY} ${GUROBI_CXX_LIBRARY}")
 message("\tGurobi (include):\t${GUROBI_INCLUDE_DIRS}")
+message("\tPATH (include):\t${PATHWRAPPER_INCLUDE_DIR}")

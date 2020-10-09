@@ -35,27 +35,33 @@ namespace MathOpt {
 
   enum class MPType { MP_Param = 0, QP_Param = 1, IP_Param = 2 };
   class MP_Param {
+  private:
+	 double Eps{1e-6}; ///< The threshold for zero tolerance.
   protected:
 	 // Data representing the parameterized QP
 	 arma::sp_mat   Q, A, B, C;
 	 arma::vec      c, b;
 	 GRBEnv *       Env;
-	 DoubleAttrPair lb, ub;
-	 MPType         Type = MathOpt::MPType::MP_Param;
+	 VariableBounds Bounds;
+	 unsigned int   ActiveBounds = 0;
 	 // Object for sizes and integrity check
 	 unsigned int Nx, Ny, Ncons;
 
 	 const unsigned int size();
 
+	 template <class T> inline bool isZero(const T val) const { return (val >= -Eps && val <= Eps); }
+
 	 bool dataCheck(bool forceSymmetry = true) const;
-	 bool detectBounds();
+	 void detectBounds();
+	 void rewriteBounds();
 
 	 virtual inline bool finalize() {
 		/**
-		 * @brief Finalizes the MP_Param object, computing the object sizes and removing any explicit
-		 * bound constraint from the matrix.
+		 * @brief Finalizes the MP_Param object, computing the object sizes and eventually shedding
+		 * trivial bound constraints
 		 */
 		this->detectBounds();
+		this->rewriteBounds();
 		this->size();
 		return this->dataCheck();
 	 } ///< Finalize the MP_Param object.
@@ -74,12 +80,9 @@ namespace MathOpt {
 	 arma::vec    getb() const { return this->b; }   ///< Read-only access to the private variable b
 	 unsigned int getNx() const { return this->Nx; } ///< Read-only access to the private variable Nx
 	 unsigned int getNy() const { return this->Ny; } ///< Read-only access to the private variable Ny
-	 DoubleAttrPair getLB() const {
-		return this->lb;
-	 } ///< Read-only access to the private variable lb
-	 DoubleAttrPair getUB() const {
-		return this->ub;
-	 } ///< Read-only access to the private variable ub
+	 VariableBounds getBounds() const {
+		return this->Bounds;
+	 } ///< Read-only access to the private variable BoundsX
 
 	 MP_Param &setQ(const arma::sp_mat &Q) {
 		this->Q = Q;
@@ -105,6 +108,13 @@ namespace MathOpt {
 		this->b = b;
 		return *this;
 	 } ///< Set the private variable b
+
+	 MP_Param &setBounds(const VariableBounds &boundIn) {
+		this->Bounds = boundIn;
+		// Update the bound processing and update sizes.
+		this->finalize();
+		return *this;
+	 } ///< Set the private variable BoundsX
 
 	 // Setters and advanced constructors
 	 virtual MP_Param &set(const arma::sp_mat &Q,

@@ -363,14 +363,15 @@ long int Utils::appendRead(std::string &v, const std::string in, long int pos) {
 
   return pos;
 }
-unsigned long int Utils::vecToNum(std::vector<short int> binary) {
+
+unsigned long int Utils::vecToNum(std::vector<short int> vector) {
   unsigned long int number = 0;
   unsigned int      posn   = 1;
-  while (!binary.empty()) {
-	 short int bit = (binary.back() + 1) / 2; // The least significant bit
+  while (!vector.empty()) {
+	 short int bit = vector.back();
 	 number += (bit * posn);
-	 posn *= 2;         // Update place value
-	 binary.pop_back(); // Remove that bit
+	 posn *= 4;
+	 vector.pop_back();
   }
   return number;
 }
@@ -378,10 +379,15 @@ unsigned long int Utils::vecToNum(std::vector<short int> binary) {
 std::vector<short int> Utils::numToVec(unsigned long int number, const unsigned long nCompl) {
   std::vector<short int> binary{};
   for (unsigned int vv = 0; vv < nCompl; vv++) {
-	 binary.push_back(number % 2);
-	 number /= 2;
+	 binary.push_back(number % 4);
+	 number /= 4;
   }
-  std::for_each(binary.begin(), binary.end(), [](short int &vv) { vv = (vv == 0 ? -1 : 1); });
+  /*std::cout << std::endl << "Inside numToVec:";
+  std::for_each(binary.begin(), binary.end(), [](short int &vv) {
+	 std::cout << vv << std::endl;
+  });
+  std::cout << std::endl;
+	*/
   std::reverse(binary.begin(), binary.end());
   return binary;
 }
@@ -469,4 +475,49 @@ bool Utils::isZero(arma::sp_mat M, double tol) noexcept {
 	 return false;
 
   return ((abs(M).max() <= tol));
+}
+void Utils::sortByKey(perps &set) {
+  sort(set.begin(),
+		 set.end(),
+		 [](std::pair<unsigned int, unsigned int> a, std::pair<unsigned int, unsigned int> b) {
+			return a.first < b.first;
+		 });
+}
+
+VariableBounds Utils::intersectBounds(const VariableBounds &bA, const VariableBounds &bB) {
+  VariableBounds bC;
+  auto           longest  = bA.size() >= bB.size() ? bA : bB;
+  auto           shortest = bA.size() >= bB.size() ? bB : bA;
+
+  // Set the size of the longest
+  bC.resize(longest.size());
+
+  for (unsigned int i = 0; i < shortest.size(); ++i) {
+	 // Lower bound. The higher, the better
+	 bC.at(i).first = bA.at(i).first > bB.at(i).first ? bA.at(i).first : bB.at(i).first;
+	 // Upper bound. The lower, the better
+	 if (bA.at(i).second < 0)
+		bC.at(i).second = bB.at(i).second;
+	 else
+		bC.at(i).second = (bA.at(i).second < bB.at(i).second || bB.at(i).second < 0)
+									 ? bA.at(i).second
+									 : bB.at(i).second;
+  }
+
+  // Fill remaining element
+  for (unsigned int i = shortest.size(); i < longest.size(); ++i) {
+	 bC.at(i).first  = longest.at(i).first;
+	 bC.at(i).second = longest.at(i).second;
+  }
+
+  return bC;
+}
+
+std::stringstream Utils::printBounds(const VariableBounds &bounds) {
+  std::stringstream r;
+  for (unsigned int i = 0; i < bounds.size(); ++i) {
+	 r << "var_" << std::to_string(i) << "\t\t\t[" << std::to_string(bounds.at(i).first) << ","
+		<< std::to_string(bounds.at(i).second) << "]\n";
+  }
+  return r;
 }

@@ -48,7 +48,13 @@ int MathOpt::QP_Param::makeyQy()
 	 return 0;
   GRBVar y[this->Ny];
   for (unsigned int i = 0; i < Ny; i++)
-	 y[i] = this->Model.addVar(0, GRB_INFINITY, 0, GRB_CONTINUOUS, "y_" + std::to_string(i));
+	 y[i] = this->Model.addVar(Bounds.at(i).first,
+										Bounds.at(i).second > 0 ? Bounds.at(i).second : GRB_INFINITY,
+										0,
+										GRB_CONTINUOUS,
+										"y_" + std::to_string(i));
+
+
   GRBQuadExpr yQy{0};
   for (auto val = Q.begin(); val != Q.end(); ++val) {
 	 unsigned int i, j;
@@ -130,8 +136,8 @@ MathOpt::QP_Param &MathOpt::QP_Param::addDummy(unsigned int pars, unsigned int v
 }
 
 unsigned int MathOpt::QP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const
-/// @brief Compute the KKT conditions for the given QP
 /**
+ * @brief Compute the KKT conditions for the given QP
  * Writes the KKT condition of the parameterized QP
  * As per the convention, y is the decision variable for the QP and
  * that is parameterized in x

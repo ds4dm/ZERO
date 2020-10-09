@@ -60,7 +60,7 @@ Game::NashGame::NashGame(const NashGame &N)
 	 : Env{N.Env}, LeaderConstraints{N.LeaderConstraints},
 		LeaderConstraintsRHS{N.LeaderConstraintsRHS}, NumPlayers{N.NumPlayers}, Players{N.Players},
 		MarketClearing{N.MarketClearing}, MCRHS{N.MCRHS},
-		numLeaderVar{N.numLeaderVar}, lb{N.lb}, ub{N.ub} {
+		numLeaderVar{N.numLeaderVar}, Bounds{N.Bounds} {
   // Setting the size of class variable std::vectors
   this->PrimalPosition.resize(this->NumPlayers + 1);
   this->DualPosition.resize(this->NumPlayers + 1);
@@ -184,10 +184,8 @@ void Game::NashGame::setPositions()
   // Set bounds on primal variables
   prCnt = 0;
   for (unsigned int i = 0; i < NumPlayers; i++) {
-	 for (auto lower : this->Players.at(i)->getLB())
-		this->lb.push_back({lower.first + prCnt, lower.second});
-	 for (auto upper : this->Players.at(i)->getUB())
-		this->ub.push_back({upper.first + prCnt, upper.second});
+	 for (auto theBound : this->Players.at(i)->getBounds())
+		this->Bounds.push_back({theBound.first, theBound.second});
 	 prCnt += Players.at(i)->getNy();
   }
 }
@@ -196,8 +194,7 @@ const Game::NashGame &Game::NashGame::formulateLCP(
 	 arma::sp_mat &    M,           ///< Where the output  M is stored and returned.
 	 arma::vec &       q,           ///< Where the output  q is stored and returned.
 	 perps &           Compl,       ///< Says which equations are complementary to which variables
-	 DoubleAttrPair &  LB,          ///< Lower bounds on variables
-	 DoubleAttrPair &  UB,          ///< Upper bounds on variables
+	 VariableBounds &  OutBounds,   ///< BoundsX on primal variables
 	 bool              writeToFile, ///< If  true, writes  M and  q to file.k
 	 const std::string M_name,      ///< File name to be used to write  M
 	 const std::string q_name       ///< File name to be used to write  M
@@ -334,8 +331,7 @@ the image below
 	 M.save(M_name, arma::coord_ascii);
 	 q.save(q_name, arma::arma_ascii);
   }
-  LB = this->lb;
-  UB = this->ub;
+  OutBounds = this->Bounds;
   return *this;
 }
 
@@ -496,9 +492,9 @@ void Game::NashGame::write(const std::string &filename, bool append, bool KKT) c
   if (KKT) {
 	 arma::sp_mat   M;
 	 arma::vec      q;
-	 DoubleAttrPair LB, UB;
+	 VariableBounds Bnds;
 	 perps          Compl;
-	 this->formulateLCP(M, q, Compl, LB, UB);
+	 this->formulateLCP(M, q, Compl, Bnds);
 	 file << "\n\n\n KKT CONDITIONS - LCP\n";
 	 file << "\nM: " << M;
 	 file << "\nq:\n" << q;
@@ -506,14 +502,11 @@ void Game::NashGame::write(const std::string &filename, bool append, bool KKT) c
 	 for (const auto &p : Compl)
 		file << "<" << p.first << ", " << p.second << ">"
 			  << "\t";
-	 file << "\n UB:\n";
-	 for (const auto &p : UB)
-		file << "(" << p.first << ", UB" << p.second << ")"
-			  << "\t";
-	 file << "\n UB:\n";
-	 for (const auto &p : LB)
-		file << "(" << p.first << ", LB" << p.second << ")"
-			  << "\t";
+	 file << "\n BoundsX:\n";
+	 for (unsigned int i = 0; i < this->Bounds.size(); ++i) {
+		file << i << ": [" << this->Bounds.at(i).first << ", " << this->Bounds.at(i).second << "]"
+			  << "\n";
+	 }
   }
 
   file << "\n\n\n";

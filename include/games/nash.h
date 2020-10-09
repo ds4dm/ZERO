@@ -37,10 +37,10 @@ namespace Game {
   class NashGame {
   private:
 	 GRBEnv *       Env = nullptr;
-	 arma::sp_mat   LeaderConstraints;    ///< Upper level leader constraints LHS
-	 arma::vec      LeaderConstraintsRHS; ///< Upper level leader constraints RHS
-	 unsigned int   NumPlayers;           ///< Number of players in the Nash Game
-	 DoubleAttrPair lb, ub;               ///< Lower and upper bounds on primal variables
+	 arma::sp_mat   LeaderConstraints;                        ///< Upper level leader constraints LHS
+	 arma::vec      LeaderConstraintsRHS;                     ///< Upper level leader constraints RHS
+	 unsigned int   NumPlayers;                               ///< Number of players in the Nash Game
+	 VariableBounds Bounds;                                   ///< BoundsX on primal variables
 	 std::vector<std::shared_ptr<MathOpt::MP_Param>> Players; ///< The QP that each player solves
 	 arma::sp_mat                                    MarketClearing; ///< Market clearing constraints
 	 arma::vec MCRHS; ///< RHS to the Market Clearing constraints
@@ -135,8 +135,7 @@ namespace Game {
 	 const NashGame &formulateLCP(arma::sp_mat &  M,
 											arma::vec &     q,
 											perps &         Compl,
-											DoubleAttrPair &LB,
-											DoubleAttrPair &UB,
+											VariableBounds &Bounds,
 											bool            writeToFile = false,
 											std::string     M_name      = "dat/LCP.txt",
 											std::string     q_name      = "dat/q.txt") const;

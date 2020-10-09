@@ -426,7 +426,15 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
   this->LCPModel->set(GRB_IntParam_OutputFlag, 1);
   if (check)
 	 this->LCPModel->set(GRB_IntParam_SolutionLimit, GRB_MAXINT);
+
+
+  this->LCPModel->setObjective(GRBLinExpr{0}, GRB_MINIMIZE);
   this->LCPModel->optimize();
+  try {
+	 this->LCPModel->write("dat/TheLCPTest.lp");
+	 this->LCPModel->write("dat/TheLCPTest.sol");
+  } catch (GRBException &e) {
+  }
 
   // Search just for a feasible point
   try { // Try finding a Nash equilibrium for the approximation

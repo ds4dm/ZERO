@@ -62,37 +62,23 @@ namespace MathOpt {
 	 arma::vec      _bcut = {};           ///< Cutting planes (eventually) added to the model
 	 bool           MadeRlxdModel{false}; ///< Keep track if LCP::RlxdModel is made
 	 unsigned int   nR, nC;
-	 DoubleAttrPair lb, ub;
-	 std::vector<triple<int, double, double>>
-		  activeBounds; ///< Stores non-trivial upper and lowe bounds (both strictly greater than
-							 ///< zero, in as a triplet (i,j,k) where i is the variable index, j the lower
-							 ///< bound, and k the upper bound. When one between j or k is negative, then
-							 ///< the respective bound is inactive.
+	 VariableBounds BoundsX; ///< Stores non-trivial upper and lower bounds on x variables (both
+									 ///< strictly greater than
+	 ///< zero, in as a tuple (j,k) where j the lower
+	 ///< bound, and k the upper bound. When one between j or k is negative, then
+	 ///< the respective bound is inactive.
 
 	 GRBModel RlxdModel; ///< A gurobi model with all complementarity constraints
 	 ///< removed.
-
-	 bool errorCheck(bool throwErr = true) const;
 
 	 void defConst(GRBEnv *env);
 
 	 void makeRelaxed();
 
-	 void sortPairs();
-
-	 /* Solving relaxations and restrictions */
-	 std::unique_ptr<GRBModel> LCPasMIP(std::vector<unsigned int> FixEq  = {},
-													std::vector<unsigned int> FixVar = {},
-													bool                      solve  = false);
-
-	 template <class T> inline bool isZero(const T val) const { return (val >= -Eps && val <= Eps); }
-
 	 std::unique_ptr<spmat_Vec> Ai; ///< Vector to contain the LHSs of a description (either exact or
 											  ///< approximated) of the LCP's feasible region
 	 std::unique_ptr<vec_Vec> bi;   ///< Vector to contain the RHSs of a description (either exact or
 											  ///< approximated) of the LCP's feasible region
-
-	 inline std::vector<short int> solEncode(GRBModel *model) const;
 
 	 unsigned int convexHull(arma::sp_mat &A, arma::vec &b);
 
@@ -127,27 +113,27 @@ namespace MathOpt {
 	 ~LCP() = default;
 
 	 /** Return data and address */
-	 inline arma::sp_mat  getM() { return this->M; }        ///< Read-only access to LCP::M
+	 inline arma::sp_mat  getM() const { return this->M; }  ///< Read-only access to LCP::M
 	 inline arma::sp_mat *getMstar() { return &(this->M); } ///< Reference access to LCP::M
-	 inline arma::vec     getq() { return this->q; }        ///< Read-only access to LCP::q
-	 inline unsigned int  getNumberLeader() {
+	 inline arma::vec     getq() const { return this->q; }  ///< Read-only access to LCP::q
+	 inline unsigned int  getNumberLeader() const {
       return this->NumberLeader;
 	 }                                                           ///< Read-only access to LCP::q
 	 inline arma::vec *        getqstar() { return &(this->q); } ///< Reference access to LCP::q
-	 const inline unsigned int getLStart() {
+	 const inline unsigned int getLStart() const {
 		return LeadStart;
-	 }                                                       ///< Read-only access to LCP::LeadStart
-	 const inline unsigned int getLEnd() { return LeadEnd; } ///< Read-only access to LCP::LeadEnd
-	 inline perps              getCompl() { return this->Compl; } ///< Read-only access to LCP::Compl
-	 void                      print(std::string end = "\n");     ///< Print a summary of the LCP
-	 inline unsigned int       getNumCols() { return this->M.n_cols; };
+	 } ///< Read-only access to LCP::LeadStart
+	 const inline unsigned int getLEnd() const {
+		return LeadEnd;
+	 } ///< Read-only access to LCP::LeadEnd
+	 inline perps        getCompl() const { return this->Compl; } ///< Read-only access to LCP::Compl
+	 void                print(std::string end = "\n");           ///< Print a summary of the LCP
+	 inline unsigned int getNumCols() const { return this->M.n_cols; };
 
-	 inline unsigned int getNumRows() { return this->M.n_rows; };
+	 inline unsigned int getNumRows() const { return this->M.n_rows; };
 
 	 bool extractSols(GRBModel *model, arma::vec &z, arma::vec &x, bool extractZ = false) const;
 
-	 /* Getting single point solutions */
-	 std::unique_ptr<GRBModel> LCPasQP(bool solve = false);
 
 	 std::unique_ptr<GRBModel> LCPasMIP(bool solve = false);
 
@@ -164,11 +150,8 @@ namespace MathOpt {
 													  const arma::vec &   x_minus_i,
 													  bool                solve = false);
 
-	 std::unique_ptr<GRBModel> LCPasMIP(std::vector<short int> Fixes, bool solve);
 
 	 bool solvePATH(double timelimit, arma::vec &z, arma::vec &x, bool verbose = true);
-
-	 void write(std::string filename, bool append = true) const;
 
 	 void save(std::string filename, bool erase = true) const;
 
@@ -183,6 +166,7 @@ namespace MathOpt {
 	 std::vector<short int> solEncode(const arma::vec &x) const;
 
 	 arma::vec zFromX(const arma::vec x);
+	 void      processBounds();
   };
 } // namespace MathOpt
 

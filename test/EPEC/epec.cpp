@@ -16,11 +16,6 @@
 
 
 
-BOOST_AUTO_TEST_CASE(LoggingOff) {
-  boost::log::core::get()->set_filter(boost::log::trivial::severity >=
-												  boost::log::trivial::warning);
-}
-
 BOOST_AUTO_TEST_SUITE(Core__Tests)
 
 /* This test suite perform basic unit tests for core components (eg, QP_Param,
@@ -238,9 +233,9 @@ BOOST_AUTO_TEST_CASE(NashGame_test) {
   arma::sp_mat   MM, MM_ref;
   arma::vec      qq, qq_ref;
   perps          Compl;
-  DoubleAttrPair lb, ub;
+  VariableBounds Bnd;
   BOOST_TEST_MESSAGE("NashGame.formulateLCP test");
-  BOOST_CHECK_NO_THROW(Nash.formulateLCP(MM, qq, Compl, lb, ub));
+  BOOST_CHECK_NO_THROW(Nash.formulateLCP(MM, qq, Compl, Bnd));
   BOOST_CHECK_MESSAGE(MM(0, 0) == 2.2, "checking q1 coefficient in M-LCP (0,0)");
   BOOST_CHECK_MESSAGE(MM(0, 1) == 1, "checking q2 coefficient in M-LCP (0,1)");
   BOOST_CHECK_MESSAGE(MM(1, 0) == 1, "checking q1 coefficient in M-LCP (1,0)");

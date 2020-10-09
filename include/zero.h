@@ -20,10 +20,6 @@
 #include <string>
 #include <vector>
 
-#include "support/codes.h"
-#include "support/utils.h"
-#include "support/version.h"
-
 using perps          = std::vector<std::pair<unsigned int, unsigned int>>;
 using DoubleAttrPair = std::vector<std::pair<unsigned int, double>>;
 std::ostream &                            operator<<(std::ostream &ost, perps C);
@@ -31,7 +27,15 @@ template <class T> std::ostream &         operator<<(std::ostream &ost, std::vec
 template <class T, class S> std::ostream &operator<<(std::ostream &ost, std::pair<T, S> p);
 using spmat_Vec = std::vector<std::unique_ptr<arma::sp_mat>>;
 using vec_Vec   = std::vector<std::unique_ptr<arma::vec>>;
+
 template <typename T1, typename T2, typename T3> using triple = std::tuple<T1, T2, T3>;
+using bound          = triple<unsigned int, double, double>;
+using VariableBounds = std::vector<std::pair<double, double>>;
+
+#include "support/codes.h"
+#include "support/utils.h"
+#include "support/version.h"
+
 
 // Forward declarations
 class ZEROException;

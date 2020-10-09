@@ -33,6 +33,44 @@ void MathOpt::LCP::defConst(GRBEnv *env)
   this->nC  = this->M.n_cols;
 }
 
+
+void MathOpt::LCP::processBounds() {
+  unsigned int              cnt = 0;
+  std::vector<unsigned int> shedded;
+  for (auto c : this->Compl) {
+	 unsigned int zVar = c.first;
+	 unsigned int xVar = c.second;
+
+	 if (this->BoundsX.at(xVar).first == this->BoundsX.at(xVar).second)
+		shedded.push_back(cnt);
+	 // Then we should remove this! The equation is useless
+
+	 ++cnt;
+  }
+
+
+  //@todo shedding is disabled
+
+  if (shedded.size() > 0 && false) {
+	 BOOST_LOG_TRIVIAL(debug) << "MathOpt::LCP::processBounds: " << shedded.size()
+									  << " bounds and trivial constraints processed";
+	 std::sort(shedded.begin(), shedded.end());
+
+	 for (int i = shedded.size() - 1; i >= 0; --i) {
+		for (int j = shedded.at(i); j < this->Compl.size(); ++j) {
+		  this->Compl.at(j).first--;
+		}
+		this->Compl.erase(this->Compl.begin() + shedded.at(i));
+		this->M.shed_row(shedded.at(i));
+		this->q.shed_row(shedded.at(i));
+	 }
+	 this->MadeRlxdModel = false;
+  }
+  this->defConst(this->Env);
+}
+
+
+
 MathOpt::LCP::LCP(GRBEnv *     env,   ///< Gurobi environment required
 						arma::sp_mat M,     ///< @p M in @f$Mx+q@f$
 						arma::vec    q,     ///< @p q in @f$Mx+q@f$
@@ -45,7 +83,7 @@ MathOpt::LCP::LCP(GRBEnv *     env,   ///< Gurobi environment required
 {
   defConst(env);
   this->Compl = perps(Compl);
-  this->sortPairs();
+  Utils::sortByKey(this->Compl);
   for (auto p : this->Compl)
 	 if (p.first != p.second) {
 		this->LeadStart    = p.first;
@@ -56,45 +94,7 @@ MathOpt::LCP::LCP(GRBEnv *     env,   ///< Gurobi environment required
 	 }
 }
 
-void MathOpt::LCP::sortPairs() {
-  if (this->ub.size() > 0) {
-	 std::sort(this->ub.begin(),
-				  this->ub.end(),
-				  [](std::pair<unsigned int, double> a, std::pair<unsigned int, double> b) {
-					 return a.first <= b.first;
-				  });
-  }
-  if (this->lb.size() > 0) {
-	 std::sort(this->lb.begin(),
-				  this->lb.end(),
-				  [](std::pair<unsigned int, unsigned int> a, std::pair<unsigned int, double> b) {
-					 return a.first <= b.first;
-				  });
-  }
-  sort(this->Compl.begin(),
-		 this->Compl.end(),
-		 [](std::pair<unsigned int, unsigned int> a, std::pair<unsigned int, unsigned int> b) {
-			return a.first < b.first;
-		 });
 
-
-  unsigned int j = 0;
-  for (unsigned int i = 0; i < this->lb.size(); ++i) {
-	 if (this->ub.at(j).first == this->lb.at(i).first) {
-		// Then we halso have an upper bound
-		activeBounds.push_back({this->lb.at(i).first, this->lb.at(i).second, this->ub.at(j).second});
-		++j;
-	 } else {
-		activeBounds.push_back({this->lb.at(i).first, this->lb.at(i).second, -1});
-	 }
-  }
-
-  // Fill remaining upper bounded variables without any lower bound greater than zero.
-  for (unsigned int i = j; i < this->ub.size(); ++i) {
-	 activeBounds.push_back({this->ub.at(i).first, -1, this->ub.at(i).second});
-  }
-  std::sort(this->activeBounds.begin(), this->activeBounds.end());
-}
 
 MathOpt::LCP::LCP(GRBEnv *     env,       ///< Gurobi environment required
 						arma::sp_mat M,         ///< @p M in @f$Mx+q@f$
@@ -122,7 +122,7 @@ MathOpt::LCP::LCP(GRBEnv *     env,       ///< Gurobi environment required
 	 unsigned int count = i < leadStart ? i : i + NumberLeader;
 	 this->Compl.push_back({i, count});
   }
-  this->sortPairs();
+  Utils::sortByKey(this->Compl);
 }
 
 MathOpt::LCP::LCP(GRBEnv *env, const Game::NashGame &N)
@@ -137,20 +137,20 @@ MathOpt::LCP::LCP(GRBEnv *env, const Game::NashGame &N)
   arma::sp_mat   M_local;
   arma::vec      q_local;
   perps          Compl_local;
-  DoubleAttrPair LB, UB;
-  N.formulateLCP(M_local, q_local, Compl_local, LB, UB);
-  // LCP(Env, M, q, Compl, N.rewriteLeadCons(), N.getMCLeadRHS());
+  VariableBounds NashBounds;
+  N.formulateLCP(M_local, q_local, Compl_local, NashBounds);
 
-  this->M     = M_local;
-  this->q     = q_local;
-  this->Compl = Compl_local;
-  this->lb    = LB;
-  this->ub    = UB;
+  this->M       = M_local;
+  this->q       = q_local;
+  this->Compl   = Compl_local;
+  this->BoundsX = NashBounds;
+  if (this->BoundsX.size() < this->M.n_cols)
+	 for (unsigned int i = this->BoundsX.size(); i < this->M.n_cols; ++i)
+		this->BoundsX.push_back({0, -1});
   this->_A    = N.rewriteLeadCons();
   this->_b    = N.getMCLeadRHS();
-  defConst(env);
   this->Compl = perps(Compl);
-  this->sortPairs();
+  Utils::sortByKey(this->Compl);
   // Delete no more!
   for (auto p : this->Compl) {
 	 if (p.first != p.second) {
@@ -161,6 +161,8 @@ MathOpt::LCP::LCP(GRBEnv *env, const Game::NashGame &N)
 		break;
 	 }
   }
+
+  processBounds();
 }
 
 void MathOpt::LCP::makeRelaxed()
@@ -178,18 +180,17 @@ void MathOpt::LCP::makeRelaxed()
 	 GRBVar x[nC], z[nR];
 	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::makeRelaxed: Initializing variables";
 	 for (unsigned int i = 0; i < nC; i++)
-		x[i] = RlxdModel.addVar(0, GRB_INFINITY, 1, GRB_CONTINUOUS, "x_" + std::to_string(i));
+		x[i] = RlxdModel.addVar(BoundsX.at(i).first,
+										BoundsX.at(i).second > 0 ? BoundsX.at(i).second : GRB_INFINITY,
+										1,
+										GRB_CONTINUOUS,
+										"x_" + std::to_string(i));
 	 for (unsigned int i = 0; i < nR; i++)
 		z[i] = RlxdModel.addVar(0, GRB_INFINITY, 1, GRB_CONTINUOUS, "z_" + std::to_string(i));
 
-
-	 // Add bounds
-	 for (const auto bound : activeBounds) {
-		if (std::get<1>(bound) > 0)
-		  x[std::get<0>(bound)].set(GRB_DoubleAttr_LB, std::get<1>(bound));
-		if (std::get<2>(bound) > 0)
-		  x[std::get<0>(bound)].set(GRB_DoubleAttr_UB, std::get<2>(bound));
-	 }
+	 for (const auto p : Compl)
+		if (this->BoundsX.at(p.second).second >= 0)
+		  z[p.first].set(GRB_DoubleAttr_LB, -GRB_INFINITY);
 
 
 	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::makeRelaxed: Added variables";
@@ -226,41 +227,10 @@ void MathOpt::LCP::makeRelaxed()
   }
 }
 
-std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(
-	 std::vector<short int> Fixes, ///< For each Variable, +1 fixes the equation to equality and -1
-											 ///< fixes the variable to equality. A value of 0 fixes neither.
-	 bool solve                    ///< Whether the model is to be solved before returned
-	 )
-/**
- * Uses the big M method to solve the complementarity problem. The variables and
- * eqns to be set to equality can be given in Fixes in 0/+1/-1 notation
- * @note Returned model is \e always a restriction. For <tt>Fixes =
- * {0,...,0}</tt>, the returned model would solve the exact LCP.
- * @throws string if <tt> Fixes.size()!= </tt> number of equations (for
- * complementarity).
- * @warning Note that the model returned by this function has to be explicitly
- * deleted using the delete operator.
- * @returns unique pointer to a GRBModel
- */
-{
-  if (Fixes.size() != this->nR)
-	 throw ZEROException(ZEROErrorCode::InvalidData, "Mismatch in size of fixes");
-  std::vector<unsigned int> FixVar, FixEq;
-  for (unsigned int i = 0; i < nR; i++) {
-	 if (Fixes[i] == 1)
-		FixEq.push_back(i);
-	 if (Fixes[i] == -1)
-		FixVar.push_back(i > this->LeadStart ? i + this->NumberLeader : i);
-  }
-  return this->LCPasMIP(FixEq, FixVar, solve);
-}
 
-std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(
-	 std::vector<unsigned int> FixEq,  ///< If any equation is to be fixed to equality
-	 std::vector<unsigned int> FixVar, ///< If any variable is to be fixed to equality
-	 bool                      solve   ///< Whether the model should be solved in the
-												  ///< function before returned.
-	 )
+std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(bool solve ///< Whether the model should be solved
+																				///< in the function before returned.
+																 )
 /**
  * Uses the big M method to solve the complementarity problem. The variables and
  * equations to be set to equality can be given in FixVar and FixEq.
@@ -283,109 +253,72 @@ std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(
 		z[i] = model->getVarByName("z_" + std::to_string(i));
 	 // Define binary variables for BigM
 
-	 for (unsigned int i = 0; i < nR; i++)
-		l[i] = model->addVar(0, 1, 0, GRB_BINARY, "l_" + std::to_string(i));
-	 for (unsigned int i = 0; i < nR; i++)
-		v[i] = model->addVar(0, 1, 0, GRB_BINARY, "v_" + std::to_string(i));
+	 // Update BoundsX
+	 for (unsigned int i = 0; i < nC; ++i) {
+		if (this->BoundsX.at(i).first != 0)
+		  x[i].set(GRB_DoubleAttr_LB, this->BoundsX.at(i).first);
+		if (this->BoundsX.at(i).second >= 0)
+		  x[i].set(GRB_DoubleAttr_UB, this->BoundsX.at(i).second);
+	 }
 
+	 std::cout << "LCPasMIP Bounds on X:\n" << Utils::printBounds(this->BoundsX).str();
 
-	 GRBLinExpr   expr       = 0;
-	 unsigned int j          = 0;
-	 bool         boundCheck = true;
+	 // model->addQConstr (x[0],GRB_EQUAL,100);
+	 GRBLinExpr   expr = 0;
+	 unsigned int j    = 0;
 	 for (const auto p : Compl) {
-		bool hasBounds = false;
+
+		int _lb = this->BoundsX.at(p.second).first;
+		int _ub = this->BoundsX.at(p.second).second;
+
+		if (_lb >= 0 || _ub >= 0) {
+		  // Then we have some bounds, and we need to be careful
+
+		  // Double bound
+		  auto z_var = model->getVarByName("z_" + std::to_string(p.first));
 
 
-		if (boundCheck) {
-		  if (std::get<0>(this->activeBounds.at(j)) == p.second) {
-			 // Then we have some bounds, and we need to be careful
-			 hasBounds = true;
+		  if (_lb == _ub) {
+			 // This is a fixed variable. Check if we have processed the bounds for z
+			 BOOST_LOG_TRIVIAL(debug)
+				  << "MathOpt::LCP::LCPasMIP: Variable " << std::to_string(p.second) << " is fixed to "
+				  << std::to_string(_lb);
+			 z_var.set(GRB_DoubleAttr_LB, -GRB_INFINITY);
+			 z_var.set(GRB_DoubleAttr_UB, GRB_INFINITY);
+			 // Drop the equation
+			 model->remove(model->getConstrByName("z_" + std::to_string(p.first) + "_def"));
 
-			 double lower = std::get<1>(this->activeBounds.at(j));
-			 double upper = std::get<2>(this->activeBounds.at(j));
-			 // Double bound
-			 auto z_var = model->getVarByName("z_" + std::to_string(p.first));
-
-
-			 model->addGenConstrIndicator(l[p.first],
-													1,
-													x[p.second],
-													GRB_EQUAL,
-													(lower > 0) ? lower : 0,
-													"x_ind_lb_" + std::to_string(p.second));
-
-			 model->addGenConstrIndicator(
-				  v[p.first], 1, z_var, GRB_EQUAL, 0, "z_ind_" + std::to_string(p.second));
-
+		  } else {
+			 // There are some different bounds. Not sure if we have both
+			 model->addQConstr(x[p.second] * z[p.first],
+									 GRB_LESS_EQUAL,
+									 z[p.first] * _lb,
+									 "compl_LB_z_" + std::to_string(p.first) + "_x_" +
+										  std::to_string(p.second));
 			 // If we have an upper bound
-			 if (upper > 0) {
+			 if (_ub > 0) {
 				z_var.set(GRB_DoubleAttr_LB, -GRB_INFINITY);
-				GRBVar u    = model->addVar(0, 1, 0, GRB_BINARY, "u_" + std::to_string(p.second));
-				GRBVar z_up = model->addVar(0, 1, 0, GRB_BINARY, "z_up_" + std::to_string(p.second));
-				GRBVar z_down =
-					 model->addVar(0, 1, 0, GRB_BINARY, "z_down_" + std::to_string(p.second));
-				GRBVar opt[2];
-				for (unsigned int i = 0; i < 2; i++)
-				  opt[i] = model->addVar(
-						0, 1, 0, GRB_BINARY, "opt_" + std::to_string(i) + "_" + std::to_string(p.second));
-
-				model->addGenConstrIndicator(
-					 u, 1, x[p.second], GRB_EQUAL, upper, "x_ind_ub_" + std::to_string(p.second));
-
-				model->addGenConstrIndicator(
-					 z_down, 1, z_var, GRB_LESS_EQUAL, 0, "z_negative_" + std::to_string(p.second));
-				model->addGenConstrIndicator(
-					 z_up, 1, z_var, GRB_GREATER_EQUAL, 0, "z_positive_" + std::to_string(p.second));
-
-
-				// x=LB and z>=0
-				GRBVar a[2] = {l[p.first], z_up};
-				model->addGenConstrAnd(opt[0], a, 2, "opt_0_" + std::to_string(p.second));
-
-				// x=UB and z<=0
-				GRBVar b[2] = {u, z_down};
-				model->addGenConstrAnd(opt[1], b, 2, "opt_1_" + std::to_string(p.second));
-
-
-				model->addConstr(opt[0] + v[p.first] + opt[1],
-									  GRB_EQUAL,
-									  1,
-									  "uvl_options_" + std::to_string(p.first));
-
-			 } else {
-				model->addConstr(l[p.first] + v[p.first],
-									  GRB_GREATER_EQUAL,
-									  1,
-									  "lv_options_" + std::to_string(p.first));
+				model->addQConstr((x[p.second]) * z[p.first],
+										GRB_LESS_EQUAL,
+										_ub * z[p.first],
+										"compl_UB_z_" + std::to_string(p.first) + "_x_" +
+											 std::to_string(p.second));
 			 }
-			 ++j; // update j so that we can go on
-			 if (j >= this->activeBounds.size())
-				boundCheck = false;
 		  }
-		}
 
-		if (!hasBounds) {
-		  // Otherwise, no bounds and we are okay
-
-		  model->addGenConstrIndicator(
-				l[p.first], 1, x[p.second], GRB_EQUAL, 0, "x_ind_lb_" + std::to_string(p.second));
-
-		  model->addGenConstrIndicator(
-				v[p.first], 1, z[p.first], GRB_EQUAL, 0, "z_ind_" + std::to_string(p.second));
-
-		  model->addConstr(
-				l[p.first] + v[p.first], GRB_GREATER_EQUAL, 1, "lv_options_" + std::to_string(p.first));
+		} else {
+		  // Otherwise, no bounds and we simplify the first expresison for LB
+		  model->addQConstr(x[p.second] * z[p.first],
+								  GRB_LESS_EQUAL,
+								  0,
+								  "compl_z_" + std::to_string(p.first) + "_x_" + std::to_string(p.second));
 		}
 	 }
 
 
 
-	 // If any equation or variable is to be fixed to zero, that happens here!
-	 for (auto i : FixVar)
-		model->addConstr(x[i], GRB_EQUAL, 0.0);
-	 for (auto i : FixEq)
-		model->addConstr(z[i], GRB_EQUAL, 0.0);
 	 model->update();
+	 model->set(GRB_IntParam_NonConvex, 2);
 	 model->set(GRB_DoubleParam_IntFeasTol, this->EpsInt);
 	 model->set(GRB_DoubleParam_FeasibilityTol, this->Eps);
 	 model->set(GRB_DoubleParam_OptimalityTol, this->Eps);
@@ -402,27 +335,6 @@ std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(
   return nullptr;
 }
 
-bool MathOpt::LCP::errorCheck(bool throwErr ///< If this is true, function throws an
-														  ///< error, else, it just returns false
-										) const
-/**
- * Checks if the `M` and `q` given to create the LCP object are of
- * compatible size, given the number of leader variables
- */
-{
-  const unsigned int nR_t = M.n_rows;
-  const unsigned int nC_t = M.n_cols;
-  if (throwErr) {
-	 if (nR_t != q.n_rows)
-		throw ZEROException(ZEROErrorCode::InvalidData, "Mismatch in size of M and q (rows)");
-	 if (nR_t + NumberLeader != nC)
-		throw ZEROException(ZEROErrorCode::InvalidData,
-								  "Mismatch in size of M and q (columns) -- " +
-										std::to_string(NumberLeader) + ", number of rows " +
-										std::to_string(nR_t) + " and number of cols " + std::to_string(nC));
-  }
-  return (nR_t == q.n_rows && nR_t + NumberLeader == nC_t);
-}
 
 void MathOpt::LCP::print(const std::string end) {
   std::cout << "LCP with " << this->nR << " rows and " << this->nC << " columns." << end;
@@ -480,93 +392,62 @@ arma::vec MathOpt::LCP::zFromX(const arma::vec x) { return (this->M * x + this->
 std::vector<short int> MathOpt::LCP::solEncode(const arma::vec &z, ///< Equation values
 															  const arma::vec &x  ///< Variable values
 															  ) const
-/// @brief Given variable values and equation values, encodes it in 0/+1/-1
-/// format and returns it.
+/** @brief Given variable values and equation values, encodes it in 0/+1/+2/+3. In specific:
+ * 0 means nothing is fixed, +1 means the equation z is zero, +2 means the x is at its lower bound
+ * (trivially this can be zero), +3 means x is at its upper bound
+ * @param z contains the values for z equations
+ * @param x  contains the values for x variables
+ * @return a vector of short integers with the encoding.
+ */
 {
   std::vector<short int> solEncoded(nR, 0);
   for (const auto p : Compl) {
+
 	 unsigned int i, j;
-	 i = p.first;
-	 j = p.second;
-	 if (isZero(z(i)))
-		solEncoded.at(i)++;
-	 if (isZero(x(j)))
-		solEncoded.at(i)--;
-	 if (!isZero(x(j)) && !isZero(z(i)))
-		BOOST_LOG_TRIVIAL(trace) << "Infeasible point given! Stay alert! " << x(j) << " " << z(i)
-										 << " with i=" << i;
-  };
-  // std::stringstream enc_str;
+	 i       = p.first;
+	 j       = p.second;
+	 bool Cv = Utils::isZeroValue(z(i));
+	 bool Cx = Utils::isZeroValue(x(j));
+
+	 int _lb = this->BoundsX.at(p.second).first;
+	 int _ub = this->BoundsX.at(p.second).second;
+
+
+	 if (_lb > 0 || _ub > 0) {
+		// There are bounds
+		double lower = _lb > 0 ? _lb : 0;
+		bool   Cl    = Utils::isZeroValue(x(j) - lower);
+		bool   Cu    = false;
+		if (_ub > 0)
+		  Cu = Utils::isZeroValue(x(j) - _ub);
+
+		if (!Cl && !Cu && Cv)
+		  solEncoded.at(i) = 1;
+
+		if (Cl && z.at(i) >= 0)
+		  solEncoded.at(i) = 2;
+
+		if (_ub > 0) {
+		  if (Cu && z.at(i) <= 0)
+			 solEncoded.at(i) = 3;
+		}
+	 } else {
+
+		if (Cx && !Cv)
+		  solEncoded.at(i) = 2;
+		if (Cv && !Cx)
+		  solEncoded.at(i) = 1;
+		if (!Cx && !Cv)
+		  BOOST_LOG_TRIVIAL(warning)
+				<< "Infeasible point given! Stay alert! " << x(j) << " " << z(i) << " with i=" << i;
+	 }
+  }
   // for(auto vv:solEncoded) enc_str << vv <<" ";
   // BOOST_LOG_TRIVIAL (debug) << "MathOpt::LCP::solEncode: Handling deviation with
   // encoding: "<< enc_str.str() << '\n';
   return solEncoded;
 }
 
-std::vector<short int> MathOpt::LCP::solEncode(GRBModel *model) const
-/// @brief Given a Gurobi model, extracts variable values and equation values,
-/// encodes it in 0/+1/-1 format and returns it.
-/// @warning Note that the std::vector returned by this function might have to
-/// be explicitly deleted using the delete operator. For specific uses in
-/// LCP::BranchAndPrune, this delete is handled by the class destructor.
-{
-  arma::vec x, z;
-  if (!this->extractSols(model, z, x, true))
-	 return {}; // If infeasible model, return empty!
-  else
-	 return this->solEncode(z, x);
-}
-
-std::unique_ptr<GRBModel> MathOpt::LCP::LCPasQP(bool solve)
-/** @brief Solves the LCP as a QP using Gurobi */
-/** Removes all complementarity constraints from the QP's constraints. Instead,
- * the sum of products of complementarity pairs is minimized. If the optimal
- * value turns out to be 0, then it is actually a solution of the LCP. Else the
- * LCP is infeasible.
- * @warning Solves the LCP feasibility problem. Not the MPEC optimization
- * problem.
- * */
-{
-  this->makeRelaxed();
-  std::unique_ptr<GRBModel> model(new GRBModel(this->RlxdModel));
-  GRBQuadExpr               obj = 0;
-  GRBVar                    x[this->nR];
-  GRBVar                    z[this->nR];
-  for (const auto p : this->Compl) {
-	 unsigned int i = p.first;
-	 unsigned int j = p.second;
-	 z[i]           = model->getVarByName("z_" + std::to_string(i));
-	 x[i]           = model->getVarByName("x_" + std::to_string(j));
-	 obj += x[i] * z[i];
-  }
-  model->setObjective(obj, GRB_MINIMIZE);
-  if (solve) {
-	 try {
-		model->optimize();
-		int status = model->get(GRB_IntAttr_Status);
-		if (status != GRB_OPTIMAL || model->get(GRB_DoubleAttr_ObjVal) > this->Eps)
-		  throw ZEROException(ZEROErrorCode::Assertion, "LCP is infeasible");
-	 } catch (GRBException &e) {
-		throw ZEROException(e);
-	 } catch (...) {
-		throw ZEROException(ZEROErrorCode::Unknown, "Unknown exception in LCPasQP()");
-	 }
-  }
-  return model;
-}
-
-std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(bool solve)
-/**
- * @brief Helps solving an LCP as an MIP using BigM constraints
- * @returns A std::unique_ptr to GRBModel that has the equivalent MIP
- * @details The MIP problem that is returned by this function is equivalent to
- * the LCP problem provided the value of BigM is large enough.
- * @note This solves just the feasibility problem. Should you need  a leader's
- * objective function, use LCP::MPECasMILP or LCP::MPECasMIQP
- */
-{
-  return this->LCPasMIP({}, {}, solve);
-}
 
 std::unique_ptr<GRBModel> MathOpt::LCP::MPECasMILP(const arma::sp_mat &C,
 																	const arma::vec &   c,
@@ -619,11 +500,10 @@ std::unique_ptr<GRBModel> MathOpt::LCP::MPECasMIQP(const arma::sp_mat &Q,
  * @brief Helps solving an LCP as an MIQPs.
  * @returns A std::unique_ptr to GRBModel that has the equivalent MIQP
  * @details The MIQP problem that is returned by this function is equivalent to
- * the LCP problem provided the value of BigM is large enough. The function
- * differs from LCP::LCPasMIP by the fact that, this explicitly takes a leader
- * objective, and returns an object with this objective. This allows quadratic
- * leader objective. If you are aware that the leader's objective is linear, use
- * the faster method LCP::MPECasMILP
+ * the LCP problem. The function differs from LCP::LCPasMIP by the fact that, this explicitly
+ * takes a leader objective, and returns an object with this objective. This allows quadratic
+ * leader objective. If you are aware that the leader's objective is linear, use the faster method
+ * LCP::MPECasMILP
  */
 {
   auto model = this->MPECasMILP(C, c, x_minus_i, false);
@@ -642,24 +522,6 @@ std::unique_ptr<GRBModel> MathOpt::LCP::MPECasMIQP(const arma::sp_mat &Q,
   if (solve)
 	 model->optimize();
   return model;
-}
-
-void MathOpt::LCP::write(std::string filename, bool append) const {
-  std::ofstream outfile(filename, append ? arma::ios::app : arma::ios::out);
-
-  outfile << nR << " rows and " << nC << " columns in the LCP\n";
-  outfile << "LeadStart: " << LeadStart << " \nLeadEnd: " << LeadEnd
-			 << " \nnLeader: " << NumberLeader << "\n\n";
-
-  outfile << "M: " << this->M;
-  outfile << "q: " << this->q;
-  outfile << "Complementarity: \n";
-  for (const auto &p : this->Compl)
-	 outfile << "<" << p.first << ", " << p.second << ">"
-				<< "\t";
-  outfile << "A: " << this->_A;
-  outfile << "b: " << this->_b;
-  outfile.close();
 }
 
 void MathOpt::LCP::save(std::string filename, bool erase) const {
@@ -711,7 +573,7 @@ long int MathOpt::LCP::load(std::string filename, long int pos) {
 	 unsigned int count = i < LeadStart ? i : i + NumberLeader;
 	 Compl.push_back({i, count});
   }
-  this->sortPairs();
+  Utils::sortByKey(this->Compl);
   return pos;
 }
 
@@ -780,6 +642,13 @@ void MathOpt::LCP::makeQP(MathOpt::QP_Objective &QP_obj, ///< [in/out] Objective
   QP_obj.Q = Utils::resizePatch(QP_obj.Q, oldNumVariablesY, oldNumVariablesY);
   // Setting the QP_Param object
   QP.set(QP_obj, QP_cons);
+
+  // Now we have to merge the bounds
+
+  std::cout << "QP:\n" << Utils::printBounds(QP.getBounds()).str();
+  QP.setBounds(Utils::intersectBounds(QP.getBounds(), this->BoundsX));
+  std::cout << "LCP:\n" << Utils::printBounds(this->BoundsX).str();
+  // QP.maxwkeBoundsExplicit ();
 }
 void MathOpt::LCP::addCustomCuts(const arma::sp_mat A, ///< [in] The LHS of the added cuts
 											const arma::vec    b  ///< [in] The RHS of the added cuts
@@ -840,10 +709,8 @@ bool MathOpt::LCP::solvePATH(double     timelimit, ///< A double containing the 
 
   double       _q[n], _Mij[nnz], _lb[n], _ub[n], _xsol[n];
   int          _Mi[nnz], _Mj[nnz], _xmap[n];
-  unsigned int row        = 0;
-  unsigned int mcount     = 0;
-  unsigned int j          = 0;
-  bool         boundCheck = true;
+  unsigned int row    = 0;
+  unsigned int mcount = 0;
   for (const auto p : Compl) {
 	 // For each complementarity
 	 // z[p.first] \perp x[p.second]
@@ -863,19 +730,12 @@ bool MathOpt::LCP::solvePATH(double     timelimit, ///< A double containing the 
 	 _lb[row]   = 0;
 	 _ub[row]   = 1e20;
 
-	 if (j >= this->activeBounds.size() && boundCheck)
-		boundCheck = false;
-	 if (boundCheck) {
-		const auto bound = this->activeBounds.at(j);
-		if (std::get<0>(bound) == row) {
-		  // There are bounds
-		  if (std::get<1>(bound) > 0)
-			 _lb[std::get<0>(bound)] = std::get<1>(bound);
-		  if (std::get<2>(bound) > 0)
-			 _ub[std::get<0>(bound)] = std::get<2>(bound);
-		  ++j;
-		}
-	 }
+	 const auto bound = this->BoundsX.at(row);
+	 // There are bounds
+	 if (bound.first > 0)
+		_lb[row] = bound.first;
+	 if (bound.second >= 0)
+		_ub[row] = bound.second;
 
 	 ++row;
   }
