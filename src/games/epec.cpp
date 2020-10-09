@@ -409,12 +409,6 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
   if (localTimeLimit > 0) {
 	 this->LCPModel->set(GRB_DoubleParam_TimeLimit, localTimeLimit);
   }
-  if (this->Stats.AlgorithmData.BoundPrimals.get()) {
-	 for (unsigned int c = 0; c < this->TheNashGame->getNprimals(); c++) {
-		this->LCPModel->getVarByName("x_" + std::to_string(c))
-			 .set(GRB_DoubleAttr_UB, this->Stats.AlgorithmData.BoundBigM.get());
-	 }
-  }
 
   if (pureNE) {
 	 BOOST_LOG_TRIVIAL(info) << " Game::EPEC::computeNashEq: (PureNashEquilibrium flag is "

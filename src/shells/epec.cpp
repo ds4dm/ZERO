@@ -164,9 +164,6 @@ int main(int argc, char **argv) {
 	 // TimeLimit
 	 epec.setTimeLimit(timeLimit);
 	 // bound QPs
-	 if (bound) {
-		epec.setBoundPrimals(true);
-	 }
 	 if (devtol > 0)
 		epec.setDeviationTolerance(devtol);
 
@@ -232,7 +229,7 @@ int main(int argc, char **argv) {
 					  "NumVar;NumConstraints;NumNonZero;ClockTime"
 					  "(s);Threads;numInnerIterations;LostIntermediateEq;"
 					  "Aggressiveness;"
-					  "AddPolyMethod;NumericalIssues;bound;BoundBigM;"
+					  "AddPolyMethod;NumericalIssues;"
 					  "recoveryStrategy\n";
 	 }
 	 existCheck.close();
@@ -257,8 +254,6 @@ int main(int argc, char **argv) {
 				  << stat.AlgorithmData.Aggressiveness.get() << ";"
 				  << to_string(stat.AlgorithmData.PolyhedraStrategy.get()) << ";"
 				  << stat.NumericalIssues.get() << ";"
-				  << to_string(stat.AlgorithmData.BoundPrimals.get()) << ";"
-				  << stat.AlgorithmData.BoundBigM.get() << ";"
 				  << to_string(stat.AlgorithmData.RecoverStrategy.get());
 	 } else {
 		results << ";-;-;-;-;-;-;-;-";

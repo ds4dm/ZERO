@@ -33,7 +33,12 @@ namespace Data {
 		///< Sequential order
 		Random = 2 ///< Adds the next polyhedron by selecting Random feasible one
 	 };
-  }
+	 enum class Algorithms {
+		MIP,  ///< Solves the LCP via an (explicit) MIP
+		PATH, ///< Solves the LCP via PATH
+		MINLP ///< Solves the LCP via a MINLP
+	 };
+  } // namespace LCP
 } // namespace Data
 
 namespace MathOpt {
@@ -134,6 +139,11 @@ namespace MathOpt {
 
 	 bool extractSols(GRBModel *model, arma::vec &z, arma::vec &x, bool extractZ = false) const;
 
+	 bool solve(Data::LCP::Algorithms algo,
+					arma::vec &           x,
+					arma::vec &           z,
+					double                timeLimit = -1,
+					bool                  maxSol    = false);
 
 	 std::unique_ptr<GRBModel> LCPasMIP(bool solve = false);
 
