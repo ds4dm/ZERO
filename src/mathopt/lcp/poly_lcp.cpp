@@ -383,13 +383,16 @@ MathOpt::PolyLCP::addAPoly(unsigned long int                nPoly,
 	 if (choiceDecimal >= this->MaxTheoreticalPoly)
 		return polyhedra;
 
-	 const std::vector<short int> choice = Utils::numToVec(choiceDecimal, numCompl);
-	 auto                         added  = this->addPolyFromEncoding(choice, true);
-	 if (added) // If choice is added to All Polyhedra
-	 {
-		polyhedra.insert(choice); // Add it to set of added polyhedra
-		if (polyhedra.size() == nPoly) {
-		  return polyhedra;
+	 if (this->checkPolyFeas(choiceDecimal, false)) {
+
+		const std::vector<short int> choice = Utils::numToVec(choiceDecimal, numCompl);
+		auto                         added  = this->addPolyFromEncoding(choice, true);
+		if (added) // If choice is added to All Polyhedra
+		{
+		  polyhedra.insert(choice); // Add it to set of added polyhedra
+		  if (polyhedra.size() == nPoly) {
+			 return polyhedra;
+		  }
 		}
 	 }
   }
