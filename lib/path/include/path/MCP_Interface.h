@@ -23,6 +23,10 @@
 #include "Presolve_Interface.h"
 #include "Types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 struct _MCP;
 typedef struct _MCP MCP;
 
@@ -224,5 +228,9 @@ FUN_DECL(Void) MCP_Jacobian_Structure_Constant(MCP *m, Boolean b);
 FUN_DECL(Void) MCP_Jacobian_Data_Contiguous(MCP *m, Boolean b);
 FUN_DECL(Void) MCP_Jacobian_Diagonal(MCP *m, Boolean b);
 FUN_DECL(Void) MCP_Jacobian_Diagonal_First(MCP *m, Boolean b);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

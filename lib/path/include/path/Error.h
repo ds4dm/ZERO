@@ -10,6 +10,10 @@
 
 #include "Types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*****************************************************************************/
 /* Error routines.                                                           */
 /*****************************************************************************/
@@ -29,5 +33,9 @@
 
 FUN_DECL(Void) Error(const Char *fmt, ...);
 FUN_DECL(Void) Warning(const Char *fmt, ...);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

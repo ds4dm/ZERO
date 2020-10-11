@@ -20,6 +20,11 @@
 #include "Presolve_Interface.h"
 #include "Types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 struct _CNS;
 typedef struct _CNS CNS;
 
@@ -206,5 +211,9 @@ FUN_DECL(Void) CNS_Jacobian_Structure_Constant(CNS *c, Boolean b);
 FUN_DECL(Void) CNS_Jacobian_Data_Contiguous(CNS *c, Boolean b);
 FUN_DECL(Void) CNS_Jacobian_Diagonal(CNS *c, Boolean b);
 FUN_DECL(Void) CNS_Jacobian_Diagonal_First(CNS *c, Boolean b);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

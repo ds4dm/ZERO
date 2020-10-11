@@ -11,6 +11,10 @@
 #include "Options.h"
 #include "Types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*****************************************************************************/
 /* Main functionality.                                                       */
 /*****************************************************************************/
@@ -23,5 +27,9 @@
 /*****************************************************************************/
 
 FUN_DECL(Void) Path_AddOptions(Options_Interface *i);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -11,6 +11,11 @@
 #include "Config.h"
 #include "Import.h"
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*******************************************************MCP_Termination**********************/
 /* Data types.                                                               */
 /*****************************************************************************/
@@ -189,5 +194,9 @@ typedef struct {
 #define Output_Log (1 << 0)
 #define Output_Status (1 << 1)
 #define Output_Listing (1 << 2)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

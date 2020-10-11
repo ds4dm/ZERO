@@ -10,6 +10,10 @@
 
 #include "Types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*****************************************************************************/
 /* Output routines.                                                          */
 /*****************************************************************************/
@@ -28,5 +32,9 @@
 
 FUN_DECL(Void) Output_Printf(Int mode, const Char *fmt, ...);
 FUN_DECL(Void) Output_Flush(Int mode);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

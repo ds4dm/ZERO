@@ -15,6 +15,10 @@
 
 #include "Types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*****************************************************************************/
 /* Interrupt_Interface declaration.                                          */
 /*****************************************************************************/
@@ -59,5 +63,9 @@ typedef struct {
 
 FUN_DECL(Void) Interrupt_Default(Void);
 FUN_DECL(Void) Interrupt_SetInterface(Interrupt_Interface *i);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

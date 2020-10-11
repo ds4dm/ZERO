@@ -15,6 +15,10 @@
 #include "Types.h"
 #include <stdio.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*****************************************************************************/
 /* Output_Interface declaration.                                             */
 /*****************************************************************************/
@@ -88,5 +92,8 @@ FUN_DECL(Void) Output_SetInterface(Output_Interface *i);
 FUN_DECL(Void) Output_SetLog(FILE *f);
 FUN_DECL(Void) Output_SetStatus(FILE *f);
 FUN_DECL(Void) Output_SetListing(FILE *f);
+#ifdef __cplusplus
+}
+#endif
 
 #endif

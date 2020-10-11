@@ -23,6 +23,10 @@
 
 #include "Types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*****************************************************************************/
 /* Constant declarations.                                                    */
 /*****************************************************************************/
@@ -111,5 +115,9 @@ typedef struct {
 			      Int *jlb_type, Int *jub_type);
 #endif
 } Presolve_Interface;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

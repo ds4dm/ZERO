@@ -21,6 +21,10 @@
 #ifndef CNS_MCP_H
 #define CNS_MCP_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "CNS_Interface.h"
 #include "MCP_Interface.h"
 #include "Types.h"
@@ -43,5 +47,9 @@
 
 FUN_DECL(CNS_Termination) CNStoMCP(CNS *c, MCP **m, Int *m_size, Int *m_nnz);
 FUN_DECL(Void) CNSfromMCP(CNS *c, MCP **m);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
