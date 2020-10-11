@@ -261,7 +261,7 @@ std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(bool solve ///< Whether the mod
 		  x[i].set(GRB_DoubleAttr_UB, this->BoundsX.at(i).second);
 	 }
 
-	 std::cout << "LCPasMIP Bounds on X:\n" << Utils::printBounds(this->BoundsX).str();
+	 std::cout << "LCPasMIP Bounds on X:\n" << Utils::printBounds(this->BoundsX);
 
 	 // model->addQConstr (x[0],GRB_EQUAL,100);
 	 GRBLinExpr   expr = 0;
@@ -645,9 +645,9 @@ void MathOpt::LCP::makeQP(MathOpt::QP_Objective &QP_obj, ///< [in/out] Objective
 
   // Now we have to merge the bounds
 
-  std::cout << "QP:\n" << Utils::printBounds(QP.getBounds()).str();
+  std::cout << "QP:\n" << Utils::printBounds(QP.getBounds());
   QP.setBounds(Utils::intersectBounds(QP.getBounds(), this->BoundsX));
-  std::cout << "LCP:\n" << Utils::printBounds(this->BoundsX).str();
+  std::cout << "LCP:\n" << Utils::printBounds(this->BoundsX);
   // QP.maxwkeBoundsExplicit ();
 }
 void MathOpt::LCP::addCustomCuts(const arma::sp_mat A, ///< [in] The LHS of the added cuts
@@ -695,76 +695,145 @@ std::string std::to_string(const Data::LCP::PolyhedraStrategy add) {
   }
 }
 
-bool MathOpt::LCP::solvePATH(double     timelimit, ///< A double containing the timelimit in seconds
-									  arma::vec &z,      ///< [out] the output vector for the Mx+q (=z) part
-									  arma::vec &x,      ///< [out] the output vector for the variables x
-									  bool       verbose ///< [in] true if PATH is verbose
+unsigned int
+MathOpt::LCP::solvePATH(double     timelimit, ///< A double containing the timelimit in seconds
+								arma::vec &z,         ///< [out] the output vector for the Mx+q (=z) part
+								arma::vec &x,         ///< [out] the output vector for the variables x
+								bool       verbose    ///< [in] true if PATH is verbose
 ) {
   /**
 	* @brief Solves the LCP model with the PATH solver.
 	*/
 
-  int n   = this->Compl.size();
-  int nnz = this->M.n_nonzero;
+  int n   = 0;
+  int nnz = 0;
 
-  double       _q[n], _Mij[nnz], _lb[n], _ub[n], _xsol[n];
-  int          _Mi[nnz], _Mj[nnz], _xmap[n];
-  unsigned int row    = 0;
-  unsigned int mcount = 0;
+  std::vector<double> _q, _Mij, _lb, _ub, _xsol, _zsol;
+  std::vector<int>    _Mi, _Mj, _xmap, _zmap;
+  unsigned int        row = 1; // Fortran style, we start from 1
+
   for (const auto p : Compl) {
 	 // For each complementarity
 	 // z[p.first] \perp x[p.second]
-	 M.row(p.first).print_dense("Row " + std::to_string(p.first) +
-										 " with q=" + std::to_string(this->q.at(p.first)) +
-										 "complementary to x_" + std::to_string(p.second));
-	 for (auto v = M.begin_row(p.first); v != M.end_row(p.first); ++v) {
-		if (*v != 0) {
-		  _Mi[mcount]  = row + 1;
-		  _Mj[mcount]  = v.col() + 1;
-		  _Mij[mcount] = *v;
-		  ++mcount;
+
+
+
+	 int lb = this->BoundsX.at(p.second).first;
+	 int ub = this->BoundsX.at(p.second).second;
+
+	 if (lb != ub) {
+		++n;
+		// Avoid inserting fixed variables
+
+		_lb.push_back(lb > 0 ? lb : 0);
+		_ub.push_back(ub > 0 ? ub : 1e20); // PATH will treat 1e20 as infinite
+
+
+		for (auto v = M.begin_row(p.first); v != M.end_row(p.first); ++v) {
+		  if (*v != 0) {
+			 _Mi.push_back(row);
+			 _Mj.push_back(v.col() + 1);
+			 _Mij.push_back(*v);
+			 ++nnz;
+		  }
 		}
+		_q.push_back(this->q.at(p.first));
+		_xmap.push_back(p.second);
+		_zmap.push_back(p.first);
+
+		_xsol.push_back(0);
+		_zmap.push_back(0);
+
+		++row;
 	 }
-	 _q[row]    = this->q.at(p.first);
-	 _xmap[row] = p.second;
-	 _lb[row]   = 0;
-	 _ub[row]   = 1e20;
-
-	 const auto bound = this->BoundsX.at(row);
-	 // There are bounds
-	 if (bound.first > 0)
-		_lb[row] = bound.first;
-	 if (bound.second >= 0)
-		_ub[row] = bound.second;
-
-	 ++row;
   }
-
 
   setenv("PATH_LICENSE_STRING",
 			"2617827524&Courtesy&&&USR&64785&11_12_2017&1000&PATH&GEN&31_12_2020&0_0_0&5000&0_0",
 			0);
   BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::solvePath: Calling PATH Solver";
-  std::shared_ptr<int> status =
-		std::make_shared<int>(PathLCP(n, nnz, _Mi, _Mj, _Mij, _q, _lb, _ub, _xsol, true, timelimit));
+  std::shared_ptr<int> status;
+  try {
+	 status = std::make_shared<int>(PathLCP(n,
+														 nnz,
+														 &_Mi[0],
+														 &_Mj[0],
+														 &_Mij[0],
+														 &_q[0],
+														 &_lb[0],
+														 &_ub[0],
+														 &_xsol[0],
+														 &_zsol[0],
+														 true,
+														 timelimit));
+  } catch (...) {
+	 throw ZEROException(ZEROErrorCode::SolverError, "PATH threw an exception");
+  }
 
-  // PathLCP(n, nnz, _Mi, _Mj, _Mij, _q, _lb, _ub, _xsol, true, &status);
 
   if (*status == 1) {
 	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::solvePath: Found a solution";
 	 x.zeros(this->nC);
-	 for (unsigned int i = 0; i < n; ++i)
-		x.at(_xmap[i]) = _xsol[i];
-	 z.zeros(this->nR);
-	 for (unsigned int i = 0; i < this->nR; ++i)
-		z.at(i) = arma::as_scalar(this->M.row(i) * x + this->q.at(i));
+	 z.zeros(this->nC);
+	 for (unsigned int i = 0; i < _xsol.size(); ++i) {
+		x.at(_xmap.at(i)) = _xsol.at(i);
+		z.at(_zmap.at(i)) = _zsol.at(i);
+	 }
 	 z.print("z");
 	 x.print("x");
   } else
 	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::solvePath: No solution found (STATUS="
 									  << std::to_string(*status) << ")";
 
-  bool ret = *status == 1;
-  status.reset();
-  return ret;
+  return *status;
+}
+ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
+										 arma::vec &           xSol,
+										 arma::vec &           zSol,
+										 double                timeLimit) {
+
+  xSol.zeros(this->M.n_cols);
+  zSol.zeros(this->M.n_rows);
+  bool status = false;
+
+  switch (algo) {
+  case Data::LCP::Algorithms::PATH: {
+	 if (this->_A.n_nonzero != 0) {
+		this->_A.print_dense("_A");
+		this->_b.print("_b");
+		throw ZEROException(ZEROErrorCode::SolverError,
+								  "PATH does not support non-complementarity constraints!");
+	 }
+	 switch (this->solvePATH(timeLimit, zSol, xSol, true)) {
+	 case 1:
+		return ZEROStatus::NashEqFound;
+		break;
+	 case 5:
+		return ZEROStatus::TimeLimit;
+		break;
+	 default:
+		return ZEROStatus::NashEqNotFound;
+	 }
+  } break;
+  default: {
+	 // Data::LCP::Algorithms::MINLP is the default method
+	 auto Model = this->LCPasMIP(false);
+	 Model->set(GRB_IntParam_OutputFlag, 1);
+	 Model->setObjective(GRBLinExpr{0}, GRB_MINIMIZE);
+	 Model->set(GRB_IntParam_SolutionLimit, 1);
+	 if (timeLimit > 0)
+		Model->set(GRB_DoubleParam_TimeLimit, timeLimit);
+	 Model->optimize();
+
+	 if (this->extractSols(Model.get(), zSol, xSol, true))
+		return ZEROStatus::NashEqFound;
+	 else {
+		if (Model->get(GRB_IntAttr_Status) == GRB_TIME_LIMIT)
+		  return ZEROStatus::TimeLimit;
+		else
+		  return ZEROStatus::NashEqNotFound;
+	 }
+  }
+  }
+  return ZEROStatus::NashEqNotFound;
 }

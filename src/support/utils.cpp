@@ -513,11 +513,11 @@ VariableBounds Utils::intersectBounds(const VariableBounds &bA, const VariableBo
   return bC;
 }
 
-std::stringstream Utils::printBounds(const VariableBounds &bounds) {
+std::string Utils::printBounds(const VariableBounds &bounds) {
   std::stringstream r;
   for (unsigned int i = 0; i < bounds.size(); ++i) {
 	 r << "var_" << std::to_string(i) << "\t\t\t[" << std::to_string(bounds.at(i).first) << ","
 		<< std::to_string(bounds.at(i).second) << "]\n";
   }
-  return r;
+  return r.str();
 }

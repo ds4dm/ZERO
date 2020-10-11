@@ -173,8 +173,7 @@ double Algorithms::EPEC::PolyBase::getValProbab(const unsigned int i, const unsi
   const unsigned int varname{this->getPositionProbab(i, k)};
   if (varname == 0)
 	 return 1;
-  return this->EPECObject->LCPModel->getVarByName("x_" + std::to_string(varname))
-		.get(GRB_DoubleAttr_X);
+  return this->EPECObject->SolutionX.at(varname);
 }
 
 double Algorithms::EPEC::PolyBase::getValLeadFollPoly(const unsigned int i,
@@ -191,10 +190,7 @@ double Algorithms::EPEC::PolyBase::getValLeadFollPoly(const unsigned int i,
   if (probab > 1 - tol)
 	 return this->EPECObject->getValLeadFoll(i, j);
   else
-	 return this->EPECObject->LCPModel
-					->getVarByName("x_" + std::to_string(this->getPositionLeadFollPoly(i, j, k)))
-					.get(GRB_DoubleAttr_X) /
-			  probab;
+	 return this->EPECObject->SolutionX.at(this->getPositionLeadFollPoly(i, j, k)) / probab;
 }
 
 double Algorithms::EPEC::PolyBase::getValLeadLeadPoly(const unsigned int i,
@@ -211,10 +207,7 @@ double Algorithms::EPEC::PolyBase::getValLeadLeadPoly(const unsigned int i,
   if (probab > 1 - tol)
 	 return this->EPECObject->getValLeadLead(i, j);
   else
-	 return this->EPECObject->LCPModel
-					->getVarByName("x_" + std::to_string(this->getPositionLeadLeadPoly(i, j, k)))
-					.get(GRB_DoubleAttr_X) /
-			  probab;
+	 return this->EPECObject->SolutionX.at(this->getPositionLeadLeadPoly(i, j, k)) / probab;
 }
 
 void Algorithms::EPEC::PolyBase::makeThePureLCP() {

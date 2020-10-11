@@ -139,11 +139,7 @@ namespace MathOpt {
 
 	 bool extractSols(GRBModel *model, arma::vec &z, arma::vec &x, bool extractZ = false) const;
 
-	 bool solve(Data::LCP::Algorithms algo,
-					arma::vec &           x,
-					arma::vec &           z,
-					double                timeLimit = -1,
-					bool                  maxSol    = false);
+	 ZEROStatus solve(Data::LCP::Algorithms algo, arma::vec &x, arma::vec &z, double timeLimit = -1);
 
 	 std::unique_ptr<GRBModel> LCPasMIP(bool solve = false);
 
@@ -161,7 +157,7 @@ namespace MathOpt {
 													  bool                solve = false);
 
 
-	 bool solvePATH(double timelimit, arma::vec &z, arma::vec &x, bool verbose = true);
+	 unsigned int solvePATH(double timelimit, arma::vec &z, arma::vec &x, bool verbose = true);
 
 	 void save(std::string filename, bool erase = true) const;
 

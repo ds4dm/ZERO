@@ -113,7 +113,7 @@ namespace Utils {
   }
 
 
-  std::stringstream printBounds(const VariableBounds &bounds);
+  std::string printBounds(const VariableBounds &bounds);
 } // namespace Utils
 
 // namespace Utils
