@@ -226,7 +226,7 @@ int PathLCP(int    n,
   }
   problem.nnz = m_count;
 
-  // Path_Size(problem.n, problem.nnz);
+  Path_Create(problem.n, problem.nnz + 1);
   m = MCP_Create(problem.n, problem.nnz + 1);
   MCP_SetInterface(m, &mcp_interface);
   MCP_SetPresolveInterface(m, &mcp_presolve);
@@ -257,6 +257,7 @@ int PathLCP(int    n,
 
   MCP_Destroy(m);
   Options_Destroy(o);
+  Path_Destroy();
 
   return termination;
 }

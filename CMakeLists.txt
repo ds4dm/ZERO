@@ -91,14 +91,9 @@ set_target_properties(
                   VISIBILITY_INLINES_HIDDEN ON)
 target_link_libraries(
   ZERO
-  PRIVATE blas lapack pthread m
-  PUBLIC CONAN_PKG::boost
-         CONAN_PKG::armadillo
-         CONAN_PKG::openblas
-         ${GUROBI_LIBRARY}
-         ${GUROBI_CXX_LIBRARY}
-         ${LUSOL_LIBRARY}
-         ${PATH_LIBRARY})
+  PRIVATE blas lapack pthread m ${LUSOL_LIBRARY} ${PATH_LIBRARY}
+  PUBLIC CONAN_PKG::boost CONAN_PKG::armadillo CONAN_PKG::openblas
+         ${GUROBI_LIBRARY} ${GUROBI_CXX_LIBRARY})
 target_include_directories(
   ZERO
   PUBLIC ${GUROBI_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/include
