@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.14)
 project(
   ZERO
   VERSION 1.0.0
-  LANGUAGES CXX C
+  LANGUAGES CXX
   DESCRIPTION "ZERO is a multi-purpose game solver")
 set(ZERO_AUTHORS "Gabriele Dragotto, Sriram Sankaranarayanan")
 
@@ -31,12 +31,6 @@ set(GUROBI_DIR "/home/gurobi/9.0.0/linux64" "/Library/gurobi900/mac64"
 
 set(PATH_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib/path")
 
-if(NOT DEFINED ROSSOBIANCO)
-  set(PATH_LIB "${PATH_DIR}/lib/osx/libpath47.a")
-else()
-  set(PATH_LIB "${PATH_DIR}/lib/linux64/libpath47.a")
-endif()
-
 # ##############################################################################
 # ##############################################################################
 
@@ -46,7 +40,7 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 include(${CMAKE_MODULE_PATH}/FindGUROBI.cmake)
 include(${CMAKE_MODULE_PATH}/FindSphinx.cmake)
 include(${CMAKE_MODULE_PATH}/FindConan.cmake)
-include(${PATH_DIR}/CMakeLists.txt)
+include(${CMAKE_MODULE_PATH}/FindPATH.cmake)
 # find_package(ortools CONFIG REQUIRED)
 # include(${CMAKE_MODULE_PATH}/FindORTools.cmake)
 
@@ -80,6 +74,7 @@ add_library(
   src/mathopt/mp_param/mp_param.cpp
   src/mathopt/mp_param/qp_param.cpp
   src/mathopt/mp_param/ip_param.cpp
+  src/solvers/PathSolver.cpp
   src/games/nash.cpp
   src/games/epec.cpp
   src/games/ipg.cpp
@@ -97,12 +92,17 @@ set_target_properties(
 target_link_libraries(
   ZERO
   PRIVATE blas lapack pthread m
-  PUBLIC CONAN_PKG::boost CONAN_PKG::armadillo CONAN_PKG::openblas
-         ${GUROBI_LIBRARY} ${GUROBI_CXX_LIBRARY} PATHWrapper)
+  PUBLIC CONAN_PKG::boost
+         CONAN_PKG::armadillo
+         CONAN_PKG::openblas
+         ${GUROBI_LIBRARY}
+         ${GUROBI_CXX_LIBRARY}
+         ${LUSOL_LIBRARY}
+         ${PATH_LIBRARY})
 target_include_directories(
   ZERO
   PUBLIC ${GUROBI_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/include
-         ${PATHWRAPPER_INCLUDE_DIR} ${CONAN_INCLUDE_DIRS}
+         ${PATH_INCLUDE_DIR} ${CONAN_INCLUDE_DIRS}
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 # ##############################################################################
 # ##############################################################################
@@ -180,4 +180,5 @@ message("\tConan (libs):\t\t${CONAN_LIBS}")
 message("\tConan (includes):\t${CONAN_INCLUDE_DIRS}")
 message("\tGurobi (lib):\t\t${GUROBI_LIBRARY} ${GUROBI_CXX_LIBRARY}")
 message("\tGurobi (include):\t${GUROBI_INCLUDE_DIRS}")
-message("\tPATH (include):\t${PATHWRAPPER_INCLUDE_DIR}")
+message("\tPATH (include):\t${PATH_INCLUDE_DIR}")
+message("\tPATH (library):\t${PATH_LIBRARY}")

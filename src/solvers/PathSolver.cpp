@@ -1,5 +1,4 @@
-#include "PathLCP.h"
-extern "C" {
+#include "solvers/PathSolver.h"
 #include "path/MCP_Interface.h"
 #include "path/Macros.h"
 #include "path/Options.h"
@@ -8,7 +7,6 @@ extern "C" {
 #include "path/Path.h"
 #include "path/PathOptions.h"
 #include "path/Types.h"
-}
 #include <climits>
 #include <cstdio>
 
@@ -248,9 +246,10 @@ int PathLCP(int    n,
   if (termination == MCP_Solved) {
 	 xSol = MCP_GetX(m);
 	 zSol = MCP_GetF(m);
-
+	 fprintf(stdout, "%d is  %f \n", n, xSol[i]);
 	 for (i = 0; i < n; i++) {
 		x[i] = xSol[i];
+
 		z[i] = zSol[i];
 	 }
   }

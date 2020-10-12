@@ -12,7 +12,7 @@
 
 
 #include "mathopt/lcp/lcp.h"
-#include "PathLCP.h"
+#include "solvers/PathSolver.h"
 #include <algorithm>
 #include <armadillo>
 #include <boost/log/trivial.hpp>
@@ -705,6 +705,8 @@ MathOpt::LCP::solvePATH(double     timelimit, ///< A double containing the timel
 	* @brief Solves the LCP model with the PATH solver.
 	*/
 
+
+  this->LCPasMIP(false)->write("dat/TheModel.lp");
   int n   = 0;
   int nnz = 0;
 
@@ -721,28 +723,33 @@ MathOpt::LCP::solvePATH(double     timelimit, ///< A double containing the timel
 	 int lb = this->BoundsX.at(p.second).first;
 	 int ub = this->BoundsX.at(p.second).second;
 
-	 if (lb != ub) {
+	 // if (lb != ub)
+	 {
 		++n;
 		// Avoid inserting fixed variables
 
 		_lb.push_back(lb > 0 ? lb : 0);
-		_ub.push_back(ub > 0 ? ub : 1e20); // PATH will treat 1e20 as infinite
+		_ub.push_back(ub >= 0 ? ub : 1e20); // PATH will treat 1e20 as infinite
 
 
+		std::cout << "Row" << std::to_string(row);
 		for (auto v = M.begin_row(p.first); v != M.end_row(p.first); ++v) {
 		  if (*v != 0) {
 			 _Mi.push_back(row);
 			 _Mj.push_back(v.col() + 1);
 			 _Mij.push_back(*v);
+			 std::cout << "\t" + std::to_string(*v) + "*x_" + std::to_string(v.col());
 			 ++nnz;
 		  }
 		}
 		_q.push_back(this->q.at(p.first));
+		std::cout << "\t+" + std::to_string(this->q.at(p.first)) + "\t\tPERP"
+					 << std::to_string(p.second) << "\n\n";
 		_xmap.push_back(p.second);
 		_zmap.push_back(p.first);
 
 		_xsol.push_back(0);
-		_zmap.push_back(0);
+		_zsol.push_back(0);
 
 		++row;
 	 }
@@ -752,26 +759,26 @@ MathOpt::LCP::solvePATH(double     timelimit, ///< A double containing the timel
 			"2617827524&Courtesy&&&USR&64785&11_12_2017&1000&PATH&GEN&31_12_2020&0_0_0&5000&0_0",
 			0);
   BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::solvePath: Calling PATH Solver";
-  std::shared_ptr<int> status;
+  int status = 0;
   try {
-	 status = std::make_shared<int>(PathLCP(n,
-														 nnz,
-														 &_Mi[0],
-														 &_Mj[0],
-														 &_Mij[0],
-														 &_q[0],
-														 &_lb[0],
-														 &_ub[0],
-														 &_xsol[0],
-														 &_zsol[0],
-														 true,
-														 timelimit));
+	 status = PathLCP(n,
+							nnz,
+							&_Mi[0],
+							&_Mj[0],
+							&_Mij[0],
+							&_q[0],
+							&_lb[0],
+							&_ub[0],
+							&_xsol[0],
+							&_zsol[0],
+							true,
+							timelimit);
   } catch (...) {
 	 throw ZEROException(ZEROErrorCode::SolverError, "PATH threw an exception");
   }
 
 
-  if (*status == 1) {
+  if (status == 1) {
 	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::solvePath: Found a solution";
 	 x.zeros(this->nC);
 	 z.zeros(this->nC);
@@ -783,9 +790,9 @@ MathOpt::LCP::solvePATH(double     timelimit, ///< A double containing the timel
 	 x.print("x");
   } else
 	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::solvePath: No solution found (STATUS="
-									  << std::to_string(*status) << ")";
+									  << std::to_string(status) << ")";
 
-  return *status;
+  return status;
 }
 ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 										 arma::vec &           xSol,
