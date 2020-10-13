@@ -64,6 +64,8 @@ namespace Data {
 		Attr<int> LostIntermediateEq = {0}; ///< Counts the number of approximation steps where the
 														///< problem (approximated) has no nash equilibrium
 		DataObject() : PolyhedraStrategy{static_cast<LCP::PolyhedraStrategy>(0)} {};
+		Attr<bool> PATHFallback =
+			 true; ///< If true, the LCP problems for the EPEC may be solved with PATH when possible.
 	 };
 
   } // namespace EPEC

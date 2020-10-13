@@ -407,6 +407,8 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
 
 
   if (check || pureNE) {
+	 if (this->Stats.AlgorithmData.PATHFallback.get())
+		BOOST_LOG_TRIVIAL(trace) << " Game::EPEC::computeNashEq: Cannot use PATH fallback. Using MIP";
 	 /*
 	  * In these cases, we can only use a MIP solver to get multiple solutions or PNEs
 	  */
@@ -429,11 +431,8 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
 
 	 this->LCPModel->setObjective(GRBLinExpr{0}, GRB_MINIMIZE);
 	 this->LCPModel->optimize();
-	 try {
-		this->LCPModel->write("dat/TheLCPTest.lp");
-		this->LCPModel->write("dat/TheLCPTest.sol");
-	 } catch (GRBException &e) {
-	 }
+	 this->LCPModel->write("dat/TheLCPTest.lp");
+
 
 	 // Search just for a feasible point
 	 try { // Try finding a Nash equilibrium for the approximation
@@ -444,6 +443,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
 	 }
 	 if (this->NashEquilibrium) { // If a Nash equilibrium is found, then update
 											// appropriately
+		this->LCPModel->write("dat/TheLCPTest.sol");
 		if (check) {
 		  int scount = this->LCPModel->get(GRB_IntAttr_SolCount);
 		  BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: number of equilibria is " << scount;
@@ -474,8 +474,16 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
 	 }
 	 return this->NashEquilibrium;
   } else {
+
+	 Data::LCP::Algorithms LCPSolver = Data::LCP::Algorithms::MIP;
+
+	 if (this->Stats.AlgorithmData.PATHFallback.get() && !this->TheLCP->hasCommonConstraints())
+		LCPSolver = Data::LCP::Algorithms::PATH;
+	 else
+		BOOST_LOG_TRIVIAL(trace) << " Game::EPEC::computeNashEq: Cannot use PATH fallback. Using MIP";
+
 	 switch (this->TheLCP->solve(
-		  Data::LCP::Algorithms::MIP, this->SolutionX, this->SolutionZ, localTimeLimit)) {
+		  Data::LCP::Algorithms::PATH, this->SolutionX, this->SolutionZ, localTimeLimit)) {
 	 case ZEROStatus::NashEqFound: {
 		this->NashEquilibrium = true;
 		BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
