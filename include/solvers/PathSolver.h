@@ -14,10 +14,11 @@
 #pragma once
 #include "zero.h"
 #include <armadillo>
+extern "C" {
 #include <path/MCP_Interface.h>
 #include <path/Output_Interface.h>
 #include <path/Presolve_Interface.h>
-
+}
 namespace Solvers {
 
   class PATH {

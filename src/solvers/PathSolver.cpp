@@ -1,5 +1,5 @@
-
-#include "solvers/PathSolver.h"
+#include <boost/log/trivial.hpp>
+extern "C" {
 #include "path/MCP_Interface.h"
 #include "path/Macros.h"
 #include "path/Options.h"
@@ -8,10 +8,9 @@
 #include "path/Path.h"
 #include "path/PathOptions.h"
 #include "path/Types.h"
+}
+#include "solvers/PathSolver.h"
 #include "support/codes.h"
-#include <boost/function.hpp>
-#include <boost/log/trivial.hpp>
-
 
 
 void Solvers::PATH::sort(int rows, int cols, int elements, int *row, int *col, double *data) {
