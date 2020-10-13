@@ -111,7 +111,7 @@ namespace Solvers {
 		fprintf(stdout, "%s", buf);
 		return dat;
 	 }
-	 static void *mcp_typ(int nnz, int *typ);
+	 static void *mcp_typ(void *dat, int nnz, int *typ);
 	 static int   jacobian_evaluation(void *  dat,
 												 int     n,
 												 double *z,

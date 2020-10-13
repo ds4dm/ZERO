@@ -383,12 +383,13 @@ int Solvers::PATH::C_jacobian_evaluation(int     n,
   return 0;
 }
 
-void *Solvers::PATH::mcp_typ(int nnz, int *typ) {
+void *Solvers::PATH::mcp_typ(void *dat, int nnz, int *typ) {
   int i;
 
   for (i = 0; i < nnz; i++) {
 	 typ[i] = PRESOLVE_LINEAR;
   }
+  return dat;
 }
 
 void Solvers::PATH::C_problem_size(int *n, int *nnz) {
