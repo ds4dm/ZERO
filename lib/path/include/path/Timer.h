@@ -10,6 +10,10 @@
 
 #include "Types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*****************************************************************************/
 /* Timer allocation and deallocation routines.                               */
 /*****************************************************************************/
@@ -38,5 +42,9 @@ FUN_DECL(Void) Timer_Destroy(Void *v);
 
 FUN_DECL(Void) Timer_Start(Void *v);
 FUN_DECL(Double) Timer_Query(Void *v);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

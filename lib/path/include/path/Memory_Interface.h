@@ -15,6 +15,10 @@
 
 #include "Types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*****************************************************************************/
 /* Memory_Interface declaration.                                             */
 /*****************************************************************************/
@@ -66,5 +70,9 @@ typedef struct {
 
 FUN_DECL(void) Memory_Default(Void);
 FUN_DECL(void) Memory_SetInterface(Memory_Interface *i);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -59,13 +59,10 @@ namespace Data {
 			 1}; ///< The upper bound on the polyhedra added by the Polyhedral
 				  ///< Strategy, for each player at each iteration.
 		Attr<std::vector<unsigned int>> FeasiblePolyhedra =
-			 std::vector<unsigned int>(); ///< A vector of number of feasible
-													///< polyhedra, for each leader
-		Attr<bool> BoundPrimals{false};  ///< If true, each QP param is bounded with an
-		///< arbitrary large BigM constant
-		Attr<double> BoundBigM{1e5};           ///< Bounding upper value if @p BoundPrimals is true.
-		Attr<int>    LostIntermediateEq = {0}; ///< Counts the number of approximation steps where the
-															///< problem (approximated) has no nash equilibrium
+			 std::vector<unsigned int>();    ///< A vector of number of feasible
+														///< polyhedra, for each leader
+		Attr<int> LostIntermediateEq = {0}; ///< Counts the number of approximation steps where the
+														///< problem (approximated) has no nash equilibrium
 		DataObject() : PolyhedraStrategy{static_cast<LCP::PolyhedraStrategy>(0)} {};
 	 };
 
@@ -182,10 +179,6 @@ namespace Game {
 	 void setRecoverStrategy(Data::EPEC::RecoverStrategy strategy);
 
 	 void setAggressiveness(unsigned int a) { this->Stats.AlgorithmData.Aggressiveness = a; }
-
-	 void setBoundPrimals(bool val) { this->Stats.AlgorithmData.BoundPrimals.set(val); }
-
-	 void setBoundBigM(double val) { this->Stats.AlgorithmData.BoundBigM.set(val); }
 
 	 void setAddPolyMethod(Data::LCP::PolyhedraStrategy add) {
 		this->Stats.AlgorithmData.PolyhedraStrategy.set(add);

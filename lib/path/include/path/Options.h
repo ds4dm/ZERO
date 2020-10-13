@@ -20,6 +20,10 @@
 
 #include "Types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 struct _Options_Interface;
 typedef struct _Options_Interface Options_Interface;
 
@@ -117,5 +121,9 @@ FUN_DECL(Boolean) Options_GetBoolean(const Options_Interface *i, const char *opt
 FUN_DECL(int) Options_GetInt(const Options_Interface *i, const char *option);
 FUN_DECL(double) Options_GetDouble(const Options_Interface *i, const char *option);
 FUN_DECL(int) Options_GetOther(const Options_Interface *i, const char *option);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

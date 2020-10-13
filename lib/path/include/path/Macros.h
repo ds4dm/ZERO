@@ -10,6 +10,10 @@
 
 #include <math.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #if !defined(MAX)
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #endif
@@ -32,6 +36,10 @@
 
 #if !defined(CALL_FUNC)
 #define CALL_FUNC(a, b) (((a) != NULL) && ((a)->b != NULL))
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif

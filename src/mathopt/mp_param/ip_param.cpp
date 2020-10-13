@@ -47,15 +47,20 @@ bool MathOpt::IP_Param::finalize() {
 	*objective omits the bilinear part. The flag finalized in the object is then set to true.
 	**/
 
+
   if (this->finalized)
 	 return true;
-  this->size();
+  MP_Param::finalize();
   try {
 	 GRBVar y[this->Ny];
 	 for (unsigned int i = 0; i < this->Ny; i++) {
-		y[i] =
-			 this->IPModel.addVar(0, GRB_INFINITY, c.at(i), GRB_CONTINUOUS, "y_" + std::to_string(i));
+		y[i] = this->IPModel.addVar(Bounds.at(i).first > 0 ? Bounds.at(i).first : 0,
+											 Bounds.at(i).second > 0 ? Bounds.at(i).second : GRB_INFINITY,
+											 c.at(i),
+											 GRB_CONTINUOUS,
+											 "y_" + std::to_string(i));
 	 }
+	 // Add integralities
 	 for (unsigned int i = 0; i < this->integers.size(); ++i)
 		y[static_cast<int>(integers.at(i))].set(GRB_CharAttr_VType, 'I');
 

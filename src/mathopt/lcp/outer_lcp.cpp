@@ -121,7 +121,7 @@ bool MathOpt::OuterLCP::addComponent(
 		switch (encoding.at(i)) {
 		case 1: {
 		  for (auto j = this->M.begin_row(i); j != this->M.end_row(i); ++j)
-			 if (!this->isZero((*j)))
+			 if (!Utils::isZeroValue((*j)))
 				Aii->at(i, j.col()) = (*j); // Only mess with non-zero elements of a sparse matrix!
 		  bii->at(i) = -this->q(i);
 		} break;

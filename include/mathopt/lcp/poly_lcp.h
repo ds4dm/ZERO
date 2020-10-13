@@ -44,7 +44,7 @@ namespace MathOpt {
 	 void              initializeNotProcessed() {
       const auto numCompl = this->Compl.size();
       // 2^n - the number of polyhedra theoretically
-      this->MaxTheoreticalPoly     = static_cast<unsigned long int>(pow(2, numCompl));
+      this->MaxTheoreticalPoly     = static_cast<unsigned long int>(pow(4, numCompl));
       SequentialPolyCounter        = 0;
       ReverseSequentialPolyCounter = this->MaxTheoreticalPoly - 1;
 	 }
@@ -82,7 +82,7 @@ namespace MathOpt {
 						Data::LCP::PolyhedraStrategy     method = Data::LCP::PolyhedraStrategy::Sequential,
 						std::set<std::vector<short int>> polyhedra = {});
 	 bool addThePoly(const unsigned long int &decimalEncoding);
-	 bool checkPolyFeas(const unsigned long int &decimalEncoding);
+	 bool checkPolyFeas(const unsigned long int &decimalEncoding, bool outerApproximation = false);
 	 bool checkPolyFeas(const std::vector<short int> &encoding);
 	 void clearPolyhedra() {
 		this->Ai->clear();

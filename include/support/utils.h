@@ -18,6 +18,8 @@
 #include <armadillo>
 #include <fstream>
 #include <set>
+#include <zero.h>
+
 
 namespace Utils {
   arma::sp_mat resizePatch(const arma::sp_mat &mat, const unsigned int nR, const unsigned int nC);
@@ -102,6 +104,16 @@ namespace Utils {
 
   bool isZero(arma::sp_mat M, double tol = 1e-6) noexcept;
 
+  void sortByKey(perps &P);
+
+  VariableBounds intersectBounds(const VariableBounds &bA, const VariableBounds &bB);
+
+  template <class T> inline bool isZeroValue(const T val, double tol = 1e-6) {
+	 return (val >= -tol && val <= tol);
+  }
+
+
+  std::string printBounds(const VariableBounds &bounds);
 } // namespace Utils
 
 // namespace Utils

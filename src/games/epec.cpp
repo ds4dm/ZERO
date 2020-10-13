@@ -383,8 +383,6 @@ void Game::EPEC::makeTheLCP() {
   this->TheLCP = std::unique_ptr<MathOpt::LCP>(new MathOpt::LCP(this->Env, *TheNashGame));
   BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makeTheLCP(): LCP is ready";
 
-  this->LCPModel = this->TheLCP->LCPasMIP(false);
-  // this->LCPModel->setObjective(GRBLinExpr{0}, GRB_MINIMIZE);
 
   BOOST_LOG_TRIVIAL(trace) << *TheNashGame;
 }
@@ -406,66 +404,94 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
   BOOST_LOG_TRIVIAL(trace) << " Game::EPEC::computeNashEq: Making the Master LCP";
   this->makeTheLCP();
   BOOST_LOG_TRIVIAL(trace) << " Game::EPEC::computeNashEq: Made the Master LCP";
-  if (localTimeLimit > 0) {
-	 this->LCPModel->set(GRB_DoubleParam_TimeLimit, localTimeLimit);
-  }
-  if (this->Stats.AlgorithmData.BoundPrimals.get()) {
-	 for (unsigned int c = 0; c < this->TheNashGame->getNprimals(); c++) {
-		this->LCPModel->getVarByName("x_" + std::to_string(c))
-			 .set(GRB_DoubleAttr_UB, this->Stats.AlgorithmData.BoundBigM.get());
+
+
+  if (check || pureNE) {
+	 /*
+	  * In these cases, we can only use a MIP solver to get multiple solutions or PNEs
+	  */
+	 this->LCPModel = this->TheLCP->LCPasMIP(false);
+	 if (localTimeLimit > 0) {
+		this->LCPModel->set(GRB_DoubleParam_TimeLimit, localTimeLimit);
 	 }
-  }
 
-  if (pureNE) {
-	 BOOST_LOG_TRIVIAL(info) << " Game::EPEC::computeNashEq: (PureNashEquilibrium flag is "
-										 "true) Searching for a pure NE.";
-	 if (this->Stats.AlgorithmData.Algorithm.get() != Data::EPEC::Algorithms::OuterApproximation)
-		static_cast<Algorithms::EPEC::PolyBase *>(this->Algorithm.get())->makeThePureLCP();
-  }
+	 if (pureNE) {
+		BOOST_LOG_TRIVIAL(info) << " Game::EPEC::computeNashEq: (PureNashEquilibrium flag is "
+											"true) Searching for a pure NE.";
+		if (this->Stats.AlgorithmData.Algorithm.get() != Data::EPEC::Algorithms::OuterApproximation)
+		  static_cast<Algorithms::EPEC::PolyBase *>(this->Algorithm.get())->makeThePureLCP();
+	 }
 
-  this->LCPModel->set(GRB_IntParam_OutputFlag, 1);
-  if (check)
-	 this->LCPModel->set(GRB_IntParam_SolutionLimit, GRB_MAXINT);
-  this->LCPModel->optimize();
+	 this->LCPModel->set(GRB_IntParam_OutputFlag, 1);
+	 if (check)
+		this->LCPModel->set(GRB_IntParam_SolutionLimit, GRB_MAXINT);
 
-  // Search just for a feasible point
-  try { // Try finding a Nash equilibrium for the approximation
-	 this->NashEquilibrium =
-		  this->TheLCP->extractSols(this->LCPModel.get(), SolutionZ, SolutionX, true);
-  } catch (GRBException &e) {
-	 throw ZEROException(e);
-  }
-  if (this->NashEquilibrium) { // If a Nash equilibrium is found, then update
-										 // appropriately
-	 if (check) {
-		int scount = this->LCPModel->get(GRB_IntAttr_SolCount);
-		BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: number of equilibria is " << scount;
-		for (int k = 0, stop = 0; k < scount && stop == 0; ++k) {
-		  this->LCPModel->set(GRB_IntParam_SolutionNumber, k);
-		  this->NashEquilibrium =
-				this->TheLCP->extractSols(this->LCPModel.get(), this->SolutionZ, this->SolutionX, true);
-		  if (this->Algorithm->isSolved()) {
-			 BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: an "
-												 "Equilibrium has been found";
-			 stop = 1;
+
+	 this->LCPModel->setObjective(GRBLinExpr{0}, GRB_MINIMIZE);
+	 this->LCPModel->optimize();
+	 try {
+		this->LCPModel->write("dat/TheLCPTest.lp");
+		this->LCPModel->write("dat/TheLCPTest.sol");
+	 } catch (GRBException &e) {
+	 }
+
+	 // Search just for a feasible point
+	 try { // Try finding a Nash equilibrium for the approximation
+		this->NashEquilibrium =
+			 this->TheLCP->extractSols(this->LCPModel.get(), SolutionZ, SolutionX, true);
+	 } catch (GRBException &e) {
+		throw ZEROException(e);
+	 }
+	 if (this->NashEquilibrium) { // If a Nash equilibrium is found, then update
+											// appropriately
+		if (check) {
+		  int scount = this->LCPModel->get(GRB_IntAttr_SolCount);
+		  BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: number of equilibria is " << scount;
+		  for (int k = 0, stop = 0; k < scount && stop == 0; ++k) {
+			 this->LCPModel->set(GRB_IntParam_SolutionNumber, k);
+			 this->NashEquilibrium = this->TheLCP->extractSols(
+				  this->LCPModel.get(), this->SolutionZ, this->SolutionX, true);
+			 if (this->Algorithm->isSolved()) {
+				BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: an "
+													"Equilibrium has been found";
+				stop = 1;
+			 }
 		  }
+		} else {
+		  this->NashEquilibrium = true;
+		  // this->SolutionX.save("dat/X.dat", arma::file_type::arma_ascii);
+		  // this->SolutionZ.save("dat/Z.dat", arma::file_type::arma_ascii);
+		  BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
 		}
-	 } else {
-		this->NashEquilibrium = true;
-		// this->SolutionX.save("dat/X.dat", arma::file_type::arma_ascii);
-		// this->SolutionZ.save("dat/Z.dat", arma::file_type::arma_ascii);
-		BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
-	 }
 
-  } else { // If not, then update accordingly
-	 BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: no equilibrium has been found.";
-	 int status = this->LCPModel->get(GRB_IntAttr_Status);
-	 if (status == GRB_TIME_LIMIT)
+	 } else { // If not, then update accordingly
+		BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: no equilibrium has been found.";
+		int status = this->LCPModel->get(GRB_IntAttr_Status);
+		if (status == GRB_TIME_LIMIT)
+		  this->Stats.Status = ZEROStatus::TimeLimit;
+		else
+		  this->Stats.Status = ZEROStatus::NashEqNotFound;
+	 }
+	 return this->NashEquilibrium;
+  } else {
+	 switch (this->TheLCP->solve(
+		  Data::LCP::Algorithms::MIP, this->SolutionX, this->SolutionZ, localTimeLimit)) {
+	 case ZEROStatus::NashEqFound: {
+		this->NashEquilibrium = true;
+		BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
+	 } break;
+	 case ZEROStatus::TimeLimit: {
 		this->Stats.Status = ZEROStatus::TimeLimit;
-	 else
+		BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: Time limit attained";
+	 } break;
+	 default:
 		this->Stats.Status = ZEROStatus::NashEqNotFound;
+		BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: no equilibrium has been found.";
+	 }
+	 return this->NashEquilibrium;
   }
-  return this->NashEquilibrium;
+
+  return false;
 }
 
 bool Game::EPEC::warmstart(const arma::vec x) { //@todo complete implementation

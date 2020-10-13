@@ -18,6 +18,10 @@
 
 #include "Types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*****************************************************************************/
 /* NLP_Interface declaration.                                                */
 /*****************************************************************************/
@@ -67,5 +71,9 @@ typedef struct {
   Void(CB_FPTR start)(Void *id);
   Void(CB_FPTR finish)(Void *id, Double *x);
 } NLP_Interface;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -10,6 +10,10 @@
 
 #include "Types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*****************************************************************************/
 /* Memory routines.                                                          */
 /*****************************************************************************/
@@ -38,5 +42,9 @@ FUN_DECL(Void *) Memory_Allocate(Unsigned Long n);
 FUN_DECL(Void *) Memory_AllocateFactors(Unsigned Long n);
 FUN_DECL(Void) Memory_Free(Void *v);
 FUN_DECL(Void) Memory_FreeFactors(Void *v);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

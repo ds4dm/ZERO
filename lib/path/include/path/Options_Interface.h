@@ -15,6 +15,10 @@
 
 #include "Types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*****************************************************************************/
 /* Constant declaration for the maximum size of the name and for the basic   */
 /* types.                                                                    */
@@ -91,5 +95,9 @@ struct _Option_Set {
   /* common set of options was successfully    */
   /* modified.                                 */
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

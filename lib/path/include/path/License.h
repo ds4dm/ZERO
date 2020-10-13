@@ -3,6 +3,10 @@
 
 #include "Types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 FUN_DECL(Int) License_SetString(const Char *str);
 FUN_DECL(Int) License_SetMagic(Unsigned Int magic);
 
@@ -17,5 +21,9 @@ FUN_DECL(Int) License_GetDemoRestrictions(Int *n, Int *nnz);
 
 FUN_DECL(License_Termination) License_GetTermination(Void);
 FUN_DECL(License_Termination) License_GetDemoTermination(Void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
