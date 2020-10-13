@@ -261,7 +261,7 @@ std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(bool solve ///< Whether the mod
 		  x[i].set(GRB_DoubleAttr_UB, this->BoundsX.at(i).second);
 	 }
 
-	 std::cout << "LCPasMIP Bounds on X:\n" << Utils::printBounds(this->BoundsX);
+	 // std::cout << "LCPasMIP Bounds on X:\n" << Utils::printBounds(this->BoundsX);
 
 	 // model->addQConstr (x[0],GRB_EQUAL,100);
 	 GRBLinExpr   expr = 0;
@@ -645,9 +645,9 @@ void MathOpt::LCP::makeQP(MathOpt::QP_Objective &QP_obj, ///< [in/out] Objective
 
   // Now we have to merge the bounds
 
-  std::cout << "QP:\n" << Utils::printBounds(QP.getBounds());
+  // std::cout << "QP:\n" << Utils::printBounds(QP.getBounds());
   QP.setBounds(Utils::intersectBounds(QP.getBounds(), this->BoundsX));
-  std::cout << "LCP:\n" << Utils::printBounds(this->BoundsX);
+  // std::cout << "LCP:\n" << Utils::printBounds(this->BoundsX);
   // QP.maxwkeBoundsExplicit ();
 }
 void MathOpt::LCP::addCustomCuts(const arma::sp_mat A, ///< [in] The LHS of the added cuts
@@ -707,92 +707,11 @@ MathOpt::LCP::solvePATH(double     timelimit, ///< A double containing the timel
 
 
   this->LCPasMIP(false)->write("dat/TheModel.lp");
-  int n   = 0;
-  int nnz = 0;
-
-  std::vector<double> _q, _Mij, _lb, _ub, _xsol, _zsol;
-  std::vector<int>    _Mi, _Mj, _xmap, _zmap;
-  unsigned int        row = 1; // Fortran style, we start from 1
-
-  for (const auto p : Compl) {
-	 // For each complementarity
-	 // z[p.first] \perp x[p.second]
-
-
-
-	 int lb = this->BoundsX.at(p.second).first;
-	 int ub = this->BoundsX.at(p.second).second;
-
-	 // if (lb != ub)
-	 {
-		++n;
-		// Avoid inserting fixed variables
-
-		_lb.push_back(lb > 0 ? lb : 0);
-		_ub.push_back(ub >= 0 ? ub : 1e20); // PATH will treat 1e20 as infinite
-
-
-		std::cout << "Row" << std::to_string(row);
-		for (auto v = M.begin_row(p.first); v != M.end_row(p.first); ++v) {
-		  if (*v != 0) {
-			 _Mi.push_back(row);
-			 _Mj.push_back(v.col() + 1);
-			 _Mij.push_back(*v);
-			 std::cout << "\t" + std::to_string(*v) + "*x_" + std::to_string(v.col());
-			 ++nnz;
-		  }
-		}
-		_q.push_back(this->q.at(p.first));
-		std::cout << "\t+" + std::to_string(this->q.at(p.first)) + "\t\tPERP"
-					 << std::to_string(p.second) << "\n\n";
-		_xmap.push_back(p.second);
-		_zmap.push_back(p.first);
-
-		_xsol.push_back(0);
-		_zsol.push_back(0);
-
-		++row;
-	 }
-  }
-
-  setenv("PATH_LICENSE_STRING",
-			"2617827524&Courtesy&&&USR&64785&11_12_2017&1000&PATH&GEN&31_12_2020&0_0_0&5000&0_0",
-			0);
-  BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::solvePath: Calling PATH Solver";
-  int status = 0;
-  try {
-	 status = PathLCP(n,
-							nnz,
-							&_Mi[0],
-							&_Mj[0],
-							&_Mij[0],
-							&_q[0],
-							&_lb[0],
-							&_ub[0],
-							&_xsol[0],
-							&_zsol[0],
-							true,
-							timelimit);
-  } catch (...) {
-	 throw ZEROException(ZEROErrorCode::SolverError, "PATH threw an exception");
-  }
-
-
-  if (status == 1) {
-	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::solvePath: Found a solution";
-	 x.zeros(this->nC);
-	 z.zeros(this->nC);
-	 for (unsigned int i = 0; i < _xsol.size(); ++i) {
-		x.at(_xmap.at(i)) = _xsol.at(i);
-		z.at(_zmap.at(i)) = _zsol.at(i);
-	 }
-	 z.print("z");
-	 x.print("x");
-  } else
-	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::solvePath: No solution found (STATUS="
-									  << std::to_string(status) << ")";
-
-  return status;
+  auto Solver = new Solvers::PATH(this->M, this->q, this->Compl, this->BoundsX, z, x, timelimit);
+  if (Solver->getStatus() == ZEROStatus::NashEqFound)
+	 return 1;
+  else
+	 return 0;
 }
 ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 										 arma::vec &           xSol,
@@ -811,7 +730,7 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 		throw ZEROException(ZEROErrorCode::SolverError,
 								  "PATH does not support non-complementarity constraints!");
 	 }
-	 switch (this->solvePATH(timeLimit, zSol, xSol, true)) {
+	 switch (this->solvePATH(timeLimit, xSol, zSol, true)) {
 	 case 1:
 		return ZEROStatus::NashEqFound;
 		break;

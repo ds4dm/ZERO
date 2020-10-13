@@ -157,7 +157,7 @@ namespace MathOpt {
 													  bool                solve = false);
 
 
-	 unsigned int solvePATH(double timelimit, arma::vec &z, arma::vec &x, bool verbose = true);
+	 unsigned int solvePATH(double timelimit, arma::vec &x, arma::vec &z, bool verbose = true);
 
 	 void save(std::string filename, bool erase = true) const;
 

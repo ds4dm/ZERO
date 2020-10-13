@@ -64,6 +64,12 @@ namespace Game {
   class EPEC;
   class IPG;
 } // namespace Game
+namespace Solvers {
+  /**
+	* @brief This class handles external solvers
+	*/
+  class PATH;
+} // namespace Solvers
 namespace Algorithms {
   /**
 	* @brief This namespace contains the definition of the algorithms. For each
