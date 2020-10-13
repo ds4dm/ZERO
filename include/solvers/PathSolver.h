@@ -107,8 +107,7 @@ namespace Solvers {
 	 ZEROStatus getStatus() const { return this->status; }
 
 	 static void *messageCB(void *dat, int mode, char *buf) {
-		auto *self = static_cast<Solvers::PATH *>(dat);
-		fprintf(stdout, "%s", buf);
+		std::cout << buf;
 		return dat;
 	 }
 	 static void *mcp_typ(void *dat, int nnz, int *typ);

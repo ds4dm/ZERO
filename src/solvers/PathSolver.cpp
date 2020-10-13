@@ -250,7 +250,7 @@ Solvers::PATH::PATH(const arma::sp_mat &  M,
 				_Mi.push_back(row);
 				_Mj.push_back(v.col() + 1);
 				_Mij.push_back(*v);
-				std::cout << "\t" + std::to_string(*v) + "*x_" + std::to_string(v.col());
+				// std::cout << "\t" + std::to_string(*v) + "*x_" + std::to_string(v.col());
 				++nnz;
 			 }
 		  }
