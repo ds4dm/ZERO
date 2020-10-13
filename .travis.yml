@@ -1,5 +1,6 @@
 language:
   - cpp
+  - python
 dist: xenial
 os: linux
 
@@ -30,7 +31,7 @@ before_install:
 install:
     - pyenv shell 3.6
     - pip install --upgrade pip
-    - sudo pip install conan sphinx breahe exhale
+    - sudo pip install conan sphinx 
     - if [ "$CXX" = "clang++" ] && [ "$TRAVIS_OS_NAME" = "linux" ]; then export CXX="clang++-3.7" CC="clang-3.7"; fi
     - echo ${PATH}
     - echo ${CXX}
@@ -46,9 +47,16 @@ install:
        fi
   
 script:
-  - cd ${TRAVIS_BUILD_DIR}
+  - cd ${TRAVIS_BUILD_DIR}/docs
+  - pip install -r requirements.txt
   - cmake  ${CMAKE_OPTIONS}  -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=${CXX_FLAGS} CMakeLists.txt
+  - touch .nojekyll
   - make
   
-after_success:
-
+deploy:
+  - provider: pages:git
+    verbose: true
+    token: $GITHUB_TOKEN
+    edge: true
+    local_dir: ./html/
+    keep_history: true
