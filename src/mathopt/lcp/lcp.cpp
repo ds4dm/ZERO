@@ -10,16 +10,18 @@
  *        https://github.com/ds4dm/ZERO
  * #############################################*/
 
-
+//
+#include <boost/log/trivial.hpp>
+//
 #include "mathopt/lcp/lcp.h"
 #include "solvers/PathSolver.h"
 #include <algorithm>
 #include <armadillo>
-#include <boost/log/trivial.hpp>
 #include <gurobi_c++.h>
 #include <iostream>
 #include <memory>
 #include <string>
+
 void MathOpt::LCP::defConst(GRBEnv *env)
 /**
  * @brief Assign default values to LCP attributes
