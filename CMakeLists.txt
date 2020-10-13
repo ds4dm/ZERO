@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.14)
 
 # Project setting
+include(cmake/ZERO.cmake)
 project(
   ZERO
-  VERSION 1.0.0
+  VERSION ${ZERO_V}
   LANGUAGES CXX
-  DESCRIPTION "ZERO is a multi-purpose game solver")
-set(ZERO_AUTHORS "Gabriele Dragotto, Sriram Sankaranarayanan")
+  DESCRIPTION ${ZERO_DESC})
 
 # CXX Options
 option(CXX "enable C++ compilation" ON)
@@ -17,10 +17,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 set(ZERO_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Release ... FORCE)
-endif()
 
 # ##############################################################################
 # CUSTOM HINTS AND CUSTOM CONFIGURATIONS
@@ -38,7 +34,6 @@ set(PATH_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib/path")
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 # Explicit declaration for custom CMake modules
 include(${CMAKE_MODULE_PATH}/FindGUROBI.cmake)
-include(${CMAKE_MODULE_PATH}/FindSphinx.cmake)
 include(${CMAKE_MODULE_PATH}/FindConan.cmake)
 include(${CMAKE_MODULE_PATH}/FindPATH.cmake)
 # find_package(ortools CONFIG REQUIRED)
