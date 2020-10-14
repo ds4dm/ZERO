@@ -1,0 +1,22 @@
+.. _dir_src_mathopt_lcp:
+
+
+Directory lcp
+=============
+
+
+|exhale_lsh| :ref:`Parent directory <dir_src_mathopt>` (``src/mathopt``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+*Directory path:* ``src/mathopt/lcp``
+
+
+Files
+-----
+
+- :ref:`file_src_mathopt_lcp_lcp.cpp`
+- :ref:`file_src_mathopt_lcp_outer_lcp.cpp`
+- :ref:`file_src_mathopt_lcp_poly_lcp.cpp`
+
+

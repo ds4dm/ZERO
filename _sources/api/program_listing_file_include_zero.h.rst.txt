@@ -1,0 +1,111 @@
+
+.. _program_listing_file_include_zero.h:
+
+Program Listing for File zero.h
+===============================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_zero.h>` (``include/zero.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: none
+
+   /* #############################################
+    *             This file is part of
+    *                    ZERO
+    *
+    *             Copyright (c) 2020
+    *     Released under the Creative Commons
+    *        Zero v1.0 Universal License
+    *
+    *              Find out more at
+    *        https://github.com/ds4dm/ZERO
+    * #############################################*/
+   
+   
+   #pragma once
+   
+   #include <armadillo>
+   #include <iostream>
+   #include <map>
+   #include <memory>
+   #include <string>
+   #include <vector>
+   
+   using perps          = std::vector<std::pair<unsigned int, unsigned int>>;
+   using DoubleAttrPair = std::vector<std::pair<unsigned int, double>>;
+   std::ostream &                            operator<<(std::ostream &ost, perps C);
+   template <class T> std::ostream &         operator<<(std::ostream &ost, std::vector<T> v);
+   template <class T, class S> std::ostream &operator<<(std::ostream &ost, std::pair<T, S> p);
+   using spmat_Vec = std::vector<std::unique_ptr<arma::sp_mat>>;
+   using vec_Vec   = std::vector<std::unique_ptr<arma::vec>>;
+   
+   template <typename T1, typename T2, typename T3> using triple = std::tuple<T1, T2, T3>;
+   using bound          = triple<unsigned int, double, double>;
+   using VariableBounds = std::vector<std::pair<double, double>>;
+   
+   #include "support/codes.h"
+   #include "support/utils.h"
+   #include "support/version.h"
+   
+   
+   // Forward declarations
+   class ZEROException;
+   enum class ZEROErrorCode;
+   
+   namespace MathOpt {
+     struct QP_Objective;
+     struct QP_Constraints;
+     class MP_Param;
+     class QP_Param;
+     class IP_Param;
+     class LCP;
+   } // namespace MathOpt
+   
+   namespace Game {
+     class NashGame;
+     class PolyLCP;
+     class OuterLCP;
+     class EPEC;
+     class IPG;
+   } // namespace Game
+   namespace Solvers {
+     class PATH;
+   } // namespace Solvers
+   namespace Algorithms {
+     class AbstractAlgorithm; 
+     namespace EPEC {
+        class Algorithm;
+        class PolyBase;
+        class FullEnumeration;
+        class InnerApproximation;
+        class CombinatorialPNE;
+        class OuterApproximation;
+     } // namespace EPEC
+     namespace IPG {
+        class Algorithm;
+        class Oracle;
+     } // namespace IPG
+   } // namespace Algorithms
+   
+   class ZEROAlgorithmData;
+   
+   
+   namespace Data {
+   
+     namespace EPEC {
+        class DataObject;
+     }
+     namespace IPG {
+        class DataObject;
+     }
+     namespace LCP {
+        enum class PolyhedraStrategy;
+        enum class Algorithms;
+     } // namespace LCP
+   
+   } // namespace Data
+   
+   
+   #include "games/games.h"
+   #include "mathopt/mathopt.h"

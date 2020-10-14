@@ -1,0 +1,2221 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Program Listing for File epec_models.cpp &mdash; ZERO 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #333131" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/zerowhite.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#downloading-and-compiling">Downloading and Compiling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#utilities">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Extended References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="library_root.html">Library API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Algorithms.html#namespaces">Namespaces</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Algorithms__EPEC.html">Namespace Algorithms::EPEC</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Algorithms__EPEC.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Algorithms__IPG.html">Namespace Algorithms::IPG</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Algorithms__IPG.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Data.html">Namespace Data</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Data.html#namespaces">Namespaces</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Data__EPEC.html">Namespace Data::EPEC</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Data__EPEC.html#classes">Classes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Data__EPEC.html#enums">Enums</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Data__IPG.html">Namespace Data::IPG</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Data__IPG.html#classes">Classes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Data__IPG.html#enums">Enums</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Data__LCP.html">Namespace Data::LCP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Data__LCP.html#enums">Enums</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Game.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_MathOpt.html">Namespace MathOpt</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#classes">Classes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#enums">Enums</a></li>
+<li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#functions">Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Models.html#namespaces">Namespaces</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Models__EPEC.html">Namespace Models::EPEC</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Models__EPEC.html#classes">Classes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Models__EPEC.html#enums">Enums</a></li>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Models__EPEC.html#functions">Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Models__EPEC.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Models__IPG.html">Namespace Models::IPG</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Models__IPG.html#classes">Classes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Models__IPG.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Solvers.html">Namespace Solvers</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Solvers.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node.html">Struct OuterTree::Node</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node.html#nested-relationships">Nested Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structAlgorithms_1_1IPG_1_1IPG__Player.html">Struct IPG_Player</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structAlgorithms_1_1IPG_1_1IPG__Player.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structMathOpt_1_1QP__Constraints.html">Struct QP_Constraints</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structMathOpt_1_1QP__Constraints.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structMathOpt_1_1QP__Objective.html">Struct QP_Objective</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structMathOpt_1_1QP__Objective.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structModels_1_1EPEC_1_1DemPar.html">Struct DemPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structModels_1_1EPEC_1_1DemPar.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structModels_1_1EPEC_1_1EPECInstance.html">Struct EPECInstance</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structModels_1_1EPEC_1_1EPECInstance.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structModels_1_1EPEC_1_1FollPar.html">Struct FollPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structModels_1_1EPEC_1_1FollPar.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structModels_1_1EPEC_1_1LeadAllPar.html">Struct LeadAllPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structModels_1_1EPEC_1_1LeadAllPar.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structModels_1_1EPEC_1_1LeadPar.html">Struct LeadPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structModels_1_1EPEC_1_1LeadPar.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structModels_1_1IPG_1_1IPGInstance.html">Struct IPGInstance</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structModels_1_1IPG_1_1IPGInstance.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structSolvers_1_1PATH_1_1PATHProblem.html">Struct PATH::PATHProblem</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structSolvers_1_1PATH_1_1PATHProblem.html#nested-relationships">Nested Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="structSolvers_1_1PATH_1_1PATHProblem.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structZEROStatistics.html">Template Struct ZEROStatistics</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structZEROStatistics.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1Algorithm.html">Class Algorithm</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1Algorithm.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1Algorithm.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CombinatorialPNE.html">Class CombinatorialPNE</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CombinatorialPNE.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CombinatorialPNE.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1FullEnumeration.html">Class FullEnumeration</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1FullEnumeration.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1FullEnumeration.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1InnerApproximation.html">Class InnerApproximation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1InnerApproximation.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1InnerApproximation.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterApproximation.html">Class OuterApproximation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterApproximation.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterApproximation.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html">Class OuterTree</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html#nested-relationships">Nested Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1PolyBase.html">Class PolyBase</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1PolyBase.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1PolyBase.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Algorithm.html">Class Algorithm</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Algorithm.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Algorithm.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Oracle.html">Class Oracle</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Oracle.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Oracle.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classAttr.html">Template Class Attr</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAttr.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classData_1_1EPEC_1_1DataObject.html">Class DataObject</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classData_1_1EPEC_1_1DataObject.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classData_1_1EPEC_1_1DataObject.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classData_1_1IPG_1_1DataObject.html">Class DataObject</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classData_1_1IPG_1_1DataObject.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classData_1_1IPG_1_1DataObject.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classGame_1_1AbstractGame.html">Template Class AbstractGame</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classGame_1_1AbstractGame.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classGame_1_1EPEC.html">Class EPEC</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classGame_1_1EPEC.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classGame_1_1EPEC.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classGame_1_1IPG.html">Class IPG</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classGame_1_1IPG.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classGame_1_1IPG.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classGame_1_1NashGame.html">Class NashGame</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classGame_1_1NashGame.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1IP__Param.html">Class IP_Param</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1IP__Param.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1IP__Param.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1LCP.html">Class LCP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1LCP.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1LCP.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1MP__Param.html">Class MP_Param</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1MP__Param.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1MP__Param.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1OuterLCP.html">Class OuterLCP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1OuterLCP.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1OuterLCP.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1PolyLCP.html">Class PolyLCP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1PolyLCP.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1PolyLCP.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1QP__Param.html">Class QP_Param</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1QP__Param.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1QP__Param.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classModels_1_1EPEC_1_1EPEC.html">Class EPEC</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classModels_1_1EPEC_1_1EPEC.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classModels_1_1EPEC_1_1EPEC.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classModels_1_1IPG_1_1IPG.html">Class IPG</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classModels_1_1IPG_1_1IPG.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classModels_1_1IPG_1_1IPG.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classSolvers_1_1PATH.html">Class PATH</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classSolvers_1_1PATH.html#nested-relationships">Nested Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classSolvers_1_1PATH.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classZEROAlgorithmData.html">Class ZEROAlgorithmData</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classZEROAlgorithmData.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classZEROAlgorithmData.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classZEROException.html">Class ZEROException</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classZEROException.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classZEROException.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classZEROVersion.html">Class ZEROVersion</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classZEROVersion.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#enums">Enums</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1a3f4c2ba1ad7ce924bed99ddf193fd318.html">Enum Algorithms</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1a3f4c2ba1ad7ce924bed99ddf193fd318.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1a347af28b83353df8afdbd4ee171565b3.html">Enum RecoverStrategy</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1a347af28b83353df8afdbd4ee171565b3.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a34d343f554ac089c3cb14de04aa6d294.html">Enum Algorithms</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a34d343f554ac089c3cb14de04aa6d294.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a1a0a91a80ea38eefb37b54452fbd70a4.html">Enum LCPAlgorithms</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a1a0a91a80ea38eefb37b54452fbd70a4.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82.html">Enum Algorithms</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1LCP_1aa8773225c810ac45575f86ac803105ab.html">Enum PolyhedraStrategy</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1LCP_1aa8773225c810ac45575f86ac803105ab.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceMathOpt_1a4cc28e2d94716b82777c530772b7f2b4.html">Enum MPType</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceMathOpt_1a4cc28e2d94716b82777c530772b7f2b4.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceModels_1_1EPEC_1a20f448e9e7eadf005b6576ee74af0b5f.html">Enum LeaderVars</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceModels_1_1EPEC_1a20f448e9e7eadf005b6576ee74af0b5f.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceModels_1_1EPEC_1ac6f525119967602609afe99f64ef4a1b.html">Enum prn</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceModels_1_1EPEC_1ac6f525119967602609afe99f64ef4a1b.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceModels_1_1EPEC_1a72626ff0ddf65191cd9b8f82563d38f4.html">Enum TaxType</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceModels_1_1EPEC_1a72626ff0ddf65191cd9b8f82563d38f4.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_codes_8h_1aec3f6d9705d82787080ef99b37b7efea.html">Enum ZEROErrorCode</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_codes_8h_1aec3f6d9705d82787080ef99b37b7efea.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_codes_8h_1adc92fa8b12e5abec0a79ad40bedc1ccf.html">Enum ZEROStatus</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_codes_8h_1adc92fa8b12e5abec0a79ad40bedc1ccf.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#functions">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="function_utils_8cpp_1ad85f66e4cbb90a0976aa1e9e49571c93.html">Function appendRead</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_utils_8cpp_1ad85f66e4cbb90a0976aa1e9e49571c93.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_utils_8cpp_1a8a3281f033159773e6047a595cfa129a.html">Function appendSave</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_utils_8cpp_1a8a3281f033159773e6047a595cfa129a.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_shells_2epec_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627.html">Function main(int, char **)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_shells_2epec_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_shells_2ipg_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627.html">Function main(int, char **)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_shells_2ipg_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1af3d7bfcf9b11cefb7f4521d685211934.html">Function MathOpt::compConvSize</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1af3d7bfcf9b11cefb7f4521d685211934.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1a0a13d06524e3ad2baf756e15a794a745.html">Function MathOpt::convexHull</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1a0a13d06524e3ad2baf756e15a794a745.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1aabf121bcb871000488825dd64750500c.html">Function MathOpt::getDualMembershipLP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1aabf121bcb871000488825dd64750500c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1aa4eaa00160eb2098969ef087c92eea5d.html">Function MathOpt::LPSolve</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1aa4eaa00160eb2098969ef087c92eea5d.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1aedd7c328cf667c15244fec225b90a65d.html">Function MathOpt::operator&lt;&lt;(std::ostream&amp;, const IP_Param&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1aedd7c328cf667c15244fec225b90a65d.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1a81f3217167710fd7c3d4211658cfa5d6.html">Function MathOpt::operator&lt;&lt;(std::ostream&amp;, const QP_Param&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1a81f3217167710fd7c3d4211658cfa5d6.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1a8b4c66568c38b6a5b08a7fca9372a7dd.html">Function MathOpt::print</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1a8b4c66568c38b6a5b08a7fca9372a7dd.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a3da7b11be5cb5a4f32e65fb62d8cd7f8.html">Function Models::EPEC::decreaseVal</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a3da7b11be5cb5a4f32e65fb62d8cd7f8.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1aea666749029b52e914764ccb9fd3cea8.html">Function Models::EPEC::increaseVal</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1aea666749029b52e914764ccb9fd3cea8.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a0dc1dfc75744d5af1ffcb99bfbd2e0be.html">Function Models::EPEC::init</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a0dc1dfc75744d5af1ffcb99bfbd2e0be.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a6bf8d5d3a77dddc264c34df3c1412eb0.html">Function Models::EPEC::operator+</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a6bf8d5d3a77dddc264c34df3c1412eb0.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1aa732ff410b4c32a84be09a6ed7f55ae7.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const FollPar)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1aa732ff410b4c32a84be09a6ed7f55ae7.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1ad8eaa0861bd3da4627c98c72ab0ed286.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const DemPar)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1ad8eaa0861bd3da4627c98c72ab0ed286.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a3ae165ae70cb8c87e3c2ff2e3412481a.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const LeadPar)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a3ae165ae70cb8c87e3c2ff2e3412481a.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a4e4c4e18bf05a12b53b88e7eaa41a5ab.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const LeadAllPar)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a4e4c4e18bf05a12b53b88e7eaa41a5ab.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a636ebefa1cdfa3e167761452792129f8.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const LeaderVars)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a636ebefa1cdfa3e167761452792129f8.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a2c4c41c1a12f3393f92719601bceb38a.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, EPECInstance)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a2c4c41c1a12f3393f92719601bceb38a.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a04179db61b0d9fed3a91f88ef4f5f2b3.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, Models::EPEC::prn)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a04179db61b0d9fed3a91f88ef4f5f2b3.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1IPG_1af0de748364bb8991a02668d7bf3b2983.html">Function Models::IPG::operator&lt;&lt;</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1IPG_1af0de748364bb8991a02668d7bf3b2983.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_epec__models_8h_1a179b9a250911142576a44e24929a3a8e.html">Function operator+(const Models::EPEC::FollPar&amp;, const Models::EPEC::FollPar&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_epec__models_8h_1a179b9a250911142576a44e24929a3a8e.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_epec__models_8cpp_1a179b9a250911142576a44e24929a3a8e.html">Function operator+(const Models::EPEC::FollPar&amp;, const Models::EPEC::FollPar&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_epec__models_8cpp_1a179b9a250911142576a44e24929a3a8e.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_poly__lcp_8cpp_1a7081ce5a943e65900f98444637bcb7c1.html">Function operator&lt;</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a7081ce5a943e65900f98444637bcb7c1.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_zero_8h_1a115ecd3fba0241d9e582929ccac3ff7e.html">Function operator&lt;&lt;(std::ostream&amp;, perps)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_zero_8h_1a115ecd3fba0241d9e582929ccac3ff7e.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_zero_8h_1a2227f7d55cb0efe274cd8776e16f717d.html">Template Function operator&lt;&lt;(std::ostream&amp;, std::vector&lt;T&gt;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_zero_8h_1a2227f7d55cb0efe274cd8776e16f717d.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_zero_8h_1ad1ffe1b9a16567d2d765c957692925fb.html">Template Function operator&lt;&lt;(std::ostream&amp;, std::pair&lt;T, S&gt;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_zero_8h_1ad1ffe1b9a16567d2d765c957692925fb.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_poly__lcp_8cpp_1a8f4b1bc2990943059230a4e78b7ac175.html">Function operator==</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a8f4b1bc2990943059230a4e78b7ac175.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_poly__lcp_8cpp_1a71a85978f94cee44e3edd97887a3126c.html">Function operator&gt;</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a71a85978f94cee44e3edd97887a3126c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_epec__models_8h_1a0cb07b2258983336a21ed1a2cdaffd9e.html">Function to_string(const GRBVar&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_epec__models_8h_1a0cb07b2258983336a21ed1a2cdaffd9e.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_epec__models_8h_1a5a58b1d925b1f8570e1a81372a7869f8.html">Function to_string(const GRBConstr&amp;, const GRBModel&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_epec__models_8h_1a5a58b1d925b1f8570e1a81372a7869f8.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_epec__models_8cpp_1a5a58b1d925b1f8570e1a81372a7869f8.html">Function to_string(const GRBConstr&amp;, const GRBModel&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_epec__models_8cpp_1a5a58b1d925b1f8570e1a81372a7869f8.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_epec__models_8cpp_1a0cb07b2258983336a21ed1a2cdaffd9e.html">Function to_string(const GRBVar&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_epec__models_8cpp_1a0cb07b2258983336a21ed1a2cdaffd9e.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a5564b70694570623dc79e723715dfdfe.html">Function Utils::appendRead(arma::vec&amp;, const std::string, long int, const std::string)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a5564b70694570623dc79e723715dfdfe.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a539f748060b159cd9c3fd87ecf12ffd5.html">Function Utils::appendRead(arma::sp_mat&amp;, const std::string, long int, const std::string)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a539f748060b159cd9c3fd87ecf12ffd5.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a45ec12e86322677e2a93e37aa798e1e4.html">Function Utils::appendRead(std::vector&lt;double&gt;&amp;, const std::string, long int, const std::string)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a45ec12e86322677e2a93e37aa798e1e4.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a4bb2fe103587ca0fc76ae3dfa90f6550.html">Function Utils::appendRead(std::string&amp;, const std::string, long int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a4bb2fe103587ca0fc76ae3dfa90f6550.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ab7b9cda903f076c6a33d6bfed99687ea.html">Function Utils::appendRead(long int&amp;, const std::string, long int, const std::string)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ab7b9cda903f076c6a33d6bfed99687ea.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a048882f6fb236cfd507d3b091c7aa831.html">Function Utils::appendRead(unsigned int&amp;, const std::string, long int, const std::string)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a048882f6fb236cfd507d3b091c7aa831.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a61870426848613ebcd38331a4e05e716.html">Function Utils::appendSave(const arma::vec&amp;, const std::string, const std::string, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a61870426848613ebcd38331a4e05e716.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a5f5f645750d3b82e63e5f96723c62ee1.html">Function Utils::appendSave(const arma::sp_mat&amp;, const std::string, const std::string, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a5f5f645750d3b82e63e5f96723c62ee1.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ae2dddf8c7060984fd5cd56bf3fbb5b68.html">Function Utils::appendSave(const std::vector&lt;double&gt;, const std::string, const std::string, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ae2dddf8c7060984fd5cd56bf3fbb5b68.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a5199a480ca51ac0ab387e025df9b2e00.html">Function Utils::appendSave(const std::string, const std::string, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a5199a480ca51ac0ab387e025df9b2e00.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1aa7023f92db9e7ef180450d9ed74ade7d.html">Function Utils::appendSave(const long int, const std::string, const std::string, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1aa7023f92db9e7ef180450d9ed74ade7d.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1aaf5fef95399ba94379ed1ee4e20cd354.html">Function Utils::appendSave(const unsigned int, const std::string, const std::string, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1aaf5fef95399ba94379ed1ee4e20cd354.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a03c80abd5bb5411608a27a29bf29cfe2.html">Function Utils::containsConstraint(const arma::sp_mat&amp;, const arma::vec&amp;, const arma::vec&amp;, const double&amp;, const double)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a03c80abd5bb5411608a27a29bf29cfe2.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a557313dad647d166c963d865f0740a44.html">Function Utils::containsConstraint(const arma::sp_mat&amp;, const arma::vec&amp;, const arma::sp_mat&amp;, const double&amp;, const double)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a557313dad647d166c963d865f0740a44.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1acc29a13b2b25cfa7102edf2229af4813.html">Function Utils::containsElement</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1acc29a13b2b25cfa7102edf2229af4813.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ac18b4a9ad0028ecef8c39abe3673fa51.html">Function Utils::containsRow</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ac18b4a9ad0028ecef8c39abe3673fa51.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ad263e83ad30145d2003fbdf370c75d6a.html">Function Utils::intersectBounds</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ad263e83ad30145d2003fbdf370c75d6a.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a11aefd04593b7eba9a60fe5a003eccb3.html">Function Utils::isZero(arma::mat, double)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a11aefd04593b7eba9a60fe5a003eccb3.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1aa580da91e3cbe8df451f84747c1e2872.html">Function Utils::isZero(arma::sp_mat, double)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1aa580da91e3cbe8df451f84747c1e2872.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1afd63a1b9c36080d26ef9ad6585562f6d.html">Template Function Utils::isZeroValue</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1afd63a1b9c36080d26ef9ad6585562f6d.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a3e6fb0ca43609e12a88d037acfd84d2d.html">Function Utils::numToVec</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a3e6fb0ca43609e12a88d037acfd84d2d.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1adbe567182dd4d6f2c0aed1362e539fc9.html">Function Utils::printBounds</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1adbe567182dd4d6f2c0aed1362e539fc9.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a0c79f31066b7e7af7b1d18316f3efc5c.html">Function Utils::resizePatch(const arma::sp_mat&amp;, const unsigned int, const unsigned int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a0c79f31066b7e7af7b1d18316f3efc5c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a3f2695b26a8131bc0fe45fcae0c7023d.html">Function Utils::resizePatch(const arma::mat&amp;, const unsigned int, const unsigned int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a3f2695b26a8131bc0fe45fcae0c7023d.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a8748d4160459a637b32e309336969c81.html">Function Utils::resizePatch(const arma::vec&amp;, const unsigned int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a8748d4160459a637b32e309336969c81.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a0183fff354c82444f2bb66cbccd4478c.html">Function Utils::sortByKey</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a0183fff354c82444f2bb66cbccd4478c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a6b312d0a6805b263fbf4e3219d27ba13.html">Function Utils::vecToNum</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a6b312d0a6805b263fbf4e3219d27ba13.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#defines">Defines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1a91456860f1b68f75585291f36c7236d0.html">Define ZERO_VERSION</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1a91456860f1b68f75585291f36c7236d0.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1a6262c33ed29a18a0caf8679d9567387b.html">Define ZERO_VERSION_MAJOR</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1a6262c33ed29a18a0caf8679d9567387b.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1a424af57c80491056fe1236626324fe7b.html">Define ZERO_VERSION_MINOR</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1a424af57c80491056fe1236626324fe7b.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1af78c071334f2637b74d108e04674b8b6.html">Define ZERO_VERSION_PATCH</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1af78c071334f2637b74d108e04674b8b6.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1aaff3b0535ece33c18614a653b99ebe44.html">Typedef bound</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1aaff3b0535ece33c18614a653b99ebe44.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a4770e2d9d0deef0f2e03cd2e53431622.html">Typedef DoubleAttrPair</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a4770e2d9d0deef0f2e03cd2e53431622.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceMathOpt_1a7077c09ae1bba23b9181ac92bf0c6dea.html">Typedef MathOpt::QP_constraints</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceMathOpt_1a7077c09ae1bba23b9181ac92bf0c6dea.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceMathOpt_1aa0a70822f74c1fc679e018023c08905e.html">Typedef MathOpt::QP_objective</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceMathOpt_1aa0a70822f74c1fc679e018023c08905e.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1a62149827d4c351dd603cbcc7625f7772.html">Typedef Models::EPEC::DemPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1a62149827d4c351dd603cbcc7625f7772.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1aca30953c80dcd155a7ab0ee85975d805.html">Typedef Models::EPEC::FollPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1aca30953c80dcd155a7ab0ee85975d805.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1a2f9cbaec7516972a7acc4285cb46bb65.html">Typedef Models::EPEC::LeadAllPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1a2f9cbaec7516972a7acc4285cb46bb65.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1af533424de8789ffd456165af21ac7e02.html">Typedef Models::EPEC::LeadLocs</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1af533424de8789ffd456165af21ac7e02.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1ab279a6d9a0241b15c0bd1a7312f8dd3e.html">Typedef Models::EPEC::LeadPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1ab279a6d9a0241b15c0bd1a7312f8dd3e.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a23f2df644233cc2499005f53997039b4.html">Typedef perps</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a23f2df644233cc2499005f53997039b4.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a13e22b2209a1025ac5c30d6361619219.html">Typedef spmat_Vec</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a13e22b2209a1025ac5c30d6361619219.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a1b3f20417790c203b818f9df92ed5bbc.html">Typedef triple</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a1b3f20417790c203b818f9df92ed5bbc.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a58d910cf6fdc1337ace92535234dc1d4.html">Typedef VariableBounds</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a58d910cf6fdc1337ace92535234dc1d4.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a61c9afcb946e96d4e4e6156d9c1bee8c.html">Typedef vec_Vec</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a61c9afcb946e96d4e4e6156d9c1bee8c.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ZERO</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Program Listing for File epec_models.cpp</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/program_listing_file_src_interfaces_epec_models.cpp.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="program-listing-for-file-epec-models-cpp">
+<span id="program-listing-file-src-interfaces-epec-models-cpp"></span><h1>Program Listing for File epec_models.cpp<a class="headerlink" href="#program-listing-for-file-epec-models-cpp" title="Permalink to this headline">¶</a></h1>
+<p>↰ <a class="reference internal" href="file_src_interfaces_epec_models.cpp.html#file-src-interfaces-epec-models-cpp"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">src/interfaces/epec_models.cpp</span></code>)</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/* #############################################
+ *             This file is part of
+ *                    ZERO
+ *
+ *             Copyright (c) 2020
+ *     Released under the Creative Commons
+ *        Zero v1.0 Universal License
+ *
+ *              Find out more at
+ *        https://github.com/ds4dm/ZERO
+ * #############################################*/
+
+
+#include &quot;interfaces/epec_models.h&quot;
+#include &lt;armadillo&gt;
+#include &lt;boost/log/trivial.hpp&gt;
+#include &lt;gurobi_c++.h&gt;
+#include &lt;iomanip&gt;
+#include &lt;iostream&gt;
+#include &lt;map&gt;
+#include &lt;memory&gt;
+#include &lt;rapidjson/document.h&gt;
+#include &lt;rapidjson/istreamwrapper.h&gt;
+#include &lt;rapidjson/prettywriter.h&gt;
+#include &lt;vector&gt;
+
+
+std::ostream &amp;Models::EPEC::operator&lt;&lt;(std::ostream &amp;ost, const Models::EPEC::prn l) {
+  switch (l) {
+  case Models::EPEC::prn::label:
+     ost &lt;&lt; std::left &lt;&lt; std::setw(50);
+     break;
+  case Models::EPEC::prn::val:
+     ost &lt;&lt; std::right &lt;&lt; std::setprecision(2) &lt;&lt; std::setw(16) &lt;&lt; std::fixed;
+     break;
+  }
+  return ost;
+}
+
+std::ostream &amp;Models::EPEC::operator&lt;&lt;(std::ostream &amp;ost, const Models::EPEC::FollPar P) {
+  ost &lt;&lt; &quot;Follower Parameters: &quot; &lt;&lt; &#39;\n&#39;;
+  ost &lt;&lt; &quot;********************&quot; &lt;&lt; &#39;\n&#39;;
+  ost &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;Linear Costs&quot;
+        &lt;&lt; &quot;:\t&quot;;
+  for (auto a : P.costs_lin)
+     ost &lt;&lt; Models::EPEC::prn::val &lt;&lt; a;
+  ost &lt;&lt; &#39;\n&#39;
+        &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;Quadratic costs&quot;
+        &lt;&lt; &quot;:\t&quot;;
+  for (auto a : P.costs_quad)
+     ost &lt;&lt; Models::EPEC::prn::val &lt;&lt; a;
+  ost &lt;&lt; &#39;\n&#39;
+        &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;Production capacities&quot;
+        &lt;&lt; &quot;:\t&quot;;
+  for (auto a : P.capacities)
+     ost &lt;&lt; Models::EPEC::prn::val &lt;&lt; (a &lt; 0 ? std::numeric_limits&lt;double&gt;::infinity() : a);
+  ost &lt;&lt; &#39;\n&#39;
+        &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;Tax Caps&quot;
+        &lt;&lt; &quot;:\t&quot;;
+  for (auto a : P.tax_caps)
+     ost &lt;&lt; Models::EPEC::prn::val &lt;&lt; (a &lt; 0 ? std::numeric_limits&lt;double&gt;::infinity() : a);
+  ost &lt;&lt; &#39;\n&#39;;
+  return ost;
+}
+
+std::ostream &amp;Models::EPEC::operator&lt;&lt;(std::ostream &amp;ost, const Models::EPEC::DemPar P) {
+  ost &lt;&lt; &quot;Demand Parameters: &quot; &lt;&lt; &#39;\n&#39;;
+  ost &lt;&lt; &quot;******************&quot; &lt;&lt; &#39;\n&#39;;
+  ost &lt;&lt; &quot;Price\t\t =\t\t &quot; &lt;&lt; P.alpha &lt;&lt; &quot;\t-\t&quot; &lt;&lt; P.beta &lt;&lt; &quot;  x   Quantity&quot; &lt;&lt; &#39;\n&#39;;
+  return ost;
+}
+
+std::ostream &amp;Models::EPEC::operator&lt;&lt;(std::ostream &amp;ost, const Models::EPEC::LeadPar P) {
+  ost &lt;&lt; &quot;Leader Parameters: &quot; &lt;&lt; &#39;\n&#39;;
+  ost &lt;&lt; &quot;******************&quot; &lt;&lt; &#39;\n&#39;;
+  ost &lt;&lt; std::fixed;
+  ost &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;Export Limit&quot;
+        &lt;&lt; &quot;:&quot; &lt;&lt; Models::EPEC::prn::val
+        &lt;&lt; (P.export_limit &lt; 0 ? std::numeric_limits&lt;double&gt;::infinity() : P.export_limit);
+  ost &lt;&lt; &#39;\n&#39;;
+  ost &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;Import Limit&quot;
+        &lt;&lt; &quot;:&quot; &lt;&lt; Models::EPEC::prn::val
+        &lt;&lt; (P.import_limit &lt; 0 ? std::numeric_limits&lt;double&gt;::infinity() : P.import_limit);
+  ost &lt;&lt; &#39;\n&#39;;
+  ost &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;Price limit&quot;
+        &lt;&lt; &quot;:&quot; &lt;&lt; Models::EPEC::prn::val
+        &lt;&lt; (P.price_limit &lt; 0 ? std::numeric_limits&lt;double&gt;::infinity() : P.price_limit);
+  ost &lt;&lt; &#39;\n&#39;;
+  return ost;
+}
+
+std::ostream &amp;Models::EPEC::operator&lt;&lt;(std::ostream &amp;ost, const Models::EPEC::EPECInstance I) {
+  ost &lt;&lt; &quot;EPEC Instance: &quot; &lt;&lt; &#39;\n&#39;;
+  ost &lt;&lt; &quot;******************&quot; &lt;&lt; &#39;\n&#39;;
+  for (auto a : I.Countries)
+     ost &lt;&lt; a &lt;&lt; &#39;\n&#39;;
+  ost &lt;&lt; &quot;Transportation Costs:&quot; &lt;&lt; &#39;\n&#39; &lt;&lt; I.TransportationCosts &lt;&lt; &#39;\n&#39;;
+  return ost;
+}
+
+std::ostream &amp;Models::EPEC::operator&lt;&lt;(std::ostream &amp;ost, const Models::EPEC::LeadAllPar P) {
+  ost &lt;&lt; &quot;\n\n&quot;;
+  ost &lt;&lt; &quot;***************************&quot;
+        &lt;&lt; &quot;\n&quot;;
+  ost &lt;&lt; &quot;Leader Complete Description&quot;
+        &lt;&lt; &quot;\n&quot;;
+  ost &lt;&lt; &quot;***************************&quot;
+        &lt;&lt; &quot;\n&quot;
+        &lt;&lt; &quot;\n&quot;;
+  ost &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;Number of followers&quot;
+        &lt;&lt; &quot;:&quot; &lt;&lt; Models::EPEC::prn::val &lt;&lt; P.n_followers &lt;&lt; &quot;\n &quot;
+        &lt;&lt; &quot;\n&quot;;
+  ost &lt;&lt; &#39;\n&#39; &lt;&lt; P.LeaderParam &lt;&lt; &#39;\n&#39; &lt;&lt; P.FollowerParam &lt;&lt; &#39;\n&#39; &lt;&lt; P.DemandParam &lt;&lt; &quot;\n&quot;;
+  ost &lt;&lt; &quot;***************************&quot;
+        &lt;&lt; &quot;\n&quot;
+        &lt;&lt; &quot;\n&quot;;
+  return ost;
+}
+
+std::ostream &amp;Models::EPEC::operator&lt;&lt;(std::ostream &amp;ost, const Models::EPEC::LeaderVars l) {
+  switch (l) {
+  case Models::EPEC::LeaderVars::FollowerStart:
+     ost &lt;&lt; &quot;Models::EPEC::LeaderVars::FollowerStart&quot;;
+     break;
+  case Models::EPEC::LeaderVars::NetImport:
+     ost &lt;&lt; &quot;Models::EPEC::LeaderVars::NetImport&quot;;
+     break;
+  case Models::EPEC::LeaderVars::NetExport:
+     ost &lt;&lt; &quot;Models::EPEC::LeaderVars::NetExport&quot;;
+     break;
+  case Models::EPEC::LeaderVars::CountryImport:
+     ost &lt;&lt; &quot;Models::EPEC::LeaderVars::CountryImport&quot;;
+     break;
+  case Models::EPEC::LeaderVars::Caps:
+     ost &lt;&lt; &quot;Models::EPEC::LeaderVars::Caps&quot;;
+     break;
+  case Models::EPEC::LeaderVars::Tax:
+     ost &lt;&lt; &quot;Models::EPEC::LeaderVars::Tax&quot;;
+     break;
+  case Models::EPEC::LeaderVars::TaxQuad:
+     ost &lt;&lt; &quot;Models::EPEC::LeaderVars::TaxQuad&quot;;
+     break;
+  case Models::EPEC::LeaderVars::DualVar:
+     ost &lt;&lt; &quot;Models::EPEC::LeaderVars::DualVar&quot;;
+     break;
+  case Models::EPEC::LeaderVars::ConvHullDummy:
+     ost &lt;&lt; &quot;Models::EPEC::LeaderVars::ConvHullDummy&quot;;
+     break;
+  case Models::EPEC::LeaderVars::End:
+     ost &lt;&lt; &quot;Models::EPEC::LeaderVars::End&quot;;
+     break;
+  };
+  return ost;
+}
+
+bool Models::EPEC::EPEC::ParamValid(
+     const LeadAllPar &amp;Params
+     ) const
+{
+  if (Params.n_followers == 0)
+     throw ZEROException(ZEROErrorCode::Assertion, &quot;There are no followers for a player&quot;);
+  if (Params.FollowerParam.costs_lin.size() != Params.n_followers ||
+        Params.FollowerParam.costs_quad.size() != Params.n_followers ||
+        Params.FollowerParam.capacities.size() != Params.n_followers ||
+        Params.FollowerParam.tax_caps.size() != Params.n_followers ||
+        Params.FollowerParam.emission_costs.size() != Params.n_followers)
+     throw ZEROException(ZEROErrorCode::InvalidData, &quot;The input data has a size mismatch&quot;);
+  if (Params.DemandParam.alpha &lt;= 0 || Params.DemandParam.beta &lt;= 0)
+     throw ZEROException(ZEROErrorCode::InvalidData, &quot;Demand curve parameters are negative&quot;);
+  // Country should have a name!
+  if (Params.name == &quot;&quot;)
+     throw ZEROException(ZEROErrorCode::InvalidData, &quot;The country has no name&quot;);
+  // Country should have a unique name
+  for (const auto &amp;p : this-&gt;AllLeadPars)
+     if (Params.name.compare(p.name) == 0) // i.e., if the strings are same
+        throw ZEROException(ZEROErrorCode::InvalidData, &quot;The country has an already existing name&quot;);
+  return true;
+}
+
+void Models::EPEC::EPEC::make_LL_QP(
+     const LeadAllPar &amp;            Params,
+     const unsigned int            follower,
+     MathOpt::QP_Param *           Foll,
+     const Models::EPEC::LeadLocs &amp;Loc
+     ) noexcept
+{
+  const unsigned int LeadVars = Loc.at(Models::EPEC::LeaderVars::End) - Params.n_followers;
+  arma::sp_mat       Q(1, 1), C(1, LeadVars + Params.n_followers - 1);
+  // Two constraints. One saying that you should be less than capacity
+  // Another saying that you should be less than leader imposed cap!
+  arma::sp_mat A(1, Loc.at(Models::EPEC::LeaderVars::End) - 1), B(1, 1);
+  arma::vec    c(1), b(1);
+  c.fill(0);
+  b.fill(0);
+  A.zeros();
+  B.zeros();
+  C.zeros();
+  b.zeros();
+  Q.zeros();
+  c.zeros();
+  // Objective
+  Q(0, 0) = Params.FollowerParam.costs_quad.at(follower) + 2 * Params.DemandParam.beta;
+  c(0)    = Params.FollowerParam.costs_lin.at(follower) - Params.DemandParam.alpha;
+
+  arma::mat Ctemp(1, Loc.at(Models::EPEC::LeaderVars::End) - 1, arma::fill::zeros);
+  Ctemp.cols(0, Params.n_followers - 1)
+        .fill(Params.DemandParam.beta); // First n-1 entries and 1 more entry is Beta
+  Ctemp(0, Params.n_followers) = -Params.DemandParam.beta; // For q_exp
+
+  // Scroll in Ctemp basing on the taxation paradigm
+  if (Params.LeaderParam.tax_type == Models::EPEC::TaxType::StandardTax)
+     Ctemp(0, (Params.n_followers - 1) + 2 + Params.n_followers + follower) =
+          1; // q_{-i}, then import, export, then tilde q_i, then i-th tax
+  else if (Params.LeaderParam.tax_type == Models::EPEC::TaxType::SingleTax)
+     Ctemp(0, (Params.n_followers - 1) + 2 + Params.n_followers + 0) =
+          1; // q_{-i}, then import, export, then tilde q_i, then only tax var
+  else if (Params.LeaderParam.tax_type == Models::EPEC::TaxType::CarbonTax)
+     Ctemp(0, (Params.n_followers - 1) + 2 + Params.n_followers + 0) =
+          Params.FollowerParam.emission_costs.at(follower); // q_{-i}, then import, export, then tilde
+                                                                             // q_i, then only tax var
+
+  C = Ctemp;
+  // A(1, (Params.n_followers - 1) + 2 + follower) = 0;
+  // Produce positive (zero) quantities and less than the cap
+  B(0, 0) = 1;
+  b(0)    = Params.FollowerParam.capacities.at(follower);
+
+  Foll-&gt;set(std::move(Q), std::move(C), std::move(A), std::move(B), std::move(c), std::move(b));
+}
+
+void Models::EPEC::EPEC::make_LL_LeadCons(
+     arma::sp_mat &amp;                LeadCons,
+     arma::vec &amp;                   LeadRHS,
+     const LeadAllPar &amp;            Params,
+     const Models::EPEC::LeadLocs &amp;Loc,
+     const unsigned int            import_lim_cons,
+     const unsigned int export_lim_cons,
+     const unsigned int price_lim_cons,
+     const unsigned int activeTaxCaps
+     ) const noexcept
+{
+  if (activeTaxCaps &gt; 0) {
+     // Tax Caps are active
+     // Different tax caps
+     // Note that the loop is performed until this-&gt;taxVars is hit
+     for (unsigned int follower = 0; follower &lt; this-&gt;taxVars; follower++) {
+        if (Params.FollowerParam.tax_caps.at(follower) &gt;= 0) {
+          // Constraints for Tax limits
+          LeadCons(follower, Loc.at(Models::EPEC::LeaderVars::Tax) + follower) = 1;
+          LeadRHS(follower) = Params.FollowerParam.tax_caps.at(follower);
+        }
+     }
+  }
+  // Export - import &lt;= Local Production
+  // (28b)
+  for (unsigned int i = 0; i &lt; Params.n_followers; i++)
+     LeadCons.at(Params.n_followers, i) = -1;
+  LeadCons.at(activeTaxCaps, Loc.at(Models::EPEC::LeaderVars::NetExport)) = 1;
+  LeadCons.at(activeTaxCaps, Loc.at(Models::EPEC::LeaderVars::NetImport)) = -1;
+  // Import limit - In more precise terms, everything that comes in minus
+  // everything that goes out should satisfy this limit (28c)
+  if (import_lim_cons) {
+     LeadCons(activeTaxCaps + import_lim_cons, Loc.at(Models::EPEC::LeaderVars::NetImport)) = 1;
+     LeadCons(activeTaxCaps + import_lim_cons, Loc.at(Models::EPEC::LeaderVars::NetExport)) = -1;
+     LeadRHS(activeTaxCaps + import_lim_cons) = Params.LeaderParam.import_limit;
+  }
+  // Export limit - In more precise terms, everything that goes out minus
+  // everything that comes in should satisfy this limit (28d)
+  if (export_lim_cons) {
+     LeadCons(activeTaxCaps + import_lim_cons + export_lim_cons,
+                 Loc.at(Models::EPEC::LeaderVars::NetExport))      = 1;
+     LeadCons(activeTaxCaps + import_lim_cons + export_lim_cons,
+                 Loc.at(Models::EPEC::LeaderVars::NetImport))      = -1;
+     LeadRHS(activeTaxCaps + import_lim_cons + export_lim_cons) = Params.LeaderParam.export_limit;
+  }
+  // (28g)
+  if (price_lim_cons) {
+     for (unsigned int i = 0; i &lt; Params.n_followers; i++)
+        LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons, i) =
+             -Params.DemandParam.beta;
+     LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons,
+                     Loc.at(Models::EPEC::LeaderVars::NetImport)) = -Params.DemandParam.beta;
+     LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons,
+                     Loc.at(Models::EPEC::LeaderVars::NetExport)) = Params.DemandParam.beta;
+     LeadRHS.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons) =
+          Params.LeaderParam.price_limit - Params.DemandParam.alpha;
+  }
+  // revenue tax
+  if (Params.LeaderParam.tax_revenue) {
+
+     // If taxation paradigm is not standard (0), then just one tax variable is
+     // used.
+     unsigned int standardTax = 1;
+     unsigned int carbonTax   = 0;
+     if (Params.LeaderParam.tax_type != Models::EPEC::TaxType::StandardTax) {
+        standardTax = 0;
+        // If carbon tax, we should modify McCornick inequalities
+        if (Params.LeaderParam.tax_type == Models::EPEC::TaxType::CarbonTax)
+          carbonTax = 1;
+     }
+
+     for (unsigned int i = 0; i &lt; Params.n_followers; i++) {
+        double t_cap            = (Params.FollowerParam.tax_caps.at(i * standardTax) &gt;= 0
+                          ? Params.FollowerParam.tax_caps.at(i * standardTax)
+                          : 0);
+        double carbonCorrection = (carbonTax == 1) ? Params.FollowerParam.emission_costs.at(i) : 1;
+        // -u_i + \bar{q}_it_i + \bar{t}_iq_i \le \bar{t}_i \bar{q}_i
+        LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + i * 3 + 1,
+                        Loc.at(Models::EPEC::LeaderVars::TaxQuad) + i) = -1;
+        LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + i * 3 + 1,
+                        Loc.at(Models::EPEC::LeaderVars::Tax) + i * standardTax) =
+             Params.FollowerParam.capacities.at(i) * carbonCorrection;
+        LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + i * 3 + 1,
+                        Loc.at(Models::EPEC::LeaderVars::FollowerStart) + i) = t_cap * carbonCorrection;
+        LeadRHS.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + i * 3 + 1) =
+             t_cap * Params.FollowerParam.capacities.at(i) * carbonCorrection;
+
+        // -u_i + \bar{q}_it_i  \le 0
+        LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + i * 3 + 2,
+                        Loc.at(Models::EPEC::LeaderVars::TaxQuad) + i) = -1;
+        LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + i * 3 + 2,
+                        Loc.at(Models::EPEC::LeaderVars::Tax) + i * standardTax) =
+             Params.FollowerParam.capacities.at(i) * carbonCorrection;
+        LeadRHS.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + i * 3 + 2) =
+             0;
+
+        // -u_i + \bar{t}_iq_i  \le 0
+        LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + i * 3 + 3,
+                        Loc.at(Models::EPEC::LeaderVars::TaxQuad) + i)       = -1;
+        LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + i * 3 + 3,
+                        Loc.at(Models::EPEC::LeaderVars::FollowerStart) + i) = t_cap * carbonCorrection;
+        LeadRHS.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + i * 3 + 3) =
+             0;
+     }
+  }
+  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;********** Price Limit constraint: &quot; &lt;&lt; price_lim_cons;
+  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;********** Import Limit constraint: &quot; &lt;&lt; import_lim_cons;
+  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;********** Export Limit constraint: &quot; &lt;&lt; export_lim_cons;
+  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;********** Tax Limit constraints: &quot; &lt;&lt; activeTaxCaps &lt;&lt; &quot;\n\t&quot;;
+}
+
+Models::EPEC::EPEC &amp;Models::EPEC::EPEC::addCountry(Models::EPEC::LeadAllPar Params,
+                                                                    const unsigned int       addnlLeadVars)
+{
+  if (this-&gt;Finalized)
+     throw ZEROException(ZEROErrorCode::Assertion,
+                                &quot;EPEC object Finalized. Call EPEC::unlock() to unlock &quot;
+                                &quot;this object first and then edit&quot;);
+
+  bool noError = false;
+  try {
+     noError = this-&gt;ParamValid(Params);
+  } catch (const char *e) {
+     std::cerr &lt;&lt; &quot;Error in Models::EPEC::EPEC::addCountry: &quot; &lt;&lt; e &lt;&lt; &#39;\n&#39;;
+  } catch (std::string &amp;e) {
+     std::cerr &lt;&lt; &quot;String: Error in Models::EPEC::EPEC::addCountry: &quot; &lt;&lt; e &lt;&lt; &#39;\n&#39;;
+  } catch (std::exception &amp;e) {
+     std::cerr &lt;&lt; &quot;Exception: Error in Models::EPEC::EPEC::addCountry: &quot; &lt;&lt; e.what() &lt;&lt; &#39;\n&#39;;
+  }
+  if (!noError)
+     return *this;
+
+  // Basing on the taxation paradigm, allocate the right number of taxVars in
+  // the class
+  if (Params.LeaderParam.tax_type == Models::EPEC::TaxType::StandardTax) {
+     BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Country &quot; &lt;&lt; Params.name &lt;&lt; &quot; has a standard tax paradigm.&quot;;
+     this-&gt;taxVars = Params.n_followers;
+  } else {
+     if (Params.LeaderParam.tax_type == Models::EPEC::TaxType::SingleTax) {
+        BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Country &quot; &lt;&lt; Params.name &lt;&lt; &quot; has a single tax paradigm.&quot;;
+     } else if (Params.LeaderParam.tax_type == Models::EPEC::TaxType::CarbonTax) {
+        BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Country &quot; &lt;&lt; Params.name &lt;&lt; &quot; has a carbon tax paradigm.&quot;;
+     }
+     this-&gt;taxVars = 1;
+  }
+
+  const unsigned int LeadVars =
+        2 + (1 + Params.LeaderParam.tax_revenue) * Params.n_followers + taxVars + addnlLeadVars;
+  // 2 for quantity imported and exported, n for imposed cap, taxVars for taxes
+  // and n for bilinear taxes.
+
+  LeadLocs Loc;
+  Models::EPEC::init(Loc);
+
+  // Allocate so much space for each of these types of variables
+  Models::EPEC::increaseVal(Loc, LeaderVars::FollowerStart, Params.n_followers);
+  Models::EPEC::increaseVal(Loc, LeaderVars::NetImport, 1);
+  Models::EPEC::increaseVal(Loc, LeaderVars::NetExport, 1);
+  Models::EPEC::increaseVal(Loc, LeaderVars::Caps, Params.n_followers);
+  Models::EPEC::increaseVal(Loc, LeaderVars::Tax, this-&gt;taxVars);
+  if (Params.LeaderParam.tax_revenue) {
+     BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Country &quot; &lt;&lt; Params.name &lt;&lt; &quot; has tax revenue in the objective.&quot;;
+     Models::EPEC::increaseVal(Loc, LeaderVars::TaxQuad, Params.n_followers);
+  }
+
+  // Leader Constraints
+  short int import_lim_cons{0}, export_lim_cons{0}, price_lim_cons{0};
+  if (Params.LeaderParam.import_limit &gt;= 0)
+     import_lim_cons = 1;
+  if (Params.LeaderParam.export_limit &gt;= 0)
+     export_lim_cons = 1;
+  if (Params.LeaderParam.price_limit &gt;= 0)
+     price_lim_cons = 1;
+  unsigned int activeTaxCaps = 0;
+  if (Params.LeaderParam.tax_type == Models::EPEC::TaxType::StandardTax) {
+     // Since we have a standard taxation paradigm, we have to consider all
+     // different tax caps
+     activeTaxCaps = count_if(Params.FollowerParam.tax_caps.begin(),
+                                      Params.FollowerParam.tax_caps.end(),
+                                      [](double i) { return i &gt;= 0; });
+  } else {
+     // There is no standard taxation paradigm (so we have carbon or single).
+     // Hence we want to consider just one caps, arbitrary the first
+     activeTaxCaps = count_if(Params.FollowerParam.tax_caps.begin(),
+                                      Params.FollowerParam.tax_caps.end(),
+                                      [](double i) { return i &gt;= 0; });
+     if (activeTaxCaps &gt;= 0) {
+        if (!std::equal(Params.FollowerParam.tax_caps.begin() + 1,
+                             Params.FollowerParam.tax_caps.end(),
+                             Params.FollowerParam.tax_caps.begin())) {
+          BOOST_LOG_TRIVIAL(warning) &lt;&lt; &quot;Tax caps are not equal within a non-standard tax framework. &quot;
+                                                  &quot;Using the first value as tax limit.&quot;;
+        }
+        activeTaxCaps = 1;
+     }
+  }
+
+  arma::sp_mat LeadCons(import_lim_cons +     // Import limit constraint
+                                     export_lim_cons + // Export limit constraint
+                                     price_lim_cons +  // Price limit constraint
+                                     activeTaxCaps +   // Tax limit constraints
+                                     Params.n_followers * 3 * Params.LeaderParam.tax_revenue + // revenue tax
+                                     1, // Export - import &lt;= Domestic production
+                                Loc[Models::EPEC::LeaderVars::End]);
+  arma::vec    LeadRHS(import_lim_cons + export_lim_cons + price_lim_cons + activeTaxCaps +
+                        Params.n_followers * 3 * Params.LeaderParam.tax_revenue + 1,
+                    arma::fill::zeros);
+
+  std::vector&lt;std::shared_ptr&lt;MathOpt::QP_Param&gt;&gt; Players{};
+  // Create the QP_Param* for each follower
+  try {
+     for (unsigned int follower = 0; follower &lt; Params.n_followers; follower++) {
+        auto Foll = std::make_shared&lt;MathOpt::QP_Param&gt;(this-&gt;Env);
+        this-&gt;make_LL_QP(Params, follower, Foll.get(), Loc);
+        Players.push_back(Foll);
+     }
+     // Make Leader Constraints
+     this-&gt;make_LL_LeadCons(LeadCons,
+                                    LeadRHS,
+                                    Params,
+                                    Loc,
+                                    import_lim_cons,
+                                    export_lim_cons,
+                                    price_lim_cons,
+                                    activeTaxCaps);
+  } catch (GRBException &amp;e) {
+     throw ZEROException(e);
+  }
+
+  // Lower level Market clearing constraints - empty
+  arma::sp_mat MC(0, LeadVars + Params.n_followers);
+  arma::vec    MCRHS(0, arma::fill::zeros);
+
+  std::vector&lt;std::shared_ptr&lt;MathOpt::MP_Param&gt;&gt; MPCasted;
+  for (auto &amp;item : Players) {
+     auto m = std::dynamic_pointer_cast&lt;MathOpt::MP_Param&gt;(item);
+     MPCasted.push_back(m);
+  }
+  // Convert the country QP to a NashGame
+  auto N =
+        std::make_shared&lt;Game::NashGame&gt;(this-&gt;Env, MPCasted, MC, MCRHS, LeadVars, LeadCons, LeadRHS);
+  this-&gt;name2nos[Params.name] = this-&gt;PlayersLowerLevels.size();
+  this-&gt;PlayersLowerLevels.push_back(N);
+  Models::EPEC::increaseVal(Loc,
+                                     Models::EPEC::LeaderVars::DualVar,
+                                     N-&gt;getNumDualVars()); // N-&gt;getNumDualVars() will sum the number of
+                                                                  // constraints in each lower level QP and provide
+                                                                  // the sum. Indeed, this is the number of dual
+                                                                  // variables for the lower level.
+  this-&gt;Locations.push_back(Loc);
+
+  this-&gt;EPEC::LocEnds.push_back(&amp;this-&gt;Locations.back().at(LeaderVars::End));
+  this-&gt;EPEC::ConvexHullVariables.push_back(0);
+
+  this-&gt;LeadConses.push_back(N-&gt;rewriteLeadCons()); // Not mandatory!
+  this-&gt;AllLeadPars.push_back(Params);
+  this-&gt;Game::EPEC::numMCVariables++;
+  this-&gt;NumPlayers++;
+  return *this;
+}
+
+Models::EPEC::EPEC &amp;
+Models::EPEC::EPEC::addTranspCosts(const arma::sp_mat &amp;costs
+                                              )
+{
+  if (this-&gt;Finalized)
+     throw ZEROException(ZEROErrorCode::Assertion,
+                                &quot;EPEC object Finalized. Call &quot;
+                                &quot;EPEC::unlock() to unlock this object first and then edit.&quot;);
+  try {
+     if (this-&gt;getNumPlayers() != costs.n_rows || this-&gt;getNumPlayers() != costs.n_cols)
+        throw ZEROException(ZEROErrorCode::Assertion, &quot;Mismatch of size in Q&quot;);
+     else
+        this-&gt;TranspCosts = arma::sp_mat(costs);
+     this-&gt;TranspCosts.diag().zeros(); // Doesn&#39;t make sense for it to have a nonzero diagonal!
+
+  } catch (GRBException &amp;e) {
+     throw ZEROException(e);
+  }
+
+  return *this;
+}
+
+void Models::EPEC::EPEC::preFinalize() {
+  /*
+    * Below for loop adds space for each country&#39;s quantity imported from
+    * variable
+    */
+  try {
+     this-&gt;nImportMarkets = std::vector&lt;unsigned int&gt;(this-&gt;getNumPlayers());
+     for (unsigned int i = 0; i &lt; this-&gt;getNumPlayers(); i++)
+        this-&gt;add_Leaders_tradebalance_constraints(i);
+  } catch (GRBException &amp;e) {
+     throw ZEROException(e);
+  } catch (...) {
+     throw ZEROException(ZEROErrorCode::Unknown, &quot;Unknown exception in preFinalize()&quot;);
+  }
+}
+
+void Models::EPEC::EPEC::add_Leaders_tradebalance_constraints(const unsigned int i)
+{
+  if (i &gt;= this-&gt;PlayersLowerLevels.size())
+     throw ZEROException(ZEROErrorCode::OutOfRange, &quot;Player does not exist&quot;);
+  int       nImp = 0;
+  LeadLocs &amp;Loc  = this-&gt;Locations.at(i);
+  // Counts the number of countries from which the current country imports
+  for (auto val = TranspCosts.begin_col(i); val != TranspCosts.end_col(i); ++val)
+     nImp++;
+  // substitutes that answer to nImportMarkets at the current position
+  this-&gt;nImportMarkets.at(i) = (nImp);
+  if (nImp &gt; 0) {
+     Models::EPEC::increaseVal(Loc, LeaderVars::CountryImport, nImp);
+
+     Game::NashGame &amp;LL_Nash = *this-&gt;PlayersLowerLevels.at(i).get();
+
+     // Adding the constraint that the sum of imports from all countries equals
+     // total imports
+     arma::vec a(Loc.at(Models::EPEC::LeaderVars::End) - LL_Nash.getNumDualVars(),
+                     arma::fill::zeros);
+     a.at(Loc.at(Models::EPEC::LeaderVars::NetImport)) = -1;
+     a.subvec(Loc.at(LeaderVars::CountryImport), Loc.at(LeaderVars::CountryImport + 1) - 1).ones();
+
+     LL_Nash.addDummy(nImp, Loc.at(Models::EPEC::LeaderVars::CountryImport));
+     LL_Nash.addLeadCons(a, 0).addLeadCons(-a, 0);
+  } else {
+     Game::NashGame &amp;LL_Nash = *this-&gt;PlayersLowerLevels.at(i).get();
+
+     // Set imports and exports to zero
+     arma::vec a(Loc.at(Models::EPEC::LeaderVars::End) - LL_Nash.getNumDualVars(),
+                     arma::fill::zeros);
+     a.at(Loc.at(Models::EPEC::LeaderVars::NetImport)) = 1;
+     LL_Nash.addLeadCons(a, 0); // Export &lt;= 0
+     a.at(Loc.at(Models::EPEC::LeaderVars::NetImport)) = 0;
+     a.at(Loc.at(Models::EPEC::LeaderVars::NetExport)) = 1;
+     LL_Nash.addLeadCons(a, 0); // Import &lt;= 0
+  }
+}
+
+void Models::EPEC::EPEC::makeMCConstraints(arma::sp_mat &amp;MCLHS, arma::vec &amp;MCRHS) const
+{
+  if (!this-&gt;Finalized)
+     throw ZEROException(ZEROErrorCode::Assertion,
+                                &quot;makeMCConstraints can be called after finalize()&quot;);
+  // Transportation matrix
+  const arma::sp_mat &amp;TrCo = this-&gt;TranspCosts;
+  // Output matrices
+  MCRHS.zeros(this-&gt;getNumPlayers());
+  MCLHS.zeros(this-&gt;getNumPlayers(), this-&gt;getNumVar());
+  // The MC constraint for each leader country
+  if (this-&gt;getNumPlayers() &gt; 1) {
+     for (unsigned int i = 0; i &lt; this-&gt;getNumPlayers(); ++i) {
+        MCLHS(i, this-&gt;getPosition(i, LeaderVars::NetExport)) = 1;
+        for (auto val = TrCo.begin_row(i); val != TrCo.end_row(i); ++val) {
+          const unsigned int j = val.col(); // This is the country which is importing from &quot;i&quot;
+          unsigned int       count{0};
+
+          for (auto val2 = TrCo.begin_col(j); val2 != TrCo.end_col(j); ++val2)
+          // What position in the list of j&#39;s importing from countries  does i
+          // fall in?
+          {
+             if (val2.row() == i)
+                break;
+             else
+                count++;
+          }
+          MCLHS(i, this-&gt;getPosition(j, Models::EPEC::LeaderVars::CountryImport) + count) = -1;
+        }
+     }
+  }
+}
+
+void Models::EPEC::EPEC::make_MC_leader(const unsigned int i)
+{
+  if (i &gt;= this-&gt;getNumPlayers())
+     throw ZEROException(ZEROErrorCode::OutOfRange, &quot;Player does not exist&quot;);
+  try {
+     const arma::sp_mat &amp;TrCo        = this-&gt;TranspCosts;
+     const unsigned int  nEPECvars   = this-&gt;getNumVar();
+     const unsigned int  nThisMCvars = 1;
+     arma::sp_mat        C(nThisMCvars, nEPECvars - nThisMCvars);
+
+     C.at(0, this-&gt;getPosition(i, Models::EPEC::LeaderVars::NetExport)) = 1;
+
+     for (auto val = TrCo.begin_row(i); val != TrCo.end_row(i); ++val) {
+        const unsigned int j = val.col(); // This is the country which the
+                                                     // country &quot;i&quot; is importing from
+        unsigned int count{0};
+
+        for (auto val2 = TrCo.begin_col(j); val2 != TrCo.end_col(j); ++val2)
+        // What position in the list of j&#39;s impoting from countries  does i fall
+        // in?
+        {
+          if (val2.row() == i)
+             break;
+          else
+             count++;
+        }
+
+        C.at(0,
+              this-&gt;getPosition(j, Models::EPEC::LeaderVars::CountryImport) + count -
+                    (j &gt;= i ? nThisMCvars : 0)) = 1;
+     }
+
+     this-&gt;MC_QP.at(i) = std::make_shared&lt;MathOpt::QP_Param&gt;(this-&gt;Env);
+     // Note Q = {{0}}, c={0}, the MC problem has no constraints. So A=B={{}},
+     // b={}.
+     this-&gt;MC_QP.at(i).get()-&gt;set(arma::sp_mat{1, 1},                       // Q
+                                            std::move(C),                             // C
+                                            arma::sp_mat{0, nEPECvars - nThisMCvars}, // A
+                                            arma::sp_mat{0, nThisMCvars},             // B
+                                            arma::vec{0},                             // c
+                                            arma::vec{}                               // b
+     );
+  } catch (GRBException &amp;e) {
+     throw ZEROException(e);
+  } catch (...) {
+     throw ZEROException(ZEROErrorCode::Unknown, &quot;Unknown exception in make_MC_leader()&quot;);
+  }
+}
+
+bool Models::EPEC::EPEC::dataCheck(
+     const bool chkAllLeadPars,
+     const bool chkcountries_LL,
+     const bool chkMC_QP,
+     const bool chkLeadConses,
+     const bool chkLeadRHSes,
+     const bool chknImportMarkets,
+     const bool chkLocations,
+     const bool chkLeaderLocations,
+     const bool chkLeadObjec
+     ) const
+{
+  if (!chkAllLeadPars &amp;&amp; AllLeadPars.size() != this-&gt;getNumPlayers())
+     return false;
+  if (!chkcountries_LL &amp;&amp; PlayersLowerLevels.size() != this-&gt;getNumPlayers())
+     return false;
+  if (!chkMC_QP &amp;&amp; MC_QP.size() != this-&gt;getNumPlayers())
+     return false;
+  if (!chkLeadConses &amp;&amp; LeadConses.size() != this-&gt;getNumPlayers())
+     return false;
+  if (!chkLeadRHSes &amp;&amp; LeadRHSes.size() != this-&gt;getNumPlayers())
+     return false;
+  if (!chknImportMarkets &amp;&amp; nImportMarkets.size() != this-&gt;getNumPlayers())
+     return false;
+  if (!chkLocations &amp;&amp; Locations.size() != this-&gt;getNumPlayers())
+     return false;
+  if (!chkLeaderLocations &amp;&amp; LeaderLocations.size() != this-&gt;getNumPlayers())
+     return false;
+  if (!chkLeaderLocations &amp;&amp; this-&gt;getNumVar() == 0)
+     return false;
+  if (!chkLeadObjec &amp;&amp; LeaderObjective.size() != this-&gt;getNumPlayers())
+     return false;
+  return true;
+}
+
+unsigned int Models::EPEC::EPEC::getPosition(const unsigned int             countryCount,
+                                                            const Models::EPEC::LeaderVars var) const
+{
+  if (countryCount &gt;= this-&gt;getNumPlayers())
+     throw ZEROException(ZEROErrorCode::OutOfRange, &quot;Player object is out of range&quot;);
+  return this-&gt;LeaderLocations.at(countryCount) + this-&gt;Locations.at(countryCount).at(var);
+}
+
+unsigned int Models::EPEC::EPEC::getPosition(const std::string &amp;            countryName,
+                                                            const Models::EPEC::LeaderVars var) const
+{
+  return this-&gt;getPosition(name2nos.at(countryName), var);
+}
+
+Game::NashGame *Models::EPEC::EPEC::get_LowerLevelNash(const unsigned int i) const
+{
+  return this-&gt;PlayersLowerLevels.at(i).get();
+}
+
+Models::EPEC::EPEC &amp;Models::EPEC::EPEC::unlock()
+{
+  this-&gt;Finalized = false;
+  return *this;
+}
+
+void Models::EPEC::EPEC::makeObjectivePlayer(
+     const unsigned int     i,
+     MathOpt::QP_Objective &amp;QP_obj
+     )
+{
+  const unsigned int  nEPECvars        = this-&gt;getNumVar();
+  const unsigned int  nThisCountryvars = this-&gt;Locations.at(i).at(Models::EPEC::LeaderVars::End);
+  const LeadAllPar &amp;  Params           = this-&gt;AllLeadPars.at(i);
+  const arma::sp_mat &amp;TrCo             = this-&gt;TranspCosts;
+  const LeadLocs &amp;    Loc              = this-&gt;Locations.at(i);
+
+  QP_obj.Q.zeros(nThisCountryvars, nThisCountryvars);
+  QP_obj.c.zeros(nThisCountryvars);
+  QP_obj.C.zeros(nThisCountryvars, nEPECvars - nThisCountryvars);
+  // emission term
+  for (unsigned int j = Loc.at(Models::EPEC::LeaderVars::FollowerStart), count = 0;
+         count &lt; Params.n_followers;
+         j++, count++)
+     QP_obj.c.at(j) = Params.FollowerParam.emission_costs.at(count);
+
+  // revenue tax
+  if (Params.LeaderParam.tax_revenue) {
+     for (unsigned int j = Loc.at(Models::EPEC::LeaderVars::TaxQuad), count = 0;
+            count &lt; this-&gt;taxVars;
+            j++, count++)
+        QP_obj.c.at(j) = 1;
+  }
+
+  if (this-&gt;getNumPlayers() &gt; 1) {
+     // export revenue term
+
+     QP_obj.C(Loc.at(Models::EPEC::LeaderVars::NetExport),
+                 // this-&gt;getPosition(i, Models::EPEC::LeaderVars::End) -
+                 // nThisCountryvars) = -1;
+                 this-&gt;getPosition(this-&gt;getNumPlayers() - 1, Models::EPEC::LeaderVars::End) -
+                      nThisCountryvars + i) = -1;
+
+     // Import cost term.
+     unsigned int count{0};
+     for (auto val = TrCo.begin_col(i); val != TrCo.end_col(i); ++val, ++count) {
+        // C^{tr}_{IA}*q^{I\to A}_{imp} term
+        QP_obj.c.at(Loc.at(Models::EPEC::LeaderVars::CountryImport) + count) = (*val);
+        // \pi^I*q^{I\to A}_{imp} term
+        QP_obj.C.at(Loc.at(Models::EPEC::LeaderVars::CountryImport) + count,
+                        this-&gt;getPosition(this-&gt;getNumPlayers() - 1, Models::EPEC::LeaderVars::End) -
+                             nThisCountryvars + val.row()) = 1;
+        // this-&gt;Locations.at(val.row()).at(Models::EPEC::LeaderVars::End)) = 1;
+        // this-&gt;getPosition(val.row(), Models::EPEC::LeaderVars::End)) = 1;
+     }
+  }
+}
+
+std::unique_ptr&lt;GRBModel&gt; Models::EPEC::EPEC::Respond(const std::string name,
+                                                                        const arma::vec &amp; x) const {
+  return this-&gt;Game::EPEC::respond(this-&gt;name2nos.at(name), x);
+}
+
+void Models::EPEC::EPEC::updateLocations()
+{
+  for (unsigned int i = 0; i &lt; this-&gt;getNumPlayers(); ++i) {
+     LeadLocs &amp;Loc = this-&gt;Locations.at(i);
+     Models::EPEC::decreaseVal(Loc,
+                                        Models::EPEC::LeaderVars::ConvHullDummy,
+                                        Loc[Models::EPEC::LeaderVars::ConvHullDummy + 1] -
+                                             Loc[Models::EPEC::LeaderVars::ConvHullDummy]);
+     Models::EPEC::increaseVal(
+          Loc, Models::EPEC::LeaderVars::ConvHullDummy, this-&gt;ConvexHullVariables.at(i));
+  }
+}
+
+void Models::EPEC::increaseVal(LeadLocs &amp;         L,
+                                         const LeaderVars   start,
+                                         const unsigned int val,
+                                         const bool         startnext)
+{
+  LeaderVars start_rl = (LeaderVars)(startnext ? start + 1 : start);
+  for (LeaderVars l = start_rl; l != Models::EPEC::LeaderVars::End; l = l + 1)
+     L[l] += val;
+  L[Models::EPEC::LeaderVars::End] += val;
+  // BOOST_LOG_TRIVIAL(error)&lt;&lt;&quot;End location changed to:
+  // &quot;&lt;&lt;L[Models::EPEC::LeaderVars::End];
+}
+
+void Models::EPEC::decreaseVal(LeadLocs &amp;         L,
+                                         const LeaderVars   start,
+                                         const unsigned int val,
+                                         const bool         startnext)
+{
+  LeaderVars start_rl = (LeaderVars)(startnext ? start + 1 : start);
+  for (LeaderVars l = start_rl; l != Models::EPEC::LeaderVars::End; l = l + 1)
+     L[l] -= val;
+  L[Models::EPEC::LeaderVars::End] -= val;
+  // BOOST_LOG_TRIVIAL(error)&lt;&lt;&quot;End location changed to:
+  // &quot;&lt;&lt;L[Models::EPEC::LeaderVars::End];
+}
+
+void Models::EPEC::init(LeadLocs &amp;L) {
+  for (LeaderVars l = Models::EPEC::LeaderVars::FollowerStart; l != Models::EPEC::LeaderVars::End;
+         l            = l + 1)
+    L[l] = 0;
+  L[Models::EPEC::LeaderVars::End] = 0;
+}
+
+Models::EPEC::FollPar operator+(const Models::EPEC::FollPar &amp;F1, const Models::EPEC::FollPar &amp;F2) {
+  std::vector&lt;double&gt;      cq, cl, cap, ec, tc;
+  std::vector&lt;std::string&gt; nm;
+
+  cq.insert(cq.end(), F1.costs_quad.begin(), F1.costs_quad.end());
+  cq.insert(cq.end(), F2.costs_quad.begin(), F2.costs_quad.end());
+
+  cl.insert(cl.end(), F1.costs_lin.begin(), F1.costs_lin.end());
+  cl.insert(cl.end(), F2.costs_lin.begin(), F2.costs_lin.end());
+
+  cap.insert(cap.end(), F1.capacities.begin(), F1.capacities.end());
+  cap.insert(cap.end(), F2.capacities.begin(), F2.capacities.end());
+
+  ec.insert(ec.end(), F1.emission_costs.begin(), F1.emission_costs.end());
+  ec.insert(ec.end(), F2.emission_costs.begin(), F2.emission_costs.end());
+
+  tc.insert(tc.end(), F1.tax_caps.begin(), F1.tax_caps.end());
+  tc.insert(tc.end(), F2.tax_caps.begin(), F2.tax_caps.end());
+
+  nm.insert(nm.end(), F1.names.begin(), F1.names.end());
+  nm.insert(nm.end(), F2.names.begin(), F2.names.end());
+
+  return Models::EPEC::FollPar(cq, cl, cap, ec, tc, nm);
+}
+Models::EPEC::LeaderVars Models::EPEC::operator+(Models::EPEC::LeaderVars a, int b) {
+  return static_cast&lt;LeaderVars&gt;(static_cast&lt;int&gt;(a) + b);
+}
+
+std::string to_string(const GRBConstr &amp;cons, const GRBModel &amp;model) {
+  const GRBVar *     vars  = model.getVars();
+  const int          nVars = model.get(GRB_IntAttr_NumVars);
+  std::ostringstream oss;
+  oss &lt;&lt; cons.get(GRB_StringAttr_ConstrName) &lt;&lt; &quot;:\t\t&quot;;
+  constexpr double eps = 1e-5;
+  // LHS
+  for (int i = 0; i &lt; nVars; ++i) {
+     double coeff = model.getCoeff(cons, vars[i]);
+     if (std::abs(coeff) &gt; eps) {
+        char sign = (coeff &gt; eps) ? &#39;+&#39; : &#39; &#39;;
+        oss &lt;&lt; sign &lt;&lt; coeff &lt;&lt; to_string(vars[i]) &lt;&lt; &quot;\t&quot;;
+     }
+  }
+  // Inequality/Equality and RHS
+  oss &lt;&lt; cons.get(GRB_CharAttr_Sense) &lt;&lt; &quot;\t&quot; &lt;&lt; cons.get(GRB_DoubleAttr_RHS);
+  return oss.str();
+}
+
+std::string to_string(const GRBVar &amp;var) {
+  std::string name = var.get(GRB_StringAttr_VarName);
+  return name.empty() ? &quot;unNamedvar&quot; : name;
+}
+
+void Models::EPEC::EPEC::write(const std::string  filename,
+                                         const unsigned int i,
+                                         bool               append) const {
+  std::ofstream file;
+  file.open(filename, append ? std::ios::app : std::ios::out);
+  const LeadAllPar &amp;Params = this-&gt;AllLeadPars.at(i);
+  file &lt;&lt; &quot;**************************************************\n&quot;;
+  file &lt;&lt; &quot;COUNTRY: &quot; &lt;&lt; Params.name &lt;&lt; &#39;\n&#39;;
+  file &lt;&lt; &quot;- - - - - - - - - - - - - - - - - - - - - - - - - \n&quot;;
+  file &lt;&lt; Params;
+  file &lt;&lt; &quot;**************************************************\n\n\n\n\n&quot;;
+  file.close();
+}
+
+void Models::EPEC::EPEC::write(const std::string filename, bool append) const {
+  if (append) {
+     std::ofstream file;
+     file.open(filename, std::ios::app);
+     file &lt;&lt; &quot;\n\n\n\n\n&quot;;
+     file &lt;&lt; &quot;##################################################\n&quot;;
+     file &lt;&lt; &quot;############### COUNTRY PARAMETERS ###############\n&quot;;
+     file &lt;&lt; &quot;##################################################\n&quot;;
+  }
+  for (unsigned int i = 0; i &lt; this-&gt;getNumPlayers(); ++i)
+     this-&gt;write(filename, i, (append || i));
+}
+
+void Models::EPEC::EPEC::writeSolutionJSON(std::string     filename,
+                                                         const arma::vec x,
+                                                         const arma::vec z) const {
+  rapidjson::StringBuffer                          s;
+  rapidjson::PrettyWriter&lt;rapidjson::StringBuffer&gt; writer(s);
+  writer.StartObject();
+  writer.Key(&quot;Meta&quot;);
+  writer.StartObject();
+  writer.Key(&quot;isPureEquilibrium&quot;);
+  writer.Bool(this-&gt;isPureStrategy());
+  writer.Key(&quot;nCountries&quot;);
+  writer.Uint(this-&gt;getNumPlayers());
+  writer.Key(&quot;nFollowers&quot;);
+  writer.StartArray();
+  for (unsigned i = 0; i &lt; this-&gt;getNumPlayers(); i++)
+     writer.Uint(this-&gt;AllLeadPars.at(i).n_followers);
+  writer.EndArray();
+  writer.Key(&quot;Countries&quot;);
+  writer.StartArray();
+  for (unsigned i = 0; i &lt; this-&gt;getNumPlayers(); i++) {
+     writer.StartObject();
+     writer.Key(&quot;FollowerStart&quot;);
+     writer.Uint(this-&gt;getPosition(i, Models::EPEC::LeaderVars::FollowerStart));
+     writer.Key(&quot;NetImport&quot;);
+     writer.Uint(this-&gt;getPosition(i, Models::EPEC::LeaderVars::NetImport));
+     writer.Key(&quot;NetExport&quot;);
+     writer.Uint(this-&gt;getPosition(i, Models::EPEC::LeaderVars::NetExport));
+     writer.Key(&quot;CountryImport&quot;);
+     writer.Uint(this-&gt;getPosition(i, Models::EPEC::LeaderVars::CountryImport));
+     writer.Key(&quot;Caps&quot;);
+     writer.Uint(this-&gt;getPosition(i, Models::EPEC::LeaderVars::Caps));
+     writer.Key(&quot;Tax&quot;);
+     writer.Uint(this-&gt;getPosition(i, Models::EPEC::LeaderVars::Tax));
+     if (this-&gt;AllLeadPars.at(i).LeaderParam.tax_revenue) {
+        writer.Key(&quot;QuadraticTax&quot;);
+        writer.Uint(this-&gt;getPosition(i, Models::EPEC::LeaderVars::TaxQuad));
+     }
+     writer.Key(&quot;DualVar&quot;);
+     writer.Uint(this-&gt;getPosition(i, Models::EPEC::LeaderVars::DualVar));
+     writer.Key(&quot;ConvHullDummy&quot;);
+     writer.Uint(this-&gt;getPosition(i, Models::EPEC::LeaderVars::ConvHullDummy));
+     writer.Key(&quot;End&quot;);
+     writer.Uint(this-&gt;getPosition(i, Models::EPEC::LeaderVars::End));
+     writer.Key(&quot;ShadowPrice&quot;);
+     writer.Uint(this-&gt;getPosition(this-&gt;getNumPlayers() - 1, Models::EPEC::LeaderVars::End) + i);
+     writer.EndObject();
+  }
+  writer.EndArray();
+  writer.EndObject();
+  writer.Key(&quot;Solution&quot;);
+  writer.StartObject();
+  writer.Key(&quot;x&quot;);
+  writer.StartArray();
+  for (unsigned i = 0; i &lt; x.size(); i++)
+     writer.Double(x.at(i));
+  writer.EndArray();
+  writer.Key(&quot;z&quot;);
+  writer.StartArray();
+  for (unsigned i = 0; i &lt; z.size(); i++)
+     writer.Double(z.at(i));
+  writer.EndArray();
+  writer.EndObject();
+  writer.EndObject();
+  std::ofstream file(filename + &quot;.json&quot;);
+  file &lt;&lt; s.GetString();
+}
+
+void Models::EPEC::EPEC::readSolutionJSON(const std::string filename) {
+  std::ifstream ifs(filename + &quot;.json&quot;);
+  if (ifs.good()) {
+     rapidjson::IStreamWrapper isw(ifs);
+     rapidjson::Document       d;
+     try {
+        d.ParseStream(isw);
+        const rapidjson::Value &amp;x = d[&quot;Solution&quot;].GetObject()[&quot;x&quot;];
+        // const Value &amp;z = d[&quot;Solution&quot;].GetObject()[&quot;z&quot;];
+        arma::vec new_x;
+        // arma::vec new_z;
+        new_x.zeros(x.GetArray().Size());
+        // new_z.zeros(z.GetArray().Size());
+
+        for (rapidjson::SizeType i = 0; i &lt; this-&gt;getNumVar(); i++)
+          new_x.at(i) = x[i].GetDouble();
+
+        // for (SizeType i = 0; i &lt; this-&gt;getNumVar(); i++)
+        // new_z.at(i) = z[i].GetDouble();
+        ifs.close();
+        this-&gt;warmstart(new_x);
+     } catch (std::exception &amp;e) {
+        throw ZEROException(ZEROErrorCode::IOError, e.what());
+     } catch (...) {
+        throw ZEROException(ZEROErrorCode::Unknown, &quot;Unknown errorin readSolutionJSON()&quot;);
+     }
+  } else {
+     throw ZEROException(ZEROErrorCode::IOError, &quot;File not found&quot;);
+  }
+}
+
+void Models::EPEC::EPEC::writeSolution(const int writeLevel, std::string filename) const {
+  if (this-&gt;Stats.Status.get() == ZEROStatus::NashEqFound) {
+     if (writeLevel == 1 || writeLevel == 2) {
+        this-&gt;WriteCountry(0, filename + &quot;.txt&quot;, this-&gt;SolutionX, false);
+        for (unsigned int ell = 1; ell &lt; this-&gt;getNumPlayers(); ++ell)
+          this-&gt;WriteCountry(ell, filename + &quot;.txt&quot;, this-&gt;SolutionX, true);
+        this-&gt;write(filename + &quot;.txt&quot;, true);
+     }
+     if (writeLevel == 2 || writeLevel == 0)
+        this-&gt;writeSolutionJSON(filename, this-&gt;SolutionX, this-&gt;SolutionZ);
+  } else {
+     std::cerr &lt;&lt; &quot;Error in Models::EPEC::EPEC::writeSolution: no solution to write.&quot; &lt;&lt; &#39;\n&#39;;
+  }
+}
+
+void Models::EPEC::EPECInstance::save(std::string filename) {
+  rapidjson::StringBuffer                          s;
+  rapidjson::PrettyWriter&lt;rapidjson::StringBuffer&gt; writer(s);
+  writer.StartObject();
+  writer.Key(&quot;nCountries&quot;);
+  writer.Uint(this-&gt;Countries.size());
+  writer.Key(&quot;Countries&quot;);
+  writer.StartArray();
+  for (unsigned i = 0; i &lt; this-&gt;Countries.size(); i++) {
+     writer.StartObject();
+
+     writer.Key(&quot;nFollowers&quot;);
+     writer.Uint(this-&gt;Countries.at(i).n_followers);
+
+     writer.Key(&quot;Name&quot;);
+     std::string currName = this-&gt;Countries.at(i).name;
+     char        nameArray[currName.length() + 1];
+     strcpy(nameArray, currName.c_str());
+     writer.String(nameArray);
+
+     writer.Key(&quot;DemandParam&quot;);
+     writer.StartObject();
+     writer.Key(&quot;Alpha&quot;);
+     writer.Double(this-&gt;Countries.at(i).DemandParam.alpha);
+     writer.Key(&quot;Beta&quot;);
+     writer.Double(this-&gt;Countries.at(i).DemandParam.beta);
+     writer.EndObject();
+
+     writer.Key(&quot;TransportationCosts&quot;);
+     writer.StartArray();
+     for (unsigned j = 0; j &lt; this-&gt;Countries.size(); j++)
+        writer.Double(this-&gt;TransportationCosts(i, j));
+     writer.EndArray();
+
+     writer.Key(&quot;LeaderParam&quot;);
+     writer.StartObject();
+     writer.Key(&quot;ImportLimit&quot;);
+     writer.Double(this-&gt;Countries.at(i).LeaderParam.import_limit);
+     writer.Key(&quot;ExportLimit&quot;);
+     writer.Double(this-&gt;Countries.at(i).LeaderParam.export_limit);
+     writer.Key(&quot;PriceLimit&quot;);
+     writer.Double(this-&gt;Countries.at(i).LeaderParam.price_limit);
+     writer.Key(&quot;TaxRevenue&quot;);
+     writer.Bool(this-&gt;Countries.at(i).LeaderParam.tax_revenue);
+     writer.Key(&quot;TaxationType&quot;);
+     switch (this-&gt;Countries.at(i).LeaderParam.tax_type) {
+     case Models::EPEC::TaxType::StandardTax:
+        writer.Int(0);
+        break;
+     case Models::EPEC::TaxType::SingleTax:
+        writer.Int(1);
+        break;
+     default:
+        writer.Int(2);
+     }
+     writer.EndObject();
+
+     writer.Key(&quot;Followers&quot;);
+     writer.StartObject();
+
+     writer.Key(&quot;Names&quot;);
+     writer.StartArray();
+     for (unsigned j = 0; j &lt; this-&gt;Countries.at(i).n_followers; j++) {
+        currName = this-&gt;Countries.at(i).FollowerParam.names.at(j);
+        char nameArrayCurrent[currName.length() + 1];
+        strcpy(nameArrayCurrent, currName.c_str());
+        writer.String(nameArrayCurrent);
+     }
+     writer.EndArray();
+
+     writer.Key(&quot;Capacities&quot;);
+     writer.StartArray();
+     for (unsigned j = 0; j &lt; this-&gt;Countries.at(i).n_followers; j++)
+        writer.Double(this-&gt;Countries.at(i).FollowerParam.capacities.at(j));
+     writer.EndArray();
+
+     writer.Key(&quot;LinearCosts&quot;);
+     writer.StartArray();
+     for (unsigned j = 0; j &lt; this-&gt;Countries.at(i).n_followers; j++)
+        writer.Double(this-&gt;Countries.at(i).FollowerParam.costs_lin.at(j));
+     writer.EndArray();
+
+     writer.Key(&quot;QuadraticCosts&quot;);
+     writer.StartArray();
+     for (unsigned j = 0; j &lt; this-&gt;Countries.at(i).n_followers; j++)
+        writer.Double(this-&gt;Countries.at(i).FollowerParam.costs_quad.at(j));
+     writer.EndArray();
+
+     writer.Key(&quot;EmissionCosts&quot;);
+     writer.StartArray();
+     for (unsigned j = 0; j &lt; this-&gt;Countries.at(i).n_followers; j++)
+        writer.Double(this-&gt;Countries.at(i).FollowerParam.emission_costs.at(j));
+     writer.EndArray();
+
+     writer.Key(&quot;TaxCaps&quot;);
+     writer.StartArray();
+     for (unsigned j = 0; j &lt; this-&gt;Countries.at(i).n_followers; j++)
+        writer.Double(this-&gt;Countries.at(i).FollowerParam.tax_caps.at(j));
+     writer.EndArray();
+
+     writer.EndObject();
+
+     writer.EndObject();
+  }
+  writer.EndArray();
+  writer.EndObject();
+  std::ofstream file(filename + &quot;.json&quot;);
+  file &lt;&lt; s.GetString();
+  file.close();
+}
+
+void Models::EPEC::EPECInstance::load(std::string filename) {
+  std::ifstream ifs(filename + &quot;.json&quot;);
+  if (ifs.good()) {
+     rapidjson::IStreamWrapper isw(ifs);
+     rapidjson::Document       d;
+     try {
+        d.ParseStream(isw);
+        std::vector&lt;Models::EPEC::LeadAllPar&gt; LAP        = {};
+        int                                   nCountries = d[&quot;nCountries&quot;].GetInt();
+        arma::sp_mat                          TrCo;
+        TrCo.zeros(nCountries, nCountries);
+        for (int j = 0; j &lt; nCountries; ++j) {
+          const rapidjson::Value &amp;c = d[&quot;Countries&quot;].GetArray()[j].GetObject();
+
+          Models::EPEC::FollPar   FP;
+          const rapidjson::Value &amp;cap = c[&quot;Followers&quot;][&quot;Capacities&quot;];
+          for (rapidjson::SizeType i = 0; i &lt; cap.GetArray().Size(); i++) {
+             FP.capacities.push_back(cap[i].GetDouble());
+          }
+          const rapidjson::Value &amp;lc = c[&quot;Followers&quot;][&quot;LinearCosts&quot;];
+          for (rapidjson::SizeType i = 0; i &lt; lc.GetArray().Size(); i++) {
+             FP.costs_lin.push_back(lc[i].GetDouble());
+          }
+          const rapidjson::Value &amp;qc = c[&quot;Followers&quot;][&quot;QuadraticCosts&quot;];
+          for (rapidjson::SizeType i = 0; i &lt; qc.GetArray().Size(); i++) {
+             FP.costs_quad.push_back(qc[i].GetDouble());
+          }
+          const rapidjson::Value &amp;ec = c[&quot;Followers&quot;][&quot;EmissionCosts&quot;];
+          for (rapidjson::SizeType i = 0; i &lt; ec.GetArray().Size(); i++) {
+             FP.emission_costs.push_back(ec[i].GetDouble());
+          }
+          const rapidjson::Value &amp;tc = c[&quot;Followers&quot;][&quot;TaxCaps&quot;];
+          for (rapidjson::SizeType i = 0; i &lt; tc.GetArray().Size(); i++) {
+             FP.tax_caps.push_back(tc[i].GetDouble());
+          }
+          const rapidjson::Value &amp;nm = c[&quot;Followers&quot;][&quot;Names&quot;];
+          for (rapidjson::SizeType i = 0; i &lt; nm.GetArray().Size(); i++) {
+             FP.names.push_back(nm[i].GetString());
+          }
+          for (rapidjson::SizeType i = 0; i &lt; c[&quot;TransportationCosts&quot;].GetArray().Size(); i++) {
+             TrCo.at(j, i) = c[&quot;TransportationCosts&quot;].GetArray()[i].GetDouble();
+          }
+          bool tax_revenue = false;
+          if (c[&quot;LeaderParam&quot;].HasMember(&quot;TaxRevenue&quot;)) {
+             tax_revenue = c[&quot;LeaderParam&quot;].GetObject()[&quot;TaxRevenue&quot;].GetBool();
+          }
+          unsigned int tax_type = 0;
+          if (c[&quot;LeaderParam&quot;].HasMember(&quot;TaxationType&quot;)) {
+             tax_type = c[&quot;LeaderParam&quot;].GetObject()[&quot;TaxationType&quot;].GetInt();
+          }
+          LAP.push_back(
+                Models::EPEC::LeadAllPar(FP.capacities.size(),
+                                                 c[&quot;Name&quot;].GetString(),
+                                                 FP,
+                                                 {c[&quot;DemandParam&quot;].GetObject()[&quot;Alpha&quot;].GetDouble(),
+                                                  c[&quot;DemandParam&quot;].GetObject()[&quot;Beta&quot;].GetDouble()},
+                                                 {c[&quot;LeaderParam&quot;].GetObject()[&quot;ImportLimit&quot;].GetDouble(),
+                                                  c[&quot;LeaderParam&quot;].GetObject()[&quot;ExportLimit&quot;].GetDouble(),
+                                                  c[&quot;LeaderParam&quot;].GetObject()[&quot;PriceLimit&quot;].GetDouble(),
+                                                  tax_revenue,
+                                                  tax_type}));
+        }
+        ifs.close();
+        this-&gt;Countries           = LAP;
+        this-&gt;TransportationCosts = TrCo;
+     } catch (std::exception &amp;e) {
+        throw ZEROException(ZEROErrorCode::IOError, e.what());
+     } catch (...) {
+        throw ZEROException(ZEROErrorCode::IOError, &quot;Unknown error in load()&quot;);
+     }
+  } else {
+     throw ZEROException(ZEROErrorCode::IOError, &quot;File not found&quot;);
+  }
+}
+
+void Models::EPEC::EPEC::WriteCountry(const unsigned int i,
+                                                  const std::string  filename,
+                                                  const arma::vec    x,
+                                                  const bool         append) const {
+  // if (!TheLCP) return;
+  // const LeadLocs&amp; Loc = this-&gt;Locations.at(i);
+
+  std::ofstream file;
+  file.open(filename, append ? std::ios::app : std::ios::out);
+  // FILE OPERATIONS START
+  const LeadAllPar &amp;Params = this-&gt;AllLeadPars.at(i);
+  file &lt;&lt; &quot;**************************************************\n&quot;;
+  file &lt;&lt; &quot;COUNTRY: &quot; &lt;&lt; Params.name &lt;&lt; &#39;\n&#39;;
+  file &lt;&lt; &quot;**************************************************\n\n&quot;;
+  // Country Variables
+  unsigned int foll_prod;
+  foll_prod = this-&gt;getPosition(i, Models::EPEC::LeaderVars::FollowerStart);
+  // Domestic production
+  double prod{0};
+  for (unsigned int j = 0; j &lt; Params.n_followers; ++j)
+     prod += x.at(foll_prod + j);
+  // Trade
+  double Export{x.at(this-&gt;getPosition(i, Models::EPEC::LeaderVars::NetExport))};
+  double exportPrice{
+        x.at(this-&gt;getPosition(this-&gt;getNumPlayers() - 1, Models::EPEC::LeaderVars::End) + i)};
+  double import{0};
+  for (unsigned int j = this-&gt;getPosition(i, Models::EPEC::LeaderVars::CountryImport);
+         j &lt; this-&gt;getPosition(i, Models::EPEC::LeaderVars::CountryImport + 1);
+         ++j)
+     import += x.at(j);
+  // Writing national level details
+  file &lt;&lt; &quot;PureStrategy:&quot; &lt;&lt; this-&gt;isPureStrategy(i) &lt;&lt; &quot;\n&quot;;
+  file &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;Domestic production&quot;
+         &lt;&lt; &quot;:&quot; &lt;&lt; Models::EPEC::prn::val &lt;&lt; prod &lt;&lt; &quot;\n&quot;;
+  if (Export &gt;= import)
+     file &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;Net exports&quot;
+            &lt;&lt; &quot;:&quot; &lt;&lt; Models::EPEC::prn::val &lt;&lt; Export - import &lt;&lt; &quot;\n&quot;;
+  else
+     file &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;Net imports&quot;
+            &lt;&lt; &quot;:&quot; &lt;&lt; Models::EPEC::prn::val &lt;&lt; import - Export &lt;&lt; &quot;\n&quot;;
+  file &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;Export price&quot;
+         &lt;&lt; &quot;:&quot; &lt;&lt; Models::EPEC::prn::val &lt;&lt; exportPrice &lt;&lt; &quot;\n&quot;;
+  file &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot; -&gt; Total Export&quot;
+         &lt;&lt; &quot;:&quot; &lt;&lt; Models::EPEC::prn::val &lt;&lt; Export &lt;&lt; &quot;\n&quot;;
+  file &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot; -&gt; Total Import&quot;
+         &lt;&lt; &quot;:&quot; &lt;&lt; Models::EPEC::prn::val &lt;&lt; import &lt;&lt; &#39;\n&#39;;
+  file &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;Domestic consumed quantity&quot;
+         &lt;&lt; &quot;:&quot; &lt;&lt; Models::EPEC::prn::val &lt;&lt; import - Export + prod &lt;&lt; &quot;\n&quot;;
+  file &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;Domestic price&quot;
+         &lt;&lt; &quot;:&quot; &lt;&lt; Models::EPEC::prn::val
+         &lt;&lt; Params.DemandParam.alpha - Params.DemandParam.beta * (import - Export + prod) &lt;&lt; &quot;\n&quot;;
+
+  file.close();
+
+  // Follower productions
+  file &lt;&lt; &quot;- - - - - - - - - - - - - - - - - - - - - - - - - \n&quot;;
+  file &lt;&lt; &quot;FOLLOWER DETAILS:\n&quot;;
+  for (unsigned int j = 0; j &lt; Params.n_followers; ++j)
+     this-&gt;WriteFollower(i, j, filename, x);
+
+  file &lt;&lt; &quot;\n\n\n&quot;;
+  // FILE OPERATIONS END
+}
+
+void Models::EPEC::EPEC::WriteFollower(const unsigned int i,
+                                                    const unsigned int j,
+                                                    const std::string  filename,
+                                                    const arma::vec    x) const {
+  std::ofstream file;
+  file.open(filename, std::ios::app);
+
+  // Country Variables
+  const LeadAllPar &amp;Params = this-&gt;AllLeadPars.at(i);
+  unsigned int      foll_prod, foll_tax, foll_lim, foll_taxQ = 0;
+  foll_prod = this-&gt;getPosition(i, Models::EPEC::LeaderVars::FollowerStart);
+  foll_tax  = this-&gt;getPosition(i, Models::EPEC::LeaderVars::Tax);
+  foll_lim  = this-&gt;getPosition(i, Models::EPEC::LeaderVars::Caps);
+  if (Params.LeaderParam.tax_revenue)
+     foll_taxQ = this-&gt;getPosition(i, Models::EPEC::LeaderVars::TaxQuad);
+
+  std::string name;
+  try {
+     name = Params.name + &quot; --- &quot; + Params.FollowerParam.names.at(j);
+  } catch (...) {
+     name = &quot;Follower &quot; + std::to_string(j) + &quot; of leader &quot; + std::to_string(i);
+  }
+
+  file &lt;&lt; &quot;\n&quot; &lt;&lt; name &lt;&lt; &quot;\n\n&quot;; //&lt;&lt;&quot; named &quot;&lt;&lt;Params.FollowerParam.names.at(j)&lt;&lt;&quot;\n&quot;;
+  double tax;
+  if (Params.LeaderParam.tax_type == Models::EPEC::TaxType::StandardTax)
+     tax = x.at(foll_tax + j);
+  else
+     tax = x.at(foll_tax);
+  const double q    = x.at(foll_prod + j);
+  double       taxQ = 0;
+  if (Params.LeaderParam.tax_revenue)
+     taxQ = q &gt; 0 ? x.at(foll_taxQ + j) / q : x.at(foll_taxQ + j);
+  const double lim  = x.at(foll_lim + j);
+  const double lin  = Params.FollowerParam.costs_lin.at(j);
+  const double quad = Params.FollowerParam.costs_quad.at(j);
+
+  file &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;Quantity produced&quot;
+         &lt;&lt; &quot;:&quot; &lt;&lt; Models::EPEC::prn::val &lt;&lt; q &lt;&lt; &#39;\n&#39;;
+  // file &lt;&lt; &quot;x(): &quot; &lt;&lt; foll_prod + j &lt;&lt; &#39;\n&#39;;
+  file &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;Capacity of production&quot;
+         &lt;&lt; &quot;:&quot; &lt;&lt; Models::EPEC::prn::val &lt;&lt; Params.FollowerParam.capacities.at(j) &lt;&lt; &quot;\n&quot;;
+  file &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;Limit on production&quot;
+         &lt;&lt; &quot;:&quot; &lt;&lt; Models::EPEC::prn::val &lt;&lt; lim &lt;&lt; &quot;\n&quot;;
+  // file &lt;&lt; &quot;x(): &quot; &lt;&lt; foll_lim + j &lt;&lt; &#39;\n&#39;;
+  file &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;Tax imposed&quot;
+         &lt;&lt; &quot;:&quot; &lt;&lt; Models::EPEC::prn::val &lt;&lt; tax;
+  if (Params.LeaderParam.tax_type == Models::EPEC::TaxType::CarbonTax) {
+     tax = tax * Params.FollowerParam.emission_costs.at(j);
+     file &lt;&lt; &quot; per unit emission; &quot; &lt;&lt; tax &lt;&lt; &quot; per unit energy&quot;;
+  }
+  file &lt;&lt; &quot;\n&quot;;
+  if (Params.LeaderParam.tax_revenue)
+     file &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;Tax imposed (Q)&quot;
+            &lt;&lt; &quot;:&quot; &lt;&lt; Models::EPEC::prn::val &lt;&lt; taxQ &lt;&lt; &quot;\n&quot;;
+  // file &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;Tax cap&quot; &lt;&lt; &quot;:&quot; &lt;&lt;
+  // Params.FollowerParam.tax_caps.at(j) &lt;&lt; tax &lt;&lt; &quot;\n&quot;;
+  // file &lt;&lt; &quot;x(): &quot; &lt;&lt; foll_tax + j &lt;&lt; &#39;\n&#39;;
+  file &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;  -Production cost function&quot;
+         &lt;&lt; &quot;:&quot;
+         &lt;&lt; &quot;\t C(q) = (&quot; &lt;&lt; lin &lt;&lt; &quot; + &quot; &lt;&lt; tax &lt;&lt; &quot;)*q + 0.5*&quot; &lt;&lt; quad &lt;&lt; &quot;*q^2\n&quot;
+         &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot; &quot;
+         &lt;&lt; &quot;=&quot; &lt;&lt; Models::EPEC::prn::val &lt;&lt; (lin + tax) * q + 0.5 * quad * q * q &lt;&lt; &quot;\n&quot;;
+  file &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;  -Marginal cost of production&quot;
+         &lt;&lt; &quot;:&quot; &lt;&lt; Models::EPEC::prn::val &lt;&lt; quad * q + lin + tax &lt;&lt; &quot;\n&quot;;
+  file &lt;&lt; Models::EPEC::prn::label &lt;&lt; &quot;Emission cost&quot;
+         &lt;&lt; &quot;:&quot; &lt;&lt; Models::EPEC::prn::val &lt;&lt; Params.FollowerParam.emission_costs.at(j) &lt;&lt; &#39;\n&#39;;
+
+  file.close();
+}
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright Gabriele Dragotto, Sriram Sankaranarayanan
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

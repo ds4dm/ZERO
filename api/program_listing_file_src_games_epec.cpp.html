@@ -1,0 +1,1490 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Program Listing for File epec.cpp &mdash; ZERO 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #333131" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/zerowhite.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#downloading-and-compiling">Downloading and Compiling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#utilities">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Extended References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="library_root.html">Library API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Algorithms.html#namespaces">Namespaces</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Algorithms__EPEC.html">Namespace Algorithms::EPEC</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Algorithms__EPEC.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Algorithms__IPG.html">Namespace Algorithms::IPG</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Algorithms__IPG.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Data.html">Namespace Data</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Data.html#namespaces">Namespaces</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Data__EPEC.html">Namespace Data::EPEC</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Data__EPEC.html#classes">Classes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Data__EPEC.html#enums">Enums</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Data__IPG.html">Namespace Data::IPG</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Data__IPG.html#classes">Classes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Data__IPG.html#enums">Enums</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Data__LCP.html">Namespace Data::LCP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Data__LCP.html#enums">Enums</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Game.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_MathOpt.html">Namespace MathOpt</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#classes">Classes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#enums">Enums</a></li>
+<li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#functions">Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Models.html#namespaces">Namespaces</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Models__EPEC.html">Namespace Models::EPEC</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Models__EPEC.html#classes">Classes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Models__EPEC.html#enums">Enums</a></li>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Models__EPEC.html#functions">Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Models__EPEC.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Models__IPG.html">Namespace Models::IPG</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Models__IPG.html#classes">Classes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Models__IPG.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Solvers.html">Namespace Solvers</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Solvers.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node.html">Struct OuterTree::Node</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node.html#nested-relationships">Nested Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structAlgorithms_1_1IPG_1_1IPG__Player.html">Struct IPG_Player</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structAlgorithms_1_1IPG_1_1IPG__Player.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structMathOpt_1_1QP__Constraints.html">Struct QP_Constraints</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structMathOpt_1_1QP__Constraints.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structMathOpt_1_1QP__Objective.html">Struct QP_Objective</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structMathOpt_1_1QP__Objective.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structModels_1_1EPEC_1_1DemPar.html">Struct DemPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structModels_1_1EPEC_1_1DemPar.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structModels_1_1EPEC_1_1EPECInstance.html">Struct EPECInstance</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structModels_1_1EPEC_1_1EPECInstance.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structModels_1_1EPEC_1_1FollPar.html">Struct FollPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structModels_1_1EPEC_1_1FollPar.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structModels_1_1EPEC_1_1LeadAllPar.html">Struct LeadAllPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structModels_1_1EPEC_1_1LeadAllPar.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structModels_1_1EPEC_1_1LeadPar.html">Struct LeadPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structModels_1_1EPEC_1_1LeadPar.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structModels_1_1IPG_1_1IPGInstance.html">Struct IPGInstance</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structModels_1_1IPG_1_1IPGInstance.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structSolvers_1_1PATH_1_1PATHProblem.html">Struct PATH::PATHProblem</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structSolvers_1_1PATH_1_1PATHProblem.html#nested-relationships">Nested Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="structSolvers_1_1PATH_1_1PATHProblem.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structZEROStatistics.html">Template Struct ZEROStatistics</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="structZEROStatistics.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1Algorithm.html">Class Algorithm</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1Algorithm.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1Algorithm.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CombinatorialPNE.html">Class CombinatorialPNE</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CombinatorialPNE.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CombinatorialPNE.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1FullEnumeration.html">Class FullEnumeration</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1FullEnumeration.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1FullEnumeration.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1InnerApproximation.html">Class InnerApproximation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1InnerApproximation.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1InnerApproximation.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterApproximation.html">Class OuterApproximation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterApproximation.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterApproximation.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html">Class OuterTree</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html#nested-relationships">Nested Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1PolyBase.html">Class PolyBase</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1PolyBase.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1PolyBase.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Algorithm.html">Class Algorithm</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Algorithm.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Algorithm.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Oracle.html">Class Oracle</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Oracle.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Oracle.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classAttr.html">Template Class Attr</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAttr.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classData_1_1EPEC_1_1DataObject.html">Class DataObject</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classData_1_1EPEC_1_1DataObject.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classData_1_1EPEC_1_1DataObject.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classData_1_1IPG_1_1DataObject.html">Class DataObject</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classData_1_1IPG_1_1DataObject.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classData_1_1IPG_1_1DataObject.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classGame_1_1AbstractGame.html">Template Class AbstractGame</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classGame_1_1AbstractGame.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classGame_1_1EPEC.html">Class EPEC</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classGame_1_1EPEC.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classGame_1_1EPEC.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classGame_1_1IPG.html">Class IPG</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classGame_1_1IPG.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classGame_1_1IPG.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classGame_1_1NashGame.html">Class NashGame</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classGame_1_1NashGame.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1IP__Param.html">Class IP_Param</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1IP__Param.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1IP__Param.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1LCP.html">Class LCP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1LCP.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1LCP.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1MP__Param.html">Class MP_Param</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1MP__Param.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1MP__Param.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1OuterLCP.html">Class OuterLCP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1OuterLCP.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1OuterLCP.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1PolyLCP.html">Class PolyLCP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1PolyLCP.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1PolyLCP.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1QP__Param.html">Class QP_Param</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1QP__Param.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1QP__Param.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classModels_1_1EPEC_1_1EPEC.html">Class EPEC</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classModels_1_1EPEC_1_1EPEC.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classModels_1_1EPEC_1_1EPEC.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classModels_1_1IPG_1_1IPG.html">Class IPG</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classModels_1_1IPG_1_1IPG.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classModels_1_1IPG_1_1IPG.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classSolvers_1_1PATH.html">Class PATH</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classSolvers_1_1PATH.html#nested-relationships">Nested Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classSolvers_1_1PATH.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classZEROAlgorithmData.html">Class ZEROAlgorithmData</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classZEROAlgorithmData.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classZEROAlgorithmData.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classZEROException.html">Class ZEROException</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classZEROException.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classZEROException.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classZEROVersion.html">Class ZEROVersion</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classZEROVersion.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#enums">Enums</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1a3f4c2ba1ad7ce924bed99ddf193fd318.html">Enum Algorithms</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1a3f4c2ba1ad7ce924bed99ddf193fd318.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1a347af28b83353df8afdbd4ee171565b3.html">Enum RecoverStrategy</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1a347af28b83353df8afdbd4ee171565b3.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a34d343f554ac089c3cb14de04aa6d294.html">Enum Algorithms</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a34d343f554ac089c3cb14de04aa6d294.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a1a0a91a80ea38eefb37b54452fbd70a4.html">Enum LCPAlgorithms</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a1a0a91a80ea38eefb37b54452fbd70a4.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82.html">Enum Algorithms</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1LCP_1aa8773225c810ac45575f86ac803105ab.html">Enum PolyhedraStrategy</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1LCP_1aa8773225c810ac45575f86ac803105ab.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceMathOpt_1a4cc28e2d94716b82777c530772b7f2b4.html">Enum MPType</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceMathOpt_1a4cc28e2d94716b82777c530772b7f2b4.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceModels_1_1EPEC_1a20f448e9e7eadf005b6576ee74af0b5f.html">Enum LeaderVars</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceModels_1_1EPEC_1a20f448e9e7eadf005b6576ee74af0b5f.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceModels_1_1EPEC_1ac6f525119967602609afe99f64ef4a1b.html">Enum prn</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceModels_1_1EPEC_1ac6f525119967602609afe99f64ef4a1b.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceModels_1_1EPEC_1a72626ff0ddf65191cd9b8f82563d38f4.html">Enum TaxType</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceModels_1_1EPEC_1a72626ff0ddf65191cd9b8f82563d38f4.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_codes_8h_1aec3f6d9705d82787080ef99b37b7efea.html">Enum ZEROErrorCode</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_codes_8h_1aec3f6d9705d82787080ef99b37b7efea.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_codes_8h_1adc92fa8b12e5abec0a79ad40bedc1ccf.html">Enum ZEROStatus</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_codes_8h_1adc92fa8b12e5abec0a79ad40bedc1ccf.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#functions">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="function_utils_8cpp_1ad85f66e4cbb90a0976aa1e9e49571c93.html">Function appendRead</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_utils_8cpp_1ad85f66e4cbb90a0976aa1e9e49571c93.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_utils_8cpp_1a8a3281f033159773e6047a595cfa129a.html">Function appendSave</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_utils_8cpp_1a8a3281f033159773e6047a595cfa129a.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_shells_2epec_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627.html">Function main(int, char **)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_shells_2epec_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_shells_2ipg_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627.html">Function main(int, char **)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_shells_2ipg_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1af3d7bfcf9b11cefb7f4521d685211934.html">Function MathOpt::compConvSize</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1af3d7bfcf9b11cefb7f4521d685211934.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1a0a13d06524e3ad2baf756e15a794a745.html">Function MathOpt::convexHull</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1a0a13d06524e3ad2baf756e15a794a745.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1aabf121bcb871000488825dd64750500c.html">Function MathOpt::getDualMembershipLP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1aabf121bcb871000488825dd64750500c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1aa4eaa00160eb2098969ef087c92eea5d.html">Function MathOpt::LPSolve</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1aa4eaa00160eb2098969ef087c92eea5d.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1aedd7c328cf667c15244fec225b90a65d.html">Function MathOpt::operator&lt;&lt;(std::ostream&amp;, const IP_Param&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1aedd7c328cf667c15244fec225b90a65d.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1a81f3217167710fd7c3d4211658cfa5d6.html">Function MathOpt::operator&lt;&lt;(std::ostream&amp;, const QP_Param&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1a81f3217167710fd7c3d4211658cfa5d6.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1a8b4c66568c38b6a5b08a7fca9372a7dd.html">Function MathOpt::print</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1a8b4c66568c38b6a5b08a7fca9372a7dd.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a3da7b11be5cb5a4f32e65fb62d8cd7f8.html">Function Models::EPEC::decreaseVal</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a3da7b11be5cb5a4f32e65fb62d8cd7f8.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1aea666749029b52e914764ccb9fd3cea8.html">Function Models::EPEC::increaseVal</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1aea666749029b52e914764ccb9fd3cea8.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a0dc1dfc75744d5af1ffcb99bfbd2e0be.html">Function Models::EPEC::init</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a0dc1dfc75744d5af1ffcb99bfbd2e0be.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a6bf8d5d3a77dddc264c34df3c1412eb0.html">Function Models::EPEC::operator+</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a6bf8d5d3a77dddc264c34df3c1412eb0.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1aa732ff410b4c32a84be09a6ed7f55ae7.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const FollPar)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1aa732ff410b4c32a84be09a6ed7f55ae7.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1ad8eaa0861bd3da4627c98c72ab0ed286.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const DemPar)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1ad8eaa0861bd3da4627c98c72ab0ed286.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a3ae165ae70cb8c87e3c2ff2e3412481a.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const LeadPar)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a3ae165ae70cb8c87e3c2ff2e3412481a.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a4e4c4e18bf05a12b53b88e7eaa41a5ab.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const LeadAllPar)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a4e4c4e18bf05a12b53b88e7eaa41a5ab.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a636ebefa1cdfa3e167761452792129f8.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const LeaderVars)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a636ebefa1cdfa3e167761452792129f8.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a2c4c41c1a12f3393f92719601bceb38a.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, EPECInstance)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a2c4c41c1a12f3393f92719601bceb38a.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a04179db61b0d9fed3a91f88ef4f5f2b3.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, Models::EPEC::prn)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a04179db61b0d9fed3a91f88ef4f5f2b3.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1IPG_1af0de748364bb8991a02668d7bf3b2983.html">Function Models::IPG::operator&lt;&lt;</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1IPG_1af0de748364bb8991a02668d7bf3b2983.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_epec__models_8h_1a179b9a250911142576a44e24929a3a8e.html">Function operator+(const Models::EPEC::FollPar&amp;, const Models::EPEC::FollPar&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_epec__models_8h_1a179b9a250911142576a44e24929a3a8e.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_epec__models_8cpp_1a179b9a250911142576a44e24929a3a8e.html">Function operator+(const Models::EPEC::FollPar&amp;, const Models::EPEC::FollPar&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_epec__models_8cpp_1a179b9a250911142576a44e24929a3a8e.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_poly__lcp_8cpp_1a7081ce5a943e65900f98444637bcb7c1.html">Function operator&lt;</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a7081ce5a943e65900f98444637bcb7c1.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_zero_8h_1a115ecd3fba0241d9e582929ccac3ff7e.html">Function operator&lt;&lt;(std::ostream&amp;, perps)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_zero_8h_1a115ecd3fba0241d9e582929ccac3ff7e.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_zero_8h_1a2227f7d55cb0efe274cd8776e16f717d.html">Template Function operator&lt;&lt;(std::ostream&amp;, std::vector&lt;T&gt;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_zero_8h_1a2227f7d55cb0efe274cd8776e16f717d.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_zero_8h_1ad1ffe1b9a16567d2d765c957692925fb.html">Template Function operator&lt;&lt;(std::ostream&amp;, std::pair&lt;T, S&gt;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_zero_8h_1ad1ffe1b9a16567d2d765c957692925fb.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_poly__lcp_8cpp_1a8f4b1bc2990943059230a4e78b7ac175.html">Function operator==</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a8f4b1bc2990943059230a4e78b7ac175.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_poly__lcp_8cpp_1a71a85978f94cee44e3edd97887a3126c.html">Function operator&gt;</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a71a85978f94cee44e3edd97887a3126c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_epec__models_8h_1a0cb07b2258983336a21ed1a2cdaffd9e.html">Function to_string(const GRBVar&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_epec__models_8h_1a0cb07b2258983336a21ed1a2cdaffd9e.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_epec__models_8h_1a5a58b1d925b1f8570e1a81372a7869f8.html">Function to_string(const GRBConstr&amp;, const GRBModel&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_epec__models_8h_1a5a58b1d925b1f8570e1a81372a7869f8.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_epec__models_8cpp_1a5a58b1d925b1f8570e1a81372a7869f8.html">Function to_string(const GRBConstr&amp;, const GRBModel&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_epec__models_8cpp_1a5a58b1d925b1f8570e1a81372a7869f8.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_epec__models_8cpp_1a0cb07b2258983336a21ed1a2cdaffd9e.html">Function to_string(const GRBVar&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_epec__models_8cpp_1a0cb07b2258983336a21ed1a2cdaffd9e.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a5564b70694570623dc79e723715dfdfe.html">Function Utils::appendRead(arma::vec&amp;, const std::string, long int, const std::string)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a5564b70694570623dc79e723715dfdfe.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a539f748060b159cd9c3fd87ecf12ffd5.html">Function Utils::appendRead(arma::sp_mat&amp;, const std::string, long int, const std::string)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a539f748060b159cd9c3fd87ecf12ffd5.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a45ec12e86322677e2a93e37aa798e1e4.html">Function Utils::appendRead(std::vector&lt;double&gt;&amp;, const std::string, long int, const std::string)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a45ec12e86322677e2a93e37aa798e1e4.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a4bb2fe103587ca0fc76ae3dfa90f6550.html">Function Utils::appendRead(std::string&amp;, const std::string, long int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a4bb2fe103587ca0fc76ae3dfa90f6550.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ab7b9cda903f076c6a33d6bfed99687ea.html">Function Utils::appendRead(long int&amp;, const std::string, long int, const std::string)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ab7b9cda903f076c6a33d6bfed99687ea.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a048882f6fb236cfd507d3b091c7aa831.html">Function Utils::appendRead(unsigned int&amp;, const std::string, long int, const std::string)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a048882f6fb236cfd507d3b091c7aa831.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a61870426848613ebcd38331a4e05e716.html">Function Utils::appendSave(const arma::vec&amp;, const std::string, const std::string, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a61870426848613ebcd38331a4e05e716.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a5f5f645750d3b82e63e5f96723c62ee1.html">Function Utils::appendSave(const arma::sp_mat&amp;, const std::string, const std::string, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a5f5f645750d3b82e63e5f96723c62ee1.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ae2dddf8c7060984fd5cd56bf3fbb5b68.html">Function Utils::appendSave(const std::vector&lt;double&gt;, const std::string, const std::string, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ae2dddf8c7060984fd5cd56bf3fbb5b68.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a5199a480ca51ac0ab387e025df9b2e00.html">Function Utils::appendSave(const std::string, const std::string, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a5199a480ca51ac0ab387e025df9b2e00.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1aa7023f92db9e7ef180450d9ed74ade7d.html">Function Utils::appendSave(const long int, const std::string, const std::string, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1aa7023f92db9e7ef180450d9ed74ade7d.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1aaf5fef95399ba94379ed1ee4e20cd354.html">Function Utils::appendSave(const unsigned int, const std::string, const std::string, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1aaf5fef95399ba94379ed1ee4e20cd354.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a03c80abd5bb5411608a27a29bf29cfe2.html">Function Utils::containsConstraint(const arma::sp_mat&amp;, const arma::vec&amp;, const arma::vec&amp;, const double&amp;, const double)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a03c80abd5bb5411608a27a29bf29cfe2.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a557313dad647d166c963d865f0740a44.html">Function Utils::containsConstraint(const arma::sp_mat&amp;, const arma::vec&amp;, const arma::sp_mat&amp;, const double&amp;, const double)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a557313dad647d166c963d865f0740a44.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1acc29a13b2b25cfa7102edf2229af4813.html">Function Utils::containsElement</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1acc29a13b2b25cfa7102edf2229af4813.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ac18b4a9ad0028ecef8c39abe3673fa51.html">Function Utils::containsRow</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ac18b4a9ad0028ecef8c39abe3673fa51.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ad263e83ad30145d2003fbdf370c75d6a.html">Function Utils::intersectBounds</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ad263e83ad30145d2003fbdf370c75d6a.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a11aefd04593b7eba9a60fe5a003eccb3.html">Function Utils::isZero(arma::mat, double)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a11aefd04593b7eba9a60fe5a003eccb3.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1aa580da91e3cbe8df451f84747c1e2872.html">Function Utils::isZero(arma::sp_mat, double)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1aa580da91e3cbe8df451f84747c1e2872.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1afd63a1b9c36080d26ef9ad6585562f6d.html">Template Function Utils::isZeroValue</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1afd63a1b9c36080d26ef9ad6585562f6d.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a3e6fb0ca43609e12a88d037acfd84d2d.html">Function Utils::numToVec</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a3e6fb0ca43609e12a88d037acfd84d2d.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1adbe567182dd4d6f2c0aed1362e539fc9.html">Function Utils::printBounds</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1adbe567182dd4d6f2c0aed1362e539fc9.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a0c79f31066b7e7af7b1d18316f3efc5c.html">Function Utils::resizePatch(const arma::sp_mat&amp;, const unsigned int, const unsigned int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a0c79f31066b7e7af7b1d18316f3efc5c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a3f2695b26a8131bc0fe45fcae0c7023d.html">Function Utils::resizePatch(const arma::mat&amp;, const unsigned int, const unsigned int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a3f2695b26a8131bc0fe45fcae0c7023d.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a8748d4160459a637b32e309336969c81.html">Function Utils::resizePatch(const arma::vec&amp;, const unsigned int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a8748d4160459a637b32e309336969c81.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a0183fff354c82444f2bb66cbccd4478c.html">Function Utils::sortByKey</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a0183fff354c82444f2bb66cbccd4478c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a6b312d0a6805b263fbf4e3219d27ba13.html">Function Utils::vecToNum</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a6b312d0a6805b263fbf4e3219d27ba13.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#defines">Defines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1a91456860f1b68f75585291f36c7236d0.html">Define ZERO_VERSION</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1a91456860f1b68f75585291f36c7236d0.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1a6262c33ed29a18a0caf8679d9567387b.html">Define ZERO_VERSION_MAJOR</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1a6262c33ed29a18a0caf8679d9567387b.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1a424af57c80491056fe1236626324fe7b.html">Define ZERO_VERSION_MINOR</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1a424af57c80491056fe1236626324fe7b.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1af78c071334f2637b74d108e04674b8b6.html">Define ZERO_VERSION_PATCH</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1af78c071334f2637b74d108e04674b8b6.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1aaff3b0535ece33c18614a653b99ebe44.html">Typedef bound</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1aaff3b0535ece33c18614a653b99ebe44.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a4770e2d9d0deef0f2e03cd2e53431622.html">Typedef DoubleAttrPair</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a4770e2d9d0deef0f2e03cd2e53431622.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceMathOpt_1a7077c09ae1bba23b9181ac92bf0c6dea.html">Typedef MathOpt::QP_constraints</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceMathOpt_1a7077c09ae1bba23b9181ac92bf0c6dea.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceMathOpt_1aa0a70822f74c1fc679e018023c08905e.html">Typedef MathOpt::QP_objective</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceMathOpt_1aa0a70822f74c1fc679e018023c08905e.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1a62149827d4c351dd603cbcc7625f7772.html">Typedef Models::EPEC::DemPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1a62149827d4c351dd603cbcc7625f7772.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1aca30953c80dcd155a7ab0ee85975d805.html">Typedef Models::EPEC::FollPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1aca30953c80dcd155a7ab0ee85975d805.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1a2f9cbaec7516972a7acc4285cb46bb65.html">Typedef Models::EPEC::LeadAllPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1a2f9cbaec7516972a7acc4285cb46bb65.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1af533424de8789ffd456165af21ac7e02.html">Typedef Models::EPEC::LeadLocs</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1af533424de8789ffd456165af21ac7e02.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1ab279a6d9a0241b15c0bd1a7312f8dd3e.html">Typedef Models::EPEC::LeadPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1ab279a6d9a0241b15c0bd1a7312f8dd3e.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a23f2df644233cc2499005f53997039b4.html">Typedef perps</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a23f2df644233cc2499005f53997039b4.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a13e22b2209a1025ac5c30d6361619219.html">Typedef spmat_Vec</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a13e22b2209a1025ac5c30d6361619219.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a1b3f20417790c203b818f9df92ed5bbc.html">Typedef triple</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a1b3f20417790c203b818f9df92ed5bbc.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a58d910cf6fdc1337ace92535234dc1d4.html">Typedef VariableBounds</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a58d910cf6fdc1337ace92535234dc1d4.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a61c9afcb946e96d4e4e6156d9c1bee8c.html">Typedef vec_Vec</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a61c9afcb946e96d4e4e6156d9c1bee8c.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ZERO</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Program Listing for File epec.cpp</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/program_listing_file_src_games_epec.cpp.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="program-listing-for-file-epec-cpp">
+<span id="program-listing-file-src-games-epec-cpp"></span><h1>Program Listing for File epec.cpp<a class="headerlink" href="#program-listing-for-file-epec-cpp" title="Permalink to this headline">¶</a></h1>
+<p>↰ <a class="reference internal" href="file_src_games_epec.cpp.html#file-src-games-epec-cpp"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">src/games/epec.cpp</span></code>)</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/* #############################################
+ *             This file is part of
+ *                    ZERO
+ *
+ *             Copyright (c) 2020
+ *     Released under the Creative Commons
+ *        Zero v1.0 Universal License
+ *
+ *              Find out more at
+ *        https://github.com/ds4dm/ZERO
+ * #############################################*/
+
+#include &quot;games/epec.h&quot;
+#include &quot;games/algorithms/EPEC/epec_algorithms.h&quot;
+#include &quot;zero.h&quot;
+#include &lt;armadillo&gt;
+#include &lt;boost/log/trivial.hpp&gt;
+#include &lt;iostream&gt;
+#include &lt;memory&gt;
+
+void Game::EPEC::preFinalize()
+{}
+
+void Game::EPEC::postFinalize()
+{}
+
+void Game::EPEC::finalize()
+{
+  if (this-&gt;Finalized)
+     std::cerr &lt;&lt; &quot;Warning in Game::EPEC::finalize: Model already Finalized\n&quot;;
+
+  this-&gt;NumPlayers = static_cast&lt;int&gt;(this-&gt;PlayersLowerLevels.size());
+  ;
+  this-&gt;preFinalize();
+
+  this-&gt;ConvexHullVariables = std::vector&lt;unsigned int&gt;(this-&gt;NumPlayers, 0);
+  this-&gt;Stats.AlgorithmData.FeasiblePolyhedra.set(std::vector&lt;unsigned int&gt;(this-&gt;NumPlayers, 0));
+  this-&gt;computeLeaderLocations(this-&gt;numMCVariables);
+  // Initialize leader objective and PlayersQP
+  this-&gt;LeaderObjective           = std::vector&lt;std::shared_ptr&lt;MathOpt::QP_Objective&gt;&gt;(NumPlayers);
+  this-&gt;LeaderObjectiveConvexHull = std::vector&lt;std::shared_ptr&lt;MathOpt::QP_Objective&gt;&gt;(NumPlayers);
+  this-&gt;PlayersQP                 = std::vector&lt;std::shared_ptr&lt;MathOpt::QP_Param&gt;&gt;(NumPlayers);
+  this-&gt;PlayersLCP                = std::vector&lt;std::shared_ptr&lt;MathOpt::LCP&gt;&gt;(NumPlayers);
+  this-&gt;SizesWithoutHull          = std::vector&lt;unsigned int&gt;(NumPlayers, 0);
+
+  for (unsigned int i = 0; i &lt; this-&gt;NumPlayers; i++) {
+     this-&gt;addDummyLead(i);
+     this-&gt;LeaderObjective.at(i)           = std::make_shared&lt;MathOpt::QP_Objective&gt;();
+     this-&gt;LeaderObjectiveConvexHull.at(i) = std::make_shared&lt;MathOpt::QP_Objective&gt;();
+     this-&gt;makeObjectivePlayer(i, *this-&gt;LeaderObjective.at(i).get());
+     // this-&gt;PlayersLCP.at(i) =std::shared_ptr&lt;MathOpt::PolyLCP&gt;(new
+     // PolyLCP(this-&gt;Env,*this-&gt;PlayersLowerLevels.at(i).get()));
+     this-&gt;SizesWithoutHull.at(i) = *this-&gt;LocEnds.at(i);
+  }
+
+  this-&gt;Finalized = true;
+
+  this-&gt;postFinalize();
+}
+
+void Game::EPEC::addDummyLead(
+     const unsigned int i
+) {
+  const unsigned int nEPECvars        = this-&gt;NumVariables;
+  const unsigned int nThisCountryvars = *this-&gt;LocEnds.at(i);
+  // this-&gt;Locations.at(i).at(Models::LeaderVars::End);
+
+  if (nEPECvars &lt; nThisCountryvars)
+     throw ZEROException(ZEROErrorCode::Assertion,
+                                &quot;Mismatch between variable counts &quot; + std::to_string(nEPECvars) + &quot; and &quot; +
+                                     std::to_string(nThisCountryvars));
+
+  this-&gt;PlayersLowerLevels.at(i).get()-&gt;addDummy(nEPECvars - nThisCountryvars);
+}
+
+void Game::EPEC::computeLeaderLocations(const unsigned int addSpaceForMC) {
+  this-&gt;LeaderLocations       = std::vector&lt;unsigned int&gt;(this-&gt;NumPlayers);
+  this-&gt;LeaderLocations.at(0) = 0;
+  for (unsigned int i = 1; i &lt; this-&gt;NumPlayers; i++) {
+     this-&gt;LeaderLocations.at(i) = this-&gt;LeaderLocations.at(i - 1) + *this-&gt;LocEnds.at(i - 1);
+  }
+  this-&gt;NumVariables = this-&gt;LeaderLocations.back() + *this-&gt;LocEnds.back() + addSpaceForMC;
+}
+
+void Game::EPEC::getXMinusI(const arma::vec &amp;x, const unsigned int &amp;i, arma::vec &amp;solOther) const {
+  const unsigned int nEPECvars            = this-&gt;NumVariables;
+  const unsigned int nThisCountryvars     = *this-&gt;LocEnds.at(i);
+  const unsigned int nThisCountryHullVars = this-&gt;ConvexHullVariables.at(i);
+  const unsigned int nConvexHullVars      = static_cast&lt;const unsigned int&gt;(
+      std::accumulate(this-&gt;ConvexHullVariables.rbegin(), this-&gt;ConvexHullVariables.rend(), 0));
+
+  solOther.zeros(nEPECvars -        // All variables in EPEC
+                      nThisCountryvars - // Subtracting this country&#39;s variables,
+                      // since we only want others&#39;
+                      nConvexHullVars +      // We don&#39;t want any convex hull variables
+                      nThisCountryHullVars); // We subtract the hull variables
+                                                     // associated to the ith player
+                                                     // convex hull vars, since we double subtracted
+
+  for (unsigned int j = 0, count = 0, current = 0; j &lt; this-&gt;NumPlayers; ++j) {
+     if (i != j) {
+        current = *this-&gt;LocEnds.at(j) - this-&gt;ConvexHullVariables.at(j);
+        solOther.subvec(count, count + current - 1) =
+             x.subvec(this-&gt;LeaderLocations.at(j), this-&gt;LeaderLocations.at(j) + current - 1);
+        count += current;
+     }
+  }
+  // We need to keep track of MC_vars also for this country
+  for (unsigned int j = 0; j &lt; this-&gt;numMCVariables; j++)
+     solOther.at(solOther.n_rows - this-&gt;numMCVariables + j) =
+          x.at(this-&gt;NumVariables - this-&gt;numMCVariables + j);
+}
+
+void Game::EPEC::getXofI(const arma::vec &amp;   x,
+                                 const unsigned int &amp;i,
+                                 arma::vec &amp;         solI,
+                                 bool                hull) const {
+  const unsigned int nThisCountryvars     = *this-&gt;LocEnds.at(i);
+  const unsigned int nThisCountryHullVars = this-&gt;ConvexHullVariables.at(i);
+
+  unsigned int vars = 0, current = 0;
+  if (hull) {
+     vars    = nThisCountryvars;
+     current = *this-&gt;LocEnds.at(i);
+  } else {
+     vars    = nThisCountryvars - nThisCountryHullVars;
+     current = *this-&gt;LocEnds.at(i) - this-&gt;ConvexHullVariables.at(i);
+  }
+  solI.zeros(vars);
+  solI.subvec(0, vars - 1) =
+        x.subvec(this-&gt;LeaderLocations.at(i), this-&gt;LeaderLocations.at(i) + current - 1);
+}
+
+void Game::EPEC::getXWithoutHull(const arma::vec &amp;x, arma::vec &amp;xWithoutHull) const {
+  const unsigned int nEPECvars       = this-&gt;NumVariables;
+  const unsigned int nConvexHullVars = static_cast&lt;const unsigned int&gt;(
+        std::accumulate(this-&gt;ConvexHullVariables.rbegin(), this-&gt;ConvexHullVariables.rend(), 0));
+
+  xWithoutHull.zeros(nEPECvars -       // All variables in EPEC
+                            nConvexHullVars); // We subtract the hull variables
+                                                    // associated to the convex hull
+                                                    // convex hull vars
+
+  for (unsigned int j = 0, count = 0, current = 0; j &lt; this-&gt;NumPlayers; ++j) {
+     current = *this-&gt;LocEnds.at(j) - this-&gt;ConvexHullVariables.at(j);
+     xWithoutHull.subvec(count, count + current - 1) =
+          x.subvec(this-&gt;LeaderLocations.at(j), this-&gt;LeaderLocations.at(j) + current - 1);
+     count += current;
+  }
+}
+
+std::unique_ptr&lt;GRBModel&gt; Game::EPEC::respond(const unsigned int i, const arma::vec &amp;x) const {
+  if (!this-&gt;Finalized)
+     throw ZEROException(ZEROErrorCode::Assertion, &quot;The model was not finalized&quot;);
+
+  if (i &gt;= this-&gt;NumPlayers)
+     throw ZEROException(ZEROErrorCode::OutOfRange, &quot;Country number is invalid&quot;);
+
+  arma::vec solOther;
+  this-&gt;getXMinusI(x, i, solOther);
+  if (this-&gt;LeaderObjective.at(i)-&gt;Q.n_nonzero &gt; 0)
+     return this-&gt;PlayersLCP.at(i).get()-&gt;MPECasMIQP(this-&gt;LeaderObjective.at(i)-&gt;Q,
+                                                                     this-&gt;LeaderObjective.at(i)-&gt;C,
+                                                                     this-&gt;LeaderObjective.at(i)-&gt;c,
+                                                                     solOther,
+                                                                     true);
+  else
+     return this-&gt;PlayersLCP.at(i).get()-&gt;MPECasMILP(
+          this-&gt;LeaderObjective.at(i)-&gt;C, this-&gt;LeaderObjective.at(i)-&gt;c, solOther, true);
+}
+
+double
+Game::EPEC::respondSol(arma::vec &amp;      sol,
+                              unsigned int     player,
+                              const arma::vec &amp;x,
+                              const arma::vec &amp;prevDev
+                              ) const {
+  auto model = this-&gt;respond(player, x);
+  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Game::EPEC::respondSol: Writing dat/RespondSol&quot; +
+                                             std::to_string(player) + &quot;.lp to disk&quot;;
+  model-&gt;write(&quot;dat/RespondSol&quot; + std::to_string(player) + &quot;.lp&quot;);
+  const int status = model-&gt;get(GRB_IntAttr_Status);
+  if (status == GRB_UNBOUNDED || status == GRB_OPTIMAL) {
+     unsigned int Nx = this-&gt;PlayersLCP.at(player)-&gt;getNumCols();
+     sol.zeros(Nx);
+     for (unsigned int i = 0; i &lt; Nx; ++i)
+        sol.at(i) = model-&gt;getVarByName(&quot;x_&quot; + std::to_string(i)).get(GRB_DoubleAttr_X);
+
+     if (status == GRB_UNBOUNDED) {
+        BOOST_LOG_TRIVIAL(warning) &lt;&lt; &quot;Game::EPEC::respondSol: deviation is &quot;
+                                                &quot;unbounded.&quot;;
+        GRBLinExpr obj = 0;
+        model-&gt;setObjective(obj);
+        model-&gt;optimize();
+        if (!prevDev.empty()) {
+          BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Generating an improvement basing on the extreme ray.&quot;;
+          // Fetch objective function coefficients
+          GRBQuadExpr QuadObj = model-&gt;getObjective();
+          arma::vec   objcoeff;
+          for (unsigned int i = 0; i &lt; QuadObj.size(); ++i)
+             objcoeff.at(i) = QuadObj.getCoeff(i);
+
+          // Create objective function objects
+          arma::vec objvalue = prevDev * objcoeff;
+          arma::vec newobjvalue{0};
+          bool      improved{false};
+
+          // improve following the unbounded ray
+          while (!improved) {
+             for (unsigned int i = 0; i &lt; Nx; ++i)
+                sol.at(i) = sol.at(i) +
+                                model-&gt;getVarByName(&quot;x_&quot; + std::to_string(i)).get(GRB_DoubleAttr_UnbdRay);
+             newobjvalue = sol * objcoeff;
+             if (newobjvalue.at(0) &lt; objvalue.at(0))
+                improved = true;
+          }
+          return newobjvalue.at(0);
+
+        } else {
+          return model-&gt;get(GRB_DoubleAttr_ObjVal);
+        }
+     }
+     if (status == GRB_OPTIMAL) {
+        return model-&gt;get(GRB_DoubleAttr_ObjVal);
+     }
+  } else {
+     return GRB_INFINITY;
+  }
+  return GRB_INFINITY;
+}
+
+const void Game::EPEC::makePlayerQP(const unsigned int i)
+{
+  // BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Starting Convex hull computation of the country
+  // &quot;
+  // &lt;&lt; this-&gt;AllLeadPars[i].name &lt;&lt; &#39;\n&#39;;
+  if (!this-&gt;Finalized)
+     throw ZEROException(ZEROErrorCode::Assertion, &quot;The model was not finalized&quot;);
+  if (i &gt;= this-&gt;NumPlayers)
+     throw ZEROException(ZEROErrorCode::OutOfRange, &quot;The player id is out of range&quot;);
+  // if (!this-&gt;PlayersQP.at(i).get())
+  {
+     this-&gt;PlayersQP.at(i)     = std::make_shared&lt;MathOpt::QP_Param&gt;(this-&gt;Env);
+     const auto &amp;origLeadObjec = *this-&gt;LeaderObjective.at(i).get();
+
+     this-&gt;LeaderObjectiveConvexHull.at(i).reset(
+          new MathOpt::QP_Objective{origLeadObjec.Q, origLeadObjec.C, origLeadObjec.c});
+     this-&gt;PlayersLCP.at(i)-&gt;makeQP(*this-&gt;LeaderObjectiveConvexHull.at(i).get(),
+                                              *this-&gt;PlayersQP.at(i).get());
+  }
+}
+
+void Game::EPEC::makePlayersQPs()
+{
+  for (unsigned int i = 0; i &lt; this-&gt;NumPlayers; ++i) {
+     this-&gt;Game::EPEC::makePlayerQP(i);
+  }
+  for (unsigned int i = 0; i &lt; this-&gt;NumPlayers; ++i) {
+     // LeadLocs &amp;Loc = this-&gt;Locations.at(i);
+     // Adjusting &quot;stuff&quot; because we now have new convHull variables
+     unsigned long int originalSizeWithoutHull = this-&gt;LeaderObjective.at(i)-&gt;Q.n_rows;
+     unsigned long int convHullVarCount =
+          this-&gt;LeaderObjectiveConvexHull.at(i)-&gt;Q.n_rows - originalSizeWithoutHull;
+
+     BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Game::EPEC::makePlayerQP: Added &quot; &lt;&lt; convHullVarCount
+                                      &lt;&lt; &quot; convex hull variables to QP #&quot; &lt;&lt; i;
+
+     // Location details
+     this-&gt;ConvexHullVariables.at(i) = convHullVarCount;
+     // All other players&#39; QP
+     if (this-&gt;NumPlayers &gt; 1) {
+        for (unsigned int j = 0; j &lt; this-&gt;NumPlayers; j++) {
+          if (i != j) {
+             this-&gt;PlayersQP.at(j)-&gt;addDummy(
+                  convHullVarCount,
+                  0,
+                  this-&gt;PlayersQP.at(j)-&gt;getNx() -
+                        this-&gt;numMCVariables); // The position to add parameters is
+                                                      // towards the end of all parameters,
+                                                      // giving space only for the
+                                                      // numMCVariables number of market
+                                                      // clearing variables
+          }
+        }
+     }
+  }
+  this-&gt;updateLocations();
+  this-&gt;computeLeaderLocations(this-&gt;numMCVariables);
+}
+
+void Game::EPEC::makeTheLCP() {
+  if (this-&gt;PlayersQP.front() == nullptr) {
+     BOOST_LOG_TRIVIAL(error) &lt;&lt; &quot;Exception in Game::EPEC::makeTheLCP : &quot;
+                                          &quot;no country QP has been &quot;
+                                          &quot;made.&quot;
+                                      &lt;&lt; &#39;\n&#39;;
+     throw ZEROException(ZEROErrorCode::Assertion, &quot;No country QP has been made&quot;);
+  }
+  // Preliminary set up to get the LCP ready
+  unsigned long int Nvar = this-&gt;PlayersQP.front()-&gt;getNx() + this-&gt;PlayersQP.front()-&gt;getNy();
+  arma::sp_mat      MC(0, Nvar), dumA(0, Nvar);
+  arma::vec         MCRHS, dumb;
+  MCRHS.zeros(0);
+  dumb.zeros(0);
+  this-&gt;makeMCConstraints(MC, MCRHS);
+  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Game::EPEC::makeTheLCP(): Market Clearing &quot;
+                                        &quot;constraints are ready&quot;;
+  std::vector&lt;std::shared_ptr&lt;MathOpt::MP_Param&gt;&gt; MPCasted;
+  for (auto &amp;item : this-&gt;PlayersQP) {
+     auto m = std::dynamic_pointer_cast&lt;MathOpt::MP_Param&gt;(item);
+     MPCasted.push_back(m);
+  }
+  this-&gt;TheNashGame = std::unique_ptr&lt;Game::NashGame&gt;(
+        new Game::NashGame(this-&gt;Env, MPCasted, MC, MCRHS, 0, dumA, dumb));
+  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Game::EPEC::makeTheLCP(): NashGame is ready&quot;;
+  this-&gt;TheLCP = std::unique_ptr&lt;MathOpt::LCP&gt;(new MathOpt::LCP(this-&gt;Env, *TheNashGame));
+  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Game::EPEC::makeTheLCP(): LCP is ready&quot;;
+
+
+  BOOST_LOG_TRIVIAL(trace) &lt;&lt; *TheNashGame;
+}
+
+bool Game::EPEC::computeNashEq(bool   pureNE,
+                                         double localTimeLimit,
+                                         bool   check
+) {
+  // Make the Nash Game between countries
+  this-&gt;NashEquilibrium = false;
+  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot; Game::EPEC::computeNashEq: Making the Master LCP&quot;;
+  this-&gt;makeTheLCP();
+  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot; Game::EPEC::computeNashEq: Made the Master LCP&quot;;
+
+
+  if (check || pureNE) {
+     if (this-&gt;Stats.AlgorithmData.LCPSolver.get() == Data::LCP::Algorithms::PATH)
+        BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot; Game::EPEC::computeNashEq: Cannot use PATH fallback. Using MIP&quot;;
+     /*
+      * In these cases, we can only use a MIP solver to get multiple solutions or PNEs
+      */
+     this-&gt;LCPModel = this-&gt;TheLCP-&gt;LCPasMIP(false);
+     if (localTimeLimit &gt; 0) {
+        this-&gt;LCPModel-&gt;set(GRB_DoubleParam_TimeLimit, localTimeLimit);
+     }
+
+     if (pureNE) {
+        BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot; Game::EPEC::computeNashEq: (PureNashEquilibrium flag is &quot;
+                                            &quot;true) Searching for a pure NE.&quot;;
+        if (this-&gt;Stats.AlgorithmData.Algorithm.get() != Data::EPEC::Algorithms::OuterApproximation)
+          static_cast&lt;Algorithms::EPEC::PolyBase *&gt;(this-&gt;Algorithm.get())-&gt;makeThePureLCP();
+     }
+
+     this-&gt;LCPModel-&gt;set(GRB_IntParam_OutputFlag, 1);
+     if (check)
+        this-&gt;LCPModel-&gt;set(GRB_IntParam_SolutionLimit, GRB_MAXINT);
+
+
+     this-&gt;LCPModel-&gt;setObjective(GRBLinExpr{0}, GRB_MINIMIZE);
+     this-&gt;LCPModel-&gt;optimize();
+     this-&gt;LCPModel-&gt;write(&quot;dat/TheLCPTest.lp&quot;);
+
+
+     // Search just for a feasible point
+     try { // Try finding a Nash equilibrium for the approximation
+        this-&gt;NashEquilibrium =
+             this-&gt;TheLCP-&gt;extractSols(this-&gt;LCPModel.get(), SolutionZ, SolutionX, true);
+     } catch (GRBException &amp;e) {
+        throw ZEROException(e);
+     }
+     if (this-&gt;NashEquilibrium) { // If a Nash equilibrium is found, then update
+                                            // appropriately
+        this-&gt;LCPModel-&gt;write(&quot;dat/TheLCPTest.sol&quot;);
+        if (check) {
+          int scount = this-&gt;LCPModel-&gt;get(GRB_IntAttr_SolCount);
+          BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Game::EPEC::computeNashEq: number of equilibria is &quot; &lt;&lt; scount;
+          for (int k = 0, stop = 0; k &lt; scount &amp;&amp; stop == 0; ++k) {
+             this-&gt;LCPModel-&gt;set(GRB_IntParam_SolutionNumber, k);
+             this-&gt;NashEquilibrium = this-&gt;TheLCP-&gt;extractSols(
+                  this-&gt;LCPModel.get(), this-&gt;SolutionZ, this-&gt;SolutionX, true);
+             if (this-&gt;Algorithm-&gt;isSolved()) {
+                BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Game::EPEC::computeNashEq: an &quot;
+                                                    &quot;Equilibrium has been found&quot;;
+                stop = 1;
+             }
+          }
+        } else {
+          this-&gt;NashEquilibrium = true;
+          // this-&gt;SolutionX.save(&quot;dat/X.dat&quot;, arma::file_type::arma_ascii);
+          // this-&gt;SolutionZ.save(&quot;dat/Z.dat&quot;, arma::file_type::arma_ascii);
+          BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Game::EPEC::computeNashEq: an Equilibrium has been found&quot;;
+        }
+
+     } else { // If not, then update accordingly
+        BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Game::EPEC::computeNashEq: no equilibrium has been found.&quot;;
+        int status = this-&gt;LCPModel-&gt;get(GRB_IntAttr_Status);
+        if (status == GRB_TIME_LIMIT)
+          this-&gt;Stats.Status = ZEROStatus::TimeLimit;
+        else
+          this-&gt;Stats.Status = ZEROStatus::NashEqNotFound;
+     }
+     return this-&gt;NashEquilibrium;
+  } else {
+
+     auto solver = this-&gt;Stats.AlgorithmData.LCPSolver.get();
+
+     if (solver == Data::LCP::Algorithms::PATH &amp;&amp; this-&gt;TheLCP-&gt;hasCommonConstraints()) {
+        BOOST_LOG_TRIVIAL(trace)
+             &lt;&lt; &quot; Game::EPEC::computeNashEq: Cannot use PATH fallback (Common constraints). Using MIP&quot;;
+        solver = Data::LCP::Algorithms::MIP;
+     }
+
+     switch (this-&gt;TheLCP-&gt;solve(solver, this-&gt;SolutionX, this-&gt;SolutionZ, localTimeLimit)) {
+     case ZEROStatus::NashEqFound: {
+        this-&gt;NashEquilibrium = true;
+        BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Game::EPEC::computeNashEq: an Equilibrium has been found&quot;;
+     } break;
+     case ZEROStatus::TimeLimit: {
+        this-&gt;Stats.Status = ZEROStatus::TimeLimit;
+        BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Game::EPEC::computeNashEq: Time limit attained&quot;;
+     } break;
+     default:
+        this-&gt;Stats.Status = ZEROStatus::NashEqNotFound;
+        BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Game::EPEC::computeNashEq: no equilibrium has been found.&quot;;
+     }
+     return this-&gt;NashEquilibrium;
+  }
+
+  return false;
+}
+
+bool Game::EPEC::warmstart(const arma::vec x) { //@todo complete implementation
+
+  if (x.size() &lt; this-&gt;getNumVar())
+     throw ZEROException(ZEROErrorCode::OutOfRange,
+                                &quot;The number of variables does not fit the instance&quot;);
+
+  if (!this-&gt;Finalized) {
+     throw ZEROException(ZEROErrorCode::Assertion, &quot;The EPEC was not finalized&quot;);
+  }
+  if (this-&gt;PlayersQP.front() == nullptr) {
+     BOOST_LOG_TRIVIAL(warning) &lt;&lt; &quot;Game::EPEC::warmstart: Generating QP as of warmstart.&quot;;
+  }
+
+  this-&gt;SolutionX                  = x;
+  std::vector&lt;arma::vec&gt; devns     = std::vector&lt;arma::vec&gt;(this-&gt;NumPlayers);
+  std::vector&lt;arma::vec&gt; prevDevns = std::vector&lt;arma::vec&gt;(this-&gt;NumPlayers);
+  this-&gt;makePlayersQPs();
+
+  arma::vec devn;
+
+  if (this-&gt;Algorithm-&gt;isSolved())
+     BOOST_LOG_TRIVIAL(warning) &lt;&lt; &quot;Game::EPEC::warmstart: &quot;
+                                             &quot;The loaded solution is optimal.&quot;;
+  else
+     BOOST_LOG_TRIVIAL(warning) &lt;&lt; &quot;Game::EPEC::warmstart: &quot;
+                                             &quot;The loaded solution is NOT optimal. Trying to repair.&quot;;
+  return true;
+}
+bool Game::EPEC::isPureStrategy(double tol) const {
+  return this-&gt;Algorithm-&gt;isPureStrategy(tol);
+}
+bool Game::EPEC::isSolved(double tol) const {
+  return this-&gt;Algorithm-&gt;isSolved(tol);
+}
+
+const void Game::EPEC::findNashEq() {
+  std::stringstream final_msg;
+  if (!this-&gt;Finalized)
+     throw ZEROException(ZEROErrorCode::Assertion, &quot;The EPEC was not finalized&quot;);
+
+  if (this-&gt;Stats.Status.get() != ZEROStatus::Uninitialized) {
+     BOOST_LOG_TRIVIAL(error) &lt;&lt; &quot;Game::EPEC::findNashEq: a Nash Eq was &quot;
+                                          &quot;already found. Calling this findNashEq might lead to errors!&quot;;
+  }
+
+  // Choosing the appropriate algorithm
+  switch (this-&gt;Stats.AlgorithmData.Algorithm.get()) {
+
+  case Data::EPEC::Algorithms::InnerApproximation: {
+     final_msg &lt;&lt; &quot;Inner approximation Algorithm completed. &quot;;
+     this-&gt;Algorithm = std::shared_ptr&lt;Algorithms::EPEC::Algorithm&gt;(
+          new class Algorithms::EPEC::InnerApproximation(this-&gt;Env, this));
+     this-&gt;Algorithm-&gt;solve();
+  } break;
+
+  case Data::EPEC::Algorithms::CombinatorialPne: {
+     final_msg &lt;&lt; &quot;CombinatorialPNE Algorithm completed. &quot;;
+     this-&gt;Algorithm = std::shared_ptr&lt;Algorithms::EPEC::Algorithm&gt;(
+          new class Algorithms::EPEC::CombinatorialPNE(this-&gt;Env, this));
+     this-&gt;Algorithm-&gt;solve();
+  } break;
+
+  case Data::EPEC::Algorithms::OuterApproximation: {
+     final_msg &lt;&lt; &quot;Outer approximation Algorithm completed. &quot;;
+     this-&gt;Algorithm = std::shared_ptr&lt;Algorithms::EPEC::Algorithm&gt;(
+          new class Algorithms::EPEC::OuterApproximation(this-&gt;Env, this));
+     this-&gt;Algorithm-&gt;solve();
+  } break;
+
+  case Data::EPEC::Algorithms::FullEnumeration: {
+     final_msg &lt;&lt; &quot;Full enumeration Algorithm completed. &quot;;
+     this-&gt;Algorithm = std::shared_ptr&lt;Algorithms::EPEC::Algorithm&gt;(
+          new class Algorithms::EPEC::FullEnumeration(this-&gt;Env, this));
+     this-&gt;Algorithm-&gt;solve();
+  } break;
+  }
+  const std::chrono::duration&lt;double&gt; timeElapsed =
+        std::chrono::high_resolution_clock::now() - this-&gt;InitTime;
+  this-&gt;Stats.WallClockTime.set(timeElapsed.count() * std::chrono::milliseconds::period::num /
+                                          std::chrono::milliseconds::period::den);
+
+  // Handing EPECStatistics object to track performance of algorithm
+  if (this-&gt;LCPModel) {
+     this-&gt;Stats.NumVar         = this-&gt;LCPModel-&gt;get(GRB_IntAttr_NumVars);
+     this-&gt;Stats.NumConstraints = this-&gt;LCPModel-&gt;get(GRB_IntAttr_NumConstrs);
+     this-&gt;Stats.NumNonZero     = this-&gt;LCPModel-&gt;get(GRB_IntAttr_NumNZs);
+  } // Assigning appropriate Status messages after solving
+
+  switch (this-&gt;Stats.Status.get()) {
+  case ZEROStatus::NashEqNotFound:
+     final_msg &lt;&lt; &quot;No Nash equilibrium exists.&quot;;
+     break;
+  case ZEROStatus::NashEqFound: {
+     final_msg &lt;&lt; &quot;Found a Nash equilibrium (&quot;
+                  &lt;&lt; (this-&gt;Stats.PureNashEquilibrium.get() == 0 ? &quot;MNE&quot; : &quot;PNE&quot;) &lt;&lt; &quot;).&quot;;
+  } break;
+  case ZEROStatus::TimeLimit:
+     final_msg &lt;&lt; &quot;Nash equilibrium not found. Time limit attained&quot;;
+     break;
+  case ZEROStatus::Numerical:
+     final_msg &lt;&lt; &quot;Nash equilibrium not found. Numerical issues might affect &quot;
+                      &quot;this result.&quot;;
+     break;
+  default:
+     final_msg &lt;&lt; &quot;Nash equilibrium not found. Time limit attained&quot;;
+     break;
+  }
+  BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Game::EPEC::findNashEq: &quot; &lt;&lt; final_msg.str();
+}
+
+void Game::EPEC::setAlgorithm(Data::EPEC::Algorithms algorithm)
+{
+  this-&gt;Stats.AlgorithmData.Algorithm.set(algorithm);
+}
+
+void Game::EPEC::setRecoverStrategy(Data::EPEC::RecoverStrategy strategy)
+{
+  this-&gt;Stats.AlgorithmData.RecoverStrategy.set(strategy);
+}
+
+unsigned int Game::EPEC::getPositionLeadFoll(const unsigned int i, const unsigned int j) const {
+  const auto LeaderStart = this-&gt;TheNashGame-&gt;getPrimalLoc(i);
+  return LeaderStart + j;
+}
+
+unsigned int Game::EPEC::getPositionLeadLead(const unsigned int i, const unsigned int j) const {
+  const auto LeaderStart = this-&gt;TheNashGame-&gt;getPrimalLoc(i);
+  return LeaderStart + this-&gt;PlayersLCP.at(i)-&gt;getLStart() + j;
+}
+
+double Game::EPEC::getValLeadFoll(const unsigned int i, const unsigned int j) const {
+  if (!this-&gt;LCPModel)
+     throw ZEROException(ZEROErrorCode::Assertion, &quot;The LCP was not made nor solved&quot;);
+  return this-&gt;LCPModel-&gt;getVarByName(&quot;x_&quot; + std::to_string(this-&gt;getPositionLeadFoll(i, j)))
+        .get(GRB_DoubleAttr_X);
+}
+
+double Game::EPEC::getValLeadLead(const unsigned int i, const unsigned int j) const {
+  if (!this-&gt;LCPModel)
+     throw ZEROException(ZEROErrorCode::Assertion, &quot;The LCP was not made nor solved&quot;);
+  return this-&gt;LCPModel-&gt;getVarByName(&quot;x_&quot; + std::to_string(this-&gt;getPositionLeadLead(i, j)))
+        .get(GRB_DoubleAttr_X);
+}
+
+std::string std::to_string(const Data::EPEC::Algorithms al) {
+  switch (al) {
+  case Data::EPEC::Algorithms::FullEnumeration:
+     return std::string(&quot;FullEnumeration&quot;);
+  case Data::EPEC::Algorithms::InnerApproximation:
+     return std::string(&quot;InnerApproximation&quot;);
+  case Data::EPEC::Algorithms::CombinatorialPne:
+     return std::string(&quot;CombinatorialPNE&quot;);
+  case Data::EPEC::Algorithms::OuterApproximation:
+     return std::string(&quot;OuterApproximation&quot;);
+  }
+}
+
+std::string std::to_string(const Data::EPEC::RecoverStrategy strategy) {
+  switch (strategy) {
+  case Data::EPEC::RecoverStrategy::IncrementalEnumeration:
+     return std::string(&quot;IncrementalEnumeration&quot;);
+  case Data::EPEC::RecoverStrategy::Combinatorial:
+     return std::string(&quot;Combinatorial&quot;);
+  }
+}
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright Gabriele Dragotto, Sriram Sankaranarayanan
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
