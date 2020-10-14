@@ -407,7 +407,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
 
 
   if (check || pureNE) {
-	 if (this->Stats.AlgorithmData.PATHFallback.get())
+	 if (this->Stats.AlgorithmData.LCPSolver.get() == Data::LCP::Algorithms::PATH)
 		BOOST_LOG_TRIVIAL(trace) << " Game::EPEC::computeNashEq: Cannot use PATH fallback. Using MIP";
 	 /*
 	  * In these cases, we can only use a MIP solver to get multiple solutions or PNEs
@@ -475,15 +475,15 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
 	 return this->NashEquilibrium;
   } else {
 
-	 Data::LCP::Algorithms LCPSolver = Data::LCP::Algorithms::MIP;
+	 auto solver = this->Stats.AlgorithmData.LCPSolver.get();
 
-	 if (this->Stats.AlgorithmData.PATHFallback.get() && !this->TheLCP->hasCommonConstraints())
-		LCPSolver = Data::LCP::Algorithms::PATH;
-	 else
-		BOOST_LOG_TRIVIAL(trace) << " Game::EPEC::computeNashEq: Cannot use PATH fallback. Using MIP";
+	 if (solver == Data::LCP::Algorithms::PATH && this->TheLCP->hasCommonConstraints()) {
+		BOOST_LOG_TRIVIAL(trace)
+			 << " Game::EPEC::computeNashEq: Cannot use PATH fallback (Common constraints). Using MIP";
+		solver = Data::LCP::Algorithms::MIP;
+	 }
 
-	 switch (this->TheLCP->solve(
-		  Data::LCP::Algorithms::PATH, this->SolutionX, this->SolutionZ, localTimeLimit)) {
+	 switch (this->TheLCP->solve(solver, this->SolutionX, this->SolutionZ, localTimeLimit)) {
 	 case ZEROStatus::NashEqFound: {
 		this->NashEquilibrium = true;
 		BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: an Equilibrium has been found";

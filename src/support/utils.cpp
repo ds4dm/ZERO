@@ -364,14 +364,14 @@ long int Utils::appendRead(std::string &v, const std::string in, long int pos) {
   return pos;
 }
 
-unsigned long int Utils::vecToNum(std::vector<short int> vector) {
+unsigned long int Utils::vecToNum(std::vector<short int> binary) {
   unsigned long int number = 0;
   unsigned int      posn   = 1;
-  while (!vector.empty()) {
-	 short int bit = vector.back();
+  while (!binary.empty()) {
+	 short int bit = (binary.back() + 1) / 2; // The least significant bit
 	 number += (bit * posn);
-	 posn *= 4;
-	 vector.pop_back();
+	 posn *= 2;         // Update place value
+	 binary.pop_back(); // Remove that bit
   }
   return number;
 }
@@ -379,18 +379,14 @@ unsigned long int Utils::vecToNum(std::vector<short int> vector) {
 std::vector<short int> Utils::numToVec(unsigned long int number, const unsigned long nCompl) {
   std::vector<short int> binary{};
   for (unsigned int vv = 0; vv < nCompl; vv++) {
-	 binary.push_back(number % 4);
-	 number /= 4;
+	 binary.push_back(number % 2);
+	 number /= 2;
   }
-  /*std::cout << std::endl << "Inside numToVec:";
-  std::for_each(binary.begin(), binary.end(), [](short int &vv) {
-	 std::cout << vv << std::endl;
-  });
-  std::cout << std::endl;
-	*/
+  std::for_each(binary.begin(), binary.end(), [](short int &vv) { vv = (vv == 0 ? -1 : 1); });
   std::reverse(binary.begin(), binary.end());
   return binary;
 }
+
 
 bool Utils::containsConstraint(const arma::sp_mat &A,
 										 const arma::vec &   b,

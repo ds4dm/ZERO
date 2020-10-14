@@ -17,6 +17,7 @@
 #include <armadillo>
 #include <gurobi_c++.h>
 #include <iostream>
+#include <mathopt/lcp/lcp.h>
 #include <memory>
 #include <set>
 #include <string>
@@ -64,8 +65,10 @@ namespace Data {
 		Attr<int> LostIntermediateEq = {0}; ///< Counts the number of approximation steps where the
 														///< problem (approximated) has no nash equilibrium
 		DataObject() : PolyhedraStrategy{static_cast<LCP::PolyhedraStrategy>(0)} {};
-		Attr<bool> PATHFallback =
-			 true; ///< If true, the LCP problems for the EPEC may be solved with PATH when possible.
+		Attr<Data::LCP::Algorithms> LCPSolver =
+			 Data::LCP::Algorithms::MIP; ///< Preferred method to solve the LCPs. Note that
+												  ///< <Data::LCP::Algorithms::PATH may not be available for any
+												  ///< LCPs. In the unlikely case, the fallback is MIP.
 	 };
 
   } // namespace EPEC

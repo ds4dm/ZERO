@@ -53,7 +53,7 @@ void MathOpt::LCP::processBounds() {
 
   //@todo shedding is disabled
 
-  if (shedded.size() > 0 && false) {
+  if (shedded.size() > 0) {
 	 BOOST_LOG_TRIVIAL(debug) << "MathOpt::LCP::processBounds: " << shedded.size()
 									  << " bounds and trivial constraints processed";
 	 std::sort(shedded.begin(), shedded.end());
@@ -190,10 +190,6 @@ void MathOpt::LCP::makeRelaxed()
 	 for (unsigned int i = 0; i < nR; i++)
 		z[i] = RlxdModel.addVar(0, GRB_INFINITY, 1, GRB_CONTINUOUS, "z_" + std::to_string(i));
 
-	 for (const auto p : Compl)
-		if (this->BoundsX.at(p.second).second >= 0)
-		  z[p.first].set(GRB_DoubleAttr_LB, -GRB_INFINITY);
-
 
 	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::makeRelaxed: Added variables";
 	 for (unsigned int i = 0; i < nR; i++) {
@@ -234,108 +230,26 @@ std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(bool solve ///< Whether the mod
 																				///< in the function before returned.
 																 )
 /**
- * Uses the big M method to solve the complementarity problem. The variables and
- * equations to be set to equality can be given in FixVar and FixEq.
- * @note Returned model is \e always a restriction. For <tt>FixEq = FixVar =
- * {}</tt>, the returned model would solve the exact LCP.
+ * @brief This method return the model for the LCP. If @p solve is true, then the LCP is solved.
+ * Note that the returned model is either a MIP or a MNILP, depending on the class' LCP::PureMIP
+ * switch. Uses the big M method to solve the complementarity problem.
  * @warning Note that the model returned by this function has to be explicitly
  * deleted using the delete operator.
  * @returns unique pointer to a GRBModel
  */
 {
   makeRelaxed();
-  std::unique_ptr<GRBModel> model{new GRBModel(this->RlxdModel)};
-  // Creating the model
-  try {
-	 GRBVar x[nC], z[nR], l[nR], v[nR];
-	 // Get hold of the Variables and Eqn Variables
-	 for (unsigned int i = 0; i < nC; i++)
-		x[i] = model->getVarByName("x_" + std::to_string(i));
-	 for (unsigned int i = 0; i < nR; i++)
-		z[i] = model->getVarByName("z_" + std::to_string(i));
-	 // Define binary variables for BigM
+  std::unique_ptr<GRBModel> model;
+  if (this->PureMIP)
+	 model = this->getMIP();
+  else
+	 model = this->getMINLP();
 
-	 // Update BoundsX
-	 for (unsigned int i = 0; i < nC; ++i) {
-		if (this->BoundsX.at(i).first != 0)
-		  x[i].set(GRB_DoubleAttr_LB, this->BoundsX.at(i).first);
-		if (this->BoundsX.at(i).second >= 0)
-		  x[i].set(GRB_DoubleAttr_UB, this->BoundsX.at(i).second);
-	 }
-
-	 // std::cout << "LCPasMIP Bounds on X:\n" << Utils::printBounds(this->BoundsX);
-
-	 // model->addQConstr (x[0],GRB_EQUAL,100);
-	 GRBLinExpr   expr = 0;
-	 unsigned int j    = 0;
-	 for (const auto p : Compl) {
-
-		int _lb = this->BoundsX.at(p.second).first;
-		int _ub = this->BoundsX.at(p.second).second;
-
-		if (_lb >= 0 || _ub >= 0) {
-		  // Then we have some bounds, and we need to be careful
-
-		  // Double bound
-		  auto z_var = model->getVarByName("z_" + std::to_string(p.first));
-
-
-		  if (_lb == _ub) {
-			 // This is a fixed variable. Check if we have processed the bounds for z
-			 BOOST_LOG_TRIVIAL(debug)
-				  << "MathOpt::LCP::LCPasMIP: Variable " << std::to_string(p.second) << " is fixed to "
-				  << std::to_string(_lb);
-			 z_var.set(GRB_DoubleAttr_LB, -GRB_INFINITY);
-			 z_var.set(GRB_DoubleAttr_UB, GRB_INFINITY);
-			 // Drop the equation
-			 model->remove(model->getConstrByName("z_" + std::to_string(p.first) + "_def"));
-
-		  } else {
-			 // There are some different bounds. Not sure if we have both
-			 model->addQConstr(x[p.second] * z[p.first],
-									 GRB_LESS_EQUAL,
-									 z[p.first] * _lb,
-									 "compl_LB_z_" + std::to_string(p.first) + "_x_" +
-										  std::to_string(p.second));
-			 // If we have an upper bound
-			 if (_ub > 0) {
-				z_var.set(GRB_DoubleAttr_LB, -GRB_INFINITY);
-				model->addQConstr((x[p.second]) * z[p.first],
-										GRB_LESS_EQUAL,
-										_ub * z[p.first],
-										"compl_UB_z_" + std::to_string(p.first) + "_x_" +
-											 std::to_string(p.second));
-			 }
-		  }
-
-		} else {
-		  // Otherwise, no bounds and we simplify the first expresison for LB
-		  model->addQConstr(x[p.second] * z[p.first],
-								  GRB_LESS_EQUAL,
-								  0,
-								  "compl_z_" + std::to_string(p.first) + "_x_" + std::to_string(p.second));
-		}
-	 }
-
-
-
-	 model->update();
-	 model->set(GRB_IntParam_NonConvex, 2);
-	 model->set(GRB_DoubleParam_IntFeasTol, this->EpsInt);
-	 model->set(GRB_DoubleParam_FeasibilityTol, this->Eps);
-	 model->set(GRB_DoubleParam_OptimalityTol, this->Eps);
-	 // Get first Equilibrium
-	 model->set(GRB_IntParam_SolutionLimit, 1);
-	 if (solve)
-		model->optimize();
-	 return model;
-  } catch (GRBException &e) {
-	 throw ZEROException(e);
-  } catch (...) {
-	 throw ZEROException(ZEROErrorCode::Unknown, "Unknown exception in makeRelaxed()");
-  }
-  return nullptr;
+  if (solve)
+	 model->optimize();
+  return model;
 }
+
 
 
 void MathOpt::LCP::print(const std::string end) {
@@ -394,56 +308,23 @@ arma::vec MathOpt::LCP::zFromX(const arma::vec x) { return (this->M * x + this->
 std::vector<short int> MathOpt::LCP::solEncode(const arma::vec &z, ///< Equation values
 															  const arma::vec &x  ///< Variable values
 															  ) const
-/** @brief Given variable values and equation values, encodes it in 0/+1/+2/+3. In specific:
- * 0 means nothing is fixed, +1 means the equation z is zero, +2 means the x is at its lower bound
- * (trivially this can be zero), +3 means x is at its upper bound
- * @param z contains the values for z equations
- * @param x  contains the values for x variables
- * @return a vector of short integers with the encoding.
- */
+/// @brief Given variable values and equation values, encodes it in 0/+1/-1
+/// format and returns it.
 {
   std::vector<short int> solEncoded(nR, 0);
   for (const auto p : Compl) {
-
 	 unsigned int i, j;
-	 i       = p.first;
-	 j       = p.second;
-	 bool Cv = Utils::isZeroValue(z(i));
-	 bool Cx = Utils::isZeroValue(x(j));
-
-	 int _lb = this->BoundsX.at(p.second).first;
-	 int _ub = this->BoundsX.at(p.second).second;
-
-
-	 if (_lb > 0 || _ub > 0) {
-		// There are bounds
-		double lower = _lb > 0 ? _lb : 0;
-		bool   Cl    = Utils::isZeroValue(x(j) - lower);
-		bool   Cu    = false;
-		if (_ub > 0)
-		  Cu = Utils::isZeroValue(x(j) - _ub);
-
-		if (!Cl && !Cu && Cv)
-		  solEncoded.at(i) = 1;
-
-		if (Cl && z.at(i) >= 0)
-		  solEncoded.at(i) = 2;
-
-		if (_ub > 0) {
-		  if (Cu && z.at(i) <= 0)
-			 solEncoded.at(i) = 3;
-		}
-	 } else {
-
-		if (Cx && !Cv)
-		  solEncoded.at(i) = 2;
-		if (Cv && !Cx)
-		  solEncoded.at(i) = 1;
-		if (!Cx && !Cv)
-		  BOOST_LOG_TRIVIAL(warning)
-				<< "Infeasible point given! Stay alert! " << x(j) << " " << z(i) << " with i=" << i;
-	 }
-  }
+	 i = p.first;
+	 j = p.second;
+	 if (Utils::isZeroValue(z(i)))
+		solEncoded.at(i)++;
+	 if (Utils::isZeroValue(x(j)))
+		solEncoded.at(i)--;
+	 if (!Utils::isZeroValue(x(j)) && !Utils::isZeroValue(z(i)))
+		BOOST_LOG_TRIVIAL(trace) << "Infeasible point given! Stay alert! " << x(j) << " " << z(i)
+										 << " with i=" << i;
+  };
+  // std::stringstream enc_str;
   // for(auto vv:solEncoded) enc_str << vv <<" ";
   // BOOST_LOG_TRIVIAL (debug) << "MathOpt::LCP::solEncode: Handling deviation with
   // encoding: "<< enc_str.str() << '\n';
@@ -646,11 +527,7 @@ void MathOpt::LCP::makeQP(MathOpt::QP_Objective &QP_obj, ///< [in/out] Objective
   QP.set(QP_obj, QP_cons);
 
   // Now we have to merge the bounds
-
-  // std::cout << "QP:\n" << Utils::printBounds(QP.getBounds());
   QP.setBounds(Utils::intersectBounds(QP.getBounds(), this->BoundsX));
-  // std::cout << "LCP:\n" << Utils::printBounds(this->BoundsX);
-  // QP.maxwkeBoundsExplicit ();
 }
 void MathOpt::LCP::addCustomCuts(const arma::sp_mat A, ///< [in] The LHS of the added cuts
 											const arma::vec    b  ///< [in] The RHS of the added cuts
@@ -745,6 +622,10 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
   } break;
   default: {
 	 // Data::LCP::Algorithms::MINLP is the default method
+	 if (algo == Data::LCP::Algorithms::MINLP)
+		this->PureMIP = false;
+	 else
+		this->PureMIP = true;
 	 auto Model = this->LCPasMIP(false);
 	 Model->set(GRB_IntParam_OutputFlag, 1);
 	 Model->setObjective(GRBLinExpr{0}, GRB_MINIMIZE);
@@ -753,9 +634,9 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 		Model->set(GRB_DoubleParam_TimeLimit, timeLimit);
 	 Model->optimize();
 
-	 if (this->extractSols(Model.get(), zSol, xSol, true))
+	 if (this->extractSols(Model.get(), zSol, xSol, true)) {
 		return ZEROStatus::NashEqFound;
-	 else {
+	 } else {
 		if (Model->get(GRB_IntAttr_Status) == GRB_TIME_LIMIT)
 		  return ZEROStatus::TimeLimit;
 		else
@@ -764,4 +645,107 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
   }
   }
   return ZEROStatus::NashEqNotFound;
+}
+std::unique_ptr<GRBModel> MathOpt::LCP::getMIP() {
+  /**
+	* @brief Returns an unique pointer to the model for the LCP. Complementarities are modelled
+	* through indicator constraints. @return the unique pointer for the MIP modeling the LCP
+	*/
+  std::unique_ptr<GRBModel> model{new GRBModel(this->RlxdModel)};
+  // Creating the model
+  try {
+	 GRBVar x[nC], z[nR], u[nR], v[nR];
+	 // Get hold of the Variables and Eqn Variables
+	 for (unsigned int i = 0; i < nC; i++)
+		x[i] = model->getVarByName("x_" + std::to_string(i));
+	 for (unsigned int i = 0; i < nR; i++)
+		z[i] = model->getVarByName("z_" + std::to_string(i));
+	 // Define binary variables for BigM
+	 for (unsigned int i = 0; i < nR; i++)
+		u[i] = model->addVar(0, 1, 0, GRB_BINARY, "u_" + std::to_string(i));
+	 for (unsigned int i = 0; i < nR; i++)
+		v[i] = model->addVar(0, 1, 0, GRB_BINARY, "v_" + std::to_string(i));
+	 // Include ALL Complementarity constraints using BigM
+
+
+	 GRBLinExpr expr = 0;
+	 for (const auto p : Compl) {
+		// z[i] <= Mu constraint
+
+		// u[j]=0 --> z[i] <=0
+		model->addGenConstrIndicator(u[p.first],
+											  1,
+											  z[p.first],
+											  GRB_LESS_EQUAL,
+											  0,
+											  "z_ind_" + std::to_string(p.first) + "_L_Mu_" +
+													std::to_string(p.first));
+		// x[i] <= M(1-u) constraint
+
+		model->addGenConstrIndicator(v[p.first],
+											  1,
+											  x[p.second],
+											  GRB_LESS_EQUAL,
+											  0,
+											  "x_ind_" + std::to_string(p.first) + "_L_MuDash_" +
+													std::to_string(p.first));
+
+		model->addConstr(u[p.first] + v[p.first], GRB_EQUAL, 1, "uv_sum_" + std::to_string(p.first));
+	 }
+	 // If any equation or variable is to be fixed to zero, that happens here!
+	 model->update();
+	 // Get first Equilibrium
+	 model->set(GRB_IntParam_SolutionLimit, 1);
+	 return model;
+  } catch (GRBException &e) {
+	 throw ZEROException(e);
+  } catch (...) {
+	 throw ZEROException(ZEROErrorCode::Unknown, "Unknown exception in  MathOpt::LCP::getMIP");
+  }
+}
+std::unique_ptr<GRBModel> MathOpt::LCP::getMINLP() {
+  makeRelaxed();
+  std::unique_ptr<GRBModel> model{new GRBModel(this->RlxdModel)};
+  // Creating the model
+  try {
+	 GRBVar x[nC], z[nR], l[nR], v[nR];
+	 // Get hold of the Variables and Eqn Variables
+	 for (unsigned int i = 0; i < nC; i++)
+		x[i] = model->getVarByName("x_" + std::to_string(i));
+	 for (unsigned int i = 0; i < nR; i++)
+		z[i] = model->getVarByName("z_" + std::to_string(i));
+	 // Define binary variables for BigM
+
+	 GRBLinExpr   expr = 0;
+	 unsigned int j    = 0;
+	 for (const auto p : Compl) {
+
+		int _lb = this->BoundsX.at(p.second).first;
+		int _ub = this->BoundsX.at(p.second).second;
+
+		auto z_var = model->getVarByName("z_" + std::to_string(p.first));
+
+		if (_lb != _ub) {
+		  // Otherwise, no bounds and we simplify the first expresison for LB
+		  model->addQConstr(x[p.second] * z[p.first],
+								  GRB_LESS_EQUAL,
+								  0,
+								  "compl_z_" + std::to_string(p.first) + "_x_" + std::to_string(p.second));
+		}
+	 }
+
+	 model->update();
+	 model->set(GRB_IntParam_NonConvex, 2);
+	 model->set(GRB_DoubleParam_IntFeasTol, this->EpsInt);
+	 model->set(GRB_DoubleParam_FeasibilityTol, this->Eps);
+	 model->set(GRB_DoubleParam_OptimalityTol, this->Eps);
+	 // Get first Equilibrium
+	 model->set(GRB_IntParam_SolutionLimit, 1);
+	 return model;
+  } catch (GRBException &e) {
+	 throw ZEROException(e);
+  } catch (...) {
+	 throw ZEROException(ZEROErrorCode::Unknown, "Unknown exception in  MathOpt::LCP::getMINLP");
+  }
+  return nullptr;
 }

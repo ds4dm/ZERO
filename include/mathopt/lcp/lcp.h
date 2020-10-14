@@ -36,7 +36,7 @@ namespace Data {
 	 enum class Algorithms {
 		MIP,  ///< Solves the LCP via an (explicit) MIP
 		PATH, ///< Solves the LCP via PATH
-		MINLP ///< Solves the LCP via a MINLP
+		MINLP ///< Solves the LCP via a MINLP. Note that solvers may cast this into a MINLP
 	 };
   } // namespace LCP
 } // namespace Data
@@ -60,6 +60,8 @@ namespace MathOpt {
 	 arma::vec    q;     ///< q in @f$Mx+q@f$ that defines the LCP
 	 perps        Compl; ///< Compl stores data in <Eqn, Var> form.
 	 unsigned int LeadStart{1}, LeadEnd{0}, NumberLeader{0};
+	 bool         PureMIP = true; ///< True if the LCP is modelled via a pure MIP with indicators
+											///< constraints. MINLP otherwise
 	 arma::sp_mat _A = {};
 	 arma::vec    _b = {}; ///< Apart from @f$0 \le x \perp Mx+q\ge 0@f$, one needs@f$
 	 ///< Ax\le b@f$ too!
@@ -79,6 +81,10 @@ namespace MathOpt {
 	 void defConst(GRBEnv *env);
 
 	 void makeRelaxed();
+
+	 std::unique_ptr<GRBModel> getMIP();
+
+	 std::unique_ptr<GRBModel> getMINLP();
 
 	 std::unique_ptr<spmat_Vec> Ai; ///< Vector to contain the LHSs of a description (either exact or
 											  ///< approximated) of the LCP's feasible region

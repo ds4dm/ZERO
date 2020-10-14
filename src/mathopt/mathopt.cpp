@@ -91,11 +91,17 @@ unsigned int MathOpt::convexHull(
   // for sparse matrix
   MathOpt::compConvSize(A, nFinCons, nFinVar, Ai, bi, Acom, bcom);
 
+  bool printEvery = true;
+  if (nPoly > 10)
+	 printEvery = false;
+
   // Counting rows completed
   /****************** SLOW LOOP BEWARE *******************/
   for (unsigned int i = 0; i < nPoly; i++) {
-	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::convexHull: Handling Polyhedron " << i + 1 << " out of "
-									  << nPoly;
+
+	 if (printEvery || i % 10 == 0)
+		BOOST_LOG_TRIVIAL(trace) << "MathOpt::convexHull: Handling Polyhedron " << i + 1 << " out of "
+										 << nPoly;
 	 // First constraint in (4.31)
 	 // A.submat(complRow, i*nC, complRow+nConsInPoly-1, (i+1)*nC-1) =
 	 // *Ai->at(i); // Slowest line. Will arma improve this? First constraint RHS

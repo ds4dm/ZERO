@@ -1,5 +1,6 @@
 #include <boost/log/trivial.hpp>
 extern "C" {
+#include "path/License.h"
 #include "path/MCP_Interface.h"
 #include "path/Macros.h"
 #include "path/Options.h"
@@ -162,6 +163,8 @@ int Solvers::PATH::CreateLMCP(int    n,
 
 
 
+  License_SetString(
+		"2617827524&Courtesy&&&USR&64785&11_12_2017&1000&PATH&GEN&31_12_2020&0_0_0&5000&0_0");
   auto m = MCP_Create(this->Problem.n, this->Problem.nnz + 1);
   MCP_SetInterface(m, &this->PATH_Interface);
   MCP_SetPresolveInterface(m, &this->PATH_Presolve);
