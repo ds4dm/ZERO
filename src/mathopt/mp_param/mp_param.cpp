@@ -141,10 +141,10 @@ void MathOpt::MP_Param::detectBounds() {
   // We claim that any bound is in the form of A_ix+B_iy <= b_i, where B_i contains a single
   // non-zero element, A_i is a zero vector
   std::vector<unsigned int> shedRows; // Keeps track of removed rows
-  this->ActiveBounds = 0;
-  this->Bounds.empty();
-  for (unsigned int i = 0; i < this->B.n_cols; i++)
-	 this->Bounds.push_back({0, -1});
+
+  if (this->Bounds.size() <= 0)
+	 for (unsigned int i = 0; i < this->B.n_cols; i++)
+		this->Bounds.push_back({0, -1});
 
   for (unsigned int i = 0; i < nConstr; i++) {
 	 if (B.row(i).n_nonzero == 1) {
@@ -153,43 +153,41 @@ void MathOpt::MP_Param::detectBounds() {
 		  // This is a bound constraint
 		  for (auto it = B.row(i).begin(); it != B.row(i).end(); ++it) {
 			 unsigned int j = it.col();
+			 // There is just one non-zero on this row!
 			 if (!isZero(B.at(i, j))) {
 
 
 				if (B.at(i, j) > 0) {
 				  if (b.at(i) >= 0) {
 					 // This is an upper bound on the variable.
+					 // a_i * x_j <= b_i where a_i,b_i are both positive
 					 double mult  = this->isZero(B.at(i, j) - 1) ? 1 : (B.at(i, j));
-					 double bound = mult * b.at(i);
+					 double bound = b.at(i) / mult;
+					 if (!this->BoundsSwitch)
+						this->BoundsSwitch = true;
 
 					 if (bound < Bounds.at(j).second || Bounds.at(j).second == -1) {
 						// If we have an improving UB
 						if (bound != 0) {
-						  BOOST_LOG_TRIVIAL(debug)
+						  /*BOOST_LOG_TRIVIAL(debug)
 								<< "MathOpt::MP_Param::detectBounds: Variable " << std::to_string(j)
-								<< " has an upper bound of " << std::to_string(bound);
+								<< " has an upper bound of " << std::to_string(bound);*/
 						  // If this is a new bound, increase the counter.
-						  if (Bounds.at(j).second == -1)
-							 ++this->ActiveBounds;
 						  Bounds.at(j).second = bound;
 						} else {
-						  BOOST_LOG_TRIVIAL(debug)
+						  /*BOOST_LOG_TRIVIAL(debug)
 								<< "MathOpt::MP_Param::detectBounds: Variable " << std::to_string(j)
-								<< " is fixed to " << std::to_string(bound);
-						  if (Bounds.at(j).second == -1)
-							 ++this->ActiveBounds;
-						  Bounds.at(j).second = bound;
-						  Bounds.at(j).first  = bound;
+								<< " is fixed to " << std::to_string(bound);*/
+						  Bounds.at(j).second = 0;
+						  Bounds.at(j).first  = 0;
 						}
 					 }
 					 // In any case, shed the row
 					 shedRows.push_back(i);
 				  } else {
 					 // This is a variable fixed to zero
-					 BOOST_LOG_TRIVIAL(debug) << "MathOpt::MP_Param::detectBounds: Variable "
-													  << std::to_string(j) << " is fixed to zero.";
-					 if (Bounds.at(j).second == -1)
-						++this->ActiveBounds;
+					 /*BOOST_LOG_TRIVIAL(debug) << "MathOpt::MP_Param::detectBounds: Variable "
+													  << std::to_string(j) << " is fixed to zero.";*/
 					 Bounds.at(j).second = 0;
 					 shedRows.push_back(i);
 				  }
@@ -197,25 +195,25 @@ void MathOpt::MP_Param::detectBounds() {
 
 				else if (B.at(i, j) < 0) {
 				  if (b.at(i) < 0) {
-					 // This is a lower bound. We need to check that is actually useful (b(i)>0)
-					 double mult  = this->isZero(-B.at(i, j) - 1) ? 1 : (-B.at(i, j));
-					 double bound = -mult * b.at(i);
+					 // This is a lower bound. We need to check that is actually useful (bound>0)
+					 double mult  = this->isZero(-B.at(i, j) + 1) ? -1 : (B.at(i, j));
+					 double bound = b.at(i) / mult;
+					 if (!this->BoundsSwitch && bound > 0)
+						this->BoundsSwitch = true;
 
-					 if (bound > Bounds.at(j).first || Bounds.at(j).first == -1) {
+					 if (bound > Bounds.at(j).first) {
 						// We have an improving bound
-						BOOST_LOG_TRIVIAL(debug)
+						/*BOOST_LOG_TRIVIAL(debug)
 							 << "MathOpt::MP_Param::detectBounds: Variable " << std::to_string(j)
-							 << " has a lower bound of " << std::to_string(bound);
-						if (Bounds.at(j).first == 0)
-						  ++this->ActiveBounds;
+							 << " has a lower bound of " << std::to_string(bound);*/
 						Bounds.at(j).first = bound;
 					 }
 					 // In any case, shed the row
 					 shedRows.push_back(i);
 				  } else {
 					 // Trivial constraint. Can be removed
-					 BOOST_LOG_TRIVIAL(debug) << "MathOpt::MP_Param::detectBounds: Trivial constraint "
-													  << std::to_string(i) << " pruned";
+					 /*BOOST_LOG_TRIVIAL(debug) << "MathOpt::MP_Param::detectBounds: Trivial constraint "
+													  << std::to_string(i) << " pruned";*/
 					 shedRows.push_back(i);
 				  }
 				}
@@ -226,10 +224,8 @@ void MathOpt::MP_Param::detectBounds() {
   }
 
 
-  if (shedRows.size() > 0) {
-	 BOOST_LOG_TRIVIAL(debug) << "MathOpt::MP_Param::detectBounds: " << shedRows.size()
-									  << " bounds and trivial constraints detected.";
 
+  if (shedRows.size() > 0) {
 	 // Shed the rows of A,B,b
 	 std::sort(shedRows.begin(), shedRows.end());
 
@@ -248,22 +244,28 @@ void MathOpt::MP_Param::rewriteBounds() {
 	*useful when building the KKT conditions for the MP_Param-
 	**/
 
-  if (this->ActiveBounds > 0) {
+  int cnt = 0;
+  if (this->BoundsSwitch > 0) {
 	 for (unsigned int i = 0; i < this->Bounds.size(); ++i) {
 		auto bound = this->Bounds.at(i);
+
 		if (bound.first > 0 || bound.second >= 0) {
 
-		  this->B = Utils::resizePatch(this->B, this->B.n_rows + 1, this->B.n_cols);
-		  this->A = Utils::resizePatch(this->A, this->A.n_rows + 1, this->A.n_cols);
-		  this->b = Utils::resizePatch(this->b, this->b.size() + 1, 1);
-
 		  if (bound.first > 0) {
-			 this->b.at(this->b.size() - 1)    = bound.first;
-			 this->B.at(this->B.n_rows - 1, i) = 1;
+			 this->B = Utils::resizePatch(this->B, this->B.n_rows + 1, this->B.n_cols);
+			 this->A = Utils::resizePatch(this->A, this->A.n_rows + 1, this->A.n_cols);
+			 this->b = Utils::resizePatch(this->b, this->b.size() + 1, 1);
+			 this->b.at(this->b.size() - 1)    = -bound.first;
+			 this->B.at(this->B.n_rows - 1, i) = -1;
+			 cnt++;
 		  }
 		  if (bound.second >= 0) {
-			 this->b.at(this->b.size() - 1)    = -bound.second;
-			 this->B.at(this->B.n_rows - 1, i) = -1;
+			 this->B = Utils::resizePatch(this->B, this->B.n_rows + 1, this->B.n_cols);
+			 this->A = Utils::resizePatch(this->A, this->A.n_rows + 1, this->A.n_cols);
+			 this->b = Utils::resizePatch(this->b, this->b.size() + 1, 1);
+			 this->b.at(this->b.size() - 1)    = bound.second;
+			 this->B.at(this->B.n_rows - 1, i) = 1;
+			 cnt++;
 		  }
 		}
 	 }

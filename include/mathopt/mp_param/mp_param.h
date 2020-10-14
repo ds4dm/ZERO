@@ -43,7 +43,7 @@ namespace MathOpt {
 	 arma::vec      c, b;
 	 GRBEnv *       Env;
 	 VariableBounds Bounds;
-	 unsigned int   ActiveBounds = 0;
+	 bool           BoundsSwitch = 0; ///< True when bounds are detected
 	 // Object for sizes and integrity check
 	 unsigned int Nx, Ny, Ncons;
 
