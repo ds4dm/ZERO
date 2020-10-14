@@ -182,11 +182,9 @@ void Game::NashGame::setPositions()
   DualPosition.at(NumPlayers) = (dlCnt);
 
   // Set bounds on primal variables
-  prCnt = 0;
   for (unsigned int i = 0; i < NumPlayers; i++) {
 	 for (auto theBound : this->Players.at(i)->getBounds())
 		this->Bounds.push_back({theBound.first, theBound.second});
-	 prCnt += Players.at(i)->getNy();
   }
 }
 
