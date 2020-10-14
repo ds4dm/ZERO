@@ -134,7 +134,7 @@ namespace MathOpt {
 	 inline perps        getCompl() const { return this->Compl; } ///< Read-only access to LCP::Compl
 	 void                print(std::string end = "\n");           ///< Print a summary of the LCP
 	 inline unsigned int getNumCols() const { return this->M.n_cols; };
-	 inline bool         hasCommonConstraints() const { return this->_A.n_rows > 0; };
+	 inline bool         hasCommonConstraints() const { return this->_A.n_nonzero > 0; };
 
 	 inline unsigned int getNumRows() const { return this->M.n_rows; };
 
