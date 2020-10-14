@@ -110,7 +110,8 @@ namespace Data {
   }
   namespace LCP {
 	 enum class PolyhedraStrategy;
-  }
+	 enum class Algorithms;
+  } // namespace LCP
 
 } // namespace Data
 

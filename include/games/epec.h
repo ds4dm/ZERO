@@ -64,11 +64,14 @@ namespace Data {
 														///< polyhedra, for each leader
 		Attr<int> LostIntermediateEq = {0}; ///< Counts the number of approximation steps where the
 														///< problem (approximated) has no nash equilibrium
-		DataObject() : PolyhedraStrategy{static_cast<LCP::PolyhedraStrategy>(0)} {};
-		Attr<Data::LCP::Algorithms> LCPSolver =
-			 Data::LCP::Algorithms::MIP; ///< Preferred method to solve the LCPs. Note that
-												  ///< <Data::LCP::Algorithms::PATH may not be available for any
-												  ///< LCPs. In the unlikely case, the fallback is MIP.
+		Attr<Data::LCP::Algorithms>
+			 LCPSolver; ///< Preferred method to solve the LCPs. Note that
+							///< <Data::LCP::Algorithms::PATH may not be available for any
+							///< LCPs. In the unlikely case, the fallback is MIP.
+
+		DataObject()
+			 : PolyhedraStrategy{static_cast<Data::LCP::PolyhedraStrategy>(0)},
+				LCPSolver{static_cast<Data::LCP::Algorithms>(0)} {};
 	 };
 
   } // namespace EPEC
