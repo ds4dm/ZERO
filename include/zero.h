@@ -60,7 +60,6 @@ namespace Game {
 	**/
   class NashGame;
   class PolyLCP;
-  class OuterLCP;
   class EPEC;
   class IPG;
 } // namespace Game

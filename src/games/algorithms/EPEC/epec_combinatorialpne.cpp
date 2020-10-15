@@ -74,7 +74,7 @@ void Algorithms::EPEC::CombinatorialPNE::combPNE(
   }
   if (found) {
 	 for (unsigned int j = 0; j < this->PolyLCP.at(i)->getNumTheoreticalPoly(); ++j) {
-		if (this->PolyLCP.at(i)->checkPolyFeas(j)) {
+		if (this->PolyLCP.at(i)->checkPolyFeas(j, true)) {
 		  childCombination.at(i) = j;
 		  this->combPNE(childCombination, excludeList);
 		}
@@ -99,8 +99,9 @@ void Algorithms::EPEC::CombinatorialPNE::combPNE(
 		BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::CombinatorialPNE::combPNE: considering a "
 											 "FEASIBLE combination of polyhedra.";
 		for (unsigned long j = 0; j < this->EPECObject->NumPlayers; ++j) {
-		  this->PolyLCP.at(j)->clearPolyhedra();
-		  this->PolyLCP.at(j)->addThePoly(static_cast<const unsigned long &>(childCombination.at(j)));
+		  this->PolyLCP.at(j)->clearPolyhedra(true);
+		  this->PolyLCP.at(j)->addThePoly(static_cast<const unsigned long &>(childCombination.at(j)),
+													 true);
 		}
 		this->EPECObject->makePlayersQPs();
 		bool res = 0;

@@ -103,7 +103,7 @@ void Algorithms::EPEC::InnerApproximation::start() {
 				// strategies, except the ones between polyhedra we already tested.
 				std::vector<std::set<unsigned long int>> excludeList;
 				for (unsigned long j = 0; j < this->EPECObject->NumPlayers; ++j) {
-				  excludeList.push_back(PolyLCP.at(j)->getAllPolyhedra());
+				  excludeList.push_back(PolyLCP.at(j)->getAllPolyhedra()[0]);
 				}
 				Algorithms::EPEC::CombinatorialPNE combPNE(this->Env, this->EPECObject);
 				combPNE.solveWithExcluded(excludeList);
@@ -257,7 +257,7 @@ unsigned int Algorithms::EPEC::InnerApproximation::addDeviatedPolyhedron(
   for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i) { // For each country
 	 bool ret = false;
 	 if (!deviations.at(i).empty())
-		PolyLCP.at(i)->addPolyFromX(deviations.at(i), ret);
+		PolyLCP.at(i)->addPolyFromX(deviations.at(i), ret, true);
 	 if (ret) {
 		BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::InnerApproximation::"
 											 "addDeviatedPolyhedron: added "

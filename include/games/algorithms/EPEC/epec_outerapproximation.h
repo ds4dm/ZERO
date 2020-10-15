@@ -151,11 +151,11 @@ namespace Algorithms {
 	 ///@brief This class is responsible for the outer approximation Algorithm
 	 class OuterApproximation : public Algorithm {
 	 private:
-		std::vector<std::shared_ptr<MathOpt::OuterLCP>> outerLCP{};
-		std::vector<OuterTree *>                        Trees;
-		std::vector<OuterTree::Node *>                  Incumbent;
-		bool                                            Feasible{false};
-		double                                          Tolerance = 1e-6;
+		std::vector<std::shared_ptr<MathOpt::PolyLCP>> PolyLCP{};
+		std::vector<OuterTree *>                       Trees;
+		std::vector<OuterTree::Node *>                 Incumbent;
+		bool                                           Feasible{false};
+		double                                         Tolerance = 1e-6;
 
 	 public:
 		double getTol() const { return Tolerance; }
@@ -185,30 +185,30 @@ namespace Algorithms {
 		friend class EPEC;
 
 		OuterApproximation(GRBEnv *env, Game::EPEC *EpecObj) {
-		  this->EPECObject = EpecObj;
+		  this->EPECObject = EPECObject;
 		  this->Env        = env;
+		  this->PolyLCP    = std::vector<std::shared_ptr<MathOpt::PolyLCP>>(EPECObject->NumPlayers);
 		  this->Tolerance  = this->EPECObject->Stats.AlgorithmData.DeviationTolerance.get();
 		  /*
 			*  The constructor re-builds the LCP fields in the EPEC object as new
-			* OuterLCP objects
+			* PolyLCP objects
 			*/
-		  this->outerLCP = std::vector<std::shared_ptr<MathOpt::OuterLCP>>(EPECObject->NumPlayers);
 		  for (unsigned int i = 0; i < EPECObject->NumPlayers; i++) {
-			 this->outerLCP.at(i) = std::shared_ptr<MathOpt::OuterLCP>(
-				  new MathOpt::OuterLCP(this->Env, *EPECObject->PlayersLowerLevels.at(i).get()));
-			 EPECObject->PlayersLCP.at(i) = this->outerLCP.at(i);
+			 this->PolyLCP.at(i) = std::shared_ptr<MathOpt::PolyLCP>(
+				  new class MathOpt::PolyLCP(this->Env, *EPECObject->PlayersLowerLevels.at(i).get()));
+			 EPECObject->PlayersLCP.at(i) = this->PolyLCP.at(i);
 		  }
 
 		}; ///< Constructor requires a pointer to the Gurobi
 		///< Environment and the calling EPEC object
 		void solve() override;
+		void printCurrentApprox();
+		void printBranchingLog(std::vector<int> vector);
 
 		//@todo define these for the outer approximation
 		bool isSolved(double tol = 1e-4) const override;
 		bool isFeasible(bool &addedCuts);
 		bool isPureStrategy(double tol = 1e-4) const override;
-		void printCurrentApprox();
-		void printBranchingLog(std::vector<int> vector);
 	 };
   } // namespace EPEC
 

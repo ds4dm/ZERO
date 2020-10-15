@@ -95,11 +95,6 @@ namespace Utils {
   long int
   appendRead(unsigned int &v, const std::string in, long int pos, const std::string header = "");
 
-  // Binary encoding functions for the LCP class
-  unsigned long int vecToNum(std::vector<short int> binary);
-
-  std::vector<short int> numToVec(unsigned long int number, const unsigned long nCompl);
-
   bool isZero(arma::mat M, double tol = 1e-6) noexcept;
 
   bool isZero(arma::sp_mat M, double tol = 1e-6) noexcept;

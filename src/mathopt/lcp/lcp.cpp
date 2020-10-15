@@ -499,7 +499,7 @@ void MathOpt::LCP::makeQP(MathOpt::QP_Objective &QP_obj, ///< [in/out] Objective
 																			///< final QP that has to be made
 								  MathOpt::QP_Param &QP ///< [out] This is the MathOpt::QP_Param that
 																///< results from the input objective and the convex
-																///< hull of the region defined by MathOpt::OuterLCP
+																///< hull of the region defined by the LCP
 ) {
   /**
 	* Given that the MathOpt::LCP stores a description of the LCP feasible

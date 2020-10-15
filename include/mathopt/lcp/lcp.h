@@ -187,5 +187,4 @@ namespace std {
   string to_string(Data::LCP::PolyhedraStrategy add);
 }
 
-#include "outer_lcp.h"
 #include "poly_lcp.h"

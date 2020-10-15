@@ -20,7 +20,7 @@ void Algorithms::EPEC::FullEnumeration::solve() {
 	* @p excludelist contains the set of excluded polyhedra combinations.
 	*/
   for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i)
-	 this->PolyLCP.at(i)->enumerateAll(true);
+	 this->PolyLCP.at(i)->exactFullEnumeration(true);
   this->EPECObject->makePlayersQPs();
   BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::FullEnumeration::solve: "
 										"Starting FullEnumeration search";

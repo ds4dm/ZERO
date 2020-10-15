@@ -64,7 +64,6 @@ add_library(
   src/games/games.cpp
   src/mathopt/lcp/lcp.cpp
   src/mathopt/lcp/poly_lcp.cpp
-  src/mathopt/lcp/outer_lcp.cpp
   src/mathopt/mp_param/mp_param.cpp
   src/mathopt/mp_param/qp_param.cpp
   src/mathopt/mp_param/ip_param.cpp
