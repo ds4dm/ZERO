@@ -40,7 +40,7 @@ html_theme_options = {
     'titles_only': False
 }
 html_css_files = [
-    'support_files/zero.css',
+    'support_files/zero.css'
 ]
 html_logo = "support_files/zerowhite.png"
 # Setup the breathe extension
@@ -59,7 +59,7 @@ exhale_args = {
     "exhaleExecutesDoxygen": True,
     "exhaleDoxygenStdin":    textwrap.dedent('''
             INPUT   = @ZERO_SOURCE_LIST_ESCAPED@
-            IMAGE_PATH      = ./
+            IMAGE_PATH      = ./support_files
             EXCLUDE_SYMBOLS = arma rapidjson boost std
             DOT_IMAGE_FORMAT= png
             RECURSIVE       = YES
