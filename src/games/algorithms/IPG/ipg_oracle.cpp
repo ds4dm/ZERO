@@ -591,10 +591,6 @@ bool Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
   Game::NashGame Nash = Game::NashGame(this->Env, MPCasted, MC, MCRHS, 0, dumA, dumB);
   BOOST_LOG_TRIVIAL(trace) << "@todo: NashGame is ready";
   auto LCP = std::unique_ptr<MathOpt::LCP>(new MathOpt::LCP(this->Env, Nash));
-  BOOST_LOG_TRIVIAL(trace) << "@todo:Indicators set to "
-									<< this->IPG->Stats.AlgorithmData.IndicatorConstraints.get();
-  LCP->UseIndicators =
-		this->IPG->Stats.AlgorithmData.IndicatorConstraints.get(); // Using indicator constraints
 
   arma::vec x, z;
   bool      eq = false;
