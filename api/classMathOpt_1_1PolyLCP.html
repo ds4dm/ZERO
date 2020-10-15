@@ -13,8 +13,7 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/support_files/zero.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+  <link rel="stylesheet" href="../res/zero.css" type="text/css" />
 
   
   
@@ -42,7 +41,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Class QP_Param" href="classMathOpt_1_1QP__Param.html" />
-    <link rel="prev" title="Class OuterLCP" href="classMathOpt_1_1OuterLCP.html" /> 
+    <link rel="prev" title="Class MP_Param" href="classMathOpt_1_1MP__Param.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -347,11 +346,6 @@
 <li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1MP__Param.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1OuterLCP.html">Class OuterLCP</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1OuterLCP.html#inheritance-relationships">Inheritance Relationships</a></li>
-<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1OuterLCP.html#class-documentation">Class Documentation</a></li>
-</ul>
-</li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">Class PolyLCP</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="#inheritance-relationships">Inheritance Relationships</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#class-documentation">Class Documentation</a></li>
@@ -545,8 +539,8 @@
 <li class="toctree-l5"><a class="reference internal" href="function_epec__models_8cpp_1a179b9a250911142576a44e24929a3a8e.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_poly__lcp_8cpp_1a7081ce5a943e65900f98444637bcb7c1.html">Function operator&lt;</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a7081ce5a943e65900f98444637bcb7c1.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_poly__lcp_8cpp_1a5229bd1ae73aa992f8d2ef5bff64ba62.html">Function operator&lt;</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a5229bd1ae73aa992f8d2ef5bff64ba62.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_zero_8h_1a115ecd3fba0241d9e582929ccac3ff7e.html">Function operator&lt;&lt;(std::ostream&amp;, perps)</a><ul>
@@ -665,10 +659,6 @@
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1afd63a1b9c36080d26ef9ad6585562f6d.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a3e6fb0ca43609e12a88d037acfd84d2d.html">Function Utils::numToVec</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a3e6fb0ca43609e12a88d037acfd84d2d.html#function-documentation">Function Documentation</a></li>
-</ul>
-</li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1adbe567182dd4d6f2c0aed1362e539fc9.html">Function Utils::printBounds</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1adbe567182dd4d6f2c0aed1362e539fc9.html#function-documentation">Function Documentation</a></li>
 </ul>
@@ -687,10 +677,6 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a0183fff354c82444f2bb66cbccd4478c.html">Function Utils::sortByKey</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a0183fff354c82444f2bb66cbccd4478c.html#function-documentation">Function Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a6b312d0a6805b263fbf4e3219d27ba13.html">Function Utils::vecToNum</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a6b312d0a6805b263fbf4e3219d27ba13.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -871,23 +857,28 @@
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK7MathOpt7PolyLCP11convNumPolyEv">
-<span id="_CPPv3NK7MathOpt7PolyLCP11convNumPolyEv"></span><span id="_CPPv2NK7MathOpt7PolyLCP11convNumPolyEv"></span><span id="MathOpt::PolyLCP::convNumPolyC"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a1f3c0672258fe1e85d87382b6a6bcdf9"></span>unsigned long <code class="sig-name descname">convNumPoly</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt7PolyLCP11convNumPolyEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4NK7MathOpt7PolyLCP11convNumPolyEb">
+<span id="_CPPv3NK7MathOpt7PolyLCP11convNumPolyEb"></span><span id="_CPPv2NK7MathOpt7PolyLCP11convNumPolyEb"></span><span id="MathOpt::PolyLCP::convNumPoly__bC"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a674c69b0169fc8098c9ebcdecb18fae1"></span>unsigned long <code class="sig-name descname">convNumPoly</code><span class="sig-paren">(</span>bool <em>innerApproximation</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt7PolyLCP11convNumPolyEb" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK7MathOpt7PolyLCP16convPolyPositionEm">
-<span id="_CPPv3NK7MathOpt7PolyLCP16convPolyPositionEm"></span><span id="_CPPv2NK7MathOpt7PolyLCP16convPolyPositionEm"></span><span id="MathOpt::PolyLCP::convPolyPosition__unsigned-l-iC"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a133362b43165947ef4807cdf701c5f74"></span>unsigned int <code class="sig-name descname">convPolyPosition</code><span class="sig-paren">(</span>unsigned long int <em>i</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt7PolyLCP16convPolyPositionEm" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4NK7MathOpt7PolyLCP16convPolyPositionEKmb">
+<span id="_CPPv3NK7MathOpt7PolyLCP16convPolyPositionEKmb"></span><span id="_CPPv2NK7MathOpt7PolyLCP16convPolyPositionEKmb"></span><span id="MathOpt::PolyLCP::convPolyPosition__unsigned-l-iC.bC"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a5744c25135317dddfb81d01d0e216bbe"></span>unsigned int <code class="sig-name descname">convPolyPosition</code><span class="sig-paren">(</span><em class="property">const</em> unsigned long int <em>i</em>, bool <em>innerApproximation</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt7PolyLCP16convPolyPositionEKmb" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK7MathOpt7PolyLCP14convPolyWeightEm">
-<span id="_CPPv3NK7MathOpt7PolyLCP14convPolyWeightEm"></span><span id="_CPPv2NK7MathOpt7PolyLCP14convPolyWeightEm"></span><span id="MathOpt::PolyLCP::convPolyWeight__unsigned-l-iC"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a650c24a6e6efb19eb938e17c709a6e17"></span>unsigned int <code class="sig-name descname">convPolyWeight</code><span class="sig-paren">(</span>unsigned long int <em>i</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt7PolyLCP14convPolyWeightEm" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4NK7MathOpt7PolyLCP14convPolyWeightEKmb">
+<span id="_CPPv3NK7MathOpt7PolyLCP14convPolyWeightEKmb"></span><span id="_CPPv2NK7MathOpt7PolyLCP14convPolyWeightEKmb"></span><span id="MathOpt::PolyLCP::convPolyWeight__unsigned-l-iC.bC"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a216ceaab9596be4213c20c39dfa69d9e"></span>unsigned int <code class="sig-name descname">convPolyWeight</code><span class="sig-paren">(</span><em class="property">const</em> unsigned long int <em>i</em>, bool <em>innerApproximation</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt7PolyLCP14convPolyWeightEKmb" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK7MathOpt7PolyLCP15getFeasOuterAppEv">
+<span id="_CPPv3NK7MathOpt7PolyLCP15getFeasOuterAppEv"></span><span id="_CPPv2NK7MathOpt7PolyLCP15getFeasOuterAppEv"></span><span id="MathOpt::PolyLCP::getFeasOuterAppC"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a796022e5f1e2375e24f47bc4d77e4a53"></span>bool <code class="sig-name descname">getFeasOuterApp</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt7PolyLCP15getFeasOuterAppEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK7MathOpt7PolyLCP15getAllPolyhedraEv">
-<span id="_CPPv3NK7MathOpt7PolyLCP15getAllPolyhedraEv"></span><span id="_CPPv2NK7MathOpt7PolyLCP15getAllPolyhedraEv"></span><span id="MathOpt::PolyLCP::getAllPolyhedraC"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a298c7f25c2b72197b65dc31bfba987b6"></span>std::set&lt;unsigned long int&gt; <code class="sig-name descname">getAllPolyhedra</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt7PolyLCP15getAllPolyhedraEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK7MathOpt7PolyLCP15getAllPolyhedraEv"></span><span id="_CPPv2NK7MathOpt7PolyLCP15getAllPolyhedraEv"></span><span id="MathOpt::PolyLCP::getAllPolyhedraC"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a892a29a6b651173f2f4363d612e6ec6f"></span>std::array&lt;std::set&lt;unsigned long int&gt;, 2&gt; <code class="sig-name descname">getAllPolyhedra</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt7PolyLCP15getAllPolyhedraEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
@@ -901,16 +892,17 @@
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7MathOpt7PolyLCP10addThePolyERKm">
-<span id="_CPPv3N7MathOpt7PolyLCP10addThePolyERKm"></span><span id="_CPPv2N7MathOpt7PolyLCP10addThePolyERKm"></span><span id="MathOpt::PolyLCP::addThePoly__unsigned-l-iCR"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a93bf0c8c5905b7fd14918342fcf3e004"></span>bool <code class="sig-name descname">addThePoly</code><span class="sig-paren">(</span><em class="property">const</em> unsigned long int &amp;<em>decimalEncoding</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP10addThePolyERKm" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4N7MathOpt7PolyLCP10addThePolyERKmb">
+<span id="_CPPv3N7MathOpt7PolyLCP10addThePolyERKmb"></span><span id="_CPPv2N7MathOpt7PolyLCP10addThePolyERKmb"></span><span id="MathOpt::PolyLCP::addThePoly__unsigned-l-iCR.b"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a026f588e7543fc6783d720a1b744c4e9"></span>bool <code class="sig-name descname">addThePoly</code><span class="sig-paren">(</span><em class="property">const</em> unsigned long int &amp;<em>decimalEncoding</em>, bool <em>innerApproximation</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP10addThePolyERKmb" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7MathOpt7PolyLCP13checkPolyFeasERKm">
-<span id="_CPPv3N7MathOpt7PolyLCP13checkPolyFeasERKm"></span><span id="_CPPv2N7MathOpt7PolyLCP13checkPolyFeasERKm"></span><span id="MathOpt::PolyLCP::checkPolyFeas__unsigned-l-iCR"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a238df41fff2985429a7515b0759d07af"></span>bool <code class="sig-name descname">checkPolyFeas</code><span class="sig-paren">(</span><em class="property">const</em> unsigned long int &amp;<em>decimalEncoding</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP13checkPolyFeasERKm" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4N7MathOpt7PolyLCP13checkPolyFeasERKmb">
+<span id="_CPPv3N7MathOpt7PolyLCP13checkPolyFeasERKmb"></span><span id="_CPPv2N7MathOpt7PolyLCP13checkPolyFeasERKmb"></span><span id="MathOpt::PolyLCP::checkPolyFeas__unsigned-l-iCR.b"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a5efc7737f83e0af00c5f8d56f5f5dc90"></span>bool <code class="sig-name descname">checkPolyFeas</code><span class="sig-paren">(</span><em class="property">const</em> unsigned long int &amp;<em>decimalEncoding</em>, bool <em>innerApproximation</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP13checkPolyFeasERKmb" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p><dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">decimalEncoding</span></code>: Decimal encoding for the polyhedron </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">innerApproximation</span></code>: True if the encoding is an inner approximation one </p></li>
 </ul>
 </dd>
 </dl>
@@ -918,11 +910,12 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7MathOpt7PolyLCP13checkPolyFeasERKNSt6vectorIsEE">
-<span id="_CPPv3N7MathOpt7PolyLCP13checkPolyFeasERKNSt6vectorIsEE"></span><span id="_CPPv2N7MathOpt7PolyLCP13checkPolyFeasERKNSt6vectorIsEE"></span><span id="MathOpt::PolyLCP::checkPolyFeas__std::vector:short-i:CR"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a570be5109ab1098adebdcba2edc77d72"></span>bool <code class="sig-name descname">checkPolyFeas</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;short int&gt; &amp;<em>encoding</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP13checkPolyFeasERKNSt6vectorIsEE" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4N7MathOpt7PolyLCP13checkPolyFeasERKNSt6vectorIsEEb">
+<span id="_CPPv3N7MathOpt7PolyLCP13checkPolyFeasERKNSt6vectorIsEEb"></span><span id="_CPPv2N7MathOpt7PolyLCP13checkPolyFeasERKNSt6vectorIsEEb"></span><span id="MathOpt::PolyLCP::checkPolyFeas__std::vector:short-i:CR.b"></span><span class="target" id="classMathOpt_1_1PolyLCP_1ab0c805ba87f8d2d50a662e838bedcd9b"></span>bool <code class="sig-name descname">checkPolyFeas</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;short int&gt; &amp;<em>encoding</em>, bool <em>innerApproximation</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP13checkPolyFeasERKNSt6vectorIsEEb" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p><dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">encoding</span></code>: A vector of +1 and -1 referring to which equations and variables are taking 0 value.) </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">encoding</span></code>: A vector of +1 and -1 referring to which equations and variables are taking 0 value.). For outer approximation, zeros are allowed </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">innerApproximation</span></code>: True if the encoding is an inner approximation one </p></li>
 </ul>
 </dd>
 </dl>
@@ -930,19 +923,23 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7MathOpt7PolyLCP14clearPolyhedraEv">
-<span id="_CPPv3N7MathOpt7PolyLCP14clearPolyhedraEv"></span><span id="_CPPv2N7MathOpt7PolyLCP14clearPolyhedraEv"></span><span id="MathOpt::PolyLCP::clearPolyhedra"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a24f22494090ebbf1e0d66d41cfff4ba4"></span>void <code class="sig-name descname">clearPolyhedra</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP14clearPolyhedraEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4N7MathOpt7PolyLCP14clearPolyhedraEb">
+<span id="_CPPv3N7MathOpt7PolyLCP14clearPolyhedraEb"></span><span id="_CPPv2N7MathOpt7PolyLCP14clearPolyhedraEb"></span><span id="MathOpt::PolyLCP::clearPolyhedra__b"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a1e8d72c46945072bf0063c1868941566"></span>void <code class="sig-name descname">clearPolyhedra</code><span class="sig-paren">(</span>bool <em>inner</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP14clearPolyhedraEb" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7MathOpt7PolyLCP12addPolyFromXERKN4arma3vecERb">
-<span id="_CPPv3N7MathOpt7PolyLCP12addPolyFromXERKN4arma3vecERb"></span><span id="_CPPv2N7MathOpt7PolyLCP12addPolyFromXERKN4arma3vecERb"></span><span id="MathOpt::PolyLCP::addPolyFromX__arma::vecCR.bR"></span><span class="target" id="classMathOpt_1_1PolyLCP_1afc0cb20b5b7f034371acb5f7b91005c9"></span><a class="reference internal" href="#_CPPv4N7MathOpt7PolyLCPE" title="MathOpt::PolyLCP">PolyLCP</a> &amp;<code class="sig-name descname">addPolyFromX</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>x</em>, bool &amp;<em>ret</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP12addPolyFromXERKN4arma3vecERb" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Given a <em> feasible </em> point <code class="docutils literal notranslate"><span class="pre">x</span></code>, checks if a polyhedron that contains <code class="docutils literal notranslate"><span class="pre">x</span></code> is already a part of this-&gt;Ai and this-&gt; bi. If it is, then this does nothing, except for printing a log message. If not, it adds a polyhedron containing this vector. </p>
+<dt id="_CPPv4N7MathOpt7PolyLCP12addPolyFromXERKN4arma3vecERbb">
+<span id="_CPPv3N7MathOpt7PolyLCP12addPolyFromXERKN4arma3vecERbb"></span><span id="_CPPv2N7MathOpt7PolyLCP12addPolyFromXERKN4arma3vecERbb"></span><span id="MathOpt::PolyLCP::addPolyFromX__arma::vecCR.bR.b"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a75be8291606f690804fe2bb488d04ac4"></span>MathOpt::<a class="reference internal" href="#_CPPv4N7MathOpt7PolyLCPE" title="MathOpt::PolyLCP">PolyLCP</a> &amp;<code class="sig-name descname">addPolyFromX</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>x</em>, bool &amp;<em>ret</em>, bool <em>innerApproximation</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP12addPolyFromXERKN4arma3vecERbb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Given a <em> feasible </em> point <code class="docutils literal notranslate"><span class="pre">x</span></code>, checks if a polyhedron that contains <code class="docutils literal notranslate"><span class="pre">x</span></code> is already a part of the inner approximation. If it is, then this does nothing, except for printing a log message. If not, it adds a polyhedron containing this vector. <dl class="simple">
+<dt><strong>Warning</strong></dt><dd><p>if <code class="docutils literal notranslate"><span class="pre">innerApproximation</span></code> is false, the polyhedron is added to the outer approximation. However, its encoding does not show in CurrentPoly. </p>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7MathOpt7PolyLCP12enumerateAllEb">
-<span id="_CPPv3N7MathOpt7PolyLCP12enumerateAllEb"></span><span id="_CPPv2N7MathOpt7PolyLCP12enumerateAllEb"></span><span id="MathOpt::PolyLCP::enumerateAll__b"></span><span class="target" id="classMathOpt_1_1PolyLCP_1ae8680cc331be8b9b068038e9f49d84e1"></span><a class="reference internal" href="#_CPPv4N7MathOpt7PolyLCPE" title="MathOpt::PolyLCP">PolyLCP</a> &amp;<code class="sig-name descname">enumerateAll</code><span class="sig-paren">(</span>bool <em>solveLP</em> = true<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP12enumerateAllEb" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4N7MathOpt7PolyLCP20exactFullEnumerationEb">
+<span id="_CPPv3N7MathOpt7PolyLCP20exactFullEnumerationEb"></span><span id="_CPPv2N7MathOpt7PolyLCP20exactFullEnumerationEb"></span><span id="MathOpt::PolyLCP::exactFullEnumeration__b"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a86ee8bac6169d67c499d236893479d8f"></span><a class="reference internal" href="#_CPPv4N7MathOpt7PolyLCPE" title="MathOpt::PolyLCP">PolyLCP</a> &amp;<code class="sig-name descname">exactFullEnumeration</code><span class="sig-paren">(</span>bool <em>solveLP</em> = true<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP20exactFullEnumerationEb" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Brute force computation of <a class="reference internal" href="classMathOpt_1_1LCP.html#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> feasible region. </p>
 <p><dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
@@ -960,8 +957,31 @@
 <dd></dd></dl>
 
 <dl class="cpp function">
+<dt id="_CPPv4N7MathOpt7PolyLCP16outerApproximateENSt6vectorIbEEb">
+<span id="_CPPv3N7MathOpt7PolyLCP16outerApproximateENSt6vectorIbEEb"></span><span id="_CPPv2N7MathOpt7PolyLCP16outerApproximateENSt6vectorIbEEb"></span><span id="MathOpt::PolyLCP::outerApproximate__std::vector:b:.b"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a32780131eab4c6ce289c25f191a2e9aa"></span>void <code class="sig-name descname">outerApproximate</code><span class="sig-paren">(</span>std::vector&lt;bool&gt; <em>encoding</em>, bool <em>clear</em> = true<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP16outerApproximateENSt6vectorIbEEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">encoding</span></code>: A 0-1 encoding on whether the complementarity is enforced (1) or not (0) </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clear</span></code>: Clear the current outer approximation or build on it) </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
 <dt id="_CPPv4NK7MathOpt7PolyLCP20getFeasiblePolyhedraEv">
 <span id="_CPPv3NK7MathOpt7PolyLCP20getFeasiblePolyhedraEv"></span><span id="_CPPv2NK7MathOpt7PolyLCP20getFeasiblePolyhedraEv"></span><span id="MathOpt::PolyLCP::getFeasiblePolyhedraC"></span><span class="target" id="classMathOpt_1_1PolyLCP_1adce1cc6f81ed8bfcf85aa462fbc0ad72"></span>unsigned int <code class="sig-name descname">getFeasiblePolyhedra</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt7PolyLCP20getFeasiblePolyhedraEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N7MathOpt7PolyLCP8numToVecEmKmb">
+<span id="_CPPv3N7MathOpt7PolyLCP8numToVecEmKmb"></span><span id="_CPPv2N7MathOpt7PolyLCP8numToVecEmKmb"></span><span id="MathOpt::PolyLCP::numToVec__unsigned-l.unsigned-lC.b"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a2cf5d454ed364e78bf72a18b29d2374f"></span>std::vector&lt;short&gt; <code class="sig-name descname">numToVec</code><span class="sig-paren">(</span>unsigned long <em>number</em>, <em class="property">const</em> unsigned long <em>nCompl</em>, bool <em>inner</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP8numToVecEmKmb" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N7MathOpt7PolyLCP8vecToNumENSt6vectorIsEEb">
+<span id="_CPPv3N7MathOpt7PolyLCP8vecToNumENSt6vectorIsEEb"></span><span id="_CPPv2N7MathOpt7PolyLCP8vecToNumENSt6vectorIsEEb"></span><span id="MathOpt::PolyLCP::vecToNum__std::vector:short:.b"></span><span class="target" id="classMathOpt_1_1PolyLCP_1adedc3c6bbe00b85782b64415483caf5b"></span>unsigned long <code class="sig-name descname">vecToNum</code><span class="sig-paren">(</span>std::vector&lt;short&gt; <em>binary</em>, bool <em>inner</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP8vecToNumENSt6vectorIsEEb" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -977,17 +997,18 @@
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Private Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N7MathOpt7PolyLCP22initializeNotProcessedEv">
-<span id="_CPPv3N7MathOpt7PolyLCP22initializeNotProcessedEv"></span><span id="_CPPv2N7MathOpt7PolyLCP22initializeNotProcessedEv"></span><span id="MathOpt::PolyLCP::initializeNotProcessed"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a963f8d9de472745b2b84f9fd2fdc488c"></span>void <code class="sig-name descname">initializeNotProcessed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP22initializeNotProcessedEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4N7MathOpt7PolyLCP15initializeSizesEv">
+<span id="_CPPv3N7MathOpt7PolyLCP15initializeSizesEv"></span><span id="_CPPv2N7MathOpt7PolyLCP15initializeSizesEv"></span><span id="MathOpt::PolyLCP::initializeSizes"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a7844d3f2922aee041d8c576aecf146d4"></span>void <code class="sig-name descname">initializeSizes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP15initializeSizesEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7MathOpt7PolyLCP19addPolyFromEncodingENSt6vectorIsEEbbP9spmat_VecP7vec_Vec">
-<span id="_CPPv3N7MathOpt7PolyLCP19addPolyFromEncodingENSt6vectorIsEEbbP9spmat_VecP7vec_Vec"></span><span id="_CPPv2N7MathOpt7PolyLCP19addPolyFromEncodingENSt6vectorIsEEbbP9spmat_VecP7vec_Vec"></span><span id="MathOpt::PolyLCP::addPolyFromEncoding__std::vector:short-i:.b.b.spmat_VecP.vec_VecP"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a639732691310aa030aba6df57d6db05b"></span>bool <code class="sig-name descname">addPolyFromEncoding</code><span class="sig-paren">(</span>std::vector&lt;short int&gt; <em>encoding</em>, bool <em>checkFeas</em> = false, bool <em>custom</em> = false, <a class="reference internal" href="typedef_zero_8h_1a13e22b2209a1025ac5c30d6361619219.html#_CPPv49spmat_Vec" title="spmat_Vec">spmat_Vec</a> *<em>custAi</em> = {}, <a class="reference internal" href="typedef_zero_8h_1a61c9afcb946e96d4e4e6156d9c1bee8c.html#_CPPv47vec_Vec" title="vec_Vec">vec_Vec</a> *<em>custbi</em> = {}<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP19addPolyFromEncodingENSt6vectorIsEEbbP9spmat_VecP7vec_Vec" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4N7MathOpt7PolyLCP19addPolyFromEncodingENSt6vectorIsEEbbbP9spmat_VecP7vec_Vec">
+<span id="_CPPv3N7MathOpt7PolyLCP19addPolyFromEncodingENSt6vectorIsEEbbbP9spmat_VecP7vec_Vec"></span><span id="_CPPv2N7MathOpt7PolyLCP19addPolyFromEncodingENSt6vectorIsEEbbbP9spmat_VecP7vec_Vec"></span><span id="MathOpt::PolyLCP::addPolyFromEncoding__std::vector:short-i:.b.b.b.spmat_VecP.vec_VecP"></span><span class="target" id="classMathOpt_1_1PolyLCP_1acb4b8b46b2d11c27533a7d4599540a47"></span>bool <code class="sig-name descname">addPolyFromEncoding</code><span class="sig-paren">(</span>std::vector&lt;short int&gt; <em>encoding</em>, bool <em>innerApproximation</em> = true, bool <em>checkFeas</em> = false, bool <em>custom</em> = false, <a class="reference internal" href="typedef_zero_8h_1a13e22b2209a1025ac5c30d6361619219.html#_CPPv49spmat_Vec" title="spmat_Vec">spmat_Vec</a> *<em>custAi</em> = {}, <a class="reference internal" href="typedef_zero_8h_1a61c9afcb946e96d4e4e6156d9c1bee8c.html#_CPPv47vec_Vec" title="vec_Vec">vec_Vec</a> *<em>custbi</em> = {}<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP19addPolyFromEncodingENSt6vectorIsEEbbbP9spmat_VecP7vec_Vec" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Computes the equation of the feasibility polyhedron corresponding to the given <code class="docutils literal notranslate"><span class="pre">encoding</span></code>. </p>
 <p><dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">encoding</span></code>: A vector of +1 and -1 referring to which equations and variables are taking 0 value. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">encoding</span></code>: A vector of +1 and -1 referring to which equations and variables are taking 0 value. A value of zero means no equation is enforced, and requires the second argument of this method set to false. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">innerApproximation</span></code>: True if the encoding contains zeros. </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">checkFeas</span></code>: The polyhedron is added after ensuring feasibility, if this is true </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">custom</span></code>: Should the polyhedra be pushed into a custom vector of polyhedra as opposed to <a class="reference internal" href="classMathOpt_1_1LCP.html#classMathOpt_1_1LCP_1af19b7809bfaf15311371d9a7ce3b9a9e"><span class="std std-ref">LCP::Ai</span></a> and <a class="reference internal" href="classMathOpt_1_1LCP.html#classMathOpt_1_1LCP_1a5b68d054b67aab64a123395ec12f4ba8"><span class="std std-ref">LCP::bi</span></a> </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">custAi</span></code>: If custom polyhedra vector is used, pointer to vector of LHS constraint matrix </p></li>
@@ -996,22 +1017,23 @@
 </dd>
 </dl>
 </p>
-<p>The computed polyhedron is always pushed into a vector of <code class="docutils literal notranslate"><span class="pre">arma::sp_mat</span></code> and <code class="docutils literal notranslate"><span class="pre">arma::vec</span></code> If <code class="docutils literal notranslate"><span class="pre">custom</span></code> is false, this is the internal attribute of <a class="reference internal" href="classMathOpt_1_1LCP.html#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>, which are <a class="reference internal" href="classMathOpt_1_1LCP.html#classMathOpt_1_1LCP_1af19b7809bfaf15311371d9a7ce3b9a9e"><span class="std std-ref">LCP::Ai</span></a> and <a class="reference internal" href="classMathOpt_1_1LCP.html#classMathOpt_1_1LCP_1a5b68d054b67aab64a123395ec12f4ba8"><span class="std std-ref">LCP::bi</span></a>. Otherwise, the vectors can be provided as arguments. <code class="docutils literal notranslate"><span class="pre">true</span></code> value to <code class="docutils literal notranslate"><span class="pre">checkFeas</span></code> ensures that the polyhedron is pushed <em>only</em> if it is feasible. <dl class="simple">
+<p>The computed polyhedron is always pushed into a vector of <code class="docutils literal notranslate"><span class="pre">arma::sp_mat</span></code> and <code class="docutils literal notranslate"><span class="pre">arma::vec</span></code> If <code class="docutils literal notranslate"><span class="pre">custom</span></code> is false, this is the internal attribute of <a class="reference internal" href="classMathOpt_1_1LCP.html#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>, which are <a class="reference internal" href="classMathOpt_1_1LCP.html#classMathOpt_1_1LCP_1af19b7809bfaf15311371d9a7ce3b9a9e"><span class="std std-ref">LCP::Ai</span></a> and <a class="reference internal" href="classMathOpt_1_1LCP.html#classMathOpt_1_1LCP_1a5b68d054b67aab64a123395ec12f4ba8"><span class="std std-ref">LCP::bi</span></a>. Otherwise, the vectors can be provided as arguments. <code class="docutils literal notranslate"><span class="pre">true</span></code> value to <code class="docutils literal notranslate"><span class="pre">checkFeas</span></code> ensures that the polyhedron is pushed <em>only</em> if it is feasible. <code class="docutils literal notranslate"><span class="pre">innerApproximation</span></code> determines whether the polyhedron has a full encoding (all encodings to +1 -1) or an outer approximation one (some elements may not be fixed). In case this latter parameter is false, the polyhedra are stored in the outer approximation structures. <dl class="simple">
 <dt><strong>Return</strong></dt><dd><p><code class="docutils literal notranslate"><span class="pre">true</span></code> if successfully added, else false </p>
 </dd>
-<dt><strong>Warning</strong></dt><dd><p>Does not entertain 0 in the elements of *encoding. Only +1/-1 are allowed to not encounter undefined behavior. As a result, not meant for high level code. Instead use LCP::addPoliesFromEncoding. </p>
+<dt><strong>Warning</strong></dt><dd><p>Not meant for high level code. Instead use LCP::addPoliesFromEncoding. </p>
 </dd>
 </dl>
 </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7MathOpt7PolyLCP21addPoliesFromEncodingENSt6vectorIsEEbbP9spmat_VecP7vec_Vec">
-<span id="_CPPv3N7MathOpt7PolyLCP21addPoliesFromEncodingENSt6vectorIsEEbbP9spmat_VecP7vec_Vec"></span><span id="_CPPv2N7MathOpt7PolyLCP21addPoliesFromEncodingENSt6vectorIsEEbbP9spmat_VecP7vec_Vec"></span><span id="MathOpt::PolyLCP::addPoliesFromEncoding__std::vector:short-i:.b.b.spmat_VecP.vec_VecP"></span><span class="target" id="classMathOpt_1_1PolyLCP_1aa8450eefba5e3314531da61c24834981"></span><a class="reference internal" href="#_CPPv4N7MathOpt7PolyLCPE" title="MathOpt::PolyLCP">PolyLCP</a> &amp;<code class="sig-name descname">addPoliesFromEncoding</code><span class="sig-paren">(</span>std::vector&lt;short int&gt; <em>encoding</em>, bool <em>checkFeas</em> = false, bool <em>custom</em> = false, <a class="reference internal" href="typedef_zero_8h_1a13e22b2209a1025ac5c30d6361619219.html#_CPPv49spmat_Vec" title="spmat_Vec">spmat_Vec</a> *<em>custAi</em> = {}, <a class="reference internal" href="typedef_zero_8h_1a61c9afcb946e96d4e4e6156d9c1bee8c.html#_CPPv47vec_Vec" title="vec_Vec">vec_Vec</a> *<em>custbi</em> = {}<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP21addPoliesFromEncodingENSt6vectorIsEEbbP9spmat_VecP7vec_Vec" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4N7MathOpt7PolyLCP21addPoliesFromEncodingENSt6vectorIsEEbbbP9spmat_VecP7vec_Vec">
+<span id="_CPPv3N7MathOpt7PolyLCP21addPoliesFromEncodingENSt6vectorIsEEbbbP9spmat_VecP7vec_Vec"></span><span id="_CPPv2N7MathOpt7PolyLCP21addPoliesFromEncodingENSt6vectorIsEEbbbP9spmat_VecP7vec_Vec"></span><span id="MathOpt::PolyLCP::addPoliesFromEncoding__std::vector:short-i:.b.b.b.spmat_VecP.vec_VecP"></span><span class="target" id="classMathOpt_1_1PolyLCP_1ab88d866cb1e667540aea0a758136d934"></span><a class="reference internal" href="#_CPPv4N7MathOpt7PolyLCPE" title="MathOpt::PolyLCP">PolyLCP</a> &amp;<code class="sig-name descname">addPoliesFromEncoding</code><span class="sig-paren">(</span>std::vector&lt;short int&gt; <em>encoding</em>, bool <em>innerApproximation</em> = true, bool <em>checkFeas</em> = false, bool <em>custom</em> = false, <a class="reference internal" href="typedef_zero_8h_1a13e22b2209a1025ac5c30d6361619219.html#_CPPv49spmat_Vec" title="spmat_Vec">spmat_Vec</a> *<em>custAi</em> = {}, <a class="reference internal" href="typedef_zero_8h_1a61c9afcb946e96d4e4e6156d9c1bee8c.html#_CPPv47vec_Vec" title="vec_Vec">vec_Vec</a> *<em>custbi</em> = {}<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP21addPoliesFromEncodingENSt6vectorIsEEbbbP9spmat_VecP7vec_Vec" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Computes the equation of the feasibility polyhedron corresponding to the given <code class="docutils literal notranslate"><span class="pre">encoding</span></code>. </p>
 <p><dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">encoding</span></code>: A vector of +1, 0 and -1 referring to which equations and variables are taking 0 value. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">encoding</span></code>: A vector of +1 and -1 referring to which equations and variables are taking 0 value. A value of zero means no equation is enforced, and requires the second argument of this method set to false. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">innerApproximation</span></code>: True if the encoding contains zeros. </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">checkFeas</span></code>: The polyhedron is added after ensuring feasibility, if this is true </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">custom</span></code>: Should the polyhedra be pushed into a custom vector of polyhedra as opposed to <a class="reference internal" href="classMathOpt_1_1LCP.html#classMathOpt_1_1LCP_1af19b7809bfaf15311371d9a7ce3b9a9e"><span class="std std-ref">LCP::Ai</span></a> and <a class="reference internal" href="classMathOpt_1_1LCP.html#classMathOpt_1_1LCP_1a5b68d054b67aab64a123395ec12f4ba8"><span class="std std-ref">LCP::bi</span></a> </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">custAi</span></code>: If custom polyhedra vector is used, pointer to vector of LHS constraint matrix </p></li>
@@ -1021,7 +1043,7 @@
 </dl>
 </p>
 <p>The computed polyhedron are always pushed into a vector of <code class="docutils literal notranslate"><span class="pre">arma::sp_mat</span></code> and <code class="docutils literal notranslate"><span class="pre">arma::vec</span></code> If <code class="docutils literal notranslate"><span class="pre">custom</span></code> is false, this is the internal attribute of <a class="reference internal" href="classMathOpt_1_1LCP.html#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>, which are <a class="reference internal" href="classMathOpt_1_1LCP.html#classMathOpt_1_1LCP_1af19b7809bfaf15311371d9a7ce3b9a9e"><span class="std std-ref">LCP::Ai</span></a> and <a class="reference internal" href="classMathOpt_1_1LCP.html#classMathOpt_1_1LCP_1a5b68d054b67aab64a123395ec12f4ba8"><span class="std std-ref">LCP::bi</span></a>. Otherwise, the vectors can be provided as arguments. <code class="docutils literal notranslate"><span class="pre">true</span></code> value to <code class="docutils literal notranslate"><span class="pre">checkFeas</span></code> ensures that <em>each</em> polyhedron that is pushed is feasible. not meant for high level code. Instead use LCP::addPoliesFromEncoding. <dl class="simple">
-<dt><strong>Note</strong></dt><dd><p>A value of 0 in <code class="docutils literal notranslate"><span class="pre">*encoding</span></code> implies that polyhedron corresponding to fixing the corresponding variable as well as the equation become candidates to pushed into the vector. Hence this is preferred over LCP::addPolyFromEncoding for high-level usage. </p>
+<dt><strong>Note</strong></dt><dd><p>A value of 0 in <code class="docutils literal notranslate"><span class="pre">*encoding</span></code> implies that polyhedron corresponding to fixing the corresponding variable as well as the equation become candidates to pushed into the vector. A value of 2 means that nothing is fixed, and can be achieved only if <code class="docutils literal notranslate"><span class="pre">innerApproximation</span></code> is set to false. Hence this is preferred over LCP::addPolyFromEncoding for high-level usage. </p>
 </dd>
 </dl>
 </p>
@@ -1043,10 +1065,16 @@
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Private Members</p>
 <dl class="cpp var">
+<dt id="_CPPv4N7MathOpt7PolyLCP15FeasOuterApproxE">
+<span id="_CPPv3N7MathOpt7PolyLCP15FeasOuterApproxE"></span><span id="_CPPv2N7MathOpt7PolyLCP15FeasOuterApproxE"></span><span id="MathOpt::PolyLCP::FeasOuterApprox__b"></span><span class="target" id="classMathOpt_1_1PolyLCP_1aee7f6b7f4d024c1d4b7297cb5d1b3f54"></span>bool <code class="sig-name descname">FeasOuterApprox</code> = false<a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP15FeasOuterApproxE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Inheritor Class to handle the polyhedral aspects of the <a class="reference internal" href="classMathOpt_1_1LCP.html#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> class, and support algorithms. </p>
+<p>True when the current outer approximation in CurrentPoly[1] is feasible </p>
+</dd></dl>
+
+<dl class="cpp var">
 <dt id="_CPPv4N7MathOpt7PolyLCP17FeasiblePolyhedraE">
 <span id="_CPPv3N7MathOpt7PolyLCP17FeasiblePolyhedraE"></span><span id="_CPPv2N7MathOpt7PolyLCP17FeasiblePolyhedraE"></span><span id="MathOpt::PolyLCP::FeasiblePolyhedra__unsigned-i"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a687fa5b9af020a7bdbad9afedad26d51"></span>unsigned int <code class="sig-name descname">FeasiblePolyhedra</code> = {0}<a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP17FeasiblePolyhedraE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Inheritor Class to handle the polyhedral aspects of the <a class="reference internal" href="classMathOpt_1_1LCP.html#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> class, and support algorithms. </p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt7PolyLCP21SequentialPolyCounterE">
@@ -1059,28 +1087,29 @@
 <dd></dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N7MathOpt7PolyLCP12AllPolyhedraE">
-<span id="_CPPv3N7MathOpt7PolyLCP12AllPolyhedraE"></span><span id="_CPPv2N7MathOpt7PolyLCP12AllPolyhedraE"></span><span id="MathOpt::PolyLCP::AllPolyhedra__std::set:unsigned-l-i:"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a41bf2044b6ad68197af7e99828272b65"></span>std::set&lt;unsigned long int&gt; <code class="sig-name descname">AllPolyhedra</code> = {}<a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP12AllPolyhedraE" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4N7MathOpt7PolyLCP11CurrentPolyE">
+<span id="_CPPv3N7MathOpt7PolyLCP11CurrentPolyE"></span><span id="_CPPv2N7MathOpt7PolyLCP11CurrentPolyE"></span><span id="MathOpt::PolyLCP::CurrentPoly__std::array:std::set:unsigned-l-i:.2:"></span><span class="target" id="classMathOpt_1_1PolyLCP_1ac02ee4df579485cb87b8e31cdd0b79a7"></span>std::array&lt;std::set&lt;unsigned long int&gt;, 2&gt; <code class="sig-name descname">CurrentPoly</code> = {}<a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP11CurrentPolyE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p><a class="reference internal" href="classMathOpt_1_1LCP.html#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> feasible region is a union of polyhedra. Keeps track which of those inequalities are fixed to equality to get the individual polyhedra. </p>
-<p>Decimal encoding of polyhedra that have been enumerated </p>
+<p>Decimal encoding of polyhedra that have been enumerated. The first array is for the &lt; inner approximation, the second for the outer. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt7PolyLCP12FeasiblePolyE">
-<span id="_CPPv3N7MathOpt7PolyLCP12FeasiblePolyE"></span><span id="_CPPv2N7MathOpt7PolyLCP12FeasiblePolyE"></span><span id="MathOpt::PolyLCP::FeasiblePoly__std::set:unsigned-l-i:"></span><span class="target" id="classMathOpt_1_1PolyLCP_1ad962f5694ca99925cb511c87e3a18304"></span>std::set&lt;unsigned long int&gt; <code class="sig-name descname">FeasiblePoly</code> = {}<a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP12FeasiblePolyE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N7MathOpt7PolyLCP12FeasiblePolyE"></span><span id="_CPPv2N7MathOpt7PolyLCP12FeasiblePolyE"></span><span id="MathOpt::PolyLCP::FeasiblePoly__std::array:std::set:unsigned-l-i:.2:"></span><span class="target" id="classMathOpt_1_1PolyLCP_1aced184078ec4e66f4011f33d9e1cc731"></span>std::array&lt;std::set&lt;unsigned long int&gt;, 2&gt; <code class="sig-name descname">FeasiblePoly</code> = {}<a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP12FeasiblePolyE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Decimal encoding of polyhedra that have been enumerated. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt7PolyLCP14InfeasiblePolyE">
-<span id="_CPPv3N7MathOpt7PolyLCP14InfeasiblePolyE"></span><span id="_CPPv2N7MathOpt7PolyLCP14InfeasiblePolyE"></span><span id="MathOpt::PolyLCP::InfeasiblePoly__std::set:unsigned-l-i:"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a7122e88a2136476d1985e612aea1a08d"></span>std::set&lt;unsigned long int&gt; <code class="sig-name descname">InfeasiblePoly</code> = {}<a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP14InfeasiblePolyE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N7MathOpt7PolyLCP14InfeasiblePolyE"></span><span id="_CPPv2N7MathOpt7PolyLCP14InfeasiblePolyE"></span><span id="MathOpt::PolyLCP::InfeasiblePoly__std::array:std::set:unsigned-l-i:.2:"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a8f010843af58d04e08c106034dd0f4c8"></span>std::array&lt;std::set&lt;unsigned long int&gt;, 2&gt; <code class="sig-name descname">InfeasiblePoly</code> = {}<a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP14InfeasiblePolyE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Decimal encoding of polyhedra known to be infeasible. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N7MathOpt7PolyLCP18MaxTheoreticalPolyE">
-<span id="_CPPv3N7MathOpt7PolyLCP18MaxTheoreticalPolyE"></span><span id="_CPPv2N7MathOpt7PolyLCP18MaxTheoreticalPolyE"></span><span id="MathOpt::PolyLCP::MaxTheoreticalPoly__unsigned-l-i"></span><span class="target" id="classMathOpt_1_1PolyLCP_1ac1da99adac1bc2319d98469d4b7a6095"></span>unsigned long int <code class="sig-name descname">MaxTheoreticalPoly</code> = {0}<a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP18MaxTheoreticalPolyE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dt id="_CPPv4N7MathOpt7PolyLCP12MaxInnerPolyE">
+<span id="_CPPv3N7MathOpt7PolyLCP12MaxInnerPolyE"></span><span id="_CPPv2N7MathOpt7PolyLCP12MaxInnerPolyE"></span><span id="MathOpt::PolyLCP::MaxInnerPoly__unsigned-l-i"></span><span class="target" id="classMathOpt_1_1PolyLCP_1a22e33867cc53b275a718d9e856176775"></span>unsigned long int <code class="sig-name descname">MaxInnerPoly</code> = {0}<a class="headerlink" href="#_CPPv4N7MathOpt7PolyLCP12MaxInnerPolyE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Maximum number of polyhedra for the inner approximation. </p>
+</dd></dl>
 
 </div>
 </dd></dl>
@@ -1099,7 +1128,7 @@
         <a href="classMathOpt_1_1QP__Param.html" class="btn btn-neutral float-right" title="Class QP_Param" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="classMathOpt_1_1OuterLCP.html" class="btn btn-neutral float-left" title="Class OuterLCP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="classMathOpt_1_1MP__Param.html" class="btn btn-neutral float-left" title="Class MP_Param" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

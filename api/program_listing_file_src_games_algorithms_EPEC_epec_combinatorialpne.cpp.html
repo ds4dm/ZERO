@@ -13,8 +13,7 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/support_files/zero.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+  <link rel="stylesheet" href="../res/zero.css" type="text/css" />
 
   
   
@@ -345,11 +344,6 @@
 <li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1MP__Param.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1OuterLCP.html">Class OuterLCP</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1OuterLCP.html#inheritance-relationships">Inheritance Relationships</a></li>
-<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1OuterLCP.html#class-documentation">Class Documentation</a></li>
-</ul>
-</li>
 <li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1PolyLCP.html">Class PolyLCP</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1PolyLCP.html#inheritance-relationships">Inheritance Relationships</a></li>
 <li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1PolyLCP.html#class-documentation">Class Documentation</a></li>
@@ -543,8 +537,8 @@
 <li class="toctree-l5"><a class="reference internal" href="function_epec__models_8cpp_1a179b9a250911142576a44e24929a3a8e.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_poly__lcp_8cpp_1a7081ce5a943e65900f98444637bcb7c1.html">Function operator&lt;</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a7081ce5a943e65900f98444637bcb7c1.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_poly__lcp_8cpp_1a5229bd1ae73aa992f8d2ef5bff64ba62.html">Function operator&lt;</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a5229bd1ae73aa992f8d2ef5bff64ba62.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_zero_8h_1a115ecd3fba0241d9e582929ccac3ff7e.html">Function operator&lt;&lt;(std::ostream&amp;, perps)</a><ul>
@@ -663,10 +657,6 @@
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1afd63a1b9c36080d26ef9ad6585562f6d.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a3e6fb0ca43609e12a88d037acfd84d2d.html">Function Utils::numToVec</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a3e6fb0ca43609e12a88d037acfd84d2d.html#function-documentation">Function Documentation</a></li>
-</ul>
-</li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1adbe567182dd4d6f2c0aed1362e539fc9.html">Function Utils::printBounds</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1adbe567182dd4d6f2c0aed1362e539fc9.html#function-documentation">Function Documentation</a></li>
 </ul>
@@ -685,10 +675,6 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a0183fff354c82444f2bb66cbccd4478c.html">Function Utils::sortByKey</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a0183fff354c82444f2bb66cbccd4478c.html#function-documentation">Function Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a6b312d0a6805b263fbf4e3219d27ba13.html">Function Utils::vecToNum</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a6b312d0a6805b263fbf4e3219d27ba13.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -909,7 +895,7 @@ void Algorithms::EPEC::CombinatorialPNE::combPNE(
   }
   if (found) {
      for (unsigned int j = 0; j &lt; this-&gt;PolyLCP.at(i)-&gt;getNumTheoreticalPoly(); ++j) {
-        if (this-&gt;PolyLCP.at(i)-&gt;checkPolyFeas(j)) {
+        if (this-&gt;PolyLCP.at(i)-&gt;checkPolyFeas(j, true)) {
           childCombination.at(i) = j;
           this-&gt;combPNE(childCombination, excludeList);
         }
@@ -934,8 +920,9 @@ void Algorithms::EPEC::CombinatorialPNE::combPNE(
         BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Algorithms::EPEC::CombinatorialPNE::combPNE: considering a &quot;
                                              &quot;FEASIBLE combination of polyhedra.&quot;;
         for (unsigned long j = 0; j &lt; this-&gt;EPECObject-&gt;NumPlayers; ++j) {
-          this-&gt;PolyLCP.at(j)-&gt;clearPolyhedra();
-          this-&gt;PolyLCP.at(j)-&gt;addThePoly(static_cast&lt;const unsigned long &amp;&gt;(childCombination.at(j)));
+          this-&gt;PolyLCP.at(j)-&gt;clearPolyhedra(true);
+          this-&gt;PolyLCP.at(j)-&gt;addThePoly(static_cast&lt;const unsigned long &amp;&gt;(childCombination.at(j)),
+                                                     true);
         }
         this-&gt;EPECObject-&gt;makePlayersQPs();
         bool res = 0;

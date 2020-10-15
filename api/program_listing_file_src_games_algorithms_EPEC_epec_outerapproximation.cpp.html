@@ -13,8 +13,7 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/support_files/zero.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+  <link rel="stylesheet" href="../res/zero.css" type="text/css" />
 
   
   
@@ -345,11 +344,6 @@
 <li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1MP__Param.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1OuterLCP.html">Class OuterLCP</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1OuterLCP.html#inheritance-relationships">Inheritance Relationships</a></li>
-<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1OuterLCP.html#class-documentation">Class Documentation</a></li>
-</ul>
-</li>
 <li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1PolyLCP.html">Class PolyLCP</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1PolyLCP.html#inheritance-relationships">Inheritance Relationships</a></li>
 <li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1PolyLCP.html#class-documentation">Class Documentation</a></li>
@@ -543,8 +537,8 @@
 <li class="toctree-l5"><a class="reference internal" href="function_epec__models_8cpp_1a179b9a250911142576a44e24929a3a8e.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_poly__lcp_8cpp_1a7081ce5a943e65900f98444637bcb7c1.html">Function operator&lt;</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a7081ce5a943e65900f98444637bcb7c1.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_poly__lcp_8cpp_1a5229bd1ae73aa992f8d2ef5bff64ba62.html">Function operator&lt;</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a5229bd1ae73aa992f8d2ef5bff64ba62.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_zero_8h_1a115ecd3fba0241d9e582929ccac3ff7e.html">Function operator&lt;&lt;(std::ostream&amp;, perps)</a><ul>
@@ -663,10 +657,6 @@
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1afd63a1b9c36080d26ef9ad6585562f6d.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a3e6fb0ca43609e12a88d037acfd84d2d.html">Function Utils::numToVec</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a3e6fb0ca43609e12a88d037acfd84d2d.html#function-documentation">Function Documentation</a></li>
-</ul>
-</li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1adbe567182dd4d6f2c0aed1362e539fc9.html">Function Utils::printBounds</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1adbe567182dd4d6f2c0aed1362e539fc9.html#function-documentation">Function Documentation</a></li>
 </ul>
@@ -685,10 +675,6 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a0183fff354c82444f2bb66cbccd4478c.html">Function Utils::sortByKey</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a0183fff354c82444f2bb66cbccd4478c.html#function-documentation">Function Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a6b312d0a6805b263fbf4e3219d27ba13.html">Function Utils::vecToNum</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a6b312d0a6805b263fbf4e3219d27ba13.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -1075,9 +1061,9 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
                 // Ciao Moni
                 cutV              = cutV;
                 arma::sp_mat cutL = Utils::resizePatch(
-                     arma::sp_mat{cutLHS}.t(), 1, this-&gt;outerLCP.at(player)-&gt;getNumCols());
-                if (this-&gt;outerLCP.at(player)-&gt;containsCut(
-                          Utils::resizePatch(cutLHS, this-&gt;outerLCP.at(player)-&gt;getNumCols()), cutV)) {
+                     arma::sp_mat{cutLHS}.t(), 1, this-&gt;PolyLCP.at(player)-&gt;getNumCols());
+                if (this-&gt;PolyLCP.at(player)-&gt;containsCut(
+                          Utils::resizePatch(cutLHS, this-&gt;PolyLCP.at(player)-&gt;getNumCols()), cutV)) {
                   BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Algorithms::EPEC::OuterApproximation::separationOracle: &quot;
                                                       &quot;cut already added for Player &quot;
                                                   &lt;&lt; player;
@@ -1085,7 +1071,7 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
                   break;
 
                 } else {
-                  this-&gt;outerLCP.at(player)-&gt;addCustomCuts(cutL, arma::vec{cutV});
+                  this-&gt;PolyLCP.at(player)-&gt;addCustomCuts(cutL, arma::vec{cutV});
                   BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Algorithms::EPEC::OuterApproximation::separationOracle: &quot;
                                                       &quot;adding cut for Player &quot;
                                                   &lt;&lt; player;
@@ -1159,11 +1145,11 @@ void Algorithms::EPEC::OuterApproximation::addValueCut(const unsigned int player
   arma::vec LHS = this-&gt;EPECObject-&gt;LeaderObjective.at(player)-&gt;c +
                         this-&gt;EPECObject-&gt;LeaderObjective.at(player)-&gt;C * xMinusI;
   arma::sp_mat cutLHS =
-        Utils::resizePatch(arma::sp_mat{LHS}.t(), 1, this-&gt;outerLCP.at(player)-&gt;getNumCols());
+        Utils::resizePatch(arma::sp_mat{LHS}.t(), 1, this-&gt;PolyLCP.at(player)-&gt;getNumCols());
   BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Algorithms::EPEC::OuterApproximation::addValueCut: &quot;
                                       &quot;adding cut for Player &quot;
                                   &lt;&lt; player;
-  this-&gt;outerLCP.at(player)-&gt;addCustomCuts(-cutLHS, arma::vec{-RHS});
+  this-&gt;PolyLCP.at(player)-&gt;addCustomCuts(-cutLHS, arma::vec{-RHS});
 }
 
 void Algorithms::EPEC::OuterApproximation::solve() {
@@ -1179,7 +1165,7 @@ void Algorithms::EPEC::OuterApproximation::solve() {
   this-&gt;Trees     = std::vector&lt;OuterTree *&gt;(this-&gt;EPECObject-&gt;NumPlayers, 0);
   this-&gt;Incumbent = std::vector&lt;OuterTree::Node *&gt;(this-&gt;EPECObject-&gt;NumPlayers, 0);
   for (unsigned int i = 0; i &lt; this-&gt;EPECObject-&gt;NumPlayers; i++) {
-     Trees.at(i)     = new OuterTree(this-&gt;outerLCP.at(i)-&gt;getNumRows(), this-&gt;Env);
+     Trees.at(i)     = new OuterTree(this-&gt;PolyLCP.at(i)-&gt;getNumRows(), this-&gt;Env);
      Incumbent.at(i) = Trees.at(i)-&gt;getRoot();
   }
 
@@ -1246,7 +1232,7 @@ void Algorithms::EPEC::OuterApproximation::solve() {
         if (branchingLocations.at(j) &gt; -1) {
           branches           = Trees.at(j)-&gt;singleBranch(branchingLocations.at(j), *Incumbent.at(j));
           auto childEncoding = this-&gt;Trees.at(j)-&gt;getNodes()-&gt;at(branches.at(0)).getEncoding();
-          this-&gt;outerLCP.at(j)-&gt;outerApproximate(childEncoding, true);
+          this-&gt;PolyLCP.at(j)-&gt;outerApproximate(childEncoding, true);
           // By definition of hybrid branching, the node should be feasible
           Incumbent.at(j) = &amp;(this-&gt;Trees.at(j)-&gt;getNodes()-&gt;at(branches.at(0)));
           BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Algorithms::EPEC::OuterApproximation::solve: &quot;
@@ -1254,7 +1240,7 @@ void Algorithms::EPEC::OuterApproximation::solve() {
                                           &lt;&lt; j &lt;&lt; &quot; is &quot; &lt;&lt; branchingLocations.at(j);
         } else if (!branch) {
           // if we don&#39;t branch.
-          this-&gt;outerLCP.at(j)-&gt;outerApproximate(Incumbent.at(j)-&gt;getEncoding(), true);
+          this-&gt;PolyLCP.at(j)-&gt;outerApproximate(Incumbent.at(j)-&gt;getEncoding(), true);
           BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Algorithms::EPEC::OuterApproximation::solve: &quot;
                                               &quot;No branching for player &quot;
                                           &lt;&lt; j;
@@ -1355,10 +1341,10 @@ int Algorithms::EPEC::OuterApproximation::hybridBranching(const unsigned int pla
           // Include this complementarity in the approximation
           incumbentApproximation.at(i) = true;
           // Build the approximation
-          this-&gt;outerLCP.at(player)-&gt;outerApproximate(incumbentApproximation, true);
+          this-&gt;PolyLCP.at(player)-&gt;outerApproximate(incumbentApproximation, true);
           // If the approximation is infeasible, prune this branching location
           // from the candidates
-          if (!this-&gt;outerLCP.at(player)-&gt;getFeasApprox())
+          if (!this-&gt;PolyLCP.at(player)-&gt;getFeasOuterApp())
              Trees.at(player)-&gt;denyBranchingLocation(*node, i);
           else {
              // In this case, we can check if the solution belongs to the outer
@@ -1400,15 +1386,15 @@ int Algorithms::EPEC::OuterApproximation::infeasibleBranching(const unsigned int
      // a Nash Equilibrium for the game
      arma::vec x, z;
      this-&gt;EPECObject-&gt;getXWithoutHull(this-&gt;EPECObject-&gt;SolutionX, x);
-     z                                      = this-&gt;outerLCP.at(player)-&gt;zFromX(x);
-     std::vector&lt;short int&gt; currentSolution = this-&gt;outerLCP.at(player)-&gt;solEncode(x);
+     z                                      = this-&gt;PolyLCP.at(player)-&gt;zFromX(x);
+     std::vector&lt;short int&gt; currentSolution = this-&gt;PolyLCP.at(player)-&gt;solEncode(x);
 
      double maxInfeas = 0;
 
      //&quot;The most infeasible&quot; branching
      for (unsigned int i = 0; i &lt; currentSolution.size(); i++) {
-        unsigned int varPos = i &gt;= this-&gt;outerLCP.at(player)-&gt;getLStart()
-                                          ? i + this-&gt;outerLCP.at(player)-&gt;getNumberLeader()
+        unsigned int varPos = i &gt;= this-&gt;PolyLCP.at(player)-&gt;getLStart()
+                                          ? i + this-&gt;PolyLCP.at(player)-&gt;getNumberLeader()
                                           : i;
         if (x(varPos) &gt; 0 &amp;&amp; z(i) &gt; 0 &amp;&amp; node-&gt;getAllowedBranchings().at(i) &amp;&amp;
              currentSolution.at(i) == 0) {
@@ -1431,9 +1417,9 @@ int Algorithms::EPEC::OuterApproximation::deviationBranching(const unsigned int 
      arma::vec dev;
      arma::vec x;
      this-&gt;EPECObject-&gt;getXWithoutHull(this-&gt;EPECObject-&gt;SolutionX, x);
-     std::vector&lt;short int&gt; currentSolution = this-&gt;outerLCP.at(player)-&gt;solEncode(x);
+     std::vector&lt;short int&gt; currentSolution = this-&gt;PolyLCP.at(player)-&gt;solEncode(x);
      this-&gt;EPECObject-&gt;respondSol(dev, player, this-&gt;EPECObject-&gt;SolutionX);
-     auto encoding = this-&gt;outerLCP.at(player)-&gt;solEncode(dev);
+     auto encoding = this-&gt;PolyLCP.at(player)-&gt;solEncode(dev);
 
      for (unsigned int i = 0; i &lt; encoding.size(); i++) {
         if (encoding.at(i) &gt; 0 &amp;&amp; node-&gt;getAllowedBranchings().at(i) &amp;&amp; currentSolution.at(i) == 0) {
@@ -1448,20 +1434,20 @@ int Algorithms::EPEC::OuterApproximation::getFirstBranchLocation(const unsigned 
                                                                                       const OuterTree::Node *node) {
   if (node-&gt;getCumulativeBranches() == Trees.at(player)-&gt;getEncodingSize())
      return -1;
-  auto         model = this-&gt;outerLCP.at(player)-&gt;LCPasMIP(true);
-  unsigned int nR    = this-&gt;outerLCP.at(player)-&gt;getNumRows();
+  auto         model = this-&gt;PolyLCP.at(player)-&gt;LCPasMIP(true);
+  unsigned int nR    = this-&gt;PolyLCP.at(player)-&gt;getNumRows();
   int          pos   = -nR;
   arma::vec    z, x;
-  if (this-&gt;outerLCP.at(player)-&gt;extractSols(
+  if (this-&gt;PolyLCP.at(player)-&gt;extractSols(
              model.get(), z, x, true)) // If already infeasible, nothing to branch!
   {
-     std::vector&lt;short int&gt; v1 = this-&gt;outerLCP.at(player)-&gt;solEncode(z, x);
+     std::vector&lt;short int&gt; v1 = this-&gt;PolyLCP.at(player)-&gt;solEncode(z, x);
 
      double       maxvalx{-1}, maxvalz{-1};
      unsigned int maxposx{0}, maxposz{0};
      for (unsigned int i = 0; i &lt; nR; i++) {
-        unsigned int varPos = i &gt;= this-&gt;outerLCP.at(player)-&gt;getLStart()
-                                          ? i + this-&gt;outerLCP.at(player)-&gt;getNumberLeader()
+        unsigned int varPos = i &gt;= this-&gt;PolyLCP.at(player)-&gt;getLStart()
+                                          ? i + this-&gt;PolyLCP.at(player)-&gt;getNumberLeader()
                                           : i;
         if (x(varPos) &gt; maxvalx &amp;&amp; node-&gt;getAllowedBranchings().at(i)) {
           maxvalx = x(varPos);

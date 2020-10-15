@@ -242,9 +242,9 @@ Program Listing for File epec_outerapproximation.cpp
                    // Ciao Moni
                    cutV              = cutV;
                    arma::sp_mat cutL = Utils::resizePatch(
-                        arma::sp_mat{cutLHS}.t(), 1, this->outerLCP.at(player)->getNumCols());
-                   if (this->outerLCP.at(player)->containsCut(
-                             Utils::resizePatch(cutLHS, this->outerLCP.at(player)->getNumCols()), cutV)) {
+                        arma::sp_mat{cutLHS}.t(), 1, this->PolyLCP.at(player)->getNumCols());
+                   if (this->PolyLCP.at(player)->containsCut(
+                             Utils::resizePatch(cutLHS, this->PolyLCP.at(player)->getNumCols()), cutV)) {
                      BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::separationOracle: "
                                                          "cut already added for Player "
                                                      << player;
@@ -252,7 +252,7 @@ Program Listing for File epec_outerapproximation.cpp
                      break;
    
                    } else {
-                     this->outerLCP.at(player)->addCustomCuts(cutL, arma::vec{cutV});
+                     this->PolyLCP.at(player)->addCustomCuts(cutL, arma::vec{cutV});
                      BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::separationOracle: "
                                                          "adding cut for Player "
                                                      << player;
@@ -326,11 +326,11 @@ Program Listing for File epec_outerapproximation.cpp
      arma::vec LHS = this->EPECObject->LeaderObjective.at(player)->c +
                            this->EPECObject->LeaderObjective.at(player)->C * xMinusI;
      arma::sp_mat cutLHS =
-           Utils::resizePatch(arma::sp_mat{LHS}.t(), 1, this->outerLCP.at(player)->getNumCols());
+           Utils::resizePatch(arma::sp_mat{LHS}.t(), 1, this->PolyLCP.at(player)->getNumCols());
      BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::addValueCut: "
                                          "adding cut for Player "
                                      << player;
-     this->outerLCP.at(player)->addCustomCuts(-cutLHS, arma::vec{-RHS});
+     this->PolyLCP.at(player)->addCustomCuts(-cutLHS, arma::vec{-RHS});
    }
    
    void Algorithms::EPEC::OuterApproximation::solve() {
@@ -346,7 +346,7 @@ Program Listing for File epec_outerapproximation.cpp
      this->Trees     = std::vector<OuterTree *>(this->EPECObject->NumPlayers, 0);
      this->Incumbent = std::vector<OuterTree::Node *>(this->EPECObject->NumPlayers, 0);
      for (unsigned int i = 0; i < this->EPECObject->NumPlayers; i++) {
-        Trees.at(i)     = new OuterTree(this->outerLCP.at(i)->getNumRows(), this->Env);
+        Trees.at(i)     = new OuterTree(this->PolyLCP.at(i)->getNumRows(), this->Env);
         Incumbent.at(i) = Trees.at(i)->getRoot();
      }
    
@@ -413,7 +413,7 @@ Program Listing for File epec_outerapproximation.cpp
            if (branchingLocations.at(j) > -1) {
              branches           = Trees.at(j)->singleBranch(branchingLocations.at(j), *Incumbent.at(j));
              auto childEncoding = this->Trees.at(j)->getNodes()->at(branches.at(0)).getEncoding();
-             this->outerLCP.at(j)->outerApproximate(childEncoding, true);
+             this->PolyLCP.at(j)->outerApproximate(childEncoding, true);
              // By definition of hybrid branching, the node should be feasible
              Incumbent.at(j) = &(this->Trees.at(j)->getNodes()->at(branches.at(0)));
              BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::solve: "
@@ -421,7 +421,7 @@ Program Listing for File epec_outerapproximation.cpp
                                              << j << " is " << branchingLocations.at(j);
            } else if (!branch) {
              // if we don't branch.
-             this->outerLCP.at(j)->outerApproximate(Incumbent.at(j)->getEncoding(), true);
+             this->PolyLCP.at(j)->outerApproximate(Incumbent.at(j)->getEncoding(), true);
              BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::solve: "
                                                  "No branching for player "
                                              << j;
@@ -522,10 +522,10 @@ Program Listing for File epec_outerapproximation.cpp
              // Include this complementarity in the approximation
              incumbentApproximation.at(i) = true;
              // Build the approximation
-             this->outerLCP.at(player)->outerApproximate(incumbentApproximation, true);
+             this->PolyLCP.at(player)->outerApproximate(incumbentApproximation, true);
              // If the approximation is infeasible, prune this branching location
              // from the candidates
-             if (!this->outerLCP.at(player)->getFeasApprox())
+             if (!this->PolyLCP.at(player)->getFeasOuterApp())
                 Trees.at(player)->denyBranchingLocation(*node, i);
              else {
                 // In this case, we can check if the solution belongs to the outer
@@ -567,15 +567,15 @@ Program Listing for File epec_outerapproximation.cpp
         // a Nash Equilibrium for the game
         arma::vec x, z;
         this->EPECObject->getXWithoutHull(this->EPECObject->SolutionX, x);
-        z                                      = this->outerLCP.at(player)->zFromX(x);
-        std::vector<short int> currentSolution = this->outerLCP.at(player)->solEncode(x);
+        z                                      = this->PolyLCP.at(player)->zFromX(x);
+        std::vector<short int> currentSolution = this->PolyLCP.at(player)->solEncode(x);
    
         double maxInfeas = 0;
    
         //"The most infeasible" branching
         for (unsigned int i = 0; i < currentSolution.size(); i++) {
-           unsigned int varPos = i >= this->outerLCP.at(player)->getLStart()
-                                             ? i + this->outerLCP.at(player)->getNumberLeader()
+           unsigned int varPos = i >= this->PolyLCP.at(player)->getLStart()
+                                             ? i + this->PolyLCP.at(player)->getNumberLeader()
                                              : i;
            if (x(varPos) > 0 && z(i) > 0 && node->getAllowedBranchings().at(i) &&
                 currentSolution.at(i) == 0) {
@@ -598,9 +598,9 @@ Program Listing for File epec_outerapproximation.cpp
         arma::vec dev;
         arma::vec x;
         this->EPECObject->getXWithoutHull(this->EPECObject->SolutionX, x);
-        std::vector<short int> currentSolution = this->outerLCP.at(player)->solEncode(x);
+        std::vector<short int> currentSolution = this->PolyLCP.at(player)->solEncode(x);
         this->EPECObject->respondSol(dev, player, this->EPECObject->SolutionX);
-        auto encoding = this->outerLCP.at(player)->solEncode(dev);
+        auto encoding = this->PolyLCP.at(player)->solEncode(dev);
    
         for (unsigned int i = 0; i < encoding.size(); i++) {
            if (encoding.at(i) > 0 && node->getAllowedBranchings().at(i) && currentSolution.at(i) == 0) {
@@ -615,20 +615,20 @@ Program Listing for File epec_outerapproximation.cpp
                                                                                          const OuterTree::Node *node) {
      if (node->getCumulativeBranches() == Trees.at(player)->getEncodingSize())
         return -1;
-     auto         model = this->outerLCP.at(player)->LCPasMIP(true);
-     unsigned int nR    = this->outerLCP.at(player)->getNumRows();
+     auto         model = this->PolyLCP.at(player)->LCPasMIP(true);
+     unsigned int nR    = this->PolyLCP.at(player)->getNumRows();
      int          pos   = -nR;
      arma::vec    z, x;
-     if (this->outerLCP.at(player)->extractSols(
+     if (this->PolyLCP.at(player)->extractSols(
                 model.get(), z, x, true)) // If already infeasible, nothing to branch!
      {
-        std::vector<short int> v1 = this->outerLCP.at(player)->solEncode(z, x);
+        std::vector<short int> v1 = this->PolyLCP.at(player)->solEncode(z, x);
    
         double       maxvalx{-1}, maxvalz{-1};
         unsigned int maxposx{0}, maxposz{0};
         for (unsigned int i = 0; i < nR; i++) {
-           unsigned int varPos = i >= this->outerLCP.at(player)->getLStart()
-                                             ? i + this->outerLCP.at(player)->getNumberLeader()
+           unsigned int varPos = i >= this->PolyLCP.at(player)->getLStart()
+                                             ? i + this->PolyLCP.at(player)->getNumberLeader()
                                              : i;
            if (x(varPos) > maxvalx && node->getAllowedBranchings().at(i)) {
              maxvalx = x(varPos);

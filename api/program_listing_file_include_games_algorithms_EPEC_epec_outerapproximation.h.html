@@ -13,8 +13,7 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/support_files/zero.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+  <link rel="stylesheet" href="../res/zero.css" type="text/css" />
 
   
   
@@ -345,11 +344,6 @@
 <li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1MP__Param.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1OuterLCP.html">Class OuterLCP</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1OuterLCP.html#inheritance-relationships">Inheritance Relationships</a></li>
-<li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1OuterLCP.html#class-documentation">Class Documentation</a></li>
-</ul>
-</li>
 <li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1PolyLCP.html">Class PolyLCP</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1PolyLCP.html#inheritance-relationships">Inheritance Relationships</a></li>
 <li class="toctree-l5"><a class="reference internal" href="classMathOpt_1_1PolyLCP.html#class-documentation">Class Documentation</a></li>
@@ -543,8 +537,8 @@
 <li class="toctree-l5"><a class="reference internal" href="function_epec__models_8cpp_1a179b9a250911142576a44e24929a3a8e.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_poly__lcp_8cpp_1a7081ce5a943e65900f98444637bcb7c1.html">Function operator&lt;</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a7081ce5a943e65900f98444637bcb7c1.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_poly__lcp_8cpp_1a5229bd1ae73aa992f8d2ef5bff64ba62.html">Function operator&lt;</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a5229bd1ae73aa992f8d2ef5bff64ba62.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_zero_8h_1a115ecd3fba0241d9e582929ccac3ff7e.html">Function operator&lt;&lt;(std::ostream&amp;, perps)</a><ul>
@@ -663,10 +657,6 @@
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1afd63a1b9c36080d26ef9ad6585562f6d.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a3e6fb0ca43609e12a88d037acfd84d2d.html">Function Utils::numToVec</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a3e6fb0ca43609e12a88d037acfd84d2d.html#function-documentation">Function Documentation</a></li>
-</ul>
-</li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1adbe567182dd4d6f2c0aed1362e539fc9.html">Function Utils::printBounds</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1adbe567182dd4d6f2c0aed1362e539fc9.html#function-documentation">Function Documentation</a></li>
 </ul>
@@ -685,10 +675,6 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a0183fff354c82444f2bb66cbccd4478c.html">Function Utils::sortByKey</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a0183fff354c82444f2bb66cbccd4478c.html#function-documentation">Function Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a6b312d0a6805b263fbf4e3219d27ba13.html">Function Utils::vecToNum</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a6b312d0a6805b263fbf4e3219d27ba13.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -983,11 +969,11 @@ namespace Algorithms {
 
      class OuterApproximation : public Algorithm {
      private:
-        std::vector&lt;std::shared_ptr&lt;MathOpt::OuterLCP&gt;&gt; outerLCP{};
-        std::vector&lt;OuterTree *&gt;                        Trees;
-        std::vector&lt;OuterTree::Node *&gt;                  Incumbent;
-        bool                                            Feasible{false};
-        double                                          Tolerance = 1e-6;
+        std::vector&lt;std::shared_ptr&lt;MathOpt::PolyLCP&gt;&gt; PolyLCP{};
+        std::vector&lt;OuterTree *&gt;                       Trees;
+        std::vector&lt;OuterTree::Node *&gt;                 Incumbent;
+        bool                                           Feasible{false};
+        double                                         Tolerance = 1e-6;
 
      public:
         double getTol() const { return Tolerance; }
@@ -1017,29 +1003,29 @@ namespace Algorithms {
         friend class EPEC;
 
         OuterApproximation(GRBEnv *env, Game::EPEC *EpecObj) {
-          this-&gt;EPECObject = EpecObj;
+          this-&gt;EPECObject = EPECObject;
           this-&gt;Env        = env;
+          this-&gt;PolyLCP    = std::vector&lt;std::shared_ptr&lt;MathOpt::PolyLCP&gt;&gt;(EPECObject-&gt;NumPlayers);
           this-&gt;Tolerance  = this-&gt;EPECObject-&gt;Stats.AlgorithmData.DeviationTolerance.get();
           /*
             *  The constructor re-builds the LCP fields in the EPEC object as new
-            * OuterLCP objects
+            * PolyLCP objects
             */
-          this-&gt;outerLCP = std::vector&lt;std::shared_ptr&lt;MathOpt::OuterLCP&gt;&gt;(EPECObject-&gt;NumPlayers);
           for (unsigned int i = 0; i &lt; EPECObject-&gt;NumPlayers; i++) {
-             this-&gt;outerLCP.at(i) = std::shared_ptr&lt;MathOpt::OuterLCP&gt;(
-                  new MathOpt::OuterLCP(this-&gt;Env, *EPECObject-&gt;PlayersLowerLevels.at(i).get()));
-             EPECObject-&gt;PlayersLCP.at(i) = this-&gt;outerLCP.at(i);
+             this-&gt;PolyLCP.at(i) = std::shared_ptr&lt;MathOpt::PolyLCP&gt;(
+                  new class MathOpt::PolyLCP(this-&gt;Env, *EPECObject-&gt;PlayersLowerLevels.at(i).get()));
+             EPECObject-&gt;PlayersLCP.at(i) = this-&gt;PolyLCP.at(i);
           }
 
         };
         void solve() override;
+        void printCurrentApprox();
+        void printBranchingLog(std::vector&lt;int&gt; vector);
 
         //@todo define these for the outer approximation
         bool isSolved(double tol = 1e-4) const override;
         bool isFeasible(bool &amp;addedCuts);
         bool isPureStrategy(double tol = 1e-4) const override;
-        void printCurrentApprox();
-        void printBranchingLog(std::vector&lt;int&gt; vector);
      };
   } // namespace EPEC
 

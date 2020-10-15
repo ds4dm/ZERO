@@ -66,7 +66,7 @@ Program Listing for File epec_polybase.cpp
                                                                                          const unsigned int j,
                                                                                          const unsigned int k) const {
      const auto LeaderStart = this->EPECObject->TheNashGame->getPrimalLoc(i);
-     const auto FollPoly    = this->PolyLCP.at(i).get()->convPolyPosition(k);
+     const auto FollPoly    = this->PolyLCP.at(i).get()->convPolyPosition(k, true);
      return LeaderStart + FollPoly + j;
    }
    
@@ -74,18 +74,18 @@ Program Listing for File epec_polybase.cpp
                                                                                          const unsigned int j,
                                                                                          const unsigned int k) const {
      const auto LeaderStart = this->EPECObject->TheNashGame->getPrimalLoc(i);
-     const auto FollPoly    = this->PolyLCP.at(i).get()->convPolyPosition(k);
+     const auto FollPoly    = this->PolyLCP.at(i).get()->convPolyPosition(k, true);
      return LeaderStart + FollPoly + this->PolyLCP.at(i)->getLStart() + j;
    }
    
    unsigned long int Algorithms::EPEC::PolyBase::getNumPolyLead(const unsigned int i) const {
-     return this->PolyLCP.at(i).get()->convNumPoly();
+     return this->PolyLCP.at(i).get()->convNumPoly(true);
    }
    
    unsigned int Algorithms::EPEC::PolyBase::getPositionProbab(const unsigned int i,
                                                                                  const unsigned int k) const {
-     const auto PolyProbab =
-           static_cast<MathOpt::PolyLCP *>(this->EPECObject->PlayersLCP.at(i).get())->convPolyWeight(k);
+     const auto PolyProbab = static_cast<MathOpt::PolyLCP *>(this->EPECObject->PlayersLCP.at(i).get())
+                                           ->convPolyWeight(k, true);
      if (PolyProbab == 0)
         return 0;
      const auto LeaderStart = this->EPECObject->TheNashGame->getPrimalLoc(i);
