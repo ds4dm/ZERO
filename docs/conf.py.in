@@ -32,13 +32,16 @@ html_theme_options = {
     'display_version': True,
     'prev_next_buttons_location': 'bottom',
     'style_external_links': False,
-    'style_nav_header_background' : '#333131',
+    'style_nav_header_background' : '#23084f',
     'collapse_navigation': False,
     'sticky_navigation': True,
     'navigation_depth': 5,
     'includehidden': True,
     'titles_only': False
 }
+html_css_files = [
+    'support_files/zero.css',
+]
 html_logo = "support_files/zerowhite.png"
 # Setup the breathe extension
 breathe_projects = {"ZERO": "./doxyoutput/xml"}
