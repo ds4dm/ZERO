@@ -12,7 +12,6 @@
 
 
 #include "EPEC_test.h"
-#include "games/algorithms/EPEC/epec_algorithms.h"
 
 
 
@@ -588,9 +587,9 @@ BOOST_AUTO_TEST_CASE(C2F2_test) {
 /* Too costly
 BOOST_AUTO_TEST_CASE(C2F2_ImportExportCaps_test) {
 
-  /** Expected answer for this problem */
-/************************************/
-/* One:
+Expected answer for this problem
+************************************
+* One:
  *  Imports                     27.50
  * 	Total production: 			112.50
  * 		OneGas production:		100

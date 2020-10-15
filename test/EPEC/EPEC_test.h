@@ -14,7 +14,7 @@
 #pragma once
 #define TEST_NUM_THREADS 4
 
-#include "games/algorithms/EPEC/epec_algorithms.h"
+#include "games/algorithms/EPEC/epec_polybase.h"
 #include "interfaces/epec_models.h"
 #include "mathopt/lcp/lcp.h"
 #include "zero.h"
@@ -58,7 +58,7 @@ std::vector<Data::EPEC::DataObject> allAlgo(Data::EPEC::DataObject common_params
   alg.Algorithm.set(Data::EPEC::Algorithms::FullEnumeration);
   algs.push_back(alg);
   alg.Algorithm.set(Data::EPEC::Algorithms::CombinatorialPne);
-  algs.push_back(alg);
+  // algs.push_back(alg);
   alg.Algorithm.set(Data::EPEC::Algorithms::OuterApproximation);
   algs.push_back(alg);
 
@@ -72,7 +72,7 @@ std::vector<Data::EPEC::DataObject> allAlgo(Data::EPEC::DataObject common_params
 		  alg_in.TimeLimit.set(common_params.TimeLimit.get());
 		  alg_in.RandomSeed = common_params.RandomSeed.get();
 		}
-		algs.push_back(alg_in);
+		// algs.push_back(alg_in);
 	 }
   }
   return algs;
