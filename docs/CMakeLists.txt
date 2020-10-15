@@ -18,6 +18,16 @@ set(SPHINX_INDEX_FILE ${CMAKE_CURRENT_SOURCE_DIR}/index.html)
 file(REMOVE_RECURSE SPHINX_BUILD ${CMAKE_CURRENT_SOURCE_DIR}/api/)
 file(REMOVE_RECURSE SPHINX_BUILD ${CMAKE_CURRENT_SOURCE_DIR}/html/)
 
+# Custom resources
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/html/)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/html/html)
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/support_files/res
+     DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/html/)
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/support_files/index.html
+     DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/html/html/)
+# Nojekyll for gh-pages
+file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/html/.nojekyll " ")
+
 file(GLOB_RECURSE ZERO_SOURCE_LIST "../src/*.cpp" "../include/*.h")
 
 set(ZERO_SOURCE_LIST_ESCAPED "")
