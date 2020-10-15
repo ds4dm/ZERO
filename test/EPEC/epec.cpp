@@ -585,46 +585,48 @@ BOOST_AUTO_TEST_CASE(C2F2_test) {
   testEPECInstance(C2F2_Base(), allAlgo(), TestType::resultCheck);
 }
 
+/* Too costly
 BOOST_AUTO_TEST_CASE(C2F2_ImportExportCaps_test) {
 
-  /* Expected answer for this problem */
-  /************************************/
-  /* One:
-	*  Imports                     27.50
-	* 	Total production: 			112.50
-	* 		OneGas production:		100
-	* 		OneCoal production:		12.50
-	* 	Taxes:
-	* 		OneGas tax:				0.00
-	* 		OneCoal tax:			100.00
-	*
-	* 	Price:						230
-	*
-	* Two:
-	*  Exports                     27.50
-	* 	Total production: 			147.50
-	* 		TwoGas production:		76.07
-	* 		TwoSolar production:	71.43
-	* 	Taxes:
-	* 		TwoGas tax:				33.93
-	* 		TwoSolar tax:			0.00
-	*
-	* 	Price:						240
-	*									*/
-  /************************************/
-  BOOST_TEST_MESSAGE("Testing 2 Followers 2 Countries with a price caps, tax "
-							"caps, and export/import caps.");
-  testInst C2F2_Mod                                          = C2F2_Base();
-  C2F2_Mod.instance.Countries.at(0).LeaderParam.import_limit = 100;
-  C2F2_Mod.instance.Countries.at(1).LeaderParam.import_limit = 100;
-  C2F2_Mod.instance.Countries.at(0).LeaderParam.export_limit = 100;
-  C2F2_Mod.instance.Countries.at(1).LeaderParam.export_limit = 100;
-  C2F2_Mod.instance.Countries.at(0).LeaderParam.price_limit  = 230;
-  C2F2_Mod.instance.Countries.at(1).LeaderParam.price_limit  = 240;
-  C2F2_Mod.solution.at(0) = countrySol{{100, 12.50}, {0, 100}, 0, 27.50, 230};
-  C2F2_Mod.solution.at(1) = countrySol{{76.07, 71.43}, {33.93, 0}, 27.50, 0, 240};
-  testEPECInstance(C2F2_Mod, allAlgo(), TestType::resultCheck);
+  /** Expected answer for this problem */
+/************************************/
+/* One:
+ *  Imports                     27.50
+ * 	Total production: 			112.50
+ * 		OneGas production:		100
+ * 		OneCoal production:		12.50
+ * 	Taxes:
+ * 		OneGas tax:				0.00
+ * 		OneCoal tax:			100.00
+ *
+ * 	Price:						230
+ *
+ * Two:
+ *  Exports                     27.50
+ * 	Total production: 			147.50
+ * 		TwoGas production:		76.07
+ * 		TwoSolar production:	71.43
+ * 	Taxes:
+ * 		TwoGas tax:				33.93
+ * 		TwoSolar tax:			0.00
+ *
+ * 	Price:						240
+ *									*/
+/************************************/
+/*BOOST_TEST_MESSAGE("Testing 2 Followers 2 Countries with a price caps, tax "
+						 "caps, and export/import caps.");
+testInst C2F2_Mod                                          = C2F2_Base();
+C2F2_Mod.instance.Countries.at(0).LeaderParam.import_limit = 100;
+C2F2_Mod.instance.Countries.at(1).LeaderParam.import_limit = 100;
+C2F2_Mod.instance.Countries.at(0).LeaderParam.export_limit = 100;
+C2F2_Mod.instance.Countries.at(1).LeaderParam.export_limit = 100;
+C2F2_Mod.instance.Countries.at(0).LeaderParam.price_limit  = 230;
+C2F2_Mod.instance.Countries.at(1).LeaderParam.price_limit  = 240;
+C2F2_Mod.solution.at(0) = countrySol{{100, 12.50}, {0, 100}, 0, 27.50, 230};
+C2F2_Mod.solution.at(1) = countrySol{{76.07, 71.43}, {33.93, 0}, 27.50, 0, 240};
+testEPECInstance(C2F2_Mod, allAlgo(), TestType::resultCheck);
 }
+ */
 
 BOOST_AUTO_TEST_CASE(C2F1_2_test) {
   BOOST_TEST_MESSAGE("Testing [1,2] followers with  2 Countries (CH_S_F0_CL_SC_F0)");
