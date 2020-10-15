@@ -606,7 +606,8 @@ bool Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
 	 LCPModel->setObjective(GRBQuadExpr{0}, GRB_MINIMIZE);
 	 LCPModel->set(GRB_IntParam_MIPFocus, 1);
 	 LCPModel->optimize();
-	 if (LCPModel->get(GRB_IntAttr_Status) != (GRB_SOLUTION_LIMIT || GRB_OPTIMAL))
+	 auto s = LCPModel->get(GRB_IntAttr_Status);
+	 if (s != (GRB_SOLUTION_LIMIT && s != GRB_OPTIMAL))
 		return false;
 	 eq = LCP->extractSols(LCPModel.get(), z, x, true);
   }
