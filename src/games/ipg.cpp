@@ -125,4 +125,5 @@ std::string std::to_string(const Data::IPG::Algorithms al) {
   case Data::IPG::Algorithms::Oracle:
 	 return std::string("Oracle");
   }
+  return "";
 }

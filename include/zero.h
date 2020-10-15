@@ -77,7 +77,6 @@ namespace Algorithms {
 	*/
   class AbstractAlgorithm; ///< Abstact type for other algorithms
   namespace EPEC {
-	 class Algorithm;
 	 class PolyBase;
 	 class FullEnumeration;
 	 class InnerApproximation;

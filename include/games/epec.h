@@ -82,9 +82,9 @@ namespace Game {
   ///@brief Class to handle a Nash game between leaders of Stackelberg games
   class EPEC : public AbstractGame<Data::EPEC::DataObject> {
   private:
-	 std::shared_ptr<Algorithms::EPEC::Algorithm> Algorithm{};
-	 std::vector<unsigned int>                    SizesWithoutHull{};
-	 std::unique_ptr<MathOpt::LCP>                TheLCP; ///< The EPEC nash game written as an LCP
+	 std::shared_ptr<Algorithms::EPEC::PolyBase> Algorithm{};
+	 std::vector<unsigned int>                   SizesWithoutHull{};
+	 std::unique_ptr<MathOpt::LCP>               TheLCP; ///< The EPEC nash game written as an LCP
 	 std::unique_ptr<GRBModel> LCPModel;     ///< A Gurobi mode object of the LCP form of EPEC
 	 std::unique_ptr<GRBModel> LCPModelBase; ///< A Gurobi mode object of the LCP form of EPEC. If
 	 ///< we are searching for a pure NE,

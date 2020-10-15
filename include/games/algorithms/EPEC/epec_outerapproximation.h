@@ -13,7 +13,7 @@
 
 #pragma once
 
-#include "epec_algorithms.h"
+#include "epec_polybase.h"
 #include "zero.h"
 #include <armadillo>
 #include <gurobi_c++.h>
@@ -149,24 +149,34 @@ namespace Algorithms {
 	 };
 
 	 ///@brief This class is responsible for the outer approximation Algorithm
-	 class OuterApproximation : public Algorithm {
-	 private:
-		std::vector<std::shared_ptr<MathOpt::PolyLCP>> PolyLCP{};
-		std::vector<OuterTree *>                       Trees;
-		std::vector<OuterTree::Node *>                 Incumbent;
-		bool                                           Feasible{false};
-		double                                         Tolerance = 1e-6;
+	 class OuterApproximation : public PolyBase {
 
 	 public:
+		OuterApproximation(GRBEnv *env, Game::EPEC *EPECObject) : PolyBase(env, EPECObject){};
 		double getTol() const { return Tolerance; }
 		void   setTol(double tol) { this->Tolerance = tol; }
 
+		void solve() override;
+		void printCurrentApprox();
+		void printBranchingLog(std::vector<int> vector);
+
+		//@todo define these for the outer approximation
+		bool isSolved(double tol = 1e-4) const;
+		bool isFeasible(bool &addedCuts);
+		bool isPureStrategy(double tol = 1e-4) const;
+
+
 	 private:
+		std::vector<OuterTree *>       Trees;
+		std::vector<OuterTree::Node *> Incumbent;
+		bool                           Feasible{false};
+		double                         Tolerance = 1e-6;
+
 		std::vector<int> getNextBranchLocation(const unsigned int player, OuterTree::Node *node);
 		int getFirstBranchLocation(const unsigned int player, const OuterTree::Node *node);
 
 	 protected:
-		void postSolving() override{
+		void postSolving(){
 			 //@todo implement
 		};
 
@@ -180,35 +190,6 @@ namespace Algorithms {
 		void addValueCut(const unsigned int player, const double RHS, const arma::vec xMinusI);
 		bool separationOracle(
 			 arma::vec &xOfI, arma::vec &x, unsigned int player, int budget, bool &addedCuts);
-
-	 public:
-		friend class EPEC;
-
-		OuterApproximation(GRBEnv *env, Game::EPEC *EpecObj) {
-		  this->EPECObject = EPECObject;
-		  this->Env        = env;
-		  this->PolyLCP    = std::vector<std::shared_ptr<MathOpt::PolyLCP>>(EPECObject->NumPlayers);
-		  this->Tolerance  = this->EPECObject->Stats.AlgorithmData.DeviationTolerance.get();
-		  /*
-			*  The constructor re-builds the LCP fields in the EPEC object as new
-			* PolyLCP objects
-			*/
-		  for (unsigned int i = 0; i < EPECObject->NumPlayers; i++) {
-			 this->PolyLCP.at(i) = std::shared_ptr<MathOpt::PolyLCP>(
-				  new class MathOpt::PolyLCP(this->Env, *EPECObject->PlayersLowerLevels.at(i).get()));
-			 EPECObject->PlayersLCP.at(i) = this->PolyLCP.at(i);
-		  }
-
-		}; ///< Constructor requires a pointer to the Gurobi
-		///< Environment and the calling EPEC object
-		void solve() override;
-		void printCurrentApprox();
-		void printBranchingLog(std::vector<int> vector);
-
-		//@todo define these for the outer approximation
-		bool isSolved(double tol = 1e-4) const override;
-		bool isFeasible(bool &addedCuts);
-		bool isPureStrategy(double tol = 1e-4) const override;
 	 };
   } // namespace EPEC
 

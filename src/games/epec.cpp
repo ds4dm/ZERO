@@ -11,7 +11,7 @@
  * #############################################*/
 
 #include "games/epec.h"
-#include "games/algorithms/EPEC/epec_algorithms.h"
+#include "games/algorithms/EPEC/epec_polybase.h"
 #include "zero.h"
 #include <armadillo>
 #include <boost/log/trivial.hpp>
@@ -150,7 +150,7 @@ void Game::EPEC::getXofI(const arma::vec &   x,
   const unsigned int nThisCountryvars     = *this->LocEnds.at(i);
   const unsigned int nThisCountryHullVars = this->ConvexHullVariables.at(i);
 
-  unsigned int vars = 0, current = 0;
+  unsigned int vars, current = 0;
   if (hull) {
 	 vars    = nThisCountryvars;
 	 current = *this->LocEnds.at(i);
@@ -179,7 +179,7 @@ void Game::EPEC::getXWithoutHull(const arma::vec &x, arma::vec &xWithoutHull) co
 													// associated to the convex hull
 													// convex hull vars
 
-  for (unsigned int j = 0, count = 0, current = 0; j < this->NumPlayers; ++j) {
+  for (unsigned int j = 0, count = 0, current; j < this->NumPlayers; ++j) {
 	 current = *this->LocEnds.at(j) - this->ConvexHullVariables.at(j);
 	 xWithoutHull.subvec(count, count + current - 1) =
 		  x.subvec(this->LeaderLocations.at(j), this->LeaderLocations.at(j) + current - 1);
@@ -569,28 +569,28 @@ const void Game::EPEC::findNashEq() {
 
   case Data::EPEC::Algorithms::InnerApproximation: {
 	 final_msg << "Inner approximation Algorithm completed. ";
-	 this->Algorithm = std::shared_ptr<Algorithms::EPEC::Algorithm>(
+	 this->Algorithm = std::shared_ptr<Algorithms::EPEC::PolyBase>(
 		  new class Algorithms::EPEC::InnerApproximation(this->Env, this));
 	 this->Algorithm->solve();
   } break;
 
   case Data::EPEC::Algorithms::CombinatorialPne: {
 	 final_msg << "CombinatorialPNE Algorithm completed. ";
-	 this->Algorithm = std::shared_ptr<Algorithms::EPEC::Algorithm>(
+	 this->Algorithm = std::shared_ptr<Algorithms::EPEC::PolyBase>(
 		  new class Algorithms::EPEC::CombinatorialPNE(this->Env, this));
 	 this->Algorithm->solve();
   } break;
 
   case Data::EPEC::Algorithms::OuterApproximation: {
 	 final_msg << "Outer approximation Algorithm completed. ";
-	 this->Algorithm = std::shared_ptr<Algorithms::EPEC::Algorithm>(
+	 this->Algorithm = std::shared_ptr<Algorithms::EPEC::PolyBase>(
 		  new class Algorithms::EPEC::OuterApproximation(this->Env, this));
 	 this->Algorithm->solve();
   } break;
 
   case Data::EPEC::Algorithms::FullEnumeration: {
 	 final_msg << "Full enumeration Algorithm completed. ";
-	 this->Algorithm = std::shared_ptr<Algorithms::EPEC::Algorithm>(
+	 this->Algorithm = std::shared_ptr<Algorithms::EPEC::PolyBase>(
 		  new class Algorithms::EPEC::FullEnumeration(this->Env, this));
 	 this->Algorithm->solve();
   } break;
@@ -698,6 +698,7 @@ std::string std::to_string(const Data::EPEC::Algorithms al) {
   case Data::EPEC::Algorithms::OuterApproximation:
 	 return std::string("OuterApproximation");
   }
+  return "";
 }
 
 std::string std::to_string(const Data::EPEC::RecoverStrategy strategy) {
@@ -707,4 +708,5 @@ std::string std::to_string(const Data::EPEC::RecoverStrategy strategy) {
   case Data::EPEC::RecoverStrategy::Combinatorial:
 	 return std::string("Combinatorial");
   }
+  return "";
 }
