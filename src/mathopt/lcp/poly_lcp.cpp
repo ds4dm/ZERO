@@ -562,9 +562,12 @@ bool MathOpt::PolyLCP::checkPolyFeas(
 				.set(GRB_DoubleAttr_UB, 0);
 		  break;
 		case 0: {
+		  throw ZEROException(ZEROErrorCode::Assertion, "Non allowed encoding (0).");
+		} break;
+		case 2: {
 		  if (innerApproximation)
-			 throw ZEROException(ZEROErrorCode::Assertion,
-										"Non allowed encoding (0) in the inner approximation.");
+			 throw ZEROException(ZEROErrorCode::InvalidData,
+										"Non-allowed encoding for innerApproximation");
 		} break;
 		default:
 		  throw ZEROException(ZEROErrorCode::Assertion,
