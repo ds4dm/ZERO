@@ -235,13 +235,13 @@ MathOpt::PolyLCP &MathOpt::PolyLCP::addPoliesFromEncoding(
   std::vector<short int> encodingCopy(encoding);
   unsigned int           i = 0;
   for (i = 0; i < this->nR; i++) {
+	 if (encoding.at(i) == 2 && innerApproximation)
+		throw ZEROException(ZEROErrorCode::InvalidData,
+								  "Non-allowed encoding for innerApproximation");
 	 if (encoding.at(i) == 0) {
 		flag = true;
 		break;
 	 }
-	 if (encoding.at(i) == 2 && innerApproximation)
-		throw ZEROException(ZEROErrorCode::InvalidData,
-								  "Non-allowed encoding for innerApproximation");
   }
   if (flag) {
 	 encodingCopy[i] = 1;
@@ -532,19 +532,44 @@ bool MathOpt::PolyLCP::checkPolyFeas(
   unsigned int      index          = innerApproximation ? 0 : 1;
 
 
-  if (InfeasiblePoly[index].find(encodingNumber) != InfeasiblePoly[index].end()) {
-	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::PolyLCP::checkPolyFeas: Previously known "
-										  "infeasible polyhedron. "
-									  << encodingNumber;
-	 return false;
+  for (const auto i : InfeasiblePoly[index]) {
+	 if (i == encodingNumber) {
+		BOOST_LOG_TRIVIAL(trace) << "MathOpt::PolyLCP::checkPolyFeas: Previously known "
+											 "infeasible polyhedron  #"
+										 << encodingNumber;
+		return false;
+	 }
+	 if (!innerApproximation) {
+		// We may want to check for parents
+		if (encoding < this->numToVec(i, this->Compl.size(), false)) {
+		  BOOST_LOG_TRIVIAL(trace)
+				<< "MathOpt::PolyLCP::checkPolyFeas: Children of an infeasible polyhedron. Infeasible #"
+				<< encodingNumber;
+		  InfeasiblePoly[index].insert(encodingNumber);
+		  return false;
+		}
+	 }
   }
 
-  if (FeasiblePoly[index].find(encodingNumber) != FeasiblePoly[index].end()) {
-	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::PolyLCP::checkPolyFeas: Previously known "
-										  "feasible polyhedron."
-									  << encodingNumber;
-	 return true;
+  for (const auto i : FeasiblePoly[index]) {
+	 if (i == encodingNumber) {
+		BOOST_LOG_TRIVIAL(trace) << "MathOpt::PolyLCP::checkPolyFeas: Previously known "
+											 "feasible polyhedron #"
+										 << encodingNumber;
+		return true;
+	 }
+	 if (!innerApproximation) {
+		// We may want to check for parents
+		if (encoding > this->numToVec(i, this->Compl.size(), false)) {
+		  BOOST_LOG_TRIVIAL(trace)
+				<< "MathOpt::PolyLCP::checkPolyFeas: Parent of a feasible polyhedron. Feasible #"
+				<< encodingNumber;
+		  FeasiblePoly[index].insert(encodingNumber);
+		  return true;
+		}
+	 }
   }
+
 
   unsigned int count{0};
   try {
@@ -595,17 +620,34 @@ bool MathOpt::PolyLCP::checkPolyFeas(
 
 unsigned long int MathOpt::PolyLCP::vecToNum(std::vector<short int> binary, bool inner) {
   /**
-	* @brief If @p inner is set to one, the @p binary contains either +1 or -1. Otherwise, it
-	* contains 0 or 1. @return a long int encoding the binary vector.
+	* @brief This function converts the vector encoding of @p binary to an unsigned long int.
+	* The parameter @p inner controls whether the encoding is the one of the inner approximation or
+	* the outer approximation. If @p inner is true, valid entries for @p binary are in @f$\{-1,1}@f$,
+	* and in @f$\{-1,1,2}@f$ otherwise. The reverse of this funciton is given by
+	* MathOpt::PolyLCP::numToVec.
+	* @warning the parameters inner may result in a different output even if the encodings are the
+	* same.
 	*/
   unsigned long int number = 0;
   unsigned int      posn   = 1;
-  int               add    = inner ? 1 : 0;
-  while (!binary.empty()) {
-	 short int bit = (binary.back() + add) / 2; // The least significant bit
-	 number += (bit * posn);
-	 posn *= 2;         // Update place value
-	 binary.pop_back(); // Remove that bit
+
+
+  if (inner) {
+
+	 // Add one to every entry, so that {-1,1} becomes {0,2}. Divide by 2 to obtain the bit.
+	 while (!binary.empty()) {
+		short int bit = (binary.back() + 1) / 2; // The least significant bit
+		number += (bit * posn);
+		posn *= 2;         // Update place value
+		binary.pop_back(); // Remove that bit
+	 }
+  } else {
+	 // Convert -1 to zero, so that items are from {-1,1,2} in {0,1,2}
+	 while (!binary.empty()) {
+		number += ((binary.back() == -1 ? 0 : binary.back()) * posn);
+		posn *= 3;
+		binary.pop_back();
+	 }
   }
   return number;
 }
@@ -613,17 +655,26 @@ unsigned long int MathOpt::PolyLCP::vecToNum(std::vector<short int> binary, bool
 std::vector<short int>
 MathOpt::PolyLCP::numToVec(unsigned long int number, const unsigned long nCompl, bool inner) {
   /**
-	* @brief If @p inner is set to one, the @p binary contains either +1 or -1. Otherwise, it
-	* contains 0 or 1. @return the binary encoding associated with the given @p number with length @p
-	* nCompl
+	* @brief This function transform the encoding associated to @p number, given a number of
+	* complementarities in @p nCompl, into a vector encoding. If @p inner is true, valid entries for
+	* @p binary are in @f$\{-1,1}@f$, and in @f$\{-1,1,2}@f$ otherwise. The reverse of this funciton
+	* is given by MathOpt::PolyLCP::numToVec.
+	* @warning the parameters inner may result in a different output even if the numbers are the
+	* same.
 	*/
   std::vector<short int> binary{};
-  for (unsigned int vv = 0; vv < nCompl; vv++) {
-	 binary.push_back(number % 2);
-	 number /= 2;
+
+  if (inner) {
+	 for (unsigned int vv = 0; vv < nCompl; vv++) {
+		binary.push_back((number % 2) == 0 ? -1 : 1);
+		number /= 2;
+	 }
+  } else {
+	 for (unsigned int vv = 0; vv < nCompl; vv++) {
+		binary.push_back((number % 3) == 0 ? -1 : (number % 3));
+		number /= 3;
+	 }
   }
-  if (inner)
-	 std::for_each(binary.begin(), binary.end(), [](short int &vv) { vv = (vv == 0 ? -1 : 1); });
   std::reverse(binary.begin(), binary.end());
   return binary;
 }
