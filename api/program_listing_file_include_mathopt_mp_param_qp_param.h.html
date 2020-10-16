@@ -170,7 +170,6 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_MathOpt.html">Namespace MathOpt</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#classes">Classes</a></li>
-<li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#enums">Enums</a></li>
 <li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#functions">Functions</a></li>
 <li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#typedefs">Typedefs</a></li>
 </ul>
@@ -403,10 +402,6 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1LCP_1aa8773225c810ac45575f86ac803105ab.html">Enum PolyhedraStrategy</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1LCP_1aa8773225c810ac45575f86ac803105ab.html#enum-documentation">Enum Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="enum_namespaceMathOpt_1a4cc28e2d94716b82777c530772b7f2b4.html">Enum MPType</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="enum_namespaceMathOpt_1a4cc28e2d94716b82777c530772b7f2b4.html#enum-documentation">Enum Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="enum_namespaceModels_1_1EPEC_1a20f448e9e7eadf005b6576ee74af0b5f.html">Enum LeaderVars</a><ul>
@@ -852,16 +847,15 @@ namespace MathOpt {
   std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, const QP_Param &amp;Q);
   class QP_Param : public MP_Param {
   private:
-     // Gurobi environment and model
      GRBModel Model;
      bool     MadeyQy;
 
-     int makeyQy();
+     void makeyQy();
 
   public: // Constructors
-     explicit QP_Param(GRBEnv *env = nullptr) : MP_Param(env), MadeyQy{false}, Model{(*env)} {
-        this-&gt;size();
-     }
+     explicit QP_Param(GRBEnv *env = nullptr)
+          : MP_Param(env), MadeyQy{false},
+             Model{(*env)} {};
 
      QP_Param(arma::sp_mat Q,
                  arma::sp_mat C,
@@ -869,20 +863,13 @@ namespace MathOpt {
                  arma::sp_mat B,
                  arma::vec    c,
                  arma::vec    b,
-                 GRBEnv *     env = nullptr)
-          : MP_Param(env), MadeyQy{false}, Model{(*env)} {
-        this-&gt;MadeyQy = false;
-        this-&gt;set(Q, C, A, B, c, b);
-        this-&gt;size();
-        this-&gt;forceDataCheck();
-     };
+                 GRBEnv *     env = nullptr);
+     ;
 
      QP_Param(const QP_Param &amp;Qu) : MP_Param(Qu), Model{Qu.Model}, MadeyQy{Qu.MadeyQy} {
         this-&gt;size();
-     };
+     }
 
-     void forceDataCheck() const;
-     // Override setters
      QP_Param &amp;set(const arma::sp_mat &amp;Q,
                         const arma::sp_mat &amp;C,
                         const arma::sp_mat &amp;A,
@@ -906,27 +893,9 @@ namespace MathOpt {
 
      std::unique_ptr&lt;GRBModel&gt; solveFixed(arma::vec x, bool solve) override;
 
-     double computeObjective(const arma::vec &amp;y,
-                                     const arma::vec &amp;x,
-                                     bool             checkFeas = true,
-                                     double           tol       = 1e-6) const override;
-
-     inline bool isPlayable(const QP_Param &amp;P) const
-     {
-        bool b1, b2, b3;
-        b1 = (this-&gt;Nx + this-&gt;Ny) == (P.getNx() + P.getNy());
-        b2 = this-&gt;Nx &gt;= P.getNy();
-        b3 = this-&gt;Ny &lt;= P.getNx();
-        return b1 &amp;&amp; b2 &amp;&amp; b3;
-     }
-
-     QP_Param &amp;addDummy(unsigned int pars, unsigned int vars = 0, int position = -1) override;
-
      void save(const std::string &amp;filename, bool append) const override;
 
-     long int  load(const std::string &amp;filename, long int pos = 0) override;
-     double    computeObjectiveWithoutOthers(const arma::vec &amp;y) const;
-     arma::vec getConstraintViolations(const arma::vec x, const arma::vec y, double tol);
+     long int load(const std::string &amp;filename, long int pos = 0) override;
   };
 } // namespace MathOpt
 </pre></div>

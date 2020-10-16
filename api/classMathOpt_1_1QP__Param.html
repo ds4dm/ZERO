@@ -172,7 +172,6 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_MathOpt.html">Namespace MathOpt</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#classes">Classes</a></li>
-<li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#enums">Enums</a></li>
 <li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#functions">Functions</a></li>
 <li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#typedefs">Typedefs</a></li>
 </ul>
@@ -405,10 +404,6 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1LCP_1aa8773225c810ac45575f86ac803105ab.html">Enum PolyhedraStrategy</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1LCP_1aa8773225c810ac45575f86ac803105ab.html#enum-documentation">Enum Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="enum_namespaceMathOpt_1a4cc28e2d94716b82777c530772b7f2b4.html">Enum MPType</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="enum_namespaceMathOpt_1a4cc28e2d94716b82777c530772b7f2b4.html#enum-documentation">Enum Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="enum_namespaceModels_1_1EPEC_1a20f448e9e7eadf005b6576ee74af0b5f.html">Enum LeaderVars</a><ul>
@@ -848,42 +843,92 @@
 \[ \min_y \frac{1}{2}y^TQy + c^Ty + (Cx)^T y \]</div>
  Subject to <div class="math notranslate nohighlight">
 \[\begin{split}\begin{eqnarray} Ax + By &amp;\leq&amp; b \\ y &amp;\geq&amp; 0 \end{eqnarray}\end{split}\]</div>
- The shape of C is Ny Nx. </p>
+ The shape of C is <span class="math notranslate nohighlight">\(Ny \times Nx\)</span>. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8QP_Param8QP_ParamEP6GRBEnv">
 <span id="_CPPv3N7MathOpt8QP_Param8QP_ParamEP6GRBEnv"></span><span id="_CPPv2N7MathOpt8QP_Param8QP_ParamEP6GRBEnv"></span><span id="MathOpt::QP_Param::QP_Param__GRBEnvP"></span><span class="target" id="classMathOpt_1_1QP__Param_1a369bfb063b7bc01d8bce018df9639bce"></span><code class="sig-name descname">QP_Param</code><span class="sig-paren">(</span>GRBEnv *<em>env</em> = nullptr<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8QP_Param8QP_ParamEP6GRBEnv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Initialize only the size. Everything else is empty (can be updated later) </p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8QP_Param8QP_ParamEN4arma6sp_matEN4arma6sp_matEN4arma6sp_matEN4arma6sp_matEN4arma3vecEN4arma3vecEP6GRBEnv">
 <span id="_CPPv3N7MathOpt8QP_Param8QP_ParamEN4arma6sp_matEN4arma6sp_matEN4arma6sp_matEN4arma6sp_matEN4arma3vecEN4arma3vecEP6GRBEnv"></span><span id="_CPPv2N7MathOpt8QP_Param8QP_ParamEN4arma6sp_matEN4arma6sp_matEN4arma6sp_matEN4arma6sp_matEN4arma3vecEN4arma3vecEP6GRBEnv"></span><span id="MathOpt::QP_Param::QP_Param__arma::sp_mat.arma::sp_mat.arma::sp_mat.arma::sp_mat.arma::vec.arma::vec.GRBEnvP"></span><span class="target" id="classMathOpt_1_1QP__Param_1afcddf16e9642adac737e504711af5109"></span><code class="sig-name descname">QP_Param</code><span class="sig-paren">(</span>arma::sp_mat <em>Q</em>, arma::sp_mat <em>C</em>, arma::sp_mat <em>A</em>, arma::sp_mat <em>B</em>, arma::vec <em>c</em>, arma::vec <em>b</em>, GRBEnv *<em>env</em> = nullptr<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8QP_Param8QP_ParamEN4arma6sp_matEN4arma6sp_matEN4arma6sp_matEN4arma6sp_matEN4arma3vecEN4arma3vecEP6GRBEnv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Set data at construct time. </p>
+<dd><p>Empty constructor initializing only the Gurobi environment. </p>
+<p>Constructor to set the data with copies.</p>
+<p>Set data at construct time</p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A pointer to this </p>
+</dd>
+<dt><strong>Warning</strong></dt><dd><p>The input data may be corrupted after </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Q</span></code>: Quadratic term for y in the objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">C</span></code>: Bi-linear term for x-y in the objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: Matrix of constraints for the parameters x </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">B</span></code>: Matrix of constraints for the variables y </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code>: Vector of linear terms for y in the objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: Vector of RHS in the constraints </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8QP_Param8QP_ParamERK8QP_Param">
 <span id="_CPPv3N7MathOpt8QP_Param8QP_ParamERK8QP_Param"></span><span id="_CPPv2N7MathOpt8QP_Param8QP_ParamERK8QP_Param"></span><span id="MathOpt::QP_Param::QP_Param__QP_ParamCR"></span><span class="target" id="classMathOpt_1_1QP__Param_1afbcaa320bb50521e5c45efb3289c6356"></span><code class="sig-name descname">QP_Param</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N7MathOpt8QP_Param8QP_ParamERK8QP_Param" title="MathOpt::QP_Param::QP_Param">QP_Param</a> &amp;<em>Qu</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8QP_Param8QP_ParamERK8QP_Param" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Copy constructor. </p>
+<dd><p>A copy constructor given a <a class="reference internal" href="#classMathOpt_1_1QP__Param"><span class="std std-ref">QP_Param</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Qu</span></code>: The copied model </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK7MathOpt8QP_Param14forceDataCheckEv">
-<span id="_CPPv3NK7MathOpt8QP_Param14forceDataCheckEv"></span><span id="_CPPv2NK7MathOpt8QP_Param14forceDataCheckEv"></span><span id="MathOpt::QP_Param::forceDataCheckC"></span><span class="target" id="classMathOpt_1_1QP__Param_1a0b415536e27fdbc5411c11641a9e6c65"></span>void <code class="sig-name descname">forceDataCheck</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt8QP_Param14forceDataCheckEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8QP_Param3setERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecE">
 <span id="_CPPv3N7MathOpt8QP_Param3setERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecE"></span><span id="_CPPv2N7MathOpt8QP_Param3setERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecE"></span><span id="MathOpt::QP_Param::set__arma::sp_matCR.arma::sp_matCR.arma::sp_matCR.arma::sp_matCR.arma::vecCR.arma::vecCR"></span><span class="target" id="classMathOpt_1_1QP__Param_1a5f530bb9242f5be3a5e43cbc331bc5a3"></span><a class="reference internal" href="#_CPPv4N7MathOpt8QP_ParamE" title="MathOpt::QP_Param">QP_Param</a> &amp;<code class="sig-name descname">set</code><span class="sig-paren">(</span><em class="property">const</em> arma::sp_mat &amp;<em>Q</em>, <em class="property">const</em> arma::sp_mat &amp;<em>C</em>, <em class="property">const</em> arma::sp_mat &amp;<em>A</em>, <em class="property">const</em> arma::sp_mat &amp;<em>B</em>, <em class="property">const</em> arma::vec &amp;<em>c</em>, <em class="property">const</em> arma::vec &amp;<em>b</em><span class="sig-paren">)</span> <em class="property">final</em><a class="headerlink" href="#_CPPv4N7MathOpt8QP_Param3setERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Setting the data, while keeping the input objects intact. </p>
+<dd><p>Constructor to set the data, while keeping the input objects intact. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A pointer to this </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Q</span></code>: Quadratic term for y in the objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">C</span></code>: Bi-linear term for x-y in the objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: Matrix of constraints for the parameters x </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">B</span></code>: Matrix of constraints for the variables y </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code>: Vector of linear terms for y in the objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: Vector of RHS in the constraints </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Bounds</span></code>: Optional object of VariableBounds bounds on y variables </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8QP_Param3setERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma3vecERRN4arma3vecE">
 <span id="_CPPv3N7MathOpt8QP_Param3setERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma3vecERRN4arma3vecE"></span><span id="_CPPv2N7MathOpt8QP_Param3setERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma3vecERRN4arma3vecE"></span><span id="MathOpt::QP_Param::set__arma::sp_matRR.arma::sp_matRR.arma::sp_matRR.arma::sp_matRR.arma::vecRR.arma::vecRR"></span><span class="target" id="classMathOpt_1_1QP__Param_1a0934db94b23d326f04837f38505d3832"></span><a class="reference internal" href="#_CPPv4N7MathOpt8QP_ParamE" title="MathOpt::QP_Param">QP_Param</a> &amp;<code class="sig-name descname">set</code><span class="sig-paren">(</span>arma::sp_mat &amp;&amp;<em>Q</em>, arma::sp_mat &amp;&amp;<em>C</em>, arma::sp_mat &amp;&amp;<em>A</em>, arma::sp_mat &amp;&amp;<em>B</em>, arma::vec &amp;&amp;<em>c</em>, arma::vec &amp;&amp;<em>b</em><span class="sig-paren">)</span> <em class="property">final</em><a class="headerlink" href="#_CPPv4N7MathOpt8QP_Param3setERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma3vecERRN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Faster means to set data. But the input objects might be corrupted now. </p>
+<dd><p>Constructor to set the data through std::move. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A pointer to this </p>
+</dd>
+<dt><strong>Warning</strong></dt><dd><p>The input data may be corrupted after </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Q</span></code>: Quadratic term for y in the objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">C</span></code>: Bi-linear term for x-y in the objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: Matrix of constraints for the parameters x </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">B</span></code>: Matrix of constraints for the variables y </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code>: Vector of linear terms for y in the objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: Vector of RHS in the constraints </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -905,45 +950,66 @@
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8QP_Param3setERR12QP_ObjectiveRR14QP_Constraints">
 <span id="_CPPv3N7MathOpt8QP_Param3setERR12QP_ObjectiveRR14QP_Constraints"></span><span id="_CPPv2N7MathOpt8QP_Param3setERR12QP_ObjectiveRR14QP_Constraints"></span><span id="MathOpt::QP_Param::set__QP_ObjectiveRR.QP_ConstraintsRR"></span><span class="target" id="classMathOpt_1_1QP__Param_1affbb9b4e6ed757951d385324883c6961"></span><a class="reference internal" href="#_CPPv4N7MathOpt8QP_ParamE" title="MathOpt::QP_Param">QP_Param</a> &amp;<code class="sig-name descname">set</code><span class="sig-paren">(</span><a class="reference internal" href="structMathOpt_1_1QP__Objective.html#_CPPv4N7MathOpt12QP_ObjectiveE" title="MathOpt::QP_Objective">QP_Objective</a> &amp;&amp;<em>obj</em>, <a class="reference internal" href="structMathOpt_1_1QP__Constraints.html#_CPPv4N7MathOpt14QP_ConstraintsE" title="MathOpt::QP_Constraints">QP_Constraints</a> &amp;&amp;<em>cons</em><span class="sig-paren">)</span> <em class="property">final</em><a class="headerlink" href="#_CPPv4N7MathOpt8QP_Param3setERR12QP_ObjectiveRR14QP_Constraints" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Setting the data with the inputs being a struct <a class="reference internal" href="structMathOpt_1_1QP__Objective.html#structMathOpt_1_1QP__Objective"><span class="std std-ref">MathOpt::QP_Objective</span></a> and struct <a class="reference internal" href="structMathOpt_1_1QP__Constraints.html#structMathOpt_1_1QP__Constraints"><span class="std std-ref">MathOpt::QP_Constraints</span></a>. </p>
+<dd><p>A move constructor given a <a class="reference internal" href="structMathOpt_1_1QP__Objective.html#structMathOpt_1_1QP__Objective"><span class="std std-ref">QP_Objective</span></a> and <a class="reference internal" href="structMathOpt_1_1QP__Constraints.html#structMathOpt_1_1QP__Constraints"><span class="std std-ref">QP_Constraints</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A pointer to this </p>
+</dd>
+<dt><strong>Warning</strong></dt><dd><p>The input data may be corrupted after </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">obj</span></code>: The objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cons</span></code>: The constraints object </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK7MathOpt8QP_ParameqERK8QP_Param">
 <span id="_CPPv3NK7MathOpt8QP_ParameqERK8QP_Param"></span><span id="_CPPv2NK7MathOpt8QP_ParameqERK8QP_Param"></span><span id="MathOpt::QP_Param::eq-operator__QP_ParamCRC"></span><span class="target" id="classMathOpt_1_1QP__Param_1a2c648916ee48cde8b84ef9c073d2eb0a"></span>bool <code class="sig-name descname">operator==</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N7MathOpt8QP_ParamE" title="MathOpt::QP_Param">QP_Param</a> &amp;<em>Q2</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt8QP_ParameqERK8QP_Param" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Compares two QP_param objects. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>True if the objects are identical </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Q2</span></code>: The second <a class="reference internal" href="#classMathOpt_1_1QP__Param"><span class="std std-ref">QP_Param</span></a> </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK7MathOpt8QP_Param3KKTERN4arma6sp_matERN4arma6sp_matERN4arma3vecE">
 <span id="_CPPv3NK7MathOpt8QP_Param3KKTERN4arma6sp_matERN4arma6sp_matERN4arma3vecE"></span><span id="_CPPv2NK7MathOpt8QP_Param3KKTERN4arma6sp_matERN4arma6sp_matERN4arma3vecE"></span><span id="MathOpt::QP_Param::KKT__arma::sp_matR.arma::sp_matR.arma::vecRC"></span><span class="target" id="classMathOpt_1_1QP__Param_1a2533b57f05e4349e38f7c0a4e7d7253d"></span>unsigned int <code class="sig-name descname">KKT</code><span class="sig-paren">(</span>arma::sp_mat &amp;<em>M</em>, arma::sp_mat &amp;<em>N</em>, arma::vec &amp;<em>q</em><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">override</em><a class="headerlink" href="#_CPPv4NK7MathOpt8QP_Param3KKTERN4arma6sp_matERN4arma6sp_matERN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Compute the KKT conditions for the given QP Writes the KKT condition of the parameterized QP As per the convention, y is the decision variable for the QP and that is parameterized in x The KKT conditions are <span class="math notranslate nohighlight">\(0 \leq y \perp My + Nx + q \geq 0\)</span>. </p>
+<dd><p>Writes the KKT condition of the parameterized QP As per the convention, y is the decision variable for the QP and that is parameterized in x The KKT conditions are <span class="math notranslate nohighlight">\(0 \leq y \perp My + Nx + q \geq 0\)</span>. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>An int containing the rows of <code class="docutils literal notranslate"><span class="pre">M</span></code> </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">M</span></code>: The output M term </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">N</span></code>: The output N term </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">q</span></code>: The output q term </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8QP_Param10solveFixedEN4arma3vecEb">
 <span id="_CPPv3N7MathOpt8QP_Param10solveFixedEN4arma3vecEb"></span><span id="_CPPv2N7MathOpt8QP_Param10solveFixedEN4arma3vecEb"></span><span id="MathOpt::QP_Param::solveFixed__arma::vec.b"></span><span class="target" id="classMathOpt_1_1QP__Param_1a1e395a931c58b34612473dae34a4dc94"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">solveFixed</code><span class="sig-paren">(</span>arma::vec <em>x</em>, bool <em>solve</em><span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N7MathOpt8QP_Param10solveFixedEN4arma3vecEb" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Given a value for the parameters <span class="math notranslate nohighlight">\(x\)</span> in the definition of <a class="reference internal" href="#classMathOpt_1_1QP__Param"><span class="std std-ref">QP_Param</span></a>, solve the parameterized quadratic program to optimality.</p>
-<p>In terms of game theory, this can be viewed as <em>the best response</em> for a set of decisions by other players. <code class="docutils literal notranslate"><span class="pre">solve</span></code> decides whether the model has to be optimized or not </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK7MathOpt8QP_Param16computeObjectiveERKN4arma3vecERKN4arma3vecEbd">
-<span id="_CPPv3NK7MathOpt8QP_Param16computeObjectiveERKN4arma3vecERKN4arma3vecEbd"></span><span id="_CPPv2NK7MathOpt8QP_Param16computeObjectiveERKN4arma3vecERKN4arma3vecEbd"></span><span id="MathOpt::QP_Param::computeObjective__arma::vecCR.arma::vecCR.b.doubleC"></span><span class="target" id="classMathOpt_1_1QP__Param_1ac2f5a7c0805e51b805083e7aff6f76ed"></span>double <code class="sig-name descname">computeObjective</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>y</em>, <em class="property">const</em> arma::vec &amp;<em>x</em>, bool <em>checkFeas</em> = true, double <em>tol</em> = 1e-6<span class="sig-paren">)</span> <em class="property">const</em> <em class="property">override</em><a class="headerlink" href="#_CPPv4NK7MathOpt8QP_Param16computeObjectiveERKN4arma3vecERKN4arma3vecEbd" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Computes the objective value, given a vector <code class="docutils literal notranslate"><span class="pre">y</span></code> and a parameterizing vector <code class="docutils literal notranslate"><span class="pre">x</span></code>. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK7MathOpt8QP_Param10isPlayableERK8QP_Param">
-<span id="_CPPv3NK7MathOpt8QP_Param10isPlayableERK8QP_Param"></span><span id="_CPPv2NK7MathOpt8QP_Param10isPlayableERK8QP_Param"></span><span id="MathOpt::QP_Param::isPlayable__QP_ParamCRC"></span><span class="target" id="classMathOpt_1_1QP__Param_1a2bc7496fc4bd8d2d7016faa37c61ce69"></span>bool <code class="sig-name descname">isPlayable</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N7MathOpt8QP_ParamE" title="MathOpt::QP_Param">QP_Param</a> &amp;<em>P</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt8QP_Param10isPlayableERK8QP_Param" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Checks if the current object can play a game with another <a class="reference internal" href="#classMathOpt_1_1QP__Param"><span class="std std-ref">MathOpt::QP_Param</span></a> object <code class="docutils literal notranslate"><span class="pre">P</span></code>. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N7MathOpt8QP_Param8addDummyEjji">
-<span id="_CPPv3N7MathOpt8QP_Param8addDummyEjji"></span><span id="_CPPv2N7MathOpt8QP_Param8addDummyEjji"></span><span id="MathOpt::QP_Param::addDummy__unsigned-i.unsigned-i.i"></span><span class="target" id="classMathOpt_1_1QP__Param_1a11957fd90b5bfeacc4fa94fdb7c3a622"></span><a class="reference internal" href="#_CPPv4N7MathOpt8QP_ParamE" title="MathOpt::QP_Param">QP_Param</a> &amp;<code class="sig-name descname">addDummy</code><span class="sig-paren">(</span>unsigned int <em>pars</em>, unsigned int <em>vars</em> = 0, int <em>position</em> = -1<span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N7MathOpt8QP_Param8addDummyEjji" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p><dl>
-<dt><strong>Warning</strong></dt><dd><p>You might have to rerun <a class="reference internal" href="#classMathOpt_1_1QP__Param_1a2533b57f05e4349e38f7c0a4e7d7253d"><span class="std std-ref">QP_Param::KKT</span></a> since you have now changed the QP. </p>
-<p>This implies you might have to rerun NashMathOpt::formulateLCP again too. </p>
+<dd><p>Given a value for the parameters <span class="math notranslate nohighlight">\(x\)</span> in the definition of <a class="reference internal" href="#classMathOpt_1_1QP__Param"><span class="std std-ref">QP_Param</span></a>, returns a pointer to the parameterized MIP program. Note that the method. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a pointer to a copy of the model. In this way, valid cuts and cut pools are kept each time the method is invoked. In terms of game theory, this can be viewed as <em>the best response</em> for a set of decisions by other players. </p>
+</dd>
+<dt><strong>Return</strong></dt><dd><p>A pointer to the Gurobi model </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: The parametrized values of x </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">solve</span></code>: If the returned model is solved </p></li>
+</ul>
 </dd>
 </dl>
 </p>
@@ -952,32 +1018,52 @@
 <dl class="cpp function">
 <dt id="_CPPv4NK7MathOpt8QP_Param4saveERKNSt6stringEb">
 <span id="_CPPv3NK7MathOpt8QP_Param4saveERKNSt6stringEb"></span><span id="_CPPv2NK7MathOpt8QP_Param4saveERKNSt6stringEb"></span><span id="MathOpt::QP_Param::save__ssCR.bC"></span><span class="target" id="classMathOpt_1_1QP__Param_1adbe0e6292283d3f00df9246f2089cc7f"></span>void <code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>filename</em>, bool <em>append</em><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">override</em><a class="headerlink" href="#_CPPv4NK7MathOpt8QP_Param4saveERKNSt6stringEb" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Writes a given parameterized Mathematical program to a set of files. </p>
+<dd><p>Writes a given parameterized QP to a set of files. Writes a given parameterized Mathematical program to a set of files. One file is written for each attribute namely. </p>
+<p><ol class="lowerroman simple">
+<li><p><a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1aae8144b23a29ea99d5ef793729438feb"><span class="std std-ref">MathOpt::MP_Param::Q</span></a></p></li>
+<li><p><a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1a13727398531ec805acd474fa5da89056"><span class="std std-ref">MathOpt::MP_Param::C</span></a></p></li>
+<li><p><a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1a69e39bfe4a58e5c43dbcb7ac16be3fe5"><span class="std std-ref">MathOpt::MP_Param::A</span></a></p></li>
+<li><p><a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1adb541edcb7083da9bde8e6615063acd3"><span class="std std-ref">MathOpt::MP_Param::B</span></a></p></li>
+<li><p><a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1a270fad22decf1dbdc2227ff9a4875e34"><span class="std std-ref">MathOpt::MP_Param::c</span></a></p></li>
+<li><p><a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1af6e726c09d1d43359c2dad586b0fb4d5"><span class="std std-ref">MathOpt::MP_Param::b</span></a></p></li>
+<li><p><a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1a5751cc26c1fdc100766f9216af72db97"><span class="std std-ref">MathOpt::MP_Param::Bounds</span></a></p></li>
+</ol>
+</p>
+<p>To contrast see, <a class="reference internal" href="#classMathOpt_1_1QP__Param_1adbe0e6292283d3f00df9246f2089cc7f"><span class="std std-ref">MathOpt::QP_Param::save</span></a> where all details are written to a single loadable file <dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code>: The filename </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">append</span></code>: True if the content is appended </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8QP_Param4loadERKNSt6stringEl">
 <span id="_CPPv3N7MathOpt8QP_Param4loadERKNSt6stringEl"></span><span id="_CPPv2N7MathOpt8QP_Param4loadERKNSt6stringEl"></span><span id="MathOpt::QP_Param::load__ssCR.l-i"></span><span class="target" id="classMathOpt_1_1QP__Param_1a8a120042e4ad4546f6d5ad3d62a72d07"></span>long int <code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>filename</em>, long int <em>pos</em> = 0<span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N7MathOpt8QP_Param4loadERKNSt6stringEl" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Loads the <code class="docutils literal notranslate"><a class="reference internal" href="#classMathOpt_1_1QP__Param"><span class="std std-ref"><span class="pre">MathOpt::QP_Param</span></span></a></code> object stored in a file. </p>
+<dd><p>Inverses the operation of <a class="reference internal" href="#classMathOpt_1_1QP__Param_1adbe0e6292283d3f00df9246f2089cc7f"><span class="std std-ref">QP_Param::save</span></a> by loading the object from a file. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The position after the <a class="reference internal" href="#classMathOpt_1_1QP__Param"><span class="std std-ref">QP_Param</span></a> in the file </p>
+</dd>
+<dt><strong>Warning</strong></dt><dd><p>Call <a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1a1cda15da2419386f6228f0fff988a821"><span class="std std-ref">MP_Param(GRBEnv *env)</span></a> before loading </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code>: The filename </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pos</span></code>: The position of the <a class="reference internal" href="#classMathOpt_1_1QP__Param"><span class="std std-ref">QP_Param</span></a> in the file </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK7MathOpt8QP_Param29computeObjectiveWithoutOthersERKN4arma3vecE">
-<span id="_CPPv3NK7MathOpt8QP_Param29computeObjectiveWithoutOthersERKN4arma3vecE"></span><span id="_CPPv2NK7MathOpt8QP_Param29computeObjectiveWithoutOthersERKN4arma3vecE"></span><span id="MathOpt::QP_Param::computeObjectiveWithoutOthers__arma::vecCRC"></span><span class="target" id="classMathOpt_1_1QP__Param_1a37fec7c579329be45915be821f3bab8b"></span>double <code class="sig-name descname">computeObjectiveWithoutOthers</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>y</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt8QP_Param29computeObjectiveWithoutOthersERKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N7MathOpt8QP_Param23getConstraintViolationsEKN4arma3vecEKN4arma3vecEd">
-<span id="_CPPv3N7MathOpt8QP_Param23getConstraintViolationsEKN4arma3vecEKN4arma3vecEd"></span><span id="_CPPv2N7MathOpt8QP_Param23getConstraintViolationsEKN4arma3vecEKN4arma3vecEd"></span><span id="MathOpt::QP_Param::getConstraintViolations__arma::vecC.arma::vecC.double"></span><span class="target" id="classMathOpt_1_1QP__Param_1a57583e7acd32f13e21b020e22cc1a724"></span>arma::vec <code class="sig-name descname">getConstraintViolations</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec <em>x</em>, <em class="property">const</em> arma::vec <em>y</em>, double <em>tol</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8QP_Param23getConstraintViolationsEKN4arma3vecEKN4arma3vecEd" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Private Functions</p>
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8QP_Param7makeyQyEv">
-<span id="_CPPv3N7MathOpt8QP_Param7makeyQyEv"></span><span id="_CPPv2N7MathOpt8QP_Param7makeyQyEv"></span><span id="MathOpt::QP_Param::makeyQy"></span><span class="target" id="classMathOpt_1_1QP__Param_1a150faeba4b9ca64bae9ec5336571aac8"></span>int <code class="sig-name descname">makeyQy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8QP_Param7makeyQyEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Adds the Gurobi Quadratic objective to the Gurobi model <code class="docutils literal notranslate"><span class="pre">Model</span></code>. </p>
+<span id="_CPPv3N7MathOpt8QP_Param7makeyQyEv"></span><span id="_CPPv2N7MathOpt8QP_Param7makeyQyEv"></span><span id="MathOpt::QP_Param::makeyQy"></span><span class="target" id="classMathOpt_1_1QP__Param_1a29a6f2e1183aea73b54d91570ccefc28"></span>void <code class="sig-name descname">makeyQy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8QP_Param7makeyQyEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Creates the quadratic term (in the y variables) and sets <a class="reference internal" href="#classMathOpt_1_1QP__Param_1ac27998f3deca63ec24e11471a43f4090"><span class="std std-ref">QP_Param::MadeyQy</span></a> to true. </p>
 </dd></dl>
 
 </div>
@@ -986,12 +1072,14 @@
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt8QP_Param5ModelE">
 <span id="_CPPv3N7MathOpt8QP_Param5ModelE"></span><span id="_CPPv2N7MathOpt8QP_Param5ModelE"></span><span id="MathOpt::QP_Param::Model__GRBModel"></span><span class="target" id="classMathOpt_1_1QP__Param_1ada54fdcecccdc70241e63e01c14a547a"></span>GRBModel <code class="sig-name descname">Model</code><a class="headerlink" href="#_CPPv4N7MathOpt8QP_Param5ModelE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Gurobi pointer to the QP model. </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt8QP_Param7MadeyQyE">
 <span id="_CPPv3N7MathOpt8QP_Param7MadeyQyE"></span><span id="_CPPv2N7MathOpt8QP_Param7MadeyQyE"></span><span id="MathOpt::QP_Param::MadeyQy__b"></span><span class="target" id="classMathOpt_1_1QP__Param_1ac27998f3deca63ec24e11471a43f4090"></span>bool <code class="sig-name descname">MadeyQy</code><a class="headerlink" href="#_CPPv4N7MathOpt8QP_Param7MadeyQyE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>True if the objective quadratic term has been generated. </p>
+</dd></dl>
 
 </div>
 </dd></dl>

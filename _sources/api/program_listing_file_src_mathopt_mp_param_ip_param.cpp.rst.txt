@@ -36,10 +36,7 @@ Program Listing for File ip_param.cpp
      return os;
    }
    
-   void MathOpt::IP_Param::forceDataCheck() const {
-     if (!this->dataCheck())
-        throw ZEROException(ZEROErrorCode::InvalidData, "dataCheck() failed");
-   }
+   
    
    bool MathOpt::IP_Param::operator==(const IP_Param &IPG2) const {
      if (!Utils::isZero(this->B - IPG2.getB()))
@@ -50,8 +47,12 @@ Program Listing for File ip_param.cpp
         return false;
      if (!Utils::isZero(this->b - IPG2.getb()))
         return false;
+     for (unsigned int i = 0; i < this->Bounds.size(); ++i)
+        if (this->Bounds.at(i) != IPG2.Bounds.at(i))
+           return false;
      return Utils::isZero(this->Integers - IPG2.getIntegers());
    }
+   
    
    bool MathOpt::IP_Param::finalize() {
    
@@ -117,8 +118,7 @@ Program Listing for File ip_param.cpp
      }
    }
    
-   std::unique_ptr<GRBModel> MathOpt::IP_Param::solveFixed(const arma::vec x, bool solve)
-   {
+   std::unique_ptr<GRBModel> MathOpt::IP_Param::solveFixed(const arma::vec x, bool solve) {
      std::unique_ptr<GRBModel> model(new GRBModel(this->IPModel));
      if (!this->Finalized)
         throw ZEROException(ZEROErrorCode::Assertion, "The model is not Finalized!");
@@ -132,8 +132,8 @@ Program Listing for File ip_param.cpp
      return model;
    }
    
-   std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(const arma::vec x, bool relax)
-   {
+   
+   std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(const arma::vec x, bool relax) {
      if (!this->Finalized)
         throw ZEROException(ZEROErrorCode::Assertion, "The model is not Finalized!");
      try {
@@ -147,13 +147,11 @@ Program Listing for File ip_param.cpp
         return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel));
    }
    
-   
    MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &C,
                                                            const arma::sp_mat &B,
                                                            const arma::vec &   b,
                                                            const arma::vec &   c,
-                                                           const arma::vec &   _integers)
-   {
+                                                           const arma::vec &   _integers) {
      if (_integers.is_empty())
         throw ZEROException(ZEROErrorCode::InvalidData,
                                    "Invalid vector of Integers. Refer to MP_Param is no "
@@ -166,9 +164,9 @@ Program Listing for File ip_param.cpp
      return *this;
    }
    
+   
    MathOpt::IP_Param &MathOpt::IP_Param::set(
-        arma::sp_mat &&C, arma::sp_mat &&B, arma::vec &&b, arma::vec &&c, arma::vec &&_integers)
-   {
+        arma::sp_mat &&C, arma::sp_mat &&B, arma::vec &&b, arma::vec &&c, arma::vec &&_integers) {
      if (_integers.is_empty())
         throw ZEROException(ZEROErrorCode::InvalidData,
                                    "Invalid vector of Integers. Refer to MP_Param is no "
@@ -182,8 +180,7 @@ Program Listing for File ip_param.cpp
    }
    
    MathOpt::IP_Param &
-   MathOpt::IP_Param::set(QP_Objective &&obj, QP_Constraints &&cons, arma::vec &&_integers)
-   {
+   MathOpt::IP_Param::set(QP_Objective &&obj, QP_Constraints &&cons, arma::vec &&_integers) {
      if (_integers.is_empty())
         throw ZEROException(ZEROErrorCode::InvalidData,
                                    "Invalid vector of Integers. Refer to MP_Param is no "
@@ -199,16 +196,19 @@ Program Listing for File ip_param.cpp
                             std::move(_integers));
    }
    
+   
    MathOpt::IP_Param &MathOpt::IP_Param::set(const QP_Objective &  obj,
                                                            const QP_Constraints &cons,
                                                            const arma::vec &     _integers) {
      return this->set(obj.C, cons.B, cons.b, obj.c, _integers);
    }
    
+   
    double MathOpt::IP_Param::computeObjective(const arma::vec &y,
                                                             const arma::vec &x,
                                                             bool             checkFeas,
                                                             double           tol) const {
+   
      if (y.n_rows != this->getNy())
         throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of y");
      if (x.n_rows != this->getNx())
@@ -228,12 +228,9 @@ Program Listing for File ip_param.cpp
      return obj(0);
    }
    
-   bool MathOpt::IP_Param::addConstraint(
-        arma::vec Ain,            
-        double    bin,            
-        bool      checkDuplicate, 
-        double    tol             
-   ) {
+   bool MathOpt::IP_Param::addConstraint(arma::vec Ain, double bin, bool checkDuplicate, double tol) {
+   
+   
      if (this->B.n_cols != Ain.size())
         throw ZEROException(ZEROErrorCode::Assertion,
                                    "Mismatch between the variables of the input "
@@ -264,9 +261,7 @@ Program Listing for File ip_param.cpp
         return false;
    }
    
-   unsigned int MathOpt::IP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const
-   
-   {
+   unsigned int MathOpt::IP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const {
      this->forceDataCheck();
      M = arma::join_cols( // In armadillo join_cols(A, B) is same as [A;B] in
                                  // Matlab
@@ -283,7 +278,9 @@ Program Listing for File ip_param.cpp
    
    
    long int MathOpt::IP_Param::load(const std::string &filename, long int pos) {
-     arma::sp_mat _C, _B;
+   
+   
+     arma::sp_mat _C, _B, BO;
      arma::vec    _b, _c, _integers;
      std::string  headercheck;
      pos = Utils::appendRead(headercheck, filename, pos);
@@ -294,10 +291,23 @@ Program Listing for File ip_param.cpp
      pos = Utils::appendRead(_b, filename, pos, std::string("IP_Param::b"));
      pos = Utils::appendRead(_c, filename, pos, std::string("IP_Param::c"));
      pos = Utils::appendRead(_integers, filename, pos, std::string("IP_Param::Integers"));
+     pos = Utils::appendRead(BO, filename, pos, std::string("MP_Param::Bounds"));
+     if (BO.n_rows > 0) {
+        if (BO.n_cols != 2)
+           throw ZEROException(ZEROErrorCode::IOError, "Invalid bounds object in loaded file");
+   
+        for (unsigned int i = 0; i < B.n_cols; ++i)
+           this->Bounds.push_back(
+                {BO.at(i, 0) > 0 ? BO.at(i, 0) : 0, BO.at(i, 1) > 0 ? BO.at(i, 1) : -1});
+   
+        int diff = B.n_cols - BO.n_rows;
+        for (unsigned int i = 0; i < diff; ++i)
+           this->Bounds.push_back({0, -1});
+     }
+     BOOST_LOG_TRIVIAL(trace) << "Saved IP_Param to file " << filename;
      this->set(_C, _B, _b, _c, _integers);
      return pos;
    }
-   
    
    
    void MathOpt::IP_Param::save(const std::string &filename, bool append) const {
@@ -321,10 +331,4 @@ Program Listing for File ip_param.cpp
         : MP_Param(env), IPModel{(*env)} {
      this->set(C, B, b, c, _integers);
      this->forceDataCheck();
-   }
-   std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(bool relax) {
-     if (relax)
-        return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel.relax()));
-     else
-        return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel));
    }

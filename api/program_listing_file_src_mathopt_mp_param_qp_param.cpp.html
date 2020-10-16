@@ -170,7 +170,6 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_MathOpt.html">Namespace MathOpt</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#classes">Classes</a></li>
-<li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#enums">Enums</a></li>
 <li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#functions">Functions</a></li>
 <li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#typedefs">Typedefs</a></li>
 </ul>
@@ -403,10 +402,6 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1LCP_1aa8773225c810ac45575f86ac803105ab.html">Enum PolyhedraStrategy</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1LCP_1aa8773225c810ac45575f86ac803105ab.html#enum-documentation">Enum Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="enum_namespaceMathOpt_1a4cc28e2d94716b82777c530772b7f2b4.html">Enum MPType</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="enum_namespaceMathOpt_1a4cc28e2d94716b82777c530772b7f2b4.html#enum-documentation">Enum Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="enum_namespaceModels_1_1EPEC_1a20f448e9e7eadf005b6576ee74af0b5f.html">Enum LeaderVars</a><ul>
@@ -862,15 +857,17 @@ bool MathOpt::QP_Param::operator==(const QP_Param &amp;Q2) const {
      return false;
   if (!Utils::isZero(this-&gt;c - Q2.getc()))
      return false;
+  for (unsigned int i = 0; i &lt; this-&gt;Bounds.size(); ++i)
+     if (this-&gt;Bounds.at(i) != Q2.Bounds.at(i))
+        return false;
   if (!Utils::isZero(this-&gt;b - Q2.getb()))
      return false;
   return true;
 }
 
-int MathOpt::QP_Param::makeyQy()
-{
+void MathOpt::QP_Param::makeyQy() {
   if (this-&gt;MadeyQy)
-     return 0;
+     return;
   GRBVar y[this-&gt;Ny];
   for (unsigned int i = 0; i &lt; Ny; i++)
      y[i] = this-&gt;Model.addVar(Bounds.at(i).first,
@@ -891,12 +888,10 @@ int MathOpt::QP_Param::makeyQy()
   Model.setObjective(yQy, GRB_MINIMIZE);
   Model.update();
   this-&gt;MadeyQy = true;
-  return 0;
 }
 
-std::unique_ptr&lt;GRBModel&gt; MathOpt::QP_Param::solveFixed(
-     arma::vec x, bool solve)
-{
+
+std::unique_ptr&lt;GRBModel&gt; MathOpt::QP_Param::solveFixed(arma::vec x, bool solve) {
   this-&gt;makeyQy();
   if (x.size() != this-&gt;Nx)
      throw ZEROException(ZEROErrorCode::Assertion,
@@ -930,22 +925,8 @@ std::unique_ptr&lt;GRBModel&gt; MathOpt::QP_Param::solveFixed(
   return model;
 }
 
-MathOpt::QP_Param &amp;MathOpt::QP_Param::addDummy(unsigned int pars, unsigned int vars, int position)
-{
-  // if ((pars || vars))
-  // BOOST_LOG_TRIVIAL(trace)
-  // &lt;&lt; &quot;From MathOpt::QP_Param::addDummyVars:\t You might have to rerun
-  // Games::QP_Param::KKT since you have now changed the number of variables in
-  // the NashGame.&quot;;
 
-  // Call the superclass function
-  MP_Param::addDummy(pars, vars, position);
-
-  return *this;
-}
-
-unsigned int MathOpt::QP_Param::KKT(arma::sp_mat &amp;M, arma::sp_mat &amp;N, arma::vec &amp;q) const
-{
+unsigned int MathOpt::QP_Param::KKT(arma::sp_mat &amp;M, arma::sp_mat &amp;N, arma::vec &amp;q) const {
   this-&gt;forceDataCheck();
   M = arma::join_cols( // In armadillo join_cols(A, B) is same as [A;B] in
                               // Matlab
@@ -960,13 +941,13 @@ unsigned int MathOpt::QP_Param::KKT(arma::sp_mat &amp;M, arma::sp_mat &amp;N, ar
   return M.n_rows;
 }
 
+
 MathOpt::QP_Param &amp;MathOpt::QP_Param::set(const arma::sp_mat &amp;Q,
                                                         const arma::sp_mat &amp;C,
                                                         const arma::sp_mat &amp;A,
                                                         const arma::sp_mat &amp;B,
                                                         const arma::vec &amp;   c,
-                                                        const arma::vec &amp;   b)
-{
+                                                        const arma::vec &amp;   b) {
   this-&gt;MadeyQy = false;
   MP_Param::set(Q, C, A, B, c, b);
   return *this;
@@ -977,15 +958,13 @@ MathOpt::QP_Param &amp;MathOpt::QP_Param::set(arma::sp_mat &amp;&amp;Q,
                                                         arma::sp_mat &amp;&amp;A,
                                                         arma::sp_mat &amp;&amp;B,
                                                         arma::vec &amp;&amp;   c,
-                                                        arma::vec &amp;&amp;   b)
-{
+                                                        arma::vec &amp;&amp;   b) {
   this-&gt;MadeyQy = false;
   MP_Param::set(Q, C, A, B, c, b);
   return *this;
 }
 
-MathOpt::QP_Param &amp;MathOpt::QP_Param::set(QP_Objective &amp;&amp;obj, QP_Constraints &amp;&amp;cons)
-{
+MathOpt::QP_Param &amp;MathOpt::QP_Param::set(QP_Objective &amp;&amp;obj, QP_Constraints &amp;&amp;cons) {
   return this-&gt;set(std::move(obj.Q),
                          std::move(obj.C),
                          std::move(cons.A),
@@ -998,50 +977,9 @@ MathOpt::QP_Param &amp;MathOpt::QP_Param::set(const QP_Objective &amp;obj, const
   return this-&gt;set(obj.Q, obj.C, cons.A, cons.B, obj.c, cons.b);
 }
 
-arma::vec MathOpt::QP_Param::getConstraintViolations(const arma::vec x,
-                                                                      const arma::vec y,
-                                                                      double          tol = 1e-5) {
-  arma::vec xN, yN;
-  if (x.size() &lt; A.n_cols)
-     arma::vec xN = Utils::resizePatch(x, A.n_cols);
-  else
-     xN = x;
-  if (y.size() &lt; B.n_cols)
-     arma::vec yN = Utils::resizePatch(y, B.n_cols);
-  else
-     yN = y;
-  arma::vec slack = A * xN + B * yN - b;
-  return slack;
-}
-
-double MathOpt::QP_Param::computeObjective(const arma::vec &amp;y,
-                                                         const arma::vec &amp;x,
-                                                         bool             checkFeas,
-                                                         double           tol) const {
-  if (y.n_rows != this-&gt;getNy())
-     throw ZEROException(ZEROErrorCode::InvalidData, &quot;Invalid size of y&quot;);
-  if (x.n_rows != this-&gt;getNx())
-     throw ZEROException(ZEROErrorCode::InvalidData, &quot;Invalid size of x&quot;);
-  if (checkFeas) {
-     arma::vec slack = A * x + B * y - b;
-     if (slack.n_rows) // if infeasible
-        if (slack.max() &gt;= tol)
-          return GRB_INFINITY;
-     if (y.min() &lt;= -tol) // if infeasible
-        return GRB_INFINITY;
-  }
-  arma::vec obj = 0.5 * y.t() * Q * y + (C * x).t() * y + c.t() * y;
-  return obj(0);
-}
-
-double MathOpt::QP_Param::computeObjectiveWithoutOthers(const arma::vec &amp;y) const {
-  if (y.n_rows != this-&gt;getNy())
-     throw ZEROException(ZEROErrorCode::InvalidData, &quot;Invalid size of y&quot;);
-  arma::vec obj = 0.5 * y.t() * Q * y + c.t() * y;
-  return obj(0);
-}
 
 void MathOpt::QP_Param::save(const std::string &amp;filename, bool append) const {
+
   Utils::appendSave(std::string(&quot;QP_Param&quot;), filename, append);
   Utils::appendSave(this-&gt;Q, filename, std::string(&quot;QP_Param::Q&quot;), false);
   Utils::appendSave(this-&gt;A, filename, std::string(&quot;QP_Param::A&quot;), false);
@@ -1049,11 +987,19 @@ void MathOpt::QP_Param::save(const std::string &amp;filename, bool append) const
   Utils::appendSave(this-&gt;C, filename, std::string(&quot;QP_Param::C&quot;), false);
   Utils::appendSave(this-&gt;b, filename, std::string(&quot;QP_Param::b&quot;), false);
   Utils::appendSave(this-&gt;c, filename, std::string(&quot;QP_Param::c&quot;), false);
+  arma::sp_mat BO(this-&gt;Ny, 2);
+  for (unsigned int i = 0; i &lt; this-&gt;Ny; ++i) {
+     BO.at(i, 0) = this-&gt;Bounds.at(i).first;
+     BO.at(i, 1) = this-&gt;Bounds.at(i).second;
+  }
+  Utils::appendSave(BO, filename, std::string(&quot;QP_Param::Bounds&quot;), false);
   BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Saved QP_Param to file &quot; &lt;&lt; filename;
 }
 
+
 long int MathOpt::QP_Param::load(const std::string &amp;filename, long int pos) {
-  arma::sp_mat Q, A, B, C;
+
+  arma::sp_mat Q, A, B, C, BO;
   arma::vec    c, b;
   std::string  headercheck;
   pos = Utils::appendRead(headercheck, filename, pos);
@@ -1065,14 +1011,36 @@ long int MathOpt::QP_Param::load(const std::string &amp;filename, long int pos) 
   pos = Utils::appendRead(C, filename, pos, std::string(&quot;QP_Param::C&quot;));
   pos = Utils::appendRead(b, filename, pos, std::string(&quot;QP_Param::b&quot;));
   pos = Utils::appendRead(c, filename, pos, std::string(&quot;QP_Param::c&quot;));
+  pos = Utils::appendRead(BO, filename, pos, std::string(&quot;QP_Param::Bounds&quot;));
+  if (BO.n_rows &gt; 0) {
+     if (BO.n_cols != 2)
+        throw ZEROException(ZEROErrorCode::IOError, &quot;Invalid bounds object in loaded file&quot;);
+
+     for (unsigned int i = 0; i &lt; B.n_cols; ++i)
+        this-&gt;Bounds.push_back(
+             {BO.at(i, 0) &gt; 0 ? BO.at(i, 0) : 0, BO.at(i, 1) &gt; 0 ? BO.at(i, 1) : -1});
+
+     int diff = B.n_cols - BO.n_rows;
+     for (unsigned int i = 0; i &lt; diff; ++i)
+        this-&gt;Bounds.push_back({0, -1});
+  }
   this-&gt;set(Q, C, A, B, c, b);
   return pos;
 }
 
-void MathOpt::QP_Param::forceDataCheck() const {
 
-  if (!this-&gt;dataCheck())
-     throw ZEROException(ZEROErrorCode::InvalidData, &quot;dataCheck() failed&quot;);
+MathOpt::QP_Param::QP_Param(arma::sp_mat Q,
+                                     arma::sp_mat C,
+                                     arma::sp_mat A,
+                                     arma::sp_mat B,
+                                     arma::vec    c,
+                                     arma::vec    b,
+                                     GRBEnv *     env)
+     : MP_Param(env), MadeyQy{false}, Model{(*env)} {
+  this-&gt;MadeyQy = false;
+  this-&gt;set(Q, C, A, B, c, b);
+  this-&gt;size();
+  this-&gt;forceDataCheck();
 }
 </pre></div>
 </div>

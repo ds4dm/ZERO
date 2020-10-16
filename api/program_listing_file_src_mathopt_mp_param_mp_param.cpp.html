@@ -170,7 +170,6 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_MathOpt.html">Namespace MathOpt</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#classes">Classes</a></li>
-<li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#enums">Enums</a></li>
 <li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#functions">Functions</a></li>
 <li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#typedefs">Typedefs</a></li>
 </ul>
@@ -403,10 +402,6 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1LCP_1aa8773225c810ac45575f86ac803105ab.html">Enum PolyhedraStrategy</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1LCP_1aa8773225c810ac45575f86ac803105ab.html#enum-documentation">Enum Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="enum_namespaceMathOpt_1a4cc28e2d94716b82777c530772b7f2b4.html">Enum MPType</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="enum_namespaceMathOpt_1a4cc28e2d94716b82777c530772b7f2b4.html#enum-documentation">Enum Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="enum_namespaceModels_1_1EPEC_1a20f448e9e7eadf005b6576ee74af0b5f.html">Enum LeaderVars</a><ul>
@@ -878,11 +873,11 @@ long int MathOpt::MP_Param::load(const std::string &amp;filename, long int pos) 
      if (BO.n_cols != 2)
         throw ZEROException(ZEROErrorCode::IOError, &quot;Invalid bounds object in loaded file&quot;);
 
-     for (unsigned int i = 0; i &lt; this-&gt;Ny; ++i)
+     for (unsigned int i = 0; i &lt; B.n_cols; ++i)
         this-&gt;Bounds.push_back(
              {BO.at(i, 0) &gt; 0 ? BO.at(i, 0) : 0, BO.at(i, 1) &gt; 0 ? BO.at(i, 1) : -1});
 
-     int diff = this-&gt;Ny - BO.n_rows;
+     int diff = B.n_cols - BO.n_rows;
      for (unsigned int i = 0; i &lt; diff; ++i)
         this-&gt;Bounds.push_back({0, -1});
   }
@@ -899,6 +894,8 @@ MathOpt::MP_Param &amp;MathOpt::MP_Param::addDummy(unsigned int pars, unsigned i
      Q = Utils::resizePatch(Q, this-&gt;Ny, this-&gt;Ny);
      B = Utils::resizePatch(B, this-&gt;Ncons, this-&gt;Ny);
      c = Utils::resizePatch(c, this-&gt;Ny);
+     for (unsigned int i = 0; i &lt; vars; ++i)
+        this-&gt;Bounds.push_back({0, -1});
   }
   switch (position) {
   case -1:
@@ -1180,6 +1177,35 @@ bool MathOpt::MP_Param::finalize() {
   this-&gt;rewriteBounds();
   this-&gt;size();
   return this-&gt;dataCheck();
+}
+
+
+void MathOpt::MP_Param::forceDataCheck() const {
+  if (!this-&gt;dataCheck())
+     throw ZEROException(ZEROErrorCode::InvalidData, &quot;dataCheck() failed&quot;);
+}
+
+
+double MathOpt::MP_Param::computeObjective(const arma::vec &amp;y,
+                                                         const arma::vec &amp;x,
+                                                         bool             checkFeas,
+                                                         double           tol) const {
+
+  if (y.n_rows != this-&gt;getNy())
+     throw ZEROException(ZEROErrorCode::InvalidData, &quot;Invalid size of y&quot;);
+  if (x.n_rows != this-&gt;getNx())
+     throw ZEROException(ZEROErrorCode::InvalidData, &quot;Invalid size of x&quot;);
+  if (checkFeas) {
+     arma::vec slack = A * x + B * y - b;
+     if (slack.n_rows) // if infeasible
+        if (slack.max() &gt;= tol)
+          return GRB_INFINITY;
+     if (y.min() &lt;= -tol) // if infeasible
+        return GRB_INFINITY;
+  }
+
+  arma::vec obj = 0.5 * y.t() * Q * y + (C * x).t() * y + c.t() * y;
+  return obj(0);
 }
 </pre></div>
 </div>

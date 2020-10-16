@@ -170,7 +170,6 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_MathOpt.html">Namespace MathOpt</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#classes">Classes</a></li>
-<li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#enums">Enums</a></li>
 <li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#functions">Functions</a></li>
 <li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#typedefs">Typedefs</a></li>
 </ul>
@@ -403,10 +402,6 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1LCP_1aa8773225c810ac45575f86ac803105ab.html">Enum PolyhedraStrategy</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1LCP_1aa8773225c810ac45575f86ac803105ab.html#enum-documentation">Enum Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="enum_namespaceMathOpt_1a4cc28e2d94716b82777c530772b7f2b4.html">Enum MPType</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="enum_namespaceMathOpt_1a4cc28e2d94716b82777c530772b7f2b4.html#enum-documentation">Enum Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="enum_namespaceModels_1_1EPEC_1a20f448e9e7eadf005b6576ee74af0b5f.html">Enum LeaderVars</a><ul>
@@ -880,17 +875,9 @@ namespace MathOpt {
 
      bool finalize() override;
 
-     bool addConstraint(const arma::vec Ain,
-                              const double    bin,
-                              const bool      checkDuplicate = true,
-                              const double    tol            = 1e-5);
+     bool addConstraint(arma::vec Ain, double bin, bool checkDuplicate = true, double tol = 1e-5);
 
-     IP_Param(const IP_Param &amp;ipg)
-          : MP_Param(ipg), IPModel{ipg.IPModel}, Finalized{ipg.Finalized}, Integers{ipg.Integers} {
-        this-&gt;size();
-     };
-
-     void setEnv(GRBEnv *env) { this-&gt;Env = env; }
+     IP_Param(const IP_Param &amp;ipg) = default;
 
      // Override setters
      IP_Param &amp;set(const arma::sp_mat &amp;C,
@@ -907,10 +894,10 @@ namespace MathOpt {
      IP_Param &amp;
      set(const QP_Objective &amp;obj, const QP_Constraints &amp;cons, const arma::vec &amp;integers = {});
 
+
      IP_Param &amp;set(QP_Objective &amp;&amp;obj, QP_Constraints &amp;&amp;cons, arma::vec &amp;&amp;integers = {});
 
      bool operator==(const IP_Param &amp;IPG2) const;
-
 
      double computeObjective(const arma::vec &amp;y,
                                      const arma::vec &amp;x,
@@ -920,16 +907,13 @@ namespace MathOpt {
      void save(const std::string &amp;filename, bool append) const override;
      long load(const std::string &amp;filename, long pos = 0) override;
 
-     void forceDataCheck() const;
+     void updateModelObjective(arma::vec x);
 
-     void updateModelObjective(const arma::vec x);
+     std::unique_ptr&lt;GRBModel&gt; solveFixed(arma::vec x, bool solve = false) override;
 
-     std::unique_ptr&lt;GRBModel&gt; getIPModel(bool relax = false);
+     std::unique_ptr&lt;GRBModel&gt; getIPModel(arma::vec x, bool relax = false);
 
-     std::unique_ptr&lt;GRBModel&gt; solveFixed(const arma::vec x, bool solve = false) override;
-
-     std::unique_ptr&lt;GRBModel&gt; getIPModel(const arma::vec x, bool relax = false);
-     unsigned int              KKT(arma::sp_mat &amp;M, arma::sp_mat &amp;N, arma::vec &amp;q) const override;
+     unsigned int KKT(arma::sp_mat &amp;M, arma::sp_mat &amp;N, arma::vec &amp;q) const override;
   };
 } // namespace MathOpt
 </pre></div>

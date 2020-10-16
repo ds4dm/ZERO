@@ -172,7 +172,6 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="namespace_MathOpt.html">Namespace MathOpt</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#classes">Classes</a></li>
-<li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#enums">Enums</a></li>
 <li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#functions">Functions</a></li>
 <li class="toctree-l5"><a class="reference internal" href="namespace_MathOpt.html#typedefs">Typedefs</a></li>
 </ul>
@@ -405,10 +404,6 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1LCP_1aa8773225c810ac45575f86ac803105ab.html">Enum PolyhedraStrategy</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1LCP_1aa8773225c810ac45575f86ac803105ab.html#enum-documentation">Enum Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="enum_namespaceMathOpt_1a4cc28e2d94716b82777c530772b7f2b4.html">Enum MPType</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="enum_namespaceMathOpt_1a4cc28e2d94716b82777c530772b7f2b4.html#enum-documentation">Enum Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="enum_namespaceModels_1_1EPEC_1a20f448e9e7eadf005b6576ee74af0b5f.html">Enum LeaderVars</a><ul>
@@ -848,7 +843,7 @@
 \[ \min_y c^Ty + (Cx)^T y \]</div>
  Subject to <div class="math notranslate nohighlight">
 \[\begin{split}\begin{eqnarray} By &amp;\leq&amp; b \\ y &amp;\geq&amp; 0 \\ y_i &amp;\in&amp; &amp;\mathbb{Z}&amp; &amp;\forall&amp; i &amp;\in&amp; I \end{eqnarray}\end{split}\]</div>
- Where the shape of C is Ny Nx. </p>
+ Where the shape of C is <span class="math notranslate nohighlight">\(Ny \times Nx\)</span>. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="cpp function">
@@ -878,24 +873,28 @@
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8IP_Param8finalizeEv">
 <span id="_CPPv3N7MathOpt8IP_Param8finalizeEv"></span><span id="_CPPv2N7MathOpt8IP_Param8finalizeEv"></span><span id="MathOpt::IP_Param::finalize"></span><span class="target" id="classMathOpt_1_1IP__Param_1a551cbd1d23a9dee94d55144f3149a9ac"></span>bool <code class="sig-name descname">finalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param8finalizeEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Finalizes the <a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param"><span class="std std-ref">MP_Param</span></a> object. Can be overriden by inheritors. </p>
-<p>Finalizes the <a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param"><span class="std std-ref">MP_Param</span></a> object, computing the object sizes and eventually shedding trivial bound constraints.</p>
+<dd><p>This method creates the (mixed)-integer program for the game, where the objective omits the bilinear part. The flag Finalized in the object is then set to true. </p>
 <p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>True if the object is Finalized and checks are passed. </p>
+<dt><strong>Return</strong></dt><dd><p>True if checks are completed </p>
 </dd>
 </dl>
 </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7MathOpt8IP_Param13addConstraintEKN4arma3vecEKdKbKd">
-<span id="_CPPv3N7MathOpt8IP_Param13addConstraintEKN4arma3vecEKdKbKd"></span><span id="_CPPv2N7MathOpt8IP_Param13addConstraintEKN4arma3vecEKdKbKd"></span><span id="MathOpt::IP_Param::addConstraint__arma::vecC.doubleC.bC.doubleC"></span><span class="target" id="classMathOpt_1_1IP__Param_1ad81a05737f7999124a9e54866e0a25e0"></span>bool <code class="sig-name descname">addConstraint</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec <em>Ain</em>, <em class="property">const</em> double <em>bin</em>, <em class="property">const</em> bool <em>checkDuplicate</em> = true, <em class="property">const</em> double <em>tol</em> = 1e-5<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param13addConstraintEKN4arma3vecEKdKbKd" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p><dl class="simple">
+<dt id="_CPPv4N7MathOpt8IP_Param13addConstraintEN4arma3vecEdbd">
+<span id="_CPPv3N7MathOpt8IP_Param13addConstraintEN4arma3vecEdbd"></span><span id="_CPPv2N7MathOpt8IP_Param13addConstraintEN4arma3vecEdbd"></span><span id="MathOpt::IP_Param::addConstraint__arma::vec.double.b.double"></span><span class="target" id="classMathOpt_1_1IP__Param_1a4557dfdfa31c736fe17108eb66d86dad"></span>bool <code class="sig-name descname">addConstraint</code><span class="sig-paren">(</span>arma::vec <em>Ain</em>, double <em>bin</em>, bool <em>checkDuplicate</em> = true, double <em>tol</em> = 1e-5<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param13addConstraintEN4arma3vecEdbd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Adds a constraints to the <a class="reference internal" href="#classMathOpt_1_1IP__Param"><span class="std std-ref">IP_Param</span></a>. It stores a description of the new cut Ainx &amp;&amp; bin of <code class="docutils literal notranslate"><span class="pre">Ain</span></code> (and RHS <code class="docutils literal notranslate"><span class="pre">bin</span></code>) in B and b, respectively. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>true if the constraint has been added This works also when the <a class="reference internal" href="#classMathOpt_1_1IP__Param"><span class="std std-ref">IP_Param</span></a> is Finalized. </p>
+</dd>
+<dt><strong>Return</strong></dt><dd><p>True if the constraint is added </p>
+</dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Ain</span></code>: The LHSs of the added cut </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">bin</span></code>: The RHSs of the added cut </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">checkDuplicate</span></code>: If true, the constraint is added only if not present </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tol</span></code>: The tolerance to check for similar constraints </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ain</span></code>: The vector of LHS </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bin</span></code>: The RHS value </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">checkDuplicate</span></code>: True if the method should check for duplicate constraints </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tol</span></code>: A numerical tolerance for duplicates </p></li>
 </ul>
 </dd>
 </dl>
@@ -904,7 +903,7 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8IP_Param8IP_ParamERK8IP_Param">
-<span id="_CPPv3N7MathOpt8IP_Param8IP_ParamERK8IP_Param"></span><span id="_CPPv2N7MathOpt8IP_Param8IP_ParamERK8IP_Param"></span><span id="MathOpt::IP_Param::IP_Param__IP_ParamCR"></span><span class="target" id="classMathOpt_1_1IP__Param_1a5b3c69e1aaf283425fd1164355e53bdc"></span><code class="sig-name descname">IP_Param</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N7MathOpt8IP_Param8IP_ParamERK8IP_Param" title="MathOpt::IP_Param::IP_Param">IP_Param</a> &amp;<em>ipg</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param8IP_ParamERK8IP_Param" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N7MathOpt8IP_Param8IP_ParamERK8IP_Param"></span><span id="_CPPv2N7MathOpt8IP_Param8IP_ParamERK8IP_Param"></span><span id="MathOpt::IP_Param::IP_Param__IP_ParamCR"></span><span class="target" id="classMathOpt_1_1IP__Param_1ac5f900a0cb8e30505bc4179dcf45225a"></span><code class="sig-name descname">IP_Param</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N7MathOpt8IP_Param8IP_ParamERK8IP_Param" title="MathOpt::IP_Param::IP_Param">IP_Param</a> &amp;<em>ipg</em><span class="sig-paren">)</span> = default<a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param8IP_ParamERK8IP_Param" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A copy constructor from anoter <a class="reference internal" href="#classMathOpt_1_1IP__Param"><span class="std std-ref">IP_Param</span></a>. </p>
 <p><dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
@@ -916,63 +915,118 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7MathOpt8IP_Param6setEnvEP6GRBEnv">
-<span id="_CPPv3N7MathOpt8IP_Param6setEnvEP6GRBEnv"></span><span id="_CPPv2N7MathOpt8IP_Param6setEnvEP6GRBEnv"></span><span id="MathOpt::IP_Param::setEnv__GRBEnvP"></span><span class="target" id="classMathOpt_1_1IP__Param_1ad88739b3e708a90212f9b4e2deef9602"></span>void <code class="sig-name descname">setEnv</code><span class="sig-paren">(</span>GRBEnv *<em>env</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param6setEnvEP6GRBEnv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Setter to IP_Param::env. </p>
-</dd></dl>
-
-<dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8IP_Param3setERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecERKN4arma3vecE">
 <span id="_CPPv3N7MathOpt8IP_Param3setERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecERKN4arma3vecE"></span><span id="_CPPv2N7MathOpt8IP_Param3setERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecERKN4arma3vecE"></span><span id="MathOpt::IP_Param::set__arma::sp_matCR.arma::sp_matCR.arma::vecCR.arma::vecCR.arma::vecCR"></span><span class="target" id="classMathOpt_1_1IP__Param_1a22eaee927dfeb9d2fa8c44c7584a86a5"></span><a class="reference internal" href="#_CPPv4N7MathOpt8IP_ParamE" title="MathOpt::IP_Param">IP_Param</a> &amp;<code class="sig-name descname">set</code><span class="sig-paren">(</span><em class="property">const</em> arma::sp_mat &amp;<em>C</em>, <em class="property">const</em> arma::sp_mat &amp;<em>B</em>, <em class="property">const</em> arma::vec &amp;<em>b</em>, <em class="property">const</em> arma::vec &amp;<em>c</em>, <em class="property">const</em> arma::vec &amp;<em>integers</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param3setERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecERKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Setting the data, while keeping the input objects intact. </p>
+<dd><p>A setter method with copy arguments. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A pointer to this </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">C</span></code>: Bi-linear term for x-y in the objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">B</span></code>: Matrix of constraints for the variables y </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code>: Vector of linear terms for y in the objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: Vector of RHS in the constraints </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_integers</span></code>: A vector containing the indexes of integer variables </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8IP_Param3setERRN4arma6sp_matERRN4arma6sp_matERRN4arma3vecERRN4arma3vecERRN4arma3vecE">
 <span id="_CPPv3N7MathOpt8IP_Param3setERRN4arma6sp_matERRN4arma6sp_matERRN4arma3vecERRN4arma3vecERRN4arma3vecE"></span><span id="_CPPv2N7MathOpt8IP_Param3setERRN4arma6sp_matERRN4arma6sp_matERRN4arma3vecERRN4arma3vecERRN4arma3vecE"></span><span id="MathOpt::IP_Param::set__arma::sp_matRR.arma::sp_matRR.arma::vecRR.arma::vecRR.arma::vecRR"></span><span class="target" id="classMathOpt_1_1IP__Param_1ab0993d2e9f6375e0df2be3699d166c10"></span><a class="reference internal" href="#_CPPv4N7MathOpt8IP_ParamE" title="MathOpt::IP_Param">IP_Param</a> &amp;<code class="sig-name descname">set</code><span class="sig-paren">(</span>arma::sp_mat &amp;&amp;<em>C</em>, arma::sp_mat &amp;&amp;<em>B</em>, arma::vec &amp;&amp;<em>b</em>, arma::vec &amp;&amp;<em>c</em>, arma::vec &amp;&amp;<em>integers</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param3setERRN4arma6sp_matERRN4arma6sp_matERRN4arma3vecERRN4arma3vecERRN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Faster means to set data. But the input objects might be corrupted now. </p>
+<dd><p>A move constructor. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A pointer to this </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">C</span></code>: Bi-linear term for x-y in the objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">B</span></code>: Matrix of constraints for the variables y </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code>: Vector of linear terms for y in the objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: Vector of RHS in the constraints </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_integers</span></code>: A vector containing the indexes of integer variables </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8IP_Param3setERK12QP_ObjectiveRK14QP_ConstraintsRKN4arma3vecE">
 <span id="_CPPv3N7MathOpt8IP_Param3setERK12QP_ObjectiveRK14QP_ConstraintsRKN4arma3vecE"></span><span id="_CPPv2N7MathOpt8IP_Param3setERK12QP_ObjectiveRK14QP_ConstraintsRKN4arma3vecE"></span><span id="MathOpt::IP_Param::set__QP_ObjectiveCR.QP_ConstraintsCR.arma::vecCR"></span><span class="target" id="classMathOpt_1_1IP__Param_1aecd3ba067787ac0ba31f9cf6462901f7"></span><a class="reference internal" href="#_CPPv4N7MathOpt8IP_ParamE" title="MathOpt::IP_Param">IP_Param</a> &amp;<code class="sig-name descname">set</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="structMathOpt_1_1QP__Objective.html#_CPPv4N7MathOpt12QP_ObjectiveE" title="MathOpt::QP_Objective">QP_Objective</a> &amp;<em>obj</em>, <em class="property">const</em> <a class="reference internal" href="structMathOpt_1_1QP__Constraints.html#_CPPv4N7MathOpt14QP_ConstraintsE" title="MathOpt::QP_Constraints">QP_Constraints</a> &amp;<em>cons</em>, <em class="property">const</em> arma::vec &amp;<em>integers</em> = {}<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param3setERK12QP_ObjectiveRK14QP_ConstraintsRKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>A copy constructor given a <a class="reference internal" href="structMathOpt_1_1QP__Objective.html#structMathOpt_1_1QP__Objective"><span class="std std-ref">QP_Objective</span></a> and <a class="reference internal" href="structMathOpt_1_1QP__Constraints.html#structMathOpt_1_1QP__Constraints"><span class="std std-ref">QP_Constraints</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A pointer to this </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">obj</span></code>: The objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cons</span></code>: The constraints object </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_integers</span></code>: A vector containing the indexes of integer variables </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8IP_Param3setERR12QP_ObjectiveRR14QP_ConstraintsRRN4arma3vecE">
 <span id="_CPPv3N7MathOpt8IP_Param3setERR12QP_ObjectiveRR14QP_ConstraintsRRN4arma3vecE"></span><span id="_CPPv2N7MathOpt8IP_Param3setERR12QP_ObjectiveRR14QP_ConstraintsRRN4arma3vecE"></span><span id="MathOpt::IP_Param::set__QP_ObjectiveRR.QP_ConstraintsRR.arma::vecRR"></span><span class="target" id="classMathOpt_1_1IP__Param_1a809043a4aa367429680f68dfcd9b0abc"></span><a class="reference internal" href="#_CPPv4N7MathOpt8IP_ParamE" title="MathOpt::IP_Param">IP_Param</a> &amp;<code class="sig-name descname">set</code><span class="sig-paren">(</span><a class="reference internal" href="structMathOpt_1_1QP__Objective.html#_CPPv4N7MathOpt12QP_ObjectiveE" title="MathOpt::QP_Objective">QP_Objective</a> &amp;&amp;<em>obj</em>, <a class="reference internal" href="structMathOpt_1_1QP__Constraints.html#_CPPv4N7MathOpt14QP_ConstraintsE" title="MathOpt::QP_Constraints">QP_Constraints</a> &amp;&amp;<em>cons</em>, arma::vec &amp;&amp;<em>integers</em> = {}<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param3setERR12QP_ObjectiveRR14QP_ConstraintsRRN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Setting the data with the inputs being a struct <a class="reference internal" href="structMathOpt_1_1QP__Objective.html#structMathOpt_1_1QP__Objective"><span class="std std-ref">MathOpt::QP_Objective</span></a> and struct <a class="reference internal" href="structMathOpt_1_1QP__Constraints.html#structMathOpt_1_1QP__Constraints"><span class="std std-ref">MathOpt::QP_Constraints</span></a>. </p>
+<dd><p>A move constructor given a <a class="reference internal" href="structMathOpt_1_1QP__Objective.html#structMathOpt_1_1QP__Objective"><span class="std std-ref">QP_Objective</span></a> and <a class="reference internal" href="structMathOpt_1_1QP__Constraints.html#structMathOpt_1_1QP__Constraints"><span class="std std-ref">QP_Constraints</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A pointer to this </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">obj</span></code>: The objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cons</span></code>: The constraints object </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_integers</span></code>: A vector containing the indexes of integer variables </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK7MathOpt8IP_ParameqERK8IP_Param">
 <span id="_CPPv3NK7MathOpt8IP_ParameqERK8IP_Param"></span><span id="_CPPv2NK7MathOpt8IP_ParameqERK8IP_Param"></span><span id="MathOpt::IP_Param::eq-operator__IP_ParamCRC"></span><span class="target" id="classMathOpt_1_1IP__Param_1ae39593ccc8c1e5c56957f235de390d54"></span>bool <code class="sig-name descname">operator==</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N7MathOpt8IP_ParamE" title="MathOpt::IP_Param">IP_Param</a> &amp;<em>IPG2</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt8IP_ParameqERK8IP_Param" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Compares two IP_param objects. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>True if the objects are identical </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">IPG2</span></code>: The second <a class="reference internal" href="#classMathOpt_1_1IP__Param"><span class="std std-ref">IP_Param</span></a> </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK7MathOpt8IP_Param16computeObjectiveERKN4arma3vecERKN4arma3vecEbd">
 <span id="_CPPv3NK7MathOpt8IP_Param16computeObjectiveERKN4arma3vecERKN4arma3vecEbd"></span><span id="_CPPv2NK7MathOpt8IP_Param16computeObjectiveERKN4arma3vecERKN4arma3vecEbd"></span><span id="MathOpt::IP_Param::computeObjective__arma::vecCR.arma::vecCR.b.doubleC"></span><span class="target" id="classMathOpt_1_1IP__Param_1a66f9ca66fa4db642f87dc8bbb529f237"></span>double <code class="sig-name descname">computeObjective</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>y</em>, <em class="property">const</em> arma::vec &amp;<em>x</em>, bool <em>checkFeas</em> = true, double <em>tol</em> = 1e-6<span class="sig-paren">)</span> <em class="property">const</em> <em class="property">override</em><a class="headerlink" href="#_CPPv4NK7MathOpt8IP_Param16computeObjectiveERKN4arma3vecERKN4arma3vecEbd" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Computes the objective value, given a vector <code class="docutils literal notranslate"><span class="pre">y</span></code> and a parameterizing vector <code class="docutils literal notranslate"><span class="pre">x</span></code>. </p>
+<dd><p>Computes <span class="math notranslate nohighlight">\((Cx)^Ty + c^Ty\)</span> given the input values <code class="docutils literal notranslate"><span class="pre">y</span></code> and <code class="docutils literal notranslate"><span class="pre">x</span></code>. <code class="docutils literal notranslate"><span class="pre">checkFeas</span></code> if <code class="docutils literal notranslate"><span class="pre">true</span></code>, checks if the given <span class="math notranslate nohighlight">\((x,y)\)</span> satisfies the constraints of the problem, namely <span class="math notranslate nohighlight">\(Ax + By \leq b\)</span>. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A double value for the objective </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code>: The values for the variables y </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: The values for the parameters x </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">checkFeas</span></code>: True if feasibility should be checked </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tol</span></code>: A numerical tolerance for the feasibility </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK7MathOpt8IP_Param4saveERKNSt6stringEb">
 <span id="_CPPv3NK7MathOpt8IP_Param4saveERKNSt6stringEb"></span><span id="_CPPv2NK7MathOpt8IP_Param4saveERKNSt6stringEb"></span><span id="MathOpt::IP_Param::save__ssCR.bC"></span><span class="target" id="classMathOpt_1_1IP__Param_1a216a417e35ae1e733814f1e548ce4ebb"></span>void <code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>filename</em>, bool <em>append</em><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">override</em><a class="headerlink" href="#_CPPv4NK7MathOpt8IP_Param4saveERKNSt6stringEb" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Writes a given parameterized Mathematical program to a set of files. Writes a given parameterized Mathematical program to a set of files. One file is written for each attribute namely. </p>
-<p><ol class="lowerroman simple">
-<li><p><a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1aae8144b23a29ea99d5ef793729438feb"><span class="std std-ref">MathOpt::MP_Param::Q</span></a></p></li>
-<li><p><a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1a13727398531ec805acd474fa5da89056"><span class="std std-ref">MathOpt::MP_Param::C</span></a></p></li>
-<li><p><a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1a69e39bfe4a58e5c43dbcb7ac16be3fe5"><span class="std std-ref">MathOpt::MP_Param::A</span></a></p></li>
-<li><p><a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1adb541edcb7083da9bde8e6615063acd3"><span class="std std-ref">MathOpt::MP_Param::B</span></a></p></li>
-<li><p><a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1a270fad22decf1dbdc2227ff9a4875e34"><span class="std std-ref">MathOpt::MP_Param::c</span></a></p></li>
-<li><p><a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1af6e726c09d1d43359c2dad586b0fb4d5"><span class="std std-ref">MathOpt::MP_Param::b</span></a></p></li>
-<li><p><a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1a5751cc26c1fdc100766f9216af72db97"><span class="std std-ref">MathOpt::MP_Param::Bounds</span></a></p></li>
-</ol>
-</p>
-<p>To contrast see, <a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1a5c7c74ccc5ecb6e98db390c6877f84a4"><span class="std std-ref">MathOpt::MP_Param::save</span></a> where all details are written to a single loadable file <dl class="simple">
+<dd><p>A save method for the <a class="reference internal" href="#classMathOpt_1_1IP__Param"><span class="std std-ref">IP_Param</span></a>. </p>
+<p><dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code>: The filename </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">append</span></code>: True if the content is appended </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">append</span></code>: If true, the file will be appended </p></li>
 </ul>
 </dd>
 </dl>
@@ -982,40 +1036,75 @@
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8IP_Param4loadERKNSt6stringEl">
 <span id="_CPPv3N7MathOpt8IP_Param4loadERKNSt6stringEl"></span><span id="_CPPv2N7MathOpt8IP_Param4loadERKNSt6stringEl"></span><span id="MathOpt::IP_Param::load__ssCR.l"></span><span class="target" id="classMathOpt_1_1IP__Param_1a483e079d939e6efc08d4c0196e49b4e7"></span>long <code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>filename</em>, long <em>pos</em> = 0<span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param4loadERKNSt6stringEl" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK7MathOpt8IP_Param14forceDataCheckEv">
-<span id="_CPPv3NK7MathOpt8IP_Param14forceDataCheckEv"></span><span id="_CPPv2NK7MathOpt8IP_Param14forceDataCheckEv"></span><span id="MathOpt::IP_Param::forceDataCheckC"></span><span class="target" id="classMathOpt_1_1IP__Param_1ad9a61bda242580660e92081b22ac4f5b"></span>void <code class="sig-name descname">forceDataCheck</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt8IP_Param14forceDataCheckEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N7MathOpt8IP_Param20updateModelObjectiveEKN4arma3vecE">
-<span id="_CPPv3N7MathOpt8IP_Param20updateModelObjectiveEKN4arma3vecE"></span><span id="_CPPv2N7MathOpt8IP_Param20updateModelObjectiveEKN4arma3vecE"></span><span id="MathOpt::IP_Param::updateModelObjective__arma::vecC"></span><span class="target" id="classMathOpt_1_1IP__Param_1ada1ae3f91dbdf6deb185dc9bde677e7f"></span>void <code class="sig-name descname">updateModelObjective</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param20updateModelObjectiveEKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N7MathOpt8IP_Param10getIPModelEb">
-<span id="_CPPv3N7MathOpt8IP_Param10getIPModelEb"></span><span id="_CPPv2N7MathOpt8IP_Param10getIPModelEb"></span><span id="MathOpt::IP_Param::getIPModel__b"></span><span class="target" id="classMathOpt_1_1IP__Param_1acc07063cfda1f4da3fc91e71de871b9b"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">getIPModel</code><span class="sig-paren">(</span>bool <em>relax</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param10getIPModelEb" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N7MathOpt8IP_Param10solveFixedEKN4arma3vecEb">
-<span id="_CPPv3N7MathOpt8IP_Param10solveFixedEKN4arma3vecEb"></span><span id="_CPPv2N7MathOpt8IP_Param10solveFixedEKN4arma3vecEb"></span><span id="MathOpt::IP_Param::solveFixed__arma::vecC.b"></span><span class="target" id="classMathOpt_1_1IP__Param_1a750d4a139bc8fec4ec5a6b50c880f28b"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">solveFixed</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec <em>x</em>, bool <em>solve</em> = false<span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param10solveFixedEKN4arma3vecEb" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Given a value for the parameters <span class="math notranslate nohighlight">\(x\)</span> in the definition of <a class="reference internal" href="#classMathOpt_1_1IP__Param"><span class="std std-ref">IP_Param</span></a>, returns a pointer to the parameterized MIP program . Note that the method <p>In terms of game theory, this can be viewed as </p>
-<em>the best response</em> for a set of decisions by other players. <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>a pointer to a copy of the model. In this way, valid cuts and cut pools are kept each time the method is invoked. <code class="docutils literal notranslate"><span class="pre">solve</span></code> is true whenever the model has to be solved</p>
+<dd><p>Loads the <a class="reference internal" href="#classMathOpt_1_1IP__Param"><span class="std std-ref">IP_Param</span></a> from a file. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The position after the <a class="reference internal" href="#classMathOpt_1_1IP__Param"><span class="std std-ref">IP_Param</span></a> </p>
+</dd>
+<dt><strong>Warning</strong></dt><dd><p>Call <a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1a1cda15da2419386f6228f0fff988a821"><span class="std std-ref">MP_Param(GRBEnv *env)</span></a> before loading Example usage: <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+        <span class="n">GRBEnv</span> <span class="n">Env</span><span class="p">;</span>
+        <span class="n">MathOpt</span><span class="o">::</span><span class="n">IP_Param</span> <span class="n">ip</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Env</span><span class="p">);</span>
+        <span class="n">ip</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;./dat/q1data.dat&quot;</span><span class="p">);</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">ip</span><span class="o">&lt;&lt;</span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+ </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code>: The filename </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pos</span></code>: The position of the <a class="reference internal" href="#classMathOpt_1_1IP__Param"><span class="std std-ref">IP_Param</span></a> in the file </p></li>
+</ul>
 </dd>
 </dl>
 </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7MathOpt8IP_Param10getIPModelEKN4arma3vecEb">
-<span id="_CPPv3N7MathOpt8IP_Param10getIPModelEKN4arma3vecEb"></span><span id="_CPPv2N7MathOpt8IP_Param10getIPModelEKN4arma3vecEb"></span><span id="MathOpt::IP_Param::getIPModel__arma::vecC.b"></span><span class="target" id="classMathOpt_1_1IP__Param_1aa7be2a71b5958978972c6164cb171f1b"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">getIPModel</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec <em>x</em>, bool <em>relax</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param10getIPModelEKN4arma3vecEb" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Given a value for the parameters <span class="math notranslate nohighlight">\(x\)</span> in the definition of <a class="reference internal" href="#classMathOpt_1_1IP__Param"><span class="std std-ref">IP_Param</span></a>, returns a pointer to the parameterized MIP program . Note that the method <p>In terms of game theory, this can be viewed as </p>
-<em>the best response</em> for a set of decisions by other players. <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>a pointer to a copy of the model. In this way, valid cuts and cut pools are kept each time the method is invoked. If <code class="docutils literal notranslate"><span class="pre">relax</span></code> is true, then the model is the linear relaxation of the MIP.</p>
+<dt id="_CPPv4N7MathOpt8IP_Param20updateModelObjectiveEN4arma3vecE">
+<span id="_CPPv3N7MathOpt8IP_Param20updateModelObjectiveEN4arma3vecE"></span><span id="_CPPv2N7MathOpt8IP_Param20updateModelObjectiveEN4arma3vecE"></span><span id="MathOpt::IP_Param::updateModelObjective__arma::vec"></span><span class="target" id="classMathOpt_1_1IP__Param_1ac76e539033d95877703c9171ce1d9c16"></span>void <code class="sig-name descname">updateModelObjective</code><span class="sig-paren">(</span>arma::vec <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param20updateModelObjectiveEN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This method updates the model objective in <a class="reference internal" href="#classMathOpt_1_1IP__Param_1a63062903806f710f9707dcb941aff195"><span class="std std-ref">IP_Param::IPModel</span></a> by setting x to <code class="docutils literal notranslate"><span class="pre">x</span></code>. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: The parametrized values of x </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N7MathOpt8IP_Param10solveFixedEN4arma3vecEb">
+<span id="_CPPv3N7MathOpt8IP_Param10solveFixedEN4arma3vecEb"></span><span id="_CPPv2N7MathOpt8IP_Param10solveFixedEN4arma3vecEb"></span><span id="MathOpt::IP_Param::solveFixed__arma::vec.b"></span><span class="target" id="classMathOpt_1_1IP__Param_1ad0f389de9660a7a4c4417d3c6aa0d7dc"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">solveFixed</code><span class="sig-paren">(</span>arma::vec <em>x</em>, bool <em>solve</em> = false<span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param10solveFixedEN4arma3vecEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Given a value for the parameters <span class="math notranslate nohighlight">\(x\)</span> in the definition of <a class="reference internal" href="#classMathOpt_1_1IP__Param"><span class="std std-ref">IP_Param</span></a>, returns a pointer to the parameterized MIP program . Note that the method. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a pointer to a copy of the model. In this way, valid cuts and cut pools are kept each time the method is invoked. In terms of game theory, this can be viewed as <em>the best response</em> for a set of decisions by other players. </p>
+</dd>
+<dt><strong>Return</strong></dt><dd><p>A pointer to the Gurobi model </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: The parametrized values of x </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">solve</span></code>: If the returned model is solved </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N7MathOpt8IP_Param10getIPModelEN4arma3vecEb">
+<span id="_CPPv3N7MathOpt8IP_Param10getIPModelEN4arma3vecEb"></span><span id="_CPPv2N7MathOpt8IP_Param10getIPModelEN4arma3vecEb"></span><span id="MathOpt::IP_Param::getIPModel__arma::vec.b"></span><span class="target" id="classMathOpt_1_1IP__Param_1ac940b3c9bee4ffcb7fc0bcbb08c0226b"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">getIPModel</code><span class="sig-paren">(</span>arma::vec <em>x</em>, bool <em>relax</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param10getIPModelEN4arma3vecEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Given a value for the parameters <span class="math notranslate nohighlight">\(x\)</span> in the definition of <a class="reference internal" href="#classMathOpt_1_1IP__Param"><span class="std std-ref">IP_Param</span></a>, returns a pointer to the parameterized MIP program . Note that the method. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a pointer to a copy of the model. In this way, valid cuts and cut pools are kept each time the method is invoked. If <code class="docutils literal notranslate"><span class="pre">relax</span></code> is true, then the model is the linear relaxation of the MIP. </p>
+</dd>
+<dt><strong>Return</strong></dt><dd><p>A pointer to the Gurobi model </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: The values for the parametrized x </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">relax</span></code>: True if the model relaxes integrality requirements </p></li>
+</ul>
 </dd>
 </dl>
 </p>
@@ -1024,8 +1113,18 @@
 <dl class="cpp function">
 <dt id="_CPPv4NK7MathOpt8IP_Param3KKTERN4arma6sp_matERN4arma6sp_matERN4arma3vecE">
 <span id="_CPPv3NK7MathOpt8IP_Param3KKTERN4arma6sp_matERN4arma6sp_matERN4arma3vecE"></span><span id="_CPPv2NK7MathOpt8IP_Param3KKTERN4arma6sp_matERN4arma6sp_matERN4arma3vecE"></span><span id="MathOpt::IP_Param::KKT__arma::sp_matR.arma::sp_matR.arma::vecRC"></span><span class="target" id="classMathOpt_1_1IP__Param_1a15daca419c541830f9b3046d4a8a3194"></span>unsigned int <code class="sig-name descname">KKT</code><span class="sig-paren">(</span>arma::sp_mat &amp;<em>M</em>, arma::sp_mat &amp;<em>N</em>, arma::vec &amp;<em>q</em><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">override</em><a class="headerlink" href="#_CPPv4NK7MathOpt8IP_Param3KKTERN4arma6sp_matERN4arma6sp_matERN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Compute the KKT conditions for the given IP relaxation, namely where integrality constraints are dropped. </p>
-<p>Writes the KKT condition of the parameterized IP As per the convention, y is the decision variable for the IP and that is parameterized in x The KKT conditions are <span class="math notranslate nohighlight">\(0 \leq y \perp My + Nx + q \geq 0\)</span> </p>
+<dd><p>Writes the KKT condition of the relaxation of the parameterized IP As per the convention, y is the decision variable for the IP and that is parameterized in x The KKT conditions are <span class="math notranslate nohighlight">\(0 \leq y \perp My + Nx + q \geq 0\)</span>. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>An int containing the rows of <code class="docutils literal notranslate"><span class="pre">M</span></code> </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">M</span></code>: The output M term </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">N</span></code>: The output N term </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">q</span></code>: The output q term </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 </div>
