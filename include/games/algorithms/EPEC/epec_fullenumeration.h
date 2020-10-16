@@ -16,7 +16,9 @@
 
 namespace Algorithms {
   namespace EPEC {
-	 ///@brief This class is responsible for the fully enumerative Algorithm
+	 /**
+	  * @brief This class manages the full enumeration algorithm for Game::EPEC objects
+	  */
 	 class FullEnumeration : public PolyBase {
 	 public:
 		FullEnumeration(GRBEnv *env, Game::EPEC *EPECObject) : PolyBase(env, EPECObject){};

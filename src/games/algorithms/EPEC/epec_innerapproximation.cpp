@@ -23,17 +23,22 @@
 
 void Algorithms::EPEC::InnerApproximation::solve() {
   /**
-	* Wraps the Algorithm with the postSolving operations
+	* @brief This is the high-level method that solves the problem with the inner approximation
+	* algorithm.
 	*/
   this->start();
   this->postSolving();
 }
 
+/**
+ * @brief Private main component of the algorithm.  Starting from some profitable deviations from an
+ * all-zero strategy vector, the algorithm computes the polyhedra containing such deviations, and
+ * add them to the approximation. If an approximate equilibrium is found, then the algorithms keeps
+ * adding polyhedra by profitable deviation. Otherwise, it adds a random number of
+ * Data::EPEC::DataObject::Aggressiveness polyhedra with the method
+ * Data::EPEC::DataObject::PolyhedraStrategy
+ */
 void Algorithms::EPEC::InnerApproximation::start() {
-  /**
-	* Given the referenced EPEC instance, this method solves it through the inner
-	* approximation Algorithm.
-	*/
   // Set the initial point for all countries as 0 and solve the respective LCPs?
   this->EPECObject->SolutionX.zeros(this->EPECObject->NumVariables);
   bool solved = {false};
@@ -174,24 +179,19 @@ void Algorithms::EPEC::InnerApproximation::start() {
   }
 }
 
-bool Algorithms::EPEC::InnerApproximation::addRandomPoly2All(unsigned int aggressiveLevel,
-																				 bool         stopOnSingleInfeasibility)
+
 /**
- * Makes a call to to Game::LCP::addAPoly for each member in
- * Game::EPEC::PlayersLCP and tries to add a polyhedron to get a better inner
- * approximation for the LCP. @p aggressiveLevel is the maximum number of
- * polyhedra it will try to add to each country. Setting it to an arbitrarily
- * high value will mimic complete enumeration.
- *
- * If @p stopOnSingleInfeasibility is true, then the function returns false and
- * aborts all operation as soon as it finds that it cannot add polyhedra to some
- * country. On the other hand if @p stopOnSingleInfeasibility is false, the
- * function returns false, only if it is not possible to add polyhedra to
- * <i>any</i> of the countries.
- * @returns true if successfully added the maximum possible number of polyhedra
- * not greater than aggressiveLevel.
+ * @brief  Makes a call to to MathOpt::PolyLCP::addAPoly for each player,  and tries to add a
+ * polyhedron to get a better inner approximation for the LCP. @p aggressiveLevel is the maximum
+ * number of polyhedra it will try to add to each player. Setting it to an arbitrarily high value
+ * will mimic complete enumeration.
+ * @param aggressiveLevel The maximum number of polyhedra to be added to each player
+ * @param stopOnSingleInfeasibility If set to true, the function will return false if it cannot add
+ * a single polyhedron to a country
+ * @return True when at least a polyhedron is added
  */
-{
+bool Algorithms::EPEC::InnerApproximation::addRandomPoly2All(unsigned int aggressiveLevel,
+																				 bool stopOnSingleInfeasibility) {
   BOOST_LOG_TRIVIAL(trace) << "Adding Random polyhedra to countries";
   bool infeasible{true};
   for (unsigned int i = 0; i < this->EPECObject->NumPlayers; i++) {
@@ -210,18 +210,19 @@ bool Algorithms::EPEC::InnerApproximation::addRandomPoly2All(unsigned int aggres
   return !infeasible;
 }
 
-bool Algorithms::EPEC::InnerApproximation::getAllDeviations(
-	 std::vector<arma::vec> &      deviations, ///< [out] The vector of deviations for all players
-	 const arma::vec &             guessSol,   ///< [in] The guess for the solution vector
-	 const std::vector<arma::vec> &prevDev ///<[in] The previous vector of deviations, if any exist.
-	 ) const
+
 /**
- * @brief Given a potential solution vector, returns a profitable deviation (if
- * it exists) for all players.
- * @return a vector of computed deviations, which empty if at least one
- * deviation cannot be computed @p prevDev can be empty
+ * @brief Given a potential solution vector @p guessSol, it returns the profitable deviations (if
+ * any) for all players in @p deviations
+ * @param deviations[out] The vector of deviations for all players
+ * @param guessSol [in] The guessed solution
+ * @param prevDev [in] The previous vector of deviations, if any exist.
+ * @return
  */
-{
+bool Algorithms::EPEC::InnerApproximation::getAllDeviations(
+	 std::vector<arma::vec> &      deviations,
+	 const arma::vec &             guessSol,
+	 const std::vector<arma::vec> &prevDev) const {
   deviations = std::vector<arma::vec>(this->EPECObject->NumPlayers);
 
   for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i) { // For each country
@@ -234,23 +235,17 @@ bool Algorithms::EPEC::InnerApproximation::getAllDeviations(
   return true;
 }
 
+
+/**
+ * @brief Given a vevtor of profitable deviations for all the players, it adds their corresponding
+ * polyhedra to the current approximation
+ * @param deviations  A vector of vectors containing the deviations
+ * @param infeasCheck  [out] If at least one player cannot add a polyhedron, the method places false
+ * in this output parameter
+ * @return The number of added polyhedra
+ */
 unsigned int Algorithms::EPEC::InnerApproximation::addDeviatedPolyhedron(
-	 const std::vector<arma::vec> &deviations, ///< devns.at(i) is a profitable deviation
-	 ///< for the i-th country from the current this->SolutionX
-	 bool &infeasCheck ///< Useful for the first iteration of iterativeNash. If
-							 ///< true, at least one player has no polyhedron that can
-							 ///< be added. In the first iteration, this translates to
-							 ///< x
-	 ) const {
-  /**
-	* Given a profitable deviation for each country, adds <i>a</i> polyhedron in
-	* the feasible region of each country to the corresponding country's
-	* Game::LCP object (this->PlayersLCP.at(i)) 's vector of feasible
-	* polyhedra.
-	*
-	* Naturally, this makes the inner approximation of the Game::LCP better, by
-	* including one additional polyhedron.
-	*/
+	 const std::vector<arma::vec> &deviations, bool &infeasCheck) const {
 
   infeasCheck        = false;
   unsigned int added = 0;

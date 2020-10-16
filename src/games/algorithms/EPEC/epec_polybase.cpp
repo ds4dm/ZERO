@@ -15,15 +15,13 @@
 #include "zero.h"
 #include <boost/log/trivial.hpp>
 
-bool Algorithms::EPEC::PolyBase::isSolved(unsigned int *countryNumber,
-														arma::vec *   profitableDeviation,
-														double        tol) const
+
 /**
  * @brief Checks if Game::EPEC is solved, otherwise it returns a proof.
  * @details
  * Analogous to Game::NashGame::isSolved but checks if the given Game::EPEC is
- * solved. If it is solved, then returns true. If not, it returns the country
- * which has a profitable deviation in @p countryNumber and the profitable
+ * solved. If it is, then returns true. If not, it returns the country
+ * which has a profitable deviation in @p player and the profitable
  * deviation in @p profitableDeviation. @p Tolerance is the tolerance for the
  * check. If the <i> improved objective </i> after the deviation is less than @p
  * Tolerance, then it is not considered as a profitable deviation.
@@ -33,7 +31,16 @@ bool Algorithms::EPEC::PolyBase::isSolved(unsigned int *countryNumber,
  *
  * @warning Setting @p Tolerance = 0 might even reject a real solution as not
  * solved. This is due to Numerical issues arising from the LCP solver (Gurobi).
+ * @param player The id of the player
+ * @param profitableDeviation An output (possibly non-changed) vector containing the profitable
+ * deviation for the given player
+ * @param tol A numerical tolerance
+ * @return True if there is no profitable deviation, namely the player is optimal
  */
+bool Algorithms::EPEC::PolyBase::isSolved(unsigned int *player,
+														arma::vec *   profitableDeviation,
+														double        tol) const
+
 {
   if (!this->EPECObject->TheNashGame)
 	 return false;
@@ -42,7 +49,7 @@ bool Algorithms::EPEC::PolyBase::isSolved(unsigned int *countryNumber,
   if (tol < 0)
 	 tol = this->EPECObject->Stats.AlgorithmData.DeviationTolerance.get();
   this->EPECObject->TheNashGame->isSolved(
-		this->EPECObject->SolutionX, *countryNumber, *profitableDeviation, tol);
+		this->EPECObject->SolutionX, *player, *profitableDeviation, tol);
   arma::vec objvals =
 		this->EPECObject->TheNashGame->computeQPObjectiveValues(this->EPECObject->SolutionX, true);
   for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i) {
@@ -50,7 +57,7 @@ bool Algorithms::EPEC::PolyBase::isSolved(unsigned int *countryNumber,
 	 if (val == GRB_INFINITY)
 		return false;
 	 if (std::abs(val - objvals.at(i)) > tol) {
-		*countryNumber = i;
+		*player = i;
 		BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::PolyBase::isSolved: deviation for player " << i
 										 << " -- of " << std::abs(val - objvals.at(i));
 		return false;
@@ -59,6 +66,12 @@ bool Algorithms::EPEC::PolyBase::isSolved(unsigned int *countryNumber,
   return true;
 }
 
+/**
+ * @brief Checks whether the current Game::EPEC instance is solved for any player, up to a numerical
+ * tolerance
+ * @param tol The numerical tolerance
+ * @return True if the game is solved
+ */
 bool Algorithms::EPEC::PolyBase::isSolved(double tol) const {
   unsigned int countryNumber;
   arma::vec    ProfDevn;
@@ -66,51 +79,60 @@ bool Algorithms::EPEC::PolyBase::isSolved(double tol) const {
   return ret;
 }
 
+/**
+ * @brief Get the position of the @p k -th follower variable of the @p i -th leader, in the @p j -th
+ * feasible polyhedron.
+ * @param i The leader index
+ * @param j The polyhedron index
+ * @param k The follower variable index
+ * @return The position for the queried attribute
+ */
 unsigned int Algorithms::EPEC::PolyBase::getPositionLeadFollPoly(const unsigned int i,
 																					  const unsigned int j,
 																					  const unsigned int k) const {
-  /**
-	* Get the position of the k-th follower variable of the i-th leader, in the
-	* j-th feasible polyhedron.
-	*
-	* Indeed it should hold that @f$ j < @f$
-	* Algorithms::EPEC::PolyBase::getNumPolyLead(i)
-	*/
   const auto LeaderStart = this->EPECObject->TheNashGame->getPrimalLoc(i);
   const auto FollPoly    = this->PolyLCP.at(i).get()->convPolyPosition(k, true);
   return LeaderStart + FollPoly + j;
 }
 
+
+/**
+ * @brief Get the position of the @p k -th leader variable of the @p i  leader, in the @p j-th
+ * feasible polyhedron.
+ * @param i The leader index
+ * @param j The polyhedron index
+ * @param k The leader variable index
+ * @return The position for the queried attribute
+ */
 unsigned int Algorithms::EPEC::PolyBase::getPositionLeadLeadPoly(const unsigned int i,
 																					  const unsigned int j,
 																					  const unsigned int k) const {
-  /**
-	* Get the position of the k-th leader variable of the i-th leader, in the
-	* j-th feasible polyhedron.
-	*
-	* Indeed it should hold that @f$ j < @f$
-	* Algorithms::EPEC::PolyBase::getNumPolyLead(i)
-	*/
   const auto LeaderStart = this->EPECObject->TheNashGame->getPrimalLoc(i);
   const auto FollPoly    = this->PolyLCP.at(i).get()->convPolyPosition(k, true);
   return LeaderStart + FollPoly + this->PolyLCP.at(i)->getLStart() + j;
 }
 
+
+/**
+ * @brief Get the number of polyhedra used in the approximation for the @p i leader
+ * @param i The leader index
+ * @return The queried  number of polyhedra
+ */
 unsigned long int Algorithms::EPEC::PolyBase::getNumPolyLead(const unsigned int i) const {
-  /**
-	* Get the number of polyhedra used in the inner approximation of the
-	* feasible region of the i-th leader.*
-	*/
   return this->PolyLCP.at(i).get()->convNumPoly(true);
 }
 
+
+/**
+ * @brief Get the position of the probability associated with the @p k -th polyhedron
+ * (@p k -th pure strategy) of the @p i -th leader. However, if the leader has an
+ * inner approximation with exactly 1 polyhedron, it returns 0;
+ * @param i The leader index
+ * @param k The polyhedron index
+ * @return The probability position associated with the queried values
+ */
 unsigned int Algorithms::EPEC::PolyBase::getPositionProbab(const unsigned int i,
 																			  const unsigned int k) const {
-  /**
-	* Get the position of the probability associated with the k-th polyhedron
-	* (k-th pure strategy) of the i-th leader. However, if the leader has an
-	* inner approximation with exactly 1 polyhedron, it returns 0;
-	*/
   const auto PolyProbab = static_cast<MathOpt::PolyLCP *>(this->EPECObject->PlayersLCP.at(i).get())
 										->convPolyWeight(k, true);
   if (PolyProbab == 0)
@@ -119,12 +141,12 @@ unsigned int Algorithms::EPEC::PolyBase::getPositionProbab(const unsigned int i,
   return LeaderStart + PolyProbab;
 }
 
+/**
+ * @brief Checks if the current equilibrium strategy in Game::EPEC is a pure strategy
+ * @param tol A numerical tolerance
+ * @return True if it is a pure equilibrium strategy
+ */
 bool Algorithms::EPEC::PolyBase::isPureStrategy(const double tol) const {
-  /**
-	* Checks if the returned strategy leader is a pure strategy for the leader
-	* i. The strategy is considered a pure strategy, if it is played with a
-	* probability greater than 1 - Tolerance;
-	*/
   for (unsigned int i = 0; i < this->EPECObject->getNumPlayers(); ++i) {
 	 if (!isPureStrategy(i, tol))
 		return false;
@@ -132,12 +154,14 @@ bool Algorithms::EPEC::PolyBase::isPureStrategy(const double tol) const {
   return true;
 }
 
+
+/**
+ * @brief Checks whether the current strategy for the @p i player is a pure strategy
+ * @param i  The index of the player
+ * @param tol A numerical tolerance
+ * @return True if it is a pure equilibrium strategy
+ */
 bool Algorithms::EPEC::PolyBase::isPureStrategy(const unsigned int i, const double tol) const {
-  /**
-	* Checks if the returned strategy leader is a pure strategy for the leader
-	* i. The strategy is considered a pure strategy, if it is played with a
-	* probability greater than 1 - Tolerance;
-	*/
   const unsigned int nPoly = this->getNumPolyLead(i);
   for (unsigned int j = 0; j < nPoly; j++) {
 	 const double probab = this->getValProbab(i, j);
@@ -147,13 +171,15 @@ bool Algorithms::EPEC::PolyBase::isPureStrategy(const unsigned int i, const doub
   return false;
 }
 
-std::vector<unsigned int> Algorithms::EPEC::PolyBase::mixedStrategyPoly(const unsigned int i,
-																								const double tol) const
 /**
- * Returns the indices of polyhedra feasible for the leader, from which
- * strategies are played with probability greater than Tolerance.
+ * @brief Returns the indices of polyhedra feasible for the leader, from which strategies are played
+ * with probability greater than the tolerance
+ * @param i  The index of the player
+ * @param tol A numerical tolerance
+ * @return The indices of polyhedra with active probabilities
  */
-{
+std::vector<unsigned int> Algorithms::EPEC::PolyBase::mixedStrategyPoly(const unsigned int i,
+																								const double tol) const {
   std::vector<unsigned int> polys{};
   const unsigned int        nPoly = this->getNumPolyLead(i);
   for (unsigned int j = 0; j < nPoly; j++) {
@@ -165,25 +191,34 @@ std::vector<unsigned int> Algorithms::EPEC::PolyBase::mixedStrategyPoly(const un
   return polys;
 }
 
+
+/**
+ * @brief The probability associated with the @p k -th polyhedron of the @p i -th leader
+ * @param i The index of the player
+ * @param k The index of the polyhedron
+ * @return The queried attribute
+ */
 double Algorithms::EPEC::PolyBase::getValProbab(const unsigned int i, const unsigned int k) const {
-  /**
-	* Get the probability associated with the k-th polyhedron
-	* (k-th pure strategy) of the i-th leader.
-	*/
   const unsigned int varname{this->getPositionProbab(i, k)};
   if (varname == 0)
 	 return 1;
   return this->EPECObject->SolutionX.at(varname);
 }
 
+
+
+/**
+ * @brief For the @p i -th leader, gets the @p k -th pure strategy at position @p j
+ * @param i The leader index
+ * @param j The position index
+ * @param k The pure strategy index
+ * @param tol A numerical tolerance
+ * @return The queried attribute
+ */
 double Algorithms::EPEC::PolyBase::getValLeadFollPoly(const unsigned int i,
 																		const unsigned int j,
 																		const unsigned int k,
 																		const double       tol) const {
-  /**
-	* For the i-th leader, gets the k-th pure strategy for i-th leader at
-	* position j
-	*/
   if (!this->EPECObject->LCPModel)
 	 throw ZEROException(ZEROErrorCode::Assertion, "LCPModel not made nor solved");
   const double probab = this->getValProbab(i, k);
@@ -193,14 +228,20 @@ double Algorithms::EPEC::PolyBase::getValLeadFollPoly(const unsigned int i,
 	 return this->EPECObject->SolutionX.at(this->getPositionLeadFollPoly(i, j, k)) / probab;
 }
 
+
+
+/**
+ * @brief For the @p i -th leader, gets the @p k -th pure strategy at leader position @p j
+ * @param i The leader index
+ * @param j The position index
+ * @param k The pure strategy index
+ * @param tol A numerical tolerance
+ * @return The queried attribute
+ */
 double Algorithms::EPEC::PolyBase::getValLeadLeadPoly(const unsigned int i,
 																		const unsigned int j,
 																		const unsigned int k,
 																		const double       tol) const {
-  /**
-	* For the i-th leader, gets the k-th pure strategy for i-th leader at
-	* non-follower leader position j
-	*/
   if (!this->EPECObject->LCPModel)
 	 throw ZEROException(ZEROErrorCode::Assertion, "LCPModel not made nor solved");
   const double probab = this->getValProbab(i, k);
@@ -210,13 +251,13 @@ double Algorithms::EPEC::PolyBase::getValLeadLeadPoly(const unsigned int i,
 	 return this->EPECObject->SolutionX.at(this->getPositionLeadLeadPoly(i, j, k)) / probab;
 }
 
+
+/**
+ * @brief Creates an LCP for the inner-full approximation schemes of MathOpt::PolyLCP that
+ * explicitly searches for pure-strategy equilibria. The original LCP is moved to
+ * Game::EPEC::LCPModelBase
+ */
 void Algorithms::EPEC::PolyBase::makeThePureLCP() {
-  /**
-	* Given that Game::EPEC::LCPModel is filled with the final LCP,
-	* directs the search toward a pure nash EQ. If such an equilibrium does not
-	* exist, then the model will return anyway a MNE. The original LCP is
-	* stored in the field Game::EPEC::LCPModelBase.
-	*/
   try {
 	 BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makeThePureLCP: editing the LCP model.";
 	 this->EPECObject->LCPModelBase =

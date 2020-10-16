@@ -17,12 +17,13 @@
 #include <gurobi_c++.h>
 #include <set>
 
+/**
+ * @brief Solves the Game::EPEC instance with the algorithm by excluding some combinations of
+ * polyhedra that may have been already tested.
+ * @param excludeList A set containing the combinations that should be excluded
+ */
 void Algorithms::EPEC::CombinatorialPNE::solveWithExcluded(
 	 const std::vector<std::set<unsigned long int>> &excludeList) {
-  /** @brief Solve the referenced EPEC instance with the Combinatorial
-	*pure-equilibrium Algorithm
-	* @p exclude-list contains the set of excluded polyhedra combinations.
-	*/
   if (this->EPECObject->Stats.AlgorithmData.TimeLimit.get() > 0) {
 	 // Checking the function hasn't been called from InnerApproximation
 	 if (this->EPECObject->Stats.NumIterations.get() <= 0) {
@@ -38,15 +39,19 @@ void Algorithms::EPEC::CombinatorialPNE::solveWithExcluded(
   this->postSolving();
 }
 
+/**
+ * @brief This method initializes the algorithm recursion with @p combination. Each element is the
+ * index of a polyhedron for the corresponding player. If the index is -1, then the recursion will
+ * generate childs for any polyhedron of the given player. Otherwise, if there exist a positive
+ * value @f$v@f$ in a location @f$l@f$, player @f$l@f$ will only play strategies in the polyhedron
+ * @f$v@f$.
+ * @param combination A set of either -1 or positive numbers corresponding to the polyhedron of each
+ * player. -1 will recurse
+ * @param excludeList A set of combinations of polyhedra that should be excluded from the search.
+ */
 void Algorithms::EPEC::CombinatorialPNE::combPNE(
 	 std::vector<long int>                           combination,
 	 const std::vector<std::set<unsigned long int>> &excludeList) {
-  /** @brief Starting from @p combination, the methods builds the recursion to
-	* generate the subproblems associated with all the existing combinations of
-	* polyhedra. Then, it solves each subproblem, and if a solution is found, it
-	* terminates and  stores the solution  into the referenced EPEC object. @p
-	* excludeList contains the excluded combinations of polyhedra.
-	*/
   if ((this->EPECObject->Stats.Status.get() == ZEROStatus::NashEqFound &&
 		 this->EPECObject->Stats.PureNashEquilibrium.get()) ||
 		this->EPECObject->Stats.Status.get() == ZEROStatus::TimeLimit)

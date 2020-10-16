@@ -20,22 +20,22 @@ namespace Algorithms {
   namespace EPEC {
 	 class PolyBase {
 		/**
-		 *  @brief This is the abstract class of Algorithms for full enumeration,
-		 * inner approximation, and Combinatorial PNE. It provides a constructor where
-		 * the Gurobi environment and the EPEC are passed. This is an abstract class.
+		 *  @brief This is the abstract class manages the algorithms for Game::EPEC. Since they are
+		 * all based on MathOpt::PolyLCP, the class keeps a local copy of objects of that class. It
+		 * provides a constructor where the Gurobi environment and the EPEC are passed.
 		 */
 	 protected:
 		GRBEnv *    Env;        ///< A pointer to the Gurobi Environment
-		Game::EPEC *EPECObject; ///< A pointer to the original LCP object
-		std::vector<std::shared_ptr<MathOpt::PolyLCP>> PolyLCP{};
+		Game::EPEC *EPECObject; ///< A pointer to the Game::EPEC instance
+		std::vector<std::shared_ptr<MathOpt::PolyLCP>> PolyLCP{}; ///< Local MathOpt::PolyLCP objects
 
+
+		/**
+		 * @brief This method is called after the PolyBase::solve operation. It fills statistics and
+		 * can be forcefully overridden by inheritors. The responsibility for calling this method is
+		 * left to the inheritor.
+		 */
 		void postSolving() {
-		  /**
-			* Perform postSolving operations.
-			* For instance, it updates the statistics associated with the feasible
-			* polyhedra. The responsability for calling this method is left to the
-			* inheritor
-			*/
 		  std::vector<unsigned int> feasible;
 		  for (unsigned int i = 0; i < this->EPECObject->NumPlayers; i++)
 			 feasible.push_back(this->PolyLCP.at(i)->getFeasiblePolyhedra());
@@ -44,11 +44,13 @@ namespace Algorithms {
 		}
 
 	 public:
+		/**
+		 * @brief The standard constructor for a PolyBase algorithm. It creates local MathOpt::PolyLCP
+		 * objects to work with.
+		 * @param env The pointer to the Gurobi environment
+		 * @param EPECObject The pointer to the Game::EPEC object
+		 */
 		PolyBase(GRBEnv *env, Game::EPEC *EPECObject) {
-		  /*
-			*  The method will reassign the LCP fields in the EPEC object to new
-			* PolyLCP objects
-			*/
 		  this->EPECObject = EPECObject;
 		  this->Env        = env;
 		  this->PolyLCP    = std::vector<std::shared_ptr<MathOpt::PolyLCP>>(EPECObject->NumPlayers);
@@ -58,9 +60,9 @@ namespace Algorithms {
 			 EPECObject->PlayersLCP.at(i) = this->PolyLCP.at(i);
 		  }
 		}
-		virtual void solve() = 0; ///< A method to solve the EPEC
-		bool
-			  isSolved(unsigned int *countryNumber, arma::vec *profitableDeviation, double tol = -1) const;
+
+		virtual void solve() = 0; ///< A general method to solve problems
+		bool isSolved(unsigned int *player, arma::vec *profitableDeviation, double tol = -1) const;
 		bool isSolved(double tol = -1) const; ///< A method to check whether the EPEC is solved or
 														  ///< not, given a numerical tolerance
 		void makeThePureLCP();

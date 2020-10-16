@@ -23,7 +23,12 @@
 
 namespace Algorithms {
   namespace EPEC {
-	 ///@brief This class is responsible for the inner Approximation
+	 /**
+	  * @brief This class manages the inner enumeration algorithm for Game::EPEC objects. Since each
+	  * player's feasible region is a MathOpt::PolyLCP with finitely many polyhedra, each of these
+	  * region is increasingly expanded with this algorithm. The expansion happens either by adding
+	  * polyhedra containing profitable moves, or by adding random polyhedra.
+	  */
 	 class InnerApproximation : public PolyBase {
 
 	 public:

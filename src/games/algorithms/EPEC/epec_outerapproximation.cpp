@@ -19,15 +19,22 @@
 #include <set>
 #include <string>
 
+/**
+ * @brief Overrides Algorithms::EPEC::PolyBase::isSolved with a custom method.
+ * @param tol Numerical tolerance. Currently not useful
+ * @return True if the current outer approximation solution is feasible (then, it is solved)
+ */
 bool Algorithms::EPEC::OuterApproximation::isSolved(double tol) const { return this->Feasible; }
 
+
+/**
+ * @brief Checks whether the current outer approximation equilibrium is feasible and solves the
+ * problem. Otherwise, it adde cuts or generate useful information for thext iterations
+ * @param addedCuts [out] is true if at least a cut has been added
+ * @return
+ */
 bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
 
-  /**
-	* Check whether the current outer approximation equilibrium is feasible and
-	* solves the outer approximation. Otherwise, add cuts, or generate useful
-	* points for next iterations.
-	*/
 
   // First, we have a NE from Games::computeNashEq
   if (!this->EPECObject->NashEquilibrium)
@@ -88,7 +95,8 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
 
 		// Check if we need to add the point to the vertex storage.
 		arma::vec vertex = bestResponse.subvec(0, xOfI.size() - 1);
-		vertex.print("Best Response");
+		//@todo debug
+		// vertex.print("Best Response");
 		if (!Utils::containsRow(*this->Trees.at(i)->getV(), vertex, this->Tolerance)) {
 		  this->Trees.at(i)->addVertex(vertex);
 		  BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::isFeasible: "
@@ -126,13 +134,18 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
   return result;
 }
 
+
+/**
+ * @brief Updates the membership linear-program in the relative
+ * Algorithms::EPEC::OuterApproximation::Trees for the player @p player
+ * @param player The player index
+ * @param xOfI  The point for which the membership LP should be updated for
+ * @param normalization  True if the LP is normalized
+ */
 void Algorithms::EPEC::OuterApproximation::updateMembership(const unsigned int &player,
 																				const arma::vec &   xOfI,
 																				bool                normalization) {
-  /**
-	* @brief Updates the membership LP in the Tree for the @p player, the point @p xOfI, and
-	* @p normalization
-	*/
+
 
   auto PlayerTree = Trees.at(player);
   MathOpt::getDualMembershipLP(PlayerTree->MembershipLP,
@@ -153,7 +166,8 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 
 	 auto V = this->Trees.at(player)->V;
 
-	 xOfI.print("Point to separate: ");
+	 //@todo debug
+	 // xOfI.print("Point to separate: ");
 
 	 this->updateMembership(player, xOfI, true);
 	 auto convexModel = *this->Trees.at(player)->MembershipLP;
@@ -186,7 +200,8 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 			 support.at(v) =
 				  convexModel.getConstrByName("V_" + std::to_string(v)).get(GRB_DoubleAttr_Pi);
 		  }
-		  support.print("MNE Support: ");
+		  //@todo debug
+		  // support.print("MNE Support: ");
 		  if (support.max() == 1)
 			 this->Trees.at(player)->setPure();
 		  return true;
@@ -208,7 +223,8 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 
 		  for (unsigned int i = 0; i < xOfI.size(); i++)
 			 cutLHS.at(i) = convexModel.getVarByName("y_" + std::to_string(i)).get(GRB_DoubleAttr_X);
-		  cutLHS.print("Separating hyperplane: ");
+		  //@todo debug
+		  // cutLHS.print("Separating hyperplane: ");
 
 		  // Optimize the resulting inequality over the original feasible set
 		  auto       leaderModel = this->EPECObject->respond(player, x);
@@ -266,7 +282,8 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 				  v[i] = leaderModel->getVarByName("x_" + std::to_string(i)).get(GRB_DoubleAttr_X);
 				}
 
-				v.print("Vertex found: ");
+				//@todo debug
+				// v.print("Vertex found: ");
 				if (Utils::containsRow(*this->Trees.at(player)->getV(), v, this->Tolerance)) {
 				  BOOST_LOG_TRIVIAL(warning)
 						<< "Algorithms::EPEC::OuterApproximation::separationOracle: "
@@ -277,7 +294,8 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 				  // throw;
 				} else {
 				  this->Trees.at(player)->addVertex(v);
-				  v.print("Vertex");
+				  //@todo debug
+				  // v.print("Vertex");
 				  BOOST_LOG_TRIVIAL(info)
 						<< "Algorithms::EPEC::OuterApproximation::separationOracle: "
 							"adding vertex for Player. "
@@ -318,6 +336,13 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
   return false;
 }
 
+
+/**
+ * @brief Adds a value cut to @p player MathOpt::LCP
+ * @param player The index of the player
+ * @param RHS The RHS of the value cut
+ * @param xMinusI The strategies of the other players
+ */
 void Algorithms::EPEC::OuterApproximation::addValueCut(const unsigned int player,
 																		 const double       RHS,
 																		 arma::vec          xMinusI) {
@@ -333,12 +358,11 @@ void Algorithms::EPEC::OuterApproximation::addValueCut(const unsigned int player
 	 this->PolyLCP.at(player)->addCustomCuts(-cutLHS, arma::vec{-RHS});
 }
 
+/**
+ * @brief Given the Game::EPEC instance, this methos solves it through the outer approximation
+ * scheme.
+ */
 void Algorithms::EPEC::OuterApproximation::solve() {
-  /**
-	* Given the referenced EPEC instance, this method solves it through the outer
-	* approximation Algorithm mainly with the hybrid branching rule, with
-	* lookahead feature.
-	*/
   // Set the initial point for all countries as 0 and solve the respective LCPs?
   this->EPECObject->SolutionX.zeros(this->EPECObject->NumVariables);
   bool solved = {false};
@@ -483,16 +507,17 @@ void Algorithms::EPEC::OuterApproximation::solve() {
   }
 }
 
+
+/**
+ * @brief Given the player index @p player, gets a feasibility quadratic problem enforcing @p x to
+ * be in the feasible region of the Game::EPEC::PlayersQP
+ * @param player  The player index
+ * @param x The strategy for the player
+ * @return A Gurobi pointer to the model
+ */
 std::unique_ptr<GRBModel> Algorithms::EPEC::OuterApproximation::getFeasQP(const unsigned int player,
 																								  const arma::vec    x) {
-  /**
-	* Given @p player -- containing the id of the player, returns the feasibility
-	*QP associated with the current QP made and the point @p x. In other words,
-	*it returns the model deciding whether @p x belongs to the feasible region of
-	*the QP or not. Note that Game::make_player_QP(player) has to be called
-	*before, otherwise the method will return an error.
-	*
-	**/
+
 
   // this->EPECObject->getXMinusI(this->EPECObject->SolutionX, player, xMinusI);
   arma::vec zeros;
@@ -511,17 +536,20 @@ std::unique_ptr<GRBModel> Algorithms::EPEC::OuterApproximation::getFeasQP(const 
   return model;
 }
 
+
+/**
+ * @brief Given @p player -- containing the id of the player, returns the branching
+ * decision for that node given by a hybrid branching rule. In
+ * particular, the method return the complementarity id maximizing a
+ *combination of constraint violations and number of violated constraints.
+ *@p node contains the tree's node. It isn't const since a branching candidate
+ *can be pruned if infeasibility is detected
+ * @param player The player id
+ * @param node The pointer to the incumbent OuterTree::Node
+ * @return The branching candidate. Negative if none
+ */
 int Algorithms::EPEC::OuterApproximation::hybridBranching(const unsigned int player,
 																			 OuterTree::Node *  node) {
-  /**
-	* Given @p player -- containing the id of the player, returns the branching
-	* decision for that node given by a hybrid branching rule. In
-	* particular, the method return the complementarity id maximizing a
-	*combination of constraint violations and number of violated constraints.
-	*@p node contains the tree's node. It isn't const since a branching candidate
-	*can be pruned if infeasibility is detected
-	*
-	**/
 
   BOOST_LOG_TRIVIAL(info) << "OuterApproximation::hybridBranching: Player " << player;
 
@@ -583,17 +611,20 @@ int Algorithms::EPEC::OuterApproximation::hybridBranching(const unsigned int pla
   return bestId;
 }
 
+
+
+/**
+ * @brief Given @p player -- containing the id of the player, returns the branching
+ * decision for that node, where the complementarity is the most (possibly)
+ * infeasible one (with both x and z positive). In particular, the method
+ * return the (positive) id of the complementarity equation if there is a
+ * feasible branching decision at @p node, and a negative value otherwise.
+ * @param player The player id
+ * @param node The pointer to the incumbent OuterTree::Node
+ * @return The branching candidate. Negative if none
+ */
 int Algorithms::EPEC::OuterApproximation::infeasibleBranching(const unsigned int     player,
 																				  const OuterTree::Node *node) {
-  /**
-	* Given @p player -- containing the id of the player, returns the branching
-	* decision for that node, where the complementarity is the most (possibly)
-	* infeasible one (with both x and z positive). In particular, the method
-	* return the (positive) id of the complementarity equation if there is a
-	* feasible branching decision at @p node, and a negative value otherwise.
-	* @return a positive int with the id of the complementarity to branch on, or
-	* a negative value if none exists.
-	*/
 
   int result = -1;
   if (this->EPECObject->NashEquilibrium) {
@@ -623,17 +654,19 @@ int Algorithms::EPEC::OuterApproximation::infeasibleBranching(const unsigned int
   return result;
 }
 
+/**
+ * @brief Given @p player -- containing the id of the player, returns the branching
+ * decision for that node, where the complementarity helps to cut off a
+ * possible deviation . In particular, the method return the (positive) id of
+ * the complementarity equation if there is a feasible branching decision at
+ * @p node, and a negative value otherwise.
+ * @param player The player id
+ * @param node The pointer to the incumbent OuterTree::Node
+ * @return The branching candidate. Negative if none
+ */
 int Algorithms::EPEC::OuterApproximation::deviationBranching(const unsigned int     player,
 																				 const OuterTree::Node *node) {
-  /**
-	* Given @p player -- containing the id of the player, returns the branching
-	* decision for that node, where the complementarity helps to cut off a
-	* possible deviation . In particular, the method return the (positive) id of
-	* the complementarity equation if there is a feasible branching decision at
-	* @p node, and a negative value otherwise.
-	* @return a positive int with the id of the complementarity to branch on, or
-	* a negative value if none exists.
-	*/
+
 
   int result = -1;
   if (this->EPECObject->NashEquilibrium) {
@@ -655,6 +688,17 @@ int Algorithms::EPEC::OuterApproximation::deviationBranching(const unsigned int 
   return result;
 }
 
+
+/**
+ * @brief Given @p player -- containing the id of the player, returns the branching
+ * decision for that node, with no complementarity condition enforced. In
+ * particular, the method return the (positive) id of the complementarity
+ * equation if there is a feasible branching decision at @p node, and a
+ * negative value otherwise.
+ * @param player The player id
+ * @param node The pointer to the incumbent OuterTree::Node
+ * @return The branching candidate. Negative if none
+ */
 int Algorithms::EPEC::OuterApproximation::getFirstBranchLocation(const unsigned int     player,
 																					  const OuterTree::Node *node) {
   /**
@@ -701,19 +745,27 @@ int Algorithms::EPEC::OuterApproximation::getFirstBranchLocation(const unsigned 
   return pos;
 }
 
+
+
+/**
+ * @brief Given @p player -- containing the id of the player -- and @p node
+ * containing a node, returns the branching decision for that node, with
+ * respect to the current node. In particular, the method return the
+ * (positive) id of the complementarity equation if there is a feasible
+ * branching decision at @p node, and a negative value otherwise.
+ * @param player The player id
+ * @param node The pointer to the incumbent OuterTree::Node
+ * @return A vector of 4 ints with the branching location given by the most
+ * Algorithms::EPEC::OuterApproximation::infeasibleBranching,
+ * Algorithms::EPEC::OuterApproximation::deviationBranching,
+ * Algorithms::EPEC::OuterApproximation::hybridBranching, and
+ * Algorithms::EPEC::OuterApproximation::getFirstBranchLocation, respectively. If an int is
+ * negative, there is no real candidate.
+ */
 std::vector<int>
 Algorithms::EPEC::OuterApproximation::getNextBranchLocation(const unsigned int player,
 																				OuterTree::Node *  node) {
-  /**
-	* Given @p player -- containing the id of the player -- and @p node
-	* containing a node, returns the branching decision for that node, with
-	* respect to the current node. In particular, the method return the
-	* (positive) id of the complementarity equation if there is a feasible
-	* branching decision at @p node, and a negative value otherwise.
-	* @return a vector of 4 ints with the branching location given by the most
-	* infeasible branching, deviation branching, hybrid branching, and the
-	* firstlocation branching, respectively
-	*/
+
   std::vector<int> decisions = {-1, -1, -1, -1};
   decisions.at(0)            = this->infeasibleBranching(player, node);
   decisions.at(1)            = this->deviationBranching(player, node);
@@ -742,11 +794,12 @@ Algorithms::EPEC::OuterApproximation::getNextBranchLocation(const unsigned int p
   return decisions;
 }
 
+
+/**
+ * @brief Prints a log message containing the encoding at the current outer
+ * approximation iteration
+ */
 void Algorithms::EPEC::OuterApproximation::printCurrentApprox() {
-  /**
-	* Returns a log message containing the encoding at the current outer
-	* approximation iteration
-	*/
   BOOST_LOG_TRIVIAL(info) << "Current Node Approximation:";
   for (unsigned int p = 0; p < this->EPECObject->NumPlayers; ++p) {
 	 std::stringstream msg;
@@ -758,10 +811,12 @@ void Algorithms::EPEC::OuterApproximation::printCurrentApprox() {
   }
 }
 
+/**
+ * @brief  Given the vector of branching candidates from
+ * Algorithms::EPEC::OuterApproximation::getNextBranchLocation, prints a sum up of them
+ * @param vector Output of Algorithms::EPEC::OuterApproximation::getNextBranchLocation
+ */
 void Algorithms::EPEC::OuterApproximation::printBranchingLog(std::vector<int> vector) {
-  /**
-	* Given the vector of branching logs, prints a sum up of the decision taken
-	*/
   BOOST_LOG_TRIVIAL(info) << "Current Branching Log:";
   BOOST_LOG_TRIVIAL(info) << "\tInfeasibleBranching: " << vector.at(0);
   BOOST_LOG_TRIVIAL(info) << "\tDeviationBranching: " << vector.at(1);
@@ -769,6 +824,11 @@ void Algorithms::EPEC::OuterApproximation::printBranchingLog(std::vector<int> ve
   BOOST_LOG_TRIVIAL(info) << "\tFirstAvail: " << vector.at(3);
 }
 
+/**
+ * @brief Checks whether the current solution is a pure-strategy nash equilibrium
+ * @param tol A numerical tolerance. Currently not used
+ * @return True if the strategy is a pure nash equilibrium
+ */
 bool Algorithms::EPEC::OuterApproximation::isPureStrategy(double tol) const {
   if (!this->Feasible)
 	 return false;
@@ -781,11 +841,16 @@ bool Algorithms::EPEC::OuterApproximation::isPureStrategy(double tol) const {
   }
 }
 
+
+
+/**
+ * @brief Given the parent node address @p parent, the @p idComp to branch
+	on, and the @p id, creates a new node
+ * @param parent The parent node
+ * @param idComp The id of the node
+ * @param id The The branching candidate
+ */
 Algorithms::EPEC::OuterTree::Node::Node(Node &parent, unsigned int idComp, unsigned long int id) {
-  /**
-	* Given the parent node address @p parent, the @p idComp to branch
-	* on, and the @p id, creates a new node
-	*/
   this->IdComps                      = std::vector<unsigned int>{idComp};
   this->Encoding                     = parent.Encoding;
   this->Encoding.at(idComp)          = true;
@@ -795,23 +860,27 @@ Algorithms::EPEC::OuterTree::Node::Node(Node &parent, unsigned int idComp, unsig
   this->Parent                       = &parent;
 }
 
+/**
+ * @brief Constructor for the root node, given the encoding size, namely the number of
+ * complementarity equations
+ * @param encSize The number of complementarities
+ */
 Algorithms::EPEC::OuterTree::Node::Node(unsigned int encSize) {
-  /**
-	* Constructor for the root node, given the encoding size, namely the number
-	* of complementarity equations
-	*/
   this->Encoding          = std::vector<bool>(encSize, 0);
   this->Id                = 0;
   this->AllowedBranchings = std::vector<bool>(encSize, true);
 }
 
+
+/**
+ * @brief If a complementarity equation @p location  has proven to be infeasible
+ * or it isn't a candidate for branching, this method prevents any further
+ * branching on it for the node @p node.
+ * @param node The node pointer
+ * @param location The denied branching location
+ */
 void Algorithms::EPEC::OuterTree::denyBranchingLocation(Algorithms::EPEC::OuterTree::Node &node,
 																		  const unsigned int &location) {
-  /**
-	* If a complementarity equation @p location  has proven to be infeasible
-	* or it isn't a candidate for branching, this method prevents any further
-	* branching on it for the node @p node.
-	*/
   if (location >= this->EncodingSize)
 	 throw ZEROException(ZEROErrorCode::OutOfRange, "idComp is larger than the encoding size");
   if (!node.AllowedBranchings.at(location))
@@ -820,27 +889,17 @@ void Algorithms::EPEC::OuterTree::denyBranchingLocation(Algorithms::EPEC::OuterT
   node.AllowedBranchings.at(location) = false;
 }
 
-void Algorithms::EPEC::OuterTree::denyBranchingLocations(Algorithms::EPEC::OuterTree::Node &node,
-																			const std::vector<int> &locations) {
-  /**
-	* If a complementarity equation @p location  has proven to be infeasible
-	* or it isn't a candidate for branching, this method prevents any further
-	* branching on it for the node @p node.
-	*/
-  for (auto &location : locations) {
-	 if (location < 0)
-		throw ZEROException(ZEROErrorCode::OutOfRange, "The branching location is negative");
-	 this->denyBranchingLocation(node, location);
-  }
-}
 
+/**
+ * @brief Given the @p idComp and the parent node @p t, creates a single
+ * child by branching on @p idComp.
+ * @param idComp The branching id for the complementarity
+ * @param t The pointer to the node
+ * @return The node counter stored in a single-element vector
+ */
 std::vector<long int>
 Algorithms::EPEC::OuterTree::singleBranch(const unsigned int                 idComp,
 														Algorithms::EPEC::OuterTree::Node &t) {
-  /**
-	* Given the @p idComp and the parent node @p t, creates a single
-	* child by branching on @p idComp.
-	*/
   if (idComp >= this->EncodingSize)
 	 throw ZEROException(ZEROErrorCode::OutOfRange, "idComp is larger than the encoding size");
   if (t.Encoding.at(idComp) != 0) {
@@ -855,36 +914,37 @@ Algorithms::EPEC::OuterTree::singleBranch(const unsigned int                 idC
   return std::vector<long int>{this->NodeCounter - 1};
 }
 
-std::vector<long int> Algorithms::EPEC::OuterTree::multipleBranch(const std::vector<int> idsComp,
-																						Node &                 t) {
-  /**
-	* Given the @p idComp and the parent node @p t, creates a single
-	* child by branching on @p idComp.
-	*/
-  for (auto &idComp : idsComp) {
-	 if (idComp >= this->EncodingSize)
-		throw ZEROException(ZEROErrorCode::OutOfRange, "idComp is larger than the encoding size");
-	 if (t.Encoding.at(idComp) != 0) {
-		BOOST_LOG_TRIVIAL(warning)
-			 << "Tree: cannot branch on this complementary, since it already has "
-				 "been processed.";
-		return std::vector<long int>{-1};
-	 }
-  }
-  auto child = Node(t, idsComp, this->nextIdentifier());
-
-  this->Nodes.push_back(child);
-  return std::vector<long int>{this->NodeCounter - 1};
+/**
+ * @brief Adds a vertex to OuterTree::V
+ * @param vertex The vector containing the vertex
+ */
+void Algorithms::EPEC::OuterTree::addVertex(arma::vec vertex) {
+  if (vertex.size() != this->V.n_cols && this->V.n_rows > 0)
+	 throw ZEROException(ZEROErrorCode::OutOfRange, "Ill-dimensioned vertex");
+  this->V = arma::join_cols(this->V, arma::sp_mat{vertex.t()});
 }
 
+/**
+ * @brief Adds a ray to OuterTree::R
+ * @param ray The vector containing the ray
+ */
+void Algorithms::EPEC::OuterTree::addRay(arma::vec ray) {
+  if (ray.size() != this->R.n_cols && this->R.n_rows > 0)
+	 throw ZEROException(ZEROErrorCode::OutOfRange, "Ill-dimensioned ray");
+  this->R = arma::join_cols(this->R, arma::sp_mat{ray.t()});
+}
+
+/**
+ * @brief Given the parent node address @p parent, the @p idsComp to branch
+ * on (containing all the complementarities ids), and the @p id, creates a
+ * new node
+ * @param parent The parent node pointer
+ * @param idsComp  The vector of branching locations
+ * @param id  The node id for the children
+ */
 Algorithms::EPEC::OuterTree::Node::Node(Node &            parent,
 													 std::vector<int>  idsComp,
 													 unsigned long int id) {
-  /**
-	* Given the parent node address @p parent, the @p idsComp to branch
-	* on (containing all the complementarities ids), and the @p id, creates a
-	* new node
-	*/
   this->IdComps           = std::vector<unsigned int>();
   this->Encoding          = parent.Encoding;
   this->AllowedBranchings = parent.AllowedBranchings;

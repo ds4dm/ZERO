@@ -15,10 +15,10 @@
 #include "mathopt/lcp/poly_lcp.h"
 #include <boost/log/trivial.hpp>
 
+/**
+ * @brief Solves the Game::EPEC by full enumeration.
+ */
 void Algorithms::EPEC::FullEnumeration::solve() {
-  /** @brief Solve the referenced EPEC instance with the full enumeration
-	* @p excludelist contains the set of excluded polyhedra combinations.
-	*/
   for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i)
 	 this->PolyLCP.at(i)->exactFullEnumeration(true);
   this->EPECObject->makePlayersQPs();
