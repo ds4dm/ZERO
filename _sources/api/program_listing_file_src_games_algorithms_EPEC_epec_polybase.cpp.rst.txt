@@ -27,9 +27,11 @@ Program Listing for File epec_polybase.cpp
    #include "zero.h"
    #include <boost/log/trivial.hpp>
    
-   bool Algorithms::EPEC::PolyBase::isSolved(unsigned int *countryNumber,
+   
+   bool Algorithms::EPEC::PolyBase::isSolved(unsigned int *player,
                                                            arma::vec *   profitableDeviation,
                                                            double        tol) const
+   
    {
      if (!this->EPECObject->TheNashGame)
         return false;
@@ -38,7 +40,7 @@ Program Listing for File epec_polybase.cpp
      if (tol < 0)
         tol = this->EPECObject->Stats.AlgorithmData.DeviationTolerance.get();
      this->EPECObject->TheNashGame->isSolved(
-           this->EPECObject->SolutionX, *countryNumber, *profitableDeviation, tol);
+           this->EPECObject->SolutionX, *player, *profitableDeviation, tol);
      arma::vec objvals =
            this->EPECObject->TheNashGame->computeQPObjectiveValues(this->EPECObject->SolutionX, true);
      for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i) {
@@ -46,7 +48,7 @@ Program Listing for File epec_polybase.cpp
         if (val == GRB_INFINITY)
            return false;
         if (std::abs(val - objvals.at(i)) > tol) {
-           *countryNumber = i;
+           *player = i;
            BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::PolyBase::isSolved: deviation for player " << i
                                             << " -- of " << std::abs(val - objvals.at(i));
            return false;
@@ -70,6 +72,7 @@ Program Listing for File epec_polybase.cpp
      return LeaderStart + FollPoly + j;
    }
    
+   
    unsigned int Algorithms::EPEC::PolyBase::getPositionLeadLeadPoly(const unsigned int i,
                                                                                          const unsigned int j,
                                                                                          const unsigned int k) const {
@@ -78,9 +81,11 @@ Program Listing for File epec_polybase.cpp
      return LeaderStart + FollPoly + this->PolyLCP.at(i)->getLStart() + j;
    }
    
+   
    unsigned long int Algorithms::EPEC::PolyBase::getNumPolyLead(const unsigned int i) const {
      return this->PolyLCP.at(i).get()->convNumPoly(true);
    }
+   
    
    unsigned int Algorithms::EPEC::PolyBase::getPositionProbab(const unsigned int i,
                                                                                  const unsigned int k) const {
@@ -100,6 +105,7 @@ Program Listing for File epec_polybase.cpp
      return true;
    }
    
+   
    bool Algorithms::EPEC::PolyBase::isPureStrategy(const unsigned int i, const double tol) const {
      const unsigned int nPoly = this->getNumPolyLead(i);
      for (unsigned int j = 0; j < nPoly; j++) {
@@ -111,8 +117,7 @@ Program Listing for File epec_polybase.cpp
    }
    
    std::vector<unsigned int> Algorithms::EPEC::PolyBase::mixedStrategyPoly(const unsigned int i,
-                                                                                                   const double tol) const
-   {
+                                                                                                   const double tol) const {
      std::vector<unsigned int> polys{};
      const unsigned int        nPoly = this->getNumPolyLead(i);
      for (unsigned int j = 0; j < nPoly; j++) {
@@ -124,12 +129,15 @@ Program Listing for File epec_polybase.cpp
      return polys;
    }
    
+   
    double Algorithms::EPEC::PolyBase::getValProbab(const unsigned int i, const unsigned int k) const {
      const unsigned int varname{this->getPositionProbab(i, k)};
      if (varname == 0)
         return 1;
      return this->EPECObject->SolutionX.at(varname);
    }
+   
+   
    
    double Algorithms::EPEC::PolyBase::getValLeadFollPoly(const unsigned int i,
                                                                            const unsigned int j,
@@ -144,6 +152,8 @@ Program Listing for File epec_polybase.cpp
         return this->EPECObject->SolutionX.at(this->getPositionLeadFollPoly(i, j, k)) / probab;
    }
    
+   
+   
    double Algorithms::EPEC::PolyBase::getValLeadLeadPoly(const unsigned int i,
                                                                            const unsigned int j,
                                                                            const unsigned int k,
@@ -156,6 +166,7 @@ Program Listing for File epec_polybase.cpp
      else
         return this->EPECObject->SolutionX.at(this->getPositionLeadLeadPoly(i, j, k)) / probab;
    }
+   
    
    void Algorithms::EPEC::PolyBase::makeThePureLCP() {
      try {

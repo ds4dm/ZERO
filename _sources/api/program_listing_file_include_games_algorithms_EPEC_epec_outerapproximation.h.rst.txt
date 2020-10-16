@@ -49,13 +49,10 @@ Program Listing for File epec_outerapproximation.h
              Node(Node &parent, unsigned int idComp, unsigned long int id);
              Node(Node &parent, std::vector<int> idComps, unsigned long int id);
    
-             inline std::vector<unsigned int> getIdComps() const {
-                return this->IdComps;
-             }                                                           
-             inline unsigned long int getId() const { return this->Id; } 
              inline unsigned long int getCumulativeBranches() const {
                 return std::count(this->AllowedBranchings.begin(), this->AllowedBranchings.end(), false);
-             } 
+             }
+   
              inline std::vector<bool> getEncoding() const {
                 return this->Encoding;
              } 
@@ -64,14 +61,13 @@ Program Listing for File epec_outerapproximation.h
                 return this->AllowedBranchings;
              } 
    
-             inline Node *getParent() const {
-                return this->Parent;
-             } 
    
            private:
-             std::vector<unsigned int> IdComps;  
-             std::vector<bool>         Encoding; 
-             std::vector<bool> AllowedBranchings; 
+             std::vector<unsigned int> IdComps; 
+   
+             std::vector<bool> Encoding;
+   
+             std::vector<bool> AllowedBranchings;
              unsigned long int Id;     
              Node *            Parent; 
            };
@@ -79,10 +75,12 @@ Program Listing for File epec_outerapproximation.h
         private:
            Node         Root         = Node(0); 
            unsigned int EncodingSize = 0;       
-           unsigned int      NodeCounter = 1; 
-           std::vector<Node> Nodes{};         
-           bool isPure{false};
-           bool isFeasible{false};
+           unsigned int NodeCounter = 1; 
+   
+           std::vector<Node> Nodes{};
+           bool isPure{false}; 
+           bool isFeasible{
+                false}; 
    
            unsigned int nextIdentifier() {
              this->NodeCounter++;
@@ -90,8 +88,9 @@ Program Listing for File epec_outerapproximation.h
            } 
    
         protected:
-           std::unique_ptr<GRBModel> MembershipLP; 
-           arma::sp_mat              V{}; 
+           std::unique_ptr<GRBModel> MembershipLP;
+   
+           arma::sp_mat V{};
            arma::sp_mat R{}; 
            unsigned int VertexCounter = 0; 
            unsigned int RayCounter    = 0; 
@@ -107,53 +106,61 @@ Program Listing for File epec_outerapproximation.h
            inline void resetFeasibility() {
              this->isPure     = false;
              this->isFeasible = false;
-           }
+           } 
    
-           inline bool getPure() const { return this->isPure; }
+           inline bool getPure() const {
+             return this->isPure;
+           } 
    
-           inline void setFeasible() { this->isFeasible = true; }
+           inline void setFeasible() {
+             this->isFeasible = true;
+           } 
    
-           inline void setPure() { this->isPure = true; }
+           inline void setPure() { this->isPure = true; } 
    
            const inline unsigned int getEncodingSize() {
              return this->EncodingSize;
            } 
    
-           inline const arma::sp_mat *getV() { return &this->V; }
+           inline const arma::sp_mat *getV() { return &this->V; } 
    
-           inline const arma::sp_mat *getR() { return &this->R; }
+           inline const arma::sp_mat *getR() { return &this->R; } 
    
-           inline const unsigned int getVertexCount() { return this->VertexCounter; }
-           inline const unsigned int getRayCount() { return this->RayCounter; }
+           inline const unsigned int getVertexCount() {
+             return this->VertexCounter;
+           } 
+           inline const unsigned int getRayCount() {
+             return this->RayCounter;
+           } 
    
-           inline const unsigned int getNodeCount() { return this->NodeCounter; }
+           inline const unsigned int getNodeCount() {
+             return this->NodeCounter;
+           } 
    
-           inline void addVertex(arma::vec vertex) {
-             this->V = arma::join_cols(this->V, arma::sp_mat{vertex.t()});
-           }
    
-           inline void addRay(arma::vec ray) {
-             this->R = arma::join_cols(this->R, arma::sp_mat{ray.t()});
-           }
+           inline void addVertex(arma::vec vertex);
+   
+           inline void addRay(arma::vec ray);
    
            inline Node *const getRoot() { return &this->Root; } 
    
-           inline std::vector<Node> *getNodes() { return &this->Nodes; };
+           inline std::vector<Node> *getNodes() { return &this->Nodes; }; 
    
            void denyBranchingLocation(Node &node, const unsigned int &location);
-           void denyBranchingLocations(Node &node, const std::vector<int> &locations);
    
            std::vector<long int> singleBranch(const unsigned int idComp, Node &t);
-   
-           std::vector<long int> multipleBranch(const std::vector<int> idsComp, Node &t);
         };
    
         class OuterApproximation : public PolyBase {
    
         public:
            OuterApproximation(GRBEnv *env, Game::EPEC *EPECObject) : PolyBase(env, EPECObject){};
-           double getTol() const { return Tolerance; }
-           void   setTol(double tol) { this->Tolerance = tol; }
+           double getTol() const {
+             return this->Tolerance;
+           } 
+           void setTol(double tol) {
+             this->Tolerance = tol;
+           } 
    
            void solve() override;
            void printCurrentApprox();
@@ -166,10 +173,10 @@ Program Listing for File epec_outerapproximation.h
    
    
         private:
-           std::vector<OuterTree *>       Trees;
-           std::vector<OuterTree::Node *> Incumbent;
-           bool                           Feasible{false};
-           double                         Tolerance = 1e-6;
+           std::vector<OuterTree *>       Trees; 
+           std::vector<OuterTree::Node *> Incumbent; 
+           bool   Feasible{false};                   
+           double Tolerance = 1e-6;                  
    
            std::vector<int> getNextBranchLocation(const unsigned int player, OuterTree::Node *node);
            int getFirstBranchLocation(const unsigned int player, const OuterTree::Node *node);

@@ -850,18 +850,16 @@
 
 namespace MathOpt {
   std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, const QP_Param &amp;Q);
-  class QP_Param : public MP_Param
-  // Shape of C is Ny\times Nx
-  {
+  class QP_Param : public MP_Param {
   private:
      // Gurobi environment and model
      GRBModel Model;
-     bool     madeyQy;
+     bool     MadeyQy;
 
      int makeyQy();
 
   public: // Constructors
-     explicit QP_Param(GRBEnv *env = nullptr) : MP_Param(env), madeyQy{false}, Model{(*env)} {
+     explicit QP_Param(GRBEnv *env = nullptr) : MP_Param(env), MadeyQy{false}, Model{(*env)} {
         this-&gt;size();
      }
 
@@ -872,14 +870,14 @@ namespace MathOpt {
                  arma::vec    c,
                  arma::vec    b,
                  GRBEnv *     env = nullptr)
-          : MP_Param(env), madeyQy{false}, Model{(*env)} {
-        this-&gt;madeyQy = false;
+          : MP_Param(env), MadeyQy{false}, Model{(*env)} {
+        this-&gt;MadeyQy = false;
         this-&gt;set(Q, C, A, B, c, b);
         this-&gt;size();
         this-&gt;forceDataCheck();
      };
 
-     QP_Param(const QP_Param &amp;Qu) : MP_Param(Qu), Model{Qu.Model}, madeyQy{Qu.madeyQy} {
+     QP_Param(const QP_Param &amp;Qu) : MP_Param(Qu), Model{Qu.Model}, MadeyQy{Qu.MadeyQy} {
         this-&gt;size();
      };
 

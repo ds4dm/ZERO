@@ -38,9 +38,7 @@ Program Listing for File epec_combinatorialpne.h
    
         class CombinatorialPNE : public PolyBase {
         public:
-           CombinatorialPNE(GRBEnv *env, Game::EPEC *EPECObject, bool poly = true)
-                : PolyBase(env, EPECObject){};
-           ;
+           CombinatorialPNE(GRBEnv *env, Game::EPEC *EPECObject) : PolyBase(env, EPECObject){};
            void solve() { this->solveWithExcluded(std::vector<std::set<unsigned long int>>{}); }
            void solveWithExcluded(const std::vector<std::set<unsigned long int>> &excludeList = {});
    

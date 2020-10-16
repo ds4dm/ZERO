@@ -869,7 +869,7 @@ bool MathOpt::QP_Param::operator==(const QP_Param &amp;Q2) const {
 
 int MathOpt::QP_Param::makeyQy()
 {
-  if (this-&gt;madeyQy)
+  if (this-&gt;MadeyQy)
      return 0;
   GRBVar y[this-&gt;Ny];
   for (unsigned int i = 0; i &lt; Ny; i++)
@@ -890,7 +890,7 @@ int MathOpt::QP_Param::makeyQy()
   }
   Model.setObjective(yQy, GRB_MINIMIZE);
   Model.update();
-  this-&gt;madeyQy = true;
+  this-&gt;MadeyQy = true;
   return 0;
 }
 
@@ -967,7 +967,7 @@ MathOpt::QP_Param &amp;MathOpt::QP_Param::set(const arma::sp_mat &amp;Q,
                                                         const arma::vec &amp;   c,
                                                         const arma::vec &amp;   b)
 {
-  this-&gt;madeyQy = false;
+  this-&gt;MadeyQy = false;
   MP_Param::set(Q, C, A, B, c, b);
   return *this;
 }
@@ -979,7 +979,7 @@ MathOpt::QP_Param &amp;MathOpt::QP_Param::set(arma::sp_mat &amp;&amp;Q,
                                                         arma::vec &amp;&amp;   c,
                                                         arma::vec &amp;&amp;   b)
 {
-  this-&gt;madeyQy = false;
+  this-&gt;MadeyQy = false;
   MP_Param::set(Q, C, A, B, c, b);
   return *this;
 }

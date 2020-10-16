@@ -844,35 +844,47 @@
 <dl class="cpp class">
 <dt id="_CPPv4N7MathOpt8IP_ParamE">
 <span id="_CPPv3N7MathOpt8IP_ParamE"></span><span id="_CPPv2N7MathOpt8IP_ParamE"></span><span id="MathOpt::IP_Param"></span><span class="target" id="classMathOpt_1_1IP__Param"></span><em class="property">class </em><code class="sig-prename descclassname">MathOpt<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">IP_Param</code> : <em class="property">public</em> MathOpt::<a class="reference internal" href="classMathOpt_1_1MP__Param.html#_CPPv4N7MathOpt8MP_ParamE" title="MathOpt::MP_Param">MP_Param</a><a class="headerlink" href="#_CPPv4N7MathOpt8IP_ParamE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>This class handles parametrized integer programs. </p>
-<p>Represents a Parameterized QP as <div class="math notranslate nohighlight">
+<dd><p>This class handles parametrized integer programs, and inherits from <a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param"><span class="std std-ref">MP_Param</span></a>. A parametrized Integer Program is defined as as <div class="math notranslate nohighlight">
 \[ \min_y c^Ty + (Cx)^T y \]</div>
  Subject to <div class="math notranslate nohighlight">
 \[\begin{split}\begin{eqnarray} By &amp;\leq&amp; b \\ y &amp;\geq&amp; 0 \\ y_i &amp;\in&amp; &amp;\mathbb{Z}&amp; &amp;\forall&amp; i &amp;\in&amp; I \end{eqnarray}\end{split}\]</div>
- </p>
+ Where the shape of C is Ny Nx. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8IP_Param8IP_ParamEP6GRBEnv">
 <span id="_CPPv3N7MathOpt8IP_Param8IP_ParamEP6GRBEnv"></span><span id="_CPPv2N7MathOpt8IP_Param8IP_ParamEP6GRBEnv"></span><span id="MathOpt::IP_Param::IP_Param__GRBEnvP"></span><span class="target" id="classMathOpt_1_1IP__Param_1a3462b6f8f73d14cdaf8e6ced0c1dc5da"></span><code class="sig-name descname">IP_Param</code><span class="sig-paren">(</span>GRBEnv *<em>env</em> = nullptr<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param8IP_ParamEP6GRBEnv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Initialize only the size. Everything else is empty (can be updated later) </p>
+<dd><p>A constructor initializing only the size. Everything else is empty (can be updated later) </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">env</span></code>: The pointer to the Gurobi environment </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8IP_Param8IP_ParamEN4arma6sp_matEN4arma6sp_matEN4arma3vecEN4arma3vecEN4arma3vecEP6GRBEnv">
 <span id="_CPPv3N7MathOpt8IP_Param8IP_ParamEN4arma6sp_matEN4arma6sp_matEN4arma3vecEN4arma3vecEN4arma3vecEP6GRBEnv"></span><span id="_CPPv2N7MathOpt8IP_Param8IP_ParamEN4arma6sp_matEN4arma6sp_matEN4arma3vecEN4arma3vecEN4arma3vecEP6GRBEnv"></span><span id="MathOpt::IP_Param::IP_Param__arma::sp_mat.arma::sp_mat.arma::vec.arma::vec.arma::vec.GRBEnvP"></span><span class="target" id="classMathOpt_1_1IP__Param_1a061c7618c53b992aec0d22afb67fd555"></span><code class="sig-name descname">IP_Param</code><span class="sig-paren">(</span>arma::sp_mat <em>C</em>, arma::sp_mat <em>B</em>, arma::vec <em>b</em>, arma::vec <em>c</em>, arma::vec <em>_integers</em>, GRBEnv *<em>env</em> = nullptr<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param8IP_ParamEN4arma6sp_matEN4arma6sp_matEN4arma3vecEN4arma3vecEN4arma3vecEP6GRBEnv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Set data at construct time. </p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK7MathOpt8IP_Param11getIntegersEv">
 <span id="_CPPv3NK7MathOpt8IP_Param11getIntegersEv"></span><span id="_CPPv2NK7MathOpt8IP_Param11getIntegersEv"></span><span id="MathOpt::IP_Param::getIntegersC"></span><span class="target" id="classMathOpt_1_1IP__Param_1adf4974882e3e6a064e8cc2b57e00124c"></span>arma::vec <code class="sig-name descname">getIntegers</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt8IP_Param11getIntegersEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Read-only getter to <a class="reference internal" href="#classMathOpt_1_1IP__Param_1a446487e93fdc3cddbee256dac99a2c6e"><span class="std std-ref">IP_Param::Integers</span></a>. </p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8IP_Param8finalizeEv">
 <span id="_CPPv3N7MathOpt8IP_Param8finalizeEv"></span><span id="_CPPv2N7MathOpt8IP_Param8finalizeEv"></span><span id="MathOpt::IP_Param::finalize"></span><span class="target" id="classMathOpt_1_1IP__Param_1a551cbd1d23a9dee94d55144f3149a9ac"></span>bool <code class="sig-name descname">finalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param8finalizeEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Finalize the <a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param"><span class="std std-ref">MP_Param</span></a> object. </p>
+<dd><p>Finalizes the <a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param"><span class="std std-ref">MP_Param</span></a> object. Can be overriden by inheritors. </p>
+<p>Finalizes the <a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param"><span class="std std-ref">MP_Param</span></a> object, computing the object sizes and eventually shedding trivial bound constraints.</p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>True if the object is Finalized and checks are passed. </p>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -893,13 +905,21 @@
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8IP_Param8IP_ParamERK8IP_Param">
 <span id="_CPPv3N7MathOpt8IP_Param8IP_ParamERK8IP_Param"></span><span id="_CPPv2N7MathOpt8IP_Param8IP_ParamERK8IP_Param"></span><span id="MathOpt::IP_Param::IP_Param__IP_ParamCR"></span><span class="target" id="classMathOpt_1_1IP__Param_1a5b3c69e1aaf283425fd1164355e53bdc"></span><code class="sig-name descname">IP_Param</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N7MathOpt8IP_Param8IP_ParamERK8IP_Param" title="MathOpt::IP_Param::IP_Param">IP_Param</a> &amp;<em>ipg</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param8IP_ParamERK8IP_Param" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Copy constructor. </p>
+<dd><p>A copy constructor from anoter <a class="reference internal" href="#classMathOpt_1_1IP__Param"><span class="std std-ref">IP_Param</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ipg</span></code>: The model to be copied </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8IP_Param6setEnvEP6GRBEnv">
 <span id="_CPPv3N7MathOpt8IP_Param6setEnvEP6GRBEnv"></span><span id="_CPPv2N7MathOpt8IP_Param6setEnvEP6GRBEnv"></span><span id="MathOpt::IP_Param::setEnv__GRBEnvP"></span><span class="target" id="classMathOpt_1_1IP__Param_1ad88739b3e708a90212f9b4e2deef9602"></span>void <code class="sig-name descname">setEnv</code><span class="sig-paren">(</span>GRBEnv *<em>env</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param6setEnvEP6GRBEnv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Setter to IP_Param::env. </p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8IP_Param3setERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecERKN4arma3vecE">
@@ -936,29 +956,32 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK7MathOpt8IP_Param10isPlayableERK8IP_Param">
-<span id="_CPPv3NK7MathOpt8IP_Param10isPlayableERK8IP_Param"></span><span id="_CPPv2NK7MathOpt8IP_Param10isPlayableERK8IP_Param"></span><span id="MathOpt::IP_Param::isPlayable__IP_ParamCRC"></span><span class="target" id="classMathOpt_1_1IP__Param_1a0125b0c1a01019a41c4dceef11e1bdb9"></span>bool <code class="sig-name descname">isPlayable</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N7MathOpt8IP_ParamE" title="MathOpt::IP_Param">IP_Param</a> &amp;<em>P</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt8IP_Param10isPlayableERK8IP_Param" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Checks if the current object can play a game with another <a class="reference internal" href="#classMathOpt_1_1IP__Param"><span class="std std-ref">MathOpt::IP_Param</span></a> object <code class="docutils literal notranslate"><span class="pre">P</span></code>. </p>
-</dd></dl>
-
-<dl class="cpp function">
 <dt id="_CPPv4NK7MathOpt8IP_Param4saveERKNSt6stringEb">
 <span id="_CPPv3NK7MathOpt8IP_Param4saveERKNSt6stringEb"></span><span id="_CPPv2NK7MathOpt8IP_Param4saveERKNSt6stringEb"></span><span id="MathOpt::IP_Param::save__ssCR.bC"></span><span class="target" id="classMathOpt_1_1IP__Param_1a216a417e35ae1e733814f1e548ce4ebb"></span>void <code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>filename</em>, bool <em>append</em><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">override</em><a class="headerlink" href="#_CPPv4NK7MathOpt8IP_Param4saveERKNSt6stringEb" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Writes a given parameterized Mathematical program to a set of files. Writes a given parameterized Mathematical program to a set of files. One file is written for each attribute namely. </p>
+<p><ol class="lowerroman simple">
+<li><p><a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1aae8144b23a29ea99d5ef793729438feb"><span class="std std-ref">MathOpt::MP_Param::Q</span></a></p></li>
+<li><p><a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1a13727398531ec805acd474fa5da89056"><span class="std std-ref">MathOpt::MP_Param::C</span></a></p></li>
+<li><p><a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1a69e39bfe4a58e5c43dbcb7ac16be3fe5"><span class="std std-ref">MathOpt::MP_Param::A</span></a></p></li>
+<li><p><a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1adb541edcb7083da9bde8e6615063acd3"><span class="std std-ref">MathOpt::MP_Param::B</span></a></p></li>
+<li><p><a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1a270fad22decf1dbdc2227ff9a4875e34"><span class="std std-ref">MathOpt::MP_Param::c</span></a></p></li>
+<li><p><a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1af6e726c09d1d43359c2dad586b0fb4d5"><span class="std std-ref">MathOpt::MP_Param::b</span></a></p></li>
+<li><p><a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1a5751cc26c1fdc100766f9216af72db97"><span class="std std-ref">MathOpt::MP_Param::Bounds</span></a></p></li>
+</ol>
+</p>
+<p>To contrast see, <a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param_1a5c7c74ccc5ecb6e98db390c6877f84a4"><span class="std std-ref">MathOpt::MP_Param::save</span></a> where all details are written to a single loadable file <dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code>: The filename </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">append</span></code>: True if the content is appended </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8IP_Param4loadERKNSt6stringEl">
 <span id="_CPPv3N7MathOpt8IP_Param4loadERKNSt6stringEl"></span><span id="_CPPv2N7MathOpt8IP_Param4loadERKNSt6stringEl"></span><span id="MathOpt::IP_Param::load__ssCR.l"></span><span class="target" id="classMathOpt_1_1IP__Param_1a483e079d939e6efc08d4c0196e49b4e7"></span>long <code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>filename</em>, long <em>pos</em> = 0<span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param4loadERKNSt6stringEl" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK7MathOpt8IP_Param29computeObjectiveWithoutOthersERKN4arma3vecE">
-<span id="_CPPv3NK7MathOpt8IP_Param29computeObjectiveWithoutOthersERKN4arma3vecE"></span><span id="_CPPv2NK7MathOpt8IP_Param29computeObjectiveWithoutOthersERKN4arma3vecE"></span><span id="MathOpt::IP_Param::computeObjectiveWithoutOthers__arma::vecCRC"></span><span class="target" id="classMathOpt_1_1IP__Param_1a855534e0c926f3f719023f8ed170f79b"></span>double <code class="sig-name descname">computeObjectiveWithoutOthers</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>y</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt8IP_Param29computeObjectiveWithoutOthersERKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N7MathOpt8IP_Param23getConstraintViolationsEKN4arma3vecEd">
-<span id="_CPPv3N7MathOpt8IP_Param23getConstraintViolationsEKN4arma3vecEd"></span><span id="_CPPv2N7MathOpt8IP_Param23getConstraintViolationsEKN4arma3vecEd"></span><span id="MathOpt::IP_Param::getConstraintViolations__arma::vecC.double"></span><span class="target" id="classMathOpt_1_1IP__Param_1a17cda9a634b46017b7d7579eb9a8f8c7"></span>arma::vec <code class="sig-name descname">getConstraintViolations</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec <em>y</em>, double <em>tol</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param23getConstraintViolationsEKN4arma3vecEd" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
@@ -973,7 +996,7 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8IP_Param10getIPModelEb">
-<span id="_CPPv3N7MathOpt8IP_Param10getIPModelEb"></span><span id="_CPPv2N7MathOpt8IP_Param10getIPModelEb"></span><span id="MathOpt::IP_Param::getIPModel__b"></span><span class="target" id="classMathOpt_1_1IP__Param_1abde1dddce89ee7c133c1dda9245f0105"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">getIPModel</code><span class="sig-paren">(</span>bool <em>relax</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param10getIPModelEb" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N7MathOpt8IP_Param10getIPModelEb"></span><span id="_CPPv2N7MathOpt8IP_Param10getIPModelEb"></span><span id="MathOpt::IP_Param::getIPModel__b"></span><span class="target" id="classMathOpt_1_1IP__Param_1acc07063cfda1f4da3fc91e71de871b9b"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">getIPModel</code><span class="sig-paren">(</span>bool <em>relax</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param10getIPModelEb" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
@@ -1015,14 +1038,14 @@
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N7MathOpt8IP_Param8integersE">
-<span id="_CPPv3N7MathOpt8IP_Param8integersE"></span><span id="_CPPv2N7MathOpt8IP_Param8integersE"></span><span id="MathOpt::IP_Param::integers__arma::vec"></span><span class="target" id="classMathOpt_1_1IP__Param_1a4236364f917ce6e9e7c957aca00168dc"></span>arma::vec <code class="sig-name descname">integers</code><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param8integersE" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4N7MathOpt8IP_Param8IntegersE">
+<span id="_CPPv3N7MathOpt8IP_Param8IntegersE"></span><span id="_CPPv2N7MathOpt8IP_Param8IntegersE"></span><span id="MathOpt::IP_Param::Integers__arma::vec"></span><span class="target" id="classMathOpt_1_1IP__Param_1a446487e93fdc3cddbee256dac99a2c6e"></span>arma::vec <code class="sig-name descname">Integers</code><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param8IntegersE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Stores the indexes of integer variables. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N7MathOpt8IP_Param9finalizedE">
-<span id="_CPPv3N7MathOpt8IP_Param9finalizedE"></span><span id="_CPPv2N7MathOpt8IP_Param9finalizedE"></span><span id="MathOpt::IP_Param::finalized__b"></span><span class="target" id="classMathOpt_1_1IP__Param_1a032027557ecff64721133fa11cb38a80"></span>bool <code class="sig-name descname">finalized</code> = {false}<a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param9finalizedE" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4N7MathOpt8IP_Param9FinalizedE">
+<span id="_CPPv3N7MathOpt8IP_Param9FinalizedE"></span><span id="_CPPv2N7MathOpt8IP_Param9FinalizedE"></span><span id="MathOpt::IP_Param::Finalized__b"></span><span class="target" id="classMathOpt_1_1IP__Param_1a5413612a2ab635702dd6becaa39adfac"></span>bool <code class="sig-name descname">Finalized</code> = {false}<a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param9FinalizedE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>True if the model has been made and constraints cannot be changed. </p>
 </dd></dl>
 

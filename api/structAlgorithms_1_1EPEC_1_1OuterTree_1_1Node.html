@@ -844,34 +844,55 @@
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC9OuterTree4Node4NodeEj">
 <span id="_CPPv3N10Algorithms4EPEC9OuterTree4Node4NodeEj"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4Node4NodeEj"></span><span id="Algorithms::EPEC::OuterTree::Node::Node__unsigned-i"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a868f7a08221e99b74722b37dd1abfc10"></span><code class="sig-name descname">Node</code><span class="sig-paren">(</span>unsigned int <em>encSize</em><span class="sig-paren">)</span><br /></dt>
-<dd></dd></dl>
+<dd><p>Constructor for the root node, given the encoding size, namely the number of complementarity equations. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">encSize</span></code>: The number of complementarities </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC9OuterTree4Node4NodeER4Nodejm">
 <span id="_CPPv3N10Algorithms4EPEC9OuterTree4Node4NodeER4Nodejm"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4Node4NodeER4Nodejm"></span><span id="Algorithms::EPEC::OuterTree::Node::Node__NodeR.unsigned-i.unsigned-l-i"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a1589c99f0c0735bb871fc1a6a75feb3a"></span><code class="sig-name descname">Node</code><span class="sig-paren">(</span><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4Node4NodeER4Nodejm" title="Algorithms::EPEC::OuterTree::Node::Node">Node</a> &amp;<em>parent</em>, unsigned int <em>idComp</em>, unsigned long int <em>id</em><span class="sig-paren">)</span><br /></dt>
-<dd></dd></dl>
+<dd><p>Given the parent node address <code class="docutils literal notranslate"><span class="pre">parent</span></code>, the <code class="docutils literal notranslate"><span class="pre">idComp</span></code> to branch on, and the <code class="docutils literal notranslate"><span class="pre">id</span></code>, creates a new node. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">parent</span></code>: The parent node </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">idComp</span></code>: The id of the node </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code>: The The branching candidate </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC9OuterTree4Node4NodeER4NodeNSt6vectorIiEEm">
 <span id="_CPPv3N10Algorithms4EPEC9OuterTree4Node4NodeER4NodeNSt6vectorIiEEm"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4Node4NodeER4NodeNSt6vectorIiEEm"></span><span id="Algorithms::EPEC::OuterTree::Node::Node__NodeR.std::vector:i:.unsigned-l-i"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a08d255e4a1a35d6f3a3285545d685f0a"></span><code class="sig-name descname">Node</code><span class="sig-paren">(</span><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4Node4NodeER4NodeNSt6vectorIiEEm" title="Algorithms::EPEC::OuterTree::Node::Node">Node</a> &amp;<em>parent</em>, std::vector&lt;int&gt; <em>idComps</em>, unsigned long int <em>id</em><span class="sig-paren">)</span><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK10Algorithms4EPEC9OuterTree4Node10getIdCompsEv">
-<span id="_CPPv3NK10Algorithms4EPEC9OuterTree4Node10getIdCompsEv"></span><span id="_CPPv2NK10Algorithms4EPEC9OuterTree4Node10getIdCompsEv"></span><span id="Algorithms::EPEC::OuterTree::Node::getIdCompsC"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1ad4d4b6cc99647fd56c78de258d845134"></span>std::vector&lt;unsigned int&gt; <code class="sig-name descname">getIdComps</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><br /></dt>
-<dd><p>Getter method for idComp. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK10Algorithms4EPEC9OuterTree4Node5getIdEv">
-<span id="_CPPv3NK10Algorithms4EPEC9OuterTree4Node5getIdEv"></span><span id="_CPPv2NK10Algorithms4EPEC9OuterTree4Node5getIdEv"></span><span id="Algorithms::EPEC::OuterTree::Node::getIdC"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a10c695fdae87e346950c8177d90d658e"></span>unsigned long int <code class="sig-name descname">getId</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><br /></dt>
-<dd><p>Getter method for id. </p>
+<dd><p>Given the parent node address <code class="docutils literal notranslate"><span class="pre">parent</span></code>, the <code class="docutils literal notranslate"><span class="pre">idsComp</span></code> to branch on (containing all the complementarities ids), and the <code class="docutils literal notranslate"><span class="pre">id</span></code>, creates a new node. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">parent</span></code>: The parent node pointer </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">idsComp</span></code>: The vector of branching locations </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code>: The node id for the children </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK10Algorithms4EPEC9OuterTree4Node21getCumulativeBranchesEv">
 <span id="_CPPv3NK10Algorithms4EPEC9OuterTree4Node21getCumulativeBranchesEv"></span><span id="_CPPv2NK10Algorithms4EPEC9OuterTree4Node21getCumulativeBranchesEv"></span><span id="Algorithms::EPEC::OuterTree::Node::getCumulativeBranchesC"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a170c0c63380bfd9dd9bb3378d00154a7"></span>unsigned long int <code class="sig-name descname">getCumulativeBranches</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><br /></dt>
-<dd><p>Returns the number of variables that cannot be candidate for the &lt; branching decisions, namely the ones on which a branching decision &lt; has already been taken, or for which the resulting child node is &lt; infeasible. </p>
+<dd><p>Returns the number of variables that cannot be candidate for the branching decisions, namely the ones on which a branching decision has already been taken, or for which the resulting child node is infeasible. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The number of unsuitable branching candidates </p>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -886,12 +907,6 @@
 <dd><p>Getter method for the allowed branchings. </p>
 </dd></dl>
 
-<dl class="cpp function">
-<dt id="_CPPv4NK10Algorithms4EPEC9OuterTree4Node9getParentEv">
-<span id="_CPPv3NK10Algorithms4EPEC9OuterTree4Node9getParentEv"></span><span id="_CPPv2NK10Algorithms4EPEC9OuterTree4Node9getParentEv"></span><span id="Algorithms::EPEC::OuterTree::Node::getParentC"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a220945e8236a58fe042e14400686d2d9"></span><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node">Node</a> *<code class="sig-name descname">getParent</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><br /></dt>
-<dd><p>Getter method for the parent node. </p>
-</dd></dl>
-
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Private Members</p>
@@ -904,13 +919,13 @@
 <dl class="cpp var">
 <dt id="_CPPv4N10Algorithms4EPEC9OuterTree4Node8EncodingE">
 <span id="_CPPv3N10Algorithms4EPEC9OuterTree4Node8EncodingE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4Node8EncodingE"></span><span id="Algorithms::EPEC::OuterTree::Node::Encoding__std::vector:b:"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a661b7461044d4e70472353a24214e6f0"></span>std::vector&lt;bool&gt; <code class="sig-name descname">Encoding</code><br /></dt>
-<dd><p>An encoding of bool. True if the complementarity &lt; condition is included in the current node outer &lt; approximation, false otherwise. </p>
+<dd><p>An encoding of bool. True if the complementarity condition is included in the current node outer approximation, false otherwise. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N10Algorithms4EPEC9OuterTree4Node17AllowedBranchingsE">
 <span id="_CPPv3N10Algorithms4EPEC9OuterTree4Node17AllowedBranchingsE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4Node17AllowedBranchingsE"></span><span id="Algorithms::EPEC::OuterTree::Node::AllowedBranchings__std::vector:b:"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a214124cd22efaea8c19a8ff161036bae"></span>std::vector&lt;bool&gt; <code class="sig-name descname">AllowedBranchings</code><br /></dt>
-<dd><p>A vector where true means that the corresponding &lt; complementarity is a candidate for banching at &lt; the current node. </p>
+<dd><p>A vector where true means that the corresponding complementarity is a candidate for banching at the current node </p>
 </dd></dl>
 
 <dl class="cpp var">

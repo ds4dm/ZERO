@@ -39,14 +39,11 @@ Program Listing for File ip_param.h
    
      std::ostream &operator<<(std::ostream &os, const IP_Param &I);
    
-     class IP_Param : public MP_Param
-     // Shape of C is Ny\times Nx
-     {
+     class IP_Param : public MP_Param {
      private:
-        // Gurobi environment and model
         GRBModel  IPModel;     
-        arma::vec integers;    
-        bool finalized{false}; 
+        arma::vec Integers;    
+        bool Finalized{false}; 
    
         // These methods should be inaccessible to the inheritor, since we have a
         // different structure.
@@ -60,13 +57,12 @@ Program Listing for File ip_param.h
                                 arma::vec    b,
                                 arma::vec    c,
                                 arma::vec    _integers,
-                                GRBEnv *     env = nullptr)
-             : MP_Param(env), IPModel{(*env)} {
-           this->set(C, B, b, c, _integers);
-           this->forceDataCheck();
-        };
+                                GRBEnv *     env = nullptr);
+        ;
    
-        arma::vec getIntegers() const { return this->integers; }
+        arma::vec getIntegers() const {
+           return this->Integers;
+        } 
    
         bool finalize() override;
    
@@ -76,11 +72,11 @@ Program Listing for File ip_param.h
                                  const double    tol            = 1e-5);
    
         IP_Param(const IP_Param &ipg)
-             : MP_Param(ipg), IPModel{ipg.IPModel}, finalized{ipg.finalized}, integers{ipg.integers} {
+             : MP_Param(ipg), IPModel{ipg.IPModel}, Finalized{ipg.Finalized}, Integers{ipg.Integers} {
            this->size();
         };
    
-        void setEnv(GRBEnv *env) { this->Env = env; }
+        void setEnv(GRBEnv *env) { this->Env = env; } 
    
         // Override setters
         IP_Param &set(const arma::sp_mat &C,
@@ -107,32 +103,14 @@ Program Listing for File ip_param.h
                                         bool             checkFeas = true,
                                         double           tol       = 1e-6) const override;
    
-        inline bool isPlayable(const IP_Param &P) const
-        {
-           bool b1, b2, b3;
-           b1 = (this->Nx + this->Ny) == (P.getNx() + P.getNy());
-           b2 = this->Nx >= P.getNy();
-           b3 = this->Ny <= P.getNx();
-           return b1 && b2 && b3;
-        }
-   
         void save(const std::string &filename, bool append) const override;
         long load(const std::string &filename, long pos = 0) override;
-   
-        double computeObjectiveWithoutOthers(const arma::vec &y) const;
-   
-        arma::vec getConstraintViolations(const arma::vec y, double tol);
    
         void forceDataCheck() const;
    
         void updateModelObjective(const arma::vec x);
    
-        std::unique_ptr<GRBModel> getIPModel(bool relax = false) {
-           if (relax)
-             return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel.relax()));
-           else
-             return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel));
-        }
+        std::unique_ptr<GRBModel> getIPModel(bool relax = false);
    
         std::unique_ptr<GRBModel> solveFixed(const arma::vec x, bool solve = false) override;
    

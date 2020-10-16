@@ -841,9 +841,11 @@
 #include &quot;zero.h&quot;
 #include &lt;boost/log/trivial.hpp&gt;
 
-bool Algorithms::EPEC::PolyBase::isSolved(unsigned int *countryNumber,
+
+bool Algorithms::EPEC::PolyBase::isSolved(unsigned int *player,
                                                         arma::vec *   profitableDeviation,
                                                         double        tol) const
+
 {
   if (!this-&gt;EPECObject-&gt;TheNashGame)
      return false;
@@ -852,7 +854,7 @@ bool Algorithms::EPEC::PolyBase::isSolved(unsigned int *countryNumber,
   if (tol &lt; 0)
      tol = this-&gt;EPECObject-&gt;Stats.AlgorithmData.DeviationTolerance.get();
   this-&gt;EPECObject-&gt;TheNashGame-&gt;isSolved(
-        this-&gt;EPECObject-&gt;SolutionX, *countryNumber, *profitableDeviation, tol);
+        this-&gt;EPECObject-&gt;SolutionX, *player, *profitableDeviation, tol);
   arma::vec objvals =
         this-&gt;EPECObject-&gt;TheNashGame-&gt;computeQPObjectiveValues(this-&gt;EPECObject-&gt;SolutionX, true);
   for (unsigned int i = 0; i &lt; this-&gt;EPECObject-&gt;NumPlayers; ++i) {
@@ -860,7 +862,7 @@ bool Algorithms::EPEC::PolyBase::isSolved(unsigned int *countryNumber,
      if (val == GRB_INFINITY)
         return false;
      if (std::abs(val - objvals.at(i)) &gt; tol) {
-        *countryNumber = i;
+        *player = i;
         BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Algorithms::EPEC::PolyBase::isSolved: deviation for player &quot; &lt;&lt; i
                                          &lt;&lt; &quot; -- of &quot; &lt;&lt; std::abs(val - objvals.at(i));
         return false;
@@ -884,6 +886,7 @@ unsigned int Algorithms::EPEC::PolyBase::getPositionLeadFollPoly(const unsigned 
   return LeaderStart + FollPoly + j;
 }
 
+
 unsigned int Algorithms::EPEC::PolyBase::getPositionLeadLeadPoly(const unsigned int i,
                                                                                       const unsigned int j,
                                                                                       const unsigned int k) const {
@@ -892,9 +895,11 @@ unsigned int Algorithms::EPEC::PolyBase::getPositionLeadLeadPoly(const unsigned 
   return LeaderStart + FollPoly + this-&gt;PolyLCP.at(i)-&gt;getLStart() + j;
 }
 
+
 unsigned long int Algorithms::EPEC::PolyBase::getNumPolyLead(const unsigned int i) const {
   return this-&gt;PolyLCP.at(i).get()-&gt;convNumPoly(true);
 }
+
 
 unsigned int Algorithms::EPEC::PolyBase::getPositionProbab(const unsigned int i,
                                                                               const unsigned int k) const {
@@ -914,6 +919,7 @@ bool Algorithms::EPEC::PolyBase::isPureStrategy(const double tol) const {
   return true;
 }
 
+
 bool Algorithms::EPEC::PolyBase::isPureStrategy(const unsigned int i, const double tol) const {
   const unsigned int nPoly = this-&gt;getNumPolyLead(i);
   for (unsigned int j = 0; j &lt; nPoly; j++) {
@@ -925,8 +931,7 @@ bool Algorithms::EPEC::PolyBase::isPureStrategy(const unsigned int i, const doub
 }
 
 std::vector&lt;unsigned int&gt; Algorithms::EPEC::PolyBase::mixedStrategyPoly(const unsigned int i,
-                                                                                                const double tol) const
-{
+                                                                                                const double tol) const {
   std::vector&lt;unsigned int&gt; polys{};
   const unsigned int        nPoly = this-&gt;getNumPolyLead(i);
   for (unsigned int j = 0; j &lt; nPoly; j++) {
@@ -938,12 +943,15 @@ std::vector&lt;unsigned int&gt; Algorithms::EPEC::PolyBase::mixedStrategyPoly(co
   return polys;
 }
 
+
 double Algorithms::EPEC::PolyBase::getValProbab(const unsigned int i, const unsigned int k) const {
   const unsigned int varname{this-&gt;getPositionProbab(i, k)};
   if (varname == 0)
      return 1;
   return this-&gt;EPECObject-&gt;SolutionX.at(varname);
 }
+
+
 
 double Algorithms::EPEC::PolyBase::getValLeadFollPoly(const unsigned int i,
                                                                         const unsigned int j,
@@ -958,6 +966,8 @@ double Algorithms::EPEC::PolyBase::getValLeadFollPoly(const unsigned int i,
      return this-&gt;EPECObject-&gt;SolutionX.at(this-&gt;getPositionLeadFollPoly(i, j, k)) / probab;
 }
 
+
+
 double Algorithms::EPEC::PolyBase::getValLeadLeadPoly(const unsigned int i,
                                                                         const unsigned int j,
                                                                         const unsigned int k,
@@ -970,6 +980,7 @@ double Algorithms::EPEC::PolyBase::getValLeadLeadPoly(const unsigned int i,
   else
      return this-&gt;EPECObject-&gt;SolutionX.at(this-&gt;getPositionLeadLeadPoly(i, j, k)) / probab;
 }
+
 
 void Algorithms::EPEC::PolyBase::makeThePureLCP() {
   try {

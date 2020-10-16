@@ -844,7 +844,7 @@
 <dl class="cpp class">
 <dt id="_CPPv4N10Algorithms4EPEC18InnerApproximationE">
 <span id="_CPPv3N10Algorithms4EPEC18InnerApproximationE"></span><span id="_CPPv2N10Algorithms4EPEC18InnerApproximationE"></span><span id="Algorithms::EPEC::InnerApproximation"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1InnerApproximation"></span><em class="property">class </em><code class="sig-prename descclassname">Algorithms::EPEC<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">InnerApproximation</code> : <em class="property">public</em> Algorithms::EPEC::<a class="reference internal" href="classAlgorithms_1_1EPEC_1_1PolyBase.html#_CPPv4N10Algorithms4EPEC8PolyBaseE" title="Algorithms::EPEC::PolyBase">PolyBase</a><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC18InnerApproximationE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>This class is responsible for the inner Approximation. </p>
+<dd><p>This class manages the inner enumeration algorithm for <a class="reference internal" href="classGame_1_1EPEC.html#classGame_1_1EPEC"><span class="std std-ref">Game::EPEC</span></a> objects. Since each player’s feasible region is a <a class="reference internal" href="classMathOpt_1_1PolyLCP.html#classMathOpt_1_1PolyLCP"><span class="std std-ref">MathOpt::PolyLCP</span></a> with finitely many polyhedra, each of these region is increasingly expanded with this algorithm. The expansion happens either by adding polyhedra containing profitable moves, or by adding random polyhedra. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="cpp function">
@@ -855,7 +855,7 @@
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC18InnerApproximation5solveEv">
 <span id="_CPPv3N10Algorithms4EPEC18InnerApproximation5solveEv"></span><span id="_CPPv2N10Algorithms4EPEC18InnerApproximation5solveEv"></span><span id="Algorithms::EPEC::InnerApproximation::solve"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1InnerApproximation_1a3f57f11002bbe86fe0b002eb155d26f9"></span>void <code class="sig-name descname">solve</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC18InnerApproximation5solveEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>A method to solve the EPEC. </p>
+<dd><p>A general method to solve problems. </p>
 </dd></dl>
 
 </div>
@@ -864,14 +864,20 @@
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC18InnerApproximation5startEv">
 <span id="_CPPv3N10Algorithms4EPEC18InnerApproximation5startEv"></span><span id="_CPPv2N10Algorithms4EPEC18InnerApproximation5startEv"></span><span id="Algorithms::EPEC::InnerApproximation::start"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1InnerApproximation_1a003f173148410c570746da4bd29e7202"></span>void <code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC18InnerApproximation5startEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Private main component of the algorithm. Starting from some profitable deviations from an all-zero strategy vector, the algorithm computes the polyhedra containing such deviations, and add them to the approximation. If an approximate equilibrium is found, then the algorithms keeps adding polyhedra by profitable deviation. Otherwise, it adds a random number of <a class="reference internal" href="classData_1_1EPEC_1_1DataObject.html#classData_1_1EPEC_1_1DataObject_1a3dd1462230ad01fb74dbbcaf2ec69c8b"><span class="std std-ref">Data::EPEC::DataObject::Aggressiveness</span></a> polyhedra with the method <a class="reference internal" href="classData_1_1EPEC_1_1DataObject.html#classData_1_1EPEC_1_1DataObject_1af2077189320b31532ad36a438ccb72a7"><span class="std std-ref">Data::EPEC::DataObject::PolyhedraStrategy</span></a>. </p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC18InnerApproximation17addRandomPoly2AllEjb">
 <span id="_CPPv3N10Algorithms4EPEC18InnerApproximation17addRandomPoly2AllEjb"></span><span id="_CPPv2N10Algorithms4EPEC18InnerApproximation17addRandomPoly2AllEjb"></span><span id="Algorithms::EPEC::InnerApproximation::addRandomPoly2All__unsigned-i.b"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1InnerApproximation_1ae73f1a2a080486ee9c64c49d8343fd89"></span>bool <code class="sig-name descname">addRandomPoly2All</code><span class="sig-paren">(</span>unsigned int <em>aggressiveLevel</em> = 1, bool <em>stopOnSingleInfeasibility</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC18InnerApproximation17addRandomPoly2AllEjb" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Makes a call to to Game::LCP::addAPoly for each member in <a class="reference internal" href="classGame_1_1EPEC.html#classGame_1_1EPEC_1a5301b68b3b37d23c444784282f9c9c9c"><span class="std std-ref">Game::EPEC::PlayersLCP</span></a> and tries to add a polyhedron to get a better inner approximation for the LCP. <code class="docutils literal notranslate"><span class="pre">aggressiveLevel</span></code> is the maximum number of polyhedra it will try to add to each country. Setting it to an arbitrarily high value will mimic complete enumeration.</p>
-<p>If <code class="docutils literal notranslate"><span class="pre">stopOnSingleInfeasibility</span></code> is true, then the function returns false and aborts all operation as soon as it finds that it cannot add polyhedra to some country. On the other hand if <code class="docutils literal notranslate"><span class="pre">stopOnSingleInfeasibility</span></code> is false, the function returns false, only if it is not possible to add polyhedra to <em>any</em> of the countries. <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>true if successfully added the maximum possible number of polyhedra not greater than aggressiveLevel. </p>
+<dd><p>Makes a call to to <a class="reference internal" href="classMathOpt_1_1PolyLCP.html#classMathOpt_1_1PolyLCP_1a7d451b49741ae84cce44c10c58b6f408"><span class="std std-ref">MathOpt::PolyLCP::addAPoly</span></a> for each player, and tries to add a polyhedron to get a better inner approximation for the LCP. <code class="docutils literal notranslate"><span class="pre">aggressiveLevel</span></code> is the maximum number of polyhedra it will try to add to each player. Setting it to an arbitrarily high value will mimic complete enumeration. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>True when at least a polyhedron is added </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">aggressiveLevel</span></code>: The maximum number of polyhedra to be added to each player </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stopOnSingleInfeasibility</span></code>: If set to true, the function will return false if it cannot add a single polyhedron to a country </p></li>
+</ul>
 </dd>
 </dl>
 </p>
@@ -880,18 +886,15 @@
 <dl class="cpp function">
 <dt id="_CPPv4NK10Algorithms4EPEC18InnerApproximation16getAllDeviationsERNSt6vectorIN4arma3vecEEERKN4arma3vecERKNSt6vectorIN4arma3vecEEE">
 <span id="_CPPv3NK10Algorithms4EPEC18InnerApproximation16getAllDeviationsERNSt6vectorIN4arma3vecEEERKN4arma3vecERKNSt6vectorIN4arma3vecEEE"></span><span id="_CPPv2NK10Algorithms4EPEC18InnerApproximation16getAllDeviationsERNSt6vectorIN4arma3vecEEERKN4arma3vecERKNSt6vectorIN4arma3vecEEE"></span><span id="Algorithms::EPEC::InnerApproximation::getAllDeviations__std::vector:arma::vec:R.arma::vecCR.std::vector:arma::vec:CRC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1InnerApproximation_1ab0d032e781bc3a0e0e4eb78c7e3dee30"></span>bool <code class="sig-name descname">getAllDeviations</code><span class="sig-paren">(</span>std::vector&lt;arma::vec&gt; &amp;<em>deviations</em>, <em class="property">const</em> arma::vec &amp;<em>guessSol</em>, <em class="property">const</em> std::vector&lt;arma::vec&gt; &amp;<em>prevDev</em> = {}<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC18InnerApproximation16getAllDeviationsERNSt6vectorIN4arma3vecEEERKN4arma3vecERKNSt6vectorIN4arma3vecEEE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Given a potential solution vector, returns a profitable deviation (if it exists) for all players. </p>
+<dd><p>Given a potential solution vector <code class="docutils literal notranslate"><span class="pre">guessSol</span></code>, it returns the profitable deviations (if any) for all players in <code class="docutils literal notranslate"><span class="pre">deviations</span></code>. </p>
 <p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">deviations</span></code>: The vector of deviations for all players </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">guessSol</span></code>: The guess for the solution vector </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">prevDev</span></code>: The previous vector of deviations, if any exist. </p></li>
-</ul>
+<dt><strong>Return</strong></dt><dd><p></p>
 </dd>
-</dl>
-</p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>a vector of computed deviations, which empty if at least one deviation cannot be computed <code class="docutils literal notranslate"><span class="pre">prevDev</span></code> can be empty </p>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">deviations[out]</span></code>: The vector of deviations for all players </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">guessSol</span></code>: [in] The guessed solution </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prevDev</span></code>: [in] The previous vector of deviations, if any exist. </p></li>
+</ul>
 </dd>
 </dl>
 </p>
@@ -900,10 +903,13 @@
 <dl class="cpp function">
 <dt id="_CPPv4NK10Algorithms4EPEC18InnerApproximation21addDeviatedPolyhedronERKNSt6vectorIN4arma3vecEEERb">
 <span id="_CPPv3NK10Algorithms4EPEC18InnerApproximation21addDeviatedPolyhedronERKNSt6vectorIN4arma3vecEEERb"></span><span id="_CPPv2NK10Algorithms4EPEC18InnerApproximation21addDeviatedPolyhedronERKNSt6vectorIN4arma3vecEEERb"></span><span id="Algorithms::EPEC::InnerApproximation::addDeviatedPolyhedron__std::vector:arma::vec:CR.bRC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1InnerApproximation_1aa690434963c51643a50818adc1115069"></span>unsigned int <code class="sig-name descname">addDeviatedPolyhedron</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;arma::vec&gt; &amp;<em>deviations</em>, bool &amp;<em>infeasCheck</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC18InnerApproximation21addDeviatedPolyhedronERKNSt6vectorIN4arma3vecEEERb" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p><dl class="simple">
+<dd><p>Given a vevtor of profitable deviations for all the players, it adds their corresponding polyhedra to the current approximation. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The number of added polyhedra </p>
+</dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">deviations</span></code>: devns.at(i) is a profitable deviation for the i-th country from the current this-&gt;SolutionX </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">infeasCheck</span></code>: Useful for the first iteration of iterativeNash. If true, at least one player has no polyhedron that can be added. In the first iteration, this translates to x </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">deviations</span></code>: A vector of vectors containing the deviations </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">infeasCheck</span></code>: [out] If at least one player cannot add a polyhedron, the method places false in this output parameter </p></li>
 </ul>
 </dd>
 </dl>

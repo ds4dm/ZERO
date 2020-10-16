@@ -852,14 +852,15 @@ namespace MathOpt {
   private:
      double Eps{1e-6};
   protected:
-     // Data representing the parameterized QP
      arma::sp_mat   Q, A, B, C;
      arma::vec      c, b;
      GRBEnv *       Env;
      VariableBounds Bounds;
      bool           BoundsSwitch = 0;
      // Object for sizes and integrity check
-     unsigned int Nx, Ny, Ncons;
+     unsigned int Nx;
+     unsigned int Ny;
+     unsigned int Ncons;
 
      const unsigned int size();
 
@@ -869,12 +870,7 @@ namespace MathOpt {
      void detectBounds();
      void rewriteBounds();
 
-     virtual inline bool finalize() {
-        this-&gt;detectBounds();
-        this-&gt;rewriteBounds();
-        this-&gt;size();
-        return this-&gt;dataCheck();
-     }
+     virtual bool finalize();
 
   public:
      // Default constructors
@@ -947,19 +943,14 @@ namespace MathOpt {
 
      virtual void                      save(const std::string &amp;filename, bool append) const;
      virtual long int                  load(const std::string &amp;filename, long int pos = 0);
-     virtual unsigned int              KKT(arma::sp_mat &amp;M, arma::sp_mat &amp;N, arma::vec &amp;q) const;
+     virtual unsigned int              KKT(arma::sp_mat &amp;M, arma::sp_mat &amp;N, arma::vec &amp;q) const = 0;
      virtual std::unique_ptr&lt;GRBModel&gt; solveFixed(const arma::vec x, bool solve = false) {
         return std::unique_ptr&lt;GRBModel&gt;(new GRBModel(this-&gt;Env));
      };
      virtual double computeObjective(const arma::vec &amp;y,
                                                 const arma::vec &amp;x,
                                                 bool             checkFeas = true,
-                                                double           tol       = 1e-6) const;
-
-     static bool dataCheck(const QP_Objective &amp;  obj,
-                                  const QP_Constraints &amp;cons,
-                                  bool                  checkObj  = true,
-                                  bool                  checkCons = true);
+                                                double           tol       = 1e-6) const = 0;
   };
 
 } // namespace MathOpt

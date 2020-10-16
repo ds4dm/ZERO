@@ -38,14 +38,15 @@ Program Listing for File mp_param.h
      private:
         double Eps{1e-6}; 
      protected:
-        // Data representing the parameterized QP
-        arma::sp_mat   Q, A, B, C;
-        arma::vec      c, b;
-        GRBEnv *       Env;
-        VariableBounds Bounds;
+        arma::sp_mat   Q, A, B, C;       
+        arma::vec      c, b;             
+        GRBEnv *       Env;              
+        VariableBounds Bounds;           
         bool           BoundsSwitch = 0; 
         // Object for sizes and integrity check
-        unsigned int Nx, Ny, Ncons;
+        unsigned int Nx;    
+        unsigned int Ny;    
+        unsigned int Ncons; 
    
         const unsigned int size();
    
@@ -55,12 +56,7 @@ Program Listing for File mp_param.h
         void detectBounds();
         void rewriteBounds();
    
-        virtual inline bool finalize() {
-           this->detectBounds();
-           this->rewriteBounds();
-           this->size();
-           return this->dataCheck();
-        } 
+        virtual bool finalize(); 
    
      public:
         // Default constructors
@@ -133,19 +129,14 @@ Program Listing for File mp_param.h
    
         virtual void                      save(const std::string &filename, bool append) const;
         virtual long int                  load(const std::string &filename, long int pos = 0);
-        virtual unsigned int              KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const;
+        virtual unsigned int              KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const = 0;
         virtual std::unique_ptr<GRBModel> solveFixed(const arma::vec x, bool solve = false) {
            return std::unique_ptr<GRBModel>(new GRBModel(this->Env));
         };
         virtual double computeObjective(const arma::vec &y,
                                                    const arma::vec &x,
                                                    bool             checkFeas = true,
-                                                   double           tol       = 1e-6) const;
-   
-        static bool dataCheck(const QP_Objective &  obj,
-                                     const QP_Constraints &cons,
-                                     bool                  checkObj  = true,
-                                     bool                  checkCons = true);
+                                                   double           tol       = 1e-6) const = 0;
      };
    
    } // namespace MathOpt

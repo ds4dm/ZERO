@@ -855,43 +855,84 @@
 <dl class="cpp function">
 <dt id="_CPPv4NK10Algorithms4EPEC18OuterApproximation6getTolEv">
 <span id="_CPPv3NK10Algorithms4EPEC18OuterApproximation6getTolEv"></span><span id="_CPPv2NK10Algorithms4EPEC18OuterApproximation6getTolEv"></span><span id="Algorithms::EPEC::OuterApproximation::getTolC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterApproximation_1aa7ff3e0904ac253ed7480d60b5826ed7"></span>double <code class="sig-name descname">getTol</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC18OuterApproximation6getTolEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Read-Only getter for <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1OuterApproximation_1a88d849ac89f2ff3c05dec504d1967029"><span class="std std-ref">OuterApproximation::Tolerance</span></a>. </p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC18OuterApproximation6setTolEd">
 <span id="_CPPv3N10Algorithms4EPEC18OuterApproximation6setTolEd"></span><span id="_CPPv2N10Algorithms4EPEC18OuterApproximation6setTolEd"></span><span id="Algorithms::EPEC::OuterApproximation::setTol__double"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterApproximation_1afd22d0776d23682ab1b4e0529f5db054"></span>void <code class="sig-name descname">setTol</code><span class="sig-paren">(</span>double <em>tol</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC18OuterApproximation6setTolEd" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Setter for <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1OuterApproximation_1a88d849ac89f2ff3c05dec504d1967029"><span class="std std-ref">OuterApproximation::Tolerance</span></a>. </p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC18OuterApproximation5solveEv">
 <span id="_CPPv3N10Algorithms4EPEC18OuterApproximation5solveEv"></span><span id="_CPPv2N10Algorithms4EPEC18OuterApproximation5solveEv"></span><span id="Algorithms::EPEC::OuterApproximation::solve"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterApproximation_1aee27604e761a72b3629ca85e56ce9f2e"></span>void <code class="sig-name descname">solve</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC18OuterApproximation5solveEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>A method to solve the EPEC. </p>
+<dd><p>Given the <a class="reference internal" href="classGame_1_1EPEC.html#classGame_1_1EPEC"><span class="std std-ref">Game::EPEC</span></a> instance, this methos solves it through the outer approximation scheme. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC18OuterApproximation18printCurrentApproxEv">
 <span id="_CPPv3N10Algorithms4EPEC18OuterApproximation18printCurrentApproxEv"></span><span id="_CPPv2N10Algorithms4EPEC18OuterApproximation18printCurrentApproxEv"></span><span id="Algorithms::EPEC::OuterApproximation::printCurrentApprox"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterApproximation_1a790a3f3444ae60dc3f1c3f61e652c191"></span>void <code class="sig-name descname">printCurrentApprox</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC18OuterApproximation18printCurrentApproxEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Prints a log message containing the encoding at the current outer approximation iteration. </p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC18OuterApproximation17printBranchingLogENSt6vectorIiEE">
 <span id="_CPPv3N10Algorithms4EPEC18OuterApproximation17printBranchingLogENSt6vectorIiEE"></span><span id="_CPPv2N10Algorithms4EPEC18OuterApproximation17printBranchingLogENSt6vectorIiEE"></span><span id="Algorithms::EPEC::OuterApproximation::printBranchingLog__std::vector:i:"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterApproximation_1a878ac7da8284f786c20a2fbe2ba38db8"></span>void <code class="sig-name descname">printBranchingLog</code><span class="sig-paren">(</span>std::vector&lt;int&gt; <em>vector</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC18OuterApproximation17printBranchingLogENSt6vectorIiEE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Given the vector of branching candidates from <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1OuterApproximation_1a5ea3256ebd4ee7d69262ab8fe6294264"><span class="std std-ref">Algorithms::EPEC::OuterApproximation::getNextBranchLocation</span></a>, prints a sum up of them. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vector</span></code>: Output of <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1OuterApproximation_1a5ea3256ebd4ee7d69262ab8fe6294264"><span class="std std-ref">Algorithms::EPEC::OuterApproximation::getNextBranchLocation</span></a> </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK10Algorithms4EPEC18OuterApproximation8isSolvedEd">
 <span id="_CPPv3NK10Algorithms4EPEC18OuterApproximation8isSolvedEd"></span><span id="_CPPv2NK10Algorithms4EPEC18OuterApproximation8isSolvedEd"></span><span id="Algorithms::EPEC::OuterApproximation::isSolved__doubleC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterApproximation_1a7ddff04c60c646af8675aa67a5e06a3b"></span>bool <code class="sig-name descname">isSolved</code><span class="sig-paren">(</span>double <em>tol</em> = 1e-4<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC18OuterApproximation8isSolvedEd" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Overrides <a class="reference internal" href="classAlgorithms_1_1EPEC_1_1PolyBase.html#classAlgorithms_1_1EPEC_1_1PolyBase_1aea52c3245a963b47d576c33015b9cba8"><span class="std std-ref">Algorithms::EPEC::PolyBase::isSolved</span></a> with a custom method. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>True if the current outer approximation solution is feasible (then, it is solved) </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tol</span></code>: Numerical tolerance. Currently not useful </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC18OuterApproximation10isFeasibleERb">
 <span id="_CPPv3N10Algorithms4EPEC18OuterApproximation10isFeasibleERb"></span><span id="_CPPv2N10Algorithms4EPEC18OuterApproximation10isFeasibleERb"></span><span id="Algorithms::EPEC::OuterApproximation::isFeasible__bR"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterApproximation_1a65fe424f25ab13ea3def88fb34931a3e"></span>bool <code class="sig-name descname">isFeasible</code><span class="sig-paren">(</span>bool &amp;<em>addedCuts</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC18OuterApproximation10isFeasibleERb" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Checks whether the current outer approximation equilibrium is feasible and solves the problem. Otherwise, it adde cuts or generate useful information for thext iterations. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">addedCuts</span></code>: [out] is true if at least a cut has been added </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK10Algorithms4EPEC18OuterApproximation14isPureStrategyEd">
 <span id="_CPPv3NK10Algorithms4EPEC18OuterApproximation14isPureStrategyEd"></span><span id="_CPPv2NK10Algorithms4EPEC18OuterApproximation14isPureStrategyEd"></span><span id="Algorithms::EPEC::OuterApproximation::isPureStrategy__doubleC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterApproximation_1a98661046c3fd5b5d75e422299dc4e556"></span>bool <code class="sig-name descname">isPureStrategy</code><span class="sig-paren">(</span>double <em>tol</em> = 1e-4<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC18OuterApproximation14isPureStrategyEd" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Checks whether the current solution is a pure-strategy nash equilibrium. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>True if the strategy is a pure nash equilibrium </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tol</span></code>: A numerical tolerance. Currently not used </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -904,32 +945,96 @@
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC18OuterApproximation16updateMembershipERKjRKN4arma3vecEb">
 <span id="_CPPv3N10Algorithms4EPEC18OuterApproximation16updateMembershipERKjRKN4arma3vecEb"></span><span id="_CPPv2N10Algorithms4EPEC18OuterApproximation16updateMembershipERKjRKN4arma3vecEb"></span><span id="Algorithms::EPEC::OuterApproximation::updateMembership__unsigned-iCR.arma::vecCR.b"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterApproximation_1a9e48bead4e590e6487e8e6da0daf178f"></span>void <code class="sig-name descname">updateMembership</code><span class="sig-paren">(</span><em class="property">const</em> unsigned int &amp;<em>player</em>, <em class="property">const</em> arma::vec &amp;<em>xOfI</em>, bool <em>normalization</em> = true<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC18OuterApproximation16updateMembershipERKjRKN4arma3vecEb" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Updates the membership linear-program in the relative <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1OuterApproximation_1a85e89500db296c34d113434f4d67a8c2"><span class="std std-ref">Algorithms::EPEC::OuterApproximation::Trees</span></a> for the player <code class="docutils literal notranslate"><span class="pre">player</span></code>. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">player</span></code>: The player index </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xOfI</span></code>: The point for which the membership LP should be updated for </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">normalization</span></code>: True if the LP is normalized </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC18OuterApproximation15hybridBranchingEKjPN9OuterTree4NodeE">
 <span id="_CPPv3N10Algorithms4EPEC18OuterApproximation15hybridBranchingEKjPN9OuterTree4NodeE"></span><span id="_CPPv2N10Algorithms4EPEC18OuterApproximation15hybridBranchingEKjPN9OuterTree4NodeE"></span><span id="Algorithms::EPEC::OuterApproximation::hybridBranching__unsigned-iC.OuterTree::NodeP"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterApproximation_1afa74ae41105d75cb05f9e6cff62f0ac2"></span>int <code class="sig-name descname">hybridBranching</code><span class="sig-paren">(</span><em class="property">const</em> unsigned int <em>player</em>, <a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTreeE" title="Algorithms::EPEC::OuterTree">OuterTree</a>::<a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node">Node</a> *<em>node</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC18OuterApproximation15hybridBranchingEKjPN9OuterTree4NodeE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Given <code class="docutils literal notranslate"><span class="pre">player</span></code>  containing the id of the player, returns the branching decision for that node given by a hybrid branching rule. In particular, the method return the complementarity id maximizing a combination of constraint violations and number of violated constraints. <code class="docutils literal notranslate"><span class="pre">node</span></code> contains the tree’s node. It isn’t const since a branching candidate can be pruned if infeasibility is detected. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The branching candidate. Negative if none </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">player</span></code>: The player id </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">node</span></code>: The pointer to the incumbent <a class="reference internal" href="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node.html#structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node"><span class="std std-ref">OuterTree::Node</span></a> </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC18OuterApproximation19infeasibleBranchingEKjPKN9OuterTree4NodeE">
 <span id="_CPPv3N10Algorithms4EPEC18OuterApproximation19infeasibleBranchingEKjPKN9OuterTree4NodeE"></span><span id="_CPPv2N10Algorithms4EPEC18OuterApproximation19infeasibleBranchingEKjPKN9OuterTree4NodeE"></span><span id="Algorithms::EPEC::OuterApproximation::infeasibleBranching__unsigned-iC.OuterTree::NodeCP"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterApproximation_1ac4fcf7a9ae6f65600fa0cc139dfde8d7"></span>int <code class="sig-name descname">infeasibleBranching</code><span class="sig-paren">(</span><em class="property">const</em> unsigned int <em>player</em>, <em class="property">const</em> <a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTreeE" title="Algorithms::EPEC::OuterTree">OuterTree</a>::<a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node">Node</a> *<em>node</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC18OuterApproximation19infeasibleBranchingEKjPKN9OuterTree4NodeE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Given <code class="docutils literal notranslate"><span class="pre">player</span></code>  containing the id of the player, returns the branching decision for that node, where the complementarity is the most (possibly) infeasible one (with both x and z positive). In particular, the method return the (positive) id of the complementarity equation if there is a feasible branching decision at <code class="docutils literal notranslate"><span class="pre">node</span></code>, and a negative value otherwise. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The branching candidate. Negative if none </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">player</span></code>: The player id </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">node</span></code>: The pointer to the incumbent <a class="reference internal" href="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node.html#structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node"><span class="std std-ref">OuterTree::Node</span></a> </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC18OuterApproximation18deviationBranchingEKjPKN9OuterTree4NodeE">
 <span id="_CPPv3N10Algorithms4EPEC18OuterApproximation18deviationBranchingEKjPKN9OuterTree4NodeE"></span><span id="_CPPv2N10Algorithms4EPEC18OuterApproximation18deviationBranchingEKjPKN9OuterTree4NodeE"></span><span id="Algorithms::EPEC::OuterApproximation::deviationBranching__unsigned-iC.OuterTree::NodeCP"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterApproximation_1ace18259b4a3330a5b30d66ee597f00cb"></span>int <code class="sig-name descname">deviationBranching</code><span class="sig-paren">(</span><em class="property">const</em> unsigned int <em>player</em>, <em class="property">const</em> <a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTreeE" title="Algorithms::EPEC::OuterTree">OuterTree</a>::<a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node">Node</a> *<em>node</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC18OuterApproximation18deviationBranchingEKjPKN9OuterTree4NodeE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Given <code class="docutils literal notranslate"><span class="pre">player</span></code>  containing the id of the player, returns the branching decision for that node, where the complementarity helps to cut off a possible deviation . In particular, the method return the (positive) id of the complementarity equation if there is a feasible branching decision at <code class="docutils literal notranslate"><span class="pre">node</span></code>, and a negative value otherwise. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The branching candidate. Negative if none </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">player</span></code>: The player id </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">node</span></code>: The pointer to the incumbent <a class="reference internal" href="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node.html#structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node"><span class="std std-ref">OuterTree::Node</span></a> </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC18OuterApproximation9getFeasQPEKjN4arma3vecE">
 <span id="_CPPv3N10Algorithms4EPEC18OuterApproximation9getFeasQPEKjN4arma3vecE"></span><span id="_CPPv2N10Algorithms4EPEC18OuterApproximation9getFeasQPEKjN4arma3vecE"></span><span id="Algorithms::EPEC::OuterApproximation::getFeasQP__unsigned-iC.arma::vec"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterApproximation_1afb01d89e4560cbd6aa6644b835625ee7"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">getFeasQP</code><span class="sig-paren">(</span><em class="property">const</em> unsigned int <em>player</em>, arma::vec <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC18OuterApproximation9getFeasQPEKjN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Given the player index <code class="docutils literal notranslate"><span class="pre">player</span></code>, gets a feasibility quadratic problem enforcing <code class="docutils literal notranslate"><span class="pre">x</span></code> to be in the feasible region of the <a class="reference internal" href="classGame_1_1EPEC.html#classGame_1_1EPEC_1a6ea789c5d7ad13d9874038b605a98137"><span class="std std-ref">Game::EPEC::PlayersQP</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A Gurobi pointer to the model </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">player</span></code>: The player index </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: The strategy for the player </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC18OuterApproximation11addValueCutEKjKdKN4arma3vecE">
 <span id="_CPPv3N10Algorithms4EPEC18OuterApproximation11addValueCutEKjKdKN4arma3vecE"></span><span id="_CPPv2N10Algorithms4EPEC18OuterApproximation11addValueCutEKjKdKN4arma3vecE"></span><span id="Algorithms::EPEC::OuterApproximation::addValueCut__unsigned-iC.doubleC.arma::vecC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterApproximation_1ad5626d6adaeada68dc01ad91f0c49ced"></span>void <code class="sig-name descname">addValueCut</code><span class="sig-paren">(</span><em class="property">const</em> unsigned int <em>player</em>, <em class="property">const</em> double <em>RHS</em>, <em class="property">const</em> arma::vec <em>xMinusI</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC18OuterApproximation11addValueCutEKjKdKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Adds a value cut to <code class="docutils literal notranslate"><span class="pre">player</span></code> <a class="reference internal" href="classMathOpt_1_1LCP.html#classMathOpt_1_1LCP"><span class="std std-ref">MathOpt::LCP</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">player</span></code>: The index of the player </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RHS</span></code>: The RHS of the value cut </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xMinusI</span></code>: The strategies of the other players </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC18OuterApproximation16separationOracleERN4arma3vecERN4arma3vecEjiRb">
@@ -942,12 +1047,34 @@
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC18OuterApproximation21getNextBranchLocationEKjPN9OuterTree4NodeE">
 <span id="_CPPv3N10Algorithms4EPEC18OuterApproximation21getNextBranchLocationEKjPN9OuterTree4NodeE"></span><span id="_CPPv2N10Algorithms4EPEC18OuterApproximation21getNextBranchLocationEKjPN9OuterTree4NodeE"></span><span id="Algorithms::EPEC::OuterApproximation::getNextBranchLocation__unsigned-iC.OuterTree::NodeP"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterApproximation_1a5ea3256ebd4ee7d69262ab8fe6294264"></span>std::vector&lt;int&gt; <code class="sig-name descname">getNextBranchLocation</code><span class="sig-paren">(</span><em class="property">const</em> unsigned int <em>player</em>, <a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTreeE" title="Algorithms::EPEC::OuterTree">OuterTree</a>::<a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node">Node</a> *<em>node</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC18OuterApproximation21getNextBranchLocationEKjPN9OuterTree4NodeE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Given <code class="docutils literal notranslate"><span class="pre">player</span></code>  containing the id of the player  and <code class="docutils literal notranslate"><span class="pre">node</span></code> containing a node, returns the branching decision for that node, with respect to the current node. In particular, the method return the (positive) id of the complementarity equation if there is a feasible branching decision at <code class="docutils literal notranslate"><span class="pre">node</span></code>, and a negative value otherwise. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A vector of 4 ints with the branching location given by the most <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1OuterApproximation_1ac4fcf7a9ae6f65600fa0cc139dfde8d7"><span class="std std-ref">Algorithms::EPEC::OuterApproximation::infeasibleBranching</span></a>, <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1OuterApproximation_1ace18259b4a3330a5b30d66ee597f00cb"><span class="std std-ref">Algorithms::EPEC::OuterApproximation::deviationBranching</span></a>, <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1OuterApproximation_1afa74ae41105d75cb05f9e6cff62f0ac2"><span class="std std-ref">Algorithms::EPEC::OuterApproximation::hybridBranching</span></a>, and <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1OuterApproximation_1a6d153e3874b880485be7ad34d95f7455"><span class="std std-ref">Algorithms::EPEC::OuterApproximation::getFirstBranchLocation</span></a>, respectively. If an int is negative, there is no real candidate. </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">player</span></code>: The player id </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">node</span></code>: The pointer to the incumbent <a class="reference internal" href="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node.html#structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node"><span class="std std-ref">OuterTree::Node</span></a> </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC18OuterApproximation22getFirstBranchLocationEKjPKN9OuterTree4NodeE">
 <span id="_CPPv3N10Algorithms4EPEC18OuterApproximation22getFirstBranchLocationEKjPKN9OuterTree4NodeE"></span><span id="_CPPv2N10Algorithms4EPEC18OuterApproximation22getFirstBranchLocationEKjPKN9OuterTree4NodeE"></span><span id="Algorithms::EPEC::OuterApproximation::getFirstBranchLocation__unsigned-iC.OuterTree::NodeCP"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterApproximation_1a6d153e3874b880485be7ad34d95f7455"></span>int <code class="sig-name descname">getFirstBranchLocation</code><span class="sig-paren">(</span><em class="property">const</em> unsigned int <em>player</em>, <em class="property">const</em> <a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTreeE" title="Algorithms::EPEC::OuterTree">OuterTree</a>::<a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node">Node</a> *<em>node</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC18OuterApproximation22getFirstBranchLocationEKjPKN9OuterTree4NodeE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Given <code class="docutils literal notranslate"><span class="pre">player</span></code>  containing the id of the player, returns the branching decision for that node, with no complementarity condition enforced. In particular, the method return the (positive) id of the complementarity equation if there is a feasible branching decision at <code class="docutils literal notranslate"><span class="pre">node</span></code>, and a negative value otherwise. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The branching candidate. Negative if none </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">player</span></code>: The player id </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">node</span></code>: The pointer to the incumbent <a class="reference internal" href="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node.html#structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node"><span class="std std-ref">OuterTree::Node</span></a> </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -955,22 +1082,26 @@
 <dl class="cpp var">
 <dt id="_CPPv4N10Algorithms4EPEC18OuterApproximation5TreesE">
 <span id="_CPPv3N10Algorithms4EPEC18OuterApproximation5TreesE"></span><span id="_CPPv2N10Algorithms4EPEC18OuterApproximation5TreesE"></span><span id="Algorithms::EPEC::OuterApproximation::Trees__std::vector:OuterTreeP:"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterApproximation_1a85e89500db296c34d113434f4d67a8c2"></span>std::vector&lt;<a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTreeE" title="Algorithms::EPEC::OuterTree">OuterTree</a>*&gt; <code class="sig-name descname">Trees</code><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC18OuterApproximation5TreesE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>The vector of pointer to <a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html#classAlgorithms_1_1EPEC_1_1OuterTree"><span class="std std-ref">OuterTree</span></a> for each player. </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N10Algorithms4EPEC18OuterApproximation9IncumbentE">
 <span id="_CPPv3N10Algorithms4EPEC18OuterApproximation9IncumbentE"></span><span id="_CPPv2N10Algorithms4EPEC18OuterApproximation9IncumbentE"></span><span id="Algorithms::EPEC::OuterApproximation::Incumbent__std::vector:OuterTree::NodeP:"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterApproximation_1a6ef46fd71fbb68dff6e0cbf04945f03a"></span>std::vector&lt;<a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTreeE" title="Algorithms::EPEC::OuterTree">OuterTree</a>::<a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node">Node</a>*&gt; <code class="sig-name descname">Incumbent</code><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC18OuterApproximation9IncumbentE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>The incumbent nodes for each player. </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N10Algorithms4EPEC18OuterApproximation8FeasibleE">
 <span id="_CPPv3N10Algorithms4EPEC18OuterApproximation8FeasibleE"></span><span id="_CPPv2N10Algorithms4EPEC18OuterApproximation8FeasibleE"></span><span id="Algorithms::EPEC::OuterApproximation::Feasible__b"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterApproximation_1a428e145851cd068dff487afe752a6811"></span>bool <code class="sig-name descname">Feasible</code> = {false}<a class="headerlink" href="#_CPPv4N10Algorithms4EPEC18OuterApproximation8FeasibleE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>True if a feasible solution has been found. </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N10Algorithms4EPEC18OuterApproximation9ToleranceE">
 <span id="_CPPv3N10Algorithms4EPEC18OuterApproximation9ToleranceE"></span><span id="_CPPv2N10Algorithms4EPEC18OuterApproximation9ToleranceE"></span><span id="Algorithms::EPEC::OuterApproximation::Tolerance__double"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterApproximation_1a88d849ac89f2ff3c05dec504d1967029"></span>double <code class="sig-name descname">Tolerance</code> = 1e-6<a class="headerlink" href="#_CPPv4N10Algorithms4EPEC18OuterApproximation9ToleranceE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>A numberical tolerance. </p>
+</dd></dl>
 
 </div>
 </dd></dl>

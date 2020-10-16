@@ -844,12 +844,11 @@
 <dl class="cpp class">
 <dt id="_CPPv4N7MathOpt8QP_ParamE">
 <span id="_CPPv3N7MathOpt8QP_ParamE"></span><span id="_CPPv2N7MathOpt8QP_ParamE"></span><span id="MathOpt::QP_Param"></span><span class="target" id="classMathOpt_1_1QP__Param"></span><em class="property">class </em><code class="sig-prename descclassname">MathOpt<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">QP_Param</code> : <em class="property">public</em> MathOpt::<a class="reference internal" href="classMathOpt_1_1MP__Param.html#_CPPv4N7MathOpt8MP_ParamE" title="MathOpt::MP_Param">MP_Param</a><a class="headerlink" href="#_CPPv4N7MathOpt8QP_ParamE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Class to handle parameterized quadratic programs(QP) </p>
-<p>Represents a Parameterized QP as <div class="math notranslate nohighlight">
+<dd><p>A class to handle parameterized quadratic programs (QP), defined as <div class="math notranslate nohighlight">
 \[ \min_y \frac{1}{2}y^TQy + c^Ty + (Cx)^T y \]</div>
  Subject to <div class="math notranslate nohighlight">
 \[\begin{split}\begin{eqnarray} Ax + By &amp;\leq&amp; b \\ y &amp;\geq&amp; 0 \end{eqnarray}\end{split}\]</div>
- </p>
+ The shape of C is Ny Nx. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="cpp function">
@@ -890,7 +889,18 @@
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8QP_Param3setERK12QP_ObjectiveRK14QP_Constraints">
 <span id="_CPPv3N7MathOpt8QP_Param3setERK12QP_ObjectiveRK14QP_Constraints"></span><span id="_CPPv2N7MathOpt8QP_Param3setERK12QP_ObjectiveRK14QP_Constraints"></span><span id="MathOpt::QP_Param::set__QP_ObjectiveCR.QP_ConstraintsCR"></span><span class="target" id="classMathOpt_1_1QP__Param_1a23967c411b09fc63f44ed0d54b6d7e6f"></span><a class="reference internal" href="#_CPPv4N7MathOpt8QP_ParamE" title="MathOpt::QP_Param">QP_Param</a> &amp;<code class="sig-name descname">set</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="structMathOpt_1_1QP__Objective.html#_CPPv4N7MathOpt12QP_ObjectiveE" title="MathOpt::QP_Objective">QP_Objective</a> &amp;<em>obj</em>, <em class="property">const</em> <a class="reference internal" href="structMathOpt_1_1QP__Constraints.html#_CPPv4N7MathOpt14QP_ConstraintsE" title="MathOpt::QP_Constraints">QP_Constraints</a> &amp;<em>cons</em><span class="sig-paren">)</span> <em class="property">final</em><a class="headerlink" href="#_CPPv4N7MathOpt8QP_Param3setERK12QP_ObjectiveRK14QP_Constraints" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>A copy constructor given a <a class="reference internal" href="structMathOpt_1_1QP__Objective.html#structMathOpt_1_1QP__Objective"><span class="std std-ref">QP_Objective</span></a> and <a class="reference internal" href="structMathOpt_1_1QP__Constraints.html#structMathOpt_1_1QP__Constraints"><span class="std std-ref">QP_Constraints</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A pointer to this </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">obj</span></code>: The objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cons</span></code>: The constraints object </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8QP_Param3setERR12QP_ObjectiveRR14QP_Constraints">
@@ -979,8 +989,8 @@
 <dd></dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N7MathOpt8QP_Param7madeyQyE">
-<span id="_CPPv3N7MathOpt8QP_Param7madeyQyE"></span><span id="_CPPv2N7MathOpt8QP_Param7madeyQyE"></span><span id="MathOpt::QP_Param::madeyQy__b"></span><span class="target" id="classMathOpt_1_1QP__Param_1a6ce3df06821c3a515cef666c26b2aecc"></span>bool <code class="sig-name descname">madeyQy</code><a class="headerlink" href="#_CPPv4N7MathOpt8QP_Param7madeyQyE" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4N7MathOpt8QP_Param7MadeyQyE">
+<span id="_CPPv3N7MathOpt8QP_Param7MadeyQyE"></span><span id="_CPPv2N7MathOpt8QP_Param7MadeyQyE"></span><span id="MathOpt::QP_Param::MadeyQy__b"></span><span class="target" id="classMathOpt_1_1QP__Param_1ac27998f3deca63ec24e11471a43f4090"></span>bool <code class="sig-name descname">MadeyQy</code><a class="headerlink" href="#_CPPv4N7MathOpt8QP_Param7MadeyQyE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>

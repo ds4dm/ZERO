@@ -853,22 +853,39 @@
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC8PolyBase8PolyBaseEP6GRBEnvPN4Game4EPECE">
 <span id="_CPPv3N10Algorithms4EPEC8PolyBase8PolyBaseEP6GRBEnvPN4Game4EPECE"></span><span id="_CPPv2N10Algorithms4EPEC8PolyBase8PolyBaseEP6GRBEnvPN4Game4EPECE"></span><span id="Algorithms::EPEC::PolyBase::PolyBase__GRBEnvP.Game::EPECP"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1a3232baf0efbe5fe82c3168937a6a8d20"></span><code class="sig-name descname">PolyBase</code><span class="sig-paren">(</span>GRBEnv *<em>env</em>, Game::<a class="reference internal" href="classGame_1_1EPEC.html#_CPPv4N4Game4EPECE" title="Game::EPEC">EPEC</a> *<em>EPECObject</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC8PolyBase8PolyBaseEP6GRBEnvPN4Game4EPECE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>The standard constructor for a <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1PolyBase"><span class="std std-ref">PolyBase</span></a> algorithm. It creates local <a class="reference internal" href="classMathOpt_1_1PolyLCP.html#classMathOpt_1_1PolyLCP"><span class="std std-ref">MathOpt::PolyLCP</span></a> objects to work with. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">env</span></code>: The pointer to the Gurobi environment </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EPECObject</span></code>: The pointer to the <a class="reference internal" href="classGame_1_1EPEC.html#classGame_1_1EPEC"><span class="std std-ref">Game::EPEC</span></a> object </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC8PolyBase5solveEv">
 <span id="_CPPv3N10Algorithms4EPEC8PolyBase5solveEv"></span><span id="_CPPv2N10Algorithms4EPEC8PolyBase5solveEv"></span><span id="Algorithms::EPEC::PolyBase::solve"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1a76ea266f4811d5fca0b38db4113f46b3"></span>void <code class="sig-name descname">solve</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N10Algorithms4EPEC8PolyBase5solveEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>A method to solve the EPEC. </p>
+<dd><p>A general method to solve problems. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK10Algorithms4EPEC8PolyBase8isSolvedEPjPN4arma3vecEd">
-<span id="_CPPv3NK10Algorithms4EPEC8PolyBase8isSolvedEPjPN4arma3vecEd"></span><span id="_CPPv2NK10Algorithms4EPEC8PolyBase8isSolvedEPjPN4arma3vecEd"></span><span id="Algorithms::EPEC::PolyBase::isSolved__unsigned-iP.arma::vecP.doubleC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1aef8976f003cb62c4bfc80c01ff24e023"></span>bool <code class="sig-name descname">isSolved</code><span class="sig-paren">(</span>unsigned int *<em>countryNumber</em>, arma::vec *<em>profitableDeviation</em>, double <em>tol</em> = -1<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC8PolyBase8isSolvedEPjPN4arma3vecEd" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK10Algorithms4EPEC8PolyBase8isSolvedEPjPN4arma3vecEd"></span><span id="_CPPv2NK10Algorithms4EPEC8PolyBase8isSolvedEPjPN4arma3vecEd"></span><span id="Algorithms::EPEC::PolyBase::isSolved__unsigned-iP.arma::vecP.doubleC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1aea52c3245a963b47d576c33015b9cba8"></span>bool <code class="sig-name descname">isSolved</code><span class="sig-paren">(</span>unsigned int *<em>player</em>, arma::vec *<em>profitableDeviation</em>, double <em>tol</em> = -1<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC8PolyBase8isSolvedEPjPN4arma3vecEd" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Checks if <a class="reference internal" href="classGame_1_1EPEC.html#classGame_1_1EPEC"><span class="std std-ref">Game::EPEC</span></a> is solved, otherwise it returns a proof. </p>
-<p>Analogous to <a class="reference internal" href="classGame_1_1NashGame.html#classGame_1_1NashGame_1aa5d3f4ad6caac841f642df324767ba5b"><span class="std std-ref">Game::NashGame::isSolved</span></a> but checks if the given <a class="reference internal" href="classGame_1_1EPEC.html#classGame_1_1EPEC"><span class="std std-ref">Game::EPEC</span></a> is solved. If it is solved, then returns true. If not, it returns the country which has a profitable deviation in <code class="docutils literal notranslate"><span class="pre">countryNumber</span></code> and the profitable deviation in <code class="docutils literal notranslate"><span class="pre">profitableDeviation</span></code>. <code class="docutils literal notranslate"><span class="pre">Tolerance</span></code> is the tolerance for the check. If the <em> improved objective </em> after the deviation is less than <code class="docutils literal notranslate"><span class="pre">Tolerance</span></code>, then it is not considered as a profitable deviation.</p>
+<p>Analogous to <a class="reference internal" href="classGame_1_1NashGame.html#classGame_1_1NashGame_1aa5d3f4ad6caac841f642df324767ba5b"><span class="std std-ref">Game::NashGame::isSolved</span></a> but checks if the given <a class="reference internal" href="classGame_1_1EPEC.html#classGame_1_1EPEC"><span class="std std-ref">Game::EPEC</span></a> is solved. If it is, then returns true. If not, it returns the country which has a profitable deviation in <code class="docutils literal notranslate"><span class="pre">player</span></code> and the profitable deviation in <code class="docutils literal notranslate"><span class="pre">profitableDeviation</span></code>. <code class="docutils literal notranslate"><span class="pre">Tolerance</span></code> is the tolerance for the check. If the <em> improved objective </em> after the deviation is less than <code class="docutils literal notranslate"><span class="pre">Tolerance</span></code>, then it is not considered as a profitable deviation.</p>
 <p>Thus we check if the given point is an <span class="math notranslate nohighlight">\(\epsilon\)</span>-equilibrium. Value of <span class="math notranslate nohighlight">\(\epsilon \)</span> can be chosen sufficiently close to 0.</p>
 <p><dl class="simple">
 <dt><strong>Warning</strong></dt><dd><p>Setting <code class="docutils literal notranslate"><span class="pre">Tolerance</span></code> = 0 might even reject a real solution as not solved. This is due to Numerical issues arising from the LCP solver (Gurobi). </p>
+</dd>
+<dt><strong>Return</strong></dt><dd><p>True if there is no profitable deviation, namely the player is optimal </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">player</span></code>: The id of the player </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">profitableDeviation</span></code>: An output (possibly non-changed) vector containing the profitable deviation for the given player </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tol</span></code>: A numerical tolerance </p></li>
+</ul>
 </dd>
 </dl>
 </p>
@@ -878,63 +895,187 @@
 <dt id="_CPPv4NK10Algorithms4EPEC8PolyBase8isSolvedEd">
 <span id="_CPPv3NK10Algorithms4EPEC8PolyBase8isSolvedEd"></span><span id="_CPPv2NK10Algorithms4EPEC8PolyBase8isSolvedEd"></span><span id="Algorithms::EPEC::PolyBase::isSolved__doubleC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1ad2774a5c59271d16751b00c76866f693"></span>bool <code class="sig-name descname">isSolved</code><span class="sig-paren">(</span>double <em>tol</em> = -1<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC8PolyBase8isSolvedEd" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A method to check whether the EPEC is solved or &lt; not, given a numerical tolerance. </p>
+<p>Checks whether the current <a class="reference internal" href="classGame_1_1EPEC.html#classGame_1_1EPEC"><span class="std std-ref">Game::EPEC</span></a> instance is solved for any player, up to a numerical tolerance.</p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>True if the game is solved </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tol</span></code>: The numerical tolerance </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC8PolyBase14makeThePureLCPEv">
 <span id="_CPPv3N10Algorithms4EPEC8PolyBase14makeThePureLCPEv"></span><span id="_CPPv2N10Algorithms4EPEC8PolyBase14makeThePureLCPEv"></span><span id="Algorithms::EPEC::PolyBase::makeThePureLCP"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1aec3b0d00c51ee07300957da1b6b5ac1b"></span>void <code class="sig-name descname">makeThePureLCP</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC8PolyBase14makeThePureLCPEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Creates an LCP for the inner-full approximation schemes of <a class="reference internal" href="classMathOpt_1_1PolyLCP.html#classMathOpt_1_1PolyLCP"><span class="std std-ref">MathOpt::PolyLCP</span></a> that explicitly searches for pure-strategy equilibria. The original LCP is moved to <a class="reference internal" href="classGame_1_1EPEC.html#classGame_1_1EPEC_1ada0cf8c4cefee9d0e3f6fcd29aa4fac0"><span class="std std-ref">Game::EPEC::LCPModelBase</span></a>. </p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK10Algorithms4EPEC8PolyBase18getValLeadFollPolyEjjjd">
 <span id="_CPPv3NK10Algorithms4EPEC8PolyBase18getValLeadFollPolyEjjjd"></span><span id="_CPPv2NK10Algorithms4EPEC8PolyBase18getValLeadFollPolyEjjjd"></span><span id="Algorithms::EPEC::PolyBase::getValLeadFollPoly__unsigned-i.unsigned-i.unsigned-i.doubleC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1a6a18e0a0198532918a72a0990f90421d"></span>double <code class="sig-name descname">getValLeadFollPoly</code><span class="sig-paren">(</span>unsigned int <em>i</em>, unsigned int <em>j</em>, unsigned int <em>k</em>, double <em>tol</em> = 1e-5<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC8PolyBase18getValLeadFollPolyEjjjd" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>For the <code class="docutils literal notranslate"><span class="pre">i</span></code> -th leader, gets the <code class="docutils literal notranslate"><span class="pre">k</span></code> -th pure strategy at position <code class="docutils literal notranslate"><span class="pre">j</span></code>. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The queried attribute </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">i</span></code>: The leader index </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">j</span></code>: The position index </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">k</span></code>: The pure strategy index </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tol</span></code>: A numerical tolerance </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK10Algorithms4EPEC8PolyBase18getValLeadLeadPolyEjjjd">
 <span id="_CPPv3NK10Algorithms4EPEC8PolyBase18getValLeadLeadPolyEjjjd"></span><span id="_CPPv2NK10Algorithms4EPEC8PolyBase18getValLeadLeadPolyEjjjd"></span><span id="Algorithms::EPEC::PolyBase::getValLeadLeadPoly__unsigned-i.unsigned-i.unsigned-i.doubleC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1adf4f9c3e613f15b6788e16c14a03d3e6"></span>double <code class="sig-name descname">getValLeadLeadPoly</code><span class="sig-paren">(</span>unsigned int <em>i</em>, unsigned int <em>j</em>, unsigned int <em>k</em>, double <em>tol</em> = 1e-5<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC8PolyBase18getValLeadLeadPolyEjjjd" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>For the <code class="docutils literal notranslate"><span class="pre">i</span></code> -th leader, gets the <code class="docutils literal notranslate"><span class="pre">k</span></code> -th pure strategy at leader position <code class="docutils literal notranslate"><span class="pre">j</span></code>. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The queried attribute </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">i</span></code>: The leader index </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">j</span></code>: The position index </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">k</span></code>: The pure strategy index </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tol</span></code>: A numerical tolerance </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK10Algorithms4EPEC8PolyBase12getValProbabEjj">
 <span id="_CPPv3NK10Algorithms4EPEC8PolyBase12getValProbabEjj"></span><span id="_CPPv2NK10Algorithms4EPEC8PolyBase12getValProbabEjj"></span><span id="Algorithms::EPEC::PolyBase::getValProbab__unsigned-i.unsigned-iC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1a4fec34534a9bf2a795c211cb1a52ff66"></span>double <code class="sig-name descname">getValProbab</code><span class="sig-paren">(</span>unsigned int <em>i</em>, unsigned int <em>k</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC8PolyBase12getValProbabEjj" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>The probability associated with the <code class="docutils literal notranslate"><span class="pre">k</span></code> -th polyhedron of the <code class="docutils literal notranslate"><span class="pre">i</span></code> -th leader. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The queried attribute </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">i</span></code>: The index of the player </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">k</span></code>: The index of the polyhedron </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK10Algorithms4EPEC8PolyBase14isPureStrategyEjd">
 <span id="_CPPv3NK10Algorithms4EPEC8PolyBase14isPureStrategyEjd"></span><span id="_CPPv2NK10Algorithms4EPEC8PolyBase14isPureStrategyEjd"></span><span id="Algorithms::EPEC::PolyBase::isPureStrategy__unsigned-i.doubleC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1a828db42667b1257d82ea1ad49fb920ff"></span>bool <code class="sig-name descname">isPureStrategy</code><span class="sig-paren">(</span>unsigned int <em>i</em>, double <em>tol</em> = 1e-5<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC8PolyBase14isPureStrategyEjd" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Checks whether the current strategy for the <code class="docutils literal notranslate"><span class="pre">i</span></code> player is a pure strategy. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>True if it is a pure equilibrium strategy </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">i</span></code>: The index of the player </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tol</span></code>: A numerical tolerance </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK10Algorithms4EPEC8PolyBase14isPureStrategyEd">
 <span id="_CPPv3NK10Algorithms4EPEC8PolyBase14isPureStrategyEd"></span><span id="_CPPv2NK10Algorithms4EPEC8PolyBase14isPureStrategyEd"></span><span id="Algorithms::EPEC::PolyBase::isPureStrategy__doubleC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1aca63575c14d997763db0aba9fc0a3ece"></span>bool <code class="sig-name descname">isPureStrategy</code><span class="sig-paren">(</span>double <em>tol</em> = 1e-5<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC8PolyBase14isPureStrategyEd" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Checks if the current equilibrium strategy in <a class="reference internal" href="classGame_1_1EPEC.html#classGame_1_1EPEC"><span class="std std-ref">Game::EPEC</span></a> is a pure strategy. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>True if it is a pure equilibrium strategy </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tol</span></code>: A numerical tolerance </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK10Algorithms4EPEC8PolyBase17mixedStrategyPolyEjd">
 <span id="_CPPv3NK10Algorithms4EPEC8PolyBase17mixedStrategyPolyEjd"></span><span id="_CPPv2NK10Algorithms4EPEC8PolyBase17mixedStrategyPolyEjd"></span><span id="Algorithms::EPEC::PolyBase::mixedStrategyPoly__unsigned-i.doubleC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1ad152941d38e933881ad17522b39df7fa"></span>std::vector&lt;unsigned int&gt; <code class="sig-name descname">mixedStrategyPoly</code><span class="sig-paren">(</span>unsigned int <em>i</em>, double <em>tol</em> = 1e-5<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC8PolyBase17mixedStrategyPolyEjd" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns the indices of polyhedra feasible for the leader, from which strategies are played with probability greater than Tolerance. </p>
+<dd><p>Returns the indices of polyhedra feasible for the leader, from which strategies are played with probability greater than the tolerance. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The indices of polyhedra with active probabilities </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">i</span></code>: The index of the player </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tol</span></code>: A numerical tolerance </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK10Algorithms4EPEC8PolyBase23getPositionLeadFollPolyEjjj">
 <span id="_CPPv3NK10Algorithms4EPEC8PolyBase23getPositionLeadFollPolyEjjj"></span><span id="_CPPv2NK10Algorithms4EPEC8PolyBase23getPositionLeadFollPolyEjjj"></span><span id="Algorithms::EPEC::PolyBase::getPositionLeadFollPoly__unsigned-i.unsigned-i.unsigned-iC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1a443ac23d9b90e8ff15518ed1d1a4b0d8"></span>unsigned int <code class="sig-name descname">getPositionLeadFollPoly</code><span class="sig-paren">(</span>unsigned int <em>i</em>, unsigned int <em>j</em>, unsigned int <em>k</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC8PolyBase23getPositionLeadFollPolyEjjj" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Get the position of the <code class="docutils literal notranslate"><span class="pre">k</span></code> -th follower variable of the <code class="docutils literal notranslate"><span class="pre">i</span></code> -th leader, in the <code class="docutils literal notranslate"><span class="pre">j</span></code> -th feasible polyhedron. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The position for the queried attribute </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">i</span></code>: The leader index </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">j</span></code>: The polyhedron index </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">k</span></code>: The follower variable index </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK10Algorithms4EPEC8PolyBase23getPositionLeadLeadPolyEjjj">
 <span id="_CPPv3NK10Algorithms4EPEC8PolyBase23getPositionLeadLeadPolyEjjj"></span><span id="_CPPv2NK10Algorithms4EPEC8PolyBase23getPositionLeadLeadPolyEjjj"></span><span id="Algorithms::EPEC::PolyBase::getPositionLeadLeadPoly__unsigned-i.unsigned-i.unsigned-iC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1ab1946d8e35aba3cc3e4af8a75eb934a3"></span>unsigned int <code class="sig-name descname">getPositionLeadLeadPoly</code><span class="sig-paren">(</span>unsigned int <em>i</em>, unsigned int <em>j</em>, unsigned int <em>k</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC8PolyBase23getPositionLeadLeadPolyEjjj" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Get the position of the <code class="docutils literal notranslate"><span class="pre">k</span></code> -th leader variable of the <code class="docutils literal notranslate"><span class="pre">i</span></code> leader, in the <code class="docutils literal notranslate"><span class="pre">j-th</span></code> feasible polyhedron. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The position for the queried attribute </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">i</span></code>: The leader index </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">j</span></code>: The polyhedron index </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">k</span></code>: The leader variable index </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK10Algorithms4EPEC8PolyBase14getNumPolyLeadEj">
 <span id="_CPPv3NK10Algorithms4EPEC8PolyBase14getNumPolyLeadEj"></span><span id="_CPPv2NK10Algorithms4EPEC8PolyBase14getNumPolyLeadEj"></span><span id="Algorithms::EPEC::PolyBase::getNumPolyLead__unsigned-iC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1a8dc0e6329ad5e6cfa35ff5d65b6a419d"></span>unsigned long int <code class="sig-name descname">getNumPolyLead</code><span class="sig-paren">(</span>unsigned int <em>i</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC8PolyBase14getNumPolyLeadEj" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Get the number of polyhedra used in the approximation for the <code class="docutils literal notranslate"><span class="pre">i</span></code> leader. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The queried number of polyhedra </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">i</span></code>: The leader index </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK10Algorithms4EPEC8PolyBase17getPositionProbabEjj">
 <span id="_CPPv3NK10Algorithms4EPEC8PolyBase17getPositionProbabEjj"></span><span id="_CPPv2NK10Algorithms4EPEC8PolyBase17getPositionProbabEjj"></span><span id="Algorithms::EPEC::PolyBase::getPositionProbab__unsigned-i.unsigned-iC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1a7201b5a296f9e5592dc1eb436a5deb84"></span>unsigned int <code class="sig-name descname">getPositionProbab</code><span class="sig-paren">(</span>unsigned int <em>i</em>, unsigned int <em>k</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC8PolyBase17getPositionProbabEjj" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Get the position of the probability associated with the <code class="docutils literal notranslate"><span class="pre">k</span></code> -th polyhedron (<code class="docutils literal notranslate"><span class="pre">k</span></code> -th pure strategy) of the <code class="docutils literal notranslate"><span class="pre">i</span></code> -th leader. However, if the leader has an inner approximation with exactly 1 polyhedron, it returns 0;. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The probability position associated with the queried values </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">i</span></code>: The leader index </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">k</span></code>: The polyhedron index </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -942,7 +1083,8 @@
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC8PolyBase11postSolvingEv">
 <span id="_CPPv3N10Algorithms4EPEC8PolyBase11postSolvingEv"></span><span id="_CPPv2N10Algorithms4EPEC8PolyBase11postSolvingEv"></span><span id="Algorithms::EPEC::PolyBase::postSolving"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1a5b214b1fdbf80e6b47c5d7304e19507f"></span>void <code class="sig-name descname">postSolving</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC8PolyBase11postSolvingEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>This method is called after the <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1PolyBase_1a76ea266f4811d5fca0b38db4113f46b3"><span class="std std-ref">PolyBase::solve</span></a> operation. It fills statistics and can be forcefully overridden by inheritors. The responsibility for calling this method is left to the inheritor. </p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -950,20 +1092,21 @@
 <dl class="cpp var">
 <dt id="_CPPv4N10Algorithms4EPEC8PolyBase3EnvE">
 <span id="_CPPv3N10Algorithms4EPEC8PolyBase3EnvE"></span><span id="_CPPv2N10Algorithms4EPEC8PolyBase3EnvE"></span><span id="Algorithms::EPEC::PolyBase::Env__GRBEnvP"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1a756874a7573a0ecb3d320042f77dc458"></span>GRBEnv *<code class="sig-name descname">Env</code><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC8PolyBase3EnvE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>This is the abstract class of Algorithms for full enumeration, inner approximation, and Combinatorial PNE. It provides a constructor where the Gurobi environment and the EPEC are passed. This is an abstract class. </p>
+<dd><p>This is the abstract class manages the algorithms for <a class="reference internal" href="classGame_1_1EPEC.html#classGame_1_1EPEC"><span class="std std-ref">Game::EPEC</span></a>. Since they are all based on <a class="reference internal" href="classMathOpt_1_1PolyLCP.html#classMathOpt_1_1PolyLCP"><span class="std std-ref">MathOpt::PolyLCP</span></a>, the class keeps a local copy of objects of that class. It provides a constructor where the Gurobi environment and the EPEC are passed. </p>
 <p>A pointer to the Gurobi Environment </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N10Algorithms4EPEC8PolyBase10EPECObjectE">
 <span id="_CPPv3N10Algorithms4EPEC8PolyBase10EPECObjectE"></span><span id="_CPPv2N10Algorithms4EPEC8PolyBase10EPECObjectE"></span><span id="Algorithms::EPEC::PolyBase::EPECObject__Game::EPECP"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1afca1e49568ac8ca213a4593d1ca97469"></span>Game::<a class="reference internal" href="classGame_1_1EPEC.html#_CPPv4N4Game4EPECE" title="Game::EPEC">EPEC</a> *<code class="sig-name descname">EPECObject</code><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC8PolyBase10EPECObjectE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>A pointer to the original LCP object. </p>
+<dd><p>A pointer to the <a class="reference internal" href="classGame_1_1EPEC.html#classGame_1_1EPEC"><span class="std std-ref">Game::EPEC</span></a> instance. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N10Algorithms4EPEC8PolyBase7PolyLCPE">
 <span id="_CPPv3N10Algorithms4EPEC8PolyBase7PolyLCPE"></span><span id="_CPPv2N10Algorithms4EPEC8PolyBase7PolyLCPE"></span><span id="Algorithms::EPEC::PolyBase::PolyLCP__std::vector:std::shared_ptr:MathOpt::PolyLCP::"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1af4b04767398229a7773932f5ff27f74b"></span>std::vector&lt;std::shared_ptr&lt;MathOpt::<a class="reference internal" href="classMathOpt_1_1PolyLCP.html#_CPPv4N7MathOpt7PolyLCPE" title="MathOpt::PolyLCP">PolyLCP</a>&gt;&gt; <code class="sig-name descname">PolyLCP</code> = {}<a class="headerlink" href="#_CPPv4N10Algorithms4EPEC8PolyBase7PolyLCPE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Local <a class="reference internal" href="classMathOpt_1_1PolyLCP.html#classMathOpt_1_1PolyLCP"><span class="std std-ref">MathOpt::PolyLCP</span></a> objects. </p>
+</dd></dl>
 
 </div>
 </dd></dl>

@@ -863,13 +863,10 @@ namespace Algorithms {
           Node(Node &amp;parent, unsigned int idComp, unsigned long int id);
           Node(Node &amp;parent, std::vector&lt;int&gt; idComps, unsigned long int id);
 
-          inline std::vector&lt;unsigned int&gt; getIdComps() const {
-             return this-&gt;IdComps;
-          }
-          inline unsigned long int getId() const { return this-&gt;Id; }
           inline unsigned long int getCumulativeBranches() const {
              return std::count(this-&gt;AllowedBranchings.begin(), this-&gt;AllowedBranchings.end(), false);
           }
+
           inline std::vector&lt;bool&gt; getEncoding() const {
              return this-&gt;Encoding;
           }
@@ -878,13 +875,12 @@ namespace Algorithms {
              return this-&gt;AllowedBranchings;
           }
 
-          inline Node *getParent() const {
-             return this-&gt;Parent;
-          }
 
         private:
           std::vector&lt;unsigned int&gt; IdComps;
-          std::vector&lt;bool&gt;         Encoding;
+
+          std::vector&lt;bool&gt; Encoding;
+
           std::vector&lt;bool&gt; AllowedBranchings;
           unsigned long int Id;
           Node *            Parent;
@@ -893,10 +889,12 @@ namespace Algorithms {
      private:
         Node         Root         = Node(0);
         unsigned int EncodingSize = 0;
-        unsigned int      NodeCounter = 1;
+        unsigned int NodeCounter = 1;
+
         std::vector&lt;Node&gt; Nodes{};
         bool isPure{false};
-        bool isFeasible{false};
+        bool isFeasible{
+             false};
 
         unsigned int nextIdentifier() {
           this-&gt;NodeCounter++;
@@ -905,7 +903,8 @@ namespace Algorithms {
 
      protected:
         std::unique_ptr&lt;GRBModel&gt; MembershipLP;
-        arma::sp_mat              V{};
+
+        arma::sp_mat V{};
         arma::sp_mat R{};
         unsigned int VertexCounter = 0;
         unsigned int RayCounter    = 0;
@@ -923,9 +922,13 @@ namespace Algorithms {
           this-&gt;isFeasible = false;
         }
 
-        inline bool getPure() const { return this-&gt;isPure; }
+        inline bool getPure() const {
+          return this-&gt;isPure;
+        }
 
-        inline void setFeasible() { this-&gt;isFeasible = true; }
+        inline void setFeasible() {
+          this-&gt;isFeasible = true;
+        }
 
         inline void setPure() { this-&gt;isPure = true; }
 
@@ -937,37 +940,41 @@ namespace Algorithms {
 
         inline const arma::sp_mat *getR() { return &amp;this-&gt;R; }
 
-        inline const unsigned int getVertexCount() { return this-&gt;VertexCounter; }
-        inline const unsigned int getRayCount() { return this-&gt;RayCounter; }
-
-        inline const unsigned int getNodeCount() { return this-&gt;NodeCounter; }
-
-        inline void addVertex(arma::vec vertex) {
-          this-&gt;V = arma::join_cols(this-&gt;V, arma::sp_mat{vertex.t()});
+        inline const unsigned int getVertexCount() {
+          return this-&gt;VertexCounter;
+        }
+        inline const unsigned int getRayCount() {
+          return this-&gt;RayCounter;
         }
 
-        inline void addRay(arma::vec ray) {
-          this-&gt;R = arma::join_cols(this-&gt;R, arma::sp_mat{ray.t()});
+        inline const unsigned int getNodeCount() {
+          return this-&gt;NodeCounter;
         }
+
+
+        inline void addVertex(arma::vec vertex);
+
+        inline void addRay(arma::vec ray);
 
         inline Node *const getRoot() { return &amp;this-&gt;Root; }
 
         inline std::vector&lt;Node&gt; *getNodes() { return &amp;this-&gt;Nodes; };
 
         void denyBranchingLocation(Node &amp;node, const unsigned int &amp;location);
-        void denyBranchingLocations(Node &amp;node, const std::vector&lt;int&gt; &amp;locations);
 
         std::vector&lt;long int&gt; singleBranch(const unsigned int idComp, Node &amp;t);
-
-        std::vector&lt;long int&gt; multipleBranch(const std::vector&lt;int&gt; idsComp, Node &amp;t);
      };
 
      class OuterApproximation : public PolyBase {
 
      public:
         OuterApproximation(GRBEnv *env, Game::EPEC *EPECObject) : PolyBase(env, EPECObject){};
-        double getTol() const { return Tolerance; }
-        void   setTol(double tol) { this-&gt;Tolerance = tol; }
+        double getTol() const {
+          return this-&gt;Tolerance;
+        }
+        void setTol(double tol) {
+          this-&gt;Tolerance = tol;
+        }
 
         void solve() override;
         void printCurrentApprox();
@@ -982,8 +989,8 @@ namespace Algorithms {
      private:
         std::vector&lt;OuterTree *&gt;       Trees;
         std::vector&lt;OuterTree::Node *&gt; Incumbent;
-        bool                           Feasible{false};
-        double                         Tolerance = 1e-6;
+        bool   Feasible{false};
+        double Tolerance = 1e-6;
 
         std::vector&lt;int&gt; getNextBranchLocation(const unsigned int player, OuterTree::Node *node);
         int getFirstBranchLocation(const unsigned int player, const OuterTree::Node *node);

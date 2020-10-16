@@ -850,6 +850,7 @@ namespace Algorithms {
         Game::EPEC *EPECObject;
         std::vector&lt;std::shared_ptr&lt;MathOpt::PolyLCP&gt;&gt; PolyLCP{};
 
+
         void postSolving() {
           std::vector&lt;unsigned int&gt; feasible;
           for (unsigned int i = 0; i &lt; this-&gt;EPECObject-&gt;NumPlayers; i++)
@@ -860,10 +861,6 @@ namespace Algorithms {
 
      public:
         PolyBase(GRBEnv *env, Game::EPEC *EPECObject) {
-          /*
-            *  The method will reassign the LCP fields in the EPEC object to new
-            * PolyLCP objects
-            */
           this-&gt;EPECObject = EPECObject;
           this-&gt;Env        = env;
           this-&gt;PolyLCP    = std::vector&lt;std::shared_ptr&lt;MathOpt::PolyLCP&gt;&gt;(EPECObject-&gt;NumPlayers);
@@ -873,9 +870,9 @@ namespace Algorithms {
              EPECObject-&gt;PlayersLCP.at(i) = this-&gt;PolyLCP.at(i);
           }
         }
+
         virtual void solve() = 0;
-        bool
-              isSolved(unsigned int *countryNumber, arma::vec *profitableDeviation, double tol = -1) const;
+        bool isSolved(unsigned int *player, arma::vec *profitableDeviation, double tol = -1) const;
         bool isSolved(double tol = -1) const;
         void makeThePureLCP();
 

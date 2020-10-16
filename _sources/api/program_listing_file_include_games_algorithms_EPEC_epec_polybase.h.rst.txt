@@ -34,7 +34,8 @@ Program Listing for File epec_polybase.h
         protected:
            GRBEnv *    Env;        
            Game::EPEC *EPECObject; 
-           std::vector<std::shared_ptr<MathOpt::PolyLCP>> PolyLCP{};
+           std::vector<std::shared_ptr<MathOpt::PolyLCP>> PolyLCP{}; 
+   
    
            void postSolving() {
              std::vector<unsigned int> feasible;
@@ -46,10 +47,6 @@ Program Listing for File epec_polybase.h
    
         public:
            PolyBase(GRBEnv *env, Game::EPEC *EPECObject) {
-             /*
-               *  The method will reassign the LCP fields in the EPEC object to new
-               * PolyLCP objects
-               */
              this->EPECObject = EPECObject;
              this->Env        = env;
              this->PolyLCP    = std::vector<std::shared_ptr<MathOpt::PolyLCP>>(EPECObject->NumPlayers);
@@ -59,9 +56,9 @@ Program Listing for File epec_polybase.h
                 EPECObject->PlayersLCP.at(i) = this->PolyLCP.at(i);
              }
            }
+   
            virtual void solve() = 0; 
-           bool
-                 isSolved(unsigned int *countryNumber, arma::vec *profitableDeviation, double tol = -1) const;
+           bool isSolved(unsigned int *player, arma::vec *profitableDeviation, double tol = -1) const;
            bool isSolved(double tol = -1) const; 
            void makeThePureLCP();
    

@@ -852,9 +852,7 @@ namespace Algorithms {
 
      class CombinatorialPNE : public PolyBase {
      public:
-        CombinatorialPNE(GRBEnv *env, Game::EPEC *EPECObject, bool poly = true)
-             : PolyBase(env, EPECObject){};
-        ;
+        CombinatorialPNE(GRBEnv *env, Game::EPEC *EPECObject) : PolyBase(env, EPECObject){};
         void solve() { this-&gt;solveWithExcluded(std::vector&lt;std::set&lt;unsigned long int&gt;&gt;{}); }
         void solveWithExcluded(const std::vector&lt;std::set&lt;unsigned long int&gt;&gt; &amp;excludeList = {});
 

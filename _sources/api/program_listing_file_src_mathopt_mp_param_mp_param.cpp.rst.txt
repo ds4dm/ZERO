@@ -37,11 +37,17 @@ Program Listing for File mp_param.cpp
      Utils::appendSave(this->C, filename, std::string("MP_Param::C"), false);
      Utils::appendSave(this->b, filename, std::string("MP_Param::b"), false);
      Utils::appendSave(this->c, filename, std::string("MP_Param::c"), false);
+     arma::sp_mat BO(this->Ny, 2);
+     for (unsigned int i = 0; i < this->Ny; ++i) {
+        BO.at(i, 0) = this->Bounds.at(i).first;
+        BO.at(i, 1) = this->Bounds.at(i).second;
+     }
+     Utils::appendSave(BO, filename, std::string("MP_Param::Bounds"), false);
      BOOST_LOG_TRIVIAL(trace) << "Saved MP_Param to file " << filename;
    }
    
    long int MathOpt::MP_Param::load(const std::string &filename, long int pos) {
-     arma::sp_mat Q, A, B, C;
+     arma::sp_mat Q, A, B, C, BO;
      arma::vec    c, b;
      std::string  headercheck;
      pos = Utils::appendRead(headercheck, filename, pos);
@@ -53,11 +59,25 @@ Program Listing for File mp_param.cpp
      pos = Utils::appendRead(C, filename, pos, std::string("MP_Param::C"));
      pos = Utils::appendRead(b, filename, pos, std::string("MP_Param::b"));
      pos = Utils::appendRead(c, filename, pos, std::string("MP_Param::c"));
+     pos = Utils::appendRead(BO, filename, pos, std::string("MP_Param::Bounds"));
+     if (BO.n_rows > 0) {
+        if (BO.n_cols != 2)
+           throw ZEROException(ZEROErrorCode::IOError, "Invalid bounds object in loaded file");
+   
+        for (unsigned int i = 0; i < this->Ny; ++i)
+           this->Bounds.push_back(
+                {BO.at(i, 0) > 0 ? BO.at(i, 0) : 0, BO.at(i, 1) > 0 ? BO.at(i, 1) : -1});
+   
+        int diff = this->Ny - BO.n_rows;
+        for (unsigned int i = 0; i < diff; ++i)
+           this->Bounds.push_back({0, -1});
+     }
      this->set(Q, C, A, B, c, b);
      return pos;
    }
    
    MathOpt::MP_Param &MathOpt::MP_Param::addDummy(unsigned int pars, unsigned int vars, int position)
+   
    {
      this->Nx += pars;
      this->Ny += vars;
@@ -115,8 +135,9 @@ Program Listing for File mp_param.cpp
      return *this;
    }
    
-   
    void MathOpt::MP_Param::detectBounds() {
+   
+   
      unsigned int nConstr = this->b.size();
    
      // We claim that any bound is in the form of A_ix+B_iy <= b_i, where B_i contains a single
@@ -205,7 +226,6 @@ Program Listing for File mp_param.cpp
      }
    
    
-   
      if (shedRows.size() > 0) {
         // Shed the rows of A,B,b
         std::sort(shedRows.begin(), shedRows.end());
@@ -221,6 +241,7 @@ Program Listing for File mp_param.cpp
    
    
    void MathOpt::MP_Param::rewriteBounds() {
+   
      int cnt = 0;
      if (this->BoundsSwitch > 0) {
         for (unsigned int i = 0; i < this->Bounds.size(); ++i) {
@@ -266,8 +287,7 @@ Program Listing for File mp_param.cpp
                                                            const arma::sp_mat &A,
                                                            const arma::sp_mat &B,
                                                            const arma::vec &   c,
-                                                           const arma::vec &   b)
-   {
+                                                           const arma::vec &   b) {
      this->Q = (Q);
      this->C = (C);
      this->A = (A);
@@ -279,13 +299,13 @@ Program Listing for File mp_param.cpp
      return *this;
    }
    
+   
    MathOpt::MP_Param &MathOpt::MP_Param::set(arma::sp_mat &&Q,
                                                            arma::sp_mat &&C,
                                                            arma::sp_mat &&A,
                                                            arma::sp_mat &&B,
                                                            arma::vec &&   c,
-                                                           arma::vec &&   b)
-   {
+                                                           arma::vec &&   b) {
      this->Q = std::move(Q);
      this->C = std::move(C);
      this->A = std::move(A);
@@ -300,13 +320,16 @@ Program Listing for File mp_param.cpp
    MathOpt::MP_Param &MathOpt::MP_Param::set(const QP_Objective &obj, const QP_Constraints &cons) {
      return this->set(obj.Q, obj.C, cons.A, cons.B, obj.c, cons.b);
    }
-   
    MathOpt::MP_Param &MathOpt::MP_Param::set(QP_Objective &&obj, QP_Constraints &&cons) {
-     return this->set(obj.Q, obj.C, cons.A, cons.B, obj.c, cons.b);
+     return this->set(std::move(obj.Q),
+                            std::move(obj.C),
+                            std::move(cons.A),
+                            std::move(cons.B),
+                            std::move(obj.c),
+                            std::move(cons.b));
    }
    
-   bool MathOpt::MP_Param::dataCheck(bool forceSymmetry) const
-   {
+   bool MathOpt::MP_Param::dataCheck(bool forceSymmetry) const {
      if (!Q.is_empty()) {
         if (forceSymmetry) {
            if (!this->Q.is_symmetric() && this->Q.n_rows > 0)
@@ -337,48 +360,10 @@ Program Listing for File mp_param.cpp
      return true;
    }
    
-   bool MathOpt::MP_Param::dataCheck(const QP_Objective &  obj,
-                                                const QP_Constraints &cons,
-                                                bool                  checkobj,
-                                                bool                  checkcons) {
-     unsigned int Ny    = obj.Q.n_rows;
-     unsigned int Nx    = obj.C.n_cols;
-     unsigned int Ncons = cons.b.size();
-     if (checkobj && obj.Q.n_cols != Ny) {
-        return false;
-     }
-     if (checkobj && obj.C.n_rows != Ny) {
-        return false;
-     }
-     if (checkobj && obj.c.size() != Ny) {
-        return false;
-     }
-     if (checkcons && cons.A.n_cols != Nx) {
-        return false;
-     } // Rest are matrix size compatibility checks
-     if (checkcons && cons.B.n_cols != Ny) {
-        return false;
-     }
-     if (checkcons && cons.A.n_rows != Ncons) {
-        return false;
-     }
-     if (checkcons && cons.B.n_rows != Ncons) {
-        return false;
-     }
-     return true;
-   }
    
-   unsigned int MathOpt::MP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const {
-     M.zeros(0, 0);
-     N.zeros(0, 0);
-     q.zeros(0);
-     return 0;
-   }
-   
-   double MathOpt::MP_Param::computeObjective(const arma::vec &y,
-                                                            const arma::vec &x,
-                                                            bool             checkFeas,
-                                                            double           tol) const {
-   
-     return 0;
+   bool MathOpt::MP_Param::finalize() {
+     this->detectBounds();
+     this->rewriteBounds();
+     this->size();
+     return this->dataCheck();
    }

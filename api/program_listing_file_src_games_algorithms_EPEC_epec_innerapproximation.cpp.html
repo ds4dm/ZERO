@@ -993,9 +993,9 @@ void Algorithms::EPEC::InnerApproximation::start() {
   }
 }
 
+
 bool Algorithms::EPEC::InnerApproximation::addRandomPoly2All(unsigned int aggressiveLevel,
-                                                                                 bool         stopOnSingleInfeasibility)
-{
+                                                                                 bool stopOnSingleInfeasibility) {
   BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Adding Random polyhedra to countries&quot;;
   bool infeasible{true};
   for (unsigned int i = 0; i &lt; this-&gt;EPECObject-&gt;NumPlayers; i++) {
@@ -1014,12 +1014,11 @@ bool Algorithms::EPEC::InnerApproximation::addRandomPoly2All(unsigned int aggres
   return !infeasible;
 }
 
+
 bool Algorithms::EPEC::InnerApproximation::getAllDeviations(
      std::vector&lt;arma::vec&gt; &amp;      deviations,
      const arma::vec &amp;             guessSol,
-     const std::vector&lt;arma::vec&gt; &amp;prevDev
-     ) const
-{
+     const std::vector&lt;arma::vec&gt; &amp;prevDev) const {
   deviations = std::vector&lt;arma::vec&gt;(this-&gt;EPECObject-&gt;NumPlayers);
 
   for (unsigned int i = 0; i &lt; this-&gt;EPECObject-&gt;NumPlayers; ++i) { // For each country
@@ -1032,10 +1031,10 @@ bool Algorithms::EPEC::InnerApproximation::getAllDeviations(
   return true;
 }
 
+
 unsigned int Algorithms::EPEC::InnerApproximation::addDeviatedPolyhedron(
-     const std::vector&lt;arma::vec&gt; &amp;deviations,
-     bool &amp;infeasCheck
-     ) const {
+     const std::vector&lt;arma::vec&gt; &amp;deviations, bool &amp;infeasCheck) const {
+
   infeasCheck        = false;
   unsigned int added = 0;
   for (unsigned int i = 0; i &lt; this-&gt;EPECObject-&gt;NumPlayers; ++i) { // For each country

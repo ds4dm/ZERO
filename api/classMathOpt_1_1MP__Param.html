@@ -957,30 +957,92 @@
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8MP_Param3setERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecE">
 <span id="_CPPv3N7MathOpt8MP_Param3setERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecE"></span><span id="_CPPv2N7MathOpt8MP_Param3setERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecE"></span><span id="MathOpt::MP_Param::set__arma::sp_matCR.arma::sp_matCR.arma::sp_matCR.arma::sp_matCR.arma::vecCR.arma::vecCR"></span><span class="target" id="classMathOpt_1_1MP__Param_1ad78a4a1bd3566acdcc5c61feedca9f8a"></span><a class="reference internal" href="#_CPPv4N7MathOpt8MP_ParamE" title="MathOpt::MP_Param">MP_Param</a> &amp;<code class="sig-name descname">set</code><span class="sig-paren">(</span><em class="property">const</em> arma::sp_mat &amp;<em>Q</em>, <em class="property">const</em> arma::sp_mat &amp;<em>C</em>, <em class="property">const</em> arma::sp_mat &amp;<em>A</em>, <em class="property">const</em> arma::sp_mat &amp;<em>B</em>, <em class="property">const</em> arma::vec &amp;<em>c</em>, <em class="property">const</em> arma::vec &amp;<em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8MP_Param3setERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Setting the data, while keeping the input objects intact. </p>
+<dd><p>Constructor to set the data, while keeping the input objects intact. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A pointer to this </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Q</span></code>: Quadratic term for y in the objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">C</span></code>: Bi-linear term for x-y in the objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: Matrix of constraints for the parameters x </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">B</span></code>: Matrix of constraints for the variables y </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code>: Vector of linear terms for y in the objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: Vector of RHS in the constraints </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Bounds</span></code>: Optional object of VariableBounds bounds on y variables </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8MP_Param3setERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma3vecERRN4arma3vecE">
 <span id="_CPPv3N7MathOpt8MP_Param3setERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma3vecERRN4arma3vecE"></span><span id="_CPPv2N7MathOpt8MP_Param3setERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma3vecERRN4arma3vecE"></span><span id="MathOpt::MP_Param::set__arma::sp_matRR.arma::sp_matRR.arma::sp_matRR.arma::sp_matRR.arma::vecRR.arma::vecRR"></span><span class="target" id="classMathOpt_1_1MP__Param_1af8b3e3a4717541860fcb72634e1723ab"></span><a class="reference internal" href="#_CPPv4N7MathOpt8MP_ParamE" title="MathOpt::MP_Param">MP_Param</a> &amp;<code class="sig-name descname">set</code><span class="sig-paren">(</span>arma::sp_mat &amp;&amp;<em>Q</em>, arma::sp_mat &amp;&amp;<em>C</em>, arma::sp_mat &amp;&amp;<em>A</em>, arma::sp_mat &amp;&amp;<em>B</em>, arma::vec &amp;&amp;<em>c</em>, arma::vec &amp;&amp;<em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8MP_Param3setERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma6sp_matERRN4arma3vecERRN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Faster means to set data. But the input objects might be corrupted now. </p>
+<dd><p>Constructor to set the data through std::move. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A pointer to this </p>
+</dd>
+<dt><strong>Warning</strong></dt><dd><p>The input data may be corrupted after </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Q</span></code>: Quadratic term for y in the objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">C</span></code>: Bi-linear term for x-y in the objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: Matrix of constraints for the parameters x </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">B</span></code>: Matrix of constraints for the variables y </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code>: Vector of linear terms for y in the objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: Vector of RHS in the constraints </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8MP_Param3setERK12QP_ObjectiveRK14QP_Constraints">
 <span id="_CPPv3N7MathOpt8MP_Param3setERK12QP_ObjectiveRK14QP_Constraints"></span><span id="_CPPv2N7MathOpt8MP_Param3setERK12QP_ObjectiveRK14QP_Constraints"></span><span id="MathOpt::MP_Param::set__QP_ObjectiveCR.QP_ConstraintsCR"></span><span class="target" id="classMathOpt_1_1MP__Param_1ae632d6f5348fc84bebe05ab01288e448"></span><a class="reference internal" href="#_CPPv4N7MathOpt8MP_ParamE" title="MathOpt::MP_Param">MP_Param</a> &amp;<code class="sig-name descname">set</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="structMathOpt_1_1QP__Objective.html#_CPPv4N7MathOpt12QP_ObjectiveE" title="MathOpt::QP_Objective">QP_Objective</a> &amp;<em>obj</em>, <em class="property">const</em> <a class="reference internal" href="structMathOpt_1_1QP__Constraints.html#_CPPv4N7MathOpt14QP_ConstraintsE" title="MathOpt::QP_Constraints">QP_Constraints</a> &amp;<em>cons</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8MP_Param3setERK12QP_ObjectiveRK14QP_Constraints" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>A copy constructor given a <a class="reference internal" href="structMathOpt_1_1QP__Objective.html#structMathOpt_1_1QP__Objective"><span class="std std-ref">QP_Objective</span></a> and <a class="reference internal" href="structMathOpt_1_1QP__Constraints.html#structMathOpt_1_1QP__Constraints"><span class="std std-ref">QP_Constraints</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A pointer to this </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">obj</span></code>: The objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cons</span></code>: The constraints object </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8MP_Param3setERR12QP_ObjectiveRR14QP_Constraints">
 <span id="_CPPv3N7MathOpt8MP_Param3setERR12QP_ObjectiveRR14QP_Constraints"></span><span id="_CPPv2N7MathOpt8MP_Param3setERR12QP_ObjectiveRR14QP_Constraints"></span><span id="MathOpt::MP_Param::set__QP_ObjectiveRR.QP_ConstraintsRR"></span><span class="target" id="classMathOpt_1_1MP__Param_1ae0389084bac5b495c773cf647b7e9bff"></span><a class="reference internal" href="#_CPPv4N7MathOpt8MP_ParamE" title="MathOpt::MP_Param">MP_Param</a> &amp;<code class="sig-name descname">set</code><span class="sig-paren">(</span><a class="reference internal" href="structMathOpt_1_1QP__Objective.html#_CPPv4N7MathOpt12QP_ObjectiveE" title="MathOpt::QP_Objective">QP_Objective</a> &amp;&amp;<em>obj</em>, <a class="reference internal" href="structMathOpt_1_1QP__Constraints.html#_CPPv4N7MathOpt14QP_ConstraintsE" title="MathOpt::QP_Constraints">QP_Constraints</a> &amp;&amp;<em>cons</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8MP_Param3setERR12QP_ObjectiveRR14QP_Constraints" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>A move constructor given a <a class="reference internal" href="structMathOpt_1_1QP__Objective.html#structMathOpt_1_1QP__Objective"><span class="std std-ref">QP_Objective</span></a> and <a class="reference internal" href="structMathOpt_1_1QP__Constraints.html#structMathOpt_1_1QP__Constraints"><span class="std std-ref">QP_Constraints</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A pointer to this </p>
+</dd>
+<dt><strong>Warning</strong></dt><dd><p>The input data may be corrupted after </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">obj</span></code>: The objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cons</span></code>: The constraints object </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8MP_Param8addDummyEjji">
 <span id="_CPPv3N7MathOpt8MP_Param8addDummyEjji"></span><span id="_CPPv2N7MathOpt8MP_Param8addDummyEjji"></span><span id="MathOpt::MP_Param::addDummy__unsigned-i.unsigned-i.i"></span><span class="target" id="classMathOpt_1_1MP__Param_1a802628bc47d8e985d77e6184440af534"></span><a class="reference internal" href="#_CPPv4N7MathOpt8MP_ParamE" title="MathOpt::MP_Param">MP_Param</a> &amp;<code class="sig-name descname">addDummy</code><span class="sig-paren">(</span>unsigned int <em>pars</em>, unsigned int <em>vars</em> = 0, int <em>position</em> = -1<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8MP_Param8addDummyEjji" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Adds dummy variables to a parameterized mathematical program <code class="docutils literal notranslate"><span class="pre">position</span></code> dictates the position at which the parameters can be added. -1 for adding at the end. <dl class="simple">
-<dt><strong>Warning</strong></dt><dd><p><code class="docutils literal notranslate"><span class="pre">position</span></code> cannot be set for <code class="docutils literal notranslate"><span class="pre">vars</span></code>. <code class="docutils literal notranslate"><span class="pre">vars</span></code> always added at the end. </p>
+<dd><p>Adds dummy variables to a parameterized mathematical program <code class="docutils literal notranslate"><span class="pre">position</span></code> dictates the position at which the parameters can be added. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A pointer to the object </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pars</span></code>: Number of parameters to be added (e.g., <a class="reference internal" href="#classMathOpt_1_1MP__Param_1ab74a22bf304936286282f869cb646873"><span class="std std-ref">MP_Param::Nx</span></a>) </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vars</span></code>: Number of variables to be added (e.g., <a class="reference internal" href="#classMathOpt_1_1MP__Param_1a1a69f24fcb92ebf76ea29c9407859f0a"><span class="std std-ref">MP_Param::Ny</span></a>) </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">position</span></code>: The position at which the parameters should be added. -1 for adding at the end. </p></li>
+</ul>
 </dd>
 </dl>
 </p>
@@ -989,16 +1051,48 @@
 <dl class="cpp function">
 <dt id="_CPPv4NK7MathOpt8MP_Param4saveERKNSt6stringEb">
 <span id="_CPPv3NK7MathOpt8MP_Param4saveERKNSt6stringEb"></span><span id="_CPPv2NK7MathOpt8MP_Param4saveERKNSt6stringEb"></span><span id="MathOpt::MP_Param::save__ssCR.bC"></span><span class="target" id="classMathOpt_1_1MP__Param_1a5c7c74ccc5ecb6e98db390c6877f84a4"></span>void <code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>filename</em>, bool <em>append</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt8MP_Param4saveERKNSt6stringEb" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Writes a given parameterized Mathematical program to a set of files. Writes a given parameterized Mathematical program to a set of files. One file is written for each attribute namely. </p>
+<p><ol class="lowerroman simple">
+<li><p><a class="reference internal" href="#classMathOpt_1_1MP__Param_1aae8144b23a29ea99d5ef793729438feb"><span class="std std-ref">MathOpt::MP_Param::Q</span></a></p></li>
+<li><p><a class="reference internal" href="#classMathOpt_1_1MP__Param_1a13727398531ec805acd474fa5da89056"><span class="std std-ref">MathOpt::MP_Param::C</span></a></p></li>
+<li><p><a class="reference internal" href="#classMathOpt_1_1MP__Param_1a69e39bfe4a58e5c43dbcb7ac16be3fe5"><span class="std std-ref">MathOpt::MP_Param::A</span></a></p></li>
+<li><p><a class="reference internal" href="#classMathOpt_1_1MP__Param_1adb541edcb7083da9bde8e6615063acd3"><span class="std std-ref">MathOpt::MP_Param::B</span></a></p></li>
+<li><p><a class="reference internal" href="#classMathOpt_1_1MP__Param_1a270fad22decf1dbdc2227ff9a4875e34"><span class="std std-ref">MathOpt::MP_Param::c</span></a></p></li>
+<li><p><a class="reference internal" href="#classMathOpt_1_1MP__Param_1af6e726c09d1d43359c2dad586b0fb4d5"><span class="std std-ref">MathOpt::MP_Param::b</span></a></p></li>
+<li><p><a class="reference internal" href="#classMathOpt_1_1MP__Param_1a5751cc26c1fdc100766f9216af72db97"><span class="std std-ref">MathOpt::MP_Param::Bounds</span></a></p></li>
+</ol>
+</p>
+<p>To contrast see, <a class="reference internal" href="#classMathOpt_1_1MP__Param_1a5c7c74ccc5ecb6e98db390c6877f84a4"><span class="std std-ref">MathOpt::MP_Param::save</span></a> where all details are written to a single loadable file <dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code>: The filename </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">append</span></code>: True if the content is appended </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8MP_Param4loadERKNSt6stringEl">
 <span id="_CPPv3N7MathOpt8MP_Param4loadERKNSt6stringEl"></span><span id="_CPPv2N7MathOpt8MP_Param4loadERKNSt6stringEl"></span><span id="MathOpt::MP_Param::load__ssCR.l-i"></span><span class="target" id="classMathOpt_1_1MP__Param_1a5bb4abbfe60f8b82c5329610ab8187a5"></span>long int <code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>filename</em>, long int <em>pos</em> = 0<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8MP_Param4loadERKNSt6stringEl" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Inverses the operation of <a class="reference internal" href="#classMathOpt_1_1MP__Param_1a5c7c74ccc5ecb6e98db390c6877f84a4"><span class="std std-ref">MP_Param::save</span></a> by loading the object from a file. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The position after the <a class="reference internal" href="#classMathOpt_1_1MP__Param"><span class="std std-ref">MP_Param</span></a> in the file </p>
+</dd>
+<dt><strong>Warning</strong></dt><dd><p>Call <a class="reference internal" href="#classMathOpt_1_1MP__Param_1a1cda15da2419386f6228f0fff988a821"><span class="std std-ref">MP_Param(GRBEnv *env)</span></a> before loading </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code>: The filename </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pos</span></code>: The position of the <a class="reference internal" href="#classMathOpt_1_1MP__Param"><span class="std std-ref">MP_Param</span></a> in the file </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK7MathOpt8MP_Param3KKTERN4arma6sp_matERN4arma6sp_matERN4arma3vecE">
-<span id="_CPPv3NK7MathOpt8MP_Param3KKTERN4arma6sp_matERN4arma6sp_matERN4arma3vecE"></span><span id="_CPPv2NK7MathOpt8MP_Param3KKTERN4arma6sp_matERN4arma6sp_matERN4arma3vecE"></span><span id="MathOpt::MP_Param::KKT__arma::sp_matR.arma::sp_matR.arma::vecRC"></span><span class="target" id="classMathOpt_1_1MP__Param_1a777993909cd794c726e13ac031dd3a75"></span>unsigned int <code class="sig-name descname">KKT</code><span class="sig-paren">(</span>arma::sp_mat &amp;<em>M</em>, arma::sp_mat &amp;<em>N</em>, arma::vec &amp;<em>q</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt8MP_Param3KKTERN4arma6sp_matERN4arma6sp_matERN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK7MathOpt8MP_Param3KKTERN4arma6sp_matERN4arma6sp_matERN4arma3vecE"></span><span id="_CPPv2NK7MathOpt8MP_Param3KKTERN4arma6sp_matERN4arma6sp_matERN4arma3vecE"></span><span id="MathOpt::MP_Param::KKT__arma::sp_matR.arma::sp_matR.arma::vecRC"></span><span class="target" id="classMathOpt_1_1MP__Param_1a046bc6a364676767ea1d7fe792cdd9c7"></span>unsigned int <code class="sig-name descname">KKT</code><span class="sig-paren">(</span>arma::sp_mat &amp;<em>M</em>, arma::sp_mat &amp;<em>N</em>, arma::vec &amp;<em>q</em><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK7MathOpt8MP_Param3KKTERN4arma6sp_matERN4arma6sp_matERN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
@@ -1008,15 +1102,7 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4NK7MathOpt8MP_Param16computeObjectiveERKN4arma3vecERKN4arma3vecEbd">
-<span id="_CPPv3NK7MathOpt8MP_Param16computeObjectiveERKN4arma3vecERKN4arma3vecEbd"></span><span id="_CPPv2NK7MathOpt8MP_Param16computeObjectiveERKN4arma3vecERKN4arma3vecEbd"></span><span id="MathOpt::MP_Param::computeObjective__arma::vecCR.arma::vecCR.b.doubleC"></span><span class="target" id="classMathOpt_1_1MP__Param_1a2adf70edcd399f2cf22ef1edcdde97c2"></span>double <code class="sig-name descname">computeObjective</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>y</em>, <em class="property">const</em> arma::vec &amp;<em>x</em>, bool <em>checkFeas</em> = true, double <em>tol</em> = 1e-6<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt8MP_Param16computeObjectiveERKN4arma3vecERKN4arma3vecEbd" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Static Functions</p>
-<dl class="cpp function">
-<dt id="_CPPv4N7MathOpt8MP_Param9dataCheckERK12QP_ObjectiveRK14QP_Constraintsbb">
-<span id="_CPPv3N7MathOpt8MP_Param9dataCheckERK12QP_ObjectiveRK14QP_Constraintsbb"></span><span id="_CPPv2N7MathOpt8MP_Param9dataCheckERK12QP_ObjectiveRK14QP_Constraintsbb"></span><span id="MathOpt::MP_Param::dataCheck__QP_ObjectiveCR.QP_ConstraintsCR.b.b"></span><span class="target" id="classMathOpt_1_1MP__Param_1af137f454eef5ef1e9ef3edd7c7b16261"></span>bool <code class="sig-name descname">dataCheck</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="structMathOpt_1_1QP__Objective.html#_CPPv4N7MathOpt12QP_ObjectiveE" title="MathOpt::QP_Objective">QP_Objective</a> &amp;<em>obj</em>, <em class="property">const</em> <a class="reference internal" href="structMathOpt_1_1QP__Constraints.html#_CPPv4N7MathOpt14QP_ConstraintsE" title="MathOpt::QP_Constraints">QP_Constraints</a> &amp;<em>cons</em>, bool <em>checkObj</em> = true, bool <em>checkCons</em> = true<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8MP_Param9dataCheckERK12QP_ObjectiveRK14QP_Constraintsbb" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK7MathOpt8MP_Param16computeObjectiveERKN4arma3vecERKN4arma3vecEbd"></span><span id="_CPPv2NK7MathOpt8MP_Param16computeObjectiveERKN4arma3vecERKN4arma3vecEbd"></span><span id="MathOpt::MP_Param::computeObjective__arma::vecCR.arma::vecCR.b.doubleC"></span><span class="target" id="classMathOpt_1_1MP__Param_1a83fb642f2f43894e67bdd72c159406d3"></span>double <code class="sig-name descname">computeObjective</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>y</em>, <em class="property">const</em> arma::vec &amp;<em>x</em>, bool <em>checkFeas</em> = true, double <em>tol</em> = 1e-6<span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK7MathOpt8MP_Param16computeObjectiveERKN4arma3vecERKN4arma3vecEbd" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -1046,19 +1132,13 @@
 <dl class="cpp function">
 <dt id="_CPPv4NK7MathOpt8MP_Param9dataCheckEb">
 <span id="_CPPv3NK7MathOpt8MP_Param9dataCheckEb"></span><span id="_CPPv2NK7MathOpt8MP_Param9dataCheckEb"></span><span id="MathOpt::MP_Param::dataCheck__bC"></span><span class="target" id="classMathOpt_1_1MP__Param_1aff9abbb06628471244cf51284ce2339d"></span>bool <code class="sig-name descname">dataCheck</code><span class="sig-paren">(</span>bool <em>forceSymmetry</em> = true<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt8MP_Param9dataCheckEb" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Check that the data for the <a class="reference internal" href="#classMathOpt_1_1MP__Param"><span class="std std-ref">MP_Param</span></a> class is valid Always works after calls to <a class="reference internal" href="#classMathOpt_1_1MP__Param_1a70400a4046b1ab099f6c2ebbdceab6d5"><span class="std std-ref">MP_Param::size()</span></a> Checks that are done: </p>
-<p><ul class="simple">
-<li><p>Number of columns in <code class="docutils literal notranslate"><span class="pre">Q</span></code> is same as <code class="docutils literal notranslate"><span class="pre">Ny</span></code> (Q should be square)</p></li>
-<li><p>Number of columns of <code class="docutils literal notranslate"><span class="pre">A</span></code> should be <code class="docutils literal notranslate"><span class="pre">Nx</span></code> </p></li>
-<li><p>Number of columns of <code class="docutils literal notranslate"><span class="pre">B</span></code> should be <code class="docutils literal notranslate"><span class="pre">Ny</span></code> </p></li>
-<li><p>Number of rows in <code class="docutils literal notranslate"><span class="pre">C</span></code> should be <code class="docutils literal notranslate"><span class="pre">Ny</span></code> </p></li>
-<li><p>Size of <code class="docutils literal notranslate"><span class="pre">c</span></code> should be <code class="docutils literal notranslate"><span class="pre">Ny</span></code> </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> should have the same number of rows, equal to <code class="docutils literal notranslate"><span class="pre">Ncons</span></code> </p></li>
-<li><p>if <code class="docutils literal notranslate"><span class="pre">forceSymmetry</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code>, then Q should be symmetric</p></li>
-</ul>
-</p>
+<dd><p>Check that the data for the <a class="reference internal" href="#classMathOpt_1_1MP__Param"><span class="std std-ref">MP_Param</span></a> class is valid Always works after calls to <a class="reference internal" href="#classMathOpt_1_1MP__Param_1a70400a4046b1ab099f6c2ebbdceab6d5"><span class="std std-ref">MP_Param::size()</span></a>. </p>
 <p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>true if all above checks are cleared. false otherwise. </p>
+<dt><strong>Return</strong></dt><dd><p>True if data structures are correctly sized. </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">forceSymmetry</span></code>: </p></li>
+</ul>
 </dd>
 </dl>
 </p>
@@ -1067,17 +1147,25 @@
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8MP_Param12detectBoundsEv">
 <span id="_CPPv3N7MathOpt8MP_Param12detectBoundsEv"></span><span id="_CPPv2N7MathOpt8MP_Param12detectBoundsEv"></span><span id="MathOpt::MP_Param::detectBounds"></span><span class="target" id="classMathOpt_1_1MP__Param_1a841ad9c184637ca11c6ccffb9408cec3"></span>void <code class="sig-name descname">detectBounds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8MP_Param12detectBoundsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Detects explicit bounds stated in the <a class="reference internal" href="#classMathOpt_1_1MP__Param"><span class="std std-ref">MP_Param</span></a> formulation, and stores them implicitly. This is useful when the formulation of the parametrized mathematical program is processed through other steps (e.g., KKT conditions, LCPs, etc…) since any bound constraint can possibly slow down the final problem solving. </p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8MP_Param13rewriteBoundsEv">
 <span id="_CPPv3N7MathOpt8MP_Param13rewriteBoundsEv"></span><span id="_CPPv2N7MathOpt8MP_Param13rewriteBoundsEv"></span><span id="MathOpt::MP_Param::rewriteBounds"></span><span class="target" id="classMathOpt_1_1MP__Param_1a6052342ac6616781b43dab27906be450"></span>void <code class="sig-name descname">rewriteBounds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8MP_Param13rewriteBoundsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Given the description of the object, renders the bounds explicitly. This method is useful when building the KKT conditions for the <a class="reference internal" href="#classMathOpt_1_1MP__Param"><span class="std std-ref">MP_Param</span></a>. In particular, after bounds are detected and their respective rows are shedded by <a class="reference internal" href="#classMathOpt_1_1MP__Param_1a841ad9c184637ca11c6ccffb9408cec3"><span class="std std-ref">MP_Param::detectBounds</span></a>, the explicit constraints should be added again. </p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8MP_Param8finalizeEv">
-<span id="_CPPv3N7MathOpt8MP_Param8finalizeEv"></span><span id="_CPPv2N7MathOpt8MP_Param8finalizeEv"></span><span id="MathOpt::MP_Param::finalize"></span><span class="target" id="classMathOpt_1_1MP__Param_1a77c1f71200e55ee2fe1abe3c9eb13005"></span>bool <code class="sig-name descname">finalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8MP_Param8finalizeEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Finalize the <a class="reference internal" href="#classMathOpt_1_1MP__Param"><span class="std std-ref">MP_Param</span></a> object. </p>
+<span id="_CPPv3N7MathOpt8MP_Param8finalizeEv"></span><span id="_CPPv2N7MathOpt8MP_Param8finalizeEv"></span><span id="MathOpt::MP_Param::finalize"></span><span class="target" id="classMathOpt_1_1MP__Param_1ab76096f2074740caf0287308fb5ce918"></span>bool <code class="sig-name descname">finalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8MP_Param8finalizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Finalizes the <a class="reference internal" href="#classMathOpt_1_1MP__Param"><span class="std std-ref">MP_Param</span></a> object. Can be overriden by inheritors. </p>
+<p>Finalizes the <a class="reference internal" href="#classMathOpt_1_1MP__Param"><span class="std std-ref">MP_Param</span></a> object, computing the object sizes and eventually shedding trivial bound constraints.</p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>True if the object is Finalized and checks are passed. </p>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 </div>
@@ -1101,7 +1189,8 @@
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt8MP_Param1CE">
 <span id="_CPPv3N7MathOpt8MP_Param1CE"></span><span id="_CPPv2N7MathOpt8MP_Param1CE"></span><span id="MathOpt::MP_Param::C__arma::sp_mat"></span><span class="target" id="classMathOpt_1_1MP__Param_1a13727398531ec805acd474fa5da89056"></span>arma::sp_mat <code class="sig-name descname">C</code><a class="headerlink" href="#_CPPv4N7MathOpt8MP_Param1CE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>The descriptors of the parametrized mathematical problem. </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt8MP_Param1cE">
@@ -1111,38 +1200,44 @@
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt8MP_Param1bE">
 <span id="_CPPv3N7MathOpt8MP_Param1bE"></span><span id="_CPPv2N7MathOpt8MP_Param1bE"></span><span id="MathOpt::MP_Param::b__arma::vec"></span><span class="target" id="classMathOpt_1_1MP__Param_1af6e726c09d1d43359c2dad586b0fb4d5"></span>arma::vec <code class="sig-name descname">b</code><a class="headerlink" href="#_CPPv4N7MathOpt8MP_Param1bE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>The descriptors of the parametrized mathematical problem. </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt8MP_Param3EnvE">
 <span id="_CPPv3N7MathOpt8MP_Param3EnvE"></span><span id="_CPPv2N7MathOpt8MP_Param3EnvE"></span><span id="MathOpt::MP_Param::Env__GRBEnvP"></span><span class="target" id="classMathOpt_1_1MP__Param_1a001d0b00d27ed4ce20f6d937cd658aa8"></span>GRBEnv *<code class="sig-name descname">Env</code><a class="headerlink" href="#_CPPv4N7MathOpt8MP_Param3EnvE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>A pointer to the Gurobi environment. </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt8MP_Param6BoundsE">
 <span id="_CPPv3N7MathOpt8MP_Param6BoundsE"></span><span id="_CPPv2N7MathOpt8MP_Param6BoundsE"></span><span id="MathOpt::MP_Param::Bounds__VariableBounds"></span><span class="target" id="classMathOpt_1_1MP__Param_1a5751cc26c1fdc100766f9216af72db97"></span><a class="reference internal" href="typedef_zero_8h_1a58d910cf6fdc1337ace92535234dc1d4.html#_CPPv414VariableBounds" title="VariableBounds">VariableBounds</a> <code class="sig-name descname">Bounds</code><a class="headerlink" href="#_CPPv4N7MathOpt8MP_Param6BoundsE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Bounds on the y variables. </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt8MP_Param12BoundsSwitchE">
 <span id="_CPPv3N7MathOpt8MP_Param12BoundsSwitchE"></span><span id="_CPPv2N7MathOpt8MP_Param12BoundsSwitchE"></span><span id="MathOpt::MP_Param::BoundsSwitch__b"></span><span class="target" id="classMathOpt_1_1MP__Param_1af72b7da687226c869d19e44432022925"></span>bool <code class="sig-name descname">BoundsSwitch</code> = 0<a class="headerlink" href="#_CPPv4N7MathOpt8MP_Param12BoundsSwitchE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>True when bounds are detected. </p>
+<dd><p>True when bounds are detected in the problem. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt8MP_Param2NxE">
 <span id="_CPPv3N7MathOpt8MP_Param2NxE"></span><span id="_CPPv2N7MathOpt8MP_Param2NxE"></span><span id="MathOpt::MP_Param::Nx__unsigned-i"></span><span class="target" id="classMathOpt_1_1MP__Param_1ab74a22bf304936286282f869cb646873"></span>unsigned int <code class="sig-name descname">Nx</code><a class="headerlink" href="#_CPPv4N7MathOpt8MP_Param2NxE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Number of x variables (the ones that are parametrized) </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt8MP_Param2NyE">
 <span id="_CPPv3N7MathOpt8MP_Param2NyE"></span><span id="_CPPv2N7MathOpt8MP_Param2NyE"></span><span id="MathOpt::MP_Param::Ny__unsigned-i"></span><span class="target" id="classMathOpt_1_1MP__Param_1a1a69f24fcb92ebf76ea29c9407859f0a"></span>unsigned int <code class="sig-name descname">Ny</code><a class="headerlink" href="#_CPPv4N7MathOpt8MP_Param2NyE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Number of y variables. </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt8MP_Param5NconsE">
 <span id="_CPPv3N7MathOpt8MP_Param5NconsE"></span><span id="_CPPv2N7MathOpt8MP_Param5NconsE"></span><span id="MathOpt::MP_Param::Ncons__unsigned-i"></span><span class="target" id="classMathOpt_1_1MP__Param_1a5c20eb5e9dac543042b9888e012ab99b"></span>unsigned int <code class="sig-name descname">Ncons</code><a class="headerlink" href="#_CPPv4N7MathOpt8MP_Param5NconsE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Number of constraints. </p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -1150,7 +1245,7 @@
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt8MP_Param3EpsE">
 <span id="_CPPv3N7MathOpt8MP_Param3EpsE"></span><span id="_CPPv2N7MathOpt8MP_Param3EpsE"></span><span id="MathOpt::MP_Param::Eps__double"></span><span class="target" id="classMathOpt_1_1MP__Param_1a0573dfe79c06997b6bdadb425bfe637f"></span>double <code class="sig-name descname">Eps</code> = {1e-6}<a class="headerlink" href="#_CPPv4N7MathOpt8MP_Param3EpsE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>The threshold for zero tolerance. </p>
+<dd><p>A numerical tolerance. </p>
 </dd></dl>
 
 </div>

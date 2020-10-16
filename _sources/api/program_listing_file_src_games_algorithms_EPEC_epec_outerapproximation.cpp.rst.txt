@@ -33,7 +33,9 @@ Program Listing for File epec_outerapproximation.cpp
    
    bool Algorithms::EPEC::OuterApproximation::isSolved(double tol) const { return this->Feasible; }
    
+   
    bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
+   
    
      // First, we have a NE from Games::computeNashEq
      if (!this->EPECObject->NashEquilibrium)
@@ -94,7 +96,8 @@ Program Listing for File epec_outerapproximation.cpp
    
            // Check if we need to add the point to the vertex storage.
            arma::vec vertex = bestResponse.subvec(0, xOfI.size() - 1);
-           vertex.print("Best Response");
+           //@todo debug
+           // vertex.print("Best Response");
            if (!Utils::containsRow(*this->Trees.at(i)->getV(), vertex, this->Tolerance)) {
              this->Trees.at(i)->addVertex(vertex);
              BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::isFeasible: "
@@ -132,9 +135,12 @@ Program Listing for File epec_outerapproximation.cpp
      return result;
    }
    
+   
    void Algorithms::EPEC::OuterApproximation::updateMembership(const unsigned int &player,
                                                                                    const arma::vec &   xOfI,
                                                                                    bool                normalization) {
+   
+   
      auto PlayerTree = Trees.at(player);
      MathOpt::getDualMembershipLP(PlayerTree->MembershipLP,
                                             PlayerTree->VertexCounter,
@@ -154,7 +160,8 @@ Program Listing for File epec_outerapproximation.cpp
    
         auto V = this->Trees.at(player)->V;
    
-        xOfI.print("Point to separate: ");
+        //@todo debug
+        // xOfI.print("Point to separate: ");
    
         this->updateMembership(player, xOfI, true);
         auto convexModel = *this->Trees.at(player)->MembershipLP;
@@ -187,7 +194,8 @@ Program Listing for File epec_outerapproximation.cpp
                 support.at(v) =
                      convexModel.getConstrByName("V_" + std::to_string(v)).get(GRB_DoubleAttr_Pi);
              }
-             support.print("MNE Support: ");
+             //@todo debug
+             // support.print("MNE Support: ");
              if (support.max() == 1)
                 this->Trees.at(player)->setPure();
              return true;
@@ -209,7 +217,8 @@ Program Listing for File epec_outerapproximation.cpp
    
              for (unsigned int i = 0; i < xOfI.size(); i++)
                 cutLHS.at(i) = convexModel.getVarByName("y_" + std::to_string(i)).get(GRB_DoubleAttr_X);
-             cutLHS.print("Separating hyperplane: ");
+             //@todo debug
+             // cutLHS.print("Separating hyperplane: ");
    
              // Optimize the resulting inequality over the original feasible set
              auto       leaderModel = this->EPECObject->respond(player, x);
@@ -267,7 +276,8 @@ Program Listing for File epec_outerapproximation.cpp
                      v[i] = leaderModel->getVarByName("x_" + std::to_string(i)).get(GRB_DoubleAttr_X);
                    }
    
-                   v.print("Vertex found: ");
+                   //@todo debug
+                   // v.print("Vertex found: ");
                    if (Utils::containsRow(*this->Trees.at(player)->getV(), v, this->Tolerance)) {
                      BOOST_LOG_TRIVIAL(warning)
                            << "Algorithms::EPEC::OuterApproximation::separationOracle: "
@@ -278,7 +288,8 @@ Program Listing for File epec_outerapproximation.cpp
                      // throw;
                    } else {
                      this->Trees.at(player)->addVertex(v);
-                     v.print("Vertex");
+                     //@todo debug
+                     // v.print("Vertex");
                      BOOST_LOG_TRIVIAL(info)
                            << "Algorithms::EPEC::OuterApproximation::separationOracle: "
                                "adding vertex for Player. "
@@ -318,6 +329,7 @@ Program Listing for File epec_outerapproximation.cpp
      }
      return false;
    }
+   
    
    void Algorithms::EPEC::OuterApproximation::addValueCut(const unsigned int player,
                                                                             const double       RHS,
@@ -479,8 +491,11 @@ Program Listing for File epec_outerapproximation.cpp
      }
    }
    
+   
    std::unique_ptr<GRBModel> Algorithms::EPEC::OuterApproximation::getFeasQP(const unsigned int player,
                                                                                                      const arma::vec    x) {
+   
+   
      // this->EPECObject->getXMinusI(this->EPECObject->SolutionX, player, xMinusI);
      arma::vec zeros;
      // Dummy vector of zeros associated to x^{-i}
@@ -498,8 +513,10 @@ Program Listing for File epec_outerapproximation.cpp
      return model;
    }
    
+   
    int Algorithms::EPEC::OuterApproximation::hybridBranching(const unsigned int player,
                                                                                 OuterTree::Node *  node) {
+   
      BOOST_LOG_TRIVIAL(info) << "OuterApproximation::hybridBranching: Player " << player;
    
      int bestId = -1;
@@ -560,8 +577,11 @@ Program Listing for File epec_outerapproximation.cpp
      return bestId;
    }
    
+   
+   
    int Algorithms::EPEC::OuterApproximation::infeasibleBranching(const unsigned int     player,
                                                                                      const OuterTree::Node *node) {
+   
      int result = -1;
      if (this->EPECObject->NashEquilibrium) {
         // There exists a Nash Equilibrium for the outer approximation, which is not
@@ -592,6 +612,8 @@ Program Listing for File epec_outerapproximation.cpp
    
    int Algorithms::EPEC::OuterApproximation::deviationBranching(const unsigned int     player,
                                                                                     const OuterTree::Node *node) {
+   
+   
      int result = -1;
      if (this->EPECObject->NashEquilibrium) {
         // There exists a Nash Equilibrium for the outer approximation, which is not
@@ -611,6 +633,7 @@ Program Listing for File epec_outerapproximation.cpp
      }
      return result;
    }
+   
    
    int Algorithms::EPEC::OuterApproximation::getFirstBranchLocation(const unsigned int     player,
                                                                                          const OuterTree::Node *node) {
@@ -648,9 +671,12 @@ Program Listing for File epec_outerapproximation.cpp
      return pos;
    }
    
+   
+   
    std::vector<int>
    Algorithms::EPEC::OuterApproximation::getNextBranchLocation(const unsigned int player,
                                                                                    OuterTree::Node *  node) {
+   
      std::vector<int> decisions = {-1, -1, -1, -1};
      decisions.at(0)            = this->infeasibleBranching(player, node);
      decisions.at(1)            = this->deviationBranching(player, node);
@@ -678,6 +704,7 @@ Program Listing for File epec_outerapproximation.cpp
                                        << decisions.at(3);
      return decisions;
    }
+   
    
    void Algorithms::EPEC::OuterApproximation::printCurrentApprox() {
      BOOST_LOG_TRIVIAL(info) << "Current Node Approximation:";
@@ -711,6 +738,8 @@ Program Listing for File epec_outerapproximation.cpp
      }
    }
    
+   
+   
    Algorithms::EPEC::OuterTree::Node::Node(Node &parent, unsigned int idComp, unsigned long int id) {
      this->IdComps                      = std::vector<unsigned int>{idComp};
      this->Encoding                     = parent.Encoding;
@@ -727,6 +756,7 @@ Program Listing for File epec_outerapproximation.cpp
      this->AllowedBranchings = std::vector<bool>(encSize, true);
    }
    
+   
    void Algorithms::EPEC::OuterTree::denyBranchingLocation(Algorithms::EPEC::OuterTree::Node &node,
                                                                              const unsigned int &location) {
      if (location >= this->EncodingSize)
@@ -737,14 +767,6 @@ Program Listing for File epec_outerapproximation.cpp
      node.AllowedBranchings.at(location) = false;
    }
    
-   void Algorithms::EPEC::OuterTree::denyBranchingLocations(Algorithms::EPEC::OuterTree::Node &node,
-                                                                               const std::vector<int> &locations) {
-     for (auto &location : locations) {
-        if (location < 0)
-           throw ZEROException(ZEROErrorCode::OutOfRange, "The branching location is negative");
-        this->denyBranchingLocation(node, location);
-     }
-   }
    
    std::vector<long int>
    Algorithms::EPEC::OuterTree::singleBranch(const unsigned int                 idComp,
@@ -763,22 +785,16 @@ Program Listing for File epec_outerapproximation.cpp
      return std::vector<long int>{this->NodeCounter - 1};
    }
    
-   std::vector<long int> Algorithms::EPEC::OuterTree::multipleBranch(const std::vector<int> idsComp,
-                                                                                           Node &                 t) {
-     for (auto &idComp : idsComp) {
-        if (idComp >= this->EncodingSize)
-           throw ZEROException(ZEROErrorCode::OutOfRange, "idComp is larger than the encoding size");
-        if (t.Encoding.at(idComp) != 0) {
-           BOOST_LOG_TRIVIAL(warning)
-                << "Tree: cannot branch on this complementary, since it already has "
-                    "been processed.";
-           return std::vector<long int>{-1};
-        }
-     }
-     auto child = Node(t, idsComp, this->nextIdentifier());
+   void Algorithms::EPEC::OuterTree::addVertex(arma::vec vertex) {
+     if (vertex.size() != this->V.n_cols && this->V.n_rows > 0)
+        throw ZEROException(ZEROErrorCode::OutOfRange, "Ill-dimensioned vertex");
+     this->V = arma::join_cols(this->V, arma::sp_mat{vertex.t()});
+   }
    
-     this->Nodes.push_back(child);
-     return std::vector<long int>{this->NodeCounter - 1};
+   void Algorithms::EPEC::OuterTree::addRay(arma::vec ray) {
+     if (ray.size() != this->R.n_cols && this->R.n_rows > 0)
+        throw ZEROException(ZEROErrorCode::OutOfRange, "Ill-dimensioned ray");
+     this->R = arma::join_cols(this->R, arma::sp_mat{ray.t()});
    }
    
    Algorithms::EPEC::OuterTree::Node::Node(Node &            parent,

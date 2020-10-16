@@ -853,14 +853,11 @@ namespace MathOpt {
 
   std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, const IP_Param &amp;I);
 
-  class IP_Param : public MP_Param
-  // Shape of C is Ny\times Nx
-  {
+  class IP_Param : public MP_Param {
   private:
-     // Gurobi environment and model
      GRBModel  IPModel;
-     arma::vec integers;
-     bool finalized{false};
+     arma::vec Integers;
+     bool Finalized{false};
 
      // These methods should be inaccessible to the inheritor, since we have a
      // different structure.
@@ -874,13 +871,12 @@ namespace MathOpt {
                              arma::vec    b,
                              arma::vec    c,
                              arma::vec    _integers,
-                             GRBEnv *     env = nullptr)
-          : MP_Param(env), IPModel{(*env)} {
-        this-&gt;set(C, B, b, c, _integers);
-        this-&gt;forceDataCheck();
-     };
+                             GRBEnv *     env = nullptr);
+     ;
 
-     arma::vec getIntegers() const { return this-&gt;integers; }
+     arma::vec getIntegers() const {
+        return this-&gt;Integers;
+     }
 
      bool finalize() override;
 
@@ -890,7 +886,7 @@ namespace MathOpt {
                               const double    tol            = 1e-5);
 
      IP_Param(const IP_Param &amp;ipg)
-          : MP_Param(ipg), IPModel{ipg.IPModel}, finalized{ipg.finalized}, integers{ipg.integers} {
+          : MP_Param(ipg), IPModel{ipg.IPModel}, Finalized{ipg.Finalized}, Integers{ipg.Integers} {
         this-&gt;size();
      };
 
@@ -921,32 +917,14 @@ namespace MathOpt {
                                      bool             checkFeas = true,
                                      double           tol       = 1e-6) const override;
 
-     inline bool isPlayable(const IP_Param &amp;P) const
-     {
-        bool b1, b2, b3;
-        b1 = (this-&gt;Nx + this-&gt;Ny) == (P.getNx() + P.getNy());
-        b2 = this-&gt;Nx &gt;= P.getNy();
-        b3 = this-&gt;Ny &lt;= P.getNx();
-        return b1 &amp;&amp; b2 &amp;&amp; b3;
-     }
-
      void save(const std::string &amp;filename, bool append) const override;
      long load(const std::string &amp;filename, long pos = 0) override;
-
-     double computeObjectiveWithoutOthers(const arma::vec &amp;y) const;
-
-     arma::vec getConstraintViolations(const arma::vec y, double tol);
 
      void forceDataCheck() const;
 
      void updateModelObjective(const arma::vec x);
 
-     std::unique_ptr&lt;GRBModel&gt; getIPModel(bool relax = false) {
-        if (relax)
-          return std::unique_ptr&lt;GRBModel&gt;(new GRBModel(this-&gt;IPModel.relax()));
-        else
-          return std::unique_ptr&lt;GRBModel&gt;(new GRBModel(this-&gt;IPModel));
-     }
+     std::unique_ptr&lt;GRBModel&gt; getIPModel(bool relax = false);
 
      std::unique_ptr&lt;GRBModel&gt; solveFixed(const arma::vec x, bool solve = false) override;
 

@@ -977,7 +977,7 @@ void Game::EPEC::getXWithoutHull(const arma::vec &amp;x, arma::vec &amp;xWithout
 
 std::unique_ptr&lt;GRBModel&gt; Game::EPEC::respond(const unsigned int i, const arma::vec &amp;x) const {
   if (!this-&gt;Finalized)
-     throw ZEROException(ZEROErrorCode::Assertion, &quot;The model was not finalized&quot;);
+     throw ZEROException(ZEROErrorCode::Assertion, &quot;The model was not Finalized&quot;);
 
   if (i &gt;= this-&gt;NumPlayers)
      throw ZEROException(ZEROErrorCode::OutOfRange, &quot;Country number is invalid&quot;);
@@ -1061,7 +1061,7 @@ const void Game::EPEC::makePlayerQP(const unsigned int i)
   // &quot;
   // &lt;&lt; this-&gt;AllLeadPars[i].name &lt;&lt; &#39;\n&#39;;
   if (!this-&gt;Finalized)
-     throw ZEROException(ZEROErrorCode::Assertion, &quot;The model was not finalized&quot;);
+     throw ZEROException(ZEROErrorCode::Assertion, &quot;The model was not Finalized&quot;);
   if (i &gt;= this-&gt;NumPlayers)
      throw ZEROException(ZEROErrorCode::OutOfRange, &quot;The player id is out of range&quot;);
   // if (!this-&gt;PlayersQP.at(i).get())
@@ -1260,7 +1260,7 @@ bool Game::EPEC::warmstart(const arma::vec x) { //@todo complete implementation
                                 &quot;The number of variables does not fit the instance&quot;);
 
   if (!this-&gt;Finalized) {
-     throw ZEROException(ZEROErrorCode::Assertion, &quot;The EPEC was not finalized&quot;);
+     throw ZEROException(ZEROErrorCode::Assertion, &quot;The EPEC was not Finalized&quot;);
   }
   if (this-&gt;PlayersQP.front() == nullptr) {
      BOOST_LOG_TRIVIAL(warning) &lt;&lt; &quot;Game::EPEC::warmstart: Generating QP as of warmstart.&quot;;
@@ -1291,7 +1291,7 @@ bool Game::EPEC::isSolved(double tol) const {
 const void Game::EPEC::findNashEq() {
   std::stringstream final_msg;
   if (!this-&gt;Finalized)
-     throw ZEROException(ZEROErrorCode::Assertion, &quot;The EPEC was not finalized&quot;);
+     throw ZEROException(ZEROErrorCode::Assertion, &quot;The EPEC was not Finalized&quot;);
 
   if (this-&gt;Stats.Status.get() != ZEROStatus::Uninitialized) {
      BOOST_LOG_TRIVIAL(error) &lt;&lt; &quot;Game::EPEC::findNashEq: a Nash Eq was &quot;

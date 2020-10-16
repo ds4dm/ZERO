@@ -179,9 +179,9 @@ Program Listing for File epec_innerapproximation.cpp
      }
    }
    
+   
    bool Algorithms::EPEC::InnerApproximation::addRandomPoly2All(unsigned int aggressiveLevel,
-                                                                                    bool         stopOnSingleInfeasibility)
-   {
+                                                                                    bool stopOnSingleInfeasibility) {
      BOOST_LOG_TRIVIAL(trace) << "Adding Random polyhedra to countries";
      bool infeasible{true};
      for (unsigned int i = 0; i < this->EPECObject->NumPlayers; i++) {
@@ -200,12 +200,11 @@ Program Listing for File epec_innerapproximation.cpp
      return !infeasible;
    }
    
+   
    bool Algorithms::EPEC::InnerApproximation::getAllDeviations(
-        std::vector<arma::vec> &      deviations, 
-        const arma::vec &             guessSol,   
-        const std::vector<arma::vec> &prevDev 
-        ) const
-   {
+        std::vector<arma::vec> &      deviations,
+        const arma::vec &             guessSol,
+        const std::vector<arma::vec> &prevDev) const {
      deviations = std::vector<arma::vec>(this->EPECObject->NumPlayers);
    
      for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i) { // For each country
@@ -218,10 +217,10 @@ Program Listing for File epec_innerapproximation.cpp
      return true;
    }
    
+   
    unsigned int Algorithms::EPEC::InnerApproximation::addDeviatedPolyhedron(
-        const std::vector<arma::vec> &deviations, 
-        bool &infeasCheck 
-        ) const {
+        const std::vector<arma::vec> &deviations, bool &infeasCheck) const {
+   
      infeasCheck        = false;
      unsigned int added = 0;
      for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i) { // For each country

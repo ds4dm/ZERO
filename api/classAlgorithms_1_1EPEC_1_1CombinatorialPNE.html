@@ -844,24 +844,32 @@
 <dl class="cpp class">
 <dt id="_CPPv4N10Algorithms4EPEC16CombinatorialPNEE">
 <span id="_CPPv3N10Algorithms4EPEC16CombinatorialPNEE"></span><span id="_CPPv2N10Algorithms4EPEC16CombinatorialPNEE"></span><span id="Algorithms::EPEC::CombinatorialPNE"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1CombinatorialPNE"></span><em class="property">class </em><code class="sig-prename descclassname">Algorithms::EPEC<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">CombinatorialPNE</code> : <em class="property">public</em> Algorithms::EPEC::<a class="reference internal" href="classAlgorithms_1_1EPEC_1_1PolyBase.html#_CPPv4N10Algorithms4EPEC8PolyBaseE" title="Algorithms::EPEC::PolyBase">PolyBase</a><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC16CombinatorialPNEE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>This class is responsible for the Combinatorial pure-nash Equilibrium. </p>
+<dd><p>This class is responsible for the Combinatorial Pure-nash Equilibrium algorithm. In short, it tries to assign to each LCP related to player in the <a class="reference internal" href="classGame_1_1EPEC.html#classGame_1_1EPEC"><span class="std std-ref">Game::EPEC</span></a> a single polyhedron. Hence, the resulting <a class="reference internal" href="classGame_1_1NashGame.html#classGame_1_1NashGame"><span class="std std-ref">Game::NashGame</span></a> should be easier to solver. If this approximated problem has a solution, it may be a pure-nash equilibrium, since every players’ strategy lays in only one polyhedron. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N10Algorithms4EPEC16CombinatorialPNE16CombinatorialPNEEP6GRBEnvPN4Game4EPECEb">
-<span id="_CPPv3N10Algorithms4EPEC16CombinatorialPNE16CombinatorialPNEEP6GRBEnvPN4Game4EPECEb"></span><span id="_CPPv2N10Algorithms4EPEC16CombinatorialPNE16CombinatorialPNEEP6GRBEnvPN4Game4EPECEb"></span><span id="Algorithms::EPEC::CombinatorialPNE::CombinatorialPNE__GRBEnvP.Game::EPECP.b"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1CombinatorialPNE_1a37d536d2f764509b2372bd33cd1cf8e2"></span><code class="sig-name descname">CombinatorialPNE</code><span class="sig-paren">(</span>GRBEnv *<em>env</em>, Game::<a class="reference internal" href="classGame_1_1EPEC.html#_CPPv4N4Game4EPECE" title="Game::EPEC">EPEC</a> *<em>EPECObject</em>, bool <em>poly</em> = true<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC16CombinatorialPNE16CombinatorialPNEEP6GRBEnvPN4Game4EPECEb" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4N10Algorithms4EPEC16CombinatorialPNE16CombinatorialPNEEP6GRBEnvPN4Game4EPECE">
+<span id="_CPPv3N10Algorithms4EPEC16CombinatorialPNE16CombinatorialPNEEP6GRBEnvPN4Game4EPECE"></span><span id="_CPPv2N10Algorithms4EPEC16CombinatorialPNE16CombinatorialPNEEP6GRBEnvPN4Game4EPECE"></span><span id="Algorithms::EPEC::CombinatorialPNE::CombinatorialPNE__GRBEnvP.Game::EPECP"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1CombinatorialPNE_1af81ae649af18379b492934470221466b"></span><code class="sig-name descname">CombinatorialPNE</code><span class="sig-paren">(</span>GRBEnv *<em>env</em>, Game::<a class="reference internal" href="classGame_1_1EPEC.html#_CPPv4N4Game4EPECE" title="Game::EPEC">EPEC</a> *<em>EPECObject</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC16CombinatorialPNE16CombinatorialPNEEP6GRBEnvPN4Game4EPECE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC16CombinatorialPNE5solveEv">
 <span id="_CPPv3N10Algorithms4EPEC16CombinatorialPNE5solveEv"></span><span id="_CPPv2N10Algorithms4EPEC16CombinatorialPNE5solveEv"></span><span id="Algorithms::EPEC::CombinatorialPNE::solve"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1CombinatorialPNE_1a7be7a3f2ee2b67ac3d29407313ede988"></span>void <code class="sig-name descname">solve</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC16CombinatorialPNE5solveEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>A method to solve the EPEC. </p>
+<dd><p>A general method to solve problems. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC16CombinatorialPNE17solveWithExcludedERKNSt6vectorINSt3setImEEEE">
 <span id="_CPPv3N10Algorithms4EPEC16CombinatorialPNE17solveWithExcludedERKNSt6vectorINSt3setImEEEE"></span><span id="_CPPv2N10Algorithms4EPEC16CombinatorialPNE17solveWithExcludedERKNSt6vectorINSt3setImEEEE"></span><span id="Algorithms::EPEC::CombinatorialPNE::solveWithExcluded__std::vector:std::set:unsigned-l-i::CR"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1CombinatorialPNE_1a57d1cf8a606921df8a404ce501d4a434"></span>void <code class="sig-name descname">solveWithExcluded</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;std::set&lt;unsigned long int&gt;&gt; &amp;<em>excludeList</em> = {}<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC16CombinatorialPNE17solveWithExcludedERKNSt6vectorINSt3setImEEEE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Solves the <a class="reference internal" href="classGame_1_1EPEC.html#classGame_1_1EPEC"><span class="std std-ref">Game::EPEC</span></a> instance with the algorithm by excluding some combinations of polyhedra that may have been already tested. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">excludeList</span></code>: A set containing the combinations that should be excluded </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -869,7 +877,16 @@
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC16CombinatorialPNE7combPNEENSt6vectorIlEERKNSt6vectorINSt3setImEEEE">
 <span id="_CPPv3N10Algorithms4EPEC16CombinatorialPNE7combPNEENSt6vectorIlEERKNSt6vectorINSt3setImEEEE"></span><span id="_CPPv2N10Algorithms4EPEC16CombinatorialPNE7combPNEENSt6vectorIlEERKNSt6vectorINSt3setImEEEE"></span><span id="Algorithms::EPEC::CombinatorialPNE::combPNE__std::vector:l-i:.std::vector:std::set:unsigned-l-i::CR"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1CombinatorialPNE_1a518b30cb79720fdc2184f888caac67ad"></span>void <code class="sig-name descname">combPNE</code><span class="sig-paren">(</span>std::vector&lt;long int&gt; <em>combination</em>, <em class="property">const</em> std::vector&lt;std::set&lt;unsigned long int&gt;&gt; &amp;<em>excludeList</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC16CombinatorialPNE7combPNEENSt6vectorIlEERKNSt6vectorINSt3setImEEEE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>This method initializes the algorithm recursion with <code class="docutils literal notranslate"><span class="pre">combination</span></code>. Each element is the index of a polyhedron for the corresponding player. If the index is -1, then the recursion will generate childs for any polyhedron of the given player. Otherwise, if there exist a positive value <span class="math notranslate nohighlight">\(v\)</span> in a location <span class="math notranslate nohighlight">\(l\)</span>, player <span class="math notranslate nohighlight">\(l\)</span> will only play strategies in the polyhedron <span class="math notranslate nohighlight">\(v\)</span>. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">combination</span></code>: A set of either -1 or positive numbers corresponding to the polyhedron of each player. -1 will recurse </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">excludeList</span></code>: A set of combinations of polyhedra that should be excluded from the search. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 </div>
 </dd></dl>
