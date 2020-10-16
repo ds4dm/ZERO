@@ -36,11 +36,11 @@ void MathOpt::LCP::defConst(GRBEnv *env)
   this->nR  = this->M.n_rows;
   this->nC  = this->M.n_cols;
   int diff  = this->nC - this->BoundsX.size();
-  if (diff < 0)
+  if (diff > 0)
 	 for (int i = 0; i < diff; ++i)
 		this->BoundsX.push_back({0, -1});
 
-  processBounds();
+  this->processBounds();
 }
 
 
@@ -106,7 +106,7 @@ MathOpt::LCP::LCP(
 		this->NumberLeader = this->NumberLeader > 0 ? this->NumberLeader : 0;
 		break;
 	 }
-  defConst(env);
+  this->defConst(env);
 }
 
 
@@ -140,7 +140,7 @@ MathOpt::LCP::LCP(GRBEnv *     env,
 	 this->Compl.push_back({i, count});
   }
   Utils::sortByKey(this->Compl);
-  defConst(env);
+  this->defConst(env);
 }
 
 /**
@@ -179,7 +179,7 @@ MathOpt::LCP::LCP(GRBEnv *env, const Game::NashGame &N) : RelaxedModel(*env) {
 		break;
 	 }
   }
-  defConst(env);
+  this->defConst(env);
 }
 /**
  * @brief Makes a Gurobi object that relaxes complementarity constraints in the
@@ -457,7 +457,7 @@ long int MathOpt::LCP::load(std::string filename, long int pos) {
   }
 
 
-  defConst(Env);
+  this->defConst(Env);
   this->LeadStart = LeadStart_t;
   this->LeadEnd   = LeadEnd_t;
 
