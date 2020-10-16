@@ -53,7 +53,7 @@ namespace Game {
 
 	 std::vector<unsigned int> PlayerVariables{}; ///< The number of variables for each player
 
-	 bool Finalized{false};           ///< When the object is finalized, the solving process
+	 bool Finalized{false};           ///< When the object is Finalized, the solving process
 												 ///< can start. No players can be added.
 	 std::vector<arma::vec> Solution; ///< Solution variable values, for each player
 

@@ -25,8 +25,11 @@
 namespace Data {
   namespace EPEC {
 
+	 /**
+	  * @brief An enum containing the available algorithms for Game::EPEC
+	  */
 	 enum class Algorithms {
-		/** The available algorithms **/
+
 		FullEnumeration, ///< Completely enumerate the set of polyhedra for all
 		///< leaders
 		InnerApproximation, ///< Perform increasingly better inner approximations in
@@ -36,17 +39,19 @@ namespace Data {
 		OuterApproximation ///< Perform an increasingly improving outer approximation
 		///< of the feasible region of each leader
 	 };
-
+	 /** @brief Recovery strategies are triggered when the Algorithm
+	 "InnerApproximation" is selected. If a PNE is requested, then the algorithm
+	 can recover it by using one of these strategies
+	 **/
 	 enum class RecoverStrategy {
-		/** @brief Recovery strategies are triggered when the Algorithm
-		"InnerApproximation" is selected. If a PNE is requested, then the algorithm
-		can recover it by using one of these strategies
-		**/
 		IncrementalEnumeration, ///< Add Random polyhedra at each iteration
 		Combinatorial           ///< Triggers the CombinatorialPNE with additional information
 		///< from InnerApproximation
 	 };
 
+	 /**
+	  * @brief A inheritor that manages the data for Game::EPEC instances.
+	  */
 	 class DataObject : public ZEROAlgorithmData {
 	 public:
 		Attr<Data::EPEC::Algorithms> Algorithm = {

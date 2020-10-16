@@ -44,7 +44,7 @@ bool MathOpt::QP_Param::operator==(const QP_Param &Q2) const {
 int MathOpt::QP_Param::makeyQy()
 /// Adds the Gurobi Quadratic objective to the Gurobi model @p Model.
 {
-  if (this->madeyQy)
+  if (this->MadeyQy)
 	 return 0;
   GRBVar y[this->Ny];
   for (unsigned int i = 0; i < Ny; i++)
@@ -65,7 +65,7 @@ int MathOpt::QP_Param::makeyQy()
   }
   Model.setObjective(yQy, GRB_MINIMIZE);
   Model.update();
-  this->madeyQy = true;
+  this->MadeyQy = true;
   return 0;
 }
 
@@ -167,7 +167,7 @@ MathOpt::QP_Param &MathOpt::QP_Param::set(const arma::sp_mat &Q,
 														const arma::vec &   b)
 /// Setting the data, while keeping the input objects intact
 {
-  this->madeyQy = false;
+  this->MadeyQy = false;
   MP_Param::set(Q, C, A, B, c, b);
   return *this;
 }
@@ -180,7 +180,7 @@ MathOpt::QP_Param &MathOpt::QP_Param::set(arma::sp_mat &&Q,
 														arma::vec &&   b)
 /// Faster means to set data. But the input objects might be corrupted now.
 {
-  this->madeyQy = false;
+  this->MadeyQy = false;
   MP_Param::set(Q, C, A, B, c, b);
   return *this;
 }

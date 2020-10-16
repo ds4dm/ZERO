@@ -36,16 +36,17 @@ namespace MathOpt {
   enum class MPType { MP_Param = 0, QP_Param = 1, IP_Param = 2 };
   class MP_Param {
   private:
-	 double Eps{1e-6}; ///< The threshold for zero tolerance.
+	 double Eps{1e-6}; ///< A numerical tolerance
   protected:
-	 // Data representing the parameterized QP
-	 arma::sp_mat   Q, A, B, C;
-	 arma::vec      c, b;
-	 GRBEnv *       Env;
-	 VariableBounds Bounds;
-	 bool           BoundsSwitch = 0; ///< True when bounds are detected
+	 arma::sp_mat   Q, A, B, C;       ///< The descriptors of the parametrized mathematical problem
+	 arma::vec      c, b;             ///< The descriptors of the parametrized mathematical problem
+	 GRBEnv *       Env;              ///< A pointer to the Gurobi environment
+	 VariableBounds Bounds;           ///< Bounds on the y variables
+	 bool           BoundsSwitch = 0; ///< True when bounds are detected in the problem
 	 // Object for sizes and integrity check
-	 unsigned int Nx, Ny, Ncons;
+	 unsigned int Nx;    ///< Number of x variables (the ones that are parametrized)
+	 unsigned int Ny;    ///< Number of y variables
+	 unsigned int Ncons; ///< Number of constraints
 
 	 const unsigned int size();
 
@@ -55,16 +56,7 @@ namespace MathOpt {
 	 void detectBounds();
 	 void rewriteBounds();
 
-	 virtual inline bool finalize() {
-		/**
-		 * @brief Finalizes the MP_Param object, computing the object sizes and eventually shedding
-		 * trivial bound constraints
-		 */
-		this->detectBounds();
-		this->rewriteBounds();
-		this->size();
-		return this->dataCheck();
-	 } ///< Finalize the MP_Param object.
+	 virtual bool finalize(); ///< Finalizes the MP_Param object. Can be overriden by inheritors
 
   public:
 	 // Default constructors
@@ -137,19 +129,14 @@ namespace MathOpt {
 
 	 virtual void                      save(const std::string &filename, bool append) const;
 	 virtual long int                  load(const std::string &filename, long int pos = 0);
-	 virtual unsigned int              KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const;
+	 virtual unsigned int              KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const = 0;
 	 virtual std::unique_ptr<GRBModel> solveFixed(const arma::vec x, bool solve = false) {
 		return std::unique_ptr<GRBModel>(new GRBModel(this->Env));
 	 };
 	 virtual double computeObjective(const arma::vec &y,
 												const arma::vec &x,
 												bool             checkFeas = true,
-												double           tol       = 1e-6) const;
-
-	 static bool dataCheck(const QP_Objective &  obj,
-								  const QP_Constraints &cons,
-								  bool                  checkObj  = true,
-								  bool                  checkCons = true);
+												double           tol       = 1e-6) const = 0;
   };
 
 } // namespace MathOpt

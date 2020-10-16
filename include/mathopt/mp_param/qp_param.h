@@ -24,11 +24,8 @@
 
 namespace MathOpt {
   std::ostream &operator<<(std::ostream &os, const QP_Param &Q);
-  ///@brief Class to handle parameterized quadratic programs(QP)
-  class QP_Param : public MP_Param
-  // Shape of C is Ny\times Nx
   /**
-	* Represents a Parameterized QP as \f[
+	* @brief A class to handle parameterized quadratic programs (QP), defined as \f[
 	* \min_y \frac{1}{2}y^TQy + c^Ty + (Cx)^T y
 	* \f]
 	* Subject to
@@ -36,18 +33,19 @@ namespace MathOpt {
 	* Ax + By &\leq& b \\
 	* y &\geq& 0
 	* \f}
+	* The shape of C is Ny\times Nx
 	*/
-  {
+  class QP_Param : public MP_Param {
   private:
 	 // Gurobi environment and model
 	 GRBModel Model;
-	 bool     madeyQy;
+	 bool     MadeyQy;
 
 	 int makeyQy();
 
   public: // Constructors
 	 /// Initialize only the size. Everything else is empty (can be updated later)
-	 explicit QP_Param(GRBEnv *env = nullptr) : MP_Param(env), madeyQy{false}, Model{(*env)} {
+	 explicit QP_Param(GRBEnv *env = nullptr) : MP_Param(env), MadeyQy{false}, Model{(*env)} {
 		this->size();
 	 }
 
@@ -59,15 +57,15 @@ namespace MathOpt {
 				 arma::vec    c,
 				 arma::vec    b,
 				 GRBEnv *     env = nullptr)
-		  : MP_Param(env), madeyQy{false}, Model{(*env)} {
-		this->madeyQy = false;
+		  : MP_Param(env), MadeyQy{false}, Model{(*env)} {
+		this->MadeyQy = false;
 		this->set(Q, C, A, B, c, b);
 		this->size();
 		this->forceDataCheck();
 	 };
 
 	 /// Copy constructor
-	 QP_Param(const QP_Param &Qu) : MP_Param(Qu), Model{Qu.Model}, madeyQy{Qu.madeyQy} {
+	 QP_Param(const QP_Param &Qu) : MP_Param(Qu), Model{Qu.Model}, MadeyQy{Qu.MadeyQy} {
 		this->size();
 	 };
 

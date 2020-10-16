@@ -27,11 +27,9 @@ namespace MathOpt {
 
   std::ostream &operator<<(std::ostream &os, const IP_Param &I);
 
-  ///@brief This class handles parametrized integer programs.
-  class IP_Param : public MP_Param
-  // Shape of C is Ny\times Nx
   /**
-	* Represents a Parameterized QP as \f[
+	* @brief This class handles parametrized integer programs, and inherits from MP_Param.
+	* A parametrized Integer Program is defined as as \f[
 	* \min_y c^Ty + (Cx)^T y
 	* \f]
 	* Subject to
@@ -40,35 +38,37 @@ namespace MathOpt {
 	* y &\geq& 0 \\
 	* y_i &\in& &\mathbb{Z}& &\forall& i &\in& I
 	* \f}
+	* Where the shape of C is Ny\times Nx.
 	**/
-  {
+  class IP_Param : public MP_Param {
   private:
-	 // Gurobi environment and model
 	 GRBModel  IPModel;     ///< Stores the IP model associated with the object
-	 arma::vec integers;    ///< Stores the indexes of integer variables
-	 bool finalized{false}; ///< True if the model has been made and constraints cannot be changed
+	 arma::vec Integers;    ///< Stores the indexes of integer variables
+	 bool Finalized{false}; ///< True if the model has been made and constraints cannot be changed
 
 	 // These methods should be inaccessible to the inheritor, since we have a
 	 // different structure.
 	 using MP_Param::set;
 
   public: // Constructors
-	 /// Initialize only the size. Everything else is empty (can be updated later)
+	 /**
+	  * @brief A constructor initializing only the size. Everything else is empty (can be updated
+	  * later)
+	  * @param env The pointer to the Gurobi environment
+	  */
 	 explicit IP_Param(GRBEnv *env = nullptr) : MP_Param(env), IPModel{(*env)} { this->size(); }
 
-	 /// Set data at construct time
 	 explicit IP_Param(arma::sp_mat C,
 							 arma::sp_mat B,
 							 arma::vec    b,
 							 arma::vec    c,
 							 arma::vec    _integers,
-							 GRBEnv *     env = nullptr)
-		  : MP_Param(env), IPModel{(*env)} {
-		this->set(C, B, b, c, _integers);
-		this->forceDataCheck();
-	 };
+							 GRBEnv *     env = nullptr);
+	 ;
 
-	 arma::vec getIntegers() const { return this->integers; }
+	 arma::vec getIntegers() const {
+		return this->Integers;
+	 } ///< Read-only getter to IP_Param::Integers
 
 	 bool finalize() override;
 
@@ -77,13 +77,16 @@ namespace MathOpt {
 							  const bool      checkDuplicate = true,
 							  const double    tol            = 1e-5);
 
-	 /// Copy constructor
+	 /**
+	  * @brief A copy constructor from anoter IP_Param
+	  * @param ipg The model to be copied
+	  */
 	 IP_Param(const IP_Param &ipg)
-		  : MP_Param(ipg), IPModel{ipg.IPModel}, finalized{ipg.finalized}, integers{ipg.integers} {
+		  : MP_Param(ipg), IPModel{ipg.IPModel}, Finalized{ipg.Finalized}, Integers{ipg.Integers} {
 		this->size();
 	 };
 
-	 void setEnv(GRBEnv *env) { this->Env = env; }
+	 void setEnv(GRBEnv *env) { this->Env = env; } ///< Setter to IP_Param::env
 
 	 // Override setters
 	 IP_Param &set(const arma::sp_mat &C,
@@ -112,34 +115,14 @@ namespace MathOpt {
 									 bool             checkFeas = true,
 									 double           tol       = 1e-6) const override;
 
-	 inline bool isPlayable(const IP_Param &P) const
-	 /// Checks if the current object can play a game with another MathOpt::IP_Param
-	 /// object @p P.
-	 {
-		bool b1, b2, b3;
-		b1 = (this->Nx + this->Ny) == (P.getNx() + P.getNy());
-		b2 = this->Nx >= P.getNy();
-		b3 = this->Ny <= P.getNx();
-		return b1 && b2 && b3;
-	 }
-
 	 void save(const std::string &filename, bool append) const override;
 	 long load(const std::string &filename, long pos = 0) override;
-
-	 double computeObjectiveWithoutOthers(const arma::vec &y) const;
-
-	 arma::vec getConstraintViolations(const arma::vec y, double tol);
 
 	 void forceDataCheck() const;
 
 	 void updateModelObjective(const arma::vec x);
 
-	 std::unique_ptr<GRBModel> getIPModel(bool relax = false) {
-		if (relax)
-		  return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel.relax()));
-		else
-		  return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel));
-	 }
+	 std::unique_ptr<GRBModel> getIPModel(bool relax = false);
 
 	 std::unique_ptr<GRBModel> solveFixed(const arma::vec x, bool solve = false) override;
 

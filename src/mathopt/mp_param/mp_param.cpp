@@ -17,24 +17,24 @@
 #include <iostream>
 #include <memory>
 
+/**
+ * @brief  Writes a given parameterized Mathematical program to a set of files.
+ * Writes a given parameterized Mathematical program to a set of files.
+ * One file is written for each attribute namely
+ * 1. MathOpt::MP_Param::Q
+ * 2. MathOpt::MP_Param::C
+ * 3. MathOpt::MP_Param::A
+ * 4. MathOpt::MP_Param::B
+ * 5. MathOpt::MP_Param::c
+ * 6. MathOpt::MP_Param::b
+ * 7. MathOpt::MP_Param::Bounds
+ *
+ * To contrast see, MathOpt::MP_Param::save where all details are written to a
+ * single loadable file
+ * @param filename The filename
+ * @param append True if the content is appended
+ */
 void MathOpt::MP_Param::save(const std::string &filename, bool append) const {
-  /**
-	* @brief  Writes a given parameterized Mathematical program to a set of
-	* files.
-	*
-	* Writes a given parameterized Mathematical program to a set of files.
-	* One file is written for each attribute namely
-	* 1. MathOpt::MP_Param::Q
-	* 2. MathOpt::MP_Param::C
-	* 3. MathOpt::MP_Param::A
-	* 4. MathOpt::MP_Param::B
-	* 5. MathOpt::MP_Param::c
-	* 6. MathOpt::MP_Param::b
-	*
-	* To contrast see, MathOpt::MP_Param::save where all details are written to a
-	* single loadable file
-	*
-	*/
   Utils::appendSave(std::string("MP_Param"), filename, append);
   Utils::appendSave(this->Q, filename, std::string("MP_Param::Q"), false);
   Utils::appendSave(this->A, filename, std::string("MP_Param::A"), false);
@@ -42,11 +42,24 @@ void MathOpt::MP_Param::save(const std::string &filename, bool append) const {
   Utils::appendSave(this->C, filename, std::string("MP_Param::C"), false);
   Utils::appendSave(this->b, filename, std::string("MP_Param::b"), false);
   Utils::appendSave(this->c, filename, std::string("MP_Param::c"), false);
+  arma::sp_mat BO(this->Ny, 2);
+  for (unsigned int i = 0; i < this->Ny; ++i) {
+	 BO.at(i, 0) = this->Bounds.at(i).first;
+	 BO.at(i, 1) = this->Bounds.at(i).second;
+  }
+  Utils::appendSave(BO, filename, std::string("MP_Param::Bounds"), false);
   BOOST_LOG_TRIVIAL(trace) << "Saved MP_Param to file " << filename;
 }
 
+/**
+ * @brief Inverses the operation of MP_Param::save by loading the object from a file
+ * @param filename The filename
+ * @param pos The position of the MP_Param in the file
+ * @return The position after the MP_Param in the file
+ * @warning Call MP_Param(GRBEnv *env) before loading
+ */
 long int MathOpt::MP_Param::load(const std::string &filename, long int pos) {
-  arma::sp_mat Q, A, B, C;
+  arma::sp_mat Q, A, B, C, BO;
   arma::vec    c, b;
   std::string  headercheck;
   pos = Utils::appendRead(headercheck, filename, pos);
@@ -58,18 +71,33 @@ long int MathOpt::MP_Param::load(const std::string &filename, long int pos) {
   pos = Utils::appendRead(C, filename, pos, std::string("MP_Param::C"));
   pos = Utils::appendRead(b, filename, pos, std::string("MP_Param::b"));
   pos = Utils::appendRead(c, filename, pos, std::string("MP_Param::c"));
+  pos = Utils::appendRead(BO, filename, pos, std::string("MP_Param::Bounds"));
+  if (BO.n_rows > 0) {
+	 if (BO.n_cols != 2)
+		throw ZEROException(ZEROErrorCode::IOError, "Invalid bounds object in loaded file");
+
+	 for (unsigned int i = 0; i < this->Ny; ++i)
+		this->Bounds.push_back(
+			 {BO.at(i, 0) > 0 ? BO.at(i, 0) : 0, BO.at(i, 1) > 0 ? BO.at(i, 1) : -1});
+
+	 int diff = this->Ny - BO.n_rows;
+	 for (unsigned int i = 0; i < diff; ++i)
+		this->Bounds.push_back({0, -1});
+  }
   this->set(Q, C, A, B, c, b);
   return pos;
 }
 
-MathOpt::MP_Param &MathOpt::MP_Param::addDummy(unsigned int pars, unsigned int vars, int position)
 /**
- * Adds dummy variables to a parameterized mathematical program
- * @p position dictates the position at which the parameters can be added. -1
- * for adding at the end.
- * @warning @p position cannot be set for @p vars. @p vars always added at the
- * end.
+ * @brief Adds dummy variables to a parameterized mathematical program  @p position dictates the
+ * position at which the parameters can be added.
+ * @param pars Number of parameters to be added (e.g., MP_Param::Nx)
+ * @param vars Number of variables to be added (e.g., MP_Param::Ny)
+ * @param position The position at which the parameters should be added. -1 for adding at the end.
+ * @return A pointer to the object
  */
+MathOpt::MP_Param &MathOpt::MP_Param::addDummy(unsigned int pars, unsigned int vars, int position)
+
 {
   this->Nx += pars;
   this->Ny += vars;
@@ -127,14 +155,14 @@ MathOpt::MP_Param &MathOpt::MP_Param::addDummy(unsigned int pars, unsigned int v
   return *this;
 }
 
-
+/**
+ * @brief Detects explicit bounds stated in the MP_Param formulation, and stores them implicitly.
+ * This is useful when the formulation of the parametrized mathematical program is processed
+ * through other steps (e.g., KKT conditions, LCPs, etc...) since any bound constraint can
+ * possibly slow down the final problem solving.
+ */
 void MathOpt::MP_Param::detectBounds() {
-  /**
-	* @brief Detects explicit bounds stated in the MP_Param formulation, and stores them implicitly.
-	* This is useful when the formulation of the parametrized mathematical program is processed
-	* through other steps (e.g., KKT conditions, LCPs, etc...) since any bound constraint can
-	* possibly slow down the final problem solving.
-	*/
+
 
   unsigned int nConstr = this->b.size();
 
@@ -224,7 +252,6 @@ void MathOpt::MP_Param::detectBounds() {
   }
 
 
-
   if (shedRows.size() > 0) {
 	 // Shed the rows of A,B,b
 	 std::sort(shedRows.begin(), shedRows.end());
@@ -239,10 +266,13 @@ void MathOpt::MP_Param::detectBounds() {
 
 
 
+/**
+ * @brief  Given the description of the object, renders the bounds explicitly. This method is
+ *useful when building the KKT conditions for the MP_Param. In particular, after bounds are detected
+ *and their respective rows are shedded by MP_Param::detectBounds, the explicit constraints should
+ *be added again.
+ */
 void MathOpt::MP_Param::rewriteBounds() {
-  /** @brief Given the description of the object, renders the bounds explicitly. This method is
-	*useful when building the KKT conditions for the MP_Param-
-	**/
 
   int cnt = 0;
   if (this->BoundsSwitch > 0) {
@@ -294,14 +324,23 @@ const unsigned int MathOpt::MP_Param::size()
   return this->Ny;
 }
 
+/**
+ * @brief Constructor to set the data, while keeping the input objects intact
+ * @param Q Quadratic term for y in the objective
+ * @param C Bi-linear term for x-y in the objective
+ * @param A Matrix of constraints for the parameters x
+ * @param B Matrix of constraints for the variables y
+ * @param c Vector of linear terms for y in the objective
+ * @param b Vector of RHS in the constraints
+ * @param Bounds Optional object of VariableBounds bounds on y variables
+ * @return A pointer to this
+ */
 MathOpt::MP_Param &MathOpt::MP_Param::set(const arma::sp_mat &Q,
 														const arma::sp_mat &C,
 														const arma::sp_mat &A,
 														const arma::sp_mat &B,
 														const arma::vec &   c,
-														const arma::vec &   b)
-/// Setting the data, while keeping the input objects intact
-{
+														const arma::vec &   b) {
   this->Q = (Q);
   this->C = (C);
   this->A = (A);
@@ -313,14 +352,24 @@ MathOpt::MP_Param &MathOpt::MP_Param::set(const arma::sp_mat &Q,
   return *this;
 }
 
+
+/**
+ * @brief Constructor to set the data through std::move
+ * @param Q Quadratic term for y in the objective
+ * @param C Bi-linear term for x-y in the objective
+ * @param A Matrix of constraints for the parameters x
+ * @param B Matrix of constraints for the variables y
+ * @param c Vector of linear terms for y in the objective
+ * @param b Vector of RHS in the constraints
+ * @return A pointer to this
+ * @warning The input data may be corrupted after
+ */
 MathOpt::MP_Param &MathOpt::MP_Param::set(arma::sp_mat &&Q,
 														arma::sp_mat &&C,
 														arma::sp_mat &&A,
 														arma::sp_mat &&B,
 														arma::vec &&   c,
-														arma::vec &&   b)
-/// Faster means to set data. But the input objects might be corrupted now.
-{
+														arma::vec &&   b) {
   this->Q = std::move(Q);
   this->C = std::move(C);
   this->A = std::move(A);
@@ -332,31 +381,38 @@ MathOpt::MP_Param &MathOpt::MP_Param::set(arma::sp_mat &&Q,
   return *this;
 }
 
+/**
+ * @brief A copy constructor given a QP_Objective and QP_Constraints
+ * @param obj  The objective
+ * @param cons  The constraints object
+ * @return A pointer to this
+ */
 MathOpt::MP_Param &MathOpt::MP_Param::set(const QP_Objective &obj, const QP_Constraints &cons) {
   return this->set(obj.Q, obj.C, cons.A, cons.B, obj.c, cons.b);
 }
-
+/**
+ * @brief A move constructor given a QP_Objective and QP_Constraints
+ * @param obj  The objective
+ * @param cons  The constraints object
+ * @return A pointer to this
+ * @warning The input data may be corrupted after
+ */
 MathOpt::MP_Param &MathOpt::MP_Param::set(QP_Objective &&obj, QP_Constraints &&cons) {
-  return this->set(obj.Q, obj.C, cons.A, cons.B, obj.c, cons.b);
+  return this->set(std::move(obj.Q),
+						 std::move(obj.C),
+						 std::move(cons.A),
+						 std::move(cons.B),
+						 std::move(obj.c),
+						 std::move(cons.b));
 }
 
-bool MathOpt::MP_Param::dataCheck(bool forceSymmetry) const
-/** @brief Check that the data for the MP_Param class is valid
- * Always works after calls to MP_Param::size()
- * Checks that are done:
- * 		- Number of columns in @p Q is same as @p Ny (Q should be
- * square)
- * 		- Number of columns of @p A should be @p Nx
- * 		- Number of columns of @p B should be @p Ny
- * 		- Number of rows in @p C should be @p Ny
- * 		- Size of @p c should be @p Ny
- * 		- @p A and @p B should have the same number of rows, equal to @p
- * Ncons
- * 		- if @p forceSymmetry is @p true, then Q should be symmetric
- *
- * 	@returns true if all above checks are cleared. false otherwise.
+/**
+ * @brief Check that the data for the MP_Param class is valid
+ * Always works after calls to MP_Param::size().
+ * @param forceSymmetry
+ * @return True if data structures are correctly sized.
  */
-{
+bool MathOpt::MP_Param::dataCheck(bool forceSymmetry) const {
   if (!Q.is_empty()) {
 	 if (forceSymmetry) {
 		if (!this->Q.is_symmetric() && this->Q.n_rows > 0)
@@ -387,48 +443,19 @@ bool MathOpt::MP_Param::dataCheck(bool forceSymmetry) const
   return true;
 }
 
-bool MathOpt::MP_Param::dataCheck(const QP_Objective &  obj,
-											 const QP_Constraints &cons,
-											 bool                  checkobj,
-											 bool                  checkcons) {
-  unsigned int Ny    = obj.Q.n_rows;
-  unsigned int Nx    = obj.C.n_cols;
-  unsigned int Ncons = cons.b.size();
-  if (checkobj && obj.Q.n_cols != Ny) {
-	 return false;
-  }
-  if (checkobj && obj.C.n_rows != Ny) {
-	 return false;
-  }
-  if (checkobj && obj.c.size() != Ny) {
-	 return false;
-  }
-  if (checkcons && cons.A.n_cols != Nx) {
-	 return false;
-  } // Rest are matrix size compatibility checks
-  if (checkcons && cons.B.n_cols != Ny) {
-	 return false;
-  }
-  if (checkcons && cons.A.n_rows != Ncons) {
-	 return false;
-  }
-  if (checkcons && cons.B.n_rows != Ncons) {
-	 return false;
-  }
-  return true;
-}
 
-unsigned int MathOpt::MP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const {
-  M.zeros(0, 0);
-  N.zeros(0, 0);
-  q.zeros(0);
-  return 0;
-}
-
-double MathOpt::MP_Param::computeObjective(const arma::vec &y,
-														 const arma::vec &x,
-														 bool             checkFeas,
-														 double           tol) const {
-
-  return 0;
+/**
+ * @brief Finalizes the MP_Param object, computing the object sizes and eventually shedding
+	trivial bound constraints
+ * @return True if the object is Finalized and checks are passed.
+ */
+bool MathOpt::MP_Param::finalize() {
+  /**
+	* @brief Finalizes the MP_Param object, computing the object sizes and eventually shedding
+	* trivial bound constraints
+	*/
+  this->detectBounds();
+  this->rewriteBounds();
+  this->size();
+  return this->dataCheck();
 }

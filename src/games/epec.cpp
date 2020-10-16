@@ -189,7 +189,7 @@ void Game::EPEC::getXWithoutHull(const arma::vec &x, arma::vec &xWithoutHull) co
 
 std::unique_ptr<GRBModel> Game::EPEC::respond(const unsigned int i, const arma::vec &x) const {
   if (!this->Finalized)
-	 throw ZEROException(ZEROErrorCode::Assertion, "The model was not finalized");
+	 throw ZEROException(ZEROErrorCode::Assertion, "The model was not Finalized");
 
   if (i >= this->NumPlayers)
 	 throw ZEROException(ZEROErrorCode::OutOfRange, "Country number is invalid");
@@ -295,7 +295,7 @@ const void Game::EPEC::makePlayerQP(const unsigned int i)
   // "
   // << this->AllLeadPars[i].name << '\n';
   if (!this->Finalized)
-	 throw ZEROException(ZEROErrorCode::Assertion, "The model was not finalized");
+	 throw ZEROException(ZEROErrorCode::Assertion, "The model was not Finalized");
   if (i >= this->NumPlayers)
 	 throw ZEROException(ZEROErrorCode::OutOfRange, "The player id is out of range");
   // if (!this->PlayersQP.at(i).get())
@@ -509,7 +509,7 @@ bool Game::EPEC::warmstart(const arma::vec x) { //@todo complete implementation
 								"The number of variables does not fit the instance");
 
   if (!this->Finalized) {
-	 throw ZEROException(ZEROErrorCode::Assertion, "The EPEC was not finalized");
+	 throw ZEROException(ZEROErrorCode::Assertion, "The EPEC was not Finalized");
   }
   if (this->PlayersQP.front() == nullptr) {
 	 BOOST_LOG_TRIVIAL(warning) << "Game::EPEC::warmstart: Generating QP as of warmstart.";
@@ -557,7 +557,7 @@ const void Game::EPEC::findNashEq() {
 
   std::stringstream final_msg;
   if (!this->Finalized)
-	 throw ZEROException(ZEROErrorCode::Assertion, "The EPEC was not finalized");
+	 throw ZEROException(ZEROErrorCode::Assertion, "The EPEC was not Finalized");
 
   if (this->Stats.Status.get() != ZEROStatus::Uninitialized) {
 	 BOOST_LOG_TRIVIAL(error) << "Game::EPEC::findNashEq: a Nash Eq was "

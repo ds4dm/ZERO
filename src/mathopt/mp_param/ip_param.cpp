@@ -38,17 +38,17 @@ bool MathOpt::IP_Param::operator==(const IP_Param &IPG2) const {
 	 return false;
   if (!Utils::isZero(this->b - IPG2.getb()))
 	 return false;
-  return Utils::isZero(this->integers - IPG2.getIntegers());
+  return Utils::isZero(this->Integers - IPG2.getIntegers());
 }
 
 bool MathOpt::IP_Param::finalize() {
 
   /** This method creates the (mixed)-integer program for the game, where the
-	*objective omits the bilinear part. The flag finalized in the object is then set to true.
+	*objective omits the bilinear part. The flag Finalized in the object is then set to true.
 	**/
 
 
-  if (this->finalized)
+  if (this->Finalized)
 	 return true;
   MP_Param::finalize();
   try {
@@ -61,8 +61,8 @@ bool MathOpt::IP_Param::finalize() {
 											 "y_" + std::to_string(i));
 	 }
 	 // Add integralities
-	 for (unsigned int i = 0; i < this->integers.size(); ++i)
-		y[static_cast<int>(integers.at(i))].set(GRB_CharAttr_VType, 'I');
+	 for (unsigned int i = 0; i < this->Integers.size(); ++i)
+		y[static_cast<int>(Integers.at(i))].set(GRB_CharAttr_VType, 'I');
 
 	 for (unsigned int i = 0; i < this->Ncons; i++) {
 		GRBLinExpr LHS{0};
@@ -80,7 +80,7 @@ bool MathOpt::IP_Param::finalize() {
 	 throw ZEROException(ZEROErrorCode::SolverError,
 								std::to_string(e.getErrorCode()) + e.getMessage());
   }
-  this->finalized = true;
+  this->Finalized = true;
   return true;
 }
 
@@ -92,8 +92,8 @@ void MathOpt::IP_Param::updateModelObjective(const arma::vec x) {
 	 throw ZEROException(ZEROErrorCode::Assertion,
 								"Invalid argument size: " + std::to_string(x.size()) +
 									 " != " + std::to_string(Nx));
-  if (!this->finalized)
-	 throw ZEROException(ZEROErrorCode::Assertion, "The model is not finalized!");
+  if (!this->Finalized)
+	 throw ZEROException(ZEROErrorCode::Assertion, "The model is not Finalized!");
   try {
 	 // Make the linear part of the objective
 	 GRBQuadExpr Objective = 0;
@@ -127,8 +127,8 @@ std::unique_ptr<GRBModel> MathOpt::IP_Param::solveFixed(const arma::vec x, bool 
  */
 {
   std::unique_ptr<GRBModel> model(new GRBModel(this->IPModel));
-  if (!this->finalized)
-	 throw ZEROException(ZEROErrorCode::Assertion, "The model is not finalized!");
+  if (!this->Finalized)
+	 throw ZEROException(ZEROErrorCode::Assertion, "The model is not Finalized!");
   try {
 	 this->updateModelObjective(x);
 	 if (solve)
@@ -152,8 +152,8 @@ std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(const arma::vec x, bool 
  * decisions by other players.
  */
 {
-  if (!this->finalized)
-	 throw ZEROException(ZEROErrorCode::Assertion, "The model is not finalized!");
+  if (!this->Finalized)
+	 throw ZEROException(ZEROErrorCode::Assertion, "The model is not Finalized!");
   try {
 	 this->updateModelObjective(x);
   } catch (GRBException &e) {
@@ -175,12 +175,12 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &C,
 {
   if (_integers.is_empty())
 	 throw ZEROException(ZEROErrorCode::InvalidData,
-								"Invalid vector of integers. Refer to MP_Param is no "
-								"integers are involved");
+								"Invalid vector of Integers. Refer to MP_Param is no "
+								"Integers are involved");
   this->Q.zeros(c.size(), c.size());
   this->A.zeros(b.size(), C.n_cols);
-  this->finalized = false;
-  this->integers  = (_integers);
+  this->Finalized = false;
+  this->Integers  = (_integers);
   MP_Param::set(Q, C, A, B, c, b);
   return *this;
 }
@@ -191,12 +191,12 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(
 {
   if (_integers.is_empty())
 	 throw ZEROException(ZEROErrorCode::InvalidData,
-								"Invalid vector of integers. Refer to MP_Param is no "
-								"integers are involved");
+								"Invalid vector of Integers. Refer to MP_Param is no "
+								"Integers are involved");
   this->Q.zeros(c.size(), c.size());
   this->A.zeros(b.size(), C.n_cols);
-  this->finalized = false;
-  this->integers  = std::move(_integers);
+  this->Finalized = false;
+  this->Integers  = std::move(_integers);
   MP_Param::set(Q, C, A, B, c, b);
   return *this;
 }
@@ -208,8 +208,8 @@ MathOpt::IP_Param::set(QP_Objective &&obj, QP_Constraints &&cons, arma::vec &&_i
 {
   if (_integers.is_empty())
 	 throw ZEROException(ZEROErrorCode::InvalidData,
-								"Invalid vector of integers. Refer to MP_Param is no "
-								"integers are involved");
+								"Invalid vector of Integers. Refer to MP_Param is no "
+								"Integers are involved");
   if (obj.Q.size() > 0)
 	 BOOST_LOG_TRIVIAL(warning) << "MathOpt::IP_Param::set: obj.Q will be ignored";
   if (cons.A.size() > 0)
@@ -225,16 +225,6 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(const QP_Objective &  obj,
 														const QP_Constraints &cons,
 														const arma::vec &     _integers) {
   return this->set(obj.C, cons.B, cons.b, obj.c, _integers);
-}
-
-arma::vec MathOpt::IP_Param::getConstraintViolations(const arma::vec y, double tol = 1e-5) {
-  arma::vec slack;
-  if (y.size() < A.n_cols) {
-	 arma::vec yN = Utils::resizePatch(y, B.n_cols);
-	 slack        = B * yN - b;
-  } else
-	 slack = B * y - b;
-  return slack;
 }
 
 double MathOpt::IP_Param::computeObjective(const arma::vec &y,
@@ -259,21 +249,11 @@ double MathOpt::IP_Param::computeObjective(const arma::vec &y,
 		  return GRB_INFINITY;
 	 if (y.min() <= -tol) // if infeasible
 		return GRB_INFINITY;
-	 for (const auto i : this->integers) // integers
+	 for (const auto i : this->Integers) // Integers
 		if (y.at(i) != trunc(y.at(i)))
 		  return GRB_INFINITY;
   }
   arma::vec obj = ((C * x).t() + c.t()) * y;
-  return obj(0);
-}
-
-double MathOpt::IP_Param::computeObjectiveWithoutOthers(const arma::vec &y) const {
-  /**
-	* Computes @f$c^Ty @f$ given the input values @p y;
-	*/
-  if (y.n_rows != this->getNy())
-	 throw ZEROException(ZEROErrorCode::Assertion, "Invalid size of y");
-  arma::vec obj = c.t() * y;
   return obj(0);
 }
 
@@ -286,7 +266,7 @@ bool MathOpt::IP_Param::addConstraint(
   /**
 	* This method stores a description of the new cut Ainx &\leq& bin of @p Ain (and
 	* RHS @p bin) in B and b, respectively. @return true if the constraint has been added This works
-	* also when the IP_Param is finalized.
+	* also when the IP_Param is Finalized.
 	*/
 
   if (this->B.n_cols != Ain.size())
@@ -307,7 +287,7 @@ bool MathOpt::IP_Param::addConstraint(
 
 	 // If model hasn't been made, we do not need to update it
 	 //@todo
-	 if (this->finalized && false) {
+	 if (this->Finalized && false) {
 		GRBLinExpr LHS{0};
 		for (auto j = 0; j < Ain.size(); ++j)
 		  LHS += Ain.at(j) * this->IPModel.getVarByName("y_" + std::to_string(j));
@@ -374,7 +354,7 @@ long int MathOpt::IP_Param::load(const std::string &filename, long int pos) {
   pos = Utils::appendRead(_B, filename, pos, std::string("IP_Param::B"));
   pos = Utils::appendRead(_b, filename, pos, std::string("IP_Param::b"));
   pos = Utils::appendRead(_c, filename, pos, std::string("IP_Param::c"));
-  pos = Utils::appendRead(_integers, filename, pos, std::string("IP_Param::integers"));
+  pos = Utils::appendRead(_integers, filename, pos, std::string("IP_Param::Integers"));
   this->set(_C, _B, _b, _c, _integers);
   return pos;
 }
@@ -388,6 +368,24 @@ void MathOpt::IP_Param::save(const std::string &filename, bool append) const {
   Utils::appendSave(this->B, filename, std::string("IP_Param::B"), false);
   Utils::appendSave(this->b, filename, std::string("IP_Param::b"), false);
   Utils::appendSave(this->c, filename, std::string("IP_Param::c"), false);
-  Utils::appendSave(this->integers, filename, std::string("IP_Param::integers"), false);
+  Utils::appendSave(this->Integers, filename, std::string("IP_Param::Integers"), false);
+  arma::sp_mat BO(this->Ny, 2);
+  for (unsigned int i = 0; i < this->Ny; ++i) {
+	 BO.at(i, 0) = this->Bounds.at(i).first;
+	 BO.at(i, 1) = this->Bounds.at(i).second;
+  }
+  Utils::appendSave(BO, filename, std::string("IP_Param::Bounds"), false);
   BOOST_LOG_TRIVIAL(trace) << "Saved IP_Param to file " << filename;
+}
+MathOpt::IP_Param::IP_Param(
+	 arma::sp_mat C, arma::sp_mat B, arma::vec b, arma::vec c, arma::vec _integers, GRBEnv *env)
+	 : MP_Param(env), IPModel{(*env)} {
+  this->set(C, B, b, c, _integers);
+  this->forceDataCheck();
+}
+std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(bool relax) {
+  if (relax)
+	 return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel.relax()));
+  else
+	 return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel));
 }
