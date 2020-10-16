@@ -329,7 +329,8 @@ void Algorithms::EPEC::OuterApproximation::addValueCut(const unsigned int player
   BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::OuterApproximation::addValueCut: "
 									  "adding cut for Player "
 								  << player;
-  this->PolyLCP.at(player)->addCustomCuts(-cutLHS, arma::vec{-RHS});
+  if (!this->PolyLCP.at(player)->containsCut(LHS, -RHS, this->Tolerance))
+	 this->PolyLCP.at(player)->addCustomCuts(-cutLHS, arma::vec{-RHS});
 }
 
 void Algorithms::EPEC::OuterApproximation::solve() {
