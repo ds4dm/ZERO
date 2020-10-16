@@ -115,15 +115,11 @@ int Solvers::PATH::CreateLMCP(int    n,
   if (n == 0) {
 	 fprintf(stdout, "\n ** EXIT - No variables.\n");
 	 Options_Destroy(o);
+	 this->status = ZEROStatus::Solved;
 	 return MCP_Solved;
   }
 
   dnnz = MIN(1.0 * m_nnz, 1.0 * n * n);
-  if (dnnz > INT_MAX) {
-	 Output_Printf(Output_Log | Output_Status, "\n ** EXIT - model too large.\n");
-	 Options_Destroy(o);
-	 return MCP_Error;
-  }
 
   fprintf(stdout,
 			 "%d row/cols, %f non-zeros, %3.2f%% dense.\n\n",
@@ -185,16 +181,27 @@ int Solvers::PATH::CreateLMCP(int    n,
   }
 
 
-  if (termination == MCP_Solved) {
-	 xSol = MCP_GetX(m);
-	 zSol = MCP_GetF(m);
+  switch (termination) {
+  case MCP_Solved: {
+	 this->status = ZEROStatus::Solved;
+	 xSol         = MCP_GetX(m);
+	 zSol         = MCP_GetF(m);
 	 fprintf(stdout, "%d is  %f \n", n, xSol[i]);
 	 for (i = 0; i < n; i++) {
 		x[i] = xSol[i];
 
 		z[i] = zSol[i];
 	 }
+  } break;
+  case MCP_TimeLimit:
+	 this->status = ZEROStatus::TimeLimit;
+	 break;
+  case MCP_Infeasible:
+	 this->status = ZEROStatus::NotSolved;
+  default:
+	 this->status = ZEROStatus::NotSolved;
   }
+
 
 
   MCP_Destroy(m);
