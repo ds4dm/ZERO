@@ -9,6 +9,11 @@ project(
   DESCRIPTION ${ZERO_DESC})
 
 # CXX Options
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release ... FORCE)
+endif()
 option(CXX "enable C++ compilation" ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 # Additional options

@@ -1,12 +1,20 @@
 cmake_minimum_required(VERSION 3.14)
 
 include(../cmake/ZERO.cmake)
+set(CMAKE_CXX_STANDARD 14)
 project(
   ZERODoc
   VERSION ${ZERO_V}
   LANGUAGES CXX
   DESCRIPTION ${ZERO_DESC})
 
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release ... FORCE)
+endif()
+option(CXX "enable C++ compilation" ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_MODULE_PATH ../cmake)
 include(${CMAKE_MODULE_PATH}/FindSphinx.cmake)
 
