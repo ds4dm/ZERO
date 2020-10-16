@@ -22,20 +22,33 @@
 #include <memory>
 #include <string>
 
-void MathOpt::LCP::defConst(GRBEnv *env)
 /**
- * @brief Assign default values to LCP attributes
+ * @brief Assigns default values to the class' LCP attributes
+ * @param env The Gurobi environment pointer
  * @details Internal member that can be called from multiple constructors
  * to assign default values to some attributes of the class.
  */
+void MathOpt::LCP::defConst(GRBEnv *env)
+
 {
-  this->RlxdModel.set(GRB_IntParam_OutputFlag, 0);
+  this->RelaxedModel.set(GRB_IntParam_OutputFlag, 0);
   this->Env = env;
   this->nR  = this->M.n_rows;
   this->nC  = this->M.n_cols;
+  int diff  = this->nC - this->BoundsX.size();
+  if (diff < 0)
+	 for (int i = 0; i < diff; ++i)
+		this->BoundsX.push_back({0, -1});
+
+  processBounds();
 }
 
 
+/**
+ * @brief Processes the bounds of BoundsX and removes any complementarity that is useless (e.g.,
+ * variable is fixed). After processing, it calls back LCP::defConst to re-initializes the private
+ * attributes.
+ */
 void MathOpt::LCP::processBounds() {
   unsigned int              cnt = 0;
   std::vector<unsigned int> shedded;
@@ -49,9 +62,6 @@ void MathOpt::LCP::processBounds() {
 
 	 ++cnt;
   }
-
-
-  //@todo shedding is disabled
 
   if (shedded.size() > 0) {
 	 BOOST_LOG_TRIVIAL(debug) << "MathOpt::LCP::processBounds: " << shedded.size()
@@ -68,22 +78,24 @@ void MathOpt::LCP::processBounds() {
 	 }
 	 this->MadeRlxdModel = false;
   }
-  this->defConst(this->Env);
+
+  this->nR = this->nR - shedded.size();
 }
 
 
+/**
+ * @brief A standard constructor for an LCP
+ * @param env The Gurobi environment pointer
+ * @param M The M matrix for the LCP
+ * @param q The q vector for the LCP
+ * @param Compl The complementarity pairs <Equation, Variable>
+ * @param A Additional constraints matrix LHS
+ * @param b Additional constraints RHS
+ */
+MathOpt::LCP::LCP(
+	 GRBEnv *env, arma::sp_mat M, arma::vec q, perps Compl, arma::sp_mat A, arma::vec b)
+	 : M{M}, q{q}, A{A}, b{b}, RelaxedModel(*env) {
 
-MathOpt::LCP::LCP(GRBEnv *     env,   ///< Gurobi environment required
-						arma::sp_mat M,     ///< @p M in @f$Mx+q@f$
-						arma::vec    q,     ///< @p q in @f$Mx+q@f$
-						perps        Compl, ///< Pairing equations and variables for complementarity
-						arma::sp_mat A,     ///< Any equations without a complementarity variable
-						arma::vec    b      ///< RHS of equations without complementarity variables
-						)
-	 : M{M}, q{q}, _A{A}, _b{b}, RlxdModel(*env)
-/// @brief Constructor with M, q, compl pairs
-{
-  defConst(env);
   this->Compl = perps(Compl);
   Utils::sortByKey(this->Compl);
   for (auto p : this->Compl)
@@ -94,28 +106,31 @@ MathOpt::LCP::LCP(GRBEnv *     env,   ///< Gurobi environment required
 		this->NumberLeader = this->NumberLeader > 0 ? this->NumberLeader : 0;
 		break;
 	 }
+  defConst(env);
 }
 
 
-
-MathOpt::LCP::LCP(GRBEnv *     env,       ///< Gurobi environment required
-						arma::sp_mat M,         ///< @p M in @f$Mx+q@f$
-						arma::vec    q,         ///< @p q in @f$Mx+q@f$
-						unsigned int leadStart, ///< Position where variables which are not
-														///< complementary to any equation starts
-						unsigned leadEnd,       ///< Position where variables which are not complementary
-														///< to any equation ends
-						arma::sp_mat A,         ///< Any equations without a complemntarity variable
-						arma::vec    b          ///< RHS of equations without complementarity variables
-						)
-	 : M{M}, q{q}, _A{A}, _b{b}, RlxdModel(*env)
-/// @brief Constructor with M,q,leader posn
 /**
- * @warning This might be deprecated to support LCP functioning without sticking
- * to the output format of NashGame
+ * @brief A constructor for LCPs where some variables are subject to complementarities. This is
+ * useful, for instance, for Stackelberg games
+ * @param env The Gurobi environment pointer
+ * @param M The M matrix for the LCP
+ * @param q The q vector for the LCP
+ * @param leadStart Starting location of not-complementary variables
+ * @param leadEnd Ending location of not-complementary variables
+ * @param A Additional constraints matrix LHS
+ * @param b Additional constraints RHS
  */
+MathOpt::LCP::LCP(GRBEnv *     env,
+						arma::sp_mat M,
+						arma::vec    q,
+						unsigned int leadStart,
+						unsigned     leadEnd,
+						arma::sp_mat A,
+						arma::vec    b)
+	 : M{M}, q{q}, A{A}, b{b}, RelaxedModel(*env)
+
 {
-  defConst(env);
   this->LeadStart    = leadStart;
   this->LeadEnd      = leadEnd;
   this->NumberLeader = this->LeadEnd - this->LeadStart + 1;
@@ -125,17 +140,18 @@ MathOpt::LCP::LCP(GRBEnv *     env,       ///< Gurobi environment required
 	 this->Compl.push_back({i, count});
   }
   Utils::sortByKey(this->Compl);
+  defConst(env);
 }
 
-MathOpt::LCP::LCP(GRBEnv *env, const Game::NashGame &N)
-	 : RlxdModel(*env)
-/**	@brief Constructor given a NashGame
-		  @details Given a NashGame, computes the KKT of the lower levels, and
+/**
+ * @brief Constructor given a Game::NashGame
+ * @details Given a NashGame, computes the KKT of the lower levels, and
 	makes the appropriate LCP object. This constructor is the most suited for
 	high-level usage.
-		  @note Most preferred constructor for user interface.
+ * @param env The Gurobi environment pointer
+ * @param N The Game::NashGame
  */
-{
+MathOpt::LCP::LCP(GRBEnv *env, const Game::NashGame &N) : RelaxedModel(*env) {
   arma::sp_mat   M_local;
   arma::vec      q_local;
   perps          Compl_local;
@@ -149,8 +165,8 @@ MathOpt::LCP::LCP(GRBEnv *env, const Game::NashGame &N)
   if (this->BoundsX.size() < this->M.n_cols)
 	 for (unsigned int i = this->BoundsX.size(); i < this->M.n_cols; ++i)
 		this->BoundsX.push_back({0, -1});
-  this->_A    = N.rewriteLeadCons();
-  this->_b    = N.getMCLeadRHS();
+  this->A     = N.rewriteLeadCons();
+  this->b     = N.getMCLeadRHS();
   this->Compl = perps(Compl);
   Utils::sortByKey(this->Compl);
   // Delete no more!
@@ -163,17 +179,14 @@ MathOpt::LCP::LCP(GRBEnv *env, const Game::NashGame &N)
 		break;
 	 }
   }
-
-  processBounds();
+  defConst(env);
 }
-
-void MathOpt::LCP::makeRelaxed()
-/** @brief Makes a Gurobi object that relaxes complementarity constraints in an
-	LCP */
-/** @details A Gurobi object is stored in the LCP object, that has all
- * complementarity constraints removed. A copy of this object is used by other
- * member functions */
-{
+/**
+ * @brief Makes a Gurobi object that relaxes complementarity constraints in the
+	LCP.
+	@details The field LCP::RelaxedModel stores the relaxed version of the problem
+ */
+void MathOpt::LCP::makeRelaxed() {
   try {
 	 if (this->MadeRlxdModel)
 		return;
@@ -182,13 +195,13 @@ void MathOpt::LCP::makeRelaxed()
 	 GRBVar x[nC], z[nR];
 	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::makeRelaxed: Initializing variables";
 	 for (unsigned int i = 0; i < nC; i++)
-		x[i] = RlxdModel.addVar(BoundsX.at(i).first,
-										BoundsX.at(i).second > 0 ? BoundsX.at(i).second : GRB_INFINITY,
-										1,
-										GRB_CONTINUOUS,
-										"x_" + std::to_string(i));
+		x[i] = RelaxedModel.addVar(BoundsX.at(i).first,
+											BoundsX.at(i).second > 0 ? BoundsX.at(i).second : GRB_INFINITY,
+											1,
+											GRB_CONTINUOUS,
+											"x_" + std::to_string(i));
 	 for (unsigned int i = 0; i < nR; i++)
-		z[i] = RlxdModel.addVar(0, GRB_INFINITY, 1, GRB_CONTINUOUS, "z_" + std::to_string(i));
+		z[i] = RelaxedModel.addVar(0, GRB_INFINITY, 1, GRB_CONTINUOUS, "z_" + std::to_string(i));
 
 
 	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::makeRelaxed: Added variables";
@@ -197,25 +210,25 @@ void MathOpt::LCP::makeRelaxed()
 		for (auto v = M.begin_row(i); v != M.end_row(i); ++v)
 		  expr += (*v) * x[v.col()];
 		expr += q(i);
-		RlxdModel.addConstr(expr, GRB_EQUAL, z[i], "z_" + std::to_string(i) + "_def");
+		RelaxedModel.addConstr(expr, GRB_EQUAL, z[i], "z_" + std::to_string(i) + "_def");
 	 }
 	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::makeRelaxed: Added equation definitions";
 	 // If @f$Ax \leq b@f$ constraints are there, they should be included too!
-	 if (this->_A.n_nonzero != 0 && this->_b.n_rows != 0) {
-		if (_A.n_cols != nC || _A.n_rows != _b.n_rows) {
-		  BOOST_LOG_TRIVIAL(trace) << "(" << _A.n_rows << "," << _A.n_cols << ")\t" << _b.n_rows
-											<< " " << nC;
+	 if (this->A.n_nonzero != 0 && this->b.n_rows != 0) {
+		if (A.n_cols != nC || A.n_rows != b.n_rows) {
+		  BOOST_LOG_TRIVIAL(trace) << "(" << A.n_rows << "," << A.n_cols << ")\t" << b.n_rows << " "
+											<< nC;
 		  throw ZEROException(ZEROErrorCode::InvalidData, "A and b are incompatible");
 		}
-		for (unsigned int i = 0; i < _A.n_rows; i++) {
+		for (unsigned int i = 0; i < A.n_rows; i++) {
 		  GRBLinExpr expr = 0;
-		  for (auto a = _A.begin_row(i); a != _A.end_row(i); ++a)
+		  for (auto a = A.begin_row(i); a != A.end_row(i); ++a)
 			 expr += (*a) * x[a.col()];
-		  RlxdModel.addConstr(expr, GRB_LESS_EQUAL, _b(i), "commonCons_" + std::to_string(i));
+		  RelaxedModel.addConstr(expr, GRB_LESS_EQUAL, b(i), "commonCons_" + std::to_string(i));
 		}
 		BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::makeRelaxed: Added common constraints";
 	 }
-	 RlxdModel.update();
+	 RelaxedModel.update();
 	 this->MadeRlxdModel = true;
 
   } catch (GRBException &e) {
@@ -226,18 +239,15 @@ void MathOpt::LCP::makeRelaxed()
 }
 
 
-std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(bool solve ///< Whether the model should be solved
-																				///< in the function before returned.
-																 )
 /**
- * @brief This method return the model for the LCP. If @p solve is true, then the LCP is solved.
- * Note that the returned model is either a MIP or a MNILP, depending on the class' LCP::PureMIP
- * switch. Uses the big M method to solve the complementarity problem.
- * @warning Note that the model returned by this function has to be explicitly
- * deleted using the delete operator.
- * @returns unique pointer to a GRBModel
+ * @brief Solves the LCP as a Mixed-Integer Program. Note that the returned model is either a MIP or
+ * a MNILP, depending on the class' LCP::PureMIP boolean switch. In the first case,
+ * complementarities are modeled through indicator constraints. Otherwise, there is bi-linear term
+ * for each complementarity.
+ * @param solve Determines whether the returned model is already solved or not
+ * @return The unique pointer to the model
  */
-{
+std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(bool solve) {
   makeRelaxed();
   std::unique_ptr<GRBModel> model;
   if (this->PureMIP)
@@ -251,24 +261,15 @@ std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(bool solve ///< Whether the mod
 }
 
 
-
-void MathOpt::LCP::print(const std::string end) {
-  std::cout << "LCP with " << this->nR << " rows and " << this->nC << " columns." << end;
-}
-
-bool MathOpt::LCP::extractSols(
-	 GRBModel *model, ///< The Gurobi Model that was solved (perhaps using
-	 ///< MathOpt::LCP::LCPasMIP)
-	 arma::vec &z,       ///< Output variable - where the equation values are stored
-	 arma::vec &x,       ///< Output variable - where the variable values are stored
-	 bool       extractZ ///< z values are filled only if this is true
-	 ) const
-/** @brief Extracts variable and equation values from a solved Gurobi model for
-	LCP */
-/** @warning This solves the model if the model is not already solve */
-/** @returns @p false if the model is not solved to optimality. @p true
-	otherwise */
-{
+/**
+ * @brief Extracts variable and equation values from a solved Gurobi model.
+ * @param model  The Gurobi Model that was solved
+ * @param z  Output variable for Z equation values
+ * @param x  Output variable for X variable values
+ * @param extractZ  Should the method extract Z values or not
+ * @return true if the model was solved. False otherwise.
+ */
+bool MathOpt::LCP::extractSols(GRBModel *model, arma::vec &z, arma::vec &x, bool extractZ) const {
   if (model->get(GRB_IntAttr_Status) == GRB_LOADED)
 	 model->optimize();
   auto status = model->get(GRB_IntAttr_Status);
@@ -287,66 +288,35 @@ bool MathOpt::LCP::extractSols(
   return true;
 }
 
-std::vector<short int> MathOpt::LCP::solEncode(const arma::vec &x) const
-/// @brief Given variable values, encodes it in 0/+1/-1
-/// format and returns it.
-/// @details Gives the 0/+1/-1 notation. The notation is defined as follows.
-/// Note that, if the input is feasible, then in each complementarity pair (Eqn,
-/// Var), at least one of the two is zero.
-///
-/// - If the equation is zero in a certain index and the variable is non-zero,
-/// then that index is noted by +1.
-/// - If the variable is zero in a certain index and the equation is non-zero,
-/// then that index is noted by +1.
-/// - If both the variable and equation are zero, then that index is noted by 0.
-{
-  return this->solEncode(this->M * x + this->q, x);
-}
 
+/**
+ * @brief Given a value for the variables, it returns the values of z
+ * @param x The x-values vector
+ * @return The z-values vector
+ */
 arma::vec MathOpt::LCP::zFromX(const arma::vec x) { return (this->M * x + this->q); }
 
-std::vector<short int> MathOpt::LCP::solEncode(const arma::vec &z, ///< Equation values
-															  const arma::vec &x  ///< Variable values
-															  ) const
-/// @brief Given variable values and equation values, encodes it in 0/+1/-1
-/// format and returns it.
-{
-  std::vector<short int> solEncoded(nR, 0);
-  for (const auto p : Compl) {
-	 unsigned int i, j;
-	 i = p.first;
-	 j = p.second;
-	 if (Utils::isZeroValue(z(i)))
-		solEncoded.at(i)++;
-	 if (Utils::isZeroValue(x(j)))
-		solEncoded.at(i)--;
-	 if (!Utils::isZeroValue(x(j)) && !Utils::isZeroValue(z(i)))
-		BOOST_LOG_TRIVIAL(trace) << "Infeasible point given! Stay alert! " << x(j) << " " << z(i)
-										 << " with i=" << i;
-  };
-  // std::stringstream enc_str;
-  // for(auto vv:solEncoded) enc_str << vv <<" ";
-  // BOOST_LOG_TRIVIAL (debug) << "MathOpt::LCP::solEncode: Handling deviation with
-  // encoding: "<< enc_str.str() << '\n';
-  return solEncoded;
-}
 
-
+/**
+ * @brief This method returns an unique pointer to the Gurobi model where the objective is the one
+ * of a specific player. In particular, given by the parameter C, c, x_minus_i are fixed and then
+ * the objective is linear (MILP).
+ * @param C The interaction term for a given player
+ * @param c The linear term for a given player
+ * @param x_minus_i The strategies of other players
+ * @param solve True if the returned model is solved
+ * @return The unique pointer to the model
+ * @warning If LCP::PureMIP is false, then the model has a linear objective and bi-linear
+ * constraints. Hence, is not a MILP
+ */
 std::unique_ptr<GRBModel> MathOpt::LCP::MPECasMILP(const arma::sp_mat &C,
 																	const arma::vec &   c,
 																	const arma::vec &   x_minus_i,
-																	bool                solve)
-/**
- * @brief Helps solving an LCP as an MIP.
- * @returns A std::unique_ptr to GRBModel that has the equivalent MIP
- * @details The MIP problem that is returned by this function is equivalent to
- * the LCP problem. The function
- * differs from LCP::LCPasMIP by the fact that, this explicitly takes a leader
- * objective, and returns an object with this objective.
- * @note The leader's objective has to be linear here. For quadratic objectives,
- * refer LCP::MPECasMIQP
- */
-{
+																	bool                solve) {
+
+  if (!this->PureMIP)
+	 BOOST_LOG_TRIVIAL(trace)
+		  << "MathOpt::LCP::MPECasMILP: Note that complementarities are bi-linearly modeled!";
   std::unique_ptr<GRBModel> model = this->LCPasMIP(true);
   // Reset the solution limit. We need to solve to optimality
   model->set(GRB_IntParam_SolutionLimit, GRB_MAXINT);
@@ -374,20 +344,27 @@ std::unique_ptr<GRBModel> MathOpt::LCP::MPECasMILP(const arma::sp_mat &C,
   return model;
 }
 
+/**
+ * @brief This method returns an unique pointer to the Gurobi model where the objective is the one
+ of a specific player.
+ * In particular, given by the parameter C, c, x_minus_i are fixed and then the objective is
+ quadratic (MIQP)
+  @param Q  The quadratic term for a given player
+ * @param C The interaction term for a given player
+ * @param c The linear term for a given player
+ * @param x_minus_i The strategies of other players
+ * @param solve True if the returned model is solved
+ * @return The unique pointer to the model
+ * @warning If LCP::PureMIP is false, then the model has a quadratic objective and bi-linear
+ constraints
+ */
+
 std::unique_ptr<GRBModel> MathOpt::LCP::MPECasMIQP(const arma::sp_mat &Q,
 																	const arma::sp_mat &C,
 																	const arma::vec &   c,
 																	const arma::vec &   x_minus_i,
 																	bool                solve)
-/**
- * @brief Helps solving an LCP as an MIQPs.
- * @returns A std::unique_ptr to GRBModel that has the equivalent MIQP
- * @details The MIQP problem that is returned by this function is equivalent to
- * the LCP problem. The function differs from LCP::LCPasMIP by the fact that, this explicitly
- * takes a leader objective, and returns an object with this objective. This allows quadratic
- * leader objective. If you are aware that the leader's objective is linear, use the faster method
- * LCP::MPECasMILP
- */
+
 {
   auto model = this->MPECasMILP(C, c, x_minus_i, false);
   /// Note that if the matrix Q is a zero matrix, then this returns a Gurobi
@@ -407,7 +384,13 @@ std::unique_ptr<GRBModel> MathOpt::LCP::MPECasMIQP(const arma::sp_mat &Q,
   return model;
 }
 
+/**
+ * @brief Saves the LCP into a file
+ * @param filename  The filename
+ * @param erase  Whether the file should be cleaned or not
+ */
 void MathOpt::LCP::save(std::string filename, bool erase) const {
+
   Utils::appendSave(std::string("LCP"), filename, erase);
   Utils::appendSave(this->M, filename, std::string("LCP::M"), false);
   Utils::appendSave(this->q, filename, std::string("LCP::q"), false);
@@ -415,11 +398,27 @@ void MathOpt::LCP::save(std::string filename, bool erase) const {
   Utils::appendSave(this->LeadStart, filename, std::string("LCP::LeadStart"), false);
   Utils::appendSave(this->LeadEnd, filename, std::string("LCP::LeadEnd"), false);
 
-  Utils::appendSave(this->_A, filename, std::string("LCP::_A"), false);
-  Utils::appendSave(this->_b, filename, std::string("LCP::_b"), false);
+  Utils::appendSave(this->A, filename, std::string("LCP::A"), false);
+  Utils::appendSave(this->b, filename, std::string("LCP::b"), false);
+
+  arma::sp_mat B(this->nC, 2);
+  for (unsigned int i = 0; i < this->nC; ++i) {
+	 B.at(i, 0) = this->BoundsX.at(i).first;
+	 B.at(i, 1) = this->BoundsX.at(i).second;
+  }
+  Utils::appendSave(B, filename, std::string("LCP::Bounds"), false);
 
   BOOST_LOG_TRIVIAL(trace) << "Saved LCP to file " << filename;
 }
+
+
+
+/**
+ * @brief This method load the LCP object from a file
+ * @param filename  The filename
+ * @param pos The position of the LCP in the file
+ * @return The position after the LCP in the file
+ */
 
 long int MathOpt::LCP::load(std::string filename, long int pos) {
   if (!this->Env)
@@ -432,20 +431,32 @@ long int MathOpt::LCP::load(std::string filename, long int pos) {
   if (headercheck != "LCP")
 	 throw ZEROException(ZEROErrorCode::IOError, "Invalid header");
 
-  arma::sp_mat M_t, A;
+  arma::sp_mat M_t, A, Bounds;
   arma::vec    q_t, b;
   unsigned int LeadStart_t, LeadEnd_t;
   pos = Utils::appendRead(M_t, filename, pos, std::string("LCP::M"));
   pos = Utils::appendRead(q_t, filename, pos, std::string("LCP::q"));
   pos = Utils::appendRead(LeadStart_t, filename, pos, std::string("LCP::LeadStart"));
   pos = Utils::appendRead(LeadEnd_t, filename, pos, std::string("LCP::LeadEnd"));
-  pos = Utils::appendRead(A, filename, pos, std::string("LCP::_A"));
-  pos = Utils::appendRead(b, filename, pos, std::string("LCP::_b"));
+  pos = Utils::appendRead(A, filename, pos, std::string("LCP::A"));
+  pos = Utils::appendRead(b, filename, pos, std::string("LCP::b"));
+  pos = Utils::appendRead(Bounds, filename, pos, std::string("LCP::Bounds"));
 
-  this->M  = M_t;
-  this->q  = q_t;
-  this->_A = A;
-  this->_b = b;
+  this->M = M_t;
+  this->q = q_t;
+  this->A = A;
+  this->b = b;
+
+  if (Bounds.n_rows > 0) {
+	 if (Bounds.n_cols != 2)
+		throw ZEROException(ZEROErrorCode::IOError, "Invalid bounds object in loaded file");
+
+	 for (unsigned int i = 0; i < this->M.n_cols; ++i)
+		this->BoundsX.push_back(
+			 {Bounds.at(i, 0) > 0 ? Bounds.at(i, 0) : 0, Bounds.at(i, 1) > 0 ? Bounds.at(i, 1) : -1});
+  }
+
+
   defConst(Env);
   this->LeadStart = LeadStart_t;
   this->LeadEnd   = LeadEnd_t;
@@ -460,13 +471,15 @@ long int MathOpt::LCP::load(std::string filename, long int pos) {
   return pos;
 }
 
-unsigned int MathOpt::LCP::convexHull(arma::sp_mat &A, ///< Convex hull inequality description
-																		 ///< LHS to be stored here
-												  arma::vec &b)    ///< Convex hull inequality description RHS
+
+
 /**
- * Computes the convex hull of the feasible region of the LCP.
+ * @brief Computes the convex hull of the feasible region of the LCP.
+ * @param A The output convex-hull LHS
+ * @param b The output convex-hull RHS
+ * @return The number of polyhedra in the approximation
  */
-{
+unsigned int MathOpt::LCP::convexHull(arma::sp_mat &A, arma::vec &b) {
   const std::vector<arma::sp_mat *> tempAi = [](spmat_Vec &uv) {
 	 std::vector<arma::sp_mat *> v{};
 	 for (const auto &x : uv)
@@ -480,9 +493,9 @@ unsigned int MathOpt::LCP::convexHull(arma::sp_mat &A, ///< Convex hull inequali
 	 });
 	 return v;
   }(*this->bi);
-  arma::sp_mat A_common = arma::join_cols(this->_A, -this->M);
+  arma::sp_mat A_common = arma::join_cols(this->A, -this->M);
   A_common              = arma::join_cols(this->_Acut, A_common);
-  arma::vec bCommon     = arma::join_cols(this->_b, this->q);
+  arma::vec bCommon     = arma::join_cols(this->b, this->q);
   bCommon               = arma::join_cols(this->_bcut, bCommon);
 
   if (Ai->size() == 1) {
@@ -495,19 +508,17 @@ unsigned int MathOpt::LCP::convexHull(arma::sp_mat &A, ///< Convex hull inequali
 	 return MathOpt::convexHull(&tempAi, &tempbi, A, b, A_common, bCommon);
 }
 
-void MathOpt::LCP::makeQP(MathOpt::QP_Objective &QP_obj, ///< [in/out] Objective function of the
-																			///< final QP that has to be made
-								  MathOpt::QP_Param &QP ///< [out] This is the MathOpt::QP_Param that
-																///< results from the input objective and the convex
-																///< hull of the region defined by the LCP
-) {
-  /**
-	* Given that the MathOpt::LCP stores a description of the LCP feasible
-	* region, calls MathOpt::LCP::convexHull to construct the convex hull. The
-	* polyhedral convex hull and the given objective are combined to create the
-	* output MathOpt::QP_Param.
-	*/
-  // Original sizes
+
+/**
+ * @brief This method create the convex-hull of the feasible (approximated) region for the LCP, and
+ * puts it into a MathOpt::QP_Param object. In addition, it transform the given input objective
+ * function by adding additional zero elements to it, to fit the number of variables in the
+ * quadratic program.
+ * @param QP_obj The input/output MathOpt::QP_Param objective
+ * @param QP The output MathOpt::QP_Param
+ */
+
+void MathOpt::LCP::makeQP(MathOpt::QP_Objective &QP_obj, MathOpt::QP_Param &QP) {
   if (this->Ai->empty())
 	 return;
   const unsigned int oldNumVariablesX{static_cast<unsigned int>(QP_obj.C.n_cols)};
@@ -529,15 +540,18 @@ void MathOpt::LCP::makeQP(MathOpt::QP_Objective &QP_obj, ///< [in/out] Objective
   // Now we have to merge the bounds
   QP.setBounds(Utils::intersectBounds(QP.getBounds(), this->BoundsX));
 }
-void MathOpt::LCP::addCustomCuts(const arma::sp_mat A, ///< [in] The LHS of the added cuts
-											const arma::vec    b  ///< [in] The RHS of the added cuts
-) {
-  /**
-	* Given that the MathOpt::LCP stores a description of the new cuts of @p A (and
-	* RHS @p b) in LCP::_Acut and LCP::_bcut. The cut is in the form of Ax &\le& b
-	*/
 
-  if (this->_A.n_cols != A.n_cols)
+
+/**
+ * @brief Adds custom cuts defined in the input to the LCP::A and LCP::b objects
+ * @param A The LHS of the added cuts
+ * @param b The RHS of the added cuts
+ * note This method does not check whether such cuts are already in the LCP.
+ */
+
+void MathOpt::LCP::addCustomCuts(const arma::sp_mat A, const arma::vec b) {
+
+  if (this->A.n_cols != A.n_cols)
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Mismatch in A columns");
   if (b.size() != A.n_rows)
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Mismatch in A and b rows");
@@ -549,18 +563,24 @@ void MathOpt::LCP::addCustomCuts(const arma::sp_mat A, ///< [in] The LHS of the 
   // debug this->_bcut.print("Vector bcut");
 }
 
-bool MathOpt::LCP::containsCut(const arma::vec LHS, ///< [in] The LHS of the cut
-										 const double    RHS, ///< [in] The rHS of the cut
-										 double          tol  ///< [in] optional tolerance
-) {
-  /**
-	* Given that the MathOpt::LCP stores a description of a cut in LCP::_Acut and
-	* LCP::_bcut, this method check if @p LHS and @p RHS are part of this
-	* description
-	*/
-  return Utils::containsConstraint(this->_Acut, this->_bcut, LHS, RHS, tol);
+
+/**
+ * @brief Given the cut, the method checks whether there is already one (up to a numerical
+ * tolerance) in the LCP
+ * @param Arow The LHS of the cut
+ * @param b The RHS of the cut
+ * @param tol The numerical tolerance
+ * @return True if the cut is already present, false otherwise.
+ */
+bool MathOpt::LCP::containsCut(const arma::vec Arow, const double b, double tol) {
+  return Utils::containsConstraint(this->_Acut, this->_bcut, Arow, b, tol);
 }
 
+/**
+ * @brief Converts the Data::LCP::PolyhedraStrategy object to a string
+ * @param add  The Data::LCP::PolyhedraStrategy object
+ * @return  A string of the input
+ */
 std::string std::to_string(const Data::LCP::PolyhedraStrategy add) {
   switch (add) {
   case Data::LCP::PolyhedraStrategy::Sequential:
@@ -574,12 +594,15 @@ std::string std::to_string(const Data::LCP::PolyhedraStrategy add) {
   }
 }
 
-unsigned int
-MathOpt::LCP::solvePATH(double     timelimit, ///< A double containing the timelimit in seconds
-								arma::vec &z,         ///< [out] the output vector for the Mx+q (=z) part
-								arma::vec &x,         ///< [out] the output vector for the variables x
-								bool       verbose    ///< [in] true if PATH is verbose
-) {
+/**
+ * @brief Solves the LCP with Solvers::PATH
+ * @param timelimit A double time limit on the solving process
+ * @param z The resulting solution for z, if any
+ * @param x The resulting solution for x, if any
+ * @param verbose True if PATH will be verbose
+ * @return The ZEROStatus of the model
+ */
+ZEROStatus MathOpt::LCP::solvePATH(double timelimit, arma::vec &z, arma::vec &x, bool verbose) {
   /**
 	* @brief Solves the LCP model with the PATH solver.
 	*/
@@ -587,11 +610,19 @@ MathOpt::LCP::solvePATH(double     timelimit, ///< A double containing the timel
 
   this->LCPasMIP(false)->write("dat/TheModel.lp");
   auto Solver = new Solvers::PATH(this->M, this->q, this->Compl, this->BoundsX, z, x, timelimit);
-  if (Solver->getStatus() == ZEROStatus::NashEqFound)
-	 return 1;
-  else
-	 return 0;
+  return Solver->getStatus();
 }
+
+
+/**
+ * @brief This method is the generic wrapper to solve the LCP.
+ * @param algo The Data::LCP::Algorithms used to solve the LCP
+ * @param xSol The resulting solution for z, if any
+ * @param zSol The resulting solution for z, if any
+ * @param timeLimit A double time limit
+ * @return A ZEROStatus for the problem
+ */
+
 ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 										 arma::vec &           xSol,
 										 arma::vec &           zSol,
@@ -603,18 +634,21 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 
   switch (algo) {
   case Data::LCP::Algorithms::PATH: {
-	 if (this->_A.n_nonzero != 0) {
-		this->_A.print_dense("_A");
-		this->_b.print("_b");
+	 if (this->A.n_nonzero != 0) {
+		this->A.print_dense("A");
+		this->b.print("b");
 		throw ZEROException(ZEROErrorCode::SolverError,
 								  "PATH does not support non-complementarity constraints!");
 	 }
 	 switch (this->solvePATH(timeLimit, xSol, zSol, true)) {
-	 case 1:
+	 case ZEROStatus::NashEqFound:
 		return ZEROStatus::NashEqFound;
 		break;
-	 case 5:
-		return ZEROStatus::TimeLimit;
+	 case ZEROStatus::Solved:
+		return ZEROStatus::NashEqFound;
+		break;
+	 case ZEROStatus::NotSolved:
+		return ZEROStatus::NashEqNotFound;
 		break;
 	 default:
 		return ZEROStatus::NashEqNotFound;
@@ -646,12 +680,15 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
   }
   return ZEROStatus::NashEqNotFound;
 }
+
+
+/**
+ * @brief Gets the MIP model associated with the LCP, where complementarities are modeled with
+ * indicator constraints
+ * @return The Gurobi pointer to the model
+ */
 std::unique_ptr<GRBModel> MathOpt::LCP::getMIP() {
-  /**
-	* @brief Returns an unique pointer to the model for the LCP. Complementarities are modelled
-	* through indicator constraints. @return the unique pointer for the MIP modeling the LCP
-	*/
-  std::unique_ptr<GRBModel> model{new GRBModel(this->RlxdModel)};
+  std::unique_ptr<GRBModel> model{new GRBModel(this->RelaxedModel)};
   // Creating the model
   try {
 	 GRBVar x[nC], z[nR], u[nR], v[nR];
@@ -703,9 +740,17 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP() {
 	 throw ZEROException(ZEROErrorCode::Unknown, "Unknown exception in  MathOpt::LCP::getMIP");
   }
 }
+
+
+
+/**
+ * @brief Gets the MINLP model associated with the LCP, where complementarities are modeled with
+ * bi-linear terms.
+ * @return The Gurobi pointer to the model
+ */
 std::unique_ptr<GRBModel> MathOpt::LCP::getMINLP() {
   makeRelaxed();
-  std::unique_ptr<GRBModel> model{new GRBModel(this->RlxdModel)};
+  std::unique_ptr<GRBModel> model{new GRBModel(this->RelaxedModel)};
   // Creating the model
   try {
 	 GRBVar x[nC], z[nR], l[nR], v[nR];
@@ -736,7 +781,7 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMINLP() {
 
 	 model->update();
 	 model->set(GRB_IntParam_NonConvex, 2);
-	 model->set(GRB_DoubleParam_IntFeasTol, this->EpsInt);
+	 model->set(GRB_DoubleParam_IntFeasTol, this->Eps);
 	 model->set(GRB_DoubleParam_FeasibilityTol, this->Eps);
 	 model->set(GRB_DoubleParam_OptimalityTol, this->Eps);
 	 // Get first Equilibrium

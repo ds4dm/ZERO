@@ -25,7 +25,7 @@ namespace Data {
   namespace LCP {
 
 	 enum class PolyhedraStrategy {
-		/** @brief When expanding the feasible region of an approximated LCP, this
+		/** @brief When expanding the feasible region of an inner approximated LCP, this
 		 * enum controls the strategy being used.
 		 */
 		Sequential        = 0, ///< Adds polyhedra by selecting them in order
@@ -44,39 +44,41 @@ namespace Data {
 namespace MathOpt {
 
   /**
-	* @brief Class to handle and solve linear complementarity problems
-	*/
-  /**
-	* A class to handle linear complementarity problems (LCP)
-	* especially as MIPs with BigM constraints
+	* @brief This class manages and solves linear complementarity problems (LCPs).
+	* Let @f$M@f$ be a matrix, @f$q@f$a vector  with as many elements as the number of rows of
+	* @f$M@f$. The associated LCP problem is to find \f[ z=Mx+q \qquad x^\top z = 0 \f]  Possibly,
+	* there can be additional side constraints in the form of  \f[ Ax \leq b\f] This class has is
+	* the base class of MathOpt::PolyLCP, which manages the polyhedral aspect of the problem.
 	*/
 
   class LCP {
 
   protected:
 	 // Essential data ironment for MIP/LP solves
-	 GRBEnv *     Env;   ///< Gurobi Env
-	 arma::sp_mat M;     ///< M in @f$Mx+q@f$ that defines the LCP
-	 arma::vec    q;     ///< q in @f$Mx+q@f$ that defines the LCP
-	 perps        Compl; ///< Compl stores data in <Eqn, Var> form.
+	 GRBEnv *     Env; ///< A pointer to the Gurobi Env
+	 arma::sp_mat M;   ///< The matrix M in @f$Mx+q@f$ that defines the LCP
+	 arma::vec    q;   ///< The vector q in @f$Mx+q@f$ that defines the LCP
+	 perps Compl; ///< Compl dictates which equation (row in M) is complementary to which variable
+					  ///< (column in M). The object is in a <Eqn, Var> form
 	 unsigned int LeadStart{1}, LeadEnd{0}, NumberLeader{0};
 	 bool         PureMIP = true; ///< True if the LCP is modelled via a pure MIP with indicators
-											///< constraints. MINLP otherwise
-	 arma::sp_mat _A = {};
-	 arma::vec    _b = {}; ///< Apart from @f$0 \le x \perp Mx+q\ge 0@f$, one needs@f$
-	 ///< Ax\le b@f$ too!
-	 arma::sp_mat   _Acut = {};
-	 arma::vec      _bcut = {};           ///< Cutting planes (eventually) added to the model
-	 bool           MadeRlxdModel{false}; ///< Keep track if LCP::RlxdModel is made
-	 unsigned int   nR, nC;
-	 VariableBounds BoundsX; ///< Stores non-trivial upper and lower bounds on x variables (both
-									 ///< strictly greater than
-	 ///< zero, in as a tuple (j,k) where j the lower
-	 ///< bound, and k the upper bound. When one between j or k is negative, then
-	 ///< the respective bound is inactive.
+								 ///< constraints. Otherwise, a MINLP introduces a bilinear term for each
+								 ///< complementarity
+	 arma::sp_mat A     = {}; ///< The additional constraint matrix A to the problem
+	 arma::vec    b     = {}; ///< The additional constraint RHSs b to the problem
+	 arma::sp_mat _Acut = {}; ///< Additional cutting planes (eventually) added to the model
+	 arma::vec    _bcut = {}; ///< Additional cutting planes (eventually) added to the model
+	 bool         MadeRlxdModel{false}; ///< True if a relaxed model has been already initialized
+	 unsigned int nR, nC;               ///< The number of rows and columns in the matrix M
 
-	 GRBModel RlxdModel; ///< A gurobi model with all complementarity constraints
-	 ///< removed.
+	 /**
+	  * Stores non-trivial upper and lower bounds on x variables  in as a tuple (j,k) where j the
+	 lower bound, and k the upper bound. Usually, j is initialized to 0, while k to -1 (meaning
+	 inactive upepr bound)
+	  */
+	 VariableBounds BoundsX;
+
+	 GRBModel RelaxedModel; ///< A Gurobi model without complementarities
 
 	 void defConst(GRBEnv *env);
 
@@ -86,50 +88,56 @@ namespace MathOpt {
 
 	 std::unique_ptr<GRBModel> getMINLP();
 
-	 std::unique_ptr<spmat_Vec> Ai; ///< Vector to contain the LHSs of a description (either exact or
-											  ///< approximated) of the LCP's feasible region
-	 std::unique_ptr<vec_Vec> bi;   ///< Vector to contain the RHSs of a description (either exact or
-											  ///< approximated) of the LCP's feasible region
+	 /**
+	  * A pointer to matrices containing the LHSs of a description (either exact or approximated) of
+	  * the LCP's feasible region
+	  */
+	 std::unique_ptr<spmat_Vec> Ai;
+	 /**
+	  * A pointer to vectors containing the RHSs of a description (either exact or approximated) of
+	  * the LCP's feasible region
+	  */
+	 std::unique_ptr<vec_Vec> bi;
 
 	 unsigned int convexHull(arma::sp_mat &A, arma::vec &b);
 
   public:
-	 double Eps{1e-6};    ///< The threshold for optimality and feasability tolerances
-	 double EpsInt{1e-8}; ///< The threshold, below which a number would be
-	 ///< considered to be zero.
+	 double Eps{1e-6}; ///< The threshold for optimality and feasability tolerances
 
-	 /** Constructors */
-	 /// Class has no default constructors
 	 LCP() = delete;
 
-	 explicit LCP(GRBEnv *e)
-		  : Env{e}, RlxdModel(*e){}; ///< This constructor flor loading LCP from a file
 
+	 /**
+	  * A base constructor that does not initialize most of objects. This is useful when loading from
+	  * a file
+	  */
+	 explicit LCP(GRBEnv *e) : Env{e}, RelaxedModel(*e){};
 	 LCP(GRBEnv *     env,
 		  arma::sp_mat M,
 		  arma::vec    q,
 		  unsigned int leadStart,
 		  unsigned     leadEnd,
 		  arma::sp_mat A = {},
-		  arma::vec    b = {}); // Constructor with M,q,leader posn
+		  arma::vec    b = {});
 	 LCP(GRBEnv *     env,
 		  arma::sp_mat M,
 		  arma::vec    q,
 		  perps        Compl,
 		  arma::sp_mat A = {},
-		  arma::vec    b = {}); // Constructor with M, q, compl pairs
+		  arma::vec    b = {});
+
 	 LCP(GRBEnv *env, const Game::NashGame &N);
 
 	 /** Destructor - to delete the objects created with new operator */
 	 ~LCP() = default;
 
-	 /** Return data and address */
+	 // Fields getters
 	 inline arma::sp_mat  getM() const { return this->M; }  ///< Read-only access to LCP::M
 	 inline arma::sp_mat *getMstar() { return &(this->M); } ///< Reference access to LCP::M
 	 inline arma::vec     getq() const { return this->q; }  ///< Read-only access to LCP::q
 	 inline unsigned int  getNumberLeader() const {
       return this->NumberLeader;
-	 }                                                           ///< Read-only access to LCP::q
+	 } ///< Read-only access to LCP::NumberLeader
 	 inline arma::vec *        getqstar() { return &(this->q); } ///< Reference access to LCP::q
 	 const inline unsigned int getLStart() const {
 		return LeadStart;
@@ -138,11 +146,14 @@ namespace MathOpt {
 		return LeadEnd;
 	 } ///< Read-only access to LCP::LeadEnd
 	 inline perps        getCompl() const { return this->Compl; } ///< Read-only access to LCP::Compl
-	 void                print(std::string end = "\n");           ///< Print a summary of the LCP
-	 inline unsigned int getNumCols() const { return this->M.n_cols; };
-	 inline bool         hasCommonConstraints() const { return this->_A.n_nonzero > 0; };
+	 inline unsigned int getNumCols() const { return this->nC; }; ///< Read-only access to LCP::nC
+	 inline unsigned int getNumRows() const { return this->nR; }; ///< Read-only access to LCP::nR
 
-	 inline unsigned int getNumRows() const { return this->M.n_rows; };
+
+	 inline bool hasCommonConstraints() const {
+		return this->A.n_nonzero > 0;
+	 }; ///< A method to check whether LCP::A has any non-zero, namely any constraints
+
 
 	 bool extractSols(GRBModel *model, arma::vec &z, arma::vec &x, bool extractZ = false) const;
 
@@ -155,7 +166,6 @@ namespace MathOpt {
 													  const arma::vec &   x_minus_i,
 													  bool                solve = false);
 
-	 std::vector<short int> solEncode(const arma::vec &z, const arma::vec &x) const;
 
 	 std::unique_ptr<GRBModel> MPECasMIQP(const arma::sp_mat &Q,
 													  const arma::sp_mat &C,
@@ -164,7 +174,7 @@ namespace MathOpt {
 													  bool                solve = false);
 
 
-	 unsigned int solvePATH(double timelimit, arma::vec &x, arma::vec &z, bool verbose = true);
+	 ZEROStatus solvePATH(double timelimit, arma::vec &x, arma::vec &z, bool verbose = true);
 
 	 void save(std::string filename, bool erase = true) const;
 
@@ -176,10 +186,9 @@ namespace MathOpt {
 
 	 bool containsCut(const arma::vec LHS, const double RHS, double tol = 1e-5);
 
-	 std::vector<short int> solEncode(const arma::vec &x) const;
-
 	 arma::vec zFromX(const arma::vec x);
-	 void      processBounds();
+
+	 void processBounds();
   };
 } // namespace MathOpt
 
