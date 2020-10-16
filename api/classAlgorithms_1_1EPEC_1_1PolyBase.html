@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                1.0.0
+                1.0.1
               </div>
             
           
@@ -252,11 +252,6 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="structZEROStatistics.html">Template Struct ZEROStatistics</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="structZEROStatistics.html#struct-documentation">Struct Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1Algorithm.html">Class Algorithm</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1Algorithm.html#inheritance-relationships">Inheritance Relationships</a></li>
-<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1Algorithm.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CombinatorialPNE.html">Class CombinatorialPNE</a><ul>
@@ -837,18 +832,13 @@
 </ul>
 <div class="section" id="inheritance-relationships">
 <h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="base-type">
-<h3>Base Type<a class="headerlink" href="#base-type" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">Algorithms::EPEC::Algorithm</span></code> (<a class="reference internal" href="classAlgorithms_1_1EPEC_1_1Algorithm.html#exhale-class-classalgorithms-1-1epec-1-1algorithm"><span class="std std-ref">Class Algorithm</span></a>)</p></li>
-</ul>
-</div>
 <div class="section" id="derived-types">
 <h3>Derived Types<a class="headerlink" href="#derived-types" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">Algorithms::EPEC::CombinatorialPNE</span></code> (<a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CombinatorialPNE.html#exhale-class-classalgorithms-1-1epec-1-1combinatorialpne"><span class="std std-ref">Class CombinatorialPNE</span></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">Algorithms::EPEC::FullEnumeration</span></code> (<a class="reference internal" href="classAlgorithms_1_1EPEC_1_1FullEnumeration.html#exhale-class-classalgorithms-1-1epec-1-1fullenumeration"><span class="std std-ref">Class FullEnumeration</span></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">Algorithms::EPEC::InnerApproximation</span></code> (<a class="reference internal" href="classAlgorithms_1_1EPEC_1_1InnerApproximation.html#exhale-class-classalgorithms-1-1epec-1-1innerapproximation"><span class="std std-ref">Class InnerApproximation</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">Algorithms::EPEC::OuterApproximation</span></code> (<a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterApproximation.html#exhale-class-classalgorithms-1-1epec-1-1outerapproximation"><span class="std std-ref">Class OuterApproximation</span></a>)</p></li>
 </ul>
 </div>
 </div>
@@ -856,14 +846,20 @@
 <h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
 <dl class="cpp class">
 <dt id="_CPPv4N10Algorithms4EPEC8PolyBaseE">
-<span id="_CPPv3N10Algorithms4EPEC8PolyBaseE"></span><span id="_CPPv2N10Algorithms4EPEC8PolyBaseE"></span><span id="Algorithms::EPEC::PolyBase"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase"></span><em class="property">class </em><code class="sig-prename descclassname">Algorithms::EPEC<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">PolyBase</code> : <em class="property">public</em> Algorithms::EPEC::<a class="reference internal" href="classAlgorithms_1_1EPEC_1_1Algorithm.html#_CPPv4N10Algorithms4EPEC9AlgorithmE" title="Algorithms::EPEC::Algorithm">Algorithm</a><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC8PolyBaseE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Subclassed by <a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CombinatorialPNE.html#classAlgorithms_1_1EPEC_1_1CombinatorialPNE"><span class="std std-ref">Algorithms::EPEC::CombinatorialPNE</span></a>, <a class="reference internal" href="classAlgorithms_1_1EPEC_1_1FullEnumeration.html#classAlgorithms_1_1EPEC_1_1FullEnumeration"><span class="std std-ref">Algorithms::EPEC::FullEnumeration</span></a>, <a class="reference internal" href="classAlgorithms_1_1EPEC_1_1InnerApproximation.html#classAlgorithms_1_1EPEC_1_1InnerApproximation"><span class="std std-ref">Algorithms::EPEC::InnerApproximation</span></a></p>
+<span id="_CPPv3N10Algorithms4EPEC8PolyBaseE"></span><span id="_CPPv2N10Algorithms4EPEC8PolyBaseE"></span><span id="Algorithms::EPEC::PolyBase"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase"></span><em class="property">class </em><code class="sig-prename descclassname">Algorithms::EPEC<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">PolyBase</code><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC8PolyBaseE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Subclassed by <a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CombinatorialPNE.html#classAlgorithms_1_1EPEC_1_1CombinatorialPNE"><span class="std std-ref">Algorithms::EPEC::CombinatorialPNE</span></a>, <a class="reference internal" href="classAlgorithms_1_1EPEC_1_1FullEnumeration.html#classAlgorithms_1_1EPEC_1_1FullEnumeration"><span class="std std-ref">Algorithms::EPEC::FullEnumeration</span></a>, <a class="reference internal" href="classAlgorithms_1_1EPEC_1_1InnerApproximation.html#classAlgorithms_1_1EPEC_1_1InnerApproximation"><span class="std std-ref">Algorithms::EPEC::InnerApproximation</span></a>, <a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterApproximation.html#classAlgorithms_1_1EPEC_1_1OuterApproximation"><span class="std std-ref">Algorithms::EPEC::OuterApproximation</span></a></p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC8PolyBase8PolyBaseEP6GRBEnvPN4Game4EPECE">
 <span id="_CPPv3N10Algorithms4EPEC8PolyBase8PolyBaseEP6GRBEnvPN4Game4EPECE"></span><span id="_CPPv2N10Algorithms4EPEC8PolyBase8PolyBaseEP6GRBEnvPN4Game4EPECE"></span><span id="Algorithms::EPEC::PolyBase::PolyBase__GRBEnvP.Game::EPECP"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1a3232baf0efbe5fe82c3168937a6a8d20"></span><code class="sig-name descname">PolyBase</code><span class="sig-paren">(</span>GRBEnv *<em>env</em>, Game::<a class="reference internal" href="classGame_1_1EPEC.html#_CPPv4N4Game4EPECE" title="Game::EPEC">EPEC</a> *<em>EPECObject</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC8PolyBase8PolyBaseEP6GRBEnvPN4Game4EPECE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N10Algorithms4EPEC8PolyBase5solveEv">
+<span id="_CPPv3N10Algorithms4EPEC8PolyBase5solveEv"></span><span id="_CPPv2N10Algorithms4EPEC8PolyBase5solveEv"></span><span id="Algorithms::EPEC::PolyBase::solve"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1a76ea266f4811d5fca0b38db4113f46b3"></span>void <code class="sig-name descname">solve</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N10Algorithms4EPEC8PolyBase5solveEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method to solve the EPEC. </p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK10Algorithms4EPEC8PolyBase8isSolvedEPjPN4arma3vecEd">
@@ -880,8 +876,8 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4NK10Algorithms4EPEC8PolyBase8isSolvedEd">
-<span id="_CPPv3NK10Algorithms4EPEC8PolyBase8isSolvedEd"></span><span id="_CPPv2NK10Algorithms4EPEC8PolyBase8isSolvedEd"></span><span id="Algorithms::EPEC::PolyBase::isSolved__doubleC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1a291dab58d5014bc5be3477ed500c43f5"></span>bool <code class="sig-name descname">isSolved</code><span class="sig-paren">(</span>double <em>tol</em> = -1<span class="sig-paren">)</span> <em class="property">const</em> <em class="property">override</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC8PolyBase8isSolvedEd" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>A method to check whether the EPEC is solved or not, &lt; given a numerical tolerance. </p>
+<span id="_CPPv3NK10Algorithms4EPEC8PolyBase8isSolvedEd"></span><span id="_CPPv2NK10Algorithms4EPEC8PolyBase8isSolvedEd"></span><span id="Algorithms::EPEC::PolyBase::isSolved__doubleC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1ad2774a5c59271d16751b00c76866f693"></span>bool <code class="sig-name descname">isSolved</code><span class="sig-paren">(</span>double <em>tol</em> = -1<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC8PolyBase8isSolvedEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method to check whether the EPEC is solved or &lt; not, given a numerical tolerance. </p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -911,9 +907,8 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4NK10Algorithms4EPEC8PolyBase14isPureStrategyEd">
-<span id="_CPPv3NK10Algorithms4EPEC8PolyBase14isPureStrategyEd"></span><span id="_CPPv2NK10Algorithms4EPEC8PolyBase14isPureStrategyEd"></span><span id="Algorithms::EPEC::PolyBase::isPureStrategy__doubleC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1aa8a48f84931889820bd8f05e250f945b"></span>bool <code class="sig-name descname">isPureStrategy</code><span class="sig-paren">(</span>double <em>tol</em> = 1e-5<span class="sig-paren">)</span> <em class="property">const</em> <em class="property">override</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC8PolyBase14isPureStrategyEd" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>A method to check whether the EPEC solution is a pure &lt; equilibrium or not, given a numerical tolerance. </p>
-</dd></dl>
+<span id="_CPPv3NK10Algorithms4EPEC8PolyBase14isPureStrategyEd"></span><span id="_CPPv2NK10Algorithms4EPEC8PolyBase14isPureStrategyEd"></span><span id="Algorithms::EPEC::PolyBase::isPureStrategy__doubleC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1aca63575c14d997763db0aba9fc0a3ece"></span>bool <code class="sig-name descname">isPureStrategy</code><span class="sig-paren">(</span>double <em>tol</em> = 1e-5<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC8PolyBase14isPureStrategyEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK10Algorithms4EPEC8PolyBase17mixedStrategyPolyEjd">
@@ -946,18 +941,29 @@
 <p class="breathe-sectiondef-title rubric">Protected Functions</p>
 <dl class="cpp function">
 <dt id="_CPPv4N10Algorithms4EPEC8PolyBase11postSolvingEv">
-<span id="_CPPv3N10Algorithms4EPEC8PolyBase11postSolvingEv"></span><span id="_CPPv2N10Algorithms4EPEC8PolyBase11postSolvingEv"></span><span id="Algorithms::EPEC::PolyBase::postSolving"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1ae32c59d87b904dd0b6bff19a4bf954f7"></span>void <code class="sig-name descname">postSolving</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC8PolyBase11postSolvingEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>A protected method to be called after solving the EPEC. </p>
-</dd></dl>
+<span id="_CPPv3N10Algorithms4EPEC8PolyBase11postSolvingEv"></span><span id="_CPPv2N10Algorithms4EPEC8PolyBase11postSolvingEv"></span><span id="Algorithms::EPEC::PolyBase::postSolving"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1a5b214b1fdbf80e6b47c5d7304e19507f"></span>void <code class="sig-name descname">postSolving</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC8PolyBase11postSolvingEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Protected Attributes</p>
 <dl class="cpp var">
+<dt id="_CPPv4N10Algorithms4EPEC8PolyBase3EnvE">
+<span id="_CPPv3N10Algorithms4EPEC8PolyBase3EnvE"></span><span id="_CPPv2N10Algorithms4EPEC8PolyBase3EnvE"></span><span id="Algorithms::EPEC::PolyBase::Env__GRBEnvP"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1a756874a7573a0ecb3d320042f77dc458"></span>GRBEnv *<code class="sig-name descname">Env</code><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC8PolyBase3EnvE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This is the abstract class of Algorithms for full enumeration, inner approximation, and Combinatorial PNE. It provides a constructor where the Gurobi environment and the EPEC are passed. This is an abstract class. </p>
+<p>A pointer to the Gurobi Environment </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N10Algorithms4EPEC8PolyBase10EPECObjectE">
+<span id="_CPPv3N10Algorithms4EPEC8PolyBase10EPECObjectE"></span><span id="_CPPv2N10Algorithms4EPEC8PolyBase10EPECObjectE"></span><span id="Algorithms::EPEC::PolyBase::EPECObject__Game::EPECP"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1afca1e49568ac8ca213a4593d1ca97469"></span>Game::<a class="reference internal" href="classGame_1_1EPEC.html#_CPPv4N4Game4EPECE" title="Game::EPEC">EPEC</a> *<code class="sig-name descname">EPECObject</code><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC8PolyBase10EPECObjectE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A pointer to the original LCP object. </p>
+</dd></dl>
+
+<dl class="cpp var">
 <dt id="_CPPv4N10Algorithms4EPEC8PolyBase7PolyLCPE">
 <span id="_CPPv3N10Algorithms4EPEC8PolyBase7PolyLCPE"></span><span id="_CPPv2N10Algorithms4EPEC8PolyBase7PolyLCPE"></span><span id="Algorithms::EPEC::PolyBase::PolyLCP__std::vector:std::shared_ptr:MathOpt::PolyLCP::"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase_1af4b04767398229a7773932f5ff27f74b"></span>std::vector&lt;std::shared_ptr&lt;MathOpt::<a class="reference internal" href="classMathOpt_1_1PolyLCP.html#_CPPv4N7MathOpt7PolyLCPE" title="MathOpt::PolyLCP">PolyLCP</a>&gt;&gt; <code class="sig-name descname">PolyLCP</code> = {}<a class="headerlink" href="#_CPPv4N10Algorithms4EPEC8PolyBase7PolyLCPE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>This is the abstract class of Algorithms for full enumeration, inner approximation, and Combinatorial PNE. It provides a constructor where the Gurobi environment and the EPEC are passed. This is an abstract class. </p>
-</dd></dl>
+<dd></dd></dl>
 
 </div>
 </dd></dl>

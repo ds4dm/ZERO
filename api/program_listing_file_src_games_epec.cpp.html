@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.0.0
+                1.0.1
               </div>
             
           
@@ -250,11 +250,6 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="structZEROStatistics.html">Template Struct ZEROStatistics</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="structZEROStatistics.html#struct-documentation">Struct Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1Algorithm.html">Class Algorithm</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1Algorithm.html#inheritance-relationships">Inheritance Relationships</a></li>
-<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1Algorithm.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CombinatorialPNE.html">Class CombinatorialPNE</a><ul>
@@ -842,7 +837,7 @@
  * #############################################*/
 
 #include &quot;games/epec.h&quot;
-#include &quot;games/algorithms/EPEC/epec_algorithms.h&quot;
+#include &quot;games/algorithms/EPEC/epec_polybase.h&quot;
 #include &quot;zero.h&quot;
 #include &lt;armadillo&gt;
 #include &lt;boost/log/trivial.hpp&gt;
@@ -949,7 +944,7 @@ void Game::EPEC::getXofI(const arma::vec &amp;   x,
   const unsigned int nThisCountryvars     = *this-&gt;LocEnds.at(i);
   const unsigned int nThisCountryHullVars = this-&gt;ConvexHullVariables.at(i);
 
-  unsigned int vars = 0, current = 0;
+  unsigned int vars, current = 0;
   if (hull) {
      vars    = nThisCountryvars;
      current = *this-&gt;LocEnds.at(i);
@@ -972,7 +967,7 @@ void Game::EPEC::getXWithoutHull(const arma::vec &amp;x, arma::vec &amp;xWithout
                                                     // associated to the convex hull
                                                     // convex hull vars
 
-  for (unsigned int j = 0, count = 0, current = 0; j &lt; this-&gt;NumPlayers; ++j) {
+  for (unsigned int j = 0, count = 0, current; j &lt; this-&gt;NumPlayers; ++j) {
      current = *this-&gt;LocEnds.at(j) - this-&gt;ConvexHullVariables.at(j);
      xWithoutHull.subvec(count, count + current - 1) =
           x.subvec(this-&gt;LeaderLocations.at(j), this-&gt;LeaderLocations.at(j) + current - 1);
@@ -1308,28 +1303,28 @@ const void Game::EPEC::findNashEq() {
 
   case Data::EPEC::Algorithms::InnerApproximation: {
      final_msg &lt;&lt; &quot;Inner approximation Algorithm completed. &quot;;
-     this-&gt;Algorithm = std::shared_ptr&lt;Algorithms::EPEC::Algorithm&gt;(
+     this-&gt;Algorithm = std::shared_ptr&lt;Algorithms::EPEC::PolyBase&gt;(
           new class Algorithms::EPEC::InnerApproximation(this-&gt;Env, this));
      this-&gt;Algorithm-&gt;solve();
   } break;
 
   case Data::EPEC::Algorithms::CombinatorialPne: {
      final_msg &lt;&lt; &quot;CombinatorialPNE Algorithm completed. &quot;;
-     this-&gt;Algorithm = std::shared_ptr&lt;Algorithms::EPEC::Algorithm&gt;(
+     this-&gt;Algorithm = std::shared_ptr&lt;Algorithms::EPEC::PolyBase&gt;(
           new class Algorithms::EPEC::CombinatorialPNE(this-&gt;Env, this));
      this-&gt;Algorithm-&gt;solve();
   } break;
 
   case Data::EPEC::Algorithms::OuterApproximation: {
      final_msg &lt;&lt; &quot;Outer approximation Algorithm completed. &quot;;
-     this-&gt;Algorithm = std::shared_ptr&lt;Algorithms::EPEC::Algorithm&gt;(
+     this-&gt;Algorithm = std::shared_ptr&lt;Algorithms::EPEC::PolyBase&gt;(
           new class Algorithms::EPEC::OuterApproximation(this-&gt;Env, this));
      this-&gt;Algorithm-&gt;solve();
   } break;
 
   case Data::EPEC::Algorithms::FullEnumeration: {
      final_msg &lt;&lt; &quot;Full enumeration Algorithm completed. &quot;;
-     this-&gt;Algorithm = std::shared_ptr&lt;Algorithms::EPEC::Algorithm&gt;(
+     this-&gt;Algorithm = std::shared_ptr&lt;Algorithms::EPEC::PolyBase&gt;(
           new class Algorithms::EPEC::FullEnumeration(this-&gt;Env, this));
      this-&gt;Algorithm-&gt;solve();
   } break;
@@ -1413,6 +1408,7 @@ std::string std::to_string(const Data::EPEC::Algorithms al) {
   case Data::EPEC::Algorithms::OuterApproximation:
      return std::string(&quot;OuterApproximation&quot;);
   }
+  return &quot;&quot;;
 }
 
 std::string std::to_string(const Data::EPEC::RecoverStrategy strategy) {
@@ -1422,6 +1418,7 @@ std::string std::to_string(const Data::EPEC::RecoverStrategy strategy) {
   case Data::EPEC::RecoverStrategy::Combinatorial:
      return std::string(&quot;Combinatorial&quot;);
   }
+  return &quot;&quot;;
 }
 </pre></div>
 </div>

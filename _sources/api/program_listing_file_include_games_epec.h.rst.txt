@@ -77,9 +77,9 @@ Program Listing for File epec.h
    
      class EPEC : public AbstractGame<Data::EPEC::DataObject> {
      private:
-        std::shared_ptr<Algorithms::EPEC::Algorithm> Algorithm{};
-        std::vector<unsigned int>                    SizesWithoutHull{};
-        std::unique_ptr<MathOpt::LCP>                TheLCP; 
+        std::shared_ptr<Algorithms::EPEC::PolyBase> Algorithm{};
+        std::vector<unsigned int>                   SizesWithoutHull{};
+        std::unique_ptr<MathOpt::LCP>               TheLCP; 
         std::unique_ptr<GRBModel> LCPModel;     
         std::unique_ptr<GRBModel> LCPModelBase; 
      protected:

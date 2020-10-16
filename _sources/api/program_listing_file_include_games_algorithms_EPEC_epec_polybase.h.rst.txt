@@ -24,18 +24,19 @@ Program Listing for File epec_polybase.h
    
    
    #pragma once
-   #include "epec_algorithms.h"
    #include "mathopt/lcp/lcp.h"
    #include "zero.h"
    #include <boost/log/trivial.hpp>
    
    namespace Algorithms {
      namespace EPEC {
-        class PolyBase : public Algorithm {
+        class PolyBase {
         protected:
+           GRBEnv *    Env;        
+           Game::EPEC *EPECObject; 
            std::vector<std::shared_ptr<MathOpt::PolyLCP>> PolyLCP{};
    
-           void postSolving() override {
+           void postSolving() {
              std::vector<unsigned int> feasible;
              for (unsigned int i = 0; i < this->EPECObject->NumPlayers; i++)
                 feasible.push_back(this->PolyLCP.at(i)->getFeasiblePolyhedra());
@@ -58,9 +59,10 @@ Program Listing for File epec_polybase.h
                 EPECObject->PlayersLCP.at(i) = this->PolyLCP.at(i);
              }
            }
+           virtual void solve() = 0; 
            bool
                  isSolved(unsigned int *countryNumber, arma::vec *profitableDeviation, double tol = -1) const;
-           bool isSolved(double tol = -1) const override;
+           bool isSolved(double tol = -1) const; 
            void makeThePureLCP();
    
            double
@@ -73,7 +75,7 @@ Program Listing for File epec_polybase.h
    
            bool isPureStrategy(unsigned int i, double tol = 1e-5) const;
    
-           bool isPureStrategy(double tol = 1e-5) const override;
+           bool isPureStrategy(double tol = 1e-5) const;
    
            std::vector<unsigned int> mixedStrategyPoly(unsigned int i, double tol = 1e-5) const;
            unsigned int getPositionLeadFollPoly(unsigned int i, unsigned int j, unsigned int k) const;
@@ -90,3 +92,4 @@ Program Listing for File epec_polybase.h
    #include "epec_combinatorialpne.h"
    #include "epec_fullenumeration.h"
    #include "epec_innerapproximation.h"
+   #include "epec_outerapproximation.h"

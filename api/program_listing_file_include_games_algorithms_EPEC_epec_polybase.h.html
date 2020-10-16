@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.0.0
+                1.0.1
               </div>
             
           
@@ -250,11 +250,6 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="structZEROStatistics.html">Template Struct ZEROStatistics</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="structZEROStatistics.html#struct-documentation">Struct Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1Algorithm.html">Class Algorithm</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1Algorithm.html#inheritance-relationships">Inheritance Relationships</a></li>
-<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1Algorithm.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CombinatorialPNE.html">Class CombinatorialPNE</a><ul>
@@ -843,18 +838,19 @@
 
 
 #pragma once
-#include &quot;epec_algorithms.h&quot;
 #include &quot;mathopt/lcp/lcp.h&quot;
 #include &quot;zero.h&quot;
 #include &lt;boost/log/trivial.hpp&gt;
 
 namespace Algorithms {
   namespace EPEC {
-     class PolyBase : public Algorithm {
+     class PolyBase {
      protected:
+        GRBEnv *    Env;
+        Game::EPEC *EPECObject;
         std::vector&lt;std::shared_ptr&lt;MathOpt::PolyLCP&gt;&gt; PolyLCP{};
 
-        void postSolving() override {
+        void postSolving() {
           std::vector&lt;unsigned int&gt; feasible;
           for (unsigned int i = 0; i &lt; this-&gt;EPECObject-&gt;NumPlayers; i++)
              feasible.push_back(this-&gt;PolyLCP.at(i)-&gt;getFeasiblePolyhedra());
@@ -877,9 +873,10 @@ namespace Algorithms {
              EPECObject-&gt;PlayersLCP.at(i) = this-&gt;PolyLCP.at(i);
           }
         }
+        virtual void solve() = 0;
         bool
               isSolved(unsigned int *countryNumber, arma::vec *profitableDeviation, double tol = -1) const;
-        bool isSolved(double tol = -1) const override;
+        bool isSolved(double tol = -1) const;
         void makeThePureLCP();
 
         double
@@ -892,7 +889,7 @@ namespace Algorithms {
 
         bool isPureStrategy(unsigned int i, double tol = 1e-5) const;
 
-        bool isPureStrategy(double tol = 1e-5) const override;
+        bool isPureStrategy(double tol = 1e-5) const;
 
         std::vector&lt;unsigned int&gt; mixedStrategyPoly(unsigned int i, double tol = 1e-5) const;
         unsigned int getPositionLeadFollPoly(unsigned int i, unsigned int j, unsigned int k) const;
@@ -909,6 +906,7 @@ namespace Algorithms {
 #include &quot;epec_combinatorialpne.h&quot;
 #include &quot;epec_fullenumeration.h&quot;
 #include &quot;epec_innerapproximation.h&quot;
+#include &quot;epec_outerapproximation.h&quot;
 </pre></div>
 </div>
 </div>
