@@ -1359,7 +1359,7 @@ bool Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
   arma::vec x, z;
   bool      eq = false;
   if (this-&gt;IPG-&gt;Stats.AlgorithmData.LCPSolver.get() == Data::IPG::LCPAlgorithms::PATH)
-     eq = LCP-&gt;solvePATH(localTimeLimit, z, x);
+     eq = LCP-&gt;solvePATH(localTimeLimit, z, x) == ZEROStatus::NashEqFound;
   else if (this-&gt;IPG-&gt;Stats.AlgorithmData.LCPSolver.get() == Data::IPG::LCPAlgorithms::MIP) {
 
      auto LCPModel = LCP-&gt;LCPasMIP(false);

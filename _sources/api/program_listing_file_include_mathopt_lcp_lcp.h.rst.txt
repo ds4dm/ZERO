@@ -55,21 +55,22 @@ Program Listing for File lcp.h
    
      protected:
         // Essential data ironment for MIP/LP solves
-        GRBEnv *     Env;   
-        arma::sp_mat M;     
-        arma::vec    q;     
-        perps        Compl; 
+        GRBEnv *     Env; 
+        arma::sp_mat M;   
+        arma::vec    q;   
+        perps Compl; 
         unsigned int LeadStart{1}, LeadEnd{0}, NumberLeader{0};
         bool         PureMIP = true; 
-        arma::sp_mat _A = {};
-        arma::vec    _b = {}; 
-        arma::sp_mat   _Acut = {};
-        arma::vec      _bcut = {};           
-        bool           MadeRlxdModel{false}; 
-        unsigned int   nR, nC;
-        VariableBounds BoundsX; 
+        arma::sp_mat A     = {}; 
+        arma::vec    b     = {}; 
+        arma::sp_mat _Acut = {}; 
+        arma::vec    _bcut = {}; 
+        bool         MadeRlxdModel{false}; 
+        unsigned int nR, nC;               
    
-        GRBModel RlxdModel; 
+        VariableBounds BoundsX;
+   
+        GRBModel RelaxedModel; 
    
         void defConst(GRBEnv *env);
    
@@ -79,43 +80,43 @@ Program Listing for File lcp.h
    
         std::unique_ptr<GRBModel> getMINLP();
    
-        std::unique_ptr<spmat_Vec> Ai; 
-        std::unique_ptr<vec_Vec> bi;   
+        std::unique_ptr<spmat_Vec> Ai;
+        std::unique_ptr<vec_Vec> bi;
    
         unsigned int convexHull(arma::sp_mat &A, arma::vec &b);
    
      public:
-        double Eps{1e-6};    
-        double EpsInt{1e-8}; 
+        double Eps{1e-6}; 
    
         LCP() = delete;
    
-        explicit LCP(GRBEnv *e)
-             : Env{e}, RlxdModel(*e){}; 
    
+        explicit LCP(GRBEnv *e) : Env{e}, RelaxedModel(*e){};
         LCP(GRBEnv *     env,
              arma::sp_mat M,
              arma::vec    q,
              unsigned int leadStart,
              unsigned     leadEnd,
              arma::sp_mat A = {},
-             arma::vec    b = {}); // Constructor with M,q,leader posn
+             arma::vec    b = {});
         LCP(GRBEnv *     env,
              arma::sp_mat M,
              arma::vec    q,
              perps        Compl,
              arma::sp_mat A = {},
-             arma::vec    b = {}); // Constructor with M, q, compl pairs
+             arma::vec    b = {});
+   
         LCP(GRBEnv *env, const Game::NashGame &N);
    
         ~LCP() = default;
    
+        // Fields getters
         inline arma::sp_mat  getM() const { return this->M; }  
         inline arma::sp_mat *getMstar() { return &(this->M); } 
         inline arma::vec     getq() const { return this->q; }  
         inline unsigned int  getNumberLeader() const {
          return this->NumberLeader;
-        }                                                           
+        } 
         inline arma::vec *        getqstar() { return &(this->q); } 
         const inline unsigned int getLStart() const {
            return LeadStart;
@@ -124,11 +125,14 @@ Program Listing for File lcp.h
            return LeadEnd;
         } 
         inline perps        getCompl() const { return this->Compl; } 
-        void                print(std::string end = "\n");           
-        inline unsigned int getNumCols() const { return this->M.n_cols; };
-        inline bool         hasCommonConstraints() const { return this->_A.n_nonzero > 0; };
+        inline unsigned int getNumCols() const { return this->nC; }; 
+        inline unsigned int getNumRows() const { return this->nR; }; 
    
-        inline unsigned int getNumRows() const { return this->M.n_rows; };
+   
+        inline bool hasCommonConstraints() const {
+           return this->A.n_nonzero > 0;
+        }; 
+   
    
         bool extractSols(GRBModel *model, arma::vec &z, arma::vec &x, bool extractZ = false) const;
    
@@ -141,7 +145,6 @@ Program Listing for File lcp.h
                                                          const arma::vec &   x_minus_i,
                                                          bool                solve = false);
    
-        std::vector<short int> solEncode(const arma::vec &z, const arma::vec &x) const;
    
         std::unique_ptr<GRBModel> MPECasMIQP(const arma::sp_mat &Q,
                                                          const arma::sp_mat &C,
@@ -150,7 +153,7 @@ Program Listing for File lcp.h
                                                          bool                solve = false);
    
    
-        unsigned int solvePATH(double timelimit, arma::vec &x, arma::vec &z, bool verbose = true);
+        ZEROStatus solvePATH(double timelimit, arma::vec &x, arma::vec &z, bool verbose = true);
    
         void save(std::string filename, bool erase = true) const;
    
@@ -162,10 +165,9 @@ Program Listing for File lcp.h
    
         bool containsCut(const arma::vec LHS, const double RHS, double tol = 1e-5);
    
-        std::vector<short int> solEncode(const arma::vec &x) const;
-   
         arma::vec zFromX(const arma::vec x);
-        void      processBounds();
+   
+        void processBounds();
      };
    } // namespace MathOpt
    

@@ -844,42 +844,39 @@
 <dl class="cpp class">
 <dt id="_CPPv4N7MathOpt3LCPE">
 <span id="_CPPv3N7MathOpt3LCPE"></span><span id="_CPPv2N7MathOpt3LCPE"></span><span id="MathOpt::LCP"></span><span class="target" id="classMathOpt_1_1LCP"></span><em class="property">class </em><code class="sig-prename descclassname">MathOpt<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">LCP</code><a class="headerlink" href="#_CPPv4N7MathOpt3LCPE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Class to handle and solve linear complementarity problems. </p>
-<p>A class to handle linear complementarity problems (<a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>) especially as MIPs with BigM constraints </p>
+<dd><p>This class manages and solves linear complementarity problems (LCPs). Let <span class="math notranslate nohighlight">\(M\)</span> be a matrix, <span class="math notranslate nohighlight">\(q\)</span> a vector with as many elements as the number of rows of <span class="math notranslate nohighlight">\(M\)</span>. The associated <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> problem is to find <div class="math notranslate nohighlight">
+\[ z=Mx+q \qquad x^\top z = 0 \]</div>
+ Possibly, there can be additional side constraints in the form of <div class="math notranslate nohighlight">
+\[ Ax \leq b\]</div>
+ This class has is the base class of <a class="reference internal" href="classMathOpt_1_1PolyLCP.html#classMathOpt_1_1PolyLCP"><span class="std std-ref">MathOpt::PolyLCP</span></a>, which manages the polyhedral aspect of the problem. </p>
 <p>Subclassed by <a class="reference internal" href="classMathOpt_1_1PolyLCP.html#classMathOpt_1_1PolyLCP"><span class="std std-ref">MathOpt::PolyLCP</span></a></p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt3LCP3LCPEv">
 <span id="_CPPv3N7MathOpt3LCP3LCPEv"></span><span id="_CPPv2N7MathOpt3LCP3LCPEv"></span><span id="MathOpt::LCP::LCP"></span><span class="target" id="classMathOpt_1_1LCP_1a3c5956541410e906ce7d5c1ad844ba3e"></span><code class="sig-name descname">LCP</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = delete<a class="headerlink" href="#_CPPv4N7MathOpt3LCP3LCPEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Class has no default constructors. </p>
-<p>Constructors </p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt3LCP3LCPEP6GRBEnv">
 <span id="_CPPv3N7MathOpt3LCP3LCPEP6GRBEnv"></span><span id="_CPPv2N7MathOpt3LCP3LCPEP6GRBEnv"></span><span id="MathOpt::LCP::LCP__GRBEnvP"></span><span class="target" id="classMathOpt_1_1LCP_1ae15300807444d65f55acf76e632431b1"></span><code class="sig-name descname">LCP</code><span class="sig-paren">(</span>GRBEnv *<em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP3LCPEP6GRBEnv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>A base constructor that does not initialize most of objects. This is useful when loading from a file </p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt3LCP3LCPEP6GRBEnvN4arma6sp_matEN4arma3vecEjjN4arma6sp_matEN4arma3vecE">
 <span id="_CPPv3N7MathOpt3LCP3LCPEP6GRBEnvN4arma6sp_matEN4arma3vecEjjN4arma6sp_matEN4arma3vecE"></span><span id="_CPPv2N7MathOpt3LCP3LCPEP6GRBEnvN4arma6sp_matEN4arma3vecEjjN4arma6sp_matEN4arma3vecE"></span><span id="MathOpt::LCP::LCP__GRBEnvP.arma::sp_mat.arma::vec.unsigned-i.unsigned.arma::sp_mat.arma::vec"></span><span class="target" id="classMathOpt_1_1LCP_1aeae3c06657dd721a859f42ef06352645"></span><code class="sig-name descname">LCP</code><span class="sig-paren">(</span>GRBEnv *<em>env</em>, arma::sp_mat <em>M</em>, arma::vec <em>q</em>, unsigned int <em>leadStart</em>, unsigned <em>leadEnd</em>, arma::sp_mat <em>A</em> = {}, arma::vec <em>b</em> = {}<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP3LCPEP6GRBEnvN4arma6sp_matEN4arma3vecEjjN4arma6sp_matEN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>This constructor flor loading <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> from a file. </p>
+<dd><p>A constructor for LCPs where some variables are subject to complementarities. This is useful, for instance, for Stackelberg games. </p>
 <p><dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">env</span></code>: Gurobi environment required </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">M</span></code>: <code class="docutils literal notranslate"><span class="pre">M</span></code> in <span class="math notranslate nohighlight">\(Mx+q\)</span> </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">q</span></code>: <code class="docutils literal notranslate"><span class="pre">q</span></code> in <span class="math notranslate nohighlight">\(Mx+q\)</span> </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">leadStart</span></code>: Position where variables which are not complementary to any equation starts </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">leadEnd</span></code>: Position where variables which are not complementary to any equation ends </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: Any equations without a complemntarity variable </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: RHS of equations without complementarity variables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">env</span></code>: The Gurobi environment pointer </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">M</span></code>: The M matrix for the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">q</span></code>: The q vector for the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">leadStart</span></code>: Starting location of not-complementary variables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">leadEnd</span></code>: Ending location of not-complementary variables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: Additional constraints matrix LHS </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: Additional constraints RHS </p></li>
 </ul>
-</dd>
-</dl>
-</p>
-<p><dl class="simple">
-<dt><strong>Warning</strong></dt><dd><p>This might be deprecated to support <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> functioning without sticking to the output format of NashGame </p>
 </dd>
 </dl>
 </p>
@@ -888,14 +885,15 @@
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt3LCP3LCPEP6GRBEnvN4arma6sp_matEN4arma3vecE5perpsN4arma6sp_matEN4arma3vecE">
 <span id="_CPPv3N7MathOpt3LCP3LCPEP6GRBEnvN4arma6sp_matEN4arma3vecE5perpsN4arma6sp_matEN4arma3vecE"></span><span id="_CPPv2N7MathOpt3LCP3LCPEP6GRBEnvN4arma6sp_matEN4arma3vecE5perpsN4arma6sp_matEN4arma3vecE"></span><span id="MathOpt::LCP::LCP__GRBEnvP.arma::sp_mat.arma::vec.perps.arma::sp_mat.arma::vec"></span><span class="target" id="classMathOpt_1_1LCP_1ad7a5f1af658e2be2c4a0f24000f184c7"></span><code class="sig-name descname">LCP</code><span class="sig-paren">(</span>GRBEnv *<em>env</em>, arma::sp_mat <em>M</em>, arma::vec <em>q</em>, <a class="reference internal" href="typedef_zero_8h_1a23f2df644233cc2499005f53997039b4.html#_CPPv45perps" title="perps">perps</a> <em>Compl</em>, arma::sp_mat <em>A</em> = {}, arma::vec <em>b</em> = {}<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP3LCPEP6GRBEnvN4arma6sp_matEN4arma3vecE5perpsN4arma6sp_matEN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p><dl class="simple">
+<dd><p>A standard constructor for an <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>. </p>
+<p><dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">env</span></code>: Gurobi environment required </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">M</span></code>: <code class="docutils literal notranslate"><span class="pre">M</span></code> in <span class="math notranslate nohighlight">\(Mx+q\)</span> </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">q</span></code>: <code class="docutils literal notranslate"><span class="pre">q</span></code> in <span class="math notranslate nohighlight">\(Mx+q\)</span> </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Compl</span></code>: Pairing equations and variables for complementarity </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: Any equations without a complementarity variable </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: RHS of equations without complementarity variables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">env</span></code>: The Gurobi environment pointer </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">M</span></code>: The M matrix for the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">q</span></code>: The q vector for the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Compl</span></code>: The complementarity pairs &lt;Equation, Variable&gt; </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: Additional constraints matrix LHS </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: Additional constraints RHS </p></li>
 </ul>
 </dd>
 </dl>
@@ -905,9 +903,12 @@
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt3LCP3LCPEP6GRBEnvRKN4Game8NashGameE">
 <span id="_CPPv3N7MathOpt3LCP3LCPEP6GRBEnvRKN4Game8NashGameE"></span><span id="_CPPv2N7MathOpt3LCP3LCPEP6GRBEnvRKN4Game8NashGameE"></span><span id="MathOpt::LCP::LCP__GRBEnvP.Game::NashGameCR"></span><span class="target" id="classMathOpt_1_1LCP_1abc0c893675e33ccab28c3f3659faaf42"></span><code class="sig-name descname">LCP</code><span class="sig-paren">(</span>GRBEnv *<em>env</em>, <em class="property">const</em> Game::<a class="reference internal" href="classGame_1_1NashGame.html#_CPPv4N4Game8NashGameE" title="Game::NashGame">NashGame</a> &amp;<em>N</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP3LCPEP6GRBEnvRKN4Game8NashGameE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Constructor given a NashGame. </p>
+<dd><p>Constructor given a <a class="reference internal" href="classGame_1_1NashGame.html#classGame_1_1NashGame"><span class="std std-ref">Game::NashGame</span></a>. </p>
 <p>Given a NashGame, computes the KKT of the lower levels, and makes the appropriate <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> object. This constructor is the most suited for high-level usage. <dl class="simple">
-<dt><strong>Note</strong></dt><dd><p>Most preferred constructor for user interface. </p>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">env</span></code>: The Gurobi environment pointer </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">N</span></code>: The <a class="reference internal" href="classGame_1_1NashGame.html#classGame_1_1NashGame"><span class="std std-ref">Game::NashGame</span></a> </p></li>
+</ul>
 </dd>
 </dl>
 </p>
@@ -923,7 +924,6 @@
 <dt id="_CPPv4NK7MathOpt3LCP4getMEv">
 <span id="_CPPv3NK7MathOpt3LCP4getMEv"></span><span id="_CPPv2NK7MathOpt3LCP4getMEv"></span><span id="MathOpt::LCP::getMC"></span><span class="target" id="classMathOpt_1_1LCP_1a8bac13366ce8c32f28ba2843fc1cafe3"></span>arma::sp_mat <code class="sig-name descname">getM</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt3LCP4getMEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Read-only access to <a class="reference internal" href="#classMathOpt_1_1LCP_1a4e0d245b9c77ff47fc160df5edcfe3b5"><span class="std std-ref">LCP::M</span></a>. </p>
-<p>Return data and address </p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -941,7 +941,7 @@
 <dl class="cpp function">
 <dt id="_CPPv4NK7MathOpt3LCP15getNumberLeaderEv">
 <span id="_CPPv3NK7MathOpt3LCP15getNumberLeaderEv"></span><span id="_CPPv2NK7MathOpt3LCP15getNumberLeaderEv"></span><span id="MathOpt::LCP::getNumberLeaderC"></span><span class="target" id="classMathOpt_1_1LCP_1a9d5e9a3ee47db12a847f18ff4a28b41a"></span>unsigned int <code class="sig-name descname">getNumberLeader</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt3LCP15getNumberLeaderEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Read-only access to <a class="reference internal" href="#classMathOpt_1_1LCP_1ad99482b12ec46aabc831b55c28b49bbe"><span class="std std-ref">LCP::q</span></a>. </p>
+<dd><p>Read-only access to <a class="reference internal" href="#classMathOpt_1_1LCP_1ae64bd8eab0264253a226b482b1cdaa99"><span class="std std-ref">LCP::NumberLeader</span></a>. </p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -969,44 +969,36 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7MathOpt3LCP5printENSt6stringE">
-<span id="_CPPv3N7MathOpt3LCP5printENSt6stringE"></span><span id="_CPPv2N7MathOpt3LCP5printENSt6stringE"></span><span id="MathOpt::LCP::print__ss"></span><span class="target" id="classMathOpt_1_1LCP_1ace92b15384c30cf9099a8b03eedb0fe0"></span>void <code class="sig-name descname">print</code><span class="sig-paren">(</span>std::string <em>end</em> = &quot;\n&quot;<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP5printENSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Print a summary of the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>. </p>
-</dd></dl>
-
-<dl class="cpp function">
 <dt id="_CPPv4NK7MathOpt3LCP10getNumColsEv">
 <span id="_CPPv3NK7MathOpt3LCP10getNumColsEv"></span><span id="_CPPv2NK7MathOpt3LCP10getNumColsEv"></span><span id="MathOpt::LCP::getNumColsC"></span><span class="target" id="classMathOpt_1_1LCP_1a51802bcf825cb53f0b098973bf8ae85d"></span>unsigned int <code class="sig-name descname">getNumCols</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt3LCP10getNumColsEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK7MathOpt3LCP20hasCommonConstraintsEv">
-<span id="_CPPv3NK7MathOpt3LCP20hasCommonConstraintsEv"></span><span id="_CPPv2NK7MathOpt3LCP20hasCommonConstraintsEv"></span><span id="MathOpt::LCP::hasCommonConstraintsC"></span><span class="target" id="classMathOpt_1_1LCP_1a5eaca5e92955f719d884c0545311a479"></span>bool <code class="sig-name descname">hasCommonConstraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt3LCP20hasCommonConstraintsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
 <dt id="_CPPv4NK7MathOpt3LCP10getNumRowsEv">
 <span id="_CPPv3NK7MathOpt3LCP10getNumRowsEv"></span><span id="_CPPv2NK7MathOpt3LCP10getNumRowsEv"></span><span id="MathOpt::LCP::getNumRowsC"></span><span class="target" id="classMathOpt_1_1LCP_1abea6678bc89cc8cbb36b326f10f3f6f5"></span>unsigned int <code class="sig-name descname">getNumRows</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt3LCP10getNumRowsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Read-only access to <a class="reference internal" href="#classMathOpt_1_1LCP_1a39957fb3b0729294ea8ec7a71465a22e"><span class="std std-ref">LCP::nC</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK7MathOpt3LCP20hasCommonConstraintsEv">
+<span id="_CPPv3NK7MathOpt3LCP20hasCommonConstraintsEv"></span><span id="_CPPv2NK7MathOpt3LCP20hasCommonConstraintsEv"></span><span id="MathOpt::LCP::hasCommonConstraintsC"></span><span class="target" id="classMathOpt_1_1LCP_1a5eaca5e92955f719d884c0545311a479"></span>bool <code class="sig-name descname">hasCommonConstraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt3LCP20hasCommonConstraintsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read-only access to <a class="reference internal" href="#classMathOpt_1_1LCP_1a07fa9bee7040e1e5103a3933dec33b9f"><span class="std std-ref">LCP::nR</span></a>. </p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK7MathOpt3LCP11extractSolsEP8GRBModelRN4arma3vecERN4arma3vecEb">
 <span id="_CPPv3NK7MathOpt3LCP11extractSolsEP8GRBModelRN4arma3vecERN4arma3vecEb"></span><span id="_CPPv2NK7MathOpt3LCP11extractSolsEP8GRBModelRN4arma3vecERN4arma3vecEb"></span><span id="MathOpt::LCP::extractSols__GRBModelP.arma::vecR.arma::vecR.bC"></span><span class="target" id="classMathOpt_1_1LCP_1a44ac05748a6d8dcdc9348db149cadf14"></span>bool <code class="sig-name descname">extractSols</code><span class="sig-paren">(</span>GRBModel *<em>model</em>, arma::vec &amp;<em>z</em>, arma::vec &amp;<em>x</em>, bool <em>extractZ</em> = false<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt3LCP11extractSolsEP8GRBModelRN4arma3vecERN4arma3vecEb" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Extracts variable and equation values from a solved Gurobi model for <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>. </p>
+<dd><p>A method to check whether <a class="reference internal" href="#classMathOpt_1_1LCP_1ae8c7e5bb0c552e8877963d19a6e61346"><span class="std std-ref">LCP::A</span></a> has any non-zero, namely any constraints. </p>
+<p>Extracts variable and equation values from a solved Gurobi model.</p>
 <p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>true if the model was solved. False otherwise. </p>
+</dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">model</span></code>: The Gurobi Model that was solved (perhaps using <a class="reference internal" href="#classMathOpt_1_1LCP_1ae6cc1d9683368334cc4df920b95402af"><span class="std std-ref">MathOpt::LCP::LCPasMIP</span></a>) </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code>: Output variable - where the equation values are stored </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: Output variable - where the variable values are stored </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">extractZ</span></code>: z values are filled only if this is true </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model</span></code>: The Gurobi Model that was solved </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code>: Output variable for Z equation values </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: Output variable for X variable values </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">extractZ</span></code>: Should the method extract Z values or not </p></li>
 </ul>
-</dd>
-</dl>
-</p>
-<p><dl class="simple">
-<dt><strong>Warning</strong></dt><dd><p>This solves the model if the model is not already solve </p>
-</dd>
-<dt><strong>Return</strong></dt><dd><p><code class="docutils literal notranslate"><span class="pre">false</span></code> if the model is not solved to optimality. <code class="docutils literal notranslate"><span class="pre">true</span></code> otherwise </p>
 </dd>
 </dl>
 </p>
@@ -1015,23 +1007,31 @@
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt3LCP5solveEN4Data3LCP10AlgorithmsERN4arma3vecERN4arma3vecEd">
 <span id="_CPPv3N7MathOpt3LCP5solveEN4Data3LCP10AlgorithmsERN4arma3vecERN4arma3vecEd"></span><span id="_CPPv2N7MathOpt3LCP5solveEN4Data3LCP10AlgorithmsERN4arma3vecERN4arma3vecEd"></span><span id="MathOpt::LCP::solve__Data::LCP::Algorithms.arma::vecR.arma::vecR.double"></span><span class="target" id="classMathOpt_1_1LCP_1a178150c427b33acba643b43fb66d8fc4"></span><a class="reference internal" href="enum_codes_8h_1adc92fa8b12e5abec0a79ad40bedc1ccf.html#_CPPv410ZEROStatus" title="ZEROStatus">ZEROStatus</a> <code class="sig-name descname">solve</code><span class="sig-paren">(</span>Data::LCP::<a class="reference internal" href="enum_namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82.html#_CPPv4N4Data3LCP10AlgorithmsE" title="Data::LCP::Algorithms">Algorithms</a> <em>algo</em>, arma::vec &amp;<em>x</em>, arma::vec &amp;<em>z</em>, double <em>timeLimit</em> = -1<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP5solveEN4Data3LCP10AlgorithmsERN4arma3vecERN4arma3vecEd" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N7MathOpt3LCP8LCPasMIPEb">
-<span id="_CPPv3N7MathOpt3LCP8LCPasMIPEb"></span><span id="_CPPv2N7MathOpt3LCP8LCPasMIPEb"></span><span id="MathOpt::LCP::LCPasMIP__b"></span><span class="target" id="classMathOpt_1_1LCP_1ae6cc1d9683368334cc4df920b95402af"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">LCPasMIP</code><span class="sig-paren">(</span>bool <em>solve</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP8LCPasMIPEb" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>This method return the model for the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>. If <code class="docutils literal notranslate"><span class="pre">solve</span></code> is true, then the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> is solved. Note that the returned model is either a MIP or a MNILP, depending on the class’ <a class="reference internal" href="#classMathOpt_1_1LCP_1a7584f27593870ee9dc625787b8a1b6ee"><span class="std std-ref">LCP::PureMIP</span></a> switch. Uses the big M method to solve the complementarity problem. </p>
+<dd><p>This method is the generic wrapper to solve the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>. </p>
 <p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A ZEROStatus for the problem </p>
+</dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">solve</span></code>: Whether the model should be solved in the function before returned. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">algo</span></code>: The <a class="reference internal" href="enum_namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82.html#namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82"><span class="std std-ref">Data::LCP::Algorithms</span></a> used to solve the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xSol</span></code>: The resulting solution for z, if any </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">zSol</span></code>: The resulting solution for z, if any </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">timeLimit</span></code>: A double time limit </p></li>
 </ul>
 </dd>
 </dl>
 </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N7MathOpt3LCP8LCPasMIPEb">
+<span id="_CPPv3N7MathOpt3LCP8LCPasMIPEb"></span><span id="_CPPv2N7MathOpt3LCP8LCPasMIPEb"></span><span id="MathOpt::LCP::LCPasMIP__b"></span><span class="target" id="classMathOpt_1_1LCP_1ae6cc1d9683368334cc4df920b95402af"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">LCPasMIP</code><span class="sig-paren">(</span>bool <em>solve</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP8LCPasMIPEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Solves the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> as a Mixed-Integer Program. Note that the returned model is either a MIP or a MNILP, depending on the class’ <a class="reference internal" href="#classMathOpt_1_1LCP_1a7584f27593870ee9dc625787b8a1b6ee"><span class="std std-ref">LCP::PureMIP</span></a> boolean switch. In the first case, complementarities are modeled through indicator constraints. Otherwise, there is bi-linear term for each complementarity. </p>
 <p><dl class="simple">
-<dt><strong>Warning</strong></dt><dd><p>Note that the model returned by this function has to be explicitly deleted using the delete operator. </p>
+<dt><strong>Return</strong></dt><dd><p>The unique pointer to the model </p>
 </dd>
-<dt><strong>Return</strong></dt><dd><p>unique pointer to a GRBModel </p>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">solve</span></code>: Determines whether the returned model is already solved or not </p></li>
+</ul>
 </dd>
 </dl>
 </p>
@@ -1040,25 +1040,17 @@
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt3LCP10MPECasMILPERKN4arma6sp_matERKN4arma3vecERKN4arma3vecEb">
 <span id="_CPPv3N7MathOpt3LCP10MPECasMILPERKN4arma6sp_matERKN4arma3vecERKN4arma3vecEb"></span><span id="_CPPv2N7MathOpt3LCP10MPECasMILPERKN4arma6sp_matERKN4arma3vecERKN4arma3vecEb"></span><span id="MathOpt::LCP::MPECasMILP__arma::sp_matCR.arma::vecCR.arma::vecCR.b"></span><span class="target" id="classMathOpt_1_1LCP_1a9aef94716ce8262f55ee7c49d4398f74"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">MPECasMILP</code><span class="sig-paren">(</span><em class="property">const</em> arma::sp_mat &amp;<em>C</em>, <em class="property">const</em> arma::vec &amp;<em>c</em>, <em class="property">const</em> arma::vec &amp;<em>x_minus_i</em>, bool <em>solve</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP10MPECasMILPERKN4arma6sp_matERKN4arma3vecERKN4arma3vecEb" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Helps solving an <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> as an MIP. </p>
-<p><p>The MIP problem that is returned by this function is equivalent to the </p>
-<a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> problem. The function differs from <a class="reference internal" href="#classMathOpt_1_1LCP_1ae6cc1d9683368334cc4df920b95402af"><span class="std std-ref">LCP::LCPasMIP</span></a> by the fact that, this explicitly takes a leader objective, and returns an object with this objective. <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>A std::unique_ptr to GRBModel that has the equivalent MIP</p>
-</dd>
-<dt><strong>Note</strong></dt><dd><p>The leader’s objective has to be linear here. For quadratic objectives, refer <a class="reference internal" href="#classMathOpt_1_1LCP_1ac5053d434e646ec85b9d276aedee5bcd"><span class="std std-ref">LCP::MPECasMIQP</span></a> </p>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK7MathOpt3LCP9solEncodeERKN4arma3vecERKN4arma3vecE">
-<span id="_CPPv3NK7MathOpt3LCP9solEncodeERKN4arma3vecERKN4arma3vecE"></span><span id="_CPPv2NK7MathOpt3LCP9solEncodeERKN4arma3vecERKN4arma3vecE"></span><span id="MathOpt::LCP::solEncode__arma::vecCR.arma::vecCRC"></span><span class="target" id="classMathOpt_1_1LCP_1a26d8b1e894ba157df20a0ed8c7b273fb"></span>std::vector&lt;short int&gt; <code class="sig-name descname">solEncode</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>z</em>, <em class="property">const</em> arma::vec &amp;<em>x</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt3LCP9solEncodeERKN4arma3vecERKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Given variable values and equation values, encodes it in 0/+1/-1 format and returns it. </p>
+<dd><p>This method returns an unique pointer to the Gurobi model where the objective is the one of a specific player. In particular, given by the parameter C, c, x_minus_i are fixed and then the objective is linear (MILP). </p>
 <p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The unique pointer to the model </p>
+</dd>
+<dt><strong>Warning</strong></dt><dd><p>If <a class="reference internal" href="#classMathOpt_1_1LCP_1a7584f27593870ee9dc625787b8a1b6ee"><span class="std std-ref">LCP::PureMIP</span></a> is false, then the model has a linear objective and bi-linear constraints. Hence, is not a MILP </p>
+</dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code>: Equation values </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: Variable values </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">C</span></code>: The interaction term for a given player </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code>: The linear term for a given player </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x_minus_i</span></code>: The strategies of other players </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">solve</span></code>: True if the returned model is solved </p></li>
 </ul>
 </dd>
 </dl>
@@ -1068,10 +1060,19 @@
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt3LCP10MPECasMIQPERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecEb">
 <span id="_CPPv3N7MathOpt3LCP10MPECasMIQPERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecEb"></span><span id="_CPPv2N7MathOpt3LCP10MPECasMIQPERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecEb"></span><span id="MathOpt::LCP::MPECasMIQP__arma::sp_matCR.arma::sp_matCR.arma::vecCR.arma::vecCR.b"></span><span class="target" id="classMathOpt_1_1LCP_1ac5053d434e646ec85b9d276aedee5bcd"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">MPECasMIQP</code><span class="sig-paren">(</span><em class="property">const</em> arma::sp_mat &amp;<em>Q</em>, <em class="property">const</em> arma::sp_mat &amp;<em>C</em>, <em class="property">const</em> arma::vec &amp;<em>c</em>, <em class="property">const</em> arma::vec &amp;<em>x_minus_i</em>, bool <em>solve</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP10MPECasMIQPERKN4arma6sp_matERKN4arma6sp_matERKN4arma3vecERKN4arma3vecEb" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Helps solving an <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> as an MIQPs. </p>
-<p><p>The MIQP problem that is returned by this function is equivalent to the </p>
-<a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> problem. The function differs from <a class="reference internal" href="#classMathOpt_1_1LCP_1ae6cc1d9683368334cc4df920b95402af"><span class="std std-ref">LCP::LCPasMIP</span></a> by the fact that, this explicitly takes a leader objective, and returns an object with this objective. This allows quadratic leader objective. If you are aware that the leader’s objective is linear, use the faster method <a class="reference internal" href="#classMathOpt_1_1LCP_1a9aef94716ce8262f55ee7c49d4398f74"><span class="std std-ref">LCP::MPECasMILP</span></a> <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>A std::unique_ptr to GRBModel that has the equivalent MIQP</p>
+<dd><p>This method returns an unique pointer to the Gurobi model where the objective is the one of a specific player. In particular, given by the parameter C, c, x_minus_i are fixed and then the objective is quadratic (MIQP) </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The unique pointer to the model </p>
+</dd>
+<dt><strong>Warning</strong></dt><dd><p>If <a class="reference internal" href="#classMathOpt_1_1LCP_1a7584f27593870ee9dc625787b8a1b6ee"><span class="std std-ref">LCP::PureMIP</span></a> is false, then the model has a quadratic objective and bi-linear constraints </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Q</span></code>: The quadratic term for a given player </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">C</span></code>: The interaction term for a given player </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code>: The linear term for a given player </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x_minus_i</span></code>: The strategies of other players </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">solve</span></code>: True if the returned model is solved </p></li>
+</ul>
 </dd>
 </dl>
 </p>
@@ -1079,13 +1080,16 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt3LCP9solvePATHEdRN4arma3vecERN4arma3vecEb">
-<span id="_CPPv3N7MathOpt3LCP9solvePATHEdRN4arma3vecERN4arma3vecEb"></span><span id="_CPPv2N7MathOpt3LCP9solvePATHEdRN4arma3vecERN4arma3vecEb"></span><span id="MathOpt::LCP::solvePATH__double.arma::vecR.arma::vecR.b"></span><span class="target" id="classMathOpt_1_1LCP_1a9b76c958d2a967f52c6f7883420819cd"></span>unsigned int <code class="sig-name descname">solvePATH</code><span class="sig-paren">(</span>double <em>timelimit</em>, arma::vec &amp;<em>x</em>, arma::vec &amp;<em>z</em>, bool <em>verbose</em> = true<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP9solvePATHEdRN4arma3vecERN4arma3vecEb" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p><dl class="simple">
+<span id="_CPPv3N7MathOpt3LCP9solvePATHEdRN4arma3vecERN4arma3vecEb"></span><span id="_CPPv2N7MathOpt3LCP9solvePATHEdRN4arma3vecERN4arma3vecEb"></span><span id="MathOpt::LCP::solvePATH__double.arma::vecR.arma::vecR.b"></span><span class="target" id="classMathOpt_1_1LCP_1a6ff16d560e04a71c0b996e34344fe707"></span><a class="reference internal" href="enum_codes_8h_1adc92fa8b12e5abec0a79ad40bedc1ccf.html#_CPPv410ZEROStatus" title="ZEROStatus">ZEROStatus</a> <code class="sig-name descname">solvePATH</code><span class="sig-paren">(</span>double <em>timelimit</em>, arma::vec &amp;<em>x</em>, arma::vec &amp;<em>z</em>, bool <em>verbose</em> = true<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP9solvePATHEdRN4arma3vecERN4arma3vecEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Solves the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> with <a class="reference internal" href="classSolvers_1_1PATH.html#classSolvers_1_1PATH"><span class="std std-ref">Solvers::PATH</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The ZEROStatus of the model </p>
+</dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">timelimit</span></code>: A double containing the timelimit in seconds </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: the output vector for the Mx+q (=z) part </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code>: the output vector for the variables x </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code>: true if PATH is verbose </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">timelimit</span></code>: A double time limit on the solving process </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code>: The resulting solution for z, if any </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: The resulting solution for x, if any </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code>: True if PATH will be verbose </p></li>
 </ul>
 </dd>
 </dl>
@@ -1095,20 +1099,41 @@
 <dl class="cpp function">
 <dt id="_CPPv4NK7MathOpt3LCP4saveENSt6stringEb">
 <span id="_CPPv3NK7MathOpt3LCP4saveENSt6stringEb"></span><span id="_CPPv2NK7MathOpt3LCP4saveENSt6stringEb"></span><span id="MathOpt::LCP::save__ss.bC"></span><span class="target" id="classMathOpt_1_1LCP_1a594842d62ecdc5418b3adc4b423c399b"></span>void <code class="sig-name descname">save</code><span class="sig-paren">(</span>std::string <em>filename</em>, bool <em>erase</em> = true<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt3LCP4saveENSt6stringEb" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Saves the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> into a file. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code>: The filename </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">erase</span></code>: Whether the file should be cleaned or not </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt3LCP4loadENSt6stringEl">
 <span id="_CPPv3N7MathOpt3LCP4loadENSt6stringEl"></span><span id="_CPPv2N7MathOpt3LCP4loadENSt6stringEl"></span><span id="MathOpt::LCP::load__ss.l-i"></span><span class="target" id="classMathOpt_1_1LCP_1a71496aeafa52792d00211240f51aa5ce"></span>long int <code class="sig-name descname">load</code><span class="sig-paren">(</span>std::string <em>filename</em>, long int <em>pos</em> = 0<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP4loadENSt6stringEl" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>This method load the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> object from a file. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The position after the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> in the file </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code>: The filename </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pos</span></code>: The position of the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> in the file </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt3LCP6makeQPERN7MathOpt12QP_ObjectiveERN7MathOpt8QP_ParamE">
 <span id="_CPPv3N7MathOpt3LCP6makeQPERN7MathOpt12QP_ObjectiveERN7MathOpt8QP_ParamE"></span><span id="_CPPv2N7MathOpt3LCP6makeQPERN7MathOpt12QP_ObjectiveERN7MathOpt8QP_ParamE"></span><span id="MathOpt::LCP::makeQP__MathOpt::QP_ObjectiveR.MathOpt::QP_ParamR"></span><span class="target" id="classMathOpt_1_1LCP_1a1a2593beeba0b0dd4b975d562fc37670"></span>void <code class="sig-name descname">makeQP</code><span class="sig-paren">(</span>MathOpt::<a class="reference internal" href="structMathOpt_1_1QP__Objective.html#_CPPv4N7MathOpt12QP_ObjectiveE" title="MathOpt::QP_Objective">QP_Objective</a> &amp;<em>QP_obj</em>, MathOpt::<a class="reference internal" href="classMathOpt_1_1QP__Param.html#_CPPv4N7MathOpt8QP_ParamE" title="MathOpt::QP_Param">QP_Param</a> &amp;<em>QP</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP6makeQPERN7MathOpt12QP_ObjectiveERN7MathOpt8QP_ParamE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p><dl class="simple">
+<dd><p>This method create the convex-hull of the feasible (approximated) region for the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>, and puts it into a <a class="reference internal" href="classMathOpt_1_1QP__Param.html#classMathOpt_1_1QP__Param"><span class="std std-ref">MathOpt::QP_Param</span></a> object. In addition, it transform the given input objective function by adding additional zero elements to it, to fit the number of variables in the quadratic program. </p>
+<p><dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">QP_obj</span></code>: Objective function of the final QP that has to be made </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">QP</span></code>: This is the <a class="reference internal" href="classMathOpt_1_1QP__Param.html#classMathOpt_1_1QP__Param"><span class="std std-ref">MathOpt::QP_Param</span></a> that results from the input objective and the convex hull of the region defined by the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">QP_obj</span></code>: The input/output <a class="reference internal" href="classMathOpt_1_1QP__Param.html#classMathOpt_1_1QP__Param"><span class="std std-ref">MathOpt::QP_Param</span></a> objective </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">QP</span></code>: The output <a class="reference internal" href="classMathOpt_1_1QP__Param.html#classMathOpt_1_1QP__Param"><span class="std std-ref">MathOpt::QP_Param</span></a> </p></li>
 </ul>
 </dd>
 </dl>
@@ -1118,10 +1143,11 @@
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt3LCP13addCustomCutsEKN4arma6sp_matEKN4arma3vecE">
 <span id="_CPPv3N7MathOpt3LCP13addCustomCutsEKN4arma6sp_matEKN4arma3vecE"></span><span id="_CPPv2N7MathOpt3LCP13addCustomCutsEKN4arma6sp_matEKN4arma3vecE"></span><span id="MathOpt::LCP::addCustomCuts__arma::sp_matC.arma::vecC"></span><span class="target" id="classMathOpt_1_1LCP_1abb3d2bcb70270704f7b96cd406d681e2"></span>void <code class="sig-name descname">addCustomCuts</code><span class="sig-paren">(</span><em class="property">const</em> arma::sp_mat <em>A</em>, <em class="property">const</em> arma::vec <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP13addCustomCutsEKN4arma6sp_matEKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p><dl class="simple">
+<dd><p>Adds custom cuts defined in the input to the <a class="reference internal" href="#classMathOpt_1_1LCP_1ae8c7e5bb0c552e8877963d19a6e61346"><span class="std std-ref">LCP::A</span></a> and <a class="reference internal" href="#classMathOpt_1_1LCP_1a86a740ef3e29a58d12bfd0af60cd4f1f"><span class="std std-ref">LCP::b</span></a> objects. </p>
+<p><dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: The LHS of the added cuts </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: The RHS of the added cuts </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: The RHS of the added cuts note This method does not check whether such cuts are already in the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>. </p></li>
 </ul>
 </dd>
 </dl>
@@ -1131,11 +1157,14 @@
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt3LCP11containsCutEKN4arma3vecEKdd">
 <span id="_CPPv3N7MathOpt3LCP11containsCutEKN4arma3vecEKdd"></span><span id="_CPPv2N7MathOpt3LCP11containsCutEKN4arma3vecEKdd"></span><span id="MathOpt::LCP::containsCut__arma::vecC.doubleC.double"></span><span class="target" id="classMathOpt_1_1LCP_1a8bb263dfc3d53a21aa853c535aa71470"></span>bool <code class="sig-name descname">containsCut</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec <em>LHS</em>, <em class="property">const</em> double <em>RHS</em>, double <em>tol</em> = 1e-5<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP11containsCutEKN4arma3vecEKdd" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p><dl class="simple">
+<dd><p>Given the cut, the method checks whether there is already one (up to a numerical tolerance) in the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>True if the cut is already present, false otherwise. </p>
+</dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">LHS</span></code>: The LHS of the cut </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">RHS</span></code>: The rHS of the cut </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tol</span></code>: optional tolerance </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Arow</span></code>: The LHS of the cut </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: The RHS of the cut </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tol</span></code>: The numerical tolerance </p></li>
 </ul>
 </dd>
 </dl>
@@ -1143,27 +1172,25 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK7MathOpt3LCP9solEncodeERKN4arma3vecE">
-<span id="_CPPv3NK7MathOpt3LCP9solEncodeERKN4arma3vecE"></span><span id="_CPPv2NK7MathOpt3LCP9solEncodeERKN4arma3vecE"></span><span id="MathOpt::LCP::solEncode__arma::vecCRC"></span><span class="target" id="classMathOpt_1_1LCP_1aaa39d75ed5a274d7933e953b93743dcf"></span>std::vector&lt;short int&gt; <code class="sig-name descname">solEncode</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>x</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt3LCP9solEncodeERKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Given variable values, encodes it in 0/+1/-1 format and returns it. </p>
-<p>Gives the 0/+1/-1 notation. The notation is defined as follows. Note that, if the input is feasible, then in each complementarity pair (Eqn, Var), at least one of the two is zero.</p>
-<p><ul class="simple">
-<li><p>If the equation is zero in a certain index and the variable is non-zero, then that index is noted by +1.</p></li>
-<li><p>If the variable is zero in a certain index and the equation is non-zero, then that index is noted by +1.</p></li>
-<li><p>If both the variable and equation are zero, then that index is noted by 0. </p></li>
+<dt id="_CPPv4N7MathOpt3LCP6zFromXEKN4arma3vecE">
+<span id="_CPPv3N7MathOpt3LCP6zFromXEKN4arma3vecE"></span><span id="_CPPv2N7MathOpt3LCP6zFromXEKN4arma3vecE"></span><span id="MathOpt::LCP::zFromX__arma::vecC"></span><span class="target" id="classMathOpt_1_1LCP_1a2d0f2ec3d8fa860d0db32402dbb22451"></span>arma::vec <code class="sig-name descname">zFromX</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP6zFromXEKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Given a value for the variables, it returns the values of z. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The z-values vector </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: The x-values vector </p></li>
 </ul>
+</dd>
+</dl>
 </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7MathOpt3LCP6zFromXEKN4arma3vecE">
-<span id="_CPPv3N7MathOpt3LCP6zFromXEKN4arma3vecE"></span><span id="_CPPv2N7MathOpt3LCP6zFromXEKN4arma3vecE"></span><span id="MathOpt::LCP::zFromX__arma::vecC"></span><span class="target" id="classMathOpt_1_1LCP_1a2d0f2ec3d8fa860d0db32402dbb22451"></span>arma::vec <code class="sig-name descname">zFromX</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP6zFromXEKN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
 <dt id="_CPPv4N7MathOpt3LCP13processBoundsEv">
 <span id="_CPPv3N7MathOpt3LCP13processBoundsEv"></span><span id="_CPPv2N7MathOpt3LCP13processBoundsEv"></span><span id="MathOpt::LCP::processBounds"></span><span class="target" id="classMathOpt_1_1LCP_1a30ca932881eb136f7c63bb53c60fa25f"></span>void <code class="sig-name descname">processBounds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP13processBoundsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Processes the bounds of BoundsX and removes any complementarity that is useless (e.g., variable is fixed). After processing, it calls back <a class="reference internal" href="#classMathOpt_1_1LCP_1a8e481dfd12ac9d6090370e8d15e80c2f"><span class="std std-ref">LCP::defConst</span></a> to re-initializes the private attributes. </p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -1174,37 +1201,66 @@
 <dd><p>The threshold for optimality and feasability tolerances. </p>
 </dd></dl>
 
-<dl class="cpp var">
-<dt id="_CPPv4N7MathOpt3LCP6EpsIntE">
-<span id="_CPPv3N7MathOpt3LCP6EpsIntE"></span><span id="_CPPv2N7MathOpt3LCP6EpsIntE"></span><span id="MathOpt::LCP::EpsInt__double"></span><span class="target" id="classMathOpt_1_1LCP_1a424a4d9eb7509a97d9cf4b800d957cb0"></span>double <code class="sig-name descname">EpsInt</code> = {1e-8}<a class="headerlink" href="#_CPPv4N7MathOpt3LCP6EpsIntE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>The threshold, below which a number would be &lt; considered to be zero. </p>
-</dd></dl>
-
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Protected Functions</p>
 <dl class="cpp function">
-<dt>
-<span class="target" id="classMathOpt_1_1LCP_1ab42ef85dcf8290cf3402dbfb3ca68990"></span><code class="sig-name descname">&lt; Ax\leb &#64;f $too!arma::sp_mat_Acut={};arma::vec_bcut={};boolMadeRlxdModel{false};unsignedintnR, nC;VariableBoundsBoundsX;GRBModelRlxdModel;voiddefConst(GRBEnv *env);voidmakeRelaxed();std::unique_ptr&lt; GRBModel &gt; getMIP ()</code></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N7MathOpt3LCP8getMINLPEv">
-<span id="_CPPv3N7MathOpt3LCP8getMINLPEv"></span><span id="_CPPv2N7MathOpt3LCP8getMINLPEv"></span><span id="MathOpt::LCP::getMINLP"></span><span class="target" id="classMathOpt_1_1LCP_1ab7ec090e26a2f19aed442bb61cdf005b"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">getMINLP</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP8getMINLPEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N7MathOpt3LCP10convexHullERN4arma6sp_matERN4arma3vecE">
-<span id="_CPPv3N7MathOpt3LCP10convexHullERN4arma6sp_matERN4arma3vecE"></span><span id="_CPPv2N7MathOpt3LCP10convexHullERN4arma6sp_matERN4arma3vecE"></span><span id="MathOpt::LCP::convexHull__arma::sp_matR.arma::vecR"></span><span class="target" id="classMathOpt_1_1LCP_1a0b54da5cf1c56c79ae2addf5742aea81"></span>unsigned int <code class="sig-name descname">convexHull</code><span class="sig-paren">(</span>arma::sp_mat &amp;<em>A</em>, arma::vec &amp;<em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP10convexHullERN4arma6sp_matERN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p><dl class="simple">
+<dt id="_CPPv4N7MathOpt3LCP8defConstEP6GRBEnv">
+<span id="_CPPv3N7MathOpt3LCP8defConstEP6GRBEnv"></span><span id="_CPPv2N7MathOpt3LCP8defConstEP6GRBEnv"></span><span id="MathOpt::LCP::defConst__GRBEnvP"></span><span class="target" id="classMathOpt_1_1LCP_1a8e481dfd12ac9d6090370e8d15e80c2f"></span>void <code class="sig-name descname">defConst</code><span class="sig-paren">(</span>GRBEnv *<em>env</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP8defConstEP6GRBEnv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Assigns default values to the class’ <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> attributes. </p>
+<p><p>Internal member that can be called from multiple constructors to assign default values to some attributes of the class. </p>
+<dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: Convex hull inequality description LHS to be stored here </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: Convex hull inequality description RHS </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">env</span></code>: The Gurobi environment pointer</p></li>
 </ul>
 </dd>
 </dl>
 </p>
-<p>Computes the convex hull of the feasible region of the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N7MathOpt3LCP11makeRelaxedEv">
+<span id="_CPPv3N7MathOpt3LCP11makeRelaxedEv"></span><span id="_CPPv2N7MathOpt3LCP11makeRelaxedEv"></span><span id="MathOpt::LCP::makeRelaxed"></span><span class="target" id="classMathOpt_1_1LCP_1ac5d12cc6265d68850db41c47e69b7c4b"></span>void <code class="sig-name descname">makeRelaxed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP11makeRelaxedEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Makes a Gurobi object that relaxes complementarity constraints in the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>. </p>
+<p>The field <a class="reference internal" href="#classMathOpt_1_1LCP_1abd923d5ac5bf93d158b1f78fed6a2964"><span class="std std-ref">LCP::RelaxedModel</span></a> stores the relaxed version of the problem </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N7MathOpt3LCP6getMIPEv">
+<span id="_CPPv3N7MathOpt3LCP6getMIPEv"></span><span id="_CPPv2N7MathOpt3LCP6getMIPEv"></span><span id="MathOpt::LCP::getMIP"></span><span class="target" id="classMathOpt_1_1LCP_1ab42ef85dcf8290cf3402dbfb3ca68990"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">getMIP</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP6getMIPEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Gets the MIP model associated with the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>, where complementarities are modeled with indicator constraints. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The Gurobi pointer to the model </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N7MathOpt3LCP8getMINLPEv">
+<span id="_CPPv3N7MathOpt3LCP8getMINLPEv"></span><span id="_CPPv2N7MathOpt3LCP8getMINLPEv"></span><span id="MathOpt::LCP::getMINLP"></span><span class="target" id="classMathOpt_1_1LCP_1ab7ec090e26a2f19aed442bb61cdf005b"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">getMINLP</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP8getMINLPEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Gets the MINLP model associated with the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>, where complementarities are modeled with bi-linear terms. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The Gurobi pointer to the model </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N7MathOpt3LCP10convexHullERN4arma6sp_matERN4arma3vecE">
+<span id="_CPPv3N7MathOpt3LCP10convexHullERN4arma6sp_matERN4arma3vecE"></span><span id="_CPPv2N7MathOpt3LCP10convexHullERN4arma6sp_matERN4arma3vecE"></span><span id="MathOpt::LCP::convexHull__arma::sp_matR.arma::vecR"></span><span class="target" id="classMathOpt_1_1LCP_1a0b54da5cf1c56c79ae2addf5742aea81"></span>unsigned int <code class="sig-name descname">convexHull</code><span class="sig-paren">(</span>arma::sp_mat &amp;<em>A</em>, arma::vec &amp;<em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP10convexHullERN4arma6sp_matERN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Computes the convex hull of the feasible region of the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The number of polyhedra in the approximation </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code>: The output convex-hull LHS </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: The output convex-hull RHS </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 </div>
@@ -1213,25 +1269,25 @@
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt3LCP3EnvE">
 <span id="_CPPv3N7MathOpt3LCP3EnvE"></span><span id="_CPPv2N7MathOpt3LCP3EnvE"></span><span id="MathOpt::LCP::Env__GRBEnvP"></span><span class="target" id="classMathOpt_1_1LCP_1addeb38537d9e7cf4223fd2ba33bf72dc"></span>GRBEnv *<code class="sig-name descname">Env</code><a class="headerlink" href="#_CPPv4N7MathOpt3LCP3EnvE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Gurobi Env. </p>
+<dd><p>A pointer to the Gurobi Env. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt3LCP1ME">
 <span id="_CPPv3N7MathOpt3LCP1ME"></span><span id="_CPPv2N7MathOpt3LCP1ME"></span><span id="MathOpt::LCP::M__arma::sp_mat"></span><span class="target" id="classMathOpt_1_1LCP_1a4e0d245b9c77ff47fc160df5edcfe3b5"></span>arma::sp_mat <code class="sig-name descname">M</code><a class="headerlink" href="#_CPPv4N7MathOpt3LCP1ME" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>M in <span class="math notranslate nohighlight">\(Mx+q\)</span> that defines the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>. </p>
+<dd><p>The matrix M in <span class="math notranslate nohighlight">\(Mx+q\)</span> that defines the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt3LCP1qE">
 <span id="_CPPv3N7MathOpt3LCP1qE"></span><span id="_CPPv2N7MathOpt3LCP1qE"></span><span id="MathOpt::LCP::q__arma::vec"></span><span class="target" id="classMathOpt_1_1LCP_1ad99482b12ec46aabc831b55c28b49bbe"></span>arma::vec <code class="sig-name descname">q</code><a class="headerlink" href="#_CPPv4N7MathOpt3LCP1qE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>q in <span class="math notranslate nohighlight">\(Mx+q\)</span> that defines the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> </p>
+<dd><p>The vector q in <span class="math notranslate nohighlight">\(Mx+q\)</span> that defines the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt3LCP5ComplE">
 <span id="_CPPv3N7MathOpt3LCP5ComplE"></span><span id="_CPPv2N7MathOpt3LCP5ComplE"></span><span id="MathOpt::LCP::Compl__perps"></span><span class="target" id="classMathOpt_1_1LCP_1a1d50200c05752a28083272b4a5b124fc"></span><a class="reference internal" href="typedef_zero_8h_1a23f2df644233cc2499005f53997039b4.html#_CPPv45perps" title="perps">perps</a> <code class="sig-name descname">Compl</code><a class="headerlink" href="#_CPPv4N7MathOpt3LCP5ComplE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Compl stores data in &lt;Eqn, Var&gt; form. </p>
+<dd><p>Compl dictates which equation (row in M) is complementary to which variable &lt; (column in M). The object is in a &lt;Eqn, Var&gt; form. </p>
 </dd></dl>
 
 <dl class="cpp var">
@@ -1252,30 +1308,72 @@
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt3LCP7PureMIPE">
 <span id="_CPPv3N7MathOpt3LCP7PureMIPE"></span><span id="_CPPv2N7MathOpt3LCP7PureMIPE"></span><span id="MathOpt::LCP::PureMIP__b"></span><span class="target" id="classMathOpt_1_1LCP_1a7584f27593870ee9dc625787b8a1b6ee"></span>bool <code class="sig-name descname">PureMIP</code> = true<a class="headerlink" href="#_CPPv4N7MathOpt3LCP7PureMIPE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>True if the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> is modelled via a pure MIP with indicators &lt; constraints. MINLP otherwise. </p>
+<dd><p>True if the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> is modelled via a pure MIP with indicators &lt; constraints. Otherwise, a MINLP introduces a bilinear term for each &lt; complementarity. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N7MathOpt3LCP2_AE">
-<span id="_CPPv3N7MathOpt3LCP2_AE"></span><span id="_CPPv2N7MathOpt3LCP2_AE"></span><span id="MathOpt::LCP::_A__arma::sp_mat"></span><span class="target" id="classMathOpt_1_1LCP_1ab0e3f41a96438e66929d6d1846d81cd3"></span>arma::sp_mat <code class="sig-name descname">_A</code> = {}<a class="headerlink" href="#_CPPv4N7MathOpt3LCP2_AE" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4N7MathOpt3LCP1AE">
+<span id="_CPPv3N7MathOpt3LCP1AE"></span><span id="_CPPv2N7MathOpt3LCP1AE"></span><span id="MathOpt::LCP::A__arma::sp_mat"></span><span class="target" id="classMathOpt_1_1LCP_1ae8c7e5bb0c552e8877963d19a6e61346"></span>arma::sp_mat <code class="sig-name descname">A</code> = {}<a class="headerlink" href="#_CPPv4N7MathOpt3LCP1AE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The additional constraint matrix A to the problem. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N7MathOpt3LCP1bE">
+<span id="_CPPv3N7MathOpt3LCP1bE"></span><span id="_CPPv2N7MathOpt3LCP1bE"></span><span id="MathOpt::LCP::b__arma::vec"></span><span class="target" id="classMathOpt_1_1LCP_1a86a740ef3e29a58d12bfd0af60cd4f1f"></span>arma::vec <code class="sig-name descname">b</code> = {}<a class="headerlink" href="#_CPPv4N7MathOpt3LCP1bE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The additional constraint RHSs b to the problem. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N7MathOpt3LCP5_AcutE">
+<span id="_CPPv3N7MathOpt3LCP5_AcutE"></span><span id="_CPPv2N7MathOpt3LCP5_AcutE"></span><span id="MathOpt::LCP::_Acut__arma::sp_mat"></span><span class="target" id="classMathOpt_1_1LCP_1ac2b4526135fb3ac4f70c6ee5f7b4cf65"></span>arma::sp_mat <code class="sig-name descname">_Acut</code> = {}<a class="headerlink" href="#_CPPv4N7MathOpt3LCP5_AcutE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Additional cutting planes (eventually) added to the model. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N7MathOpt3LCP5_bcutE">
+<span id="_CPPv3N7MathOpt3LCP5_bcutE"></span><span id="_CPPv2N7MathOpt3LCP5_bcutE"></span><span id="MathOpt::LCP::_bcut__arma::vec"></span><span class="target" id="classMathOpt_1_1LCP_1a086d7e92afd51302f70f2288ade6f512"></span>arma::vec <code class="sig-name descname">_bcut</code> = {}<a class="headerlink" href="#_CPPv4N7MathOpt3LCP5_bcutE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Additional cutting planes (eventually) added to the model. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N7MathOpt3LCP13MadeRlxdModelE">
+<span id="_CPPv3N7MathOpt3LCP13MadeRlxdModelE"></span><span id="_CPPv2N7MathOpt3LCP13MadeRlxdModelE"></span><span id="MathOpt::LCP::MadeRlxdModel__b"></span><span class="target" id="classMathOpt_1_1LCP_1ab6a55bca1cd889aa17ef14f5301a70bc"></span>bool <code class="sig-name descname">MadeRlxdModel</code> = {false}<a class="headerlink" href="#_CPPv4N7MathOpt3LCP13MadeRlxdModelE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>True if a relaxed model has been already initialized. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N7MathOpt3LCP2nRE">
+<span id="_CPPv3N7MathOpt3LCP2nRE"></span><span id="_CPPv2N7MathOpt3LCP2nRE"></span><span id="MathOpt::LCP::nR__unsigned-i"></span><span class="target" id="classMathOpt_1_1LCP_1a07fa9bee7040e1e5103a3933dec33b9f"></span>unsigned int <code class="sig-name descname">nR</code><a class="headerlink" href="#_CPPv4N7MathOpt3LCP2nRE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N7MathOpt3LCP2_bE">
-<span id="_CPPv3N7MathOpt3LCP2_bE"></span><span id="_CPPv2N7MathOpt3LCP2_bE"></span><span id="MathOpt::LCP::_b__arma::vec"></span><span class="target" id="classMathOpt_1_1LCP_1a6d68d41581d8d52c72fc0e078d11cd4d"></span>arma::vec <code class="sig-name descname">_b</code> = {}<a class="headerlink" href="#_CPPv4N7MathOpt3LCP2_bE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Apart from <span class="math notranslate nohighlight">\(0 \le x \perp Mx+q\ge 0\)</span>, one needs. </p>
+<dt id="_CPPv4N7MathOpt3LCP2nCE">
+<span id="_CPPv3N7MathOpt3LCP2nCE"></span><span id="_CPPv2N7MathOpt3LCP2nCE"></span><span id="MathOpt::LCP::nC__unsigned-i"></span><span class="target" id="classMathOpt_1_1LCP_1a39957fb3b0729294ea8ec7a71465a22e"></span>unsigned int <code class="sig-name descname">nC</code><a class="headerlink" href="#_CPPv4N7MathOpt3LCP2nCE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The number of rows and columns in the matrix M. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N7MathOpt3LCP7BoundsXE">
+<span id="_CPPv3N7MathOpt3LCP7BoundsXE"></span><span id="_CPPv2N7MathOpt3LCP7BoundsXE"></span><span id="MathOpt::LCP::BoundsX__VariableBounds"></span><span class="target" id="classMathOpt_1_1LCP_1a7b84494ea76493e65426fd635d78e544"></span><a class="reference internal" href="typedef_zero_8h_1a58d910cf6fdc1337ace92535234dc1d4.html#_CPPv414VariableBounds" title="VariableBounds">VariableBounds</a> <code class="sig-name descname">BoundsX</code><a class="headerlink" href="#_CPPv4N7MathOpt3LCP7BoundsXE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Stores non-trivial upper and lower bounds on x variables in as a tuple (j,k) where j the lower bound, and k the upper bound. Usually, j is initialized to 0, while k to -1 (meaning inactive upepr bound) </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N7MathOpt3LCP12RelaxedModelE">
+<span id="_CPPv3N7MathOpt3LCP12RelaxedModelE"></span><span id="_CPPv2N7MathOpt3LCP12RelaxedModelE"></span><span id="MathOpt::LCP::RelaxedModel__GRBModel"></span><span class="target" id="classMathOpt_1_1LCP_1abd923d5ac5bf93d158b1f78fed6a2964"></span>GRBModel <code class="sig-name descname">RelaxedModel</code><a class="headerlink" href="#_CPPv4N7MathOpt3LCP12RelaxedModelE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A Gurobi model without complementarities. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt3LCP2AiE">
 <span id="_CPPv3N7MathOpt3LCP2AiE"></span><span id="_CPPv2N7MathOpt3LCP2AiE"></span><span id="MathOpt::LCP::Ai__std::unique_ptr:spmat_Vec:"></span><span class="target" id="classMathOpt_1_1LCP_1af19b7809bfaf15311371d9a7ce3b9a9e"></span>std::unique_ptr&lt;<a class="reference internal" href="typedef_zero_8h_1a13e22b2209a1025ac5c30d6361619219.html#_CPPv49spmat_Vec" title="spmat_Vec">spmat_Vec</a>&gt; <code class="sig-name descname">Ai</code><a class="headerlink" href="#_CPPv4N7MathOpt3LCP2AiE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Vector to contain the LHSs of a description (either exact or &lt; approximated) of the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>’s feasible region. </p>
+<dd><p>A pointer to matrices containing the LHSs of a description (either exact or approximated) of the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>’s feasible region </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt3LCP2biE">
 <span id="_CPPv3N7MathOpt3LCP2biE"></span><span id="_CPPv2N7MathOpt3LCP2biE"></span><span id="MathOpt::LCP::bi__std::unique_ptr:vec_Vec:"></span><span class="target" id="classMathOpt_1_1LCP_1a5b68d054b67aab64a123395ec12f4ba8"></span>std::unique_ptr&lt;<a class="reference internal" href="typedef_zero_8h_1a61c9afcb946e96d4e4e6156d9c1bee8c.html#_CPPv47vec_Vec" title="vec_Vec">vec_Vec</a>&gt; <code class="sig-name descname">bi</code><a class="headerlink" href="#_CPPv4N7MathOpt3LCP2biE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Vector to contain the RHSs of a description (either exact or &lt; approximated) of the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>’s feasible region. </p>
+<dd><p>A pointer to vectors containing the RHSs of a description (either exact or approximated) of the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>’s feasible region </p>
 </dd></dl>
 
 </div>

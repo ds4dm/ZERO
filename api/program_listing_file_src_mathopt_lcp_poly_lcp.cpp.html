@@ -849,8 +849,31 @@
 #include &lt;set&gt;
 #include &lt;string&gt;
 
-bool operator==(std::vector&lt;short int&gt; encoding1, std::vector&lt;short int&gt; encoding2)
-{
+
+
+std::vector&lt;short int&gt; MathOpt::PolyLCP::solEncode(const arma::vec &amp;x) const {
+  return this-&gt;solEncode(this-&gt;M * x + this-&gt;q, x);
+}
+
+std::vector&lt;short int&gt; MathOpt::PolyLCP::solEncode(const arma::vec &amp;z, const arma::vec &amp;x) const {
+  std::vector&lt;short int&gt; solEncoded(nR, 0);
+  for (const auto p : Compl) {
+     unsigned int i, j;
+     i = p.first;
+     j = p.second;
+     if (Utils::isZeroValue(z(i)))
+        solEncoded.at(i)++;
+     if (Utils::isZeroValue(x(j)))
+        solEncoded.at(i)--;
+     if (!Utils::isZeroValue(x(j)) &amp;&amp; !Utils::isZeroValue(z(i)))
+        BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Infeasible point given! Stay alert! &quot; &lt;&lt; x(j) &lt;&lt; &quot; &quot; &lt;&lt; z(i)
+                                         &lt;&lt; &quot; with i=&quot; &lt;&lt; i;
+  };
+  return solEncoded;
+}
+
+
+bool operator==(std::vector&lt;short int&gt; encoding1, std::vector&lt;short int&gt; encoding2) {
   if (encoding1.size() != encoding2.size())
      return false;
   for (unsigned int i = 0; i &lt; encoding1.size(); i++) {
@@ -860,13 +883,13 @@ bool operator==(std::vector&lt;short int&gt; encoding1, std::vector&lt;short int
   return true;
 }
 
-bool operator&lt;(std::vector&lt;short int&gt; child, std::vector&lt;short int&gt; father)
-{
+
+bool operator&lt;(std::vector&lt;short int&gt; child, std::vector&lt;short int&gt; father) {
   if (child.size() != father.size())
      return false;
 
   for (unsigned long i = 0; i &lt; father.size(); ++i) {
-     if (father.at(i) != 0) {
+     if (father.at(i) != 0 &amp;&amp; father.at(i) != 2) {
         if (child.at(i) != father.at(i))
           return false;
      }
@@ -878,9 +901,7 @@ bool operator&gt;(std::vector&lt;int&gt; encoding1, std::vector&lt;int&gt; encod
   return (encoding2 &lt; encoding1);
 }
 
-MathOpt::PolyLCP &amp;
-MathOpt::PolyLCP::addPolyFromX(const arma::vec &amp;x, bool &amp;ret, bool innerApproximation)
-{
+bool MathOpt::PolyLCP::addPolyFromX(const arma::vec &amp;x, bool innerApproximation) {
   const auto        numCompl = this-&gt;Compl.size();
   auto              encoding = this-&gt;solEncode(x);
   std::stringstream encStr;
@@ -894,8 +915,7 @@ MathOpt::PolyLCP::addPolyFromX(const arma::vec &amp;x, bool &amp;ret, bool inner
      if (encoding &lt; bin) {
         BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;MathOpt::PolyLCP::addPolyFromX: Encoding &quot; &lt;&lt; i
                                          &lt;&lt; &quot; already in the inner approximation! &quot;;
-        ret = false;
-        return *this;
+        return false;
      }
   }
 
@@ -907,21 +927,17 @@ MathOpt::PolyLCP::addPolyFromX(const arma::vec &amp;x, bool &amp;ret, bool inner
      if (i == 0)
         ++i;
   }
-  // And then add the relevant polyhedron
-  ret = this-&gt;addPolyFromEncoding(encoding, innerApproximation);
-  // ret = true;
-  return *this;
+  return this-&gt;addPolyFromEncoding(encoding, innerApproximation);
 }
 
-bool MathOpt::PolyLCP::addPolyFromEncoding(
-     const std::vector&lt;short int&gt; encoding,
-     bool innerApproximation,
-     bool checkFeas,
-     bool custom,
-     spmat_Vec *custAi,
-     vec_Vec *custbi
-     )
-{
+
+
+bool MathOpt::PolyLCP::addPolyFromEncoding(const std::vector&lt;short int&gt; encoding,
+                                                         bool                         innerApproximation,
+                                                         bool                         checkFeas,
+                                                         bool                         custom,
+                                                         spmat_Vec *                  custAi,
+                                                         vec_Vec *                    custbi) {
   unsigned int encodingNumber = this-&gt;vecToNum(encoding, innerApproximation);
   bool         eval           = false;
   if (checkFeas)
@@ -931,7 +947,7 @@ bool MathOpt::PolyLCP::addPolyFromEncoding(
 
   if (eval) {
      if (!innerApproximation)
-        this-&gt;FeasOuterApprox = true;
+        this-&gt;Outer_FeasibleApproximation = true;
      if (!custom &amp;&amp; !CurrentPoly[innerApproximation ? 0 : 1].empty()) {
         if (CurrentPoly[innerApproximation ? 0 : 1].find(encodingNumber) !=
              CurrentPoly[innerApproximation ? 0 : 1].end()) {
@@ -985,15 +1001,14 @@ bool MathOpt::PolyLCP::addPolyFromEncoding(
   return false;
 }
 
-MathOpt::PolyLCP &amp;MathOpt::PolyLCP::addPoliesFromEncoding(
-     const std::vector&lt;short int&gt; encoding,
-     bool innerApproximation,
-     bool checkFeas,
-     bool custom,
-     spmat_Vec *custAi,
-     vec_Vec *custbi
-     )
-{
+
+
+MathOpt::PolyLCP &amp;MathOpt::PolyLCP::addPoliesFromEncoding(const std::vector&lt;short int&gt; encoding,
+                                                                             bool       innerApproximation,
+                                                                             bool       checkFeas,
+                                                                             bool       custom,
+                                                                             spmat_Vec *custAi,
+                                                                             vec_Vec *  custbi) {
   bool flag = false; // flag that there may be multiple polyhedra, i.e. 0 in
   // some encoding entry
   std::vector&lt;short int&gt; encodingCopy(encoding);
@@ -1020,40 +1035,40 @@ MathOpt::PolyLCP &amp;MathOpt::PolyLCP::addPoliesFromEncoding(
 }
 
 
-unsigned long int MathOpt::PolyLCP::getNextPoly(
-     Data::LCP::PolyhedraStrategy method
-) {
+unsigned long int MathOpt::PolyLCP::getNextPoly(Data::LCP::PolyhedraStrategy method) {
+
   switch (method) {
   case Data::LCP::PolyhedraStrategy::Sequential: {
-     while (this-&gt;SequentialPolyCounter &lt; this-&gt;MaxInnerPoly) {
-        const auto isAll = CurrentPoly[0].find(this-&gt;SequentialPolyCounter) != CurrentPoly[0].end();
+     while (this-&gt;Inner_SequentialPolyCounter &lt; this-&gt;Inner_MaxPoly) {
+        const auto isAll =
+             CurrentPoly[0].find(this-&gt;Inner_SequentialPolyCounter) != CurrentPoly[0].end();
         const auto isInfeas =
-             InfeasiblePoly[0].find(this-&gt;SequentialPolyCounter) != InfeasiblePoly[0].end();
-        this-&gt;SequentialPolyCounter++;
+             InfeasiblePoly[0].find(this-&gt;Inner_SequentialPolyCounter) != InfeasiblePoly[0].end();
+        this-&gt;Inner_SequentialPolyCounter++;
         if (!isAll &amp;&amp; !isInfeas) {
-          return this-&gt;SequentialPolyCounter - 1;
+          return this-&gt;Inner_SequentialPolyCounter - 1;
         }
      }
-     return this-&gt;MaxInnerPoly;
+     return this-&gt;Inner_MaxPoly;
   } break;
   case Data::LCP::PolyhedraStrategy::ReverseSequential: {
-     while (this-&gt;ReverseSequentialPolyCounter &gt;= 0) {
+     while (this-&gt;Inner_ReverseSequentialPolyCounter &gt;= 0) {
         const auto isAll =
-             CurrentPoly[0].find(this-&gt;ReverseSequentialPolyCounter) != CurrentPoly[0].end();
-        const auto isInfeas =
-             InfeasiblePoly[0].find(this-&gt;ReverseSequentialPolyCounter) != InfeasiblePoly[0].end();
-        this-&gt;ReverseSequentialPolyCounter--;
+             CurrentPoly[0].find(this-&gt;Inner_ReverseSequentialPolyCounter) != CurrentPoly[0].end();
+        const auto isInfeas = InfeasiblePoly[0].find(this-&gt;Inner_ReverseSequentialPolyCounter) !=
+                                     InfeasiblePoly[0].end();
+        this-&gt;Inner_ReverseSequentialPolyCounter--;
         if (!isAll &amp;&amp; !isInfeas) {
-          return this-&gt;ReverseSequentialPolyCounter + 1;
+          return this-&gt;Inner_ReverseSequentialPolyCounter + 1;
         }
      }
-     return this-&gt;MaxInnerPoly;
+     return this-&gt;Inner_MaxPoly;
   } break;
   case Data::LCP::PolyhedraStrategy::Random: {
-     static std::mt19937                              engine(this-&gt;AddPolyMethodSeed);
-     std::uniform_int_distribution&lt;unsigned long int&gt; dist(0, this-&gt;MaxInnerPoly - 1);
-     if ((InfeasiblePoly.size() + CurrentPoly.size()) == this-&gt;MaxInnerPoly)
-        return this-&gt;MaxInnerPoly;
+     static std::mt19937                              engine(this-&gt;RandomSeed);
+     std::uniform_int_distribution&lt;unsigned long int&gt; dist(0, this-&gt;Inner_MaxPoly - 1);
+     if ((InfeasiblePoly.size() + CurrentPoly.size()) == this-&gt;Inner_MaxPoly)
+        return this-&gt;Inner_MaxPoly;
      while (true) {
         auto       randomPolyId = dist(engine);
         const auto isAll        = CurrentPoly[0].find(randomPolyId) != CurrentPoly[0].end();
@@ -1067,27 +1082,25 @@ unsigned long int MathOpt::PolyLCP::getNextPoly(
   return -1;
 }
 
-std::set&lt;std::vector&lt;short int&gt;&gt;
-MathOpt::PolyLCP::addAPoly(unsigned long int                nPoly,
-                                    Data::LCP::PolyhedraStrategy     method,
-                                    std::set&lt;std::vector&lt;short int&gt;&gt; polyhedra) {
-  if (this-&gt;MaxInnerPoly &lt; nPoly) { // If you cannot add that numVariablesY polyhedra
-     BOOST_LOG_TRIVIAL(warning)      // Then issue a warning
+unsigned int MathOpt::PolyLCP::addAPoly(unsigned long int            nPoly,
+                                                     Data::LCP::PolyhedraStrategy method) {
+
+
+  int add = 0;
+  if (this-&gt;Inner_MaxPoly &lt; nPoly) { // If you cannot add that numVariablesY polyhedra
+     BOOST_LOG_TRIVIAL(warning)       // Then issue a warning
           &lt;&lt; &quot;Warning in MathOpt::PolyLCP::randomPoly: &quot;
-          &lt;&lt; &quot;Cannot add &quot; &lt;&lt; nPoly &lt;&lt; &quot; polyhedra. Promising a maximum of &quot; &lt;&lt; this-&gt;MaxInnerPoly;
-     nPoly = this-&gt;MaxInnerPoly; // and update maximum possibly addable
+          &lt;&lt; &quot;Cannot add &quot; &lt;&lt; nPoly &lt;&lt; &quot; polyhedra. Promising a maximum of &quot; &lt;&lt; this-&gt;Inner_MaxPoly;
+     nPoly = this-&gt;Inner_MaxPoly; // and update maximum possibly addable
   }
 
   if (nPoly == 0) // If nothing to be added, then nothing to be done
-     return polyhedra;
-
-  if (nPoly &lt; 0) // There is no way that this can happen!
-     throw ZEROException(ZEROErrorCode::InvalidData, &quot;nPoly is negative&quot;);
+     return 0;
 
   while (true) {
      auto choiceDecimal = this-&gt;getNextPoly(method);
-     if (choiceDecimal &gt;= this-&gt;MaxInnerPoly)
-        return polyhedra;
+     if (choiceDecimal &gt;= this-&gt;Inner_MaxPoly)
+        return add;
 
      if (this-&gt;checkPolyFeas(choiceDecimal, true)) {
 
@@ -1095,18 +1108,20 @@ MathOpt::PolyLCP::addAPoly(unsigned long int                nPoly,
         auto                         added  = this-&gt;addPolyFromEncoding(choice, true);
         if (added) // If choice is added to All Polyhedra
         {
-          polyhedra.insert(choice); // Add it to set of added polyhedra
-          if (polyhedra.size() == nPoly) {
-             return polyhedra;
+          add++;
+          if (add == nPoly) {
+             return add;
           }
         }
      }
   }
-  return polyhedra;
+  return add;
 }
+
+
 bool MathOpt::PolyLCP::addThePoly(const unsigned long int &amp;decimalEncoding,
                                              bool                     innerApproximation) {
-  if (this-&gt;MaxInnerPoly &lt; decimalEncoding &amp;&amp; innerApproximation) {
+  if (this-&gt;Inner_MaxPoly &lt; decimalEncoding &amp;&amp; innerApproximation) {
      // This polyhedron does not exist
      BOOST_LOG_TRIVIAL(warning) &lt;&lt; &quot;Warning in MathOpt::PolyLCP::addThePoly: Cannot add &quot;
                                          &lt;&lt; decimalEncoding &lt;&lt; &quot; polyhedra, since it does not exist!&quot;;
@@ -1116,10 +1131,9 @@ bool MathOpt::PolyLCP::addThePoly(const unsigned long int &amp;decimalEncoding,
         this-&gt;numToVec(decimalEncoding, this-&gt;Compl.size(), innerApproximation), innerApproximation);
 }
 
-MathOpt::PolyLCP &amp;MathOpt::PolyLCP::exactFullEnumeration(
-     const bool feasibilityCheck
-     )
-{
+
+
+unsigned int MathOpt::PolyLCP::exactFullEnumeration(const bool feasibilityCheck) {
   std::vector&lt;short int&gt; encoding = std::vector&lt;short int&gt;(nR, 0);
   this-&gt;Ai-&gt;clear();
   this-&gt;bi-&gt;clear();
@@ -1134,8 +1148,9 @@ MathOpt::PolyLCP &amp;MathOpt::PolyLCP::exactFullEnumeration(
      this-&gt;Ai-&gt;push_back(std::move(A));
      this-&gt;bi-&gt;push_back(std::move(b));
   }
-  return *this;
+  return this-&gt;Ai-&gt;size();
 }
+
 
 std::string MathOpt::PolyLCP::feasabilityDetailString() const {
   std::stringstream ss;
@@ -1153,6 +1168,7 @@ unsigned long MathOpt::PolyLCP::convNumPoly(bool innerApproximation) const {
   return this-&gt;CurrentPoly[innerApproximation ? 0 : 1].size();
 }
 
+
 unsigned int MathOpt::PolyLCP::convPolyPosition(const unsigned long int i,
                                                                 bool                    innerApproximation) const {
   const unsigned int nPoly = this-&gt;convNumPoly(innerApproximation);
@@ -1162,6 +1178,7 @@ unsigned int MathOpt::PolyLCP::convPolyPosition(const unsigned long int i,
   const unsigned int nC = this-&gt;M.n_cols;
   return nC + i * nC;
 }
+
 
 unsigned int MathOpt::PolyLCP::convPolyWeight(const unsigned long int i,
                                                              bool                    innerApproximation) const {
@@ -1177,20 +1194,14 @@ unsigned int MathOpt::PolyLCP::convPolyWeight(const unsigned long int i,
   return nC + nPoly * nC + i;
 }
 
-bool MathOpt::PolyLCP::checkPolyFeas(
-     const unsigned long int &amp;decimalEncoding,
-     bool innerApproximation
-) {
+
+bool MathOpt::PolyLCP::checkPolyFeas(const unsigned long int &amp;decimalEncoding,
+                                                 bool                     innerApproximation) {
   return this-&gt;checkPolyFeas(
         this-&gt;numToVec(decimalEncoding, this-&gt;Compl.size(), innerApproximation), innerApproximation);
 }
 
-
-void MathOpt::PolyLCP::outerApproximate(
-     const std::vector&lt;bool&gt;
-            encoding,
-     bool clear
-) {
+void MathOpt::PolyLCP::outerApproximate(const std::vector&lt;bool&gt; encoding, bool clear) {
   if (encoding.size() != this-&gt;Compl.size()) {
      throw ZEROException(ZEROErrorCode::InvalidData, &quot;Mismatch in encoding size&quot;);
   }
@@ -1212,10 +1223,10 @@ void MathOpt::PolyLCP::outerApproximate(
 }
 
 
-bool MathOpt::PolyLCP::checkPolyFeas(
-     const std::vector&lt;short int&gt; &amp;encoding,
-     bool innerApproximation
-) {
+bool MathOpt::PolyLCP::checkPolyFeas(const std::vector&lt;short int&gt; &amp;encoding,
+
+                                                 bool innerApproximation) {
+
   unsigned long int encodingNumber = this-&gt;vecToNum(encoding, innerApproximation);
   unsigned int      index          = innerApproximation ? 0 : 1;
 
@@ -1262,7 +1273,7 @@ bool MathOpt::PolyLCP::checkPolyFeas(
   unsigned int count{0};
   try {
      makeRelaxed();
-     GRBModel model(this-&gt;RlxdModel);
+     GRBModel model(this-&gt;RelaxedModel);
      for (auto i : encoding) {
         switch (i) {
         case 1:
@@ -1348,6 +1359,13 @@ MathOpt::PolyLCP::numToVec(unsigned long int number, const unsigned long nCompl,
   }
   std::reverse(binary.begin(), binary.end());
   return binary;
+}
+void MathOpt::PolyLCP::clearPolyhedra(bool inner) {
+  this-&gt;Ai-&gt;clear();
+  this-&gt;bi-&gt;clear();
+  this-&gt;CurrentPoly[inner ? 0 : 1].clear();
+  if (!inner)
+     this-&gt;Outer_FeasibleApproximation = false;
 }
 </pre></div>
 </div>

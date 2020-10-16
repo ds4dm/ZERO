@@ -849,26 +849,33 @@
 
 namespace MathOpt {
   class PolyLCP : public LCP {
-     // using LCP::LCP;
+
   private:
-     bool FeasOuterApprox =
+     bool Outer_FeasibleApproximation =
           false;
-     unsigned int FeasiblePolyhedra{0};
-     unsigned int SequentialPolyCounter{0};
-     long int     ReverseSequentialPolyCounter{0};
-     std::array&lt;std::set&lt;unsigned long int&gt;, 2&gt; CurrentPoly =
-          {};
-     std::array&lt;std::set&lt;unsigned long int&gt;, 2&gt; FeasiblePoly =
-          {};
-     std::array&lt;std::set&lt;unsigned long int&gt;, 2&gt; InfeasiblePoly =
-          {};
-     unsigned long int MaxInnerPoly{0};
-     void              initializeSizes() {
-      // 2^n - the number of polyhedra theoretically
-      this-&gt;MaxInnerPoly = static_cast&lt;unsigned long int&gt;(pow(2, this-&gt;Compl.size()));
-      SequentialPolyCounter        = 0;
-      ReverseSequentialPolyCounter = this-&gt;MaxInnerPoly - 1;
+
+
+     unsigned int Inner_SequentialPolyCounter{0};
+
+     long int Inner_ReverseSequentialPolyCounter{0};
+
+
+     std::array&lt;std::set&lt;unsigned long int&gt;, 2&gt; CurrentPoly = {};
+
+     std::array&lt;std::set&lt;unsigned long int&gt;, 2&gt; FeasiblePoly = {};
+
+     std::array&lt;std::set&lt;unsigned long int&gt;, 2&gt; InfeasiblePoly = {};
+
+     unsigned long int Inner_MaxPoly{0};
+
+     void initializeSizes() {
+        // 2^n - the number of polyhedra theoretically
+        this-&gt;Inner_MaxPoly         = static_cast&lt;unsigned long int&gt;(pow(2, this-&gt;Compl.size()));
+        Inner_SequentialPolyCounter = 0;
+        Inner_ReverseSequentialPolyCounter = this-&gt;Inner_MaxPoly - 1;
      }
+
+
      bool              addPolyFromEncoding(std::vector&lt;short int&gt; encoding,
                                                         bool                   innerApproximation = true,
                                                         bool                   checkFeas          = false,
@@ -889,37 +896,38 @@ namespace MathOpt {
         this-&gt;bi = std::unique_ptr&lt;vec_Vec&gt;(new vec_Vec());
         this-&gt;initializeSizes();
      };
-     long int AddPolyMethodSeed = {
-          -1};
-     /* Convex hull computation */
-     unsigned long convNumPoly(bool innerApproximation) const;
-     unsigned int  convPolyPosition(const unsigned long int i, bool innerApproximation) const;
-     unsigned int  convPolyWeight(const unsigned long int i, bool innerApproximation) const;
-     bool          getFeasOuterApp() const { return this-&gt;FeasOuterApprox; }
+
+     long int RandomSeed = {-1};
+
+
+
+     unsigned long int getNumTheoreticalPoly() const noexcept {
+        return this-&gt;Inner_MaxPoly;
+     }
+     bool getFeasOuterApp() const {
+        return this-&gt;Outer_FeasibleApproximation;
+     }
 
      std::array&lt;std::set&lt;unsigned long int&gt;, 2&gt; getAllPolyhedra() const {
         return this-&gt;CurrentPoly;
      };
-     unsigned long int getNumTheoreticalPoly() const noexcept { return this-&gt;MaxInnerPoly; }
-     std::set&lt;std::vector&lt;short int&gt;&gt;
-            addAPoly(unsigned long int                nPoly  = 1,
-                        Data::LCP::PolyhedraStrategy     method = Data::LCP::PolyhedraStrategy::Sequential,
-                        std::set&lt;std::vector&lt;short int&gt;&gt; polyhedra = {});
-     bool addThePoly(const unsigned long int &amp;decimalEncoding, bool innerApproximation);
-     bool checkPolyFeas(const unsigned long int &amp;decimalEncoding, bool innerApproximation);
-     bool checkPolyFeas(const std::vector&lt;short int&gt; &amp;encoding, bool innerApproximation);
-     void clearPolyhedra(bool inner) {
-        this-&gt;Ai-&gt;clear();
-        this-&gt;bi-&gt;clear();
-        this-&gt;CurrentPoly[inner ? 0 : 1].clear();
-        if (!inner)
-          this-&gt;FeasOuterApprox = false;
-     }
-     MathOpt::PolyLCP &amp;addPolyFromX(const arma::vec &amp;x, bool &amp;ret, bool innerApproximation);
-     PolyLCP &amp;         exactFullEnumeration(bool solveLP = true);
-     std::string       feasabilityDetailString() const;
-     void              outerApproximate(std::vector&lt;bool&gt; encoding, bool clear = true);
-     unsigned int      getFeasiblePolyhedra() const { return this-&gt;FeasiblePolyhedra; }
+     void                   clearPolyhedra(bool inner);
+     unsigned long          convNumPoly(bool innerApproximation) const;
+     std::vector&lt;short int&gt; solEncode(const arma::vec &amp;z, const arma::vec &amp;x) const;
+     std::vector&lt;short int&gt; solEncode(const arma::vec &amp;x) const;
+     unsigned int convPolyPosition(const unsigned long int i, bool innerApproximation) const;
+     unsigned int convPolyWeight(const unsigned long int i, bool innerApproximation) const;
+     unsigned int
+                      addAPoly(unsigned long int            nPoly = 1,
+                                  Data::LCP::PolyhedraStrategy method = Data::LCP::PolyhedraStrategy::Sequential);
+     bool         addThePoly(const unsigned long int &amp;decimalEncoding, bool innerApproximation);
+     bool         checkPolyFeas(const unsigned long int &amp;decimalEncoding, bool innerApproximation);
+     bool         checkPolyFeas(const std::vector&lt;short int&gt; &amp;encoding, bool innerApproximation);
+     bool         addPolyFromX(const arma::vec &amp;x, bool innerApproximation);
+     unsigned int exactFullEnumeration(bool feasCheck = true);
+     std::string  feasabilityDetailString() const;
+     void         outerApproximate(std::vector&lt;bool&gt; encoding, bool clear = true);
+     unsigned int getFeasiblePolyhedra() const { return this-&gt;FeasiblePoly[0].size(); }
 
      std::vector&lt;short&gt; numToVec(unsigned long number, const unsigned long nCompl, bool inner);
      unsigned long      vecToNum(std::vector&lt;short&gt; binary, bool inner);

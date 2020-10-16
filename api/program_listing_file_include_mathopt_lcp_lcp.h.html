@@ -872,18 +872,19 @@ namespace MathOpt {
      GRBEnv *     Env;
      arma::sp_mat M;
      arma::vec    q;
-     perps        Compl;
+     perps Compl;
      unsigned int LeadStart{1}, LeadEnd{0}, NumberLeader{0};
      bool         PureMIP = true;
-     arma::sp_mat _A = {};
-     arma::vec    _b = {};
-     arma::sp_mat   _Acut = {};
-     arma::vec      _bcut = {};
-     bool           MadeRlxdModel{false};
-     unsigned int   nR, nC;
+     arma::sp_mat A     = {};
+     arma::vec    b     = {};
+     arma::sp_mat _Acut = {};
+     arma::vec    _bcut = {};
+     bool         MadeRlxdModel{false};
+     unsigned int nR, nC;
+
      VariableBounds BoundsX;
 
-     GRBModel RlxdModel;
+     GRBModel RelaxedModel;
 
      void defConst(GRBEnv *env);
 
@@ -900,30 +901,30 @@ namespace MathOpt {
 
   public:
      double Eps{1e-6};
-     double EpsInt{1e-8};
 
      LCP() = delete;
 
-     explicit LCP(GRBEnv *e)
-          : Env{e}, RlxdModel(*e){};
 
+     explicit LCP(GRBEnv *e) : Env{e}, RelaxedModel(*e){};
      LCP(GRBEnv *     env,
           arma::sp_mat M,
           arma::vec    q,
           unsigned int leadStart,
           unsigned     leadEnd,
           arma::sp_mat A = {},
-          arma::vec    b = {}); // Constructor with M,q,leader posn
+          arma::vec    b = {});
      LCP(GRBEnv *     env,
           arma::sp_mat M,
           arma::vec    q,
           perps        Compl,
           arma::sp_mat A = {},
-          arma::vec    b = {}); // Constructor with M, q, compl pairs
+          arma::vec    b = {});
+
      LCP(GRBEnv *env, const Game::NashGame &amp;N);
 
      ~LCP() = default;
 
+     // Fields getters
      inline arma::sp_mat  getM() const { return this-&gt;M; }
      inline arma::sp_mat *getMstar() { return &amp;(this-&gt;M); }
      inline arma::vec     getq() const { return this-&gt;q; }
@@ -938,11 +939,14 @@ namespace MathOpt {
         return LeadEnd;
      }
      inline perps        getCompl() const { return this-&gt;Compl; }
-     void                print(std::string end = &quot;\n&quot;);
-     inline unsigned int getNumCols() const { return this-&gt;M.n_cols; };
-     inline bool         hasCommonConstraints() const { return this-&gt;_A.n_nonzero &gt; 0; };
+     inline unsigned int getNumCols() const { return this-&gt;nC; };
+     inline unsigned int getNumRows() const { return this-&gt;nR; };
 
-     inline unsigned int getNumRows() const { return this-&gt;M.n_rows; };
+
+     inline bool hasCommonConstraints() const {
+        return this-&gt;A.n_nonzero &gt; 0;
+     };
+
 
      bool extractSols(GRBModel *model, arma::vec &amp;z, arma::vec &amp;x, bool extractZ = false) const;
 
@@ -955,7 +959,6 @@ namespace MathOpt {
                                                       const arma::vec &amp;   x_minus_i,
                                                       bool                solve = false);
 
-     std::vector&lt;short int&gt; solEncode(const arma::vec &amp;z, const arma::vec &amp;x) const;
 
      std::unique_ptr&lt;GRBModel&gt; MPECasMIQP(const arma::sp_mat &amp;Q,
                                                       const arma::sp_mat &amp;C,
@@ -964,7 +967,7 @@ namespace MathOpt {
                                                       bool                solve = false);
 
 
-     unsigned int solvePATH(double timelimit, arma::vec &amp;x, arma::vec &amp;z, bool verbose = true);
+     ZEROStatus solvePATH(double timelimit, arma::vec &amp;x, arma::vec &amp;z, bool verbose = true);
 
      void save(std::string filename, bool erase = true) const;
 
@@ -976,10 +979,9 @@ namespace MathOpt {
 
      bool containsCut(const arma::vec LHS, const double RHS, double tol = 1e-5);
 
-     std::vector&lt;short int&gt; solEncode(const arma::vec &amp;x) const;
-
      arma::vec zFromX(const arma::vec x);
-     void      processBounds();
+
+     void processBounds();
   };
 } // namespace MathOpt
 
