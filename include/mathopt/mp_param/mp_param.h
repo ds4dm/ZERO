@@ -21,6 +21,8 @@
 #include <string>
 
 namespace MathOpt {
+
+
   /**
 	* @brief This class handles parameterized mathematical programs (MP)
 	* Their form is the one of \f[
@@ -32,8 +34,6 @@ namespace MathOpt {
 	* y &\geq& 0
 	* \f}
 	*/
-
-  enum class MPType { MP_Param = 0, QP_Param = 1, IP_Param = 2 };
   class MP_Param {
   private:
 	 double Eps{1e-6}; ///< A numerical tolerance
@@ -60,8 +60,9 @@ namespace MathOpt {
 
   public:
 	 // Default constructors
-	 MP_Param(GRBEnv *env = nullptr) : Env{env} {};
-	 MP_Param(const MP_Param &M) = default;
+	 MP_Param(GRBEnv *env = nullptr)
+		  : Env{env} {}; ///< A default constructor just initializing the Gurobi environment
+	 MP_Param(const MP_Param &M) = default; ///< Default copy constructor
 
 	 // Getters and setters
 	 arma::sp_mat getQ() const { return this->Q; }   ///< Read-only access to the private variable Q
@@ -136,7 +137,8 @@ namespace MathOpt {
 	 virtual double computeObjective(const arma::vec &y,
 												const arma::vec &x,
 												bool             checkFeas = true,
-												double           tol       = 1e-6) const = 0;
+												double           tol       = 1e-6) const;
+	 void           forceDataCheck() const;
   };
 
 } // namespace MathOpt

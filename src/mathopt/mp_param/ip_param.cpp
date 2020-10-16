@@ -17,6 +17,12 @@
 #include <iostream>
 #include <memory>
 
+/**
+ * @brief Return a stream containing a stream with the description of the problem
+ * @param os Outputstream
+ * @param I The IP_Param object
+ * @return An std::ostream with the description
+ */
 std::ostream &MathOpt::operator<<(std::ostream &os, const MathOpt::IP_Param &I) {
   os << "Parametrized Integer Program with bi-linear objective: " << '\n';
   os << I.getNy() << " decision variables parametrized by " << I.getNx() << " variables" << '\n';
@@ -24,11 +30,13 @@ std::ostream &MathOpt::operator<<(std::ostream &os, const MathOpt::IP_Param &I) 
   return os;
 }
 
-void MathOpt::IP_Param::forceDataCheck() const {
-  if (!this->dataCheck())
-	 throw ZEROException(ZEROErrorCode::InvalidData, "dataCheck() failed");
-}
 
+
+/**
+ * @brief Compares two IP_param objects
+ * @param IPG2 The second IP_Param
+ * @return True if the objects are identical
+ */
 bool MathOpt::IP_Param::operator==(const IP_Param &IPG2) const {
   if (!Utils::isZero(this->B - IPG2.getB()))
 	 return false;
@@ -38,15 +46,19 @@ bool MathOpt::IP_Param::operator==(const IP_Param &IPG2) const {
 	 return false;
   if (!Utils::isZero(this->b - IPG2.getb()))
 	 return false;
+  for (unsigned int i = 0; i < this->Bounds.size(); ++i)
+	 if (this->Bounds.at(i) != IPG2.Bounds.at(i))
+		return false;
   return Utils::isZero(this->Integers - IPG2.getIntegers());
 }
 
+
+/**
+ * @brief This method creates the (mixed)-integer program for the game, where the
+ *objective omits the bilinear part. The flag Finalized in the object is then set to true.
+ * @return True if checks are completed
+ */
 bool MathOpt::IP_Param::finalize() {
-
-  /** This method creates the (mixed)-integer program for the game, where the
-	*objective omits the bilinear part. The flag Finalized in the object is then set to true.
-	**/
-
 
   if (this->Finalized)
 	 return true;
@@ -84,10 +96,11 @@ bool MathOpt::IP_Param::finalize() {
   return true;
 }
 
+/**
+ * @brief This method updates the model objective in IP_Param::IPModel by setting x to @p x.
+ * @param x The parametrized values of x
+ */
 void MathOpt::IP_Param::updateModelObjective(const arma::vec x) {
-  /**
-	* @brief This method updates the model objective by setting x to @p x
-	*/
   if (x.size() != this->Nx)
 	 throw ZEROException(ZEROErrorCode::Assertion,
 								"Invalid argument size: " + std::to_string(x.size()) +
@@ -113,19 +126,18 @@ void MathOpt::IP_Param::updateModelObjective(const arma::vec x) {
   }
 }
 
-std::unique_ptr<GRBModel> MathOpt::IP_Param::solveFixed(const arma::vec x, bool solve)
 /**
- * Given a value for the parameters @f$x@f$ in the
+ * @brief Given a value for the parameters @f$x@f$ in the
  * definition of IP_Param, returns
  * a pointer to the parameterized MIP program . Note that the method @return a pointer to a copy of
- *the model. In this way, valid cuts and cut pools are kept each time the method is invoked.
- * @p solve is true whenever the model has to be solved
- *
- * In terms of game theory, this can be viewed as
- * <i>the best response</i> for a set of
- * decisions by other players.
+ *the model. In this way, valid cuts and cut pools are kept each time the method is invoked. In
+ *terms of game theory, this can be viewed as  <i>the best response</i> for a set of decisions by
+ *other players.
+ * @param x The parametrized values of x
+ * @param solve  If the returned model is solved
+ * @return  A pointer to the Gurobi model
  */
-{
+std::unique_ptr<GRBModel> MathOpt::IP_Param::solveFixed(const arma::vec x, bool solve) {
   std::unique_ptr<GRBModel> model(new GRBModel(this->IPModel));
   if (!this->Finalized)
 	 throw ZEROException(ZEROErrorCode::Assertion, "The model is not Finalized!");
@@ -139,19 +151,18 @@ std::unique_ptr<GRBModel> MathOpt::IP_Param::solveFixed(const arma::vec x, bool 
   return model;
 }
 
-std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(const arma::vec x, bool relax)
+
 /**
- * Given a value for the parameters @f$x@f$ in the
+ * @brief Given a value for the parameters @f$x@f$ in the
  * definition of IP_Param, returns
  * a pointer to the parameterized MIP program . Note that the method @return a pointer to a copy of
- *the model. In this way, valid cuts and cut pools are kept each time the method is invoked.
+ * the model. In this way, valid cuts and cut pools are kept each time the method is invoked.
  * If @p relax is true, then the model is the linear relaxation of the MIP.
- *
- * In terms of game theory, this can be viewed as
- * <i>the best response</i> for a set of
- * decisions by other players.
+ * @param x The values for the parametrized x
+ * @param relax True if the model relaxes integrality requirements
+ * @return A pointer to the Gurobi model
  */
-{
+std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(const arma::vec x, bool relax) {
   if (!this->Finalized)
 	 throw ZEROException(ZEROErrorCode::Assertion, "The model is not Finalized!");
   try {
@@ -165,14 +176,20 @@ std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(const arma::vec x, bool 
 	 return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel));
 }
 
-
+/**
+ * @brief A setter method with copy arguments.
+ * @param C Bi-linear term for x-y in the objective
+ * @param B Matrix of constraints for the variables y
+ * @param c Vector of linear terms for y in the objective
+ * @param b Vector of RHS in the constraints
+ * @param _integers A vector containing the indexes of integer variables
+ * @return A pointer to this
+ */
 MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &C,
 														const arma::sp_mat &B,
 														const arma::vec &   b,
 														const arma::vec &   c,
-														const arma::vec &   _integers)
-/// Setting the data, while keeping the input objects intact
-{
+														const arma::vec &   _integers) {
   if (_integers.is_empty())
 	 throw ZEROException(ZEROErrorCode::InvalidData,
 								"Invalid vector of Integers. Refer to MP_Param is no "
@@ -185,10 +202,18 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &C,
   return *this;
 }
 
+
+/**
+ * @brief A move constructor.
+ * @param C Bi-linear term for x-y in the objective
+ * @param B Matrix of constraints for the variables y
+ * @param c Vector of linear terms for y in the objective
+ * @param b Vector of RHS in the constraints
+ * @param _integers A vector containing the indexes of integer variables
+ * @return A pointer to this
+ */
 MathOpt::IP_Param &MathOpt::IP_Param::set(
-	 arma::sp_mat &&C, arma::sp_mat &&B, arma::vec &&b, arma::vec &&c, arma::vec &&_integers)
-/// Faster means to set data. But the input objects might be corrupted now.
-{
+	 arma::sp_mat &&C, arma::sp_mat &&B, arma::vec &&b, arma::vec &&c, arma::vec &&_integers) {
   if (_integers.is_empty())
 	 throw ZEROException(ZEROErrorCode::InvalidData,
 								"Invalid vector of Integers. Refer to MP_Param is no "
@@ -201,11 +226,15 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(
   return *this;
 }
 
+/**
+ * @brief A move constructor given a QP_Objective and QP_Constraints
+ * @param obj  The objective
+ * @param cons  The constraints object
+ * @param _integers A vector containing the indexes of integer variables
+ * @return A pointer to this
+ */
 MathOpt::IP_Param &
-MathOpt::IP_Param::set(QP_Objective &&obj, QP_Constraints &&cons, arma::vec &&_integers)
-/// Setting the data with the inputs being a struct MathOpt::QP_Objective and
-/// struct MathOpt::QP_Constraints.
-{
+MathOpt::IP_Param::set(QP_Objective &&obj, QP_Constraints &&cons, arma::vec &&_integers) {
   if (_integers.is_empty())
 	 throw ZEROException(ZEROErrorCode::InvalidData,
 								"Invalid vector of Integers. Refer to MP_Param is no "
@@ -221,23 +250,36 @@ MathOpt::IP_Param::set(QP_Objective &&obj, QP_Constraints &&cons, arma::vec &&_i
 						 std::move(_integers));
 }
 
+
+/**
+ * @brief A copy constructor given a QP_Objective and QP_Constraints
+ * @param obj  The objective
+ * @param cons  The constraints object
+ * @param _integers A vector containing the indexes of integer variables
+ * @return A pointer to this
+ */
 MathOpt::IP_Param &MathOpt::IP_Param::set(const QP_Objective &  obj,
 														const QP_Constraints &cons,
 														const arma::vec &     _integers) {
   return this->set(obj.C, cons.B, cons.b, obj.c, _integers);
 }
 
+
+/**
+ * @brief  Computes @f$(Cx)^Ty + c^Ty@f$ given the input values @p y and @p x. @p checkFeas if @p
+ * true, checks if the given @f$(x,y)@f$ satisfies the constraints of the problem, namely @f$Ax + By
+ * \leq b@f$.
+ * @param y The values for the variables  y
+ * @param x The values for the parameters x
+ * @param checkFeas True if feasibility should be checked
+ * @param tol  A numerical tolerance for the feasibility
+ * @return A double value for the objective
+ */
 double MathOpt::IP_Param::computeObjective(const arma::vec &y,
 														 const arma::vec &x,
 														 bool             checkFeas,
 														 double           tol) const {
-  /**
-	* Computes @f$(Cx)^Ty + c^Ty@f$ given the input values @p
-	* y and
-	* @p x.
-	* @p checkFeas if @p true, checks if the given @f$(x,y)@f$ satisfies the
-	* constraints of the problem, namely @f$Ax + By \leq b@f$.
-	*/
+
   if (y.n_rows != this->getNy())
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of y");
   if (x.n_rows != this->getNx())
@@ -257,17 +299,18 @@ double MathOpt::IP_Param::computeObjective(const arma::vec &y,
   return obj(0);
 }
 
-bool MathOpt::IP_Param::addConstraint(
-	 arma::vec Ain,            ///< [in] The LHSs of the added cut
-	 double    bin,            ///< [in] The RHSs of the added cut
-	 bool      checkDuplicate, ///< [in] If true, the constraint is added only if not present
-	 double    tol             ///<[in] The tolerance to check for similar constraints
-) {
-  /**
-	* This method stores a description of the new cut Ainx &\leq& bin of @p Ain (and
-	* RHS @p bin) in B and b, respectively. @return true if the constraint has been added This works
-	* also when the IP_Param is Finalized.
-	*/
+/**
+ * @brief Adds a constraints to the IP_Param. It stores a description of the new cut Ainx &\leq& bin
+ * of @p Ain (and RHS @p bin) in B and b, respectively. @return true if the constraint has been
+ * added This works also when the IP_Param is Finalized.
+ * @param Ain The vector of LHS
+ * @param bin The RHS value
+ * @param checkDuplicate True if the method should check for duplicate constraints
+ * @param tol A numerical tolerance for duplicates
+ * @return True if the constraint is added
+ */
+bool MathOpt::IP_Param::addConstraint(arma::vec Ain, double bin, bool checkDuplicate, double tol) {
+
 
   if (this->B.n_cols != Ain.size())
 	 throw ZEROException(ZEROErrorCode::Assertion,
@@ -299,17 +342,18 @@ bool MathOpt::IP_Param::addConstraint(
 	 return false;
 }
 
-unsigned int MathOpt::IP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const
-/// @brief Compute the KKT conditions for the given IP relaxation, namely where integrality
-/// constraints are dropped.
 /**
- * Writes the KKT condition of the parameterized IP
+ * @brief  Writes the KKT condition of the relaxation of the parameterized IP
  * As per the convention, y is the decision variable for the IP and
  * that is parameterized in x
  * The KKT conditions are
  * \f$0 \leq y \perp  My + Nx + q \geq 0\f$
+ * @param M The output M term
+ * @param N The output N term
+ * @param q The output q term
+ * @return An int containing the rows of @p M
  */
-{
+unsigned int MathOpt::IP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const {
   this->forceDataCheck();
   M = arma::join_cols( // In armadillo join_cols(A, B) is same as [A;B] in
 							  // Matlab
@@ -325,26 +369,28 @@ unsigned int MathOpt::IP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec 
 }
 
 
+/**
+ * @brief Loads the IP_Param from a file
+ * @param filename  The filename
+ * @param pos  The position of the IP_Param in the file
+ * @return The position after the IP_Param
+ * @warning Call MP_Param(GRBEnv *env) before loading
+ * Example usage:
+ * @code{.cpp}
+ * int main()
+ * {
+ * 		GRBEnv Env;
+ * 		MathOpt::IP_Param ip(&Env);
+ * 		ip.load("./dat/q1data.dat");
+ * 		std::cout<<ip<<'\n';
+ * 		return 0;
+ * }
+ * @endcode
+ */
 long int MathOpt::IP_Param::load(const std::string &filename, long int pos) {
-  /**
-	* @details  Before calling this function, use the constructor
-	* IP_Param::IP_Param(GRBEnv *Env) to initialize.
-	*
-	* Example usage:
-	* @code{.cpp}
-	* int main()
-	* {
-	* 		GRBEnv Env;
-	* 		MathOpt::IP_Param ip(&Env);
-	* 		ip.load("./dat/q1data.dat");
-	* 		std::cout<<ip<<'\n';
-	* 		return 0;
-	* }
-	* @endcode
-	*
-	*/
 
-  arma::sp_mat _C, _B;
+
+  arma::sp_mat _C, _B, BO;
   arma::vec    _b, _c, _integers;
   std::string  headercheck;
   pos = Utils::appendRead(headercheck, filename, pos);
@@ -355,11 +401,30 @@ long int MathOpt::IP_Param::load(const std::string &filename, long int pos) {
   pos = Utils::appendRead(_b, filename, pos, std::string("IP_Param::b"));
   pos = Utils::appendRead(_c, filename, pos, std::string("IP_Param::c"));
   pos = Utils::appendRead(_integers, filename, pos, std::string("IP_Param::Integers"));
+  pos = Utils::appendRead(BO, filename, pos, std::string("MP_Param::Bounds"));
+  if (BO.n_rows > 0) {
+	 if (BO.n_cols != 2)
+		throw ZEROException(ZEROErrorCode::IOError, "Invalid bounds object in loaded file");
+
+	 for (unsigned int i = 0; i < B.n_cols; ++i)
+		this->Bounds.push_back(
+			 {BO.at(i, 0) > 0 ? BO.at(i, 0) : 0, BO.at(i, 1) > 0 ? BO.at(i, 1) : -1});
+
+	 int diff = B.n_cols - BO.n_rows;
+	 for (unsigned int i = 0; i < diff; ++i)
+		this->Bounds.push_back({0, -1});
+  }
+  BOOST_LOG_TRIVIAL(trace) << "Saved IP_Param to file " << filename;
   this->set(_C, _B, _b, _c, _integers);
   return pos;
 }
 
 
+/**
+ * @brief A save method for the IP_Param
+ * @param filename The filename
+ * @param append If true, the file will be appended
+ */
 
 void MathOpt::IP_Param::save(const std::string &filename, bool append) const {
 
@@ -382,10 +447,4 @@ MathOpt::IP_Param::IP_Param(
 	 : MP_Param(env), IPModel{(*env)} {
   this->set(C, B, b, c, _integers);
   this->forceDataCheck();
-}
-std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(bool relax) {
-  if (relax)
-	 return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel.relax()));
-  else
-	 return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel));
 }

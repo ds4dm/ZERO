@@ -33,21 +33,19 @@ namespace MathOpt {
 	* Ax + By &\leq& b \\
 	* y &\geq& 0
 	* \f}
-	* The shape of C is Ny\times Nx
+	* The shape of C is @f$Ny \times Nx@f$
 	*/
   class QP_Param : public MP_Param {
   private:
-	 // Gurobi environment and model
-	 GRBModel Model;
-	 bool     MadeyQy;
+	 GRBModel Model;   ///< Gurobi pointer to the QP model
+	 bool     MadeyQy; ///< True if the objective quadratic term has been generated
 
-	 int makeyQy();
+	 void makeyQy();
 
   public: // Constructors
-	 /// Initialize only the size. Everything else is empty (can be updated later)
-	 explicit QP_Param(GRBEnv *env = nullptr) : MP_Param(env), MadeyQy{false}, Model{(*env)} {
-		this->size();
-	 }
+	 explicit QP_Param(GRBEnv *env = nullptr)
+		  : MP_Param(env), MadeyQy{false},
+			 Model{(*env)} {}; ///< Empty constructor initializing only the Gurobi environment
 
 	 /// Set data at construct time
 	 QP_Param(arma::sp_mat Q,
@@ -56,21 +54,17 @@ namespace MathOpt {
 				 arma::sp_mat B,
 				 arma::vec    c,
 				 arma::vec    b,
-				 GRBEnv *     env = nullptr)
-		  : MP_Param(env), MadeyQy{false}, Model{(*env)} {
-		this->MadeyQy = false;
-		this->set(Q, C, A, B, c, b);
-		this->size();
-		this->forceDataCheck();
-	 };
+				 GRBEnv *     env = nullptr);
+	 ;
 
-	 /// Copy constructor
+	 /**
+	  * @brief A copy constructor given a QP_Param
+	  * @param Qu The copied model
+	  */
 	 QP_Param(const QP_Param &Qu) : MP_Param(Qu), Model{Qu.Model}, MadeyQy{Qu.MadeyQy} {
 		this->size();
-	 };
+	 }
 
-	 void forceDataCheck() const;
-	 // Override setters
 	 QP_Param &set(const arma::sp_mat &Q,
 						const arma::sp_mat &C,
 						const arma::sp_mat &A,
@@ -94,33 +88,8 @@ namespace MathOpt {
 
 	 std::unique_ptr<GRBModel> solveFixed(arma::vec x, bool solve) override;
 
-	 /// Computes the objective value, given a vector @p y and
-	 /// a parameterizing vector @p x
-	 double computeObjective(const arma::vec &y,
-									 const arma::vec &x,
-									 bool             checkFeas = true,
-									 double           tol       = 1e-6) const override;
-
-	 inline bool isPlayable(const QP_Param &P) const
-	 /// Checks if the current object can play a game with another MathOpt::QP_Param
-	 /// object @p P.
-	 {
-		bool b1, b2, b3;
-		b1 = (this->Nx + this->Ny) == (P.getNx() + P.getNy());
-		b2 = this->Nx >= P.getNy();
-		b3 = this->Ny <= P.getNx();
-		return b1 && b2 && b3;
-	 }
-
-	 QP_Param &addDummy(unsigned int pars, unsigned int vars = 0, int position = -1) override;
-
-	 /// @brief  Writes a given parameterized Mathematical program to a set of
-	 /// files.
 	 void save(const std::string &filename, bool append) const override;
 
-	 /// @brief Loads the @p MathOpt::QP_Param object stored in a file.
-	 long int  load(const std::string &filename, long int pos = 0) override;
-	 double    computeObjectiveWithoutOthers(const arma::vec &y) const;
-	 arma::vec getConstraintViolations(const arma::vec x, const arma::vec y, double tol);
+	 long int load(const std::string &filename, long int pos = 0) override;
   };
 } // namespace MathOpt

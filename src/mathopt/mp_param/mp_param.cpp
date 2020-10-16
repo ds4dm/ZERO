@@ -76,11 +76,11 @@ long int MathOpt::MP_Param::load(const std::string &filename, long int pos) {
 	 if (BO.n_cols != 2)
 		throw ZEROException(ZEROErrorCode::IOError, "Invalid bounds object in loaded file");
 
-	 for (unsigned int i = 0; i < this->Ny; ++i)
+	 for (unsigned int i = 0; i < B.n_cols; ++i)
 		this->Bounds.push_back(
 			 {BO.at(i, 0) > 0 ? BO.at(i, 0) : 0, BO.at(i, 1) > 0 ? BO.at(i, 1) : -1});
 
-	 int diff = this->Ny - BO.n_rows;
+	 int diff = B.n_cols - BO.n_rows;
 	 for (unsigned int i = 0; i < diff; ++i)
 		this->Bounds.push_back({0, -1});
   }
@@ -105,6 +105,8 @@ MathOpt::MP_Param &MathOpt::MP_Param::addDummy(unsigned int pars, unsigned int v
 	 Q = Utils::resizePatch(Q, this->Ny, this->Ny);
 	 B = Utils::resizePatch(B, this->Ncons, this->Ny);
 	 c = Utils::resizePatch(c, this->Ny);
+	 for (unsigned int i = 0; i < vars; ++i)
+		this->Bounds.push_back({0, -1});
   }
   switch (position) {
   case -1:
@@ -458,4 +460,46 @@ bool MathOpt::MP_Param::finalize() {
   this->rewriteBounds();
   this->size();
   return this->dataCheck();
+}
+
+
+/**
+ * @brief Forces the datacheck on the object. Otherwise, it throws an error.
+ */
+void MathOpt::MP_Param::forceDataCheck() const {
+  if (!this->dataCheck())
+	 throw ZEROException(ZEROErrorCode::InvalidData, "dataCheck() failed");
+}
+
+
+/**
+ * @brief  Computes @f$\frac{1}{2} y^TQy + (Cx)^Ty + c^Ty@f$ given the input values @p y and @p x.
+ * @p checkFeas if @p true, checks if the given @f$(x,y)@f$ satisfies the constraints of the
+ * problem, namely @f$Ax + By \leq b@f$.
+ * @param y The values for the variables  y
+ * @param x The values for the parameters x
+ * @param checkFeas True if feasibility should be checked
+ * @param tol  A numerical tolerance for the feasibility
+ * @return A double value for the objective
+ */
+double MathOpt::MP_Param::computeObjective(const arma::vec &y,
+														 const arma::vec &x,
+														 bool             checkFeas,
+														 double           tol) const {
+
+  if (y.n_rows != this->getNy())
+	 throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of y");
+  if (x.n_rows != this->getNx())
+	 throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of x");
+  if (checkFeas) {
+	 arma::vec slack = A * x + B * y - b;
+	 if (slack.n_rows) // if infeasible
+		if (slack.max() >= tol)
+		  return GRB_INFINITY;
+	 if (y.min() <= -tol) // if infeasible
+		return GRB_INFINITY;
+  }
+
+  arma::vec obj = 0.5 * y.t() * Q * y + (C * x).t() * y + c.t() * y;
+  return obj(0);
 }

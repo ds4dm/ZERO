@@ -38,7 +38,7 @@ namespace MathOpt {
 	* y &\geq& 0 \\
 	* y_i &\in& &\mathbb{Z}& &\forall& i &\in& I
 	* \f}
-	* Where the shape of C is Ny\times Nx.
+	* Where the shape of C is @f$Ny \times Nx@f$.
 	**/
   class IP_Param : public MP_Param {
   private:
@@ -72,21 +72,13 @@ namespace MathOpt {
 
 	 bool finalize() override;
 
-	 bool addConstraint(const arma::vec Ain,
-							  const double    bin,
-							  const bool      checkDuplicate = true,
-							  const double    tol            = 1e-5);
+	 bool addConstraint(arma::vec Ain, double bin, bool checkDuplicate = true, double tol = 1e-5);
 
 	 /**
 	  * @brief A copy constructor from anoter IP_Param
 	  * @param ipg The model to be copied
 	  */
-	 IP_Param(const IP_Param &ipg)
-		  : MP_Param(ipg), IPModel{ipg.IPModel}, Finalized{ipg.Finalized}, Integers{ipg.Integers} {
-		this->size();
-	 };
-
-	 void setEnv(GRBEnv *env) { this->Env = env; } ///< Setter to IP_Param::env
+	 IP_Param(const IP_Param &ipg) = default;
 
 	 // Override setters
 	 IP_Param &set(const arma::sp_mat &C,
@@ -103,13 +95,11 @@ namespace MathOpt {
 	 IP_Param &
 	 set(const QP_Objective &obj, const QP_Constraints &cons, const arma::vec &integers = {});
 
+
 	 IP_Param &set(QP_Objective &&obj, QP_Constraints &&cons, arma::vec &&integers = {});
 
 	 bool operator==(const IP_Param &IPG2) const;
 
-
-	 /// Computes the objective value, given a vector @p y and
-	 /// a parameterizing vector @p x
 	 double computeObjective(const arma::vec &y,
 									 const arma::vec &x,
 									 bool             checkFeas = true,
@@ -118,15 +108,12 @@ namespace MathOpt {
 	 void save(const std::string &filename, bool append) const override;
 	 long load(const std::string &filename, long pos = 0) override;
 
-	 void forceDataCheck() const;
+	 void updateModelObjective(arma::vec x);
 
-	 void updateModelObjective(const arma::vec x);
+	 std::unique_ptr<GRBModel> solveFixed(arma::vec x, bool solve = false) override;
 
-	 std::unique_ptr<GRBModel> getIPModel(bool relax = false);
+	 std::unique_ptr<GRBModel> getIPModel(arma::vec x, bool relax = false);
 
-	 std::unique_ptr<GRBModel> solveFixed(const arma::vec x, bool solve = false) override;
-
-	 std::unique_ptr<GRBModel> getIPModel(const arma::vec x, bool relax = false);
-	 unsigned int              KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const override;
+	 unsigned int KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const override;
   };
 } // namespace MathOpt
