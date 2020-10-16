@@ -5,7 +5,7 @@ ZERO is a multi-purpose C++ solver for Mathematical Programming Games.
 This project is a private fork of [EPECSolve](https://github.com/ssriram1992/EPECsolve/), which extends its functionalities for multiple games. Currently, it manages NASPs (EPECs) and Integer Programming Games.
 
 ## Documentation
-The documentation is available [here](https://ds4dm.github.io/ZERO/html/index.html)
+The documentation is available [at our website](https://docs.getzero.one)
 
 ## LICENSE
 This code is distributed under the CC0 1.0 Universal license.
