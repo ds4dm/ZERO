@@ -23,14 +23,50 @@
 #include <set>
 #include <string>
 
-bool operator==(std::vector<short int> encoding1, std::vector<short int> encoding2)
+
+
 /**
- * @brief Checks if two vector<int> are of same size and hold same values in the
- * same order
- * @returns @p true if encoding1 and encoding2 have the same elements else @p
- * false
+ * @brief Given a point, it returns an encoding of {-1,0,1} associated with the polyhedron
+ * containing it.
+ * @param x is the given point
+ * @return an vector with the encoding {-1,0,1}
+ * @warning The encoding cannot contain 2s!
  */
-{
+std::vector<short int> MathOpt::PolyLCP::solEncode(const arma::vec &x) const {
+  return this->solEncode(this->M * x + this->q, x);
+}
+
+/**
+ * @brief Given variable values and equation values, encodes it in 0/+1/-1 format and returns it.
+ * @param z The equation values
+ * @param x The variable values
+ * @return an vector with the encoding {-1,0,1}
+ */
+std::vector<short int> MathOpt::PolyLCP::solEncode(const arma::vec &z, const arma::vec &x) const {
+  std::vector<short int> solEncoded(nR, 0);
+  for (const auto p : Compl) {
+	 unsigned int i, j;
+	 i = p.first;
+	 j = p.second;
+	 if (Utils::isZeroValue(z(i)))
+		solEncoded.at(i)++;
+	 if (Utils::isZeroValue(x(j)))
+		solEncoded.at(i)--;
+	 if (!Utils::isZeroValue(x(j)) && !Utils::isZeroValue(z(i)))
+		BOOST_LOG_TRIVIAL(trace) << "Infeasible point given! Stay alert! " << x(j) << " " << z(i)
+										 << " with i=" << i;
+  };
+  return solEncoded;
+}
+
+
+/**
+ * @brief Checks if two encodings are of same size and hold same values in the same order
+ * @param encoding1 The first encoding
+ * @param encoding2 The second encoding
+ * @return True if the encodings are corresponding
+ */
+bool operator==(std::vector<short int> encoding1, std::vector<short int> encoding2) {
   if (encoding1.size() != encoding2.size())
 	 return false;
   for (unsigned int i = 0; i < encoding1.size(); i++) {
@@ -40,18 +76,19 @@ bool operator==(std::vector<short int> encoding1, std::vector<short int> encodin
   return true;
 }
 
-bool operator<(std::vector<short int> child, std::vector<short int> father)
+
 /**
- * @brief @p child is a grand-children of @p father if it has corresponding values for any father
- * element that is not 0.
- * @returns @p true if child is (grand) child of father
+ * @brief Checks whether one encoding is the children, or gran children, of the other.
+ * @param child The child encoding
+ * @param father The father encoding
+ * @return True if child is a children of father
  */
-{
+bool operator<(std::vector<short int> child, std::vector<short int> father) {
   if (child.size() != father.size())
 	 return false;
 
   for (unsigned long i = 0; i < father.size(); ++i) {
-	 if (father.at(i) != 0) {
+	 if (father.at(i) != 0 && father.at(i) != 2) {
 		if (child.at(i) != father.at(i))
 		  return false;
 	 }
@@ -59,21 +96,21 @@ bool operator<(std::vector<short int> child, std::vector<short int> father)
   return true;
 }
 
+/**
+ * @brief Reverse operator. Redirects to <
+ */
 bool operator>(std::vector<int> encoding1, std::vector<int> encoding2) {
   return (encoding2 < encoding1);
 }
 
-MathOpt::PolyLCP &
-MathOpt::PolyLCP::addPolyFromX(const arma::vec &x, bool &ret, bool innerApproximation)
 /**
- * @brief Given a <i> feasible </i> point @p x, checks if a polyhedron
- * that contains  @p x is already a part of the inner approximation. If it is,
- * then this does nothing, except for printing a log message. If not, it adds a
- * polyhedron containing this vector.
- * @warning if @p innerApproximation is false, the polyhedron is added to the outer approximation.
- * However, its encoding does not show in CurrentPoly.
+ * @brief Given a <i> feasible </i> point, checks if the polyhedron containing it is already part of
+ * the approximation. If not, it adds it to the feasible region.
+ * @param x The feasible point
+ * @param innerApproximation True if the point is added to the inner-full approximation
+ * @return True if the point is added.
  */
-{
+bool MathOpt::PolyLCP::addPolyFromX(const arma::vec &x, bool innerApproximation) {
   const auto        numCompl = this->Compl.size();
   auto              encoding = this->solEncode(x);
   std::stringstream encStr;
@@ -87,8 +124,7 @@ MathOpt::PolyLCP::addPolyFromX(const arma::vec &x, bool &ret, bool innerApproxim
 	 if (encoding < bin) {
 		BOOST_LOG_TRIVIAL(trace) << "MathOpt::PolyLCP::addPolyFromX: Encoding " << i
 										 << " already in the inner approximation! ";
-		ret = false;
-		return *this;
+		return false;
 	 }
   }
 
@@ -100,42 +136,33 @@ MathOpt::PolyLCP::addPolyFromX(const arma::vec &x, bool &ret, bool innerApproxim
 	 if (i == 0)
 		++i;
   }
-  // And then add the relevant polyhedron
-  ret = this->addPolyFromEncoding(encoding, innerApproximation);
-  // ret = true;
-  return *this;
+  return this->addPolyFromEncoding(encoding, innerApproximation);
 }
 
-bool MathOpt::PolyLCP::addPolyFromEncoding(
-	 const std::vector<short int> encoding, ///< A vector of +1 and -1 referring to which
-	 ///< equations and variables are taking 0 value. A value of 0  means no equation is enforced,
-	 ///< and requires the second argument of this method set to false.
-	 bool innerApproximation, ///< True if the encoding contains zeros.
-	 bool checkFeas,          ///< The polyhedron is added after ensuring feasibility, if
-	 ///< this is true
-	 bool custom, ///< Should the polyhedra be pushed into a custom vector of
-	 ///< polyhedra as opposed to LCP::Ai and LCP::bi
-	 spmat_Vec *custAi, ///< If custom polyhedra vector is used, pointer to
-	 ///< vector of LHS constraint matrix
-	 vec_Vec *custbi /// If custom polyhedra vector is used, pointer
-	 /// to vector of RHS of constraints
-	 )
-/** @brief Computes the equation of the feasibility polyhedron corresponding to
- *the given @p encoding
- *	@details The computed polyhedron is always pushed into a vector of @p
- *arma::sp_mat and @p arma::vec If @p custom is false, this is the internal
- *attribute of LCP, which are LCP::Ai and LCP::bi. Otherwise, the vectors can be
- *provided as arguments.
- *	@p true value to @p checkFeas ensures that the polyhedron is pushed @e
- *only if it is feasible. @p innerApproximation determines whether the polyhedron has a full
- *encoding (all encodings to +1 -1) or an outer approximation one (some elements may not be fixed,
- *e.g., set to 0). In case this latter parameter is false, the polyhedra are stored in the outer
- *approximation structures.
- * @returns @p true if successfully added, else false
- *	@warning Not meant for
- *high level code. Instead use LCP::addPoliesFromEncoding.
+
+
+/**
+ * @brief Given a vector encoding for a given polyhedron, it adds it to one of the approximations in
+ * the PolyLCP. If @p innerApproximation is true, then the encoding is an inner-full approximation
+ * one, and the polyhedron may go in the associated objects. Otherwise, the encoding is an outer
+ * approximation one, and goes as well in the relative object.
+ * @param encoding An inner-full or outer encoding. If @p custom is true, the polyhedron is added to
+ * a custo object passed to the method
+ * @param innerApproximation True if the encoding is an inner-full one, false otherwise
+ * @param checkFeas True if the method should check for the feasibility before adding
+ * @param custom True if the polyhedron should be added to the custom object
+ * @param custAi Custon polyhedra LHS
+ * @param custbi Custom polyhedra RHS
+ * @return True if the operation was performed correctly. False if the polyhedron is infeasible or
+ * was not added
+ * @warning Use PolyLCP::addPoliesFromEncoding for multiple polyhedra
  */
-{
+bool MathOpt::PolyLCP::addPolyFromEncoding(const std::vector<short int> encoding,
+														 bool                         innerApproximation,
+														 bool                         checkFeas,
+														 bool                         custom,
+														 spmat_Vec *                  custAi,
+														 vec_Vec *                    custbi) {
   unsigned int encodingNumber = this->vecToNum(encoding, innerApproximation);
   bool         eval           = false;
   if (checkFeas)
@@ -145,7 +172,7 @@ bool MathOpt::PolyLCP::addPolyFromEncoding(
 
   if (eval) {
 	 if (!innerApproximation)
-		this->FeasOuterApprox = true;
+		this->Outer_FeasibleApproximation = true;
 	 if (!custom && !CurrentPoly[innerApproximation ? 0 : 1].empty()) {
 		if (CurrentPoly[innerApproximation ? 0 : 1].find(encodingNumber) !=
 			 CurrentPoly[innerApproximation ? 0 : 1].end()) {
@@ -199,37 +226,33 @@ bool MathOpt::PolyLCP::addPolyFromEncoding(
   return false;
 }
 
-MathOpt::PolyLCP &MathOpt::PolyLCP::addPoliesFromEncoding(
-	 const std::vector<short int> encoding, ///< A vector of +1 and -1 referring to which
-	 ///< equations and variables are taking 0 value. A value of 2  means no equation is enforced,
-	 ///< and requires the second argument of this method set to false. A value of 0 creates
-	 ///< recursive calls to this method.
-	 bool innerApproximation, ///< True if the encoding contains 2 values.
-	 bool checkFeas,          ///< The polyhedron is added after ensuring feasibility, if
-	 ///< this is true
-	 bool custom, ///< Should the polyhedra be pushed into a custom vector of
-	 ///< polyhedra as opposed to LCP::Ai and LCP::bi
-	 spmat_Vec *custAi, ///< If custom polyhedra vector is used, pointer to
-	 ///< vector of LHS constraint matrix
-	 vec_Vec *custbi /// If custom polyhedra vector is used, pointer
-	 /// to vector of RHS of constraints
-	 )
-/** @brief Computes the equation of the feasibility polyhedron corresponding to
- *the given @p encoding
- *	@details The computed polyhedron are always pushed into a vector of @p
- *arma::sp_mat and @p arma::vec If @p custom is false, this is the internal
- *attribute of LCP, which are LCP::Ai and LCP::bi. Otherwise, the vectors can be
- *provided as arguments.
- *	@p true value to @p checkFeas ensures that @e each polyhedron that is
- *pushed is feasible. not meant for high level code. Instead use
- *LCP::addPoliesFromEncoding.
- *	@note A value of 0 in @p *encoding implies that polyhedron corresponding
- *to fixing the corresponding variable as well as the equation become candidates
- *to pushed into the vector. A value of 2 means that nothing is fixed, and can be achieved only if
- *@p innerApproximation is set to false. Hence this is preferred over LCP::addPolyFromEncoding for
- *high-level usage.
+
+
+/**
+ * @brief Given a vector encoding for some  given polyhedra, it adds them to one of the
+ * approximations in the PolyLCP. If @p innerApproximation is true, then the encoding is an
+ * inner-full approximation one, and the polyhedron may go in the associated objects. Otherwise, the
+ * encoding is an outer approximation one, and goes as well in the relative object. Note that this
+ * method may add multiple polyhedra, and allows the encoding 0 in both inner-full and outer cases.
+ * When a 0 is detected in a given position, children polyhedra with either -1 or +1 are recursively
+ * added.
+ * @param encoding An inner-full or outer encoding. If @p custom is true, the polyhedron is added to
+ * a custo object passed to the method
+ * @param innerApproximation True if the encoding is an inner-full one, false otherwise
+ * @param checkFeas True if the method should check for the feasibility before adding
+ * @param custom True if the polyhedron should be added to the custom object
+ * @param custAi Custon polyhedra LHS
+ * @param custbi Custom polyhedra RHS
+ * @return True if the operation was performed correctly. False if the polyhedron is infeasible or
+ * was not added
+ * @warning Use PolyLCP::addPolyFromEncoding for a single polyhedron
  */
-{
+MathOpt::PolyLCP &MathOpt::PolyLCP::addPoliesFromEncoding(const std::vector<short int> encoding,
+																			 bool       innerApproximation,
+																			 bool       checkFeas,
+																			 bool       custom,
+																			 spmat_Vec *custAi,
+																			 vec_Vec *  custbi) {
   bool flag = false; // flag that there may be multiple polyhedra, i.e. 0 in
   // some encoding entry
   std::vector<short int> encodingCopy(encoding);
@@ -256,47 +279,48 @@ MathOpt::PolyLCP &MathOpt::PolyLCP::addPoliesFromEncoding(
 }
 
 
-unsigned long int MathOpt::PolyLCP::getNextPoly(
-	 Data::LCP::PolyhedraStrategy method ///< The method used to add the next polyedron
-) {
-  /**
-	*  @brief Returns a polyhedron (in its decimal encoding) that is neither already
-	* known to be infeasible, nor already added in the inner approximation
-	* representation. @p method is the Data::LCP::PolyhedraStrategy strategy
-	* @warning meant to be used for inner approximation only.
-	*/
+/**
+ * @brief Returns the inner-full decimal encoding of a given polyhedron that is neither known to be
+ * infeasible, nor already in the inner-full approximation.
+ * @param method Data::LCP::PolyhedraStrategy strategy for selecting the polyhedron
+ * @return The inner-full decimal encoding of the polyhedron
+ * @warning meant to be used for inner approximation only.
+ */
+
+unsigned long int MathOpt::PolyLCP::getNextPoly(Data::LCP::PolyhedraStrategy method) {
 
   switch (method) {
   case Data::LCP::PolyhedraStrategy::Sequential: {
-	 while (this->SequentialPolyCounter < this->MaxInnerPoly) {
-		const auto isAll = CurrentPoly[0].find(this->SequentialPolyCounter) != CurrentPoly[0].end();
+	 while (this->Inner_SequentialPolyCounter < this->Inner_MaxPoly) {
+		const auto isAll =
+			 CurrentPoly[0].find(this->Inner_SequentialPolyCounter) != CurrentPoly[0].end();
 		const auto isInfeas =
-			 InfeasiblePoly[0].find(this->SequentialPolyCounter) != InfeasiblePoly[0].end();
-		this->SequentialPolyCounter++;
+			 InfeasiblePoly[0].find(this->Inner_SequentialPolyCounter) != InfeasiblePoly[0].end();
+		this->Inner_SequentialPolyCounter++;
 		if (!isAll && !isInfeas) {
-		  return this->SequentialPolyCounter - 1;
+		  return this->Inner_SequentialPolyCounter - 1;
 		}
 	 }
-	 return this->MaxInnerPoly;
+	 return this->Inner_MaxPoly;
   } break;
   case Data::LCP::PolyhedraStrategy::ReverseSequential: {
-	 while (this->ReverseSequentialPolyCounter >= 0) {
+	 while (this->Inner_ReverseSequentialPolyCounter >= 0) {
 		const auto isAll =
-			 CurrentPoly[0].find(this->ReverseSequentialPolyCounter) != CurrentPoly[0].end();
-		const auto isInfeas =
-			 InfeasiblePoly[0].find(this->ReverseSequentialPolyCounter) != InfeasiblePoly[0].end();
-		this->ReverseSequentialPolyCounter--;
+			 CurrentPoly[0].find(this->Inner_ReverseSequentialPolyCounter) != CurrentPoly[0].end();
+		const auto isInfeas = InfeasiblePoly[0].find(this->Inner_ReverseSequentialPolyCounter) !=
+									 InfeasiblePoly[0].end();
+		this->Inner_ReverseSequentialPolyCounter--;
 		if (!isAll && !isInfeas) {
-		  return this->ReverseSequentialPolyCounter + 1;
+		  return this->Inner_ReverseSequentialPolyCounter + 1;
 		}
 	 }
-	 return this->MaxInnerPoly;
+	 return this->Inner_MaxPoly;
   } break;
   case Data::LCP::PolyhedraStrategy::Random: {
-	 static std::mt19937                              engine(this->AddPolyMethodSeed);
-	 std::uniform_int_distribution<unsigned long int> dist(0, this->MaxInnerPoly - 1);
-	 if ((InfeasiblePoly.size() + CurrentPoly.size()) == this->MaxInnerPoly)
-		return this->MaxInnerPoly;
+	 static std::mt19937                              engine(this->RandomSeed);
+	 std::uniform_int_distribution<unsigned long int> dist(0, this->Inner_MaxPoly - 1);
+	 if ((InfeasiblePoly.size() + CurrentPoly.size()) == this->Inner_MaxPoly)
+		return this->Inner_MaxPoly;
 	 while (true) {
 		auto       randomPolyId = dist(engine);
 		const auto isAll        = CurrentPoly[0].find(randomPolyId) != CurrentPoly[0].end();
@@ -310,38 +334,33 @@ unsigned long int MathOpt::PolyLCP::getNextPoly(
   return -1;
 }
 
-std::set<std::vector<short int>>
-MathOpt::PolyLCP::addAPoly(unsigned long int                nPoly,
-									Data::LCP::PolyhedraStrategy     method,
-									std::set<std::vector<short int>> polyhedra) {
-  /**
-	*  @brief Tries to add at most @p nPoly number of polyhedra to the inner
-	* approximation representation of the current LCP. The set of added polyhedra
-	* (+1/-1 encoding) is appended to  @p polyhedra and returned. The only reason
-	* fewer polyhedra might be added is that the fewer polyhedra already
-	* represent the feasible region of the LCP.
-	* @p method is casted from Data::LCP::PolyhedraStrategy
-	* @warning works only for inner approximation
-	*/
+/**
+ * @brief Adds a number @p nPoly of polyhedra to the current inner-full approximation, given a
+ * method of selection.
+ * @param nPoly The number of polyhedra
+ * @param method The Data::LCP::PolyhedraStrategy method
+ * @return The number of added polyhedra
+ * @warning Suitable only for inner-full approximation
+ */
+unsigned int MathOpt::PolyLCP::addAPoly(unsigned long int            nPoly,
+													 Data::LCP::PolyhedraStrategy method) {
 
 
-  if (this->MaxInnerPoly < nPoly) { // If you cannot add that numVariablesY polyhedra
-	 BOOST_LOG_TRIVIAL(warning)      // Then issue a warning
+  int add = 0;
+  if (this->Inner_MaxPoly < nPoly) { // If you cannot add that numVariablesY polyhedra
+	 BOOST_LOG_TRIVIAL(warning)       // Then issue a warning
 		  << "Warning in MathOpt::PolyLCP::randomPoly: "
-		  << "Cannot add " << nPoly << " polyhedra. Promising a maximum of " << this->MaxInnerPoly;
-	 nPoly = this->MaxInnerPoly; // and update maximum possibly addable
+		  << "Cannot add " << nPoly << " polyhedra. Promising a maximum of " << this->Inner_MaxPoly;
+	 nPoly = this->Inner_MaxPoly; // and update maximum possibly addable
   }
 
   if (nPoly == 0) // If nothing to be added, then nothing to be done
-	 return polyhedra;
-
-  if (nPoly < 0) // There is no way that this can happen!
-	 throw ZEROException(ZEROErrorCode::InvalidData, "nPoly is negative");
+	 return 0;
 
   while (true) {
 	 auto choiceDecimal = this->getNextPoly(method);
-	 if (choiceDecimal >= this->MaxInnerPoly)
-		return polyhedra;
+	 if (choiceDecimal >= this->Inner_MaxPoly)
+		return add;
 
 	 if (this->checkPolyFeas(choiceDecimal, true)) {
 
@@ -349,18 +368,27 @@ MathOpt::PolyLCP::addAPoly(unsigned long int                nPoly,
 		auto                         added  = this->addPolyFromEncoding(choice, true);
 		if (added) // If choice is added to All Polyhedra
 		{
-		  polyhedra.insert(choice); // Add it to set of added polyhedra
-		  if (polyhedra.size() == nPoly) {
-			 return polyhedra;
+		  add++;
+		  if (add == nPoly) {
+			 return add;
 		  }
 		}
 	 }
   }
-  return polyhedra;
+  return add;
 }
+
+
+/**
+ * @brief Given a decimal encoding, adds the polyhedron to the relative approximation.
+ * @param decimalEncoding The encoding of the polyhedron
+ * @param innerApproximation True if the encoding is an inner-full one, and the polyhedron should be
+ * added to the inner-full approximation
+ * @return True if the polyhedron is added
+ */
 bool MathOpt::PolyLCP::addThePoly(const unsigned long int &decimalEncoding,
 											 bool                     innerApproximation) {
-  if (this->MaxInnerPoly < decimalEncoding && innerApproximation) {
+  if (this->Inner_MaxPoly < decimalEncoding && innerApproximation) {
 	 // This polyhedron does not exist
 	 BOOST_LOG_TRIVIAL(warning) << "Warning in MathOpt::PolyLCP::addThePoly: Cannot add "
 										 << decimalEncoding << " polyhedra, since it does not exist!";
@@ -370,15 +398,15 @@ bool MathOpt::PolyLCP::addThePoly(const unsigned long int &decimalEncoding,
 		this->numToVec(decimalEncoding, this->Compl.size(), innerApproximation), innerApproximation);
 }
 
-MathOpt::PolyLCP &MathOpt::PolyLCP::exactFullEnumeration(
-	 const bool feasibilityCheck ///< Should the polyhedra added be checked for feasibility?
-	 )
+
+
 /**
- * @brief Brute force computation of LCP feasible region
- * @details Computes all @f$2^n@f$ polyhedra defining the LCP feasible region.
- * These are always added to LCP::Ai and LCP::bi
+ * @brief Fully enumerates the inner-full encoding of the LCP feasible region, namely by testing (at
+ * most) @f$2^n@f$ polyhedra.
+ * @param feasibilityCheck True if polyhedra should be tested for feasibility before getting added
+ * @return The number of added polyhedra
  */
-{
+unsigned int MathOpt::PolyLCP::exactFullEnumeration(const bool feasibilityCheck) {
   std::vector<short int> encoding = std::vector<short int>(nR, 0);
   this->Ai->clear();
   this->bi->clear();
@@ -393,14 +421,16 @@ MathOpt::PolyLCP &MathOpt::PolyLCP::exactFullEnumeration(
 	 this->Ai->push_back(std::move(A));
 	 this->bi->push_back(std::move(b));
   }
-  return *this;
+  return this->Ai->size();
 }
 
+
+/**
+ * @brief Returns a string containing the inner-full and outer approximation currently in place for
+ * the object.
+ * @return A string detail
+ */
 std::string MathOpt::PolyLCP::feasabilityDetailString() const {
-  /**
-	*  @brief Returns a string that has the decimal encoding of all polyhedra
-	* which are part of MathOpt::PolyLCP::CurrentPoly
-	*/
   std::stringstream ss;
   ss << "\tInner Approximation: ";
   for (auto vv : this->CurrentPoly[0])
@@ -412,23 +442,25 @@ std::string MathOpt::PolyLCP::feasabilityDetailString() const {
   return ss.str();
 }
 
+/**
+ * @brief Returns the number of polyhedra in the current approximation for the LCP feasible region
+ * @param innerApproximation  True whenever the result is related to the inner-full approximation
+ * @return The number of polyhedra
+ */
 unsigned long MathOpt::PolyLCP::convNumPoly(bool innerApproximation) const {
-  /**
-	*  @brief To be used in interaction with MathOpt::LCP::convexHull.
-	* Gives the number of polyhedra in the current inner approximation of the LCP
-	* feasible region.    * @p innerApproximation is true whenever the polyhedra refer to an inner
-	* approximation.
-	*/
   return this->CurrentPoly[innerApproximation ? 0 : 1].size();
 }
 
+
+/**
+ * @brief Returns the position of polyhedron i's variables  in the current approximation for the LCP
+ * feasible region
+ * @param innerApproximation  True whenever the result is related to the inner-full approximation
+ * @param i The polyhedron index.
+ * @return The polyhedron's variables positions
+ */
 unsigned int MathOpt::PolyLCP::convPolyPosition(const unsigned long int i,
 																bool                    innerApproximation) const {
-  /**
-	*  @brief For the convex hull of the LCP feasible region computed, a bunch of
-	* variables are added for extended formulation and the added variables c.
-	* @p innerApproximation is true whenever the polyhedra refer to an inner approximation.
-	*/
   const unsigned int nPoly = this->convNumPoly(innerApproximation);
   if (i > nPoly)
 	 throw ZEROException(ZEROErrorCode::OutOfRange, "Argument i is out of range");
@@ -437,17 +469,16 @@ unsigned int MathOpt::PolyLCP::convPolyPosition(const unsigned long int i,
   return nC + i * nC;
 }
 
+
+/**
+ * @brief Returns the position of the variable related to the convex weight of the @p i -th
+ * polyhedron
+ * @param i The polyhedron index
+ * @param innerApproximation  True whenever the result is related to the inner-full approximation
+ * @return The weight's position
+ */
 unsigned int MathOpt::PolyLCP::convPolyWeight(const unsigned long int i,
 															 bool                    innerApproximation) const {
-  /**
-	*  @brief To be used in interaction with MathOpt::LCP::convexHull.
-	* Gives the position of the variable which assigns the convex weight to the
-	* i-th polyhedron.
-	*
-	* However, if the inner approximation has exactly one polyhedron,
-	* then returns 0.
-	* @p innerApproximation is true whenever the polyhedra refer to an inner approximation.
-	*/
   const unsigned int nPoly = this->convNumPoly(innerApproximation);
   if (nPoly <= 1) {
 	 return 0;
@@ -460,32 +491,28 @@ unsigned int MathOpt::PolyLCP::convPolyWeight(const unsigned long int i,
   return nC + nPoly * nC + i;
 }
 
-bool MathOpt::PolyLCP::checkPolyFeas(
-	 const unsigned long int &decimalEncoding, ///< Decimal encoding for the polyhedron
-	 bool innerApproximation ///< True if the encoding is an inner approximation one, non allowing 0
-									 ///< values
-) {
-  /**
-	* @brief Add the polyhedron corresponding to the decimal encoding specified in @p
-	* decimalEncoding. If @p innerApproximation is true, this method is only valid when all
-	* equations/variables are either fixed to the lower bound or positive. Otherwise, the encoding
-	* accepts 0 values (e.g., outer approximation).
-	*/
+
+/**
+ * @brief Given a decimal encoding, it checks whether the associated polyhedron is feasible or not
+ * @param decimalEncoding The decimal encoding, either inner-full or outer
+ * @param innerApproximation True if the encoding is inner-full. False otherwise
+ * @return True if the polyhedron is feasible
+ */
+bool MathOpt::PolyLCP::checkPolyFeas(const unsigned long int &decimalEncoding,
+												 bool                     innerApproximation) {
   return this->checkPolyFeas(
 		this->numToVec(decimalEncoding, this->Compl.size(), innerApproximation), innerApproximation);
 }
 
-
-void MathOpt::PolyLCP::outerApproximate(
-	 const std::vector<bool>
-			encoding, ///< A 0-1 encoding on whether the complementarity is enforced (1) or not (0)
-	 bool clear     ///< Clear the current outer approximation or build on it)
-) {
-  /**
-	* @brief Given the @p encoding, containing true/false values, create the outer approximation
-	* where only the complementarities corresponding to true values in the encoding are enforced. the
-	* @p clear control whether the current (if any) approximation is cleared or not.
-	*/
+/**
+ * @brief Given a vector of active complementarities, outer approximates the MathOpt::LCP by
+ * computing the polyhedra where only the indicated complementarities are enforced.
+ * @param encoding A vector of the size of MathOpt::nC where true indicates that the complementarity
+ * is enforced, and false not.
+ * @param clear True if the previous polyhedra and approximation is cleared before adding the new
+ * one
+ */
+void MathOpt::PolyLCP::outerApproximate(const std::vector<bool> encoding, bool clear) {
   if (encoding.size() != this->Compl.size()) {
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Mismatch in encoding size");
   }
@@ -507,26 +534,15 @@ void MathOpt::PolyLCP::outerApproximate(
 }
 
 
-bool MathOpt::PolyLCP::checkPolyFeas(
-	 const std::vector<short int> &encoding, ///< A vector of +1 and -1 referring to which
-														  ///< equations and variables are taking 0 value.). For
-														  ///< outer approximation, zeros are allowed
-	 bool innerApproximation                 ///< True if the encoding is an inner approximation one
-) {
-  /**
-	* @brief Check whether the given polyhedron is feasible of not.
-	* Given a +1/-1/0 encoding of a polyhedron, first checks
-	* if the polyhedron is a previously known feasible polyhedron
-	* or previously known infeasible polyhedron. If yes, returns the
-	* result appropriately. If not, solves a linear program to
-	* decide the feasibility of the given polyhedra.
-	* @p innerApproximation controls whether the polyhedron needs to have only +1/-1 (e.g., all the
-	* complementarities enforced). If false, zeros are allowed (e.g., outer approximation).
-	*
-	* Not @p const because it could update MathOpt::PolyLCP::InfeasiblePoly
-	* and MathOpt::PolyLCP::FeasiblePoly.
-	*/
+/**
+ * @brief Given an encoding, it checks whether the associated polyhedron is feasible or not
+ * @param encoding The encoding of the polyhedron
+ * @param innerApproximation True if the encoding is inner-full. False otherwise
+ * @return True if the polyhedron is feasible
+ */
+bool MathOpt::PolyLCP::checkPolyFeas(const std::vector<short int> &encoding,
 
+												 bool innerApproximation) {
 
   unsigned long int encodingNumber = this->vecToNum(encoding, innerApproximation);
   unsigned int      index          = innerApproximation ? 0 : 1;
@@ -574,7 +590,7 @@ bool MathOpt::PolyLCP::checkPolyFeas(
   unsigned int count{0};
   try {
 	 makeRelaxed();
-	 GRBModel model(this->RlxdModel);
+	 GRBModel model(this->RelaxedModel);
 	 for (auto i : encoding) {
 		switch (i) {
 		case 1:
@@ -618,16 +634,17 @@ bool MathOpt::PolyLCP::checkPolyFeas(
 }
 
 
+/**
+ * @brief This function converts the vector encoding of @p binary to an unsigned long int. The
+ * parameter @p inner controls whether the encoding is the one of the inner approximation or the
+ * outer approximation. If @p inner is true, valid entries for @p binary are in {-1,1} and
+ * in {-1,1,2} otherwise. The reverse of this function is given by
+ * MathOpt::PolyLCP::numToVec.
+ * @param binary The vector encoding
+ * @param inner True if the encoding is an inner-full one
+ * @return The decimal encoding
+ */
 unsigned long int MathOpt::PolyLCP::vecToNum(std::vector<short int> binary, bool inner) {
-  /**
-	* @brief This function converts the vector encoding of @p binary to an unsigned long int.
-	* The parameter @p inner controls whether the encoding is the one of the inner approximation or
-	* the outer approximation. If @p inner is true, valid entries for @p binary are in @f$\{-1,1}@f$,
-	* and in @f$\{-1,1,2}@f$ otherwise. The reverse of this funciton is given by
-	* MathOpt::PolyLCP::numToVec.
-	* @warning the parameters inner may result in a different output even if the encodings are the
-	* same.
-	*/
   unsigned long int number = 0;
   unsigned int      posn   = 1;
 
@@ -652,16 +669,20 @@ unsigned long int MathOpt::PolyLCP::vecToNum(std::vector<short int> binary, bool
   return number;
 }
 
+/**
+ * @brief This function transform the encoding associated to @p number, given a number of
+ * complementarities in @p nCompl, into a vector encoding. If @p inner is true, valid entries for @p
+ * binary are in {-1,1}, and in {-1,1,2} otherwise. The reverse of this function is
+ * given by MathOpt::PolyLCP::numToVec.
+ * @param number The decimal encoding
+ * @param nCompl The number of complementarities, also the length of the final vector encoding
+ * @param inner True if the encoding is an inner-full one
+ * @return The vector encoding
+ */
+
+
 std::vector<short int>
 MathOpt::PolyLCP::numToVec(unsigned long int number, const unsigned long nCompl, bool inner) {
-  /**
-	* @brief This function transform the encoding associated to @p number, given a number of
-	* complementarities in @p nCompl, into a vector encoding. If @p inner is true, valid entries for
-	* @p binary are in @f$\{-1,1}@f$, and in @f$\{-1,1,2}@f$ otherwise. The reverse of this funciton
-	* is given by MathOpt::PolyLCP::numToVec.
-	* @warning the parameters inner may result in a different output even if the numbers are the
-	* same.
-	*/
   std::vector<short int> binary{};
 
   if (inner) {
@@ -677,4 +698,11 @@ MathOpt::PolyLCP::numToVec(unsigned long int number, const unsigned long nCompl,
   }
   std::reverse(binary.begin(), binary.end());
   return binary;
+}
+void MathOpt::PolyLCP::clearPolyhedra(bool inner) {
+  this->Ai->clear();
+  this->bi->clear();
+  this->CurrentPoly[inner ? 0 : 1].clear();
+  if (!inner)
+	 this->Outer_FeasibleApproximation = false;
 }

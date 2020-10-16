@@ -45,7 +45,7 @@ namespace MathOpt {
 
   /**
 	* @brief This class manages and solves linear complementarity problems (LCPs).
-	* Let @f$M@f$ be a matrix, @f$q@f$a vector  with as many elements as the number of rows of
+	* Let @f$M@f$ be a matrix, @f$q@f$ a vector  with as many elements as the number of rows of
 	* @f$M@f$. The associated LCP problem is to find \f[ z=Mx+q \qquad x^\top z = 0 \f]  Possibly,
 	* there can be additional side constraints in the form of  \f[ Ax \leq b\f] This class has is
 	* the base class of MathOpt::PolyLCP, which manages the polyhedral aspect of the problem.

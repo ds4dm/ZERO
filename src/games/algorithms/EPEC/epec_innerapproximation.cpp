@@ -55,7 +55,7 @@ void Algorithms::EPEC::InnerApproximation::start() {
 								  ? std::chrono::high_resolution_clock::now().time_since_epoch().count() +
 										  42 + PolyLCP.at(i)->getNumRows()
 								  : this->EPECObject->Stats.AlgorithmData.RandomSeed.get();
-		PolyLCP.at(i)->AddPolyMethodSeed = seed;
+		PolyLCP.at(i)->RandomSeed = seed;
 	 }
   }
   if (this->EPECObject->Stats.AlgorithmData.TimeLimit.get() > 0)
@@ -195,16 +195,16 @@ bool Algorithms::EPEC::InnerApproximation::addRandomPoly2All(unsigned int aggres
   BOOST_LOG_TRIVIAL(trace) << "Adding Random polyhedra to countries";
   bool infeasible{true};
   for (unsigned int i = 0; i < this->EPECObject->NumPlayers; i++) {
-	 auto addedPolySet = PolyLCP.at(i)->addAPoly(
+	 auto addedPoly = PolyLCP.at(i)->addAPoly(
 		  aggressiveLevel, this->EPECObject->Stats.AlgorithmData.PolyhedraStrategy.get());
-	 if (stopOnSingleInfeasibility && addedPolySet.empty()) {
+	 if (stopOnSingleInfeasibility && addedPoly == 0) {
 		BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::InnerApproximation::addRandomPoly2All: No Nash "
 											"equilibrium. due to "
 											"infeasibility of country "
 										<< i;
 		return false;
 	 }
-	 if (!addedPolySet.empty())
+	 if (addedPoly > 0)
 		infeasible = false;
   }
   return !infeasible;
@@ -257,7 +257,7 @@ unsigned int Algorithms::EPEC::InnerApproximation::addDeviatedPolyhedron(
   for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i) { // For each country
 	 bool ret = false;
 	 if (!deviations.at(i).empty())
-		PolyLCP.at(i)->addPolyFromX(deviations.at(i), ret, true);
+		ret = PolyLCP.at(i)->addPolyFromX(deviations.at(i), true);
 	 if (ret) {
 		BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::InnerApproximation::"
 											 "addDeviatedPolyhedron: added "
