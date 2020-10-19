@@ -85,7 +85,8 @@ Now, since the variable with no complementarity pair is :math:`x_2` which is in 
 Solving
 ==========
 
-This problem can be solved either using big-M based disjunctive formulation with the value of the @p bigM can also be chosen. But a more preferred means of solving is by using indicator constraints, where the algorithm tries to automatically identify good choices of ``bigM`` for each disjunction. Use the former option, only if you are very confident of  your choice of a small value of ``bigM``
+This problem can be solved either using big-M based disjunctive formulation with the value of the @p bigM can also be chosen.
+But a more preferred means of solving is by using SOS1 constraints, or indicator constraints. Use the former option, only if you are very confident of  your choice of a small value of ``bigM``
 
 .. code-block:: c
 

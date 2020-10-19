@@ -61,7 +61,7 @@ namespace MathOpt {
 	 perps Compl; ///< Compl dictates which equation (row in M) is complementary to which variable
 					  ///< (column in M). The object is in a <Eqn, Var> form
 	 unsigned int LeadStart{1}, LeadEnd{0}, NumberLeader{0};
-	 bool         PureMIP = true; ///< True if the LCP is modelled via a pure MIP with indicators
+	 bool PureMIP = true; ///< True if the LCP is modelled via a pure MIP with SOS1 (or indicator)
 								 ///< constraints. Otherwise, a MINLP introduces a bilinear term for each
 								 ///< complementarity
 	 arma::sp_mat A     = {}; ///< The additional constraint matrix A to the problem
@@ -84,7 +84,7 @@ namespace MathOpt {
 
 	 void makeRelaxed();
 
-	 std::unique_ptr<GRBModel> getMIP();
+	 std::unique_ptr<GRBModel> getMIP(bool indicators = false);
 
 	 std::unique_ptr<GRBModel> getMINLP();
 

@@ -242,8 +242,8 @@ void MathOpt::LCP::makeRelaxed() {
 /**
  * @brief Solves the LCP as a Mixed-Integer Program. Note that the returned model is either a MIP or
  * a MNILP, depending on the class' LCP::PureMIP boolean switch. In the first case,
- * complementarities are modeled through indicator constraints. Otherwise, there is bi-linear term
- * for each complementarity.
+ * complementarities are modeled through SOS1 or indicator constraints. Otherwise, there is
+ * bi-linear term for each complementarity.
  * @param solve Determines whether the returned model is already solved or not
  * @return The unique pointer to the model
  */
@@ -681,13 +681,14 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
   return ZEROStatus::NashEqNotFound;
 }
 
-
 /**
  * @brief Gets the MIP model associated with the LCP, where complementarities are modeled with
- * indicator constraints
+ * with SOS-1 constraints if @p indicators is false, with indicator constraints otherwise.
+ * @param indicators If true, SOS-1 formulation will be used for each complementarity. Otherwise,
+ * indicator constraints will be used
  * @return The Gurobi pointer to the model
  */
-std::unique_ptr<GRBModel> MathOpt::LCP::getMIP() {
+std::unique_ptr<GRBModel> MathOpt::LCP::getMIP(bool indicators) {
   std::unique_ptr<GRBModel> model{new GRBModel(this->RelaxedModel)};
   // Creating the model
   try {
@@ -707,27 +708,34 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP() {
 
 	 GRBLinExpr expr = 0;
 	 for (const auto p : Compl) {
-		// z[i] <= Mu constraint
 
-		// u[j]=0 --> z[i] <=0
-		model->addGenConstrIndicator(u[p.first],
-											  1,
-											  z[p.first],
-											  GRB_LESS_EQUAL,
-											  0,
-											  "z_ind_" + std::to_string(p.first) + "_L_Mu_" +
-													std::to_string(p.first));
-		// x[i] <= M(1-u) constraint
 
-		model->addGenConstrIndicator(v[p.first],
-											  1,
-											  x[p.second],
-											  GRB_LESS_EQUAL,
-											  0,
-											  "x_ind_" + std::to_string(p.first) + "_L_MuDash_" +
-													std::to_string(p.first));
+		if (indicators) {
+		  // u[i]=1 --> z[i] <=0
+		  model->addGenConstrIndicator(u[p.first],
+												 1,
+												 z[p.first],
+												 GRB_LESS_EQUAL,
+												 0,
+												 "z_ind_" + std::to_string(p.first) + "_L_Mu_" +
+													  std::to_string(p.first));
+		  // v[i]=1 --> x[i] <=0
+		  model->addGenConstrIndicator(v[p.first],
+												 1,
+												 x[p.second],
+												 GRB_LESS_EQUAL,
+												 0,
+												 "x_ind_" + std::to_string(p.first) + "_L_MuDash_" +
+													  std::to_string(p.first));
 
-		model->addConstr(u[p.first] + v[p.first], GRB_EQUAL, 1, "uv_sum_" + std::to_string(p.first));
+
+		  model->addConstr(
+				u[p.first] + v[p.first], GRB_EQUAL, 1, "uv_sum_" + std::to_string(p.first));
+		} else {
+		  GRBVar sos[]  = {x[p.second], z[p.first]};
+		  double sosw[] = {1, 1};
+		  model->addSOS(sos, sosw, 2, GRB_SOS_TYPE1);
+		}
 	 }
 	 // If any equation or variable is to be fixed to zero, that happens here!
 	 model->update();
