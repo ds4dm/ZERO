@@ -299,6 +299,27 @@ double MathOpt::IP_Param::computeObjective(const arma::vec &y,
   return obj(0);
 }
 
+
+/**
+ * @brief Given a parameter value @p x, and variables values @p y, returns true whenever the point
+ * is feasible for the program. This method overrides the MathOpt::MP_Param to manage integral
+ * requirements.
+ * @param y The variables' values
+ * @param x The parameters' values
+ * @param tol  A numerical tolerance
+ * @return True if the point is feasible
+ */
+bool MathOpt::IP_Param::isFeasible(const arma::vec &y, const arma::vec &x, double tol) const {
+  arma::vec slack = B * y - b;
+  if (slack.n_rows) // if infeasible
+	 if (slack.max() >= tol)
+		return false;
+  for (const auto i : this->Integers) // Integers
+	 if (y.at(i) != trunc(y.at(i)))
+		return false;
+  return true;
+}
+
 /**
  * @brief Adds a constraints to the IP_Param. It stores a description of the new cut Ainx &\leq& bin
  * of @p Ain (and RHS @p bin) in B and b, respectively. @return true if the constraint has been
@@ -425,7 +446,6 @@ long int MathOpt::IP_Param::load(const std::string &filename, long int pos) {
  * @param filename The filename
  * @param append If true, the file will be appended
  */
-
 void MathOpt::IP_Param::save(const std::string &filename, bool append) const {
 
   Utils::appendSave(std::string("IP_Param"), filename, append);

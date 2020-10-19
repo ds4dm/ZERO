@@ -139,6 +139,7 @@ namespace MathOpt {
 												bool             checkFeas = true,
 												double           tol       = 1e-6) const;
 	 void           forceDataCheck() const;
+	 virtual bool   isFeasible(const arma::vec &y, const arma::vec &x, double tol) const;
   };
 
 } // namespace MathOpt

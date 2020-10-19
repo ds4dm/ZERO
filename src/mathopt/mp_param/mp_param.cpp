@@ -492,14 +492,26 @@ double MathOpt::MP_Param::computeObjective(const arma::vec &y,
   if (x.n_rows != this->getNx())
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of x");
   if (checkFeas) {
-	 arma::vec slack = A * x + B * y - b;
-	 if (slack.n_rows) // if infeasible
-		if (slack.max() >= tol)
-		  return GRB_INFINITY;
-	 if (y.min() <= -tol) // if infeasible
-		return GRB_INFINITY;
+	 this->isFeasible(y, x, tol);
   }
 
   arma::vec obj = 0.5 * y.t() * Q * y + (C * x).t() * y + c.t() * y;
   return obj(0);
+}
+
+/**
+ * @brief Given a parameter value @p x, and variables values @p y, returns true whenever the point
+ * is feasible for the program.
+ * @param y The variables' values
+ * @param x The parameters' values
+ * @param tol  A numerical tolerance
+ * @return True if the point is feasible
+ */
+bool MathOpt::MP_Param::isFeasible(const arma::vec &y, const arma::vec &x, double tol) const {
+  arma::vec slack = A * x + B * y - b;
+  if (slack.n_rows) // if infeasible
+	 if (slack.max() >= tol)
+		return false;
+
+  return true;
 }
