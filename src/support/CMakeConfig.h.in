@@ -17,12 +17,26 @@
 #define ZERO_VERSION_MINOR "@PROJECT_VERSION_MINOR@"
 #define ZERO_VERSION_PATCH "@PROJECT_VERSION_PATCH@"
 
+/**
+ * @brief This class provides an helper for the version of ZERO. It should be automatically
+ * configured by CMake.
+ */
 class ZEROVersion {
 public:
+  /**
+   * @brief A constructor filling the parameters with the version of ZERO
+   * @param major Output for the major version
+   * @param minor Output for the minor version
+   * @param patch Output for the patch version
+   */
   ZEROVersion(std::string &major, std::string &minor, std::string &patch) {
 	 major = ZERO_VERSION_MAJOR;
 	 minor = ZERO_VERSION_MINOR;
 	 patch = ZERO_VERSION_PATCH;
   }
+  /**
+   * @brief Provides the ZERO version as a single string
+   * @param version The output version string
+   */
   ZEROVersion(std::string &version) { version = ZERO_VERSION; }
 };

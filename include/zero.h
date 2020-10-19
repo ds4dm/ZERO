@@ -41,40 +41,44 @@ using VariableBounds = std::vector<std::pair<double, double>>;
 class ZEROException;
 enum class ZEROErrorCode;
 
+/**
+ * @brief This namespace contains the definition of the support structures for the mathematical
+ *optimization.
+ */
 namespace MathOpt {
-  /**
-	* @brief This namespace contains the definition of the support structures for the mathematical
-	*optimization
-	**/
   struct QP_Objective;
   struct QP_Constraints;
   class MP_Param;
   class QP_Param;
   class IP_Param;
   class LCP;
+  class PolyLCP;
 } // namespace MathOpt
 
+
+/**
+ * @brief This namespace contains the definitions for classes related to games.
+ **/
 namespace Game {
-  /**
-	* @brief This namespace contains the definitions of the games
-	**/
   class NashGame;
-  class PolyLCP;
   class EPEC;
   class IPG;
 } // namespace Game
+
+/**
+ * @brief This class handles external solvers
+ */
 namespace Solvers {
-  /**
-	* @brief This class handles external solvers
-	*/
   class PATH;
 } // namespace Solvers
+
+
+/**
+ * @brief This namespace contains the definitions for the algorithms. For each
+ * game, there is a lower-level namespace under which the algorithms are
+ * nested.
+ */
 namespace Algorithms {
-  /**
-	* @brief This namespace contains the definition of the algorithms. For each
-	* game, there is a lower-level namespace under which the algorithms are
-	* nested.
-	*/
   class AbstractAlgorithm; ///< Abstact type for other algorithms
   namespace EPEC {
 	 class PolyBase;
@@ -99,7 +103,6 @@ class ZEROAlgorithmData;
  * objects.
  */
 namespace Data {
-
   namespace EPEC {
 	 class DataObject;
   }
