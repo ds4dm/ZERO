@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.16)
 
 # Project setting
 include(cmake/ZERO.cmake)
@@ -9,6 +9,7 @@ project(
   DESCRIPTION ${ZERO_DESC})
 
 # CXX Options
+set(CMAKE_UNITY_BUILD ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 if(NOT CMAKE_BUILD_TYPE)
