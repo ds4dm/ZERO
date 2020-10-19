@@ -28,8 +28,6 @@ namespace Algorithms {
 	 struct IPG_Player {
 		///@brief This structure manages the IPG data for each player of the game, given the
 		/// Oracle
-	 private:
-		std::unique_ptr<GRBModel> Model;
 
 	 protected:
 		std::unique_ptr<GRBModel>
@@ -59,7 +57,7 @@ namespace Algorithms {
 			* model, initializes the data structure.
 			*/
 
-		  this->Model        = std::unique_ptr<GRBModel>();
+		  std::unique_ptr<GRBModel>();
 		  this->MembershipLP = std::unique_ptr<GRBModel>();
 		  this->Incumbent.zeros(incumbentSize);
 		};
@@ -74,8 +72,6 @@ namespace Algorithms {
 
 		const arma::sp_mat getCutPoolA() { return this->CutPool_A; }
 		const arma::vec    getCutPoolb() { return this->CutPool_b; }
-
-		void updateIPModel(std::unique_ptr<GRBModel> IPmodel);
 	 };
 
 
@@ -91,7 +87,6 @@ namespace Algorithms {
 		arma::vec                                buildXminusI(const unsigned int i);
 		bool addValueCut(unsigned int player, double RHS, arma::vec xMinusI, bool check = true);
 		bool separationOracle(const unsigned int player);
-		bool computeStrategy(const unsigned int i, arma::vec &strategy, double &payoff);
 
 		void
 		updateMembership(const unsigned int &player, const arma::vec &vertex, bool normalization);

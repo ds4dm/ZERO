@@ -19,22 +19,6 @@
 #include <string>
 
 
-void Algorithms::IPG::IPG_Player::updateIPModel(std::unique_ptr<GRBModel> IPmodel) {
-  /**
-	* @brief Gets the model in IPModel, and adds the known cuts from the current pool
-	*/
-  this->Model.release();
-  this->Model = std::move(IPmodel);
-  for (unsigned int i = 0; i < this->CutPool_A.n_rows; i++) {
-	 GRBLinExpr LHS{0};
-	 for (auto j = this->CutPool_A.begin_row(i); j != this->CutPool_A.end_row(i); ++j)
-		LHS += (*j) * this->Model->getVarByName("y_" + std::to_string(j.col()));
-	 this->Model->addConstr(LHS, GRB_LESS_EQUAL, this->CutPool_b[i]);
-  }
-  this->Model->update();
-}
-
-
 bool Algorithms::IPG::IPG_Player::addVertex(const arma::vec vertex, const bool checkDuplicate) {
   /**
 	* @brief Given @p vertex, it adds a vertex to the field R. If @p checkDuplicate is true,
@@ -165,16 +149,15 @@ void Algorithms::IPG::Oracle::solve() {
 	 if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0) {
 		double remaining;
 		if (this->checkTime(remaining) && remaining > 0)
-		  bool Eq = this->equilibriumLCP(remaining);
+		  solved = this->equilibriumLCP(remaining);
 		else
 		  return;
 	 } else
-		bool Eq = this->equilibriumLCP(-1);
+		solved = this->equilibriumLCP(-1);
 
 
 	 // Now we have an equilibrium, then we need to check whether this is feasible or not
-	 solved = true;
-	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
+	 for (unsigned int i = 0; i < this->IPG->NumPlayers && solved; ++i) {
 		if (!this->separationOracle(i)) {
 		  solved = false;
 		  break;
@@ -523,61 +506,6 @@ void Algorithms::IPG::Oracle::updateMembership(const unsigned int &player,
 										 normalization);
 }
 
-bool Algorithms::IPG::Oracle::computeStrategy(const unsigned int i, ///< [in] The player id
-															 arma::vec &strategy,  ///< [out] The computed strategy
-															 double &   payoff     ///< [out] The payoff
-) {
-  /**
-	* @brief Given the @p i as the id of the player, retrieves the relaxation of the integer
-	* problem of that player and solves it to find any mixed strategies. The resulting strategy is
-	* pushed into @p strategy. In general, the result might not be feasible. In other words, the
-	* solution may be outside the mixed-integer convex hull. To check whether this is true or not,
-	* ask to the separationOracle. The computed strategy is pushed into an IPG_Player object in the
-	* field Players of this class.
-	* @returns true if the i-th player problem is feasible
-	*/
-  BOOST_LOG_TRIVIAL(trace) << "Algorithms::IPG::Oracle::computeStrategy: "
-										"Computing startegy for for "
-									<< std::to_string(i);
-  unsigned int Ny      = this->IPG->PlayerVariables.at(i); // Equals to Ny by definition
-  arma::vec    xMinusI = this->buildXminusI(i);
-  payoff               = 0;
-  strategy.zeros(Ny);
-  //  Update working strategies
-  std::unique_ptr<GRBModel> response =
-		std::unique_ptr<GRBModel>(this->IPG->PlayersIP.at(i)->getIPModel(xMinusI, true));
-  // this->Players.at(i)->updateIPModel(std::move(response));
-  auto Model = *this->Players.at(i)->Model;
-  Model.optimize();
-  Model.write("dat/Computing_" + std::to_string(i) + ".lp");
-  int status = Model.get(GRB_IntAttr_Status);
-  if (status == GRB_INFEASIBLE) {
-	 // Game ended, player is infeasible
-	 BOOST_LOG_TRIVIAL(trace) << "Algorithms::IPG::Oracle::computeStrategy: "
-										  "The game is infeasible! Detected infeasiblity for "
-									  << std::to_string(i);
-	 this->IPG->Stats.Status.set(ZEROStatus::NashEqNotFound);
-	 return false;
-  } else if (status == GRB_OPTIMAL) {
-	 payoff = Model.getObjective().getValue();
-	 BOOST_LOG_TRIVIAL(trace) << "Algorithms::IPG::Oracle::computeStrategy: "
-										  "A strategy for player "
-									  << i << " has been found (payoff=" << payoff << ")";
-	 for (unsigned int k = 0; k < Ny; ++k)
-		strategy.at(k) = Model.getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_X);
-	 payoff = Model.getObjective().getValue();
-
-  } else if (status == GRB_UNBOUNDED) {
-	 BOOST_LOG_TRIVIAL(warning) << "Algorithms::IPG::Oracle::computeStrategy: "
-											 "(UNBOUNDED PROBLEM) A strategy for player "
-										 << i << " has been found.";
-	 for (unsigned int k = 0; k < Ny; ++k)
-		strategy.at(k) = Model.getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_UnbdRay);
-	 payoff = this->IPG->PlayersIP.at(i)->computeObjective(strategy, xMinusI, false);
-  }
-  return true;
-}
-
 
 bool Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
 
@@ -594,24 +522,10 @@ bool Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
 
   arma::vec x, z;
   bool      eq = false;
-  if (this->IPG->Stats.AlgorithmData.LCPSolver.get() == Data::IPG::LCPAlgorithms::PATH)
-	 eq = LCP->solvePATH(localTimeLimit, z, x) == ZEROStatus::NashEqFound;
-  else if (this->IPG->Stats.AlgorithmData.LCPSolver.get() == Data::IPG::LCPAlgorithms::MIP) {
 
-	 auto LCPModel = LCP->LCPasMIP(false);
-	 if (localTimeLimit > 0) {
-		LCPModel->set(GRB_DoubleParam_TimeLimit, localTimeLimit);
-	 }
-	 LCPModel->set(GRB_IntParam_OutputFlag, 1);
-	 LCPModel->setObjective(GRBQuadExpr{0}, GRB_MINIMIZE);
-	 LCPModel->set(GRB_IntParam_MIPFocus, 1);
-	 LCPModel->optimize();
-	 auto s = LCPModel->get(GRB_IntAttr_Status);
-	 if (s != (GRB_SOLUTION_LIMIT && s != GRB_OPTIMAL))
-		return false;
-	 eq = LCP->extractSols(LCPModel.get(), z, x, true);
-  }
-  if (eq) {
+
+  auto LCPSolver = LCP->solve(Data::LCP::Algorithms::PATH, x, z, localTimeLimit);
+  if (LCPSolver == ZEROStatus::NashEqFound) {
 	 BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
 		this->Players.at(i)->Incumbent = x.subvec(Nash.getPrimalLoc(i), Nash.getPrimalLoc(i + 1) - 1);
