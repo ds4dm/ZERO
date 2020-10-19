@@ -84,6 +84,7 @@ long int MathOpt::MP_Param::load(const std::string &filename, long int pos) {
 	 for (unsigned int i = 0; i < diff; ++i)
 		this->Bounds.push_back({0, -1});
   }
+  BOOST_LOG_TRIVIAL(trace) << "Loaded MP_Param to file " << filename;
   this->set(Q, C, A, B, c, b);
   return pos;
 }

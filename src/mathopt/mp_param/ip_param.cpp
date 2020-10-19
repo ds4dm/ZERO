@@ -422,20 +422,20 @@ long int MathOpt::IP_Param::load(const std::string &filename, long int pos) {
   pos = Utils::appendRead(_b, filename, pos, std::string("IP_Param::b"));
   pos = Utils::appendRead(_c, filename, pos, std::string("IP_Param::c"));
   pos = Utils::appendRead(_integers, filename, pos, std::string("IP_Param::Integers"));
-  pos = Utils::appendRead(BO, filename, pos, std::string("MP_Param::Bounds"));
+  pos = Utils::appendRead(BO, filename, pos, std::string("IP_Param::Bounds"));
   if (BO.n_rows > 0) {
 	 if (BO.n_cols != 2)
 		throw ZEROException(ZEROErrorCode::IOError, "Invalid bounds object in loaded file");
 
-	 for (unsigned int i = 0; i < B.n_cols; ++i)
+	 for (unsigned int i = 0; i < _B.n_cols; ++i)
 		this->Bounds.push_back(
 			 {BO.at(i, 0) > 0 ? BO.at(i, 0) : 0, BO.at(i, 1) > 0 ? BO.at(i, 1) : -1});
 
-	 int diff = B.n_cols - BO.n_rows;
+	 int diff = _B.n_cols - BO.n_rows;
 	 for (unsigned int i = 0; i < diff; ++i)
 		this->Bounds.push_back({0, -1});
   }
-  BOOST_LOG_TRIVIAL(trace) << "Saved IP_Param to file " << filename;
+  BOOST_LOG_TRIVIAL(trace) << "Loaded IP_Param to file " << filename;
   this->set(_C, _B, _b, _c, _integers);
   return pos;
 }
