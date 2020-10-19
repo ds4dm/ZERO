@@ -111,6 +111,9 @@ int Solvers::PATH::CreateLMCP(int    n,
   if (timeLimit > 0)
 	 Options_SetDouble(o, "time_limit", timeLimit);
 
+  Options_SetDouble(o, "major_iteration_limit", 1000);
+  Options_SetDouble(o, "minor_iteration_limit", 1500);
+  Options_SetDouble(o, "cumulative_iteration_limit", 20000);
 
   if (n == 0) {
 	 fprintf(stdout, "\n ** EXIT - No variables.\n");
