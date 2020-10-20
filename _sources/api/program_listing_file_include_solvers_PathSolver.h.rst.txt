@@ -33,28 +33,29 @@ Program Listing for File PathSolver.h
    }
    namespace Solvers {
    
+   
      class PATH {
    
      private:
         typedef struct {
-           int n;
-           int nnz;
+           int n;   
+           int nnz; 
    
-           double *z;
-           double *lb;
-           double *ub;
+           double *x;  
+           double *lb; 
+           double *ub; 
    
            int *   m_start;
            int *   m_len;
            int *   m_row;
-           double *m_data;
+           double *m_data; 
    
-           double *q;
+           double *q; 
         } PATHProblem;
    
    
-        ZEROStatus    status;
-        int           Filled;
+        ZEROStatus    status; 
+        bool          Filled; 
         PATHProblem   Problem;
         MCP_Interface PATH_Interface = {
              this,
@@ -68,7 +69,7 @@ Program Listing for File PathSolver.h
              NULL,
              NULL,
              NULL,
-             NULL};
+             NULL}; 
         Presolve_Interface PATH_Presolve = {
              NULL,
              NULL,
@@ -76,10 +77,12 @@ Program Listing for File PathSolver.h
              NULL,
              NULL,
              reinterpret_cast<void (*)(void *, int, int *)>(this->mcp_typ),
-             NULL};
+             NULL}; 
    
         Output_Interface PATH_Output = {
-             NULL, reinterpret_cast<void (*)(void *, int, char *)>(this->messageCB), NULL};
+             NULL,
+             reinterpret_cast<void (*)(void *, int, char *)>(this->messageCB),
+             NULL}; 
    
         int  CreateLMCP(int    n,
                              int    m_nnz,
@@ -96,9 +99,9 @@ Program Listing for File PathSolver.h
         void sort(int rows, int cols, int elements, int *row, int *col, double *data);
         void C_problem_size(int *n, int *nnz);
         void C_bounds(int n, double *z, double *lb, double *ub);
-        int  C_function_evaluation(int n, double *z, double *f);
+        int  C_function_evaluation(int n, double *x, double *f);
         int  C_jacobian_evaluation(int     n,
-                                            double *z,
+                                            double *x,
                                             int     wantf,
                                             double *f,
                                             int *   nnz,
@@ -116,40 +119,34 @@ Program Listing for File PathSolver.h
                arma::vec &           x,
                arma::vec             z,
                double                timeLimit);
-        ZEROStatus getStatus() const { return this->status; }
+        ZEROStatus getStatus() const { return this->status; } 
    
-        static void *messageCB(void *dat, int mode, char *buf) {
-           std::cout << buf;
-           return dat;
-        }
+   
+        static void *messageCB(void *dat, int mode, char *buf);
         static void *mcp_typ(void *dat, int nnz, int *typ);
-        static int   jacobian_evaluation(void *  dat,
-                                                    int     n,
-                                                    double *z,
-                                                    int     wantf,
-                                                    double *f,
-                                                    int *   nnz,
-                                                    int *   col_start,
-                                                    int *   col_len,
-                                                    int *   row,
-                                                    double *data) {
-         auto *self = static_cast<Solvers::PATH *>(dat);
-         return self->C_jacobian_evaluation(n, z, wantf, f, nnz, col_start, col_len, row, data);
-        }
    
-        static int function_evaluation(void *dat, int n, double *z, double *f) {
-           auto *self = static_cast<Solvers::PATH *>(dat);
-           return self->C_function_evaluation(n, z, f);
-        }
-        static void start(void *dat) {
-           auto *self   = static_cast<Solvers::PATH *>(dat);
-           self->Filled = 0;
-        }
    
-        static void bounds(void *dat, int n, double *z, double *lb, double *ub);
-        static void problem_size(void *dat, int *n, int *nnz) {
-           auto *self = static_cast<Solvers::PATH *>(dat);
-           self->C_problem_size(n, nnz);
-        }
+   
+        static int jacobian_evaluation(void *  dat,
+                                                 int     n,
+                                                 double *x,
+                                                 int     wantf,
+                                                 double *f,
+                                                 int *   nnz,
+                                                 int *   col_start,
+                                                 int *   col_len,
+                                                 int *   row,
+                                                 double *data);
+   
+   
+   
+        static int function_evaluation(void *dat, int n, double *x, double *f);
+   
+   
+        static void start(void *dat);
+   
+        static void bounds(void *dat, int n, double *x, double *lb, double *ub);
+   
+        static void problem_size(void *dat, int *n, int *nnz);
      };
    } // namespace Solvers

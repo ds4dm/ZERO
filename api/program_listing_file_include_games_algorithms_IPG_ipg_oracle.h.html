@@ -847,8 +847,6 @@ namespace Algorithms {
   namespace IPG {
 
      struct IPG_Player {
-     private:
-        std::unique_ptr&lt;GRBModel&gt; Model;
 
      protected:
         std::unique_ptr&lt;GRBModel&gt;
@@ -871,7 +869,7 @@ namespace Algorithms {
         ~IPG_Player() = default;
         friend class Algorithms::IPG::Oracle;
         IPG_Player(unsigned int incumbentSize, double &amp;tol) : Tolerance{tol} {
-          this-&gt;Model        = std::unique_ptr&lt;GRBModel&gt;();
+          std::unique_ptr&lt;GRBModel&gt;();
           this-&gt;MembershipLP = std::unique_ptr&lt;GRBModel&gt;();
           this-&gt;Incumbent.zeros(incumbentSize);
         };
@@ -886,8 +884,6 @@ namespace Algorithms {
 
         const arma::sp_mat getCutPoolA() { return this-&gt;CutPool_A; }
         const arma::vec    getCutPoolb() { return this-&gt;CutPool_b; }
-
-        void updateIPModel(std::unique_ptr&lt;GRBModel&gt; IPmodel);
      };
 
 
@@ -902,7 +898,6 @@ namespace Algorithms {
         arma::vec                                buildXminusI(const unsigned int i);
         bool addValueCut(unsigned int player, double RHS, arma::vec xMinusI, bool check = true);
         bool separationOracle(const unsigned int player);
-        bool computeStrategy(const unsigned int i, arma::vec &amp;strategy, double &amp;payoff);
 
         void
         updateMembership(const unsigned int &amp;player, const arma::vec &amp;vertex, bool normalization);

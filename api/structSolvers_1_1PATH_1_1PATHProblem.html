@@ -834,32 +834,38 @@
 <dl class="cpp struct">
 <dt id="_CPPv4N7Solvers4PATH11PATHProblemE">
 <span id="_CPPv3N7Solvers4PATH11PATHProblemE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblemE"></span><span id="Solvers::PATH::PATHProblem"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem"></span><em class="property">struct </em><code class="sig-prename descclassname">Solvers::<a class="reference internal" href="classSolvers_1_1PATH.html#_CPPv4N7Solvers4PATHE" title="Solvers::PATH">PATH</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">PATHProblem</code><br /></dt>
-<dd><div class="breathe-sectiondef docutils container">
+<dd><p>This struct manages an LCP where each complementarity is given by <span class="math notranslate nohighlight">\(x \perp z=(Mx+q)\)</span>. </p>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Members</p>
 <dl class="cpp var">
 <dt id="_CPPv4N7Solvers4PATH11PATHProblem1nE">
 <span id="_CPPv3N7Solvers4PATH11PATHProblem1nE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem1nE"></span><span id="Solvers::PATH::PATHProblem::n__i"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a4b8be75d5ca5c71ea84923e93ff1b1da"></span>int <code class="sig-name descname">n</code><br /></dt>
-<dd></dd></dl>
+<dd><p>Number of x variables, namely complementarities. </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7Solvers4PATH11PATHProblem3nnzE">
 <span id="_CPPv3N7Solvers4PATH11PATHProblem3nnzE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem3nnzE"></span><span id="Solvers::PATH::PATHProblem::nnz__i"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a28806873e3f14ae6bc9323f81f702032"></span>int <code class="sig-name descname">nnz</code><br /></dt>
-<dd></dd></dl>
+<dd><p>Number of non-zeros in M. </p>
+</dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N7Solvers4PATH11PATHProblem1zE">
-<span id="_CPPv3N7Solvers4PATH11PATHProblem1zE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem1zE"></span><span id="Solvers::PATH::PATHProblem::z__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a8a3609b25824677aec2542a50c75e068"></span>double *<code class="sig-name descname">z</code><br /></dt>
-<dd></dd></dl>
+<dt id="_CPPv4N7Solvers4PATH11PATHProblem1xE">
+<span id="_CPPv3N7Solvers4PATH11PATHProblem1xE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem1xE"></span><span id="Solvers::PATH::PATHProblem::x__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a575bde07ffc409beee257004bf402a06"></span>double *<code class="sig-name descname">x</code><br /></dt>
+<dd><p>Pointer to x values. </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7Solvers4PATH11PATHProblem2lbE">
 <span id="_CPPv3N7Solvers4PATH11PATHProblem2lbE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem2lbE"></span><span id="Solvers::PATH::PATHProblem::lb__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a1c5e6f6d626545681e813f0fdf77b989"></span>double *<code class="sig-name descname">lb</code><br /></dt>
-<dd></dd></dl>
+<dd><p>n-dimensional array of lower bounds </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7Solvers4PATH11PATHProblem2ubE">
 <span id="_CPPv3N7Solvers4PATH11PATHProblem2ubE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem2ubE"></span><span id="Solvers::PATH::PATHProblem::ub__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a7fe06ccfe5a6d7e0075971ed760bb2c0"></span>double *<code class="sig-name descname">ub</code><br /></dt>
-<dd></dd></dl>
+<dd><p>n-dimensional array of upper bounds </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7Solvers4PATH11PATHProblem7m_startE">
@@ -879,12 +885,14 @@
 <dl class="cpp var">
 <dt id="_CPPv4N7Solvers4PATH11PATHProblem6m_dataE">
 <span id="_CPPv3N7Solvers4PATH11PATHProblem6m_dataE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem6m_dataE"></span><span id="Solvers::PATH::PATHProblem::m_data__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a1b441242681204e95423f0fe20cbeef9"></span>double *<code class="sig-name descname">m_data</code><br /></dt>
-<dd></dd></dl>
+<dd><p>Data of M, in fortran style. </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7Solvers4PATH11PATHProblem1qE">
 <span id="_CPPv3N7Solvers4PATH11PATHProblem1qE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem1qE"></span><span id="Solvers::PATH::PATHProblem::q__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1af38478e2e44aa8d520f06a2965f5b7f2"></span>double *<code class="sig-name descname">q</code><br /></dt>
-<dd></dd></dl>
+<dd><p>q vector </p>
+</dd></dl>
 
 </div>
 </dd></dl>

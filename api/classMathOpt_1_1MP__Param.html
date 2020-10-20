@@ -970,7 +970,6 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">B</span></code>: Matrix of constraints for the variables y </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">c</span></code>: Vector of linear terms for y in the objective </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: Vector of RHS in the constraints </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Bounds</span></code>: Optional object of VariableBounds bounds on y variables </p></li>
 </ul>
 </dd>
 </dl>
@@ -1124,6 +1123,23 @@
 <dt id="_CPPv4NK7MathOpt8MP_Param14forceDataCheckEv">
 <span id="_CPPv3NK7MathOpt8MP_Param14forceDataCheckEv"></span><span id="_CPPv2NK7MathOpt8MP_Param14forceDataCheckEv"></span><span id="MathOpt::MP_Param::forceDataCheckC"></span><span class="target" id="classMathOpt_1_1MP__Param_1ab5c142568fc37f325c2126b576bc1559"></span>void <code class="sig-name descname">forceDataCheck</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt8MP_Param14forceDataCheckEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Forces the datacheck on the object. Otherwise, it throws an error. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK7MathOpt8MP_Param10isFeasibleERKN4arma3vecERKN4arma3vecEd">
+<span id="_CPPv3NK7MathOpt8MP_Param10isFeasibleERKN4arma3vecERKN4arma3vecEd"></span><span id="_CPPv2NK7MathOpt8MP_Param10isFeasibleERKN4arma3vecERKN4arma3vecEd"></span><span id="MathOpt::MP_Param::isFeasible__arma::vecCR.arma::vecCR.doubleC"></span><span class="target" id="classMathOpt_1_1MP__Param_1ae9eddaae62d38b9e48580e03a9b9699a"></span>bool <code class="sig-name descname">isFeasible</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>y</em>, <em class="property">const</em> arma::vec &amp;<em>x</em>, double <em>tol</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7MathOpt8MP_Param10isFeasibleERKN4arma3vecERKN4arma3vecEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Given a parameter value <code class="docutils literal notranslate"><span class="pre">x</span></code>, and variables values <code class="docutils literal notranslate"><span class="pre">y</span></code>, returns true whenever the point is feasible for the program. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>True if the point is feasible </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code>: The variables’ values </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: The parameters’ values </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tol</span></code>: A numerical tolerance </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 </div>

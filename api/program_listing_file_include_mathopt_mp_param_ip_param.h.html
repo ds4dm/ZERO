@@ -914,6 +914,9 @@ namespace MathOpt {
      std::unique_ptr&lt;GRBModel&gt; getIPModel(arma::vec x, bool relax = false);
 
      unsigned int KKT(arma::sp_mat &amp;M, arma::sp_mat &amp;N, arma::vec &amp;q) const override;
+
+
+     bool isFeasible(const arma::vec &amp;y, const arma::vec &amp;x, double tol) const override;
   };
 } // namespace MathOpt
 </pre></div>

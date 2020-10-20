@@ -869,7 +869,7 @@ namespace MathOpt {
      arma::vec    q;
      perps Compl;
      unsigned int LeadStart{1}, LeadEnd{0}, NumberLeader{0};
-     bool         PureMIP = true;
+     bool PureMIP = true;
      arma::sp_mat A     = {};
      arma::vec    b     = {};
      arma::sp_mat _Acut = {};
@@ -885,7 +885,7 @@ namespace MathOpt {
 
      void makeRelaxed();
 
-     std::unique_ptr&lt;GRBModel&gt; getMIP();
+     std::unique_ptr&lt;GRBModel&gt; getMIP(bool indicators = false);
 
      std::unique_ptr&lt;GRBModel&gt; getMINLP();
 

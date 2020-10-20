@@ -60,7 +60,7 @@ Program Listing for File lcp.h
         arma::vec    q;   
         perps Compl; 
         unsigned int LeadStart{1}, LeadEnd{0}, NumberLeader{0};
-        bool         PureMIP = true; 
+        bool PureMIP = true; 
         arma::sp_mat A     = {}; 
         arma::vec    b     = {}; 
         arma::sp_mat _Acut = {}; 
@@ -76,7 +76,7 @@ Program Listing for File lcp.h
    
         void makeRelaxed();
    
-        std::unique_ptr<GRBModel> getMIP();
+        std::unique_ptr<GRBModel> getMIP(bool indicators = false);
    
         std::unique_ptr<GRBModel> getMINLP();
    

@@ -881,6 +881,7 @@ long int MathOpt::MP_Param::load(const std::string &amp;filename, long int pos) 
      for (unsigned int i = 0; i &lt; diff; ++i)
         this-&gt;Bounds.push_back({0, -1});
   }
+  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Loaded MP_Param to file &quot; &lt;&lt; filename;
   this-&gt;set(Q, C, A, B, c, b);
   return pos;
 }
@@ -1082,8 +1083,7 @@ void MathOpt::MP_Param::rewriteBounds() {
 }
 
 
-const unsigned int MathOpt::MP_Param::size()
-{
+const unsigned int MathOpt::MP_Param::size() {
   if (Q.n_elem &lt; 1)
      this-&gt;Ny = this-&gt;c.size();
   else
@@ -1196,16 +1196,20 @@ double MathOpt::MP_Param::computeObjective(const arma::vec &amp;y,
   if (x.n_rows != this-&gt;getNx())
      throw ZEROException(ZEROErrorCode::InvalidData, &quot;Invalid size of x&quot;);
   if (checkFeas) {
-     arma::vec slack = A * x + B * y - b;
-     if (slack.n_rows) // if infeasible
-        if (slack.max() &gt;= tol)
-          return GRB_INFINITY;
-     if (y.min() &lt;= -tol) // if infeasible
-        return GRB_INFINITY;
+     this-&gt;isFeasible(y, x, tol);
   }
 
   arma::vec obj = 0.5 * y.t() * Q * y + (C * x).t() * y + c.t() * y;
   return obj(0);
+}
+
+bool MathOpt::MP_Param::isFeasible(const arma::vec &amp;y, const arma::vec &amp;x, double tol) const {
+  arma::vec slack = A * x + B * y - b;
+  if (slack.n_rows) // if infeasible
+     if (slack.max() &gt;= tol)
+        return false;
+
+  return true;
 }
 </pre></div>
 </div>

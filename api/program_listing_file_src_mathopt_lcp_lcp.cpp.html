@@ -1338,8 +1338,7 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
   return ZEROStatus::NashEqNotFound;
 }
 
-
-std::unique_ptr&lt;GRBModel&gt; MathOpt::LCP::getMIP() {
+std::unique_ptr&lt;GRBModel&gt; MathOpt::LCP::getMIP(bool indicators) {
   std::unique_ptr&lt;GRBModel&gt; model{new GRBModel(this-&gt;RelaxedModel)};
   // Creating the model
   try {
@@ -1359,27 +1358,34 @@ std::unique_ptr&lt;GRBModel&gt; MathOpt::LCP::getMIP() {
 
      GRBLinExpr expr = 0;
      for (const auto p : Compl) {
-        // z[i] &lt;= Mu constraint
 
-        // u[j]=0 --&gt; z[i] &lt;=0
-        model-&gt;addGenConstrIndicator(u[p.first],
-                                              1,
-                                              z[p.first],
-                                              GRB_LESS_EQUAL,
-                                              0,
-                                              &quot;z_ind_&quot; + std::to_string(p.first) + &quot;_L_Mu_&quot; +
-                                                    std::to_string(p.first));
-        // x[i] &lt;= M(1-u) constraint
 
-        model-&gt;addGenConstrIndicator(v[p.first],
-                                              1,
-                                              x[p.second],
-                                              GRB_LESS_EQUAL,
-                                              0,
-                                              &quot;x_ind_&quot; + std::to_string(p.first) + &quot;_L_MuDash_&quot; +
-                                                    std::to_string(p.first));
+        if (indicators) {
+          // u[i]=1 --&gt; z[i] &lt;=0
+          model-&gt;addGenConstrIndicator(u[p.first],
+                                                 1,
+                                                 z[p.first],
+                                                 GRB_LESS_EQUAL,
+                                                 0,
+                                                 &quot;z_ind_&quot; + std::to_string(p.first) + &quot;_L_Mu_&quot; +
+                                                      std::to_string(p.first));
+          // v[i]=1 --&gt; x[i] &lt;=0
+          model-&gt;addGenConstrIndicator(v[p.first],
+                                                 1,
+                                                 x[p.second],
+                                                 GRB_LESS_EQUAL,
+                                                 0,
+                                                 &quot;x_ind_&quot; + std::to_string(p.first) + &quot;_L_MuDash_&quot; +
+                                                      std::to_string(p.first));
 
-        model-&gt;addConstr(u[p.first] + v[p.first], GRB_EQUAL, 1, &quot;uv_sum_&quot; + std::to_string(p.first));
+
+          model-&gt;addConstr(
+                u[p.first] + v[p.first], GRB_EQUAL, 1, &quot;uv_sum_&quot; + std::to_string(p.first));
+        } else {
+          GRBVar sos[]  = {x[p.second], z[p.first]};
+          double sosw[] = {1, 1};
+          model-&gt;addSOS(sos, sosw, 2, GRB_SOS_TYPE1);
+        }
      }
      // If any equation or variable is to be fixed to zero, that happens here!
      model-&gt;update();

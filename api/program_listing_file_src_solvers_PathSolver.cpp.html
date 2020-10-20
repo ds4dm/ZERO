@@ -834,7 +834,6 @@ extern &quot;C&quot; {
 #include &quot;solvers/PathSolver.h&quot;
 #include &quot;support/codes.h&quot;
 
-
 void Solvers::PATH::sort(int rows, int cols, int elements, int *row, int *col, double *data) {
   double *m_data;
   int *   m_start;
@@ -896,8 +895,6 @@ void Solvers::PATH::sort(int rows, int cols, int elements, int *row, int *col, d
   return;
 }
 
-
-
 int Solvers::PATH::CreateLMCP(int    n,
                                         int    m_nnz,
                                         int    m_i[],
@@ -932,6 +929,9 @@ int Solvers::PATH::CreateLMCP(int    n,
   if (timeLimit &gt; 0)
      Options_SetDouble(o, &quot;time_limit&quot;, timeLimit);
 
+  Options_SetDouble(o, &quot;major_iteration_limit&quot;, 1000);
+  Options_SetDouble(o, &quot;minor_iteration_limit&quot;, 1500);
+  Options_SetDouble(o, &quot;cumulative_iteration_limit&quot;, 20000);
 
   if (n == 0) {
      fprintf(stdout, &quot;\n ** EXIT - No variables.\n&quot;);
@@ -950,7 +950,7 @@ int Solvers::PATH::CreateLMCP(int    n,
 
   this-&gt;Problem.n       = n;
   this-&gt;Problem.nnz     = m_nnz;
-  this-&gt;Problem.z       = x;
+  this-&gt;Problem.x       = x;
   this-&gt;Problem.q       = q;
   this-&gt;Problem.lb      = lb;
   this-&gt;Problem.ub      = ub;
@@ -1144,11 +1144,13 @@ Solvers::PATH::PATH(const arma::sp_mat &amp;  M,
      this-&gt;status = ZEROStatus::NashEqNotFound;
   }
 }
-void Solvers::PATH::C_bounds(int n, double *z, double *lb, double *ub) {
+
+
+void Solvers::PATH::C_bounds(int n, double *x, double *lb, double *ub) {
   int i;
 
   for (i = 0; i &lt; n; i++) {
-     z[i]  = this-&gt;Problem.z[i];
+     x[i]  = this-&gt;Problem.x[i];
      lb[i] = this-&gt;Problem.lb[i];
      ub[i] = this-&gt;Problem.ub[i];
      // std::cout &lt;&lt;&quot;\nx_&quot;&lt;&lt;std::to_string(i)&lt;&lt;&quot; in [&quot;&lt;&lt;std::to_string(lb[i])&lt;&lt;&quot;,
@@ -1156,7 +1158,9 @@ void Solvers::PATH::C_bounds(int n, double *z, double *lb, double *ub) {
   }
   // std::cout &lt;&lt; &quot;\n done\n&quot;;
 }
-int Solvers::PATH::C_function_evaluation(int n, double *z, double *f) {
+
+
+int Solvers::PATH::C_function_evaluation(int n, double *x, double *f) {
   int    col, colStart, colEnd, row;
   double value;
 
@@ -1165,7 +1169,7 @@ int Solvers::PATH::C_function_evaluation(int n, double *z, double *f) {
   }
 
   for (col = 0; col &lt; n; col++) {
-     value = z[col];
+     value = x[col];
 
      if (value != 0) {
         colStart = Problem.m_start[col] - 1;
@@ -1181,8 +1185,9 @@ int Solvers::PATH::C_function_evaluation(int n, double *z, double *f) {
 
   return 0;
 }
+
 int Solvers::PATH::C_jacobian_evaluation(int     n,
-                                                      double *z,
+                                                      double *x,
                                                       int     wantf,
                                                       double *f,
                                                       int *   nnz,
@@ -1193,7 +1198,7 @@ int Solvers::PATH::C_jacobian_evaluation(int     n,
   int element;
 
   if (wantf) {
-     this-&gt;C_function_evaluation(n, z, f);
+     this-&gt;C_function_evaluation(n, x, f);
   }
 
   if (!Filled) {
@@ -1207,7 +1212,7 @@ int Solvers::PATH::C_jacobian_evaluation(int     n,
         data[element] = Problem.m_data[element];
      }
 
-     Filled = 1;
+     Filled = true;
   }
 
   *nnz = Problem.nnz;
@@ -1227,10 +1232,43 @@ void Solvers::PATH::C_problem_size(int *n, int *nnz) {
   *n   = this-&gt;Problem.n;
   *nnz = this-&gt;Problem.nnz + 1;
 }
-void Solvers::PATH::bounds(void *dat, int n, double *z, double *lb, double *ub) {
+void Solvers::PATH::bounds(void *dat, int n, double *x, double *lb, double *ub) {
   auto *self = static_cast&lt;Solvers::PATH *&gt;(dat);
-  self-&gt;C_bounds(n, z, lb, ub);
+  self-&gt;C_bounds(n, x, lb, ub);
   return;
+}
+void Solvers::PATH::problem_size(void *dat, int *n, int *nnz) {
+  auto *self = static_cast&lt;Solvers::PATH *&gt;(dat);
+  self-&gt;C_problem_size(n, nnz);
+}
+
+void Solvers::PATH::start(void *dat) {
+  auto *self   = static_cast&lt;Solvers::PATH *&gt;(dat);
+  self-&gt;Filled = 0;
+}
+
+int Solvers::PATH::function_evaluation(void *dat, int n, double *x, double *f) {
+  auto *self = static_cast&lt;Solvers::PATH *&gt;(dat);
+  return self-&gt;C_function_evaluation(n, x, f);
+}
+
+int Solvers::PATH::jacobian_evaluation(void *  dat,
+                                                    int     n,
+                                                    double *x,
+                                                    int     wantf,
+                                                    double *f,
+                                                    int *   nnz,
+                                                    int *   col_start,
+                                                    int *   col_len,
+                                                    int *   row,
+                                                    double *data) {
+  auto *self = static_cast&lt;Solvers::PATH *&gt;(dat);
+  return self-&gt;C_jacobian_evaluation(n, x, wantf, f, nnz, col_start, col_len, row, data);
+}
+
+void *Solvers::PATH::messageCB(void *dat, int mode, char *buf) {
+  std::cout &lt;&lt; buf;
+  return dat;
 }
 </pre></div>
 </div>

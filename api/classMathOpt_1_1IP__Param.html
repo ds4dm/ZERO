@@ -884,7 +884,7 @@
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt8IP_Param13addConstraintEN4arma3vecEdbd">
 <span id="_CPPv3N7MathOpt8IP_Param13addConstraintEN4arma3vecEdbd"></span><span id="_CPPv2N7MathOpt8IP_Param13addConstraintEN4arma3vecEdbd"></span><span id="MathOpt::IP_Param::addConstraint__arma::vec.double.b.double"></span><span class="target" id="classMathOpt_1_1IP__Param_1a4557dfdfa31c736fe17108eb66d86dad"></span>bool <code class="sig-name descname">addConstraint</code><span class="sig-paren">(</span>arma::vec <em>Ain</em>, double <em>bin</em>, bool <em>checkDuplicate</em> = true, double <em>tol</em> = 1e-5<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt8IP_Param13addConstraintEN4arma3vecEdbd" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Adds a constraints to the <a class="reference internal" href="#classMathOpt_1_1IP__Param"><span class="std std-ref">IP_Param</span></a>. It stores a description of the new cut Ainx &amp;&amp; bin of <code class="docutils literal notranslate"><span class="pre">Ain</span></code> (and RHS <code class="docutils literal notranslate"><span class="pre">bin</span></code>) in B and b, respectively. </p>
+<dd><p>Adds a constraints to the <a class="reference internal" href="#classMathOpt_1_1IP__Param"><span class="std std-ref">IP_Param</span></a>. It stores a description of the new cut <span class="math notranslate nohighlight">\(A_{in} x &amp;\leq&amp; b_{in}\)</span> of <code class="docutils literal notranslate"><span class="pre">Ain</span></code> (and RHS <code class="docutils literal notranslate"><span class="pre">bin</span></code>) in B and b, respectively. </p>
 <p><dl class="simple">
 <dt><strong>Return</strong></dt><dd><p>true if the constraint has been added This works also when the <a class="reference internal" href="#classMathOpt_1_1IP__Param"><span class="std std-ref">IP_Param</span></a> is Finalized. </p>
 </dd>
@@ -1121,6 +1121,23 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">M</span></code>: The output M term </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">N</span></code>: The output N term </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">q</span></code>: The output q term </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK7MathOpt8IP_Param10isFeasibleERKN4arma3vecERKN4arma3vecEd">
+<span id="_CPPv3NK7MathOpt8IP_Param10isFeasibleERKN4arma3vecERKN4arma3vecEd"></span><span id="_CPPv2NK7MathOpt8IP_Param10isFeasibleERKN4arma3vecERKN4arma3vecEd"></span><span id="MathOpt::IP_Param::isFeasible__arma::vecCR.arma::vecCR.doubleC"></span><span class="target" id="classMathOpt_1_1IP__Param_1a8f8c522ffb24b90907d8ed4135508a53"></span>bool <code class="sig-name descname">isFeasible</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>y</em>, <em class="property">const</em> arma::vec &amp;<em>x</em>, double <em>tol</em><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">override</em><a class="headerlink" href="#_CPPv4NK7MathOpt8IP_Param10isFeasibleERKN4arma3vecERKN4arma3vecEd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Given a parameter value <code class="docutils literal notranslate"><span class="pre">x</span></code>, and variables values <code class="docutils literal notranslate"><span class="pre">y</span></code>, returns true whenever the point is feasible for the program. This method overrides the <a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param"><span class="std std-ref">MathOpt::MP_Param</span></a> to manage integral requirements. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>True if the point is feasible </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code>: The variables’ values </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: The parameters’ values </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tol</span></code>: A numerical tolerance </p></li>
 </ul>
 </dd>
 </dl>

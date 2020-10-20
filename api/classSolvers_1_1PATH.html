@@ -839,7 +839,8 @@
 <dl class="cpp class">
 <dt id="_CPPv4N7Solvers4PATHE">
 <span id="_CPPv3N7Solvers4PATHE"></span><span id="_CPPv2N7Solvers4PATHE"></span><span id="Solvers::PATH"></span><span class="target" id="classSolvers_1_1PATH"></span><em class="property">class </em><code class="sig-prename descclassname">Solvers<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">PATH</code><a class="headerlink" href="#_CPPv4N7Solvers4PATHE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><div class="breathe-sectiondef docutils container">
+<dd><p>This class manages the external solver <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a>, for mixed-complementarity problems. </p>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="cpp function">
 <dt id="_CPPv4N7Solvers4PATH4PATHEv">
@@ -849,50 +850,151 @@
 <dl class="cpp function">
 <dt id="_CPPv4N7Solvers4PATH4PATHERKN4arma6sp_matERKN4arma3vecERK5perpsRK14VariableBoundsRN4arma3vecEN4arma3vecEd">
 <span id="_CPPv3N7Solvers4PATH4PATHERKN4arma6sp_matERKN4arma3vecERK5perpsRK14VariableBoundsRN4arma3vecEN4arma3vecEd"></span><span id="_CPPv2N7Solvers4PATH4PATHERKN4arma6sp_matERKN4arma3vecERK5perpsRK14VariableBoundsRN4arma3vecEN4arma3vecEd"></span><span id="Solvers::PATH::PATH__arma::sp_matCR.arma::vecCR.perpsCR.VariableBoundsCR.arma::vecR.arma::vec.double"></span><span class="target" id="classSolvers_1_1PATH_1a2b0ac945bef8ba6d3cf6e0a259d0deed"></span><code class="sig-name descname">PATH</code><span class="sig-paren">(</span><em class="property">const</em> arma::sp_mat &amp;<em>M</em>, <em class="property">const</em> arma::vec &amp;<em>q</em>, <em class="property">const</em> <a class="reference internal" href="typedef_zero_8h_1a23f2df644233cc2499005f53997039b4.html#_CPPv45perps" title="perps">perps</a> &amp;<em>Compl</em>, <em class="property">const</em> <a class="reference internal" href="typedef_zero_8h_1a58d910cf6fdc1337ace92535234dc1d4.html#_CPPv414VariableBounds" title="VariableBounds">VariableBounds</a> &amp;<em>Bounds</em>, arma::vec &amp;<em>x</em>, arma::vec <em>z</em>, double <em>timeLimit</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH4PATHERKN4arma6sp_matERKN4arma3vecERK5perpsRK14VariableBoundsRN4arma3vecEN4arma3vecEd" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Main public method to use the solver. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">M</span></code>: The matrix M in the LCP </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">q</span></code>: The vector q in the LCP </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Compl</span></code>: Pairs of complementarities &lt;Eqn, Var&gt; </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Bounds</span></code>: Bounds on variables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: Output vector of x </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code>: Output vector of z equation values </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">timeLimit</span></code>: A double timelimit </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK7Solvers4PATH9getStatusEv">
 <span id="_CPPv3NK7Solvers4PATH9getStatusEv"></span><span id="_CPPv2NK7Solvers4PATH9getStatusEv"></span><span id="Solvers::PATH::getStatusC"></span><span class="target" id="classSolvers_1_1PATH_1a2bfe3d7a973bfc62a69523411be95388"></span><a class="reference internal" href="enum_codes_8h_1adc92fa8b12e5abec0a79ad40bedc1ccf.html#_CPPv410ZEROStatus" title="ZEROStatus">ZEROStatus</a> <code class="sig-name descname">getStatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7Solvers4PATH9getStatusEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Read-only getter for the status. </p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Static Functions</p>
 <dl class="cpp function">
 <dt id="_CPPv4N7Solvers4PATH9messageCBEPviPc">
-<span id="_CPPv3N7Solvers4PATH9messageCBEPviPc"></span><span id="_CPPv2N7Solvers4PATH9messageCBEPviPc"></span><span id="Solvers::PATH::messageCB__voidP.i.cP"></span><span class="target" id="classSolvers_1_1PATH_1ad4a4e08b9ae6c985c4246a4c97bf796e"></span>void *<code class="sig-name descname">messageCB</code><span class="sig-paren">(</span>void *<em>dat</em>, int <em>mode</em>, char *<em>buf</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH9messageCBEPviPc" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<span id="_CPPv3N7Solvers4PATH9messageCBEPviPc"></span><span id="_CPPv2N7Solvers4PATH9messageCBEPviPc"></span><span id="Solvers::PATH::messageCB__voidP.i.cP"></span><span class="target" id="classSolvers_1_1PATH_1a8c41a7d08516f688e6903d57c4ea8325"></span>void *<code class="sig-name descname">messageCB</code><span class="sig-paren">(</span>void *<em>dat</em>, int <em>mode</em>, char *<em>buf</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH9messageCBEPviPc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Message callback for path. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p></p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dat</span></code>: The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mode</span></code>: Print-mode. Currently unused, see <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">buf</span></code>: The char buffer </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7Solvers4PATH7mcp_typEPviPi">
 <span id="_CPPv3N7Solvers4PATH7mcp_typEPviPi"></span><span id="_CPPv2N7Solvers4PATH7mcp_typEPviPi"></span><span id="Solvers::PATH::mcp_typ__voidP.i.iP"></span><span class="target" id="classSolvers_1_1PATH_1a9d4c58f28069e511a2dff725553a6c23"></span>void *<code class="sig-name descname">mcp_typ</code><span class="sig-paren">(</span>void *<em>dat</em>, int <em>nnz</em>, int *<em>typ</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH7mcp_typEPviPi" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Presolving type for the variable. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Not used. An instance of this </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dat</span></code>: The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nnz</span></code>: Number of non-zeros in M </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">typ</span></code>: The output vector for presolve </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7Solvers4PATH19jacobian_evaluationEPviPdiPdPiPiPiPiPd">
-<span id="_CPPv3N7Solvers4PATH19jacobian_evaluationEPviPdiPdPiPiPiPiPd"></span><span id="_CPPv2N7Solvers4PATH19jacobian_evaluationEPviPdiPdPiPiPiPiPd"></span><span id="Solvers::PATH::jacobian_evaluation__voidP.i.doubleP.i.doubleP.iP.iP.iP.iP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1a0165d364fe311a5f2bf3028b6e4afe3c"></span>int <code class="sig-name descname">jacobian_evaluation</code><span class="sig-paren">(</span>void *<em>dat</em>, int <em>n</em>, double *<em>z</em>, int <em>wantf</em>, double *<em>f</em>, int *<em>nnz</em>, int *<em>col_start</em>, int *<em>col_len</em>, int *<em>row</em>, double *<em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH19jacobian_evaluationEPviPdiPdPiPiPiPiPd" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<span id="_CPPv3N7Solvers4PATH19jacobian_evaluationEPviPdiPdPiPiPiPiPd"></span><span id="_CPPv2N7Solvers4PATH19jacobian_evaluationEPviPdiPdPiPiPiPiPd"></span><span id="Solvers::PATH::jacobian_evaluation__voidP.i.doubleP.i.doubleP.iP.iP.iP.iP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1a73c977ba9914db2fe52aa0104524291d"></span>int <code class="sig-name descname">jacobian_evaluation</code><span class="sig-paren">(</span>void *<em>dat</em>, int <em>n</em>, double *<em>x</em>, int <em>wantf</em>, double *<em>f</em>, int *<em>nnz</em>, int *<em>col_start</em>, int *<em>col_len</em>, int *<em>row</em>, double *<em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH19jacobian_evaluationEPviPdiPdPiPiPiPiPd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Static wrapper for PATH::c_jacobian_evaluation. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Unused. This is a callback function </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dat</span></code>: The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Number of variables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: Vector of variables for the lcp. Here we call them </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wantf</span></code>: True (positive) if the function value is needed </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code>: The output object for the function value </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nnz</span></code>: Number of non-zeros </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">col_start</span></code>: Column start vector </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">col_len</span></code>: Column length vector </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">row</span></code>: Row vector </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>: M_Data vector </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7Solvers4PATH19function_evaluationEPviPdPd">
-<span id="_CPPv3N7Solvers4PATH19function_evaluationEPviPdPd"></span><span id="_CPPv2N7Solvers4PATH19function_evaluationEPviPdPd"></span><span id="Solvers::PATH::function_evaluation__voidP.i.doubleP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1aaff19de631f3501945a960acdac95d2b"></span>int <code class="sig-name descname">function_evaluation</code><span class="sig-paren">(</span>void *<em>dat</em>, int <em>n</em>, double *<em>z</em>, double *<em>f</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH19function_evaluationEPviPdPd" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<span id="_CPPv3N7Solvers4PATH19function_evaluationEPviPdPd"></span><span id="_CPPv2N7Solvers4PATH19function_evaluationEPviPdPd"></span><span id="Solvers::PATH::function_evaluation__voidP.i.doubleP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1ad28276e7cce88e626aa0f342678c9035"></span>int <code class="sig-name descname">function_evaluation</code><span class="sig-paren">(</span>void *<em>dat</em>, int <em>n</em>, double *<em>x</em>, double *<em>f</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH19function_evaluationEPviPdPd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Static wrapper for PATH::c_function_evaluation. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Unused. This is a callback function </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dat</span></code>: The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Number of variables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: Vector of variables for the lcp. Here we call them </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code>: The output object for the function value </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7Solvers4PATH5startEPv">
-<span id="_CPPv3N7Solvers4PATH5startEPv"></span><span id="_CPPv2N7Solvers4PATH5startEPv"></span><span id="Solvers::PATH::start__voidP"></span><span class="target" id="classSolvers_1_1PATH_1a386bcffd4edd0c6d876863ab911632c7"></span>void <code class="sig-name descname">start</code><span class="sig-paren">(</span>void *<em>dat</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH5startEPv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<span id="_CPPv3N7Solvers4PATH5startEPv"></span><span id="_CPPv2N7Solvers4PATH5startEPv"></span><span id="Solvers::PATH::start__voidP"></span><span class="target" id="classSolvers_1_1PATH_1a1155a368e7e42347f37aff438181ae4e"></span>void <code class="sig-name descname">start</code><span class="sig-paren">(</span>void *<em>dat</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH5startEPv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Starting function for <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a>. This is called whenever the solver is initialized. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dat</span></code>: The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7Solvers4PATH6boundsEPviPdPdPd">
-<span id="_CPPv3N7Solvers4PATH6boundsEPviPdPdPd"></span><span id="_CPPv2N7Solvers4PATH6boundsEPviPdPdPd"></span><span id="Solvers::PATH::bounds__voidP.i.doubleP.doubleP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1a28423079a5aa3e653e3dd8d8fa15e280"></span>void <code class="sig-name descname">bounds</code><span class="sig-paren">(</span>void *<em>dat</em>, int <em>n</em>, double *<em>z</em>, double *<em>lb</em>, double *<em>ub</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH6boundsEPviPdPdPd" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<span id="_CPPv3N7Solvers4PATH6boundsEPviPdPdPd"></span><span id="_CPPv2N7Solvers4PATH6boundsEPviPdPdPd"></span><span id="Solvers::PATH::bounds__voidP.i.doubleP.doubleP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1a5535947807c7949bb55b0b3ef0d2e504"></span>void <code class="sig-name descname">bounds</code><span class="sig-paren">(</span>void *<em>dat</em>, int <em>n</em>, double *<em>x</em>, double *<em>lb</em>, double *<em>ub</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH6boundsEPviPdPdPd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Static wrapper for PATH::c_bounds. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dat</span></code>: The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Number of variables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Pointer to variables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lb</span></code>: Lower bounds on variables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ub</span></code>: Upper bounds on variables </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7Solvers4PATH12problem_sizeEPvPiPi">
-<span id="_CPPv3N7Solvers4PATH12problem_sizeEPvPiPi"></span><span id="_CPPv2N7Solvers4PATH12problem_sizeEPvPiPi"></span><span id="Solvers::PATH::problem_size__voidP.iP.iP"></span><span class="target" id="classSolvers_1_1PATH_1a1cad6ae7743830a862c6f475f74fbb46"></span>void <code class="sig-name descname">problem_size</code><span class="sig-paren">(</span>void *<em>dat</em>, int *<em>n</em>, int *<em>nnz</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH12problem_sizeEPvPiPi" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<span id="_CPPv3N7Solvers4PATH12problem_sizeEPvPiPi"></span><span id="_CPPv2N7Solvers4PATH12problem_sizeEPvPiPi"></span><span id="Solvers::PATH::problem_size__voidP.iP.iP"></span><span class="target" id="classSolvers_1_1PATH_1a87411f8522cd693364da4dc8c58787a3"></span>void <code class="sig-name descname">problem_size</code><span class="sig-paren">(</span>void *<em>dat</em>, int *<em>n</em>, int *<em>nnz</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH12problem_sizeEPvPiPi" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Static wrapper for PATH::c_problem_size. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dat</span></code>: The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Number of variables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nnz</span></code>: Number of non-zeros in M </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -900,32 +1002,117 @@
 <dl class="cpp function">
 <dt id="_CPPv4N7Solvers4PATH10CreateLMCPEiiA_iA_iA_dA_dA_dA_dA_dA_did">
 <span id="_CPPv3N7Solvers4PATH10CreateLMCPEiiA_iA_iA_dA_dA_dA_dA_dA_did"></span><span id="_CPPv2N7Solvers4PATH10CreateLMCPEiiA_iA_iA_dA_dA_dA_dA_dA_did"></span><span id="Solvers::PATH::CreateLMCP__i.i.iA.iA.doubleA.doubleA.doubleA.doubleA.doubleA.doubleA.i.double"></span><span class="target" id="classSolvers_1_1PATH_1a910fa4ef3edd5879b0257b90fb26dffa"></span>int <code class="sig-name descname">CreateLMCP</code><span class="sig-paren">(</span>int <em>n</em>, int <em>m_nnz</em>, int <em>m_i</em>[], int <em>m_j</em>[], double <em>m_ij</em>[], double <em>q</em>[], double <em>lb</em>[], double <em>ub</em>[], double <em>x</em>[], double <em>z</em>[], int <em>verbose</em>, double <em>timeLimit</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH10CreateLMCPEiiA_iA_iA_dA_dA_dA_dA_dA_did" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Internal method to create the linear mixed-complemetarity problem. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> MCP_Termination code </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Number of x variables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m_nnz</span></code>: Number of non-zeros in M </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m_i</span></code>: Row indexes for M non-zeros. Fortran style: start is 1 (not 0) </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m_j</span></code>: Column indexes for M non-zeros. Fortran style: start is 1 (not 0) </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m_ij</span></code>: The data in M corresponding to row <code class="docutils literal notranslate"><span class="pre">m_i</span></code> and column <code class="docutils literal notranslate"><span class="pre">m_j</span></code> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">q</span></code>: The q vector </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lb</span></code>: Vector of lower bounds on x </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ub</span></code>: Vector of upper bounds on x </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: Output vector of x variables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code>: Output vector of z equation values </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code>: True if <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> will be verbose </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">timeLimit</span></code>: A double timelimit </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7Solvers4PATH4sortEiiiPiPiPd">
 <span id="_CPPv3N7Solvers4PATH4sortEiiiPiPiPd"></span><span id="_CPPv2N7Solvers4PATH4sortEiiiPiPiPd"></span><span id="Solvers::PATH::sort__i.i.i.iP.iP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1abe40abf4f2297d4a756bfbd26b86564f"></span>void <code class="sig-name descname">sort</code><span class="sig-paren">(</span>int <em>rows</em>, int <em>cols</em>, int <em>elements</em>, int *<em>row</em>, int *<em>col</em>, double *<em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH4sortEiiiPiPiPd" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>This function is from <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a>. Sorts the data in M. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rows</span></code>: Row count </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cols</span></code>: Column counts </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">elements</span></code>: Element counts </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">row</span></code>: Row data pointer </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">col</span></code>: Column data pointer </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>: M-data pointer </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7Solvers4PATH14C_problem_sizeEPiPi">
 <span id="_CPPv3N7Solvers4PATH14C_problem_sizeEPiPi"></span><span id="_CPPv2N7Solvers4PATH14C_problem_sizeEPiPi"></span><span id="Solvers::PATH::C_problem_size__iP.iP"></span><span class="target" id="classSolvers_1_1PATH_1ac3577d9f9a0a60ed3dedf541675dc04f"></span>void <code class="sig-name descname">C_problem_size</code><span class="sig-paren">(</span>int *<em>n</em>, int *<em>nnz</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH14C_problem_sizeEPiPi" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Fills the problem size. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Number of variables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nnz</span></code>: Number of non-zeros in M </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7Solvers4PATH8C_boundsEiPdPdPd">
 <span id="_CPPv3N7Solvers4PATH8C_boundsEiPdPdPd"></span><span id="_CPPv2N7Solvers4PATH8C_boundsEiPdPdPd"></span><span id="Solvers::PATH::C_bounds__i.doubleP.doubleP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1a9d12b23197a22ef2bf9ae4ed5334caea"></span>void <code class="sig-name descname">C_bounds</code><span class="sig-paren">(</span>int <em>n</em>, double *<em>z</em>, double *<em>lb</em>, double *<em>ub</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH8C_boundsEiPdPdPd" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Assigns bounds to variables. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Number of variables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Pointer to variables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lb</span></code>: Lower bounds on variables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ub</span></code>: Upper bounds on variables </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7Solvers4PATH21C_function_evaluationEiPdPd">
-<span id="_CPPv3N7Solvers4PATH21C_function_evaluationEiPdPd"></span><span id="_CPPv2N7Solvers4PATH21C_function_evaluationEiPdPd"></span><span id="Solvers::PATH::C_function_evaluation__i.doubleP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1a945c239c45eedc7bb103b6f81dd155a7"></span>int <code class="sig-name descname">C_function_evaluation</code><span class="sig-paren">(</span>int <em>n</em>, double *<em>z</em>, double *<em>f</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH21C_function_evaluationEiPdPd" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<span id="_CPPv3N7Solvers4PATH21C_function_evaluationEiPdPd"></span><span id="_CPPv2N7Solvers4PATH21C_function_evaluationEiPdPd"></span><span id="Solvers::PATH::C_function_evaluation__i.doubleP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1a00a6d1a5b7faa19634237bbbff2752ce"></span>int <code class="sig-name descname">C_function_evaluation</code><span class="sig-paren">(</span>int <em>n</em>, double *<em>x</em>, double *<em>f</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH21C_function_evaluationEiPdPd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Static wrapper for PATH::c_function_evaluation. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Unused. This is a callback function </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dat</span></code>: The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Number of variables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: Vector of variables for the lcp. Here we call them </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code>: The output object for the function value </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N7Solvers4PATH21C_jacobian_evaluationEiPdiPdPiPiPiPiPd">
-<span id="_CPPv3N7Solvers4PATH21C_jacobian_evaluationEiPdiPdPiPiPiPiPd"></span><span id="_CPPv2N7Solvers4PATH21C_jacobian_evaluationEiPdiPdPiPiPiPiPd"></span><span id="Solvers::PATH::C_jacobian_evaluation__i.doubleP.i.doubleP.iP.iP.iP.iP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1a868088bf72f5e391558a36988663f4af"></span>int <code class="sig-name descname">C_jacobian_evaluation</code><span class="sig-paren">(</span>int <em>n</em>, double *<em>z</em>, int <em>wantf</em>, double *<em>f</em>, int *<em>nnz</em>, int *<em>col_start</em>, int *<em>col_len</em>, int *<em>row</em>, double *<em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH21C_jacobian_evaluationEiPdiPdPiPiPiPiPd" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<span id="_CPPv3N7Solvers4PATH21C_jacobian_evaluationEiPdiPdPiPiPiPiPd"></span><span id="_CPPv2N7Solvers4PATH21C_jacobian_evaluationEiPdiPdPiPiPiPiPd"></span><span id="Solvers::PATH::C_jacobian_evaluation__i.doubleP.i.doubleP.iP.iP.iP.iP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1a5567d40864bea273cd46e2a3b6018104"></span>int <code class="sig-name descname">C_jacobian_evaluation</code><span class="sig-paren">(</span>int <em>n</em>, double *<em>x</em>, int <em>wantf</em>, double *<em>f</em>, int *<em>nnz</em>, int *<em>col_start</em>, int *<em>col_len</em>, int *<em>row</em>, double *<em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH21C_jacobian_evaluationEiPdiPdPiPiPiPiPd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Evaluates the jacobian at a given point. Eventually, returns the value of the complementarity. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Unused. This is a callback function </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Number of variables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: Vector of variables for the lcp. Here we call them </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wantf</span></code>: True (positive) if the function value is needed </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code>: The output object for the function value </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nnz</span></code>: Number of non-zeros </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">col_start</span></code>: Column start vector </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">col_len</span></code>: Column length vector </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">row</span></code>: Row vector </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>: M_Data vector </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -933,12 +1120,14 @@
 <dl class="cpp var">
 <dt id="_CPPv4N7Solvers4PATH6statusE">
 <span id="_CPPv3N7Solvers4PATH6statusE"></span><span id="_CPPv2N7Solvers4PATH6statusE"></span><span id="Solvers::PATH::status__ZEROStatus"></span><span class="target" id="classSolvers_1_1PATH_1a0a683bb28112f56d04479d43536e597c"></span><a class="reference internal" href="enum_codes_8h_1adc92fa8b12e5abec0a79ad40bedc1ccf.html#_CPPv410ZEROStatus" title="ZEROStatus">ZEROStatus</a> <code class="sig-name descname">status</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH6statusE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Status for the solver’ instance. </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7Solvers4PATH6FilledE">
-<span id="_CPPv3N7Solvers4PATH6FilledE"></span><span id="_CPPv2N7Solvers4PATH6FilledE"></span><span id="Solvers::PATH::Filled__i"></span><span class="target" id="classSolvers_1_1PATH_1a8b2410099e1fca07974db6e3b8e6dd0f"></span>int <code class="sig-name descname">Filled</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH6FilledE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<span id="_CPPv3N7Solvers4PATH6FilledE"></span><span id="_CPPv2N7Solvers4PATH6FilledE"></span><span id="Solvers::PATH::Filled__b"></span><span class="target" id="classSolvers_1_1PATH_1abffda59f9d6e4c57449242a883de5695"></span>bool <code class="sig-name descname">Filled</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH6FilledE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Boolean controlling instance’s filling. </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7Solvers4PATH7ProblemE">
@@ -948,48 +1137,57 @@
 <dl class="cpp var">
 <dt id="_CPPv4N7Solvers4PATH14PATH_InterfaceE">
 <span id="_CPPv3N7Solvers4PATH14PATH_InterfaceE"></span><span id="_CPPv2N7Solvers4PATH14PATH_InterfaceE"></span><span id="Solvers::PATH::PATH_Interface__MCP_Interface"></span><span class="target" id="classSolvers_1_1PATH_1a4164ffe4deb54c00be6355a5e46f05e7"></span>MCP_Interface <code class="sig-name descname">PATH_Interface</code> = {this, reinterpret_cast&lt;void (*)<span class="sig-paren">(</span>void*, int*, int*<span class="sig-paren">)</span>&gt;(this-&gt;problem_size), reinterpret_cast&lt;void (*)<span class="sig-paren">(</span>void*, int, double*, double*, double*<span class="sig-paren">)</span>&gt;(this-&gt;bounds), reinterpret_cast&lt;int (*)<span class="sig-paren">(</span>void*, int, double*, double*<span class="sig-paren">)</span>&gt;(&amp;this-&gt;function_evaluation), reinterpret_cast&lt;int (*)<span class="sig-paren">(</span>void*, int, double*, int, double*, int*, int*, int*, int*, double*<span class="sig-paren">)</span>&gt;(&amp;this-&gt;jacobian_evaluation), static_cast&lt;void (*)<span class="sig-paren">(</span>void*<span class="sig-paren">)</span>&gt;(this-&gt;start), NULL, NULL, NULL, NULL}<a class="headerlink" href="#_CPPv4N7Solvers4PATH14PATH_InterfaceE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>The MCP_Interface initializer. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7Solvers4PATH13PATH_PresolveE">
 <span id="_CPPv3N7Solvers4PATH13PATH_PresolveE"></span><span id="_CPPv2N7Solvers4PATH13PATH_PresolveE"></span><span id="Solvers::PATH::PATH_Presolve__Presolve_Interface"></span><span class="target" id="classSolvers_1_1PATH_1ae4674579401aabe67e82d25d2817c887"></span>Presolve_Interface <code class="sig-name descname">PATH_Presolve</code> = {NULL, NULL, NULL, NULL, NULL, reinterpret_cast&lt;void (*)<span class="sig-paren">(</span>void*, int, int*<span class="sig-paren">)</span>&gt;(this-&gt;mcp_typ), NULL}<a class="headerlink" href="#_CPPv4N7Solvers4PATH13PATH_PresolveE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>The Presolve_Interface initializer. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7Solvers4PATH11PATH_OutputE">
 <span id="_CPPv3N7Solvers4PATH11PATH_OutputE"></span><span id="_CPPv2N7Solvers4PATH11PATH_OutputE"></span><span id="Solvers::PATH::PATH_Output__Output_Interface"></span><span class="target" id="classSolvers_1_1PATH_1a645cab7c4f8ac6062a3ef01e3378a1fe"></span>Output_Interface <code class="sig-name descname">PATH_Output</code> = {NULL, reinterpret_cast&lt;void (*)<span class="sig-paren">(</span>void*, int, char*<span class="sig-paren">)</span>&gt;(this-&gt;messageCB), NULL}<a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATH_OutputE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>The Output_Interface initializer. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
+</dd></dl>
 
 </div>
 <dl class="cpp struct">
 <dt id="_CPPv4N7Solvers4PATH11PATHProblemE">
 <span id="_CPPv3N7Solvers4PATH11PATHProblemE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblemE"></span><span id="Solvers::PATH::PATHProblem"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem"></span><em class="property">struct </em><code class="sig-name descname">PATHProblem</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblemE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><div class="breathe-sectiondef docutils container">
+<dd><p>This struct manages an LCP where each complementarity is given by <span class="math notranslate nohighlight">\(x \perp z=(Mx+q)\)</span>. </p>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Members</p>
 <dl class="cpp var">
 <dt id="_CPPv4N7Solvers4PATH11PATHProblem1nE">
 <span id="_CPPv3N7Solvers4PATH11PATHProblem1nE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem1nE"></span><span id="Solvers::PATH::PATHProblem::n__i"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a4b8be75d5ca5c71ea84923e93ff1b1da"></span>int <code class="sig-name descname">n</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem1nE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Number of x variables, namely complementarities. </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7Solvers4PATH11PATHProblem3nnzE">
 <span id="_CPPv3N7Solvers4PATH11PATHProblem3nnzE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem3nnzE"></span><span id="Solvers::PATH::PATHProblem::nnz__i"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a28806873e3f14ae6bc9323f81f702032"></span>int <code class="sig-name descname">nnz</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem3nnzE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Number of non-zeros in M. </p>
+</dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N7Solvers4PATH11PATHProblem1zE">
-<span id="_CPPv3N7Solvers4PATH11PATHProblem1zE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem1zE"></span><span id="Solvers::PATH::PATHProblem::z__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a8a3609b25824677aec2542a50c75e068"></span>double *<code class="sig-name descname">z</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem1zE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dt id="_CPPv4N7Solvers4PATH11PATHProblem1xE">
+<span id="_CPPv3N7Solvers4PATH11PATHProblem1xE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem1xE"></span><span id="Solvers::PATH::PATHProblem::x__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a575bde07ffc409beee257004bf402a06"></span>double *<code class="sig-name descname">x</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem1xE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Pointer to x values. </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7Solvers4PATH11PATHProblem2lbE">
 <span id="_CPPv3N7Solvers4PATH11PATHProblem2lbE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem2lbE"></span><span id="Solvers::PATH::PATHProblem::lb__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a1c5e6f6d626545681e813f0fdf77b989"></span>double *<code class="sig-name descname">lb</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem2lbE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>n-dimensional array of lower bounds </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7Solvers4PATH11PATHProblem2ubE">
 <span id="_CPPv3N7Solvers4PATH11PATHProblem2ubE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem2ubE"></span><span id="Solvers::PATH::PATHProblem::ub__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a7fe06ccfe5a6d7e0075971ed760bb2c0"></span>double *<code class="sig-name descname">ub</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem2ubE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>n-dimensional array of upper bounds </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7Solvers4PATH11PATHProblem7m_startE">
@@ -1009,12 +1207,14 @@
 <dl class="cpp var">
 <dt id="_CPPv4N7Solvers4PATH11PATHProblem6m_dataE">
 <span id="_CPPv3N7Solvers4PATH11PATHProblem6m_dataE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem6m_dataE"></span><span id="Solvers::PATH::PATHProblem::m_data__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a1b441242681204e95423f0fe20cbeef9"></span>double *<code class="sig-name descname">m_data</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem6m_dataE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Data of M, in fortran style. </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N7Solvers4PATH11PATHProblem1qE">
 <span id="_CPPv3N7Solvers4PATH11PATHProblem1qE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem1qE"></span><span id="Solvers::PATH::PATHProblem::q__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1af38478e2e44aa8d520f06a2965f5b7f2"></span>double *<code class="sig-name descname">q</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem1qE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>q vector </p>
+</dd></dl>
 
 </div>
 </dd></dl>

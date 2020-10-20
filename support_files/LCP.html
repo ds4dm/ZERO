@@ -877,7 +877,8 @@ following this page.</p>
 </div>
 <div class="section" id="solving">
 <h2>Solving<a class="headerlink" href="#solving" title="Permalink to this headline">¶</a></h2>
-<p>This problem can be solved either using big-M based disjunctive formulation with the value of the &#64;p bigM can also be chosen. But a more preferred means of solving is by using indicator constraints, where the algorithm tries to automatically identify good choices of <code class="docutils literal notranslate"><span class="pre">bigM</span></code> for each disjunction. Use the former option, only if you are very confident of  your choice of a small value of <code class="docutils literal notranslate"><span class="pre">bigM</span></code></p>
+<p>This problem can be solved either using big-M based disjunctive formulation with the value of the &#64;p bigM can also be chosen.
+But a more preferred means of solving is by using SOS1 constraints, or indicator constraints. Use the former option, only if you are very confident of  your choice of a small value of <code class="docutils literal notranslate"><span class="pre">bigM</span></code></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Solve using bigM constraints</span>
 <span class="n">lcp</span><span class="p">.</span><span class="n">useIndicators</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
 <span class="n">lcp</span><span class="p">.</span><span class="n">bigM</span> <span class="o">=</span> <span class="mf">1e5</span><span class="p">;</span>

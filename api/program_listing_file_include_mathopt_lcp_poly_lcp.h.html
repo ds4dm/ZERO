@@ -919,7 +919,7 @@ namespace MathOpt {
      bool         checkPolyFeas(const unsigned long int &amp;decimalEncoding, bool innerApproximation);
      bool         checkPolyFeas(const std::vector&lt;short int&gt; &amp;encoding, bool innerApproximation);
      bool         addPolyFromX(const arma::vec &amp;x, bool innerApproximation);
-     unsigned int exactFullEnumeration(bool feasCheck = true);
+     unsigned int exactFullEnumeration(bool feasibilityCheck = true);
      std::string  feasabilityDetailString() const;
      void         outerApproximate(std::vector&lt;bool&gt; encoding, bool clear = true);
      unsigned int getFeasiblePolyhedra() const { return this-&gt;FeasiblePoly[0].size(); }

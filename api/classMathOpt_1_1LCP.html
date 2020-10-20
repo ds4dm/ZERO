@@ -1020,7 +1020,7 @@
 <dl class="cpp function">
 <dt id="_CPPv4N7MathOpt3LCP8LCPasMIPEb">
 <span id="_CPPv3N7MathOpt3LCP8LCPasMIPEb"></span><span id="_CPPv2N7MathOpt3LCP8LCPasMIPEb"></span><span id="MathOpt::LCP::LCPasMIP__b"></span><span class="target" id="classMathOpt_1_1LCP_1ae6cc1d9683368334cc4df920b95402af"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">LCPasMIP</code><span class="sig-paren">(</span>bool <em>solve</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP8LCPasMIPEb" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Solves the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> as a Mixed-Integer Program. Note that the returned model is either a MIP or a MNILP, depending on the class’ <a class="reference internal" href="#classMathOpt_1_1LCP_1a7584f27593870ee9dc625787b8a1b6ee"><span class="std std-ref">LCP::PureMIP</span></a> boolean switch. In the first case, complementarities are modeled through indicator constraints. Otherwise, there is bi-linear term for each complementarity. </p>
+<dd><p>Solves the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> as a Mixed-Integer Program. Note that the returned model is either a MIP or a MNILP, depending on the class’ <a class="reference internal" href="#classMathOpt_1_1LCP_1a7584f27593870ee9dc625787b8a1b6ee"><span class="std std-ref">LCP::PureMIP</span></a> boolean switch. In the first case, complementarities are modeled through SOS1 or indicator constraints. Otherwise, there is bi-linear term for each complementarity. </p>
 <p><dl class="simple">
 <dt><strong>Return</strong></dt><dd><p>The unique pointer to the model </p>
 </dd>
@@ -1221,11 +1221,15 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7MathOpt3LCP6getMIPEv">
-<span id="_CPPv3N7MathOpt3LCP6getMIPEv"></span><span id="_CPPv2N7MathOpt3LCP6getMIPEv"></span><span id="MathOpt::LCP::getMIP"></span><span class="target" id="classMathOpt_1_1LCP_1ab42ef85dcf8290cf3402dbfb3ca68990"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">getMIP</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP6getMIPEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Gets the MIP model associated with the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>, where complementarities are modeled with indicator constraints. </p>
+<dt id="_CPPv4N7MathOpt3LCP6getMIPEb">
+<span id="_CPPv3N7MathOpt3LCP6getMIPEb"></span><span id="_CPPv2N7MathOpt3LCP6getMIPEb"></span><span id="MathOpt::LCP::getMIP__b"></span><span class="target" id="classMathOpt_1_1LCP_1ae0890a3da8325f8d00e0450572165da0"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">getMIP</code><span class="sig-paren">(</span>bool <em>indicators</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7MathOpt3LCP6getMIPEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Gets the MIP model associated with the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a>, where complementarities are modeled with with SOS-1 constraints if <code class="docutils literal notranslate"><span class="pre">indicators</span></code> is false, with indicator constraints otherwise. </p>
 <p><dl class="simple">
 <dt><strong>Return</strong></dt><dd><p>The Gurobi pointer to the model </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">indicators</span></code>: If true, SOS-1 formulation will be used for each complementarity. Otherwise, indicator constraints will be used </p></li>
+</ul>
 </dd>
 </dl>
 </p>
@@ -1303,7 +1307,7 @@
 <dl class="cpp var">
 <dt id="_CPPv4N7MathOpt3LCP7PureMIPE">
 <span id="_CPPv3N7MathOpt3LCP7PureMIPE"></span><span id="_CPPv2N7MathOpt3LCP7PureMIPE"></span><span id="MathOpt::LCP::PureMIP__b"></span><span class="target" id="classMathOpt_1_1LCP_1a7584f27593870ee9dc625787b8a1b6ee"></span>bool <code class="sig-name descname">PureMIP</code> = true<a class="headerlink" href="#_CPPv4N7MathOpt3LCP7PureMIPE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>True if the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> is modelled via a pure MIP with indicators &lt; constraints. Otherwise, a MINLP introduces a bilinear term for each &lt; complementarity. </p>
+<dd><p>True if the <a class="reference internal" href="#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> is modelled via a pure MIP with SOS1 (or indicator) &lt; constraints. Otherwise, a MINLP introduces a bilinear term for each &lt; complementarity. </p>
 </dd></dl>
 
 <dl class="cpp var">

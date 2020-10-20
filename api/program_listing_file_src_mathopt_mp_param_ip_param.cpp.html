@@ -1037,6 +1037,18 @@ double MathOpt::IP_Param::computeObjective(const arma::vec &amp;y,
   return obj(0);
 }
 
+
+bool MathOpt::IP_Param::isFeasible(const arma::vec &amp;y, const arma::vec &amp;x, double tol) const {
+  arma::vec slack = B * y - b;
+  if (slack.n_rows) // if infeasible
+     if (slack.max() &gt;= tol)
+        return false;
+  for (const auto i : this-&gt;Integers) // Integers
+     if (y.at(i) != trunc(y.at(i)))
+        return false;
+  return true;
+}
+
 bool MathOpt::IP_Param::addConstraint(arma::vec Ain, double bin, bool checkDuplicate, double tol) {
 
 
@@ -1100,20 +1112,20 @@ long int MathOpt::IP_Param::load(const std::string &amp;filename, long int pos) 
   pos = Utils::appendRead(_b, filename, pos, std::string(&quot;IP_Param::b&quot;));
   pos = Utils::appendRead(_c, filename, pos, std::string(&quot;IP_Param::c&quot;));
   pos = Utils::appendRead(_integers, filename, pos, std::string(&quot;IP_Param::Integers&quot;));
-  pos = Utils::appendRead(BO, filename, pos, std::string(&quot;MP_Param::Bounds&quot;));
+  pos = Utils::appendRead(BO, filename, pos, std::string(&quot;IP_Param::Bounds&quot;));
   if (BO.n_rows &gt; 0) {
      if (BO.n_cols != 2)
         throw ZEROException(ZEROErrorCode::IOError, &quot;Invalid bounds object in loaded file&quot;);
 
-     for (unsigned int i = 0; i &lt; B.n_cols; ++i)
+     for (unsigned int i = 0; i &lt; _B.n_cols; ++i)
         this-&gt;Bounds.push_back(
              {BO.at(i, 0) &gt; 0 ? BO.at(i, 0) : 0, BO.at(i, 1) &gt; 0 ? BO.at(i, 1) : -1});
 
-     int diff = B.n_cols - BO.n_rows;
+     int diff = _B.n_cols - BO.n_rows;
      for (unsigned int i = 0; i &lt; diff; ++i)
         this-&gt;Bounds.push_back({0, -1});
   }
-  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Saved IP_Param to file &quot; &lt;&lt; filename;
+  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Loaded IP_Param to file &quot; &lt;&lt; filename;
   this-&gt;set(_C, _B, _b, _c, _integers);
   return pos;
 }

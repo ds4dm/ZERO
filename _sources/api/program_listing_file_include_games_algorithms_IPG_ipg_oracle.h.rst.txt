@@ -38,8 +38,6 @@ Program Listing for File ipg_oracle.h
      namespace IPG {
    
         struct IPG_Player {
-        private:
-           std::unique_ptr<GRBModel> Model;
    
         protected:
            std::unique_ptr<GRBModel>
@@ -62,7 +60,7 @@ Program Listing for File ipg_oracle.h
            ~IPG_Player() = default;
            friend class Algorithms::IPG::Oracle;
            IPG_Player(unsigned int incumbentSize, double &tol) : Tolerance{tol} {
-             this->Model        = std::unique_ptr<GRBModel>();
+             std::unique_ptr<GRBModel>();
              this->MembershipLP = std::unique_ptr<GRBModel>();
              this->Incumbent.zeros(incumbentSize);
            };
@@ -77,8 +75,6 @@ Program Listing for File ipg_oracle.h
    
            const arma::sp_mat getCutPoolA() { return this->CutPool_A; }
            const arma::vec    getCutPoolb() { return this->CutPool_b; }
-   
-           void updateIPModel(std::unique_ptr<GRBModel> IPmodel);
         };
    
    
@@ -93,7 +89,6 @@ Program Listing for File ipg_oracle.h
            arma::vec                                buildXminusI(const unsigned int i);
            bool addValueCut(unsigned int player, double RHS, arma::vec xMinusI, bool check = true);
            bool separationOracle(const unsigned int player);
-           bool computeStrategy(const unsigned int i, arma::vec &strategy, double &payoff);
    
            void
            updateMembership(const unsigned int &player, const arma::vec &vertex, bool normalization);
