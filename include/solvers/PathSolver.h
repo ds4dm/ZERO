@@ -21,28 +21,36 @@ extern "C" {
 }
 namespace Solvers {
 
+
+  /**
+	* @brief This class manages the external solver PATH, for mixed-complementarity problems.
+	*/
   class PATH {
 
   private:
+	 /**
+	  * @brief This struct manages an LCP where each complementarity is given by @f$x \perp
+	  * z=(Mx+q)@f$
+	  */
 	 typedef struct {
-		int n;
-		int nnz;
+		int n;   ///< Number of x variables, namely complementarities
+		int nnz; ///< Number of non-zeros in M
 
-		double *z;
-		double *lb;
-		double *ub;
+		double *x;  ///< Pointer to x values
+		double *lb; ///< n-dimensional array of lower bounds
+		double *ub; ///< n-dimensional array of upper bounds
 
 		int *   m_start;
 		int *   m_len;
 		int *   m_row;
-		double *m_data;
+		double *m_data; ///< Data of M, in fortran style
 
-		double *q;
+		double *q; ///< q vector
 	 } PATHProblem;
 
 
-	 ZEROStatus    status;
-	 int           Filled;
+	 ZEROStatus    status; ///< Status for the solver' instance
+	 bool          Filled; ///< Boolean controlling instance's filling
 	 PATHProblem   Problem;
 	 MCP_Interface PATH_Interface = {
 		  this,
@@ -56,7 +64,7 @@ namespace Solvers {
 		  NULL,
 		  NULL,
 		  NULL,
-		  NULL};
+		  NULL}; ///< The MCP_Interface initializer. See PATH documentation for more
 	 Presolve_Interface PATH_Presolve = {
 		  NULL,
 		  NULL,
@@ -64,10 +72,12 @@ namespace Solvers {
 		  NULL,
 		  NULL,
 		  reinterpret_cast<void (*)(void *, int, int *)>(this->mcp_typ),
-		  NULL};
+		  NULL}; ///< The Presolve_Interface initializer. See PATH documentation for more
 
 	 Output_Interface PATH_Output = {
-		  NULL, reinterpret_cast<void (*)(void *, int, char *)>(this->messageCB), NULL};
+		  NULL,
+		  reinterpret_cast<void (*)(void *, int, char *)>(this->messageCB),
+		  NULL}; ///< The Output_Interface initializer. See PATH documentation for more
 
 	 int  CreateLMCP(int    n,
 						  int    m_nnz,
@@ -84,9 +94,9 @@ namespace Solvers {
 	 void sort(int rows, int cols, int elements, int *row, int *col, double *data);
 	 void C_problem_size(int *n, int *nnz);
 	 void C_bounds(int n, double *z, double *lb, double *ub);
-	 int  C_function_evaluation(int n, double *z, double *f);
+	 int  C_function_evaluation(int n, double *x, double *f);
 	 int  C_jacobian_evaluation(int     n,
-										 double *z,
+										 double *x,
 										 int     wantf,
 										 double *f,
 										 int *   nnz,
@@ -104,40 +114,34 @@ namespace Solvers {
 			arma::vec &           x,
 			arma::vec             z,
 			double                timeLimit);
-	 ZEROStatus getStatus() const { return this->status; }
+	 ZEROStatus getStatus() const { return this->status; } ///< Read-only getter for the status
 
-	 static void *messageCB(void *dat, int mode, char *buf) {
-		std::cout << buf;
-		return dat;
-	 }
+
+	 static void *messageCB(void *dat, int mode, char *buf);
 	 static void *mcp_typ(void *dat, int nnz, int *typ);
-	 static int   jacobian_evaluation(void *  dat,
-												 int     n,
-												 double *z,
-												 int     wantf,
-												 double *f,
-												 int *   nnz,
-												 int *   col_start,
-												 int *   col_len,
-												 int *   row,
-												 double *data) {
-      auto *self = static_cast<Solvers::PATH *>(dat);
-      return self->C_jacobian_evaluation(n, z, wantf, f, nnz, col_start, col_len, row, data);
-	 }
 
-	 static int function_evaluation(void *dat, int n, double *z, double *f) {
-		auto *self = static_cast<Solvers::PATH *>(dat);
-		return self->C_function_evaluation(n, z, f);
-	 }
-	 static void start(void *dat) {
-		auto *self   = static_cast<Solvers::PATH *>(dat);
-		self->Filled = 0;
-	 }
 
-	 static void bounds(void *dat, int n, double *z, double *lb, double *ub);
-	 static void problem_size(void *dat, int *n, int *nnz) {
-		auto *self = static_cast<Solvers::PATH *>(dat);
-		self->C_problem_size(n, nnz);
-	 }
+
+	 static int jacobian_evaluation(void *  dat,
+											  int     n,
+											  double *x,
+											  int     wantf,
+											  double *f,
+											  int *   nnz,
+											  int *   col_start,
+											  int *   col_len,
+											  int *   row,
+											  double *data);
+
+
+
+	 static int function_evaluation(void *dat, int n, double *x, double *f);
+
+
+	 static void start(void *dat);
+
+	 static void bounds(void *dat, int n, double *x, double *lb, double *ub);
+
+	 static void problem_size(void *dat, int *n, int *nnz);
   };
 } // namespace Solvers

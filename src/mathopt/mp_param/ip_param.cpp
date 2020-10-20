@@ -321,9 +321,9 @@ bool MathOpt::IP_Param::isFeasible(const arma::vec &y, const arma::vec &x, doubl
 }
 
 /**
- * @brief Adds a constraints to the IP_Param. It stores a description of the new cut Ainx &\leq& bin
- * of @p Ain (and RHS @p bin) in B and b, respectively. @return true if the constraint has been
- * added This works also when the IP_Param is Finalized.
+ * @brief Adds a constraints to the IP_Param. It stores a description of the new cut @f$A_{in} x
+ * &\leq& b_{in}@f$ of @p Ain (and RHS @p bin) in B and b, respectively. @return true if the
+ * constraint has been added This works also when the IP_Param is Finalized.
  * @param Ain The vector of LHS
  * @param bin The RHS value
  * @param checkDuplicate True if the method should check for duplicate constraints

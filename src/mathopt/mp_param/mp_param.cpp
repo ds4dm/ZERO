@@ -306,7 +306,6 @@ void MathOpt::MP_Param::rewriteBounds() {
 }
 
 
-const unsigned int MathOpt::MP_Param::size()
 /** @brief Calculates @p Nx, @p Ny and @p Ncons
  *	Computes parameters in MP_Param:
  *		- Computes @p Ny as number of rows in MP_Param::Q
@@ -317,7 +316,7 @@ const unsigned int MathOpt::MP_Param::size()
  * 	For proper working, MP_Param::dataCheck() has to be run after this.
  * 	@returns @p Ny, Number of variables in the quadratic program, QP
  */
-{
+const unsigned int MathOpt::MP_Param::size() {
   if (Q.n_elem < 1)
 	 this->Ny = this->c.size();
   else
@@ -335,7 +334,6 @@ const unsigned int MathOpt::MP_Param::size()
  * @param B Matrix of constraints for the variables y
  * @param c Vector of linear terms for y in the objective
  * @param b Vector of RHS in the constraints
- * @param Bounds Optional object of VariableBounds bounds on y variables
  * @return A pointer to this
  */
 MathOpt::MP_Param &MathOpt::MP_Param::set(const arma::sp_mat &Q,

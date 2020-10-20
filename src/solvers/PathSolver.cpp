@@ -13,7 +13,15 @@ extern "C" {
 #include "solvers/PathSolver.h"
 #include "support/codes.h"
 
-
+/**
+ * @brief This function is from PATH. Sorts the data in M.
+ * @param rows Row count
+ * @param cols Column counts
+ * @param elements Element counts
+ * @param row Row data pointer
+ * @param col Column data pointer
+ * @param data M-data pointer
+ */
 void Solvers::PATH::sort(int rows, int cols, int elements, int *row, int *col, double *data) {
   double *m_data;
   int *   m_start;
@@ -75,8 +83,22 @@ void Solvers::PATH::sort(int rows, int cols, int elements, int *row, int *col, d
   return;
 }
 
-
-
+/**
+ * @brief Internal method to create the linear mixed-complemetarity problem.
+ * @param n Number of x variables
+ * @param m_nnz Number of non-zeros in M
+ * @param m_i Row indexes for M non-zeros. Fortran style: start is 1 (not 0)
+ * @param m_j Column indexes for M non-zeros. Fortran style: start is 1 (not 0)
+ * @param m_ij The data in M corresponding to row @p m_i and column @p m_j
+ * @param q The q vector
+ * @param lb Vector of lower bounds on x
+ * @param ub Vector of upper bounds on x
+ * @param x Output vector of x variables
+ * @param z Output vector of z equation values
+ * @param verbose True if PATH will be verbose
+ * @param timeLimit A double timelimit
+ * @return The PATH MCP_Termination code
+ */
 int Solvers::PATH::CreateLMCP(int    n,
 										int    m_nnz,
 										int    m_i[],
@@ -132,7 +154,7 @@ int Solvers::PATH::CreateLMCP(int    n,
 
   this->Problem.n       = n;
   this->Problem.nnz     = m_nnz;
-  this->Problem.z       = x;
+  this->Problem.x       = x;
   this->Problem.q       = q;
   this->Problem.lb      = lb;
   this->Problem.ub      = ub;
@@ -214,6 +236,16 @@ int Solvers::PATH::CreateLMCP(int    n,
   return termination;
 }
 
+/**
+ * @brief Main public method to use the solver.
+ * @param M The matrix M in the LCP
+ * @param q The vector q in the LCP
+ * @param Compl Pairs of complementarities <Eqn, Var>
+ * @param Bounds Bounds on variables
+ * @param x Output vector of x
+ * @param z Output vector of z equation values
+ * @param timeLimit A double timelimit
+ */
 Solvers::PATH::PATH(const arma::sp_mat &  M,
 						  const arma::vec &     q,
 						  const perps &         Compl,
@@ -326,11 +358,20 @@ Solvers::PATH::PATH(const arma::sp_mat &  M,
 	 this->status = ZEROStatus::NashEqNotFound;
   }
 }
-void Solvers::PATH::C_bounds(int n, double *z, double *lb, double *ub) {
+
+
+/**
+ * @brief Assigns bounds to variables. See PATH documentation for more
+ * @param n Number of variables
+ * @param n Pointer to variables
+ * @param lb Lower bounds on variables
+ * @param ub Upper bounds on variables
+ */
+void Solvers::PATH::C_bounds(int n, double *x, double *lb, double *ub) {
   int i;
 
   for (i = 0; i < n; i++) {
-	 z[i]  = this->Problem.z[i];
+	 x[i]  = this->Problem.x[i];
 	 lb[i] = this->Problem.lb[i];
 	 ub[i] = this->Problem.ub[i];
 	 // std::cout <<"\nx_"<<std::to_string(i)<<" in ["<<std::to_string(lb[i])<<",
@@ -338,7 +379,17 @@ void Solvers::PATH::C_bounds(int n, double *z, double *lb, double *ub) {
   }
   // std::cout << "\n done\n";
 }
-int Solvers::PATH::C_function_evaluation(int n, double *z, double *f) {
+
+
+/**
+ * @brief Static wrapper for PATH::c_function_evaluation. See PATH documentation for more
+ * @param dat  The data passed by the PATH callback. Usually, it is an instance of the class
+ * @param n Number of variables
+ * @param x Vector of variables for the lcp. Here we call them
+ * @param f The output object for the function value
+ * @return Unused. This is a callback function
+ */
+int Solvers::PATH::C_function_evaluation(int n, double *x, double *f) {
   int    col, colStart, colEnd, row;
   double value;
 
@@ -347,7 +398,7 @@ int Solvers::PATH::C_function_evaluation(int n, double *z, double *f) {
   }
 
   for (col = 0; col < n; col++) {
-	 value = z[col];
+	 value = x[col];
 
 	 if (value != 0) {
 		colStart = Problem.m_start[col] - 1;
@@ -363,8 +414,23 @@ int Solvers::PATH::C_function_evaluation(int n, double *z, double *f) {
 
   return 0;
 }
+
+/**
+ * @brief Evaluates the jacobian at a given point. Eventually, returns the value of the
+ * complementarity. See PATH documentation for more
+ * @param n Number of variables
+ * @param x Vector of variables for the lcp. Here we call them
+ * @param wantf True (positive) if the function value is needed
+ * @param f The output object for the function value
+ * @param nnz Number of non-zeros
+ * @param col_start Column start vector
+ * @param col_len Column length vector
+ * @param row Row vector
+ * @param data M_Data vector
+ * @return Unused. This is a callback function
+ */
 int Solvers::PATH::C_jacobian_evaluation(int     n,
-													  double *z,
+													  double *x,
 													  int     wantf,
 													  double *f,
 													  int *   nnz,
@@ -375,7 +441,7 @@ int Solvers::PATH::C_jacobian_evaluation(int     n,
   int element;
 
   if (wantf) {
-	 this->C_function_evaluation(n, z, f);
+	 this->C_function_evaluation(n, x, f);
   }
 
   if (!Filled) {
@@ -389,13 +455,20 @@ int Solvers::PATH::C_jacobian_evaluation(int     n,
 		data[element] = Problem.m_data[element];
 	 }
 
-	 Filled = 1;
+	 Filled = true;
   }
 
   *nnz = Problem.nnz;
   return 0;
 }
 
+/**
+ * @brief Presolving type for the variable. See PATH documentation for more
+ * @param dat  The data passed by the PATH callback. Usually, it is an instance of the class
+ * @param nnz Number of non-zeros in M
+ * @param typ The output vector for presolve
+ * @return Not used. An instance of this
+ */
 void *Solvers::PATH::mcp_typ(void *dat, int nnz, int *typ) {
   int i;
 
@@ -405,12 +478,97 @@ void *Solvers::PATH::mcp_typ(void *dat, int nnz, int *typ) {
   return dat;
 }
 
+/**
+ * @brief Fills the problem size. See PATH documentation for more
+ * @param n Number of variables
+ * @param nnz Number of non-zeros in M
+ */
 void Solvers::PATH::C_problem_size(int *n, int *nnz) {
   *n   = this->Problem.n;
   *nnz = this->Problem.nnz + 1;
 }
-void Solvers::PATH::bounds(void *dat, int n, double *z, double *lb, double *ub) {
+/**
+ * @brief Static wrapper for PATH::c_bounds. See PATH documentation for more
+ * @param dat  The data passed by the PATH callback. Usually, it is an instance of the class
+ * @param n Number of variables
+ * @param n Pointer to variables
+ * @param lb Lower bounds on variables
+ * @param ub Upper bounds on variables
+ */
+void Solvers::PATH::bounds(void *dat, int n, double *x, double *lb, double *ub) {
   auto *self = static_cast<Solvers::PATH *>(dat);
-  self->C_bounds(n, z, lb, ub);
+  self->C_bounds(n, x, lb, ub);
   return;
+}
+/**
+ * @brief Static wrapper for PATH::c_problem_size. See PATH documentation for more
+ * @param dat  The data passed by the PATH callback. Usually, it is an instance of the class
+ * @param n Number of variables
+ * @param nnz Number of non-zeros in M
+ */
+void Solvers::PATH::problem_size(void *dat, int *n, int *nnz) {
+  auto *self = static_cast<Solvers::PATH *>(dat);
+  self->C_problem_size(n, nnz);
+}
+
+/**
+ * @brief Starting function for PATH. This is called whenever the solver is initialized
+ * @param dat  The data passed by the PATH callback. Usually, it is an instance of the class
+ */
+void Solvers::PATH::start(void *dat) {
+  auto *self   = static_cast<Solvers::PATH *>(dat);
+  self->Filled = 0;
+}
+
+/**
+ * @brief Static wrapper for PATH::c_function_evaluation. See PATH documentation for more
+ * @param dat  The data passed by the PATH callback. Usually, it is an instance of the class
+ * @param n Number of variables
+ * @param x Vector of variables for the lcp. Here we call them
+ * @param f The output object for the function value
+ * @return Unused. This is a callback function
+ */
+int Solvers::PATH::function_evaluation(void *dat, int n, double *x, double *f) {
+  auto *self = static_cast<Solvers::PATH *>(dat);
+  return self->C_function_evaluation(n, x, f);
+}
+
+/**
+ * @brief Static wrapper for PATH::c_jacobian_evaluation. See PATH documentation for more
+ * @param dat  The data passed by the PATH callback. Usually, it is an instance of the class
+ * @param n Number of variables
+ * @param x Vector of variables for the lcp. Here we call them
+ * @param wantf True (positive) if the function value is needed
+ * @param f The output object for the function value
+ * @param nnz Number of non-zeros
+ * @param col_start Column start vector
+ * @param col_len Column length vector
+ * @param row Row vector
+ * @param data M_Data vector
+ * @return Unused. This is a callback function
+ */
+int Solvers::PATH::jacobian_evaluation(void *  dat,
+													int     n,
+													double *x,
+													int     wantf,
+													double *f,
+													int *   nnz,
+													int *   col_start,
+													int *   col_len,
+													int *   row,
+													double *data) {
+  auto *self = static_cast<Solvers::PATH *>(dat);
+  return self->C_jacobian_evaluation(n, x, wantf, f, nnz, col_start, col_len, row, data);
+}
+
+/**
+ * @brief Message callback for path
+ * @param dat The data passed by the PATH callback. Usually, it is an instance of the class
+ * @param mode Print-mode. Currently unused, see PATH documentation for more
+ * @param buf  The char buffer
+ * @return
+ */
+void *Solvers::PATH::messageCB(void *dat, int mode, char *buf) {
+  std::cout << buf;
+  return dat;
 }

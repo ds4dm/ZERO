@@ -20,7 +20,7 @@
 /**
  * @brief Return a stream containing a stream with the description of the problem
  * @param os Outputstream
- * @param I The QP_Param object
+ * @param Q The QP_Param object
  * @return An std::ostream with the description
  */
 std::ostream &MathOpt::operator<<(std::ostream &os, const MathOpt::QP_Param &Q) {
@@ -166,7 +166,6 @@ unsigned int MathOpt::QP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec 
  * @param B Matrix of constraints for the variables y
  * @param c Vector of linear terms for y in the objective
  * @param b Vector of RHS in the constraints
- * @param Bounds Optional object of VariableBounds bounds on y variables
  * @return A pointer to this
  */
 MathOpt::QP_Param &MathOpt::QP_Param::set(const arma::sp_mat &Q,
@@ -313,6 +312,7 @@ long int MathOpt::QP_Param::load(const std::string &filename, long int pos) {
  * @param B Matrix of constraints for the variables y
  * @param c Vector of linear terms for y in the objective
  * @param b Vector of RHS in the constraints
+ * @param env A Gurobi Environment pointer
  * @return A pointer to this
  * @warning The input data may be corrupted after
  */

@@ -214,7 +214,7 @@ bool Algorithms::EPEC::InnerApproximation::addRandomPoly2All(unsigned int aggres
 /**
  * @brief Given a potential solution vector @p guessSol, it returns the profitable deviations (if
  * any) for all players in @p deviations
- * @param deviations[out] The vector of deviations for all players
+ * @param deviations [out] The vector of deviations for all players
  * @param guessSol [in] The guessed solution
  * @param prevDev [in] The previous vector of deviations, if any exist.
  * @return
