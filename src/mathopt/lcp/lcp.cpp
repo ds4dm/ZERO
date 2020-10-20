@@ -64,8 +64,8 @@ void MathOpt::LCP::processBounds() {
   }
 
   if (shedded.size() > 0) {
-	 BOOST_LOG_TRIVIAL(debug) << "MathOpt::LCP::processBounds: " << shedded.size()
-									  << " bounds and trivial constraints processed";
+	 LOG_S(INFO) << "MathOpt::LCP::processBounds: " << shedded.size()
+					 << " bounds and trivial constraints processed";
 	 std::sort(shedded.begin(), shedded.end());
 
 	 for (int i = shedded.size() - 1; i >= 0; --i) {
@@ -190,10 +190,10 @@ void MathOpt::LCP::makeRelaxed() {
   try {
 	 if (this->MadeRlxdModel)
 		return;
-	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::makeRelaxed: Creating a model with : " << nR
-									  << " variables and  " << nC << " constraints";
+	 LOG_S(1) << "MathOpt::LCP::makeRelaxed: Creating a model with : " << nR << " variables and  "
+				 << nC << " constraints";
 	 GRBVar x[nC], z[nR];
-	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::makeRelaxed: Initializing variables";
+	 LOG_S(1) << "MathOpt::LCP::makeRelaxed: Initializing variables";
 	 for (unsigned int i = 0; i < nC; i++)
 		x[i] = RelaxedModel.addVar(BoundsX.at(i).first,
 											BoundsX.at(i).second > 0 ? BoundsX.at(i).second : GRB_INFINITY,
@@ -204,7 +204,7 @@ void MathOpt::LCP::makeRelaxed() {
 		z[i] = RelaxedModel.addVar(0, GRB_INFINITY, 1, GRB_CONTINUOUS, "z_" + std::to_string(i));
 
 
-	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::makeRelaxed: Added variables";
+	 LOG_S(1) << "MathOpt::LCP::makeRelaxed: Added variables";
 	 for (unsigned int i = 0; i < nR; i++) {
 		GRBLinExpr expr = 0;
 		for (auto v = M.begin_row(i); v != M.end_row(i); ++v)
@@ -212,12 +212,11 @@ void MathOpt::LCP::makeRelaxed() {
 		expr += q(i);
 		RelaxedModel.addConstr(expr, GRB_EQUAL, z[i], "z_" + std::to_string(i) + "_def");
 	 }
-	 BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::makeRelaxed: Added equation definitions";
+	 LOG_S(1) << "MathOpt::LCP::makeRelaxed: Added equation definitions";
 	 // If @f$Ax \leq b@f$ constraints are there, they should be included too!
 	 if (this->A.n_nonzero != 0 && this->b.n_rows != 0) {
 		if (A.n_cols != nC || A.n_rows != b.n_rows) {
-		  BOOST_LOG_TRIVIAL(trace) << "(" << A.n_rows << "," << A.n_cols << ")\t" << b.n_rows << " "
-											<< nC;
+		  LOG_S(1) << "(" << A.n_rows << "," << A.n_cols << ")\t" << b.n_rows << " " << nC;
 		  throw ZEROException(ZEROErrorCode::InvalidData, "A and b are incompatible");
 		}
 		for (unsigned int i = 0; i < A.n_rows; i++) {
@@ -226,7 +225,7 @@ void MathOpt::LCP::makeRelaxed() {
 			 expr += (*a) * x[a.col()];
 		  RelaxedModel.addConstr(expr, GRB_LESS_EQUAL, b(i), "commonCons_" + std::to_string(i));
 		}
-		BOOST_LOG_TRIVIAL(trace) << "MathOpt::LCP::makeRelaxed: Added common constraints";
+		LOG_S(1) << "MathOpt::LCP::makeRelaxed: Added common constraints";
 	 }
 	 RelaxedModel.update();
 	 this->MadeRlxdModel = true;
@@ -315,8 +314,7 @@ std::unique_ptr<GRBModel> MathOpt::LCP::MPECasMILP(const arma::sp_mat &C,
 																	bool                solve) {
 
   if (!this->PureMIP)
-	 BOOST_LOG_TRIVIAL(trace)
-		  << "MathOpt::LCP::MPECasMILP: Note that complementarities are bi-linearly modeled!";
+	 LOG_S(1) << "MathOpt::LCP::MPECasMILP: Note that complementarities are bi-linearly modeled!";
   std::unique_ptr<GRBModel> model = this->LCPasMIP(true);
   // Reset the solution limit. We need to solve to optimality
   model->set(GRB_IntParam_SolutionLimit, GRB_MAXINT);
@@ -408,7 +406,7 @@ void MathOpt::LCP::save(std::string filename, bool erase) const {
   }
   Utils::appendSave(B, filename, std::string("LCP::Bounds"), false);
 
-  BOOST_LOG_TRIVIAL(trace) << "Saved LCP to file " << filename;
+  LOG_S(1) << "Saved LCP to file " << filename;
 }
 
 
@@ -525,7 +523,7 @@ void MathOpt::LCP::makeQP(MathOpt::QP_Objective &QP_obj, MathOpt::QP_Param &QP) 
 
   MathOpt::QP_Constraints QP_cons;
   int                     components = this->convexHull(QP_cons.B, QP_cons.b);
-  BOOST_LOG_TRIVIAL(trace) << "LCP::makeQP: No. components: " << components;
+  LOG_S(1) << "LCP::makeQP: No. components: " << components;
   // Updated size after convex hull has been computed.
   const unsigned int numConstraints{static_cast<unsigned int>(QP_cons.B.n_rows)};
   const unsigned int oldNumVariablesY{static_cast<unsigned int>(QP_cons.B.n_cols)};

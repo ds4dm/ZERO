@@ -260,7 +260,7 @@ void MathOpt::QP_Param::save(const std::string &filename, bool append) const {
 	 BO.at(i, 1) = this->Bounds.at(i).second;
   }
   Utils::appendSave(BO, filename, std::string("QP_Param::Bounds"), false);
-  BOOST_LOG_TRIVIAL(trace) << "Saved QP_Param to file " << filename;
+  LOG_S(1) << "Saved QP_Param to file " << filename;
 }
 
 
@@ -298,7 +298,7 @@ long int MathOpt::QP_Param::load(const std::string &filename, long int pos) {
 	 for (unsigned int i = 0; i < diff; ++i)
 		this->Bounds.push_back({0, -1});
   }
-  BOOST_LOG_TRIVIAL(trace) << "Loaded QP_Param to file " << filename;
+  LOG_S(1) << "Loaded QP_Param to file " << filename;
   this->set(Q, C, A, B, c, b);
   return pos;
 }

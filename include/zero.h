@@ -13,6 +13,9 @@
 
 #pragma once
 
+#include "loguru.hpp"
+
+
 #include <armadillo>
 #include <iostream>
 #include <map>
@@ -20,8 +23,7 @@
 #include <string>
 #include <vector>
 
-using perps          = std::vector<std::pair<unsigned int, unsigned int>>;
-using DoubleAttrPair = std::vector<std::pair<unsigned int, double>>;
+using perps = std::vector<std::pair<unsigned int, unsigned int>>;
 std::ostream &                            operator<<(std::ostream &ost, perps C);
 template <class T> std::ostream &         operator<<(std::ostream &ost, std::vector<T> v);
 template <class T, class S> std::ostream &operator<<(std::ostream &ost, std::pair<T, S> p);

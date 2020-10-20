@@ -240,9 +240,9 @@ MathOpt::IP_Param::set(QP_Objective &&obj, QP_Constraints &&cons, arma::vec &&_i
 								"Invalid vector of Integers. Refer to MP_Param is no "
 								"Integers are involved");
   if (obj.Q.size() > 0)
-	 BOOST_LOG_TRIVIAL(warning) << "MathOpt::IP_Param::set: obj.Q will be ignored";
+	 LOG_S(WARNING) << "MathOpt::IP_Param::set: obj.Q will be ignored";
   if (cons.A.size() > 0)
-	 BOOST_LOG_TRIVIAL(warning) << "MathOpt::IP_Param::set: cons.A will be ignored";
+	 LOG_S(WARNING) << "MathOpt::IP_Param::set: cons.A will be ignored";
   return this->set(std::move(obj.C),
 						 std::move(cons.B),
 						 std::move(cons.b),
@@ -435,7 +435,7 @@ long int MathOpt::IP_Param::load(const std::string &filename, long int pos) {
 	 for (unsigned int i = 0; i < diff; ++i)
 		this->Bounds.push_back({0, -1});
   }
-  BOOST_LOG_TRIVIAL(trace) << "Loaded IP_Param to file " << filename;
+  LOG_S(1) << "Loaded IP_Param to file " << filename;
   this->set(_C, _B, _b, _c, _integers);
   return pos;
 }
@@ -460,7 +460,7 @@ void MathOpt::IP_Param::save(const std::string &filename, bool append) const {
 	 BO.at(i, 1) = this->Bounds.at(i).second;
   }
   Utils::appendSave(BO, filename, std::string("IP_Param::Bounds"), false);
-  BOOST_LOG_TRIVIAL(trace) << "Saved IP_Param to file " << filename;
+  LOG_S(1) << "Saved IP_Param to file " << filename;
 }
 MathOpt::IP_Param::IP_Param(
 	 arma::sp_mat C, arma::sp_mat B, arma::vec b, arma::vec c, arma::vec _integers, GRBEnv *env)

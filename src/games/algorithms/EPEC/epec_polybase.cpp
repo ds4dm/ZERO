@@ -58,8 +58,8 @@ bool Algorithms::EPEC::PolyBase::isSolved(unsigned int *player,
 		return false;
 	 if (std::abs(val - objvals.at(i)) > tol) {
 		*player = i;
-		BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::PolyBase::isSolved: deviation for player " << i
-										 << " -- of " << std::abs(val - objvals.at(i));
+		LOG_S(1) << "Algorithms::EPEC::PolyBase::isSolved: deviation for player " << i << " -- of "
+					<< std::abs(val - objvals.at(i));
 		return false;
 	 }
   }
@@ -259,7 +259,7 @@ double Algorithms::EPEC::PolyBase::getValLeadLeadPoly(const unsigned int i,
  */
 void Algorithms::EPEC::PolyBase::makeThePureLCP() {
   try {
-	 BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makeThePureLCP: editing the LCP model.";
+	 LOG_S(1) << "Game::EPEC::makeThePureLCP: editing the LCP model.";
 	 this->EPECObject->LCPModelBase =
 		  std::unique_ptr<GRBModel>(new GRBModel(*this->EPECObject->LCPModel));
 	 const unsigned int nPolyLead = [this]() {

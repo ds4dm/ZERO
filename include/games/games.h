@@ -11,7 +11,7 @@
  * #############################################*/
 
 #pragma once
-#include "support/codes.h"
+#include "zero.h"
 #include <armadillo>
 #include <iostream>
 #include <memory>

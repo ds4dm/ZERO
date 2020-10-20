@@ -87,8 +87,8 @@ void Algorithms::EPEC::CombinatorialPNE::combPNE(
   } else {
 	 // Combination is filled and ready!
 	 // Check that this combination is not in the excluded list
-	 BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::CombinatorialPNE::combPNE: "
-										  "considering a FULL combination";
+	 LOG_S(1) << "Algorithms::EPEC::CombinatorialPNE::combPNE: "
+					 "considering a FULL combination";
 	 bool excluded = false;
 	 if (!excludeList.empty()) {
 		excluded = true;
@@ -101,8 +101,8 @@ void Algorithms::EPEC::CombinatorialPNE::combPNE(
 	 }
 
 	 if (!excluded) {
-		BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::CombinatorialPNE::combPNE: considering a "
-											 "FEASIBLE combination of polyhedra.";
+		LOG_S(1) << "Algorithms::EPEC::CombinatorialPNE::combPNE: considering a "
+						"FEASIBLE combination of polyhedra.";
 		for (unsigned long j = 0; j < this->EPECObject->NumPlayers; ++j) {
 		  this->PolyLCP.at(j)->clearPolyhedra(true);
 		  this->PolyLCP.at(j)->addThePoly(static_cast<const unsigned long &>(childCombination.at(j)),
@@ -123,8 +123,8 @@ void Algorithms::EPEC::CombinatorialPNE::combPNE(
 		  if (this->isSolved()) {
 			 // Check that the equilibrium is a pure strategy
 			 if ((this->isPureStrategy())) {
-				BOOST_LOG_TRIVIAL(info) << "Algorithms::EPEC::CombinatorialPNE::combPNE: "
-													"found a pure strategy.";
+				LOG_S(INFO) << "Algorithms::EPEC::CombinatorialPNE::combPNE: "
+									"found a pure strategy.";
 				this->EPECObject->Stats.Status.set(ZEROStatus::NashEqFound);
 				this->EPECObject->Stats.PureNashEquilibrium = true;
 				return;
@@ -132,8 +132,8 @@ void Algorithms::EPEC::CombinatorialPNE::combPNE(
 		  }
 		}
 	 } else {
-		BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::CombinatorialPNE::combPNE:"
-											 " configuration pruned.";
+		LOG_S(1) << "Algorithms::EPEC::CombinatorialPNE::combPNE:"
+						" configuration pruned.";
 		return;
 	 }
   }

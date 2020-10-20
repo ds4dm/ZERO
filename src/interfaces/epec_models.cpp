@@ -373,10 +373,10 @@ void Models::EPEC::EPEC::make_LL_LeadCons(
 			 0;
 	 }
   }
-  BOOST_LOG_TRIVIAL(trace) << "********** Price Limit constraint: " << price_lim_cons;
-  BOOST_LOG_TRIVIAL(trace) << "********** Import Limit constraint: " << import_lim_cons;
-  BOOST_LOG_TRIVIAL(trace) << "********** Export Limit constraint: " << export_lim_cons;
-  BOOST_LOG_TRIVIAL(trace) << "********** Tax Limit constraints: " << activeTaxCaps << "\n\t";
+  LOG_S(1) << "********** Price Limit constraint: " << price_lim_cons;
+  LOG_S(1) << "********** Import Limit constraint: " << import_lim_cons;
+  LOG_S(1) << "********** Export Limit constraint: " << export_lim_cons;
+  LOG_S(1) << "********** Tax Limit constraints: " << activeTaxCaps << "\n\t";
 }
 
 Models::EPEC::EPEC &Models::EPEC::EPEC::addCountry(Models::EPEC::LeadAllPar Params,
@@ -440,13 +440,13 @@ Models::EPEC::EPEC &Models::EPEC::EPEC::addCountry(Models::EPEC::LeadAllPar Para
   // Basing on the taxation paradigm, allocate the right number of taxVars in
   // the class
   if (Params.LeaderParam.tax_type == Models::EPEC::TaxType::StandardTax) {
-	 BOOST_LOG_TRIVIAL(trace) << "Country " << Params.name << " has a standard tax paradigm.";
+	 LOG_S(1) << "Country " << Params.name << " has a standard tax paradigm.";
 	 this->taxVars = Params.n_followers;
   } else {
 	 if (Params.LeaderParam.tax_type == Models::EPEC::TaxType::SingleTax) {
-		BOOST_LOG_TRIVIAL(trace) << "Country " << Params.name << " has a single tax paradigm.";
+		LOG_S(1) << "Country " << Params.name << " has a single tax paradigm.";
 	 } else if (Params.LeaderParam.tax_type == Models::EPEC::TaxType::CarbonTax) {
-		BOOST_LOG_TRIVIAL(trace) << "Country " << Params.name << " has a carbon tax paradigm.";
+		LOG_S(1) << "Country " << Params.name << " has a carbon tax paradigm.";
 	 }
 	 this->taxVars = 1;
   }
@@ -466,7 +466,7 @@ Models::EPEC::EPEC &Models::EPEC::EPEC::addCountry(Models::EPEC::LeadAllPar Para
   Models::EPEC::increaseVal(Loc, LeaderVars::Caps, Params.n_followers);
   Models::EPEC::increaseVal(Loc, LeaderVars::Tax, this->taxVars);
   if (Params.LeaderParam.tax_revenue) {
-	 BOOST_LOG_TRIVIAL(info) << "Country " << Params.name << " has tax revenue in the objective.";
+	 LOG_S(INFO) << "Country " << Params.name << " has tax revenue in the objective.";
 	 Models::EPEC::increaseVal(Loc, LeaderVars::TaxQuad, Params.n_followers);
   }
 
@@ -495,8 +495,8 @@ Models::EPEC::EPEC &Models::EPEC::EPEC::addCountry(Models::EPEC::LeadAllPar Para
 		if (!std::equal(Params.FollowerParam.tax_caps.begin() + 1,
 							 Params.FollowerParam.tax_caps.end(),
 							 Params.FollowerParam.tax_caps.begin())) {
-		  BOOST_LOG_TRIVIAL(warning) << "Tax caps are not equal within a non-standard tax framework. "
-												  "Using the first value as tax limit.";
+		  LOG_S(WARNING) << "Tax caps are not equal within a non-standard tax framework. "
+								  "Using the first value as tax limit.";
 		}
 		activeTaxCaps = 1;
 	 }
@@ -929,7 +929,7 @@ void Models::EPEC::increaseVal(LeadLocs &         L,
   for (LeaderVars l = start_rl; l != Models::EPEC::LeaderVars::End; l = l + 1)
 	 L[l] += val;
   L[Models::EPEC::LeaderVars::End] += val;
-  // BOOST_LOG_TRIVIAL(error)<<"End location changed to:
+  // LOG_S(ERROR)<<"End location changed to:
   // "<<L[Models::EPEC::LeaderVars::End];
 }
 
@@ -945,7 +945,7 @@ void Models::EPEC::decreaseVal(LeadLocs &         L,
   for (LeaderVars l = start_rl; l != Models::EPEC::LeaderVars::End; l = l + 1)
 	 L[l] -= val;
   L[Models::EPEC::LeaderVars::End] -= val;
-  // BOOST_LOG_TRIVIAL(error)<<"End location changed to:
+  // LOG_S(ERROR)<<"End location changed to:
   // "<<L[Models::EPEC::LeaderVars::End];
 }
 

@@ -271,7 +271,7 @@ Solvers::PATH::PATH(const arma::sp_mat &  M,
 
 	 {
 		/*if (M.row(p.first).n_nonzero >0) {
-		  BOOST_LOG_TRIVIAL(warning) << "Solvers::PathLCP: Empty row associated with z_"
+		  LOG_S(WARNING) << "Solvers::PathLCP: Empty row associated with z_"
 											  << std::to_string(p.first);
 		}
 
@@ -342,7 +342,7 @@ Solvers::PATH::PATH(const arma::sp_mat &  M,
 
 
   if (stat == 1) {
-	 BOOST_LOG_TRIVIAL(trace) << "Solvers::PathLCP: Found a solution";
+	 LOG_S(1) << "Solvers::PathLCP: Found a solution";
 	 x.zeros(M.n_cols);
 	 z.zeros(M.n_rows);
 	 for (unsigned int i = 0; i < _xsol.size(); ++i) {
@@ -353,8 +353,7 @@ Solvers::PATH::PATH(const arma::sp_mat &  M,
 	 // x.print("x");
 	 this->status = ZEROStatus::NashEqFound;
   } else {
-	 BOOST_LOG_TRIVIAL(trace) << "Solvers::PathLCP: No solution found (STATUS="
-									  << std::to_string(status) << ")";
+	 LOG_S(1) << "Solvers::PathLCP: No solution found (STATUS=" << std::to_string(status) << ")";
 	 this->status = ZEROStatus::NashEqNotFound;
   }
 }
@@ -383,7 +382,6 @@ void Solvers::PATH::C_bounds(int n, double *x, double *lb, double *ub) {
 
 /**
  * @brief Static wrapper for PATH::c_function_evaluation. See PATH documentation for more
- * @param dat  The data passed by the PATH callback. Usually, it is an instance of the class
  * @param n Number of variables
  * @param x Vector of variables for the lcp. Here we call them
  * @param f The output object for the function value
@@ -491,7 +489,7 @@ void Solvers::PATH::C_problem_size(int *n, int *nnz) {
  * @brief Static wrapper for PATH::c_bounds. See PATH documentation for more
  * @param dat  The data passed by the PATH callback. Usually, it is an instance of the class
  * @param n Number of variables
- * @param n Pointer to variables
+ * @param x Pointer to variables
  * @param lb Lower bounds on variables
  * @param ub Upper bounds on variables
  */

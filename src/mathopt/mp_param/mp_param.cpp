@@ -48,7 +48,7 @@ void MathOpt::MP_Param::save(const std::string &filename, bool append) const {
 	 BO.at(i, 1) = this->Bounds.at(i).second;
   }
   Utils::appendSave(BO, filename, std::string("MP_Param::Bounds"), false);
-  BOOST_LOG_TRIVIAL(trace) << "Saved MP_Param to file " << filename;
+  LOG_S(1) << "Saved MP_Param to file " << filename;
 }
 
 /**
@@ -84,7 +84,7 @@ long int MathOpt::MP_Param::load(const std::string &filename, long int pos) {
 	 for (unsigned int i = 0; i < diff; ++i)
 		this->Bounds.push_back({0, -1});
   }
-  BOOST_LOG_TRIVIAL(trace) << "Loaded MP_Param to file " << filename;
+  LOG_S(1) << "Loaded MP_Param to file " << filename;
   this->set(Q, C, A, B, c, b);
   return pos;
 }
@@ -200,13 +200,13 @@ void MathOpt::MP_Param::detectBounds() {
 					 if (bound < Bounds.at(j).second || Bounds.at(j).second == -1) {
 						// If we have an improving UB
 						if (bound != 0) {
-						  /*BOOST_LOG_TRIVIAL(debug)
+						  /*LOG_S(INFO)
 								<< "MathOpt::MP_Param::detectBounds: Variable " << std::to_string(j)
 								<< " has an upper bound of " << std::to_string(bound);*/
 						  // If this is a new bound, increase the counter.
 						  Bounds.at(j).second = bound;
 						} else {
-						  /*BOOST_LOG_TRIVIAL(debug)
+						  /*LOG_S(INFO)
 								<< "MathOpt::MP_Param::detectBounds: Variable " << std::to_string(j)
 								<< " is fixed to " << std::to_string(bound);*/
 						  Bounds.at(j).second = 0;
@@ -217,7 +217,7 @@ void MathOpt::MP_Param::detectBounds() {
 					 shedRows.push_back(i);
 				  } else {
 					 // This is a variable fixed to zero
-					 /*BOOST_LOG_TRIVIAL(debug) << "MathOpt::MP_Param::detectBounds: Variable "
+					 /*LOG_S(INFO) << "MathOpt::MP_Param::detectBounds: Variable "
 													  << std::to_string(j) << " is fixed to zero.";*/
 					 Bounds.at(j).second = 0;
 					 shedRows.push_back(i);
@@ -234,7 +234,7 @@ void MathOpt::MP_Param::detectBounds() {
 
 					 if (bound > Bounds.at(j).first) {
 						// We have an improving bound
-						/*BOOST_LOG_TRIVIAL(debug)
+						/*LOG_S(INFO)
 							 << "MathOpt::MP_Param::detectBounds: Variable " << std::to_string(j)
 							 << " has a lower bound of " << std::to_string(bound);*/
 						Bounds.at(j).first = bound;
@@ -243,7 +243,7 @@ void MathOpt::MP_Param::detectBounds() {
 					 shedRows.push_back(i);
 				  } else {
 					 // Trivial constraint. Can be removed
-					 /*BOOST_LOG_TRIVIAL(debug) << "MathOpt::MP_Param::detectBounds: Trivial constraint "
+					 /*LOG_S(INFO) << "MathOpt::MP_Param::detectBounds: Trivial constraint "
 													  << std::to_string(i) << " pruned";*/
 					 shedRows.push_back(i);
 				  }

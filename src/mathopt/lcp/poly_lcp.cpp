@@ -53,8 +53,7 @@ std::vector<short int> MathOpt::PolyLCP::solEncode(const arma::vec &z, const arm
 	 if (Utils::isZeroValue(x(j)))
 		solEncoded.at(i)--;
 	 if (!Utils::isZeroValue(x(j)) && !Utils::isZeroValue(z(i)))
-		BOOST_LOG_TRIVIAL(trace) << "Infeasible point given! Stay alert! " << x(j) << " " << z(i)
-										 << " with i=" << i;
+		LOG_S(1) << "Infeasible point given! Stay alert! " << x(j) << " " << z(i) << " with i=" << i;
   };
   return solEncoded;
 }
@@ -116,20 +115,19 @@ bool MathOpt::PolyLCP::addPolyFromX(const arma::vec &x, bool innerApproximation)
   std::stringstream encStr;
   for (auto vv : encoding)
 	 encStr << vv << " ";
-  BOOST_LOG_TRIVIAL(trace) << "MathOpt::PolyLCP::addPolyFromX: Handling point with encoding: "
-									<< encStr.str() << '\n';
+  LOG_S(1) << "MathOpt::PolyLCP::addPolyFromX: Handling point with encoding: " << encStr.str()
+			  << '\n';
   // Check if the encoding polyhedron is already in the current inner approximation
   for (const auto &i : this->CurrentPoly[0]) {
 	 std::vector<short int> bin = this->numToVec(i, numCompl, true);
 	 if (encoding < bin) {
-		BOOST_LOG_TRIVIAL(trace) << "MathOpt::PolyLCP::addPolyFromX: Encoding " << i
-										 << " already in the inner approximation! ";
+		LOG_S(1) << "MathOpt::PolyLCP::addPolyFromX: Encoding " << i
+					<< " already in the inner approximation! ";
 		return false;
 	 }
   }
 
-  BOOST_LOG_TRIVIAL(trace)
-		<< "MathOpt::PolyLCP::addPolyFromX: The encoding is not in the inner approximation!";
+  LOG_S(1) << "MathOpt::PolyLCP::addPolyFromX: The encoding is not in the inner approximation!";
   // If it is not in CurrentPoly
   // First change any zero indices of encoding to 1
   for (short &i : encoding) {
@@ -348,7 +346,7 @@ unsigned int MathOpt::PolyLCP::addAPoly(unsigned long int            nPoly,
 
   int add = 0;
   if (this->Inner_MaxPoly < nPoly) { // If you cannot add that numVariablesY polyhedra
-	 BOOST_LOG_TRIVIAL(warning)       // Then issue a warning
+	 LOG_S(WARNING)                   // Then issue a warning
 		  << "Warning in MathOpt::PolyLCP::randomPoly: "
 		  << "Cannot add " << nPoly << " polyhedra. Promising a maximum of " << this->Inner_MaxPoly;
 	 nPoly = this->Inner_MaxPoly; // and update maximum possibly addable
@@ -390,8 +388,8 @@ bool MathOpt::PolyLCP::addThePoly(const unsigned long int &decimalEncoding,
 											 bool                     innerApproximation) {
   if (this->Inner_MaxPoly < decimalEncoding && innerApproximation) {
 	 // This polyhedron does not exist
-	 BOOST_LOG_TRIVIAL(warning) << "Warning in MathOpt::PolyLCP::addThePoly: Cannot add "
-										 << decimalEncoding << " polyhedra, since it does not exist!";
+	 LOG_S(WARNING) << "Warning in MathOpt::PolyLCP::addThePoly: Cannot add " << decimalEncoding
+						 << " polyhedra, since it does not exist!";
 	 return false;
   }
   return this->addPolyFromEncoding(
@@ -412,8 +410,7 @@ unsigned int MathOpt::PolyLCP::exactFullEnumeration(const bool feasibilityCheck)
   this->bi->clear();
   this->addPoliesFromEncoding(encoding, true, feasibilityCheck);
   if (this->Ai->empty()) {
-	 BOOST_LOG_TRIVIAL(warning) << "Empty vector of polyhedra given! Problem might be infeasible."
-										 << '\n';
+	 LOG_S(WARNING) << "Empty vector of polyhedra given! Problem might be infeasible." << '\n';
 	 // 0 <= -1 for infeasability
 	 std::unique_ptr<arma::sp_mat> A(new arma::sp_mat(1, this->M.n_cols));
 	 std::unique_ptr<arma::vec>    b(new arma::vec(1));
@@ -518,8 +515,7 @@ void MathOpt::PolyLCP::outerApproximate(const std::vector<bool> encoding, bool c
   }
   if (clear) {
 	 this->clearPolyhedra(false);
-	 BOOST_LOG_TRIVIAL(error)
-		  << "MathOpt::PolyLCP::outerApproximate: clearing current approximation.";
+	 LOG_S(ERROR) << "MathOpt::PolyLCP::outerApproximate: clearing current approximation.";
   }
   std::vector<short int> localEncoding = {};
   // We push 0 for each complementary that has to be fixed either to +1 or -1
@@ -550,15 +546,15 @@ bool MathOpt::PolyLCP::checkPolyFeas(const std::vector<short int> &encoding,
 
   for (const auto i : InfeasiblePoly[index]) {
 	 if (i == encodingNumber) {
-		BOOST_LOG_TRIVIAL(trace) << "MathOpt::PolyLCP::checkPolyFeas: Previously known "
-											 "infeasible polyhedron  #"
-										 << encodingNumber;
+		LOG_S(1) << "MathOpt::PolyLCP::checkPolyFeas: Previously known "
+						"infeasible polyhedron  #"
+					<< encodingNumber;
 		return false;
 	 }
 	 if (!innerApproximation) {
 		// We may want to check for parents
 		if (encoding < this->numToVec(i, this->Compl.size(), false)) {
-		  BOOST_LOG_TRIVIAL(trace)
+		  LOG_S(1)
 				<< "MathOpt::PolyLCP::checkPolyFeas: Children of an infeasible polyhedron. Infeasible #"
 				<< encodingNumber;
 		  InfeasiblePoly[index].insert(encodingNumber);
@@ -569,17 +565,16 @@ bool MathOpt::PolyLCP::checkPolyFeas(const std::vector<short int> &encoding,
 
   for (const auto i : FeasiblePoly[index]) {
 	 if (i == encodingNumber) {
-		BOOST_LOG_TRIVIAL(trace) << "MathOpt::PolyLCP::checkPolyFeas: Previously known "
-											 "feasible polyhedron #"
-										 << encodingNumber;
+		LOG_S(1) << "MathOpt::PolyLCP::checkPolyFeas: Previously known "
+						"feasible polyhedron #"
+					<< encodingNumber;
 		return true;
 	 }
 	 if (!innerApproximation) {
 		// We may want to check for parents
 		if (encoding > this->numToVec(i, this->Compl.size(), false)) {
-		  BOOST_LOG_TRIVIAL(trace)
-				<< "MathOpt::PolyLCP::checkPolyFeas: Parent of a feasible polyhedron. Feasible #"
-				<< encodingNumber;
+		  LOG_S(1) << "MathOpt::PolyLCP::checkPolyFeas: Parent of a feasible polyhedron. Feasible #"
+					  << encodingNumber;
 		  FeasiblePoly[index].insert(encodingNumber);
 		  return true;
 		}

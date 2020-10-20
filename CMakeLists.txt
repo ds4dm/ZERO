@@ -8,8 +8,7 @@ project(
   LANGUAGES CXX
   DESCRIPTION ${ZERO_DESC})
 
-# CXX Options
-set(CMAKE_UNITY_BUILD ON)
+# CXX Options set(CMAKE_UNITY_BUILD ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 if(NOT CMAKE_BUILD_TYPE)
@@ -60,8 +59,12 @@ configure_file(src/support/CMakeConfig.h.in include/support/version.h)
 # ##############################################################################
 # ZERO - MAIN LIBRARY
 # ##############################################################################
+# LOGGURUFLAG
+add_definitions(-DLOGURU_WITH_STREAMS=1)
 add_library(
   ZERO
+  include/zero.h
+  lib/loguru/loguru.cpp
   src/support/utils.cpp
   src/support/codes.cpp
   src/mathopt/mathopt.cpp
@@ -89,12 +92,13 @@ set_target_properties(
 target_link_libraries(
   ZERO
   PRIVATE blas lapack pthread m ${LUSOL_LIBRARY} ${PATH_LIBRARY}
-  PUBLIC CONAN_PKG::boost CONAN_PKG::armadillo CONAN_PKG::openblas
-         ${GUROBI_LIBRARY} ${GUROBI_CXX_LIBRARY})
+  PUBLIC CONAN_PKG::armadillo CONAN_PKG::openblas ${GUROBI_LIBRARY}
+         ${GUROBI_CXX_LIBRARY})
 target_include_directories(
   ZERO
   PUBLIC ${GUROBI_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/include
          ${PATH_INCLUDE_DIR} ${CONAN_INCLUDE_DIRS}
+         ${CMAKE_CURRENT_SOURCE_DIR}/lib/loguru/
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 # ##############################################################################

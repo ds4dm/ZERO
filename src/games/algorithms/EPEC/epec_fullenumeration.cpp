@@ -22,8 +22,8 @@ void Algorithms::EPEC::FullEnumeration::solve() {
   for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i)
 	 this->PolyLCP.at(i)->exactFullEnumeration(true);
   this->EPECObject->makePlayersQPs();
-  BOOST_LOG_TRIVIAL(trace) << "Algorithms::EPEC::FullEnumeration::solve: "
-										"Starting FullEnumeration search";
+  LOG_S(1) << "Algorithms::EPEC::FullEnumeration::solve: "
+				  "Starting FullEnumeration search";
   this->EPECObject->computeNashEq(this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(),
 											 this->EPECObject->Stats.AlgorithmData.TimeLimit.get());
   if (this->isSolved()) {

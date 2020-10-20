@@ -77,7 +77,7 @@ int main(int argc, char **argv) {
 	 int                major = 0, minor = 0, technical = 0;
 	 string             M, m, p;
 	 ZEROVersion(M, m, p);
-	 BOOST_LOG_TRIVIAL(info) << "ZERO Version: " << M << "." << m << "." << p;
+	 LOG_S(INFO) << "ZERO Version: " << M << "." << m << "." << p;
 	 if (vm.count("version"))
 		return EXIT_SUCCESS;
   }
@@ -101,7 +101,7 @@ int main(int argc, char **argv) {
 	 logging::core::get()->set_filter(logging::trivial::severity >= logging::trivial::trace);
 	 break;
   default:
-	 BOOST_LOG_TRIVIAL(warning) << "Invalid option for --message (-m). Setting default value: 0";
+	 LOG_S(WARNING) << "Invalid option for --message (-m). Setting default value: 0";
 	 verbosity = 0;
 	 logging::core::get()->set_filter(logging::trivial::severity > logging::trivial::info);
 	 break;

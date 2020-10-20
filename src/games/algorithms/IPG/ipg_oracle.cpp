@@ -113,8 +113,8 @@ bool Algorithms::IPG::Oracle::checkTime(double &remaining) const {
 		  std::chrono::high_resolution_clock::now() - this->IPG->InitTime;
 	 remaining = this->IPG->Stats.AlgorithmData.TimeLimit.get() - timeElapsed.count();
 	 if (remaining <= 0) {
-		BOOST_LOG_TRIVIAL(trace) << "Algorithms::IPG::Oracle::checkTime: "
-											 "Time limit hit.";
+		LOG_S(1) << "Algorithms::IPG::Oracle::checkTime: "
+						"Time limit hit.";
 		this->IPG->Stats.Status.set(ZEROStatus::TimeLimit);
 		return false;
 	 } else
@@ -135,8 +135,8 @@ void Algorithms::IPG::Oracle::solve() {
   this->initialize();
   if (this->Infeasible) {
 	 this->IPG->Stats.Status.set(ZEROStatus::NashEqNotFound);
-	 BOOST_LOG_TRIVIAL(info) << "Algorithms::IPG::Oracle::solve: A Nash Equilibrium has not been "
-										 "found. At least one of the players problem is infeasible.";
+	 LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: A Nash Equilibrium has not been "
+						 "found. At least one of the players problem is infeasible.";
 	 return;
   }
 
@@ -181,10 +181,10 @@ void Algorithms::IPG::Oracle::solve() {
 	 this->Pure = pure;
 	 this->IPG->Stats.Status.set(ZEROStatus::NashEqFound);
 
-	 BOOST_LOG_TRIVIAL(info) << "Algorithms::IPG::Oracle::solve: A Nash Equilibrium has been found ("
-									 << (pure == 0 ? "MNE" : "PNE") << ").";
+	 LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: A Nash Equilibrium has been found ("
+					 << (pure == 0 ? "MNE" : "PNE") << ").";
   } else {
-	 BOOST_LOG_TRIVIAL(info) << "Algorithms::IPG::Oracle::solve: No Nash Equilibrium has been found";
+	 LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: No Nash Equilibrium has been found";
 	 this->Solved = false;
 	 this->IPG->Stats.Status.set(ZEROStatus::NashEqNotFound);
   }
@@ -197,9 +197,9 @@ bool Algorithms::IPG::Oracle::separationOracle(const unsigned int player) {
 	* @brief Given the player id @p player, checks whether the current strategy is feasible or
 	* not. In order to do so, a more complex separation technique may be called.
 	*/
-  BOOST_LOG_TRIVIAL(trace) << "Algorithms::IPG::Oracle::separationOracle: "
-										"The Oracle has been called for "
-									<< player;
+  LOG_S(1) << "Algorithms::IPG::Oracle::separationOracle: "
+				  "The Oracle has been called for "
+			  << player;
 
   if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0) {
 	 double remaining;
@@ -230,8 +230,8 @@ bool Algorithms::IPG::Oracle::separationOracle(const unsigned int player) {
 		// Then the strategy is infeasible! It has a better payoff
 		if ((IPobj - RELobj) > this->IPG->Stats.AlgorithmData.DeviationTolerance.get()) {
 
-		  BOOST_LOG_TRIVIAL(info) << "Algorithms::IPG::Oracle::separationOracle: "
-											  "Infeasible strategy. Adding the value-cut.";
+		  LOG_S(INFO) << "Algorithms::IPG::Oracle::separationOracle: "
+							  "Infeasible strategy. Adding the value-cut.";
 		  // Infeasible strategy. Add a value-cut
 		  if (this->addValueCut(player, IPobj, xMinusI))
 			 return false;
@@ -256,9 +256,9 @@ bool Algorithms::IPG::Oracle::separationOracle(const unsigned int player) {
 
 		if (Utils::isZero(*xOfI - bestResponse, this->Tolerance)) {
 		  this->Players.at(player)->Pure = true;
-		  BOOST_LOG_TRIVIAL(info) << "Algorithms::IPG::Oracle::separationOracle: "
-											  "Feasible strategy for Player "
-										  << player << " (Best Response)";
+		  LOG_S(INFO) << "Algorithms::IPG::Oracle::separationOracle: "
+							  "Feasible strategy for Player "
+						  << player << " (Best Response)";
 		  return true;
 		} else {
 		  // In this case, we need to call the proper oracle.
@@ -268,8 +268,8 @@ bool Algorithms::IPG::Oracle::separationOracle(const unsigned int player) {
 	 }
 
   } else if (status == GRB_UNBOUNDED) {
-	 BOOST_LOG_TRIVIAL(info) << "Algorithms::IPG::Oracle::separationOracle: "
-										 "The problem is unbounded.";
+	 LOG_S(INFO) << "Algorithms::IPG::Oracle::separationOracle: "
+						 "The problem is unbounded.";
 	 return false;
   }
   return false;
@@ -301,9 +301,9 @@ bool Algorithms::IPG::Oracle::membershipSeparation(const unsigned int player,
 	 if (!this->checkTime(remaining) || remaining <= 0)
 		return false;
   }
-  BOOST_LOG_TRIVIAL(info) << "Algorithms::IPG::Oracle::membershipSeparation: "
-									  "Starting separator for player "
-								  << player;
+  LOG_S(INFO) << "Algorithms::IPG::Oracle::membershipSeparation: "
+					  "Starting separator for player "
+				  << player;
   for (int k = 0; k < iterations; ++k) {
 	 // First, we check whether the point is a convex combination of feasible
 	 // KNOWN points
@@ -315,9 +315,9 @@ bool Algorithms::IPG::Oracle::membershipSeparation(const unsigned int player,
 	 convexModel.write("dat/Convex_" + std::to_string(player) + ".lp");
 
 	 int status = convexModel.get(GRB_IntAttr_Status);
-	 BOOST_LOG_TRIVIAL(trace) << "Algorithms::IPG::Oracle::membershipSeparation: "
-										  "MermbershipLP status is "
-									  << status;
+	 LOG_S(1) << "Algorithms::IPG::Oracle::membershipSeparation: "
+					 "MermbershipLP status is "
+				 << status;
 	 if (status == GRB_OPTIMAL && convexModel.get(GRB_IntAttr_SolCount) == 1) {
 		convexModel.set(GRB_IntParam_SolutionNumber, 0);
 		arma::vec sol(xOfI.size(), arma::fill::zeros);
@@ -333,9 +333,9 @@ bool Algorithms::IPG::Oracle::membershipSeparation(const unsigned int player,
 		{
 		  // this->Trees.at(player)->addVertex(xOfI);
 		  // sol.print("hyper");
-		  BOOST_LOG_TRIVIAL(info) << "Algorithms::IPG::Oracle::membershipSeparation: "
-											  "The point is a convex combination of known points! Player "
-										  << player;
+		  LOG_S(INFO) << "Algorithms::IPG::Oracle::membershipSeparation: "
+							  "The point is a convex combination of known points! Player "
+						  << player;
 		  this->Players.at(player)->Feasible = true;
 
 		  arma::vec support;
@@ -356,10 +356,9 @@ bool Algorithms::IPG::Oracle::membershipSeparation(const unsigned int player,
 	 if (status == GRB_OPTIMAL) {
 		// Get the Farkas' in the form of the unbounded ray of the dual of the
 		// dualMembershipLP (the primal)
-		BOOST_LOG_TRIVIAL(info) << "Algorithms::IPG::Oracle::membershipSeparation: "
-											"The point is NOT a convex combination of known points! Found "
-										<< convexModel.get(GRB_IntAttr_SolCount) << " solutions. Player "
-										<< player;
+		LOG_S(INFO) << "Algorithms::IPG::Oracle::membershipSeparation: "
+							"The point is NOT a convex combination of known points! Found "
+						<< convexModel.get(GRB_IntAttr_SolCount) << " solutions. Player " << player;
 		for (int z = 0; z < convexModel.get(GRB_IntAttr_SolCount); ++z) {
 		  convexModel.set(GRB_IntParam_SolutionNumber, z);
 		  arma::vec cutLHS;
@@ -393,14 +392,14 @@ bool Algorithms::IPG::Oracle::membershipSeparation(const unsigned int player,
 
 		  if (status == GRB_OPTIMAL) {
 			 double cutV = leaderModel->getObjective().getValue();
-			 BOOST_LOG_TRIVIAL(trace)
-				  << "Algorithms::IPG::Oracle::membershipSeparation: "
-					  "LeaderModel status = "
-				  << std::to_string(status) << " with objective=" << cutV << " for Player " << player;
+			 LOG_S(1) << "Algorithms::IPG::Oracle::membershipSeparation: "
+							 "LeaderModel status = "
+						 << std::to_string(status) << " with objective=" << cutV << " for Player "
+						 << player;
 			 arma::vec val  = cutLHS.t() * xOfI; // c^T xOfI
 			 arma::vec val2 = cutLHS.t() * this->Players.at(player)->V.row(0).t();
-			 BOOST_LOG_TRIVIAL(trace) << "Algorithms::IPG::Oracle::membershipSeparation: c^Tv=" << cutV
-											  << " -- c^TxOfI=" << val.at(0) << " -- c^TV(0)=" << val2.at(0);
+			 LOG_S(1) << "Algorithms::IPG::Oracle::membershipSeparation: c^Tv=" << cutV
+						 << " -- c^TxOfI=" << val.at(0) << " -- c^TV(0)=" << val2.at(0);
 			 if (cutV - val.at(0) < -this->Tolerance) {
 				// False, but we have a cut :-)
 				// Ciao Moni
@@ -409,15 +408,15 @@ bool Algorithms::IPG::Oracle::membershipSeparation(const unsigned int player,
 
 				if (!this->IPG->PlayersIP.at(player)->addConstraint(
 						  cutLHS, cutV, true, this->Tolerance)) {
-				  BOOST_LOG_TRIVIAL(info) << "Algorithms::IPG::Oracle::membershipSeparation: "
-													  "cut already added for Player "
-												  << player;
+				  LOG_S(INFO) << "Algorithms::IPG::Oracle::membershipSeparation: "
+									  "cut already added for Player "
+								  << player;
 				  break;
 
 				} else {
-				  BOOST_LOG_TRIVIAL(info) << "Algorithms::IPG::Oracle::membershipSeparation: "
-													  "adding cut for Player "
-												  << player;
+				  LOG_S(INFO) << "Algorithms::IPG::Oracle::membershipSeparation: "
+									  "adding cut for Player "
+								  << player;
 				  return false;
 				}
 			 } else {
@@ -428,9 +427,9 @@ bool Algorithms::IPG::Oracle::membershipSeparation(const unsigned int player,
 				  v[i] = leaderModel->getVarByName("y_" + std::to_string(i)).get(GRB_DoubleAttr_X);
 
 				if (v.max() == v.min() && v.min() == 0) {
-				  BOOST_LOG_TRIVIAL(warning) << "Algorithms::IPG::Oracle::membershipSeparation: "
-														  "The origin! Feasible point"
-													  << player;
+				  LOG_S(WARNING) << "Algorithms::IPG::Oracle::membershipSeparation: "
+										  "The origin! Feasible point"
+									  << player;
 				  return true;
 				}
 
@@ -438,17 +437,17 @@ bool Algorithms::IPG::Oracle::membershipSeparation(const unsigned int player,
 				v.print("Vertex found: ");
 				std::cout << "Objective: " << leaderModel->getObjective();
 				if (Utils::containsRow(this->Players.at(player)->V, v, this->Tolerance)) {
-				  BOOST_LOG_TRIVIAL(warning) << "Algorithms::IPG::Oracle::membershipSeparation: "
-														  "duplicate vertex for  player "
-													  << player;
+				  LOG_S(WARNING) << "Algorithms::IPG::Oracle::membershipSeparation: "
+										  "duplicate vertex for  player "
+									  << player;
 				  //@todo
 				  break;
 				  // throw;
 				} else {
 				  this->Players.at(player)->addVertex(v);
 				  v.print("Vertex");
-				  BOOST_LOG_TRIVIAL(info) << "Algorithms::IPG::Oracle::membershipSeparation: "
-													  "adding vertex for Player. ";
+				  LOG_S(INFO) << "Algorithms::IPG::Oracle::membershipSeparation: "
+									  "adding vertex for Player. ";
 				  break;
 				}
 			 }
@@ -457,15 +456,15 @@ bool Algorithms::IPG::Oracle::membershipSeparation(const unsigned int player,
 		  else if (status == GRB_UNBOUNDED) {
 			 // Check for a new ray
 			 if (!Utils::containsRow(this->Players.at(player)->R, cutLHS, this->Tolerance)) {
-				BOOST_LOG_TRIVIAL(warning) << "Algorithms::IPG::Oracle::membershipSeparation: "
-														"new ray for  player "
-													<< player;
+				LOG_S(WARNING) << "Algorithms::IPG::Oracle::membershipSeparation: "
+										"new ray for  player "
+									<< player;
 				this->Players.at(player)->addRay(cutLHS);
 				break;
 			 } else {
-				BOOST_LOG_TRIVIAL(warning) << "Algorithms::IPG::Oracle::membershipSeparation: "
-														"duplicate ray for player "
-													<< player;
+				LOG_S(WARNING) << "Algorithms::IPG::Oracle::membershipSeparation: "
+										"duplicate ray for player "
+									<< player;
 				break;
 			 }
 
@@ -517,7 +516,7 @@ bool Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
 	 MPCasted.push_back(m);
   }
   Game::NashGame Nash = Game::NashGame(this->Env, MPCasted, MC, MCRHS, 0, dumA, dumB);
-  BOOST_LOG_TRIVIAL(trace) << "@todo: NashGame is ready";
+  LOG_S(1) << "@todo: NashGame is ready";
   auto LCP = std::unique_ptr<MathOpt::LCP>(new MathOpt::LCP(this->Env, Nash));
 
   arma::vec x, z;
@@ -526,7 +525,7 @@ bool Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
 
   auto LCPSolver = LCP->solve(Data::LCP::Algorithms::PATH, x, z, localTimeLimit);
   if (LCPSolver == ZEROStatus::NashEqFound) {
-	 BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
+	 LOG_S(INFO) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
 		this->Players.at(i)->Incumbent = x.subvec(Nash.getPrimalLoc(i), Nash.getPrimalLoc(i + 1) - 1);
 		this->Players.at(i)->Incumbent.print("Incumbent of " + std::to_string(i));
@@ -541,7 +540,7 @@ bool Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
 	 return true;
 
   } else {
-	 BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: NO Equilibrium has been found";
+	 LOG_S(INFO) << "Game::EPEC::computeNashEq: NO Equilibrium has been found";
 	 return false;
   }
 }
@@ -591,9 +590,9 @@ void Algorithms::IPG::Oracle::initialize() {
 		  // This is also a f
 
 		  if (this->Players.at(i)->addVertex(this->Players.at(i)->Incumbent, true))
-			 BOOST_LOG_TRIVIAL(trace) << "Algorithms::IPG::Oracle::initialize(): "
-												  "Added vertex for player "
-											  << i;
+			 LOG_S(1) << "Algorithms::IPG::Oracle::initialize(): "
+							 "Added vertex for player "
+						 << i;
 		}
 
 		else if (status == GRB_UNBOUNDED) {
@@ -606,9 +605,9 @@ void Algorithms::IPG::Oracle::initialize() {
 			 ray.at(k) = relaxed.getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_UnbdRay);
 			 // This is also a free ray
 			 if (this->Players.at(i)->addRay(ray, true))
-				BOOST_LOG_TRIVIAL(trace) << "Algorithms::IPG::Oracle::initialize(): "
-													 "Added ray for player "
-												 << i;
+				LOG_S(1) << "Algorithms::IPG::Oracle::initialize(): "
+								"Added ray for player "
+							<< i;
 		  }
 		}
 		// Give the new IP
