@@ -44,8 +44,10 @@ namespace Data {
 
 namespace Game {
 
-  ///<@brief This class handles Integer Programming Games (IPG), namely multiple agents solving an
-  ///< integer programming game.
+  /**
+	* @brief This class handles Integer Programming Games (IPG), namely multiple agents solving an
+	* integer programming game.
+	*/
   class IPG : public AbstractGame<Data::IPG::DataObject> {
   protected: // Datafields
 	 std::vector<std::shared_ptr<MathOpt::IP_Param>>
@@ -53,8 +55,11 @@ namespace Game {
 
 	 std::vector<unsigned int> PlayerVariables{}; ///< The number of variables for each player
 
-	 bool Finalized{false};           ///< When the object is Finalized, the solving process
-												 ///< can start. No players can be added.
+
+	 /**
+	  * @brief When the object is Finalized, the solving process can start. No players can be added.
+	  */
+	 bool                   Finalized{false};
 	 std::vector<arma::vec> Solution; ///< Solution variable values, for each player
 
   private:

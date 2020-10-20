@@ -126,32 +126,32 @@ namespace Algorithms {
 
 		inline bool getPure() const {
 		  return this->isPure;
-		} ///< Read-only getter for OuterTree:isPure
+		} ///< Read-only getter for OuterTree::isPure
 
 		inline void setFeasible() {
 		  this->isFeasible = true;
-		} ///< Read-only getter for OuterTree:isFeasible
+		} ///< Read-only getter for OuterTree::isFeasible
 
-		inline void setPure() { this->isPure = true; } ///< Setter for OuterTree:isPure
+		inline void setPure() { this->isPure = true; } ///< Setter for OuterTree::isPure
 
 		const inline unsigned int getEncodingSize() {
 		  return this->EncodingSize;
 		} ///< Getter for the encoding size
 
-		inline const arma::sp_mat *getV() { return &this->V; } ///< Getter for OuterTree:V
+		inline const arma::sp_mat *getV() { return &this->V; } ///< Getter for OuterTree::V
 
-		inline const arma::sp_mat *getR() { return &this->R; } ///< Getter for OuterTree:R
+		inline const arma::sp_mat *getR() { return &this->R; } ///< Getter for OuterTree::R
 
 		inline const unsigned int getVertexCount() {
 		  return this->VertexCounter;
-		} ///< Getter for OuterTree:VertexCounter
+		} ///< Getter for OuterTree::VertexCounter
 		inline const unsigned int getRayCount() {
 		  return this->RayCounter;
-		} ///< Getter for OuterTree:RayCounter
+		} ///< Getter for OuterTree::RayCounter
 
 		inline const unsigned int getNodeCount() {
 		  return this->NodeCounter;
-		} ///< Getter for OuterTree:NodeCounter
+		} ///< Getter for OuterTree::NodeCounter
 
 
 		inline void addVertex(arma::vec vertex);

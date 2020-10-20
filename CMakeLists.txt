@@ -4,9 +4,12 @@ cmake_minimum_required(VERSION 3.16)
 include(cmake/ZERO.cmake)
 project(
   ZERO
-  VERSION ${ZERO_V}
+  VERSION ${ZERO_VERSION_MAJOR}.${ZERO_VERSION_MINOR}.${ZERO_VERSION_PATCH}
   LANGUAGES CXX
   DESCRIPTION ${ZERO_DESC})
+
+message("Configuring ZEROVersion")
+configure_file(src/support/CMakeConfig.h.in include/support/version.h)
 
 # CXX Options set(CMAKE_UNITY_BUILD ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -53,8 +56,6 @@ conan_cmake_run(
   missing
   ENV
   OUTPUT_QUIET)
-
-configure_file(src/support/CMakeConfig.h.in include/support/version.h)
 
 # ##############################################################################
 # ZERO - MAIN LIBRARY
