@@ -373,10 +373,6 @@
 <li class="toctree-l5"><a class="reference internal" href="classZEROException.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="classZEROVersion.html">Class ZEROVersion</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="classZEROVersion.html#class-documentation">Class Documentation</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="library_root.html#enums">Enums</a><ul>
@@ -669,32 +665,9 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="library_root.html#defines">Defines</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1a91456860f1b68f75585291f36c7236d0.html">Define ZERO_VERSION</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1a91456860f1b68f75585291f36c7236d0.html#define-documentation">Define Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1a6262c33ed29a18a0caf8679d9567387b.html">Define ZERO_VERSION_MAJOR</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1a6262c33ed29a18a0caf8679d9567387b.html#define-documentation">Define Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1a424af57c80491056fe1236626324fe7b.html">Define ZERO_VERSION_MINOR</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1a424af57c80491056fe1236626324fe7b.html#define-documentation">Define Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1af78c071334f2637b74d108e04674b8b6.html">Define ZERO_VERSION_PATCH</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1af78c071334f2637b74d108e04674b8b6.html#define-documentation">Define Documentation</a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1aaff3b0535ece33c18614a653b99ebe44.html">Typedef bound</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1aaff3b0535ece33c18614a653b99ebe44.html#typedef-documentation">Typedef Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a4770e2d9d0deef0f2e03cd2e53431622.html">Typedef DoubleAttrPair</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a4770e2d9d0deef0f2e03cd2e53431622.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="typedef_namespaceMathOpt_1a7077c09ae1bba23b9181ac92bf0c6dea.html">Typedef MathOpt::QP_constraints</a><ul>
@@ -874,8 +847,8 @@ void MathOpt::LCP::processBounds() {
   }
 
   if (shedded.size() &gt; 0) {
-     BOOST_LOG_TRIVIAL(debug) &lt;&lt; &quot;MathOpt::LCP::processBounds: &quot; &lt;&lt; shedded.size()
-                                      &lt;&lt; &quot; bounds and trivial constraints processed&quot;;
+     LOG_S(INFO) &lt;&lt; &quot;MathOpt::LCP::processBounds: &quot; &lt;&lt; shedded.size()
+                     &lt;&lt; &quot; bounds and trivial constraints processed&quot;;
      std::sort(shedded.begin(), shedded.end());
 
      for (int i = shedded.size() - 1; i &gt;= 0; --i) {
@@ -967,10 +940,10 @@ void MathOpt::LCP::makeRelaxed() {
   try {
      if (this-&gt;MadeRlxdModel)
         return;
-     BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;MathOpt::LCP::makeRelaxed: Creating a model with : &quot; &lt;&lt; nR
-                                      &lt;&lt; &quot; variables and  &quot; &lt;&lt; nC &lt;&lt; &quot; constraints&quot;;
+     LOG_S(1) &lt;&lt; &quot;MathOpt::LCP::makeRelaxed: Creating a model with : &quot; &lt;&lt; nR &lt;&lt; &quot; variables and  &quot;
+                 &lt;&lt; nC &lt;&lt; &quot; constraints&quot;;
      GRBVar x[nC], z[nR];
-     BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;MathOpt::LCP::makeRelaxed: Initializing variables&quot;;
+     LOG_S(1) &lt;&lt; &quot;MathOpt::LCP::makeRelaxed: Initializing variables&quot;;
      for (unsigned int i = 0; i &lt; nC; i++)
         x[i] = RelaxedModel.addVar(BoundsX.at(i).first,
                                             BoundsX.at(i).second &gt; 0 ? BoundsX.at(i).second : GRB_INFINITY,
@@ -981,7 +954,7 @@ void MathOpt::LCP::makeRelaxed() {
         z[i] = RelaxedModel.addVar(0, GRB_INFINITY, 1, GRB_CONTINUOUS, &quot;z_&quot; + std::to_string(i));
 
 
-     BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;MathOpt::LCP::makeRelaxed: Added variables&quot;;
+     LOG_S(1) &lt;&lt; &quot;MathOpt::LCP::makeRelaxed: Added variables&quot;;
      for (unsigned int i = 0; i &lt; nR; i++) {
         GRBLinExpr expr = 0;
         for (auto v = M.begin_row(i); v != M.end_row(i); ++v)
@@ -989,12 +962,11 @@ void MathOpt::LCP::makeRelaxed() {
         expr += q(i);
         RelaxedModel.addConstr(expr, GRB_EQUAL, z[i], &quot;z_&quot; + std::to_string(i) + &quot;_def&quot;);
      }
-     BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;MathOpt::LCP::makeRelaxed: Added equation definitions&quot;;
+     LOG_S(1) &lt;&lt; &quot;MathOpt::LCP::makeRelaxed: Added equation definitions&quot;;
      // If @f$Ax \leq b@f$ constraints are there, they should be included too!
      if (this-&gt;A.n_nonzero != 0 &amp;&amp; this-&gt;b.n_rows != 0) {
         if (A.n_cols != nC || A.n_rows != b.n_rows) {
-          BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;(&quot; &lt;&lt; A.n_rows &lt;&lt; &quot;,&quot; &lt;&lt; A.n_cols &lt;&lt; &quot;)\t&quot; &lt;&lt; b.n_rows &lt;&lt; &quot; &quot;
-                                            &lt;&lt; nC;
+          LOG_S(1) &lt;&lt; &quot;(&quot; &lt;&lt; A.n_rows &lt;&lt; &quot;,&quot; &lt;&lt; A.n_cols &lt;&lt; &quot;)\t&quot; &lt;&lt; b.n_rows &lt;&lt; &quot; &quot; &lt;&lt; nC;
           throw ZEROException(ZEROErrorCode::InvalidData, &quot;A and b are incompatible&quot;);
         }
         for (unsigned int i = 0; i &lt; A.n_rows; i++) {
@@ -1003,7 +975,7 @@ void MathOpt::LCP::makeRelaxed() {
              expr += (*a) * x[a.col()];
           RelaxedModel.addConstr(expr, GRB_LESS_EQUAL, b(i), &quot;commonCons_&quot; + std::to_string(i));
         }
-        BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;MathOpt::LCP::makeRelaxed: Added common constraints&quot;;
+        LOG_S(1) &lt;&lt; &quot;MathOpt::LCP::makeRelaxed: Added common constraints&quot;;
      }
      RelaxedModel.update();
      this-&gt;MadeRlxdModel = true;
@@ -1059,8 +1031,7 @@ std::unique_ptr&lt;GRBModel&gt; MathOpt::LCP::MPECasMILP(const arma::sp_mat &amp
                                                                     bool                solve) {
 
   if (!this-&gt;PureMIP)
-     BOOST_LOG_TRIVIAL(trace)
-          &lt;&lt; &quot;MathOpt::LCP::MPECasMILP: Note that complementarities are bi-linearly modeled!&quot;;
+     LOG_S(1) &lt;&lt; &quot;MathOpt::LCP::MPECasMILP: Note that complementarities are bi-linearly modeled!&quot;;
   std::unique_ptr&lt;GRBModel&gt; model = this-&gt;LCPasMIP(true);
   // Reset the solution limit. We need to solve to optimality
   model-&gt;set(GRB_IntParam_SolutionLimit, GRB_MAXINT);
@@ -1129,7 +1100,7 @@ void MathOpt::LCP::save(std::string filename, bool erase) const {
   }
   Utils::appendSave(B, filename, std::string(&quot;LCP::Bounds&quot;), false);
 
-  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Saved LCP to file &quot; &lt;&lt; filename;
+  LOG_S(1) &lt;&lt; &quot;Saved LCP to file &quot; &lt;&lt; filename;
 }
 
 
@@ -1224,7 +1195,7 @@ void MathOpt::LCP::makeQP(MathOpt::QP_Objective &amp;QP_obj, MathOpt::QP_Param &
 
   MathOpt::QP_Constraints QP_cons;
   int                     components = this-&gt;convexHull(QP_cons.B, QP_cons.b);
-  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;LCP::makeQP: No. components: &quot; &lt;&lt; components;
+  LOG_S(1) &lt;&lt; &quot;LCP::makeQP: No. components: &quot; &lt;&lt; components;
   // Updated size after convex hull has been computed.
   const unsigned int numConstraints{static_cast&lt;unsigned int&gt;(QP_cons.B.n_rows)};
   const unsigned int oldNumVariablesY{static_cast&lt;unsigned int&gt;(QP_cons.B.n_cols)};

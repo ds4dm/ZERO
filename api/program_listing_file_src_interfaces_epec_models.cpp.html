@@ -373,10 +373,6 @@
 <li class="toctree-l5"><a class="reference internal" href="classZEROException.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="classZEROVersion.html">Class ZEROVersion</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="classZEROVersion.html#class-documentation">Class Documentation</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="library_root.html#enums">Enums</a><ul>
@@ -669,32 +665,9 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="library_root.html#defines">Defines</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1a91456860f1b68f75585291f36c7236d0.html">Define ZERO_VERSION</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1a91456860f1b68f75585291f36c7236d0.html#define-documentation">Define Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1a6262c33ed29a18a0caf8679d9567387b.html">Define ZERO_VERSION_MAJOR</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1a6262c33ed29a18a0caf8679d9567387b.html#define-documentation">Define Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1a424af57c80491056fe1236626324fe7b.html">Define ZERO_VERSION_MINOR</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1a424af57c80491056fe1236626324fe7b.html#define-documentation">Define Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1af78c071334f2637b74d108e04674b8b6.html">Define ZERO_VERSION_PATCH</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1af78c071334f2637b74d108e04674b8b6.html#define-documentation">Define Documentation</a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1aaff3b0535ece33c18614a653b99ebe44.html">Typedef bound</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1aaff3b0535ece33c18614a653b99ebe44.html#typedef-documentation">Typedef Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a4770e2d9d0deef0f2e03cd2e53431622.html">Typedef DoubleAttrPair</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a4770e2d9d0deef0f2e03cd2e53431622.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="typedef_namespaceMathOpt_1a7077c09ae1bba23b9181ac92bf0c6dea.html">Typedef MathOpt::QP_constraints</a><ul>
@@ -1154,10 +1127,10 @@ void Models::EPEC::EPEC::make_LL_LeadCons(
              0;
      }
   }
-  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;********** Price Limit constraint: &quot; &lt;&lt; price_lim_cons;
-  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;********** Import Limit constraint: &quot; &lt;&lt; import_lim_cons;
-  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;********** Export Limit constraint: &quot; &lt;&lt; export_lim_cons;
-  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;********** Tax Limit constraints: &quot; &lt;&lt; activeTaxCaps &lt;&lt; &quot;\n\t&quot;;
+  LOG_S(1) &lt;&lt; &quot;********** Price Limit constraint: &quot; &lt;&lt; price_lim_cons;
+  LOG_S(1) &lt;&lt; &quot;********** Import Limit constraint: &quot; &lt;&lt; import_lim_cons;
+  LOG_S(1) &lt;&lt; &quot;********** Export Limit constraint: &quot; &lt;&lt; export_lim_cons;
+  LOG_S(1) &lt;&lt; &quot;********** Tax Limit constraints: &quot; &lt;&lt; activeTaxCaps &lt;&lt; &quot;\n\t&quot;;
 }
 
 Models::EPEC::EPEC &amp;Models::EPEC::EPEC::addCountry(Models::EPEC::LeadAllPar Params,
@@ -1184,13 +1157,13 @@ Models::EPEC::EPEC &amp;Models::EPEC::EPEC::addCountry(Models::EPEC::LeadAllPar 
   // Basing on the taxation paradigm, allocate the right number of taxVars in
   // the class
   if (Params.LeaderParam.tax_type == Models::EPEC::TaxType::StandardTax) {
-     BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Country &quot; &lt;&lt; Params.name &lt;&lt; &quot; has a standard tax paradigm.&quot;;
+     LOG_S(1) &lt;&lt; &quot;Country &quot; &lt;&lt; Params.name &lt;&lt; &quot; has a standard tax paradigm.&quot;;
      this-&gt;taxVars = Params.n_followers;
   } else {
      if (Params.LeaderParam.tax_type == Models::EPEC::TaxType::SingleTax) {
-        BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Country &quot; &lt;&lt; Params.name &lt;&lt; &quot; has a single tax paradigm.&quot;;
+        LOG_S(1) &lt;&lt; &quot;Country &quot; &lt;&lt; Params.name &lt;&lt; &quot; has a single tax paradigm.&quot;;
      } else if (Params.LeaderParam.tax_type == Models::EPEC::TaxType::CarbonTax) {
-        BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Country &quot; &lt;&lt; Params.name &lt;&lt; &quot; has a carbon tax paradigm.&quot;;
+        LOG_S(1) &lt;&lt; &quot;Country &quot; &lt;&lt; Params.name &lt;&lt; &quot; has a carbon tax paradigm.&quot;;
      }
      this-&gt;taxVars = 1;
   }
@@ -1210,7 +1183,7 @@ Models::EPEC::EPEC &amp;Models::EPEC::EPEC::addCountry(Models::EPEC::LeadAllPar 
   Models::EPEC::increaseVal(Loc, LeaderVars::Caps, Params.n_followers);
   Models::EPEC::increaseVal(Loc, LeaderVars::Tax, this-&gt;taxVars);
   if (Params.LeaderParam.tax_revenue) {
-     BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Country &quot; &lt;&lt; Params.name &lt;&lt; &quot; has tax revenue in the objective.&quot;;
+     LOG_S(INFO) &lt;&lt; &quot;Country &quot; &lt;&lt; Params.name &lt;&lt; &quot; has tax revenue in the objective.&quot;;
      Models::EPEC::increaseVal(Loc, LeaderVars::TaxQuad, Params.n_followers);
   }
 
@@ -1239,8 +1212,8 @@ Models::EPEC::EPEC &amp;Models::EPEC::EPEC::addCountry(Models::EPEC::LeadAllPar 
         if (!std::equal(Params.FollowerParam.tax_caps.begin() + 1,
                              Params.FollowerParam.tax_caps.end(),
                              Params.FollowerParam.tax_caps.begin())) {
-          BOOST_LOG_TRIVIAL(warning) &lt;&lt; &quot;Tax caps are not equal within a non-standard tax framework. &quot;
-                                                  &quot;Using the first value as tax limit.&quot;;
+          LOG_S(WARNING) &lt;&lt; &quot;Tax caps are not equal within a non-standard tax framework. &quot;
+                                  &quot;Using the first value as tax limit.&quot;;
         }
         activeTaxCaps = 1;
      }
@@ -1608,7 +1581,7 @@ void Models::EPEC::increaseVal(LeadLocs &amp;         L,
   for (LeaderVars l = start_rl; l != Models::EPEC::LeaderVars::End; l = l + 1)
      L[l] += val;
   L[Models::EPEC::LeaderVars::End] += val;
-  // BOOST_LOG_TRIVIAL(error)&lt;&lt;&quot;End location changed to:
+  // LOG_S(ERROR)&lt;&lt;&quot;End location changed to:
   // &quot;&lt;&lt;L[Models::EPEC::LeaderVars::End];
 }
 
@@ -1621,7 +1594,7 @@ void Models::EPEC::decreaseVal(LeadLocs &amp;         L,
   for (LeaderVars l = start_rl; l != Models::EPEC::LeaderVars::End; l = l + 1)
      L[l] -= val;
   L[Models::EPEC::LeaderVars::End] -= val;
-  // BOOST_LOG_TRIVIAL(error)&lt;&lt;&quot;End location changed to:
+  // LOG_S(ERROR)&lt;&lt;&quot;End location changed to:
   // &quot;&lt;&lt;L[Models::EPEC::LeaderVars::End];
 }
 

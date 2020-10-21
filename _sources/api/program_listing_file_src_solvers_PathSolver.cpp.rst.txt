@@ -248,7 +248,7 @@ Program Listing for File PathSolver.cpp
    
         {
            /*if (M.row(p.first).n_nonzero >0) {
-             BOOST_LOG_TRIVIAL(warning) << "Solvers::PathLCP: Empty row associated with z_"
+             LOG_S(WARNING) << "Solvers::PathLCP: Empty row associated with z_"
                                                  << std::to_string(p.first);
            }
    
@@ -319,7 +319,7 @@ Program Listing for File PathSolver.cpp
    
    
      if (stat == 1) {
-        BOOST_LOG_TRIVIAL(trace) << "Solvers::PathLCP: Found a solution";
+        LOG_S(1) << "Solvers::PathLCP: Found a solution";
         x.zeros(M.n_cols);
         z.zeros(M.n_rows);
         for (unsigned int i = 0; i < _xsol.size(); ++i) {
@@ -330,8 +330,7 @@ Program Listing for File PathSolver.cpp
         // x.print("x");
         this->status = ZEROStatus::NashEqFound;
      } else {
-        BOOST_LOG_TRIVIAL(trace) << "Solvers::PathLCP: No solution found (STATUS="
-                                         << std::to_string(status) << ")";
+        LOG_S(1) << "Solvers::PathLCP: No solution found (STATUS=" << std::to_string(status) << ")";
         this->status = ZEROStatus::NashEqNotFound;
      }
    }

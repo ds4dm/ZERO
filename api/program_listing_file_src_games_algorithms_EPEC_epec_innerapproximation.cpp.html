@@ -373,10 +373,6 @@
 <li class="toctree-l5"><a class="reference internal" href="classZEROException.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="classZEROVersion.html">Class ZEROVersion</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="classZEROVersion.html#class-documentation">Class Documentation</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="library_root.html#enums">Enums</a><ul>
@@ -669,32 +665,9 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="library_root.html#defines">Defines</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1a91456860f1b68f75585291f36c7236d0.html">Define ZERO_VERSION</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1a91456860f1b68f75585291f36c7236d0.html#define-documentation">Define Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1a6262c33ed29a18a0caf8679d9567387b.html">Define ZERO_VERSION_MAJOR</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1a6262c33ed29a18a0caf8679d9567387b.html#define-documentation">Define Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1a424af57c80491056fe1236626324fe7b.html">Define ZERO_VERSION_MINOR</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1a424af57c80491056fe1236626324fe7b.html#define-documentation">Define Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1af78c071334f2637b74d108e04674b8b6.html">Define ZERO_VERSION_PATCH</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1af78c071334f2637b74d108e04674b8b6.html#define-documentation">Define Documentation</a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1aaff3b0535ece33c18614a653b99ebe44.html">Typedef bound</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1aaff3b0535ece33c18614a653b99ebe44.html#typedef-documentation">Typedef Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a4770e2d9d0deef0f2e03cd2e53431622.html">Typedef DoubleAttrPair</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a4770e2d9d0deef0f2e03cd2e53431622.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="typedef_namespaceMathOpt_1a7077c09ae1bba23b9181ac92bf0c6dea.html">Typedef MathOpt::QP_constraints</a><ul>
@@ -879,12 +852,12 @@ void Algorithms::EPEC::InnerApproximation::start() {
   // does not exist a Nash equilibrium or you run out of time.
   while (!solved) {
      this-&gt;EPECObject-&gt;Stats.NumIterations.set(this-&gt;EPECObject-&gt;Stats.NumIterations.get() + 1);
-     BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Algorithms::EPEC::InnerApproximation::solve: Iteration &quot;
-                                     &lt;&lt; std::to_string(this-&gt;EPECObject-&gt;Stats.NumIterations.get());
+     LOG_S(INFO) &lt;&lt; &quot;Algorithms::EPEC::InnerApproximation::solve: Iteration &quot;
+                     &lt;&lt; std::to_string(this-&gt;EPECObject-&gt;Stats.NumIterations.get());
 
      if (addRandPoly) {
-        BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Algorithms::EPEC::InnerApproximation::solve: using &quot;
-                                            &quot;heuristic polyhedra selection&quot;;
+        LOG_S(INFO) &lt;&lt; &quot;Algorithms::EPEC::InnerApproximation::solve: using &quot;
+                            &quot;heuristic polyhedra selection&quot;;
         bool success =
              this-&gt;addRandomPoly2All(this-&gt;EPECObject-&gt;Stats.AlgorithmData.Aggressiveness.get(),
                                              this-&gt;EPECObject-&gt;Stats.NumIterations.get() == 1);
@@ -905,14 +878,14 @@ void Algorithms::EPEC::InnerApproximation::start() {
              // enumeration or combinations of pure strategies.
              if (this-&gt;EPECObject-&gt;Stats.AlgorithmData.RecoverStrategy.get() ==
                   Data::EPEC::RecoverStrategy::IncrementalEnumeration) {
-                BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Algorithms::EPEC::InnerApproximation::solve: &quot;
-                                                    &quot;triggering recover strategy &quot;
-                                                    &quot;(IncrementalEnumeration)&quot;;
+                LOG_S(INFO) &lt;&lt; &quot;Algorithms::EPEC::InnerApproximation::solve: &quot;
+                                    &quot;triggering recover strategy &quot;
+                                    &quot;(IncrementalEnumeration)&quot;;
                 incrementalEnumeration = true;
              } else if (this-&gt;EPECObject-&gt;Stats.AlgorithmData.RecoverStrategy.get() ==
                             Data::EPEC::RecoverStrategy::Combinatorial) {
-                BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Algorithms::EPEC::InnerApproximation::solve: triggering &quot;
-                                                    &quot;recover strategy (Combinatorial)&quot;;
+                LOG_S(INFO) &lt;&lt; &quot;Algorithms::EPEC::InnerApproximation::solve: triggering &quot;
+                                    &quot;recover strategy (Combinatorial)&quot;;
                 // In this case, we want to try all the combinations of pure
                 // strategies, except the ones between polyhedra we already tested.
                 std::vector&lt;std::set&lt;unsigned long int&gt;&gt; excludeList;
@@ -934,15 +907,15 @@ void Algorithms::EPEC::InnerApproximation::start() {
         unsigned int addedPoly = this-&gt;addDeviatedPolyhedron(devns, infeasCheck);
         if (addedPoly == 0 &amp;&amp; this-&gt;EPECObject-&gt;Stats.NumIterations.get() &gt; 1 &amp;&amp;
              !incrementalEnumeration) {
-          BOOST_LOG_TRIVIAL(error) &lt;&lt; &quot; In Algorithms::EPEC::InnerApproximation::solve: Not &quot;
-                                                &quot;Solved, but no deviation? Error!\n This might be due to &quot;
-                                                &quot;Numerical issues (tolerances)&quot;;
+          LOG_S(ERROR) &lt;&lt; &quot; In Algorithms::EPEC::InnerApproximation::solve: Not &quot;
+                                &quot;Solved, but no deviation? Error!\n This might be due to &quot;
+                                &quot;Numerical issues (tolerances)&quot;;
           this-&gt;EPECObject-&gt;Stats.Status.set(ZEROStatus::Numerical);
           solved = true;
         }
         if (infeasCheck &amp;&amp; this-&gt;EPECObject-&gt;Stats.NumIterations.get() == 1) {
-          BOOST_LOG_TRIVIAL(warning) &lt;&lt; &quot; In Algorithms::EPEC::InnerApproximation::solve: Problem is &quot;
-                                                  &quot;infeasible&quot;;
+          LOG_S(WARNING) &lt;&lt; &quot; In Algorithms::EPEC::InnerApproximation::solve: Problem is &quot;
+                                  &quot;infeasible&quot;;
           this-&gt;EPECObject-&gt;Stats.Status.set(ZEROStatus::NashEqNotFound);
           return;
         }
@@ -970,7 +943,7 @@ void Algorithms::EPEC::InnerApproximation::start() {
         this-&gt;EPECObject-&gt;Stats.AlgorithmData.LostIntermediateEq.set(
              this-&gt;EPECObject-&gt;Stats.AlgorithmData.LostIntermediateEq.get() + 1);
      for (unsigned int i = 0; i &lt; this-&gt;EPECObject-&gt;NumPlayers; ++i) {
-        BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Country &quot; &lt;&lt; i &lt;&lt; PolyLCP.at(i)-&gt;feasabilityDetailString();
+        LOG_S(INFO) &lt;&lt; &quot;Country &quot; &lt;&lt; i &lt;&lt; PolyLCP.at(i)-&gt;feasabilityDetailString();
      }
      // This might be reached when a NashEq is found, and need to be verified.
      // Anyway, we are over the TimeLimit and we should stop
@@ -991,16 +964,16 @@ void Algorithms::EPEC::InnerApproximation::start() {
 
 bool Algorithms::EPEC::InnerApproximation::addRandomPoly2All(unsigned int aggressiveLevel,
                                                                                  bool stopOnSingleInfeasibility) {
-  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Adding Random polyhedra to countries&quot;;
+  LOG_S(1) &lt;&lt; &quot;Adding Random polyhedra to countries&quot;;
   bool infeasible{true};
   for (unsigned int i = 0; i &lt; this-&gt;EPECObject-&gt;NumPlayers; i++) {
      auto addedPoly = PolyLCP.at(i)-&gt;addAPoly(
           aggressiveLevel, this-&gt;EPECObject-&gt;Stats.AlgorithmData.PolyhedraStrategy.get());
      if (stopOnSingleInfeasibility &amp;&amp; addedPoly == 0) {
-        BOOST_LOG_TRIVIAL(info) &lt;&lt; &quot;Algorithms::EPEC::InnerApproximation::addRandomPoly2All: No Nash &quot;
-                                            &quot;equilibrium. due to &quot;
-                                            &quot;infeasibility of country &quot;
-                                        &lt;&lt; i;
+        LOG_S(INFO) &lt;&lt; &quot;Algorithms::EPEC::InnerApproximation::addRandomPoly2All: No Nash &quot;
+                            &quot;equilibrium. due to &quot;
+                            &quot;infeasibility of country &quot;
+                        &lt;&lt; i;
         return false;
      }
      if (addedPoly &gt; 0)
@@ -1037,16 +1010,16 @@ unsigned int Algorithms::EPEC::InnerApproximation::addDeviatedPolyhedron(
      if (!deviations.at(i).empty())
         ret = PolyLCP.at(i)-&gt;addPolyFromX(deviations.at(i), true);
      if (ret) {
-        BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Algorithms::EPEC::InnerApproximation::&quot;
-                                             &quot;addDeviatedPolyhedron: added &quot;
-                                             &quot;polyhedron for player &quot;
-                                         &lt;&lt; i;
+        LOG_S(1) &lt;&lt; &quot;Algorithms::EPEC::InnerApproximation::&quot;
+                        &quot;addDeviatedPolyhedron: added &quot;
+                        &quot;polyhedron for player &quot;
+                    &lt;&lt; i;
         ++added;
      } else {
         infeasCheck = true;
-        BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Algorithms::EPEC::InnerApproximation::addDeviatedPolyhedron: NO &quot;
-                                             &quot;polyhedron added for player &quot;
-                                         &lt;&lt; i;
+        LOG_S(1) &lt;&lt; &quot;Algorithms::EPEC::InnerApproximation::addDeviatedPolyhedron: NO &quot;
+                        &quot;polyhedron added for player &quot;
+                    &lt;&lt; i;
      }
   }
   return added;

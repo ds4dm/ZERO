@@ -22,8 +22,9 @@ Program Listing for File mathopt.cpp
     *        https://github.com/ds4dm/ZERO
     * #############################################*/
    
-   
    #include "mathopt/mathopt.h"
+   #include "loguru.hpp"
+   #include "zero.h"
    #include <armadillo>
    #include <boost/log/trivial.hpp>
    #include <iostream>
@@ -97,8 +98,7 @@ Program Listing for File mathopt.cpp
      for (unsigned int i = 0; i < nPoly; i++) {
    
         if (printEvery || i % 10 == 0)
-           BOOST_LOG_TRIVIAL(trace) << "MathOpt::convexHull: Handling Polyhedron " << i + 1 << " out of "
-                                            << nPoly;
+           LOG_S(1) << "MathOpt::convexHull: Handling Polyhedron " << i + 1 << " out of " << nPoly;
         // First constraint in (4.31)
         // A.submat(complRow, i*nC, complRow+nConsInPoly-1, (i+1)*nC-1) =
         // *Ai->at(i); // Slowest line. Will arma improve this? First constraint RHS
@@ -308,7 +308,7 @@ Program Listing for File mathopt.cpp
         convexModel->set(GRB_IntParam_DualReductions, 0);
         convexModel->set(GRB_IntParam_OutputFlag, 0);
         convexModel->set(GRB_IntParam_SolutionLimit, 100);
-        BOOST_LOG_TRIVIAL(trace) << "MathOpt::getDualMembershipLP: created model";
+        LOG_S(1) << "MathOpt::getDualMembershipLP: created model";
      } else {
         // current number of vertices in the model
         if (numV < V.n_rows) {
@@ -338,7 +338,7 @@ Program Listing for File mathopt.cpp
            numR = R.n_rows;
         }
    
-        BOOST_LOG_TRIVIAL(trace) << "MathOpt::getDualMembershipLP: updated model";
+        LOG_S(1) << "MathOpt::getDualMembershipLP: updated model";
      }
      convexModel->update();
      GRBLinExpr expr = convexModel->getVarByName("x");

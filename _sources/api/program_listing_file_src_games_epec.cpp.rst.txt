@@ -188,8 +188,8 @@ Program Listing for File epec.cpp
                                  const arma::vec &prevDev
                                  ) const {
      auto model = this->respond(player, x);
-     BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::respondSol: Writing dat/RespondSol" +
-                                                std::to_string(player) + ".lp to disk";
+     LOG_S(1) << "Game::EPEC::respondSol: Writing dat/RespondSol" + std::to_string(player) +
+                           ".lp to disk";
      model->write("dat/RespondSol" + std::to_string(player) + ".lp");
      const int status = model->get(GRB_IntAttr_Status);
      if (status == GRB_UNBOUNDED || status == GRB_OPTIMAL) {
@@ -199,13 +199,13 @@ Program Listing for File epec.cpp
            sol.at(i) = model->getVarByName("x_" + std::to_string(i)).get(GRB_DoubleAttr_X);
    
         if (status == GRB_UNBOUNDED) {
-           BOOST_LOG_TRIVIAL(warning) << "Game::EPEC::respondSol: deviation is "
-                                                   "unbounded.";
+           LOG_S(WARNING) << "Game::EPEC::respondSol: deviation is "
+                                   "unbounded.";
            GRBLinExpr obj = 0;
            model->setObjective(obj);
            model->optimize();
            if (!prevDev.empty()) {
-             BOOST_LOG_TRIVIAL(trace) << "Generating an improvement basing on the extreme ray.";
+             LOG_S(1) << "Generating an improvement basing on the extreme ray.";
              // Fetch objective function coefficients
              GRBQuadExpr QuadObj = model->getObjective();
              arma::vec   objcoeff;
@@ -243,7 +243,7 @@ Program Listing for File epec.cpp
    
    const void Game::EPEC::makePlayerQP(const unsigned int i)
    {
-     // BOOST_LOG_TRIVIAL(info) << "Starting Convex hull computation of the country
+     // LOG_S(INFO) << "Starting Convex hull computation of the country
      // "
      // << this->AllLeadPars[i].name << '\n';
      if (!this->Finalized)
@@ -274,8 +274,8 @@ Program Listing for File epec.cpp
         unsigned long int convHullVarCount =
              this->LeaderObjectiveConvexHull.at(i)->Q.n_rows - originalSizeWithoutHull;
    
-        BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makePlayerQP: Added " << convHullVarCount
-                                         << " convex hull variables to QP #" << i;
+        LOG_S(1) << "Game::EPEC::makePlayerQP: Added " << convHullVarCount
+                    << " convex hull variables to QP #" << i;
    
         // Location details
         this->ConvexHullVariables.at(i) = convHullVarCount;
@@ -302,10 +302,10 @@ Program Listing for File epec.cpp
    
    void Game::EPEC::makeTheLCP() {
      if (this->PlayersQP.front() == nullptr) {
-        BOOST_LOG_TRIVIAL(error) << "Exception in Game::EPEC::makeTheLCP : "
-                                             "no country QP has been "
-                                             "made."
-                                         << '\n';
+        LOG_S(ERROR) << "Exception in Game::EPEC::makeTheLCP : "
+                             "no country QP has been "
+                             "made."
+                         << '\n';
         throw ZEROException(ZEROErrorCode::Assertion, "No country QP has been made");
      }
      // Preliminary set up to get the LCP ready
@@ -315,8 +315,8 @@ Program Listing for File epec.cpp
      MCRHS.zeros(0);
      dumb.zeros(0);
      this->makeMCConstraints(MC, MCRHS);
-     BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makeTheLCP(): Market Clearing "
-                                           "constraints are ready";
+     LOG_S(1) << "Game::EPEC::makeTheLCP(): Market Clearing "
+                     "constraints are ready";
      std::vector<std::shared_ptr<MathOpt::MP_Param>> MPCasted;
      for (auto &item : this->PlayersQP) {
         auto m = std::dynamic_pointer_cast<MathOpt::MP_Param>(item);
@@ -324,12 +324,12 @@ Program Listing for File epec.cpp
      }
      this->TheNashGame = std::unique_ptr<Game::NashGame>(
            new Game::NashGame(this->Env, MPCasted, MC, MCRHS, 0, dumA, dumb));
-     BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makeTheLCP(): NashGame is ready";
+     LOG_S(1) << "Game::EPEC::makeTheLCP(): NashGame is ready";
      this->TheLCP = std::unique_ptr<MathOpt::LCP>(new MathOpt::LCP(this->Env, *TheNashGame));
-     BOOST_LOG_TRIVIAL(trace) << "Game::EPEC::makeTheLCP(): LCP is ready";
+     LOG_S(1) << "Game::EPEC::makeTheLCP(): LCP is ready";
    
    
-     BOOST_LOG_TRIVIAL(trace) << *TheNashGame;
+     LOG_S(1) << *TheNashGame;
    }
    
    bool Game::EPEC::computeNashEq(bool   pureNE,         
@@ -338,14 +338,14 @@ Program Listing for File epec.cpp
    ) {
      // Make the Nash Game between countries
      this->NashEquilibrium = false;
-     BOOST_LOG_TRIVIAL(trace) << " Game::EPEC::computeNashEq: Making the Master LCP";
+     LOG_S(1) << " Game::EPEC::computeNashEq: Making the Master LCP";
      this->makeTheLCP();
-     BOOST_LOG_TRIVIAL(trace) << " Game::EPEC::computeNashEq: Made the Master LCP";
+     LOG_S(1) << " Game::EPEC::computeNashEq: Made the Master LCP";
    
    
      if (check || pureNE) {
         if (this->Stats.AlgorithmData.LCPSolver.get() == Data::LCP::Algorithms::PATH)
-           BOOST_LOG_TRIVIAL(trace) << " Game::EPEC::computeNashEq: Cannot use PATH fallback. Using MIP";
+           LOG_S(1) << " Game::EPEC::computeNashEq: Cannot use PATH fallback. Using MIP";
         /*
          * In these cases, we can only use a MIP solver to get multiple solutions or PNEs
          */
@@ -355,8 +355,8 @@ Program Listing for File epec.cpp
         }
    
         if (pureNE) {
-           BOOST_LOG_TRIVIAL(info) << " Game::EPEC::computeNashEq: (PureNashEquilibrium flag is "
-                                               "true) Searching for a pure NE.";
+           LOG_S(INFO) << " Game::EPEC::computeNashEq: (PureNashEquilibrium flag is "
+                               "true) Searching for a pure NE.";
            if (this->Stats.AlgorithmData.Algorithm.get() != Data::EPEC::Algorithms::OuterApproximation)
              static_cast<Algorithms::EPEC::PolyBase *>(this->Algorithm.get())->makeThePureLCP();
         }
@@ -383,14 +383,14 @@ Program Listing for File epec.cpp
            this->LCPModel->write("dat/TheLCPTest.sol");
            if (check) {
              int scount = this->LCPModel->get(GRB_IntAttr_SolCount);
-             BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: number of equilibria is " << scount;
+             LOG_S(INFO) << "Game::EPEC::computeNashEq: number of equilibria is " << scount;
              for (int k = 0, stop = 0; k < scount && stop == 0; ++k) {
                 this->LCPModel->set(GRB_IntParam_SolutionNumber, k);
                 this->NashEquilibrium = this->TheLCP->extractSols(
                      this->LCPModel.get(), this->SolutionZ, this->SolutionX, true);
                 if (this->Algorithm->isSolved()) {
-                   BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: an "
-                                                       "Equilibrium has been found";
+                   LOG_S(INFO) << "Game::EPEC::computeNashEq: an "
+                                       "Equilibrium has been found";
                    stop = 1;
                 }
              }
@@ -398,11 +398,11 @@ Program Listing for File epec.cpp
              this->NashEquilibrium = true;
              // this->SolutionX.save("dat/X.dat", arma::file_type::arma_ascii);
              // this->SolutionZ.save("dat/Z.dat", arma::file_type::arma_ascii);
-             BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
+             LOG_S(INFO) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
            }
    
         } else { // If not, then update accordingly
-           BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: no equilibrium has been found.";
+           LOG_S(INFO) << "Game::EPEC::computeNashEq: no equilibrium has been found.";
            int status = this->LCPModel->get(GRB_IntAttr_Status);
            if (status == GRB_TIME_LIMIT)
              this->Stats.Status = ZEROStatus::TimeLimit;
@@ -415,7 +415,7 @@ Program Listing for File epec.cpp
         auto solver = this->Stats.AlgorithmData.LCPSolver.get();
    
         if (solver == Data::LCP::Algorithms::PATH && this->TheLCP->hasCommonConstraints()) {
-           BOOST_LOG_TRIVIAL(trace)
+           LOG_S(1)
                 << " Game::EPEC::computeNashEq: Cannot use PATH fallback (Common constraints). Using MIP";
            solver = Data::LCP::Algorithms::MIP;
         }
@@ -423,15 +423,15 @@ Program Listing for File epec.cpp
         switch (this->TheLCP->solve(solver, this->SolutionX, this->SolutionZ, localTimeLimit)) {
         case ZEROStatus::NashEqFound: {
            this->NashEquilibrium = true;
-           BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
+           LOG_S(INFO) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
         } break;
         case ZEROStatus::TimeLimit: {
            this->Stats.Status = ZEROStatus::TimeLimit;
-           BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: Time limit attained";
+           LOG_S(INFO) << "Game::EPEC::computeNashEq: Time limit attained";
         } break;
         default:
            this->Stats.Status = ZEROStatus::NashEqNotFound;
-           BOOST_LOG_TRIVIAL(info) << "Game::EPEC::computeNashEq: no equilibrium has been found.";
+           LOG_S(INFO) << "Game::EPEC::computeNashEq: no equilibrium has been found.";
         }
         return this->NashEquilibrium;
      }
@@ -449,7 +449,7 @@ Program Listing for File epec.cpp
         throw ZEROException(ZEROErrorCode::Assertion, "The EPEC was not Finalized");
      }
      if (this->PlayersQP.front() == nullptr) {
-        BOOST_LOG_TRIVIAL(warning) << "Game::EPEC::warmstart: Generating QP as of warmstart.";
+        LOG_S(WARNING) << "Game::EPEC::warmstart: Generating QP as of warmstart.";
      }
    
      this->SolutionX                  = x;
@@ -460,11 +460,11 @@ Program Listing for File epec.cpp
      arma::vec devn;
    
      if (this->Algorithm->isSolved())
-        BOOST_LOG_TRIVIAL(warning) << "Game::EPEC::warmstart: "
-                                                "The loaded solution is optimal.";
+        LOG_S(WARNING) << "Game::EPEC::warmstart: "
+                                "The loaded solution is optimal.";
      else
-        BOOST_LOG_TRIVIAL(warning) << "Game::EPEC::warmstart: "
-                                                "The loaded solution is NOT optimal. Trying to repair.";
+        LOG_S(WARNING) << "Game::EPEC::warmstart: "
+                                "The loaded solution is NOT optimal. Trying to repair.";
      return true;
    }
    bool Game::EPEC::isPureStrategy(double tol) const {
@@ -480,8 +480,8 @@ Program Listing for File epec.cpp
         throw ZEROException(ZEROErrorCode::Assertion, "The EPEC was not Finalized");
    
      if (this->Stats.Status.get() != ZEROStatus::Uninitialized) {
-        BOOST_LOG_TRIVIAL(error) << "Game::EPEC::findNashEq: a Nash Eq was "
-                                             "already found. Calling this findNashEq might lead to errors!";
+        LOG_S(ERROR) << "Game::EPEC::findNashEq: a Nash Eq was "
+                             "already found. Calling this findNashEq might lead to errors!";
      }
    
      // Choosing the appropriate algorithm
@@ -546,7 +546,7 @@ Program Listing for File epec.cpp
         final_msg << "Nash equilibrium not found. Time limit attained";
         break;
      }
-     BOOST_LOG_TRIVIAL(info) << "Game::EPEC::findNashEq: " << final_msg.str();
+     LOG_S(INFO) << "Game::EPEC::findNashEq: " << final_msg.str();
    }
    
    void Game::EPEC::setAlgorithm(Data::EPEC::Algorithms algorithm)

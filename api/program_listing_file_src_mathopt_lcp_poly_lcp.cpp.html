@@ -373,10 +373,6 @@
 <li class="toctree-l5"><a class="reference internal" href="classZEROException.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="classZEROVersion.html">Class ZEROVersion</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="classZEROVersion.html#class-documentation">Class Documentation</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="library_root.html#enums">Enums</a><ul>
@@ -669,32 +665,9 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="library_root.html#defines">Defines</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1a91456860f1b68f75585291f36c7236d0.html">Define ZERO_VERSION</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1a91456860f1b68f75585291f36c7236d0.html#define-documentation">Define Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1a6262c33ed29a18a0caf8679d9567387b.html">Define ZERO_VERSION_MAJOR</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1a6262c33ed29a18a0caf8679d9567387b.html#define-documentation">Define Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1a424af57c80491056fe1236626324fe7b.html">Define ZERO_VERSION_MINOR</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1a424af57c80491056fe1236626324fe7b.html#define-documentation">Define Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1af78c071334f2637b74d108e04674b8b6.html">Define ZERO_VERSION_PATCH</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1af78c071334f2637b74d108e04674b8b6.html#define-documentation">Define Documentation</a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1aaff3b0535ece33c18614a653b99ebe44.html">Typedef bound</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1aaff3b0535ece33c18614a653b99ebe44.html#typedef-documentation">Typedef Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a4770e2d9d0deef0f2e03cd2e53431622.html">Typedef DoubleAttrPair</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a4770e2d9d0deef0f2e03cd2e53431622.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="typedef_namespaceMathOpt_1a7077c09ae1bba23b9181ac92bf0c6dea.html">Typedef MathOpt::QP_constraints</a><ul>
@@ -861,8 +834,7 @@ std::vector&lt;short int&gt; MathOpt::PolyLCP::solEncode(const arma::vec &amp;z,
      if (Utils::isZeroValue(x(j)))
         solEncoded.at(i)--;
      if (!Utils::isZeroValue(x(j)) &amp;&amp; !Utils::isZeroValue(z(i)))
-        BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Infeasible point given! Stay alert! &quot; &lt;&lt; x(j) &lt;&lt; &quot; &quot; &lt;&lt; z(i)
-                                         &lt;&lt; &quot; with i=&quot; &lt;&lt; i;
+        LOG_S(1) &lt;&lt; &quot;Infeasible point given! Stay alert! &quot; &lt;&lt; x(j) &lt;&lt; &quot; &quot; &lt;&lt; z(i) &lt;&lt; &quot; with i=&quot; &lt;&lt; i;
   };
   return solEncoded;
 }
@@ -902,20 +874,19 @@ bool MathOpt::PolyLCP::addPolyFromX(const arma::vec &amp;x, bool innerApproximat
   std::stringstream encStr;
   for (auto vv : encoding)
      encStr &lt;&lt; vv &lt;&lt; &quot; &quot;;
-  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;MathOpt::PolyLCP::addPolyFromX: Handling point with encoding: &quot;
-                                    &lt;&lt; encStr.str() &lt;&lt; &#39;\n&#39;;
+  LOG_S(1) &lt;&lt; &quot;MathOpt::PolyLCP::addPolyFromX: Handling point with encoding: &quot; &lt;&lt; encStr.str()
+              &lt;&lt; &#39;\n&#39;;
   // Check if the encoding polyhedron is already in the current inner approximation
   for (const auto &amp;i : this-&gt;CurrentPoly[0]) {
      std::vector&lt;short int&gt; bin = this-&gt;numToVec(i, numCompl, true);
      if (encoding &lt; bin) {
-        BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;MathOpt::PolyLCP::addPolyFromX: Encoding &quot; &lt;&lt; i
-                                         &lt;&lt; &quot; already in the inner approximation! &quot;;
+        LOG_S(1) &lt;&lt; &quot;MathOpt::PolyLCP::addPolyFromX: Encoding &quot; &lt;&lt; i
+                    &lt;&lt; &quot; already in the inner approximation! &quot;;
         return false;
      }
   }
 
-  BOOST_LOG_TRIVIAL(trace)
-        &lt;&lt; &quot;MathOpt::PolyLCP::addPolyFromX: The encoding is not in the inner approximation!&quot;;
+  LOG_S(1) &lt;&lt; &quot;MathOpt::PolyLCP::addPolyFromX: The encoding is not in the inner approximation!&quot;;
   // If it is not in CurrentPoly
   // First change any zero indices of encoding to 1
   for (short &amp;i : encoding) {
@@ -1083,7 +1054,7 @@ unsigned int MathOpt::PolyLCP::addAPoly(unsigned long int            nPoly,
 
   int add = 0;
   if (this-&gt;Inner_MaxPoly &lt; nPoly) { // If you cannot add that numVariablesY polyhedra
-     BOOST_LOG_TRIVIAL(warning)       // Then issue a warning
+     LOG_S(WARNING)                   // Then issue a warning
           &lt;&lt; &quot;Warning in MathOpt::PolyLCP::randomPoly: &quot;
           &lt;&lt; &quot;Cannot add &quot; &lt;&lt; nPoly &lt;&lt; &quot; polyhedra. Promising a maximum of &quot; &lt;&lt; this-&gt;Inner_MaxPoly;
      nPoly = this-&gt;Inner_MaxPoly; // and update maximum possibly addable
@@ -1118,8 +1089,8 @@ bool MathOpt::PolyLCP::addThePoly(const unsigned long int &amp;decimalEncoding,
                                              bool                     innerApproximation) {
   if (this-&gt;Inner_MaxPoly &lt; decimalEncoding &amp;&amp; innerApproximation) {
      // This polyhedron does not exist
-     BOOST_LOG_TRIVIAL(warning) &lt;&lt; &quot;Warning in MathOpt::PolyLCP::addThePoly: Cannot add &quot;
-                                         &lt;&lt; decimalEncoding &lt;&lt; &quot; polyhedra, since it does not exist!&quot;;
+     LOG_S(WARNING) &lt;&lt; &quot;Warning in MathOpt::PolyLCP::addThePoly: Cannot add &quot; &lt;&lt; decimalEncoding
+                         &lt;&lt; &quot; polyhedra, since it does not exist!&quot;;
      return false;
   }
   return this-&gt;addPolyFromEncoding(
@@ -1134,8 +1105,7 @@ unsigned int MathOpt::PolyLCP::exactFullEnumeration(const bool feasibilityCheck)
   this-&gt;bi-&gt;clear();
   this-&gt;addPoliesFromEncoding(encoding, true, feasibilityCheck);
   if (this-&gt;Ai-&gt;empty()) {
-     BOOST_LOG_TRIVIAL(warning) &lt;&lt; &quot;Empty vector of polyhedra given! Problem might be infeasible.&quot;
-                                         &lt;&lt; &#39;\n&#39;;
+     LOG_S(WARNING) &lt;&lt; &quot;Empty vector of polyhedra given! Problem might be infeasible.&quot; &lt;&lt; &#39;\n&#39;;
      // 0 &lt;= -1 for infeasability
      std::unique_ptr&lt;arma::sp_mat&gt; A(new arma::sp_mat(1, this-&gt;M.n_cols));
      std::unique_ptr&lt;arma::vec&gt;    b(new arma::vec(1));
@@ -1202,8 +1172,7 @@ void MathOpt::PolyLCP::outerApproximate(const std::vector&lt;bool&gt; encoding, 
   }
   if (clear) {
      this-&gt;clearPolyhedra(false);
-     BOOST_LOG_TRIVIAL(error)
-          &lt;&lt; &quot;MathOpt::PolyLCP::outerApproximate: clearing current approximation.&quot;;
+     LOG_S(ERROR) &lt;&lt; &quot;MathOpt::PolyLCP::outerApproximate: clearing current approximation.&quot;;
   }
   std::vector&lt;short int&gt; localEncoding = {};
   // We push 0 for each complementary that has to be fixed either to +1 or -1
@@ -1228,15 +1197,15 @@ bool MathOpt::PolyLCP::checkPolyFeas(const std::vector&lt;short int&gt; &amp;enc
 
   for (const auto i : InfeasiblePoly[index]) {
      if (i == encodingNumber) {
-        BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;MathOpt::PolyLCP::checkPolyFeas: Previously known &quot;
-                                             &quot;infeasible polyhedron  #&quot;
-                                         &lt;&lt; encodingNumber;
+        LOG_S(1) &lt;&lt; &quot;MathOpt::PolyLCP::checkPolyFeas: Previously known &quot;
+                        &quot;infeasible polyhedron  #&quot;
+                    &lt;&lt; encodingNumber;
         return false;
      }
      if (!innerApproximation) {
         // We may want to check for parents
         if (encoding &lt; this-&gt;numToVec(i, this-&gt;Compl.size(), false)) {
-          BOOST_LOG_TRIVIAL(trace)
+          LOG_S(1)
                 &lt;&lt; &quot;MathOpt::PolyLCP::checkPolyFeas: Children of an infeasible polyhedron. Infeasible #&quot;
                 &lt;&lt; encodingNumber;
           InfeasiblePoly[index].insert(encodingNumber);
@@ -1247,17 +1216,16 @@ bool MathOpt::PolyLCP::checkPolyFeas(const std::vector&lt;short int&gt; &amp;enc
 
   for (const auto i : FeasiblePoly[index]) {
      if (i == encodingNumber) {
-        BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;MathOpt::PolyLCP::checkPolyFeas: Previously known &quot;
-                                             &quot;feasible polyhedron #&quot;
-                                         &lt;&lt; encodingNumber;
+        LOG_S(1) &lt;&lt; &quot;MathOpt::PolyLCP::checkPolyFeas: Previously known &quot;
+                        &quot;feasible polyhedron #&quot;
+                    &lt;&lt; encodingNumber;
         return true;
      }
      if (!innerApproximation) {
         // We may want to check for parents
         if (encoding &gt; this-&gt;numToVec(i, this-&gt;Compl.size(), false)) {
-          BOOST_LOG_TRIVIAL(trace)
-                &lt;&lt; &quot;MathOpt::PolyLCP::checkPolyFeas: Parent of a feasible polyhedron. Feasible #&quot;
-                &lt;&lt; encodingNumber;
+          LOG_S(1) &lt;&lt; &quot;MathOpt::PolyLCP::checkPolyFeas: Parent of a feasible polyhedron. Feasible #&quot;
+                      &lt;&lt; encodingNumber;
           FeasiblePoly[index].insert(encodingNumber);
           return true;
         }

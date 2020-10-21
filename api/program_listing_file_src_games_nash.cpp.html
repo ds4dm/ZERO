@@ -373,10 +373,6 @@
 <li class="toctree-l5"><a class="reference internal" href="classZEROException.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="classZEROVersion.html">Class ZEROVersion</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="classZEROVersion.html#class-documentation">Class Documentation</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="library_root.html#enums">Enums</a><ul>
@@ -669,32 +665,9 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="library_root.html#defines">Defines</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1a91456860f1b68f75585291f36c7236d0.html">Define ZERO_VERSION</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1a91456860f1b68f75585291f36c7236d0.html#define-documentation">Define Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1a6262c33ed29a18a0caf8679d9567387b.html">Define ZERO_VERSION_MAJOR</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1a6262c33ed29a18a0caf8679d9567387b.html#define-documentation">Define Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1a424af57c80491056fe1236626324fe7b.html">Define ZERO_VERSION_MINOR</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1a424af57c80491056fe1236626324fe7b.html#define-documentation">Define Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="define_version_8h_1af78c071334f2637b74d108e04674b8b6.html">Define ZERO_VERSION_PATCH</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="define_version_8h_1af78c071334f2637b74d108e04674b8b6.html#define-documentation">Define Documentation</a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1aaff3b0535ece33c18614a653b99ebe44.html">Typedef bound</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1aaff3b0535ece33c18614a653b99ebe44.html#typedef-documentation">Typedef Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a4770e2d9d0deef0f2e03cd2e53431622.html">Typedef DoubleAttrPair</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a4770e2d9d0deef0f2e03cd2e53431622.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="typedef_namespaceMathOpt_1a7077c09ae1bba23b9181ac92bf0c6dea.html">Typedef MathOpt::QP_constraints</a><ul>
@@ -996,7 +969,7 @@ const Game::NashGame &amp;Game::NashGame::formulateLCP(
      numDual = this-&gt;Players[i]-&gt;getb().n_rows;
      // Adding the primal equations
      // Region 1 in Formulate LCP.ipe
-     BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Game::NashGame::formulateLCP: Region 1&quot;;
+     LOG_S(1) &lt;&lt; &quot;Game::NashGame::formulateLCP: Region 1&quot;;
      if (i &gt; 0) { // For the first player, no need to add anything &#39;before&#39; 0-th
         // position
         M.submat(this-&gt;PrimalPosition.at(i),
@@ -1006,13 +979,13 @@ const Game::NashGame &amp;Game::NashGame::formulateLCP(
              Ni[i].submat(0, 0, numPrim - 1, this-&gt;PrimalPosition.at(i) - 1);
      }
      // Region 2 in Formulate LCP.ipe
-     BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Game::NashGame::formulateLCP: Region 2&quot;;
+     LOG_S(1) &lt;&lt; &quot;Game::NashGame::formulateLCP: Region 2&quot;;
      M.submat(this-&gt;PrimalPosition.at(i),
                  this-&gt;PrimalPosition.at(i),
                  this-&gt;PrimalPosition.at(i + 1) - 1,
                  this-&gt;PrimalPosition.at(i + 1) - 1) = Mi[i].submat(0, 0, numPrim - 1, numPrim - 1);
      // Region 3 in Formulate LCP.ipe
-     BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Game::NashGame::formulateLCP: Region 3&quot;;
+     LOG_S(1) &lt;&lt; &quot;Game::NashGame::formulateLCP: Region 3&quot;;
      if (this-&gt;PrimalPosition.at(i + 1) != this-&gt;DualPosition.at(0)) {
         M.submat(this-&gt;PrimalPosition.at(i),
                     this-&gt;PrimalPosition.at(i + 1),
@@ -1021,7 +994,7 @@ const Game::NashGame &amp;Game::NashGame::formulateLCP(
              Ni[i].submat(0, this-&gt;PrimalPosition.at(i), numPrim - 1, Ni[i].n_cols - 1);
      }
      // Region 4 in Formulate LCP.ipe
-     BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Game::NashGame::formulateLCP: Region 4&quot;;
+     LOG_S(1) &lt;&lt; &quot;Game::NashGame::formulateLCP: Region 4&quot;;
      if (this-&gt;DualPosition.at(i) != this-&gt;DualPosition.at(i + 1)) {
         M.submat(this-&gt;PrimalPosition.at(i),
                     this-&gt;DualPosition.at(i),
@@ -1030,14 +1003,14 @@ const Game::NashGame &amp;Game::NashGame::formulateLCP(
              Mi[i].submat(0, numPrim, numPrim - 1, numPrim + numDual - 1);
      }
      // RHS
-     BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Game::NashGame::formulateLCP: Region RHS&quot;;
+     LOG_S(1) &lt;&lt; &quot;Game::NashGame::formulateLCP: Region RHS&quot;;
      q.subvec(this-&gt;PrimalPosition.at(i), this-&gt;PrimalPosition.at(i + 1) - 1) =
           qi[i].subvec(0, numPrim - 1);
      for (unsigned int j = this-&gt;PrimalPosition.at(i); j &lt; this-&gt;PrimalPosition.at(i + 1); j++)
         Compl.push_back({j, j});
      // Adding the dual equations
      // Region 5 in Formulate LCP.ipe
-     BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Game::NashGame::formulateLCP: Region 5&quot;;
+     LOG_S(1) &lt;&lt; &quot;Game::NashGame::formulateLCP: Region 5&quot;;
      if (numDual &gt; 0) {
         if (i &gt; 0) // For the first player, no need to add anything &#39;before&#39; 0-th
           // position
@@ -1047,14 +1020,14 @@ const Game::NashGame &amp;Game::NashGame::formulateLCP(
                       this-&gt;PrimalPosition.at(i) - 1) =
                 Ni[i].submat(numPrim, 0, Ni[i].n_rows - 1, this-&gt;PrimalPosition.at(i) - 1);
         // Region 6 in Formulate LCP.ipe
-        BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Game::NashGame::formulateLCP: Region 6&quot;;
+        LOG_S(1) &lt;&lt; &quot;Game::NashGame::formulateLCP: Region 6&quot;;
         M.submat(this-&gt;DualPosition.at(i) - numLeaderVar,
                     this-&gt;PrimalPosition.at(i),
                     this-&gt;DualPosition.at(i + 1) - numLeaderVar - 1,
                     this-&gt;PrimalPosition.at(i + 1) - 1) =
              Mi[i].submat(numPrim, 0, numPrim + numDual - 1, numPrim - 1);
         // Region 7 in Formulate LCP.ipe
-        BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Game::NashGame::formulateLCP: Region 7&quot;;
+        LOG_S(1) &lt;&lt; &quot;Game::NashGame::formulateLCP: Region 7&quot;;
         if (this-&gt;DualPosition.at(0) != this-&gt;PrimalPosition.at(i + 1)) {
           M.submat(this-&gt;DualPosition.at(i) - numLeaderVar,
                       this-&gt;PrimalPosition.at(i + 1),
@@ -1063,14 +1036,14 @@ const Game::NashGame &amp;Game::NashGame::formulateLCP(
                 Ni[i].submat(numPrim, this-&gt;PrimalPosition.at(i), Ni[i].n_rows - 1, Ni[i].n_cols - 1);
         }
         // Region 8 in Formulate LCP.ipe
-        BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Game::NashGame::formulateLCP: Region 8&quot;;
+        LOG_S(1) &lt;&lt; &quot;Game::NashGame::formulateLCP: Region 8&quot;;
         M.submat(this-&gt;DualPosition.at(i) - numLeaderVar,
                     this-&gt;DualPosition.at(i),
                     this-&gt;DualPosition.at(i + 1) - numLeaderVar - 1,
                     this-&gt;DualPosition.at(i + 1) - 1) =
              Mi[i].submat(numPrim, numPrim, numPrim + numDual - 1, numPrim + numDual - 1);
         // RHS
-        BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Game::NashGame::formulateLCP: Region RHS&quot;;
+        LOG_S(1) &lt;&lt; &quot;Game::NashGame::formulateLCP: Region RHS&quot;;
         q.subvec(this-&gt;DualPosition.at(i) - numLeaderVar,
                     this-&gt;DualPosition.at(i + 1) - numLeaderVar - 1) =
              qi[i].subvec(numPrim, qi[i].n_rows - 1);
@@ -1080,7 +1053,7 @@ const Game::NashGame &amp;Game::NashGame::formulateLCP(
           Compl.push_back({j, j + numLeaderVar});
      }
   }
-  BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Game::NashGame::formulateLCP: MC RHS&quot;;
+  LOG_S(1) &lt;&lt; &quot;Game::NashGame::formulateLCP: MC RHS&quot;;
   if (this-&gt;MCRHS.n_elem &gt;= 1) // It is possible that it is a Cournot game and
                                          // there are no MC conditions!
   {
@@ -1166,7 +1139,7 @@ Game::NashGame &amp;Game::NashGame::addDummy(unsigned int par, int position)
         this-&gt;MarketClearing = Utils::resizePatch(this-&gt;MarketClearing, nnR, nnC + par);
         break;
      default:
-        BOOST_LOG_TRIVIAL(error) &lt;&lt; &quot;addDummy at non-final position not implemented&quot;;
+        LOG_S(ERROR) &lt;&lt; &quot;addDummy at non-final position not implemented&quot;;
      }
   }
   this-&gt;setPositions();
@@ -1300,7 +1273,7 @@ Game::NashGame::respondSol(arma::vec &amp;  sol,
      for (unsigned int i = 0; i &lt; Nx; ++i)
         sol.at(i) = model-&gt;getVarByName(&quot;y_&quot; + std::to_string(i)).get(GRB_DoubleAttr_X);
 
-     BOOST_LOG_TRIVIAL(trace) &lt;&lt; &quot;Game::NashGame::RespondSol: Player&quot; &lt;&lt; player;
+     LOG_S(1) &lt;&lt; &quot;Game::NashGame::RespondSol: Player&quot; &lt;&lt; player;
      return model-&gt;get(GRB_DoubleAttr_ObjVal);
   } else
      return GRB_INFINITY;
