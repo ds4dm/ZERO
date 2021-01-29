@@ -1,0 +1,45 @@
+name: ZERODocs
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  BUILD_TYPE: Release
+  CMAKE_OPTIONS: -Wall -pedantic -Werror -Wno-variadic-macros -Wno-long-long -Wno-shadow
+
+jobs:
+  build:
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+
+    - name: Setup Requirements
+      run: |  
+         sudo apt-get install -y doxygen
+         python3 -m pip install --upgrade pip
+         python3 -m pip install conan sphinx
+         cd ${{github.workspace}}/docs
+         pip3 install -r requirements.txt
+         doxygen -v
+    - name: Run CMake
+      shell: bash
+      working-directory: ${{github.workspace}}
+      run: cmake ${{github.workspace}}/docs -DCMAKE_MODULE_PATH=${{github.workspace}}/cmake  -DCMAKE_BUILD_TYPE=$BUILD_TYPE && make
+
+    - name: PushDocs
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/html
+        publish_branch: docs
+        cname: getzero.one
+        enable_jekyll: false
+        user_name: 'ZEROBot'
+        user_email: 'bot@getzero.one'
