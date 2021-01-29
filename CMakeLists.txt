@@ -36,13 +36,8 @@ set(PATH_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib/path")
 # ##############################################################################
 
 # CMake modules
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-# Explicit declaration for custom CMake modules
-include(${CMAKE_MODULE_PATH}/FindGUROBI.cmake)
-include(${CMAKE_MODULE_PATH}/FindConan.cmake)
-include(${CMAKE_MODULE_PATH}/FindPATH.cmake)
-# find_package(ortools CONFIG REQUIRED)
-# include(${CMAKE_MODULE_PATH}/FindORTools.cmake)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
+
 
 conan_cmake_run(
   CONANFILE

@@ -15,8 +15,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 option(CXX "enable C++ compilation" ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_MODULE_PATH ../cmake)
-include(${CMAKE_MODULE_PATH}/FindSphinx.cmake)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "../cmake")
 
 find_package(Sphinx REQUIRED)
 
