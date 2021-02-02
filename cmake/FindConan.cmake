@@ -3,9 +3,9 @@
 # ##############################################################################
 # TODO: temporary workaround to fix 0.15 bugs on mac
 set(CONAN_GIT
-    "https://raw.githubusercontent.com/dforsten/cmake-conan/be876ddc9a45401aa842ad45e3de75e597c6d263/conan.cmake"
+    "https://raw.githubusercontent.com/conan-io/cmake-conan/develop/conan.cmake"
 )
-set(CONAN_SHA1 "f87634521cc40038bed27198bf8f627da6e4c9ed")
+set(CONAN_SHA1 "24764ed64072b14baee60d764c69e755bd731cdc")
 if(NOT (EXISTS "${CMAKE_BINARY_DIR}/conan.cmake"))
   set(CONAN_DOWNLOAD True)
 else()

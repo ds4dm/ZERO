@@ -27,7 +27,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # CUSTOM HINTS AND CUSTOM CONFIGURATIONS
 # ##############################################################################
 set(ortools_dir "/Users/gabrieledragotto/Documents/or-tools")
-set(GUROBI_DIR "/home/gurobi/9.0.0/linux64" "/Library/gurobi900/mac64"
+set(GUROBI_DIR "/home/gurobi/9.0.0/linux64" "/Library/gurobi910/mac64"
                "C:\\dev\\gurobi900\\win64")
 
 set(PATH_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib/path")
