@@ -122,6 +122,7 @@ std::unique_ptr<GRBModel> MathOpt::QP_Param::solveFixed(arma::vec x, bool solve)
 	 }
 	 model->update();
 	 model->set(GRB_IntParam_OutputFlag, 0);
+    model->set(GRB_IntParam_NonConvex, 2);
 	 if (solve)
 		model->optimize();
   } catch (GRBException &e) {

@@ -77,7 +77,8 @@ namespace Models {
 		///< set the value as -1;
 		double export_limit = -1; ///< Maximum net export in the country. If no limit,
 		///< set the value as -1;
-		double price_limit = -1; ///< Government does not want the price to exceed this limit
+		double price_limit  = -1;   ///< Government does not want the price to exceed this limit
+		bool   tradeAllowed = true; ///< False if the country cannot trade with other countries.
 
 		Models::EPEC::TaxType tax_type =
 			 Models::EPEC::TaxType::StandardTax; ///< 0 For standard, 1 for constant tax, 2
@@ -93,9 +94,10 @@ namespace Models {
 				  double       exp_lim     = -1,
 				  double       price_limit = -1,
 				  bool         tax_revenue = false,
-				  unsigned int tax_type_   = 0)
+				  unsigned int tax_type_   = 0,
+				  bool         tradeBool   = true)
 			 : import_limit{imp_lim}, export_limit{exp_lim}, price_limit{price_limit},
-				tax_revenue{tax_revenue} {
+				tax_revenue{tax_revenue}, tradeAllowed{tradeBool} {
 		  switch (tax_type_) {
 		  case 0:
 			 tax_type = Models::EPEC::TaxType::StandardTax;
@@ -248,7 +250,8 @@ namespace Models {
 									 const unsigned int            import_lim_cons = 1,
 									 const unsigned int            export_lim_cons = 1,
 									 const unsigned int            price_lim_cons  = 1,
-									 const unsigned int            activeTaxCaps   = 0) const noexcept;
+									 const unsigned int            activeTaxCaps   = 0,
+									 const unsigned int            disableTrade    = 0) const noexcept;
 
 		void add_Leaders_tradebalance_constraints(const unsigned int i);
 
