@@ -119,21 +119,21 @@ int main(int argc, char **argv) {
   }
   switch (verbosity) {
   case 0:
-	 logging::core::get()->set_filter(logging::trivial::severity > logging::trivial::info);
+    loguru::g_stderr_verbosity = -1;
 	 break;
   case 1:
-	 logging::core::get()->set_filter(logging::trivial::severity >= logging::trivial::info);
+    loguru::g_stderr_verbosity = 0;
 	 break;
   case 2:
-	 logging::core::get()->set_filter(logging::trivial::severity >= logging::trivial::debug);
+    loguru::g_stderr_verbosity = 1;
 	 break;
   case 3:
-	 logging::core::get()->set_filter(logging::trivial::severity >= logging::trivial::trace);
+    loguru::g_stderr_verbosity = 9;
 	 break;
   default:
 	 LOG_S(WARNING) << "Invalid option for --message (-m). Setting default value: 0";
 	 verbosity = 0;
-	 logging::core::get()->set_filter(logging::trivial::severity > logging::trivial::info);
+    loguru::g_stderr_verbosity = 0;
 	 break;
   }
   // --------------------------------
