@@ -7,7 +7,7 @@ find_path(
 
 find_library(
   GUROBI_LIBRARY
-  NAMES gurobi gurobi81 gurobi90 gurobi91
+  NAMES gurobi gurobi90 gurobi91
   HINTS ${GUROBI_DIR} $ENV{GUROBI_HOME}
   PATH_SUFFIXES lib)
 
@@ -50,3 +50,4 @@ endif()
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(GUROBI DEFAULT_MSG GUROBI_LIBRARY)
+message("Gurobi is located at ${GUROBI_LIBRARY} and ${GUROBI_CXX_LIBRARY}")

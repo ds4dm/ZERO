@@ -6,5 +6,6 @@ set(ZERO_V "${ZERO_VERSION_MAJOR}.${ZERO_VERSION_MINOR}.${ZERO_VERSION_PATCH}")
 set(ZERO_DESC "ZERO is a multi-purpose game solver")
 
 # CXX Options
-option(CXX "enable C++ compilation" ON)
+set(CXX ON)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)

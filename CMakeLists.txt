@@ -12,13 +12,10 @@ message("Configuring ZEROVersion")
 configure_file(src/support/CMakeConfig.h.in include/support/version.h)
 
 # CXX Options set(CMAKE_UNITY_BUILD ON)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release ... FORCE)
 endif()
-option(CXX "enable C++ compilation" ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
 # Additional options
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -27,7 +24,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # CUSTOM HINTS AND CUSTOM CONFIGURATIONS
 # ##############################################################################
 set(ortools_dir "/Users/gabrieledragotto/Documents/or-tools")
-set(GUROBI_DIR "/home/gurobi/9.0.0/linux64" "/Library/gurobi910/mac64"
+set(GUROBI_DIR "/home/gurobi/9.1.1/linux64/" "/Library/gurobi910/mac64"
                "C:\\dev\\gurobi900\\win64")
 
 set(PATH_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib/path")
