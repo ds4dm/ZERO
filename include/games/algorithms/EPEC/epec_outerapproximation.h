@@ -189,7 +189,7 @@ namespace Algorithms::EPEC {
 		std::vector<OuterTree *>       Trees; ///< The vector of pointer to OuterTree for each player
 		std::vector<OuterTree::Node *> Incumbent; ///< The incumbent nodes for each player
 		bool   Feasible{false};                   ///< True if a feasible solution has been found
-		double Tolerance = 1e-6;                  ///< A numberical tolerance
+		double Tolerance = 1e-5;                  ///< A numberical tolerance
 
 		[[maybe_unused]] std::vector<int> getNextBranchLocation(unsigned int player, OuterTree::Node *node);
 		int              getFirstBranchLocation(const unsigned int player, OuterTree::Node *node);
