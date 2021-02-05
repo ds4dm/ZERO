@@ -122,7 +122,7 @@ namespace MathOpt {
 														bool                   custom             = false,
 														spmat_Vec *            custAi             = {},
 														vec_Vec *              custbi             = {});
-	 PolyLCP &         addPoliesFromEncoding(std::vector<short int> encoding,
+	 unsigned int      addPoliesFromEncoding(const std::vector<short> encoding,
 														  bool                   innerApproximation = true,
 														  bool                   checkFeas          = false,
 														  bool                   custom             = false,
@@ -172,7 +172,7 @@ namespace MathOpt {
 	 bool         addPolyFromX(const arma::vec &x, bool innerApproximation);
 	 unsigned int exactFullEnumeration(bool feasibilityCheck = true);
 	 std::string  feasabilityDetailString() const;
-	 void         outerApproximate(std::vector<bool> encoding, bool clear = true);
+	 bool         outerApproximate(const std::vector<bool> encoding, bool clear = true);
 	 unsigned int getFeasiblePolyhedra() const { return this->FeasiblePoly[0].size(); }
 
 	 std::vector<short> numToVec(unsigned long number, const unsigned long nCompl, bool inner);

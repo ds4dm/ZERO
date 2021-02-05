@@ -241,16 +241,17 @@ bool MathOpt::PolyLCP::addPolyFromEncoding(const std::vector<short int> encoding
  * @param custom True if the polyhedron should be added to the custom object
  * @param custAi Custon polyhedra LHS
  * @param custbi Custom polyhedra RHS
- * @return True if the operation was performed correctly. False if the polyhedron is infeasible or
+ * @return A positive int for the number of added polyhedra. False if the polyhedron is infeasible or
  * was not added
  * @warning Use PolyLCP::addPolyFromEncoding for a single polyhedron
  */
-MathOpt::PolyLCP &MathOpt::PolyLCP::addPoliesFromEncoding(const std::vector<short int> encoding,
+unsigned int MathOpt::PolyLCP::addPoliesFromEncoding(const std::vector<short int> encoding,
 																			 bool       innerApproximation,
 																			 bool       checkFeas,
 																			 bool       custom,
 																			 spmat_Vec *custAi,
 																			 vec_Vec *  custbi) {
+  unsigned int added = 0; // number of added polyhedron
   bool flag = false; // flag that there may be multiple polyhedra, i.e. 0 in
   // some encoding entry
   std::vector<short int> encodingCopy(encoding);
@@ -266,14 +267,14 @@ MathOpt::PolyLCP &MathOpt::PolyLCP::addPoliesFromEncoding(const std::vector<shor
   }
   if (flag) {
 	 encodingCopy[i] = 1;
-	 this->addPoliesFromEncoding(
+	 added += this->addPoliesFromEncoding(
 		  encodingCopy, innerApproximation, checkFeas, custom, custAi, custbi);
 	 encodingCopy[i] = -1;
-	 this->addPoliesFromEncoding(
+	 added += this->addPoliesFromEncoding(
 		  encodingCopy, innerApproximation, checkFeas, custom, custAi, custbi);
   } else
-	 this->addPolyFromEncoding(encoding, innerApproximation, checkFeas, custom, custAi, custbi);
-  return *this;
+	 added += this->addPolyFromEncoding(encoding, innerApproximation, checkFeas, custom, custAi, custbi);
+  return added;
 }
 
 
@@ -508,14 +509,15 @@ bool MathOpt::PolyLCP::checkPolyFeas(const unsigned long int &decimalEncoding,
  * is enforced, and false not.
  * @param clear True if the previous polyhedra and approximation is cleared before adding the new
  * one
+ * @return True if at least one polyhedron is feasible
  */
-void MathOpt::PolyLCP::outerApproximate(const std::vector<bool> encoding, bool clear) {
+bool MathOpt::PolyLCP::outerApproximate(const std::vector<bool> encoding, bool clear) {
   if (encoding.size() != this->Compl.size()) {
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Mismatch in encoding size");
   }
   if (clear) {
 	 this->clearPolyhedra(false);
-	 LOG_S(ERROR) << "MathOpt::PolyLCP::outerApproximate: clearing current approximation.";
+	 LOG_S(INFO) << "MathOpt::PolyLCP::outerApproximate: clearing current approximation.";
   }
   std::vector<short int> localEncoding = {};
   // We push 0 for each complementary that has to be fixed either to +1 or -1
@@ -526,7 +528,7 @@ void MathOpt::PolyLCP::outerApproximate(const std::vector<bool> encoding, bool c
 	 else
 		localEncoding.push_back(2);
   }
-  this->addPoliesFromEncoding(localEncoding, false, true);
+  return this->addPoliesFromEncoding(localEncoding, false, true) > 0;
 }
 
 
