@@ -36,7 +36,7 @@ void Algorithms::EPEC::CombinatorialPNE::solveWithExcluded(
   this->combPNE(start, excludeList);
   if (this->EPECObject->Stats.Status.get() == ZEROStatus::Uninitialized)
 	 this->EPECObject->Stats.Status.set(ZEROStatus::NashEqNotFound);
-  this->postSolving();
+  this->after();
 }
 
 /**

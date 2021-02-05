@@ -27,7 +27,7 @@ void Algorithms::EPEC::InnerApproximation::solve() {
 	* algorithm.
 	*/
   this->start();
-  this->postSolving();
+  this->after();
 }
 
 /**

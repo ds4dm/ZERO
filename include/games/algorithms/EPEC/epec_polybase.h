@@ -35,12 +35,13 @@ namespace Algorithms {
 		 * can be forcefully overridden by inheritors. The responsibility for calling this method is
 		 * left to the inheritor.
 		 */
-		void postSolving() {
+		void after() {
 		  std::vector<unsigned int> feasible;
 		  for (unsigned int i = 0; i < this->EPECObject->NumPlayers; i++)
 			 feasible.push_back(this->PolyLCP.at(i)->getFeasiblePolyhedra());
 		  this->EPECObject->Stats.AlgorithmData.FeasiblePolyhedra.set(feasible);
 		  this->EPECObject->Stats.PureNashEquilibrium = this->isPureStrategy();
+        LOG_S(3) << "Algorithms::EPEC::PolyBase::after: post-processing results.";
 		}
 
 	 public:

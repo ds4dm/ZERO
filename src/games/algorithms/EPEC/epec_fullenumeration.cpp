@@ -32,5 +32,5 @@ void Algorithms::EPEC::FullEnumeration::solve() {
 		this->EPECObject->Stats.PureNashEquilibrium = true;
   }
   // Post Solving
-  this->postSolving();
+  this->after();
 }
