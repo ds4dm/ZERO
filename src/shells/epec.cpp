@@ -14,9 +14,6 @@
 #include "interfaces/epec_models.h"
 #include "zero.h"
 #include <armadillo>
-#include <boost/log/core.hpp>
-#include <boost/log/expressions.hpp>
-#include <boost/log/trivial.hpp>
 #include <boost/program_options.hpp>
 #include <chrono>
 #include <cstdlib>
@@ -26,8 +23,6 @@
 #include <math.h>
 
 using namespace std;
-namespace logging = boost::log;
-using namespace boost::program_options;
 namespace po = boost::program_options;
 
 int main(int argc, char **argv) {
@@ -117,25 +112,8 @@ int main(int argc, char **argv) {
 				"of arguments\n";
 	 return EXIT_SUCCESS;
   }
-  switch (verbosity) {
-  case 0:
-    loguru::g_stderr_verbosity = -1;
-	 break;
-  case 1:
-    loguru::g_stderr_verbosity = 0;
-	 break;
-  case 2:
-    loguru::g_stderr_verbosity = 1;
-	 break;
-  case 3:
-    loguru::g_stderr_verbosity = 9;
-	 break;
-  default:
-	 LOG_S(WARNING) << "Invalid option for --message (-m). Setting default value: 0";
-	 verbosity = 0;
-    loguru::g_stderr_verbosity = 0;
-	 break;
-  }
+  loguru::g_stderr_verbosity = verbosity;
+
   // --------------------------------
   // LOADING INSTANCE
   // --------------------------------
@@ -225,7 +203,7 @@ int main(int argc, char **argv) {
 	 if (!existCheck.good()) {
 		results << "instance;Algorithm;Countries;Followers;isPureNE;RequiredPureNE;"
 					  "Status;"
-					  "numFeasiblePolyhedra;"
+					  "numFeasiblePolyhedra/Complementarities;"
 					  "NumVar;NumConstraints;NumNonZero;ClockTime"
 					  "(s);Threads;numInnerIterations;LostIntermediateEq;"
 					  "Aggressiveness;"
@@ -234,10 +212,18 @@ int main(int argc, char **argv) {
 	 }
 	 existCheck.close();
 
-	 stringstream polyT;
-	 copy(stat.AlgorithmData.FeasiblePolyhedra.get().begin(),
-			stat.AlgorithmData.FeasiblePolyhedra.get().end(),
-			ostream_iterator<int>(polyT, " "));
+	 std::stringstream polyT;
+	 std::vector<unsigned int> target;
+	 if (stat.AlgorithmData.Algorithm.get() != Data::EPEC::Algorithms::OuterApproximation)
+		target = stat.AlgorithmData.FeasiblePolyhedra.get();
+	 else
+		target = stat.AlgorithmData.OuterComplementarities.get();
+
+    copy(target.begin(),
+         target.end(),
+         ostream_iterator<int>(polyT, " "));
+	 auto test2= polyT.str();
+
 
 	 results << instanceFile << ";" << to_string(stat.AlgorithmData.Algorithm.get()) << ";"
 				<< instance.Countries.size() << ";[";
@@ -262,6 +248,8 @@ int main(int argc, char **argv) {
 	 results.close();
   } catch (ZEROException &e) {
 	 std::cerr << "" << e.what() << "--" << e.more();
+  } catch (GRBException &e) {
+	 std::cerr << "" << e.getErrorCode() << "--" << e.getMessage();
   }
 
   return EXIT_SUCCESS;

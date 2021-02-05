@@ -65,8 +65,11 @@ namespace Data {
 			 1}; ///< The upper bound on the polyhedra added by the Polyhedral
 				  ///< Strategy, for each player at each iteration.
 		Attr<std::vector<unsigned int>> FeasiblePolyhedra =
-			 std::vector<unsigned int>();    ///< A vector of number of feasible
-														///< polyhedra, for each leader
+			 std::vector<unsigned int>(); ///< A vector of number of feasible
+													///< polyhedra, for each leader
+		Attr<std::vector<unsigned int>> OuterComplementarities =
+			 std::vector<unsigned int>(); ///< A vector with the number of included complementarities,
+													///< for each leader.
 		Attr<int> LostIntermediateEq = {0}; ///< Counts the number of approximation steps where the
 														///< problem (approximated) has no nash equilibrium
 		Attr<Data::LCP::Algorithms>
