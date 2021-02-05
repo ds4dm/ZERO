@@ -227,7 +227,7 @@ Game::EPEC::respondSol(arma::vec &      sol,    ///< [out] Optimal response
   auto model = this->respond(player, x);
   LOG_S(1) << "Game::EPEC::respondSol: Writing dat/RespondSol" + std::to_string(player) +
 						".lp to disk";
-  model->write("dat/RespondSol" + std::to_string(player) + ".lp");
+  //model->write("dat/RespondSol" + std::to_string(player) + ".lp");
   const int status = model->get(GRB_IntAttr_Status);
   if (status == GRB_UNBOUNDED || status == GRB_OPTIMAL) {
 	 unsigned int Nx = this->PlayersLCP.at(player)->getNumCols();
@@ -431,7 +431,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
 
 	 this->LCPModel->setObjective(GRBLinExpr{0}, GRB_MINIMIZE);
 	 this->LCPModel->optimize();
-	 this->LCPModel->write("dat/TheLCPTest.lp");
+	 //this->LCPModel->write("dat/TheLCPTest.lp");
 
 
 	 // Search just for a feasible point
@@ -443,7 +443,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
 	 }
 	 if (this->NashEquilibrium) { // If a Nash equilibrium is found, then update
 											// appropriately
-		this->LCPModel->write("dat/TheLCPTest.sol");
+		//this->LCPModel->write("dat/TheLCPTest.sol");
 		if (check) {
 		  int scount = this->LCPModel->get(GRB_IntAttr_SolCount);
 		  LOG_S(INFO) << "Game::EPEC::computeNashEq: number of equilibria is " << scount;

@@ -11,14 +11,11 @@
  * #############################################*/
 
 //
-#include <boost/log/trivial.hpp>
-//
 #include "mathopt/lcp/lcp.h"
 #include "solvers/PathSolver.h"
 #include <algorithm>
 #include <armadillo>
 #include <gurobi_c++.h>
-#include <iostream>
 #include <memory>
 #include <string>
 
@@ -606,7 +603,7 @@ ZEROStatus MathOpt::LCP::solvePATH(double timelimit, arma::vec &z, arma::vec &x,
 	*/
 
 
-  this->LCPasMIP(false)->write("dat/TheModel.lp");
+  //this->LCPasMIP(false)->write("dat/TheModel.lp");
   auto Solver = new Solvers::PATH(this->M, this->q, this->Compl, this->BoundsX, z, x, timelimit);
   return Solver->getStatus();
 }
