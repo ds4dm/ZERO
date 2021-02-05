@@ -13,7 +13,6 @@
 
 #include "games/algorithms/EPEC/epec_outerapproximation.h"
 
-#include <boost/log/trivial.hpp>
 #include <chrono>
 #include <gurobi_c++.h>
 #include <set>
@@ -235,7 +234,7 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 		  leaderModel->set(GRB_IntParam_InfUnbdInfo, 1);
 		  leaderModel->set(GRB_IntParam_DualReductions, 0);
 		  leaderModel->set(GRB_IntParam_OutputFlag, 0);
-		  leaderModel->write("dat/LeaderModel" + std::to_string(player) + ".lp");
+		  // leaderModel->write("dat/LeaderModel" + std::to_string(player) + ".lp");
 		  leaderModel->optimize();
 		  status = leaderModel->get(GRB_IntAttr_Status);
 
@@ -367,6 +366,8 @@ void Algorithms::EPEC::OuterApproximation::solve() {
   this->EPECObject->Stats.NumIterations.set(0);
 
   // Initialize Trees
+  // We actually do not use the complex tree structure for this vanilla-version, but we nevertheless
+  // give the user the capability of doing so.
   this->Trees     = std::vector<OuterTree *>(this->EPECObject->NumPlayers, 0);
   this->Incumbent = std::vector<OuterTree::Node *>(this->EPECObject->NumPlayers, 0);
   for (unsigned int i = 0; i < this->EPECObject->NumPlayers; i++) {
@@ -375,10 +376,11 @@ void Algorithms::EPEC::OuterApproximation::solve() {
   }
 
   bool branch = true;
-  int  comp   = 0;
   // In this case, branchingLocations is a vector of locations with the length
   // of this->EPECObject->NumPlayers
   std::vector<int>      branchingLocations;
+  std::vector<int>      branchingCandidatesNumber;
+  unsigned int          cumulativeBranchingCandidates = 0;
   std::vector<long int> branches;
   while (!solved) {
 	 branchingLocations.clear();
@@ -386,30 +388,63 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 	 LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::solve: Iteration "
 					 << std::to_string(this->EPECObject->Stats.NumIterations.get());
 
-	 comp               = 0;
-	 branchingLocations = std::vector<int>(this->EPECObject->NumPlayers, -1);
+	 branchingLocations            = std::vector<int>(this->EPECObject->NumPlayers, -1);
+	 branchingCandidatesNumber     = std::vector<int>(this->EPECObject->NumPlayers, 0);
+	 cumulativeBranchingCandidates = 0;
 
+	 for (int j = 0; j < this->EPECObject->NumPlayers; ++j) {
+		branchingCandidatesNumber.at(j) =
+			 Trees.at(j)->getEncodingSize() - Incumbent.at(j)->getCumulativeBranches();
+		cumulativeBranchingCandidates += branchingCandidatesNumber.at(j);
+	 }
+
+	 bool infeasibilityDetection = false;
 	 if (branch) {
-		for (int j = 0; j < this->EPECObject->NumPlayers; ++j) {
-		  if (Incumbent.at(j)->getCumulativeBranches() == Trees.at(j)->getEncodingSize())
-			 comp++;
-		  else {
+		for (int j = 0; j < this->EPECObject->NumPlayers && !infeasibilityDetection; ++j) {
+		  // Check if we can branch
+		  if (branchingCandidatesNumber.at(j) != 0) {
+			 // In the first iteration, no complex branching rule.
 			 if (this->EPECObject->Stats.NumIterations.get() == 1) {
 				branchingLocations.at(j) = this->getFirstBranchLocation(j, Incumbent.at(j));
+				// Check if we detected infeasibility
+				if (branchingLocations.at(j) < 0) {
+				  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::solve: "
+									  "firstBranching proves infeasibility for player  "
+								  << j;
+				  infeasibilityDetection = true;
+				  break;
+				}
 			 } else {
 				branchingLocations.at(j) = this->hybridBranching(j, Incumbent.at(j));
+				// Check if we detected infeasibility
+				if (branchingLocations.at(j) == -2) {
+				  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::solve: "
+									  "hybridBranching proves infeasiblity for player "
+								  << j;
+				  infeasibilityDetection = true;
+				  break;
+				}
 			 }
 		  }
 		}
 
+		if (infeasibilityDetection) {
+		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::solve: "
+							  "Solved without any equilibrium. Proven infeasibility";
+		  this->EPECObject->Stats.Status.set(ZEROStatus::NashEqNotFound);
+		  solved = true;
+		  break;
+		}
+
 		// Check at least a player has at least a branching candidate
-		if (comp == this->EPECObject->NumPlayers) {
+		if (cumulativeBranchingCandidates == 0) {
 		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::solve: "
 							  "Solved without any equilibrium.";
 		  this->EPECObject->Stats.Status.set(ZEROStatus::NashEqNotFound);
 		  solved = true;
 		  break;
 		}
+
 
 		// Check that there is at least a player has a branching selection with
 		// hybrid branching
@@ -434,10 +469,11 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 	 }
 
 	 for (int j = 0; j < this->EPECObject->NumPlayers; ++j) {
+		unsigned int test = 0;
 		if (branchingLocations.at(j) > -1) {
 		  branches           = Trees.at(j)->singleBranch(branchingLocations.at(j), *Incumbent.at(j));
 		  auto childEncoding = this->Trees.at(j)->getNodes()->at(branches.at(0)).getEncoding();
-		  this->PolyLCP.at(j)->outerApproximate(childEncoding, true);
+		  test += this->PolyLCP.at(j)->outerApproximate(childEncoding, true);
 		  // By definition of hybrid branching, the node should be feasible
 		  Incumbent.at(j) = &(this->Trees.at(j)->getNodes()->at(branches.at(0)));
 		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::solve: "
@@ -445,7 +481,7 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 						  << j << " is " << branchingLocations.at(j);
 		} else if (!branch) {
 		  // if we don't branch.
-		  this->PolyLCP.at(j)->outerApproximate(Incumbent.at(j)->getEncoding(), true);
+		  test += this->PolyLCP.at(j)->outerApproximate(Incumbent.at(j)->getEncoding(), true);
 		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::solve: "
 							  "No branching for player "
 						  << j;
@@ -457,12 +493,22 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 	 // To make computeNashEq skip any feasibility check
 	 this->Feasible = true;
 	 if (this->EPECObject->Stats.AlgorithmData.TimeLimit.get() > 0) {
+		// Then we should take care of time. Also, let's use an heuristic to compute the time for the
+		// current outer approximation.
 		const std::chrono::duration<double> timeElapsed =
 			 std::chrono::high_resolution_clock::now() - this->EPECObject->InitTime;
 		const double timeRemaining =
 			 this->EPECObject->Stats.AlgorithmData.TimeLimit.get() - timeElapsed.count();
+
+		double timeForNextIteration = timeRemaining * 0.98;
+		if ((cumulativeBranchingCandidates - 1) > 0)
+		  timeForNextIteration = (timeRemaining * 0.2) / (cumulativeBranchingCandidates - 1);
+
+		LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::solve: Allocating "
+						<< timeForNextIteration << "s for the next iteration ("
+						<< cumulativeBranchingCandidates << " complementarities left).";
 		this->EPECObject->computeNashEq(
-			 this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(), timeRemaining);
+			 this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(), timeForNextIteration);
 	 } else {
 		this->EPECObject->computeNashEq(
 			 this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get());
@@ -476,6 +522,7 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 		  this->EPECObject->Stats.Status.set(ZEROStatus::NashEqFound);
 		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::solve: "
 							  "Solved. ";
+		  this->after();
 		  return;
 		} else {
 		  if (addedCuts) {
@@ -496,10 +543,12 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 			 this->EPECObject->Stats.AlgorithmData.TimeLimit.get() - timeElapsed.count();
 		if (timeRemaining <= 0) {
 		  this->EPECObject->Stats.Status.set(ZEROStatus::TimeLimit);
+		  this->after();
 		  return;
 		}
 	 }
   }
+  this->after();
 }
 
 
@@ -536,13 +585,15 @@ std::unique_ptr<GRBModel> Algorithms::EPEC::OuterApproximation::getFeasQP(const 
  * @brief Given @p player -- containing the id of the player, returns the branching
  * decision for that node given by a hybrid branching rule. In
  * particular, the method return the complementarity id maximizing a
- *combination of constraint violations and number of violated constraints.
- *@p node contains the tree's node. It isn't const since a branching candidate
- *can be pruned if infeasibility is detected
+ * combination of constraint violations and number of violated constraints.
+ * @p node contains the tree's node. It isn't const since a branching candidate
+ * can be pruned if infeasibility is detected. Note that if the problem is infeasible, namely one
+ * complementarity branching candidate results in an infeasible relaxation, then all branching
+ * candidates are removed from the list of branching candidates.
  * @param player The player id
  * @param node The pointer to the incumbent OuterTree::Node
- * @return The branching candidate. Negative if none
- */
+ * @return The branching candidate. -1 if none. -2 if infeasible.
+ **/
 int Algorithms::EPEC::OuterApproximation::hybridBranching(const unsigned int player,
 																			 OuterTree::Node *  node) {
 
@@ -570,11 +621,16 @@ int Algorithms::EPEC::OuterApproximation::hybridBranching(const unsigned int pla
 		  incumbentApproximation.at(i) = true;
 		  // Build the approximation
 		  this->PolyLCP.at(player)->outerApproximate(incumbentApproximation, true);
-		  // If the approximation is infeasible, prune this branching location
-		  // from the candidates
-		  if (!this->PolyLCP.at(player)->getFeasOuterApp())
-			 Trees.at(player)->denyBranchingLocation(*node, i);
-		  else {
+		  // If the approximation is infeasible, the
+		  if (!this->PolyLCP.at(player)->getFeasOuterApp()) {
+			 // The problem is infeasible!
+			 LOG_S(INFO) << "OuterApproximation::hybridBranching: Player " << player
+							 << " has an infeasible problem (outer relaxation induction)";
+			 for (unsigned int j = 0; j < currentEncoding.size(); j++) {
+				Trees.at(player)->denyBranchingLocation(*node, j);
+			 }
+			 return -2;
+		  } else {
 			 // In this case, we can check if the solution belongs to the outer
 			 // approximation
 			 this->EPECObject->makePlayerQP(player);
@@ -693,14 +749,16 @@ int Algorithms::EPEC::OuterApproximation::deviationBranching(const unsigned int 
  * @param node The pointer to the incumbent OuterTree::Node
  * @return The branching candidate. Negative if none
  */
-int Algorithms::EPEC::OuterApproximation::getFirstBranchLocation(const unsigned int     player,
-																					  const OuterTree::Node *node) {
+int Algorithms::EPEC::OuterApproximation::getFirstBranchLocation(const unsigned int player,
+																					  OuterTree::Node *  node) {
   /**
 	* Given @p player -- containing the id of the player, returns the branching
-	* decision for that node, with no complementarity condition enforced. In
+	* decision for that node. In
 	* particular, the method return the (positive) id of the complementarity
 	* equation if there is a feasible branching decision at @p node, and a
-	* negative value otherwise.
+	* negative value otherwise. Note that if the problem is infeasible, namely one
+	* complementarity branching candidate results in an infeasible relaxation, then all branching
+	* candidates are removed from the list of branching candidates.
 	* @return a positive int with the id of the complementarity to branch on, or
 	* a negative value if none exists.
 	*/
@@ -734,6 +792,11 @@ int Algorithms::EPEC::OuterApproximation::getFirstBranchLocation(const unsigned 
 	 pos = maxvalz > maxvalx ? maxposz : maxposx;
   } else {
 	 // The problem is infeasible!
+	 LOG_S(INFO) << "OuterApproximation::getFirstBranchLocation: Player " << player
+					 << " has an infeasible problem (outer relaxation induction)";
+	 for (unsigned int j = 0; j < node->getEncoding().size(); j++) {
+		Trees.at(player)->denyBranchingLocation(*node, j);
+	 }
 	 return -1;
   }
   return pos;
@@ -756,7 +819,7 @@ int Algorithms::EPEC::OuterApproximation::getFirstBranchLocation(const unsigned 
  * Algorithms::EPEC::OuterApproximation::getFirstBranchLocation, respectively. If an int is
  * negative, there is no real candidate.
  */
-std::vector<int>
+[[maybe_unused]] std::vector<int>
 Algorithms::EPEC::OuterApproximation::getNextBranchLocation(const unsigned int player,
 																				OuterTree::Node *  node) {
 
@@ -833,6 +896,22 @@ bool Algorithms::EPEC::OuterApproximation::isPureStrategy(double tol) const {
 
 	 return true;
   }
+}
+void Algorithms::EPEC::OuterApproximation::after() {
+  bool                      pureStrategy = true;
+  std::vector<unsigned int> numComps;
+  for (unsigned int i = 0; i < this->EPECObject->getNumPlayers(); ++i) {
+	 if (!this->Trees.at(i)->getPure()) {
+		pureStrategy = false;
+	 }
+	 unsigned int counter = 0;
+	 for (unsigned int j = 0; j < this->Incumbent.at(i)->getEncoding().size(); j++)
+		counter += this->Incumbent.at(i)->getEncoding().at(j);
+	 numComps.push_back(counter);
+  }
+  this->EPECObject->Stats.PureNashEquilibrium.set(pureStrategy);
+  this->EPECObject->Stats.AlgorithmData.OuterComplementarities.set(numComps);
+  LOG_S(3) << "Algorithms::EPEC::OuterApproximation::after: post-processing results.";
 }
 
 

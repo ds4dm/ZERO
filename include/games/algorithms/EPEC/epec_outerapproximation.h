@@ -22,8 +22,7 @@
 #include <set>
 #include <string>
 
-namespace Algorithms {
-  namespace EPEC {
+namespace Algorithms::EPEC {
 
 	 /**
 	  * @brief This class manages the outer-approximation tree
@@ -35,7 +34,7 @@ namespace Algorithms {
 		public:
 		  friend class OuterTree;
 
-		  Node(unsigned int encSize);
+		  explicit Node(unsigned int encSize);
 
 		  Node(Node &parent, unsigned int idComp, unsigned long int id);
 		  Node(Node &parent, std::vector<int> idComps, unsigned long int id);
@@ -46,15 +45,15 @@ namespace Algorithms {
 			* which the resulting child node is infeasible.
 			* @return The number of unsuitable branching candidates
 			*/
-		  inline unsigned long int getCumulativeBranches() const {
+		  [[nodiscard]] inline unsigned long int getCumulativeBranches() const {
 			 return std::count(this->AllowedBranchings.begin(), this->AllowedBranchings.end(), false);
 		  }
 
-		  inline std::vector<bool> getEncoding() const {
+		  [[nodiscard]] inline std::vector<bool> getEncoding() const {
 			 return this->Encoding;
 		  } ///< Getter method for the encoding.
 
-		  inline std::vector<bool> getAllowedBranchings() const {
+		  [[nodiscard]] inline std::vector<bool> getAllowedBranchings() const {
 			 return this->AllowedBranchings;
 		  } ///< Getter method for the allowed branchings
 
@@ -69,7 +68,7 @@ namespace Algorithms {
 
 		  /**
 			* A vector where true means that the corresponding complementarity is a candidate for
-			* banching at the current node
+			* branching at the current node
 			*/
 		  std::vector<bool> AllowedBranchings;
 		  unsigned long int Id;     ///< A long int giving the numerical identifier for the node
@@ -134,7 +133,7 @@ namespace Algorithms {
 
 		inline void setPure() { this->isPure = true; } ///< Setter for OuterTree::isPure
 
-		const inline unsigned int getEncodingSize() {
+		inline unsigned int getEncodingSize() const {
 		  return this->EncodingSize;
 		} ///< Getter for the encoding size
 
@@ -142,29 +141,26 @@ namespace Algorithms {
 
 		inline const arma::sp_mat *getR() { return &this->R; } ///< Getter for OuterTree::R
 
-		inline const unsigned int getVertexCount() {
+		inline unsigned int getVertexCount() const {
 		  return this->VertexCounter;
 		} ///< Getter for OuterTree::VertexCounter
-		inline const unsigned int getRayCount() {
+		inline unsigned int getRayCount() const {
 		  return this->RayCounter;
 		} ///< Getter for OuterTree::RayCounter
 
-		inline const unsigned int getNodeCount() {
-		  return this->NodeCounter;
-		} ///< Getter for OuterTree::NodeCounter
 
 
 		inline void addVertex(arma::vec vertex);
 
 		inline void addRay(arma::vec ray);
 
-		inline Node *const getRoot() { return &this->Root; } ///< Getter for the root node
+		inline Node *getRoot() { return &this->Root; } ///< Getter for the root node
 
 		inline std::vector<Node> *getNodes() { return &this->Nodes; }; ///< Getter for all the nodes
 
 		void denyBranchingLocation(Node &node, const unsigned int &location);
 
-		std::vector<long int> singleBranch(const unsigned int idComp, Node &t);
+		std::vector<long int> singleBranch(unsigned int idComp, Node &t);
 	 };
 
 	 ///@brief This class is responsible for the outer approximation Algorithm
@@ -172,7 +168,7 @@ namespace Algorithms {
 
 	 public:
 		OuterApproximation(GRBEnv *env, Game::EPEC *EPECObject) : PolyBase(env, EPECObject){};
-		double getTol() const {
+		[[nodiscard]] double getTol() const {
 		  return this->Tolerance;
 		} ///< Read-Only getter for OuterApproximation::Tolerance
 		void setTol(double tol) {
@@ -195,25 +191,21 @@ namespace Algorithms {
 		bool   Feasible{false};                   ///< True if a feasible solution has been found
 		double Tolerance = 1e-6;                  ///< A numberical tolerance
 
-		std::vector<int> getNextBranchLocation(const unsigned int player, OuterTree::Node *node);
-		int getFirstBranchLocation(const unsigned int player, const OuterTree::Node *node);
+		[[maybe_unused]] std::vector<int> getNextBranchLocation(unsigned int player, OuterTree::Node *node);
+		int              getFirstBranchLocation(const unsigned int player, OuterTree::Node *node);
 
 	 protected:
-		void postSolving(){
-			 //@todo implement
-		};
+		void after();
 
 		void updateMembership(const unsigned int &player,
 									 const arma::vec &   xOfI,
 									 bool                normalization = true);
-		int  hybridBranching(const unsigned int player, OuterTree::Node *node);
-		int  infeasibleBranching(const unsigned int player, const OuterTree::Node *node);
-		int  deviationBranching(const unsigned int player, const OuterTree::Node *node);
-		std::unique_ptr<GRBModel> getFeasQP(const unsigned int player, arma::vec x);
-		void addValueCut(const unsigned int player, const double RHS, const arma::vec xMinusI);
-		bool separationOracle(
-			 arma::vec &xOfI, arma::vec &x, unsigned int player, int budget, bool &addedCuts);
+		int  hybridBranching(unsigned int player, OuterTree::Node *node);
+		int  infeasibleBranching(unsigned int player, const OuterTree::Node *node);
+		int  deviationBranching(unsigned int player, const OuterTree::Node *node);
+		std::unique_ptr<GRBModel> getFeasQP(unsigned int player, arma::vec x);
+		void                      addValueCut(unsigned int player, double RHS, arma::vec xMinusI);
+		bool                      separationOracle(
+										 arma::vec &xOfI, arma::vec &x, unsigned int player, int budget, bool &addedCuts);
 	 };
-  } // namespace EPEC
-
-} // namespace Algorithms
+  } // namespace Algorithms
