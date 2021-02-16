@@ -214,7 +214,7 @@ Game::EPEC::respondSol(arma::vec &      sol,    ///< [out] Optimal response
 							  ///< players or all other players
 							  const arma::vec &prevDev
 							  ///< [in] if any, the std::vector of previous deviations.
-							  ) const {
+) const {
   /**
 	* @brief Returns the optimal objective value that is obtainable for the
 	* player @p player given the decision @p x of all other players.
@@ -227,7 +227,7 @@ Game::EPEC::respondSol(arma::vec &      sol,    ///< [out] Optimal response
   auto model = this->respond(player, x);
   LOG_S(1) << "Game::EPEC::respondSol: Writing dat/RespondSol" + std::to_string(player) +
 						".lp to disk";
-  //model->write("dat/RespondSol" + std::to_string(player) + ".lp");
+  // model->write("dat/RespondSol" + std::to_string(player) + ".lp");
   const int status = model->get(GRB_IntAttr_Status);
   if (status == GRB_UNBOUNDED || status == GRB_OPTIMAL) {
 	 unsigned int Nx = this->PlayersLCP.at(player)->getNumCols();
@@ -401,14 +401,14 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
 	*/
   // Make the Nash Game between countries
   this->NashEquilibrium = false;
-  LOG_S(1) << " Game::EPEC::computeNashEq: Making the Master LCP";
+  LOG_S(1) << "Game::EPEC::computeNashEq: Making the Master LCP";
   this->makeTheLCP();
-  LOG_S(1) << " Game::EPEC::computeNashEq: Made the Master LCP";
+  LOG_S(1) << "Game::EPEC::computeNashEq: Made the Master LCP";
 
 
   if (check || pureNE) {
 	 if (this->Stats.AlgorithmData.LCPSolver.get() == Data::LCP::Algorithms::PATH)
-		LOG_S(1) << " Game::EPEC::computeNashEq: Cannot use PATH fallback. Using MIP";
+		LOG_S(1) << "Game::EPEC::computeNashEq: Cannot use PATH fallback. Using MIP";
 	 /*
 	  * In these cases, we can only use a MIP solver to get multiple solutions or PNEs
 	  */
@@ -418,7 +418,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
 	 }
 
 	 if (pureNE) {
-		LOG_S(INFO) << " Game::EPEC::computeNashEq: (PureNashEquilibrium flag is "
+		LOG_S(INFO) << "Game::EPEC::computeNashEq: (PureNashEquilibrium flag is "
 							"true) Searching for a pure NE.";
 		if (this->Stats.AlgorithmData.Algorithm.get() != Data::EPEC::Algorithms::OuterApproximation)
 		  static_cast<Algorithms::EPEC::PolyBase *>(this->Algorithm.get())->makeThePureLCP();
@@ -428,10 +428,19 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
 	 if (check)
 		this->LCPModel->set(GRB_IntParam_SolutionLimit, GRB_MAXINT);
 
+	 //@todo check this
+	 if (this->Stats.AlgorithmData.Threads.get() >= 8) {
+		int wrk = std::round(std::floor(this->Stats.AlgorithmData.Threads.get() / 4));
+		int workers = std::max(wrk, 1);
+      LOG_S(WARNING) << "Game::EPEC::computeNashEq: ConcurrentMIP set to " << workers <<".";
+		this->LCPModel->set(GRB_IntParam_ConcurrentMIP,workers);
+	 }
+    this->LCPModel->set(GRB_IntParam_VarBranch,2);
+
 
 	 this->LCPModel->setObjective(GRBLinExpr{0}, GRB_MINIMIZE);
 	 this->LCPModel->optimize();
-	 //this->LCPModel->write("dat/TheLCPTest.lp");
+	 // this->LCPModel->write("dat/TheLCPTest.lp");
 
 
 	 // Search just for a feasible point
@@ -443,7 +452,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
 	 }
 	 if (this->NashEquilibrium) { // If a Nash equilibrium is found, then update
 											// appropriately
-		//this->LCPModel->write("dat/TheLCPTest.sol");
+		// this->LCPModel->write("dat/TheLCPTest.sol");
 		if (check) {
 		  int scount = this->LCPModel->get(GRB_IntAttr_SolCount);
 		  LOG_S(INFO) << "Game::EPEC::computeNashEq: number of equilibria is " << scount;
@@ -478,12 +487,21 @@ bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for
 	 auto solver = this->Stats.AlgorithmData.LCPSolver.get();
 
 	 if (solver == Data::LCP::Algorithms::PATH && this->TheLCP->hasCommonConstraints()) {
-		LOG_S(1)
-			 << " Game::EPEC::computeNashEq: Cannot use PATH fallback (Common constraints). Using MIP";
+		LOG_S(WARNING)
+			 << "Game::EPEC::computeNashEq: Cannot use PATH fallback (Common constraints). Using MIP";
 		solver = Data::LCP::Algorithms::MIP;
 	 }
 
-	 switch (this->TheLCP->solve(solver, this->SolutionX, this->SolutionZ, localTimeLimit)) {
+	 unsigned int MIPWorkers = 1;
+	 if (solver == Data::LCP::Algorithms::MIP){
+      if (this->Stats.AlgorithmData.Threads.get() >= 8) {
+        int wrk = std::round(std::floor(this->Stats.AlgorithmData.Threads.get() / 4));
+        MIPWorkers = std::max(wrk, 1);
+        LOG_S(INFO) << "Game::EPEC::computeNashEq: ConcurrentMIP set to " << MIPWorkers <<".";
+      }
+	 }
+
+	 switch (this->TheLCP->solve(solver, this->SolutionX, this->SolutionZ, localTimeLimit, MIPWorkers)) {
 	 case ZEROStatus::NashEqFound: {
 		this->NashEquilibrium = true;
 		LOG_S(INFO) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
@@ -686,6 +704,7 @@ double Game::EPEC::getValLeadLead(const unsigned int i, const unsigned int j) co
   return this->LCPModel->getVarByName("x_" + std::to_string(this->getPositionLeadLead(i, j)))
 		.get(GRB_DoubleAttr_X);
 }
+
 
 std::string std::to_string(const Data::EPEC::Algorithms al) {
   switch (al) {

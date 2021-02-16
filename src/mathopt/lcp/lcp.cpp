@@ -224,6 +224,22 @@ void MathOpt::LCP::makeRelaxed() {
 		}
 		LOG_S(1) << "MathOpt::LCP::makeRelaxed: Added common constraints";
 	 }
+
+	 // Added cuts
+	 if (this->_Acut.n_nonzero != 0 && this->_bcut.n_rows != 0) {
+		if (_Acut.n_cols != nC || _Acut.n_rows != _bcut.n_rows) {
+		  LOG_S(1) << "(" << _Acut.n_rows << "," << _Acut.n_cols << ")\t" << _bcut.n_rows << " "
+					  << nC;
+		  throw ZEROException(ZEROErrorCode::InvalidData, "Acut and bcut are incompatible");
+		}
+		for (unsigned int i = 0; i < _Acut.n_rows; i++) {
+		  GRBLinExpr expr = 0;
+		  for (auto a = _Acut.begin_row(i); a != _Acut.end_row(i); ++a)
+			 expr += (*a) * x[a.col()];
+		  RelaxedModel.addConstr(expr, GRB_LESS_EQUAL, _bcut(i), "cutConstr_" + std::to_string(i));
+		}
+		LOG_S(1) << "MathOpt::LCP::makeRelaxed: Added cut constraints";
+	 }
 	 RelaxedModel.update();
 	 this->MadeRlxdModel = true;
 
@@ -544,15 +560,27 @@ void MathOpt::LCP::makeQP(MathOpt::QP_Objective &QP_obj, MathOpt::QP_Param &QP) 
  * note This method does not check whether such cuts are already in the LCP.
  */
 
-void MathOpt::LCP::addCustomCuts(const arma::sp_mat A, const arma::vec b) {
+void MathOpt::LCP::addCustomCuts(const arma::sp_mat A_in, const arma::vec b_in) {
 
-  if (this->A.n_cols != A.n_cols)
+  if (this->A.n_cols != A_in.n_cols)
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Mismatch in A columns");
-  if (b.size() != A.n_rows)
+  if (b_in.size() != A_in.n_rows)
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Mismatch in A and b rows");
 
-  this->_Acut = arma::join_cols(this->_Acut, A);
-  this->_bcut = arma::join_cols(this->_bcut, b);
+  this->_Acut = arma::join_cols(this->_Acut, A_in);
+  this->_bcut = arma::join_cols(this->_bcut, b_in);
+  if (MadeRlxdModel) {
+	 GRBVar x[nC];
+	 for (unsigned int i = 0; i < nC; i++)
+		x[i] = this->RelaxedModel.getVarByName("x_" + std::to_string(i));
+	 for (unsigned int i = 0; i < A_in.n_rows; i++) {
+		GRBLinExpr expr = 0;
+		for (auto a = A_in.begin_row(i); a != A_in.end_row(i); ++a)
+		  expr += (*a) * x[a.col()];
+		this->RelaxedModel.addConstr(expr, GRB_LESS_EQUAL, b_in(i), "cutConstr_" + std::to_string(i));
+	 }
+	 LOG_S(1) << "MathOpt::LCP::addCustomCuts: Added cut constraint";
+  }
 
   // debug this->_Acut.print_dense("Matrix Acut");
   // debug this->_bcut.print("Vector bcut");
@@ -603,7 +631,7 @@ ZEROStatus MathOpt::LCP::solvePATH(double timelimit, arma::vec &z, arma::vec &x,
 	*/
 
 
-  //this->LCPasMIP(false)->write("dat/TheModel.lp");
+  // this->LCPasMIP(false)->write("dat/TheModel.lp");
   auto Solver = new Solvers::PATH(this->M, this->q, this->Compl, this->BoundsX, z, x, timelimit);
   return Solver->getStatus();
 }
@@ -615,17 +643,19 @@ ZEROStatus MathOpt::LCP::solvePATH(double timelimit, arma::vec &z, arma::vec &x,
  * @param xSol The resulting solution for z, if any
  * @param zSol The resulting solution for z, if any
  * @param timeLimit A double time limit
+ * @param MIPWorkers The absolute number of MIP Workers in case @p algo is
+ * Data::LCP::Algorithms::MIP
  * @return A ZEROStatus for the problem
  */
 
 ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 										 arma::vec &           xSol,
 										 arma::vec &           zSol,
-										 double                timeLimit) {
+										 double                timeLimit,
+										 unsigned int          MIPWorkers) {
 
   xSol.zeros(this->M.n_cols);
   zSol.zeros(this->M.n_rows);
-  bool status = false;
 
   switch (algo) {
   case Data::LCP::Algorithms::PATH: {
@@ -661,6 +691,8 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 	 Model->set(GRB_IntParam_SolutionLimit, 1);
 	 if (timeLimit > 0)
 		Model->set(GRB_DoubleParam_TimeLimit, timeLimit);
+	 if (MIPWorkers > 1)
+		Model->set(GRB_IntParam_ConcurrentMIP, MIPWorkers);
 	 Model->optimize();
 
 	 if (this->extractSols(Model.get(), zSol, xSol, true)) {

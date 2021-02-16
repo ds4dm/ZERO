@@ -64,10 +64,10 @@ namespace MathOpt {
 	 bool PureMIP = true; ///< True if the LCP is modelled via a pure MIP with SOS1 (or indicator)
 								 ///< constraints. Otherwise, a MINLP introduces a bilinear term for each
 								 ///< complementarity
-	 arma::sp_mat A     = {}; ///< The additional constraint matrix A to the problem
-	 arma::vec    b     = {}; ///< The additional constraint RHSs b to the problem
-	 arma::sp_mat _Acut = {}; ///< Additional cutting planes (eventually) added to the model
-	 arma::vec    _bcut = {}; ///< Additional cutting planes (eventually) added to the model
+	 arma::sp_mat A     = {}; ///< The additional constraint matrix A to the problem, in the form @f$Ax \leq b@f$
+	 arma::vec    b     = {}; ///< The additional constraint RHSs b to the problem, in the form @f$Ax \leq b@f$
+	 arma::sp_mat _Acut = {}; ///< Additional cutting planes (eventually) added to the model, in the form @f$Ax \leq b@f$
+	 arma::vec    _bcut = {}; ///< Additional cutting planes (eventually) added to the model, in the form @f$Ax \leq b@f$
 	 bool         MadeRlxdModel{false}; ///< True if a relaxed model has been already initialized
 	 unsigned int nR, nC;               ///< The number of rows and columns in the matrix M
 
@@ -157,7 +157,11 @@ namespace MathOpt {
 
 	 bool extractSols(GRBModel *model, arma::vec &z, arma::vec &x, bool extractZ = false) const;
 
-	 ZEROStatus solve(Data::LCP::Algorithms algo, arma::vec &x, arma::vec &z, double timeLimit = -1);
+	 ZEROStatus solve(Data::LCP::Algorithms algo,
+							arma::vec &           xSol,
+							arma::vec &           zSol,
+							double                timeLimit,
+							unsigned int          MIPWorkers);
 
 	 std::unique_ptr<GRBModel> LCPasMIP(bool solve = false);
 
