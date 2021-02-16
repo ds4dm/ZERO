@@ -189,7 +189,7 @@ namespace Algorithms::EPEC {
 		std::vector<OuterTree *>       Trees; ///< The vector of pointer to OuterTree for each player
 		std::vector<OuterTree::Node *> Incumbent; ///< The incumbent nodes for each player
 		bool   Feasible{false};                   ///< True if a feasible solution has been found
-		double Tolerance = 1e-5;                  ///< A numberical tolerance
+		double Tolerance = 5*1e-4;                  ///< The numerical tolerance for the algorithm
 
 		[[maybe_unused]] std::vector<int> getNextBranchLocation(unsigned int player, OuterTree::Node *node);
 		int              getFirstBranchLocation(const unsigned int player, OuterTree::Node *node);
@@ -197,9 +197,7 @@ namespace Algorithms::EPEC {
 	 protected:
 		void after();
 
-		void updateMembership(const unsigned int &player,
-									 const arma::vec &   xOfI,
-									 bool                normalization = true);
+		void                      updateMembership(const unsigned int &player, const arma::vec &xOfI);
 		int  hybridBranching(unsigned int player, OuterTree::Node *node);
 		int  infeasibleBranching(unsigned int player, const OuterTree::Node *node);
 		int  deviationBranching(unsigned int player, const OuterTree::Node *node);

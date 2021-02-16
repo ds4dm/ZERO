@@ -42,47 +42,49 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
   // Then, the feasibility is implied also by the deviations
   bool      result = {true};
   arma::vec bestResponse;
-  arma::vec currentPayoffs =
+  arma::vec currentResponsesZ =
 		this->EPECObject->TheNashGame->computeQPObjectiveValues(this->EPECObject->SolutionX, true);
   for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i) {
-	 LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation:: Payoff of " << i << " is "
-					 << currentPayoffs.at(i);
 	 this->Trees.at(i)->resetFeasibility();
-	 double val = this->EPECObject->respondSol(bestResponse, i, this->EPECObject->SolutionX);
-	 if (val == GRB_INFINITY) {
-		LOG_S(1) << "Algorithms::EPEC::OuterApproximation:: Unbounded deviation for " << i;
+	 double bestResponseZ =
+		  this->EPECObject->respondSol(bestResponse, i, this->EPECObject->SolutionX);
+	 LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i << ") Payoff of "
+					 << currentResponsesZ.at(i) << " vs bestResponse of " << bestResponseZ;
+	 if (bestResponseZ == GRB_INFINITY) {
+		LOG_S(1) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
+					<< ") Unbounded deviation";
 		addedCuts = false;
 		return false;
 	 }
 	 // minimization standard
 	 // @todo check the direction of the inequality
-	 if (std::abs(currentPayoffs.at(i) - val) > this->Tolerance) {
+	 if (std::abs(currentResponsesZ.at(i) - bestResponseZ) > this->Tolerance) {
 		// Discrepancy between payoffs! Need to investigate.
-		if (currentPayoffs.at(i) - val > this->Tolerance) {
+		if (currentResponsesZ.at(i) - bestResponseZ > 10*this->Tolerance) {
 		  // It means the current payoff is more than then optimal response. Then
 		  // this is not a best response. Theoretically, this cannot happen from
 		  // an outer approximation. This if case is a warning case then
-		  //@todo can this happen?
+		  //@todo numerical tolerances
 
-		  LOG_S(WARNING) << "Algorithms::EPEC::OuterApproximation::"
-								  "isFeasible: No best response for Player "
-							  << i << " (" << currentPayoffs.at(i) << " vs " << val << ")";
-
-		  throw ZEROException(ZEROErrorCode::Numeric,
-									 "Invalid payoffs relation (better best response)");
-		  // throw;
-		  // throw;
-		} else {
-		  // if ((val - currentPayoffs.at(i) ) > tol)
+		  LOG_S(WARNING) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i << ")"
+							  << " No best response (" << currentResponsesZ.at(i) << " vs "
+							  << bestResponseZ << " with diff=" << currentResponsesZ.at(i) - bestResponseZ
+							  << ")";
+		  LOG_S(WARNING) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
+							  << ") This may be due to numerical issues!";
+		  this->EPECObject->Stats.Status.set(ZEROStatus::Numerical);
+		  throw ZEROException(
+				ZEROErrorCode::Numeric,
+				"Invalid payoffs relation (better best response). This may be due to numerical issues");
+		}
+		if (bestResponseZ - currentResponsesZ.at(i) > 10 * this->Tolerance) {
 		  // It means the current payoff is less than the optimal response. The
 		  // approximation is not good, and this point is infeasible. Then, we can
 		  // generate a value-cut
 		  arma::vec xMinusI;
 		  this->EPECObject->getXMinusI(this->EPECObject->SolutionX, i, xMinusI);
-		  this->addValueCut(i, val, xMinusI);
-		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::isFeasible: "
-							  "Value cut at for Player "
-						  << i;
+		  this->addValueCut(i, bestResponseZ, xMinusI);
+		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i << ") Value cut";
 		  result = false;
 		}
 	 } else {
@@ -93,17 +95,14 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
 
 		// Check if we need to add the point to the vertex storage.
 		arma::vec vertex = bestResponse.subvec(0, xOfI.size() - 1);
-		//@todo debug
 		// vertex.print("Best Response");
 		if (!Utils::containsRow(*this->Trees.at(i)->getV(), vertex, this->Tolerance)) {
 		  this->Trees.at(i)->addVertex(vertex);
-		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::isFeasible: "
-							  "Adding vertex as of best response for Player "
-						  << i << " (Best Response)";
+		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
+						  << ") Adding vertex (Best Response)";
 		} else {
-		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::isFeasible: "
-							  "Already known best response for Player "
-						  << i << " (Best Response)";
+		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
+						  << ") Already known vertex (Best Response)";
 		}
 
 		if (!Utils::isZero(xOfI - bestResponse.subvec(0, xOfI.size() - 1), this->Tolerance)) {
@@ -112,20 +111,18 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
 		  // We search for a convex combination of best responses so that we can
 		  // certify the answer is inside the convex-hull (or not).
 
-		  int budget = 15;
+		  int budget = 50;
 		  if (!this->separationOracle(xOfI, this->EPECObject->SolutionX, i, budget, addedCuts)) {
-			 LOG_S(1) << "Algorithms::EPEC::OuterApproximation::isFeasible: "
-							 "Oracle gave a negative answer for Player "
-						 << i;
+			 LOG_S(1) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
+						 << ") Oracle says NO.";
 			 result = false;
 		  }
 
 		} else {
 		  this->Trees.at(i)->setFeasible();
 		  this->Trees.at(i)->setPure();
-		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::isFeasible: "
-							  "Feasible strategy for Player "
-						  << i << " (Best Response)";
+		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
+						  << ") Feasible strategy (Best Response)";
 		}
 	 }
   }
@@ -138,11 +135,9 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
  * Algorithms::EPEC::OuterApproximation::Trees for the player @p player
  * @param player The player index
  * @param xOfI  The point for which the membership LP should be updated for
- * @param normalization  True if the LP is normalized
  */
 void Algorithms::EPEC::OuterApproximation::updateMembership(const unsigned int &player,
-																				const arma::vec &   xOfI,
-																				bool                normalization) {
+																				const arma::vec &   xOfI) {
 
 
   auto PlayerTree = Trees.at(player);
@@ -151,8 +146,7 @@ void Algorithms::EPEC::OuterApproximation::updateMembership(const unsigned int &
 										 PlayerTree->V,
 										 PlayerTree->RayCounter,
 										 PlayerTree->R,
-										 xOfI,
-										 normalization);
+										 xOfI);
 }
 
 bool Algorithms::EPEC::OuterApproximation::separationOracle(
@@ -164,29 +158,42 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 
 	 auto V = this->Trees.at(player)->V;
 
-	 //@todo debug
 	 // xOfI.print("Point to separate: ");
 
-	 this->updateMembership(player, xOfI, true);
+	 this->updateMembership(player, xOfI);
 	 auto convexModel = *this->Trees.at(player)->MembershipLP;
 	 convexModel.optimize();
+	 convexModel.write("dat/Convexmodel_" + std::to_string(player) + ".lp");
+	 V.save("dat/ConvexVertices_"+std::to_string(player)+".csv",arma::csv_ascii);
 
 	 int status = convexModel.get(GRB_IntAttr_Status);
-	 LOG_S(1) << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-					 "MermbershipLP status is "
-				 << status;
-	 if (status == GRB_OPTIMAL && convexModel.get(GRB_IntAttr_SolCount) == 1) {
-		convexModel.set(GRB_IntParam_SolutionNumber, 0);
-		arma::vec sol(xOfI.size(), arma::fill::zeros);
-		for (unsigned int i = 0; i < xOfI.size(); i++)
-		  sol.at(i) =
-				std::abs(convexModel.getVarByName("y_" + std::to_string(i)).get(GRB_DoubleAttr_X));
+	 LOG_S(1) << "Algorithms::EPEC::OuterApproximation::separationOracle: (P" << player << ")"
+				 << " MermbershipLP status is " << status
+				 << " (Objective=" << convexModel.getObjective().getValue() << ")";
+	 if (status == GRB_OPTIMAL) {
 
-		if (convexModel.getObjective().getValue() == 0 && sol.max() == 0) {
+		// Maximization of the dual membership gives zero. Then, the point is feasible
+		if (std::abs(convexModel.getObjective().getValue()) < this->Tolerance) {
+
+		  convexModel.set(GRB_IntParam_SolutionNumber, 0);
+		  arma::vec sol(xOfI.size(), arma::fill::zeros);
+
+		  for (unsigned int i = 0; i < xOfI.size(); i++) {
+			 sol.at(i) =
+				  std::abs(convexModel.getVarByName("y_" + std::to_string(i)).get(GRB_DoubleAttr_X));
+		  }
+
+		  // sol.print("this is the sol");
+		  auto prod = arma::as_scalar(sol.t() * xOfI);
+		  /*LOG_S(WARNING) << "Algorithms::EPEC::OuterApproximation::separationOracle: (P" << player
+							  << ") prod is" << prod << " and status is " << status << " and objective "
+							  << convexModel.getObjective().getValue();
+		  if (prod == 0) {*/
 		  // this->Trees.at(player)->addVertex(xOfI);
-		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-							  "The point is a convex combination of known points! Player "
-						  << player;
+		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::separationOracle: (P" << player << ")"
+						  << " The point is a convex combination of known points!";
+
+		  // debug
 
 		  this->Trees.at(player)->setFeasible();
 
@@ -198,130 +205,136 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 			 support.at(v) =
 				  convexModel.getConstrByName("V_" + std::to_string(v)).get(GRB_DoubleAttr_Pi);
 		  }
-		  //@todo debug
 		  // support.print("MNE Support: ");
-		  if (support.max() == 1)
+		  if (support.max() == 1) {
 			 this->Trees.at(player)->setPure();
+		  }
 		  return true;
+		  //}
+		} else {
+
+
+		  // This is not a convex combination! The dual membership objective is not zero
+
+
+		  // Get the Farkas' in the form of the unbounded ray of the dual of the
+		  // dualMembershipLP (the primal)
+		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::separationOracle: (P" << player
+						  << ")"
+							  " The point is NOT a convex combination of known points! Found "
+						  << convexModel.get(GRB_IntAttr_SolCount) << " solutions.";
+		  for (int z = 0; z < convexModel.get(GRB_IntAttr_SolCount); ++z) {
+			 convexModel.set(GRB_IntParam_SolutionNumber, z);
+			 arma::vec cutLHS;
+			 cutLHS.zeros(xOfI.size());
+
+			 for (unsigned int i = 0; i < xOfI.size(); i++) {
+				cutLHS.at(i) = convexModel.getVarByName("y_" + std::to_string(i)).get(GRB_DoubleAttr_X);
+			 }
+			 // debug
+			 // cutLHS.print("Separating hyperplane: ");
+
+			 // Optimize the resulting inequality over the original feasible set
+			 auto       leaderModel = this->EPECObject->respond(player, x);
+			 GRBLinExpr expr        = 0;
+			 for (unsigned int i = 0; i < xOfI.size(); ++i) {
+				expr += cutLHS.at(i) * leaderModel->getVarByName("x_" + std::to_string(i));
+			 }
+
+			 leaderModel->setObjective(expr, GRB_MAXIMIZE);
+			 leaderModel->update();
+			 leaderModel->set(GRB_IntParam_InfUnbdInfo, 1);
+			 leaderModel->set(GRB_IntParam_DualReductions, 0);
+			 leaderModel->set(GRB_IntParam_OutputFlag, 0);
+			 // leaderModel->write("dat/LeaderModel" + std::to_string(player) + ".lp");
+			 leaderModel->optimize();
+			 status = leaderModel->get(GRB_IntAttr_Status);
+
+			 if (status == GRB_OPTIMAL) {
+				double cutV = leaderModel->getObjective().getValue();
+				LOG_S(1) << "Algorithms::EPEC::OuterApproximation::separationOracle: (P" << player
+							<< ")"
+								" LeaderModel status = "
+							<< std::to_string(status) << " with objective=" << cutV;
+				arma::vec val  = cutLHS.t() * xOfI; // c^T xOfI
+				arma::vec val2 = cutLHS.t() * V.row(0).t();
+				LOG_S(1) << "Algorithms::EPEC::OuterApproximation::separationOracle: (P" << player
+							<< ") c^Tv=" << cutV << " -- c^TxOfI=" << val.at(0)
+							<< " -- c^TV(0)=" << val2.at(0);
+				if (cutV - val.at(0) < -this->Tolerance) {
+				  // False, but we have a cut :-)
+				  // Ciao Moni
+				  cutV              = cutV;
+				  arma::sp_mat cutL = Utils::resizePatch(
+						arma::sp_mat{cutLHS}.t(), 1, this->PolyLCP.at(player)->getNumCols());
+				  if (this->PolyLCP.at(player)->containsCut(
+							 Utils::resizePatch(cutLHS, this->PolyLCP.at(player)->getNumCols()), cutV)) {
+					 LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::separationOracle: (P"
+									 << player << ") cut already added";
+					 // throw;
+					 break;
+
+				  } else {
+					 this->PolyLCP.at(player)->addCustomCuts(cutL, arma::vec{cutV});
+					 LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::separationOracle: (P"
+									 << player << ") adding a cut";
+					 addedCuts = true;
+					 return false;
+				  }
+				} else {
+				  // We found a new vertex
+				  arma::vec v;
+				  v.zeros(V.n_cols);
+				  for (unsigned int i = 0; i < V.n_cols; ++i) {
+					 v[i] = leaderModel->getVarByName("x_" + std::to_string(i)).get(GRB_DoubleAttr_X);
+				  }
+
+				  // debug
+				  // v.print("Vertex found: ");
+				  if (Utils::containsRow(*this->Trees.at(player)->getV(), v, this->Tolerance)) {
+					 LOG_S(WARNING) << "Algorithms::EPEC::OuterApproximation::separationOracle: (P"
+										 << player << ") duplicate vertex";
+					 // debug
+					 // this->Trees.at(player)->getV()->print_dense("V");
+					 // this->Trees.at(player)->getR()->print_dense("R");
+					 // xOfI.print("x");
+					 break;
+					 // throw;
+				  } else {
+					 this->Trees.at(player)->addVertex(v);
+					 //@todo debug
+					 // v.print("Vertex");
+					 LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::separationOracle: (P"
+									 << player << ") adding vertex for Player. " << (budget - k - 1)
+									 << " iterations left";
+					 break;
+				  }
+				}
+
+			 } // status optimal for leaderModel
+			 else if (status == GRB_UNBOUNDED) {
+				// Check for a new ray
+				if (!Utils::containsRow(*this->Trees.at(player)->getR(), cutLHS, this->Tolerance)) {
+				  LOG_S(WARNING) << "Algorithms::EPEC::OuterApproximation::separationOracle: (P"
+									  << player << ") new ray";
+				  this->Trees.at(player)->addRay(cutLHS);
+				  break;
+				} else {
+				  LOG_S(WARNING) << "Algorithms::EPEC::OuterApproximation::separationOracle: (P"
+									  << player << ") duplicate ray";
+				  break;
+				}
+
+			 } // status unbounded for leaderModel
+
+			 else {
+				throw ZEROException(ZEROErrorCode::Assertion,
+										  "Unknown status for leaderModel for player " +
+												std::to_string(player));
+			 }
+		  } // end for
+			 // no separation
 		}
-	 }
-
-	 // Else, the status should be OPTIMAL but without the objective of zero
-	 if (status == GRB_OPTIMAL) {
-		// Get the Farkas' in the form of the unbounded ray of the dual of the
-		// dualMembershipLP (the primal)
-		LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-							"The point is NOT a convex combination of known points! Found "
-						<< convexModel.get(GRB_IntAttr_SolCount) << " solutions. Player " << player;
-		for (int z = 0; z < convexModel.get(GRB_IntAttr_SolCount); ++z) {
-		  convexModel.set(GRB_IntParam_SolutionNumber, z);
-		  arma::vec cutLHS;
-		  cutLHS.zeros(xOfI.size());
-
-		  for (unsigned int i = 0; i < xOfI.size(); i++)
-			 cutLHS.at(i) = convexModel.getVarByName("y_" + std::to_string(i)).get(GRB_DoubleAttr_X);
-		  //@todo debug
-		  // cutLHS.print("Separating hyperplane: ");
-
-		  // Optimize the resulting inequality over the original feasible set
-		  auto       leaderModel = this->EPECObject->respond(player, x);
-		  GRBLinExpr expr        = 0;
-		  for (unsigned int i = 0; i < xOfI.size(); ++i)
-			 expr += cutLHS.at(i) * leaderModel->getVarByName("x_" + std::to_string(i));
-
-		  leaderModel->setObjective(expr, GRB_MAXIMIZE);
-		  leaderModel->update();
-		  leaderModel->set(GRB_IntParam_InfUnbdInfo, 1);
-		  leaderModel->set(GRB_IntParam_DualReductions, 0);
-		  leaderModel->set(GRB_IntParam_OutputFlag, 0);
-		  // leaderModel->write("dat/LeaderModel" + std::to_string(player) + ".lp");
-		  leaderModel->optimize();
-		  status = leaderModel->get(GRB_IntAttr_Status);
-
-		  if (status == GRB_OPTIMAL) {
-			 double cutV = leaderModel->getObjective().getValue();
-			 LOG_S(1) << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-							 "LeaderModel status = "
-						 << std::to_string(status) << " with objective=" << cutV << " for Player "
-						 << player;
-			 arma::vec val  = cutLHS.t() * xOfI; // c^T xOfI
-			 arma::vec val2 = cutLHS.t() * V.row(0).t();
-			 LOG_S(1) << "Algorithms::EPEC::OuterApproximation::separationOracle: c^Tv=" << cutV
-						 << " -- c^TxOfI=" << val.at(0) << " -- c^TV(0)=" << val2.at(0);
-			 if (cutV - val.at(0) < -this->Tolerance) {
-				// False, but we have a cut :-)
-				// Ciao Moni
-				cutV              = cutV;
-				arma::sp_mat cutL = Utils::resizePatch(
-					 arma::sp_mat{cutLHS}.t(), 1, this->PolyLCP.at(player)->getNumCols());
-				if (this->PolyLCP.at(player)->containsCut(
-						  Utils::resizePatch(cutLHS, this->PolyLCP.at(player)->getNumCols()), cutV)) {
-				  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-									  "cut already added for Player "
-								  << player;
-				  // throw;
-				  break;
-
-				} else {
-				  this->PolyLCP.at(player)->addCustomCuts(cutL, arma::vec{cutV});
-				  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-									  "adding cut for Player "
-								  << player;
-				  addedCuts = true;
-				  return false;
-				}
-			 } else {
-				// We found a new vertex
-				arma::vec v;
-				v.zeros(V.n_cols);
-				for (unsigned int i = 0; i < V.n_cols; ++i) {
-				  v[i] = leaderModel->getVarByName("x_" + std::to_string(i)).get(GRB_DoubleAttr_X);
-				}
-
-				//@todo debug
-				// v.print("Vertex found: ");
-				if (Utils::containsRow(*this->Trees.at(player)->getV(), v, this->Tolerance)) {
-				  LOG_S(WARNING) << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-										  "duplicate vertex for  player "
-									  << player;
-				  //@todo
-				  break;
-				  // throw;
-				} else {
-				  this->Trees.at(player)->addVertex(v);
-				  //@todo debug
-				  // v.print("Vertex");
-				  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-									  "adding vertex for Player. "
-								  << (budget - k - 1) << " iterations left for player " << player;
-				  break;
-				}
-			 }
-
-		  } // status optimal for leaderModel
-		  else if (status == GRB_UNBOUNDED) {
-			 // Check for a new ray
-			 if (!Utils::containsRow(*this->Trees.at(player)->getR(), cutLHS, this->Tolerance)) {
-				LOG_S(WARNING) << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-										"new ray for  player "
-									<< player;
-				this->Trees.at(player)->addRay(cutLHS);
-				break;
-			 } else {
-				LOG_S(WARNING) << "Algorithms::EPEC::OuterApproximation::separationOracle: "
-										"duplicate ray for player "
-									<< player;
-				break;
-			 }
-
-		  } // status unbounded for leaderModel
-
-		  else
-			 throw ZEROException(ZEROErrorCode::Assertion,
-										"Unknown status for leaderModel for player " +
-											 std::to_string(player));
-		} // end for
-		  // no separation
 	 } else {
 		throw ZEROException(ZEROErrorCode::Assertion,
 								  "Unknown status for convexModel for player " + std::to_string(player));
@@ -348,7 +361,10 @@ void Algorithms::EPEC::OuterApproximation::addValueCut(const unsigned int player
   LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::addValueCut: "
 					  "adding cut for Player "
 				  << player;
-  if (!this->PolyLCP.at(player)->containsCut(LHS, -RHS, this->Tolerance))
+  // debug
+  LOG_S(INFO) << "Debug: RHS:" << RHS;
+  cutLHS.print_dense("cutLHS");
+  if (!this->PolyLCP.at(player)->containsCut(-LHS, -RHS, this->Tolerance))
 	 this->PolyLCP.at(player)->addCustomCuts(-cutLHS, arma::vec{-RHS});
 }
 
@@ -380,7 +396,8 @@ void Algorithms::EPEC::OuterApproximation::solve() {
   // of this->EPECObject->NumPlayers
   std::vector<int>      branchingLocations;
   std::vector<int>      branchingCandidatesNumber;
-  unsigned int          cumulativeBranchingCandidates = 0;
+  int                   cumulativeBranchingCandidates = 0;
+  unsigned int          branchingChoices              = 0;
   std::vector<long int> branches;
   while (!solved) {
 	 branchingLocations.clear();
@@ -399,6 +416,7 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 	 }
 
 	 bool infeasibilityDetection = false;
+	 branchingChoices            = 0;
 	 if (branch) {
 		for (int j = 0; j < this->EPECObject->NumPlayers && !infeasibilityDetection; ++j) {
 		  // Check if we can branch
@@ -471,6 +489,7 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 	 for (int j = 0; j < this->EPECObject->NumPlayers; ++j) {
 		unsigned int test = 0;
 		if (branchingLocations.at(j) > -1) {
+		  branchingChoices   = branchingChoices + 1;
 		  branches           = Trees.at(j)->singleBranch(branchingLocations.at(j), *Incumbent.at(j));
 		  auto childEncoding = this->Trees.at(j)->getNodes()->at(branches.at(0)).getEncoding();
 		  test += this->PolyLCP.at(j)->outerApproximate(childEncoding, true);
@@ -500,13 +519,15 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 		const double timeRemaining =
 			 this->EPECObject->Stats.AlgorithmData.TimeLimit.get() - timeElapsed.count();
 
-		double timeForNextIteration = timeRemaining * 0.98;
-		if ((cumulativeBranchingCandidates - 1) > 0)
+
+		int    branchesLeft         = cumulativeBranchingCandidates - branchingChoices;
+		double timeForNextIteration = timeRemaining * 0.99;
+		if (branchesLeft > 0)
 		  timeForNextIteration = (timeRemaining * 0.2) / (cumulativeBranchingCandidates - 1);
 
 		LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::solve: Allocating "
-						<< timeForNextIteration << "s for the next iteration ("
-						<< cumulativeBranchingCandidates << " complementarities left).";
+						<< timeForNextIteration << "s for the next iteration (" << branchesLeft
+						<< " complementarities left).";
 		this->EPECObject->computeNashEq(
 			 this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(), timeForNextIteration);
 	 } else {
@@ -613,6 +634,8 @@ int Algorithms::EPEC::OuterApproximation::hybridBranching(const unsigned int pla
 
 	 for (unsigned int i = 0; i < currentEncoding.size(); i++) {
 		// For each complementarity
+
+
 		if (node->getAllowedBranchings().at(i)) {
 		  // Consider it if it is a good candidate for branching (namely, we
 		  // didn't branch on it, or it wasn't proven to be infeasible)
@@ -649,6 +672,10 @@ int Algorithms::EPEC::OuterApproximation::hybridBranching(const unsigned int pla
 				  bestScore = model->getObjective().getValue();
 				  LOG_S(INFO) << "OuterApproximation::hybridBranching: Player " << player
 								  << " has violation of " << bestScore << " with complementarity " << i;
+				} else {
+				  LOG_S(INFO) << "OuterApproximation::hybridBranching: Player " << player
+								  << " has violation of " << model->getObjective().getValue()
+								  << " with complementarity " << i;
 				}
 			 } else {
 				LOG_S(INFO) << "OuterApproximation::hybridBranching: Player " << player
@@ -957,8 +984,11 @@ void Algorithms::EPEC::OuterTree::denyBranchingLocation(Algorithms::EPEC::OuterT
   if (location >= this->EncodingSize)
 	 throw ZEROException(ZEROErrorCode::OutOfRange, "idComp is larger than the encoding size");
   if (!node.AllowedBranchings.at(location))
-	 LOG_S(WARNING) << "Algorithms::EPEC::OuterTree::denyBranchingLocation: location "
-							 "has been already denied.";
+	 LOG_S(WARNING) << "Algorithms::EPEC::OuterTree::denyBranchingLocation: location " << location
+						 << "has been already denied.";
+
+  LOG_S(INFO) << "Algorithms::EPEC::OuterTree::denyBranchingLocation: location " << location
+				  << "denied.";
   node.AllowedBranchings.at(location) = false;
 }
 
