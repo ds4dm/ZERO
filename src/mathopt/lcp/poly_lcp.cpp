@@ -83,16 +83,20 @@ bool operator==(std::vector<short int> encoding1, std::vector<short int> encodin
  * @return True if child is a children of father
  */
 bool operator<(std::vector<short int> child, std::vector<short int> father) {
+ /* for (unsigned int i=0; i< father.size();++ i)
+    LOG_S(1) << child.at(i) << " vs " << father.at(i);
+  LOG_S(1) << "----";*/
   if (child.size() != father.size())
 	 return false;
-
-  for (unsigned long i = 0; i < father.size(); ++i) {
-	 if (father.at(i) != 0 && father.at(i) != 2) {
-		if (child.at(i) != father.at(i))
-		  return false;
+  else {
+	 for (unsigned long i = 0; i < father.size(); ++i) {
+		if (father.at(i) != 0 && father.at(i) != 2) {
+		  if (child.at(i) != father.at(i))
+			 return false;
+		}
 	 }
+	 return true;
   }
-  return true;
 }
 
 /**
@@ -155,12 +159,12 @@ bool MathOpt::PolyLCP::addPolyFromX(const arma::vec &x, bool innerApproximation)
  * was not added
  * @warning Use PolyLCP::addPoliesFromEncoding for multiple polyhedra
  */
-bool MathOpt::PolyLCP::addPolyFromEncoding(const std::vector<short int> encoding,
-														 bool                         innerApproximation,
-														 bool                         checkFeas,
-														 bool                         custom,
-														 spmat_Vec *                  custAi,
-														 vec_Vec *                    custbi) {
+bool MathOpt::PolyLCP::addPolyFromEncoding(const std::vector<short int> &encoding,
+														 bool                          innerApproximation,
+														 bool                          checkFeas,
+														 bool                          custom,
+														 spmat_Vec *                   custAi,
+														 vec_Vec *                     custbi) {
   unsigned int encodingNumber = this->vecToNum(encoding, innerApproximation);
   bool         eval           = false;
   if (checkFeas)
@@ -241,18 +245,18 @@ bool MathOpt::PolyLCP::addPolyFromEncoding(const std::vector<short int> encoding
  * @param custom True if the polyhedron should be added to the custom object
  * @param custAi Custon polyhedra LHS
  * @param custbi Custom polyhedra RHS
- * @return A positive int for the number of added polyhedra. False if the polyhedron is infeasible or
- * was not added
+ * @return A positive int for the number of added polyhedra. False if the polyhedron is infeasible
+ * or was not added
  * @warning Use PolyLCP::addPolyFromEncoding for a single polyhedron
  */
 unsigned int MathOpt::PolyLCP::addPoliesFromEncoding(const std::vector<short int> encoding,
-																			 bool       innerApproximation,
-																			 bool       checkFeas,
-																			 bool       custom,
-																			 spmat_Vec *custAi,
-																			 vec_Vec *  custbi) {
-  unsigned int added = 0; // number of added polyhedron
-  bool flag = false; // flag that there may be multiple polyhedra, i.e. 0 in
+																	  bool       innerApproximation,
+																	  bool       checkFeas,
+																	  bool       custom,
+																	  spmat_Vec *custAi,
+																	  vec_Vec *  custbi) {
+  unsigned int added = 0;     // number of added polyhedron
+  bool         flag  = false; // flag that there may be multiple polyhedra, i.e. 0 in
   // some encoding entry
   std::vector<short int> encodingCopy(encoding);
   unsigned int           i = 0;
@@ -260,7 +264,7 @@ unsigned int MathOpt::PolyLCP::addPoliesFromEncoding(const std::vector<short int
 	 if (encoding.at(i) == 2 && innerApproximation)
 		throw ZEROException(ZEROErrorCode::InvalidData,
 								  "Non-allowed encoding for innerApproximation");
-	 if (encoding.at(i) == 0) {
+	 else if (encoding.at(i) == 0) {
 		flag = true;
 		break;
 	 }
@@ -273,7 +277,8 @@ unsigned int MathOpt::PolyLCP::addPoliesFromEncoding(const std::vector<short int
 	 added += this->addPoliesFromEncoding(
 		  encodingCopy, innerApproximation, checkFeas, custom, custAi, custbi);
   } else
-	 added += this->addPolyFromEncoding(encoding, innerApproximation, checkFeas, custom, custAi, custbi);
+	 added +=
+		  this->addPolyFromEncoding(encoding, innerApproximation, checkFeas, custom, custAi, custbi);
   return added;
 }
 
@@ -574,7 +579,7 @@ bool MathOpt::PolyLCP::checkPolyFeas(const std::vector<short int> &encoding,
 	 }
 	 if (!innerApproximation) {
 		// We may want to check for parents
-		if (encoding > this->numToVec(i, this->Compl.size(), false)) {
+		if (this->numToVec(i, this->Compl.size(), false) < encoding ) {
 		  LOG_S(1) << "MathOpt::PolyLCP::checkPolyFeas: Parent of a feasible polyhedron. Feasible #"
 					  << encodingNumber;
 		  FeasiblePoly[index].insert(encodingNumber);

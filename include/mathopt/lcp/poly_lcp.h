@@ -116,7 +116,7 @@ namespace MathOpt {
 	 }
 
 
-	 bool              addPolyFromEncoding(std::vector<short int> encoding,
+	 bool              addPolyFromEncoding(const std::vector<short int>& encoding,
 														bool                   innerApproximation = true,
 														bool                   checkFeas          = false,
 														bool                   custom             = false,
