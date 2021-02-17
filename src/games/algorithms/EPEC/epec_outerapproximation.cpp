@@ -60,7 +60,7 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
 	 // @todo check the direction of the inequality
 	 if (std::abs(currentResponsesZ.at(i) - bestResponseZ) > this->Tolerance) {
 		// Discrepancy between payoffs! Need to investigate.
-		if (currentResponsesZ.at(i) - bestResponseZ > 10*this->Tolerance) {
+		if (currentResponsesZ.at(i) - bestResponseZ > 10 * this->Tolerance) {
 		  // It means the current payoff is more than then optimal response. Then
 		  // this is not a best response. Theoretically, this cannot happen from
 		  // an outer approximation. This if case is a warning case then
@@ -164,7 +164,7 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 	 auto convexModel = *this->Trees.at(player)->MembershipLP;
 	 convexModel.optimize();
 	 convexModel.write("dat/Convexmodel_" + std::to_string(player) + ".lp");
-	 V.save("dat/ConvexVertices_"+std::to_string(player)+".csv",arma::csv_ascii);
+	 V.save("dat/ConvexVertices_" + std::to_string(player) + ".csv", arma::csv_ascii);
 
 	 int status = convexModel.get(GRB_IntAttr_Status);
 	 LOG_S(1) << "Algorithms::EPEC::OuterApproximation::separationOracle: (P" << player << ")"
@@ -454,15 +454,6 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 		  break;
 		}
 
-		// Check at least a player has at least a branching candidate
-		if (cumulativeBranchingCandidates == 0) {
-		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::solve: "
-							  "Solved without any equilibrium.";
-		  this->EPECObject->Stats.Status.set(ZEROStatus::NashEqNotFound);
-		  solved = true;
-		  break;
-		}
-
 
 		// Check that there is at least a player has a branching selection with
 		// hybrid branching
@@ -509,8 +500,8 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 
 	 this->printCurrentApprox();
 	 this->EPECObject->makePlayersQPs();
-	 // To make computeNashEq skip any feasibility check
-	 this->Feasible = true;
+    this->Feasible   = false;
+	 int branchesLeft = cumulativeBranchingCandidates - branchingChoices;
 	 if (this->EPECObject->Stats.AlgorithmData.TimeLimit.get() > 0) {
 		// Then we should take care of time. Also, let's use an heuristic to compute the time for the
 		// current outer approximation.
@@ -520,8 +511,7 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 			 this->EPECObject->Stats.AlgorithmData.TimeLimit.get() - timeElapsed.count();
 
 
-		int    branchesLeft         = cumulativeBranchingCandidates - branchingChoices;
-		double timeForNextIteration = timeRemaining * 0.99;
+		double timeForNextIteration = timeRemaining * 0.998;
 		if (branchesLeft > 0)
 		  timeForNextIteration = (timeRemaining * 0.2) / (cumulativeBranchingCandidates - 1);
 
@@ -535,7 +525,22 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 			 this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get());
 	 }
 
-	 this->Feasible = false;
+	 if (!this->EPECObject->NashEquilibrium && branchesLeft==0){
+		if (this->EPECObject->Stats.Status.get() == ZEROStatus::TimeLimit){
+        LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::solve: "
+                       "Time Limit Hit.";
+        solved = true;
+        break;
+		}
+      if (this->EPECObject->Stats.Status.get() == ZEROStatus::NashEqNotFound){
+        LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::solve: "
+                       "Solved without any equilibrium.";
+        solved = true;
+        break;
+      }
+	 }
+
+		this->Feasible = false;
 	 if (this->EPECObject->NashEquilibrium) {
 		bool addedCuts{false};
 		if (this->isFeasible(addedCuts)) {
