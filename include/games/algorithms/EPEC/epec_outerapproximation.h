@@ -205,5 +205,6 @@ namespace Algorithms::EPEC {
 		void                      addValueCut(unsigned int player, double RHS, arma::vec xMinusI);
 		bool                      separationOracle(
 										 arma::vec &xOfI, arma::vec &x, unsigned int player, int budget, bool &addedCuts);
+		int rationalBranching(const unsigned int player, OuterTree::Node *node);
 	 };
   } // namespace Algorithms
