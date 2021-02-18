@@ -298,7 +298,7 @@ void MathOpt::getDualMembershipLP(std::unique_ptr<GRBModel> &convexModel,
 		a[i] = convexModel->addVar(
 			 0, GRB_INFINITY, 0, GRB_CONTINUOUS, "abs(y_" + std::to_string(i) + ")");
 
-		//Abs: a[i] = abs(y[i])
+		// Abs: a[i] = abs(y[i])
 		convexModel->addConstr(a[i], GRB_GREATER_EQUAL, y[i], "Abs_1_y_" + std::to_string(i));
 		convexModel->addConstr(a[i], GRB_GREATER_EQUAL, -y[i], "Abs_2_y_" + std::to_string(i));
 		expr += a[i];
@@ -306,22 +306,22 @@ void MathOpt::getDualMembershipLP(std::unique_ptr<GRBModel> &convexModel,
 
 	 x           = convexModel->addVar(-GRB_INFINITY, GRB_INFINITY, 0, GRB_CONTINUOUS, "x");
 	 a[V.n_cols] = convexModel->addVar(0, GRB_INFINITY, 0, GRB_CONTINUOUS, "abs(x)");
-    convexModel->addConstr(a[V.n_cols], GRB_GREATER_EQUAL, x, "Abs_1_x");
-    convexModel->addConstr(a[V.n_cols], GRB_GREATER_EQUAL, x, "Abs_2_x");
+	 convexModel->addConstr(a[V.n_cols], GRB_GREATER_EQUAL, x, "Abs_1_x");
+	 convexModel->addConstr(a[V.n_cols], GRB_GREATER_EQUAL, -x, "Abs_2_x");
 	 expr += a[V.n_cols];
 	 // Normalization
 	 convexModel->addConstr(expr, GRB_EQUAL, 1, "Normalization");
 
 	 // Hyperplanes for vertices
 	 for (unsigned int i = 0; i < V.n_rows; i++) {
-		expr = -x;
+		expr = 0;
 		for (auto j = V.begin_row(i); j != V.end_row(i); ++j)
 		  expr += (*j) * y[j.col()];
-		convexModel->addConstr(expr, GRB_LESS_EQUAL, 0, "V_" + std::to_string(i));
+		convexModel->addConstr(expr, GRB_LESS_EQUAL, x, "V_" + std::to_string(i));
 	 }
 	 numV = V.n_rows;
 
-	 //Without x-term for vertices
+	 // Without x-term for vertices
 	 for (unsigned int i = 0; i < R.n_rows; i++) {
 		for (auto j = R.begin_row(i); j != R.end_row(i); ++j)
 		  expr += (*j) * y[j.col()];
@@ -342,11 +342,12 @@ void MathOpt::getDualMembershipLP(std::unique_ptr<GRBModel> &convexModel,
 		// Then, we need to update the model by adding new constraints
 		GRBLinExpr expr = 0;
 		for (unsigned int i = numV; i < V.n_rows; i++) {
-		  expr = -convexModel->getVarByName("x");
+		  expr = 0;
 		  for (auto j = V.begin_row(i); j != V.end_row(i); ++j)
 			 expr += (*j) * convexModel->getVarByName("y_" + std::to_string(j.col()));
 
-		  convexModel->addConstr(expr, GRB_LESS_EQUAL, 0, "V_" + std::to_string(i));
+		  convexModel->addConstr(
+				expr, GRB_LESS_EQUAL, convexModel->getVarByName("x"), "V_" + std::to_string(i));
 		}
 		numV = V.n_rows;
 	 }
