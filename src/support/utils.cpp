@@ -493,3 +493,52 @@ std::string Utils::printBounds(const VariableBounds &bounds) {
   }
   return r.str();
 }
+
+
+/**
+ * Round the input @p value to a decimal up to @p to points.
+ * @param value The input number
+ * @param tol  Decimal precision tolerance
+ * @return The rounded value
+ */
+double Utils::round_nplaces(const double &value, const double &tol)
+// from
+// https://www.daniweb.com/programming/software-development/code/217332/round-double-to-n-decimal-places
+{
+  uint32_t to     = round(log10(tol));
+  uint32_t places = 1, whole = *(&value);
+  for (uint32_t i = 0; i < to; i++)
+	 places *= 10;
+  double ret = value;
+
+  ret -= whole; // leave decimals
+
+  ret *= places;    // 0.1234 -> 123.4
+  ret = round(ret); // 123.4 -> 123
+  ret /= places;    // 123 -> .123
+
+  ret += whole; // bring the whole value back
+  return ret;
+}
+
+/**
+ * Normalizes a vector according to the "equilibrium normalization". Namely, we divide for the
+ * largest absolute value among the elements of the vector.
+ * @p v is the input vector
+ * @return The normalized vector
+ */
+arma::vec Utils::normalizeVec(const arma::vec &v) {
+  return v / arma::max(arma::abs(v));
+}
+
+/**
+ * Normalizes an inequality according to the "equilibrium normalization". Namely, we divide for
+ * the largest absolute value among the elements of the lhs and the rhs.
+ * @p rhs is the input and output RHS value
+ * @p lhs is the input and output LHS
+ */
+void Utils::normalizeIneq(arma::vec &lhs, double &rhs) {
+  double norm = std::max(arma::max(arma::abs(lhs)), std::abs(rhs));
+  rhs         = rhs / norm;
+  lhs         = lhs / norm;
+}

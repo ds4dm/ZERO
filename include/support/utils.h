@@ -109,6 +109,9 @@ namespace Utils {
 
 
   std::string printBounds(const VariableBounds &bounds);
+  arma::vec   normalizeVec(const arma::vec &v);
+  void        normalizeIneq(arma::vec &lhs, double &rhs);
+  double      round_nplaces(const double &value, const double &tol = 1e-6);
 } // namespace Utils
 
 // namespace Utils
