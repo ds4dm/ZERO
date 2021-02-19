@@ -40,7 +40,8 @@ namespace Algorithms {
 		  for (unsigned int i = 0; i < this->EPECObject->NumPlayers; i++)
 			 feasible.push_back(this->PolyLCP.at(i)->getFeasiblePolyhedra());
 		  this->EPECObject->Stats.AlgorithmData.FeasiblePolyhedra.set(feasible);
-		  this->EPECObject->Stats.PureNashEquilibrium = this->isPureStrategy();
+		  if (this->EPECObject->NashEquilibrium)
+		    this->EPECObject->Stats.PureNashEquilibrium = this->isPureStrategy();
         LOG_S(3) << "Algorithms::EPEC::PolyBase::after: post-processing results.";
 		}
 
