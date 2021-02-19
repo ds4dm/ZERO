@@ -244,7 +244,7 @@ BOOST_AUTO_TEST_CASE(NashGame_test) {
 
   BOOST_TEST_MESSAGE("LCP.LCPasMIP test");
   MathOpt::LCP              lcp(&env, Nash);
-  std::unique_ptr<GRBModel> lcpmodel = lcp.LCPasMIP(true);
+  std::unique_ptr<GRBModel> lcpmodel = lcp.LCPasMIP(true, -1, 1, 1);
 
   // int Nvar = Nash.getNprimals() + Nash.getNumDualVars() + Nash.getNumShadow() +
   // Nash.getNumLeaderVars();

@@ -25,7 +25,10 @@ void Algorithms::EPEC::FullEnumeration::solve() {
   LOG_S(1) << "Algorithms::EPEC::FullEnumeration::solve: "
 				  "Starting FullEnumeration search";
   this->EPECObject->computeNashEq(this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(),
-											 this->EPECObject->Stats.AlgorithmData.TimeLimit.get());
+											 this->EPECObject->Stats.AlgorithmData.TimeLimit.get(),
+											 false,
+											 false,
+											 false);
   if (this->isSolved()) {
 	 this->EPECObject->Stats.Status.set(ZEROStatus::NashEqFound);
 	 if (this->isPureStrategy())

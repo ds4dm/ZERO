@@ -180,7 +180,7 @@ namespace Algorithms::EPEC {
 		void printBranchingLog(std::vector<int> vector);
 
 		//@todo define these for the outer approximation
-		bool isSolved(double tol = 1e-4) const;
+		bool isSolved(double tol = 1e-4);
 		bool isFeasible(bool &addedCuts);
 		bool isPureStrategy(double tol = 1e-4) const;
 

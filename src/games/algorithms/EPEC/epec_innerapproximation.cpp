@@ -149,12 +149,20 @@ void Algorithms::EPEC::InnerApproximation::start() {
 			 this->EPECObject->Stats.AlgorithmData.TimeLimit.get() - timeElapsed.count();
 		addRandPoly =
 			 !this->EPECObject->computeNashEq(
-				  this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(), timeRemaining) &&
+								this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(),
+								timeRemaining,
+								false,
+								false,
+								false) &&
 			 !incrementalEnumeration;
 	 } else {
 		// No Time Limit
 		addRandPoly = !this->EPECObject->computeNashEq(
-								this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get()) &&
+								this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(),
+								0,
+								false,
+								false,
+								false) &&
 						  !incrementalEnumeration;
 	 }
 	 if (addRandPoly)

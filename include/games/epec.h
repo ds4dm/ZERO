@@ -138,7 +138,8 @@ namespace Game {
 
 	 void getXMinusI(const arma::vec &x, const unsigned int &i, arma::vec &solOther) const;
 
-	 bool computeNashEq(bool pureNE = false, double localTimeLimit = -1.0, bool check = false);
+	 bool computeNashEq(
+		  bool pureNE, double localTimeLimit, bool check, bool linearWelfare, bool quadraticWelfare);
 
   protected:
 	 // virtual function to be implemented by the inheritor.
@@ -228,6 +229,7 @@ namespace Game {
 	 void getXWithoutHull(const arma::vec &x, arma::vec &xWithoutHull) const;
 	 void
 	 getXofI(const arma::vec &x, const unsigned int &i, arma::vec &solI, bool hull = false) const;
+	 void setWelfareObjective(bool linear, bool quadratic);
   };
 }; // namespace Game
 

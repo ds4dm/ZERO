@@ -273,7 +273,6 @@ void Algorithms::EPEC::PolyBase::makeThePureLCP() {
 	 GRBVar       pure_bin[nPolyLead];
 	 GRBLinExpr   objectiveTerm{0};
 	 unsigned int count{0}, i, j;
-	 //@todo fix bug in else
 	 for (i = 0; i < this->EPECObject->getNumPlayers(); i++) {
 		for (j = 0; j < this->getNumPolyLead(i); ++j) {
 		  pure_bin[count] = this->EPECObject->LCPModel->addVar(

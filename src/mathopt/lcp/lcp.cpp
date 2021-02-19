@@ -257,15 +257,29 @@ void MathOpt::LCP::makeRelaxed() {
  * complementarities are modeled through SOS1 or indicator constraints. Otherwise, there is
  * bi-linear term for each complementarity.
  * @param solve Determines whether the returned model is already solved or not
+ * @param timeLimit Sets the timeLimit for the MIP solver
+ * @param MIPWorkers Sets the number of concurrent MIPWorkers
+ * @param solLimit Sets the number of solutions in the pool
  * @return The unique pointer to the model
  */
-std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(bool solve) {
+std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(bool         solve,
+																 double       timeLimit,
+																 unsigned int MIPWorkers,
+																 unsigned int solLimit) {
   makeRelaxed();
   std::unique_ptr<GRBModel> model;
   if (this->PureMIP)
-	 model = this->getMIP();
+	 model = this->getMIP(false);
   else
 	 model = this->getMINLP();
+
+  model->set(GRB_IntParam_OutputFlag, 1);
+  if (timeLimit > 0)
+	 model->set(GRB_DoubleParam_TimeLimit, timeLimit);
+  if (MIPWorkers > 1 && this->PureMIP)
+	 model->set(GRB_IntParam_ConcurrentMIP, MIPWorkers);
+  model->set(GRB_IntParam_SolutionLimit, solLimit);
+  model->set(GRB_IntParam_OutputFlag, 0);
 
   if (solve)
 	 model->optimize();
@@ -328,7 +342,7 @@ std::unique_ptr<GRBModel> MathOpt::LCP::MPECasMILP(const arma::sp_mat &C,
 
   if (!this->PureMIP)
 	 LOG_S(1) << "MathOpt::LCP::MPECasMILP: Note that complementarities are bi-linearly modeled!";
-  std::unique_ptr<GRBModel> model = this->LCPasMIP(true);
+  std::unique_ptr<GRBModel> model = this->LCPasMIP(true, -1, 1, 1);
   // Reset the solution limit. We need to solve to optimality
   model->set(GRB_IntParam_SolutionLimit, GRB_MAXINT);
   if (C.n_cols != x_minus_i.n_rows)
@@ -645,6 +659,7 @@ ZEROStatus MathOpt::LCP::solvePATH(double timelimit, arma::vec &z, arma::vec &x,
  * @param timeLimit A double time limit
  * @param MIPWorkers The absolute number of MIP Workers in case @p algo is
  * Data::LCP::Algorithms::MIP
+ * @param solLimit The number of solutions in the pool for if @p algo is Data::LCP::Algorithms::MIP
  * @return A ZEROStatus for the problem
  */
 
@@ -652,7 +667,8 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 										 arma::vec &           xSol,
 										 arma::vec &           zSol,
 										 double                timeLimit,
-										 unsigned int          MIPWorkers) {
+										 unsigned int          MIPWorkers,
+										 unsigned int          solLimit = 1) {
 
   xSol.zeros(this->M.n_cols);
   zSol.zeros(this->M.n_rows);
@@ -685,14 +701,7 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 		this->PureMIP = false;
 	 else
 		this->PureMIP = true;
-	 auto Model = this->LCPasMIP(false);
-	 Model->set(GRB_IntParam_OutputFlag, 1);
-	 Model->setObjective(GRBLinExpr{0}, GRB_MINIMIZE);
-	 Model->set(GRB_IntParam_SolutionLimit, 1);
-	 if (timeLimit > 0)
-		Model->set(GRB_DoubleParam_TimeLimit, timeLimit);
-	 if (MIPWorkers > 1)
-		Model->set(GRB_IntParam_ConcurrentMIP, MIPWorkers);
+	 auto Model = this->LCPasMIP(false, timeLimit, MIPWorkers, solLimit);
 	 Model->optimize();
 
 	 if (this->extractSols(Model.get(), zSol, xSol, true)) {
@@ -719,55 +728,57 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP(bool indicators) {
   std::unique_ptr<GRBModel> model{new GRBModel(this->RelaxedModel)};
   // Creating the model
   try {
-	 GRBVar x[nC], z[nR], u[nR], v[nR];
+	 GRBVar     x[nC], z[nR], u[this->Compl.size()], v[this->Compl.size()];
+	 GRBLinExpr obj = 0;
 	 // Get hold of the Variables and Eqn Variables
 	 for (unsigned int i = 0; i < nC; i++)
 		x[i] = model->getVarByName("x_" + std::to_string(i));
 	 for (unsigned int i = 0; i < nR; i++)
 		z[i] = model->getVarByName("z_" + std::to_string(i));
-	 // Define binary variables for BigM
-	 for (unsigned int i = 0; i < nR; i++)
+
+	 // Define binary variables for the two cases (x=0 or z=0)
+	 for (unsigned int i = 0; i < this->Compl.size(); i++)
 		u[i] = model->addVar(0, 1, 0, GRB_BINARY, "u_" + std::to_string(i));
-	 for (unsigned int i = 0; i < nR; i++)
+	 for (unsigned int i = 0; i < this->Compl.size(); i++)
 		v[i] = model->addVar(0, 1, 0, GRB_BINARY, "v_" + std::to_string(i));
-	 // Include ALL Complementarity constraints using BigM
 
 
 	 GRBLinExpr expr = 0;
+	 unsigned int counter = 0;
 	 for (const auto p : Compl) {
 
 
 		if (indicators) {
 		  // u[i]=1 --> z[i] <=0
-		  model->addGenConstrIndicator(u[p.first],
+		  model->addGenConstrIndicator(u[counter],
 												 1,
 												 z[p.first],
 												 GRB_LESS_EQUAL,
 												 0,
-												 "z_ind_" + std::to_string(p.first) + "_L_Mu_" +
-													  std::to_string(p.first));
+												 "ind_z_" + std::to_string(p.first) + "_zero");
 		  // v[i]=1 --> x[i] <=0
-		  model->addGenConstrIndicator(v[p.first],
+		  model->addGenConstrIndicator(v[counter],
 												 1,
 												 x[p.second],
 												 GRB_LESS_EQUAL,
 												 0,
-												 "x_ind_" + std::to_string(p.first) + "_L_MuDash_" +
-													  std::to_string(p.first));
-
+												 "ind_x_" + std::to_string(p.second) + "_zero");
 
 		  model->addConstr(
-				u[p.first] + v[p.first], GRB_EQUAL, 1, "uv_sum_" + std::to_string(p.first));
+				u[counter] + v[counter], GRB_EQUAL, 1, "uv_sum_" + std::to_string(counter));
+        obj += v[counter];
 		} else {
 		  GRBVar sos[]  = {x[p.second], z[p.first]};
-		  double sosw[] = {1, 1};
+		  double sosw[] = {1, 4};
+        obj += x[p.second];
 		  model->addSOS(sos, sosw, 2, GRB_SOS_TYPE1);
 		}
+		counter++;
 	 }
+	 model->setObjective(obj, GRB_MINIMIZE);
 	 // If any equation or variable is to be fixed to zero, that happens here!
 	 model->update();
 	 // Get first Equilibrium
-	 model->set(GRB_IntParam_SolutionLimit, 1);
 	 return model;
   } catch (GRBException &e) {
 	 throw ZEROException(e);
@@ -788,10 +799,13 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMINLP() {
   std::unique_ptr<GRBModel> model{new GRBModel(this->RelaxedModel)};
   // Creating the model
   try {
-	 GRBVar x[nC], z[nR], l[nR], v[nR];
+	 GRBVar     x[nC], z[nR], l[nR], v[nR];
+	 GRBLinExpr obj = 0;
 	 // Get hold of the Variables and Eqn Variables
-	 for (unsigned int i = 0; i < nC; i++)
+	 for (unsigned int i = 0; i < nC; i++) {
 		x[i] = model->getVarByName("x_" + std::to_string(i));
+		obj += x[i];
+	 }
 	 for (unsigned int i = 0; i < nR; i++)
 		z[i] = model->getVarByName("z_" + std::to_string(i));
 	 // Define binary variables for BigM
@@ -814,13 +828,14 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMINLP() {
 		}
 	 }
 
-	 model->update();
 	 model->set(GRB_IntParam_NonConvex, 2);
 	 model->set(GRB_DoubleParam_IntFeasTol, this->Eps);
 	 model->set(GRB_DoubleParam_FeasibilityTol, this->Eps);
 	 model->set(GRB_DoubleParam_OptimalityTol, this->Eps);
 	 // Get first Equilibrium
 	 model->set(GRB_IntParam_SolutionLimit, 1);
+	 model->setObjective(obj, GRB_MINIMIZE);
+	 model->update();
 	 return model;
   } catch (GRBException &e) {
 	 throw ZEROException(e);

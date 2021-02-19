@@ -115,9 +115,9 @@ void Algorithms::EPEC::CombinatorialPNE::combPNE(
 				std::chrono::high_resolution_clock::now() - this->EPECObject->InitTime;
 		  const double timeRemaining =
 				this->EPECObject->Stats.AlgorithmData.TimeLimit.get() - timeElapsed.count();
-		  res = this->EPECObject->computeNashEq(false, timeRemaining, true);
+		  res = this->EPECObject->computeNashEq(false, timeRemaining, true, false, false);
 		} else
-		  res = this->EPECObject->computeNashEq(false, -1.0, true);
+		  res = this->EPECObject->computeNashEq(false, -1.0, true, false, false);
 
 		if (res) {
 		  if (this->isSolved()) {

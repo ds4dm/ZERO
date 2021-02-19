@@ -157,13 +157,14 @@ namespace MathOpt {
 
 	 bool extractSols(GRBModel *model, arma::vec &z, arma::vec &x, bool extractZ = false) const;
 
-	 ZEROStatus solve(Data::LCP::Algorithms algo,
-							arma::vec &           xSol,
-							arma::vec &           zSol,
-							double                timeLimit,
-							unsigned int          MIPWorkers);
-
-	 std::unique_ptr<GRBModel> LCPasMIP(bool solve = false);
+    ZEROStatus solve(Data::LCP::Algorithms algo,
+                     arma::vec &           xSol,
+                     arma::vec &           zSol,
+                     double                timeLimit,
+                     unsigned int          MIPWorkers,
+                     unsigned int          solLimit);
+	 std::unique_ptr<GRBModel>
+	 LCPasMIP(bool solve=false, double timeLimit=-1, unsigned int MIPWorkers=1, unsigned int solLimit=1);
 
 	 std::unique_ptr<GRBModel> MPECasMILP(const arma::sp_mat &C,
 													  const arma::vec &   c,

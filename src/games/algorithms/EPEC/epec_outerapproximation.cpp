@@ -23,7 +23,14 @@
  * @param tol Numerical tolerance. Currently not useful
  * @return True if the current outer approximation solution is feasible (then, it is solved)
  */
-bool Algorithms::EPEC::OuterApproximation::isSolved(double tol) const { return this->Feasible; }
+bool Algorithms::EPEC::OuterApproximation::isSolved(double tol) {
+  if (this->Feasible)
+	 return true;
+  else {
+	 bool cuts;
+	 return this->isFeasible(cuts);
+  }
+}
 
 
 /**
@@ -269,8 +276,8 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 				  cutV = cutV;
 				  if (std::max(cutLHS.max(), cutV) - std::min(cutLHS.min(), cutV) > 1e5) {
 					 Utils::normalizeIneq(cutLHS, cutV);
-                LOG_S(5) << "Algorithms::EPEC::OuterApproximation::separationOracle: (P"
-                            << player << ") normalizing cut.";
+					 LOG_S(5) << "Algorithms::EPEC::OuterApproximation::separationOracle: (P" << player
+								 << ") normalizing cut.";
 				  }
 				  arma::sp_mat cutL = Utils::resizePatch(
 						arma::sp_mat{cutLHS}.t(), 1, this->PolyLCP.at(player)->getNumCols());
@@ -325,8 +332,8 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 
 				// Then we check if we already have the ray in the ray storage
 				if (!Utils::containsRow(*this->Trees.at(player)->getR(), cutLHS, this->Tolerance)) {
-				  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::separationOracle: (P"
-									  << player << ") new ray";
+				  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::separationOracle: (P" << player
+								  << ") new ray";
 				  this->Trees.at(player)->addRay(cutLHS);
 				  break;
 				} else {
@@ -366,11 +373,11 @@ void Algorithms::EPEC::OuterApproximation::addValueCut(const unsigned int player
 
   arma::vec LHS = this->EPECObject->LeaderObjective.at(player)->c +
 						this->EPECObject->LeaderObjective.at(player)->C * xMinusI;
-  double  trueRHS = RHS;
+  double trueRHS = RHS;
   if (std::max(LHS.max(), RHS) - std::min(LHS.min(), trueRHS) > 1e5) {
-    Utils::normalizeIneq(LHS, trueRHS);
-    LOG_S(5) << "Algorithms::EPEC::OuterApproximation::separationOracle: (P"
-             << player << ") normalizing cut.";
+	 Utils::normalizeIneq(LHS, trueRHS);
+	 LOG_S(5) << "Algorithms::EPEC::OuterApproximation::separationOracle: (P" << player
+				 << ") normalizing cut.";
   }
 
   arma::sp_mat cutLHS =
@@ -533,10 +540,14 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 						<< timeForNextIteration << "s for the next iteration (" << branchesLeft
 						<< " complementarities left).";
 		this->EPECObject->computeNashEq(
-			 this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(), timeForNextIteration);
+			 this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(),
+			 timeForNextIteration,
+			 false,
+			 true,
+			 false);
 	 } else {
 		this->EPECObject->computeNashEq(
-			 this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get());
+			 this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(), 0, false, true, false);
 	 }
 
 	 if (!this->EPECObject->NashEquilibrium && branchesLeft == 0) {
@@ -897,7 +908,7 @@ int Algorithms::EPEC::OuterApproximation::getFirstBranchLocation(const unsigned 
 
   if (node->getCumulativeBranches() == Trees.at(player)->getEncodingSize())
 	 return -1;
-  auto         model = this->PolyLCP.at(player)->LCPasMIP(true);
+  auto         model = this->PolyLCP.at(player)->LCPasMIP(true, -1, 1, 1);
   unsigned int nR    = this->PolyLCP.at(player)->getNumRows();
   int          pos   = -nR;
   arma::vec    z, x;

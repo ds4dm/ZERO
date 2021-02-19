@@ -501,8 +501,7 @@ void Algorithms::IPG::Oracle::updateMembership(const unsigned int &player,
 										 this->Players.at(player)->V,
 										 this->Players.at(player)->RayCounter,
 										 this->Players.at(player)->R,
-										 vertex,
-										 normalization);
+										 vertex);
 }
 
 
@@ -523,7 +522,7 @@ bool Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
   bool      eq = false;
 
 
-  auto LCPSolver = LCP->solve(Data::LCP::Algorithms::PATH, x, z, localTimeLimit);
+  auto LCPSolver = LCP->solve(Data::LCP::Algorithms::PATH, x, z, localTimeLimit, 1,1);
   if (LCPSolver == ZEROStatus::NashEqFound) {
 	 LOG_S(INFO) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {

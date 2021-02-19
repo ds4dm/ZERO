@@ -387,140 +387,203 @@ void Game::EPEC::makeTheLCP() {
   LOG_S(1) << *TheNashGame;
 }
 
-bool Game::EPEC::computeNashEq(bool   pureNE,         ///< True if we search for a PNE
-										 double localTimeLimit, ///< Allowed time limit to run this function
-										 bool   check ///< If true, the Algorithm will seek for the maximum
-														///< number of NE. Then, it will check they are equilibria
-														///< for the original problem
-) {
-  /**
-	* Given that Game::EPEC::PlayersQP are all filled with a each country's
-	* MathOpt::QP_Param problem (either exact or approximate), computes the Nash
-	* equilibrium.
-	* @returns true if a Nash equilibrium is found
-	*/
+
+/**
+ * Given the object Game::EPEC::LCPModel, this method sets its objective to the social welfare. In
+ * specific, we can decide whether to include or not the linear or quadratic part of the welfare
+ * @param linear True if the linear part is to be included, false otherwise.
+ * @param quadratic True if the quadratic part is to be included, false otherwise.
+ */
+void Game::EPEC::setWelfareObjective(bool linear = true, bool quadratic = true) {
+
+  if (!linear && !quadratic)
+	 return;
+
+  std::vector<std::vector<unsigned int>> xOfIs; // indexes of variables for each player
+  std::vector<std::vector<unsigned int>>
+				  xMinusIs; // indexes of variables for each "other" player (xminusi)
+  GRBLinExpr  linearWelfare = 0;
+  GRBQuadExpr quadrWelfare  = 0;
+
+
+  // Linear part + initialization
+  for (unsigned int p = 0; p < this->getNumPlayers(); ++p) {
+	 unsigned int              playerVars = this->LeaderObjective.at(p)->c.size();
+	 std::vector<unsigned int> xOfI;
+	 for (unsigned int i = this->LeaderLocations.at(p), v = 0;
+			i < this->LeaderLocations.at(p) + playerVars;
+			++i, ++v) {
+		//
+		xOfI.push_back(i);
+		linearWelfare += this->LCPModel->getVarByName("x_" + std::to_string(i)) *
+							  this->LeaderObjective.at(p)->c.at(v);
+	 }
+	 LOG_S(INFO) << playerVars << " for player " << p;
+	 xOfIs.push_back(xOfI);
+  }
+  // Account for market clearing variables
+
+  for (unsigned int p = 0; p < this->getNumPlayers(); ++p) {
+	 // For each player, we build the xMinusI vector
+	 std::vector<unsigned int> xMinusI;
+	 for (unsigned int o = 0; o < this->getNumPlayers(); ++o) {
+		if (p != o) {
+		  for (unsigned int i = 0; i < this->LeaderObjective.at(o)->c.size(); ++i)
+			 xMinusI.push_back(xOfIs.at(o).at(i));
+		}
+	 }
+
+	 // Get the MC variables
+	 for (unsigned int j = 0; j < this->numMCVariables; j++)
+		xMinusI.push_back(this->NumVariables - this->numMCVariables + j);
+
+	 xMinusIs.push_back(xMinusI);
+  }
+
+  // Now we can build the objective
+  for (unsigned int p = 0; p < this->getNumPlayers(); ++p) {
+	 GRBQuadExpr interact = 0;
+	 for (arma::sp_mat::const_iterator it = this->LeaderObjective.at(p)->C.begin();
+			it != this->LeaderObjective.at(p)->C.end();
+			++it) {
+		unsigned int xPlayer = xOfIs.at(p).at(it.row());
+		unsigned int xOther  = xMinusIs.at(p).at(it.col());
+		interact += *it * this->LCPModel->getVarByName("x_" + std::to_string(xPlayer)) *
+						this->LCPModel->getVarByName("x_" + std::to_string(xOther));
+		LOG_S(INFO) << it.row();
+	 }
+	 quadrWelfare += interact;
+  }
+
+  if (quadratic) {
+	 if (linear) { // both linear and quadratic
+		LOG_S(INFO) << "Game::EPEC::setWelfareObjective: Setting linear+quadratic objective.";
+		this->LCPModel->setObjective(linearWelfare + quadrWelfare, GRB_MINIMIZE);
+	 } else { // just quadratic
+		LOG_S(INFO) << "Game::EPEC::setWelfareObjective: Setting quadratic objective.";
+		this->LCPModel->setObjective(quadrWelfare, GRB_MINIMIZE);
+	 }
+	 this->LCPModel->set(GRB_IntParam_NonConvex, 2);
+  } else {
+	 // Then just linear
+	 LOG_S(INFO) << "Game::EPEC::setWelfareObjective: Setting linear objective.";
+	 this->LCPModel->setObjective(linearWelfare, GRB_MINIMIZE);
+  }
+}
+/**
+ * Given that Game::EPEC::PlayersQP are all filled with a each country's
+ * MathOpt::QP_Param problem (either exact or approximate), computes the Nash
+ * equilibrium.
+ * @p pureNE checks for pure Nash Equilibria. It does not work with
+ * EPEC::Algorithms::OuterApproximation
+ * @p localTimeLimit sets the timelimit for the solver. a negative value is infinite time
+ * @p check If true, the method calls the isSolved() method related to the active algorithm
+ * EPEC::Algorithms
+ * @p linearWelfare If true, the objective of the resulting LCP includes the sum of the linear
+ * objectives for the players
+ * @p quadraticWelfare If true, the objective of the resulting LCP includes the sum of the quadratic
+ * objectives for the players
+ * @returns true if a Nash equilibrium is found
+ */
+bool Game::EPEC::computeNashEq(bool   pureNE,
+										 double localTimeLimit   = -1,
+										 bool   check            = false,
+										 bool   linearWelfare    = false,
+										 bool   quadraticWelfare = false) {
+
   // Make the Nash Game between countries
   this->NashEquilibrium = false;
   LOG_S(1) << "Game::EPEC::computeNashEq: Making the Master LCP";
   this->makeTheLCP();
   LOG_S(1) << "Game::EPEC::computeNashEq: Made the Master LCP";
 
-
-  if (check || pureNE) {
-	 if (this->Stats.AlgorithmData.LCPSolver.get() == Data::LCP::Algorithms::PATH)
-		LOG_S(1) << "Game::EPEC::computeNashEq: Cannot use PATH fallback. Using MIP";
-	 /*
-	  * In these cases, we can only use a MIP solver to get multiple solutions or PNEs
-	  */
-	 this->LCPModel = this->TheLCP->LCPasMIP(false);
-	 if (localTimeLimit > 0) {
-		this->LCPModel->set(GRB_DoubleParam_TimeLimit, localTimeLimit);
-	 }
-
-	 if (pureNE) {
-		LOG_S(INFO) << "Game::EPEC::computeNashEq: (PureNashEquilibrium flag is "
-							"true) Searching for a pure NE.";
-		if (this->Stats.AlgorithmData.Algorithm.get() != Data::EPEC::Algorithms::OuterApproximation)
-		  static_cast<Algorithms::EPEC::PolyBase *>(this->Algorithm.get())->makeThePureLCP();
-	 }
-
-	 this->LCPModel->set(GRB_IntParam_OutputFlag, 1);
-	 if (check)
-		this->LCPModel->set(GRB_IntParam_SolutionLimit, GRB_MAXINT);
-
-	 //@todo check this
-	 if (this->Stats.AlgorithmData.Threads.get() >= 8) {
-		int wrk = std::round(std::floor(this->Stats.AlgorithmData.Threads.get() / 4));
-		int workers = std::max(wrk, 1);
-      LOG_S(WARNING) << "Game::EPEC::computeNashEq: ConcurrentMIP set to " << workers <<".";
-		this->LCPModel->set(GRB_IntParam_ConcurrentMIP,workers);
-	 }
-    this->LCPModel->set(GRB_IntParam_VarBranch,2);
-
-
-	 this->LCPModel->setObjective(GRBLinExpr{0}, GRB_MINIMIZE);
-	 this->LCPModel->optimize();
-	 // this->LCPModel->write("dat/TheLCPTest.lp");
-
-
-	 // Search just for a feasible point
-	 try { // Try finding a Nash equilibrium for the approximation
-		this->NashEquilibrium =
-			 this->TheLCP->extractSols(this->LCPModel.get(), SolutionZ, SolutionX, true);
-	 } catch (GRBException &e) {
-		throw ZEROException(e);
-	 }
-	 if (this->NashEquilibrium) { // If a Nash equilibrium is found, then update
-											// appropriately
-		// this->LCPModel->write("dat/TheLCPTest.sol");
-		if (check) {
-		  int scount = this->LCPModel->get(GRB_IntAttr_SolCount);
-		  LOG_S(INFO) << "Game::EPEC::computeNashEq: number of equilibria is " << scount;
-		  for (int k = 0, stop = 0; k < scount && stop == 0; ++k) {
-			 this->LCPModel->set(GRB_IntParam_SolutionNumber, k);
-			 this->NashEquilibrium = this->TheLCP->extractSols(
-				  this->LCPModel.get(), this->SolutionZ, this->SolutionX, true);
-			 if (this->Algorithm->isSolved()) {
-				LOG_S(INFO) << "Game::EPEC::computeNashEq: an "
-									"Equilibrium has been found";
-				stop = 1;
-			 }
-		  }
-		} else {
-		  this->NashEquilibrium = true;
-		  // this->SolutionX.save("dat/X.dat", arma::file_type::arma_ascii);
-		  // this->SolutionZ.save("dat/Z.dat", arma::file_type::arma_ascii);
-		  LOG_S(INFO) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
-		}
-
-	 } else { // If not, then update accordingly
-		LOG_S(INFO) << "Game::EPEC::computeNashEq: no equilibrium has been found.";
-		int status = this->LCPModel->get(GRB_IntAttr_Status);
-		if (status == GRB_TIME_LIMIT)
-		  this->Stats.Status = ZEROStatus::TimeLimit;
-		else
-		  this->Stats.Status = ZEROStatus::NashEqNotFound;
-	 }
-	 return this->NashEquilibrium;
-  } else {
-
-	 auto solver = this->Stats.AlgorithmData.LCPSolver.get();
-
-	 if (solver == Data::LCP::Algorithms::PATH && this->TheLCP->hasCommonConstraints()) {
-		LOG_S(WARNING)
-			 << "Game::EPEC::computeNashEq: Cannot use PATH fallback (Common constraints). Using MIP";
-		solver = Data::LCP::Algorithms::MIP;
-	 }
-
-	 unsigned int MIPWorkers = 1;
-	 if (solver == Data::LCP::Algorithms::MIP){
-      if (this->Stats.AlgorithmData.Threads.get() >= 8) {
-        int wrk = std::round(std::floor(this->Stats.AlgorithmData.Threads.get() / 4));
-        MIPWorkers = std::max(wrk, 1);
-        LOG_S(INFO) << "Game::EPEC::computeNashEq: ConcurrentMIP set to " << MIPWorkers <<".";
-      }
-	 }
-
-	 switch (this->TheLCP->solve(solver, this->SolutionX, this->SolutionZ, localTimeLimit, MIPWorkers)) {
-	 case ZEROStatus::NashEqFound: {
-		this->NashEquilibrium = true;
-		LOG_S(INFO) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
-	 } break;
-	 case ZEROStatus::TimeLimit: {
-		this->Stats.Status = ZEROStatus::TimeLimit;
-		LOG_S(INFO) << "Game::EPEC::computeNashEq: Time limit attained";
-	 } break;
-	 default:
-		this->Stats.Status = ZEROStatus::NashEqNotFound;
-		LOG_S(INFO) << "Game::EPEC::computeNashEq: no equilibrium has been found.";
-	 }
-	 return this->NashEquilibrium;
+  auto solver = this->Stats.AlgorithmData.LCPSolver.get();
+  if (solver == Data::LCP::Algorithms::PATH) {
+	 LOG_S(WARNING) << "Game::EPEC::computeNashEq: Cannot use PATH fallback (EPEC Market Clearings "
+							 "cannot be handeled). Using MIP";
+	 solver = Data::LCP::Algorithms::MIP;
   }
 
-  return false;
+  /*
+	* In these cases, we can only use a MIP solver to get multiple solutions or PNEs
+	*/
+
+  unsigned int MIPWorkers = 1;
+  if (solver == Data::LCP::Algorithms::MIP || solver == Data::LCP::Algorithms::MINLP) {
+	 if (this->Stats.AlgorithmData.Threads.get() >= 8) {
+		int wrk    = std::round(std::floor(this->Stats.AlgorithmData.Threads.get() / 4));
+		MIPWorkers = std::max(wrk, 1);
+		LOG_S(INFO) << "Game::EPEC::computeNashEq: ConcurrentMIP set to " << MIPWorkers << ".";
+	 }
+  }
+  bool multipleNE = check;
+  if (check &&
+		this->Stats.AlgorithmData.Algorithm.get() == Data::EPEC::Algorithms::OuterApproximation) {
+	 LOG_S(WARNING) << "Game::EPEC::computeNashEq: (check flag is "
+							 "true) Cannot search fore multiple NE with the OuterApproximation.";
+	 multipleNE = false;
+  }
+  if (pureNE) {
+	 LOG_S(INFO) << "Game::EPEC::computeNashEq: (PureNashEquilibrium flag is "
+						 "true) Searching for a pure NE.";
+	 if (this->Stats.AlgorithmData.Algorithm.get() != Data::EPEC::Algorithms::OuterApproximation)
+		static_cast<Algorithms::EPEC::PolyBase *>(this->Algorithm.get())->makeThePureLCP();
+	 else
+		LOG_S(WARNING) << "Game::EPEC::computeNashEq: (PureNashEquilibrium flag is "
+								"true) Cannot search fore pure NE with the OuterApproximation.";
+  }
+
+  this->LCPModel =
+		this->TheLCP->LCPasMIP(false, localTimeLimit, MIPWorkers, multipleNE ? GRB_MAXINT : 1);
+
+
+  this->setWelfareObjective(linearWelfare, quadraticWelfare);
+  try {
+	 this->LCPModel->set(GRB_IntParam_OutputFlag, 1);
+	 this->LCPModel->write("dat/TheLCP.lp");
+	 this->LCPModel->optimize();
+  } catch (GRBException &e) {
+	 throw ZEROException(e);
+  }
+  try { // Try finding a Nash equilibrium for the approximation
+	 this->NashEquilibrium =
+		  this->TheLCP->extractSols(this->LCPModel.get(), SolutionZ, SolutionX, true);
+  } catch (GRBException &e) {
+	 throw ZEROException(e);
+  }
+  if (this->NashEquilibrium) { // If a Nash equilibrium is found, then update
+										 // appropriately
+	 if (multipleNE) {
+		int scount = this->LCPModel->get(GRB_IntAttr_SolCount);
+		LOG_S(INFO) << "Game::EPEC::computeNashEq: number of equilibria is " << scount;
+		for (int k = 0, stop = 0; k < scount && stop == 0; ++k) {
+		  this->LCPModel->set(GRB_IntParam_SolutionNumber, k);
+		  this->NashEquilibrium =
+				this->TheLCP->extractSols(this->LCPModel.get(), this->SolutionZ, this->SolutionX, true);
+		  if (this->Algorithm->isSolved()) {
+			 LOG_S(INFO) << "Game::EPEC::computeNashEq: an "
+								 "Equilibrium has been found";
+			 stop = 1;
+		  }
+		}
+	 } else {
+		this->NashEquilibrium = true;
+		LOG_S(INFO) << "Game::EPEC::computeNashEq: An Equilibrium has been found";
+	 }
+
+  } else {
+	 LOG_S(INFO) << "Game::EPEC::computeNashEq: no equilibrium has been found.";
+	 int status = this->LCPModel->get(GRB_IntAttr_Status);
+	 if (status == GRB_TIME_LIMIT)
+		this->Stats.Status = ZEROStatus::TimeLimit;
+	 else
+		this->Stats.Status = ZEROStatus::NashEqNotFound;
+  }
+  return this->NashEquilibrium;
 }
 
-bool Game::EPEC::warmstart(const arma::vec x) { //@todo complete implementation
+bool Game::EPEC::warmstart(const arma::vec x) {
+  //@todo complete implementation
 
   if (x.size() < this->getNumVar())
 	 throw ZEROException(ZEROErrorCode::OutOfRange,
