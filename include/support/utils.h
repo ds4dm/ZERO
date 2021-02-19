@@ -117,12 +117,6 @@ namespace Utils {
 									 GRBVar *           x,
 									 std::string        basename,
 									 GRBModel *         model,
-									 int                sense);
-  void addSparseConstraints(const arma::sp_mat A,
-									 const arma::vec    b,
-									 GRBVar *           x,
-									 std::string        basename,
-									 GRBModel *         model,
 									 int                sense,
 									 GRBVar *           z);
 } // namespace Utils
