@@ -396,8 +396,9 @@ void Game::EPEC::makeTheLCP() {
  */
 void Game::EPEC::setWelfareObjective(bool linear = true, bool quadratic = true) {
 
-  if (!linear && !quadratic)
+  if (!linear && !quadratic) {
 	 return;
+  }
 
   std::vector<std::vector<unsigned int>> xOfIs; // indexes of variables for each player
   std::vector<std::vector<unsigned int>>
@@ -418,7 +419,6 @@ void Game::EPEC::setWelfareObjective(bool linear = true, bool quadratic = true) 
 		linearWelfare += this->LCPModel->getVarByName("x_" + std::to_string(i)) *
 							  this->LeaderObjective.at(p)->c.at(v);
 	 }
-	 LOG_S(INFO) << playerVars << " for player " << p;
 	 xOfIs.push_back(xOfI);
   }
   // Account for market clearing variables
