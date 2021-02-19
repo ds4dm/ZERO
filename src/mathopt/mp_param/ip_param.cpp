@@ -76,12 +76,7 @@ bool MathOpt::IP_Param::finalize() {
 	 for (unsigned int i = 0; i < this->Integers.size(); ++i)
 		y[static_cast<int>(Integers.at(i))].set(GRB_CharAttr_VType, 'I');
 
-	 for (unsigned int i = 0; i < this->Ncons; i++) {
-		GRBLinExpr LHS{0};
-		for (auto j = B.begin_row(i); j != B.end_row(i); ++j)
-		  LHS += (*j) * y[j.col()];
-		this->IPModel.addConstr(LHS, GRB_LESS_EQUAL, b[i]);
-	 }
+    Utils::addSparseConstraints(B, b, y,"Constr_", &this->IPModel, GRB_LESS_EQUAL, nullptr);
 
 	 this->IPModel.update();
 	 this->IPModel.set(GRB_IntParam_OutputFlag, 1);

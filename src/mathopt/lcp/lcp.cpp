@@ -202,13 +202,9 @@ void MathOpt::LCP::makeRelaxed() {
 
 
 	 LOG_S(1) << "MathOpt::LCP::makeRelaxed: Added variables";
-	 for (unsigned int i = 0; i < nR; i++) {
-		GRBLinExpr expr = 0;
-		for (auto v = M.begin_row(i); v != M.end_row(i); ++v)
-		  expr += (*v) * x[v.col()];
-		expr += q(i);
-		RelaxedModel.addConstr(expr, GRB_EQUAL, z[i], "z_" + std::to_string(i) + "_def");
-	 }
+
+    Utils::addSparseConstraints(M, -q, x, "zdef", &RelaxedModel, GRB_EQUAL, z);
+
 	 LOG_S(1) << "MathOpt::LCP::makeRelaxed: Added equation definitions";
 	 // If @f$Ax \leq b@f$ constraints are there, they should be included too!
 	 if (this->A.n_nonzero != 0 && this->b.n_rows != 0) {
@@ -216,12 +212,8 @@ void MathOpt::LCP::makeRelaxed() {
 		  LOG_S(1) << "(" << A.n_rows << "," << A.n_cols << ")\t" << b.n_rows << " " << nC;
 		  throw ZEROException(ZEROErrorCode::InvalidData, "A and b are incompatible");
 		}
-		for (unsigned int i = 0; i < A.n_rows; i++) {
-		  GRBLinExpr expr = 0;
-		  for (auto a = A.begin_row(i); a != A.end_row(i); ++a)
-			 expr += (*a) * x[a.col()];
-		  RelaxedModel.addConstr(expr, GRB_LESS_EQUAL, b(i), "commonCons_" + std::to_string(i));
-		}
+
+		Utils::addSparseConstraints(A, b, x, "commonCons", &RelaxedModel, GRB_LESS_EQUAL, nullptr);
 		LOG_S(1) << "MathOpt::LCP::makeRelaxed: Added common constraints";
 	 }
 
@@ -232,12 +224,8 @@ void MathOpt::LCP::makeRelaxed() {
 					  << nC;
 		  throw ZEROException(ZEROErrorCode::InvalidData, "Acut and bcut are incompatible");
 		}
-		for (unsigned int i = 0; i < _Acut.n_rows; i++) {
-		  GRBLinExpr expr = 0;
-		  for (auto a = _Acut.begin_row(i); a != _Acut.end_row(i); ++a)
-			 expr += (*a) * x[a.col()];
-		  RelaxedModel.addConstr(expr, GRB_LESS_EQUAL, _bcut(i), "cutConstr_" + std::to_string(i));
-		}
+
+      Utils::addSparseConstraints(_Acut, _bcut, x, "commonCons", &RelaxedModel, GRB_LESS_EQUAL, nullptr);
 		LOG_S(1) << "MathOpt::LCP::makeRelaxed: Added cut constraints";
 	 }
 	 RelaxedModel.update();
@@ -587,12 +575,10 @@ void MathOpt::LCP::addCustomCuts(const arma::sp_mat A_in, const arma::vec b_in) 
 	 GRBVar x[nC];
 	 for (unsigned int i = 0; i < nC; i++)
 		x[i] = this->RelaxedModel.getVarByName("x_" + std::to_string(i));
-	 for (unsigned int i = 0; i < A_in.n_rows; i++) {
-		GRBLinExpr expr = 0;
-		for (auto a = A_in.begin_row(i); a != A_in.end_row(i); ++a)
-		  expr += (*a) * x[a.col()];
-		this->RelaxedModel.addConstr(expr, GRB_LESS_EQUAL, b_in(i), "cutConstr_" + std::to_string(i));
-	 }
+
+	 std::string basename = "cutConstr"+std::to_string(std::time(0));
+    Utils::addSparseConstraints(A_in, b_in, x, basename, &RelaxedModel, GRB_LESS_EQUAL, nullptr);
+
 	 LOG_S(1) << "MathOpt::LCP::addCustomCuts: Added cut constraint";
   }
 
@@ -743,7 +729,7 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP(bool indicators) {
 		v[i] = model->addVar(0, 1, 0, GRB_BINARY, "v_" + std::to_string(i));
 
 
-	 GRBLinExpr expr = 0;
+	 GRBLinExpr   expr    = 0;
 	 unsigned int counter = 0;
 	 for (const auto p : Compl) {
 
@@ -766,11 +752,11 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP(bool indicators) {
 
 		  model->addConstr(
 				u[counter] + v[counter], GRB_EQUAL, 1, "uv_sum_" + std::to_string(counter));
-        obj += v[counter];
+		  obj += v[counter];
 		} else {
 		  GRBVar sos[]  = {x[p.second], z[p.first]};
 		  double sosw[] = {1, 4};
-        obj += x[p.second];
+		  obj += x[p.second];
 		  model->addSOS(sos, sosw, 2, GRB_SOS_TYPE1);
 		}
 		counter++;

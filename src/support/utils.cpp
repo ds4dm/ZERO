@@ -527,9 +527,7 @@ double Utils::round_nplaces(const double &value, const double &tol)
  * @p v is the input vector
  * @return The normalized vector
  */
-arma::vec Utils::normalizeVec(const arma::vec &v) {
-  return v / arma::max(arma::abs(v));
-}
+arma::vec Utils::normalizeVec(const arma::vec &v) { return v / arma::max(arma::abs(v)); }
 
 /**
  * Normalizes an inequality according to the "equilibrium normalization". Namely, we divide for
@@ -541,4 +539,39 @@ void Utils::normalizeIneq(arma::vec &lhs, double &rhs) {
   double norm = std::max(arma::max(arma::abs(lhs)), std::abs(rhs));
   rhs         = rhs / norm;
   lhs         = lhs / norm;
+}
+
+/**
+ * Create constraints for a given @p model given the matrix @p A, the RHS vector @b, the variables
+ * @p x, and an additional RHS of variables @p z. The resulting constraints read:
+ *  @f$Ax \quad (sense) \quad b+z@f$
+ * @param A The input sparse matrix of LHS
+ * @param b The input vector of RHS
+ * @param x  The input variables
+ * @param basename The basename of these constraints
+ * @param model A pointer to the model
+ * @param sense As in Gurobi.
+ * @param z Additional RHS of variables
+ */
+void Utils::addSparseConstraints(const arma::sp_mat A,
+											const arma::vec    b,
+											GRBVar *           x,
+											std::string        basename,
+											GRBModel *         model,
+											int                sense = GRB_LESS_EQUAL,
+											GRBVar *           z =nullptr) {
+  std::vector<GRBLinExpr> Constraints(A.n_rows, 0);
+  for (arma::sp_mat::const_iterator it = A.begin(); it != A.end(); ++it) {
+	 double coeff = *it;
+	 Constraints.at(it.row()).addTerms(&coeff, &x[it.col()], 1);
+  }
+  if (z != nullptr) {
+	 for (unsigned int i = 0; i < A.n_rows; ++i) {
+		model->addConstr(Constraints.at(i) - z[i], sense, b(i), basename + "_" + std::to_string(i));
+	 }
+  } else {
+	 for (unsigned int i = 0; i < A.n_rows; ++i) {
+		model->addConstr(Constraints.at(i), sense, b(i), basename + "_" + std::to_string(i));
+	 }
+  }
 }

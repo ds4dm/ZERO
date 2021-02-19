@@ -114,15 +114,12 @@ std::unique_ptr<GRBModel> MathOpt::QP_Param::solveFixed(arma::vec x, bool solve)
 		yQy += (Cx[i] + c[i]) * y[i];
 	 }
 	 model->setObjective(yQy, GRB_MINIMIZE);
-	 for (unsigned int i = 0; i < this->Ncons; i++) {
-		GRBLinExpr LHS{0};
-		for (auto j = B.begin_row(i); j != B.end_row(i); ++j)
-		  LHS += (*j) * y[j.col()];
-		model->addConstr(LHS, GRB_LESS_EQUAL, b[i] - Ax[i]);
-	 }
+
+	 Utils::addSparseConstraints(B, b - Ax, y, "Constr_", model.get(), GRB_LESS_EQUAL, nullptr);
+
 	 model->update();
 	 model->set(GRB_IntParam_OutputFlag, 0);
-    model->set(GRB_IntParam_NonConvex, 2);
+	 model->set(GRB_IntParam_NonConvex, 2);
 	 if (solve)
 		model->optimize();
   } catch (GRBException &e) {

@@ -450,7 +450,6 @@ void Game::EPEC::setWelfareObjective(bool linear = true, bool quadratic = true) 
 		unsigned int xOther  = xMinusIs.at(p).at(it.col());
 		interact += *it * this->LCPModel->getVarByName("x_" + std::to_string(xPlayer)) *
 						this->LCPModel->getVarByName("x_" + std::to_string(xOther));
-		LOG_S(INFO) << it.row();
 	 }
 	 quadrWelfare += interact;
   }

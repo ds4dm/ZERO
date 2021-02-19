@@ -112,6 +112,19 @@ namespace Utils {
   arma::vec   normalizeVec(const arma::vec &v);
   void        normalizeIneq(arma::vec &lhs, double &rhs);
   double      round_nplaces(const double &value, const double &tol = 1e-6);
+  void addSparseConstraints(const arma::sp_mat A,
+									 const arma::vec    b,
+									 GRBVar *           x,
+									 std::string        basename,
+									 GRBModel *         model,
+									 int                sense);
+  void addSparseConstraints(const arma::sp_mat A,
+									 const arma::vec    b,
+									 GRBVar *           x,
+									 std::string        basename,
+									 GRBModel *         model,
+									 int                sense,
+									 GRBVar *           z);
 } // namespace Utils
 
 // namespace Utils

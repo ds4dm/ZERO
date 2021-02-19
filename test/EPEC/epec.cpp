@@ -401,12 +401,9 @@ BOOST_AUTO_TEST_CASE(ConvexHull_test) {
   GRBConstr a[A.n_rows];
   for (unsigned int i = 0; i < A.n_cols; i++)
 	 x[i] = model.addVar(-GRB_INFINITY, +GRB_INFINITY, 0, GRB_CONTINUOUS, "x_" + std::to_string(i));
-  for (unsigned int i = 0; i < A.n_rows; i++) {
-	 GRBLinExpr lin{0};
-	 for (auto j = A.begin_row(i); j != A.end_row(i); ++j)
-		lin += (*j) * x[j.col()];
-	 a[i] = model.addConstr(lin, GRB_LESS_EQUAL, b.at(i));
-  }
+
+  Utils::addSparseConstraints(A, b, x, "Constr_", &model, GRB_LESS_EQUAL, nullptr);
+
   GRBLinExpr obj = 0;
   obj += x[0] + x[1];
   model.setObjective(obj, GRB_MAXIMIZE);

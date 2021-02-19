@@ -238,12 +238,8 @@ arma::vec MathOpt::LPSolve(const arma::sp_mat &A, ///< The constraint matrix
   for (unsigned int i = 0; i < nC; i++)
 	 x[i] = model.addVar(lb, GRB_INFINITY, c.at(i), GRB_CONTINUOUS, "x_" + std::to_string(i));
   // Adding constraints
-  for (unsigned int i = 0; i < nR; i++) {
-	 GRBLinExpr lin{0};
-	 for (auto j = A.begin_row(i); j != A.end_row(i); ++j)
-		lin += (*j) * x[j.col()];
-	 a[i] = model.addConstr(lin, GRB_LESS_EQUAL, b.at(i));
-  }
+
+  Utils::addSparseConstraints(A, b, x,"LPSolve_", &model, GRB_LESS_EQUAL, nullptr);
   model.set(GRB_IntParam_OutputFlag, 0);
   model.set(GRB_IntParam_DualReductions, 0);
   model.optimize();
