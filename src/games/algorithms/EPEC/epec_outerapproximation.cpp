@@ -57,6 +57,7 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
 		  this->EPECObject->respondSol(bestResponse, i, this->EPECObject->SolutionX);
 	 LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i << ") Payoff of "
 					 << currentResponsesZ.at(i) << " vs bestResponse of " << bestResponseZ;
+	 auto diff = currentResponsesZ.at(i) - bestResponseZ;
 	 if (bestResponseZ == GRB_INFINITY) {
 		LOG_S(1) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
 					<< ") Unbounded deviation";
@@ -65,9 +66,9 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
 	 }
 	 // minimization standard
 	 // @todo check the direction of the inequality
-	 if (std::abs(currentResponsesZ.at(i) - bestResponseZ) > this->Tolerance) {
+	 if (std::abs(diff) > this->Tolerance) {
 		// Discrepancy between payoffs! Need to investigate.
-		if (currentResponsesZ.at(i) - bestResponseZ > 10 * this->Tolerance) {
+		if (diff > 10 * this->Tolerance) {
 		  // It means the current payoff is more than then optimal response. Then
 		  // this is not a best response. Theoretically, this cannot happen from
 		  // an outer approximation. This if case is a warning case then
@@ -83,8 +84,9 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
 		  throw ZEROException(
 				ZEROErrorCode::Numeric,
 				"Invalid payoffs relation (better best response). This may be due to numerical issues");
-		}
-		if (bestResponseZ - currentResponsesZ.at(i) > 10 * this->Tolerance) {
+		} else
+		  // if (-diff > 10 * this->Tolerance)
+		  {
 		  // It means the current payoff is less than the optimal response. The
 		  // approximation is not good, and this point is infeasible. Then, we can
 		  // generate a value-cut
@@ -265,11 +267,9 @@ bool Algorithms::EPEC::OuterApproximation::separationOracle(
 							<< ")"
 								" LeaderModel status = "
 							<< std::to_string(status) << " with objective=" << cutV;
-				arma::vec val  = cutLHS.t() * xOfI; // c^T xOfI
-				arma::vec val2 = cutLHS.t() * V.row(0).t();
+				arma::vec val = cutLHS.t() * xOfI; // c^T xOfI
 				LOG_S(1) << "Algorithms::EPEC::OuterApproximation::separationOracle: (P" << player
-							<< ") c^Tv=" << cutV << " -- c^TxOfI=" << val.at(0)
-							<< " -- c^TV(0)=" << val2.at(0);
+							<< ") c^Tv=" << cutV << " -- c^TxOfI=" << val.at(0);
 				if (cutV - val.at(0) < -this->Tolerance) {
 				  // False, but we have a cut :-)
 				  // Ciao Moni
