@@ -761,7 +761,7 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP(bool indicators) {
 		}
 		counter++;
 	 }
-	 model->setObjective(obj, GRB_MINIMIZE);
+	 //model->setObjective(obj, GRB_MINIMIZE);
 	 // If any equation or variable is to be fixed to zero, that happens here!
 	 model->update();
 	 // Get first Equilibrium
