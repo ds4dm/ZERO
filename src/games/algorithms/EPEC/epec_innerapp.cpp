@@ -11,8 +11,8 @@
  * #############################################*/
 
 
-#include "games/algorithms/EPEC/epec_innerapproximation.h"
-#include "games/algorithms/EPEC/epec_combinatorialpne.h"
+#include "games/algorithms/EPEC/epec_innerapp.h"
+#include "games/algorithms/EPEC/epec_combPNE.h"
 #include "zero.h"
 #include <armadillo>
 #include <boost/log/trivial.hpp>

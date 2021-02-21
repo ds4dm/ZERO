@@ -77,10 +77,10 @@ add_library(
   src/games/epec.cpp
   src/games/ipg.cpp
   src/games/algorithms/EPEC/epec_polybase.cpp
-  src/games/algorithms/EPEC/epec_innerapproximation.cpp
-  src/games/algorithms/EPEC/epec_combinatorialpne.cpp
-  src/games/algorithms/EPEC/epec_fullenumeration.cpp
-  src/games/algorithms/EPEC/epec_outerapproximation.cpp
+  src/games/algorithms/EPEC/epec_innerapp.cpp
+  src/games/algorithms/EPEC/epec_combPNE.cpp
+  src/games/algorithms/EPEC/epec_fullenum.cpp
+  src/games/algorithms/EPEC/epec_outerapp.cpp
   src/games/algorithms/IPG/ipg_oracle.cpp
   src/interfaces/epec_models.cpp
   src/interfaces/ipg_models.cpp)

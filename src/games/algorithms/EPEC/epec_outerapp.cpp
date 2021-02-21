@@ -11,7 +11,7 @@
  * #############################################*/
 
 
-#include "games/algorithms/EPEC/epec_outerapproximation.h"
+#include "games/algorithms/EPEC/epec_outerapp.h"
 
 #include <chrono>
 #include <gurobi_c++.h>

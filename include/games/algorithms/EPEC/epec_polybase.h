@@ -93,7 +93,7 @@ namespace Algorithms {
   } // namespace EPEC
 } // namespace Algorithms
 
-#include "epec_combinatorialpne.h"
-#include "epec_fullenumeration.h"
-#include "epec_innerapproximation.h"
-#include "epec_outerapproximation.h"
+#include "epec_combPNE.h"
+#include "epec_fullenum.h"
+#include "epec_innerapp.h"
+#include "epec_outerapp.h"
