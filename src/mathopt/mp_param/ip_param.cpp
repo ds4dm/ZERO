@@ -52,6 +52,16 @@ bool MathOpt::IP_Param::operator==(const IP_Param &IPG2) const {
   return Utils::isZero(this->Integers - IPG2.getIntegers());
 }
 
+MathOpt::IP_Param &MathOpt::IP_Param::setBounds(const VariableBounds &boundIn) {
+  MathOpt::MP_Param::setBounds(boundIn);
+  for (unsigned int i = 0; i < this->Ny; i++) {
+	 auto var =  this->IPModel.getVarByName("y_"+std::to_string(i));
+	 var.set(GRB_DoubleAttr_LB,this->Bounds.at(i).first > 0 ? this->Bounds.at(i).first : 0);
+    var.set(GRB_DoubleAttr_UB,this->Bounds.at(i).second > 0 ? this->Bounds.at(i).second : GRB_INFINITY);
+  }
+  this->IPModel.update();
+  return *this;
+} ///< Inheritor constructor for the class
 
 /**
  * @brief This method creates the (mixed)-integer program for the game, where the
@@ -66,15 +76,21 @@ bool MathOpt::IP_Param::finalize() {
   try {
 	 GRBVar y[this->Ny];
 	 for (unsigned int i = 0; i < this->Ny; i++) {
-		y[i] = this->IPModel.addVar(Bounds.at(i).first > 0 ? Bounds.at(i).first : 0,
+	   y[i] = this->IPModel.addVar(Bounds.at(i).first > 0 ? Bounds.at(i).first : 0,
 											 Bounds.at(i).second > 0 ? Bounds.at(i).second : GRB_INFINITY,
 											 c.at(i),
 											 GRB_CONTINUOUS,
 											 "y_" + std::to_string(i));
 	 }
 	 // Add integralities
-	 for (unsigned int i = 0; i < this->Integers.size(); ++i)
+	 for (unsigned int i = 0; i < this->Integers.size(); ++i) {
 		y[static_cast<int>(Integers.at(i))].set(GRB_CharAttr_VType, 'I');
+		//Unfortunately, we need to reset the bounds for these variables
+		  auto var =  y[static_cast <int>(Integers.at(i))];
+		  std::cout <<"second bound on "<< Integers.at(i)<<" is" <<Bounds.at(Integers.at(i)).second << "\n";
+	   var.set(GRB_DoubleAttr_LB,this->Bounds.at(Integers.at(i)).first > 0 ? this->Bounds.at(Integers.at(i)).first : 0);
+		  var.set(GRB_DoubleAttr_UB,this->Bounds.at(Integers.at(i)).second > 0 ? this->Bounds.at(Integers.at(i)).second : GRB_INFINITY);
+	 }
 
     Utils::addSparseConstraints(B, b, y,"Constr_", &this->IPModel, GRB_LESS_EQUAL, nullptr);
 
@@ -82,6 +98,7 @@ bool MathOpt::IP_Param::finalize() {
 	 this->IPModel.set(GRB_IntParam_OutputFlag, 1);
 	 this->IPModel.set(GRB_IntParam_InfUnbdInfo, 1);
 	 this->IPModel.set(GRB_IntParam_DualReductions, 0);
+	 this->IPModel.write("Finalize.lp");
 
   } catch (GRBException &e) {
 	 throw ZEROException(ZEROErrorCode::SolverError,
@@ -345,8 +362,7 @@ bool MathOpt::IP_Param::addConstraint(arma::vec Ain, double bin, bool checkDupli
 	 this->size();
 
 	 // If model hasn't been made, we do not need to update it
-	 //@todo
-	 if (this->Finalized && false) {
+	 if (this->Finalized) {
 		GRBLinExpr LHS{0};
 		for (auto j = 0; j < Ain.size(); ++j)
 		  LHS += Ain.at(j) * this->IPModel.getVarByName("y_" + std::to_string(j));
@@ -418,20 +434,23 @@ long int MathOpt::IP_Param::load(const std::string &filename, long int pos) {
   pos = Utils::appendRead(_c, filename, pos, std::string("IP_Param::c"));
   pos = Utils::appendRead(_integers, filename, pos, std::string("IP_Param::Integers"));
   pos = Utils::appendRead(BO, filename, pos, std::string("IP_Param::Bounds"));
+  VariableBounds Bond;
+  BO.print_dense("BPO");
   if (BO.n_rows > 0) {
 	 if (BO.n_cols != 2)
 		throw ZEROException(ZEROErrorCode::IOError, "Invalid bounds object in loaded file");
 
 	 for (unsigned int i = 0; i < _B.n_cols; ++i)
-		this->Bounds.push_back(
+		Bond.push_back(
 			 {BO.at(i, 0) > 0 ? BO.at(i, 0) : 0, BO.at(i, 1) > 0 ? BO.at(i, 1) : -1});
 
 	 int diff = _B.n_cols - BO.n_rows;
 	 for (unsigned int i = 0; i < diff; ++i)
-		this->Bounds.push_back({0, -1});
+		Bond.push_back({0, -1});
   }
   LOG_S(1) << "Loaded IP_Param to file " << filename;
   this->set(_C, _B, _b, _c, _integers);
+  this->setBounds(Bond);
   return pos;
 }
 

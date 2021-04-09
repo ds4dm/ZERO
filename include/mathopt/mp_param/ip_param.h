@@ -73,6 +73,8 @@ namespace MathOpt {
 
 	 bool finalize() override;
 
+    IP_Param &setBounds(const VariableBounds &boundIn) ;
+
 	 bool addConstraint(arma::vec Ain, double bin, bool checkDuplicate = true, double tol = 1e-5);
 
 	 /**
