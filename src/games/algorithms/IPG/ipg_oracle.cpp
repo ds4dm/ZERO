@@ -31,14 +31,13 @@ bool Algorithms::IPG::IPG_Player::addVertex(const arma::vec vertex, const bool c
 
   if (!go) {
 	 this->V = arma::join_cols(this->V, arma::sp_mat{vertex.t()});
+	 this->V.print_dense("Vertices");
 	 return true;
   }
   return false;
 }
 
-bool Algorithms::IPG::IPG_Player::addCut(const arma::vec LHS,
-													  const double    b,
-													  const bool      checkDuplicate) {
+bool Algorithms::IPG::IPG_Player::addCut(arma::vec LHS, double b, const bool checkDuplicate) {
   /**
 	* @brief Given @p LHS, @p b, it adds the inequality to the field CutPool_A and b. If
 	* @p checkDuplicate is true, it will check whether the inequality is already contained in the
@@ -50,6 +49,10 @@ bool Algorithms::IPG::IPG_Player::addCut(const arma::vec LHS,
   if (checkDuplicate)
 	 go = Utils::containsConstraint(this->CutPool_A, this->CutPool_b, LHS, b, this->Tolerance);
 
+  if (std::max(LHS.max(), b) - std::min(LHS.min(), b) > 1e5) {
+	 Utils::normalizeIneq(LHS, b);
+	 LOG_S(5) << "Algorithms::IPG::IPG_Player::addCut:  normalizing cut.";
+  }
   if (!go) {
 	 this->CutPool_A = arma::join_cols(this->CutPool_A, arma::sp_mat{LHS.t()});
 	 this->CutPool_b = arma::join_cols(this->CutPool_b, arma::vec{b});
@@ -100,10 +103,15 @@ bool Algorithms::IPG::Oracle::addValueCut(unsigned int player,
   else
 	 go = false;
 
-  if (!go)
+  if (!go) {
+	 if (std::max(LHS.max(), RHS) - std::min(LHS.min(), RHS) > 1e5) {
+		Utils::normalizeIneq(LHS, RHS);
+		LOG_S(5) << "Algorithms::IPG::Oracle::addValueCut: (P" << player << ") normalizing cut.";
+	 }
+
 	 return this->IPG->PlayersIP.at(player)->addConstraint(
 		  -LHS, -RHS, checkDuplicate, this->Tolerance);
-  else
+  } else
 	 return false;
 }
 
@@ -158,7 +166,7 @@ void Algorithms::IPG::Oracle::solve() {
 
 	 // Now we have an equilibrium, then we need to check whether this is feasible or not
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers && solved; ++i) {
-		if (!this->separationOracle(i)) {
+		if (!this->preEquilibriumOracle(i)) {
 		  solved = false;
 		  break;
 		}
@@ -192,12 +200,12 @@ void Algorithms::IPG::Oracle::solve() {
 
 
 
-bool Algorithms::IPG::Oracle::separationOracle(const unsigned int player) {
+bool Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player) {
   /**
 	* @brief Given the player id @p player, checks whether the current strategy is feasible or
 	* not. In order to do so, a more complex separation technique may be called.
 	*/
-  LOG_S(1) << "Algorithms::IPG::Oracle::separationOracle: "
+  LOG_S(1) << "Algorithms::IPG::Oracle::preEquilibriumOracle: "
 				  "The Oracle has been called for "
 			  << player;
 
@@ -211,8 +219,7 @@ bool Algorithms::IPG::Oracle::separationOracle(const unsigned int player) {
   arma::vec    xMinusI = this->buildXminusI(player);
   arma::vec *  xOfI    = &this->Players.at(player)->Incumbent;
 
-  // xOfI->print("xOfI");
-  // xMinusI.print("xMinusI");
+  // Remember: the standard is minimization!
 
   // Update working strategies with "educated guesses"
   auto PureIP = this->IPG->PlayersIP.at(player)->getIPModel(xMinusI, false);
@@ -220,57 +227,68 @@ bool Algorithms::IPG::Oracle::separationOracle(const unsigned int player) {
   PureIP->write("dat/Oracle_" + std::to_string(player) + "+.lp");
   int status = PureIP->get(GRB_IntAttr_Status);
   if (status == GRB_OPTIMAL) {
+	 // Then, we have a best response
 
 	 double IPobj  = PureIP->getObjective().getValue();
 	 double RELobj = this->IPG->PlayersIP.at(player)->computeObjective(
 		  *xOfI, xMinusI, false); // this->Players.at(player)->Payoff;
-	 if (std::abs(IPobj - RELobj) > this->IPG->Stats.AlgorithmData.DeviationTolerance.get()) {
-		// Discrepancy between payoffs! Remember the minimization standard
+	 auto diff = RELobj - IPobj;
+	 if (std::abs(diff) > this->IPG->Stats.AlgorithmData.DeviationTolerance.get()) {
+		// There exists a difference between the payoffs
 
-		// Then the strategy is infeasible! It has a better payoff
-		if ((IPobj - RELobj) > this->IPG->Stats.AlgorithmData.DeviationTolerance.get()) {
-
-		  LOG_S(INFO) << "Algorithms::IPG::Oracle::separationOracle: "
-							  "Infeasible strategy. Adding the value-cut.";
-		  // Infeasible strategy. Add a value-cut
-		  if (this->addValueCut(player, IPobj, xMinusI))
-			 return false;
-		  else
-			 throw ZEROException(ZEROErrorCode::Unknown, "Unknown loop detected");
-
-
-		} else if ((RELobj - IPobj) > this->IPG->Stats.AlgorithmData.DeviationTolerance.get()) {
-
+		if (diff >  this->IPG->Stats.AlgorithmData.DeviationTolerance.get()) {
 		  // This cannot happen!
 		  throw ZEROException(ZEROErrorCode::Numeric,
 									 "Invalid payoff relation (better best response)");
-		}
-	 } else {
-		// Payoffs are the same. Need to stop doing this things
+		} else {
 
+			 LOG_S(INFO) << "Algorithms::IPG::Oracle::preEquilibriumOracle: "
+								 "Infeasible strategy. Adding the value-cut.";
+			 // Infeasible strategy. Add a value-cut
+			 if (this->addValueCut(player, IPobj, xMinusI))
+				return false;
+			 else
+				throw ZEROException(ZEROErrorCode::Unknown, "Unknown loop detected");
+		} // end abs(diff)
+	 } else {
+
+		// No discrepancy between payoffs
 
 		// Check if the strategies are the same!
 		arma::vec bestResponse(Ny, arma::fill::zeros);
 		for (unsigned int k = 0; k < Ny; ++k)
 		  bestResponse.at(k) = PureIP->getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_X);
 
+	   if (Utils::containsRow(this->Players.at(player)->V, bestResponse, this->Tolerance)) {
+		  LOG_S(INFO) << "Algorithms::IPG::Oracle::preEquilibriumOracle: (P" << player
+		              << ") duplicate vertex";
+	   } else {
+		  this->Players.at(player)->addVertex(bestResponse);
+		  bestResponse.print("\nVertex BR");
+		  LOG_S(INFO) << "Algorithms::IPG::Oracle::preEquilibriumOracle: (P" << player
+		              << ") adding vertex (BR)";
+	   }
+
+
 		if (Utils::isZero(*xOfI - bestResponse, this->Tolerance)) {
 		  this->Players.at(player)->Pure = true;
-		  LOG_S(INFO) << "Algorithms::IPG::Oracle::separationOracle: "
+		  LOG_S(INFO) << "Algorithms::IPG::Oracle::preEquilibriumOracle: "
 							  "Feasible strategy for Player "
 						  << player << " (Best Response)";
 		  return true;
 		} else {
+
 		  // In this case, we need to call the proper oracle.
 		  unsigned int iterations = 100;
-		  return this->membershipSeparation(player, iterations, *xOfI, xMinusI);
+		  return this->equilibriumOracle(player, iterations, *xOfI, xMinusI);
 		}
 	 }
 
+
   } else if (status == GRB_UNBOUNDED) {
-	 LOG_S(INFO) << "Algorithms::IPG::Oracle::separationOracle: "
+	 LOG_S(INFO) << "Algorithms::IPG::Oracle::preEquilibriumOracle: "
 						 "The problem is unbounded.";
-	 return false;
+	 throw;
   }
   return false;
 }
@@ -285,10 +303,10 @@ bool Algorithms::IPG::Oracle::isPureStrategy() const {
 	 return false;
 }
 
-bool Algorithms::IPG::Oracle::membershipSeparation(const unsigned int player,
-																	const unsigned int iterations,
-																	const arma::vec &  xOfI,
-																	const arma::vec &  xMinusI) {
+bool Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
+																const unsigned int iterations,
+																const arma::vec &  xOfI,
+																const arma::vec &  xMinusI) {
   /**
 	* @brief Given the player and a bound on the number of iterations, tries to decide whether the
 	* given strategy belongs to the feasible region of the player by building the convex-hull with
@@ -301,41 +319,27 @@ bool Algorithms::IPG::Oracle::membershipSeparation(const unsigned int player,
 	 if (!this->checkTime(remaining) || remaining <= 0)
 		return false;
   }
-  LOG_S(INFO) << "Algorithms::IPG::Oracle::membershipSeparation: "
-					  "Starting separator for player "
-				  << player;
+  LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+				  << ") Starting separator";
   for (int k = 0; k < iterations; ++k) {
 	 // First, we check whether the point is a convex combination of feasible
 	 // KNOWN points
 	 xOfI.print("Point to separate: ");
 
-	 this->updateMembership(player, xOfI, true);
-	 auto convexModel = *this->Players.at(player)->MembershipLP;
-	 convexModel.optimize();
-	 convexModel.write("dat/Convex_" + std::to_string(player) + ".lp");
+	 this->updateMembership(player, xOfI);
+	 auto dualMembershipModel = *this->Players.at(player)->MembershipLP;
+	 dualMembershipModel.optimize();
+	 dualMembershipModel.write("dat/Convex_" + std::to_string(player) + ".lp");
 
-	 int status = convexModel.get(GRB_IntAttr_Status);
-	 LOG_S(1) << "Algorithms::IPG::Oracle::membershipSeparation: "
-					 "MermbershipLP status is "
-				 << status;
-	 if (status == GRB_OPTIMAL && convexModel.get(GRB_IntAttr_SolCount) == 1) {
-		convexModel.set(GRB_IntParam_SolutionNumber, 0);
-		arma::vec sol(xOfI.size(), arma::fill::zeros);
-		for (unsigned int i = 0; i < xOfI.size(); i++)
-		  sol.at(i) =
-				std::abs(convexModel.getVarByName("y_" + std::to_string(i)).get(GRB_DoubleAttr_X));
+	 int status = dualMembershipModel.get(GRB_IntAttr_Status);
+	 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+					 << ") MermbershipLP status is " << status;
+	 if (status == GRB_OPTIMAL) {
 
-		if (convexModel.getObjective().getValue() == 0 && sol.max() == 0)
-		/*	     ( (convexModel.getConstrByName("Normalization").get(GRB_DoubleAttr_Slack) == 1) ||
-			 (convexModel.getConstrByName("Normalization").get(GRB_DoubleAttr_Slack) == 0 &&
-			  convexModel.getVarByName("x").get(GRB_DoubleAttr_X) == 1))
-			  */
-		{
-		  // this->Trees.at(player)->addVertex(xOfI);
-		  // sol.print("hyper");
-		  LOG_S(INFO) << "Algorithms::IPG::Oracle::membershipSeparation: "
-							  "The point is a convex combination of known points! Player "
-						  << player;
+
+		if (std::abs(dualMembershipModel.getObjective().getValue()) < this->Tolerance) {
+		  LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+						  << ") The point is a convex combination of known points! ";
 		  this->Players.at(player)->Feasible = true;
 
 		  arma::vec support;
@@ -343,159 +347,143 @@ bool Algorithms::IPG::Oracle::membershipSeparation(const unsigned int player,
 		  for (unsigned int v = 0; v < this->Players.at(player)->VertexCounter; ++v) {
 			 // abs to avoid misunderstanding with sign conventions
 			 support.at(v) =
-				  convexModel.getConstrByName("V_" + std::to_string(v)).get(GRB_DoubleAttr_Pi);
+				  dualMembershipModel.getConstrByName("V_" + std::to_string(v)).get(GRB_DoubleAttr_Pi);
 		  }
 		  support.print("MNE Support: ");
-		  if (support.max() == 1)
+		  if (support.max() == 1) {
 			 this->Players.at(player)->Pure = true;
+		  }
 		  return true;
+		} else {
+		  // Get the Farkas' in the form of the unbounded ray of the dual of the
+		  // dualMembershipLP (the primal)
+		  LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+						  << ") The point is NOT a convex combination of known points! Found "
+						  << dualMembershipModel.get(GRB_IntAttr_SolCount) << " solutions.";
+		  for (int z = 0; z < dualMembershipModel.get(GRB_IntAttr_SolCount); ++z) {
+			 dualMembershipModel.set(GRB_IntParam_SolutionNumber, z);
+			 arma::vec cutLHS;
+			 cutLHS.zeros(xOfI.size());
+
+			 for (unsigned int i = 0; i < xOfI.size(); i++)
+				cutLHS.at(i) =
+					 dualMembershipModel.getVarByName("y_" + std::to_string(i)).get(GRB_DoubleAttr_X);
+			 cutLHS.print("Separating hyperplane: ");
+
+
+			 // Optimize the resulting inequality over the original feasible set
+			 xMinusI.print("xMinusI");
+			 std::unique_ptr<GRBModel> leaderModel = std::unique_ptr<GRBModel>(
+				  this->IPG->PlayersIP.at(player)->getIPModel(xMinusI, false));
+			 GRBLinExpr expr = 0;
+			 for (unsigned int i = 0; i < xOfI.size(); ++i)
+				expr += cutLHS.at(i) * leaderModel->getVarByName("y_" + std::to_string(i));
+
+			 leaderModel->setObjective(expr, GRB_MAXIMIZE);
+			 leaderModel->update();
+			 leaderModel->write("dat/LeaderModel" + std::to_string(player) + ".lp");
+			 leaderModel->optimize();
+			 status = leaderModel->get(GRB_IntAttr_Status);
+
+			 if (status == GRB_OPTIMAL ||
+				  (status == GRB_SUBOPTIMAL && leaderModel->get(GRB_IntAttr_SolCount) > 0)) {
+				double cutV = leaderModel->getObjective().getValue();
+				LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+								<< ") LeaderModel status = " << std::to_string(status)
+								<< " with objective=" << cutV;
+				arma::vec val  = cutLHS.t() * xOfI; // c^T xOfI
+				arma::vec val2 = cutLHS.t() * this->Players.at(player)->V.row(0).t();
+				LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+								<< ")  c^Tv=" << cutV << " -- c^TxOfI=" << val.at(0)
+								<< " -- c^TV(0)=" << val2.at(0);
+				if (cutV - val.at(0) < -this->Tolerance) {
+				  // False, but we have a cut :-)
+				  // Ciao Moni
+				  cutV = cutV;
+
+				  cutLHS.print("LHS and " + std::to_string(cutV));
+				  if (std::max(cutLHS.max(), cutV) - std::min(cutLHS.min(), cutV) > 1e5) {
+					 Utils::normalizeIneq(cutLHS, cutV);
+					 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+									 << ") normalizing cut";
+				  }
+
+				  if (!this->IPG->PlayersIP.at(player)->addConstraint(
+							 cutLHS, cutV, true, this->Tolerance)) {
+					 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+									 << ") cut already added";
+					 break;
+
+				  } else {
+					 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+									 << ") adding cut";
+					 return false;
+				  }
+				} else {
+				  // We found a new vertex
+				  arma::vec v;
+				  v.zeros(this->Players.at(player)->V.n_cols);
+				  for (unsigned int i = 0; i < v.size(); ++i)
+					 v[i] = leaderModel->getVarByName("y_" + std::to_string(i)).get(GRB_DoubleAttr_X);
+
+
+				  v.print("Vertex found: ");
+				  std::cout << "Objective: " << leaderModel->getObjective();
+				  if (Utils::containsRow(this->Players.at(player)->V, v, this->Tolerance)) {
+					 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+									 << ") duplicate vertex";
+					 break;
+				  } else {
+					 this->Players.at(player)->addVertex(v);
+					 v.print("\nVertex");
+					 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+									 << ") adding vertex for Player. " << (iterations - k - 1)
+									 << " iterations left";
+					 break;
+				  }
+				}
+
+			 } // status optimal for leaderModel
+			 else if (status == GRB_UNBOUNDED) {
+				// Check for a new ray
+				cutLHS = Utils::normalizeVec(cutLHS);
+				if (!Utils::containsRow(this->Players.at(player)->R, cutLHS, this->Tolerance)) {
+				  LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+								  << ") new ray";
+				  this->Players.at(player)->addRay(cutLHS);
+				  break;
+				} else {
+				  LOG_S(WARNING) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+									  << ") duplicate ray ";
+				  break;
+				}
+
+			 } // status unbounded for leaderModel
+
+			 else {
+				throw ZEROException(ZEROErrorCode::Assertion,
+										  "Unknown status for leaderModel for player " +
+												std::to_string(player));
+			 }
+
+		  } // end for
+		  // no separation
 		}
-	 }
-
-	 // Else, the status should be OPTIMAL but without the objective of zero
-	 if (status == GRB_OPTIMAL) {
-		// Get the Farkas' in the form of the unbounded ray of the dual of the
-		// dualMembershipLP (the primal)
-		LOG_S(INFO) << "Algorithms::IPG::Oracle::membershipSeparation: "
-							"The point is NOT a convex combination of known points! Found "
-						<< convexModel.get(GRB_IntAttr_SolCount) << " solutions. Player " << player;
-		for (int z = 0; z < convexModel.get(GRB_IntAttr_SolCount); ++z) {
-		  convexModel.set(GRB_IntParam_SolutionNumber, z);
-		  arma::vec cutLHS;
-		  cutLHS.zeros(xOfI.size());
-
-		  for (unsigned int i = 0; i < xOfI.size(); i++)
-			 cutLHS.at(i) = convexModel.getVarByName("y_" + std::to_string(i)).get(GRB_DoubleAttr_X);
-		  cutLHS.print("Separating hyperplane: ");
-
-		  if (cutLHS.max() == 0) {
-			 this->Players.at(player)->V.save("dat/V.csv", arma::file_type::csv_ascii);
-			 xOfI.save("dat/XofI.csv", arma::file_type::csv_ascii);
-		  }
-		  // Optimize the resulting inequality over the original feasible set
-		  std::unique_ptr<GRBModel> leaderModel =
-				std::unique_ptr<GRBModel>(this->IPG->PlayersIP.at(player)->getIPModel(xMinusI, false));
-		  GRBLinExpr expr = 0;
-		  for (unsigned int i = 0; i < xOfI.size(); ++i)
-			 expr += cutLHS.at(i) * leaderModel->getVarByName("y_" + std::to_string(i));
-
-		  leaderModel->setObjective(expr, GRB_MAXIMIZE);
-		  leaderModel->update();
-		  leaderModel->write("dat/LeaderModel" + std::to_string(player) + ".lp");
-		  try {
-			 // leaderModel->set(GRB_DoubleAttr_MIPGap, this->Tolerance);
-		  } catch (GRBException e) {
-			 throw ZEROException(e);
-		  }
-		  leaderModel->optimize();
-		  status = leaderModel->get(GRB_IntAttr_Status);
-
-		  if (status == GRB_OPTIMAL) {
-			 double cutV = leaderModel->getObjective().getValue();
-			 LOG_S(1) << "Algorithms::IPG::Oracle::membershipSeparation: "
-							 "LeaderModel status = "
-						 << std::to_string(status) << " with objective=" << cutV << " for Player "
-						 << player;
-			 arma::vec val  = cutLHS.t() * xOfI; // c^T xOfI
-			 arma::vec val2 = cutLHS.t() * this->Players.at(player)->V.row(0).t();
-			 LOG_S(1) << "Algorithms::IPG::Oracle::membershipSeparation: c^Tv=" << cutV
-						 << " -- c^TxOfI=" << val.at(0) << " -- c^TV(0)=" << val2.at(0);
-			 if (cutV - val.at(0) < -this->Tolerance) {
-				// False, but we have a cut :-)
-				// Ciao Moni
-				cutV              = cutV;
-				arma::sp_mat cutL = arma::sp_mat{cutLHS}.t();
-
-				if (!this->IPG->PlayersIP.at(player)->addConstraint(
-						  cutLHS, cutV, true, this->Tolerance)) {
-				  LOG_S(INFO) << "Algorithms::IPG::Oracle::membershipSeparation: "
-									  "cut already added for Player "
-								  << player;
-				  break;
-
-				} else {
-				  LOG_S(INFO) << "Algorithms::IPG::Oracle::membershipSeparation: "
-									  "adding cut for Player "
-								  << player;
-				  return false;
-				}
-			 } else {
-				// We found a new vertex
-				arma::vec v;
-				v.zeros(this->Players.at(player)->V.n_cols);
-				for (unsigned int i = 0; i < v.size(); ++i)
-				  v[i] = leaderModel->getVarByName("y_" + std::to_string(i)).get(GRB_DoubleAttr_X);
-
-				if (v.max() == v.min() && v.min() == 0) {
-				  LOG_S(WARNING) << "Algorithms::IPG::Oracle::membershipSeparation: "
-										  "The origin! Feasible point"
-									  << player;
-				  return true;
-				}
-
-
-				v.print("Vertex found: ");
-				std::cout << "Objective: " << leaderModel->getObjective();
-				if (Utils::containsRow(this->Players.at(player)->V, v, this->Tolerance)) {
-				  LOG_S(WARNING) << "Algorithms::IPG::Oracle::membershipSeparation: "
-										  "duplicate vertex for  player "
-									  << player;
-				  //@todo
-				  break;
-				  // throw;
-				} else {
-				  this->Players.at(player)->addVertex(v);
-				  v.print("Vertex");
-				  LOG_S(INFO) << "Algorithms::IPG::Oracle::membershipSeparation: "
-									  "adding vertex for Player. ";
-				  break;
-				}
-			 }
-
-		  } // status optimal for leaderModel
-		  else if (status == GRB_UNBOUNDED) {
-			 // Check for a new ray
-			 if (!Utils::containsRow(this->Players.at(player)->R, cutLHS, this->Tolerance)) {
-				LOG_S(WARNING) << "Algorithms::IPG::Oracle::membershipSeparation: "
-										"new ray for  player "
-									<< player;
-				this->Players.at(player)->addRay(cutLHS);
-				break;
-			 } else {
-				LOG_S(WARNING) << "Algorithms::IPG::Oracle::membershipSeparation: "
-										"duplicate ray for player "
-									<< player;
-				break;
-			 }
-
-		  } // status unbounded for leaderModel
-
-		  else {
-			 throw ZEROException(ZEROErrorCode::Assertion,
-										"Unknown status for leaderModel for player " +
-											 std::to_string(player));
-		  }
-
-		  // GRBModel relaxed = leaderModel->relax();
-		  // this->Players.at(player)->updateIPModel(std::move(std::unique_ptr<GRBModel>(&relaxed)));
-		} // end for
-		// no separation
 	 } else {
 		throw ZEROException(ZEROErrorCode::Assertion,
-								  "Unknown status for convexModel for player " + std::to_string(player));
+								  "Unknown status for dualMembershipModel for player " +
+										std::to_string(player));
 	 }
   }
   return false;
 }
 
 void Algorithms::IPG::Oracle::updateMembership(const unsigned int &player,
-															  const arma::vec &   vertex,
-															  bool                normalization) {
+															  const arma::vec &   vertex) {
   /**
 	* @brief Updates the membership LP in the Player vector for the @p player, the point @p
-	* xOfI, and
-	* @p normalization
-	*/
+	* xOfI
+	**/
   MathOpt::getDualMembershipLP(this->Players.at(player)->MembershipLP,
 										 this->Players.at(player)->VertexCounter,
 										 this->Players.at(player)->V,
@@ -522,7 +510,7 @@ bool Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
   bool      eq = false;
 
 
-  auto LCPSolver = LCP->solve(Data::LCP::Algorithms::PATH, x, z, localTimeLimit, 1,1);
+  auto LCPSolver = LCP->solve(Data::LCP::Algorithms::MIP, x, z, localTimeLimit, 1, 1);
   if (LCPSolver == ZEROStatus::NashEqFound) {
 	 LOG_S(INFO) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
@@ -546,8 +534,8 @@ bool Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
 
 void Algorithms::IPG::Oracle::initialize() {
   /**
-	* @brief This method initializes some fields for the algorithm. Also, it warm starts the initial
-	* strategies to pure best reponses.
+	* @brief This method initializes some fields for the algorithm. Also, it warm starts the
+	* initial strategies to pure best reponses.
 	*/
   if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0)
 	 this->IPG->InitTime = std::chrono::high_resolution_clock::now();
@@ -579,47 +567,50 @@ void Algorithms::IPG::Oracle::initialize() {
 		this->IPG->Stats.Status.set(ZEROStatus::NashEqNotFound);
 		this->Infeasible = true;
 		return;
-	 } else {
-		// Model is not infeasible. We can have either a ray or a vertex
-		if (status == GRB_OPTIMAL) {
-		  // We have a vertex
-		  for (unsigned int k = 0; k < Ny; ++k)
-			 this->Players.at(i)->Incumbent.at(k) =
-				  PureIP->getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_X);
-		  // This is also a f
+	 } /** else {
+		 // Model is not infeasible. We can have either a ray or a vertex
+		 if (status == GRB_OPTIMAL) {
+			// We have a vertex
+			for (unsigned int k = 0; k < Ny; ++k)
+			  this->Players.at(i)->Incumbent.at(k) =
+					PureIP->getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_X);
+			// This is also a f
 
-		  if (this->Players.at(i)->addVertex(this->Players.at(i)->Incumbent, true))
-			 LOG_S(1) << "Algorithms::IPG::Oracle::initialize(): "
-							 "Added vertex for player "
-						 << i;
-		}
+			this->Players.at(i)->Incumbent.print("incumbent added");
+			if (this->Players.at(i)->addVertex(this->Players.at(i)->Incumbent, true))
+			  LOG_S(1) << "Algorithms::IPG::Oracle::initialize(): "
+							  "Added vertex for player "
+						  << i;
+		 }
 
-		else if (status == GRB_UNBOUNDED) {
-		  GRBModel relaxed = PureIP->relax();
-		  relaxed.set(GRB_IntParam_InfUnbdInfo, 1);
-		  relaxed.set(GRB_IntParam_DualReductions, 0);
-		  relaxed.optimize();
-		  arma::vec ray;
-		  for (unsigned int k = 0; k < Ny; ++k) {
-			 ray.at(k) = relaxed.getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_UnbdRay);
-			 // This is also a free ray
-			 if (this->Players.at(i)->addRay(ray, true))
-				LOG_S(1) << "Algorithms::IPG::Oracle::initialize(): "
-								"Added ray for player "
-							<< i;
-		  }
-		}
-		// Give the new IP
-		// this->Players.at(i)->updateIPModel(
-		//	 std::move(std::unique_ptr<GRBModel>(new GRBModel(PureIP->relax()))));
-	 }
+		 else if (status == GRB_UNBOUNDED) {
+			GRBModel relaxed = PureIP->relax();
+			relaxed.set(GRB_IntParam_InfUnbdInfo, 1);
+			relaxed.set(GRB_IntParam_DualReductions, 0);
+			relaxed.optimize();
+			arma::vec ray;
+			for (unsigned int k = 0; k < Ny; ++k) {
+			  ray.at(k) = relaxed.getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_UnbdRay);
+			  // This is also a free ray
+			  if (this->Players.at(i)->addRay(ray, true))
+				 LOG_S(1) << "Algorithms::IPG::Oracle::initialize(): "
+								 "Added ray for player "
+							 << i;
+			}
+		 }
+		 // Give the new IP
+		 // this->Players.at(i)->updateIPModel(
+		 //	 std::move(std::unique_ptr<GRBModel>(new GRBModel(PureIP->relax()))));
+	  }
+	  **/
   }
 }
 
 
 arma::vec Algorithms::IPG::Oracle::buildXminusI(const unsigned int i) {
   /**
-	* @brief Given the player id @p i, builds the vector x^{-i} from the current working strategies.
+	* @brief Given the player id @p i, builds the vector x^{-i} from the current working
+	* strategies.
 	*/
   arma::vec xMinusI;
   xMinusI.zeros(this->IPG->NumVariables - this->IPG->PlayerVariables.at(i));
