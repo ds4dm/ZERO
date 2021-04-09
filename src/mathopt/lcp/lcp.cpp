@@ -187,8 +187,7 @@ void MathOpt::LCP::makeRelaxed() {
   try {
 	 if (this->MadeRlxdModel)
 		return;
-	 LOG_S(1) << "MathOpt::LCP::makeRelaxed: Creating a model with : " << nR << " variables and  "
-				 << nC << " constraints";
+	 LOG_S(1) << "MathOpt::LCP::makeRelaxed: Creating the relaxed model";
 	 GRBVar x[nC], z[nR];
 	 LOG_S(1) << "MathOpt::LCP::makeRelaxed: Initializing variables";
 	 for (unsigned int i = 0; i < nC; i++)
@@ -689,6 +688,8 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 		this->PureMIP = true;
 	 auto Model = this->LCPasMIP(false, timeLimit, MIPWorkers, solLimit);
 	 Model->optimize();
+    Model->write("dat/TheLCP.mps");
+	 Model->write("dat/TheLCP.lp");
 
 	 if (this->extractSols(Model.get(), zSol, xSol, true)) {
 		return ZEROStatus::NashEqFound;
@@ -722,12 +723,13 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP(bool indicators) {
 	 for (unsigned int i = 0; i < nR; i++)
 		z[i] = model->getVarByName("z_" + std::to_string(i));
 
-	 // Define binary variables for the two cases (x=0 or z=0)
-	 for (unsigned int i = 0; i < this->Compl.size(); i++)
-		u[i] = model->addVar(0, 1, 0, GRB_BINARY, "u_" + std::to_string(i));
-	 for (unsigned int i = 0; i < this->Compl.size(); i++)
-		v[i] = model->addVar(0, 1, 0, GRB_BINARY, "v_" + std::to_string(i));
-
+    if (indicators) {
+		// Define binary variables for the two cases (x=0 or z=0)
+		for (unsigned int i = 0; i < this->Compl.size(); i++)
+		  u[i] = model->addVar(0, 1, 0, GRB_BINARY, "u_" + std::to_string(i));
+		for (unsigned int i = 0; i < this->Compl.size(); i++)
+		  v[i] = model->addVar(0, 1, 0, GRB_BINARY, "v_" + std::to_string(i));
+	 }
 
 	 GRBLinExpr   expr    = 0;
 	 unsigned int counter = 0;
