@@ -203,8 +203,14 @@ namespace Algorithms::EPEC {
 		int  deviationBranching(unsigned int player, const OuterTree::Node *node);
 		std::unique_ptr<GRBModel> getFeasQP(unsigned int player, arma::vec x);
 		void                      addValueCut(unsigned int player, double RHS, arma::vec xMinusI);
-		bool                      separationOracle(
+		bool                      equilibriumOracle(
 										 arma::vec &xOfI, arma::vec &x, unsigned int player, int budget, bool &addedCuts);
 		int rationalBranching(const unsigned int player, OuterTree::Node *node);
+		bool isFeasiblePure(const unsigned int player, const arma::vec x);
+		void      computeExplicitSupport(const arma::vec v,
+													const arma::vec r,
+													const arma::vec x,
+													arma::sp_mat *  support,
+													arma::vec *     coeff);
 	 };
   } // namespace Algorithms
