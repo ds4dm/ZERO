@@ -1147,6 +1147,7 @@ void Models::EPEC::EPEC::readSolutionJSON(const std::string filename) {
   /**
 	* @brief Reads the solution file and load it in the current EPEC instance
 	* **/
+
   std::ifstream ifs(filename + ".json");
   if (ifs.good()) {
 	 rapidjson::IStreamWrapper isw(ifs);
@@ -1308,6 +1309,7 @@ void Models::EPEC::EPECInstance::save(std::string filename) {
   }
   writer.EndArray();
   writer.EndObject();
+  remove( filename.c_str() );
   std::ofstream file(filename + ".json");
   file << s.GetString();
   file.close();

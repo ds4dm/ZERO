@@ -12,13 +12,12 @@
 
 
 #include "interfaces/ipg_models.h"
-#include <armadillo>
 #include <boost/log/trivial.hpp>
 #include <gurobi_c++.h>
-#include <iomanip>
 #include <iostream>
 #include <map>
 #include <memory>
+#include <stdio.h>
 #include <rapidjson/document.h>
 #include <rapidjson/istreamwrapper.h>
 #include <rapidjson/prettywriter.h>
@@ -113,6 +112,7 @@ void Models::IPG::IPGInstance::save(std::string filename) {
   writer.EndArray();
   writer.EndObject();
   writer.EndObject();
+  remove( filename.c_str() );
   std::ofstream file(filename + ".json");
   file << s.GetString();
   file.close();
@@ -168,6 +168,7 @@ void Models::IPG::IPGInstance::load(std::string filename) {
 void Models::IPG::IPGInstance::addIPParam(const MathOpt::IP_Param &ip, const std::string filename) {
 
   try {
+    remove( filename.c_str() );
 	 std::ifstream ifs(filename);
 	 if (!ifs.good())
 		ip.save(filename, 0);
