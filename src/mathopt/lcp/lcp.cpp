@@ -688,8 +688,6 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 		this->PureMIP = true;
 	 auto Model = this->LCPasMIP(false, timeLimit, MIPWorkers, solLimit);
 	 Model->optimize();
-    Model->write("dat/TheLCP.mps");
-	 Model->write("dat/TheLCP.lp");
 
 	 if (this->extractSols(Model.get(), zSol, xSol, true)) {
 		return ZEROStatus::NashEqFound;
