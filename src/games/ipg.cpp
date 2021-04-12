@@ -112,8 +112,7 @@ const void Game::IPG::findNashEq() {
   }
   const std::chrono::duration<double> timeElapsed =
 		std::chrono::high_resolution_clock::now() - this->InitTime;
-  this->Stats.WallClockTime.set(timeElapsed.count() * std::chrono::milliseconds::period::num /
-										  std::chrono::milliseconds::period::den);
+  this->Stats.WallClockTime.set(timeElapsed.count());
 }
 
 bool Game::IPG::isPureStrategy(double tol) const { return this->Algorithm->isPureStrategy(); }
