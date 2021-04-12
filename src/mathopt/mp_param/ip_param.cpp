@@ -55,9 +55,10 @@ bool MathOpt::IP_Param::operator==(const IP_Param &IPG2) const {
 MathOpt::IP_Param &MathOpt::IP_Param::setBounds(const VariableBounds &boundIn) {
   MathOpt::MP_Param::setBounds(boundIn);
   for (unsigned int i = 0; i < this->Ny; i++) {
-	 auto var =  this->IPModel.getVarByName("y_"+std::to_string(i));
-	 var.set(GRB_DoubleAttr_LB,this->Bounds.at(i).first > 0 ? this->Bounds.at(i).first : 0);
-    var.set(GRB_DoubleAttr_UB,this->Bounds.at(i).second > 0 ? this->Bounds.at(i).second : GRB_INFINITY);
+	 auto var = this->IPModel.getVarByName("y_" + std::to_string(i));
+	 var.set(GRB_DoubleAttr_LB, this->Bounds.at(i).first > 0 ? this->Bounds.at(i).first : 0);
+	 var.set(GRB_DoubleAttr_UB,
+				this->Bounds.at(i).second > 0 ? this->Bounds.at(i).second : GRB_INFINITY);
   }
   this->IPModel.update();
   return *this;
@@ -76,7 +77,7 @@ bool MathOpt::IP_Param::finalize() {
   try {
 	 GRBVar y[this->Ny];
 	 for (unsigned int i = 0; i < this->Ny; i++) {
-	   y[i] = this->IPModel.addVar(Bounds.at(i).first > 0 ? Bounds.at(i).first : 0,
+		y[i] = this->IPModel.addVar(Bounds.at(i).first > 0 ? Bounds.at(i).first : 0,
 											 Bounds.at(i).second > 0 ? Bounds.at(i).second : GRB_INFINITY,
 											 c.at(i),
 											 GRB_CONTINUOUS,
@@ -85,14 +86,17 @@ bool MathOpt::IP_Param::finalize() {
 	 // Add integralities
 	 for (unsigned int i = 0; i < this->Integers.size(); ++i) {
 		y[static_cast<int>(Integers.at(i))].set(GRB_CharAttr_VType, 'I');
-		//Unfortunately, we need to reset the bounds for these variables
-		  auto var =  y[static_cast <int>(Integers.at(i))];
-		  std::cout <<"second bound on "<< Integers.at(i)<<" is" <<Bounds.at(Integers.at(i)).second << "\n";
-	   var.set(GRB_DoubleAttr_LB,this->Bounds.at(Integers.at(i)).first > 0 ? this->Bounds.at(Integers.at(i)).first : 0);
-		  var.set(GRB_DoubleAttr_UB,this->Bounds.at(Integers.at(i)).second > 0 ? this->Bounds.at(Integers.at(i)).second : GRB_INFINITY);
+		// Unfortunately, we need to reset the bounds for these variables
+		auto var = y[static_cast<int>(Integers.at(i))];
+		var.set(GRB_DoubleAttr_LB,
+				  this->Bounds.at(Integers.at(i)).first > 0 ? this->Bounds.at(Integers.at(i)).first
+																		  : 0);
+		var.set(GRB_DoubleAttr_UB,
+				  this->Bounds.at(Integers.at(i)).second > 0 ? this->Bounds.at(Integers.at(i)).second
+																			: GRB_INFINITY);
 	 }
 
-    Utils::addSparseConstraints(B, b, y,"Constr_", &this->IPModel, GRB_LESS_EQUAL, nullptr);
+	 Utils::addSparseConstraints(B, b, y, "Constr_", &this->IPModel, GRB_LESS_EQUAL, nullptr);
 
 	 this->IPModel.update();
 	 this->IPModel.set(GRB_IntParam_OutputFlag, 1);
@@ -338,41 +342,35 @@ bool MathOpt::IP_Param::isFeasible(const arma::vec &y, const arma::vec &x, doubl
  * constraint has been added This works also when the IP_Param is Finalized.
  * @param Ain The vector of LHS
  * @param bin The RHS value
- * @param checkDuplicate True if the method should check for duplicate constraints
- * @param tol A numerical tolerance for duplicates
  * @return True if the constraint is added
  */
-bool MathOpt::IP_Param::addConstraint(arma::vec Ain, double bin, bool checkDuplicate, double tol) {
+bool MathOpt::IP_Param::addConstraints(arma::sp_mat Ain, arma::vec bin) {
 
 
-  if (this->B.n_cols != Ain.size())
+  if (this->B.n_cols != Ain.n_cols) {
 	 throw ZEROException(ZEROErrorCode::Assertion,
 								"Mismatch between the variables of the input "
 								"constraints and the stored ones");
+  }
 
-  bool go{true};
-  if (checkDuplicate)
-	 go = Utils::containsConstraint(this->B, this->b, Ain, bin, tol);
+  this->B = arma::join_cols(this->B, Ain);
+  this->b = arma::join_cols(this->b, bin);
+  this->A = Utils::resizePatch(this->A, this->B.n_rows, this->Nx);
+  this->size();
 
-
-  if (!go) {
-	 this->B = arma::join_cols(this->B, arma::sp_mat{Ain.t()});
-	 this->b = arma::join_cols(this->b, arma::vec{bin});
-	 this->A = Utils::resizePatch(this->A, this->B.n_rows, this->Nx);
-	 this->size();
-
-	 // If model hasn't been made, we do not need to update it
-	 if (this->Finalized) {
-		GRBLinExpr LHS{0};
-		for (auto j = 0; j < Ain.size(); ++j)
-		  LHS += Ain.at(j) * this->IPModel.getVarByName("y_" + std::to_string(j));
-		this->IPModel.addConstr(LHS, GRB_LESS_EQUAL, bin);
-		this->IPModel.update();
+  // If model hasn't been made, we do not need to update it
+  if (this->Finalized) {
+	 GRBVar y[Ny];
+	 for (unsigned int i = 0; i < this->Ny; i++) {
+		y[i] = this->IPModel.getVarByName("y_" + std::to_string(i));
 	 }
-	 return true;
-  } else
-	 return false;
+
+	 Utils::addSparseConstraints(Ain, bin, y, "ConstrAdd_", &this->IPModel, GRB_LESS_EQUAL, nullptr);
+	 this->IPModel.update();
+  }
+  return true;
 }
+
 
 /**
  * @brief  Writes the KKT condition of the relaxation of the parameterized IP
@@ -435,14 +433,12 @@ long int MathOpt::IP_Param::load(const std::string &filename, long int pos) {
   pos = Utils::appendRead(_integers, filename, pos, std::string("IP_Param::Integers"));
   pos = Utils::appendRead(BO, filename, pos, std::string("IP_Param::Bounds"));
   VariableBounds Bond;
-  BO.print_dense("BPO");
   if (BO.n_rows > 0) {
 	 if (BO.n_cols != 2)
 		throw ZEROException(ZEROErrorCode::IOError, "Invalid bounds object in loaded file");
 
 	 for (unsigned int i = 0; i < _B.n_cols; ++i)
-		Bond.push_back(
-			 {BO.at(i, 0) > 0 ? BO.at(i, 0) : 0, BO.at(i, 1) > 0 ? BO.at(i, 1) : -1});
+		Bond.push_back({BO.at(i, 0) > 0 ? BO.at(i, 0) : 0, BO.at(i, 1) > 0 ? BO.at(i, 1) : -1});
 
 	 int diff = _B.n_cols - BO.n_rows;
 	 for (unsigned int i = 0; i < diff; ++i)

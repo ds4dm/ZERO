@@ -79,10 +79,6 @@ namespace Algorithms {
 	 class Oracle : public Algorithm {
 	 private:
 		std::vector<std::unique_ptr<IPG_Player>> Players; ///< The support structures
-		bool                                     addConstraintsToPool(const arma::sp_mat A,
-																						  const arma::vec    b,
-																						  const unsigned int player,
-																						  bool               check = true);
 		void                                     initialize();
 		arma::vec                                buildXminusI(const unsigned int i);
 		bool addValueCut(unsigned int player, double RHS, arma::vec xMinusI, bool check = true);

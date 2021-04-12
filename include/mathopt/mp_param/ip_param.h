@@ -75,7 +75,7 @@ namespace MathOpt {
 
     IP_Param &setBounds(const VariableBounds &boundIn) ;
 
-	 bool addConstraint(arma::vec Ain, double bin, bool checkDuplicate = true, double tol = 1e-5);
+	 bool addConstraints(arma::sp_mat Ain, arma::vec bin);
 
 	 /**
 	  * @brief A copy constructor from anoter IP_Param
