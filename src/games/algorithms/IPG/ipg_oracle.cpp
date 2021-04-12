@@ -510,7 +510,7 @@ bool Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
 	 LOG_S(INFO) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
 		this->Players.at(i)->Incumbent = x.subvec(Nash.getPrimalLoc(i), Nash.getPrimalLoc(i + 1) - 1);
-		this->Players.at(i)->Incumbent.print("Incumbent of " + std::to_string(i));
+		//this->Players.at(i)->Incumbent.print("Incumbent of " + std::to_string(i));
 		this->Players.at(i)->Feasible = false;
 		this->Players.at(i)->Pure     = false;
 	 }
@@ -539,6 +539,7 @@ void Algorithms::IPG::Oracle::initialize() {
   this->Players = std::vector<std::unique_ptr<IPG_Player>>(this->IPG->NumPlayers);
   // Initialize the working objects
   for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
+    this->IPG->PlayersIP.at(i)->presolve();
 	 std::unique_ptr<GRBModel> Membership = std::unique_ptr<GRBModel>(new GRBModel(*this->Env));
 	 this->Players.at(i)                  = std::unique_ptr<IPG_Player>(
         new IPG_Player(this->IPG->PlayersIP.at(i)->getNy(), this->Tolerance));
