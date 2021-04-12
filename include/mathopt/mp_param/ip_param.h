@@ -121,5 +121,6 @@ namespace MathOpt {
 
 
 	 bool isFeasible(const arma::vec &y, const arma::vec &x, double tol) const override;
+	 void presolve();
   };
 } // namespace MathOpt
