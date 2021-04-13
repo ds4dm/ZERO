@@ -5,7 +5,7 @@
 set(CONAN_GIT
     "https://raw.githubusercontent.com/conan-io/cmake-conan/develop/conan.cmake"
 )
-set(CONAN_SHA1 "24764ed64072b14baee60d764c69e755bd731cdc")
+set(CONAN_SHA1 "ff84bf2d1b5e469edc09cabefcd83531bb50bf29")
 if(NOT (EXISTS "${CMAKE_BINARY_DIR}/conan.cmake"))
   set(CONAN_DOWNLOAD True)
 else()
