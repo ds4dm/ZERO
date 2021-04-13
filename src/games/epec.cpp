@@ -197,13 +197,13 @@ std::unique_ptr<GRBModel> Game::EPEC::respond(const unsigned int i, const arma::
   arma::vec solOther;
   this->getXMinusI(x, i, solOther);
   if (this->LeaderObjective.at(i)->Q.n_nonzero > 0)
-	 return this->PlayersLCP.at(i).get()->MPECasMIQP(this->LeaderObjective.at(i)->Q,
-																	 this->LeaderObjective.at(i)->C,
-																	 this->LeaderObjective.at(i)->c,
-																	 solOther,
-																	 true);
+	 return this->PlayersLCP.at(i).get()->LCPasMIQP(this->LeaderObjective.at(i)->Q,
+																	this->LeaderObjective.at(i)->C,
+																	this->LeaderObjective.at(i)->c,
+																	solOther,
+																	true);
   else
-	 return this->PlayersLCP.at(i).get()->MPECasMILP(
+	 return this->PlayersLCP.at(i).get()->LCPasMILP(
 		  this->LeaderObjective.at(i)->C, this->LeaderObjective.at(i)->c, solOther, true);
 }
 
