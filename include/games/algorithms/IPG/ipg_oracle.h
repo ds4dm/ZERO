@@ -78,6 +78,9 @@ namespace Algorithms {
 	 ///@brief This class is responsible for the Oracle algorithm for IPG.
 	 class Oracle : public Algorithm {
 	 private:
+
+	   arma::sp_mat LCP_Q; ///< Quadratic matrix for the LCP objective
+	   arma::vec LCP_c; ///< Linear vector for the LCP objective
 		std::vector<std::unique_ptr<IPG_Player>> Players; ///< The support structures
 		void                                     initialize();
 		arma::vec                                buildXminusI(const unsigned int i);
@@ -91,6 +94,8 @@ namespace Algorithms {
 										  const arma::vec &  xOfI,
 										  const arma::vec &  xMinusI);
 		bool checkTime(double &remaining) const;
+
+	   void initLCPObjective();
 
 	 public:
 		friend class Game::IPG;

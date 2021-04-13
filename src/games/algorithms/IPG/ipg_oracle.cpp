@@ -126,6 +126,39 @@ bool Algorithms::IPG::Oracle::checkTime(double &remaining) const {
   }
 }
 
+void Algorithms::IPG::Oracle::initLCPObjective() {
+
+  this->LCP_Q.zeros(this->IPG->NumVariables, this->IPG->NumVariables);
+  this->LCP_c.zeros(this->IPG->NumVariables);
+
+  unsigned int varCounter = 0;
+  for (unsigned int p = 0; p < this->IPG->NumPlayers; ++p) {
+	 // Fill the c vector
+	 unsigned int playerVars = this->IPG->PlayerVariables.at(p);
+	 // this->IPG->PlayersIP.at(p)->getc().print("c of" + std::to_string(p));
+	 this->LCP_c.subvec(varCounter, varCounter + playerVars - 1) =
+		  this->IPG->PlayersIP.at(p)->getc();
+
+
+	 unsigned int otherVarsCounter = 0;
+	 for (unsigned int o = 0; o < this->IPG->NumPlayers; ++o) {
+		if (p != o) {
+		  unsigned int startCol = std::accumulate(
+				this->IPG->PlayerVariables.begin(), this->IPG->PlayerVariables.begin() + o, 0);
+		  unsigned int otherVars = this->IPG->PlayerVariables.at(o);
+		  this->LCP_Q.submat(
+				varCounter, startCol, varCounter + playerVars - 1, startCol + otherVars - 1) =
+				this->IPG->PlayersIP.at(p)->getC().submat(
+					 0, otherVarsCounter, playerVars - 1, otherVarsCounter + otherVars - 1);
+		  otherVarsCounter += otherVars;
+		}
+	 }
+	 varCounter += playerVars;
+  }
+
+  // this->LCP_c.print("This is LCP_c");
+  // this->LCP_Q.print_dense("This is LCP_Q");
+}
 
 void Algorithms::IPG::Oracle::solve() {
   /**
@@ -134,6 +167,7 @@ void Algorithms::IPG::Oracle::solve() {
 
 
   this->initialize();
+  this->initLCPObjective();
   if (this->Infeasible) {
 	 this->IPG->Stats.Status.set(ZEROStatus::NashEqNotFound);
 	 LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: A Nash Equilibrium has not been "
@@ -175,11 +209,13 @@ void Algorithms::IPG::Oracle::solve() {
   if (solved) {
 	 this->Solved = true;
 	 bool pure    = true;
-	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i)
+	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
+		this->IPG->Solution.at(i)=this->Players.at(i)->Incumbent;
 		if (!this->Players.at(i)->Pure) {
 		  pure = false;
 		  break;
 		}
+	 }
 	 this->Pure = pure;
 	 this->IPG->Stats.Status.set(ZEROStatus::NashEqFound);
 
@@ -498,16 +534,35 @@ bool Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
 	 MPCasted.push_back(m);
   }
   Game::NashGame Nash = Game::NashGame(this->Env, MPCasted, MC, MCRHS, 0, dumA, dumB);
-  LOG_S(1) << "@todo: NashGame is ready";
+  LOG_S(1) << "Algorithms::IPG::Oracle::equilibriumLCP: NashGame is ready";
   auto LCP = std::unique_ptr<MathOpt::LCP>(new MathOpt::LCP(this->Env, Nash));
 
   this->IPG->Stats.NumVar         = LCP->getNumCols();
   this->IPG->Stats.NumConstraints = LCP->getNumRows();
+
+  auto solver  = this->IPG->getStatistics().AlgorithmData.LCPSolver.get();
+  auto objtype = this->IPG->Stats.AlgorithmData.Objective.get();
+  if (solver == Data::LCP::Algorithms::PATH && objtype != Data::IPG::Objectives::Feasibility) {
+	 LOG_S(WARNING)
+		  << "Algorithms::IPG::Oracle::equilibriumLCP: Forcing feasibility objective for LCP "
+			  "Solver PATH (input type is unsupported)";
+  } else {
+	 switch (objtype) {
+	 case Data::IPG::Objectives::Linear: {
+		LCP->setMIPLinearObjective(this->LCP_c);
+	 } break;
+	 case Data::IPG::Objectives::Quadratic:
+		LCP->setMIPQuadraticObjective(this->LCP_c, this->LCP_Q);
+		break;
+	 default:
+		LCP->setMIPFeasibilityObjective();
+	 }
+  }
   arma::vec x, z;
 
-  auto LCPSolver = LCP->solve(Data::LCP::Algorithms::MIP, x, z, localTimeLimit, 1, 1);
+  auto LCPSolver = LCP->solve(solver, x, z, localTimeLimit, 1, 1);
   if (LCPSolver == ZEROStatus::NashEqFound) {
-	 LOG_S(INFO) << "Game::EPEC::computeNashEq: an Equilibrium has been found";
+	 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumLCP: an Equilibrium has been found";
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
 		this->Players.at(i)->Incumbent = x.subvec(Nash.getPrimalLoc(i), Nash.getPrimalLoc(i + 1) - 1);
 		//this->Players.at(i)->Incumbent.print("Incumbent of " + std::to_string(i));
@@ -523,7 +578,7 @@ bool Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
 	 return true;
 
   } else {
-	 LOG_S(INFO) << "Game::EPEC::computeNashEq: NO Equilibrium has been found";
+	 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumLCP: No Equilibrium has been found";
 	 return false;
   }
 }
@@ -539,7 +594,7 @@ void Algorithms::IPG::Oracle::initialize() {
   this->Players = std::vector<std::unique_ptr<IPG_Player>>(this->IPG->NumPlayers);
   // Initialize the working objects
   for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
-    this->IPG->PlayersIP.at(i)->presolve();
+	 this->IPG->PlayersIP.at(i)->presolve();
 	 std::unique_ptr<GRBModel> Membership = std::unique_ptr<GRBModel>(new GRBModel(*this->Env));
 	 this->Players.at(i)                  = std::unique_ptr<IPG_Player>(
         new IPG_Player(this->IPG->PlayersIP.at(i)->getNy(), this->Tolerance));
@@ -572,7 +627,6 @@ void Algorithms::IPG::Oracle::initialize() {
 				  PureIP->getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_X);
 		  // This is also a f
 
-		  this->Players.at(i)->Incumbent.print("incumbent added");
 		  if (this->Players.at(i)->addVertex(this->Players.at(i)->Incumbent, true))
 			 LOG_S(1) << "Algorithms::IPG::Oracle::initialize(): "
 							 "Added vertex for player "
