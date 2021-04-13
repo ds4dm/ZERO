@@ -413,7 +413,7 @@ void MathOpt::IP_Param::presolve() {
   p->setObjective(linObj);
   p->set(GRB_IntParam_Presolve, 2);
   p->set(GRB_IntParam_DualReductions, 0);
-  p->set(GRB_IntParam_OutputFlag, 1);
+  p->set(GRB_IntParam_OutputFlag, 0);
   auto presolved = p->presolve();
 
   unsigned int nvar    = presolved.get(GRB_IntAttr_NumVars);
