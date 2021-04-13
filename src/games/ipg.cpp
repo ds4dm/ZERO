@@ -32,6 +32,8 @@ Game::IPG::IPG(
   this->PlayersIP = players;
   this->finalize();
 }
+
+
 void Game::IPG::finalize() {
   /**
 	* @brief This methods finalizes the model by disabling any edits to the
@@ -126,3 +128,14 @@ std::string std::to_string(const Data::IPG::Algorithms al) {
   }
   return "";
 }
+std::string std::to_string(Data::IPG::Objectives ob) {
+  switch (ob) {
+  case Data::IPG::Objectives::Linear:
+	 return std::string("Linear");
+  case Data::IPG::Objectives::Quadratic:
+    return std::string("Quadratic");
+  default:
+    return std::string("Feasibility");
+  }
+}
+

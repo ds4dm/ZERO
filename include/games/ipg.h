@@ -26,17 +26,24 @@ namespace Data {
 	 enum class Algorithms {
 		Oracle ///< Solves the IPG via the separation oracle algorithm
 	 };
-	 enum class LCPAlgorithms {
-		PATH, ///< Solves the LCPs via PATH
-		MIP   ///< Solves the LCPs via a MIP solver
+	 enum class Objectives {
+		/**
+		 * @brief Objective types for the MIP reformulation of the LCPs
+		 */
+		Feasibility, ///< The LCP objective is feasibility
+		Quadratic,   ///< The LCP objective is the quadratic sum of the players objectives
+		Linear,      ///< The LCP objective is the linear sum of the players objectives
 	 };
 
 	 class DataObject : public ZEROAlgorithmData {
 	 public:
 		Attr<Data::IPG::Algorithms> Algorithm = {
-			 Data::IPG::Algorithms::Oracle}; ///< The selected algorithm
-		Attr<Data::IPG::LCPAlgorithms> LCPSolver = {Data::IPG::LCPAlgorithms::PATH};
-		DataObject(){};
+			 Data::IPG::Algorithms::Oracle};    ///< The selected algorithm
+		Attr<Data::LCP::Algorithms> LCPSolver; ///< The preferred LCP Solver
+		Attr<Data::IPG::Objectives> Objective = {
+			 Data::IPG::Objectives::Linear}; ///< The preferred objective type for the MIP LCP
+														///< reformulation
+		DataObject() : LCPSolver{static_cast<Data::LCP::Algorithms>(0)} {};
 	 };
   } // namespace IPG
 } // namespace Data
@@ -95,6 +102,13 @@ namespace Game {
 	 void setAlgorithm(Data::IPG::Algorithms algorithm) {
 		this->Stats.AlgorithmData.Algorithm = algorithm;
 	 };
+	 void setLCPAlgorithm(const Data::LCP::Algorithms algo) {
+		this->Stats.AlgorithmData.LCPSolver.set(algo);
+	 };
+
+	 void setGameObjective(const Data::IPG::Objectives obj) {
+		this->Stats.AlgorithmData.Objective.set(obj);
+	 }
   };
 
 
@@ -102,6 +116,7 @@ namespace Game {
 namespace std {
 
   string to_string(Data::IPG::Algorithms al);
+  string to_string(Data::IPG::Objectives ob);
 
 }; // namespace std
 
