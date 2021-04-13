@@ -202,7 +202,7 @@ void MathOpt::LCP::makeRelaxed() {
 
 	 LOG_S(1) << "MathOpt::LCP::makeRelaxed: Added variables";
 
-    Utils::addSparseConstraints(M, -q, x, "zdef", &RelaxedModel, GRB_EQUAL, z);
+	 Utils::addSparseConstraints(M, -q, x, "zdef", &RelaxedModel, GRB_EQUAL, z);
 
 	 LOG_S(1) << "MathOpt::LCP::makeRelaxed: Added equation definitions";
 	 // If @f$Ax \leq b@f$ constraints are there, they should be included too!
@@ -224,7 +224,8 @@ void MathOpt::LCP::makeRelaxed() {
 		  throw ZEROException(ZEROErrorCode::InvalidData, "Acut and bcut are incompatible");
 		}
 
-      Utils::addSparseConstraints(_Acut, _bcut, x, "commonCons", &RelaxedModel, GRB_LESS_EQUAL, nullptr);
+		Utils::addSparseConstraints(
+			 _Acut, _bcut, x, "commonCons", &RelaxedModel, GRB_LESS_EQUAL, nullptr);
 		LOG_S(1) << "MathOpt::LCP::makeRelaxed: Added cut constraints";
 	 }
 	 RelaxedModel.update();
@@ -260,13 +261,13 @@ std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(bool         solve,
   else
 	 model = this->getMINLP();
 
-  model->set(GRB_IntParam_OutputFlag, 1);
   if (timeLimit > 0)
 	 model->set(GRB_DoubleParam_TimeLimit, timeLimit);
   if (MIPWorkers > 1 && this->PureMIP)
 	 model->set(GRB_IntParam_ConcurrentMIP, MIPWorkers);
   model->set(GRB_IntParam_SolutionLimit, solLimit);
   model->set(GRB_IntParam_OutputFlag, 0);
+  this->setMIPObjective(*model);
 
   if (solve)
 	 model->optimize();
@@ -322,13 +323,13 @@ arma::vec MathOpt::LCP::zFromX(const arma::vec x) { return (this->M * x + this->
  * @warning If LCP::PureMIP is false, then the model has a linear objective and bi-linear
  * constraints. Hence, is not a MILP
  */
-std::unique_ptr<GRBModel> MathOpt::LCP::MPECasMILP(const arma::sp_mat &C,
+std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMILP(const arma::sp_mat &C,
 																	const arma::vec &   c,
 																	const arma::vec &   x_minus_i,
 																	bool                solve) {
 
   if (!this->PureMIP)
-	 LOG_S(1) << "MathOpt::LCP::MPECasMILP: Note that complementarities are bi-linearly modeled!";
+	 LOG_S(1) << "MathOpt::LCP::LCPasMILP: Note that complementarities are bi-linearly modeled!";
   std::unique_ptr<GRBModel> model = this->LCPasMIP(true, -1, 1, 1);
   // Reset the solution limit. We need to solve to optimality
   model->set(GRB_IntParam_SolutionLimit, GRB_MAXINT);
@@ -371,14 +372,14 @@ std::unique_ptr<GRBModel> MathOpt::LCP::MPECasMILP(const arma::sp_mat &C,
  constraints
  */
 
-std::unique_ptr<GRBModel> MathOpt::LCP::MPECasMIQP(const arma::sp_mat &Q,
+std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIQP(const arma::sp_mat &Q,
 																	const arma::sp_mat &C,
 																	const arma::vec &   c,
 																	const arma::vec &   x_minus_i,
 																	bool                solve)
 
 {
-  auto model = this->MPECasMILP(C, c, x_minus_i, false);
+  auto model = this->LCPasMILP(C, c, x_minus_i, false);
   /// Note that if the matrix Q is a zero matrix, then this returns a Gurobi
   /// MILP model as opposed to MIQP model. This enables Gurobi to use its much
   /// advanced MIP solver
@@ -575,8 +576,8 @@ void MathOpt::LCP::addCustomCuts(const arma::sp_mat A_in, const arma::vec b_in) 
 	 for (unsigned int i = 0; i < nC; i++)
 		x[i] = this->RelaxedModel.getVarByName("x_" + std::to_string(i));
 
-	 std::string basename = "cutConstr"+std::to_string(std::time(0));
-    Utils::addSparseConstraints(A_in, b_in, x, basename, &RelaxedModel, GRB_LESS_EQUAL, nullptr);
+	 std::string basename = "cutConstr" + std::to_string(std::time(0));
+	 Utils::addSparseConstraints(A_in, b_in, x, basename, &RelaxedModel, GRB_LESS_EQUAL, nullptr);
 
 	 LOG_S(1) << "MathOpt::LCP::addCustomCuts: Added cut constraint";
   }
@@ -658,30 +659,24 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
   xSol.zeros(this->M.n_cols);
   zSol.zeros(this->M.n_rows);
 
-  switch (algo) {
-  case Data::LCP::Algorithms::PATH: {
+  if (algo == Data::LCP::Algorithms::PATH) {
 	 if (this->A.n_nonzero != 0) {
 		this->A.print_dense("A");
 		this->b.print("b");
 		throw ZEROException(ZEROErrorCode::SolverError,
 								  "PATH does not support non-complementarity constraints!");
 	 }
-	 switch (this->solvePATH(timeLimit, xSol, zSol, true)) {
+	 switch (this->solvePATH(timeLimit, xSol, zSol, false)) {
 	 case ZEROStatus::NashEqFound:
 		return ZEROStatus::NashEqFound;
-		break;
 	 case ZEROStatus::Solved:
 		return ZEROStatus::NashEqFound;
-		break;
 	 case ZEROStatus::NotSolved:
 		return ZEROStatus::NashEqNotFound;
-		break;
 	 default:
 		return ZEROStatus::NashEqNotFound;
 	 }
-  } break;
-  default: {
-	 // Data::LCP::Algorithms::MINLP is the default method
+  } else {
 	 if (algo == Data::LCP::Algorithms::MINLP)
 		this->PureMIP = false;
 	 else
@@ -698,8 +693,6 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 		  return ZEROStatus::NashEqNotFound;
 	 }
   }
-  }
-  return ZEROStatus::NashEqNotFound;
 }
 
 /**
@@ -718,10 +711,11 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP(bool indicators) {
 	 // Get hold of the Variables and Eqn Variables
 	 for (unsigned int i = 0; i < nC; i++)
 		x[i] = model->getVarByName("x_" + std::to_string(i));
+
 	 for (unsigned int i = 0; i < nR; i++)
 		z[i] = model->getVarByName("z_" + std::to_string(i));
 
-    if (indicators) {
+	 if (indicators) {
 		// Define binary variables for the two cases (x=0 or z=0)
 		for (unsigned int i = 0; i < this->Compl.size(); i++)
 		  u[i] = model->addVar(0, 1, 0, GRB_BINARY, "u_" + std::to_string(i));
@@ -761,8 +755,7 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP(bool indicators) {
 		}
 		counter++;
 	 }
-	 //model->setObjective(obj, GRB_MINIMIZE);
-	 // If any equation or variable is to be fixed to zero, that happens here!
+	 //  If any equation or variable is to be fixed to zero, that happens here!
 	 model->update();
 	 // Get first Equilibrium
 	 return model;
@@ -770,6 +763,96 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP(bool indicators) {
 	 throw ZEROException(e);
   } catch (...) {
 	 throw ZEROException(ZEROErrorCode::Unknown, "Unknown exception in  MathOpt::LCP::getMIP");
+  }
+}
+
+/**
+ * @brief Given the linear vector x @p c , sets thelinear objective for the MIP reformulation of the
+ * LCP.
+ * @param c Linear vector for the primal variables
+ * @return True if successful
+ */
+bool MathOpt::LCP::setMIPLinearObjective(const arma::vec c) {
+  if (c.size() > this->nC)
+	 throw ZEROException(ZEROErrorCode::InvalidData, "Too many columns in the input vector");
+  this->Obj.zeros(this->nC);
+  this->Obj.subvec(0, c.size() - 1) = c;
+  this->ObjType                     = 1;
+  LOG_S(INFO) << "MathOpt::LCP::setMIPLinearObjective: Set LINEAR objective";
+  return true;
+}
+
+/**
+ * @brief Given the linear vector and quadratic matrix @p c and @p Q, sets the quadratic objective
+ * for the MIP reformulation of the LCP.
+ * @param c Linear vector for the primal variables
+ * @param Q Square matrix for the primal variables
+ * @return True if successful
+ */
+bool MathOpt::LCP::setMIPQuadraticObjective(const arma::vec c, arma::sp_mat Q) {
+  if (c.size() > this->nC)
+	 throw ZEROException(ZEROErrorCode::InvalidData, "Too many columns in the input vector");
+  if (c.size() != Q.n_cols || !Q.is_square())
+	 throw ZEROException(ZEROErrorCode::InvalidData, "Q does not match the dimensions of Q");
+  this->Obj.zeros(this->nC);
+  this->Obj.subvec(0, c.size() - 1) = c;
+  this->Qobj.zeros(this->nC, this->nC);
+  this->Qobj.submat(0, 0, c.size() - 1, c.size() - 1) = Q;
+  this->ObjType                                       = 2;
+  LOG_S(INFO) << "MathOpt::LCP::setMIPLinearObjective: Set QUADRATIC objective";
+  return true;
+}
+
+/**
+ * @brief Given the MIP model in @p MIP, sets the objective according to the one given by
+ * MathOpt::LCP::setMIPQuadraticObjective or MathOpt::LCP::setMIPLinearObjective
+ * @param MIP The MIP model
+ */
+void MathOpt::LCP::setMIPObjective(GRBModel &MIP) {
+
+  if (this->ObjType != 0) {
+
+	 // Linear part of the objective
+	 GRBQuadExpr obj = 0;
+	 // Get hold of the Variables and Eqn Variables
+	 for (unsigned int i = 0; i < this->Obj.size(); i++) {
+		GRBVar vars[]  = {MIP.getVarByName("x_" + std::to_string(i))};
+		double coeff[] = {this->Obj.at(i)};
+		obj.addTerms(coeff, vars, 1);
+	 }
+
+	 if (this->ObjType == 2) {
+	   MIP.set(GRB_IntParam_NonConvex, 2);
+		// Add a quadratic part
+		for (arma::sp_mat::const_iterator it = this->Qobj.begin(); it != this->Qobj.end(); ++it) {
+		  obj.addTerm(*it,
+						  MIP.getVarByName("x_" + std::to_string(it.col())),
+						  MIP.getVarByName("x_" + std::to_string(it.row())));
+		  LOG_S(WARNING) << "x_" << it.col() << "*x_" <<it.row();
+		}
+	 }
+
+	 MIP.setObjective(obj, GRB_MINIMIZE);
+	 return;
+
+  } else {
+	 // Feasibility MIP
+	 GRBLinExpr obj = 0;
+	 // Get hold of the Variables and Eqn Variables
+	 for (unsigned int i = 0; i < nC; i++) {
+		GRBVar vars[]  = {MIP.getVarByName("x_" + std::to_string(i))};
+		double coeff[] = {1};
+		obj.addTerms(coeff, vars, 1);
+	 }
+
+	 for (unsigned int i = 0; i < nR; i++) {
+		GRBVar vars[]  = {MIP.getVarByName("z_" + std::to_string(i))};
+		double coeff[] = {1};
+		obj.addTerms(coeff, vars, 1);
+	 }
+
+	 MIP.setObjective(obj, GRB_MINIMIZE);
+	 return;
   }
 }
 
@@ -785,13 +868,11 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMINLP() {
   std::unique_ptr<GRBModel> model{new GRBModel(this->RelaxedModel)};
   // Creating the model
   try {
-	 GRBVar     x[nC], z[nR], l[nR], v[nR];
-	 GRBLinExpr obj = 0;
+	 GRBVar     x[nC], z[nR];
 	 // Get hold of the Variables and Eqn Variables
-	 for (unsigned int i = 0; i < nC; i++) {
+	 for (unsigned int i = 0; i < nC; i++)
 		x[i] = model->getVarByName("x_" + std::to_string(i));
-		obj += x[i];
-	 }
+
 	 for (unsigned int i = 0; i < nR; i++)
 		z[i] = model->getVarByName("z_" + std::to_string(i));
 	 // Define binary variables for BigM
@@ -803,7 +884,6 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMINLP() {
 		int _lb = this->BoundsX.at(p.second).first;
 		int _ub = this->BoundsX.at(p.second).second;
 
-		auto z_var = model->getVarByName("z_" + std::to_string(p.first));
 
 		if (_lb != _ub) {
 		  // Otherwise, no bounds and we simplify the first expresison for LB
@@ -820,7 +900,6 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMINLP() {
 	 model->set(GRB_DoubleParam_OptimalityTol, this->Eps);
 	 // Get first Equilibrium
 	 model->set(GRB_IntParam_SolutionLimit, 1);
-	 model->setObjective(obj, GRB_MINIMIZE);
 	 model->update();
 	 return model;
   } catch (GRBException &e) {
@@ -829,4 +908,20 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMINLP() {
 	 throw ZEROException(ZEROErrorCode::Unknown, "Unknown exception in  MathOpt::LCP::getMINLP");
   }
   return nullptr;
+}
+bool MathOpt::LCP::setMIPFeasibilityObjective() {
+  this->ObjType = 0;
+  LOG_S(INFO) << "MathOpt::LCP::setMIPLinearObjective: Set Feasibility objective.";
+  return true;
+}
+std::string std::to_string(Data::LCP::Algorithms al) {
+  switch (al) {
+  case Data::LCP::Algorithms::MIP:
+	 return std::string("MIP");
+  case Data::LCP::Algorithms::MINLP:
+	 return std::string("MINLP");
+  case Data::LCP::Algorithms::PATH:
+	 return std::string("PATH");
+  }
+  return "";
 }

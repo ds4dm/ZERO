@@ -40,6 +40,11 @@ namespace Data {
 	 };
   } // namespace LCP
 } // namespace Data
+namespace std {
+
+  string to_string(Data::LCP::Algorithms al);
+
+}; // namespace std
 
 namespace MathOpt {
 
@@ -56,18 +61,26 @@ namespace MathOpt {
   protected:
 	 // Essential data ironment for MIP/LP solves
 	 GRBEnv *     Env; ///< A pointer to the Gurobi Env
-	 arma::sp_mat M;   ///< The matrix M in @f$Mx+q@f$ that defines the LCP
-	 arma::vec    q;   ///< The vector q in @f$Mx+q@f$ that defines the LCP
+	 unsigned int ObjType =
+		  0; ///< Type of the objective for MIP/MINLP. 0 is feasibility, 1 linear, 2 quadratic
+	 arma::vec    Obj;  ///< The linear objective for the LCP in case of MIP/MINLP
+	 arma::sp_mat Qobj; ///< The quadratic objective matrix Q for the LCP in case of MIP/MINLP
+	 arma::sp_mat M;    ///< The matrix M in @f$Mx+q@f$ that defines the LCP
+	 arma::vec    q;    ///< The vector q in @f$Mx+q@f$ that defines the LCP
 	 perps Compl; ///< Compl dictates which equation (row in M) is complementary to which variable
 					  ///< (column in M). The object is in a <Eqn, Var> form
 	 unsigned int LeadStart{1}, LeadEnd{0}, NumberLeader{0};
 	 bool PureMIP = true; ///< True if the LCP is modelled via a pure MIP with SOS1 (or indicator)
 								 ///< constraints. Otherwise, a MINLP introduces a bilinear term for each
 								 ///< complementarity
-	 arma::sp_mat A     = {}; ///< The additional constraint matrix A to the problem, in the form @f$Ax \leq b@f$
-	 arma::vec    b     = {}; ///< The additional constraint RHSs b to the problem, in the form @f$Ax \leq b@f$
-	 arma::sp_mat _Acut = {}; ///< Additional cutting planes (eventually) added to the model, in the form @f$Ax \leq b@f$
-	 arma::vec    _bcut = {}; ///< Additional cutting planes (eventually) added to the model, in the form @f$Ax \leq b@f$
+	 arma::sp_mat A =
+		  {}; ///< The additional constraint matrix A to the problem, in the form @f$Ax \leq b@f$
+	 arma::vec b =
+		  {}; ///< The additional constraint RHSs b to the problem, in the form @f$Ax \leq b@f$
+	 arma::sp_mat _Acut = {}; ///< Additional cutting planes (eventually) added to the model, in the
+									  ///< form @f$Ax \leq b@f$
+	 arma::vec _bcut = {};    ///< Additional cutting planes (eventually) added to the model, in the
+									  ///< form @f$Ax \leq b@f$
 	 bool         MadeRlxdModel{false}; ///< True if a relaxed model has been already initialized
 	 unsigned int nR, nC;               ///< The number of rows and columns in the matrix M
 
@@ -83,6 +96,8 @@ namespace MathOpt {
 	 void defConst(GRBEnv *env);
 
 	 void makeRelaxed();
+
+	 void setMIPObjective(GRBModel &convexModel);
 
 	 std::unique_ptr<GRBModel> getMIP(bool indicators = false);
 
@@ -157,22 +172,24 @@ namespace MathOpt {
 
 	 bool extractSols(GRBModel *model, arma::vec &z, arma::vec &x, bool extractZ = false) const;
 
-    ZEROStatus solve(Data::LCP::Algorithms algo,
-                     arma::vec &           xSol,
-                     arma::vec &           zSol,
-                     double                timeLimit,
-                     unsigned int          MIPWorkers,
-                     unsigned int          solLimit);
-	 std::unique_ptr<GRBModel>
-	 LCPasMIP(bool solve=false, double timeLimit=-1, unsigned int MIPWorkers=1, unsigned int solLimit=1);
+	 ZEROStatus                solve(Data::LCP::Algorithms algo,
+												arma::vec &           xSol,
+												arma::vec &           zSol,
+												double                timeLimit,
+												unsigned int          MIPWorkers,
+												unsigned int          solLimit);
+	 std::unique_ptr<GRBModel> LCPasMIP(bool         solve      = false,
+													double       timeLimit  = -1,
+													unsigned int MIPWorkers = 1,
+													unsigned int solLimit   = 1);
 
-	 std::unique_ptr<GRBModel> MPECasMILP(const arma::sp_mat &C,
+	 std::unique_ptr<GRBModel> LCPasMILP(const arma::sp_mat &C,
 													  const arma::vec &   c,
 													  const arma::vec &   x_minus_i,
 													  bool                solve = false);
 
 
-	 std::unique_ptr<GRBModel> MPECasMIQP(const arma::sp_mat &Q,
+	 std::unique_ptr<GRBModel> LCPasMIQP(const arma::sp_mat &Q,
 													  const arma::sp_mat &C,
 													  const arma::vec &   c,
 													  const arma::vec &   x_minus_i,
@@ -194,6 +211,9 @@ namespace MathOpt {
 	 arma::vec zFromX(const arma::vec x);
 
 	 void processBounds();
+	 bool setMIPLinearObjective(const arma::vec c);
+	 bool setMIPQuadraticObjective(const arma::vec c, arma::sp_mat Q);
+	 bool setMIPFeasibilityObjective();
   };
 } // namespace MathOpt
 
