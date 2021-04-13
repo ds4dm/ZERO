@@ -111,8 +111,8 @@ namespace Solvers {
 			const arma::vec &     q,
 			const perps &         Compl,
 			const VariableBounds &Bounds,
-			arma::vec &           x,
-			arma::vec             z,
+			arma::vec &           z,
+			arma::vec  &           x,
 			double                timeLimit);
 	 ZEROStatus getStatus() const { return this->status; } ///< Read-only getter for the status
 

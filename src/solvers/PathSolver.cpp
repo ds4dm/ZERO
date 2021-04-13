@@ -242,17 +242,19 @@ int Solvers::PATH::CreateLMCP(int    n,
  * @param q The vector q in the LCP
  * @param Compl Pairs of complementarities <Eqn, Var>
  * @param Bounds Bounds on variables
- * @param x Output vector of x
- * @param z Output vector of z equation values
+ * @param z Output vector of x
+ * @param x Output vector of z equation values
  * @param timeLimit A double timelimit
  */
 Solvers::PATH::PATH(const arma::sp_mat &  M,
 						  const arma::vec &     q,
 						  const perps &         Compl,
 						  const VariableBounds &Bounds,
+						  arma::vec &           z,
 						  arma::vec &           x,
-						  arma::vec             z,
 						  double                timeLimit) {
+
+  // Note that for path z and x are inverted (z are variables, x equations definitions).
   int n   = 0;
   int nnz = 0;
 
@@ -343,11 +345,11 @@ Solvers::PATH::PATH(const arma::sp_mat &  M,
 
   if (stat == 1) {
 	 LOG_S(1) << "Solvers::PathLCP: Found a solution";
-	 x.zeros(M.n_cols);
-	 z.zeros(M.n_rows);
+	 z.zeros(M.n_cols);
+	 x.zeros(M.n_rows);
 	 for (unsigned int i = 0; i < _xsol.size(); ++i) {
-		x.at(_xmap.at(i)) = _xsol.at(i);
-		z.at(_zmap.at(i)) = _zsol.at(i);
+		z.at(_xmap.at(i)) = _xsol.at(i);
+		x.at(_zmap.at(i)) = _zsol.at(i);
 	 }
 	 // z.print("z");
 	 // x.print("x");
