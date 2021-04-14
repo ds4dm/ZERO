@@ -193,17 +193,20 @@ void Algorithms::IPG::Oracle::solve() {
 
 	 // Now we have an equilibrium, then we need to check whether this is feasible or not
 	 addedCuts = 0;
-	 while (addedCuts <= 0) {
-		for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
-		  int cut = 0;
-		  if (!this->preEquilibriumOracle(i, cut)) {
-			 solved = false;
+	 if (solved) {
+		while (addedCuts <= 0) {
+		  solved = true;
+		  for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
+			 int cut = 0;
+			 if (!this->preEquilibriumOracle(i, cut)) {
+				solved = false;
+			 }
+			 addedCuts += cut;
 		  }
-		  addedCuts += cut;
+		  // If not solved but there are cuts, or it is solved and there are not cuts, exit.
+		  if ((addedCuts > 0 && solved == false) || (addedCuts == 0 && solved == true))
+			 break;
 		}
-		// If not solved but there are cuts, or it is solved and there are not cuts, exit.
-		if ((addedCuts > 0 && solved == false) || (addedCuts == 0 && solved == true))
-		  break;
 	 }
 
 	 if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0) {
