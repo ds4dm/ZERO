@@ -12,9 +12,6 @@
 
 
 #include "games/algorithms/EPEC/epec_combPNE.h"
-#include <chrono>
-#include <gurobi_c++.h>
-#include <set>
 
 /**
  * @brief Solves the Game::EPEC instance with the algorithm by excluding some combinations of

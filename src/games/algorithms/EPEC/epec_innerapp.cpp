@@ -14,11 +14,6 @@
 #include "games/algorithms/EPEC/epec_innerapp.h"
 #include "games/algorithms/EPEC/epec_combPNE.h"
 #include "zero.h"
-#include <armadillo>
-#include <chrono>
-#include <gurobi_c++.h>
-#include <set>
-#include <string>
 
 void Algorithms::EPEC::InnerApproximation::solve() {
   /**

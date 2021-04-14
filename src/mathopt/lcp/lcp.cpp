@@ -13,11 +13,6 @@
 //
 #include "mathopt/lcp/lcp.h"
 #include "solvers/PathSolver.h"
-#include <algorithm>
-#include <armadillo>
-#include <gurobi_c++.h>
-#include <memory>
-#include <string>
 
 /**
  * @brief Assigns default values to the class' LCP attributes

@@ -12,16 +12,10 @@
 
 
 #include "interfaces/epec_models.h"
-#include <armadillo>
-#include <gurobi_c++.h>
 #include <iomanip>
-#include <iostream>
-#include <map>
-#include <memory>
 #include <rapidjson/document.h>
 #include <rapidjson/istreamwrapper.h>
 #include <rapidjson/prettywriter.h>
-#include <vector>
 
 
 std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::prn l) {

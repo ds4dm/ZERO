@@ -23,7 +23,6 @@
 #include <math.h>
 
 using namespace std;
-namespace logging = boost::log;
 using namespace boost::program_options;
 namespace po = boost::program_options;
 

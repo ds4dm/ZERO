@@ -12,9 +12,6 @@
 
 
 #include "mathopt/mp_param/qp_param.h"
-#include <armadillo>
-#include <iostream>
-#include <memory>
 
 /**
  * @brief Return a stream containing a stream with the description of the problem

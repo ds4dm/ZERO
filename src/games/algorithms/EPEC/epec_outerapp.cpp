@@ -13,10 +13,6 @@
 
 #include "games/algorithms/EPEC/epec_outerapp.h"
 
-#include <chrono>
-#include <gurobi_c++.h>
-#include <set>
-#include <string>
 
 /**
  * @brief Overrides Algorithms::EPEC::PolyBase::isSolved with a custom method.

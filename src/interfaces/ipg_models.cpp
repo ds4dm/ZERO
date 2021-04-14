@@ -12,15 +12,9 @@
 
 
 #include "interfaces/ipg_models.h"
-#include <gurobi_c++.h>
-#include <iostream>
-#include <map>
-#include <memory>
-#include <stdio.h>
 #include <rapidjson/document.h>
 #include <rapidjson/istreamwrapper.h>
 #include <rapidjson/prettywriter.h>
-#include <vector>
 
 
 void Models::IPG::IPG::writeSolution(std::string filename) const {

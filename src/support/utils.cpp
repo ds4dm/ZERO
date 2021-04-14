@@ -12,8 +12,6 @@
 
 
 #include "support/utils.h"
-#include <armadillo>
-#include <fstream>
 
 
 arma::sp_mat

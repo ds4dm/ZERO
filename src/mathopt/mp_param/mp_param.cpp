@@ -12,9 +12,6 @@
 
 
 #include "mathopt/mp_param/mp_param.h"
-#include <armadillo>
-#include <iostream>
-#include <memory>
 
 /**
  * @brief  Writes a given parameterized Mathematical program to a set of files.

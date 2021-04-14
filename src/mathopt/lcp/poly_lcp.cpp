@@ -13,14 +13,6 @@
 
 #include "mathopt/lcp/poly_lcp.h"
 #include "zero.h"
-#include <algorithm>
-#include <armadillo>
-#include <gurobi_c++.h>
-#include <iostream>
-#include <memory>
-#include <random>
-#include <set>
-#include <string>
 
 
 
