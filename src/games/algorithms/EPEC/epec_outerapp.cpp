@@ -974,6 +974,7 @@ int Algorithms::EPEC::OuterApproximation::getFirstBranchLocation(const unsigned 
 	 return -1;
   auto         model = this->PolyLCP.at(player)->LCPasMIP(true, -1, 1, 1);
   unsigned int nR    = this->PolyLCP.at(player)->getNumRows();
+  int          pos   = -nR;
   arma::vec    z, x;
   if (this->PolyLCP.at(player)->extractSols(
 			 model.get(), z, x, true)) // If already infeasible, nothing to branch!
