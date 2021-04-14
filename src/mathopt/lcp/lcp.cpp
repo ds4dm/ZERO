@@ -777,7 +777,7 @@ bool MathOpt::LCP::setMIPLinearObjective(const arma::vec c) {
   this->Obj.zeros(this->nC);
   this->Obj.subvec(0, c.size() - 1) = c;
   this->ObjType                     = 1;
-  LOG_S(INFO) << "MathOpt::LCP::setMIPLinearObjective: Set LINEAR objective";
+  LOG_S(1) << "MathOpt::LCP::setMIPLinearObjective: Set LINEAR objective";
   return true;
 }
 
@@ -798,7 +798,7 @@ bool MathOpt::LCP::setMIPQuadraticObjective(const arma::vec c, arma::sp_mat Q) {
   this->Qobj.zeros(this->nC, this->nC);
   this->Qobj.submat(0, 0, c.size() - 1, c.size() - 1) = Q;
   this->ObjType                                       = 2;
-  LOG_S(INFO) << "MathOpt::LCP::setMIPLinearObjective: Set QUADRATIC objective";
+  LOG_S(1) << "MathOpt::LCP::setMIPLinearObjective: Set QUADRATIC objective";
   return true;
 }
 
@@ -909,7 +909,7 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMINLP() {
 }
 bool MathOpt::LCP::setMIPFeasibilityObjective() {
   this->ObjType = 0;
-  LOG_S(INFO) << "MathOpt::LCP::setMIPLinearObjective: Set Feasibility objective.";
+  LOG_S(1) << "MathOpt::LCP::setMIPLinearObjective: Set Feasibility objective.";
   return true;
 }
 std::string std::to_string(Data::LCP::Algorithms al) {

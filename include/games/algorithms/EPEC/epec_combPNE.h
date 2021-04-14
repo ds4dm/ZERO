@@ -14,7 +14,6 @@
 #include "epec_polybase.h"
 #include "zero.h"
 #include <armadillo>
-#include <boost/log/trivial.hpp>
 #include <gurobi_c++.h>
 #include <iostream>
 #include <memory>

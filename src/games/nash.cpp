@@ -12,10 +12,6 @@
 
 
 #include "games/nash.h"
-#include <armadillo>
-#include <boost/log/trivial.hpp>
-#include <iostream>
-#include <memory>
 Game::NashGame::NashGame(GRBEnv *                                        e,
 								 std::vector<std::shared_ptr<MathOpt::MP_Param>> players,
 								 arma::sp_mat                                    MC,

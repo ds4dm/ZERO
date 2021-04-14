@@ -12,7 +12,6 @@
 
 
 #include "mathopt/mp_param/mp_param.h"
-#include "boost/log/trivial.hpp"
 #include <armadillo>
 #include <iostream>
 #include <memory>

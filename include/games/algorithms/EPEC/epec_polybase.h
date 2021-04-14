@@ -14,7 +14,6 @@
 #pragma once
 #include "mathopt/lcp/lcp.h"
 #include "zero.h"
-#include <boost/log/trivial.hpp>
 
 namespace Algorithms {
   namespace EPEC {

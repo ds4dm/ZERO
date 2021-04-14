@@ -333,11 +333,7 @@ For your convenience, the entire example source code is given below.
 
 .. code-block:: c
 
- #include "epecsolve.h"
- #include <boost/log/core.hpp>
- #include <boost/log/expressions.hpp>
- #include <boost/log/trivial.hpp>
- #include <gurobi_c++.h>
+ #include "zero.h"
 
  class My_EPEC_Prob : public EPEC {
  public:

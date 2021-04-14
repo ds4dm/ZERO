@@ -13,7 +13,6 @@
 
 #include "support/utils.h"
 #include <armadillo>
-#include <boost/log/trivial.hpp>
 #include <fstream>
 
 

@@ -13,7 +13,6 @@
 
 #include "games/algorithms/EPEC/epec_polybase.h"
 #include "zero.h"
-#include <boost/log/trivial.hpp>
 
 
 /**

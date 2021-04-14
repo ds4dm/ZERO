@@ -13,9 +13,6 @@
 #include "mathopt/mathopt.h"
 #include "loguru.hpp"
 #include "zero.h"
-#include <armadillo>
-#include <boost/log/trivial.hpp>
-#include <iostream>
 
 unsigned int MathOpt::convexHull(
 	 const std::vector<arma::sp_mat *> *Ai, ///< Inequality constraints LHS that define polyhedra
@@ -330,7 +327,7 @@ void MathOpt::getDualMembershipLP(std::unique_ptr<GRBModel> &convexModel,
 	 convexModel->set(GRB_IntParam_InfUnbdInfo, 1);
 	 convexModel->set(GRB_IntParam_DualReductions, 0);
 	 convexModel->set(GRB_IntParam_OutputFlag, 0);
-	 convexModel->set(GRB_IntParam_SolutionLimit, 100);
+	 convexModel->set(GRB_IntParam_SolutionLimit, 1);
 	 LOG_S(1) << "MathOpt::getDualMembershipLP: created model";
   } else {
 	 // current number of vertices in the model

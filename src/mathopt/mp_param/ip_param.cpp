@@ -13,7 +13,6 @@
 
 #include "mathopt/mp_param/ip_param.h"
 #include <armadillo>
-#include <boost/log/trivial.hpp>
 #include <iostream>
 #include <memory>
 

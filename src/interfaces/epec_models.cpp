@@ -13,7 +13,6 @@
 
 #include "interfaces/epec_models.h"
 #include <armadillo>
-#include <boost/log/trivial.hpp>
 #include <gurobi_c++.h>
 #include <iomanip>
 #include <iostream>

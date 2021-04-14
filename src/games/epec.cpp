@@ -13,10 +13,6 @@
 #include "games/epec.h"
 #include "games/algorithms/EPEC/epec_polybase.h"
 #include "zero.h"
-#include <armadillo>
-#include <boost/log/trivial.hpp>
-#include <iostream>
-#include <memory>
 
 void Game::EPEC::preFinalize()
 /**

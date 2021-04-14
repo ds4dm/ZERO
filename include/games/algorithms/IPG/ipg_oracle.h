@@ -62,11 +62,11 @@ namespace Algorithms {
 		  this->Incumbent.zeros(incumbentSize);
 		};
 
-		bool addVertex(const arma::vec vertex, const bool checkDuplicate = true);
+		bool addVertex(const arma::vec& vertex, const bool checkDuplicate = true);
 
-		bool addRay(const arma::vec ray, const bool checkDuplicate = true);
+		bool addRay(const arma::vec& ray, const bool checkDuplicate = true);
 
-		bool addCut(const arma::vec LHS, const double b, const bool checkDuplicate = true);
+		bool addCut(const arma::vec& LHS, const double b, const bool checkDuplicate = true);
 
 		const double getPayoff() { return this->Payoff; }
 
@@ -84,7 +84,7 @@ namespace Algorithms {
 		std::vector<std::unique_ptr<IPG_Player>> Players; ///< The support structures
 		void                                     initialize();
 		arma::vec                                buildXminusI(const unsigned int i);
-		bool addValueCut(unsigned int player, double RHS, arma::vec xMinusI, bool check = true);
+		bool addValueCut(unsigned int player, double RHS, const arma::vec& xMinusI, bool check = true);
 		bool preEquilibriumOracle(const unsigned int player, int &addedCuts);
 
 		void updateMembership(const unsigned int &player, const arma::vec &vertex);

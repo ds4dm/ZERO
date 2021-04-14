@@ -13,9 +13,6 @@
 
 #include "games/ipg.h"
 #include "zero.h"
-#include <armadillo>
-#include <boost/log/trivial.hpp>
-#include <memory>
 
 Game::IPG::IPG(
 	 GRBEnv *                                        env,    ///< A pointer to the Gurobi Environment

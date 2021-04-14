@@ -13,7 +13,6 @@
 
 #include "games/algorithms/EPEC/epec_fullenum.h"
 #include "mathopt/lcp/poly_lcp.h"
-#include <boost/log/trivial.hpp>
 
 /**
  * @brief Solves the Game::EPEC by full enumeration.

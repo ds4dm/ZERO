@@ -19,9 +19,6 @@
 #include "mathopt/lcp/lcp.h"
 #include "zero.h"
 #include <armadillo>
-#include <boost/log/core.hpp>
-#include <boost/log/expressions.hpp>
-#include <boost/log/trivial.hpp>
 #include <chrono>
 #include <cstdlib>
 #include <ctime>

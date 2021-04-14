@@ -12,7 +12,6 @@
 
 
 #include "games/algorithms/EPEC/epec_combPNE.h"
-#include <boost/log/trivial.hpp>
 #include <chrono>
 #include <gurobi_c++.h>
 #include <set>

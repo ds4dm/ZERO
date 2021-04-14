@@ -12,7 +12,6 @@
 
 
 #include "interfaces/ipg_models.h"
-#include <boost/log/trivial.hpp>
 #include <gurobi_c++.h>
 #include <iostream>
 #include <map>
