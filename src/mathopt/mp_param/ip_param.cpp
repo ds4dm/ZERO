@@ -103,7 +103,6 @@ bool MathOpt::IP_Param::finalize() {
 	 this->IPModel.set(GRB_IntParam_OutputFlag, 0);
 	 this->IPModel.set(GRB_IntParam_InfUnbdInfo, 1);
 	 //this->IPModel.set(GRB_IntParam_DualReductions, 0);
-	 this->IPModel.write("Finalize.lp");
 
   } catch (GRBException &e) {
 	 throw ZEROException(ZEROErrorCode::SolverError,

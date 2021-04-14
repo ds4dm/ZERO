@@ -539,7 +539,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,
   this->setWelfareObjective(linearWelfare, quadraticWelfare);
   try {
 	 this->LCPModel->set(GRB_IntParam_OutputFlag, 1);
-	 this->LCPModel->write("dat/TheLCP.lp");
+	 //this->LCPModel->write("dat/TheLCP.lp");
 	 this->LCPModel->optimize();
   } catch (GRBException &e) {
 	 throw ZEROException(e);

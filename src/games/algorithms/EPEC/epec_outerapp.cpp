@@ -232,15 +232,7 @@ bool Algorithms::EPEC::OuterApproximation::equilibriumOracle(
 		  auto test = arma::accu(support);
 		  support.print("support vertices" + std::to_string(test));
 		  rayz.print("support rays");
-		  if (flag) {
-			 dualMembershipModel.write("dat/DualModelError.lp");
-			 dualMembershipModel.write("dat/DualModelErrorSol.sol");
-			 /*throw ZEROException(ZEROErrorCode::Assertion,
-										"Unknown RAY coefficient (" + std::to_string(test) +
-											 ") for dualMembershipProblem for player " +
-											 std::to_string(player));
-											 */
-		  }
+
 		  if (support.max() == 1) {
 			 this->Trees.at(player)->setPure();
 		  }else{

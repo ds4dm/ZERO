@@ -263,7 +263,6 @@ bool Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player, in
   // Update working strategies with "educated guesses"
   auto PureIP = this->IPG->PlayersIP.at(player)->getIPModel(xMinusI, false);
   PureIP->optimize();
-  PureIP->write("dat/Oracle_" + std::to_string(player) + "+.lp");
   int status = PureIP->get(GRB_IntAttr_Status);
   if (status == GRB_OPTIMAL) {
 	 // Then, we have a best response
@@ -365,15 +364,14 @@ bool Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 				  << ") Starting separator";
   std::unique_ptr<GRBModel> leaderModel =
 		std::unique_ptr<GRBModel>(this->IPG->PlayersIP.at(player)->getIPModel(xMinusI, false));
-  auto dualMembershipModel = *this->Players.at(player)->MembershipLP;
 
   for (int k = 0; k < iterations; ++k) {
 	 // First, we check whether the point is a convex combination of feasible
 	 // KNOWN points
 	 // xOfI.print("Point to separate: ");
 	 this->updateMembership(player, xOfI);
+    auto dualMembershipModel = *this->Players.at(player)->MembershipLP;
 	 dualMembershipModel.optimize();
-	 dualMembershipModel.write("dat/Convex_" + std::to_string(player) + ".lp");
 
 	 int status = dualMembershipModel.get(GRB_IntAttr_Status);
 	 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
