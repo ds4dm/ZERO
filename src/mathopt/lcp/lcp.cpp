@@ -50,7 +50,6 @@ void MathOpt::LCP::processBounds() {
   unsigned int              cnt = 0;
   std::vector<unsigned int> shedded;
   for (auto c : this->Compl) {
-	 unsigned int zVar = c.first;
 	 unsigned int xVar = c.second;
 
 	 if (this->BoundsX.at(xVar).first == this->BoundsX.at(xVar).second)
@@ -828,7 +827,6 @@ void MathOpt::LCP::setMIPObjective(GRBModel &MIP) {
 		  obj.addTerm(*it,
 						  MIP.getVarByName("x_" + std::to_string(it.col())),
 						  MIP.getVarByName("x_" + std::to_string(it.row())));
-		  LOG_S(WARNING) << "x_" << it.col() << "*x_" <<it.row();
 		}
 	 }
 
