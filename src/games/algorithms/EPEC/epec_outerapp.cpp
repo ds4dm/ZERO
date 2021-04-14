@@ -194,7 +194,7 @@ bool Algorithms::EPEC::OuterApproximation::equilibriumOracle(
 		  }
 
 		  // sol.print("this is the sol");
-		  auto prod = arma::as_scalar(sol.t() * xOfI);
+		  //auto prod = arma::as_scalar(sol.t() * xOfI);
 		  /*LOG_S(WARNING) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
 							  << ") prod is" << prod << " and status is " << status << " and objective "
 							  << dualMembershipModel.getObjective().getValue();
@@ -536,12 +536,11 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 	 }
 
 	 for (int j = 0; j < this->EPECObject->NumPlayers; ++j) {
-		unsigned int test = 0;
 		if (branchingLocations.at(j) > -1) {
 		  branchingChoices   = branchingChoices + 1;
 		  branches           = Trees.at(j)->singleBranch(branchingLocations.at(j), *Incumbent.at(j));
 		  auto childEncoding = this->Trees.at(j)->getNodes()->at(branches.at(0)).getEncoding();
-		  test += this->PolyLCP.at(j)->outerApproximate(childEncoding, true);
+		  this->PolyLCP.at(j)->outerApproximate(childEncoding, true);
 		  // By definition of hybrid branching, the node should be feasible
 		  Incumbent.at(j) = &(this->Trees.at(j)->getNodes()->at(branches.at(0)));
 		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::solve: "
@@ -549,7 +548,7 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 						  << j << " is " << branchingLocations.at(j);
 		} else if (!branch) {
 		  // if we don't branch.
-		  test += this->PolyLCP.at(j)->outerApproximate(Incumbent.at(j)->getEncoding(), true);
+		   this->PolyLCP.at(j)->outerApproximate(Incumbent.at(j)->getEncoding(), true);
 		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::solve: "
 							  "No branching for player "
 						  << j;
@@ -975,7 +974,6 @@ int Algorithms::EPEC::OuterApproximation::getFirstBranchLocation(const unsigned 
 	 return -1;
   auto         model = this->PolyLCP.at(player)->LCPasMIP(true, -1, 1, 1);
   unsigned int nR    = this->PolyLCP.at(player)->getNumRows();
-  int          pos   = -nR;
   arma::vec    z, x;
   if (this->PolyLCP.at(player)->extractSols(
 			 model.get(), z, x, true)) // If already infeasible, nothing to branch!
