@@ -175,12 +175,12 @@ void Algorithms::IPG::Oracle::solve() {
 	 return;
   }
 
-  bool solved{false};
+  bool         solved{false};
+  unsigned int addedCuts = 1;
   while (!solved) {
-
 	 // Increase the number of iterations
 	 this->IPG->Stats.NumIterations.set(this->IPG->Stats.NumIterations.get() + 1);
-	 // Check the time-limit and form the LCP for the simultaneous game
+	 // Check the time-limit and form the LCP for the simultaneous game.
 	 if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0) {
 		double remaining;
 		if (this->checkTime(remaining) && remaining > 0)
@@ -192,13 +192,20 @@ void Algorithms::IPG::Oracle::solve() {
 
 
 	 // Now we have an equilibrium, then we need to check whether this is feasible or not
-	 for (unsigned int i = 0; i < this->IPG->NumPlayers && solved; ++i) {
-		if (!this->preEquilibriumOracle(i)) {
-		  solved = false;
-		  //@todo here we do rounds of cuts :-)
-		  // break;
+	 addedCuts = 0;
+	 while (addedCuts <= 0) {
+		for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
+		  int cut = 0;
+		  if (!this->preEquilibriumOracle(i, cut)) {
+			 solved = false;
+		  }
+		  addedCuts += cut;
 		}
+		// If not solved but there are cuts, or it is solved and there are not cuts, exit.
+		if ((addedCuts > 0 && solved == false) || (addedCuts == 0 && solved == true))
+		  break;
 	 }
+
 	 if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0) {
 		double remaining;
 		if (!this->checkTime(remaining) || remaining <= 0)
@@ -210,7 +217,7 @@ void Algorithms::IPG::Oracle::solve() {
 	 this->Solved = true;
 	 bool pure    = true;
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
-		this->IPG->Solution.at(i)=this->Players.at(i)->Incumbent;
+		this->IPG->Solution.at(i) = this->Players.at(i)->Incumbent;
 		if (!this->Players.at(i)->Pure) {
 		  pure = false;
 		  break;
@@ -230,10 +237,12 @@ void Algorithms::IPG::Oracle::solve() {
 
 
 
-bool Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player) {
+bool Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player, int &addedCuts) {
   /**
 	* @brief Given the player id @p player, checks whether the current strategy is feasible or
 	* not. In order to do so, a more complex separation technique may be called.
+	* @p player The player id
+	* @p addedCuts Filled with how many cuts were added
 	*/
   LOG_S(1) << "Algorithms::IPG::Oracle::preEquilibriumOracle: "
 				  "The Oracle has been called for "
@@ -275,9 +284,10 @@ bool Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player) {
 		  LOG_S(INFO) << "Algorithms::IPG::Oracle::preEquilibriumOracle: "
 							  "Infeasible strategy. Adding the value-cut.";
 		  // Infeasible strategy. Add a value-cut
-		  if (this->addValueCut(player, IPobj, xMinusI))
+		  if (this->addValueCut(player, IPobj, xMinusI)) {
+			 addedCuts = 1;
 			 return false;
-		  else
+		  } else
 			 throw ZEROException(ZEROErrorCode::Unknown, "Unknown loop detected");
 		} // end abs(diff)
 	 } else {
@@ -309,8 +319,8 @@ bool Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player) {
 		} else {
 
 		  // In this case, we need to call the proper oracle.
-		  unsigned int iterations = 100;
-		  return this->equilibriumOracle(player, iterations, *xOfI, xMinusI);
+		  unsigned int iterations = this->IPG->PlayerVariables.at(player);
+		  return this->equilibriumOracle(player, iterations, *xOfI, xMinusI, addedCuts);
 		}
 	 }
 
@@ -336,11 +346,13 @@ bool Algorithms::IPG::Oracle::isPureStrategy() const {
 bool Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 																const unsigned int iterations,
 																const arma::vec &  xOfI,
-																const arma::vec &  xMinusI) {
+																const arma::vec &  xMinusI,
+																int &              addedCuts) {
   /**
 	* @brief Given the player and a bound on the number of iterations, tries to decide whether the
 	* given strategy belongs to the feasible region of the player by building the convex-hull with
-	* the known rays and vertices. @return true if the point belongs to the feasible region.
+	* the known rays and vertices. In @p addedCuts we count the number of cuts added to the player.
+	* @return true if the point belongs to the feasible region.
 	* @p xOfI is the given point to separate.
 	*/
 
@@ -351,13 +363,15 @@ bool Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
   }
   LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
 				  << ") Starting separator";
+  std::unique_ptr<GRBModel> leaderModel =
+		std::unique_ptr<GRBModel>(this->IPG->PlayersIP.at(player)->getIPModel(xMinusI, false));
+  auto dualMembershipModel = *this->Players.at(player)->MembershipLP;
+
   for (int k = 0; k < iterations; ++k) {
 	 // First, we check whether the point is a convex combination of feasible
 	 // KNOWN points
 	 // xOfI.print("Point to separate: ");
-
 	 this->updateMembership(player, xOfI);
-	 auto dualMembershipModel = *this->Players.at(player)->MembershipLP;
 	 dualMembershipModel.optimize();
 	 dualMembershipModel.write("dat/Convex_" + std::to_string(player) + ".lp");
 
@@ -383,6 +397,7 @@ bool Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 		  if (support.max() == 1) {
 			 this->Players.at(player)->Pure = true;
 		  }
+
 		  return true;
 		} else {
 		  // Get the Farkas' in the form of the unbounded ray of the dual of the
@@ -395,16 +410,15 @@ bool Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 			 arma::vec cutLHS;
 			 cutLHS.zeros(xOfI.size());
 
-			 for (unsigned int i = 0; i < xOfI.size(); i++)
+			 for (unsigned int i = 0; i < xOfI.size(); i++) {
 				cutLHS.at(i) =
 					 dualMembershipModel.getVarByName("y_" + std::to_string(i)).get(GRB_DoubleAttr_X);
+			 }
 			 // cutLHS.print("Separating hyperplane: ");
 
 
 			 // Optimize the resulting inequality over the original feasible set
 			 // xMinusI.print("xMinusI");
-			 std::unique_ptr<GRBModel> leaderModel = std::unique_ptr<GRBModel>(
-				  this->IPG->PlayersIP.at(player)->getIPModel(xMinusI, false));
 			 GRBLinExpr expr = 0;
 			 for (unsigned int i = 0; i < xOfI.size(); ++i)
 				expr += cutLHS.at(i) * leaderModel->getVarByName("y_" + std::to_string(i));
@@ -412,7 +426,7 @@ bool Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 			 leaderModel->setObjective(expr, GRB_MAXIMIZE);
 			 leaderModel->set(GRB_IntParam_OutputFlag, 0);
 			 leaderModel->update();
-			 leaderModel->write("dat/LeaderModel" + std::to_string(player) + ".lp");
+			 // leaderModel->write("dat/LeaderModel" + std::to_string(player) + ".lp");
 			 leaderModel->optimize();
 			 status = leaderModel->get(GRB_IntAttr_Status);
 
@@ -448,6 +462,7 @@ bool Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 				  } else {
 					 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
 									 << ") adding cut";
+					 addedCuts = 1;
 					 return false;
 				  }
 				} else {
@@ -565,7 +580,7 @@ bool Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
 	 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumLCP: an Equilibrium has been found";
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
 		this->Players.at(i)->Incumbent = x.subvec(Nash.getPrimalLoc(i), Nash.getPrimalLoc(i + 1) - 1);
-		//this->Players.at(i)->Incumbent.print("Incumbent of " + std::to_string(i));
+		// this->Players.at(i)->Incumbent.print("Incumbent of " + std::to_string(i));
 		this->Players.at(i)->Feasible = false;
 		this->Players.at(i)->Pure     = false;
 	 }

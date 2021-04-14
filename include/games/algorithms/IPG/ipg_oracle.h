@@ -85,14 +85,15 @@ namespace Algorithms {
 		void                                     initialize();
 		arma::vec                                buildXminusI(const unsigned int i);
 		bool addValueCut(unsigned int player, double RHS, arma::vec xMinusI, bool check = true);
-		bool preEquilibriumOracle(const unsigned int player);
+		bool preEquilibriumOracle(const unsigned int player, int &addedCuts);
 
 		void updateMembership(const unsigned int &player, const arma::vec &vertex);
 
 		bool equilibriumOracle(const unsigned int player,
-										  const unsigned int iterations,
-										  const arma::vec &  xOfI,
-										  const arma::vec &  xMinusI);
+									  const unsigned int iterations,
+									  const arma::vec &  xOfI,
+									  const arma::vec &  xMinusI,
+									  int &              addedCuts);
 		bool checkTime(double &remaining) const;
 
 	   void initLCPObjective();
