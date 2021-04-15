@@ -111,7 +111,7 @@ bool MathOpt::IP_Param::finalize() {
  * @brief This method updates the model objective in IP_Param::IPModel by setting x to @p x.
  * @param x The parametrized values of x
  */
-void MathOpt::IP_Param::updateModelObjective(const arma::vec x) {
+void MathOpt::IP_Param::updateModelObjective(const arma::vec& x) {
   if (x.size() != this->Nx)
 	 throw ZEROException(ZEROErrorCode::Assertion,
 								"Invalid argument size: " + std::to_string(x.size()) +
@@ -173,7 +173,7 @@ std::unique_ptr<GRBModel> MathOpt::IP_Param::solveFixed(const arma::vec x, bool 
  * @param relax True if the model relaxes integrality requirements
  * @return A pointer to the Gurobi model
  */
-std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(const arma::vec x, bool relax) {
+std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(const arma::vec& x, bool relax) {
   if (!this->Finalized)
 	 throw ZEROException(ZEROErrorCode::Assertion, "The model is not Finalized!");
   try {
@@ -250,9 +250,9 @@ MathOpt::IP_Param::set(QP_Objective &&obj, QP_Constraints &&cons, arma::vec &&_i
 	 throw ZEROException(ZEROErrorCode::InvalidData,
 								"Invalid vector of Integers. Refer to MP_Param is no "
 								"Integers are involved");
-  if (obj.Q.size() > 0)
+  if (!obj.Q.empty())
 	 LOG_S(WARNING) << "MathOpt::IP_Param::set: obj.Q will be ignored";
-  if (cons.A.size() > 0)
+  if (!cons.A.empty())
 	 LOG_S(WARNING) << "MathOpt::IP_Param::set: cons.A will be ignored";
   return this->set(std::move(obj.C),
 						 std::move(cons.B),
@@ -339,7 +339,7 @@ bool MathOpt::IP_Param::isFeasible(const arma::vec &y, const arma::vec &x, doubl
  * @param bin The RHS value
  * @return True if the constraint is added
  */
-bool MathOpt::IP_Param::addConstraints(arma::sp_mat Ain, arma::vec bin) {
+bool MathOpt::IP_Param::addConstraints(const arma::sp_mat& Ain, const arma::vec& bin) {
 
 
   if (this->B.n_cols != Ain.n_cols) {
@@ -581,7 +581,7 @@ void MathOpt::IP_Param::save(const std::string &filename, bool append) const {
   LOG_S(1) << "Saved IP_Param to file " << filename;
 }
 MathOpt::IP_Param::IP_Param(
-	 arma::sp_mat C, arma::sp_mat B, arma::vec b, arma::vec c, arma::vec _integers, GRBEnv *env)
+	 const arma::sp_mat& C, const arma::sp_mat& B, const arma::vec& b, const arma::vec& c, const arma::vec& _integers, GRBEnv *env)
 	 : MP_Param(env), IPModel{(*env)} {
   this->set(C, B, b, c, _integers);
   this->forceDataCheck();

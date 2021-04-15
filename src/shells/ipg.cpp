@@ -12,15 +12,7 @@
 
 
 #include "interfaces/ipg_models.h"
-#include "zero.h"
-#include <armadillo>
 #include <boost/program_options.hpp>
-#include <chrono>
-#include <cstdlib>
-#include <gurobi_c++.h>
-#include <iostream>
-#include <iterator>
-#include <math.h>
 
 using namespace std;
 using namespace boost::program_options;
@@ -83,25 +75,7 @@ int main(int argc, char **argv) {
 				"of arguments\n";
 	 return EXIT_SUCCESS;
   }
-  switch (verbosity) {
-  case 0:
-	 logging::core::get()->set_filter(logging::trivial::severity > logging::trivial::info);
-	 break;
-  case 1:
-	 logging::core::get()->set_filter(logging::trivial::severity >= logging::trivial::info);
-	 break;
-  case 2:
-	 logging::core::get()->set_filter(logging::trivial::severity >= logging::trivial::debug);
-	 break;
-  case 3:
-	 logging::core::get()->set_filter(logging::trivial::severity >= logging::trivial::trace);
-	 break;
-  default:
-	 LOG_S(WARNING) << "Invalid option for --message (-m). Setting default value: 0";
-	 verbosity = 0;
-	 logging::core::get()->set_filter(logging::trivial::severity > logging::trivial::info);
-	 break;
-  }
+
 
   // --------------------------------
   // START

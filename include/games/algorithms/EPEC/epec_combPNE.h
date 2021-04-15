@@ -20,8 +20,7 @@
 #include <set>
 #include <string>
 
-namespace Algorithms {
-  namespace EPEC {
+namespace Algorithms::EPEC {
 
 	 /**
 	  * @brief This class is responsible for the Combinatorial Pure-nash Equilibrium algorithm.
@@ -41,5 +40,4 @@ namespace Algorithms {
 		void combPNE(std::vector<long int>                           combination,
 						 const std::vector<std::set<unsigned long int>> &excludeList);
 	 };
-  } // namespace EPEC
-} // namespace Algorithms
+  } // namespace Algorithms

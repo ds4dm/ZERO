@@ -52,9 +52,9 @@ namespace Game {
 	 /// which position do the DUAL variable corrresponding to this player starts.
 	 std::vector<unsigned int> DualPosition;
 	 /// @internal Manages the position of Market clearing constraints' duals
-	 unsigned int MC_DualPosition;
+	 unsigned int MC_DualPosition{};
 	 /// @internal Manages the position of where the leader's variables start
-	 unsigned int LeaderPosition;
+	 unsigned int LeaderPosition{};
 	 /// Number of leader variables.
 	 /// These many variables will not have a matching complementary equation.
 	 unsigned int numLeaderVar;
@@ -68,7 +68,7 @@ namespace Game {
 	 /// Constructing a NashGame from a set of MathOpt::MP_Param, Market clearing
 	 /// constraints
 	 explicit NashGame(GRBEnv *                                        e,
-							 std::vector<std::shared_ptr<MathOpt::MP_Param>> players,
+							 const std::vector<std::shared_ptr<MathOpt::MP_Param>>& players,
 							 arma::sp_mat                                    MC,
 							 arma::vec                                       MCRHS,
 							 unsigned int                                    nLeadVar = 0,
@@ -137,8 +137,8 @@ namespace Game {
 											perps &         Compl,
 											VariableBounds &Bounds,
 											bool            writeToFile = false,
-											std::string     M_name      = "dat/LCP.txt",
-											std::string     q_name      = "dat/q.txt") const;
+											const std::string&     M_name      = "dat/LCP.txt",
+											const std::string&     q_name      = "dat/q.txt") const;
 
 	 arma::sp_mat rewriteLeadCons() const;
 

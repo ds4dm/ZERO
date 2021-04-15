@@ -48,12 +48,12 @@ namespace MathOpt {
 			 Model{(*env)} {}; ///< Empty constructor initializing only the Gurobi environment
 
 	 /// Set data at construct time
-	 QP_Param(arma::sp_mat Q,
-				 arma::sp_mat C,
-				 arma::sp_mat A,
-				 arma::sp_mat B,
-				 arma::vec    c,
-				 arma::vec    b,
+	 QP_Param(const arma::sp_mat& Q,
+				 const arma::sp_mat& C,
+				 const arma::sp_mat& A,
+				 const arma::sp_mat& B,
+				 const arma::vec&    c,
+				 const arma::vec&    b,
 				 GRBEnv *     env = nullptr);
 	 ;
 

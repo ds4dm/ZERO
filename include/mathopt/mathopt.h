@@ -47,8 +47,8 @@ namespace MathOpt {
 								  const std::vector<arma::vec *> *   bi,
 								  arma::sp_mat &                     A,
 								  arma::vec &                        b,
-								  arma::sp_mat                       Acom = {},
-								  arma::vec                          bcom = {});
+								  const arma::sp_mat&                       Acom = {},
+								  const arma::vec&                          bcom = {});
 
   void compConvSize(arma::sp_mat &                     A,
 						  unsigned int                       nFinCons,

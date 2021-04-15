@@ -59,11 +59,11 @@ namespace MathOpt {
 	  */
 	 explicit IP_Param(GRBEnv *env = nullptr) : MP_Param(env), IPModel{(*env)} { this->size(); }
 
-	 explicit IP_Param(arma::sp_mat C,
-							 arma::sp_mat B,
-							 arma::vec    b,
-							 arma::vec    c,
-							 arma::vec    _integers,
+	 explicit IP_Param(const arma::sp_mat& C,
+							 const arma::sp_mat& B,
+							 const arma::vec&    b,
+							 const arma::vec&    c,
+							 const arma::vec&    _integers,
 							 GRBEnv *     env = nullptr);
 	 ;
 
@@ -75,7 +75,7 @@ namespace MathOpt {
 
     IP_Param &setBounds(const VariableBounds &boundIn) ;
 
-	 bool addConstraints(arma::sp_mat Ain, arma::vec bin);
+	 bool addConstraints(const arma::sp_mat& Ain, const arma::vec& bin);
 
 	 /**
 	  * @brief A copy constructor from anoter IP_Param
@@ -111,11 +111,11 @@ namespace MathOpt {
 	 void save(const std::string &filename, bool append) const override;
 	 long load(const std::string &filename, long pos = 0) override;
 
-	 void updateModelObjective(arma::vec x);
+	 void updateModelObjective(const arma::vec& x);
 
 	 std::unique_ptr<GRBModel> solveFixed(arma::vec x, bool solve = false) override;
 
-	 std::unique_ptr<GRBModel> getIPModel(arma::vec x, bool relax = false);
+	 std::unique_ptr<GRBModel> getIPModel(const arma::vec& x, bool relax = false);
 
 	 unsigned int KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const override;
 

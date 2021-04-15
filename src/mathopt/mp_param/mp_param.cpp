@@ -169,7 +169,7 @@ void MathOpt::MP_Param::detectBounds() {
   // non-zero element, A_i is a zero vector
   std::vector<unsigned int> shedRows; // Keeps track of removed rows
 
-  if (this->Bounds.size() <= 0)
+  if (this->Bounds.empty())
 	 for (unsigned int i = 0; i < this->B.n_cols; i++)
 		this->Bounds.push_back({0, -1});
 
@@ -251,7 +251,7 @@ void MathOpt::MP_Param::detectBounds() {
   }
 
 
-  if (shedRows.size() > 0) {
+  if (!shedRows.empty()) {
 	 // Shed the rows of A,B,b
 	 std::sort(shedRows.begin(), shedRows.end());
 

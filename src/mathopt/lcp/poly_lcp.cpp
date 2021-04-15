@@ -12,7 +12,6 @@
 
 
 #include "mathopt/lcp/poly_lcp.h"
-#include "zero.h"
 
 
 
@@ -93,7 +92,7 @@ bool operator<(std::vector<short int> child, std::vector<short int> father) {
 /**
  * @brief Reverse operator. Redirects to <
  */
-bool operator>(std::vector<int> encoding1, std::vector<int> encoding2) {
+bool operator>(const std::vector<int>& encoding1, const std::vector<int>& encoding2) {
   return (encoding2 < encoding1);
 }
 
@@ -157,7 +156,7 @@ bool MathOpt::PolyLCP::addPolyFromEncoding(const std::vector<short int> &encodin
 														 spmat_Vec *                   custAi,
 														 vec_Vec *                     custbi) {
   unsigned int encodingNumber = this->vecToNum(encoding, innerApproximation);
-  bool         eval           = false;
+  bool         eval;
   if (checkFeas)
 	 eval = this->checkPolyFeas(encoding, innerApproximation);
   else
@@ -240,7 +239,7 @@ bool MathOpt::PolyLCP::addPolyFromEncoding(const std::vector<short int> &encodin
  * or was not added
  * @warning Use PolyLCP::addPolyFromEncoding for a single polyhedron
  */
-unsigned int MathOpt::PolyLCP::addPoliesFromEncoding(const std::vector<short int> encoding,
+unsigned int MathOpt::PolyLCP::addPoliesFromEncoding(const std::vector<short int>& encoding,
 																	  bool       innerApproximation,
 																	  bool       checkFeas,
 																	  bool       custom,
@@ -250,7 +249,7 @@ unsigned int MathOpt::PolyLCP::addPoliesFromEncoding(const std::vector<short int
   bool         flag  = false; // flag that there may be multiple polyhedra, i.e. 0 in
   // some encoding entry
   std::vector<short int> encodingCopy(encoding);
-  unsigned int           i = 0;
+  unsigned int           i;
   for (i = 0; i < this->nR; i++) {
 	 if (encoding.at(i) == 2 && innerApproximation)
 		throw ZEROException(ZEROErrorCode::InvalidData,
@@ -370,7 +369,6 @@ unsigned int MathOpt::PolyLCP::addAPoly(unsigned long int            nPoly,
 		}
 	 }
   }
-  return add;
 }
 
 
@@ -507,7 +505,7 @@ bool MathOpt::PolyLCP::checkPolyFeas(const unsigned long int &decimalEncoding,
  * one
  * @return True if at least one polyhedron is feasible
  */
-bool MathOpt::PolyLCP::outerApproximate(const std::vector<bool> encoding, bool clear) {
+bool MathOpt::PolyLCP::outerApproximate(const std::vector<bool>& encoding, bool clear) {
   if (encoding.size() != this->Compl.size()) {
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Mismatch in encoding size");
   }
@@ -623,7 +621,6 @@ bool MathOpt::PolyLCP::checkPolyFeas(const std::vector<short int> &encoding,
   } catch (GRBException &e) {
 	 throw ZEROException(e);
   }
-  return false;
 }
 
 

@@ -298,7 +298,6 @@ bool Algorithms::EPEC::OuterApproximation::equilibriumOracle(
 				if (cutV - val.at(0) < -this->Tolerance) {
 				  // False, but we have a cut :-)
 				  // Ciao Moni
-				  cutV = cutV;
 				  if (std::max(cutLHS.max(), cutV) - std::min(cutLHS.min(), cutV) > 1e5) {
 					 Utils::normalizeIneq(cutLHS, cutV);
 					 LOG_S(5) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
@@ -394,7 +393,7 @@ bool Algorithms::EPEC::OuterApproximation::equilibriumOracle(
  */
 void Algorithms::EPEC::OuterApproximation::addValueCut(const unsigned int player,
 																		 const double       RHS,
-																		 arma::vec          xMinusI) {
+																		 const arma::vec&          xMinusI) {
 
   arma::vec LHS = this->EPECObject->LeaderObjective.at(player)->c +
 						this->EPECObject->LeaderObjective.at(player)->C * xMinusI;
@@ -635,7 +634,7 @@ void Algorithms::EPEC::OuterApproximation::solve() {
  * @return A Gurobi pointer to the model
  */
 std::unique_ptr<GRBModel> Algorithms::EPEC::OuterApproximation::getFeasQP(const unsigned int player,
-																								  const arma::vec    x) {
+																								  const arma::vec&    x) {
 
 
   // this->EPECObject->getXMinusI(this->EPECObject->SolutionX, player, xMinusI);
@@ -664,7 +663,7 @@ std::unique_ptr<GRBModel> Algorithms::EPEC::OuterApproximation::getFeasQP(const 
  * @return A Gurobi pointer to the model
  */
 bool Algorithms::EPEC::OuterApproximation::isFeasiblePure(const unsigned int player,
-																			 const arma::vec    x) {
+																			 const arma::vec&    x) {
 
 
   auto model = this->PolyLCP.at(player)->LCPasMIP(false, -1, 1, 1);
@@ -1188,7 +1187,7 @@ Algorithms::EPEC::OuterTree::singleBranch(const unsigned int                 idC
  * @brief Adds a vertex to OuterTree::V
  * @param vertex The vector containing the vertex
  */
-void Algorithms::EPEC::OuterTree::addVertex(arma::vec vertex) {
+void Algorithms::EPEC::OuterTree::addVertex(const arma::vec& vertex) {
   if (vertex.size() != this->V.n_cols && this->V.n_rows > 0)
 	 throw ZEROException(ZEROErrorCode::OutOfRange, "Ill-dimensioned vertex");
   this->V = arma::join_cols(this->V, arma::sp_mat{vertex.t()});
@@ -1198,7 +1197,7 @@ void Algorithms::EPEC::OuterTree::addVertex(arma::vec vertex) {
  * @brief Adds a ray to OuterTree::R
  * @param ray The vector containing the ray
  */
-void Algorithms::EPEC::OuterTree::addRay(arma::vec ray) {
+void Algorithms::EPEC::OuterTree::addRay(const arma::vec& ray) {
   if (ray.size() != this->R.n_cols && this->R.n_rows > 0)
 	 throw ZEROException(ZEROErrorCode::OutOfRange, "Ill-dimensioned ray");
   this->R = arma::join_cols(this->R, arma::sp_mat{ray.t()});

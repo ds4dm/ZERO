@@ -54,7 +54,7 @@ void MathOpt::LCP::processBounds() {
 	 ++cnt;
   }
 
-  if (shedded.size() > 0) {
+  if (!shedded.empty()) {
 	 LOG_S(INFO) << "MathOpt::LCP::processBounds: " << shedded.size()
 					 << " bounds and trivial constraints processed";
 	 std::sort(shedded.begin(), shedded.end());
@@ -84,7 +84,7 @@ void MathOpt::LCP::processBounds() {
  * @param b Additional constraints RHS
  */
 MathOpt::LCP::LCP(
-	 GRBEnv *env, arma::sp_mat M, arma::vec q, perps Compl, arma::sp_mat A, arma::vec b)
+	 GRBEnv *env, arma::sp_mat &M, arma::vec &q, perps &Compl, arma::sp_mat &A, arma::vec &b)
 	 : M{M}, q{q}, A{A}, b{b}, RelaxedModel(*env) {
 
   this->Compl = perps(Compl);
@@ -113,12 +113,12 @@ MathOpt::LCP::LCP(
  * @param b Additional constraints RHS
  */
 MathOpt::LCP::LCP(GRBEnv *     env,
-						arma::sp_mat M,
-						arma::vec    q,
+						arma::sp_mat &M,
+						arma::vec    &q,
 						unsigned int leadStart,
 						unsigned     leadEnd,
-						arma::sp_mat A,
-						arma::vec    b)
+						arma::sp_mat &A,
+						arma::vec    &b)
 	 : M{M}, q{q}, A{A}, b{b}, RelaxedModel(*env)
 
 {
@@ -302,7 +302,7 @@ bool MathOpt::LCP::extractSols(GRBModel *model, arma::vec &z, arma::vec &x, bool
  * @param x The x-values vector
  * @return The z-values vector
  */
-arma::vec MathOpt::LCP::zFromX(const arma::vec x) { return (this->M * x + this->q); }
+arma::vec MathOpt::LCP::zFromX(const arma::vec& x) { return (this->M * x + this->q); }
 
 
 /**
@@ -396,7 +396,7 @@ std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIQP(const arma::sp_mat &Q,
  * @param filename  The filename
  * @param erase  Whether the file should be cleaned or not
  */
-void MathOpt::LCP::save(std::string filename, bool erase) const {
+void MathOpt::LCP::save(const std::string& filename, bool erase) const {
 
   Utils::appendSave(std::string("LCP"), filename, erase);
   Utils::appendSave(this->M, filename, std::string("LCP::M"), false);
@@ -427,7 +427,7 @@ void MathOpt::LCP::save(std::string filename, bool erase) const {
  * @return The position after the LCP in the file
  */
 
-long int MathOpt::LCP::load(std::string filename, long int pos) {
+long int MathOpt::LCP::load(const std::string& filename, long int pos) {
   if (!this->Env)
 	 throw ZEROException(ZEROErrorCode::Assertion,
 								" To load LCP from file, it has to be constructed "
@@ -556,7 +556,7 @@ void MathOpt::LCP::makeQP(MathOpt::QP_Objective &QP_obj, MathOpt::QP_Param &QP) 
  * note This method does not check whether such cuts are already in the LCP.
  */
 
-void MathOpt::LCP::addCustomCuts(const arma::sp_mat A_in, const arma::vec b_in) {
+void MathOpt::LCP::addCustomCuts(const arma::sp_mat& A_in, const arma::vec& b_in) {
 
   if (this->A.n_cols != A_in.n_cols)
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Mismatch in A columns");
@@ -570,7 +570,7 @@ void MathOpt::LCP::addCustomCuts(const arma::sp_mat A_in, const arma::vec b_in) 
 	 for (unsigned int i = 0; i < nC; i++)
 		x[i] = this->RelaxedModel.getVarByName("x_" + std::to_string(i));
 
-	 std::string basename = "cutConstr" + std::to_string(std::time(0));
+	 std::string basename = "cutConstr" + std::to_string(std::time(nullptr));
 	 Utils::addSparseConstraints(A_in, b_in, x, basename, &RelaxedModel, GRB_LESS_EQUAL, nullptr);
 
 	 LOG_S(1) << "MathOpt::LCP::addCustomCuts: Added cut constraint";
@@ -589,7 +589,7 @@ void MathOpt::LCP::addCustomCuts(const arma::sp_mat A_in, const arma::vec b_in) 
  * @param tol The numerical tolerance
  * @return True if the cut is already present, false otherwise.
  */
-bool MathOpt::LCP::containsCut(const arma::vec Arow, const double b, double tol) {
+bool MathOpt::LCP::containsCut(const arma::vec& Arow, const double b, double tol) {
   return Utils::containsConstraint(this->_Acut, this->_bcut, Arow, b, tol);
 }
 
@@ -624,9 +624,7 @@ ZEROStatus MathOpt::LCP::solvePATH(double timelimit, arma::vec &z, arma::vec &x,
 	* @brief Solves the LCP model with the PATH solver.
 	*/
 
-
-  // this->LCPasMIP(false)->write("dat/TheModel.lp");
-  auto Solver = new Solvers::PATH(this->M, this->q, this->Compl, this->BoundsX, z, x, timelimit);
+  auto Solver = new Solvers::PATH(this->M, this->q, this->Compl, this->BoundsX, z, x, timelimit, verbose);
   return Solver->getStatus();
 }
 
@@ -766,7 +764,7 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP(bool indicators) {
  * @param c Linear vector for the primal variables
  * @return True if successful
  */
-bool MathOpt::LCP::setMIPLinearObjective(const arma::vec c) {
+bool MathOpt::LCP::setMIPLinearObjective(const arma::vec& c) {
   if (c.size() > this->nC)
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Too many columns in the input vector");
   this->Obj.zeros(this->nC);
@@ -783,7 +781,7 @@ bool MathOpt::LCP::setMIPLinearObjective(const arma::vec c) {
  * @param Q Square matrix for the primal variables
  * @return True if successful
  */
-bool MathOpt::LCP::setMIPQuadraticObjective(const arma::vec c, arma::sp_mat Q) {
+bool MathOpt::LCP::setMIPQuadraticObjective(const arma::vec& c, const arma::sp_mat& Q) {
   if (c.size() > this->nC)
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Too many columns in the input vector");
   if (c.size() != Q.n_cols || !Q.is_square())
@@ -871,7 +869,6 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMINLP() {
 	 // Define binary variables for BigM
 
 	 GRBLinExpr   expr = 0;
-	 unsigned int j    = 0;
 	 for (const auto p : Compl) {
 
 		int _lb = this->BoundsX.at(p.second).first;
@@ -900,7 +897,6 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMINLP() {
   } catch (...) {
 	 throw ZEROException(ZEROErrorCode::Unknown, "Unknown exception in  MathOpt::LCP::getMINLP");
   }
-  return nullptr;
 }
 bool MathOpt::LCP::setMIPFeasibilityObjective() {
   this->ObjType = 0;

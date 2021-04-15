@@ -12,15 +12,7 @@
 
 
 #include "interfaces/epec_models.h"
-#include "zero.h"
-#include <armadillo>
-#include <boost/program_options.hpp>
-#include <chrono>
-#include <cstdlib>
-#include <gurobi_c++.h>
-#include <iostream>
-#include <iterator>
-#include <math.h>
+
 
 using namespace std;
 namespace po = boost::program_options;
@@ -30,63 +22,131 @@ int main(int argc, char **argv) {
   int    writeLevel = 0, nThreads = 0, verbosity = 0, algorithm = 0, aggressiveness = 0, add{0},
 		recover      = 0;
   double timeLimit = NAN, boundBigM = NAN, devtol = NAN;
-  bool   bound = 0, pure = 0;
+  bool   bound = false, pure = false;
 
   po::options_description desc("ZERO-EPEC: Allowed options");
-  desc.add_options()("help,h", "Shows this help message")("version,v", "Shows ZERO version")(
-		"input,i",
-		po::value<string>(&instanceFile),
-		"Sets the input path/filename of the instance file (.json appended "
-		"automatically)")("pure,p",
-								po::value<bool>(&pure)->default_value(false),
-								"Controls whether the Algorithm should seek for a pure NE or not. If "
-								"Algorithm is CombinatorialPNE, this is automatically true.")(
-		"recover,r",
-		po::value<int>(&recover)->default_value(0),
-		"If InnerApproximation is used along with PureNashEquilibrium, which "
-		"strategy should "
-		"be used to retrieve a pure NE. 0: IncrementalEnumeration, "
-		"1:CombinatorialPNE")("Algorithm,a",
-									 po::value<int>(&algorithm),
-									 "Sets the Algorithm. 0:FullEnumeration, "
-									 "1:InnerApproximation, 2:CombinatorialPNE, 3:OuterApproximation")(
-		"solution,s",
-		po::value<string>(&resFile)->default_value("dat/Solution"),
-		"Sets the output path/filename of the solution file (.json appended "
-		"automatically)")("log,l",
-								po::value<string>(&logFile)->default_value("dat/Results.csv"),
-								"Sets the output path/filename of the csv log file")(
-		"timelimit,tl",
-		po::value<double>(&timeLimit)->default_value(-1.0),
-		"Sets the timelimit for solving the Nash Equilibrium model")(
-		"writelevel,w",
-		po::value<int>(&writeLevel)->default_value(0),
-		"Sets the writeLevel param. 0: only Json. 1: only human-readable. 2: "
-		"both")("message,m",
-				  po::value<int>(&verbosity)->default_value(0),
-				  "Sets the verbosity level for info and warning messages. 0: "
-				  "warning and critical. 1: info. 2: debug. 3: trace")(
-		"Threads,t",
-		po::value<int>(&nThreads)->default_value(1),
-		"Sets the number of Threads for Gurobi. (int): number of Threads. 0: "
-		"auto (number of processors)")(
-		"aggr,ag",
-		po::value<int>(&aggressiveness)->default_value(1),
-		"Sets the Aggressiveness for the InnerApproximation, namely the number "
-		"of Random polyhedra added if no deviation is found. (int)")(
-		"bound,bo",
-		po::value<bool>(&bound)->default_value(false),
-		"Decides whether primal variables should be bounded or not.")(
-		"devtol,dt",
-		po::value<double>(&devtol)->default_value(-1.0),
-		"Sets the deviation tolerance.")("BoundBigM,bbm",
-													po::value<double>(&boundBigM)->default_value(1e5),
-													"Set the bounding BigM related to the parameter --bound")(
-		"add,ad",
-		po::value<int>(&add)->default_value(0),
-		"Sets the Game::EPECAddPolyMethod for the InnerApproximation. 0: "
-		"Sequential. "
-		"1: ReverseSequential. 2:Random.");
+  desc.add_options()("help,h", "Shows this help message")(
+		"version,v", "Shows ZERO version")("input,i",
+													  po::value<string>(&instanceFile),
+													  "Sets the input path/filename of the instance file (.json "
+													  "appended "
+													  "automatically)")("pure,p",
+																			  po::value<bool>(&pure)->default_value(
+																					false),
+																			  "Controls whether the Algorithm should "
+																			  "seek for a pure NE or not. If "
+																			  "Algorithm is CombinatorialPNE, this is "
+																			  "automatically true.")("recover,r",
+																											 po::value<int>(
+																												  &recover)
+																												  ->default_value(
+																														0),
+																											 "If "
+																											 "InnerApproximati"
+																											 "on is used "
+																											 "along with "
+																											 "PureNashEquilibr"
+																											 "ium, which "
+																											 "strategy should "
+																											 "be used to "
+																											 "retrieve a pure "
+																											 "NE. 0: "
+																											 "IncrementalEnume"
+																											 "ration, "
+																											 "1:"
+																											 "CombinatorialPN"
+																											 "E")("Algorithm,"
+																													"a",
+																													po::value<
+																														 int>(
+																														 &algorithm),
+																													"Sets the "
+																													"Algorithm. "
+																													"0:"
+																													"FullEnumera"
+																													"tion, "
+																													"1:"
+																													"InnerApprox"
+																													"imation, "
+																													"2:"
+																													"Combinatori"
+																													"alPNE, "
+																													"3:"
+																													"OuterApprox"
+																													"imation")("solution,s",
+																																  po::value<
+																																		string>(
+																																		&resFile)
+																																		->default_value(
+																																			 "dat/Solution"),
+																																  "Sets the output path/filename of the solution file (.json appended "
+																																  "automatically)")("log,l",
+																																						  po::value<
+																																								string>(
+																																								&logFile)
+																																								->default_value(
+																																									 "dat/Results.csv"),
+																																						  "Sets the output path/filename of the csv log file")("timelimit,tl",
+																																																								 po::value<
+																																																									  double>(
+																																																									  &timeLimit)
+																																																									  ->default_value(
+																																																											-1.0),
+																																																								 "Sets the timelimit for solving the Nash Equilibrium model")("writelevel,w",
+																																																																												  po::value<
+																																																																														int>(
+																																																																														&writeLevel)
+																																																																														->default_value(
+																																																																															 0),
+																																																																												  "Sets the writeLevel param. 0: only Json. 1: only human-readable. 2: "
+																																																																												  "both")("message,m",
+																																																																															 po::value<
+																																																																																  int>(
+																																																																																  &verbosity)
+																																																																																  ->default_value(
+																																																																																		0),
+																																																																															 "Sets the verbosity level for info and warning messages. 0: "
+																																																																															 "warning and critical. 1: info. 2: debug. 3: trace")("Threads,t",
+																																																																																																	po::value<
+																																																																																																		 int>(
+																																																																																																		 &nThreads)
+																																																																																																		 ->default_value(
+																																																																																																			  1),
+																																																																																																	"Sets the number of Threads for Gurobi. (int): number of Threads. 0: "
+																																																																																																	"auto (number of processors)")("aggr,ag",
+																																																																																																											 po::value<
+																																																																																																												  int>(
+																																																																																																												  &aggressiveness)
+																																																																																																												  ->default_value(
+																																																																																																														1),
+																																																																																																											 "Sets the Aggressiveness for the InnerApproximation, namely the number "
+																																																																																																											 "of Random polyhedra added if no deviation is found. (int)")("bound,bo",
+																																																																																																																															  po::value<
+																																																																																																																																	bool>(
+																																																																																																																																	&bound)
+																																																																																																																																	->default_value(
+																																																																																																																																		 false),
+																																																																																																																															  "Decides whether primal variables should be bounded or not.")("devtol,dt",
+																																																																																																																																																				 po::value<
+																																																																																																																																																					  double>(
+																																																																																																																																																					  &devtol)
+																																																																																																																																																					  ->default_value(
+																																																																																																																																																							-1.0),
+																																																																																																																																																				 "Sets the deviation tolerance.")("BoundBigM,bbm",
+																																																																																																																																																															 po::
+																																																																																																																																																																  value<
+																																																																																																																																																																		double>(&boundBigM)
+																																																																																																																																																																		->default_value(
+																																																																																																																																																																			 1e5),
+																																																																																																																																																															 "Set the bounding BigM related to the parameter --bound")("add,ad",
+																																																																																																																																																																																		  po::value<
+																																																																																																																																																																																				int>(
+																																																																																																																																																																																				&add)
+																																																																																																																																																																																				->default_value(
+																																																																																																																																																																																					 0),
+																																																																																																																																																																																		  "Sets the Game::EPECAddPolyMethod for the InnerApproximation. 0: "
+																																																																																																																																																																																		  "Sequential. "
+																																																																																																																																																																																		  "1: ReverseSequential. 2:Random.");
 
   po::variables_map vm;
   po::store(po::parse_command_line(argc, argv, desc), vm);
@@ -98,16 +158,14 @@ int main(int argc, char **argv) {
 	 return EXIT_SUCCESS;
   }
   if (vm.count("version") || verbosity >= 2) {
-	 arma::arma_version ver;
-	 int                major = 0, minor = 0, technical = 0;
-	 string             M, m, p;
+	 string M, m, p;
 	 ZEROVersion(M, m, p);
 	 LOG_S(INFO) << "ZERO Version: " << M << "." << m << "." << p;
 	 if (vm.count("version"))
 		return EXIT_SUCCESS;
   }
 
-  if (instanceFile == "") {
+  if (instanceFile.empty()) {
 	 cout << "-i [--input] option missing.\n Use with --help for help on list "
 				"of arguments\n";
 	 return EXIT_SUCCESS;
@@ -180,8 +238,8 @@ int main(int argc, char **argv) {
 
 	 //------------
 
-	 for (unsigned int j = 0; j < instance.Countries.size(); ++j)
-		epec.addCountry(instance.Countries.at(j));
+	 for (auto & Countrie : instance.Countries)
+		epec.addCountry(Countrie);
 	 epec.addTranspCosts(instance.TransportationCosts);
 	 epec.finalize();
 	 epec.findNashEq();
@@ -212,17 +270,15 @@ int main(int argc, char **argv) {
 	 }
 	 existCheck.close();
 
-	 std::stringstream polyT;
+	 std::stringstream         polyT;
 	 std::vector<unsigned int> target;
 	 if (stat.AlgorithmData.Algorithm.get() != Data::EPEC::Algorithms::OuterApproximation)
 		target = stat.AlgorithmData.FeasiblePolyhedra.get();
 	 else
 		target = stat.AlgorithmData.OuterComplementarities.get();
 
-    copy(target.begin(),
-         target.end(),
-         ostream_iterator<int>(polyT, " "));
-	 auto test2= polyT.str();
+	 copy(target.begin(), target.end(), ostream_iterator<int>(polyT, " "));
+	 auto test2 = polyT.str();
 
 
 	 results << instanceFile << ";" << to_string(stat.AlgorithmData.Algorithm.get()) << ";"

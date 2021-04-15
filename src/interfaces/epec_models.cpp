@@ -30,7 +30,7 @@ std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::pr
   return ost;
 }
 
-std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::FollPar P) {
+std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::FollPar& P) {
   ost << "Follower Parameters: " << '\n';
   ost << "********************" << '\n';
   ost << Models::EPEC::prn::label << "Linear Costs"
@@ -82,16 +82,16 @@ std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::Le
   return ost;
 }
 
-std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::EPECInstance I) {
+std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::EPECInstance& I) {
   ost << "EPEC Instance: " << '\n';
   ost << "******************" << '\n';
-  for (auto a : I.Countries)
+  for (const auto& a : I.Countries)
 	 ost << a << '\n';
   ost << "Transportation Costs:" << '\n' << I.TransportationCosts << '\n';
   return ost;
 }
 
-std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::LeadAllPar P) {
+std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::LeadAllPar& P) {
   ost << "\n\n";
   ost << "***************************"
 		<< "\n";
@@ -170,7 +170,7 @@ bool Models::EPEC::EPEC::ParamValid(
   if (Params.DemandParam.alpha <= 0 || Params.DemandParam.beta <= 0)
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Demand curve parameters are negative");
   // Country should have a name!
-  if (Params.name == "")
+  if (Params.name.empty())
 	 throw ZEROException(ZEROErrorCode::InvalidData, "The country has no name");
   // Country should have a unique name
   for (const auto &p : this->AllLeadPars)
@@ -925,7 +925,7 @@ void Models::EPEC::EPEC::makeObjectivePlayer(
   }
 }
 
-std::unique_ptr<GRBModel> Models::EPEC::EPEC::Respond(const std::string name,
+std::unique_ptr<GRBModel> Models::EPEC::EPEC::Respond(const std::string& name,
 																		const arma::vec & x) const {
   return this->Game::EPEC::respond(this->name2nos.at(name), x);
 }
@@ -954,7 +954,7 @@ void Models::EPEC::increaseVal(LeadLocs &         L,
  * Should be called ONLY after initializing @p L by calling Models::EPEC::init
  */
 {
-  LeaderVars start_rl = (LeaderVars)(startnext ? start + 1 : start);
+  auto start_rl = (LeaderVars)(startnext ? start + 1 : start);
   for (LeaderVars l = start_rl; l != Models::EPEC::LeaderVars::End; l = l + 1)
 	 L[l] += val;
   L[Models::EPEC::LeaderVars::End] += val;
@@ -970,7 +970,7 @@ void Models::EPEC::decreaseVal(LeadLocs &         L,
  * Should be called ONLY after initializing @p L by calling Models::EPEC::init
  */
 {
-  LeaderVars start_rl = (LeaderVars)(startnext ? start + 1 : start);
+  auto start_rl = (LeaderVars)(startnext ? start + 1 : start);
   for (LeaderVars l = start_rl; l != Models::EPEC::LeaderVars::End; l = l + 1)
 	 L[l] -= val;
   L[Models::EPEC::LeaderVars::End] -= val;
@@ -1037,7 +1037,7 @@ std::string to_string(const GRBVar &var) {
   return name.empty() ? "unNamedvar" : name;
 }
 
-void Models::EPEC::EPEC::write(const std::string  filename,
+void Models::EPEC::EPEC::write(const std::string&  filename,
 										 const unsigned int i,
 										 bool               append) const {
   std::ofstream file;
@@ -1051,7 +1051,7 @@ void Models::EPEC::EPEC::write(const std::string  filename,
   file.close();
 }
 
-void Models::EPEC::EPEC::write(const std::string filename, bool append) const {
+void Models::EPEC::EPEC::write(const std::string& filename, bool append) const {
   if (append) {
 	 std::ofstream file;
 	 file.open(filename, std::ios::app);
@@ -1064,9 +1064,9 @@ void Models::EPEC::EPEC::write(const std::string filename, bool append) const {
 	 this->write(filename, i, (append || i));
 }
 
-void Models::EPEC::EPEC::writeSolutionJSON(std::string     filename,
-														 const arma::vec x,
-														 const arma::vec z) const {
+void Models::EPEC::EPEC::writeSolutionJSON(const std::string&     filename,
+														 const arma::vec& x,
+														 const arma::vec& z) const {
   /**
 	* @brief Writes the computed Nash Equilibrium in the standard JSON solution
 	* file
@@ -1136,7 +1136,7 @@ void Models::EPEC::EPEC::writeSolutionJSON(std::string     filename,
   file << s.GetString();
 }
 
-void Models::EPEC::EPEC::readSolutionJSON(const std::string filename) {
+void Models::EPEC::EPEC::readSolutionJSON(const std::string& filename) {
   /**
 	* @brief Reads the solution file and load it in the current EPEC instance
 	* **/
@@ -1171,7 +1171,7 @@ void Models::EPEC::EPEC::readSolutionJSON(const std::string filename) {
   }
 }
 
-void Models::EPEC::EPEC::writeSolution(const int writeLevel, std::string filename) const {
+void Models::EPEC::EPEC::writeSolution(const int writeLevel, const std::string& filename) const {
   /**
 	* @brief Writes the computed Nash Equilibrium in the EPEC instance
 	* @p writeLevel is an integer representing the write configuration. 0: only
@@ -1191,7 +1191,7 @@ void Models::EPEC::EPEC::writeSolution(const int writeLevel, std::string filenam
   }
 }
 
-void Models::EPEC::EPECInstance::save(std::string filename) {
+void Models::EPEC::EPECInstance::save(const std::string& filename) {
   /**
 	* @brief Writes the current EPEC instance to the standard JSON instance file
 	* @p filename dictates the name of the JSON instance file
@@ -1308,7 +1308,7 @@ void Models::EPEC::EPECInstance::save(std::string filename) {
   file.close();
 }
 
-void Models::EPEC::EPECInstance::load(std::string filename) {
+void Models::EPEC::EPECInstance::load(const std::string& filename) {
   /**
 	* @brief Reads an instance file and return a vector of @p LeadAllPar that can
 	* be fed to the EPEC class
@@ -1389,8 +1389,8 @@ void Models::EPEC::EPECInstance::load(std::string filename) {
 }
 
 void Models::EPEC::EPEC::WriteCountry(const unsigned int i,
-												  const std::string  filename,
-												  const arma::vec    x,
+												  const std::string&  filename,
+												  const arma::vec&    x,
 												  const bool         append) const {
   // if (!TheLCP) return;
   // const LeadLocs& Loc = this->Locations.at(i);
@@ -1454,8 +1454,8 @@ void Models::EPEC::EPEC::WriteCountry(const unsigned int i,
 
 void Models::EPEC::EPEC::WriteFollower(const unsigned int i,
 													const unsigned int j,
-													const std::string  filename,
-													const arma::vec    x) const {
+													const std::string&  filename,
+													const arma::vec&    x) const {
   std::ofstream file;
   file.open(filename, std::ios::app);
 

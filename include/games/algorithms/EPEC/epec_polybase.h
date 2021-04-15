@@ -15,8 +15,7 @@
 #include "mathopt/lcp/lcp.h"
 #include "zero.h"
 
-namespace Algorithms {
-  namespace EPEC {
+namespace Algorithms::EPEC {
 	 class PolyBase {
 		/**
 		 *  @brief This is the abstract class manages the algorithms for Game::EPEC. Since they are
@@ -64,33 +63,32 @@ namespace Algorithms {
 
 		virtual void solve() = 0; ///< A general method to solve problems
 		bool isSolved(unsigned int *player, arma::vec *profitableDeviation, double tol = -1) const;
-		bool isSolved(double tol = -1) const; ///< A method to check whether the EPEC is solved or
+		[[nodiscard]] bool isSolved(double tol = -1) const; ///< A method to check whether the EPEC is solved or
 														  ///< not, given a numerical tolerance
 		void makeThePureLCP();
 
-		double
+		[[nodiscard]] double
 		getValLeadFollPoly(unsigned int i, unsigned int j, unsigned int k, double tol = 1e-5) const;
 
-		double
+		[[nodiscard]] double
 		getValLeadLeadPoly(unsigned int i, unsigned int j, unsigned int k, double tol = 1e-5) const;
 
-		double getValProbab(unsigned int i, unsigned int k) const;
+		[[nodiscard]] double getValProbab(unsigned int i, unsigned int k) const;
 
-		bool isPureStrategy(unsigned int i, double tol = 1e-5) const;
+		[[nodiscard]] bool isPureStrategy(unsigned int i, double tol = 1e-5) const;
 
-		bool isPureStrategy(double tol = 1e-5) const;
+		[[nodiscard]] bool isPureStrategy(double tol = 1e-5) const;
 
-		std::vector<unsigned int> mixedStrategyPoly(unsigned int i, double tol = 1e-5) const;
-		unsigned int getPositionLeadFollPoly(unsigned int i, unsigned int j, unsigned int k) const;
+		[[nodiscard]] std::vector<unsigned int> mixedStrategyPoly(unsigned int i, double tol = 1e-5) const;
+		[[nodiscard]] unsigned int getPositionLeadFollPoly(unsigned int i, unsigned int j, unsigned int k) const;
 
-		unsigned int getPositionLeadLeadPoly(unsigned int i, unsigned int j, unsigned int k) const;
+		[[nodiscard]] unsigned int getPositionLeadLeadPoly(unsigned int i, unsigned int j, unsigned int k) const;
 
-		unsigned long int getNumPolyLead(unsigned int i) const;
+		[[nodiscard]] unsigned long int getNumPolyLead(unsigned int i) const;
 
-		unsigned int getPositionProbab(unsigned int i, unsigned int k) const;
+		[[nodiscard]] unsigned int getPositionProbab(unsigned int i, unsigned int k) const;
 	 };
-  } // namespace EPEC
-} // namespace Algorithms
+  } // namespace Algorithms
 
 #include "epec_combPNE.h"
 #include "epec_fullenum.h"

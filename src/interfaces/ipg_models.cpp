@@ -44,7 +44,7 @@ void Models::IPG::IPG::writeSolution(std::string filename) const {
   writer.EndObject();
   writer.Key("Solution");
 
-  for (unsigned int i = 0, count = 0; i < this->getNumPlayers(); i++) {
+  for (unsigned int i = 0; i < this->getNumPlayers(); i++) {
 	 writer.Key(("x_" + std::to_string(i)).c_str());
 	 writer.StartArray();
 	 for (unsigned int j = 0; j < this->Solution.at(i).size(); j++)
@@ -94,7 +94,7 @@ void Models::IPG::IPGInstance::save(std::string filename) {
   writer.Uint(this->NumVariables);
   writer.Key("Players");
   writer.StartArray();
-  for (unsigned int i = 0, count = 0; i < this->PlayerVariables.size(); i++) {
+  for (unsigned int i = 0; i < this->PlayerVariables.size(); i++) {
 	 writer.StartObject();
 	 writer.Key("NumVariables");
 	 writer.Uint(this->PlayerVariables.at(i));
@@ -127,7 +127,6 @@ void Models::IPG::IPGInstance::load(std::string filename) {
 		auto                           IPG = d["IntegerProgrammingGame"].GetObject();
 
 		unsigned int              nPlayers   = IPG["nPlayers"].GetInt();
-		unsigned int              nVariables = IPG["nVariables"].GetInt();
 		std::vector<unsigned int> playerVariables;
 
 		for (int j = 0; j < nPlayers; ++j) {

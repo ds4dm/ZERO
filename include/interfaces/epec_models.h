@@ -144,10 +144,10 @@ namespace Models {
 			 : Countries{Countries_}, TransportationCosts{Transp_} {}
 		///< Constructor from instance objects
 
-		void load(std::string filename);
+		void load(const std::string& filename);
 		///< Reads the EPECInstance from a file
 
-		void save(std::string filename);
+		void save(const std::string& filename);
 		///< Writes the EPECInstance from a file
 	 };
 
@@ -164,17 +164,17 @@ namespace Models {
 		End
 	 };
 
-	 std::ostream &operator<<(std::ostream &ost, const FollPar P);
+	 std::ostream &operator<<(std::ostream &ost, const FollPar& P);
 
 	 std::ostream &operator<<(std::ostream &ost, const DemPar P);
 
 	 std::ostream &operator<<(std::ostream &ost, const LeadPar P);
 
-	 std::ostream &operator<<(std::ostream &ost, const LeadAllPar P);
+	 std::ostream &operator<<(std::ostream &ost, const LeadAllPar& P);
 
 	 std::ostream &operator<<(std::ostream &ost, const LeaderVars l);
 
-	 std::ostream &operator<<(std::ostream &ost, EPECInstance I);
+	 std::ostream &operator<<(std::ostream &ost, const EPECInstance& I);
 
 	 using LeadLocs = std::map<LeaderVars, unsigned int>;
 
@@ -260,14 +260,14 @@ namespace Models {
 		void makeMCConstraints(arma::sp_mat &MCLHS, arma::vec &MCRHS) const override;
 
 		void WriteCountry(const unsigned int i,
-								const std::string  filename,
-								const arma::vec    x,
+								const std::string&  filename,
+								const arma::vec&    x,
 								const bool         append = true) const;
 
 		void WriteFollower(const unsigned int i,
 								 const unsigned int j,
-								 const std::string  filename,
-								 const arma::vec    x) const;
+								 const std::string&  filename,
+								 const arma::vec&    x) const;
 
 	 public:                        // Attributes
 		bool quadraticTax = {false}; ///< If set to true, a term for the quadratic tax
@@ -298,21 +298,21 @@ namespace Models {
 
 		EPEC &unlock();
 
-		std::unique_ptr<GRBModel> Respond(const std::string name, const arma::vec &x) const;
+		std::unique_ptr<GRBModel> Respond(const std::string& name, const arma::vec &x) const;
 
 		// Data access methods
 		Game::NashGame *get_LowerLevelNash(const unsigned int i) const;
 
 		// Writing model files
-		void write(const std::string filename, const unsigned int i, bool append = true) const;
+		void write(const std::string& filename, const unsigned int i, bool append = true) const;
 
-		void write(const std::string filename, bool append = true) const;
+		void write(const std::string& filename, bool append = true) const;
 
-		void readSolutionJSON(const std::string filename);
+		void readSolutionJSON(const std::string& filename);
 
-		void writeSolutionJSON(std::string filename, const arma::vec x, const arma::vec z) const;
+		void writeSolutionJSON(const std::string& filename, const arma::vec& x, const arma::vec& z) const;
 
-		void writeSolution(const int writeLevel, std::string filename) const;
+		void writeSolution(const int writeLevel, const std::string& filename) const;
 
 		///@brief Get the current EPECInstance loaded
 		const EPECInstance getInstance() const {

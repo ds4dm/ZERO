@@ -39,5 +39,5 @@ public:
    * @brief Provides the ZERO version as a single string
    * @param version The output version string
    */
-  ZEROVersion(std::string &version) { version = ZERO_VERSION; }
+  explicit ZEROVersion(std::string &version) { version = ZERO_VERSION; }
 };

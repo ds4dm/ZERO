@@ -22,8 +22,7 @@
 #include <set>
 #include <string>
 
-namespace Data {
-  namespace EPEC {
+namespace Data::EPEC {
 
 	 /**
 	  * @brief An enum containing the available algorithms for Game::EPEC
@@ -82,8 +81,7 @@ namespace Data {
 				LCPSolver{static_cast<Data::LCP::Algorithms>(0)} {};
 	 };
 
-  } // namespace EPEC
-} // namespace Data
+  } // namespace Data
 
 namespace Game {
 
@@ -124,7 +122,7 @@ namespace Game {
 	 bool      Finalized{false};
 	 arma::vec SolutionZ,         ///< Solution equation values
 		  SolutionX;               ///< Solution variable values
-	 bool warmstart(arma::vec x); ///< Warmstarts EPEC with a solution
+	 bool warmstart(const arma::vec& x); ///< Warmstarts EPEC with a solution
 
   private:
 	 void       addDummyLead(unsigned int i); ///< Add Dummy variables for the leaders

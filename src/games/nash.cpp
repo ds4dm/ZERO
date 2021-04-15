@@ -13,7 +13,7 @@
 
 #include "games/nash.h"
 Game::NashGame::NashGame(GRBEnv *                                        e,
-								 std::vector<std::shared_ptr<MathOpt::MP_Param>> players,
+								 const std::vector<std::shared_ptr<MathOpt::MP_Param>>& players,
 								 arma::sp_mat                                    MC,
 								 arma::vec                                       MCRHS,
 								 unsigned int                                    nLeadVar,
@@ -190,8 +190,8 @@ const Game::NashGame &Game::NashGame::formulateLCP(
 	 perps &           Compl,       ///< Says which equations are complementary to which variables
 	 VariableBounds &  OutBounds,   ///< BoundsX on primal variables
 	 bool              writeToFile, ///< If  true, writes  M and  q to file.k
-	 const std::string M_name,      ///< File name to be used to write  M
-	 const std::string q_name       ///< File name to be used to write  M
+	 const std::string& M_name,      ///< File name to be used to write  M
+	 const std::string& q_name       ///< File name to be used to write  M
 	 ) const {
   /// @brief Formulates the LCP corresponding to the Nash game.
   /// @warning Does not return the leader constraints. Use
@@ -406,13 +406,10 @@ Game::NashGame &Game::NashGame::addDummy(unsigned int par, int position)
   if (this->MarketClearing.n_rows) {
 	 auto nnR = this->MarketClearing.n_rows;
 	 auto nnC = this->MarketClearing.n_cols;
-	 switch (position) {
-	 case -1:
+	 if (position == -1)
 		this->MarketClearing = Utils::resizePatch(this->MarketClearing, nnR, nnC + par);
-		break;
-	 default:
+	else
 		LOG_S(ERROR) << "addDummy at non-final position not implemented";
-	 }
   }
   this->setPositions();
   return *this;

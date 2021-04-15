@@ -14,8 +14,7 @@
 #include "epec_polybase.h"
 #include "zero.h"
 
-namespace Algorithms {
-  namespace EPEC {
+namespace Algorithms::EPEC {
 	 /**
 	  * @brief This class manages the full enumeration algorithm for Game::EPEC objects
 	  */
@@ -24,5 +23,4 @@ namespace Algorithms {
 		FullEnumeration(GRBEnv *env, Game::EPEC *EPECObject) : PolyBase(env, EPECObject){};
 		void solve();
 	 };
-  } // namespace EPEC
-} // namespace Algorithms
+  } // namespace Algorithms

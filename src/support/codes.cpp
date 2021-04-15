@@ -12,7 +12,6 @@
 
 
 #include "support/codes.h"
-#include <string>
 
 std::string std::to_string(const ZEROErrorCode &code) {
   string wrap = "ZEROErrorCode ";

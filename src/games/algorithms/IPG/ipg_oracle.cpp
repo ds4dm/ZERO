@@ -11,8 +11,6 @@
  * #############################################*/
 
 #include "games/algorithms/IPG/ipg_oracle.h"
-#include "games/nash.h"
-#include "zero.h"
 
 
 bool Algorithms::IPG::IPG_Player::addVertex(const arma::vec &vertex, const bool checkDuplicate) {

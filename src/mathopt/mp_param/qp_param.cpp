@@ -310,12 +310,12 @@ long int MathOpt::QP_Param::load(const std::string &filename, long int pos) {
  * @return A pointer to this
  * @warning The input data may be corrupted after
  */
-MathOpt::QP_Param::QP_Param(arma::sp_mat Q,
-									 arma::sp_mat C,
-									 arma::sp_mat A,
-									 arma::sp_mat B,
-									 arma::vec    c,
-									 arma::vec    b,
+MathOpt::QP_Param::QP_Param(const arma::sp_mat& Q,
+									 const arma::sp_mat& C,
+									 const arma::sp_mat& A,
+									 const arma::sp_mat& B,
+									 const arma::vec&    c,
+									 const arma::vec&    b,
 									 GRBEnv *     env)
 	 : MP_Param(env), MadeyQy{false}, Model{(*env)} {
   this->MadeyQy = false;

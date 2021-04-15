@@ -72,7 +72,7 @@ namespace Algorithms::EPEC {
 			*/
 		  std::vector<bool> AllowedBranchings;
 		  unsigned long int Id;     ///< A long int giving the numerical identifier for the node
-		  Node *            Parent; ///< A pointer to the parent node.
+		  Node *            Parent{}; ///< A pointer to the parent node.
 		};
 
 	 private:
@@ -150,9 +150,9 @@ namespace Algorithms::EPEC {
 
 
 
-		inline void addVertex(arma::vec vertex);
+		inline void addVertex(const arma::vec& vertex);
 
-		inline void addRay(arma::vec ray);
+		inline void addRay(const arma::vec& ray);
 
 		inline Node *getRoot() { return &this->Root; } ///< Getter for the root node
 
@@ -177,7 +177,7 @@ namespace Algorithms::EPEC {
 
 		void solve() override;
 		void printCurrentApprox();
-		void printBranchingLog(std::vector<int> vector);
+		static void printBranchingLog(std::vector<int> vector);
 
 		//@todo define these for the outer approximation
 		bool isSolved(double tol = 1e-4);
@@ -201,16 +201,11 @@ namespace Algorithms::EPEC {
 		int  hybridBranching(unsigned int player, OuterTree::Node *node);
 		int  infeasibleBranching(unsigned int player, const OuterTree::Node *node);
 		int  deviationBranching(unsigned int player, const OuterTree::Node *node);
-		std::unique_ptr<GRBModel> getFeasQP(unsigned int player, arma::vec x);
-		void                      addValueCut(unsigned int player, double RHS, arma::vec xMinusI);
+		std::unique_ptr<GRBModel> getFeasQP(unsigned int player, const arma::vec& x);
+		void                      addValueCut(unsigned int player, double RHS, const arma::vec& xMinusI);
 		bool                      equilibriumOracle(
 										 arma::vec &xOfI, arma::vec &x, unsigned int player, int budget, bool &addedCuts);
 		int rationalBranching(const unsigned int player, OuterTree::Node *node);
-		bool isFeasiblePure(const unsigned int player, const arma::vec x);
-		void      computeExplicitSupport(const arma::vec v,
-													const arma::vec r,
-													const arma::vec x,
-													arma::sp_mat *  support,
-													arma::vec *     coeff);
+		bool isFeasiblePure(const unsigned int player, const arma::vec& x);
 	 };
   } // namespace Algorithms

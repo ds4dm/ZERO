@@ -22,8 +22,7 @@
 #include <set>
 #include <string>
 
-namespace Algorithms {
-  namespace IPG {
+namespace Algorithms::IPG {
 
 	 struct IPG_Player {
 		///@brief This structure manages the IPG data for each player of the game, given the
@@ -110,6 +109,4 @@ namespace Algorithms {
 		bool isPureStrategy() const;
 		bool equilibriumLCP(double localTimeLimit);
 	 };
-  } // namespace IPG
-
-} // namespace Algorithms
+  } // namespace Algorithms

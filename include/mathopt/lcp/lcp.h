@@ -21,8 +21,7 @@
 #include <memory>
 #include <set>
 
-namespace Data {
-  namespace LCP {
+namespace Data::LCP {
 
 	 enum class PolyhedraStrategy {
 		/** @brief When expanding the feasible region of an inner approximated LCP, this
@@ -38,8 +37,7 @@ namespace Data {
 		PATH, ///< Solves the LCP via PATH
 		MINLP ///< Solves the LCP via a MINLP. Note that solvers may cast this into a MINLP
 	 };
-  } // namespace LCP
-} // namespace Data
+  } // namespace Data
 namespace std {
 
   string to_string(Data::LCP::Algorithms al);
@@ -60,7 +58,7 @@ namespace MathOpt {
 
   protected:
 	 // Essential data ironment for MIP/LP solves
-	 GRBEnv *     Env; ///< A pointer to the Gurobi Env
+	 GRBEnv *     Env{}; ///< A pointer to the Gurobi Env
 	 unsigned int ObjType =
 		  0; ///< Type of the objective for MIP/MINLP. 0 is feasibility, 1 linear, 2 quadratic
 	 arma::vec    Obj;  ///< The linear objective for the LCP in case of MIP/MINLP
@@ -82,7 +80,7 @@ namespace MathOpt {
 	 arma::vec _bcut = {};    ///< Additional cutting planes (eventually) added to the model, in the
 									  ///< form @f$Ax \leq b@f$
 	 bool         MadeRlxdModel{false}; ///< True if a relaxed model has been already initialized
-	 unsigned int nR, nC;               ///< The number of rows and columns in the matrix M
+	 unsigned int nR{}, nC{};               ///< The number of rows and columns in the matrix M
 
 	 /**
 	  * Stores non-trivial upper and lower bounds on x variables  in as a tuple (j,k) where j the
@@ -128,18 +126,18 @@ namespace MathOpt {
 	  */
 	 explicit LCP(GRBEnv *e) : Env{e}, RelaxedModel(*e){};
 	 LCP(GRBEnv *     env,
-		  arma::sp_mat M,
-		  arma::vec    q,
+		  arma::sp_mat &M,
+		  arma::vec    &q,
 		  unsigned int leadStart,
 		  unsigned     leadEnd,
-		  arma::sp_mat A = {},
-		  arma::vec    b = {});
+		  arma::sp_mat &A,
+		  arma::vec    &b);
 	 LCP(GRBEnv *     env,
-		  arma::sp_mat M,
-		  arma::vec    q,
-		  perps        Compl,
-		  arma::sp_mat A = {},
-		  arma::vec    b = {});
+		  arma::sp_mat &M,
+		  arma::vec    &q,
+		  perps        &Compl,
+		  arma::sp_mat &A ,
+		  arma::vec    &b);
 
 	 LCP(GRBEnv *env, const Game::NashGame &N);
 
@@ -198,21 +196,21 @@ namespace MathOpt {
 
 	 ZEROStatus solvePATH(double timelimit, arma::vec &x, arma::vec &z, bool verbose = true);
 
-	 void save(std::string filename, bool erase = true) const;
+	 void save(const std::string& filename, bool erase = true) const;
 
-	 long int load(std::string filename, long int pos = 0);
+	 long int load(const std::string& filename, long int pos = 0);
 
 	 virtual void makeQP(MathOpt::QP_Objective &QP_obj, MathOpt::QP_Param &QP);
 
-	 void addCustomCuts(const arma::sp_mat A, const arma::vec b);
+	 void addCustomCuts(const arma::sp_mat& A, const arma::vec& b);
 
-	 bool containsCut(const arma::vec LHS, const double RHS, double tol = 1e-5);
+	 bool containsCut(const arma::vec& LHS, const double RHS, double tol = 1e-5);
 
-	 arma::vec zFromX(const arma::vec x);
+	 arma::vec zFromX(const arma::vec& x);
 
 	 void processBounds();
-	 bool setMIPLinearObjective(const arma::vec c);
-	 bool setMIPQuadraticObjective(const arma::vec c, arma::sp_mat Q);
+	 bool setMIPLinearObjective(const arma::vec& c);
+	 bool setMIPQuadraticObjective(const arma::vec& c, const arma::sp_mat& Q);
 	 bool setMIPFeasibilityObjective();
   };
 } // namespace MathOpt

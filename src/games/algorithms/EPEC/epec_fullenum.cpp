@@ -12,7 +12,6 @@
 
 
 #include "games/algorithms/EPEC/epec_fullenum.h"
-#include "mathopt/lcp/poly_lcp.h"
 
 /**
  * @brief Solves the Game::EPEC by full enumeration.

@@ -12,7 +12,6 @@
 
 
 #include "games/ipg.h"
-#include "zero.h"
 
 Game::IPG::IPG(
 	 GRBEnv *                                        env,    ///< A pointer to the Gurobi Environment

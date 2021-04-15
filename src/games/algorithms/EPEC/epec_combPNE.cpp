@@ -13,6 +13,8 @@
 
 #include "games/algorithms/EPEC/epec_combPNE.h"
 
+#include <utility>
+
 /**
  * @brief Solves the Game::EPEC instance with the algorithm by excluding some combinations of
  * polyhedra that may have been already tested.
@@ -26,9 +28,7 @@ void Algorithms::EPEC::CombinatorialPNE::solveWithExcluded(
 		this->EPECObject->InitTime = std::chrono::high_resolution_clock::now();
 	 }
   }
-  std::vector<long int> start = {};
-  for (int j = 0; j < this->EPECObject->NumPlayers; ++j)
-	 start.push_back(-1);
+  std::vector<long int> start(this->EPECObject->NumPlayers, -1);
   this->combPNE(start, excludeList);
   if (this->EPECObject->Stats.Status.get() == ZEROStatus::Uninitialized)
 	 this->EPECObject->Stats.Status.set(ZEROStatus::NashEqNotFound);
@@ -64,9 +64,9 @@ void Algorithms::EPEC::CombinatorialPNE::combPNE(
 	 }
   }
 
-  std::vector<long int> childCombination(combination);
+  std::vector<long int> childCombination(std::move(combination));
   bool                  found{false};
-  unsigned int          i{0};
+  unsigned int          i;
   for (i = 0; i < this->EPECObject->NumPlayers; i++) {
 	 if (childCombination.at(i) == -1) {
 		found = true;

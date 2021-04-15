@@ -12,7 +12,6 @@
 
 
 #include "games/algorithms/EPEC/epec_polybase.h"
-#include "zero.h"
 
 
 /**
@@ -132,7 +131,7 @@ unsigned long int Algorithms::EPEC::PolyBase::getNumPolyLead(const unsigned int 
  */
 unsigned int Algorithms::EPEC::PolyBase::getPositionProbab(const unsigned int i,
 																			  const unsigned int k) const {
-  const auto PolyProbab = static_cast<MathOpt::PolyLCP *>(this->EPECObject->PlayersLCP.at(i).get())
+  const auto PolyProbab = dynamic_cast<MathOpt::PolyLCP *>(this->EPECObject->PlayersLCP.at(i).get())
 										->convPolyWeight(k, true);
   if (PolyProbab == 0)
 	 return 0;

@@ -12,8 +12,6 @@
 
 
 #include "games/algorithms/EPEC/epec_innerapp.h"
-#include "games/algorithms/EPEC/epec_combPNE.h"
-#include "zero.h"
 
 void Algorithms::EPEC::InnerApproximation::solve() {
   /**
@@ -50,10 +48,10 @@ void Algorithms::EPEC::InnerApproximation::start() {
 		Data::LCP::PolyhedraStrategy::Random) {
 	 for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i) {
 		// 42 is the answer, we all know
-		long int seed = this->EPECObject->Stats.AlgorithmData.RandomSeed.get() < 0
-								  ? std::chrono::high_resolution_clock::now().time_since_epoch().count() +
-										  42 + PolyLCP.at(i)->getNumRows()
-								  : this->EPECObject->Stats.AlgorithmData.RandomSeed.get();
+		long int seed             = this->EPECObject->Stats.AlgorithmData.RandomSeed.get() < 0
+												  ? std::chrono::high_resolution_clock::now().time_since_epoch().count() +
+                                42 + PolyLCP.at(i)->getNumRows()
+												  : this->EPECObject->Stats.AlgorithmData.RandomSeed.get();
 		PolyLCP.at(i)->RandomSeed = seed;
 	 }
   }
@@ -141,14 +139,13 @@ void Algorithms::EPEC::InnerApproximation::start() {
 			 std::chrono::high_resolution_clock::now() - this->EPECObject->InitTime;
 		const double timeRemaining =
 			 this->EPECObject->Stats.AlgorithmData.TimeLimit.get() - timeElapsed.count();
-		addRandPoly =
-			 !this->EPECObject->computeNashEq(
+		addRandPoly = !this->EPECObject->computeNashEq(
 								this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(),
 								timeRemaining,
 								false,
 								false,
 								false) &&
-			 !incrementalEnumeration;
+						  !incrementalEnumeration;
 	 } else {
 		// No Time Limit
 		addRandPoly = !this->EPECObject->computeNashEq(

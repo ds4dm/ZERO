@@ -7,10 +7,8 @@ extern "C" {
 #include "path/Output_Interface.h"
 #include "path/Path.h"
 #include "path/PathOptions.h"
-#include "path/Types.h"
 }
 #include "solvers/PathSolver.h"
-#include "support/codes.h"
 
 /**
  * @brief This function is from PATH. Sorts the data in M.
@@ -79,8 +77,7 @@ void Solvers::PATH::sort(int rows, int cols, int elements, int *row, int *col, d
 	 }
   }
 
-  return;
-}
+  }
 
 /**
  * @brief Internal method to create the linear mixed-complemetarity problem.
@@ -128,9 +125,10 @@ int Solvers::PATH::CreateLMCP(int    n,
   Output_Printf(
 		Output_Log | Output_Status | Output_Listing, "%s: PathWrapper LCP Link\n", Path_Version());
 
-
+  Options_SetBoolean(o, "output", static_cast<const Boolean>(verbose > 0));
   if (timeLimit > 0)
 	 Options_SetDouble(o, "time_limit", timeLimit);
+
 
   Options_SetDouble(o, "major_iteration_limit", 1000);
   Options_SetDouble(o, "minor_iteration_limit", 1500);
@@ -251,7 +249,8 @@ Solvers::PATH::PATH(const arma::sp_mat &  M,
 						  const VariableBounds &Bounds,
 						  arma::vec &           z,
 						  arma::vec &           x,
-						  double                timeLimit) {
+						  double                timeLimit,
+						  bool                  verbose) {
 
   // Note that for path z and x are inverted (z are variables, x equations definitions).
   int n   = 0;
@@ -335,7 +334,7 @@ Solvers::PATH::PATH(const arma::sp_mat &  M,
 									 &_ub[0],
 									 &_xsol[0],
 									 &_zsol[0],
-									 true,
+									 verbose,
 									 timeLimit);
   } catch (...) {
 	 throw ZEROException(ZEROErrorCode::SolverError, "PATH threw an exception");

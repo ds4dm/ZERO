@@ -33,16 +33,15 @@ enum class ZEROStatus {
 
 template <typename T> class Attr {
 private:
-  T Object;
+  [[maybe_unused]] T Object;
 
 public:
   Attr(T value) : Object{value} {};
-  T    get() const { return Object; }
+  [[nodiscard]] T    get() const { return Object; }
   void set(const T &value) { Object = value; }
   // T &operator=(const T &a) { std::cerr << "Operation not allowed. Use set()";
   // } operator T() { std::cerr << "Operation not allowed. Use get()"; }
 };
-
 
 class ZEROAlgorithmData {
 public:
@@ -56,7 +55,7 @@ public:
 };
 
 template <typename DataObjectType> struct ZEROStatistics {
-  ZEROStatistics(DataObjectType t) : AlgorithmData{t} {};
+  explicit ZEROStatistics(DataObjectType t) : AlgorithmData{t} {};
   Attr<ZEROStatus> Status         = ZEROStatus::Uninitialized;
   Attr<int>        NumVar         = {0};  ///< Number of variables in the last solved model
   Attr<int>        NumConstraints = {0};  ///< Number of constraints in the last solved model
@@ -111,7 +110,7 @@ public:
 		: error_code(code), error_additional(more) {
 	 this->error_desc = std::to_string(error_code);
   };
-  ZEROException(GRBException &e)
+  explicit ZEROException(GRBException &e)
 		: error_code(ZEROErrorCode::SolverError),
 		  error_additional(std::to_string(e.getErrorCode()) + e.getMessage()) {
 	 this->error_desc = std::to_string(error_code);

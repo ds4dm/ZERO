@@ -11,8 +11,6 @@
  * #############################################*/
 
 #include "mathopt/mathopt.h"
-#include "loguru.hpp"
-#include "zero.h"
 
 unsigned int MathOpt::convexHull(
 	 const std::vector<arma::sp_mat *> *Ai, ///< Inequality constraints LHS that define polyhedra
@@ -21,8 +19,8 @@ unsigned int MathOpt::convexHull(
 														 ///< polyhedra whose convex hull is to be found
 	 arma::sp_mat &     A,                  ///< Pointer to store the output of the convex hull LHS
 	 arma::vec &        b,                  ///< Pointer to store the output of the convex hull RHS
-	 const arma::sp_mat Acom,               ///< any common constraints to all the polyhedra - lhs.
-	 const arma::vec    bcom                ///< Any common constraints to ALL the polyhedra - RHS.
+	 const arma::sp_mat& Acom,               ///< any common constraints to all the polyhedra - lhs.
+	 const arma::vec&    bcom                ///< Any common constraints to ALL the polyhedra - RHS.
 	 )
 /** @brief Computing convex hull of finite union of polyhedra
  * @details Computes the convex hull of a finite union of polyhedra where
@@ -230,7 +228,6 @@ arma::vec MathOpt::LPSolve(const arma::sp_mat &A, ///< The constraint matrix
   GRBEnv    env;
   GRBModel  model = GRBModel(env);
   GRBVar    x[nC];
-  GRBConstr a[nR];
   // Adding Variables
   for (unsigned int i = 0; i < nC; i++)
 	 x[i] = model.addVar(lb, GRB_INFINITY, c.at(i), GRB_CONTINUOUS, "x_" + std::to_string(i));

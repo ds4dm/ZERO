@@ -73,7 +73,6 @@ namespace Game {
 	 std::shared_ptr<Algorithms::IPG::Algorithm> Algorithm{};
 	 void getXMinusI(const arma::vec &x, const unsigned int &i, arma::vec &xMinusI) const;
 	 void getXofI(const arma::vec &x, const unsigned int &i, arma::vec &xOfI) const;
-	 bool computeNashEq(double localTimeLimit = -1.0, bool check = false);
 
 
   protected:
@@ -92,7 +91,6 @@ namespace Game {
 	 bool isPureStrategy(double tol = 1e-5) const override; ///< Return a bool indicating whether the
 	 ///< equilibrium is a pure strategy
 
-	 std::unique_ptr<GRBModel> respondModel(const unsigned int i, const arma::vec &x) const;
 
 	 const std::vector<arma::vec> getX() const { return this->Solution; }
 

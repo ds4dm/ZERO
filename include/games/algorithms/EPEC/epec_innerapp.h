@@ -21,8 +21,7 @@
 #include <set>
 #include <string>
 
-namespace Algorithms {
-  namespace EPEC {
+namespace Algorithms::EPEC {
 	 /**
 	  * @brief This class manages the inner enumeration algorithm for Game::EPEC objects. Since each
 	  * player's feasible region is a MathOpt::PolyLCP with finitely many polyhedra, each of these
@@ -45,5 +44,4 @@ namespace Algorithms {
 		unsigned int addDeviatedPolyhedron(const std::vector<arma::vec> &deviations,
 													  bool &                        infeasCheck) const;
 	 };
-  } // namespace EPEC
-} // namespace Algorithms
+  } // namespace Algorithms

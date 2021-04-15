@@ -12,7 +12,6 @@
 
 #include "games/epec.h"
 #include "games/algorithms/EPEC/epec_polybase.h"
-#include "zero.h"
 
 void Game::EPEC::preFinalize()
 /**
@@ -109,7 +108,7 @@ void Game::EPEC::getXMinusI(const arma::vec &x, const unsigned int &i, arma::vec
   const unsigned int nEPECvars            = this->NumVariables;
   const unsigned int nThisCountryvars     = *this->LocEnds.at(i);
   const unsigned int nThisCountryHullVars = this->ConvexHullVariables.at(i);
-  const unsigned int nConvexHullVars      = static_cast<const unsigned int>(
+  const auto nConvexHullVars      = static_cast<const unsigned int>(
       std::accumulate(this->ConvexHullVariables.rbegin(), this->ConvexHullVariables.rend(), 0));
 
   solOther.zeros(nEPECvars -        // All variables in EPEC
@@ -167,7 +166,7 @@ void Game::EPEC::getXWithoutHull(const arma::vec &x, arma::vec &xWithoutHull) co
 	*
 	*/
   const unsigned int nEPECvars       = this->NumVariables;
-  const unsigned int nConvexHullVars = static_cast<const unsigned int>(
+  const auto nConvexHullVars = static_cast<const unsigned int>(
 		std::accumulate(this->ConvexHullVariables.rbegin(), this->ConvexHullVariables.rend(), 0));
 
   xWithoutHull.zeros(nEPECvars -       // All variables in EPEC
@@ -242,7 +241,7 @@ Game::EPEC::respondSol(arma::vec &      sol,    ///< [out] Optimal response
 		  // Fetch objective function coefficients
 		  GRBQuadExpr QuadObj = model->getObjective();
 		  arma::vec   objcoeff;
-		  for (unsigned int i = 0; i < QuadObj.size(); ++i)
+		  for (int i = 0; i < QuadObj.size(); ++i)
 			 objcoeff.at(i) = QuadObj.getCoeff(i);
 
 		  // Create objective function objects
@@ -332,7 +331,7 @@ void Game::EPEC::makePlayersQPs()
 	 this->ConvexHullVariables.at(i) = convHullVarCount;
 	 // All other players' QP
 	 if (this->NumPlayers > 1) {
-		for (unsigned int j = 0; j < this->NumPlayers; j++) {
+		for ( int j = 0; j < this->NumPlayers; j++) {
 		  if (i != j) {
 			 this->PlayersQP.at(j)->addDummy(
 				  convHullVarCount,
@@ -522,7 +521,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,
 	 LOG_S(INFO) << "Game::EPEC::computeNashEq: (PureNashEquilibrium flag is "
 						 "true) Searching for a pure NE.";
 	 if (this->Stats.AlgorithmData.Algorithm.get() != Data::EPEC::Algorithms::OuterApproximation)
-		static_cast<Algorithms::EPEC::PolyBase *>(this->Algorithm.get())->makeThePureLCP();
+		this->Algorithm.get()->makeThePureLCP();
 	 else
 		LOG_S(WARNING) << "Game::EPEC::computeNashEq: (PureNashEquilibrium flag is "
 								"true) Cannot search fore pure NE with the OuterApproximation.";
@@ -535,7 +534,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,
   this->setWelfareObjective(linearWelfare, quadraticWelfare);
   try {
 	 this->LCPModel->set(GRB_IntParam_OutputFlag, 1);
-	 //this->LCPModel->write("dat/TheLCP.lp");
+	 // this->LCPModel->write("dat/TheLCP.lp");
 	 this->LCPModel->optimize();
   } catch (GRBException &e) {
 	 throw ZEROException(e);
@@ -577,7 +576,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,
   return this->NashEquilibrium;
 }
 
-bool Game::EPEC::warmstart(const arma::vec x) {
+bool Game::EPEC::warmstart(const arma::vec& x) {
   //@todo complete implementation
 
   if (x.size() < this->getNumVar())
