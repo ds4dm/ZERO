@@ -190,7 +190,7 @@ bool Algorithms::EPEC::OuterApproximation::equilibriumOracle(
 		  }
 
 		  // sol.print("this is the sol");
-		  //auto prod = arma::as_scalar(sol.t() * xOfI);
+		  // auto prod = arma::as_scalar(sol.t() * xOfI);
 		  /*LOG_S(WARNING) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
 							  << ") prod is" << prod << " and status is " << status << " and objective "
 							  << dualMembershipModel.getObjective().getValue();
@@ -231,16 +231,16 @@ bool Algorithms::EPEC::OuterApproximation::equilibriumOracle(
 
 		  if (support.max() == 1) {
 			 this->Trees.at(player)->setPure();
-		  }else{
-			 if (this->isFeasiblePure(player, xOfI)){
-			   this->Trees.at(player)->setPure();
-			   LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
-			                  << ")"
-			                  << "This is a pure strategy.";
-			 } else{
-			   LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
-			                  << ")"
-			                  << "This is a mixed strategy.";
+		  } else {
+			 if (this->isFeasiblePure(player, xOfI)) {
+				this->Trees.at(player)->setPure();
+				LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
+								<< ")"
+								<< "This is a pure strategy.";
+			 } else {
+				LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
+								<< ")"
+								<< "This is a mixed strategy.";
 			 }
 		  }
 		  return true;
@@ -305,20 +305,12 @@ bool Algorithms::EPEC::OuterApproximation::equilibriumOracle(
 				  }
 				  arma::sp_mat cutL = Utils::resizePatch(
 						arma::sp_mat{cutLHS}.t(), 1, this->PolyLCP.at(player)->getNumCols());
-				  if (this->PolyLCP.at(player)->containsCut(
-							 Utils::resizePatch(cutLHS, this->PolyLCP.at(player)->getNumCols()), cutV)) {
-					 LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P"
-									 << player << ") cut already added";
-					 // throw;
-					 break;
 
-				  } else {
-					 this->PolyLCP.at(player)->addCustomCuts(cutL, arma::vec{cutV});
-					 LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P"
-									 << player << ") adding a cut";
-					 addedCuts = true;
-					 return false;
-				  }
+				  this->PolyLCP.at(player)->addCustomCuts(cutL, arma::vec{cutV});
+				  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
+								  << ") adding a cut";
+				  addedCuts = true;
+				  return false;
 				} else {
 				  // We found a new vertex
 				  arma::vec v;
@@ -393,7 +385,7 @@ bool Algorithms::EPEC::OuterApproximation::equilibriumOracle(
  */
 void Algorithms::EPEC::OuterApproximation::addValueCut(const unsigned int player,
 																		 const double       RHS,
-																		 const arma::vec&          xMinusI) {
+																		 const arma::vec &  xMinusI) {
 
   arma::vec LHS = this->EPECObject->LeaderObjective.at(player)->c +
 						this->EPECObject->LeaderObjective.at(player)->C * xMinusI;
@@ -535,7 +527,7 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 						  << j << " is " << branchingLocations.at(j);
 		} else if (!branch) {
 		  // if we don't branch.
-		   this->PolyLCP.at(j)->outerApproximate(Incumbent.at(j)->getEncoding(), true);
+		  this->PolyLCP.at(j)->outerApproximate(Incumbent.at(j)->getEncoding(), true);
 		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::solve: "
 							  "No branching for player "
 						  << j;
@@ -634,7 +626,7 @@ void Algorithms::EPEC::OuterApproximation::solve() {
  * @return A Gurobi pointer to the model
  */
 std::unique_ptr<GRBModel> Algorithms::EPEC::OuterApproximation::getFeasQP(const unsigned int player,
-																								  const arma::vec&    x) {
+																								  const arma::vec &  x) {
 
 
   // this->EPECObject->getXMinusI(this->EPECObject->SolutionX, player, xMinusI);
@@ -663,7 +655,7 @@ std::unique_ptr<GRBModel> Algorithms::EPEC::OuterApproximation::getFeasQP(const 
  * @return A Gurobi pointer to the model
  */
 bool Algorithms::EPEC::OuterApproximation::isFeasiblePure(const unsigned int player,
-																			 const arma::vec&    x) {
+																			 const arma::vec &  x) {
 
 
   auto model = this->PolyLCP.at(player)->LCPasMIP(false, -1, 1, 1);
@@ -1187,7 +1179,7 @@ Algorithms::EPEC::OuterTree::singleBranch(const unsigned int                 idC
  * @brief Adds a vertex to OuterTree::V
  * @param vertex The vector containing the vertex
  */
-void Algorithms::EPEC::OuterTree::addVertex(const arma::vec& vertex) {
+void Algorithms::EPEC::OuterTree::addVertex(const arma::vec &vertex) {
   if (vertex.size() != this->V.n_cols && this->V.n_rows > 0)
 	 throw ZEROException(ZEROErrorCode::OutOfRange, "Ill-dimensioned vertex");
   this->V = arma::join_cols(this->V, arma::sp_mat{vertex.t()});
@@ -1197,7 +1189,7 @@ void Algorithms::EPEC::OuterTree::addVertex(const arma::vec& vertex) {
  * @brief Adds a ray to OuterTree::R
  * @param ray The vector containing the ray
  */
-void Algorithms::EPEC::OuterTree::addRay(const arma::vec& ray) {
+void Algorithms::EPEC::OuterTree::addRay(const arma::vec &ray) {
   if (ray.size() != this->R.n_cols && this->R.n_rows > 0)
 	 throw ZEROException(ZEROErrorCode::OutOfRange, "Ill-dimensioned ray");
   this->R = arma::join_cols(this->R, arma::sp_mat{ray.t()});
