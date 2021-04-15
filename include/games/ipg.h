@@ -82,6 +82,8 @@ namespace Game {
   public: // functions
 	 friend class Algorithms::IPG::Algorithm;
 	 friend class Algorithms::IPG::Oracle;
+	 friend class Algorithms::IPG::IPG_Separators::AbstractSeparator;
+    friend class Algorithms::IPG::IPG_Separators::Knapsack;
 	 void finalize();
 	 IPG(GRBEnv *env) { this->Env = env; };
 	 IPG(GRBEnv *env, std::vector<std::shared_ptr<MathOpt::IP_Param>> players);

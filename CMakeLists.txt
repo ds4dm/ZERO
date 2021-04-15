@@ -20,6 +20,12 @@ endif()
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+#DEBUG AND PROFILING ON APPLE SILICON
+set(CMAKE_OSX_ARCHITECTURES "x86_64")
+if (CMAKE_BUILD_TYPE EQUAL "DEBUG")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2 -DNEDEBUG")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -DNEDEBUG -fno-inline-functions-called-once -fno-inline-functions -fno-optimize-sibling-calls")
+endif()
 # ##############################################################################
 # CUSTOM HINTS AND CUSTOM CONFIGURATIONS
 # ##############################################################################
@@ -40,6 +46,11 @@ include(${CMAKE_MODULE_PATH}/FindConan.cmake)
 include(${CMAKE_MODULE_PATH}/FindPATH.cmake)
 # find_package(ortools CONFIG REQUIRED)
 # include(${CMAKE_MODULE_PATH}/FindORTools.cmake)
+
+conan_add_remote(NAME darcamo-bintray
+                 INDEX 2
+                 URL https://api.bintray.com/conan/darcamo/cppsim
+                 VERIFY_SSL True)
 
 conan_cmake_run(
   CONANFILE
@@ -66,12 +77,12 @@ add_library(
   src/support/utils.cpp
   src/support/codes.cpp
   src/mathopt/mathopt.cpp
-  src/games/games.cpp
   src/mathopt/lcp/lcp.cpp
   src/mathopt/lcp/poly_lcp.cpp
   src/mathopt/mp_param/mp_param.cpp
   src/mathopt/mp_param/qp_param.cpp
   src/mathopt/mp_param/ip_param.cpp
+  src/games/algorithms/IPG/ipg_separators/knapsack.cpp
   src/solvers/PathSolver.cpp
   src/games/nash.cpp
   src/games/epec.cpp
