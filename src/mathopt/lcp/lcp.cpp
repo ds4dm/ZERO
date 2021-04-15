@@ -771,6 +771,7 @@ bool MathOpt::LCP::setMIPLinearObjective(const arma::vec& c) {
   this->Obj.subvec(0, c.size() - 1) = c;
   this->ObjType                     = 1;
   LOG_S(1) << "MathOpt::LCP::setMIPLinearObjective: Set LINEAR objective";
+  this->MadeObjective =false;
   return true;
 }
 
@@ -792,6 +793,7 @@ bool MathOpt::LCP::setMIPQuadraticObjective(const arma::vec& c, const arma::sp_m
   this->Qobj.submat(0, 0, c.size() - 1, c.size() - 1) = Q;
   this->ObjType                                       = 2;
   LOG_S(1) << "MathOpt::LCP::setMIPLinearObjective: Set QUADRATIC objective";
+  this->MadeObjective =false;
   return true;
 }
 
@@ -802,6 +804,8 @@ bool MathOpt::LCP::setMIPQuadraticObjective(const arma::vec& c, const arma::sp_m
  */
 void MathOpt::LCP::setMIPObjective(GRBModel &MIP) {
 
+  if (this->MadeObjective)
+	 return;
   if (this->ObjType != 0) {
 
 	 // Linear part of the objective
@@ -824,6 +828,7 @@ void MathOpt::LCP::setMIPObjective(GRBModel &MIP) {
 	 }
 
 	 MIP.setObjective(obj, GRB_MINIMIZE);
+    this->MadeObjective = true;
 	 return;
 
   } else {
@@ -843,6 +848,7 @@ void MathOpt::LCP::setMIPObjective(GRBModel &MIP) {
 	 }
 
 	 MIP.setObjective(obj, GRB_MINIMIZE);
+    this->MadeObjective = true;
 	 return;
   }
 }

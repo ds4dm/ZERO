@@ -23,21 +23,21 @@
 
 namespace Data::LCP {
 
-	 enum class PolyhedraStrategy {
-		/** @brief When expanding the feasible region of an inner approximated LCP, this
-		 * enum controls the strategy being used.
-		 */
-		Sequential        = 0, ///< Adds polyhedra by selecting them in order
-		ReverseSequential = 1, ///< Adds polyhedra by selecting them in reverse
-		///< Sequential order
-		Random = 2 ///< Adds the next polyhedron by selecting Random feasible one
-	 };
-	 enum class Algorithms {
-		MIP,  ///< Solves the LCP via an (explicit) MIP
-		PATH, ///< Solves the LCP via PATH
-		MINLP ///< Solves the LCP via a MINLP. Note that solvers may cast this into a MINLP
-	 };
-  } // namespace Data
+  enum class PolyhedraStrategy {
+	 /** @brief When expanding the feasible region of an inner approximated LCP, this
+	  * enum controls the strategy being used.
+	  */
+	 Sequential        = 0, ///< Adds polyhedra by selecting them in order
+	 ReverseSequential = 1, ///< Adds polyhedra by selecting them in reverse
+	 ///< Sequential order
+	 Random = 2 ///< Adds the next polyhedron by selecting Random feasible one
+  };
+  enum class Algorithms {
+	 MIP,  ///< Solves the LCP via an (explicit) MIP
+	 PATH, ///< Solves the LCP via PATH
+	 MINLP ///< Solves the LCP via a MINLP. Note that solvers may cast this into a MINLP
+  };
+} // namespace Data::LCP
 namespace std {
 
   string to_string(Data::LCP::Algorithms al);
@@ -63,8 +63,9 @@ namespace MathOpt {
 		  0; ///< Type of the objective for MIP/MINLP. 0 is feasibility, 1 linear, 2 quadratic
 	 arma::vec    Obj;  ///< The linear objective for the LCP in case of MIP/MINLP
 	 arma::sp_mat Qobj; ///< The quadratic objective matrix Q for the LCP in case of MIP/MINLP
-	 arma::sp_mat M;    ///< The matrix M in @f$Mx+q@f$ that defines the LCP
-	 arma::vec    q;    ///< The vector q in @f$Mx+q@f$ that defines the LCP
+	 bool         MadeObjective = false; ///< True if the objective has been updated.
+	 arma::sp_mat M;                     ///< The matrix M in @f$Mx+q@f$ that defines the LCP
+	 arma::vec    q;                     ///< The vector q in @f$Mx+q@f$ that defines the LCP
 	 perps Compl; ///< Compl dictates which equation (row in M) is complementary to which variable
 					  ///< (column in M). The object is in a <Eqn, Var> form
 	 unsigned int LeadStart{1}, LeadEnd{0}, NumberLeader{0};
@@ -80,7 +81,7 @@ namespace MathOpt {
 	 arma::vec _bcut = {};    ///< Additional cutting planes (eventually) added to the model, in the
 									  ///< form @f$Ax \leq b@f$
 	 bool         MadeRlxdModel{false}; ///< True if a relaxed model has been already initialized
-	 unsigned int nR{}, nC{};               ///< The number of rows and columns in the matrix M
+	 unsigned int nR{}, nC{};           ///< The number of rows and columns in the matrix M
 
 	 /**
 	  * Stores non-trivial upper and lower bounds on x variables  in as a tuple (j,k) where j the
@@ -125,19 +126,14 @@ namespace MathOpt {
 	  * a file
 	  */
 	 explicit LCP(GRBEnv *e) : Env{e}, RelaxedModel(*e){};
-	 LCP(GRBEnv *     env,
+	 LCP(GRBEnv *      env,
 		  arma::sp_mat &M,
-		  arma::vec    &q,
-		  unsigned int leadStart,
-		  unsigned     leadEnd,
+		  arma::vec &   q,
+		  unsigned int  leadStart,
+		  unsigned      leadEnd,
 		  arma::sp_mat &A,
-		  arma::vec    &b);
-	 LCP(GRBEnv *     env,
-		  arma::sp_mat &M,
-		  arma::vec    &q,
-		  perps        &Compl,
-		  arma::sp_mat &A ,
-		  arma::vec    &b);
+		  arma::vec &   b);
+	 LCP(GRBEnv *env, arma::sp_mat &M, arma::vec &q, perps &Compl, arma::sp_mat &A, arma::vec &b);
 
 	 LCP(GRBEnv *env, const Game::NashGame &N);
 
@@ -182,35 +178,35 @@ namespace MathOpt {
 													unsigned int solLimit   = 1);
 
 	 std::unique_ptr<GRBModel> LCPasMILP(const arma::sp_mat &C,
-													  const arma::vec &   c,
-													  const arma::vec &   x_minus_i,
-													  bool                solve = false);
+													 const arma::vec &   c,
+													 const arma::vec &   x_minus_i,
+													 bool                solve = false);
 
 
 	 std::unique_ptr<GRBModel> LCPasMIQP(const arma::sp_mat &Q,
-													  const arma::sp_mat &C,
-													  const arma::vec &   c,
-													  const arma::vec &   x_minus_i,
-													  bool                solve = false);
+													 const arma::sp_mat &C,
+													 const arma::vec &   c,
+													 const arma::vec &   x_minus_i,
+													 bool                solve = false);
 
 
 	 ZEROStatus solvePATH(double timelimit, arma::vec &x, arma::vec &z, bool verbose = true);
 
-	 void save(const std::string& filename, bool erase = true) const;
+	 void save(const std::string &filename, bool erase = true) const;
 
-	 long int load(const std::string& filename, long int pos = 0);
+	 long int load(const std::string &filename, long int pos = 0);
 
 	 virtual void makeQP(MathOpt::QP_Objective &QP_obj, MathOpt::QP_Param &QP);
 
-	 void addCustomCuts(const arma::sp_mat& A, const arma::vec& b);
+	 void addCustomCuts(const arma::sp_mat &A, const arma::vec &b);
 
-	 bool containsCut(const arma::vec& LHS, const double RHS, double tol = 1e-5);
+	 bool containsCut(const arma::vec &LHS, const double RHS, double tol = 1e-5);
 
-	 arma::vec zFromX(const arma::vec& x);
+	 arma::vec zFromX(const arma::vec &x);
 
 	 void processBounds();
-	 bool setMIPLinearObjective(const arma::vec& c);
-	 bool setMIPQuadraticObjective(const arma::vec& c, const arma::sp_mat& Q);
+	 bool setMIPLinearObjective(const arma::vec &c);
+	 bool setMIPQuadraticObjective(const arma::vec &c, const arma::sp_mat &Q);
 	 bool setMIPFeasibilityObjective();
   };
 } // namespace MathOpt
