@@ -43,7 +43,7 @@ namespace Algorithms::IPG {
 		double    Tolerance = 1e-6; ///< Numerical tolerance
 		arma::vec Incumbent; ///< Stores the current strategy of the player at a given iteration
 		double    Payoff;    ///< Stores the current payof
-		bool      Pure;
+	   bool      Pure; ///< True if the strategy is pure
 		bool      Feasible = false;
 
 	 public:
@@ -61,11 +61,11 @@ namespace Algorithms::IPG {
 		  this->Incumbent.zeros(incumbentSize);
 		};
 
-		bool addVertex(const arma::vec& vertex, const bool checkDuplicate = true);
+		bool addVertex(const arma::vec& vertex, const bool checkDuplicate = false);
 
-		bool addRay(const arma::vec& ray, const bool checkDuplicate = true);
+		bool addRay(const arma::vec& ray, const bool checkDuplicate = false);
 
-		bool addCut(const arma::vec& LHS, const double b, const bool checkDuplicate = true);
+		bool addCut(const arma::vec& LHS, const double b, const bool checkDuplicate = false);
 
 		const double getPayoff() { return this->Payoff; }
 
@@ -83,7 +83,7 @@ namespace Algorithms::IPG {
 		std::vector<std::unique_ptr<IPG_Player>> Players; ///< The support structures
 		void                                     initialize();
 		arma::vec                                buildXminusI(const unsigned int i);
-		bool addValueCut(unsigned int player, double RHS, const arma::vec& xMinusI, bool check = true);
+		bool addValueCut(unsigned int player, double RHS, const arma::vec& xMinusI, bool check =false);
 		bool preEquilibriumOracle(const unsigned int player, int &addedCuts);
 
 		void updateMembership(const unsigned int &player, const arma::vec &vertex);
