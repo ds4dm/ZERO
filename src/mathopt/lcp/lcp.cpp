@@ -665,6 +665,8 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 		return ZEROStatus::NashEqFound;
 	 case ZEROStatus::NotSolved:
 		return ZEROStatus::NashEqNotFound;
+	 case ZEROStatus::Numerical:
+		  return ZEROStatus::Numerical;
 	 default:
 		return ZEROStatus::NashEqNotFound;
 	 }

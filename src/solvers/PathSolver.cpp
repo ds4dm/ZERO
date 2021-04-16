@@ -130,9 +130,9 @@ int Solvers::PATH::CreateLMCP(int    n,
 	 Options_SetDouble(o, "time_limit", timeLimit);
 
 
-  Options_SetDouble(o, "major_iteration_limit", 1000);
-  Options_SetDouble(o, "minor_iteration_limit", 1500);
-  Options_SetDouble(o, "cumulative_iteration_limit", 20000);
+  Options_SetDouble(o, "major_iteration_limit", 25000);
+  Options_SetDouble(o, "minor_iteration_limit", 100000);
+  Options_SetDouble(o, "cumulative_iteration_limit", 200000);
 
   if (n == 0) {
 	 fprintf(stdout, "\n ** EXIT - No variables.\n");
@@ -220,8 +220,9 @@ int Solvers::PATH::CreateLMCP(int    n,
 	 break;
   case MCP_Infeasible:
 	 this->status = ZEROStatus::NotSolved;
-  default:
-	 this->status = ZEROStatus::NotSolved;
+  default: {
+	 this->status = ZEROStatus::Numerical;
+  }
   }
 
 
