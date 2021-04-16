@@ -97,6 +97,7 @@ namespace Algorithms::IPG {
 
 	   void initLCPObjective();
 
+	   ZEROStatus equilibriumLCP(double localTimeLimit);
 	 public:
 		friend class Game::IPG;
 
@@ -107,6 +108,5 @@ namespace Algorithms::IPG {
 		bool isSolved() const { return this->Solved; };
 
 		bool isPureStrategy() const;
-		bool equilibriumLCP(double localTimeLimit);
 	 };
   } // namespace Algorithms

@@ -25,7 +25,10 @@ bool Algorithms::IPG::IPG_Player::addVertex(const arma::vec &vertex, const bool 
 
 
   if (!go) {
-	 this->V = arma::join_cols(this->V, arma::sp_mat{vertex.t()});
+	 int nCols = this->V.n_cols < 1 ? vertex.size() : this->V.n_cols;
+	 this->V.resize(this->V.n_rows + 1, nCols);
+	 this->V.row(this->V.n_rows - 1) = vertex.t();
+	 // this->V = arma::join_cols(this->V, arma::sp_mat{vertex.t()});
 	 return true;
   }
   return false;
@@ -46,8 +49,13 @@ bool Algorithms::IPG::IPG_Player::addCut(const arma::vec &LHS,
 	 go = Utils::containsConstraint(this->CutPool_A, this->CutPool_b, LHS, b, this->Tolerance);
 
   if (!go) {
-	 this->CutPool_A = arma::join_cols(this->CutPool_A, arma::sp_mat{LHS.t()});
-	 this->CutPool_b = arma::join_cols(this->CutPool_b, arma::vec{b});
+
+    int nCols = this->CutPool_A.n_cols < 1 ? LHS.size() : this->CutPool_A.n_cols;
+
+    this->CutPool_A.resize(this->CutPool_A.n_rows + 1, nCols);
+    this->CutPool_b.resize(this->CutPool_b.size() + 1);
+    this->CutPool_A.row(this->CutPool_A.n_rows - 1) = LHS.t();
+	 this->CutPool_b.at(this->CutPool_b.size() -1)=b;
 	 return true;
   }
   return false;
@@ -65,7 +73,10 @@ bool Algorithms::IPG::IPG_Player::addRay(const arma::vec &ray, const bool checkD
 	 go = Utils::containsRow(this->R, ray, this->Tolerance);
 
   if (!go) {
-	 this->R = arma::join_cols(this->R, arma::sp_mat{ray.t()});
+    int nCols = this->R.n_cols < 1 ? ray.size() : this->R.n_cols;
+    this->R.resize(this->R.n_rows + 1, nCols);
+    this->R.row(this->R.n_rows - 1) = ray.t();
+	 //this->R = arma::join_cols(this->R, arma::sp_mat{ray.t()});
 	 return true;
   }
   return false;
@@ -176,19 +187,27 @@ void Algorithms::IPG::Oracle::solve() {
   // Which players are feasible
   std::vector<int> feasible(this->IPG->NumPlayers, 0);
   while (!solved) {
+	 ZEROStatus status;
 	 // Increase the number of iterations
 	 this->IPG->Stats.NumIterations.set(this->IPG->Stats.NumIterations.get() + 1);
 	 // Check the time-limit and form the LCP for the simultaneous game.
 	 if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0) {
 		double remaining;
 		if (this->checkTime(remaining) && remaining > 0)
-		  solved = this->equilibriumLCP(remaining);
+		  status = this->equilibriumLCP(remaining);
 		else
 		  return;
 	 } else
-		solved = this->equilibriumLCP(-1);
+		status = this->equilibriumLCP(-1);
 
 
+	 if (status == ZEROStatus::Numerical) {
+		LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: Numerical errors.";
+		this->IPG->Stats.Status.set(ZEROStatus::Numerical);
+		return;
+	 }
+	 if (status == ZEROStatus::NashEqFound)
+		solved = true;
 	 // Now we have an equilibrium, then we need to check whether this is feasible or not
 	 std::fill(feasible.begin(), feasible.end(), 0);
 	 int addedCuts = 0;
@@ -372,7 +391,7 @@ bool Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 
   // Store Membership LP outside the loop
   this->updateMembership(player, xOfI);
-  auto dualMembershipModel = this->Players.at(player)->MembershipLP.get();
+  auto   dualMembershipModel = this->Players.at(player)->MembershipLP.get();
   GRBVar y[xOfI.size()]; // Dual membership variables
   for (unsigned int i = 0; i < xOfI.size(); i++)
 	 y[i] = dualMembershipModel->getVarByName("y_" + std::to_string(i));
@@ -521,7 +540,7 @@ void Algorithms::IPG::Oracle::updateMembership(const unsigned int &player,
 }
 
 
-bool Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
+ZEROStatus Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
 
   arma::sp_mat MC(0, this->IPG->NumVariables), dumA(0, this->IPG->NumVariables);
   arma::vec    MCRHS(0, arma::fill::zeros), dumB(0, arma::fill::zeros);
@@ -572,11 +591,14 @@ bool Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
 			 this->Players.at(i)->Incumbent, this->buildXminusI(i), false);
 	 }
 
-	 return true;
+	 return ZEROStatus::NashEqFound;
 
+  } else if (LCPSolver == ZEROStatus::Numerical) {
+	 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumLCP: Numerical errors.";
+	 return ZEROStatus::Numerical;
   } else {
 	 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumLCP: No Equilibrium has been found";
-	 return false;
+	 return ZEROStatus::NashEqNotFound;
   }
 }
 
