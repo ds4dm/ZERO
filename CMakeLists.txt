@@ -11,7 +11,8 @@ project(
 message("Configuring ZEROVersion")
 configure_file(src/support/CMakeConfig.h.in include/support/version.h)
 
-# CXX Options set(CMAKE_UNITY_BUILD ON)
+#Disable armadillo debug symbols
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -DARMA_NO_DEBUG")
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release ... FORCE)
@@ -23,8 +24,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 #DEBUG AND PROFILING ON APPLE SILICON
 set(CMAKE_OSX_ARCHITECTURES "x86_64")
 if (CMAKE_BUILD_TYPE EQUAL "DEBUG")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -DNEDEBUG -fno-inline-functions-called-once -fno-inline-functions -fno-optimize-sibling-calls")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -DNEDEBUG -fno-inline-functions-called-once -fno-inline-functions -fno-optimize-sibling-calls ")
 endif()
+
 # ##############################################################################
 # CUSTOM HINTS AND CUSTOM CONFIGURATIONS
 # ##############################################################################
