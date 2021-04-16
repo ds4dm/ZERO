@@ -1155,7 +1155,9 @@ Algorithms::EPEC::OuterTree::singleBranch(const unsigned int                 idC
 void Algorithms::EPEC::OuterTree::addVertex(const arma::vec &vertex) {
   if (vertex.size() != this->V.n_cols && this->V.n_rows > 0)
 	 throw ZEROException(ZEROErrorCode::OutOfRange, "Ill-dimensioned vertex");
-  this->V = arma::join_cols(this->V, arma::sp_mat{vertex.t()});
+  int nCols = this->V.n_cols < 1 ? vertex.size() : this->V.n_cols;
+  this->V.resize(this->V.n_rows + 1, nCols);
+  this->V.row(this->V.n_rows - 1) = vertex.t();
 }
 
 /**
@@ -1165,7 +1167,9 @@ void Algorithms::EPEC::OuterTree::addVertex(const arma::vec &vertex) {
 void Algorithms::EPEC::OuterTree::addRay(const arma::vec &ray) {
   if (ray.size() != this->R.n_cols && this->R.n_rows > 0)
 	 throw ZEROException(ZEROErrorCode::OutOfRange, "Ill-dimensioned ray");
-  this->R = arma::join_cols(this->R, arma::sp_mat{ray.t()});
+  int nCols = this->R.n_cols < 1 ? ray.size() : this->R.n_cols;
+  this->R.resize(this->R.n_rows + 1, nCols);
+  this->R.row(this->R.n_rows - 1) = ray.t();
 }
 
 /**
