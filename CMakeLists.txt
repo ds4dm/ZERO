@@ -23,7 +23,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 #DEBUG AND PROFILING ON APPLE SILICON
 set(CMAKE_OSX_ARCHITECTURES "x86_64")
 if (CMAKE_BUILD_TYPE EQUAL "DEBUG")
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2 -DNEDEBUG")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -DNEDEBUG -fno-inline-functions-called-once -fno-inline-functions -fno-optimize-sibling-calls")
 endif()
 # ##############################################################################
