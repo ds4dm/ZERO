@@ -49,7 +49,7 @@ set(CONDA_INCLUDE_DIR "${CONDA_ENV}/include")
 set(Boost_NO_SYSTEM_PATHS ON)
 set(BOOST_ROOT "${CONDA_ENV}")
 set(Boost_NO_CMAKE ON)
-find_package(Boost REQUIRED COMPONENTS program_options HINTS ${CONDA_ENV} PATHS ${CONDA_ENV} NO_DEFAULT_PATH)
+find_package(Boost REQUIRED COMPONENTS program_options test HINTS ${CONDA_ENV} PATHS ${CONDA_ENV} NO_DEFAULT_PATH)
 
 find_package(GUROBI REQUIRED)
 find_package(PATH REQUIRED)
@@ -116,7 +116,7 @@ target_include_directories(
 # ZERO - EPEC COMMAND LINE
 # ##############################################################################
 add_executable(EPECShell src/shells/epec.cpp)
-target_link_libraries(EPECShell ${Boost_LIBRARIES} ZERO)
+target_link_libraries(EPECShell ${Boost_LIBRARIES} ${CMAKE_DL_LIBS} ZERO)
 set_target_properties(
         EPECShell
         PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
@@ -128,7 +128,7 @@ set_target_properties(
 # ZERO - IPG COMMAND LINE
 # ##############################################################################
 add_executable(IPGShell src/shells/ipg.cpp)
-target_link_libraries(IPGShell ${Boost_LIBRARIES} ZERO)
+target_link_libraries(IPGShell ${Boost_LIBRARIES} ${CMAKE_DL_LIBS} ZERO)
 set_target_properties(
         IPGShell PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
         VISIBILITY_INLINES_HIDDEN ON)
@@ -140,7 +140,7 @@ set_target_properties(
 # ##############################################################################
 add_executable(EPECTests test/EPEC/epec.cpp)
 target_include_directories(EPECTests PRIVATE test)
-target_link_libraries(EPECTests ZERO ${Boost_LIBRARIES})
+target_link_libraries(EPECTests ZERO ${CMAKE_DL_LIBS} ${Boost_LIBRARIES})
 set_target_properties(
         EPECTests
         PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
