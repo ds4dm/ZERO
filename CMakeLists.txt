@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.16)
 
-# Project setting
+#######################################
+# PROJECT SETTING AND VERSIONING
+#######################################
 include(cmake/ZERO.cmake)
 project(
         ZERO
@@ -11,57 +13,69 @@ project(
 message("Configuring ZEROVersion")
 configure_file(src/support/CMakeConfig.h.in include/support/version.h)
 
+#######################################
+# PROJECT OPTIONS
+#######################################
+option(ZERO_INSTALL_DEPS "Install ZERO dependencies through conda" OFF)
+
+
+#######################################
+# NON-STANDARD FLAGS
+#######################################
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release ... FORCE)
 endif ()
-# Additional options
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
 #DEBUG AND PROFILING ON APPLE SILICON
 set(CMAKE_OSX_ARCHITECTURES "x86_64")
 if (CMAKE_BUILD_TYPE EQUAL "DEBUG")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -DNEDEBUG -fno-inline-functions-called-once -fno-inline-functions -fno-optimize-sibling-calls ")
 endif ()
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
 
-# ##############################################################################
-# CUSTOM HINTS AND CUSTOM CONFIGURATIONS
-# ##############################################################################
+#######################################
+# CUSTOM HINTS FOR DEPENDENCIES
+#######################################
 set(GUROBI_DIR "/home/gurobi/9.1.1/linux64/" "/Library/gurobi910/mac64" "C:\\dev\\gurobi900\\win64")
 set(PATH_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib/path")
 set("CONDA_ENV" "${CMAKE_CURRENT_SOURCE_DIR}/lib/conda/")
-# ##############################################################################
-# ##############################################################################
-
-# CMake modules
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
-
 
 # Get Conda
 find_package(Conda REQUIRED)
-
-execute_process(COMMAND conda create --yes --prefix ${CONDA_ENV}  -y)
-execute_process(COMMAND conda install -c conda-forge --prefix ${CONDA_ENV} armadillo coin-or-cgl boost rapidjson -y)
+if (NOT ${FOUND_CONDA})
+    message("Warning. No Conda found.")
+endif ()
+#Install deps through Conda?
+if (ZERO_INSTALL_DEPS)
+    execute_process(COMMAND conda create --yes --prefix ${CONDA_ENV} -y)
+    execute_process(COMMAND conda install -c conda-forge --prefix ${CONDA_ENV} armadillo coin-or-cgl boost rapidjson -y)
+endif ()
 set(CONDA_INCLUDE_DIR "${CONDA_ENV}/include")
 
-# Find packages
+# Boost
 set(Boost_NO_SYSTEM_PATHS ON)
 set(BOOST_ROOT "${CONDA_ENV}")
 set(Boost_NO_CMAKE ON)
-find_package(Boost REQUIRED COMPONENTS program_options test HINTS ${CONDA_ENV} PATHS ${CONDA_ENV} NO_DEFAULT_PATH)
-
+find_package(Boost REQUIRED COMPONENTS program_options unit_test_framework HINTS ${CONDA_ENV} PATHS ${CONDA_ENV} NO_DEFAULT_PATH)
+# Gurobi
 find_package(GUROBI REQUIRED)
+# Path
 find_package(PATH REQUIRED)
+# Armadillo
 find_package(Armadillo REQUIRED HINTS ${CONDA_ENV} PATHS ${CONDA_ENV} NO_DEFAULT_PATH)
+# CoinUtils and CGL
+find_package(Coin REQUIRED)
 
-
+# Update flags on Conda, loguru, and Armadillo
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} $ENV{DEBUG_CXXFLAGS} $ENV{DEBUG_CPPFLAGS} -DARMA_NO_DEBUG")
-# ##############################################################################
-# ZERO - MAIN LIBRARY
-# ##############################################################################
-# LOGGURUFLAG
 add_definitions(-DLOGURU_WITH_STREAMS=1)
+
+#######################################
+# ZERO - MAIN LIBRARY
+#######################################
+
 add_library(
         ZERO
         include/zero.h
@@ -92,8 +106,8 @@ set_target_properties(
 target_link_libraries(
         ZERO
         PRIVATE blas lapack pthread m ${LUSOL_LIBRARY} ${PATH_LIBRARY} ${CMAKE_DL_LIBS}
-        PUBLIC ${ARMADILLO_LIBRARIES}  ${GUROBI_LIBRARY}
-        ${GUROBI_CXX_LIBRARY})
+        PUBLIC ${ARMADILLO_LIBRARIES} ${GUROBI_LIBRARY} ${GUROBI_CXX_LIBRARY}
+        ${COIN_UTILS} ${COIN_CGL} )
 target_include_directories(
         ZERO
         PUBLIC ${GUROBI_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/include
@@ -101,65 +115,51 @@ target_include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/lib/loguru/
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-# ##############################################################################
-# ##############################################################################
 
-# ##############################################################################
-# ZERO - EPEC EXAMPLES
-# ##############################################################################
-# Examples add_executable(EPECExample examples/example.cpp)
-# target_link_libraries(EPECExample EPECSolve)
-# ##############################################################################
-# ##############################################################################
-
-# ##############################################################################
+#######################################
 # ZERO - EPEC COMMAND LINE
-# ##############################################################################
+#######################################
 add_executable(EPECShell src/shells/epec.cpp)
-target_link_libraries(EPECShell ${Boost_LIBRARIES} ${CMAKE_DL_LIBS} ZERO)
+target_link_libraries(EPECShell Boost::program_options Boost::unit_test_framework ${CMAKE_DL_LIBS} ZERO)
 set_target_properties(
         EPECShell
         PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
         VISIBILITY_INLINES_HIDDEN ON)
-# ##############################################################################
-# ##############################################################################
 
-# ##############################################################################
+#######################################
 # ZERO - IPG COMMAND LINE
-# ##############################################################################
+#######################################
 add_executable(IPGShell src/shells/ipg.cpp)
-target_link_libraries(IPGShell ${Boost_LIBRARIES} ${CMAKE_DL_LIBS} ZERO)
+target_link_libraries(IPGShell Boost::program_options Boost::unit_test_framework ${CMAKE_DL_LIBS} ZERO)
 set_target_properties(
         IPGShell PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
         VISIBILITY_INLINES_HIDDEN ON)
-# ##############################################################################
-# ##############################################################################
 
-# ##############################################################################
+#######################################
 # ZERO - EPEC TESTS
-# ##############################################################################
+#######################################
 add_executable(EPECTests test/EPEC/epec.cpp)
 target_include_directories(EPECTests PRIVATE test)
-target_link_libraries(EPECTests ZERO ${CMAKE_DL_LIBS} ${Boost_LIBRARIES})
+target_link_libraries(EPECTests ZERO ${CMAKE_DL_LIBS} Boost::program_options Boost::unit_test_framework)
 set_target_properties(
         EPECTests
         PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
         VISIBILITY_INLINES_HIDDEN ON)
-# ##############################################################################
-# ##############################################################################
 
-# ##############################################################################
+#######################################
 # ZERO - IPG TESTS
-# ##############################################################################
+#######################################
 add_executable(IPGTests test/IPG/RandomKP.cpp)
 target_include_directories(IPGTests PRIVATE test)
 target_link_libraries(IPGTests ZERO)
 set_target_properties(
         IPGTests PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
         VISIBILITY_INLINES_HIDDEN ON)
-# ##############################################################################
-# ##############################################################################
 
+
+#######################################
+# OUTPUT
+#######################################
 message("\n\nZERO Configuration:")
 message("\tVersion:\t\t\t${PROJECT_NAME}-${PROJECT_VERSION}")
 message("\tCopyright:\t\t\t${ZERO_AUTHORS}\n\n")
@@ -171,5 +171,6 @@ message("\tGurobi (include):\t${GUROBI_INCLUDE_DIRS}")
 message("\tGurobi (lib):\t\t${GUROBI_LIBRARY} ${GUROBI_CXX_LIBRARY}")
 message("\tArmadillo (include):\t${ARMADILLO_INCLUDE_DIRS}")
 message("\tArmadillo (lib):\t\t${ARMADILLO_LIBRARIES}")
+message("\tCoin (lib):\t\t${COIN_UTILS} ${COIN_CGL}")
 message("\tPATH (include):\t${PATH_INCLUDE_DIR}")
 message("\tPATH (library):\t${PATH_LIBRARY}")

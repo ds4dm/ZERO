@@ -41,7 +41,7 @@ if(CXX)
   else()
     find_library(
       GUROBI_CXX_LIBRARY
-      NAMES gurobi_c++
+      NAMES gurobi_g++5.2 gurobi_c++
       HINTS ${GUROBI_DIR} $ENV{GUROBI_HOME}
       PATH_SUFFIXES lib)
     set(GUROBI_CXX_DEBUG_LIBRARY ${GUROBI_CXX_LIBRARY})

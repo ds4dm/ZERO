@@ -1,6 +1,6 @@
 message("Loading PATH")
 set(ENV{PATH_LICENSE_STRING}
-    "2617827524&Courtesy&&&USR&64785&11_12_2017&1000&PATH&GEN&31_12_2020&0_0_0&5000&0_0"
+    "2830898829&Courtesy&&&USR&45321&5_1_2021&1000&PATH&GEN&31_12_2025&0_0_0&6000&0_0"
 )
 
 set(PATH_URL "http://pages.cs.wisc.edu/~ferris/path/julia")
@@ -35,4 +35,5 @@ find_library(
 message("PathLIB is located at ${PATH_LIBRARY}")
 set(PATH_INCLUDE_DIR "${PATH_DIR}/include")
 
-message("LUSOL is located at ${LUSOL_LIBRARY}")
+find_package_handle_standard_args(PATH DEFAULT_MSG LUSOL_LIBRARY)
+find_package_handle_standard_args(PATH DEFAULT_MSG PATH_LIBRARY)
