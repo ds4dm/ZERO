@@ -8,6 +8,12 @@ find_library(
         PATH_SUFFIXES lib)
 
 find_library(
+        COIN_OSI
+        NAMES Osi
+        HINTS ${COIN_HINT} ${CONDA_ENV}
+        PATH_SUFFIXES lib)
+
+find_library(
         COIN_UTILS
         NAMES CoinUtils
         HINTS ${COIN_HINT} ${CONDA_ENV}
@@ -15,4 +21,5 @@ find_library(
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(Coin DEFAULT_MSG COIN_CGL)
+find_package_handle_standard_args(Coin DEFAULT_MSG COIN_OSI)
 find_package_handle_standard_args(Coin DEFAULT_MSG COIN_UTILS)

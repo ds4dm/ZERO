@@ -34,13 +34,14 @@ if (CMAKE_BUILD_TYPE EQUAL "DEBUG")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -DNEDEBUG -fno-inline-functions-called-once -fno-inline-functions -fno-optimize-sibling-calls ")
 endif ()
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
+set(ZERO_DEP_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib")
 
 #######################################
 # CUSTOM HINTS FOR DEPENDENCIES
 #######################################
 set(GUROBI_DIR "/home/gurobi/9.1.1/linux64/" "/Library/gurobi910/mac64" "C:\\dev\\gurobi900\\win64")
-set(PATH_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib/path")
-set("CONDA_ENV" "${CMAKE_CURRENT_SOURCE_DIR}/lib/conda/")
+set(PATH_DIR "${ZERO_DEP_DIR}/path")
+set("CONDA_ENV" "${ZERO_DEP_DIR}/conda")
 
 # Get Conda
 find_package(Conda REQUIRED)
@@ -50,7 +51,7 @@ endif ()
 #Install deps through Conda?
 if (ZERO_INSTALL_DEPS)
     execute_process(COMMAND conda create --yes --prefix ${CONDA_ENV} -y)
-    execute_process(COMMAND conda install -c conda-forge --prefix ${CONDA_ENV} armadillo coin-or-cgl boost rapidjson -y)
+    execute_process(COMMAND conda install -c conda-forge --prefix ${CONDA_ENV} armadillo coin-or-cgl boost rapidjson coin-or-osi -y)
 endif ()
 set(CONDA_INCLUDE_DIR "${CONDA_ENV}/include")
 
@@ -67,6 +68,8 @@ find_package(PATH REQUIRED)
 find_package(Armadillo REQUIRED HINTS ${CONDA_ENV} PATHS ${CONDA_ENV} NO_DEFAULT_PATH)
 # CoinUtils and CGL
 find_package(Coin REQUIRED)
+# OsiGrb
+include(cmake/InstallOsiGrb.cmake)
 
 # Update flags on Conda, loguru, and Armadillo
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} $ENV{DEBUG_CXXFLAGS} $ENV{DEBUG_CPPFLAGS} -DARMA_NO_DEBUG")
@@ -107,7 +110,7 @@ target_link_libraries(
         ZERO
         PRIVATE blas lapack pthread m ${LUSOL_LIBRARY} ${PATH_LIBRARY} ${CMAKE_DL_LIBS}
         PUBLIC ${ARMADILLO_LIBRARIES} ${GUROBI_LIBRARY} ${GUROBI_CXX_LIBRARY}
-        ${COIN_UTILS} ${COIN_CGL} )
+        ${COIN_UTILS} ${COIN_CGL}  ${COIN_OSI} libOsiGrb)
 target_include_directories(
         ZERO
         PUBLIC ${GUROBI_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/include
@@ -171,6 +174,6 @@ message("\tGurobi (include):\t${GUROBI_INCLUDE_DIRS}")
 message("\tGurobi (lib):\t\t${GUROBI_LIBRARY} ${GUROBI_CXX_LIBRARY}")
 message("\tArmadillo (include):\t${ARMADILLO_INCLUDE_DIRS}")
 message("\tArmadillo (lib):\t\t${ARMADILLO_LIBRARIES}")
-message("\tCoin (lib):\t\t${COIN_UTILS} ${COIN_CGL}")
+message("\tCoin (lib):\t\t${COIN_UTILS} ${COIN_CGL} ${COIN_OSI}")
 message("\tPATH (include):\t${PATH_INCLUDE_DIR}")
 message("\tPATH (library):\t${PATH_LIBRARY}")
