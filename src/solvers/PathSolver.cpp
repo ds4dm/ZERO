@@ -291,15 +291,6 @@ Solvers::PATH::PATH(const arma::sp_mat &  M,
 
 
 		  // std::cout << "Row" << std::to_string(row);
-		  for (auto v = M.begin_row(p.first); v != M.end_row(p.first); ++v) {
-			 if (*v != 0) {
-				_Mi.push_back(row);
-				_Mj.push_back(v.col() + 1);
-				_Mij.push_back(*v);
-				// std::cout << "\t" + std::to_string(*v) + "*x_" + std::to_string(v.col());
-				++nnz;
-			 }
-		  }
 		  _q.push_back(q.at(p.first));
 		  // std::cout << "\t+" + std::to_string(q.at(p.first)) + "\t\tPERP" <<
 		  // std::to_string(p.second)
@@ -314,6 +305,14 @@ Solvers::PATH::PATH(const arma::sp_mat &  M,
 		} // end bounds
 	 }   // end empty row
   }     // end while
+
+  //Sparse iterator for M
+  for (arma::sp_mat::const_iterator it = M.begin(); it != M.end(); ++it) {
+	 _Mi.push_back( it.row());
+	 _Mj.push_back(it.col()+1);
+    _Mij.push_back(*it);
+    ++nnz;
+  }
 
 
   int stat = 0;
