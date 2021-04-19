@@ -12,6 +12,7 @@
 
 
 #include "interfaces/epec_models.h"
+#include "boost/program_options.hpp"
 
 
 using namespace std;
