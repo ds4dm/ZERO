@@ -918,6 +918,7 @@ private:
   /// Is NULL if there are no ranged rows! (assume -1 for each row then)
   int *auxcolind;
   //@}
+  void solveFromSol();
 };
 
 #endif
