@@ -289,8 +289,6 @@ Solvers::PATH::PATH(const arma::sp_mat &  M,
 		  _lb.push_back(lb > 0 ? lb : 0);
 		  _ub.push_back(ub >= 0 ? ub : 1e20); // PATH will treat 1e20 as infinite
 
-
-		  // std::cout << "Row" << std::to_string(row);
 		  _q.push_back(q.at(p.first));
 		  // std::cout << "\t+" + std::to_string(q.at(p.first)) + "\t\tPERP" <<
 		  // std::to_string(p.second)
@@ -306,14 +304,14 @@ Solvers::PATH::PATH(const arma::sp_mat &  M,
 	 }   // end empty row
   }     // end while
 
+
   //Sparse iterator for M
   for (arma::sp_mat::const_iterator it = M.begin(); it != M.end(); ++it) {
-	 _Mi.push_back( it.row());
+	 _Mi.push_back( it.row()+1);
 	 _Mj.push_back(it.col()+1);
-    _Mij.push_back(*it);
-    ++nnz;
+	 _Mij.push_back(*it);
+	 ++nnz;
   }
-
 
   int stat = 0;
   _Mi.push_back(0);
