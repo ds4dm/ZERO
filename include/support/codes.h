@@ -33,7 +33,7 @@ enum class ZEROStatus {
 
 template <typename T> class Attr {
 private:
-  [[maybe_unused]] T Object;
+T Object;
 
 public:
   Attr(T value) : Object{value} {};

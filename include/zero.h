@@ -92,10 +92,6 @@ namespace Algorithms {
   namespace IPG {
 	 class Algorithm;
 	 class Oracle;
-    namespace IPG_Separators{
-	   class AbstractSeparator;
-	   class Knapsack;
-    }
   } // namespace IPG
 } // namespace Algorithms
 
