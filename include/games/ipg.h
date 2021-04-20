@@ -26,6 +26,11 @@ namespace Data {
 	 enum class Algorithms {
 		Oracle ///< Solves the IPG via the separation oracle algorithm
 	 };
+	 enum class CutsAggressiveness {
+		NoThanks,   ///< Do not add "standard" Integer Programming cuts to the game
+		KeepItCool, ///< At most one cut per-player
+		Truculent   ///< A storm of cuts at each infeasibility detection
+	 };
 	 enum class Objectives {
 		/**
 		 * @brief Objective types for the MIP reformulation of the LCPs
@@ -37,6 +42,8 @@ namespace Data {
 
 	 class DataObject : public ZEROAlgorithmData {
 	 public:
+		Attr<Data::IPG::CutsAggressiveness> CutAggressiveness = {
+			 Data::IPG::CutsAggressiveness::KeepItCool};
 		Attr<Data::IPG::Algorithms> Algorithm = {
 			 Data::IPG::Algorithms::Oracle};    ///< The selected algorithm
 		Attr<Data::LCP::Algorithms> LCPSolver; ///< The preferred LCP Solver
@@ -99,13 +106,15 @@ namespace Game {
 
 	 void setAlgorithm(Data::IPG::Algorithms algorithm) {
 		this->Stats.AlgorithmData.Algorithm = algorithm;
-	 };
+	 }
 	 void setLCPAlgorithm(const Data::LCP::Algorithms algo) {
 		this->Stats.AlgorithmData.LCPSolver.set(algo);
-	 };
-
+	 }
 	 void setGameObjective(const Data::IPG::Objectives obj) {
 		this->Stats.AlgorithmData.Objective.set(obj);
+	 }
+	 void setCutsAggressiveness(const Data::IPG::CutsAggressiveness aggressiveness) {
+		this->Stats.AlgorithmData.CutAggressiveness.set(aggressiveness);
 	 }
   };
 

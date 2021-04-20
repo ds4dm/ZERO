@@ -58,7 +58,7 @@ void Models::IPG::IPG::writeSolution(std::string filename) const {
 Models::IPG::IPG::IPG(GRBEnv *env, std::string instanceFileName) : Game::IPG::IPG(env) {
   this->Env = env;
   this->Instance.load(instanceFileName);
-  this->PlayersIP.empty();
+  this->PlayersIP.clear();
   for (unsigned int i = 0; i < this->Instance.PlayerVariables.size(); ++i) {
 	 auto player = std::make_shared<MathOpt::IP_Param>(this->Env);
 	 player->load(this->Instance.IPFiles.at(i));
@@ -68,7 +68,7 @@ Models::IPG::IPG::IPG(GRBEnv *env, std::string instanceFileName) : Game::IPG::IP
 Models::IPG::IPG::IPG(GRBEnv *env, IPGInstance instance) : Game::IPG::IPG(env) {
   this->Env      = env;
   this->Instance = instance;
-  this->PlayersIP.empty();
+  this->PlayersIP.clear();
   for (unsigned int i = 0; i < this->Instance.PlayerVariables.size(); ++i) {
 	 auto player = std::make_shared<MathOpt::IP_Param>(this->Env);
 	 player->load(this->Instance.IPFiles.at(i));
