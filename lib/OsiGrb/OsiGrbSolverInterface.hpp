@@ -264,7 +264,7 @@ public:
 	 vector using delete[].
 	 */
   virtual std::vector< double * > getDualRays(int maxNumRays,
-    bool fullRay = false) const;
+                                              bool fullRay = false) const;
   /** Get as many primal rays as the solver can provide. (In case of proven
 	 dual infeasibility there should be at least one.)
 	 
@@ -292,7 +292,7 @@ public:
 
   /** Set a a set of objective function coefficients */
   virtual void setObjCoeffSet(const int *indexFirst, const int *indexLast,
-    const double *coeffList);
+                              const double *coeffList);
 
   using OsiSolverInterface::setColLower;
   /** Set a single column lower bound<br>
@@ -317,7 +317,7 @@ public:
 	 @param boundList the new lower/upper bound pairs for the variables
 	 */
   virtual void setColSetBounds(const int *indexFirst, const int *indexLast,
-    const double *boundList);
+                               const double *boundList);
 
   /** Set a single row lower bound<br>
 	 Use -COIN_DBL_MAX for -infinity. */
@@ -334,7 +334,7 @@ public:
 
   /** Set the type of a single row<br> */
   virtual void setRowType(int index, char sense, double rightHandSide,
-    double range);
+                          double range);
 
   /** Set the bounds on a number of rows simultaneously<br>
 	 The default implementation just invokes <code>setRowLower()</code> and
@@ -344,7 +344,7 @@ public:
 	 @param boundList the new lower/upper bound pairs for the constraints
 	 */
   virtual void setRowSetBounds(const int *indexFirst, const int *indexLast,
-    const double *boundList);
+                               const double *boundList);
 
   /** Set the type of a number of rows simultaneously<br>
 	 The default implementation just invokes <code>setRowType()</code> and
@@ -356,7 +356,7 @@ public:
 	 @param rangeList the new ranges
 	 */
   virtual void setRowSetTypes(const int *indexFirst, const int *indexLast,
-    const char *senseList, const double *rhsList, const double *rangeList);
+                              const char *senseList, const double *rhsList, const double *rangeList);
   //@}
 
   //-------------------------------------------------------------------------
@@ -420,33 +420,33 @@ public:
   using OsiSolverInterface::addCol;
   /** */
   virtual void addCol(const CoinPackedVectorBase &vec, const double collb,
-    const double colub, const double obj);
+                      const double colub, const double obj);
 
   using OsiSolverInterface::addCols;
   /** */
   virtual void addCols(const int numcols,
-    const CoinPackedVectorBase *const *cols, const double *collb,
-    const double *colub, const double *obj);
+                       const CoinPackedVectorBase *const *cols, const double *collb,
+                       const double *colub, const double *obj);
   /** */
   virtual void deleteCols(const int num, const int *colIndices);
 
   using OsiSolverInterface::addRow;
   /** */
   virtual void addRow(const CoinPackedVectorBase &vec, const double rowlb,
-    const double rowub);
+                      const double rowub);
   /** */
   virtual void addRow(const CoinPackedVectorBase &vec, const char rowsen,
-    const double rowrhs, const double rowrng);
+                      const double rowrhs, const double rowrng);
 
   using OsiSolverInterface::addRows;
   /** */
   virtual void addRows(const int numrows,
-    const CoinPackedVectorBase *const *rows, const double *rowlb,
-    const double *rowub);
+                       const CoinPackedVectorBase *const *rows, const double *rowlb,
+                       const double *rowub);
   /** */
   virtual void addRows(const int numrows,
-    const CoinPackedVectorBase *const *rows, const char *rowsen,
-    const double *rowrhs, const double *rowrng);
+                       const CoinPackedVectorBase *const *rows, const char *rowsen,
+                       const double *rowrhs, const double *rowrng);
   /** */
   virtual void deleteRows(const int num, const int *rowIndices);
   //@}
@@ -468,8 +468,8 @@ public:
 	 </ul>
 	 */
   virtual void loadProblem(const CoinPackedMatrix &matrix, const double *collb,
-    const double *colub, const double *obj, const double *rowlb,
-    const double *rowub);
+                           const double *colub, const double *obj, const double *rowlb,
+                           const double *rowub);
 
   /** Load in an problem by assuming ownership of the arguments (the
 	 constraints on the rows are given by lower and upper bounds). For
@@ -479,7 +479,7 @@ public:
 	 functions. 
 	 */
   virtual void assignProblem(CoinPackedMatrix *&matrix, double *&collb,
-    double *&colub, double *&obj, double *&rowlb, double *&rowub);
+                             double *&colub, double *&obj, double *&rowlb, double *&rowub);
 
   /** Load in an problem by copying the arguments (the constraints on the
 	 rows are given by sense/rhs/range triplets). If a pointer is 0 then the
@@ -494,8 +494,8 @@ public:
 	 </ul>
 	 */
   virtual void loadProblem(const CoinPackedMatrix &matrix, const double *collb,
-    const double *colub, const double *obj, const char *rowsen,
-    const double *rowrhs, const double *rowrng);
+                           const double *colub, const double *obj, const char *rowsen,
+                           const double *rowrhs, const double *rowrng);
 
   /** Load in an problem by assuming ownership of the arguments (the
 	 constraints on the rows are given by sense/rhs/range triplets). For
@@ -505,22 +505,22 @@ public:
 	 functions. 
 	 */
   virtual void assignProblem(CoinPackedMatrix *&matrix, double *&collb,
-    double *&colub, double *&obj, char *&rowsen, double *&rowrhs,
-    double *&rowrng);
+                             double *&colub, double *&obj, char *&rowsen, double *&rowrhs,
+                             double *&rowrng);
 
   /** Just like the other loadProblem() methods except that the matrix is
 	 given in a standard column major ordered format (without gaps). */
   virtual void loadProblem(const int numcols, const int numrows,
-    const int *start, const int *index, const double *value,
-    const double *collb, const double *colub, const double *obj,
-    const double *rowlb, const double *rowub);
+                           const int *start, const int *index, const double *value,
+                           const double *collb, const double *colub, const double *obj,
+                           const double *rowlb, const double *rowub);
 
   /** Just like the other loadProblem() methods except that the matrix is
 	 given in a standard column major ordered format (without gaps). */
   virtual void loadProblem(const int numcols, const int numrows,
-    const int *start, const int *index, const double *value,
-    const double *collb, const double *colub, const double *obj,
-    const char *rowsen, const double *rowrhs, const double *rowrng);
+                           const int *start, const int *index, const double *value,
+                           const double *collb, const double *colub, const double *obj,
+                           const char *rowsen, const double *rowrhs, const double *rowrng);
 
   using OsiSolverInterface::readMps;
   /** Read an mps file from the given filename */
@@ -531,7 +531,7 @@ public:
 	 maximization objective and +1.0 to write a minimization one.
 	 If 0.0 then solver can do what it wants */
   virtual void writeMps(const char *filename, const char *extension = "mps",
-    double objSense = 0.0) const;
+                        double objSense = 0.0) const;
 
   //@}
 
@@ -543,28 +543,28 @@ public:
 	 (combined with logical or-operator '|' ):
 	 */
   enum keepCachedFlag {
-    /// discard all cached data (default)
-    KEEPCACHED_NONE = 0,
-    /// column information: objective values, lower and upper bounds, variable types
-    KEEPCACHED_COLUMN = 1,
-    /// row information: right hand sides, ranges and senses, lower and upper bounds for row
-    KEEPCACHED_ROW = 2,
-    /// problem matrix: matrix ordered by column and by row
-    KEEPCACHED_MATRIX = 4,
-    /// LP solution: primal and dual solution, reduced costs, row activities
-    KEEPCACHED_RESULTS = 8,
-    /// only discard cached LP solution
-    KEEPCACHED_PROBLEM = KEEPCACHED_COLUMN | KEEPCACHED_ROW | KEEPCACHED_MATRIX,
-    /// keep all cached data (similar to getMutableLpPtr())
-    KEEPCACHED_ALL = KEEPCACHED_PROBLEM | KEEPCACHED_RESULTS,
-    /// free only cached column and LP solution information
-    FREECACHED_COLUMN = KEEPCACHED_PROBLEM & ~KEEPCACHED_COLUMN,
-    /// free only cached row and LP solution information
-    FREECACHED_ROW = KEEPCACHED_PROBLEM & ~KEEPCACHED_ROW,
-    /// free only cached matrix and LP solution information
-    FREECACHED_MATRIX = KEEPCACHED_PROBLEM & ~KEEPCACHED_MATRIX,
-    /// free only cached LP solution information
-    FREECACHED_RESULTS = KEEPCACHED_ALL & ~KEEPCACHED_RESULTS
+	 /// discard all cached data (default)
+	 KEEPCACHED_NONE = 0,
+	 /// column information: objective values, lower and upper bounds, variable types
+	 KEEPCACHED_COLUMN = 1,
+	 /// row information: right hand sides, ranges and senses, lower and upper bounds for row
+	 KEEPCACHED_ROW = 2,
+	 /// problem matrix: matrix ordered by column and by row
+	 KEEPCACHED_MATRIX = 4,
+	 /// LP solution: primal and dual solution, reduced costs, row activities
+	 KEEPCACHED_RESULTS = 8,
+	 /// only discard cached LP solution
+	 KEEPCACHED_PROBLEM = KEEPCACHED_COLUMN | KEEPCACHED_ROW | KEEPCACHED_MATRIX,
+	 /// keep all cached data (similar to getMutableLpPtr())
+	 KEEPCACHED_ALL = KEEPCACHED_PROBLEM | KEEPCACHED_RESULTS,
+	 /// free only cached column and LP solution information
+	 FREECACHED_COLUMN = KEEPCACHED_PROBLEM & ~KEEPCACHED_COLUMN,
+	 /// free only cached row and LP solution information
+	 FREECACHED_ROW = KEEPCACHED_PROBLEM & ~KEEPCACHED_ROW,
+	 /// free only cached matrix and LP solution information
+	 FREECACHED_MATRIX = KEEPCACHED_PROBLEM & ~KEEPCACHED_MATRIX,
+	 /// free only cached LP solution information
+	 FREECACHED_RESULTS = KEEPCACHED_ALL & ~KEEPCACHED_RESULTS
   };
 
   GRBmodel *getLpPtr(int keepCached = KEEPCACHED_NONE);
@@ -737,7 +737,10 @@ public:
     </ul>
     */
   virtual OsiSolverInterface::ApplyCutsReturnCode applyCuts(const OsiCuts &cs,
-    double effectivenessLb = 0.0);
+                                                            double effectivenessLb = 0.0);
+
+  //@}
+  void solveFromSol();
 
 protected:
   /**@name Protected methods */
@@ -745,7 +748,7 @@ protected:
   /// Apply a row cut. Return true if cut was applied.
   virtual void applyRowCut(const OsiRowCut &rc);
 
-  /** Apply a column cut (bound adjustment). 
+  /** Apply a column cut (bound adjustment).
 	 Return true if cut was applied.
 	 */
   virtual void applyColCut(const OsiColCut &cc);
@@ -917,8 +920,6 @@ private:
   /// Otherwise, gives -1.
   /// Is NULL if there are no ranged rows! (assume -1 for each row then)
   int *auxcolind;
-  //@}
-  void solveFromSol();
 };
 
 #endif
