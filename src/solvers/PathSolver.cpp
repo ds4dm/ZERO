@@ -76,8 +76,7 @@ void Solvers::PATH::sort(int rows, int cols, int elements, int *row, int *col, d
 		cs++;
 	 }
   }
-
-  }
+}
 
 /**
  * @brief Internal method to create the linear mixed-complemetarity problem.
@@ -118,36 +117,45 @@ int Solvers::PATH::CreateLMCP(int    n,
   Options_Default(o);
 
 
+
   double *xSol, *zSol;
   double  dnnz;
   int     i;
 
-  Output_Printf(
-		Output_Log | Output_Status | Output_Listing, "%s: PathWrapper LCP Link\n", Path_Version());
 
-  Options_SetBoolean(o, "output", static_cast<const Boolean>(verbose > 0));
+  if (verbose == 0) {
+	 Options_SetBoolean(o, "output", False);
+	 Options_SetBoolean(o, "output_errors", False);
+	 Options_SetBoolean(o, "output_crash_iterations", False);
+	 Options_SetBoolean(o, "output_major_iterations", False);
+	 Options_SetBoolean(o, "output_minor_iterations", False);
+	 Options_SetBoolean(o, "output_options", False);
+  }
   if (timeLimit > 0)
 	 Options_SetDouble(o, "time_limit", timeLimit);
 
 
-  Options_SetDouble(o, "major_iteration_limit", 25000);
-  Options_SetDouble(o, "minor_iteration_limit", 100000);
-  Options_SetDouble(o, "cumulative_iteration_limit", 200000);
+  Options_SetInt(o, "cumulative_iteration_limit", 40000);
+  Options_SetInt(o, "major_iteration_limit", 1000);
+  Options_SetInt(o, "minor_iteration_limit", 3000);
+
+
 
   if (n == 0) {
-	 fprintf(stdout, "\n ** EXIT - No variables.\n");
 	 Options_Destroy(o);
-	 this->status = ZEROStatus::Solved;
+	 this->status = ZEROStatus::Numerical;
 	 return MCP_Solved;
   }
 
   dnnz = MIN(1.0 * m_nnz, 1.0 * n * n);
 
-  fprintf(stdout,
-			 "%d row/cols, %f non-zeros, %3.2f%% dense.\n\n",
-			 n,
-			 dnnz,
-			 100.0 * dnnz / (1.0 * n * n));
+  if (verbose != 0) {
+	 fprintf(stdout,
+				"%d row/cols, %f non-zeros, %3.2f%% dense.\n\n",
+				n,
+				dnnz,
+				100.0 * dnnz / (1.0 * n * n));
+  }
 
   this->Problem.n       = n;
   this->Problem.nnz     = m_nnz;
@@ -186,15 +194,17 @@ int Solvers::PATH::CreateLMCP(int    n,
   auto m = MCP_Create(this->Problem.n, this->Problem.nnz + 1);
   MCP_SetInterface(m, &this->PATH_Interface);
   MCP_SetPresolveInterface(m, &this->PATH_Presolve);
-  Output_SetInterface(&this->PATH_Output);
+  if (verbose != 0)
+	 Output_SetInterface(&this->PATH_Output);
   MCP_Jacobian_Structure_Constant(m, static_cast<Boolean>(true));
 
 
 
   Information info;
-  info.generate_output = Output_Log | Output_Status | Output_Listing;
-  info.use_start       = True;
-  info.use_basics      = True;
+  if (verbose != 0)
+	 info.generate_output = Output_Log | Output_Status | Output_Listing;
+  info.use_start  = True;
+  info.use_basics = True;
 
   try {
 	 termination = Path_Solve(m, &info);
@@ -208,7 +218,6 @@ int Solvers::PATH::CreateLMCP(int    n,
 	 this->status = ZEROStatus::Solved;
 	 xSol         = MCP_GetX(m);
 	 zSol         = MCP_GetF(m);
-	 fprintf(stdout, "%d is  %f \n", n, xSol[i]);
 	 for (i = 0; i < n; i++) {
 		x[i] = xSol[i];
 
@@ -220,9 +229,8 @@ int Solvers::PATH::CreateLMCP(int    n,
 	 break;
   case MCP_Infeasible:
 	 this->status = ZEROStatus::NotSolved;
-  default: {
+  default:
 	 this->status = ZEROStatus::Numerical;
-  }
   }
 
 
@@ -305,10 +313,10 @@ Solvers::PATH::PATH(const arma::sp_mat &  M,
   }     // end while
 
 
-  //Sparse iterator for M
+  // Sparse iterator for M
   for (arma::sp_mat::const_iterator it = M.begin(); it != M.end(); ++it) {
-	 _Mi.push_back( it.row()+1);
-	 _Mj.push_back(it.col()+1);
+	 _Mi.push_back(it.row() + 1);
+	 _Mj.push_back(it.col() + 1);
 	 _Mij.push_back(*it);
 	 ++nnz;
   }
