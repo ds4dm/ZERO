@@ -114,6 +114,8 @@ namespace Data {
   namespace LCP {
 	 enum class PolyhedraStrategy;
 	 enum class Algorithms;
+    enum class CutsAggressiveness;
+	 enum class Objectives;
   } // namespace LCP
 
 } // namespace Data

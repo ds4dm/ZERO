@@ -11,7 +11,7 @@
  * #############################################*/
 
 
-#include "games/ipg.h"
+#include "../../include/games/ipg.h"
 
 Game::IPG::IPG(
 	 GRBEnv *                                        env,    ///< A pointer to the Gurobi Environment
@@ -53,7 +53,7 @@ void Game::IPG::getXMinusI(
 										  ///< have the same size of the field NumVariables
 	 const unsigned int &i,      ///< The index of the designed player
 	 arma::vec &         xMinusI ///< An output vector containing x^{-i}
-	 ) const {
+) const {
   /**
 	* @brief Given @p x as the solution vector and @p i as index of player, the
 	* method returns x^{-i}
@@ -77,7 +77,7 @@ void Game::IPG::getXofI(const arma::vec &x, ///< The vector containing the full 
 														  ///< have the same size of the field NumVariables
 								const unsigned int &i,   ///< The index of the designed player
 								arma::vec &         xOfI ///< An output vector containing x^i
-								) const {
+) const {
   /**
 	* @brief Given @p x as the solution vector and @p i as index of player, the
 	* method returns x^i
@@ -129,9 +129,18 @@ std::string std::to_string(Data::IPG::Objectives ob) {
   case Data::IPG::Objectives::Linear:
 	 return std::string("Linear");
   case Data::IPG::Objectives::Quadratic:
-    return std::string("Quadratic");
+	 return std::string("Quadratic");
   default:
-    return std::string("Feasibility");
+	 return std::string("Feasibility");
   }
 }
-
+std::string std::to_string(Data::IPG::CutsAggressiveness ct) {
+  switch (ct) {
+  case Data::IPG::CutsAggressiveness::NoThanks:
+	 return std::string("NoThanks");
+  case Data::IPG::CutsAggressiveness::KeepItCool:
+	 return std::string("KeepItCool");
+  default:
+	 return std::string("Truculent");
+  }
+}

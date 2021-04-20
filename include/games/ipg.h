@@ -121,9 +121,9 @@ namespace Game {
 
 } // namespace Game
 namespace std {
-
   string to_string(Data::IPG::Algorithms al);
   string to_string(Data::IPG::Objectives ob);
+  string to_string(Data::IPG::CutsAggressiveness ct);
 
 }; // namespace std
 

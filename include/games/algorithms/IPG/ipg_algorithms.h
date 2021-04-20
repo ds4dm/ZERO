@@ -11,8 +11,6 @@
  * #############################################*/
 
 #pragma once
-#include <games/ipg.h>
-
 #include "zero.h"
 
 namespace Algorithms {
