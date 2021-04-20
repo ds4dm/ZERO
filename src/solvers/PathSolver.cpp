@@ -112,6 +112,8 @@ int Solvers::PATH::CreateLMCP(int    n,
   Output_SetLog(stdout);
 
 
+  verbose = 1;
+
   auto o = Options_Create();
   Path_AddOptions(o);
   Options_Default(o);
@@ -135,9 +137,9 @@ int Solvers::PATH::CreateLMCP(int    n,
 	 Options_SetDouble(o, "time_limit", timeLimit);
 
 
-  Options_SetInt(o, "cumulative_iteration_limit", 40000);
-  Options_SetInt(o, "major_iteration_limit", 1000);
-  Options_SetInt(o, "minor_iteration_limit", 3000);
+  Options_SetInt(o, "cumulative_iteration_limit", 100000);
+  Options_SetInt(o, "major_iteration_limit", 20000);
+  Options_SetInt(o, "minor_iteration_limit", 50000);
 
 
 
@@ -360,7 +362,6 @@ Solvers::PATH::PATH(const arma::sp_mat &  M,
 	 this->status = ZEROStatus::NashEqFound;
   } else {
 	 LOG_S(1) << "Solvers::PathLCP: No solution found (STATUS=" << std::to_string(status) << ")";
-	 this->status = ZEROStatus::NashEqNotFound;
   }
 }
 

@@ -49,7 +49,7 @@ namespace Solvers {
 	 } PATHProblem;
 
 
-	 ZEROStatus    status; ///< Status for the solver' instance
+	 ZEROStatus    status = ZEROStatus::Numerical; ///< Status for the solver' instance
 	 bool          Filled; ///< Boolean controlling instance's filling
 	 PATHProblem   Problem;
 	 MCP_Interface PATH_Interface = {
