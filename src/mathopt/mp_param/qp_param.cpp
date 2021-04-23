@@ -138,15 +138,16 @@ std::unique_ptr<GRBModel> MathOpt::QP_Param::solveFixed(arma::vec x, bool solve)
  */
 unsigned int MathOpt::QP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const {
   this->forceDataCheck();
-  M = arma::join_cols( // In armadillo join_cols(A, B) is same as [A;B] in
-							  // Matlab
-							  //  join_rows(A, B) is same as [A B] in Matlab
-		arma::join_rows(this->Q, this->B.t()),
-		arma::join_rows(-this->B, arma::zeros<arma::sp_mat>(this->Ncons, this->Ncons)));
+  auto BwithBounds = arma::join_cols(this->B, this->B_bounds);
+  M                = arma::join_cols( // In armadillo join_cols(A, B) is same as [A;B] in
+                       // Matlab
+                       //  join_rows(A, B) is same as [A B] in Matlab
+      arma::join_rows(this->Q, BwithBounds.t()),
+      arma::join_rows(-BwithBounds, arma::zeros<arma::sp_mat>(this->Ncons, this->Ncons)));
   // M.print_dense();
   N = arma::join_cols(this->C, -this->A);
   // N.print_dense();
-  q = arma::join_cols(this->c, this->b);
+  q = arma::join_cols(this->c, arma::join_cols(this->b, this->b_bounds));
   // q.print();
   return M.n_rows;
 }
@@ -310,13 +311,13 @@ long int MathOpt::QP_Param::load(const std::string &filename, long int pos) {
  * @return A pointer to this
  * @warning The input data may be corrupted after
  */
-MathOpt::QP_Param::QP_Param(const arma::sp_mat& Q,
-									 const arma::sp_mat& C,
-									 const arma::sp_mat& A,
-									 const arma::sp_mat& B,
-									 const arma::vec&    c,
-									 const arma::vec&    b,
-									 GRBEnv *     env)
+MathOpt::QP_Param::QP_Param(const arma::sp_mat &Q,
+									 const arma::sp_mat &C,
+									 const arma::sp_mat &A,
+									 const arma::sp_mat &B,
+									 const arma::vec &   c,
+									 const arma::vec &   b,
+									 GRBEnv *            env)
 	 : MP_Param(env), MadeyQy{false}, Model{(*env)} {
   this->MadeyQy = false;
   this->set(Q, C, A, B, c, b);

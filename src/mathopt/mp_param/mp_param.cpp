@@ -273,28 +273,32 @@ void MathOpt::MP_Param::detectBounds() {
  */
 void MathOpt::MP_Param::rewriteBounds() {
 
-  int cnt = 0;
+
+  int boundSize = this->Bounds.size();
   if (this->BoundsSwitch > 0) {
+	 this->B_bounds.zeros(boundSize, boundSize);
+	 this->b_bounds.zeros(boundSize);
 	 for (unsigned int i = 0; i < this->Bounds.size(); ++i) {
 		auto bound = this->Bounds.at(i);
 
 		if (bound.first > 0 || bound.second >= 0) {
 
-		  if (bound.first > 0) {
-			 this->B = Utils::resizePatch(this->B, this->B.n_rows + 1, this->B.n_cols);
-			 this->A = Utils::resizePatch(this->A, this->A.n_rows + 1, this->A.n_cols);
-			 this->b = Utils::resizePatch(this->b, this->b.size() + 1, 1);
-			 this->b.at(this->b.size() - 1)    = -bound.first;
-			 this->B.at(this->B.n_rows - 1, i) = -1;
-			 cnt++;
-		  }
-		  if (bound.second >= 0) {
-			 this->B = Utils::resizePatch(this->B, this->B.n_rows + 1, this->B.n_cols);
-			 this->A = Utils::resizePatch(this->A, this->A.n_rows + 1, this->A.n_cols);
-			 this->b = Utils::resizePatch(this->b, this->b.size() + 1, 1);
-			 this->b.at(this->b.size() - 1)    = bound.second;
-			 this->B.at(this->B.n_rows - 1, i) = 1;
-			 cnt++;
+		  if ((bound.first > 0 && bound.second < 0) || (bound.first <= 0 && bound.second >= 0)) {
+			 // Only one bound is active
+			 double activeBound      = bound.first > 0 ? bound.first : bound.second;
+			 int    sense            = bound.first > 0 ? -1 : 1; // 1 for ax<=b
+			 this->B_bounds.at(i, i) = sense;
+			 this->b_bounds.at(i)    = sense * activeBound;
+		  } else if (bound.second >= 0 && bound.first > 0) {
+			 // We have both bounds. Add a new line
+			 this->B_bounds.resize(this->B_bounds.n_rows + 1, boundSize);
+			 this->b_bounds.resize(this->b_bounds.size());
+			 // The lower bound
+			 this->B_bounds.at(i, i) = -1;
+			 this->b_bounds.at(i)    = -bound.first;
+			 // The upper bound
+			 this->B_bounds.at(this->B_bounds.n_rows - 1, i) = 1;
+			 this->b_bounds.at(this->b_bounds.size() - 1)    = bound.first;
 		  }
 		}
 	 }
@@ -509,4 +513,32 @@ bool MathOpt::MP_Param::isFeasible(const arma::vec &y, const arma::vec &x, doubl
 		return false;
 
   return true;
+}
+
+
+/**
+ * @brief Returns the vector b.
+ * @param bounds True if one needs to include the bounds in the vector b
+ * @return A const object with b
+ */
+arma::vec MathOpt::MP_Param::getb(bool bounds) const {
+  if (!bounds)
+	 return this->b;
+  else {
+	 return arma::join_cols(this->b, this->b_bounds);
+  }
+}
+
+/**
+ * @brief Returns the matrix B.
+ * @param bounds True if one needs to include the bounds in the matrix B
+ * @return A const object with B
+ */
+arma::sp_mat MathOpt::MP_Param::getB(bool bounds) const{
+
+  if (!bounds)
+	 return this->B;
+  else {
+	 return arma::join_cols(this->B, this->B_bounds);
+  }
 }

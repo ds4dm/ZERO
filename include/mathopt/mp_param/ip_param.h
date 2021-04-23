@@ -43,7 +43,7 @@ namespace MathOpt {
 	**/
   class IP_Param : public MP_Param {
   private:
-	 GRBModel  *IPModel;     ///< Stores the IP model associated with the object
+	 GRBModel  IPModel;     ///< Stores the IP model associated with the object
 	 arma::vec Integers;    ///< Stores the indexes of integer variables
 	 bool Finalized{false}; ///< True if the model has been made and constraints cannot be changed
 
@@ -57,7 +57,7 @@ namespace MathOpt {
 	  * later)
 	  * @param env The pointer to the Gurobi environment
 	  */
-	 explicit IP_Param(GRBEnv *env = nullptr) : MP_Param(env), IPModel{new GRBModel(*env)} { this->size(); }
+	 explicit IP_Param(GRBEnv *env = nullptr) : MP_Param(env), IPModel{GRBModel(*env)} { this->size(); }
 
 	 explicit IP_Param(const arma::sp_mat& C,
 							 const arma::sp_mat& B,

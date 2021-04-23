@@ -50,12 +50,12 @@ bool MathOpt::IP_Param::operator==(const IP_Param &IPG2) const {
 MathOpt::IP_Param &MathOpt::IP_Param::setBounds(const VariableBounds &boundIn) {
   MathOpt::MP_Param::setBounds(boundIn);
   for (unsigned int i = 0; i < this->Ny; i++) {
-	 auto var = this->IPModel->getVarByName("y_" + std::to_string(i));
+	 auto var = this->IPModel.getVarByName("y_" + std::to_string(i));
 	 var.set(GRB_DoubleAttr_LB, this->Bounds.at(i).first > 0 ? this->Bounds.at(i).first : 0);
 	 var.set(GRB_DoubleAttr_UB,
 				this->Bounds.at(i).second > 0 ? this->Bounds.at(i).second : GRB_INFINITY);
   }
-  this->IPModel->update();
+  this->IPModel.update();
   return *this;
 } ///< Inheritor constructor for the class
 
@@ -72,7 +72,7 @@ bool MathOpt::IP_Param::finalize() {
   try {
 	 GRBVar y[this->Ny];
 	 for (unsigned int i = 0; i < this->Ny; i++) {
-		y[i] = this->IPModel->addVar(Bounds.at(i).first > 0 ? Bounds.at(i).first : 0,
+		y[i] = this->IPModel.addVar(Bounds.at(i).first > 0 ? Bounds.at(i).first : 0,
 											 Bounds.at(i).second > 0 ? Bounds.at(i).second : GRB_INFINITY,
 											 c.at(i),
 											 GRB_CONTINUOUS,
@@ -91,12 +91,12 @@ bool MathOpt::IP_Param::finalize() {
 																			: GRB_INFINITY);
 	 }
 
-	 Utils::addSparseConstraints(B, b, y, "Constr_", this->IPModel, GRB_LESS_EQUAL, nullptr);
+	 Utils::addSparseConstraints(B, b, y, "Constr_", &this->IPModel, GRB_LESS_EQUAL, nullptr);
 
-	 this->IPModel->update();
-	 this->IPModel->set(GRB_IntParam_OutputFlag, 0);
-	 this->IPModel->set(GRB_IntParam_InfUnbdInfo, 1);
-	 // this->IPModel->set(GRB_IntParam_DualReductions, 0);
+	 this->IPModel.update();
+	 this->IPModel.set(GRB_IntParam_OutputFlag, 0);
+	 this->IPModel.set(GRB_IntParam_InfUnbdInfo, 1);
+	 // this->IPModel.set(GRB_IntParam_DualReductions, 0);
 
   } catch (GRBException &e) {
 	 throw ZEROException(ZEROErrorCode::SolverError,
@@ -123,14 +123,14 @@ void MathOpt::IP_Param::updateModelObjective(const arma::vec &x) {
 	 arma::vec   Cx;
 	 Cx = this->C * x;
 	 for (unsigned int i = 0; i < this->Ny; i++)
-		Objective += (Cx[i] + this->c.at(i)) * this->IPModel->getVarByName("y_" + std::to_string(i));
+		Objective += (Cx[i] + this->c.at(i)) * this->IPModel.getVarByName("y_" + std::to_string(i));
 
 	 // this->c.print("c");
 	 // Cx.print("Cx");
 
 
-	 IPModel->setObjective(Objective, GRB_MINIMIZE);
-	 IPModel->update();
+	 this->IPModel.setObjective(Objective, GRB_MINIMIZE);
+	 this->IPModel.update();
   } catch (GRBException &e) {
 	 throw ZEROException(e);
   }
@@ -181,9 +181,9 @@ std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(const arma::vec &x, bool
 	 throw ZEROException(e);
   }
   if (relax) {
-	 return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel->relax()));
+	 return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel.relax()));
   } else
-	 return std::unique_ptr<GRBModel>(new GRBModel(*this->IPModel));
+	 return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel));
 }
 
 /**
@@ -356,11 +356,11 @@ bool MathOpt::IP_Param::addConstraints(const arma::sp_mat &Ain, const arma::vec 
   if (this->Finalized) {
 	 GRBVar y[Ny];
 	 for (unsigned int i = 0; i < this->Ny; i++) {
-		y[i] = this->IPModel->getVarByName("y_" + std::to_string(i));
+		y[i] = this->IPModel.getVarByName("y_" + std::to_string(i));
 	 }
 
-	 Utils::addSparseConstraints(Ain, bin, y, "ConstrAdd_", this->IPModel, GRB_LESS_EQUAL, nullptr);
-	 this->IPModel->update();
+	 Utils::addSparseConstraints(Ain, bin, y, "ConstrAdd_", &this->IPModel, GRB_LESS_EQUAL, nullptr);
+	 this->IPModel.update();
   }
   return true;
 }
@@ -379,16 +379,14 @@ bool MathOpt::IP_Param::addConstraints(const arma::sp_mat &Ain, const arma::vec 
  */
 unsigned int MathOpt::IP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const {
   this->forceDataCheck();
+  auto BwithBounds = arma::join_cols(this->B, this->B_bounds);
   M = arma::join_cols( // In armadillo join_cols(A, B) is same as [A;B] in
 							  // Matlab
 							  //  join_rows(A, B) is same as [A B] in Matlab
-		arma::join_rows(this->Q, this->B.t()),
-		arma::join_rows(-this->B, arma::zeros<arma::sp_mat>(this->Ncons, this->Ncons)));
-  // M.print_dense();
+		arma::join_rows(this->Q, BwithBounds.t()),
+		arma::join_rows(-BwithBounds, arma::zeros<arma::sp_mat>(this->Ncons, this->Ncons)));
   N = arma::join_cols(this->C, -this->A);
-  // N.print_dense();
-  q = arma::join_cols(this->c, this->b);
-  // q.print();
+  q = arma::join_cols(this->c, arma::join_cols(this->b, this->b_bounds));
   return M.n_rows;
 }
 /**
@@ -399,10 +397,10 @@ unsigned int MathOpt::IP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec 
 void MathOpt::IP_Param::presolve() {
   if (!this->Finalized)
 	 this->finalize();
-  auto       p      = new GRBModel(*this->IPModel);
+  auto       p      = new GRBModel(this->IPModel);
   GRBLinExpr linObj = 0;
   for (unsigned int i = 0; i < this->Ny; i++)
-	 linObj += (this->c.at(i)) * this->IPModel->getVarByName("y_" + std::to_string(i));
+	 linObj += (this->c.at(i)) * this->IPModel.getVarByName("y_" + std::to_string(i));
   p->setObjective(linObj);
   p->set(GRB_IntParam_Presolve, 2);
   p->set(GRB_IntParam_DualReductions, 0);
@@ -504,7 +502,7 @@ void MathOpt::IP_Param::presolve() {
   this->b         = pre_b;
   this->B         = pre_B;
   this->Finalized = false;
-  this->IPModel = new GRBModel(*this->Env);
+  delete &this->IPModel;
 
   LOG_S(1) << "MathOpt::IP_Param::presolve: done.";
   this->finalize();
@@ -590,7 +588,7 @@ MathOpt::IP_Param::IP_Param(const arma::sp_mat &C,
 									 const arma::vec &   c,
 									 const arma::vec &   _integers,
 									 GRBEnv *            env)
-	 : MP_Param(env), IPModel{new GRBModel(*env)} {
+	 : MP_Param(env), IPModel{ GRBModel(*env)} {
   this->set(C, B, b, c, _integers);
   this->forceDataCheck();
 }
