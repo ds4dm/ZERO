@@ -112,7 +112,6 @@ int Solvers::PATH::CreateLMCP(int    n,
   Output_SetLog(stdout);
 
 
-  verbose = 1;
 
   auto o = Options_Create();
   Path_AddOptions(o);
