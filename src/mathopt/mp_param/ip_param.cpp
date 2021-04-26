@@ -207,7 +207,7 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &C,
   this->Q.zeros(c.size(), c.size());
   this->A.zeros(b.size(), C.n_cols);
   this->Finalized = false;
-  this->Integers  = (_integers);
+  this->Integers  = arma::sort(_integers);
   MP_Param::set(Q, C, A, B, c, b);
   return *this;
 }
