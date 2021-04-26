@@ -12,6 +12,7 @@
 
 
 #include "support/utils.h"
+#include <armadillo>
 
 
 arma::sp_mat
@@ -532,10 +533,18 @@ arma::vec Utils::normalizeVec(const arma::vec &v) { return v / arma::max(arma::a
  * @p rhs is the input and output RHS value
  * @p lhs is the input and output LHS
  */
-void Utils::normalizeIneq(arma::vec &lhs, double &rhs) {
-  double norm = std::max(arma::max(arma::abs(lhs)), std::abs(rhs));
-  rhs         = rhs / norm;
-  lhs         = lhs / norm;
+void Utils::normalizeIneq(arma::vec &lhs, double &rhs, bool force) {
+  arma::vec abs  = arma::abs(lhs);
+  double    norm = 1;
+  for (auto &elem : abs) {
+	 if (elem < norm && elem != 0)
+		norm = elem;
+  }
+  if ( (abs.max() / norm > 1e3)  || force) {
+    LOG_S(5) << "Utils::normalizeIneq:  normalizing inequality.";
+	 rhs = rhs / norm;
+	 lhs = lhs / norm;
+  }
 }
 
 /**
