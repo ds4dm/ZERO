@@ -49,7 +49,8 @@ namespace Data {
 		Attr<Data::LCP::Algorithms> LCPSolver; ///< The preferred LCP Solver
 		Attr<Data::IPG::Objectives> Objective = {
 			 Data::IPG::Objectives::Linear}; ///< The preferred objective type for the MIP LCP
-														///< reformulation
+		///< reformulation
+		Attr<std::vector<std::pair<std::string, int>>> Cuts;
 		DataObject() : LCPSolver{static_cast<Data::LCP::Algorithms>(0)} {};
 	 };
   } // namespace IPG

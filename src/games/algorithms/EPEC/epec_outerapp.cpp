@@ -171,7 +171,7 @@ bool Algorithms::EPEC::OuterApproximation::equilibriumOracle(
   auto   dualMembershipModel = this->Trees.at(player)->MembershipLP.get();
   GRBVar y[xOfI.size()]; // Dual membership variables
   for (unsigned int i = 0; i < xOfI.size(); i++)
-	 y[i] = dualMembershipModel->getVarByName("y_" + std::to_string(i));
+	 y[i] = dualMembershipModel->getVarByName("alpha_" + std::to_string(i));
 
 
 
@@ -293,11 +293,7 @@ bool Algorithms::EPEC::OuterApproximation::equilibriumOracle(
 			 if (cutV - val.at(0) < -this->Tolerance) {
 				// False, but we have a cut :-)
 				// Ciao Moni
-				if (std::max(cutLHS.max(), cutV) - std::min(cutLHS.min(), cutV) > 1e5) {
-				  Utils::normalizeIneq(cutLHS, cutV);
-				  LOG_S(1) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
-							  << ") normalizing cut.";
-				}
+				Utils::normalizeIneq(cutLHS, cutV, true);
 				arma::sp_mat cutL = Utils::resizePatch(
 					 arma::sp_mat{cutLHS}.t(), 1, this->PolyLCP.at(player)->getNumCols());
 
@@ -363,11 +359,7 @@ void Algorithms::EPEC::OuterApproximation::addValueCut(const unsigned int player
   arma::vec LHS = this->EPECObject->LeaderObjective.at(player)->c +
 						this->EPECObject->LeaderObjective.at(player)->C * xMinusI;
   double trueRHS = RHS;
-  if (std::max(LHS.max(), RHS) - std::min(LHS.min(), trueRHS) > 1e5) {
-	 Utils::normalizeIneq(LHS, trueRHS);
-	 LOG_S(5) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
-				 << ") normalizing cut.";
-  }
+  Utils::normalizeIneq(LHS, trueRHS, false);
 
   arma::sp_mat cutLHS =
 		Utils::resizePatch(arma::sp_mat{LHS}.t(), 1, this->PolyLCP.at(player)->getNumCols());

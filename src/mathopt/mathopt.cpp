@@ -17,10 +17,10 @@ unsigned int MathOpt::convexHull(
 														 ///< whose convex hull is to be found
 	 const std::vector<arma::vec *> *bi,    ///< Inequality constraints RHS that define
 														 ///< polyhedra whose convex hull is to be found
-	 arma::sp_mat &     A,                  ///< Pointer to store the output of the convex hull LHS
-	 arma::vec &        b,                  ///< Pointer to store the output of the convex hull RHS
-	 const arma::sp_mat& Acom,               ///< any common constraints to all the polyhedra - lhs.
-	 const arma::vec&    bcom                ///< Any common constraints to ALL the polyhedra - RHS.
+	 arma::sp_mat &      A,                 ///< Pointer to store the output of the convex hull LHS
+	 arma::vec &         b,                 ///< Pointer to store the output of the convex hull RHS
+	 const arma::sp_mat &Acom,              ///< any common constraints to all the polyhedra - lhs.
+	 const arma::vec &   bcom               ///< Any common constraints to ALL the polyhedra - RHS.
 	 )
 /** @brief Computing convex hull of finite union of polyhedra
  * @details Computes the convex hull of a finite union of polyhedra where
@@ -225,15 +225,15 @@ arma::vec MathOpt::LPSolve(const arma::sp_mat &A, ///< The constraint matrix
   arma::vec    sol = arma::vec(c.n_rows, arma::fill::zeros);
   const double lb  = positivity ? 0 : -GRB_INFINITY;
 
-  GRBEnv    env;
-  GRBModel  model = GRBModel(env);
-  GRBVar    x[nC];
+  GRBEnv   env;
+  GRBModel model = GRBModel(env);
+  GRBVar   x[nC];
   // Adding Variables
   for (unsigned int i = 0; i < nC; i++)
 	 x[i] = model.addVar(lb, GRB_INFINITY, c.at(i), GRB_CONTINUOUS, "x_" + std::to_string(i));
   // Adding constraints
 
-  Utils::addSparseConstraints(A, b, x,"LPSolve_", &model, GRB_LESS_EQUAL, nullptr);
+  Utils::addSparseConstraints(A, b, x, "LPSolve_", &model, GRB_LESS_EQUAL, nullptr);
   model.set(GRB_IntParam_OutputFlag, 0);
   model.set(GRB_IntParam_DualReductions, 0);
   model.optimize();
@@ -278,44 +278,45 @@ void MathOpt::getDualMembershipLP(std::unique_ptr<GRBModel> &convexModel,
   if (numV == 0 && numR == 0) {
 	 // Initialize the model
 	 convexModel->reset(true);
-	 GRBVar     y[V.n_cols];
+	 GRBVar     alpha[V.n_cols];
 	 GRBVar     a[V.n_cols + 1];
-	 GRBVar     x;
+	 GRBVar     beta;
 	 GRBLinExpr expr = 0;
 	 for (unsigned int i = 0; i < vertex.size(); i++) {
-		y[i] = convexModel->addVar(
-			 -GRB_INFINITY, GRB_INFINITY, 0, GRB_CONTINUOUS, "y_" + std::to_string(i));
+		alpha[i] = convexModel->addVar(
+			 -GRB_INFINITY, GRB_INFINITY, 0, GRB_CONTINUOUS, "alpha_" + std::to_string(i));
 		a[i] = convexModel->addVar(
-			 0, GRB_INFINITY, 0, GRB_CONTINUOUS, "abs(y_" + std::to_string(i) + ")");
+			 0, GRB_INFINITY, 0, GRB_CONTINUOUS, "abs(alpha_" + std::to_string(i) + ")");
 
-		// Abs: a[i] = abs(y[i])
-		convexModel->addConstr(a[i], GRB_GREATER_EQUAL, y[i], "Abs_1_y_" + std::to_string(i));
-		convexModel->addConstr(a[i], GRB_GREATER_EQUAL, -y[i], "Abs_2_y_" + std::to_string(i));
+		// Abs: a[i] = abs(alpha[i])
+		convexModel->addConstr(a[i], GRB_GREATER_EQUAL, alpha[i], "Abs_1_alpha_" + std::to_string(i));
+		convexModel->addConstr(
+			 a[i], GRB_GREATER_EQUAL, -alpha[i], "Abs_2_alpha_" + std::to_string(i));
 		expr += a[i];
 	 }
 
-	 x           = convexModel->addVar(-GRB_INFINITY, GRB_INFINITY, 0, GRB_CONTINUOUS, "x");
-	 a[V.n_cols] = convexModel->addVar(0, GRB_INFINITY, 0, GRB_CONTINUOUS, "abs(x)");
-	 convexModel->addConstr(a[V.n_cols], GRB_GREATER_EQUAL, x, "Abs_1_x");
-	 convexModel->addConstr(a[V.n_cols], GRB_GREATER_EQUAL, -x, "Abs_2_x");
+	 beta        = convexModel->addVar(-GRB_INFINITY, GRB_INFINITY, 0, GRB_CONTINUOUS, "beta");
+	 a[V.n_cols] = convexModel->addVar(0, GRB_INFINITY, 0, GRB_CONTINUOUS, "abs(beta)");
+	 convexModel->addConstr(a[V.n_cols], GRB_GREATER_EQUAL, beta, "Abs_1_beta");
+	 convexModel->addConstr(a[V.n_cols], GRB_GREATER_EQUAL, -beta, "Abs_2_beta");
 	 expr += a[V.n_cols];
 	 // Normalization
-	 convexModel->addConstr(expr, GRB_EQUAL, 1, "Normalization");
+	 convexModel->addConstr(expr, GRB_EQUAL, 10, "Normalization");
 
 	 // Hyperplanes for vertices
 	 for (unsigned int i = 0; i < V.n_rows; i++) {
 		expr = 0;
 		for (auto j = V.begin_row(i); j != V.end_row(i); ++j)
-		  expr += (*j) * y[j.col()];
-		convexModel->addConstr(expr, GRB_LESS_EQUAL, x, "V_" + std::to_string(i));
+		  expr += (*j) * alpha[j.col()];
+		convexModel->addConstr(expr, GRB_GREATER_EQUAL, beta, "V_" + std::to_string(i));
 	 }
 	 numV = V.n_rows;
 
-	 // Without x-term for vertices
+	 // Without beta-term for vertices
 	 for (unsigned int i = 0; i < R.n_rows; i++) {
 		for (auto j = R.begin_row(i); j != R.end_row(i); ++j)
-		  expr += (*j) * y[j.col()];
-		convexModel->addConstr(expr, GRB_LESS_EQUAL, 0, "R_" + std::to_string(i));
+		  expr += (*j) * alpha[j.col()];
+		convexModel->addConstr(expr, GRB_GREATER_EQUAL, 0, "R_" + std::to_string(i));
 	 }
 
 	 numR = R.n_rows;
@@ -334,10 +335,10 @@ void MathOpt::getDualMembershipLP(std::unique_ptr<GRBModel> &convexModel,
 		for (unsigned int i = numV; i < V.n_rows; i++) {
 		  expr = 0;
 		  for (auto j = V.begin_row(i); j != V.end_row(i); ++j)
-			 expr += (*j) * convexModel->getVarByName("y_" + std::to_string(j.col()));
+			 expr += (*j) * convexModel->getVarByName("alpha_" + std::to_string(j.col()));
 
 		  convexModel->addConstr(
-				expr, GRB_LESS_EQUAL, convexModel->getVarByName("x"), "V_" + std::to_string(i));
+				expr, GRB_LESS_EQUAL, convexModel->getVarByName("beta"), "V_" + std::to_string(i));
 		}
 		numV = V.n_rows;
 	 }
@@ -348,7 +349,7 @@ void MathOpt::getDualMembershipLP(std::unique_ptr<GRBModel> &convexModel,
 		GRBLinExpr expr = 0;
 		for (unsigned int i = numR; i < R.n_rows; i++) {
 		  for (auto j = R.begin_row(i); j != R.end_row(i); ++j)
-			 expr += (*j) * convexModel->getVarByName("y_" + std::to_string(j.col()));
+			 expr += (*j) * convexModel->getVarByName("alpha_" + std::to_string(j.col()));
 
 		  convexModel->addConstr(expr, GRB_LESS_EQUAL, 0, "R_" + std::to_string(i));
 		}
@@ -359,9 +360,9 @@ void MathOpt::getDualMembershipLP(std::unique_ptr<GRBModel> &convexModel,
 	 LOG_S(1) << "MathOpt::getDualMembershipLP: updated model";
   }
   convexModel->update();
-  GRBLinExpr expr = -convexModel->getVarByName("x");
+  GRBLinExpr expr = -convexModel->getVarByName("beta");
   for (int j = 0; j < vertex.size(); ++j)
-	 expr += vertex.at(j) * convexModel->getVarByName("y_" + std::to_string(j));
+	 expr += vertex.at(j) * convexModel->getVarByName("alpha_" + std::to_string(j));
 
   convexModel->setObjective(expr, GRB_MAXIMIZE);
   convexModel->update();

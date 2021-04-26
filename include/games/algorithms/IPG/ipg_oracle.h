@@ -30,7 +30,8 @@ namespace Algorithms::IPG {
 
   protected:
 	 std::unique_ptr<GRBModel>
-		  MembershipLP;    ///< The model approximating the feasible region with vertices and rays
+		  MembershipLP={};    ///< The model approximating the feasible region with vertices and rays
+    std::shared_ptr<MathOpt::IP_Param> ParametrizedIP ={};    ///< The (working) player integer program, to which cuts are added
 	 arma::sp_mat V = {}; ///< This object stores an array of points -- for each player -- that are
 	 ///< descriptor for the convex-hull of the integer programming game.
 	 arma::sp_mat R             = {}; ///< As in V, but for rays.
@@ -58,7 +59,7 @@ namespace Algorithms::IPG {
 		 * model, initializes the data structure.
 		 */
 
-		std::unique_ptr<GRBModel>();
+	   this->ParametrizedIP = std::unique_ptr<MathOpt::IP_Param>();
 		this->MembershipLP = std::unique_ptr<GRBModel>();
 		this->Incumbent.zeros(incumbentSize);
 	 };
@@ -67,12 +68,8 @@ namespace Algorithms::IPG {
 
 	 bool addRay(const arma::vec &ray, const bool checkDuplicate = false);
 
-	 bool addCut(const arma::vec &LHS, const double b, const bool checkDuplicate = false);
+	 bool addCuts(const arma::sp_mat &LHS, const arma::vec &RHS);
 
-	 const double getPayoff() { return this->Payoff; }
-
-	 const arma::sp_mat getCutPoolA() { return this->CutPool_A; }
-	 const arma::vec    getCutPoolb() { return this->CutPool_b; }
   };
 
 
@@ -81,12 +78,13 @@ namespace Algorithms::IPG {
   private:
 	 arma::sp_mat                             LCP_Q;   ///< Quadratic matrix for the LCP objective
 	 arma::vec                                LCP_c;   ///< Linear vector for the LCP objective
-	 std::vector<std::unique_ptr<IPG_Player>> Players; ///< The support structures
+	 std::vector<std::unique_ptr<IPG_Player>> Players; ///< The support structures of IPG_Players
+	 std::vector<std::pair<std::string ,int>> Cuts; ///< Log of used cutting planes.
 	 void                                     initialize();
 	 arma::vec                                buildXminusI(const unsigned int i);
 
-	 unsigned int separateCoinCuts(unsigned int player, int maxCuts);
-	 bool addValueCut(unsigned int player, double RHS, const arma::vec &xMinusI, bool check = false);
+	 unsigned int externalCutGenerator(unsigned int player, int maxCuts);
+	 bool         addValueCut(unsigned int player, double RHS, const arma::vec &xMinusI);
 	 int  preEquilibriumOracle(const unsigned int player,
 										int &              addedCuts,
 										arma::vec &        xOfI,
