@@ -41,7 +41,8 @@ set(ZERO_DEP_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib")
 #######################################
 set(GUROBI_DIR "/home/gurobi/9.1.1/linux64/" "/Library/gurobi910/mac64" "C:\\dev\\gurobi900\\win64")
 set(PATH_DIR "${ZERO_DEP_DIR}/path")
-set("CONDA_ENV" "${ZERO_DEP_DIR}/conda")
+set(CONDA_ENV "${ZERO_DEP_DIR}/conda")
+set(SCIP_ROOT_DIR "${CONDA_ENV}" )
 
 # Get Conda
 find_package(Conda REQUIRED)
@@ -68,6 +69,8 @@ find_package(PATH REQUIRED)
 find_package(Armadillo REQUIRED HINTS ${CONDA_ENV} PATHS ${CONDA_ENV} NO_DEFAULT_PATH)
 # CoinUtils and CGL
 find_package(Coin REQUIRED)
+# Scip
+#find_package(SCIP REQUIRED)
 # OsiGrb
 include(cmake/InstallOsiGrb.cmake)
 
@@ -142,7 +145,7 @@ set_target_properties(
 # ZERO - EPEC TESTS
 #######################################
 add_executable(EPECTests test/EPEC/epec.cpp)
-target_include_directories(EPECTests PRIVATE test)
+target_include_directories(EPECTests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(EPECTests ZERO ${CMAKE_DL_LIBS} Boost::program_options Boost::unit_test_framework)
 set_target_properties(
         EPECTests
@@ -153,7 +156,7 @@ set_target_properties(
 # ZERO - IPG TESTS
 #######################################
 add_executable(IPGTests test/IPG/RandomKP.cpp)
-target_include_directories(IPGTests PRIVATE test)
+target_include_directories(IPGTests PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(IPGTests ZERO)
 set_target_properties(
         IPGTests PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
@@ -177,3 +180,5 @@ message("\tArmadillo (lib):\t\t${ARMADILLO_LIBRARIES}")
 message("\tCoin (lib):\t\t${COIN_UTILS} ${COIN_CGL} ${COIN_OSI}")
 message("\tPATH (include):\t${PATH_INCLUDE_DIR}")
 message("\tPATH (library):\t${PATH_LIBRARY}")
+#message("\tSCIP (include):\t${SCIP_INCLUDE_DIRS}")
+#message("\tSCIP (lib):\t\t${SCIP_LIBRARIES}")
