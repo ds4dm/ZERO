@@ -831,12 +831,14 @@ void MathOpt::LCP::setMIPObjective(GRBModel &MIP) {
 
 	 MIP.setObjective(obj, GRB_MINIMIZE);
     this->MadeObjective = true;
+    MIP.set(GRB_IntParam_MIPFocus,0);
 	 return;
 
   } else {
 	 // Feasibility MIP
 	 GRBLinExpr obj = 0;
 	 // Get hold of the Variables and Eqn Variables
+	 /*
 	 for (unsigned int i = 0; i < nC; i++) {
 		GRBVar vars[]  = {MIP.getVarByName("x_" + std::to_string(i))};
 		double coeff[] = {1};
@@ -848,8 +850,10 @@ void MathOpt::LCP::setMIPObjective(GRBModel &MIP) {
 		double coeff[] = {1};
 		obj.addTerms(coeff, vars, 1);
 	 }
+	  */
 
 	 MIP.setObjective(obj, GRB_MINIMIZE);
+	 MIP.set(GRB_IntParam_MIPFocus,1);
     this->MadeObjective = true;
 	 return;
   }
