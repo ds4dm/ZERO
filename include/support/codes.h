@@ -33,7 +33,7 @@ enum class ZEROStatus {
 
 template <typename T> class Attr {
 private:
-T Object;
+  T Object;
 
 public:
   Attr(T value) : Object{value} {};
@@ -41,6 +41,7 @@ public:
   void set(const T &value) { Object = value; }
   // T &operator=(const T &a) { std::cerr << "Operation not allowed. Use set()";
   // } operator T() { std::cerr << "Operation not allowed. Use get()"; }
+  Attr() = default;
 };
 
 class ZEROAlgorithmData {
