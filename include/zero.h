@@ -110,12 +110,12 @@ namespace Data {
   }
   namespace IPG {
 	 class DataObject;
+    enum class CutsAggressiveness;
+    enum class Objectives;
   }
   namespace LCP {
 	 enum class PolyhedraStrategy;
 	 enum class Algorithms;
-    enum class CutsAggressiveness;
-	 enum class Objectives;
   } // namespace LCP
 
 } // namespace Data
