@@ -542,6 +542,7 @@ void Utils::normalizeIneq(arma::vec &lhs, double &rhs, bool force) {
   }
   if ((abs.max() / norm > 1e3) || force) {
 	 LOG_S(5) << "Utils::normalizeIneq:  normalizing inequality.";
+	 assert(norm!=0);
 	 rhs = rhs / norm;
 	 lhs = lhs / norm;
   }
@@ -553,18 +554,20 @@ void Utils::normalizeIneq(arma::vec &lhs, double &rhs, bool force) {
  * @return A CoinPackedMatrix from @p A
  */
 CoinPackedMatrix Utils::armaToCoinSparse(const arma::sp_mat &A) {
+  A.print_dense("A");
+
+  CoinPackedMatrix R  = CoinPackedMatrix(true, A.n_cols, 0);
   auto         nnz   = A.n_nonzero;
-  int *        rows  = new int[nnz];
-  int *        cols  = new int[nnz];
-  auto *       elems = new double[nnz];
-  unsigned int c     = 0;
-  for (arma::sp_mat::const_iterator it = A.begin(); it != A.end(); ++it) {
-	 rows[c]  = it.row();
-	 cols[c]  = it.col();
-	 elems[c] = *it;
-	 ++c;
-  }
-  return CoinPackedMatrix(true, rows, cols, elems, nnz);
+  std::vector<CoinPackedVector> cols(A.n_cols);
+  for (arma::sp_mat::const_iterator it = A.begin(); it != A.end(); ++it)
+	 cols.at(it.col()).insert(it.row(),*it);
+
+  for (unsigned int i=0;i<A.n_cols;++i)
+	 R.appendCol(cols.at(i));
+
+
+  assert(A.n_rows == R.getNumRows() && A.n_cols == R.getNumCols());
+  return R;
 }
 
 
@@ -573,7 +576,7 @@ CoinPackedMatrix Utils::armaToCoinSparse(const arma::sp_mat &A) {
  * @p A The armadillo sparse matrix
  * @return A CoinPackedVector arary from @p A
  */
-std::vector<CoinPackedVector>Utils::armaToCoinPackedVector(const arma::sp_mat &A) {
+std::vector<CoinPackedVector> Utils::armaToCoinPackedVector(const arma::sp_mat &A) {
   std::vector<CoinPackedVector> vectors(A.n_rows);
 
   for (arma::sp_mat::const_iterator it = A.begin(); it != A.end(); ++it)
