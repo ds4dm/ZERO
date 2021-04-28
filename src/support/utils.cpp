@@ -540,8 +540,8 @@ void Utils::normalizeIneq(arma::vec &lhs, double &rhs, bool force) {
 	 if (elem < norm && elem != 0)
 		norm = elem;
   }
-  if ( (abs.max() / norm > 1e3)  || force) {
-    LOG_S(5) << "Utils::normalizeIneq:  normalizing inequality.";
+  if ((abs.max() / norm > 1e3) || force) {
+	 LOG_S(5) << "Utils::normalizeIneq:  normalizing inequality.";
 	 rhs = rhs / norm;
 	 lhs = lhs / norm;
   }
@@ -565,6 +565,21 @@ CoinPackedMatrix Utils::armaToCoinSparse(const arma::sp_mat &A) {
 	 ++c;
   }
   return CoinPackedMatrix(true, rows, cols, elems, nnz);
+}
+
+
+/**
+ * @brief Given an arma::sp_mat @p A, returns an array of CoinPackedVector(s).
+ * @p A The armadillo sparse matrix
+ * @return A CoinPackedVector arary from @p A
+ */
+std::vector<CoinPackedVector>Utils::armaToCoinPackedVector(const arma::sp_mat &A) {
+  std::vector<CoinPackedVector> vectors(A.n_rows);
+
+  for (arma::sp_mat::const_iterator it = A.begin(); it != A.end(); ++it)
+	 vectors.at(it.row()).insert(it.col(), *it);
+
+  return vectors;
 }
 
 /**

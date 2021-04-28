@@ -15,6 +15,7 @@
 
 
 #include "coin/CoinPackedMatrix.hpp"
+#include "coin/CoinPackedVector.hpp"
 #include "zero.h"
 #include <armadillo>
 #include <fstream>
@@ -111,6 +112,7 @@ namespace Utils {
 
 
   CoinPackedMatrix armaToCoinSparse(const arma::sp_mat &A);
+  std::vector<CoinPackedVector> armaToCoinPackedVector(const arma::sp_mat &A);
   std::string      printBounds(const VariableBounds &bounds);
   arma::vec        normalizeVec(const arma::vec &v);
   void             normalizeIneq(arma::vec &lhs, double &rhs, bool force = false);

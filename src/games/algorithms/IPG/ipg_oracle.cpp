@@ -64,8 +64,8 @@ bool Algorithms::IPG::IPG_Player::addRay(const arma::vec &ray, const bool checkD
 
 bool Algorithms::IPG::IPG_Player::addCuts(const arma::sp_mat &LHS, const arma::vec &RHS) {
   /**
-	* @brief Given @p LHS, @p RHS, it adds the inequalities to the field CutPool_A and b, as well as
-	* to the working IP_Param.
+	* @brief Given @p LHS, @p RHS, it adds the inequalities to the field CutPool_A and b, the
+	* CoinModel, and the working IP_Param.
 	* @param LHS The LHS matrix
 	* @param RHS The RHS vector
 	* @return true if the inequality is added.
@@ -76,10 +76,22 @@ bool Algorithms::IPG::IPG_Player::addCuts(const arma::sp_mat &LHS, const arma::v
   unsigned int cuts    = this->CutPool_A.n_rows;
   int          nCols   = this->CutPool_A.n_cols < 1 ? LHS.size() : this->CutPool_A.n_cols;
 
+  //Add the constraints to the cut pool
   this->CutPool_A.resize(cuts + newCuts, nCols);
   this->CutPool_b.resize(cuts + newCuts);
   this->CutPool_A.submat(cuts, 0, cuts + newCuts - 1, nCols - 1) = LHS;
   this->CutPool_b.subvec(cuts, cuts + newCuts - 1)               = RHS;
+  //Add the constraints to the Coin model
+  auto                convertedCuts = Utils::armaToCoinPackedVector(LHS);
+
+  try {
+	 for (unsigned int i=0;i<newCuts;++i)
+		this->CoinModel->addRow(convertedCuts.at(i), 'L', RHS.at(i), 0);
+
+  } catch (CoinError &e) {
+	 std::cout << e.message();
+  }
+  //Add the constraints to the parametrized IP
   this->ParametrizedIP->addConstraints(LHS, RHS);
   return true;
 }
@@ -654,11 +666,12 @@ void Algorithms::IPG::Oracle::initialize() {
 	 this->Players.at(i) = std::unique_ptr<IPG_Player>(
 		  new IPG_Player(this->IPG->PlayersIP.at(i)->getNy(), this->Tolerance));
 	 // Add the working IP
-	 auto test                           = new MathOpt::IP_Param(*this->IPG->PlayersIP.at(i).get());
-	 this->Players.at(i)->ParametrizedIP = std::make_shared<MathOpt::IP_Param>(*test);
+	 auto WorkingIP                      = new MathOpt::IP_Param(*this->IPG->PlayersIP.at(i).get());
+	 this->Players.at(i)->ParametrizedIP = std::make_shared<MathOpt::IP_Param>(*WorkingIP);
 	 // Add the working MembershipLP
 	 this->Players.at(i)->MembershipLP =
 		  std::move(std::unique_ptr<GRBModel>(new GRBModel(*this->Env)));
+	 this->initializeCoinModel(i);
   }
 
 
@@ -697,53 +710,31 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player, 
   auto xOfIDual = this->Players.at(player)->DualIncumbent;
   auto xMinusI  = this->buildXminusI(player);
 
-  // Note that we may have added other cuts... So we keep just the last incumbent
-  auto      numVars    = xOfI.size();
-  auto      B          = this->Players.at(player)->ParametrizedIP->getB(false);
-  auto      bounds     = this->Players.at(player)->ParametrizedIP->getBounds();
-  auto      numConstrs = B.n_rows;
-  auto      arma_b     = this->Players.at(player)->ParametrizedIP->getb(false);
-  auto      ints       = this->Players.at(player)->ParametrizedIP->getIntegers();
-  arma::vec objective  = (this->Players.at(player)->ParametrizedIP->getC() * xMinusI) +
+  arma::vec objective = (this->Players.at(player)->ParametrizedIP->getC() * xMinusI) +
 								this->Players.at(player)->ParametrizedIP->getc();
 
-  arma::sp_mat realB = B.submat(0, 0, numConstrs - 1, numVars - 1);
 
+  auto CoinModel = this->Players.at(player)->CoinModel;
 
-  auto BCoin  = Utils::armaToCoinSparse(realB);
-  auto c      = new double[numVars];
-  auto b      = new double[numConstrs];
+  auto numVars    = xOfI.size();
+  auto numConstrs = this->Players.at(player)->ParametrizedIP->getB(false).n_rows;
+
   auto primal = new double[numVars];
   auto dual   = new double[numConstrs];
-  auto lb     = new double[numVars];
-  auto ub     = new double[numVars];
+  auto c      = new double[numVars];
+
   for (unsigned int i = 0; i < numVars; ++i) {
 	 c[i]      = objective.at(i);
-	 lb[i]     = bounds.at(i).first > 0 ? bounds.at(i).first : 0;
-	 ub[i]     = bounds.at(i).second >= 0 ? bounds.at(i).second : GRB_INFINITY;
 	 primal[i] = xOfI.at(i);
   }
-  unsigned rows = 0;
-  for (unsigned int i = 0; i < numConstrs; ++i) {
-	 b[i]    = arma_b.at(i);
+  for (unsigned int i = 0; i < numConstrs; ++i)
 	 dual[i] = xOfIDual.at(i);
-	 rows++;
-  }
-  auto CoinModel = new OsiGrbSolverInterface();
-  CoinModel->loadProblem(BCoin, lb, ub, c, 0, b);
-  for (unsigned int i = 0; i < ints.size(); ++i)
-	 CoinModel->setInteger(ints.at(i));
 
 
   CoinModel->setColSolution(primal);
   CoinModel->setRowPrice(dual);
-  CoinModel->messageHandler()->setLogLevel(0);
   try {
-	 // CoinModel->writeLp("dat/theLp");
 	 CoinModel->solveFromSol();
-	 // CoinModel->setObjective(zeros);
-
-
 
 	 auto solCheck = CoinModel->getColSolution();
 	 // std::cout << "\n Primal \n";
@@ -943,6 +934,41 @@ void Algorithms::IPG::Oracle::initializeEducatedGuesses() {
 		}
 	 }
   }
+}
+void Algorithms::IPG::Oracle::initializeCoinModel(const unsigned int player) {
+
+  // Note that we may have added other cuts... So we keep just the last incumbent
+  auto numVars    = this->IPG->PlayersIP.at(player)->getNy();
+  auto B          = this->Players.at(player)->ParametrizedIP->getB(false);
+  auto bounds     = this->Players.at(player)->ParametrizedIP->getBounds();
+  auto numConstrs = B.n_rows;
+  auto arma_b     = this->Players.at(player)->ParametrizedIP->getb(false);
+  auto ints       = this->Players.at(player)->ParametrizedIP->getIntegers();
+
+
+  auto BCoin = Utils::armaToCoinSparse(B);
+  auto c     = new double[numVars];
+  auto b     = new double[numConstrs];
+  auto lb    = new double[numVars];
+  auto ub    = new double[numVars];
+  for (unsigned int i = 0; i < numVars; ++i) {
+	 c[i]  = 0;
+	 lb[i] = bounds.at(i).first > 0 ? bounds.at(i).first : 0;
+	 ub[i] = bounds.at(i).second >= 0 ? bounds.at(i).second : GRB_INFINITY;
+  }
+  for (unsigned int i = 0; i < numConstrs; ++i)
+	 b[i] = arma_b.at(i);
+
+  auto CoinModel = new OsiGrbSolverInterface();
+  auto GRBEnvPtr = CoinModel->getEnvironmentPtr();
+  GRBsetintparam(CoinModel->getEnvironmentPtr(), "Threads", this->Env->get(GRB_IntParam_Threads));
+  CoinModel->loadProblem(BCoin, lb, ub, c, 0, b);
+  for (unsigned int i = 0; i < ints.size(); ++i)
+	 CoinModel->setInteger(ints.at(i));
+
+
+  CoinModel->messageHandler()->setLogLevel(0);
+  this->Players.at(player)->CoinModel = std::make_shared<OsiGrbSolverInterface>(*CoinModel);
 }
 
 

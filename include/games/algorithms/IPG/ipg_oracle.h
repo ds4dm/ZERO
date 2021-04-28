@@ -15,6 +15,7 @@
 
 #include "ipg_algorithms.h"
 #include "zero.h"
+#include <OsiGrbSolverInterface.hpp>
 #include <armadillo>
 #include <gurobi_c++.h>
 #include <iostream>
@@ -32,6 +33,7 @@ namespace Algorithms::IPG {
 	 std::unique_ptr<GRBModel>
 		  MembershipLP={};    ///< The model approximating the feasible region with vertices and rays
     std::shared_ptr<MathOpt::IP_Param> ParametrizedIP ={};    ///< The (working) player integer program, to which cuts are added
+    std::shared_ptr<OsiGrbSolverInterface> CoinModel={}; ///< Quick workaround for now. This object stores the CoinOR model related to the field ParametrizedIP
 	 arma::sp_mat V = {}; ///< This object stores an array of points -- for each player -- that are
 	 ///< descriptor for the convex-hull of the integer programming game.
 	 arma::sp_mat R             = {}; ///< As in V, but for rays.
@@ -84,6 +86,7 @@ namespace Algorithms::IPG {
 	 arma::vec                                buildXminusI(const unsigned int i);
 
 	 void initializeEducatedGuesses();
+	 void initializeCoinModel(const unsigned int player);
 	 unsigned int externalCutGenerator(unsigned int player, int maxCuts);
 	 bool         addValueCut(unsigned int player, double RHS, const arma::vec &xMinusI);
 	 int  preEquilibriumOracle(const unsigned int player,
