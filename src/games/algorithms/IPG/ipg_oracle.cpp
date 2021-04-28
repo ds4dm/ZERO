@@ -110,6 +110,7 @@ bool Algorithms::IPG::Oracle::checkTime(double &remaining) const {
 	 if (remaining <= 0) {
 		LOG_S(1) << "Algorithms::IPG::Oracle::checkTime: "
 						"Time limit hit.";
+		this->IPG->Stats.AlgorithmData.Cuts.set(this->Cuts);
 		this->IPG->Stats.Status.set(ZEROStatus::TimeLimit);
 		return false;
 	 } else
@@ -158,14 +159,7 @@ void Algorithms::IPG::Oracle::solve() {
 	* @brief Solves the IPG with the Oracle algorithm.
 	*/
 
-
   this->initialize();
-  this->Cuts = {std::pair<std::string, int>("Value", 0),
-					 std::pair<std::string, int>("VPoly", 0),
-					 std::pair<std::string, int>("MIR", 0),
-					 std::pair<std::string, int>("GMI", 0),
-					 std::pair<std::string, int>("KP", 0)};
-  this->initLCPObjective();
   bool additionalCuts = this->IPG->Stats.AlgorithmData.CutAggressiveness.get() !=
 								Data::IPG::CutsAggressiveness::NoThanks;
   int cutsAggressiveness = 1;
@@ -668,57 +662,14 @@ void Algorithms::IPG::Oracle::initialize() {
   }
 
 
-
-  // Reset the working strategies to a pure strategy given by the IP
-  // Push back the IP_Param copies in WorkingIPs
-  for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
-	 unsigned int Ny      = this->IPG->PlayerVariables.at(i); // Equals to Ny by definition
-	 arma::vec    xMinusI = this->buildXminusI(i);
-
-	 // Update working strategies with "educated guesses"
-	 auto PureIP = this->IPG->PlayersIP.at(i)->getIPModel(xMinusI, false);
-	 PureIP->optimize();
-	 int status = PureIP->get(GRB_IntAttr_Status);
-	 if (status == GRB_INFEASIBLE) {
-		// Game ended, player is infeasible
-		this->IPG->Stats.Status.set(ZEROStatus::NashEqNotFound);
-		this->Infeasible = true;
-		return;
-	 } else {
-		// Model is not infeasible. We can have either a ray or a vertex
-		if (status == GRB_OPTIMAL) {
-		  // We have a vertex
-		  for (unsigned int k = 0; k < Ny; ++k)
-			 this->Players.at(i)->Incumbent.at(k) =
-				  PureIP->getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_X);
-		  // This is also a f
-
-		  this->Players.at(i)->addVertex(this->Players.at(i)->Incumbent, false);
-		  LOG_S(2) << "Algorithms::IPG::Oracle::initialize(): "
-						  "Added vertex for player "
-					  << i;
-		}
-
-		else if (status == GRB_UNBOUNDED) {
-		  GRBModel relaxed = PureIP->relax();
-		  relaxed.set(GRB_IntParam_InfUnbdInfo, 1);
-		  relaxed.set(GRB_IntParam_DualReductions, 0);
-		  relaxed.optimize();
-		  arma::vec ray;
-		  for (unsigned int k = 0; k < Ny; ++k) {
-			 ray.at(k) = relaxed.getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_UnbdRay);
-			 // This is also a free ray
-			 this->Players.at(i)->addRay(ray, false);
-			 LOG_S(2) << "Algorithms::IPG::Oracle::initialize(): "
-							 "Added ray for player "
-						 << i;
-		  }
-		}
-		// Give the new IP
-		// this->Players.at(i)->updateIPModel(
-		//	 std::move(std::unique_ptr<GRBModel>(new GRBModel(PureIP->relax()))));
-	 }
-  }
+  this->initializeEducatedGuesses();
+  this->Cuts = {std::pair<std::string, int>("Value", 0),
+					 std::pair<std::string, int>("VPoly", 0),
+					 std::pair<std::string, int>("MIR", 0),
+					 std::pair<std::string, int>("GMI", 0),
+					 std::pair<std::string, int>("KP", 0)};
+  this->IPG->Stats.AlgorithmData.Cuts.set(this->Cuts);
+  this->initLCPObjective();
 }
 
 
@@ -826,9 +777,13 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player, 
 	 kpGen.generateCuts(*CoinModel, *KPs, info);
 	 // KPs->printCuts();
 
+
+	 //@todo: unfortunately, it seems that Cgl generates some "invalid" KP covers with support of 1.
+	 // So far, I just disabled all of them. Need further check
 	 for (int(i) = 0; (i) < KPs->sizeCuts(); ++(i))
-		if (KPs->rowCut(i).globallyValid())
+		if (KPs->rowCut(i).globallyValid() && KPs->rowCut(i).row().getNumElements() > 1)
 		  candidateCuts->insert(KPs->rowCut(i));
+
 
 
 	 CglGMI GMIGen;
@@ -937,6 +892,57 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player, 
 
 
   return 0;
+}
+void Algorithms::IPG::Oracle::initializeEducatedGuesses() {
+
+
+  // Reset the working strategies to a pure strategy given by the IP
+  // Push back the IP_Param copies in WorkingIPs
+  for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
+	 unsigned int Ny      = this->IPG->PlayerVariables.at(i); // Equals to Ny by definition
+	 arma::vec    xMinusI = this->buildXminusI(i);
+
+	 // Update working strategies with "educated guesses"
+	 auto PureIP = this->IPG->PlayersIP.at(i)->getIPModel(xMinusI, false);
+	 PureIP->optimize();
+	 int status = PureIP->get(GRB_IntAttr_Status);
+	 if (status == GRB_INFEASIBLE) {
+		// Game ended, player is infeasible
+		this->IPG->Stats.Status.set(ZEROStatus::NashEqNotFound);
+		this->Infeasible = true;
+		return;
+	 } else {
+		// Model is not infeasible. We can have either a ray or a vertex
+		if (status == GRB_OPTIMAL) {
+		  // We have a vertex
+		  for (unsigned int k = 0; k < Ny; ++k)
+			 this->Players.at(i)->Incumbent.at(k) =
+				  PureIP->getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_X);
+		  // This is also a f
+
+		  this->Players.at(i)->addVertex(this->Players.at(i)->Incumbent, false);
+		  LOG_S(2) << "Algorithms::IPG::Oracle::initializeEducatedGuesses(): "
+						  "Added vertex for player "
+					  << i;
+		}
+
+		else if (status == GRB_UNBOUNDED) {
+		  GRBModel relaxed = PureIP->relax();
+		  relaxed.set(GRB_IntParam_InfUnbdInfo, 1);
+		  relaxed.set(GRB_IntParam_DualReductions, 0);
+		  relaxed.optimize();
+		  arma::vec ray;
+		  for (unsigned int k = 0; k < Ny; ++k) {
+			 ray.at(k) = relaxed.getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_UnbdRay);
+			 // This is also a free ray
+			 this->Players.at(i)->addRay(ray, false);
+			 LOG_S(2) << "Algorithms::IPG::Oracle::initializeEducatedGuesses(): "
+							 "Added ray for player "
+						 << i;
+		  }
+		}
+	 }
+  }
 }
 
 

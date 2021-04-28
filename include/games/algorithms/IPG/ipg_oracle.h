@@ -83,6 +83,7 @@ namespace Algorithms::IPG {
 	 void                                     initialize();
 	 arma::vec                                buildXminusI(const unsigned int i);
 
+	 void initializeEducatedGuesses();
 	 unsigned int externalCutGenerator(unsigned int player, int maxCuts);
 	 bool         addValueCut(unsigned int player, double RHS, const arma::vec &xMinusI);
 	 int  preEquilibriumOracle(const unsigned int player,
