@@ -89,7 +89,8 @@ bool Algorithms::IPG::IPG_Player::addCuts(const arma::sp_mat &LHS, const arma::v
 		this->CoinModel->addRow(convertedCuts.at(i), 'L', RHS.at(i), 0);
 
   } catch (CoinError &e) {
-	 std::cout << e.message();
+    throw ZEROException(ZEROErrorCode::SolverError,
+                        "Invalid Coin-OR interface response: " + e.message());
   }
   //Add the constraints to the parametrized IP
   this->ParametrizedIP->addConstraints(LHS, RHS);

@@ -554,8 +554,6 @@ void Utils::normalizeIneq(arma::vec &lhs, double &rhs, bool force) {
  * @return A CoinPackedMatrix from @p A
  */
 CoinPackedMatrix Utils::armaToCoinSparse(const arma::sp_mat &A) {
-  A.print_dense("A");
-
   CoinPackedMatrix R  = CoinPackedMatrix(true, A.n_cols, 0);
   auto         nnz   = A.n_nonzero;
   std::vector<CoinPackedVector> cols(A.n_cols);
