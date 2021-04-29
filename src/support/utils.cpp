@@ -535,7 +535,7 @@ arma::vec Utils::normalizeVec(const arma::vec &v) { return v / arma::max(arma::a
  */
 void Utils::normalizeIneq(arma::vec &lhs, double &rhs, bool force) {
   arma::vec abs  = arma::abs(lhs);
-  double    norm = 1;
+  double    norm = abs.max();
   for (auto &elem : abs) {
 	 if (elem < norm && elem != 0)
 		norm = elem;
