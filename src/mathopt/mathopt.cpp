@@ -312,7 +312,7 @@ void MathOpt::getDualMembershipLP(std::unique_ptr<GRBModel> &convexModel,
 
 	 // Hyperplanes for vertices
 	 for (unsigned int i = 0; i < V.n_rows; i++) {
-		expr = beta;
+		expr = -beta;
 		for (auto j = V.begin_row(i); j != V.end_row(i); ++j)
 		  expr += (*j) * alpha[j.col()];
 		convexModel->addConstr(expr, GRB_LESS_EQUAL, 0, "V_" + std::to_string(i));
@@ -342,7 +342,7 @@ void MathOpt::getDualMembershipLP(std::unique_ptr<GRBModel> &convexModel,
 		GRBLinExpr expr = 0;
 		GRBVar     beta = convexModel->getVarByName("beta");
 		for (unsigned int i = numV; i < V.n_rows; i++) {
-		  expr = beta;
+		  expr = -beta;
 		  for (auto j = V.begin_row(i); j != V.end_row(i); ++j)
 			 expr += (*j) * convexModel->getVarByName("alpha_" + std::to_string(j.col()));
 
@@ -371,18 +371,12 @@ void MathOpt::getDualMembershipLP(std::unique_ptr<GRBModel> &convexModel,
   convexModel->update();
   convexModel->remove(convexModel->getConstrByName("Normalization"));
 
-  GRBLinExpr expr = 0;
+  GRBLinExpr expr = -convexModel->getVarByName("beta");
   for (int j = 0; j < vertex.size(); ++j)
 	 expr += vertex.at(j) * convexModel->getVarByName("alpha_" + std::to_string(j));
 
   //Enhanced normalization for non-origin pointer polyhedra
-  if (!containsOrigin) {
-	 expr += convexModel->getVarByName("beta");
-	 convexModel->addConstr(expr, GRB_LESS_EQUAL, 10, "Normalization");
-  } else {
-	 convexModel->addConstr(expr, GRB_EQUAL, 10, "Normalization");
-	 expr += convexModel->getVarByName("beta");
-  }
+	 convexModel->addConstr(expr, GRB_LESS_EQUAL, 1, "Normalization");
 
 
   convexModel->setObjective(expr, GRB_MAXIMIZE);

@@ -63,7 +63,8 @@ namespace MathOpt {
 									const arma::sp_mat &       V,
 									unsigned int &             numR,
 									const arma::sp_mat &       R,
-									const arma::vec &          vertex);
+									const arma::vec &          vertex,
+									bool                       containsOrigin);
 
   void print(const perps &C) noexcept;
 } // namespace MathOpt
