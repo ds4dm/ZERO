@@ -181,9 +181,9 @@ void MathOpt::LCP::makeRelaxed() {
   try {
 	 if (this->MadeRlxdModel)
 		return;
-	 LOG_S(1) << "MathOpt::LCP::makeRelaxed: Creating the relaxed model";
+	 LOG_S(3) << "MathOpt::LCP::makeRelaxed: Creating the relaxed model";
 	 GRBVar x[nC], z[nR];
-	 LOG_S(1) << "MathOpt::LCP::makeRelaxed: Initializing variables";
+	 LOG_S(3) << "MathOpt::LCP::makeRelaxed: Initializing variables";
 	 for (unsigned int i = 0; i < nC; i++)
 		x[i] = RelaxedModel.addVar(BoundsX.at(i).first,
 											BoundsX.at(i).second > 0 ? BoundsX.at(i).second : GRB_INFINITY,
@@ -194,11 +194,11 @@ void MathOpt::LCP::makeRelaxed() {
 		z[i] = RelaxedModel.addVar(0, GRB_INFINITY, 1, GRB_CONTINUOUS, "z_" + std::to_string(i));
 
 
-	 LOG_S(1) << "MathOpt::LCP::makeRelaxed: Added variables";
+	 LOG_S(3) << "MathOpt::LCP::makeRelaxed: Added variables";
 
 	 Utils::addSparseConstraints(M, -q, x, "zdef", &RelaxedModel, GRB_EQUAL, z);
 
-	 LOG_S(1) << "MathOpt::LCP::makeRelaxed: Added equation definitions";
+	 LOG_S(3) << "MathOpt::LCP::makeRelaxed: Added equation definitions";
 	 // If @f$Ax \leq b@f$ constraints are there, they should be included too!
 	 if (this->A.n_nonzero != 0 && this->b.n_rows != 0) {
 		if (A.n_cols != nC || A.n_rows != b.n_rows) {
@@ -207,7 +207,7 @@ void MathOpt::LCP::makeRelaxed() {
 		}
 
 		Utils::addSparseConstraints(A, b, x, "commonCons", &RelaxedModel, GRB_LESS_EQUAL, nullptr);
-		LOG_S(1) << "MathOpt::LCP::makeRelaxed: Added common constraints";
+		LOG_S(3) << "MathOpt::LCP::makeRelaxed: Added common constraints";
 	 }
 
 	 // Added cuts
@@ -220,7 +220,7 @@ void MathOpt::LCP::makeRelaxed() {
 
 		Utils::addSparseConstraints(
 			 _Acut, _bcut, x, "commonCons", &RelaxedModel, GRB_LESS_EQUAL, nullptr);
-		LOG_S(1) << "MathOpt::LCP::makeRelaxed: Added cut constraints";
+		LOG_S(3) << "MathOpt::LCP::makeRelaxed: Added cut constraints";
 	 }
 	 RelaxedModel.update();
 	 this->MadeRlxdModel = true;
@@ -772,7 +772,7 @@ bool MathOpt::LCP::setMIPLinearObjective(const arma::vec& c) {
   this->Obj.zeros(this->nC);
   this->Obj.subvec(0, c.size() - 1) = c;
   this->ObjType                     = 1;
-  LOG_S(1) << "MathOpt::LCP::setMIPLinearObjective: Set LINEAR objective";
+  LOG_S(2) << "MathOpt::LCP::setMIPLinearObjective: Set LINEAR objective";
   this->MadeObjective =false;
   return true;
 }
@@ -794,7 +794,7 @@ bool MathOpt::LCP::setMIPQuadraticObjective(const arma::vec& c, const arma::sp_m
   this->Qobj.zeros(this->nC, this->nC);
   this->Qobj.submat(0, 0, c.size() - 1, c.size() - 1) = Q;
   this->ObjType                                       = 2;
-  LOG_S(1) << "MathOpt::LCP::setMIPLinearObjective: Set QUADRATIC objective";
+  LOG_S(2) << "MathOpt::LCP::setMIPLinearObjective: Set QUADRATIC objective";
   this->MadeObjective =false;
   return true;
 }

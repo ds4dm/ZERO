@@ -227,7 +227,7 @@ the image below
 	 numDual = this->Players[i]->getb().n_rows;
 	 // Adding the primal equations
 	 // Region 1 in Formulate LCP.ipe
-	 LOG_S(1) << "Game::NashGame::formulateLCP: Region 1";
+	 LOG_S(3) << "Game::NashGame::formulateLCP: Region 1";
 	 if (i > 0) { // For the first player, no need to add anything 'before' 0-th
 		// position
 		M.submat(this->PrimalPosition.at(i),
@@ -237,13 +237,13 @@ the image below
 			 Ni[i].submat(0, 0, numPrim - 1, this->PrimalPosition.at(i) - 1);
 	 }
 	 // Region 2 in Formulate LCP.ipe
-	 LOG_S(1) << "Game::NashGame::formulateLCP: Region 2";
+	 LOG_S(3) << "Game::NashGame::formulateLCP: Region 2";
 	 M.submat(this->PrimalPosition.at(i),
 				 this->PrimalPosition.at(i),
 				 this->PrimalPosition.at(i + 1) - 1,
 				 this->PrimalPosition.at(i + 1) - 1) = Mi[i].submat(0, 0, numPrim - 1, numPrim - 1);
 	 // Region 3 in Formulate LCP.ipe
-	 LOG_S(1) << "Game::NashGame::formulateLCP: Region 3";
+	 LOG_S(3) << "Game::NashGame::formulateLCP: Region 3";
 	 if (this->PrimalPosition.at(i + 1) != this->DualPosition.at(0)) {
 		M.submat(this->PrimalPosition.at(i),
 					this->PrimalPosition.at(i + 1),
@@ -252,7 +252,7 @@ the image below
 			 Ni[i].submat(0, this->PrimalPosition.at(i), numPrim - 1, Ni[i].n_cols - 1);
 	 }
 	 // Region 4 in Formulate LCP.ipe
-	 LOG_S(1) << "Game::NashGame::formulateLCP: Region 4";
+	 LOG_S(3) << "Game::NashGame::formulateLCP: Region 4";
 	 if (this->DualPosition.at(i) != this->DualPosition.at(i + 1)) {
 		M.submat(this->PrimalPosition.at(i),
 					this->DualPosition.at(i),
@@ -261,14 +261,14 @@ the image below
 			 Mi[i].submat(0, numPrim, numPrim - 1, numPrim + numDual - 1);
 	 }
 	 // RHS
-	 LOG_S(1) << "Game::NashGame::formulateLCP: Region RHS";
+	 LOG_S(3) << "Game::NashGame::formulateLCP: Region RHS";
 	 q.subvec(this->PrimalPosition.at(i), this->PrimalPosition.at(i + 1) - 1) =
 		  qi[i].subvec(0, numPrim - 1);
 	 for (unsigned int j = this->PrimalPosition.at(i); j < this->PrimalPosition.at(i + 1); j++)
 		Compl.push_back({j, j});
 	 // Adding the dual equations
 	 // Region 5 in Formulate LCP.ipe
-	 LOG_S(1) << "Game::NashGame::formulateLCP: Region 5";
+	 LOG_S(3) << "Game::NashGame::formulateLCP: Region 5";
 	 if (numDual > 0) {
 		if (i > 0) // For the first player, no need to add anything 'before' 0-th
 		  // position
@@ -278,14 +278,14 @@ the image below
 					  this->PrimalPosition.at(i) - 1) =
 				Ni[i].submat(numPrim, 0, Ni[i].n_rows - 1, this->PrimalPosition.at(i) - 1);
 		// Region 6 in Formulate LCP.ipe
-		LOG_S(1) << "Game::NashGame::formulateLCP: Region 6";
+		LOG_S(3) << "Game::NashGame::formulateLCP: Region 6";
 		M.submat(this->DualPosition.at(i) - numLeaderVar,
 					this->PrimalPosition.at(i),
 					this->DualPosition.at(i + 1) - numLeaderVar - 1,
 					this->PrimalPosition.at(i + 1) - 1) =
 			 Mi[i].submat(numPrim, 0, numPrim + numDual - 1, numPrim - 1);
 		// Region 7 in Formulate LCP.ipe
-		LOG_S(1) << "Game::NashGame::formulateLCP: Region 7";
+		LOG_S(3) << "Game::NashGame::formulateLCP: Region 7";
 		if (this->DualPosition.at(0) != this->PrimalPosition.at(i + 1)) {
 		  M.submat(this->DualPosition.at(i) - numLeaderVar,
 					  this->PrimalPosition.at(i + 1),
@@ -294,14 +294,14 @@ the image below
 				Ni[i].submat(numPrim, this->PrimalPosition.at(i), Ni[i].n_rows - 1, Ni[i].n_cols - 1);
 		}
 		// Region 8 in Formulate LCP.ipe
-		LOG_S(1) << "Game::NashGame::formulateLCP: Region 8";
+		LOG_S(3) << "Game::NashGame::formulateLCP: Region 8";
 		M.submat(this->DualPosition.at(i) - numLeaderVar,
 					this->DualPosition.at(i),
 					this->DualPosition.at(i + 1) - numLeaderVar - 1,
 					this->DualPosition.at(i + 1) - 1) =
 			 Mi[i].submat(numPrim, numPrim, numPrim + numDual - 1, numPrim + numDual - 1);
 		// RHS
-		LOG_S(1) << "Game::NashGame::formulateLCP: Region RHS";
+		LOG_S(3) << "Game::NashGame::formulateLCP: Region RHS";
 		q.subvec(this->DualPosition.at(i) - numLeaderVar,
 					this->DualPosition.at(i + 1) - numLeaderVar - 1) =
 			 qi[i].subvec(numPrim, qi[i].n_rows - 1);
@@ -311,7 +311,7 @@ the image below
 		  Compl.push_back({j, j + numLeaderVar});
 	 }
   }
-  LOG_S(1) << "Game::NashGame::formulateLCP: MC RHS";
+  LOG_S(3) << "Game::NashGame::formulateLCP: MC RHS";
   if (this->MCRHS.n_elem >= 1) // It is possible that it is a Cournot game and
 										 // there are no MC conditions!
   {

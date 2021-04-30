@@ -303,12 +303,12 @@ void MathOpt::getDualMembershipLP(std::unique_ptr<GRBModel> &convexModel,
 	 convexModel->addConstr(a[V.n_cols], GRB_GREATER_EQUAL, beta, "Abs_1_beta");
 	 convexModel->addConstr(a[V.n_cols], GRB_GREATER_EQUAL, -beta, "Abs_2_beta");
 
-	  expr += a[V.n_cols];
+	 // expr += a[V.n_cols];
 
 	 //   Normalization, to be filled later
-	 convexModel->addConstr(0, GRB_LESS_EQUAL, 1, "Normalization");
+	 //convexModel->addConstr(0, GRB_LESS_EQUAL, 1, "Normalization");
 	 // Absolute normalization
-	 convexModel->addConstr(expr, GRB_LESS_EQUAL, 1, "Normalization_Abs");
+	 convexModel->addConstr(expr, GRB_EQUAL, 1, "Normalization_Abs");
 
 	 if (containsOrigin)
 		convexModel->addConstr(beta, GRB_GREATER_EQUAL, 0, "V_Origin");
@@ -337,7 +337,7 @@ void MathOpt::getDualMembershipLP(std::unique_ptr<GRBModel> &convexModel,
 	 convexModel->set(GRB_IntParam_DualReductions, 0);
 	 convexModel->set(GRB_IntParam_OutputFlag, 0);
 	 convexModel->set(GRB_IntParam_SolutionLimit, 1);
-	 LOG_S(1) << "MathOpt::getDualMembershipLP: created model";
+	 LOG_S(2) << "MathOpt::getDualMembershipLP: created model";
   } else {
 	 // current number of vertices in the model
 	 if (numV < V.n_rows) {
@@ -371,15 +371,16 @@ void MathOpt::getDualMembershipLP(std::unique_ptr<GRBModel> &convexModel,
   }
   convexModel->update();
 
+  /*
   convexModel->remove(convexModel->getConstrByName("Normalization"));
   GRBLinExpr normalization = -convexModel->getVarByName("beta");
   for (int j = 0; j < vertex.size(); ++j) {
 	 // Avoid using the origin...
-	 double mult = vertex.at(j);
-	 normalization += mult * convexModel->getVarByName("alpha_" + std::to_string(j));
+	 normalization += vertex.at(j) * convexModel->getVarByName("alpha_" + std::to_string(j));
   }
 
   convexModel->addConstr(normalization, GRB_LESS_EQUAL, 1, "Normalization");
-  LOG_S(1) << "MathOpt::getDualMembershipLP: updated model";
+   */
+  LOG_S(3) << "MathOpt::getDualMembershipLP: updated model";
   convexModel->update();
 }

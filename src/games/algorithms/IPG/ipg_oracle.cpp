@@ -203,7 +203,7 @@ void Algorithms::IPG::Oracle::solve() {
 	 ZEROStatus status;
 	 // Increase the number of iterations
 	 Iteration++;
-	 LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: Iteration ###" << Iteration;
+    LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: Iteration ########### " << Iteration << " ###########";
 	 this->IPG->Stats.NumIterations.set(Iteration);
 
 
@@ -290,10 +290,13 @@ void Algorithms::IPG::Oracle::solve() {
 					  ***************************************/
 					 addedCuts += EO_cut; //+ this->separateCoinCuts(i, 5);
 					 // if (Iteration > 5)
-					 addedCuts += this->externalCutGenerator(
-						  i,
-						  (Iteration > 5 || (Iteration == 1 && cutsAggressiveness > 1)) ? cutsAggressiveness
-																										: 1);
+					 if(MIPCuts) {
+						addedCuts += this->externalCutGenerator(
+							 i,
+							 (Iteration > 5 || (Iteration == 1 && cutsAggressiveness > 1))
+								  ? cutsAggressiveness
+								  : 1);
+					 }
 				  } else {
 					 /* ************************************
 					  * Iteration limit.
@@ -309,7 +312,7 @@ void Algorithms::IPG::Oracle::solve() {
 					* Player is feasible
 					***************************************/
 				  feasible.at(i) = 1;
-				  if (cutsAggressiveness > 1)
+				  if (cutsAggressiveness > 1 && MIPCuts)
 					 this->externalCutGenerator(i, cutsAggressiveness);
 				}
 			 }
@@ -374,7 +377,7 @@ int Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player,
 	* @return 0 If the point is infeasible. 1 If the point is feasible. 2 if iteration limit has been
 	* hit
 	*/
-  LOG_S(1) << "Algorithms::IPG::Oracle::preEquilibriumOracle: (P" << player
+  LOG_S(2) << "Algorithms::IPG::Oracle::preEquilibriumOracle: (P" << player
 			  << ") The oracle has been called. Preprocessing.";
 
   if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0) {
@@ -625,41 +628,35 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 			 LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
 						 << ") Violation of " << violation;
 
-			 if (violation <= this->Tolerance) {
-				// We found a new vertex
-				arma::vec v(this->Players.at(player)->V.n_cols, arma::fill::zeros);
-				for (unsigned int i = 0; i < v.size(); ++i)
-				  v[i] = l[i].get(GRB_DoubleAttr_X);
-				// v.print("vertex");
-				auto add = this->Players.at(player)->addVertex(v, numSols > 1);
-				LOG_S(1) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
-							<< ") adding vertex for Player (" << std::to_string(add) << "). "
-							<< (iterations - k - 1) << "/" << iterations << " iterations left";
-			 } else if (violation > this->Tolerance) {
+			 if (violation >= this->Tolerance) {
+			   // We have a cut.
+			   // Ciao Moni
 
-				// We have a cut.
-				// Ciao Moni
+			   Utils::normalizeIneq(alphaVal, betaLeader, true);
 
-				Utils::normalizeIneq(alphaVal, betaLeader, true);
+			   //******DEBUG********
+			   //alphaVal.print("alphaVal with RHS of" + std::to_string(betaLeader));
+			   //******DEBUG********
 
-				//******DEBUG********
-				// alphaVal.print("alphaVal with RHS of" + std::to_string(betaLeader));
-				//******DEBUG********
-
-				this->Cuts.at(1).second += 1;
-				this->Players.at(player)->addCuts(arma::sp_mat{alphaVal.t()}, arma::vec{betaLeader});
+			   this->Cuts.at(1).second += 1;
+			   this->Players.at(player)->addCuts(arma::sp_mat{alphaVal.t()}, arma::vec{betaLeader});
 
 
-				LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
-								<< ") adding a cut";
-				addedCuts = 1;
-				return 0;
+			   LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+			               << ") adding a cut";
+			   addedCuts = 1;
+			   return 0;
 			 } else {
-				// Shouldn't happen, but who knows
-				this->IPG->Stats.Status.set(ZEROStatus::Numerical);
-				LOG_S(0) << "Algorithms::IPG::Oracle::preEquilibriumOracle: |NUMERICAL WARNING| "
-								"Tolerance on Separation Oracle.";
-				return -1;
+
+			   // We found a new vertex
+			   arma::vec v(this->Players.at(player)->V.n_cols, arma::fill::zeros);
+			   for (unsigned int i = 0; i < v.size(); ++i)
+				  v[i] = l[i].get(GRB_DoubleAttr_X);
+			   // v.print("vertex");
+			   auto add = this->Players.at(player)->addVertex(v, numSols > 1);
+			   LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+			            << ") adding vertex for Player (" << std::to_string(add) << "). "
+			            << (iterations - k - 1) << "/" << iterations << " iterations left";
 			 }
 		  }
 
@@ -890,22 +887,22 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player, 
 	 //@todo: unfortunately, it seems that Cgl generates some "invalid" KP covers with support of 1.
 	 // So far, I just disabled all of them. Need further check
 	 for (int(i) = 0; (i) < KPs->sizeCuts(); ++(i))
-		if (KPs->rowCut(i).globallyValid() && KPs->rowCut(i).row().getNumElements() > 1)
+		if (KPs->rowCut(i).globallyValid())
 		  candidateCuts->insert(KPs->rowCut(i));
 
-	 CglMixedIntegerRounding MIRGen;
-	 auto                    MIRs = new OsiCuts;
-	 MIRGen.setGlobalCuts(true);
-	 MIRGen.setAggressiveness(100);
-	 MIRGen.setDoPreproc(0);
-	 MIRGen.setMAXAGGR_(1);
-	 MIRGen.generateCuts(*CoinModel, *MIRs, info);
+
+    CglMixedIntegerRounding MIRGen;
+    auto                    MIRs = new OsiCuts;
+    MIRGen.setGlobalCuts(true);
+    MIRGen.setAggressiveness(100);
+    MIRGen.setDoPreproc(1);
+    MIRGen.setMAXAGGR_(100);
+    MIRGen.generateCuts(*CoinModel, *MIRs, info);
 
 
-	 for (int(i) = 0; (i) < MIRs->sizeCuts(); ++(i))
-		if (MIRs->rowCut(i).globallyValid())
+    for (int(i) = 0; (i) < MIRs->sizeCuts(); ++(i))
+	   if (MIRs->rowCut(i).globallyValid())
 		  candidateCuts->insert(MIRs->rowCut(i));
-
 
 	 CglGMI GMIGen;
 	 auto   GMIs = new OsiCuts;
@@ -974,17 +971,11 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player, 
 		LHS.resize(newNumCuts, numVars);
 		RHS.resize(newNumCuts);
 		this->Players.at(player)->addCuts(LHS, RHS);
-		LOG_S(INFO) << "Algorithms::IPG::Oracle::externalCutGenerator: (P" << player << ") Added "
-						<< newNumCuts << "  COIN-OR cuts.";
-		LOG_S(INFO) << "Algorithms::IPG::Oracle::externalCutGenerator: (P" << player << ") Generated "
-						<< MIRs->sizeCuts() << "  MIRs.";
 		this->Cuts.at(2).second += MIRs->sizeCuts();
-		LOG_S(INFO) << "Algorithms::IPG::Oracle::externalCutGenerator: (P" << player << ") Generated "
-						<< KPs->sizeCuts() << "  KPs.";
 		this->Cuts.at(4).second += KPs->sizeCuts();
-		LOG_S(INFO) << "Algorithms::IPG::Oracle::externalCutGenerator: (P" << player << ") Generated "
-						<< GMIs->sizeCuts() << "  GMIs.";
 		this->Cuts.at(3).second += GMIs->sizeCuts();
+	   LOG_S(INFO) << "Algorithms::IPG::Oracle::externalCutGenerator: (P" << player << ") Added " << newNumCuts << " and generated: "
+	               << MIRs->sizeCuts() << "  MIRs  - "<< KPs->sizeCuts() << "  KPs - "<<GMIs->sizeCuts() << "  GMIs.";
 	 } else {
 		LOG_S(INFO) << "Algorithms::IPG::Oracle::externalCutGenerator: (P" << player
 						<< ") No cuts added.";

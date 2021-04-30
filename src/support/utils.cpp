@@ -537,15 +537,16 @@ void Utils::normalizeIneq(arma::vec &lhs, double &rhs, bool force) {
   arma::vec abs  = arma::abs(lhs);
   double    norm = abs.max();
   for (auto &elem : abs) {
-	 if (elem < norm && elem != 0)
-		norm = elem;
+	 if (std::abs(elem) < norm && elem != 0)
+		norm = std::abs(elem);
   }
-  if ((abs.max() / norm > 1e3) || force) {
+  if ((abs.max() / norm > 1e2) || force) {
 	 LOG_S(5) << "Utils::normalizeIneq:  normalizing inequality.";
 	 assert(norm != 0);
 	 rhs = rhs / norm;
 	 lhs = lhs / norm;
   }
+  //lhs.print("Normalized with RHS="+std::to_string(rhs));
 }
 
 /**
