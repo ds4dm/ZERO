@@ -151,6 +151,12 @@ namespace MathOpt {
 	 const inline unsigned int getLStart() const {
 		return LeadStart;
 	 } ///< Read-only access to LCP::LeadStart
+    const inline arma::sp_mat getA() const {
+	   return this->A;
+    } ///< Read-only access to LCP::A
+    const inline arma::vec getb() const {
+	   return this->b;
+    } ///< Read-only access to LCP::b
 	 const inline unsigned int getLEnd() const {
 		return LeadEnd;
 	 } ///< Read-only access to LCP::LeadEnd
