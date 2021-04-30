@@ -198,13 +198,13 @@ void Algorithms::IPG::Oracle::solve() {
   std::vector<int> feasible(this->IPG->NumPlayers, 0);
   // Number of mip cuts added
   std::vector<int> addedMIPCuts(this->IPG->NumPlayers, 0);
-  int              numIter = 0;
+  int              Iteration = 0;
   while (!solved) {
 	 ZEROStatus status;
 	 // Increase the number of iterations
-	 numIter++;
-	 LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: Iteration ###" << numIter;
-	 this->IPG->Stats.NumIterations.set(numIter);
+	 Iteration++;
+	 LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: Iteration ###" << Iteration;
+	 this->IPG->Stats.NumIterations.set(Iteration);
 
 
 	 /* ************************************
@@ -241,7 +241,7 @@ void Algorithms::IPG::Oracle::solve() {
 	 std::fill(feasible.begin(), feasible.end(), 0);
 	 // Did we add other cuts?
 	 std::fill(addedMIPCuts.begin(), addedMIPCuts.end(), 0);
-	 // How many cyts added in total?
+	 // How many cuts added in total?
 	 unsigned int addedCuts = 0;
 	 // Build xMinusIs
 	 std::vector<arma::vec> xMinusI_s;
@@ -260,12 +260,12 @@ void Algorithms::IPG::Oracle::solve() {
 			 // Check only if the player hasn't proven to be feasible
 			 if (feasible.at(i) == 0) {
 				// Number of added cuts.
-				int EOcut = 0;
+				int EO_cut = 0;
 				/* ************************************
-				 * Call the EO. Put in EOcut the number of cuts
+				 * Call the EO. Put in EO_cut the number of cuts
 				 ***************************************/
 				int EO = this->preEquilibriumOracle(
-					 i, EOcut, this->Players.at(i)->Incumbent, xMinusI_s.at(i));
+					 i, EO_cut, this->Players.at(i)->Incumbent, xMinusI_s.at(i));
 
 				/* ************************************
 				 * Numerical errors?
@@ -288,11 +288,11 @@ void Algorithms::IPG::Oracle::solve() {
 					 /* ************************************
 					  * Infeasible
 					  ***************************************/
-					 addedCuts += EOcut; //+ this->separateCoinCuts(i, 5);
-					 // if (numIter > 5)
+					 addedCuts += EO_cut; //+ this->separateCoinCuts(i, 5);
+					 // if (Iteration > 5)
 					 addedCuts += this->externalCutGenerator(
 						  i,
-						  (numIter > 5 || (numIter == 1 && cutsAggressiveness > 1)) ? cutsAggressiveness
+						  (Iteration > 5 || (Iteration == 1 && cutsAggressiveness > 1)) ? cutsAggressiveness
 																										: 1);
 				  } else {
 					 /* ************************************
@@ -322,8 +322,8 @@ void Algorithms::IPG::Oracle::solve() {
 		  }
 		  // If not solved but there are cuts, or it is solved and there are not cuts, exit.
 		  if ((addedCuts > 0 && solved == false) || (addedCuts == 0 && solved == true))
-			 break; // exit from while addedcuts
-		}          // end while addedcuts
+			 break; // exit from while we have zero cuts
+		}          // end while cuts
 	 }
 
 	 /* ************************************
@@ -394,9 +394,9 @@ int Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player,
   if (status == GRB_OPTIMAL) {
 	 // Then, we have a best response
 
-	 double IPobj  = PureIP->getObjective().getValue();
-	 double RELobj = this->Players.at(player)->Payoff;
-	 auto   diff   = RELobj - IPobj;
+	 double IP_Objective = PureIP->getObjective().getValue();
+	 double REL_Objective = this->Players.at(player)->Payoff;
+	 auto   diff   = REL_Objective - IP_Objective;
 	 if (std::abs(diff) > this->IPG->Stats.AlgorithmData.DeviationTolerance.get()) {
 		// There exists a difference between the payoffs
 
@@ -409,9 +409,9 @@ int Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player,
 		  return -1;
 		} else {
 		  LOG_S(INFO) << "Algorithms::IPG::Oracle::preEquilibriumOracle:  (P" << player
-						  << ") REL: " << RELobj << " vs IP: " << IPobj << ". Adding a value-cut.";
+						  << ") REL: " << REL_Objective << " vs IP: " << IP_Objective << ". Adding a value-cut.";
 		  // Infeasible strategy. Add a value-cut
-		  this->addValueCut(player, IPobj, xMinusI);
+		  this->addValueCut(player, IP_Objective, xMinusI);
 		  addedCuts = 1;
 		  return 0;
 		} // end abs(diff)
@@ -537,11 +537,11 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 
 
 	 LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
-				 << ") MermbershipLP status is " << membershipStatus;
+				 << ") Membership status is " << membershipStatus;
 
 
 
-	 // We should check the inequality on the leadermodel
+	 // We should check the inequality on the player's model
 	 if (membershipStatus == GRB_OPTIMAL) {
 		double dualObj = dualMembership->getObjective().getValue();
 
@@ -717,14 +717,15 @@ ZEROStatus Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
   this->IPG->Stats.NumVar         = LCP->getNumCols();
   this->IPG->Stats.NumConstraints = LCP->getNumRows();
 
-  auto solver  = this->IPG->getStatistics().AlgorithmData.LCPSolver.get();
-  auto objtype = this->IPG->Stats.AlgorithmData.Objective.get();
-  if (solver == Data::LCP::Algorithms::PATH && objtype != Data::IPG::Objectives::Feasibility) {
+  auto Solver        = this->IPG->getStatistics().AlgorithmData.LCPSolver.get();
+  auto ObjectiveType = this->IPG->Stats.AlgorithmData.Objective.get();
+  if (Solver == Data::LCP::Algorithms::PATH &&
+		ObjectiveType != Data::IPG::Objectives::Feasibility) {
 	 LOG_S(WARNING)
 		  << "Algorithms::IPG::Oracle::equilibriumLCP: Forcing feasibility objective for LCP "
 			  "Solver PATH (input type is unsupported)";
   } else {
-	 switch (objtype) {
+	 switch (ObjectiveType) {
 	 case Data::IPG::Objectives::Linear: {
 		LCP->setMIPLinearObjective(this->LCP_c);
 	 } break;
@@ -737,7 +738,7 @@ ZEROStatus Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
   }
   arma::vec x, z;
 
-  auto LCPSolver = LCP->solve(solver, x, z, localTimeLimit, 1, 1);
+  auto LCPSolver = LCP->solve(Solver, x, z, localTimeLimit, 1, 1);
   if (LCPSolver == ZEROStatus::NashEqFound) {
 	 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumLCP: an Equilibrium has been found";
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
@@ -766,7 +767,7 @@ ZEROStatus Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
 void Algorithms::IPG::Oracle::initialize() {
   /**
 	* @brief This method initializes some fields for the algorithm. Also, it warm starts the
-	* initial strategies to pure best reponses.
+	* initial strategies to pure best responses.
 	*/
   if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0)
 	 this->IPG->Stats.NumIterations.set(0);
@@ -928,7 +929,7 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player, 
 	 arma::vec RHS(numCuts, arma::fill::zeros);
 
 	 int newNumCuts = 0;
-	 for (unsigned int i = 0; i < candidateCuts->sizeCuts() && i < maxCuts; ++i) {
+	 for (int i = 0; i < candidateCuts->sizeCuts() && i < maxCuts; ++i) {
 		auto cut = candidateCuts->rowCut(i);
 		newNumCuts++;
 		auto row     = cut.row();
@@ -1083,7 +1084,7 @@ void Algorithms::IPG::Oracle::initializeCoinModel(const unsigned int player) {
   auto CoinModel = new OsiGrbSolverInterface();
   auto GRBEnvPtr = CoinModel->getEnvironmentPtr();
   GRBsetintparam(CoinModel->getEnvironmentPtr(), "Threads", this->Env->get(GRB_IntParam_Threads));
-  CoinModel->loadProblem(B, lb, ub, c, 0, b);
+  CoinModel->loadProblem(B, lb, ub, c, nullptr, b);
   for (unsigned int i = 0; i < IP_Integers.size(); ++i)
 	 CoinModel->setInteger(IP_Integers.at(i));
 
@@ -1091,120 +1092,3 @@ void Algorithms::IPG::Oracle::initializeCoinModel(const unsigned int player) {
   CoinModel->messageHandler()->setLogLevel(0);
   this->Players.at(player)->CoinModel = std::make_shared<OsiGrbSolverInterface>(*CoinModel);
 }
-
-
-/*
- *  unsigned int numNewCuts = 0;
-  arma::sp_mat SCIPCutsLHS;
-  arma::vec    SCIPCutsRHS, SCIPCutsEfficacies;
-
-  SCIP *scip;
-  SCIP_CALL(SCIPcreate(&scip));
-  SCIP_CALL(SCIPincludeDefaultPlugins(scip));
-  SCIP_CALL(SCIPcreateProbBasic(scip, "Separation"));
-
-  SCIP_VAR *xPrim[numVars];
-  for (unsigned int i = 0; i < numVars; ++i) {
-	 auto name = "x_" + std::to_string(i);
-	 SCIP_CALL(SCIPcreateVarBasic(scip,
-											&xPrim[i],
-											name.c_str(),
-											bounds.at(i).first > 0 ? bounds.at(i).first : 0,
-											bounds.at(i).second >= 0 ? bounds.at(i).second : GRB_INFINITY,
-											objective.at(i),
-											ints.at(i) == i ? SCIP_VARTYPE_INTEGER : SCIP_VARTYPE_CONTINUOUS));
-	 SCIP_CALL(SCIPaddVar(scip, xPrim[i]));
-  }
-  auto row = std::vector<SCIP_Real *>(numConstrs);
-  for (unsigned int i = 0; i < numConstrs; ++i) {
-	 SCIP_Real empty[numVars];
-	 row.at(i) = empty;
-  }
-
-  SCIP_CONS *cons[numConstrs];
-  for (unsigned int j = 0; j < numConstrs; ++j) {
-	 auto name = "Constraint" + std::to_string(j);
-	 SCIP_CALL(SCIPcreateConsBasicLinear(
-		  scip, &cons[j], name.c_str(), 0, NULL, NULL, -SCIPinfinity(scip), arma_b.at(j)));
-	 SCIP_CALL(SCIPaddCons(scip, cons[j]));
-  }
-  for (arma::sp_mat::const_iterator it = realB.begin(); it != realB.end(); ++it)
-	 SCIP_CALL(SCIPaddCoefLinear(scip, cons[it.row()], xPrim[it.col()], *it));
-
-  for (unsigned int j = 0; j < numConstrs; ++j)
-	 SCIP_CALL(SCIPreleaseCons(scip, &cons[j]));
-
-  SCIP_CALL(SCIPsetBoolParam(scip, "lp/presolving", FALSE));
-  SCIP_CALL(SCIPsetIntParam(scip, "display/verblevel", 0));
-  SCIP_CALL(SCIPsetHeuristics(scip, SCIP_PARAMSETTING_OFF, true));
-  SCIP_CALL(SCIPsetPresolving(scip, SCIP_PARAMSETTING_OFF, true));
-  // SCIPinfoMessage(scip, NULL, "Original problem:\n");
-  // SCIP_CALL(SCIPprintOrigProblem(scip, NULL, "cip", FALSE));
-  SCIP_CALL(SCIPsolve(scip));
-  if (SCIPgetNSols(scip) > 0) {
-	 SCIP_SOL *sol     = SCIPgetBestSol(scip);
-	 auto      solVals = new double[numVars];
-	 // SCIPinfoMessage(scip, NULL, "\nSolution:\n");
-	 SCIP_CALL(SCIPgetSolVals(scip, sol, numVars, xPrim, solVals));
-	 // SCIP_CALL(SCIPprintSol(scip, SCIPgetBestSol(scip), NULL, FALSE));
-	 auto Pool  = SCIPgetGlobalCutpool(scip);
-	 auto nCuts = SCIPgetNPoolCuts(scip);
-	 auto Cuts  = SCIPcutpoolGetCuts(Pool);
-	 SCIPCutsLHS.resize(nCuts, numVars);
-	 SCIPCutsRHS.resize(nCuts);
-	 SCIPCutsEfficacies.resize(nCuts);
-	 for (unsigned int i = 0; i < nCuts; ++i) {
-		auto row = SCIPcutGetRow(Cuts[i]);
-		// Cut efficacy
-		SCIPCutsEfficacies.at(i) = SCIPgetCutEfficacy(scip, sol, row);
-		// Age
-		auto act = SCIPcutGetAge(Cuts[i]);
-		auto nnz = SCIProwGetNNonz(row);
-		// Variables
-		auto var          = SCIProwGetCols(row);
-		auto coeff        = SCIProwGetVals(row);
-		SCIPCutsRHS.at(i) = SCIProwGetRhs(row);
-		for (unsigned int j = 0; j < nnz; j++)
-		  SCIPCutsLHS.at(i, SCIPcolGetIndex(var[j])) = coeff[j];
-	 }
-	 // SCIPCutsLHS.print_dense("SCIP LHS");
-	 // SCIPCutsRHS.print("SCIP RHSs");
-	 // SCIPCutsEfficacies.print("SCIP Efficacies");
-  }
-  for (unsigned i = 0; i < numVars; ++i)
-	 SCIP_CALL(SCIPreleaseVar(scip, &xPrim[i]));
-  // free the memory
-  SCIP_CALL(SCIPfree(&scip));
-  numNewCuts   = 0;
-  int numFound = SCIPCutsLHS.n_rows;
-  if (numFound > 0) {
-	 auto         minCuts = std::min(maxCuts, numFound);
-	 arma::sp_mat LHS;
-	 arma::vec    RHS;
-	 LHS.zeros(minCuts, numVars);
-	 RHS.zeros(minCuts);
-	 for (unsigned int c = 0; c < minCuts; ++c) {
-		if ((SCIPCutsEfficacies.max() > -this->Tolerance) || true) {
-		  // Get the row index
-		  int rowId = SCIPCutsEfficacies.index_max();
-		  // Insert the cut
-		  RHS.at(numNewCuts)  = SCIPCutsRHS.at(rowId);
-		  LHS.row(numNewCuts) = SCIPCutsLHS.row(rowId);
-		  // Reset the efficacy to something low
-		  SCIPCutsEfficacies.at(rowId) = -1;
-		  numNewCuts++;
-		} else
-		  break;
-	 }
-	 if (numNewCuts > 0) {
-		LHS.resize(numNewCuts, numVars);
-		RHS.resize(numNewCuts);
-		// LHS.print_dense("LHS");
-		// RHS.print("RHS");
-		this->Players.at(player)->addCuts(LHS, RHS);
-	 }
-	 LOG_S(INFO) << "Algorithms::IPG::Oracle::externalCutGenerator: (P" << player << ") Added "
-					 << numNewCuts << " cut(s).";
-	 return numNewCuts;
-  }
- */
