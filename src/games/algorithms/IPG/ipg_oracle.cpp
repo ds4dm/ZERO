@@ -625,7 +625,7 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 			 LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
 						 << ") Violation of " << violation;
 
-			 if (violation <= -this->Tolerance) {
+			 if (violation <= this->Tolerance) {
 				// We found a new vertex
 				arma::vec v(this->Players.at(player)->V.n_cols, arma::fill::zeros);
 				for (unsigned int i = 0; i < v.size(); ++i)
