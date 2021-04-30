@@ -542,7 +542,7 @@ void Utils::normalizeIneq(arma::vec &lhs, double &rhs, bool force) {
   }
   if ((abs.max() / norm > 1e3) || force) {
 	 LOG_S(5) << "Utils::normalizeIneq:  normalizing inequality.";
-	 assert(norm!=0);
+	 assert(norm != 0);
 	 rhs = rhs / norm;
 	 lhs = lhs / norm;
   }
@@ -554,13 +554,13 @@ void Utils::normalizeIneq(arma::vec &lhs, double &rhs, bool force) {
  * @return A CoinPackedMatrix from @p A
  */
 CoinPackedMatrix Utils::armaToCoinSparse(const arma::sp_mat &A) {
-  CoinPackedMatrix R  = CoinPackedMatrix(true, A.n_cols, 0);
-  auto         nnz   = A.n_nonzero;
+  CoinPackedMatrix              R   = CoinPackedMatrix(true, A.n_cols, 0);
+  auto                          nnz = A.n_nonzero;
   std::vector<CoinPackedVector> cols(A.n_cols);
   for (arma::sp_mat::const_iterator it = A.begin(); it != A.end(); ++it)
-	 cols.at(it.col()).insert(it.row(),*it);
+	 cols.at(it.col()).insert(it.row(), *it);
 
-  for (unsigned int i=0;i<A.n_cols;++i)
+  for (unsigned int i = 0; i < A.n_cols; ++i)
 	 R.appendCol(cols.at(i));
 
 
@@ -616,4 +616,18 @@ void Utils::addSparseConstraints(const arma::sp_mat &A,
 		model->addConstr(Constraints.at(i), sense, b(i), basename + "_" + std::to_string(i));
 	 }
   }
+}
+
+
+int Utils::vecToBin(const arma::vec &x) {
+  int output = 0;
+  int power  = 1;
+  int len    = x.size();
+
+  for (int i = 0; i < len; i++) {
+	 output += x.at(len - 1 - i) * power;
+	 power *= 2;
+  }
+
+  return output;
 }

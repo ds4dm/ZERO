@@ -125,6 +125,7 @@ namespace Utils {
 													 int                 sense,
 													 GRBVar *            z);
   arma::sp_mat resizePatch(const arma::sp_mat &mat, const unsigned int nR, const unsigned int nC);
+  int          vecToBin(const arma::vec &x);
 } // namespace Utils
 
 // namespace Utils
