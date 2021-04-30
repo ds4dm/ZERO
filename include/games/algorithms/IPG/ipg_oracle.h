@@ -37,6 +37,7 @@ namespace Algorithms::IPG {
 	 arma::sp_mat V = {}; ///< This object stores an array of points -- for each player -- that are
 	 ///< descriptor for the convex-hull of the integer programming game.
 	 arma::sp_mat R             = {}; ///< As in V, but for rays.
+	 bool containsOrigin = false; ///< True if the origin is a feasible point
 	 unsigned int VertexCounter = 0;  ///< The number of Vertices in the membership LP
 	 unsigned int RayCounter    = 0;  ///< The number or Rays in the membership LP
 	 arma::sp_mat CutPool_A =
