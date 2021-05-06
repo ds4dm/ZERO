@@ -224,7 +224,7 @@ the image below
 	 this->Players[i]->KKT(Mi[i], Ni[i], qi[i]);
 	 unsigned int numPrim, numDual;
 	 numPrim = this->Players[i]->getNy();
-	 numDual = this->Players[i]->getb().n_rows;
+	 numDual = this->Players[i]->getb(true).n_rows;
 	 // Adding the primal equations
 	 // Region 1 in Formulate LCP.ipe
 	 LOG_S(3) << "Game::NashGame::formulateLCP: Region 1";
