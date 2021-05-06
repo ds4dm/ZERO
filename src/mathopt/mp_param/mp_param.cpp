@@ -190,8 +190,6 @@ void MathOpt::MP_Param::detectBounds() {
 					 // a_i * x_j <= b_i where a_i,b_i are both positive
 					 double mult  = this->isZero(B.at(i, j) - 1) ? 1 : (B.at(i, j));
 					 double bound = b.at(i) / mult;
-					 if (!this->BoundsSwitch)
-						this->BoundsSwitch = true;
 
 					 if (bound < Bounds.at(j).second || Bounds.at(j).second == -1) {
 						// If we have an improving UB
@@ -225,8 +223,6 @@ void MathOpt::MP_Param::detectBounds() {
 					 // This is a lower bound. We need to check that is actually useful (bound>0)
 					 double mult  = this->isZero(-B.at(i, j) + 1) ? -1 : (B.at(i, j));
 					 double bound = b.at(i) / mult;
-					 if (!this->BoundsSwitch && bound > 0)
-						this->BoundsSwitch = true;
 
 					 if (bound > Bounds.at(j).first) {
 						// We have an improving bound
@@ -275,7 +271,7 @@ void MathOpt::MP_Param::rewriteBounds() {
 
 
   int boundSize = this->Bounds.size();
-  if (this->BoundsSwitch > 0) {
+  if (boundSize>0) {
 	 this->B_bounds.zeros(boundSize, boundSize);
 	 this->b_bounds.zeros(boundSize);
 	 for (unsigned int i = 0; i < this->Bounds.size(); ++i) {

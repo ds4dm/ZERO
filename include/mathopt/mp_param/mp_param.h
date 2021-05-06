@@ -44,7 +44,6 @@ namespace MathOpt {
 	 arma::vec      c, b;             ///< The descriptors of the parametrized mathematical problem
 	 GRBEnv *       Env;              ///< A pointer to the Gurobi environment
 	 VariableBounds Bounds;           ///< Bounds on the y variables
-	 bool           BoundsSwitch = 0; ///< True when bounds are detected in the problem
 	 // Object for sizes and integrity check
 	 unsigned int Nx;    ///< Number of x variables (the ones that are parametrized)
 	 unsigned int Ny;    ///< Number of y variables
