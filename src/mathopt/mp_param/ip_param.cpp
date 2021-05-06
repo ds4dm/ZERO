@@ -379,7 +379,9 @@ bool MathOpt::IP_Param::addConstraints(const arma::sp_mat &Ain, const arma::vec 
  */
 unsigned int MathOpt::IP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const {
   this->forceDataCheck();
-  auto BwithBounds = arma::join_cols(this->B, this->B_bounds);
+  auto BwithBounds = arma::join_cols(this->B, this->B_bounds
+
+												 );
   M = arma::join_cols( // In armadillo join_cols(A, B) is same as [A;B] in
 							  // Matlab
 							  //  join_rows(A, B) is same as [A B] in Matlab
@@ -502,7 +504,6 @@ void MathOpt::IP_Param::presolve() {
   this->b         = pre_b;
   this->B         = pre_B;
   this->Finalized = false;
-  delete &this->IPModel;
 
   LOG_S(1) << "MathOpt::IP_Param::presolve: done.";
   this->finalize();
