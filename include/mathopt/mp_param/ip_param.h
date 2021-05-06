@@ -57,15 +57,19 @@ namespace MathOpt {
 	  * later)
 	  * @param env The pointer to the Gurobi environment
 	  */
-	 explicit IP_Param(GRBEnv *env = nullptr) : MP_Param(env), IPModel{GRBModel(*env)} { this->size(); }
+	 explicit IP_Param(GRBEnv *env = nullptr) : MP_Param(env), IPModel{GRBModel(*env)} {
+		this->size();
+	 }
 
-	 explicit IP_Param(const arma::sp_mat& C,
-							 const arma::sp_mat& B,
-							 const arma::vec&    b,
-							 const arma::vec&    c,
-							 const arma::vec&    _integers,
-							 GRBEnv *     env = nullptr);
-	 ;
+	 explicit IP_Param(const arma::sp_mat &  C,
+							 const arma::sp_mat &  B,
+							 const arma::vec &     b,
+							 const arma::vec &     c,
+							 const arma::vec &     _integers,
+							 const VariableBounds &_Bounds,
+							 GRBEnv *              env);
+
+
 
 	 arma::vec getIntegers() const {
 		return this->Integers;
@@ -73,9 +77,9 @@ namespace MathOpt {
 
 	 bool finalize() override;
 
-    IP_Param &setBounds(const VariableBounds &boundIn) ;
+	 IP_Param &setBounds(const VariableBounds &boundIn);
 
-	 bool addConstraints(const arma::sp_mat& Ain, const arma::vec& bin);
+	 bool addConstraints(const arma::sp_mat &Ain, const arma::vec &bin);
 
 	 /**
 	  * @brief A copy constructor from anoter IP_Param
@@ -84,22 +88,19 @@ namespace MathOpt {
 	 IP_Param(const IP_Param &ipg) = default;
 
 	 // Override setters
-	 IP_Param &set(const arma::sp_mat &C,
-						const arma::sp_mat &B,
-						const arma::vec &   b,
-						const arma::vec &   c,
-						const arma::vec &   integers); // Copy data into this
-	 IP_Param &set(arma::sp_mat &&C,
-						arma::sp_mat &&B,
-						arma::vec &&   b,
-						arma::vec &&   c,
-						arma::vec &&   integers); // Copy data into this
+	 MathOpt::IP_Param &set(const arma::sp_mat &C,
+									const arma::sp_mat &B,
+									const arma::vec &   b,
+									const arma::vec &   c,
+									const arma::vec &   integers,
+									const VariableBounds &    Bounds); // Copy data into this
+	 IP_Param &         set(arma::sp_mat &&  C,
+									arma::sp_mat &&  B,
+									arma::vec &&     b,
+									arma::vec &&     c,
+									arma::vec &&     integers,
+									VariableBounds &&Bounds); // Copy data into this
 
-	 IP_Param &
-	 set(const QP_Objective &obj, const QP_Constraints &cons, const arma::vec &integers = {});
-
-
-	 IP_Param &set(QP_Objective &&obj, QP_Constraints &&cons, arma::vec &&integers = {});
 
 	 bool operator==(const IP_Param &IPG2) const;
 
@@ -111,11 +112,11 @@ namespace MathOpt {
 	 void save(const std::string &filename, bool append) const override;
 	 long load(const std::string &filename, long pos = 0) override;
 
-	 void updateModelObjective(const arma::vec& x);
+	 void updateModelObjective(const arma::vec &x);
 
 	 std::unique_ptr<GRBModel> solveFixed(arma::vec x, bool solve = false) override;
 
-	 std::unique_ptr<GRBModel> getIPModel(const arma::vec& x, bool relax = false);
+	 std::unique_ptr<GRBModel> getIPModel(const arma::vec &x, bool relax = false);
 
 	 unsigned int KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const override;
 

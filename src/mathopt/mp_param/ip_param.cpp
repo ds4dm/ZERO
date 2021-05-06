@@ -56,6 +56,7 @@ MathOpt::IP_Param &MathOpt::IP_Param::setBounds(const VariableBounds &boundIn) {
 				this->Bounds.at(i).second > 0 ? this->Bounds.at(i).second : GRB_INFINITY);
   }
   this->IPModel.update();
+  this->rewriteBounds();
   return *this;
 } ///< Inheritor constructor for the class
 
@@ -199,7 +200,8 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &C,
 														const arma::sp_mat &B,
 														const arma::vec &   b,
 														const arma::vec &   c,
-														const arma::vec &   _integers) {
+														const arma::vec &   _integers,
+														const VariableBounds &    _Bounds) {
   if (_integers.is_empty())
 	 throw ZEROException(ZEROErrorCode::InvalidData,
 								"Invalid vector of Integers. Refer to MP_Param is no "
@@ -208,6 +210,7 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &C,
   this->A.zeros(b.size(), C.n_cols);
   this->Finalized = false;
   this->Integers  = arma::sort(_integers);
+  this->Bounds    = _Bounds;
   MP_Param::set(Q, C, A, B, c, b);
   return *this;
 }
@@ -222,8 +225,12 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &C,
  * @param _integers A vector containing the indexes of integer variables
  * @return A pointer to this
  */
-MathOpt::IP_Param &MathOpt::IP_Param::set(
-	 arma::sp_mat &&C, arma::sp_mat &&B, arma::vec &&b, arma::vec &&c, arma::vec &&_integers) {
+MathOpt::IP_Param &MathOpt::IP_Param::set(arma::sp_mat &&  C,
+														arma::sp_mat &&  B,
+														arma::vec &&     b,
+														arma::vec &&     c,
+														arma::vec &&     _integers,
+														VariableBounds &&_Bounds) {
   if (_integers.is_empty())
 	 throw ZEROException(ZEROErrorCode::InvalidData,
 								"Invalid vector of Integers. Refer to MP_Param is no "
@@ -232,47 +239,11 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(
   this->A.zeros(b.size(), C.n_cols);
   this->Finalized = false;
   this->Integers  = std::move(_integers);
+  this->Bounds    = std::move(_Bounds);
   MP_Param::set(Q, C, A, B, c, b);
   return *this;
 }
 
-/**
- * @brief A move constructor given a QP_Objective and QP_Constraints
- * @param obj  The objective
- * @param cons  The constraints object
- * @param _integers A vector containing the indexes of integer variables
- * @return A pointer to this
- */
-MathOpt::IP_Param &
-MathOpt::IP_Param::set(QP_Objective &&obj, QP_Constraints &&cons, arma::vec &&_integers) {
-  if (_integers.is_empty())
-	 throw ZEROException(ZEROErrorCode::InvalidData,
-								"Invalid vector of Integers. Refer to MP_Param is no "
-								"Integers are involved");
-  if (!obj.Q.empty())
-	 LOG_S(WARNING) << "MathOpt::IP_Param::set: obj.Q will be ignored";
-  if (!cons.A.empty())
-	 LOG_S(WARNING) << "MathOpt::IP_Param::set: cons.A will be ignored";
-  return this->set(std::move(obj.C),
-						 std::move(cons.B),
-						 std::move(cons.b),
-						 std::move(obj.c),
-						 std::move(_integers));
-}
-
-
-/**
- * @brief A copy constructor given a QP_Objective and QP_Constraints
- * @param obj  The objective
- * @param cons  The constraints object
- * @param _integers A vector containing the indexes of integer variables
- * @return A pointer to this
- */
-MathOpt::IP_Param &MathOpt::IP_Param::set(const QP_Objective &  obj,
-														const QP_Constraints &cons,
-														const arma::vec &     _integers) {
-  return this->set(obj.C, cons.B, cons.b, obj.c, _integers);
-}
 
 
 /**
@@ -381,14 +352,14 @@ unsigned int MathOpt::IP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec 
   this->forceDataCheck();
   auto BwithBounds = arma::join_cols(this->B, this->B_bounds
 
-												 );
-  M = arma::join_cols( // In armadillo join_cols(A, B) is same as [A;B] in
-							  // Matlab
-							  //  join_rows(A, B) is same as [A B] in Matlab
-		arma::join_rows(this->Q, BwithBounds.t()),
-		arma::join_rows(-BwithBounds, arma::zeros<arma::sp_mat>(this->Ncons, this->Ncons)));
+  );
+  M                = arma::join_cols( // In armadillo join_cols(A, B) is same as [A;B] in
+                       // Matlab
+                       //  join_rows(A, B) is same as [A B] in Matlab
+      arma::join_rows(this->Q, BwithBounds.t()),
+      arma::join_rows(-BwithBounds, arma::zeros<arma::sp_mat>(this->Ncons, this->Ncons)));
   N = arma::join_cols(this->C, -this->A);
-  q = arma::join_cols(this->c, arma::join_cols(this->b, this->b_bounds));
+  q                = arma::join_cols(this->c, arma::join_cols(this->b, this->b_bounds));
   return M.n_rows;
 }
 /**
@@ -556,8 +527,7 @@ long int MathOpt::IP_Param::load(const std::string &filename, long int pos) {
 		Bond.push_back({0, -1});
   }
   LOG_S(1) << "Loaded IP_Param to file " << filename;
-  this->set(_C, _B, _b, _c, _integers);
-  this->setBounds(Bond);
+  this->set(_C, _B, _b, _c, _integers, Bond);
   return pos;
 }
 
@@ -583,13 +553,14 @@ void MathOpt::IP_Param::save(const std::string &filename, bool append) const {
   Utils::appendSave(BO, filename, std::string("IP_Param::Bounds"), false);
   LOG_S(1) << "Saved IP_Param to file " << filename;
 }
-MathOpt::IP_Param::IP_Param(const arma::sp_mat &C,
-									 const arma::sp_mat &B,
-									 const arma::vec &   b,
-									 const arma::vec &   c,
-									 const arma::vec &   _integers,
-									 GRBEnv *            env)
-	 : MP_Param(env), IPModel{ GRBModel(*env)} {
-  this->set(C, B, b, c, _integers);
+MathOpt::IP_Param::IP_Param(const arma::sp_mat &  C,
+									 const arma::sp_mat &  B,
+									 const arma::vec &     b,
+									 const arma::vec &     c,
+									 const arma::vec &     _integers,
+									 const VariableBounds &_Bounds,
+									 GRBEnv *              env)
+	 : MP_Param(env), IPModel{GRBModel(*env)} {
+  this->set(C, B, b, c, _integers, _Bounds);
   this->forceDataCheck();
 }

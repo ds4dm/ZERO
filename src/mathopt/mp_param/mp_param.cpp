@@ -266,39 +266,45 @@ void MathOpt::MP_Param::detectBounds() {
  *useful when building the KKT conditions for the MP_Param. In particular, after bounds are detected
  *and their respective rows are shedded by MP_Param::detectBounds, the explicit constraints should
  *be added again.
+ * @warning The size of Bounds should be the future Ny.
  */
 void MathOpt::MP_Param::rewriteBounds() {
 
 
   int boundSize = this->Bounds.size();
-  if (boundSize>0) {
-	 this->B_bounds.zeros(boundSize, boundSize);
-	 this->b_bounds.zeros(boundSize);
-	 for (unsigned int i = 0; i < this->Bounds.size(); ++i) {
-		auto bound = this->Bounds.at(i);
+  //assert(boundSize == this->Ny);
+  this->B_bounds.zeros(boundSize, boundSize);
+  this->b_bounds.zeros(boundSize);
+  for (unsigned int i = 0; i < boundSize; ++i) {
+	 auto bound = this->Bounds.at(i);
 
-		if (bound.first > 0 || bound.second >= 0) {
 
-		  if ((bound.first > 0 && bound.second < 0) || (bound.first <= 0 && bound.second >= 0)) {
-			 // Only one bound is active
-			 double activeBound      = bound.first > 0 ? bound.first : bound.second;
-			 int    sense            = bound.first > 0 ? -1 : 1; // 1 for ax<=b
-			 this->B_bounds.at(i, i) = sense;
-			 this->b_bounds.at(i)    = sense * activeBound;
-		  } else if (bound.second >= 0 && bound.first > 0) {
-			 // We have both bounds. Add a new line
-			 this->B_bounds.resize(this->B_bounds.n_rows + 1, boundSize);
-			 this->b_bounds.resize(this->b_bounds.size());
-			 // The lower bound
-			 this->B_bounds.at(i, i) = -1;
-			 this->b_bounds.at(i)    = -bound.first;
-			 // The upper bound
-			 this->B_bounds.at(this->B_bounds.n_rows - 1, i) = 1;
-			 this->b_bounds.at(this->b_bounds.size() - 1)    = bound.first;
-		  }
-		}
+	 // Two bounds
+	 if (bound.second >= 0) {
+		// We have both bounds. Add a new line
+		this->B_bounds.resize(this->B_bounds.n_rows + 1, boundSize);
+		this->b_bounds.resize(this->b_bounds.n_rows + 1);
+
+		///////////////
+		// The lower bound
+		this->B_bounds.at(i, i) = -1;
+		// Zero if none
+		this->b_bounds.at(i) = -(bound.first > 0 ? bound.first : 0);
+
+	   ///////////////
+		// The upper bound
+		this->B_bounds.at(this->B_bounds.n_rows - 1, i) = 1;
+		//There is one for sure, since the if condition
+		this->b_bounds.at(this->b_bounds.size() - 1)    = bound.second;
+	 } else {
+		// The lower bound
+		this->B_bounds.at(i, i) = -1;
+		// Zero if none
+		this->b_bounds.at(i) = -(bound.first > 0 ? bound.first : 0);
 	 }
   }
+
+  assert(this->b_bounds.size() == this->B_bounds.n_rows);
 }
 
 
@@ -530,7 +536,7 @@ arma::vec MathOpt::MP_Param::getb(bool bounds) const {
  * @param bounds True if one needs to include the bounds in the matrix B
  * @return A const object with B
  */
-arma::sp_mat MathOpt::MP_Param::getB(bool bounds) const{
+arma::sp_mat MathOpt::MP_Param::getB(bool bounds) const {
 
   if (!bounds)
 	 return this->B;

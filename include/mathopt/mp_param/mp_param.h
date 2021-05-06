@@ -38,12 +38,12 @@ namespace MathOpt {
   private:
 	 double Eps{1e-6}; ///< A numerical tolerance
   protected:
-	 arma::sp_mat   Q, A, B, C;       ///< The descriptors of the parametrized mathematical problem
-	 arma::sp_mat B_bounds; ///< Implicit rows of B accounting for variables' bounds
-	 arma::vec b_bounds; ///< The implicit rows of b accounting for the variables' bounds
-	 arma::vec      c, b;             ///< The descriptors of the parametrized mathematical problem
-	 GRBEnv *       Env;              ///< A pointer to the Gurobi environment
-	 VariableBounds Bounds;           ///< Bounds on the y variables
+	 arma::sp_mat   Q, A, B, C; ///< The descriptors of the parametrized mathematical problem
+	 arma::sp_mat   B_bounds;   ///< Implicit rows of B accounting for variables' bounds
+	 arma::vec      b_bounds;   ///< The implicit rows of b accounting for the variables' bounds
+	 arma::vec      c, b;       ///< The descriptors of the parametrized mathematical problem
+	 GRBEnv *       Env;        ///< A pointer to the Gurobi environment
+	 VariableBounds Bounds;     ///< Bounds on the y variables
 	 // Object for sizes and integrity check
 	 unsigned int Nx;    ///< Number of x variables (the ones that are parametrized)
 	 unsigned int Ny;    ///< Number of y variables
@@ -69,9 +69,9 @@ namespace MathOpt {
 	 arma::sp_mat getQ() const { return this->Q; }   ///< Read-only access to the private variable Q
 	 arma::sp_mat getC() const { return this->C; }   ///< Read-only access to the private variable C
 	 arma::sp_mat getA() const { return this->A; }   ///< Read-only access to the private variable A
-	 arma::sp_mat getB(bool bounds= true) const;   ///< Read-only access to the private variable B
+	 arma::sp_mat getB(bool bounds = true) const;    ///< Read-only access to the private variable B
 	 arma::vec    getc() const { return this->c; }   ///< Read-only access to the private variable c
-	 arma::vec    getb(bool bounds = true) const;  ///< Read-only access to the private variable b
+	 arma::vec    getb(bool bounds = true) const;    ///< Read-only access to the private variable b
 	 unsigned int getNx() const { return this->Nx; } ///< Read-only access to the private variable Nx
 	 unsigned int getNy() const { return this->Ny; } ///< Read-only access to the private variable Ny
 	 VariableBounds getBounds() const {
@@ -102,14 +102,12 @@ namespace MathOpt {
 		this->b = b;
 		return *this;
 	 } ///< Set the private variable b
-
 	 MP_Param &setBounds(const VariableBounds &boundIn) {
 		this->Bounds = boundIn;
 		// Update the bound processing and update sizes.
-		this->finalize();
+		this->rewriteBounds();
 		return *this;
-	 } ///< Set the private variable BoundsX
-
+	 } ///< Set the Bounds
 	 // Setters and advanced constructors
 	 virtual MP_Param &set(const arma::sp_mat &Q,
 								  const arma::sp_mat &C,
