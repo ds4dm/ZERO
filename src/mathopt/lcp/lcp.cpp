@@ -112,13 +112,13 @@ MathOpt::LCP::LCP(
  * @param A Additional constraints matrix LHS
  * @param b Additional constraints RHS
  */
-MathOpt::LCP::LCP(GRBEnv *     env,
+MathOpt::LCP::LCP(GRBEnv *      env,
 						arma::sp_mat &M,
-						arma::vec    &q,
-						unsigned int leadStart,
-						unsigned     leadEnd,
+						arma::vec &   q,
+						unsigned int  leadStart,
+						unsigned      leadEnd,
 						arma::sp_mat &A,
-						arma::vec    &b)
+						arma::vec &   b)
 	 : M{M}, q{q}, A{A}, b{b}, RelaxedModel(*env)
 
 {
@@ -149,10 +149,12 @@ MathOpt::LCP::LCP(GRBEnv *env, const Game::NashGame &N) : RelaxedModel(*env) {
   VariableBounds NashBounds;
   N.formulateLCP(M_local, q_local, Compl_local, NashBounds);
 
-  this->M       = M_local;
-  this->q       = q_local;
-  this->Compl   = Compl_local;
-  this->BoundsX = NashBounds;
+  this->M     = M_local;
+  this->q     = q_local;
+  this->Compl = Compl_local;
+  //@todo. So far, bounds are switched off. Otherwise, we would have an MCP.
+  // Check that correct bounds are reported in the Nash Game.
+  // this->BoundsX = NashBounds;
   if (this->BoundsX.size() < this->M.n_cols)
 	 for (unsigned int i = this->BoundsX.size(); i < this->M.n_cols; ++i)
 		this->BoundsX.push_back({0, -1});
@@ -302,7 +304,7 @@ bool MathOpt::LCP::extractSols(GRBModel *model, arma::vec &z, arma::vec &x, bool
  * @param x The x-values vector
  * @return The z-values vector
  */
-arma::vec MathOpt::LCP::zFromX(const arma::vec& x) { return (this->M * x + this->q); }
+arma::vec MathOpt::LCP::zFromX(const arma::vec &x) { return (this->M * x + this->q); }
 
 
 /**
@@ -318,9 +320,9 @@ arma::vec MathOpt::LCP::zFromX(const arma::vec& x) { return (this->M * x + this-
  * constraints. Hence, is not a MILP
  */
 std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMILP(const arma::sp_mat &C,
-																	const arma::vec &   c,
-																	const arma::vec &   x_minus_i,
-																	bool                solve) {
+																  const arma::vec &   c,
+																  const arma::vec &   x_minus_i,
+																  bool                solve) {
 
   if (!this->PureMIP)
 	 LOG_S(1) << "MathOpt::LCP::LCPasMILP: Note that complementarities are bi-linearly modeled!";
@@ -367,10 +369,10 @@ std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMILP(const arma::sp_mat &C,
  */
 
 std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIQP(const arma::sp_mat &Q,
-																	const arma::sp_mat &C,
-																	const arma::vec &   c,
-																	const arma::vec &   x_minus_i,
-																	bool                solve)
+																  const arma::sp_mat &C,
+																  const arma::vec &   c,
+																  const arma::vec &   x_minus_i,
+																  bool                solve)
 
 {
   auto model = this->LCPasMILP(C, c, x_minus_i, false);
@@ -396,7 +398,7 @@ std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIQP(const arma::sp_mat &Q,
  * @param filename  The filename
  * @param erase  Whether the file should be cleaned or not
  */
-void MathOpt::LCP::save(const std::string& filename, bool erase) const {
+void MathOpt::LCP::save(const std::string &filename, bool erase) const {
 
   Utils::appendSave(std::string("LCP"), filename, erase);
   Utils::appendSave(this->M, filename, std::string("LCP::M"), false);
@@ -427,7 +429,7 @@ void MathOpt::LCP::save(const std::string& filename, bool erase) const {
  * @return The position after the LCP in the file
  */
 
-long int MathOpt::LCP::load(const std::string& filename, long int pos) {
+long int MathOpt::LCP::load(const std::string &filename, long int pos) {
   if (!this->Env)
 	 throw ZEROException(ZEROErrorCode::Assertion,
 								" To load LCP from file, it has to be constructed "
@@ -556,7 +558,7 @@ void MathOpt::LCP::makeQP(MathOpt::QP_Objective &QP_obj, MathOpt::QP_Param &QP) 
  * note This method does not check whether such cuts are already in the LCP.
  */
 
-void MathOpt::LCP::addCustomCuts(const arma::sp_mat& A_in, const arma::vec& b_in) {
+void MathOpt::LCP::addCustomCuts(const arma::sp_mat &A_in, const arma::vec &b_in) {
 
   if (this->A.n_cols != A_in.n_cols)
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Mismatch in A columns");
@@ -589,7 +591,7 @@ void MathOpt::LCP::addCustomCuts(const arma::sp_mat& A_in, const arma::vec& b_in
  * @param tol The numerical tolerance
  * @return True if the cut is already present, false otherwise.
  */
-bool MathOpt::LCP::containsCut(const arma::vec& Arow, const double b, double tol) {
+bool MathOpt::LCP::containsCut(const arma::vec &Arow, const double b, double tol) {
   return Utils::containsConstraint(this->_Acut, this->_bcut, Arow, b, tol);
 }
 
@@ -624,7 +626,8 @@ ZEROStatus MathOpt::LCP::solvePATH(double timelimit, arma::vec &z, arma::vec &x,
 	* @brief Solves the LCP model with the PATH solver.
 	*/
 
-  auto Solver = new Solvers::PATH(this->M, this->q, this->Compl, this->BoundsX, z, x, timelimit, verbose);
+  auto Solver =
+		new Solvers::PATH(this->M, this->q, this->Compl, this->BoundsX, z, x, timelimit, verbose);
   return Solver->getStatus();
 }
 
@@ -632,12 +635,16 @@ ZEROStatus MathOpt::LCP::solvePATH(double timelimit, arma::vec &z, arma::vec &x,
 /**
  * @brief This method is the generic wrapper to solve the LCP.
  * @param algo The Data::LCP::Algorithms used to solve the LCP
- * @param xSol The resulting solution for z, if any
- * @param zSol The resulting solution for z, if any
+ * @param xSol The resulting solution for z, if any. If the vector is filled, it will be seeded as a
+ * warmstart if Data::LCP::Algorithms::MIP
+ * @param zSol The resulting solution for z, if any. If the vector is filled, it will be seeded as a
+ * warmstart if Data::LCP::Algorithms::MIP
  * @param timeLimit A double time limit
  * @param MIPWorkers The absolute number of MIP Workers in case @p algo is
  * Data::LCP::Algorithms::MIP
  * @param solLimit The number of solutions in the pool for if @p algo is Data::LCP::Algorithms::MIP
+ * @param cutOff Bounds the optima solution to be >= than a given threshold. Used if different from
+ * -GRB_INFINITY. As output, the object willm be filled with the incumbent optimal value
  * @return A ZEROStatus for the problem
  */
 
@@ -646,10 +653,9 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 										 arma::vec &           zSol,
 										 double                timeLimit,
 										 unsigned int          MIPWorkers,
-										 unsigned int          solLimit = 1) {
+										 double &              cutOff,
+										 unsigned int          solLimit) {
 
-  xSol.zeros(this->M.n_cols);
-  zSol.zeros(this->M.n_rows);
 
   if (algo == Data::LCP::Algorithms::PATH) {
 	 if (this->A.n_nonzero != 0) {
@@ -658,6 +664,8 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 		throw ZEROException(ZEROErrorCode::SolverError,
 								  "PATH does not support non-complementarity constraints!");
 	 }
+	 xSol.zeros(this->M.n_cols);
+	 zSol.zeros(this->M.n_rows);
 	 switch (this->solvePATH(timeLimit, xSol, zSol, false)) {
 	 case ZEROStatus::NashEqFound:
 		return ZEROStatus::NashEqFound;
@@ -666,7 +674,7 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 	 case ZEROStatus::NotSolved:
 		return ZEROStatus::NashEqNotFound;
 	 case ZEROStatus::Numerical:
-		  return ZEROStatus::Numerical;
+		return ZEROStatus::Numerical;
 	 default:
 		return ZEROStatus::NashEqNotFound;
 	 }
@@ -675,10 +683,31 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 		this->PureMIP = false;
 	 else
 		this->PureMIP = true;
+
 	 auto Model = this->LCPasMIP(false, timeLimit, MIPWorkers, solLimit);
+
+	 // MIP Warmstart
+	 if (!xSol.empty()) {
+		for (unsigned int i = 0; i < xSol.size(); ++i)
+		  Model->getVarByName("x_" + std::to_string(i)).set(GRB_DoubleAttr_VarHintVal, xSol.at(i));
+	 }
+	 if (!zSol.empty()) {
+		for (unsigned int i = 0; i < xSol.size(); ++i)
+		  Model->getVarByName("z_" + std::to_string(i)).set(GRB_DoubleAttr_VarHintVal, zSol.at(i));
+	 }
+	 if (cutOff != -GRB_INFINITY) {
+		GRBQuadExpr obj{Model->getObjective()};
+		Model->addQConstr(obj, GRB_GREATER_EQUAL, cutOff, "cutOff");
+	 }
+
+
+
+	 //Model->set(GRB_IntParam_OutputFlag, 1);
+	 //Model->write("TheLCP.lp");
 	 Model->optimize();
 
 	 if (this->extractSols(Model.get(), zSol, xSol, true)) {
+		cutOff = Model->getObjective().getValue();
 		return ZEROStatus::NashEqFound;
 	 } else {
 		if (Model->get(GRB_IntAttr_Status) == GRB_TIME_LIMIT)
@@ -743,7 +772,7 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP(bool indicators) {
 		  obj += v[counter];
 		} else {
 		  GRBVar sos[]  = {x[p.second], z[p.first]};
-		  double sosw[] = {1, 4};
+		  double sosw[] = {1, 1};
 		  obj += x[p.second];
 		  model->addSOS(sos, sosw, 2, GRB_SOS_TYPE1);
 		}
@@ -766,14 +795,14 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP(bool indicators) {
  * @param c Linear vector for the primal variables
  * @return True if successful
  */
-bool MathOpt::LCP::setMIPLinearObjective(const arma::vec& c) {
+bool MathOpt::LCP::setMIPLinearObjective(const arma::vec &c) {
   if (c.size() > this->nC)
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Too many columns in the input vector");
   this->Obj.zeros(this->nC);
   this->Obj.subvec(0, c.size() - 1) = c;
   this->ObjType                     = 1;
   LOG_S(2) << "MathOpt::LCP::setMIPLinearObjective: Set LINEAR objective";
-  this->MadeObjective =false;
+  this->MadeObjective = false;
   return true;
 }
 
@@ -784,7 +813,7 @@ bool MathOpt::LCP::setMIPLinearObjective(const arma::vec& c) {
  * @param Q Square matrix for the primal variables
  * @return True if successful
  */
-bool MathOpt::LCP::setMIPQuadraticObjective(const arma::vec& c, const arma::sp_mat& Q) {
+bool MathOpt::LCP::setMIPQuadraticObjective(const arma::vec &c, const arma::sp_mat &Q) {
   if (c.size() > this->nC)
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Too many columns in the input vector");
   if (c.size() != Q.n_cols || !Q.is_square())
@@ -795,7 +824,7 @@ bool MathOpt::LCP::setMIPQuadraticObjective(const arma::vec& c, const arma::sp_m
   this->Qobj.submat(0, 0, c.size() - 1, c.size() - 1) = Q;
   this->ObjType                                       = 2;
   LOG_S(2) << "MathOpt::LCP::setMIPLinearObjective: Set QUADRATIC objective";
-  this->MadeObjective =false;
+  this->MadeObjective = false;
   return true;
 }
 
@@ -820,7 +849,7 @@ void MathOpt::LCP::setMIPObjective(GRBModel &MIP) {
 	 }
 
 	 if (this->ObjType == 2) {
-	   MIP.set(GRB_IntParam_NonConvex, 2);
+		MIP.set(GRB_IntParam_NonConvex, 2);
 		// Add a quadratic part
 		for (arma::sp_mat::const_iterator it = this->Qobj.begin(); it != this->Qobj.end(); ++it) {
 		  obj.addTerm(*it,
@@ -830,9 +859,7 @@ void MathOpt::LCP::setMIPObjective(GRBModel &MIP) {
 	 }
 
 	 MIP.setObjective(obj, GRB_MINIMIZE);
-    this->MadeObjective = true;
-    MIP.set(GRB_IntParam_MIPFocus,0);
-	 return;
+	 MIP.set(GRB_IntParam_MIPFocus, 0);
 
   } else {
 	 // Feasibility MIP
@@ -853,10 +880,11 @@ void MathOpt::LCP::setMIPObjective(GRBModel &MIP) {
 	  */
 
 	 MIP.setObjective(obj, GRB_MINIMIZE);
-	 MIP.set(GRB_IntParam_MIPFocus,1);
-    this->MadeObjective = true;
-	 return;
+	 MIP.set(GRB_IntParam_MIPFocus, 1);
   }
+  this->MadeObjective = true;
+  MIP.update();
+  return;
 }
 
 
@@ -871,7 +899,7 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMINLP() {
   std::unique_ptr<GRBModel> model{new GRBModel(this->RelaxedModel)};
   // Creating the model
   try {
-	 GRBVar     x[nC], z[nR];
+	 GRBVar x[nC], z[nR];
 	 // Get hold of the Variables and Eqn Variables
 	 for (unsigned int i = 0; i < nC; i++)
 		x[i] = model->getVarByName("x_" + std::to_string(i));
@@ -880,7 +908,7 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMINLP() {
 		z[i] = model->getVarByName("z_" + std::to_string(i));
 	 // Define binary variables for BigM
 
-	 GRBLinExpr   expr = 0;
+	 GRBLinExpr expr = 0;
 	 for (const auto p : Compl) {
 
 		int _lb = this->BoundsX.at(p.second).first;
@@ -915,6 +943,7 @@ bool MathOpt::LCP::setMIPFeasibilityObjective() {
   LOG_S(1) << "MathOpt::LCP::setMIPLinearObjective: Set Feasibility objective.";
   return true;
 }
+
 std::string std::to_string(Data::LCP::Algorithms al) {
   switch (al) {
   case Data::LCP::Algorithms::MIP:

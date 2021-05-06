@@ -177,7 +177,8 @@ namespace MathOpt {
 												arma::vec &           zSol,
 												double                timeLimit,
 												unsigned int          MIPWorkers,
-												unsigned int          solLimit);
+												double &                objective,
+												unsigned int          solLimit=1);
 	 std::unique_ptr<GRBModel> LCPasMIP(bool         solve      = false,
 													double       timeLimit  = -1,
 													unsigned int MIPWorkers = 1,
