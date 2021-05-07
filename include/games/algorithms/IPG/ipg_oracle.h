@@ -30,16 +30,19 @@ namespace Algorithms::IPG {
 	 /// Oracle
 
   protected:
-	 std::unique_ptr<GRBModel>
-		  MembershipLP={};    ///< The model approximating the feasible region with vertices and rays
-    std::shared_ptr<MathOpt::IP_Param> ParametrizedIP ={};    ///< The (working) player integer program, to which cuts are added
-    std::shared_ptr<OsiGrbSolverInterface> CoinModel={}; ///< Quick workaround for now. This object stores the CoinOR model related to the field ParametrizedIP
+	 std::unique_ptr<GRBModel> MembershipLP =
+		  {}; ///< The model approximating the feasible region with vertices and rays
+	 std::shared_ptr<MathOpt::IP_Param> ParametrizedIP =
+		  {}; ///< The (working) player integer program, to which cuts are added
+	 std::shared_ptr<OsiGrbSolverInterface> CoinModel =
+		  {}; ///< Quick workaround for now. This object stores the CoinOR model related to the field
+				///< ParametrizedIP
 	 arma::sp_mat V = {}; ///< This object stores an array of points -- for each player -- that are
 	 ///< descriptor for the convex-hull of the integer programming game.
-	 arma::sp_mat R             = {}; ///< As in V, but for rays.
-	 bool containsOrigin = false; ///< True if the origin is a feasible point
-	 unsigned int VertexCounter = 0;  ///< The number of Vertices in the membership LP
-	 unsigned int RayCounter    = 0;  ///< The number or Rays in the membership LP
+	 arma::sp_mat R              = {};    ///< As in V, but for rays.
+	 bool         containsOrigin = false; ///< True if the origin is a feasible point
+	 unsigned int VertexCounter  = 0;     ///< The number of Vertices in the membership LP
+	 unsigned int RayCounter     = 0;     ///< The number or Rays in the membership LP
 	 arma::sp_mat CutPool_A =
 		  {}; ///< Stores the LHS of the valids cuts for the convex hull of the player's IPG
 	 arma::vec CutPool_b =
@@ -62,8 +65,8 @@ namespace Algorithms::IPG {
 		 * model, initializes the data structure.
 		 */
 
-	   this->ParametrizedIP = std::unique_ptr<MathOpt::IP_Param>();
-		this->MembershipLP = std::unique_ptr<GRBModel>();
+		this->ParametrizedIP = std::unique_ptr<MathOpt::IP_Param>();
+		this->MembershipLP   = std::unique_ptr<GRBModel>();
 		this->Incumbent.zeros(incumbentSize);
 	 };
 
@@ -72,7 +75,6 @@ namespace Algorithms::IPG {
 	 bool addRay(const arma::vec &ray, const bool checkDuplicate = false);
 
 	 bool addCuts(const arma::sp_mat &LHS, const arma::vec &RHS);
-
   };
 
 
@@ -82,18 +84,20 @@ namespace Algorithms::IPG {
 	 arma::sp_mat                             LCP_Q;   ///< Quadratic matrix for the LCP objective
 	 arma::vec                                LCP_c;   ///< Linear vector for the LCP objective
 	 std::vector<std::unique_ptr<IPG_Player>> Players; ///< The support structures of IPG_Players
-	 std::vector<std::pair<std::string ,int>> Cuts; ///< Log of used cutting planes.
-	 void                                     initialize();
-	 arma::vec                                buildXminusI(const unsigned int i);
+	 std::vector<std::pair<std::string, int>> Cuts;    ///< Log of used cutting planes.
+	 arma::vec zLast, xLast; ///< Last x and z from the equilibrium LCP. Used for warmstart
+	 double    objLast = -GRB_INFINITY; ///< Last objective from the equilibrium LCP. Used as cutOff
+	 void      initialize();
+	 arma::vec buildXminusI(const unsigned int i);
 
-	 void initializeEducatedGuesses();
-	 void initializeCoinModel(const unsigned int player);
-	 unsigned int externalCutGenerator(unsigned int player, int maxCuts);
+	 void         initializeEducatedGuesses();
+	 void         initializeCoinModel(const unsigned int player);
+	 unsigned int externalCutGenerator(unsigned int player, int maxCuts, bool rootNode);
 	 bool         addValueCut(unsigned int player, double RHS, const arma::vec &xMinusI);
-	 int  preEquilibriumOracle(const unsigned int player,
-										int &              addedCuts,
-										arma::vec &        xOfI,
-										arma::vec &        xMinusI);
+	 int          preEquilibriumOracle(const unsigned int player,
+												  int &              addedCuts,
+												  arma::vec &        xOfI,
+												  arma::vec &        xMinusI);
 
 	 void updateMembership(const unsigned int &player, const arma::vec &vertex);
 

@@ -1,3 +1,4 @@
+
 /* #############################################
  *             This file is part of
  *                    ZERO
@@ -34,7 +35,6 @@ bool Algorithms::IPG::IPG_Player::addVertex(const arma::vec &vertex, const bool 
 	 int nCols = this->V.n_cols < 1 ? vertex.size() : this->V.n_cols;
 	 this->V.resize(this->V.n_rows + 1, nCols);
 	 this->V.row(this->V.n_rows - 1) = vertex.t();
-	 // this->V = arma::join_cols(this->V, arma::sp_mat{vertex.t()});
 	 return true;
   }
   return false;
@@ -55,7 +55,6 @@ bool Algorithms::IPG::IPG_Player::addRay(const arma::vec &ray, const bool checkD
 	 int nCols = this->R.n_cols < 1 ? ray.size() : this->R.n_cols;
 	 this->R.resize(this->R.n_rows + 1, nCols);
 	 this->R.row(this->R.n_rows - 1) = ray.t();
-	 // this->R = arma::join_cols(this->R, arma::sp_mat{ray.t()});
 	 return true;
   }
   return false;
@@ -84,18 +83,26 @@ bool Algorithms::IPG::IPG_Player::addCuts(const arma::sp_mat &LHS, const arma::v
   // Add the constraints to the Coin model
 
 
-  auto convertedCuts = Utils::armaToCoinPackedVector(LHS);
-  try {
-	 for (unsigned int i = 0; i < newCuts; ++i)
-		this->CoinModel->addRow(convertedCuts.at(i), 'L', RHS.at(i), 0);
+  /******RECURSIVE CUT GENERATION********
+  //Uncomment this to enable recursive cut generation
+ auto convertedCuts = Utils::armaToCoinPackedVector(LHS);
+ try {
+	for (unsigned int i = 0; i < newCuts; ++i)
+	  this->CoinModel->addRow(convertedCuts.at(i), 'L', RHS.at(i), 0);
 
-  } catch (CoinError &e) {
-	 throw ZEROException(ZEROErrorCode::SolverError,
-								"Invalid Coin-OR interface response: " + e.message());
-  }
+ } catch (CoinError &e) {
+	throw ZEROException(ZEROErrorCode::SolverError,
+							  "Invalid Coin-OR interface response: " + e.message());
+ }
+  *******RECURSIVE CUT GENERATION*********/
 
   // Add the constraints to the parametrized IP
   this->ParametrizedIP->addConstraints(LHS, RHS);
+
+  //******DEBUG********
+  // LHS.print_dense("LHS");
+  // RHS.print("RHS");
+  //******DEBUG********
   return true;
 }
 
@@ -109,12 +116,20 @@ bool Algorithms::IPG::Oracle::addValueCut(unsigned int     player,
 	*/
 
 
-  arma::vec LHS =
-		this->IPG->PlayersIP.at(player)->getc() + this->IPG->PlayersIP.at(player)->getC() * xMinusI;
+  // Remember the minus sign here
 
-  Utils::normalizeIneq(LHS, RHS, false);
+  arma::vec LHS = -(this->IPG->PlayersIP.at(player)->getc() +
+						  this->IPG->PlayersIP.at(player)->getC() * xMinusI);
+
+
+  //@todo
+  Utils::normalizeIneq(LHS, RHS, true);
+  //******DEBUG********
+  // LHS.print("Value-Cut: LHS with RHS of" + std::to_string(-RHS));
+  //******DEBUG********
   this->Cuts.at(0).second += 1;
-  return this->Players.at(player)->addCuts(arma::sp_mat{-LHS.t()}, arma::vec{-RHS});
+  // Again, minus sign on RHS (the inequality is >=)
+  return this->Players.at(player)->addCuts(arma::sp_mat{LHS.t()}, arma::vec{-RHS});
 }
 
 bool Algorithms::IPG::Oracle::checkTime(double &remaining) const {
@@ -165,8 +180,10 @@ void Algorithms::IPG::Oracle::initLCPObjective() {
 	 varCounter += playerVars;
   }
 
+  //******DEBUG********
   // this->LCP_c.print("This is LCP_c");
   // this->LCP_Q.print_dense("This is LCP_Q");
+  //******DEBUG********
 }
 
 void Algorithms::IPG::Oracle::solve() {
@@ -181,7 +198,7 @@ void Algorithms::IPG::Oracle::solve() {
   if (MIPCuts) {
 	 if (this->IPG->Stats.AlgorithmData.CutAggressiveness.get() ==
 		  Data::IPG::CutsAggressiveness::Truculent)
-		cutsAggressiveness = 5;
+		cutsAggressiveness = 3;
 	 else
 		cutsAggressiveness = 1;
   }
@@ -191,6 +208,18 @@ void Algorithms::IPG::Oracle::solve() {
 	 LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: A Nash Equilibrium has not been "
 						 "found. At least one of the players problem is infeasible.";
 	 return;
+  }
+
+  for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
+	 //@todo
+	 if (MIPCuts && false) {
+		// LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: Adding root cuts.";
+		//******DEBUG********
+		//@todo
+		//  this->Players.at(i)->ParametrizedIP->presolve();
+		//******DEBUG********
+		//  this->externalCutGenerator(i, 5, true);
+	 }
   }
 
   bool solved{false};
@@ -203,7 +232,8 @@ void Algorithms::IPG::Oracle::solve() {
 	 ZEROStatus status;
 	 // Increase the number of iterations
 	 Iteration++;
-    LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: Iteration ########### " << Iteration << " ###########";
+	 LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: Iteration ########### " << Iteration
+					 << " ###########";
 	 this->IPG->Stats.NumIterations.set(Iteration);
 
 
@@ -290,12 +320,13 @@ void Algorithms::IPG::Oracle::solve() {
 					  ***************************************/
 					 addedCuts += EO_cut; //+ this->separateCoinCuts(i, 5);
 					 // if (Iteration > 5)
-					 if(MIPCuts) {
+					 if (MIPCuts) {
 						addedCuts += this->externalCutGenerator(
 							 i,
 							 (Iteration > 5 || (Iteration == 1 && cutsAggressiveness > 1))
 								  ? cutsAggressiveness
-								  : 1);
+								  : 1,
+							 false);
 					 }
 				  } else {
 					 /* ************************************
@@ -303,7 +334,7 @@ void Algorithms::IPG::Oracle::solve() {
 					  ***************************************/
 					 // If we have cutting planes turned on, add more cuts.
 					 if (MIPCuts && addedMIPCuts.at(i) == 0) {
-						addedCuts += this->externalCutGenerator(i, cutsAggressiveness);
+						addedCuts += this->externalCutGenerator(i, cutsAggressiveness, false);
 						addedMIPCuts.at(i) = 1;
 					 }
 				  }
@@ -312,8 +343,6 @@ void Algorithms::IPG::Oracle::solve() {
 					* Player is feasible
 					***************************************/
 				  feasible.at(i) = 1;
-				  if (cutsAggressiveness > 1 && MIPCuts)
-					 this->externalCutGenerator(i, cutsAggressiveness);
 				}
 			 }
 		  }
@@ -392,14 +421,18 @@ int Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player,
 
   // Update working strategies with "educated guesses"
   auto PureIP = this->IPG->PlayersIP.at(player)->getIPModel(xMinusI, false);
+  //******DEBUG********
+  // PureIP->write("PureIP.lp");
+  //******DEBUG********
+  PureIP->set(GRB_IntParam_SolutionLimit, 100);
   PureIP->optimize();
   int status = PureIP->get(GRB_IntAttr_Status);
   if (status == GRB_OPTIMAL) {
 	 // Then, we have a best response
 
-	 double IP_Objective = PureIP->getObjective().getValue();
+	 double IP_Objective  = PureIP->getObjective().getValue();
 	 double REL_Objective = this->Players.at(player)->Payoff;
-	 auto   diff   = REL_Objective - IP_Objective;
+	 auto   diff          = REL_Objective - IP_Objective;
 	 if (std::abs(diff) > this->IPG->Stats.AlgorithmData.DeviationTolerance.get()) {
 		// There exists a difference between the payoffs
 
@@ -412,8 +445,10 @@ int Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player,
 		  return -1;
 		} else {
 		  LOG_S(INFO) << "Algorithms::IPG::Oracle::preEquilibriumOracle:  (P" << player
-						  << ") REL: " << REL_Objective << " vs IP: " << IP_Objective << ". Adding a value-cut.";
+						  << ") REL: " << REL_Objective << " vs IP: " << IP_Objective
+						  << ". Adding a value cut.";
 		  // Infeasible strategy. Add a value-cut
+
 		  this->addValueCut(player, IP_Objective, xMinusI);
 		  addedCuts = 1;
 		  return 0;
@@ -422,27 +457,38 @@ int Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player,
 
 		// No discrepancy between payoffs
 
-		// Check if the strategies are the same!
-		arma::vec bestResponse(Ny, arma::fill::zeros);
-		for (unsigned int k = 0; k < Ny; ++k)
-		  bestResponse.at(k) = PureIP->getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_X);
+		int numSols = PureIP->get(GRB_IntAttr_SolCount);
+		// Will be set to true if any pure-best response correspond to the current strategy
+		bool equal = false;
+		// Number of best responses found
+		int bestResponses = 0;
 
-		if (!this->Players.at(player)->addVertex(bestResponse, true)) {
-		  LOG_S(2) << "Algorithms::IPG::Oracle::preEquilibriumOracle: (P" << player
-					  << ") duplicate vertex (BR)";
-		} else {
-		  LOG_S(2) << "Algorithms::IPG::Oracle::preEquilibriumOracle: (P" << player
-					  << ") adding vertex (BR)";
+		for (unsigned int s = 0; s < numSols; ++s) {
+
+		  PureIP->set(GRB_IntParam_SolutionNumber, s);
+		  // Check if the strategies are the same!
+		  arma::vec bestResponse(Ny, arma::fill::zeros);
+		  for (unsigned int k = 0; k < Ny; ++k)
+			 bestResponse.at(k) = PureIP->getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_X);
+
+		  // Add the strategy to the best-responses pool as a vertex
+		  if (!this->Players.at(player)->addVertex(bestResponse, true))
+			 bestResponses++;
+
+		  if (Utils::isZero(xOfI - bestResponse, this->Tolerance)) {
+			 this->Players.at(player)->Pure = true;
+			 LOG_S(INFO) << "Algorithms::IPG::Oracle::preEquilibriumOracle:  (P" << player
+							 << ") Feasible strategy (BR)";
+			 equal = true;
+		  }
 		}
 
+		LOG_S(2) << "Algorithms::IPG::Oracle::preEquilibriumOracle: (P" << player << ") Found "
+					<< bestResponses << " best responses vertices.";
 
-		if (Utils::isZero(xOfI - bestResponse, this->Tolerance)) {
-		  this->Players.at(player)->Pure = true;
-		  LOG_S(INFO) << "Algorithms::IPG::Oracle::preEquilibriumOracle:  (P" << player
-						  << ") Feasible strategy (BR)";
+		if (equal)
 		  return 1;
-		} else {
-
+		else {
 		  // In this case, we need to call the proper oracle.
 		  unsigned int iterations = this->IPG->PlayerVariables.at(player) * 5;
 		  return this->equilibriumOracle(player, iterations, xOfI, xMinusI, addedCuts);
@@ -496,7 +542,7 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
   GRBVar betaVar = dualMembership->getVarByName("beta");
 
   // Update the objective for the membership. Avoid doing it every time
-  //  Update normalization
+  // Update normalization
   GRBLinExpr expr = -betaVar;
   for (int j = 0; j < xOfI.size(); ++j)
 	 expr += xOfI.at(j) * y[j];
@@ -555,21 +601,24 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 						  << ") Feasible point. ";
 		  this->Players.at(player)->Feasible = true;
 
-		  /*
-		 arma::vec support;
-		 support.zeros(this->Players.at(player)->VertexCounter);
-		 for (unsigned int v = 0; v < this->Players.at(player)->VertexCounter; ++v) {
-			// abs to avoid misunderstanding with sign conventions
-			support.at(v) =
-				 dualMembership->getConstrByName("V_" + std::to_string(v)).get(GRB_DoubleAttr_Pi);
-		 }
 
-		 support.print("MNE Support: ");
-		 if (support.max() == 1) {
-			this->Players.at(player)->Pure = true;
-		 }
-		  assert(arma::sum(support) == 1);
-		  */
+		  arma::vec support;
+		  support.zeros(this->Players.at(player)->VertexCounter);
+		  for (unsigned int v = 0; v < this->Players.at(player)->VertexCounter; ++v) {
+			 // abs to avoid misunderstanding with sign conventions
+			 support.at(v) =
+				  dualMembership->getConstrByName("V_" + std::to_string(v)).get(GRB_DoubleAttr_Pi);
+		  }
+
+
+		  if (support.max() == 1) {
+			 this->Players.at(player)->Pure = true;
+		  }
+		  //******DEBUG********
+		  // support.print("MNE Support: ");
+		  // assert(arma::sum(support) == 1);
+		  //******DEBUG********
+
 
 		  return 1;
 		}
@@ -604,7 +653,7 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 		if (leaderStatus == GRB_OPTIMAL || (leaderStatus == GRB_SUBOPTIMAL && numSols > 0)) {
 
 		  //@todo <numSols or 1?
-		  for (int s = 0; s < 1; ++s) {
+		  for (int s = 0; s < numSols; ++s) {
 			 playerModel->set(GRB_IntParam_SolutionNumber, s);
 
 			 // The separating hyperplane plane evaluated at xOfI
@@ -629,34 +678,34 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 						 << ") Violation of " << violation;
 
 			 if (violation >= this->Tolerance) {
-			   // We have a cut.
-			   // Ciao Moni
+				// We have a cut.
+				// Ciao Moni
 
-			   Utils::normalizeIneq(alphaVal, betaLeader, true);
+				Utils::normalizeIneq(alphaVal, betaLeader, true);
 
-			   //******DEBUG********
-			   //alphaVal.print("alphaVal with RHS of" + std::to_string(betaLeader));
-			   //******DEBUG********
+				//******DEBUG********
+				// alphaVal.print("alphaVal with RHS of" + std::to_string(betaLeader));
+				//******DEBUG********
 
-			   this->Cuts.at(1).second += 1;
-			   this->Players.at(player)->addCuts(arma::sp_mat{alphaVal.t()}, arma::vec{betaLeader});
+				this->Cuts.at(1).second += 1;
+				this->Players.at(player)->addCuts(arma::sp_mat{alphaVal.t()}, arma::vec{betaLeader});
 
 
-			   LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
-			               << ") adding a cut";
-			   addedCuts = 1;
-			   return 0;
+				LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+								<< ") Adding a cut.";
+				addedCuts = 1;
+				return 0;
 			 } else {
 
-			   // We found a new vertex
-			   arma::vec v(this->Players.at(player)->V.n_cols, arma::fill::zeros);
-			   for (unsigned int i = 0; i < v.size(); ++i)
+				// We found a new vertex
+				arma::vec v(this->Players.at(player)->V.n_cols, arma::fill::zeros);
+				for (unsigned int i = 0; i < v.size(); ++i)
 				  v[i] = l[i].get(GRB_DoubleAttr_X);
-			   // v.print("vertex");
-			   auto add = this->Players.at(player)->addVertex(v, numSols > 1);
-			   LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
-			            << ") adding vertex for Player (" << std::to_string(add) << "). "
-			            << (iterations - k - 1) << "/" << iterations << " iterations left";
+				// v.print("vertex");
+				auto add = this->Players.at(player)->addVertex(v, numSols > 1);
+				LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+							<< ") adding vertex for Player (" << std::to_string(add) << "). "
+							<< (iterations - k - 1) << "/" << iterations << " iterations left";
 			 }
 		  }
 
@@ -700,20 +749,26 @@ void Algorithms::IPG::Oracle::updateMembership(const unsigned int &player,
 
 ZEROStatus Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
 
+  // Empty objects for market clearing
   arma::sp_mat MC(0, this->IPG->NumVariables), dumA(0, this->IPG->NumVariables);
   arma::vec    MCRHS(0, arma::fill::zeros), dumB(0, arma::fill::zeros);
+  // Downcast the IP_Param to MP_Param
   std::vector<std::shared_ptr<MathOpt::MP_Param>> MPCasted;
   for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
 	 auto m = std::dynamic_pointer_cast<MathOpt::MP_Param>(this->Players.at(i)->ParametrizedIP);
 	 MPCasted.push_back(m);
   }
+  // Build the Nash Game
   Game::NashGame Nash = Game::NashGame(this->Env, MPCasted, MC, MCRHS, 0, dumA, dumB);
-  LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumLCP: NashGame is ready";
+  LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumLCP: Formulated the NashGame";
+  // Build the LCP from the Nash Game
   auto LCP = std::make_unique<MathOpt::LCP>(this->Env, Nash);
 
+  // Record some statistics
   this->IPG->Stats.NumVar         = LCP->getNumCols();
   this->IPG->Stats.NumConstraints = LCP->getNumRows();
 
+  // Discriminate between Solver type and Objective type
   auto Solver        = this->IPG->getStatistics().AlgorithmData.LCPSolver.get();
   auto ObjectiveType = this->IPG->Stats.AlgorithmData.Objective.get();
   if (Solver == Data::LCP::Algorithms::PATH &&
@@ -733,11 +788,17 @@ ZEROStatus Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
 		LCP->setMIPFeasibilityObjective();
 	 }
   }
-  arma::vec x, z;
 
-  auto LCPSolver = LCP->solve(Solver, x, z, localTimeLimit, 1, 1);
+  // Try to warm-start with the previous solution.
+  arma::vec x   = this->xLast;
+  arma::vec z   = this->zLast;
+  double    obj = -GRB_INFINITY;
+
+  auto LCPSolver = LCP->solve(Solver, x, z, localTimeLimit, 1, obj);
   if (LCPSolver == ZEROStatus::NashEqFound) {
 	 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumLCP: an Equilibrium has been found";
+
+	 // Record the primal-dual solution and reset feasibility and pure-flag
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
 		this->Players.at(i)->Incumbent = x.subvec(Nash.getPrimalLoc(i), Nash.getPrimalLoc(i + 1) - 1);
 		this->Players.at(i)->DualIncumbent = x.subvec(Nash.getDualLoc(i), Nash.getDualLoc(i + 1) - 1);
@@ -745,11 +806,16 @@ ZEROStatus Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
 		this->Players.at(i)->Pure          = false;
 	 }
 
+	 // Compute the payoffs
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
 		this->Players.at(i)->Payoff = this->IPG->PlayersIP.at(i)->computeObjective(
 			 this->Players.at(i)->Incumbent, this->buildXminusI(i), false);
 	 }
 
+	 // Record the last responses
+	 this->xLast   = x;
+	 this->zLast   = z;
+	 this->objLast = obj;
 	 return ZEROStatus::NashEqFound;
 
   } else if (LCPSolver == ZEROStatus::Numerical) {
@@ -766,13 +832,15 @@ void Algorithms::IPG::Oracle::initialize() {
 	* @brief This method initializes some fields for the algorithm. Also, it warm starts the
 	* initial strategies to pure best responses.
 	*/
-  if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0)
-	 this->IPG->Stats.NumIterations.set(0);
 
+  // Set the number of iterations to zero.
+  this->IPG->Stats.NumIterations.set(0);
+
+  // Create the IPG_Player-s objects
   this->Players = std::vector<std::unique_ptr<IPG_Player>>(this->IPG->NumPlayers);
-  // Initialize the working objects
+  // Initialize the working objects with respective values
   for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
-	 // Initialize the object
+	 // Initialize the IPG_Player
 	 this->Players.at(i) =
 		  std::make_unique<IPG_Player>(this->IPG->PlayersIP.at(i)->getNy(), this->Tolerance);
 	 // Add the working IP
@@ -784,13 +852,16 @@ void Algorithms::IPG::Oracle::initialize() {
   }
 
 
+  // Initialize some "educated" guesses as best responses.
   this->initializeEducatedGuesses();
+  // Reset cuts statistics
   this->Cuts = {std::pair<std::string, int>("Value", 0),
 					 std::pair<std::string, int>("VPoly", 0),
 					 std::pair<std::string, int>("MIR", 0),
 					 std::pair<std::string, int>("GMI", 0),
 					 std::pair<std::string, int>("KP", 0)};
   this->IPG->Stats.AlgorithmData.Cuts.set(this->Cuts);
+  // Initialize the LCP objectives for further use.
   this->initLCPObjective();
 }
 
@@ -800,8 +871,8 @@ arma::vec Algorithms::IPG::Oracle::buildXminusI(const unsigned int i) {
 	* @brief Given the player id @p i, builds the vector x^{-i} from the current working
 	* strategies.
 	*/
-  arma::vec xMinusI;
-  xMinusI.zeros(this->IPG->NumVariables - this->IPG->PlayerVariables.at(i));
+  // The size of xMinusI is all the variables minus the ones of i.
+  arma::vec xMinusI(this->IPG->NumVariables - this->IPG->PlayerVariables.at(i), arma::fill::zeros);
   unsigned int counter = 0;
   for (unsigned int j = 0; j < this->IPG->NumPlayers; ++j) {
 	 if (i != j) {
@@ -813,66 +884,103 @@ arma::vec Algorithms::IPG::Oracle::buildXminusI(const unsigned int i) {
   return xMinusI;
 }
 
-unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player, int maxCuts) {
+unsigned int
+Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player, int maxCuts, bool rootNode) {
+  /**
+	* @brief Given a player @p player, a number of maximum cuts to generate @maxcuts and a bool
+	* @rootNode, this method generates some valid inequalities for the @p player 's integer program.
+	* This method uses Coin-OR CGL. So far, Knapsack covers, GMI and MIR inequalities are used. Also,
+	* note that there is no recursive cut generation (meaning, we do not generate cuts from a
+	* previous cutpool) as to better manage numerical stability.
+	*/
 
-  auto xOfI     = this->Players.at(player)->Incumbent;
-  auto xOfIDual = this->Players.at(player)->DualIncumbent;
-  auto xMinusI  = this->buildXminusI(player);
 
-  arma::vec objective = (this->Players.at(player)->ParametrizedIP->getC() * xMinusI) +
-								this->Players.at(player)->ParametrizedIP->getc();
+  auto      xOfI     = this->Players.at(player)->Incumbent;
+  auto      xOfIDual = this->Players.at(player)->DualIncumbent;
+  auto      xMinusI  = this->buildXminusI(player);
+  arma::vec objective;
+
+  if (rootNode) {
+	 objective = this->Players.at(player)->ParametrizedIP->getc();
+  } else {
+	 objective = (this->Players.at(player)->ParametrizedIP->getC() * xMinusI) +
+					 this->Players.at(player)->ParametrizedIP->getc();
+  }
 
 
   auto CoinModel = this->Players.at(player)->CoinModel;
 
-  auto numVars    = xOfI.size();
-  auto numConstrs = this->Players.at(player)->ParametrizedIP->getB(false).n_rows;
-  // auto numConstrs = this->IPG->PlayersIP.at(player)->getB(false).n_rows;
+  auto numVars = this->Players.at(player)->ParametrizedIP->getB(false).n_cols;
+  /******RECURSIVE CUT GENERATION********
+  Uncomment this to enable recursive cut generation. In general, not a good idea for numerical
+  stability auto numConstrs = this->Players.at(player)->ParametrizedIP->getB(false).n_rows;
+  *******RECURSIVE CUT GENERATION********/
+  auto numConstrs = this->IPG->PlayersIP.at(player)->getB(false).n_rows;
+
+
+  // Empty objects, for root node cuts
+  if (rootNode) {
+	 xOfI.zeros(numVars);
+	 xOfIDual.zeros(numConstrs);
+  }
 
   auto primal = new double[numVars];
   auto dual   = new double[numConstrs];
   auto c      = new double[numVars];
 
   for (unsigned int i = 0; i < numVars; ++i) {
-	 c[i]      = objective.at(i);
-	 primal[i] = xOfI.at(i);
+	 c[i] = objective.at(i);
+	 if (!rootNode)
+		primal[i] = xOfI.at(i);
   }
-  for (unsigned int i = 0; i < numConstrs; ++i)
-	 dual[i] = xOfIDual.at(i);
+  for (unsigned int i = 0; i < numConstrs; ++i) {
+	 if (!rootNode)
+		dual[i] = xOfIDual.at(i);
+  }
 
 
   CoinModel->setObjective(c);
-  CoinModel->setColSolution(primal);
-  CoinModel->setRowPrice(dual);
+  if (!rootNode) {
+	 CoinModel->setColSolution(primal);
+	 CoinModel->setRowPrice(dual);
+  }
 
+
+  //******DEBUG********
   // CoinModel->writeLp("CoinModel");
   // this->IPG->PlayersIP.at(player)->getIPModel(xMinusI)->write("GurobiModel.lp");
+  //******DEBUG********
 
   try {
 	 CoinModel->solveFromSol();
 
-	 auto solCheck = CoinModel->getColSolution();
-	 // std::cout << "\n Primal \n";
-	 for (unsigned int i = 0; i < numVars; ++i) {
-		// std::cout << primal[i] << " vs " << solCheck[i] << "\n";
-		if (std::abs(primal[i] - solCheck[i]) > 1e-3)
-		  throw;
-	 }
+	 if (!rootNode) {
+		auto solCheck = CoinModel->getColSolution();
+		for (unsigned int i = 0; i < numVars; ++i) {
+		  if (std::abs(primal[i] - solCheck[i]) > 1e-3)
+			 throw;
+		}
 
 
-	 // std::cout << "\n Dual \n";
-	 solCheck = CoinModel->getRowPrice();
-	 for (unsigned int i = 0; i < numConstrs; ++i) {
-		// std::cout << dual[i] << " vs " << solCheck[i] << "\n";
-		if (std::abs(dual[i] - solCheck[i]) > 1e-3)
-		  throw;
+		solCheck = CoinModel->getRowPrice();
+		for (unsigned int i = 0; i < numConstrs; ++i) {
+		  if (std::abs(dual[i] - solCheck[i]) > 1e-3)
+			 throw;
+		}
 	 }
 
 	 auto        candidateCuts = new OsiCuts;
 	 CglTreeInfo info          = CglTreeInfo();
-	 info.inTree               = false;
-	 info.options              = 4;
-	 info.pass                 = 0;
+	 if (rootNode) {
+		//@todo Check
+		info.inTree  = false;
+		info.options = 8;
+		info.pass    = 0;
+	 } else {
+		info.inTree  = false;
+		info.options = 4;
+		info.pass    = 0;
+	 }
 
 
 	 CglKnapsackCover kpGen;
@@ -881,7 +989,10 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player, 
 	 kpGen.setAggressiveness(100);
 	 kpGen.switchOnExpensive();
 	 kpGen.generateCuts(*CoinModel, *KPs, info);
+
+	 //******DEBUG********
 	 // KPs->printCuts();
+	 //******DEBUG********
 
 
 	 //@todo: unfortunately, it seems that Cgl generates some "invalid" KP covers with support of 1.
@@ -891,17 +1002,17 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player, 
 		  candidateCuts->insert(KPs->rowCut(i));
 
 
-    CglMixedIntegerRounding MIRGen;
-    auto                    MIRs = new OsiCuts;
-    MIRGen.setGlobalCuts(true);
-    MIRGen.setAggressiveness(100);
-    MIRGen.setDoPreproc(1);
-    MIRGen.setMAXAGGR_(100);
-    MIRGen.generateCuts(*CoinModel, *MIRs, info);
+	 CglMixedIntegerRounding MIRGen;
+	 auto                    MIRs = new OsiCuts;
+	 MIRGen.setGlobalCuts(true);
+	 MIRGen.setAggressiveness(100);
+	 MIRGen.setDoPreproc(1);
+	 MIRGen.setMAXAGGR_(100);
+	 MIRGen.generateCuts(*CoinModel, *MIRs, info);
 
 
-    for (int(i) = 0; (i) < MIRs->sizeCuts(); ++(i))
-	   if (MIRs->rowCut(i).globallyValid())
+	 for (int(i) = 0; (i) < MIRs->sizeCuts(); ++(i))
+		if (MIRs->rowCut(i).globallyValid())
 		  candidateCuts->insert(MIRs->rowCut(i));
 
 	 CglGMI GMIGen;
@@ -919,24 +1030,33 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player, 
 		  candidateCuts->insert(GMIs->rowCut(i));
 
 
-	 // Min cuts
-	 auto         numCuts = std::min(candidateCuts->sizeCuts(), maxCuts);
-	 arma::sp_mat LHS(numCuts, numVars);
-	 LHS.zeros();
+
+	 // Sort by effectiveness
+	 candidateCuts->sort();
+	 // Minimum among the candidate cuts and the maximum number of cuts
+	 auto numCuts = std::min(candidateCuts->sizeCuts(), maxCuts);
+
+	 // The final cut matrix and RHS.
+	 arma::sp_mat LHS;
+	 LHS.zeros(numCuts, numVars);
 	 arma::vec RHS(numCuts, arma::fill::zeros);
 
-	 int newNumCuts = 0;
-	 for (int i = 0; i < candidateCuts->sizeCuts() && i < maxCuts; ++i) {
+	 // Iterate over the candidate cuts (in max numCuts iterations), sorted by efficacy
+	 for (int i = 0; i < numCuts; ++i) {
+		// Get the cut
 		auto cut = candidateCuts->rowCut(i);
-		newNumCuts++;
-		auto row     = cut.row();
-		auto indices = row.getIndices();
-
+		// Get the row from the cut
+		auto row = cut.row();
+		// Get the indices and the elements
+		auto indices  = row.getIndices();
 		auto elements = row.getElements();
+
+		// Iterate over the elements to get the index-value pair
 		for (int j = 0; j < row.getNumElements(); j++)
 		  LHS.at(i, indices[j]) = elements[j];
 
 
+		// Discern among the cut senses
 		auto sense = cut.sense();
 		switch (cut.sense()) {
 		case 'E': {
@@ -967,15 +1087,17 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player, 
 		}
 	 }
 
-	 if (newNumCuts > 0) {
-		LHS.resize(newNumCuts, numVars);
-		RHS.resize(newNumCuts);
+	 // If we got some new cuts, add them to the working integer program
+	 if (numCuts > 0) {
+		// Add the cuts
 		this->Players.at(player)->addCuts(LHS, RHS);
+		// Update the statistics
 		this->Cuts.at(2).second += MIRs->sizeCuts();
 		this->Cuts.at(4).second += KPs->sizeCuts();
 		this->Cuts.at(3).second += GMIs->sizeCuts();
-	   LOG_S(INFO) << "Algorithms::IPG::Oracle::externalCutGenerator: (P" << player << ") Added " << newNumCuts << " and generated: "
-	               << MIRs->sizeCuts() << "  MIRs  - "<< KPs->sizeCuts() << "  KPs - "<<GMIs->sizeCuts() << "  GMIs.";
+		LOG_S(INFO) << "Algorithms::IPG::Oracle::externalCutGenerator: (P" << player << ") Added "
+						<< numCuts << " and generated: " << MIRs->sizeCuts() << "  MIRs  - "
+						<< KPs->sizeCuts() << "  KPs - " << GMIs->sizeCuts() << "  GMIs.";
 	 } else {
 		LOG_S(INFO) << "Algorithms::IPG::Oracle::externalCutGenerator: (P" << player
 						<< ") No cuts added.";
@@ -985,20 +1107,21 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player, 
 	 throw ZEROException(ZEROErrorCode::SolverError,
 								"Invalid Coin-OR interface response: " + e.message());
   }
-
-
   return 0;
 }
+
 void Algorithms::IPG::Oracle::initializeEducatedGuesses() {
 
 
   // Reset the working strategies to a pure strategy given by the IP
   // Push back the IP_Param copies in WorkingIPs
+
+  // For any player
   for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
-	 unsigned int Ny = this->IPG->PlayerVariables.at(i); // Equals to Ny by definition
 
-
-
+	 // Equals to NumVarsI by definition
+	 unsigned int NumVarsI = this->IPG->PlayerVariables.at(i);
+	 // xMinusI
 	 arma::vec xMinusI = this->buildXminusI(i);
 	 // Update working strategies with "educated guesses"
 	 auto PureIP = this->IPG->PlayersIP.at(i)->getIPModel(xMinusI, false);
@@ -1013,30 +1136,28 @@ void Algorithms::IPG::Oracle::initializeEducatedGuesses() {
 		// Model is not infeasible. We can have either a ray or a vertex
 		if (status == GRB_OPTIMAL) {
 		  // We have a vertex
-		  for (unsigned int k = 0; k < Ny; ++k)
+		  for (unsigned int k = 0; k < NumVarsI; ++k)
 			 this->Players.at(i)->Incumbent.at(k) =
 				  PureIP->getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_X);
-		  // This is also a f
 
 		  this->Players.at(i)->addVertex(this->Players.at(i)->Incumbent, false);
-		  LOG_S(2) << "Algorithms::IPG::Oracle::initializeEducatedGuesses(): "
-						  "Added vertex for player "
-					  << i;
+		  LOG_S(2) << "Algorithms::IPG::Oracle::initializeEducatedGuesses: (P" << i
+					  << ") Adding a vertex.";
 		}
 
 		else if (status == GRB_UNBOUNDED) {
+		  // Relax and get the ray
 		  GRBModel relaxed = PureIP->relax();
 		  relaxed.set(GRB_IntParam_InfUnbdInfo, 1);
 		  relaxed.set(GRB_IntParam_DualReductions, 0);
 		  relaxed.optimize();
-		  arma::vec ray;
-		  for (unsigned int k = 0; k < Ny; ++k) {
+		  arma::vec ray(NumVarsI, arma::fill::zeros);
+		  for (unsigned int k = 0; k < NumVarsI; ++k) {
 			 ray.at(k) = relaxed.getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_UnbdRay);
-			 // This is also a free ray
+
 			 this->Players.at(i)->addRay(ray, false);
-			 LOG_S(2) << "Algorithms::IPG::Oracle::initializeEducatedGuesses(): "
-							 "Added ray for player "
-						 << i;
+			 LOG_S(2) << "Algorithms::IPG::Oracle::initializeEducatedGuesses():  (P" << i
+						 << ") Adding a ray";
 		  }
 		}
 
@@ -1049,8 +1170,13 @@ void Algorithms::IPG::Oracle::initializeEducatedGuesses() {
   }
 }
 void Algorithms::IPG::Oracle::initializeCoinModel(const unsigned int player) {
+  /**
+	* @brief This method builds the Coin-OR model used in Oracle::externalCutGenerator for the given
+	* player
+	* @param player The player's id
+	*/
 
-  // Note that we may have added other cuts... So we keep just the last incumbent
+  // Source the main ingredients. Avoid getting B with bounds, since we already have the raw bounds.
   auto IP_B          = this->Players.at(player)->ParametrizedIP->getB(false);
   auto IP_Bounds     = this->Players.at(player)->ParametrizedIP->getBounds();
   auto IP_b          = this->Players.at(player)->ParametrizedIP->getb(false);
@@ -1059,11 +1185,15 @@ void Algorithms::IPG::Oracle::initializeCoinModel(const unsigned int player) {
   auto IP_numConstrs = IP_B.n_rows;
 
 
-  auto B  = Utils::armaToCoinSparse(IP_B);
+  // Convert B
+  auto B = Utils::armaToCoinSparse(IP_B);
+  // Double objects
   auto c  = new double[IP_numVars];
   auto b  = new double[IP_numConstrs];
   auto lb = new double[IP_numVars];
   auto ub = new double[IP_numVars];
+
+  // Filling stage
   for (unsigned int i = 0; i < IP_numVars; ++i) {
 	 c[i]  = 0;
 	 lb[i] = IP_Bounds.at(i).first > 0 ? IP_Bounds.at(i).first : 0;
@@ -1072,14 +1202,20 @@ void Algorithms::IPG::Oracle::initializeCoinModel(const unsigned int player) {
   for (unsigned int i = 0; i < IP_numConstrs; ++i)
 	 b[i] = IP_b.at(i);
 
+  // Solver interface
   auto CoinModel = new OsiGrbSolverInterface();
   auto GRBEnvPtr = CoinModel->getEnvironmentPtr();
+  // Remember to use the same number of threads...
   GRBsetintparam(CoinModel->getEnvironmentPtr(), "Threads", this->Env->get(GRB_IntParam_Threads));
+  // Load the problem from the given objects
   CoinModel->loadProblem(B, lb, ub, c, nullptr, b);
+  // Set the integer variables
   for (unsigned int i = 0; i < IP_Integers.size(); ++i)
 	 CoinModel->setInteger(IP_Integers.at(i));
 
 
+  // Reset the log level to zero
   CoinModel->messageHandler()->setLogLevel(0);
+  // Move to the target Player
   this->Players.at(player)->CoinModel = std::make_shared<OsiGrbSolverInterface>(*CoinModel);
 }
