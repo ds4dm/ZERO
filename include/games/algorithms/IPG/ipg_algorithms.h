@@ -29,11 +29,11 @@ namespace Algorithms {
 		double     Tolerance = 1e-6;  ///< The numeric tolerance
 
 	 public:
-		virtual void solve()          = 0; ///< A method to solve the EPEC
-		virtual bool isSolved() const = 0; ///< A method to check whether the EPEC is solved or not,
+		virtual void solve()          = 0; ///< A method to solve IPGs
+		virtual bool isSolved() const = 0; ///< A method to check whether the IPG is solved or not,
 		///< given a numerical tolerance
 		virtual bool
-		isPureStrategy() const = 0; ///< A method to check whether the EPEC solution is a pure
+		isPureStrategy() const = 0; ///< A method to check whether the IPG solution is a pure
 		///< equilibrium or not, given a numerical tolerance
 		double getTol() const { return Tolerance; }
 
