@@ -529,24 +529,32 @@ arma::vec Utils::normalizeVec(const arma::vec &v) { return v / arma::max(arma::a
 
 /**
  * Normalizes an inequality according to the "equilibrium normalization". Namely, we divide for
- * the largest absolute value among the elements of the lhs and the rhs.
+ * the largest absolute value among the elements of the lhs and the rhs. If the ration between the
+ * largest non-zero and the smallest non-zero (in abs) is greater than 1e2, we normalize with the
+ * former.
  * @p rhs is the input and output RHS value
  * @p lhs is the input and output LHS
  */
 void Utils::normalizeIneq(arma::vec &lhs, double &rhs, bool force) {
+  // lhs.print("Input with RHS="+std::to_string(rhs));
   arma::vec abs  = arma::abs(lhs);
   double    norm = abs.max();
   for (auto &elem : abs) {
 	 if (std::abs(elem) < norm && elem != 0)
 		norm = std::abs(elem);
   }
-  if ((abs.max() / norm > 1e2) || force) {
+  double ratio = abs.max() / norm;
+  if ((ratio > 1e2) || force) {
 	 LOG_S(5) << "Utils::normalizeIneq:  normalizing inequality.";
+	 // Force this for very bad inequalities with too much of range...
+	 if (ratio > 1e2)
+		norm = abs.max();
+
 	 assert(norm != 0);
 	 rhs = rhs / norm;
 	 lhs = lhs / norm;
   }
-  //lhs.print("Normalized with RHS="+std::to_string(rhs));
+  // lhs.print("Normalized with RHS="+std::to_string(rhs));
 }
 
 /**
@@ -631,4 +639,19 @@ int Utils::vecToBin(const arma::vec &x) {
   }
 
   return output;
+}
+int Utils::nonzeroDecimals(const double num, const int decimalBound) {
+
+  double integral = 0;
+  // Take the fractional
+  modf(num, &integral);
+  double fractional = num - integral;
+  int    count      = 0;
+
+  for (unsigned int i = 0; i < decimalBound; ++i) {
+	 fractional *= 10;
+	 if (static_cast<long>(fractional) % 10 != 0)
+		++count;
+  }
+  return count;
 }

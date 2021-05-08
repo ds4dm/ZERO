@@ -115,7 +115,7 @@ namespace Utils {
   std::vector<CoinPackedVector> armaToCoinPackedVector(const arma::sp_mat &A);
   std::string      printBounds(const VariableBounds &bounds);
   arma::vec        normalizeVec(const arma::vec &v);
-  void             normalizeIneq(arma::vec &lhs, double &rhs, bool force = false);
+  void                          normalizeIneq(arma::vec &lhs, double &rhs, bool force);
   double           round_nplaces(const double &value, const double &tol = 1e-6);
   void             addSparseConstraints(const arma::sp_mat &A,
 													 const arma::vec &   b,
@@ -126,6 +126,7 @@ namespace Utils {
 													 GRBVar *            z);
   arma::sp_mat resizePatch(const arma::sp_mat &mat, const unsigned int nR, const unsigned int nC);
   int          vecToBin(const arma::vec &x);
+  int nonzeroDecimals(const double num, const int decimalBound=6);
 } // namespace Utils
 
 // namespace Utils
