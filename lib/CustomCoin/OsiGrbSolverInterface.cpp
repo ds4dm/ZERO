@@ -2328,7 +2328,7 @@ void OsiGrbSolverInterface::setColSolution(const double *cs) {
 	 // Copy in new col solution.
 	 CoinDisjointCopyN(cs, nc, colsol_);
 
-	 //*messageHandler() << "OsiGrb::setColSolution: Gurobi does not allow setting the column
+	 //*messageHandler() << "CustomCoin::setColSolution: Gurobi does not allow setting the column
 	 // solution. Command is ignored." << CoinMessageEol;
   }
 }
@@ -3442,7 +3442,7 @@ void OsiGrbSolverInterface::setEnvironment(GRBenv *globalenv) {
   if (numInstances_) {
 	 assert(globalenv_);
 	 throw CoinError(
-		  "Cannot set global GUROBI environment, since some OsiGrb instance is still using it.",
+		  "Cannot set global GUROBI environment, since some CustomCoin instance is still using it.",
 		  "setEnvironment",
 		  "OsiGrbSolverInterface",
 		  __FILE__,

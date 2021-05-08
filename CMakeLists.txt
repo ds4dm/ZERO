@@ -47,6 +47,7 @@ set(ZERO_DEP_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib")
 set(GUROBI_DIR "/home/gurobi/9.1.1/linux64/" "/Library/gurobi910/mac64" "C:\\dev\\gurobi900\\win64")
 set(PATH_DIR "${ZERO_DEP_DIR}/path")
 set(CONDA_ENV "${ZERO_DEP_DIR}/conda")
+set(COIN_HINT "${CONDA_ENV}")
 set(SCIP_ROOT_DIR "${CONDA_ENV}" )
 
 # Get Conda
@@ -76,8 +77,8 @@ find_package(Armadillo REQUIRED HINTS ${CONDA_ENV} PATHS ${CONDA_ENV} NO_DEFAULT
 find_package(Coin REQUIRED)
 # Scip
 #find_package(SCIP REQUIRED)
-# OsiGrb
-include(cmake/InstallOsiGrb.cmake)
+# CustomCoin
+include(cmake/InstallCustomCoin.cmake)
 
 # Update flags on Conda, loguru, and Armadillo
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} $ENV{DEBUG_CXXFLAGS} $ENV{DEBUG_CPPFLAGS} -DARMA_NO_DEBUG")
@@ -118,7 +119,7 @@ target_link_libraries(
         ZERO
         PRIVATE blas lapack pthread m ${LUSOL_LIBRARY} ${PATH_LIBRARY} ${CMAKE_DL_LIBS}
         PUBLIC ${ARMADILLO_LIBRARIES} ${GUROBI_LIBRARY} ${GUROBI_CXX_LIBRARY}
-        ${COIN_UTILS} ${COIN_CGL}  ${COIN_OSI} libOsiGrb)
+        ${COIN_UTILS} ${COIN_CGL}  ${COIN_OSI} libCustomCoin)
 target_include_directories(
         ZERO
         PUBLIC ${GUROBI_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/include

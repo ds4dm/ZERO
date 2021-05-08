@@ -774,7 +774,7 @@ private:
   //@{
   /// Gurobi environment pointer
   static GRBenv *globalenv_;
-  /// whether OsiGrb has created the global environment (and thus should free it)
+  /// whether CustomCoin has created the global environment (and thus should free it)
   static bool globalenv_is_ours;
   /// Number of instances using the global Gurobi environment
   static unsigned int numInstances_;
