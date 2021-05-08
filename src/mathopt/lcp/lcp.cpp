@@ -152,9 +152,8 @@ MathOpt::LCP::LCP(GRBEnv *env, const Game::NashGame &N) : RelaxedModel(*env) {
   this->M     = M_local;
   this->q     = q_local;
   this->Compl = Compl_local;
-  //@todo. So far, bounds are switched off. Otherwise, we would have an MCP.
-  // Check that correct bounds are reported in the Nash Game.
-  // this->BoundsX = NashBounds;
+  //@todo. Check that you have anyway the bounds in the Nash game...
+  this->BoundsX = NashBounds;
   if (this->BoundsX.size() < this->M.n_cols)
 	 for (unsigned int i = this->BoundsX.size(); i < this->M.n_cols; ++i)
 		this->BoundsX.push_back({0, -1});
