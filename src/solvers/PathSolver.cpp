@@ -131,14 +131,25 @@ int Solvers::PATH::CreateLMCP(int    n,
 	 Options_SetBoolean(o, "output_major_iterations", False);
 	 Options_SetBoolean(o, "output_minor_iterations", False);
 	 Options_SetBoolean(o, "output_options", False);
+	 Options_SetBoolean(o, "output_warnings", False);
   }
   if (timeLimit > 0)
 	 Options_SetDouble(o, "time_limit", timeLimit);
 
 
-  Options_SetInt(o, "cumulative_iteration_limit", 100000);
-  Options_SetInt(o, "major_iteration_limit", 20000);
-  Options_SetInt(o, "minor_iteration_limit", 50000);
+  Options_SetInt(o, "cumulative_iteration_limit", 4e6);
+  Options_SetInt(o, "major_iteration_limit", 1e6);
+  Options_SetInt(o, "minor_iteration_limit", 1e5);
+  Options_SetInt(o, "crash_iteration_limit", 5e2);
+  Options_SetInt(o, "nms_memory_size", 1e2);
+  Options_SetInt(o, "lemke_rank_deficiency_iterations", 1e2);
+  // Very important!
+  Options_Set(o, "lemke_start_type advanced");
+  Options_SetInt(o, "nms_initial_reference_factor", 10);
+  Options_SetBoolean(o, "crash_perturb", True);
+  Options_SetDouble(o, "proximal_perturbation", 1);
+  Options_SetInt(o, "crash_nbchange_limit", 50);
+  Options_SetDouble(o, "convergence_tolerance", 1e-6);
 
 
 
@@ -204,8 +215,8 @@ int Solvers::PATH::CreateLMCP(int    n,
   Information info;
   if (verbose != 0)
 	 info.generate_output = Output_Log | Output_Status | Output_Listing;
-  info.use_start  = True;
-  info.use_basics = True;
+  info.use_start  = False;
+  info.use_basics = False;
 
   try {
 	 termination = Path_Solve(m, &info);
@@ -266,6 +277,8 @@ Solvers::PATH::PATH(const arma::sp_mat &  M,
   int n   = 0;
   int nnz = 0;
 
+  // M.save("LCP_M.dat", arma::csv_ascii);
+  // q.save("LCP_q.dat",arma::csv_ascii);
 
   this->Filled = false;
   std::vector<double> _q, _Mij, _lb, _ub, _xsol, _zsol;
@@ -299,9 +312,6 @@ Solvers::PATH::PATH(const arma::sp_mat &  M,
 		  _ub.push_back(ub >= 0 ? ub : 1e20); // PATH will treat 1e20 as infinite
 
 		  _q.push_back(q.at(p.first));
-		  // std::cout << "\t+" + std::to_string(q.at(p.first)) + "\t\tPERP" <<
-		  // std::to_string(p.second)
-		  //			<< "\n\n";
 		  _xmap.push_back(p.second);
 		  _zmap.push_back(p.first);
 
@@ -323,12 +333,14 @@ Solvers::PATH::PATH(const arma::sp_mat &  M,
   }
 
   int stat = 0;
+  /*
   _Mi.push_back(0);
   _Mj.push_back(0);
   _Mij.push_back(0);
   _q.push_back(0);
   _lb.push_back(0);
   _ub.push_back(0);
+	*/
 
   try {
 	 stat = this->CreateLMCP(n,
@@ -573,6 +585,6 @@ int Solvers::PATH::jacobian_evaluation(void *  dat,
  * @return
  */
 void *Solvers::PATH::messageCB(void *dat, int mode, char *buf) {
-  std::cout << buf;
+  // std::cout << buf;
   return dat;
 }
