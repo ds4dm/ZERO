@@ -17,8 +17,8 @@
 #include "coin/CoinPackedMatrix.hpp"
 #include "coin/OsiGrbSolverInterface.hpp"
 #include "coin/OsiSolverInterface.hpp"
-#include <CglClique.hpp>
 #include <CglMixedIntegerRounding.hpp>
+#include <CglSimpleRounding.hpp>
 #include <memory>
 
 bool Algorithms::IPG::IPG_Player::addVertex(const arma::vec &vertex, const bool checkDuplicate) {
@@ -143,8 +143,8 @@ bool Algorithms::IPG::Oracle::addValueCut(unsigned int     player,
 	 if (this->externalCutGenerator(player, 1, false, true) != 0) {
 		return true;
 	 }
-	 //Force normalization, in case it wasn't before.
-    Utils::normalizeIneq(LHS, RHS, true);
+	 // Force normalization, in case it wasn't before.
+	 Utils::normalizeIneq(LHS, RHS, true);
 	 LOG_S(0) << "Algorithms::IPG::Oracle::addValueCut: "
 					 "WARNING: Cannot generate another cut. Adding normalized value-cut.";
   }
@@ -235,13 +235,8 @@ void Algorithms::IPG::Oracle::solve() {
   }
 
   for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
-	 //@todo
 	 if (MIPCuts) {
 		LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: Adding root cuts.";
-		//******DEBUG********
-		//@todo
-		//  this->Players.at(i)->ParametrizedIP->presolve();
-		//******DEBUG********
 		this->externalCutGenerator(i, 5, true, false);
 	 }
   }
@@ -678,7 +673,7 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 		if (leaderStatus == GRB_OPTIMAL || (leaderStatus == GRB_SUBOPTIMAL && numSols > 0)) {
 
 		  //@todo <numSols or 1?
-		  for (int s = 0; s < numSols; ++s) {
+		  for (int s = 0; s < 1; ++s) {
 			 playerModel->set(GRB_IntParam_SolutionNumber, s);
 
 			 // The separating hyperplane plane evaluated at xOfI
@@ -868,6 +863,8 @@ void Algorithms::IPG::Oracle::initialize() {
 	 // Initialize the IPG_Player
 	 this->Players.at(i) =
 		  std::make_unique<IPG_Player>(this->IPG->PlayersIP.at(i)->getNy(), this->Tolerance);
+	 //@todo be aware of variables' changes in presolve
+    this->IPG->PlayersIP.at(i)->presolve();
 	 // Add the working IP
 	 auto WorkingIP                      = new MathOpt::IP_Param(*this->IPG->PlayersIP.at(i).get());
 	 this->Players.at(i)->ParametrizedIP = std::make_shared<MathOpt::IP_Param>(*WorkingIP);
@@ -971,9 +968,8 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player,
 
 
   //******DEBUG********
-  //@todo
-  CoinModel->writeLp("CoinModel");
-  this->IPG->PlayersIP.at(player)->getIPModel(xMinusI)->write("GurobiModel.lp");
+  //CoinModel->writeLp("CoinModel");
+  //this->IPG->PlayersIP.at(player)->getIPModel(xMinusI)->write("GurobiModel.lp");
   //******DEBUG********
 
   try {
@@ -996,16 +992,16 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player,
 
 	 auto        candidateCuts = new OsiCuts;
 	 CglTreeInfo info          = CglTreeInfo();
-	 if (rootNode) {
+	 /*if (rootNode) {
 		//@todo Check
 		info.inTree  = false;
 		info.options = 4;
 		info.pass    = 0;
 	 } else {
-		info.inTree  = false;
-		info.options = 4;
-		info.pass    = 0;
-	 }
+	  */
+	 info.inTree  = false;
+	 info.options = 4;
+	 info.pass    = 0;
 
 
 	 CglKnapsackCover kpGen;
@@ -1018,23 +1014,6 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player,
 	 for (int(i) = 0; (i) < KPs->sizeCuts(); ++(i))
 		if (KPs->rowCut(i).globallyValid())
 		  candidateCuts->insert(KPs->rowCut(i));
-
-
-	 /*
-    CglCliqueStrengthening cliqueGen;
-	 auto             CQs = new OsiCuts;
-	 cliqueGen.setGlobalCuts(true);
-	 cliqueGen.setAggressiveness(100);
-	 cliqueGen.setDoRowClique(true);
-	 cliqueGen.generateCuts(*CoinModel, *KPs, info);
-
-
-
-	 for (int(i) = 0; (i) < CQs->sizeCuts(); ++(i))
-		if (CQs->rowCut(i).globallyValid())
-		  candidateCuts->insert(CQs->rowCut(i));
-		  */
-
 
 
 	 CglMixedIntegerRounding MIRGen;
@@ -1077,6 +1056,19 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player,
 
 
 	 if (cutOff) {
+		// Why not trying a simple rounding?
+
+		CglSimpleRounding roundGen;
+		auto              ROUNDs = new OsiCuts;
+		roundGen.setAggressiveness(100);
+		GMIGen.generateCuts(*CoinModel, *ROUNDs, info);
+
+
+		for (int(i) = 0; (i) < ROUNDs->sizeCuts(); ++(i))
+		  if (ROUNDs->rowCut(i).globallyValid())
+			 candidateCuts->insert(ROUNDs->rowCut(i));
+
+
 		// We need to be sure to get only the cuts that are actively cutting off the solution.
 		for (int i = 0; i < candidateCuts->sizeCuts(); ++i) {
 		  // Check if we have a violation. Otherwise, erase the cut.

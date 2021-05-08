@@ -196,12 +196,12 @@ std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(const arma::vec &x, bool
  * @param _integers A vector containing the indexes of integer variables
  * @return A pointer to this
  */
-MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &C,
-														const arma::sp_mat &B,
-														const arma::vec &   b,
-														const arma::vec &   c,
-														const arma::vec &   _integers,
-														const VariableBounds &    _Bounds) {
+MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &  C,
+														const arma::sp_mat &  B,
+														const arma::vec &     b,
+														const arma::vec &     c,
+														const arma::vec &     _integers,
+														const VariableBounds &_Bounds) {
   if (_integers.is_empty())
 	 throw ZEROException(ZEROErrorCode::InvalidData,
 								"Invalid vector of Integers. Refer to MP_Param is no "
@@ -476,8 +476,20 @@ void MathOpt::IP_Param::presolve() {
   this->B         = pre_B;
   this->Finalized = false;
 
-  LOG_S(1) << "MathOpt::IP_Param::presolve: done.";
+  // Reset the model.
+  auto _constrs   = IPModel.getConstrs();
+  auto _vars      = IPModel.getVars();
+  auto numVars    = IPModel.get(GRB_IntAttr_NumVars);
+  auto numConstrs = IPModel.get(GRB_IntAttr_NumConstrs);
+  for (unsigned i = 0; i < numConstrs; ++i)
+	 IPModel.remove(_constrs[i]);
+  for (unsigned i = 0; i < numVars; ++i)
+	 IPModel.remove(_vars[i]);
+  IPModel.reset(1);
+  IPModel.update();
   this->finalize();
+
+  LOG_S(1) << "MathOpt::IP_Param::presolve: done.";
 }
 
 
