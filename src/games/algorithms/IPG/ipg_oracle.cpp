@@ -17,6 +17,7 @@
 #include "coin/CoinPackedMatrix.hpp"
 #include "coin/OsiGrbSolverInterface.hpp"
 #include "coin/OsiSolverInterface.hpp"
+#include <CglClique.hpp>
 #include <CglMixedIntegerRounding.hpp>
 #include <memory>
 
@@ -116,14 +117,37 @@ bool Algorithms::IPG::Oracle::addValueCut(unsigned int     player,
 	*/
 
 
-  // Remember the minus sign here
+
+  //******DEBUG********
+  // this->Players.at(player)->Incumbent.print("Incumbent of I");
+  // xMinusI.print("xMinusI");
+  // this->IPG->PlayersIP.at(player)->getc().print("cOfI");
+  // this->IPG->PlayersIP.at(player)->getC().print_dense("CofI");
+  //******DEBUG********
+
 
   arma::vec LHS = -(this->IPG->PlayersIP.at(player)->getc() +
 						  this->IPG->PlayersIP.at(player)->getC() * xMinusI);
 
+  //******DEBUG********
+  // LHS.impl_raw_print("LHS with RHS=" + std::to_string(-RHS));
+  //******DEBUG********
+  Utils::normalizeIneq(LHS, RHS, false);
+  //******DEBUG********
+  // LHS.impl_raw_print("LHS with RHS=" + std::to_string(-RHS));
+  //******DEBUG********
 
-  //@todo
-  Utils::normalizeIneq(LHS, RHS, true);
+  if (Utils::nonzeroDecimals(RHS, 6) >= 5) {
+	 LOG_S(0) << "Algorithms::IPG::Oracle::addValueCut: "
+					 "Numerically instable. Generating another cut.";
+	 if (this->externalCutGenerator(player, 1, false, true) != 0) {
+		return true;
+	 }
+	 //Force normalization, in case it wasn't before.
+    Utils::normalizeIneq(LHS, RHS, true);
+	 LOG_S(0) << "Algorithms::IPG::Oracle::addValueCut: "
+					 "WARNING: Cannot generate another cut. Adding normalized value-cut.";
+  }
   //******DEBUG********
   // LHS.print("Value-Cut: LHS with RHS of" + std::to_string(-RHS));
   //******DEBUG********
@@ -212,13 +236,13 @@ void Algorithms::IPG::Oracle::solve() {
 
   for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
 	 //@todo
-	 if (MIPCuts && false) {
-		// LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: Adding root cuts.";
+	 if (MIPCuts) {
+		LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: Adding root cuts.";
 		//******DEBUG********
 		//@todo
 		//  this->Players.at(i)->ParametrizedIP->presolve();
 		//******DEBUG********
-		//  this->externalCutGenerator(i, 5, true);
+		this->externalCutGenerator(i, 5, true, false);
 	 }
   }
 
@@ -326,6 +350,7 @@ void Algorithms::IPG::Oracle::solve() {
 							 (Iteration > 5 || (Iteration == 1 && cutsAggressiveness > 1))
 								  ? cutsAggressiveness
 								  : 1,
+							 false,
 							 false);
 					 }
 				  } else {
@@ -334,7 +359,7 @@ void Algorithms::IPG::Oracle::solve() {
 					  ***************************************/
 					 // If we have cutting planes turned on, add more cuts.
 					 if (MIPCuts && addedMIPCuts.at(i) == 0) {
-						addedCuts += this->externalCutGenerator(i, cutsAggressiveness, false);
+						addedCuts += this->externalCutGenerator(i, cutsAggressiveness, false, false);
 						addedMIPCuts.at(i) = 1;
 					 }
 				  }
@@ -884,14 +909,17 @@ arma::vec Algorithms::IPG::Oracle::buildXminusI(const unsigned int i) {
   return xMinusI;
 }
 
-unsigned int
-Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player, int maxCuts, bool rootNode) {
+unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player,
+																			  int          maxCuts,
+																			  bool         rootNode,
+																			  bool         cutOff) {
   /**
 	* @brief Given a player @p player, a number of maximum cuts to generate @maxcuts and a bool
 	* @rootNode, this method generates some valid inequalities for the @p player 's integer program.
 	* This method uses Coin-OR CGL. So far, Knapsack covers, GMI and MIR inequalities are used. Also,
 	* note that there is no recursive cut generation (meaning, we do not generate cuts from a
-	* previous cutpool) as to better manage numerical stability.
+	* previous cutpool) as to better manage numerical stability. @p cutOff requires to cut off the
+	* current solution for @p player.
 	*/
 
 
@@ -900,12 +928,8 @@ Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player, int maxCuts, 
   auto      xMinusI  = this->buildXminusI(player);
   arma::vec objective;
 
-  if (rootNode) {
-	 objective = this->Players.at(player)->ParametrizedIP->getc();
-  } else {
-	 objective = (this->Players.at(player)->ParametrizedIP->getC() * xMinusI) +
-					 this->Players.at(player)->ParametrizedIP->getc();
-  }
+  objective = (this->Players.at(player)->ParametrizedIP->getC() * xMinusI) +
+				  this->Players.at(player)->ParametrizedIP->getc();
 
 
   auto CoinModel = this->Players.at(player)->CoinModel;
@@ -947,8 +971,9 @@ Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player, int maxCuts, 
 
 
   //******DEBUG********
-  // CoinModel->writeLp("CoinModel");
-  // this->IPG->PlayersIP.at(player)->getIPModel(xMinusI)->write("GurobiModel.lp");
+  //@todo
+  CoinModel->writeLp("CoinModel");
+  this->IPG->PlayersIP.at(player)->getIPModel(xMinusI)->write("GurobiModel.lp");
   //******DEBUG********
 
   try {
@@ -974,7 +999,7 @@ Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player, int maxCuts, 
 	 if (rootNode) {
 		//@todo Check
 		info.inTree  = false;
-		info.options = 8;
+		info.options = 4;
 		info.pass    = 0;
 	 } else {
 		info.inTree  = false;
@@ -990,16 +1015,26 @@ Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player, int maxCuts, 
 	 kpGen.switchOnExpensive();
 	 kpGen.generateCuts(*CoinModel, *KPs, info);
 
-	 //******DEBUG********
-	 // KPs->printCuts();
-	 //******DEBUG********
-
-
-	 //@todo: unfortunately, it seems that Cgl generates some "invalid" KP covers with support of 1.
-	 // So far, I just disabled all of them. Need further check
 	 for (int(i) = 0; (i) < KPs->sizeCuts(); ++(i))
 		if (KPs->rowCut(i).globallyValid())
 		  candidateCuts->insert(KPs->rowCut(i));
+
+
+	 /*
+    CglCliqueStrengthening cliqueGen;
+	 auto             CQs = new OsiCuts;
+	 cliqueGen.setGlobalCuts(true);
+	 cliqueGen.setAggressiveness(100);
+	 cliqueGen.setDoRowClique(true);
+	 cliqueGen.generateCuts(*CoinModel, *KPs, info);
+
+
+
+	 for (int(i) = 0; (i) < CQs->sizeCuts(); ++(i))
+		if (CQs->rowCut(i).globallyValid())
+		  candidateCuts->insert(CQs->rowCut(i));
+		  */
+
 
 
 	 CglMixedIntegerRounding MIRGen;
@@ -1018,7 +1053,7 @@ Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player, int maxCuts, 
 	 CglGMI GMIGen;
 	 auto   GMIs = new OsiCuts;
 	 GMIGen.getParam().setMAX_SUPPORT(numVars);
-	 GMIGen.getParam().setMAX_SUPPORT_REL(0.5);
+	 GMIGen.getParam().setMAX_SUPPORT_REL(0.8);
 	 GMIGen.getParam().setMAXDYN(CoinModel->getInfinity());
 	 GMIGen.getParam().setENFORCE_SCALING(true);
 	 GMIGen.setGlobalCuts(true);
@@ -1030,9 +1065,31 @@ Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player, int maxCuts, 
 		  candidateCuts->insert(GMIs->rowCut(i));
 
 
+	 //******DEBUG********
+	 // KPs->printCuts();
+	 // CQs->printCuts();
+	 // GMIs->printCuts();
+	 // MIRs->printCuts();
+	 //******DEBUG********
 
 	 // Sort by effectiveness
 	 candidateCuts->sort();
+
+
+	 if (cutOff) {
+		// We need to be sure to get only the cuts that are actively cutting off the solution.
+		for (int i = 0; i < candidateCuts->sizeCuts(); ++i) {
+		  // Check if we have a violation. Otherwise, erase the cut.
+		  double violation = candidateCuts->rowCut(i).violated(primal);
+		  if (!(violation > 0)) {
+			 LOG_S(INFO) << "Algorithms::IPG::Oracle::externalCutGenerator: (P" << player
+							 << ") Discarding a cut (no violation).";
+			 candidateCuts->eraseRowCut(i);
+		  }
+		}
+	 }
+
+
 	 // Minimum among the candidate cuts and the maximum number of cuts
 	 auto numCuts = std::min(candidateCuts->sizeCuts(), maxCuts);
 
@@ -1045,6 +1102,7 @@ Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player, int maxCuts, 
 	 for (int i = 0; i < numCuts; ++i) {
 		// Get the cut
 		auto cut = candidateCuts->rowCut(i);
+
 		// Get the row from the cut
 		auto row = cut.row();
 		// Get the indices and the elements

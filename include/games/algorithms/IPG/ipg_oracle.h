@@ -92,7 +92,7 @@ namespace Algorithms::IPG {
 
 	 void         initializeEducatedGuesses();
 	 void         initializeCoinModel(const unsigned int player);
-	 unsigned int externalCutGenerator(unsigned int player, int maxCuts, bool rootNode);
+	 unsigned int externalCutGenerator(unsigned int player, int maxCuts, bool rootNode, bool cutOff);
 	 bool         addValueCut(unsigned int player, double RHS, const arma::vec &xMinusI);
 	 int          preEquilibriumOracle(const unsigned int player,
 												  int &              addedCuts,
