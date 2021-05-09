@@ -23,7 +23,7 @@
 
 bool Algorithms::IPG::IPG_Player::addVertex(const arma::vec &vertex, const bool checkDuplicate) {
   /**
-	* @brief Given @p vertex, it adds a vertex to the field R. If @p checkDuplicate is true,
+	* @brief Given @p vertex, it adds a vertex to the field V. If @p checkDuplicate is true,
 	* it will check whether the vertex is already contained in the bool.
 	* @return true if the vertex is added.
 	*/
@@ -139,7 +139,7 @@ bool Algorithms::IPG::Oracle::addValueCut(unsigned int     player,
 
   if (Utils::nonzeroDecimals(RHS, 6) >= 5) {
 	 LOG_S(0) << "Algorithms::IPG::Oracle::addValueCut: "
-					 "Numerically instable. Generating another cut.";
+					 "Numerically unstable. Generating another cut.";
 	 if (this->externalCutGenerator(player, 1, false, true) != 0) {
 		return true;
 	 }
@@ -452,7 +452,16 @@ int Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player,
 
 	 double IP_Objective  = PureIP->getObjective().getValue();
 	 double REL_Objective = this->Players.at(player)->Payoff;
-	 auto   diff          = REL_Objective - IP_Objective;
+
+	 if (IP_Objective == GRB_INFINITY) {
+		LOG_S(1) << "Algorithms::IPG::Oracle::preEquilibriumOracle (P" << player
+					<< ") Unbounded deviation.";
+		addedCuts = false;
+		return 0;
+	 }
+
+
+	 auto diff = REL_Objective - IP_Objective;
 	 if (std::abs(diff) > this->IPG->Stats.AlgorithmData.DeviationTolerance.get()) {
 		// There exists a difference between the payoffs
 
@@ -635,8 +644,8 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 			 this->Players.at(player)->Pure = true;
 		  }
 		  //******DEBUG********
-		  // support.print("MNE Support: ");
-		  // assert(arma::sum(support) == 1);
+		  //support.print("MNE Support: "+std::to_string(arma::sum(support)));
+		  assert(arma::sum(support) > 1 - this->Tolerance);
 		  //******DEBUG********
 
 
@@ -673,18 +682,18 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 		if (leaderStatus == GRB_OPTIMAL || (leaderStatus == GRB_SUBOPTIMAL && numSols > 0)) {
 
 		  //@todo <numSols or 1?
-		  for (int s = 0; s < 1; ++s) {
+		  for (int s = 0; s < numSols; ++s) {
 			 playerModel->set(GRB_IntParam_SolutionNumber, s);
 
 			 // The separating hyperplane plane evaluated at xOfI
 			 double betaX = arma::as_scalar(alphaVal.t() * xOfI);
 			 // The separating hyperplane evaluated at the optimal player's model
-			 double betaLeader = playerModel->getObjective().getValue();
+			 double betaPlayer = playerModel->getObjective().getValue();
 
 
 			 // If the violation is negative: new vertex. Namely, the leader go further than xOfI
 			 // If the violation is positive: cutting plane. Namely, xOfI is too far away
-			 auto violation = betaX - betaLeader;
+			 auto violation = betaX - betaPlayer;
 
 
 			 //******DEBUG********
@@ -701,14 +710,14 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 				// We have a cut.
 				// Ciao Moni
 
-				Utils::normalizeIneq(alphaVal, betaLeader, true);
+				Utils::normalizeIneq(alphaVal, betaPlayer, true);
 
 				//******DEBUG********
-				// alphaVal.print("alphaVal with RHS of" + std::to_string(betaLeader));
+				// alphaVal.print("alphaVal with RHS of" + std::to_string(betaPlayer));
 				//******DEBUG********
 
 				this->Cuts.at(1).second += 1;
-				this->Players.at(player)->addCuts(arma::sp_mat{alphaVal.t()}, arma::vec{betaLeader});
+				this->Players.at(player)->addCuts(arma::sp_mat{alphaVal.t()}, arma::vec{betaPlayer});
 
 
 				LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
@@ -864,7 +873,7 @@ void Algorithms::IPG::Oracle::initialize() {
 	 this->Players.at(i) =
 		  std::make_unique<IPG_Player>(this->IPG->PlayersIP.at(i)->getNy(), this->Tolerance);
 	 //@todo be aware of variables' changes in presolve
-    this->IPG->PlayersIP.at(i)->presolve();
+	 this->IPG->PlayersIP.at(i)->presolve();
 	 // Add the working IP
 	 auto WorkingIP                      = new MathOpt::IP_Param(*this->IPG->PlayersIP.at(i).get());
 	 this->Players.at(i)->ParametrizedIP = std::make_shared<MathOpt::IP_Param>(*WorkingIP);
@@ -968,8 +977,8 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player,
 
 
   //******DEBUG********
-  //CoinModel->writeLp("CoinModel");
-  //this->IPG->PlayersIP.at(player)->getIPModel(xMinusI)->write("GurobiModel.lp");
+  // CoinModel->writeLp("CoinModel");
+  // this->IPG->PlayersIP.at(player)->getIPModel(xMinusI)->write("GurobiModel.lp");
   //******DEBUG********
 
   try {
