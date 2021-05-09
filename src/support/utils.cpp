@@ -455,23 +455,27 @@ void Utils::sortByKey(perps &set) {
 }
 
 VariableBounds Utils::intersectBounds(const VariableBounds &bA, const VariableBounds &bB) {
-  VariableBounds bC;
-  auto           longest  = bA.size() >= bB.size() ? bA : bB;
-  auto           shortest = bA.size() >= bB.size() ? bB : bA;
+  auto longest  = bA.size() >= bB.size() ? bA : bB;
+  auto shortest = bA.size() >= bB.size() ? bB : bA;
 
   // Set the size of the longest
-  bC.resize(longest.size());
+  VariableBounds bC(longest.size());
 
   for (unsigned int i = 0; i < shortest.size(); ++i) {
 	 // Lower bound. The higher, the better
-	 bC.at(i).first = bA.at(i).first > bB.at(i).first ? bA.at(i).first : bB.at(i).first;
-	 // Upper bound. The lower, the better
-	 if (bA.at(i).second < 0)
-		bC.at(i).second = bB.at(i).second;
+	 if (bA.at(i).first > 0 || bB.at(i).first > 0)
+		bC.at(i).first = bA.at(i).first > bB.at(i).first ? bA.at(i).first : bB.at(i).first;
 	 else
-		bC.at(i).second = (bA.at(i).second < bB.at(i).second || bB.at(i).second < 0)
-									 ? bA.at(i).second
-									 : bB.at(i).second;
+		bC.at(i).first = 0;
+	 // Upper bound. The lower, the better
+	 if (bA.at(i).second < 0 && bB.at(i).second)
+		bC.at(i).second = -1;
+	 else {
+		if (bA.at(i).second >= 0)
+		  bC.at(i).second = bA.at(i).second;
+		else
+		  bC.at(i).second = bB.at(i).second;
+	 }
   }
 
   // Fill remaining element
