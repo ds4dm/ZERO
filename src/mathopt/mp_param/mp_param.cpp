@@ -496,8 +496,7 @@ double MathOpt::MP_Param::computeObjective(const arma::vec &y,
 	 this->isFeasible(y, x, tol);
   }
 
-  arma::vec obj = 0.5 * y.t() * Q * y + (C * x).t() * y + c.t() * y;
-  return obj(0);
+  return arma::as_scalar(0.5 * y.t() * Q * y + (C * x).t() * y + c.t() * y);
 }
 
 /**
