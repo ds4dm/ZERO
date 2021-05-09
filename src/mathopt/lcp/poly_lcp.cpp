@@ -696,3 +696,21 @@ void MathOpt::PolyLCP::clearPolyhedra(bool inner) {
   if (!inner)
 	 this->Outer_FeasibleApproximation = false;
 }
+
+/**
+ * @brief Converts the Data::LCP::PolyhedraStrategy object to a string
+ * @param add  The Data::LCP::PolyhedraStrategy object
+ * @return  A string of the input
+ */
+std::string std::to_string(const Data::LCP::PolyhedraStrategy add) {
+  switch (add) {
+  case Data::LCP::PolyhedraStrategy::Sequential:
+	 return std::string("Sequential");
+  case Data::LCP::PolyhedraStrategy::ReverseSequential:
+	 return std::string("ReverseSequential");
+  case Data::LCP::PolyhedraStrategy::Random:
+	 return std::string("Random");
+  default:
+	 return std::string("Unknown");
+  }
+}

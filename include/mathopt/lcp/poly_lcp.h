@@ -21,6 +21,18 @@
 #include <set>
 #include <string>
 
+
+namespace Data::LCP {
+  enum class PolyhedraStrategy {
+	 /** @brief When expanding the feasible region of an inner approximated LCP, this
+	  * enum controls the strategy being used.
+	  */
+	 Sequential        = 0, ///< Adds polyhedra by selecting them in order
+	 ReverseSequential = 1, ///< Adds polyhedra by selecting them in reverse
+	 ///< Sequential order
+	 Random = 2 ///< Adds the next polyhedron by selecting Random feasible one
+  };
+}
 namespace MathOpt {
   /**
 	* @brief Inheritor Class to handle the polyhedral aspects of the LCP class,
@@ -116,18 +128,18 @@ namespace MathOpt {
 	 }
 
 
-	 bool              addPolyFromEncoding(const std::vector<short int>& encoding,
-														bool                   innerApproximation = true,
-														bool                   checkFeas          = false,
-														bool                   custom             = false,
-														spmat_Vec *            custAi             = {},
-														vec_Vec *              custbi             = {});
-	 unsigned int      addPoliesFromEncoding(const std::vector<short>& encoding,
-														  bool                   innerApproximation = true,
-														  bool                   checkFeas          = false,
-														  bool                   custom             = false,
-														  spmat_Vec *            custAi             = {},
-														  vec_Vec *              custbi             = {});
+	 bool              addPolyFromEncoding(const std::vector<short int> &encoding,
+														bool                          innerApproximation = true,
+														bool                          checkFeas          = false,
+														bool                          custom             = false,
+														spmat_Vec *                   custAi             = {},
+														vec_Vec *                     custbi             = {});
+	 unsigned int      addPoliesFromEncoding(const std::vector<short> &encoding,
+														  bool                      innerApproximation = true,
+														  bool                      checkFeas          = false,
+														  bool                      custom             = false,
+														  spmat_Vec *               custAi             = {},
+														  vec_Vec *                 custbi             = {});
 	 unsigned long int getNextPoly(Data::LCP::PolyhedraStrategy method);
 
   public:
@@ -172,10 +184,15 @@ namespace MathOpt {
 	 bool         addPolyFromX(const arma::vec &x, bool innerApproximation);
 	 unsigned int exactFullEnumeration(bool feasibilityCheck = true);
 	 std::string  feasabilityDetailString() const;
-	 bool         outerApproximate(const std::vector<bool>& encoding, bool clear = true);
+	 bool         outerApproximate(const std::vector<bool> &encoding, bool clear = true);
 	 unsigned int getFeasiblePolyhedra() const { return this->FeasiblePoly[0].size(); }
 
 	 std::vector<short> numToVec(unsigned long number, const unsigned long nCompl, bool inner);
 	 unsigned long      vecToNum(std::vector<short> binary, bool inner);
   };
+
 } // namespace MathOpt
+
+namespace std {
+  string to_string(Data::LCP::PolyhedraStrategy add);
+}

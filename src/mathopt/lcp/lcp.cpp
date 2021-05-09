@@ -185,9 +185,10 @@ void MathOpt::LCP::makeRelaxed() {
 	 LOG_S(3) << "MathOpt::LCP::makeRelaxed: Creating the relaxed model";
 	 GRBVar x[nC], z[nR];
 	 LOG_S(3) << "MathOpt::LCP::makeRelaxed: Initializing variables";
+	 //@todo Bounds are currently not used for the MIP LCP. This should be extended to an MCP
 	 for (unsigned int i = 0; i < nC; i++)
-		x[i] = RelaxedModel.addVar(BoundsX.at(i).first,
-											BoundsX.at(i).second > 0 ? BoundsX.at(i).second : GRB_INFINITY,
+		x[i] = RelaxedModel.addVar(0,//BoundsX.at(i).first,
+											GRB_INFINITY,//BoundsX.at(i).second > 0 ? BoundsX.at(i).second : GRB_INFINITY,
 											1,
 											GRB_CONTINUOUS,
 											"x_" + std::to_string(i));
@@ -258,7 +259,7 @@ std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(bool         solve,
 
   if (timeLimit > 0)
 	 model->set(GRB_DoubleParam_TimeLimit, timeLimit);
-  if (MIPWorkers > 1 && this->PureMIP)
+  if (MIPWorkers > 1)
 	 model->set(GRB_IntParam_ConcurrentMIP, MIPWorkers);
   model->set(GRB_IntParam_SolutionLimit, solLimit);
   model->set(GRB_IntParam_OutputFlag, 0);
@@ -594,23 +595,7 @@ bool MathOpt::LCP::containsCut(const arma::vec &Arow, const double b, double tol
   return Utils::containsConstraint(this->_Acut, this->_bcut, Arow, b, tol);
 }
 
-/**
- * @brief Converts the Data::LCP::PolyhedraStrategy object to a string
- * @param add  The Data::LCP::PolyhedraStrategy object
- * @return  A string of the input
- */
-std::string std::to_string(const Data::LCP::PolyhedraStrategy add) {
-  switch (add) {
-  case Data::LCP::PolyhedraStrategy::Sequential:
-	 return std::string("Sequential");
-  case Data::LCP::PolyhedraStrategy::ReverseSequential:
-	 return std::string("ReverseSequential");
-  case Data::LCP::PolyhedraStrategy::Random:
-	 return std::string("Random");
-  default:
-	 return std::string("Unknown");
-  }
-}
+
 
 /**
  * @brief Solves the LCP with Solvers::PATH
@@ -915,9 +900,9 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMINLP() {
 
 
 		if (_lb != _ub) {
-		  // Otherwise, no bounds and we simplify the first expresison for LB
+		  // Otherwise, no bounds and we simplify the first expression for LB
 		  model->addQConstr(x[p.second] * z[p.first],
-								  GRB_LESS_EQUAL,
+								  GRB_EQUAL,
 								  0,
 								  "compl_z_" + std::to_string(p.first) + "_x_" + std::to_string(p.second));
 		}

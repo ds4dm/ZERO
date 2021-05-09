@@ -22,16 +22,6 @@
 #include <set>
 
 namespace Data::LCP {
-
-  enum class PolyhedraStrategy {
-	 /** @brief When expanding the feasible region of an inner approximated LCP, this
-	  * enum controls the strategy being used.
-	  */
-	 Sequential        = 0, ///< Adds polyhedra by selecting them in order
-	 ReverseSequential = 1, ///< Adds polyhedra by selecting them in reverse
-	 ///< Sequential order
-	 Random = 2 ///< Adds the next polyhedron by selecting Random feasible one
-  };
   enum class Algorithms {
 	 MIP,  ///< Solves the LCP via an (explicit) MIP
 	 PATH, ///< Solves the LCP via PATH
@@ -218,8 +208,5 @@ namespace MathOpt {
   };
 } // namespace MathOpt
 
-namespace std {
-  string to_string(Data::LCP::PolyhedraStrategy add);
-}
 
 #include "poly_lcp.h"
