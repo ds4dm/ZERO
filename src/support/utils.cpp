@@ -446,7 +446,12 @@ bool Utils::isZero(const arma::sp_mat &M, double tol) noexcept {
 
   return ((abs(M).max() <= tol));
 }
-void Utils::sortByKey(perps &set) {
+
+
+bool Utils::isEqualAbs(const double a, const double b, const double tol)
+
+
+	 void Utils::sortByKey(perps &set) {
   sort(set.begin(),
 		 set.end(),
 		 [](std::pair<unsigned int, unsigned int> a, std::pair<unsigned int, unsigned int> b) {
@@ -642,4 +647,30 @@ int Utils::nonzeroDecimals(const double num, const int decimalBound) {
 		++count;
   }
   return count;
+}
+bool Utils::isEqualAbs(const double a, const double b, const double tol) {
+  float diff = fabs(a - b);
+  if (diff <= tol)
+	 return true;
+  else
+	 return false;
+}
+bool Utils::isEqualRel(const double a, const double b, const double percent) {
+  float  diff    = fabs(a - b);
+  double A       = fabs(a);
+  double B       = fabs(b);
+  float  largest = (B > A) ? B : A;
+
+  if (diff <= largest * percent)
+	 return true;
+  else
+	 return false;
+}
+bool Utils::isEqual(const double a, const double b, const double tol, const double percent) {
+  if (Utils::isEqualAbs(a, b, tol)) {
+	 return true;
+  } else if (Utils::isEqualRel(a, b, percent)) {
+	 return true;
+  }
+  return false;
 }

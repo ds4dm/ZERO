@@ -111,22 +111,29 @@ namespace Utils {
   }
 
 
-  CoinPackedMatrix armaToCoinSparse(const arma::sp_mat &A);
+  CoinPackedMatrix              armaToCoinSparse(const arma::sp_mat &A);
   std::vector<CoinPackedVector> armaToCoinPackedVector(const arma::sp_mat &A);
-  std::string      printBounds(const VariableBounds &bounds);
-  arma::vec        normalizeVec(const arma::vec &v);
+  std::string                   printBounds(const VariableBounds &bounds);
+  arma::vec                     normalizeVec(const arma::vec &v);
   void                          normalizeIneq(arma::vec &lhs, double &rhs, bool force);
-  double           round_nplaces(const double &value, const int &numDecimals = 5);
-  void             addSparseConstraints(const arma::sp_mat &A,
-													 const arma::vec &   b,
-													 GRBVar *            x,
-													 const std::string & basename,
-													 GRBModel *          model,
-													 int                 sense,
-													 GRBVar *            z);
+  double                        round_nplaces(const double &value, const int &numDecimals = 5);
+  void                          addSparseConstraints(const arma::sp_mat &A,
+																	  const arma::vec &   b,
+																	  GRBVar *            x,
+																	  const std::string & basename,
+																	  GRBModel *          model,
+																	  int                 sense,
+																	  GRBVar *            z);
   arma::sp_mat resizePatch(const arma::sp_mat &mat, const unsigned int nR, const unsigned int nC);
   int          vecToBin(const arma::vec &x);
-  int nonzeroDecimals(const double num, const int decimalBound=6);
+  int          nonzeroDecimals(const double num, const int decimalBound = 6);
+
+  bool isEqualAbs(const double a, const double b, const double tol = 1e-6);
+  bool isEqualRel(const double a, const double b, const double percent = (1 - 1e-4));
+  bool isEqual(const double a,
+					const double b,
+					const double tol     = 1e-6,
+					const double percent = (1 - 1e-4));
 } // namespace Utils
 
 // namespace Utils
