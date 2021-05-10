@@ -21,7 +21,8 @@
  */
 std::ostream &MathOpt::operator<<(std::ostream &os, const MathOpt::QP_Param &Q) {
   os << "Quadratic program with linear inequality constraints: " << '\n';
-  os << Q.getNy() << " decision variables parametrized by " << Q.getNx() << " variables" << '\n';
+  os << Q.getNumVars() << " decision variables parametrized by " << Q.getNumParams() << " variables"
+	  << '\n';
   os << Q.getb().n_rows << " linear inequalities" << '\n' << '\n';
   return os;
 }
@@ -37,16 +38,18 @@ bool MathOpt::QP_Param::operator==(const QP_Param &Q2) const {
 	 return false;
   if (!Utils::isZero(this->C - Q2.getC()))
 	 return false;
-  if (!Utils::isZero(this->A - Q2.getA()))
+  if (!Utils::isZero(this->getA(true) - Q2.getA(true)))
 	 return false;
-  if (!Utils::isZero(this->B - Q2.getB()))
+  if (!Utils::isZero(this->getB(true) - Q2.getB(true)))
 	 return false;
+
+
   if (!Utils::isZero(this->c - Q2.getc()))
 	 return false;
   for (unsigned int i = 0; i < this->Bounds.size(); ++i)
 	 if (this->Bounds.at(i) != Q2.Bounds.at(i))
 		return false;
-  if (!Utils::isZero(this->b - Q2.getb()))
+  if (!Utils::isZero(this->getb(true) - Q2.getb(true)))
 	 return false;
   return true;
 }
@@ -57,8 +60,8 @@ bool MathOpt::QP_Param::operator==(const QP_Param &Q2) const {
 void MathOpt::QP_Param::makeyQy() {
   if (this->MadeyQy)
 	 return;
-  GRBVar y[this->Ny];
-  for (unsigned int i = 0; i < Ny; i++)
+  GRBVar y[this->numVars];
+  for (unsigned int i = 0; i < numVars; i++)
 	 y[i] = this->Model.addVar(Bounds.at(i).first,
 										Bounds.at(i).second > 0 ? Bounds.at(i).second : GRB_INFINITY,
 										0,
@@ -94,18 +97,18 @@ void MathOpt::QP_Param::makeyQy() {
 std::unique_ptr<GRBModel> MathOpt::QP_Param::solveFixed(arma::vec x, bool solve) {
   this->makeyQy(); /// @throws GRBException if argument std::vector size is not
   /// compatible with the MathOpt::QP_Param definition.
-  if (x.size() != this->Nx)
+  if (x.size() != this->numParams)
 	 throw ZEROException(ZEROErrorCode::Assertion,
 								"Mismatch in x size: " + std::to_string(x.size()) +
-									 " != " + std::to_string(Nx));
+									 " != " + std::to_string(numParams));
   std::unique_ptr<GRBModel> model(new GRBModel(this->Model));
   try {
 	 GRBQuadExpr yQy = model->getObjective();
 	 arma::vec   Cx, Ax;
 	 Cx = this->C * x;
 	 Ax = this->A * x;
-	 GRBVar y[this->Ny];
-	 for (unsigned int i = 0; i < this->Ny; i++) {
+	 GRBVar y[this->numVars];
+	 for (unsigned int i = 0; i < this->numVars; i++) {
 		y[i] = model->getVarByName("y_" + std::to_string(i));
 		yQy += (Cx[i] + c[i]) * y[i];
 	 }
@@ -130,7 +133,7 @@ std::unique_ptr<GRBModel> MathOpt::QP_Param::solveFixed(arma::vec x, bool solve)
  * As per the convention, y is the decision variable for the QP and
  * that is parameterized in x
  * The KKT conditions are
- * \f$0 \leq y \perp  My + Nx + q \geq 0\f$
+ * \f$0 \leq y \perp  My + numParams + q \geq 0\f$
  * @param M The output M term
  * @param N The output N term
  * @param q The output q term
@@ -143,7 +146,7 @@ unsigned int MathOpt::QP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec 
                        // Matlab
                        //  join_rows(A, B) is same as [A B] in Matlab
       arma::join_rows(this->Q, BwithBounds.t()),
-      arma::join_rows(-BwithBounds, arma::zeros<arma::sp_mat>(this->Ncons, this->Ncons)));
+      arma::join_rows(-BwithBounds, arma::zeros<arma::sp_mat>(this->numConstr, this->numConstr)));
   // M.print_dense();
   N = arma::join_cols(this->C, -this->A);
   // N.print_dense();
@@ -244,13 +247,13 @@ void MathOpt::QP_Param::save(const std::string &filename, bool append) const {
 
   Utils::appendSave(std::string("QP_Param"), filename, append);
   Utils::appendSave(this->Q, filename, std::string("QP_Param::Q"), false);
-  Utils::appendSave(this->A, filename, std::string("QP_Param::A"), false);
-  Utils::appendSave(this->B, filename, std::string("QP_Param::B"), false);
+  Utils::appendSave(this->getA(true), filename, std::string("QP_Param::A"), false);
+  Utils::appendSave(this->getB(true), filename, std::string("QP_Param::B"), false);
   Utils::appendSave(this->C, filename, std::string("QP_Param::C"), false);
-  Utils::appendSave(this->b, filename, std::string("QP_Param::b"), false);
+  Utils::appendSave(this->getb(true), filename, std::string("QP_Param::b"), false);
   Utils::appendSave(this->c, filename, std::string("QP_Param::c"), false);
-  arma::sp_mat BO(this->Ny, 2);
-  for (unsigned int i = 0; i < this->Ny; ++i) {
+  arma::sp_mat BO(this->numVars, 2);
+  for (unsigned int i = 0; i < this->numVars; ++i) {
 	 BO.at(i, 0) = this->Bounds.at(i).first;
 	 BO.at(i, 1) = this->Bounds.at(i).second;
   }

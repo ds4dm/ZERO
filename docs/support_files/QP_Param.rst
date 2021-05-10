@@ -23,7 +23,7 @@ This data can be entered as follows. Assume there are lines
 
  using namespace arma;
  somewhere earlier. Now, within some function, we have
-	unsigned int Nx = 2, Ny = 3, Ncons = 2;
+	unsigned int numParams = 2, numVars = 3, numConstr = 2;
 	mat Qd(3, 3);					// Easier to create a dense matrix for this problem
 	Qd << 1 << 1 << -2 << endr		// And convert that to a sparse matrix.
 	   << 1 << 1 << -2 << endr
@@ -93,14 +93,14 @@ Solving
 
  arma::vec sol(3); 
  sol << 0.5417 << endr << 5.9861 << endr << 3.4722; // Hardcoding the solution as calculated outside 
- for (unsigned int i = 0; i < Ny; i++) 
+ for (unsigned int i = 0; i < numVars; i++)
    assert(abs(sol(i)- FixedModel->getVar(i).get(GRB_DoubleAttr_X)) <= 0.01);
  cout<<FixedModel->get(GRB_DoubleAttr_ObjVal<<endl; // Will print -12.757
 
 
 In many cases, one might want to obtain the KKT conditions of a convex quadratic program and that can be obtained as below, using :py:func:`Game::QP_Param::KKT`
 
-The function returns ``M``, ``N`` and ``q``, where the KKT conditions can be written as :math:`0 \leq y \perp Mx + Ny + q \geq 0`.
+The function returns ``M``, ``N`` and ``q``, where the KKT conditions can be written as :math:`0 \leq y \perp Mx + numVars + q \geq 0`.
 
 .. code-block:: c
 

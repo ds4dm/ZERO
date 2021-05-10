@@ -37,8 +37,8 @@ private:
 
 public:
   Attr(T value) : Object{value} {};
-  [[nodiscard]] T    get() const { return Object; }
-  void set(const T &value) { Object = value; }
+  [[nodiscard]] T get() const { return Object; }
+  void            set(const T &value) { Object = value; }
   // T &operator=(const T &a) { std::cerr << "Operation not allowed. Use set()";
   // } operator T() { std::cerr << "Operation not allowed. Use get()"; }
   Attr() = default;
@@ -121,3 +121,12 @@ public:
   virtual ZEROErrorCode which() const noexcept { return error_code; };
   const char *          more() const noexcept { return error_additional.c_str(); };
 };
+
+/**
+ * @brief Custom assertion manager
+ * @param b The boolean to evaluate
+ */
+void ZEROAssert(bool        b,
+					 const char *callerFn   = __builtin_FUNCTION(),
+					 const char *callerFile = __builtin_FILE(),
+					 const int   callerLine = __builtin_LINE());

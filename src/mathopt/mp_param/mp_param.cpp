@@ -33,13 +33,13 @@
 void MathOpt::MP_Param::save(const std::string &filename, bool append) const {
   Utils::appendSave(std::string("MP_Param"), filename, append);
   Utils::appendSave(this->Q, filename, std::string("MP_Param::Q"), false);
-  Utils::appendSave(this->A, filename, std::string("MP_Param::A"), false);
-  Utils::appendSave(this->B, filename, std::string("MP_Param::B"), false);
+  Utils::appendSave(this->getA(true), filename, std::string("MP_Param::A"), false);
+  Utils::appendSave(this->getB(true), filename, std::string("MP_Param::B"), false);
   Utils::appendSave(this->C, filename, std::string("MP_Param::C"), false);
-  Utils::appendSave(this->b, filename, std::string("MP_Param::b"), false);
+  Utils::appendSave(this->getb(true), filename, std::string("MP_Param::b"), false);
   Utils::appendSave(this->c, filename, std::string("MP_Param::c"), false);
-  arma::sp_mat BO(this->Ny, 2);
-  for (unsigned int i = 0; i < this->Ny; ++i) {
+  arma::sp_mat BO(this->numVars, 2);
+  for (unsigned int i = 0; i < this->numVars; ++i) {
 	 BO.at(i, 0) = this->Bounds.at(i).first;
 	 BO.at(i, 1) = this->Bounds.at(i).second;
   }
@@ -88,50 +88,60 @@ long int MathOpt::MP_Param::load(const std::string &filename, long int pos) {
 /**
  * @brief Adds dummy variables to a parameterized mathematical program  @p position dictates the
  * position at which the parameters can be added.
- * @param pars Number of parameters to be added (e.g., MP_Param::Nx)
- * @param vars Number of variables to be added (e.g., MP_Param::Ny)
+ * @param pars Number of parameters to be added (e.g., MP_Param::numParams)
+ * @param vars Number of variables to be added (e.g., MP_Param::numVars)
  * @param position The position at which the parameters should be added. -1 for adding at the end.
  * @return A pointer to the object
  */
 MathOpt::MP_Param &MathOpt::MP_Param::addDummy(unsigned int pars, unsigned int vars, int position)
 
 {
-  this->Nx += pars;
-  this->Ny += vars;
+  int startingVars = this->numVars;
+  this->numParams += pars;
+  this->numVars += vars;
   if (vars) {
-	 Q = Utils::resizePatch(Q, this->Ny, this->Ny);
-	 B = Utils::resizePatch(B, this->Ncons, this->Ny);
-	 c = Utils::resizePatch(c, this->Ny);
-	 for (unsigned int i = 0; i < vars; ++i)
+	 Q = Utils::resizePatch(Q, this->numVars, this->numVars);
+	 B = Utils::resizePatch(B, this->numConstr, this->numVars);
+	 c = Utils::resizePatch(c, this->numVars);
+
+
+	 // Remember to enlarge the bounds
+	 unsigned int startingBounds = B_bounds.n_rows;
+	 B_bounds = Utils::resizePatch(B_bounds, B_bounds.n_rows + vars, this->numVars);
+	 b_bounds = Utils::resizePatch(b_bounds, b_bounds.size() + vars);
+	 for (unsigned int i = 0; i < vars; ++i) {
 		this->Bounds.push_back({0, -1});
+		B_bounds.at(startingBounds + i, startingVars + i) = -1;
+	 }
+    assert(B_bounds.n_rows==b_bounds.size());
   }
   switch (position) {
   case -1:
 	 if (pars)
-		A = Utils::resizePatch(A, this->Ncons, this->Nx);
+		A = Utils::resizePatch(A, this->numConstr, this->numParams);
 	 if (vars || pars)
-		C = Utils::resizePatch(C, this->Ny, this->Nx);
+		C = Utils::resizePatch(C, this->numVars, this->numParams);
 	 break;
   case 0:
 	 if (pars) {
 		if (!A.is_empty())
-		  A = arma::join_rows(arma::zeros<arma::sp_mat>(this->Ncons, pars), A);
+		  A = arma::join_rows(arma::zeros<arma::sp_mat>(this->numConstr, pars), A);
 		else
-		  A.zeros(this->Ncons, pars + A.n_cols);
+		  A.zeros(this->numConstr, pars + A.n_cols);
 	 }
 	 if (vars || pars) {
-		C = Utils::resizePatch(C, this->Ny, C.n_cols);
-		C = arma::join_rows(arma::zeros<arma::sp_mat>(this->Ny, pars), C);
+		C = Utils::resizePatch(C, this->numVars, C.n_cols);
+		C = arma::join_rows(arma::zeros<arma::sp_mat>(this->numVars, pars), C);
 	 }
 	 break;
   default:
 	 if (pars) {
 		arma::sp_mat A_temp;
 		if (!A.is_empty())
-		  A_temp =
-				arma::join_rows(A.cols(0, position - 1), arma::zeros<arma::sp_mat>(this->Ncons, pars));
+		  A_temp = arma::join_rows(A.cols(0, position - 1),
+											arma::zeros<arma::sp_mat>(this->numConstr, pars));
 		else
-		  A.zeros(this->Ncons, pars + A.n_cols);
+		  A.zeros(this->numConstr, pars + A.n_cols);
 
 		if (static_cast<unsigned int>(position) < A.n_cols) {
 		  A = arma::join_rows(A_temp, A.cols(position, A.n_cols - 1));
@@ -140,9 +150,9 @@ MathOpt::MP_Param &MathOpt::MP_Param::addDummy(unsigned int pars, unsigned int v
 		}
 	 }
 	 if (vars || pars) {
-		C = Utils::resizePatch(C, this->Ny, C.n_cols);
+		C = Utils::resizePatch(C, this->numVars, C.n_cols);
 		arma::sp_mat C_temp =
-			 arma::join_rows(C.cols(0, position - 1), arma::zeros<arma::sp_mat>(this->Ny, pars));
+			 arma::join_rows(C.cols(0, position - 1), arma::zeros<arma::sp_mat>(this->numVars, pars));
 		if (static_cast<unsigned int>(position) < C.n_cols) {
 		  C = arma::join_rows(C_temp, C.cols(position, C.n_cols - 1));
 		} else {
@@ -169,11 +179,12 @@ void MathOpt::MP_Param::detectBounds() {
   // non-zero element, A_i is a zero vector
   std::vector<unsigned int> shedRows; // Keeps track of removed rows
 
-  if (this->Bounds.empty())
-	 for (unsigned int i = 0; i < this->B.n_cols; i++)
-		this->Bounds.push_back({0, -1});
+  double diff = this->B.n_cols - this->Bounds.size();
+  assert(diff >= 0);
+  for (unsigned int i = 0; i < diff; i++)
+	 this->Bounds.push_back({0, -1});
 
-  for (unsigned int i = 0; i < nConstr; i++) {
+  for (unsigned int i = 0; i < B.n_rows; i++) {
 	 if (B.row(i).n_nonzero == 1) {
 		// Then we have a candidate bound constraint. Let's check for xs
 		if (A.row(i).n_nonzero == 0) {
@@ -216,6 +227,8 @@ void MathOpt::MP_Param::detectBounds() {
 					 Bounds.at(j).second = 0;
 					 shedRows.push_back(i);
 				  }
+				  break;
+				  // next row
 				}
 
 				else if (B.at(i, j) < 0) {
@@ -239,6 +252,8 @@ void MathOpt::MP_Param::detectBounds() {
 													  << std::to_string(i) << " pruned";*/
 					 shedRows.push_back(i);
 				  }
+				  break;
+				  // next row
 				}
 			 }
 		  }
@@ -266,13 +281,13 @@ void MathOpt::MP_Param::detectBounds() {
  *useful when building the KKT conditions for the MP_Param. In particular, after bounds are detected
  *and their respective rows are shedded by MP_Param::detectBounds, the explicit constraints should
  *be added again.
- * @warning The size of Bounds should be the future Ny.
+ * @warning The size of Bounds should be the future numVars.
  */
 void MathOpt::MP_Param::rewriteBounds() {
 
 
   int boundSize = this->Bounds.size();
-  //assert(boundSize == this->Ny);
+  // assert(boundSize == this->numVars);
   this->B_bounds.zeros(boundSize, boundSize);
   this->b_bounds.zeros(boundSize);
   for (unsigned int i = 0; i < boundSize; ++i) {
@@ -291,11 +306,11 @@ void MathOpt::MP_Param::rewriteBounds() {
 		// Zero if none
 		this->b_bounds.at(i) = -(bound.first > 0 ? bound.first : 0);
 
-	   ///////////////
+		///////////////
 		// The upper bound
 		this->B_bounds.at(this->B_bounds.n_rows - 1, i) = 1;
-		//There is one for sure, since the if condition
-		this->b_bounds.at(this->b_bounds.size() - 1)    = bound.second;
+		// There is one for sure, since the if condition
+		this->b_bounds.at(this->b_bounds.size() - 1) = bound.second;
 	 } else {
 		// The lower bound
 		this->B_bounds.at(i, i) = -1;
@@ -308,24 +323,24 @@ void MathOpt::MP_Param::rewriteBounds() {
 }
 
 
-/** @brief Calculates @p Nx, @p Ny and @p Ncons
+/** @brief Calculates @p numParams, @p numVars and @p numConstr
  *	Computes parameters in MP_Param:
- *		- Computes @p Ny as number of rows in MP_Param::Q
- * 		- Computes @p Nx as number of columns in MP_Param::C
- * 		- Computes @p Ncons as number of rows in MP_Param::b, i.e., the
+ *		- Computes @p numVars as number of rows in MP_Param::Q
+ * 		- Computes @p numParams as number of columns in MP_Param::C
+ * 		- Computes @p numConstr as number of rows in MP_Param::b, i.e., the
  *RHS of the constraints
  *
  * 	For proper working, MP_Param::dataCheck() has to be run after this.
- * 	@returns @p Ny, Number of variables in the quadratic program, QP
+ * 	@returns @p numVars, Number of variables in the quadratic program, QP
  */
 const unsigned int MathOpt::MP_Param::size() {
   if (Q.n_elem < 1)
-	 this->Ny = this->c.size();
+	 this->numVars = this->c.size();
   else
-	 this->Ny = this->Q.n_rows;
-  this->Nx    = this->C.n_cols;
-  this->Ncons = this->b.size();
-  return this->Ny;
+	 this->numVars = this->Q.n_rows;
+  this->numParams = this->C.n_cols;
+  this->numConstr = this->b.size();
+  return this->numVars;
 }
 
 /**
@@ -421,26 +436,26 @@ bool MathOpt::MP_Param::dataCheck(bool forceSymmetry) const {
 		if (!this->Q.is_symmetric() && this->Q.n_rows > 0)
 		  return false;
 	 }
-	 if (this->Q.n_cols > 0 && this->Q.n_cols != Ny) {
+	 if (this->Q.n_cols > 0 && this->Q.n_cols != numVars) {
 		return false;
 	 }
   }
-  if (!this->A.is_empty() && this->A.n_cols != Nx) {
+  if (!this->A.is_empty() && this->A.n_cols != numParams) {
 	 return false;
   }
-  if (!this->A.is_empty() && this->A.n_rows != Ncons) {
+  if (!this->A.is_empty() && this->A.n_rows != numConstr) {
 	 return false;
   }
-  if (this->B.n_cols != Ny) {
+  if (this->B.n_cols != numVars) {
 	 return false;
   }
-  if (this->B.n_rows != Ncons) {
+  if (this->B.n_rows != numConstr) {
 	 return false;
   }
-  if (this->C.n_rows != Ny) {
+  if (this->C.n_rows != numVars) {
 	 return false;
   }
-  if (this->c.size() != Ny) {
+  if (this->c.size() != numVars) {
 	 return false;
   }
   return true;
@@ -488,9 +503,9 @@ double MathOpt::MP_Param::computeObjective(const arma::vec &y,
 														 bool             checkFeas,
 														 double           tol) const {
 
-  if (y.n_rows != this->getNy())
+  if (y.n_rows != this->getNumVars())
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of y");
-  if (x.n_rows != this->getNx())
+  if (x.n_rows != this->getNumParams())
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of x");
   if (checkFeas) {
 	 this->isFeasible(y, x, tol);
@@ -541,5 +556,20 @@ arma::sp_mat MathOpt::MP_Param::getB(bool bounds) const {
 	 return this->B;
   else {
 	 return arma::join_cols(this->B, this->B_bounds);
+  }
+}
+
+/**
+ * @brief Returns the matrix A.
+ * @param bounds True if one needs to include the bounds in the matrix A
+ * @return A const object with A
+ */
+arma::sp_mat MathOpt::MP_Param::getA(bool bounds) const {
+
+  if (!bounds)
+	 return this->A;
+  else {
+	 return arma::join_cols(this->A,
+									arma::zeros<arma::sp_mat>(this->B_bounds.n_rows, this->A.n_cols));
   }
 }

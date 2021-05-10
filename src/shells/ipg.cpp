@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
 																														->default_value(
 																															 -1.0),
 																												  "Sets the "
-																												  "timelimit")("message,m",
+																												  "timelimit")("verbosity,ve",
 																																	po::value<
 																																		 int>(
 																																		 &verbosity)
@@ -208,36 +208,37 @@ int main(int argc, char **argv) {
 	 // --------------------------------
 	 // WRITING STATISTICS AND SOLUTION
 	 // --------------------------------
-	 auto          stat = ipg.getStatistics();
-	 ifstream      existCheck(logFile);
-	 std::ofstream results(logFile, ios::app);
+	 auto stat = ipg.getStatistics();
+	 if (!logFile.empty()) {
+		ifstream      existCheck(logFile);
+		std::ofstream results(logFile, ios::app);
 
-	 if (!existCheck.good()) {
-		results << "Instance;Algorithm;LCPAlgo;ObjType;Cuts;Players;isPureNE;"
-					  "Status;"
-					  "NumVar;Time;Threads;numIterations;ValueCuts;VPolyCuts;"
-					  "MIRCuts;GMICuts;KPCuts;TotalCuts;\n";
+		if (!existCheck.good()) {
+		  results << "Instance;Algorithm;LCPAlgo;ObjType;Cuts;Players;isPureNE;"
+						 "Status;"
+						 "NumVar;Time;Threads;numIterations;ValueCuts;VPolyCuts;"
+						 "MIRCuts;GMICuts;KPCuts;TotalCuts;\n";
+		}
+		existCheck.close();
+
+		auto cuts      = stat.AlgorithmData.Cuts.get();
+		int  totalCuts = 0;
+		for (const auto &cut : cuts)
+		  totalCuts += cut.second;
+		results << instanceFile << ";" << std::to_string(stat.AlgorithmData.Algorithm.get()) << ";"
+				  << std::to_string(stat.AlgorithmData.LCPSolver.get()) << ";"
+				  << std::to_string(stat.AlgorithmData.Objective.get()) << ";"
+				  << std::to_string(stat.AlgorithmData.CutAggressiveness.get()) << ";"
+				  << ipg.getNumPlayers() << ";" << std::to_string(stat.PureNashEquilibrium.get()) << ";"
+				  << std::to_string(stat.Status.get()) << ";" << stat.NumVar.get() << ";"
+				  << std::to_string(stat.WallClockTime.get()) << ";"
+				  << std::to_string(stat.AlgorithmData.Threads.get()) << ";" << stat.NumIterations.get()
+				  << ";" << cuts.at(0).second << ";" << cuts.at(1).second << ";" << cuts.at(2).second
+				  << ";" << cuts.at(3).second << ";" << cuts.at(4).second << ";" << totalCuts << "\n";
+
+
+		results.close();
 	 }
-	 existCheck.close();
-
-	 auto cuts      = stat.AlgorithmData.Cuts.get();
-	 int  totalCuts = 0;
-	 for (const auto& cut : cuts)
-		totalCuts += cut.second;
-	 results << instanceFile << ";" << std::to_string(stat.AlgorithmData.Algorithm.get())
-				<< ";" << std::to_string(stat.AlgorithmData.LCPSolver.get()) << ";"
-				<< std::to_string(stat.AlgorithmData.Objective.get()) << ";"
-				<< std::to_string(stat.AlgorithmData.CutAggressiveness.get()) << ";"
-				<< ipg.getNumPlayers() << ";" << std::to_string(stat.PureNashEquilibrium.get()) << ";"
-				<< std::to_string(stat.Status.get()) << ";" << stat.NumVar.get() << ";"
-				<< std::to_string(stat.WallClockTime.get()) << ";"
-				<< std::to_string(stat.AlgorithmData.Threads.get()) << ";" << stat.NumIterations.get()
-				<< ";" << cuts.at(0).second << ";" << cuts.at(1).second << ";" << cuts.at(2).second
-				<< ";" << cuts.at(3).second << ";" << cuts.at(4).second << ";" << totalCuts << "\n";
-
-
-
-	 results.close();
   } catch (ZEROException &e) {
 	 std::cerr << "" << e.what() << "--" << e.more();
   }

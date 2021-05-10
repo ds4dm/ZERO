@@ -11,7 +11,7 @@ LCP Example
 
   Ax + By \leq b
 
-  0 \leq x \perp Mx + Ny + q \geq 0`
+  0 \leq x \perp Mx + numVars + q \geq 0`
 
 
 These are the types of problems that are handled by the class :py:func:`Game::LCP`, but we use a different notation. Instead of using ``y`` to refer to the variables that don't have matching complementary equations, we call *all* the variables as ``x`` and we keep track of the position of variables which are not complementary to any equation.

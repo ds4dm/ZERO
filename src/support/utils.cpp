@@ -466,7 +466,7 @@ VariableBounds Utils::intersectBounds(const VariableBounds &bA, const VariableBo
 
   for (unsigned int i = 0; i < shortest.size(); ++i) {
 	 // Lower bound. The higher, the better
-	 if (bA.at(i).first > 0 || bB.at(i).first > 0)
+	 if (bA.at(i).first >= 0 || bB.at(i).first >= 0)
 		bC.at(i).first = bA.at(i).first > bB.at(i).first ? bA.at(i).first : bB.at(i).first;
 	 else
 		bC.at(i).first = 0;

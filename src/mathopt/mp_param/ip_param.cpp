@@ -20,7 +20,8 @@
  */
 std::ostream &MathOpt::operator<<(std::ostream &os, const MathOpt::IP_Param &I) {
   os << "Parametrized Integer Program with bi-linear objective: " << '\n';
-  os << I.getNy() << " decision variables parametrized by " << I.getNx() << " variables" << '\n';
+  os << I.getNumVars() << " decision variables parametrized by " << I.getNumParams() << " variables"
+	  << '\n';
   os << I.getb().n_rows << " linear inequalities" << '\n' << '\n';
   return os;
 }
@@ -49,7 +50,7 @@ bool MathOpt::IP_Param::operator==(const IP_Param &IPG2) const {
 
 MathOpt::IP_Param &MathOpt::IP_Param::setBounds(const VariableBounds &boundIn) {
   MathOpt::MP_Param::setBounds(boundIn);
-  for (unsigned int i = 0; i < this->Ny; i++) {
+  for (unsigned int i = 0; i < this->numVars; i++) {
 	 auto var = this->IPModel.getVarByName("y_" + std::to_string(i));
 	 var.set(GRB_DoubleAttr_LB, this->Bounds.at(i).first > 0 ? this->Bounds.at(i).first : 0);
 	 var.set(GRB_DoubleAttr_UB,
@@ -71,8 +72,8 @@ bool MathOpt::IP_Param::finalize() {
 	 return true;
   MP_Param::finalize();
   try {
-	 GRBVar y[this->Ny];
-	 for (unsigned int i = 0; i < this->Ny; i++) {
+	 GRBVar y[this->numVars];
+	 for (unsigned int i = 0; i < this->numVars; i++) {
 		y[i] = this->IPModel.addVar(Bounds.at(i).first > 0 ? Bounds.at(i).first : 0,
 											 Bounds.at(i).second > 0 ? Bounds.at(i).second : GRB_INFINITY,
 											 c.at(i),
@@ -112,10 +113,10 @@ bool MathOpt::IP_Param::finalize() {
  * @param x The parametrized values of x
  */
 void MathOpt::IP_Param::updateModelObjective(const arma::vec &x) {
-  if (x.size() != this->Nx)
+  if (x.size() != this->numParams)
 	 throw ZEROException(ZEROErrorCode::Assertion,
 								"Invalid argument size: " + std::to_string(x.size()) +
-									 " != " + std::to_string(Nx));
+									 " != " + std::to_string(numParams));
   if (!this->Finalized)
 	 throw ZEROException(ZEROErrorCode::Assertion, "The model is not Finalized!");
   try {
@@ -123,7 +124,7 @@ void MathOpt::IP_Param::updateModelObjective(const arma::vec &x) {
 	 GRBQuadExpr Objective = 0;
 	 arma::vec   Cx;
 	 Cx = this->C * x;
-	 for (unsigned int i = 0; i < this->Ny; i++)
+	 for (unsigned int i = 0; i < this->numVars; i++)
 		Objective += (Cx[i] + this->c.at(i)) * this->IPModel.getVarByName("y_" + std::to_string(i));
 
 	 // this->c.print("c");
@@ -261,9 +262,9 @@ double MathOpt::IP_Param::computeObjective(const arma::vec &y,
 														 bool             checkFeas,
 														 double           tol) const {
 
-  if (y.n_rows != this->getNy())
+  if (y.n_rows != this->getNumVars())
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of y");
-  if (x.n_rows != this->getNx())
+  if (x.n_rows != this->getNumParams())
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of x");
   if (checkFeas) {
 	 arma::vec slack = B * y - b;
@@ -320,13 +321,13 @@ bool MathOpt::IP_Param::addConstraints(const arma::sp_mat &Ain, const arma::vec 
 
   this->B = arma::join_cols(this->B, Ain);
   this->b = arma::join_cols(this->b, bin);
-  this->A = Utils::resizePatch(this->A, this->B.n_rows, this->Nx);
+  this->A = Utils::resizePatch(this->A, this->B.n_rows, this->numParams);
   this->size();
 
   // If model hasn't been made, we do not need to update it
   if (this->Finalized) {
-	 GRBVar y[Ny];
-	 for (unsigned int i = 0; i < this->Ny; i++) {
+	 GRBVar y[numVars];
+	 for (unsigned int i = 0; i < this->numVars; i++) {
 		y[i] = this->IPModel.getVarByName("y_" + std::to_string(i));
 	 }
 
@@ -342,7 +343,7 @@ bool MathOpt::IP_Param::addConstraints(const arma::sp_mat &Ain, const arma::vec 
  * As per the convention, y is the decision variable for the IP and
  * that is parameterized in x
  * The KKT conditions are
- * \f$0 \leq y \perp  My + Nx + q \geq 0\f$
+ * \f$0 \leq y \perp  My + numParams + q \geq 0\f$
  * @param M The output M term
  * @param N The output N term
  * @param q The output q term
@@ -357,7 +358,7 @@ unsigned int MathOpt::IP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec 
                        // Matlab
                        //  join_rows(A, B) is same as [A B] in Matlab
       arma::join_rows(this->Q, BwithBounds.t()),
-      arma::join_rows(-BwithBounds, arma::zeros<arma::sp_mat>(this->Ncons, this->Ncons)));
+      arma::join_rows(-BwithBounds, arma::zeros<arma::sp_mat>(this->numConstr, this->numConstr)));
   N = arma::join_cols(this->C, -this->A);
   q                = arma::join_cols(this->c, arma::join_cols(this->b, this->b_bounds));
   return M.n_rows;
@@ -372,7 +373,7 @@ void MathOpt::IP_Param::presolve() {
 	 this->finalize();
   auto       p      = new GRBModel(this->IPModel);
   GRBLinExpr linObj = 0;
-  for (unsigned int i = 0; i < this->Ny; i++)
+  for (unsigned int i = 0; i < this->numVars; i++)
 	 linObj += (this->c.at(i)) * this->IPModel.getVarByName("y_" + std::to_string(i));
   p->setObjective(linObj);
   p->set(GRB_IntParam_Presolve, 2);
@@ -451,12 +452,12 @@ void MathOpt::IP_Param::presolve() {
 		// We need to update C as well
 		auto ratio = pc / oc;
 		// Guess the number of other players
-		auto modulo = this->Nx / this->Ny;
+		auto modulo = this->numParams / this->numVars;
 		// std::cout << "ratio" << ratio << "\n";
 		for (unsigned int m = 0; m < modulo; ++m) {
-		  // std::cout << "pre" << this->C.at(v, m * this->Ny + varIndex) << "\n";
-		  this->C.at(v, m * this->Ny + v) = this->C.at(v, m * this->Ny + varIndex) * ratio;
-		  // std::cout << "post" << this->C.at(v, m * this->Ny + varIndex) << "\n";
+		  // std::cout << "pre" << this->C.at(v, m * this->numVars + varIndex) << "\n";
+		  this->C.at(v, m * this->numVars + v) = this->C.at(v, m * this->numVars + varIndex) * ratio;
+		  // std::cout << "post" << this->C.at(v, m * this->numVars + varIndex) << "\n";
 		}
 
 		// throw ZEROException(ZEROErrorCode::SolverError, "Invalid presolve mapping");
@@ -471,7 +472,7 @@ void MathOpt::IP_Param::presolve() {
   }
 	**/
   // resize A, assuming it's empty
-  this->A.zeros(nconstr, this->Nx);
+  this->A.zeros(nconstr, this->numParams);
   this->b         = pre_b;
   this->B         = pre_B;
   this->Finalized = false;
@@ -553,12 +554,12 @@ void MathOpt::IP_Param::save(const std::string &filename, bool append) const {
 
   Utils::appendSave(std::string("IP_Param"), filename, append);
   Utils::appendSave(this->C, filename, std::string("IP_Param::C"), false);
-  Utils::appendSave(this->B, filename, std::string("IP_Param::B"), false);
-  Utils::appendSave(this->b, filename, std::string("IP_Param::b"), false);
+  Utils::appendSave(this->getB(true), filename, std::string("IP_Param::B"), false);
+  Utils::appendSave(this->getb(true), filename, std::string("IP_Param::b"), false);
   Utils::appendSave(this->c, filename, std::string("IP_Param::c"), false);
   Utils::appendSave(this->Integers, filename, std::string("IP_Param::Integers"), false);
-  arma::sp_mat BO(this->Ny, 2);
-  for (unsigned int i = 0; i < this->Ny; ++i) {
+  arma::sp_mat BO(this->numVars, 2);
+  for (unsigned int i = 0; i < this->numVars; ++i) {
 	 BO.at(i, 0) = this->Bounds.at(i).first;
 	 BO.at(i, 1) = this->Bounds.at(i).second;
   }

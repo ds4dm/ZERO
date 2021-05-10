@@ -39,7 +39,7 @@ namespace MathOpt {
 	* y &\geq& 0 \\
 	* y_i &\in& &\mathbb{Z}& &\forall& i &\in& I
 	* \f}
-	* Where the shape of C is @f$Ny \times Nx@f$.
+	* Where the shape of C is @f$Ny \times numParams@f$.
 	**/
   class IP_Param : public MP_Param {
   private:

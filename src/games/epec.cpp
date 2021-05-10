@@ -335,7 +335,7 @@ void Game::EPEC::makePlayersQPs()
 			 this->PlayersQP.at(j)->addDummy(
 				  convHullVarCount,
 				  0,
-				  this->PlayersQP.at(j)->getNx() -
+				  this->PlayersQP.at(j)->getNumParams() -
 						this->numMCVariables); // The position to add parameters is
 													  // towards the end of all parameters,
 													  // giving space only for the
@@ -358,7 +358,8 @@ void Game::EPEC::makeTheLCP() {
 	 throw ZEROException(ZEROErrorCode::Assertion, "No country QP has been made");
   }
   // Preliminary set up to get the LCP ready
-  unsigned long int Nvar = this->PlayersQP.front()->getNx() + this->PlayersQP.front()->getNy();
+  unsigned long int Nvar =
+		this->PlayersQP.front()->getNumParams() + this->PlayersQP.front()->getNumVars();
   arma::sp_mat      MC(0, Nvar), dumA(0, Nvar);
   arma::vec         MCRHS, dumb;
   MCRHS.zeros(0);

@@ -64,3 +64,13 @@ std::string std::to_string(ZEROStatus st) {
 	 return std::string("UNKWNOWN");
   }
 }
+
+void ZEROAssert(bool b, const char *callerFn, const char *callerFile, const int callerLine) {
+  if (!b) {
+	 std::string errorLine = "Assertion failed in " + std::string{callerFn} + ":" +
+									 std::string{callerFile} + " in line " + std::to_string(callerLine);
+	 std::cerr << errorLine << std::endl;
+	 throw ZEROException(ZEROErrorCode::Assertion,
+								errorLine);
+  }
+}

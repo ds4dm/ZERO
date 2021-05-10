@@ -435,7 +435,7 @@ int Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player,
 		return 0;
   }
 
-  unsigned int Ny = this->IPG->PlayerVariables.at(player); // Equals to Ny by definition
+  unsigned int Ny = this->IPG->PlayerVariables.at(player); // Equals to numVars by definition
 
   // Remember: the standard is minimization!
 
@@ -871,7 +871,7 @@ void Algorithms::IPG::Oracle::initialize() {
   for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
 	 // Initialize the IPG_Player
 	 this->Players.at(i) =
-		  std::make_unique<IPG_Player>(this->IPG->PlayersIP.at(i)->getNy(), this->Tolerance);
+		  std::make_unique<IPG_Player>(this->IPG->PlayersIP.at(i)->getNumVars(), this->Tolerance);
 	 //@todo be aware of variables' changes in presolve
 	 this->IPG->PlayersIP.at(i)->presolve();
 	 // Add the working IP
@@ -1221,7 +1221,7 @@ void Algorithms::IPG::Oracle::initializeEducatedGuesses() {
 		}
 
 		// Check if the origin is feasible
-		arma::vec zeros(this->IPG->PlayersIP.at(i)->getNy(), arma::fill::zeros);
+		arma::vec zeros(this->IPG->PlayersIP.at(i)->getNumVars(), arma::fill::zeros);
 		double    zero = this->IPG->PlayersIP.at(i)->computeObjective(zeros, xMinusI, true);
 		if (zero != GRB_INFINITY)
 		  this->Players.at(i)->containsOrigin = true;
@@ -1240,7 +1240,7 @@ void Algorithms::IPG::Oracle::initializeCoinModel(const unsigned int player) {
   auto IP_Bounds     = this->Players.at(player)->ParametrizedIP->getBounds();
   auto IP_b          = this->Players.at(player)->ParametrizedIP->getb(false);
   auto IP_Integers   = this->Players.at(player)->ParametrizedIP->getIntegers();
-  auto IP_numVars    = this->IPG->PlayersIP.at(player)->getNy();
+  auto IP_numVars    = this->IPG->PlayersIP.at(player)->getNumVars();
   auto IP_numConstrs = IP_B.n_rows;
 
 

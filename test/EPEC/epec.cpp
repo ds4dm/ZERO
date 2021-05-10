@@ -28,20 +28,20 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
   /* Random data
   arma_rng::set_seed(rand_int(g));
 
-  unsigned int Ny = 2+rand_int(g);
-  unsigned int Nx = 1+rand_int(g);
+  unsigned int numVars = 2+rand_int(g);
+  unsigned int numParams = 1+rand_int(g);
   unsigned int Nconstr = (rand_int(g)+2)/2;
 
-  sp_mat Q = arma::sprandu<sp_mat>(Ny, Ny, 0.2);
+  sp_mat Q = arma::sprandu<sp_mat>(numVars, numVars, 0.2);
   Q = Q*Q.t();
   BOOST_REQUIRE(Q.is_symmetric());
   Q.print_dense();
 
-  sp_mat C = arma::sprandu<sp_mat>(Ny, Nx, 0.3);
-  sp_mat A = arma::sprandu<sp_mat>(Nconstr, Nx, 0.7);
-  sp_mat B = arma::sprandu<sp_mat>(Nconstr, Ny, 0.7);
+  sp_mat C = arma::sprandu<sp_mat>(numVars, numParams, 0.3);
+  sp_mat A = arma::sprandu<sp_mat>(Nconstr, numParams, 0.7);
+  sp_mat B = arma::sprandu<sp_mat>(Nconstr, numVars, 0.7);
   vec b(Nconstr); for (unsigned int i = 0; i<Nconstr; ++i) b(i) = 3*rand_int(g);
-  vec c = arma::randg(Ny);
+  vec c = arma::randg(numVars);
 
   */
 
@@ -96,7 +96,7 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
   q2.set(Q, C, A, B, c, b);
   BOOST_CHECK(q1 == q2);
   // Checking if the constructor is sensible
-  BOOST_CHECK(q1.getNx() == Nx && q1.getNy() == Ny);
+  BOOST_CHECK(q1.getNumParams() == Nx && q1.getNumVars() == Ny);
 
   // QP_Param.solve_fixed()
   BOOST_TEST_MESSAGE("QP_Param.solveFixed() test");
@@ -118,9 +118,11 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
   // Hard coding the expected values for M, N and q
   arma::mat Mhard(5, 5), Nhard(5, 2);
   arma::vec qhard(5);
-  Mhard << 2 << 2 << -4 << 1 << -1 << arma::endr << 2 << 2 << -4 << 1 << 1 << arma::endr << -4 << -4
-		  << 8 << 1 << -2 << arma::endr << -1 << -1 << -1 << 0 << 0 << arma::endr << 1 << -1 << 2 << 0
-		  << 0 << arma::endr;
+  Mhard << 2 << 2 << -4 << 1 << -1 << -1 << 0 << 0 << arma::endr << 2 << 2 << -4 << 1 << 1 << 0
+		  << -1 << 0 << arma::endr << -4 << -4 << 8 << 1 << -2 << 0 << 0 << -1 << arma::endr << -1
+		  << -1 << -1 << 0 << 0 << 0 << 0 << 0 << arma::endr << 1 << -1 << 2 << 0 << 0 << 0 << 0 << 0
+		  << arma::endr << 1 << 0 << 0 << 0 << 0 << 0 << 0 << 0 << arma::endr << 0 << 1 << 0 << 0 << 0
+		  << 0 << 0 << 0 << arma::endr << 0 << 0 << 1 << 0 << 0 << 0 << 0 << 0;
   Nhard << 2 << 2 << arma::endr << 0 << 0 << arma::endr << 3 << 0 << arma::endr << 0 << 0
 		  << arma::endr << 1 << 1 << arma::endr;
   qhard << 1 << -1 << 1 << 10 << -1;
@@ -159,13 +161,13 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
   BOOST_CHECK_MESSAGE(Utils::isZero(q_ref.getA() - q1.getA()), "A check after addDummy(0, 1, 1)");
 
   // B
-  temp_spmat1 = q1.getB().submat(0, 0, Ncons - 1, Ny - 1);
-  BOOST_CHECK_MESSAGE(Utils::isZero(temp_spmat1 - q_ref.getB()), "B check after addDummy(0, 1, 1)");
-  temp_spmat1 = q1.getB().col(Ny);
+  temp_spmat1 = q1.getB(false).submat(0, 0, Ncons - 1, Ny - 1);
+  BOOST_CHECK_MESSAGE(Utils::isZero(temp_spmat1 - q_ref.getB(false)), "B check after addDummy(0, 1, 1)");
+  temp_spmat1 = q1.getB(false).col(Ny);
   BOOST_CHECK_MESSAGE(Utils::isZero(temp_spmat1), "B check after addDummy(0, 1, 1)");
 
   // b
-  BOOST_CHECK_MESSAGE(Utils::isZero(q_ref.getb() - q1.getb()), "b check after addDummy(0, 1, 1)");
+  BOOST_CHECK_MESSAGE(Utils::isZero(q_ref.getb(false) - q1.getb(false)), "b check after addDummy(0, 1, 1)");
 
   // c
   temp_spmat1 = q1.getc().subvec(0, Ny - 1);
@@ -177,10 +179,12 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
   q2.save("../test/EPEC/q2.dat", true);
   BOOST_TEST_MESSAGE("Saved QP_Param objects");
   MathOpt::QP_Param q1loader(&env);
+  q1.getB(true).print_dense("OriginalB");
   q1loader.load("../test/EPEC/q1.dat", 0);
   MathOpt::QP_Param q2loader(&env);
   q2loader.load("../test/EPEC/q2.dat", 0);
 
+  bool test = q1loader == q1;
   BOOST_CHECK_MESSAGE(q1loader == q1, "Save/load test 1 works well");
   BOOST_CHECK_MESSAGE(q2loader == q2, "Save/load test 2 works well");
 }

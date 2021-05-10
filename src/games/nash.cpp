@@ -160,7 +160,7 @@ void Game::NashGame::setPositions()
   unsigned int prCnt{0}, dlCnt{0}; // Temporary variables - primal count and dual count
   for (unsigned int i = 0; i < NumPlayers; i++) {
 	 PrimalPosition.at(i) = prCnt;
-	 prCnt += Players.at(i)->getNy();
+	 prCnt += Players.at(i)->getNumVars();
   }
 
 
@@ -223,7 +223,7 @@ the image below
   for (unsigned int i = 0; i < NumPlayers; i++) {
 	 this->Players[i]->KKT(Mi[i], Ni[i], qi[i]);
 	 unsigned int numPrim, numDual;
-	 numPrim = this->Players[i]->getNy();
+	 numPrim = this->Players[i]->getNumVars();
 	 numDual = this->Players[i]->getb(true).n_rows;
 	 // Adding the primal equations
 	 // Region 1 in Formulate LCP.ipe

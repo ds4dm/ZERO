@@ -140,14 +140,14 @@ void Models::IPG::IPGInstance::load(std::string filename) {
 			 throw ZEROException(ZEROErrorCode::IOError,
 										"Cannot open the IP param for player " + std::to_string(j));
 		  }
-		  if (ParametrizedProblem.getNy() != c["NumVariables"].GetInt()) {
+		  if (ParametrizedProblem.getNumVars() != c["NumVariables"].GetInt()) {
 			 throw ZEROException(ZEROErrorCode::InvalidData,
 										"The IP param for player " + std::to_string(j) +
 											 " has a different number of variables y wrt the instance file");
 		  }
 		  this->IPFiles.push_back(fileName);
-		  this->PlayerVariables.push_back(ParametrizedProblem.getNy());
-		  this->NumVariables += ParametrizedProblem.getNy();
+		  this->PlayerVariables.push_back(ParametrizedProblem.getNumVars());
+		  this->NumVariables += ParametrizedProblem.getNumVars();
 		}
 		ifs.close();
 	 } catch (...) {
@@ -165,8 +165,8 @@ void Models::IPG::IPGInstance::addIPParam(const MathOpt::IP_Param &ip, const std
 	 if (!ifs.good())
 		ip.save(filename, 0);
 	 this->IPFiles.push_back(filename);
-	 this->PlayerVariables.push_back(ip.getNy());
-	 this->NumVariables += ip.getNy();
+	 this->PlayerVariables.push_back(ip.getNumVars());
+	 this->NumVariables += ip.getNumVars();
 
   } catch (...) {
 	 throw ZEROException(ZEROErrorCode::IOError, "Cannot write the IPG data");

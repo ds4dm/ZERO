@@ -132,7 +132,7 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
 			 // We search for a convex combination of best responses so that we can
 			 // certify the answer is inside the convex-hull (or not).
 
-			 int budget = this->EPECObject->PlayersQP.at(i)->getNy();
+			 int budget = this->EPECObject->PlayersQP.at(i)->getNumVars();
 			 if (!this->equilibriumOracle(xOfI, this->EPECObject->SolutionX, i, budget, addedCuts)) {
 				LOG_S(1) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
 							<< ") Oracle says NO.";
@@ -711,7 +711,7 @@ Algorithms::EPEC::OuterApproximation::getFeasibilityQP(const unsigned int player
 
   arma::vec xMinusI;
   this->EPECObject->getXMinusI(this->EPECObject->SolutionX, player, xMinusI);
-  xMinusI.resize(this->EPECObject->PlayersQP.at(player)->getNx());
+  xMinusI.resize(this->EPECObject->PlayersQP.at(player)->getNumParams());
   auto model = this->EPECObject->PlayersQP.at(player)->solveFixed(xMinusI, false);
   // Enforce QP::y to be x, namely the point to belong to the feasible region
   for (unsigned int j = 0; j < x.size(); j++)

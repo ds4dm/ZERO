@@ -41,7 +41,7 @@ void Game::IPG::finalize() {
   this->Solution        = std::vector<arma::vec>(this->NumPlayers);
   this->NumVariables    = 0;
   for (unsigned int i = 0; i < this->NumPlayers; ++i) {
-	 PlayerVariables.at(i) = this->PlayersIP.at(i)->getNy();
+	 PlayerVariables.at(i) = this->PlayersIP.at(i)->getNumVars();
 	 this->NumVariables += PlayerVariables.at(i);
 	 this->PlayersIP.at(i)->finalize();
   }

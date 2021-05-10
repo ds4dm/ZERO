@@ -45,9 +45,9 @@ namespace MathOpt {
 	 GRBEnv *       Env;        ///< A pointer to the Gurobi environment
 	 VariableBounds Bounds;     ///< Bounds on the y variables
 	 // Object for sizes and integrity check
-	 unsigned int Nx;    ///< Number of x variables (the ones that are parametrized)
-	 unsigned int Ny;    ///< Number of y variables
-	 unsigned int Ncons; ///< Number of constraints
+	 unsigned int numParams;    ///< Number of x variables (the ones that are parametrized)
+	 unsigned int numVars;    ///< Number of y variables
+	 unsigned int numConstr; ///< Number of constraints
 
 	 const unsigned int size();
 
@@ -68,12 +68,12 @@ namespace MathOpt {
 	 // Getters and setters
 	 arma::sp_mat getQ() const { return this->Q; }   ///< Read-only access to the private variable Q
 	 arma::sp_mat getC() const { return this->C; }   ///< Read-only access to the private variable C
-	 arma::sp_mat getA() const { return this->A; }   ///< Read-only access to the private variable A
+	 arma::sp_mat getA(bool bounds = true) const;  ///< Read-only access to the private variable A
 	 arma::sp_mat getB(bool bounds = true) const;    ///< Read-only access to the private variable B
 	 arma::vec    getc() const { return this->c; }   ///< Read-only access to the private variable c
 	 arma::vec    getb(bool bounds = true) const;    ///< Read-only access to the private variable b
-	 unsigned int getNx() const { return this->Nx; } ///< Read-only access to the private variable Nx
-	 unsigned int getNy() const { return this->Ny; } ///< Read-only access to the private variable Ny
+	 unsigned int getNumParams() const { return this->numParams; } ///< Read-only access to the private variable numParams
+	 unsigned int getNumVars() const { return this->numVars; } ///< Read-only access to the private variable numVars
 	 VariableBounds getBounds() const {
 		return this->Bounds;
 	 } ///< Read-only access to the private variable BoundsX
