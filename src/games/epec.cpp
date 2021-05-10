@@ -108,7 +108,7 @@ void Game::EPEC::getXMinusI(const arma::vec &x, const unsigned int &i, arma::vec
   const unsigned int nEPECvars            = this->NumVariables;
   const unsigned int nThisCountryvars     = *this->LocEnds.at(i);
   const unsigned int nThisCountryHullVars = this->ConvexHullVariables.at(i);
-  const auto nConvexHullVars      = static_cast<const unsigned int>(
+  const auto         nConvexHullVars      = static_cast<const unsigned int>(
       std::accumulate(this->ConvexHullVariables.rbegin(), this->ConvexHullVariables.rend(), 0));
 
   solOther.zeros(nEPECvars -        // All variables in EPEC
@@ -166,8 +166,8 @@ void Game::EPEC::getXWithoutHull(const arma::vec &x, arma::vec &xWithoutHull) co
 	*
 	*/
   const unsigned int nEPECvars       = this->NumVariables;
-  const auto nConvexHullVars = static_cast<const unsigned int>(
-		std::accumulate(this->ConvexHullVariables.rbegin(), this->ConvexHullVariables.rend(), 0));
+  const auto         nConvexHullVars = static_cast<const unsigned int>(
+      std::accumulate(this->ConvexHullVariables.rbegin(), this->ConvexHullVariables.rend(), 0));
 
   xWithoutHull.zeros(nEPECvars -       // All variables in EPEC
 							nConvexHullVars); // We subtract the hull variables
@@ -195,19 +195,19 @@ Game::EPEC::respond(const unsigned int i, const arma::vec &x, MathOpt::PolyLCP *
   auto LCP = (customLCP == nullptr) ? this->PlayersLCP.at(i).get() : customLCP;
   if (this->LeaderObjective.at(i)->Q.n_nonzero > 0)
 	 return LCP->LCPasMIQP(this->LeaderObjective.at(i)->Q,
-																	this->LeaderObjective.at(i)->C,
-																	this->LeaderObjective.at(i)->c,
-																	solOther,
-																	true);
+								  this->LeaderObjective.at(i)->C,
+								  this->LeaderObjective.at(i)->c,
+								  solOther,
+								  true);
   else
 	 return LCP->LCPasMILP(
 		  this->LeaderObjective.at(i)->C, this->LeaderObjective.at(i)->c, solOther, true);
 }
 
-double Game::EPEC::respondSol(arma::vec &      sol,
-										unsigned int     player,
-										const arma::vec &x,
-										const arma::vec &prevDev,
+double Game::EPEC::respondSol(arma::vec &       sol,
+										unsigned int      player,
+										const arma::vec & x,
+										const arma::vec & prevDev,
 										MathOpt::PolyLCP *customLCP) const {
   /**
 	* @brief Returns the optimal objective value that is obtainable for the
@@ -330,7 +330,7 @@ void Game::EPEC::makePlayersQPs()
 	 this->ConvexHullVariables.at(i) = convHullVarCount;
 	 // All other players' QP
 	 if (this->NumPlayers > 1) {
-		for ( int j = 0; j < this->NumPlayers; j++) {
+		for (int j = 0; j < this->NumPlayers; j++) {
 		  if (i != j) {
 			 this->PlayersQP.at(j)->addDummy(
 				  convHullVarCount,
@@ -575,7 +575,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,
   return this->NashEquilibrium;
 }
 
-bool Game::EPEC::warmstart(const arma::vec& x) {
+bool Game::EPEC::warmstart(const arma::vec &x) {
   //@todo complete implementation
 
   if (x.size() < this->getNumVar())
@@ -760,6 +760,9 @@ double Game::EPEC::getValLeadLead(const unsigned int i, const unsigned int j) co
   return this->LCPModel->getVarByName("x_" + std::to_string(this->getPositionLeadLead(i, j)))
 		.get(GRB_DoubleAttr_X);
 }
+void Game::EPEC::setBranchingStrategy(Data::EPEC::BranchingStrategy strategy) {
+  this->Stats.AlgorithmData.BranchingStrategy.set(strategy);
+}
 
 
 std::string std::to_string(const Data::EPEC::Algorithms al) {
@@ -782,6 +785,16 @@ std::string std::to_string(const Data::EPEC::RecoverStrategy strategy) {
 	 return std::string("IncrementalEnumeration");
   case Data::EPEC::RecoverStrategy::Combinatorial:
 	 return std::string("Combinatorial");
+  }
+  return "";
+}
+
+std::string std::to_string(const Data::EPEC::BranchingStrategy strategy) {
+  switch (strategy) {
+  case Data::EPEC::BranchingStrategy::HybridBranching:
+	 return std::string("HybridBranching");
+  case Data::EPEC::BranchingStrategy::DeviationBranching:
+	 return std::string("DeviationBranching");
   }
   return "";
 }

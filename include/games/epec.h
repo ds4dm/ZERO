@@ -24,64 +24,80 @@
 
 namespace Data::EPEC {
 
-	 /**
-	  * @brief An enum containing the available algorithms for Game::EPEC
-	  */
-	 enum class Algorithms {
+  /**
+	* @brief An enum containing the available algorithms for Game::EPEC
+	*/
+  enum class Algorithms {
 
-		FullEnumeration, ///< Completely enumerate the set of polyhedra for all
-		///< leaders
-		InnerApproximation, ///< Perform increasingly better inner approximations in
-		///< iterations
-		CombinatorialPne, ///< Perform a Combinatorial-based search strategy to find a
-		///< pure NE
-		OuterApproximation ///< Perform an increasingly improving outer approximation
-		///< of the feasible region of each leader
-	 };
-	 /** @brief Recovery strategies are triggered when the Algorithm
-	 "InnerApproximation" is selected. If a PNE is requested, then the algorithm
-	 can recover it by using one of these strategies
-	 **/
-	 enum class RecoverStrategy {
-		IncrementalEnumeration, ///< Add Random polyhedra at each iteration
-		Combinatorial           ///< Triggers the CombinatorialPNE with additional information
-		///< from InnerApproximation
-	 };
+	 FullEnumeration, ///< Completely enumerate the set of polyhedra for all
+	 ///< leaders
+	 InnerApproximation, ///< Perform increasingly better inner approximations in
+	 ///< iterations
+	 CombinatorialPne, ///< Perform a Combinatorial-based search strategy to find a
+	 ///< pure NE
+	 OuterApproximation ///< Perform an increasingly improving outer approximation
+	 ///< of the feasible region of each leader
+  };
+  /** @brief Recovery strategies are triggered when the Algorithm
+  "InnerApproximation" is selected. If a PNE is requested, then the algorithm
+  can recover it by using one of these strategies
+  **/
+  enum class RecoverStrategy {
+	 IncrementalEnumeration, ///< Add Random polyhedra at each iteration
+	 Combinatorial           ///< Triggers the CombinatorialPNE with additional information
+	 ///< from InnerApproximation
+  };
 
-	 /**
-	  * @brief A inheritor that manages the data for Game::EPEC instances.
-	  */
-	 class DataObject : public ZEROAlgorithmData {
-	 public:
-		Attr<Data::EPEC::Algorithms> Algorithm = {
-			 Data::EPEC::Algorithms::FullEnumeration}; ///< The selected algorithm
-		Attr<Data::EPEC::RecoverStrategy> RecoverStrategy = {
-			 Data::EPEC::RecoverStrategy::IncrementalEnumeration}; ///< The Recover Strategy for inner
-																					 ///< approximation
-		Attr<Data::LCP::PolyhedraStrategy>
-								 PolyhedraStrategy; ///< The polyhedral strategy for inner approximation
-		Attr<unsigned int> Aggressiveness{
-			 1}; ///< The upper bound on the polyhedra added by the Polyhedral
-				  ///< Strategy, for each player at each iteration.
-		Attr<std::vector<unsigned int>> FeasiblePolyhedra =
-			 std::vector<unsigned int>(); ///< A vector of number of feasible
-													///< polyhedra, for each leader
-		Attr<std::vector<unsigned int>> OuterComplementarities =
-			 std::vector<unsigned int>(); ///< A vector with the number of included complementarities,
-													///< for each leader.
-		Attr<int> LostIntermediateEq = {0}; ///< Counts the number of approximation steps where the
-														///< problem (approximated) has no nash equilibrium
-		Attr<Data::LCP::Algorithms>
-			 LCPSolver; ///< Preferred method to solve the LCPs. Note that
-							///< <Data::LCP::Algorithms::PATH may not be available for any
-							///< LCPs. In the unlikely case, the fallback is MIP.
+  /**
+	* @brief Branching Strategies are triggered when the algorithm "OuterApproximation" is selected.
+	* They help guiding the search for the next complementarity of each player's LCP that will be
+	* included in the forthcoming iteration.
+	*/
 
-		DataObject()
-			 : PolyhedraStrategy{static_cast<Data::LCP::PolyhedraStrategy>(0)},
-				LCPSolver{static_cast<Data::LCP::Algorithms>(0)} {};
-	 };
+  enum class BranchingStrategy {
+	 HybridBranching,    ///< A combination of constraints violations if any
+	 DeviationBranching, ///< Includes the complementarity encoding a profitable deviation, if any.
+  };
 
-  } // namespace Data
+
+  /**
+	* @brief A inheritor that manages the data for Game::EPEC instances.
+	*/
+  class DataObject : public ZEROAlgorithmData {
+  public:
+	 Attr<Data::EPEC::Algorithms> Algorithm = {
+		  Data::EPEC::Algorithms::FullEnumeration}; ///< The selected algorithm
+	 Attr<Data::EPEC::RecoverStrategy> RecoverStrategy = {
+		  Data::EPEC::RecoverStrategy::IncrementalEnumeration}; ///< The Recover Strategy for inner
+																				  ///< approximation
+	 Attr<Data::LCP::PolyhedraStrategy>
+							  PolyhedraStrategy; ///< The polyhedral strategy for inner approximation
+	 Attr<unsigned int> Aggressiveness{
+		  1}; ///< The upper bound on the polyhedra added by the Polyhedral
+				///< Strategy, for each player at each iteration.
+	 Attr<std::vector<unsigned int>> FeasiblePolyhedra =
+		  std::vector<unsigned int>(); ///< A vector of number of feasible
+												 ///< polyhedra, for each leader
+	 Attr<std::vector<unsigned int>> OuterComplementarities =
+		  std::vector<unsigned int>();    ///< A vector with the number of included complementarities,
+													 ///< for each leader.
+	 Attr<int> LostIntermediateEq = {0}; ///< Counts the number of approximation steps where the
+													 ///< problem (approximated) has no nash equilibrium
+	 Attr<Data::LCP::Algorithms>
+		  LCPSolver; ///< Preferred method to solve the LCPs. Note that
+						 ///< <Data::LCP::Algorithms::PATH may not be available for any
+						 ///< LCPs. In the unlikely case, the fallback is MIP.
+
+	 Attr<Data::EPEC::BranchingStrategy> BranchingStrategy =
+		  Data::EPEC::BranchingStrategy::HybridBranching;
+	 ///< The branching strategy for the Outer Approximation
+
+	 DataObject()
+		  : PolyhedraStrategy{static_cast<Data::LCP::PolyhedraStrategy>(0)},
+			 LCPSolver{static_cast<Data::LCP::Algorithms>(0)} {};
+  };
+
+} // namespace Data::EPEC
 
 namespace Game {
 
@@ -120,9 +136,9 @@ namespace Game {
 	 unsigned int                      numMCVariables{0};
 
 	 bool      Finalized{false};
-	 arma::vec SolutionZ,         ///< Solution equation values
-		  SolutionX;               ///< Solution variable values
-	 bool warmstart(const arma::vec& x); ///< Warmstarts EPEC with a solution
+	 arma::vec SolutionZ,                ///< Solution equation values
+		  SolutionX;                      ///< Solution variable values
+	 bool warmstart(const arma::vec &x); ///< Warmstarts EPEC with a solution
 
   private:
 	 void       addDummyLead(unsigned int i); ///< Add Dummy variables for the leaders
@@ -177,13 +193,13 @@ namespace Game {
 	 bool       isPureStrategy(double tol = 1e-5) const override;
 
 	 std::unique_ptr<GRBModel>
-	 respond(const unsigned int i, const arma::vec &x, MathOpt::PolyLCP *customLCP=nullptr) const;
+	 respond(const unsigned int i, const arma::vec &x, MathOpt::PolyLCP *customLCP = nullptr) const;
 
-	 double respondSol(arma::vec &      sol,
-							 unsigned int     player,
-							 const arma::vec &x,
-							 const arma::vec &prevDev={},
-							 MathOpt::PolyLCP *customLCP=nullptr) const;
+	 double respondSol(arma::vec &       sol,
+							 unsigned int      player,
+							 const arma::vec & x,
+							 const arma::vec & prevDev   = {},
+							 MathOpt::PolyLCP *customLCP = nullptr) const;
 
 	 const arma::vec getX() const { return this->SolutionX; }
 
@@ -194,6 +210,8 @@ namespace Game {
 	 void setAlgorithm(Data::EPEC::Algorithms algorithm);
 
 	 void setRecoverStrategy(Data::EPEC::RecoverStrategy strategy);
+
+    void setBranchingStrategy(Data::EPEC::BranchingStrategy strategy);
 
 	 void setAggressiveness(unsigned int a) { this->Stats.AlgorithmData.Aggressiveness = a; }
 
@@ -238,5 +256,7 @@ namespace std {
   string to_string(Data::EPEC::Algorithms al);
 
   string to_string(Data::EPEC::RecoverStrategy st);
+
+  string to_string(Data::EPEC::BranchingStrategy st);
 
 }; // namespace std
