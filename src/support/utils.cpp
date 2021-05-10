@@ -659,7 +659,7 @@ bool Utils::isEqualRel(const double a, const double b, const double percent) {
   double B       = fabs(b);
   float  largest = (B > A) ? B : A;
 
-  if (diff <= largest * percent)
+  if (diff <= largest * (1-percent))
 	 return true;
   else
 	 return false;

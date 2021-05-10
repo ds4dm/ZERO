@@ -58,8 +58,25 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
 	 // Reset the feasibility
 	 this->Trees.at(i)->resetFeasibility();
 	 // Compute the payoff of the best response, as well as the best response
-	 double bestPayoff = this->EPECObject->respondSol(
-		  bestResponse, i, this->EPECObject->SolutionX, {}, this->Trees.at(i)->OriginalLCP.get());
+	 auto bestModel = this->EPECObject->respond(
+		  i, this->EPECObject->SolutionX, this->Trees.at(i)->OriginalLCP.get());
+	 const int status = bestModel->get(GRB_IntAttr_Status);
+
+	 if (status == GRB_UNBOUNDED) {
+		LOG_S(1) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
+					<< ") Unbounded deviation";
+		addedCuts = false;
+		result    = false;
+	 }
+
+	 // Get the best response
+	 unsigned int Nx = this->EPECObject->PlayersLCP.at(i)->getNumCols();
+	 bestResponse.zeros(Nx);
+	 for (unsigned int j = 0; j < Nx; ++j)
+		bestResponse.at(j) = bestModel->getVarByName("x_" + std::to_string(j)).get(GRB_DoubleAttr_X);
+	 double bestPayoff = bestModel->getObjective().getValue();
+
+
 	 LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i << ") Payoff of "
 					 << incumbentPayoffs.at(i) << " vs bestResponse of " << bestPayoff;
 	 // Since it's minimization, difference between the incumbent and best response payoff
@@ -67,86 +84,73 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
 
 
 
-	 // If this is unbounded, well, infeasible!
-	 if (bestPayoff == GRB_INFINITY) {
-		LOG_S(1) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
-					<< ") Unbounded deviation";
-		addedCuts = false;
-		result    = false;
+	 if (!Utils::isEqual(incumbentPayoffs.at(i), bestPayoff, this->Tolerance, 1 - this->Tolerance)) {
+		// Discrepancy between payoffs! Need to investigate.
+
+
+		if (absdiff > 10 * this->Tolerance) {
+		  // It means the current payoff is more than then optimal response. Then
+		  // this is not a best response. Theoretically, this cannot happen from
+		  // an outer approximation. This can however happen for numerical reasons
+
+		  LOG_S(WARNING) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i << ")"
+							  << " No best response (" << incumbentPayoffs.at(i) << " vs " << bestPayoff
+							  << " with absdiff=" << incumbentPayoffs.at(i) - bestPayoff << ")";
+		  this->EPECObject->Stats.Status.set(ZEROStatus::Numerical);
+		  throw ZEROException(ZEROErrorCode::Numeric,
+									 "Invalid payoffs relation (better best response).");
+		} else
+		// In any other case, we are good to go.
+		{
+		  // It means the current payoff is less than the optimal response. The
+		  // approximation is not good, and this point is infeasible. Then, we can
+		  // generate a value-cut
+		  arma::vec xMinusI;
+		  this->EPECObject->getXMinusI(this->EPECObject->SolutionX, i, xMinusI);
+		  this->addValueCut(i, bestPayoff, xMinusI);
+		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i << ") Value cut";
+		  result = false;
+		}
 	 } else {
-		// Otherwise, let's see how much do we differ
 
+		// Here we have a best response whose payoff coincides with the one of the
+		// equilibrium. The strategy might not be feasible, though.
 
-		if (!Utils::isEqual(
-				  incumbentPayoffs.at(i), bestPayoff, this->Tolerance, 1 - this->Tolerance)) {
-		  // Discrepancy between payoffs! Need to investigate.
+		// Get xOfI
+		arma::vec xOfI;
+		this->EPECObject->getXofI(this->EPECObject->SolutionX, i, xOfI, false);
 
+		// Check if we need to add the point to the vertex storage.
+		arma::vec vertex = bestResponse.subvec(0, xOfI.size() - 1);
+		// Add the best response to the storage
+		if (this->Trees.at(i)->addVertex(vertex, true)) {
+		  LOG_S(1) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
+					  << ") Adding vertex (Best Response)";
+		} else {
+		  LOG_S(1) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
+					  << ") Already known vertex (Best Response)";
+		}
 
-		  if (absdiff > 10 * this->Tolerance) {
-			 // It means the current payoff is more than then optimal response. Then
-			 // this is not a best response. Theoretically, this cannot happen from
-			 // an outer approximation. This can however happen for numerical reasons
+		if (!Utils::isZero(xOfI - vertex, this->Tolerance)) {
+		  // Then, if the answers aren't equal, we need to refine the
+		  // approximation or determine if this strategy is anyhow feasible.
+		  // We search for a convex combination of best responses so that we can
+		  // certify the answer is inside the convex-hull (or not).
 
-			 LOG_S(WARNING) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i << ")"
-								 << " No best response (" << incumbentPayoffs.at(i) << " vs " << bestPayoff
-								 << " with absdiff=" << incumbentPayoffs.at(i) - bestPayoff << ")";
-			 this->EPECObject->Stats.Status.set(ZEROStatus::Numerical);
-			 throw ZEROException(ZEROErrorCode::Numeric,
-										"Invalid payoffs relation (better best response).");
-		  } else
-		  // In any other case, we are good to go.
-		  {
-			 // It means the current payoff is less than the optimal response. The
-			 // approximation is not good, and this point is infeasible. Then, we can
-			 // generate a value-cut
-			 arma::vec xMinusI;
-			 this->EPECObject->getXMinusI(this->EPECObject->SolutionX, i, xMinusI);
-			 this->addValueCut(i, bestPayoff, xMinusI);
-			 LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
-							 << ") Value cut";
+		  int budget = this->EPECObject->PlayersQP.at(i)->getNumVars();
+		  if (!this->equilibriumOracle(xOfI, this->EPECObject->SolutionX, i, budget, addedCuts)) {
+			 LOG_S(1) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
+						 << ") Oracle says NO.";
 			 result = false;
 		  }
+		  // Otherwise, the result is true...
+
 		} else {
-
-		  // Here we have a best response whose payoff coincides with the one of the
-		  // equilibrium. The strategy might not be feasible, though.
-
-		  // Get xOfI
-		  arma::vec xOfI;
-		  this->EPECObject->getXofI(this->EPECObject->SolutionX, i, xOfI, false);
-
-		  // Check if we need to add the point to the vertex storage.
-		  arma::vec vertex = bestResponse.subvec(0, xOfI.size() - 1);
-		  // Add the best response to the storage
-		  if (this->Trees.at(i)->addVertex(vertex, true)) {
-			 LOG_S(1) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
-						 << ") Adding vertex (Best Response)";
-		  } else {
-			 LOG_S(1) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
-						 << ") Already known vertex (Best Response)";
-		  }
-
-		  if (!Utils::isZero(xOfI - vertex, this->Tolerance)) {
-			 // Then, if the answers aren't equal, we need to refine the
-			 // approximation or determine if this strategy is anyhow feasible.
-			 // We search for a convex combination of best responses so that we can
-			 // certify the answer is inside the convex-hull (or not).
-
-			 int budget = this->EPECObject->PlayersQP.at(i)->getNumVars();
-			 if (!this->equilibriumOracle(xOfI, this->EPECObject->SolutionX, i, budget, addedCuts)) {
-				LOG_S(1) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
-							<< ") Oracle says NO.";
-				result = false;
-			 }
-			 // Otherwise, the result is true...
-
-		  } else {
-			 // Feasible point
-			 this->Trees.at(i)->setFeasible();
-			 this->Trees.at(i)->setPure();
-			 LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
-							 << ") Feasible strategy (Best Response)";
-		  }
+		  // Feasible point
+		  this->Trees.at(i)->setFeasible();
+		  this->Trees.at(i)->setPure();
+		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
+						  << ") Feasible strategy (Best Response)";
 		}
 	 }
   }
