@@ -422,17 +422,22 @@ void Algorithms::EPEC::OuterApproximation::addValueCut(const unsigned int player
   arma::vec LHS = (this->EPECObject->LeaderObjective.at(player)->c +
 						 this->EPECObject->LeaderObjective.at(player)->C * xMinusI);
 
+  bool normalization = false;
   if (Utils::nonzeroDecimals(RHS, 6) >= 6) {
 	 LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::addValueCut: "
 						 "Numerically unstable cut. This may cause numerical problems. "
 					 << player;
-	 //return;
+	 // Let's try to save what we can.
+	 double trueRHS = Utils::round_nplaces(RHS, 5);
+	 for (unsigned int i = 0; i < LHS.size(); ++i)
+		LHS.at(i) = Utils::round_nplaces(LHS.at(i), 5);
+	 normalization = true;
   }
   double trueRHS = Utils::round_nplaces(RHS, 5);
 
 
   //  LHS.print("LHS with RHS of " + std::to_string(trueRHS));
-  Utils::normalizeIneq(LHS, trueRHS, false);
+  Utils::normalizeIneq(LHS, trueRHS, normalization);
 
 
   LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::addValueCut: "

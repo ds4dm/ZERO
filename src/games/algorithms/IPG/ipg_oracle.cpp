@@ -144,6 +144,9 @@ bool Algorithms::IPG::Oracle::addValueCut(unsigned int     player,
 		return true;
 	 }
 	 // Force normalization, in case it wasn't before.
+    double RHS = Utils::round_nplaces(RHS, 5);
+    for (unsigned int i = 0; i < LHS.size(); ++i)
+	   LHS.at(i) = Utils::round_nplaces(LHS.at(i), 5);
 	 Utils::normalizeIneq(LHS, RHS, true);
 	 LOG_S(0) << "Algorithms::IPG::Oracle::addValueCut: "
 					 "WARNING: Cannot generate another cut. Adding normalized value-cut.";
