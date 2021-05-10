@@ -462,7 +462,7 @@ int Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player,
 
 
 	 auto diff = REL_Objective - IP_Objective;
-	 if (Utils::isEqual(
+	 if (!Utils::isEqual(
 				std::abs(diff), 0, this->IPG->Stats.AlgorithmData.DeviationTolerance.get())) {
 		// There exists a difference between the payoffs
 

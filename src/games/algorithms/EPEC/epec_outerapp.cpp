@@ -77,7 +77,7 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
 		// Otherwise, let's see how much do we differ
 
 
-		if (Utils::isEqual(
+		if (!Utils::isEqual(
 				  incumbentPayoffs.at(i), bestPayoff, this->Tolerance, 1 - this->Tolerance)) {
 		  // Discrepancy between payoffs! Need to investigate.
 
