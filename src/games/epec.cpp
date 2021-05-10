@@ -182,7 +182,8 @@ void Game::EPEC::getXWithoutHull(const arma::vec &x, arma::vec &xWithoutHull) co
   }
 }
 
-std::unique_ptr<GRBModel> Game::EPEC::respond(const unsigned int i, const arma::vec &x) const {
+std::unique_ptr<GRBModel>
+Game::EPEC::respond(const unsigned int i, const arma::vec &x, MathOpt::PolyLCP *customLCP) const {
   if (!this->Finalized)
 	 throw ZEROException(ZEROErrorCode::Assertion, "The model was not Finalized");
 
@@ -191,25 +192,23 @@ std::unique_ptr<GRBModel> Game::EPEC::respond(const unsigned int i, const arma::
 
   arma::vec solOther;
   this->getXMinusI(x, i, solOther);
+  auto LCP = (customLCP == nullptr) ? this->PlayersLCP.at(i).get() : customLCP;
   if (this->LeaderObjective.at(i)->Q.n_nonzero > 0)
-	 return this->PlayersLCP.at(i).get()->LCPasMIQP(this->LeaderObjective.at(i)->Q,
+	 return LCP->LCPasMIQP(this->LeaderObjective.at(i)->Q,
 																	this->LeaderObjective.at(i)->C,
 																	this->LeaderObjective.at(i)->c,
 																	solOther,
 																	true);
   else
-	 return this->PlayersLCP.at(i).get()->LCPasMILP(
+	 return LCP->LCPasMILP(
 		  this->LeaderObjective.at(i)->C, this->LeaderObjective.at(i)->c, solOther, true);
 }
 
-double
-Game::EPEC::respondSol(arma::vec &      sol,    ///< [out] Optimal response
-							  unsigned int     player, ///< Player whose optimal response is to be computed
-							  const arma::vec &x, ///< A std::vector of pure strategies (either for all
-							  ///< players or all other players
-							  const arma::vec &prevDev
-							  ///< [in] if any, the std::vector of previous deviations.
-) const {
+double Game::EPEC::respondSol(arma::vec &      sol,
+										unsigned int     player,
+										const arma::vec &x,
+										const arma::vec &prevDev,
+										MathOpt::PolyLCP *customLCP) const {
   /**
 	* @brief Returns the optimal objective value that is obtainable for the
 	* player @p player given the decision @p x of all other players.
@@ -219,7 +218,7 @@ Game::EPEC::respondSol(arma::vec &      sol,    ///< [out] Optimal response
 	* appropriate objective value.
 	* @returns The optimal objective value for the player @p player.
 	*/
-  auto model = this->respond(player, x);
+  auto model = this->respond(player, x, customLCP);
   LOG_S(1) << "Game::EPEC::respondSol: Writing dat/RespondSol" + std::to_string(player) +
 						".lp to disk";
   // model->write("dat/RespondSol" + std::to_string(player) + ".lp");

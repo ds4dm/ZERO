@@ -176,12 +176,14 @@ namespace Game {
 	 bool       isSolved(double tol = 1e-5) const override;
 	 bool       isPureStrategy(double tol = 1e-5) const override;
 
-	 std::unique_ptr<GRBModel> respond(const unsigned int i, const arma::vec &x) const;
+	 std::unique_ptr<GRBModel>
+	 respond(const unsigned int i, const arma::vec &x, MathOpt::PolyLCP *customLCP=nullptr) const;
 
 	 double respondSol(arma::vec &      sol,
 							 unsigned int     player,
 							 const arma::vec &x,
-							 const arma::vec &prevDev = {}) const;
+							 const arma::vec &prevDev={},
+							 MathOpt::PolyLCP *customLCP=nullptr) const;
 
 	 const arma::vec getX() const { return this->SolutionX; }
 

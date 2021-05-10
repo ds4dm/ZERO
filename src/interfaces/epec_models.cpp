@@ -927,7 +927,7 @@ void Models::EPEC::EPEC::makeObjectivePlayer(
 
 std::unique_ptr<GRBModel> Models::EPEC::EPEC::Respond(const std::string& name,
 																		const arma::vec & x) const {
-  return this->Game::EPEC::respond(this->name2nos.at(name), x);
+  return this->Game::EPEC::respond(this->name2nos.at(name), x, nullptr);
 }
 
 void Models::EPEC::EPEC::updateLocations()
