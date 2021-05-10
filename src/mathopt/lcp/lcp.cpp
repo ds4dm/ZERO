@@ -317,10 +317,8 @@ std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMILP(const arma::sp_mat &C,
   std::unique_ptr<GRBModel> model = this->LCPasMIP(true, -1, 1, 1);
   // Reset the solution limit. We need to solve to optimality
   model->set(GRB_IntParam_SolutionLimit, GRB_MAXINT);
-  if (C.n_cols != x_minus_i.n_rows)
-	 throw ZEROException(ZEROErrorCode::InvalidData, "x_minus_i size mismatch");
-  if (c.n_rows != C.n_rows)
-	 throw ZEROException(ZEROErrorCode::InvalidData, "c size mismatch");
+  ZEROAssert(C.n_cols == x_minus_i.n_rows);
+  ZEROAssert(c.n_rows == C.n_rows);
   arma::vec Cx(c.n_rows, arma::fill::zeros);
   try {
 	 Cx = C * x_minus_i;
@@ -418,10 +416,7 @@ void MathOpt::LCP::save(const std::string &filename, bool erase) const {
  */
 
 long int MathOpt::LCP::load(const std::string &filename, long int pos) {
-  if (!this->Env)
-	 throw ZEROException(ZEROErrorCode::Assertion,
-								" To load LCP from file, it has to be constructed "
-								"using LCP(GRBEnv*) constructor");
+  ZEROAssert(this->Env);
 
   std::string headercheck;
   pos = Utils::appendRead(headercheck, filename, pos);
@@ -491,7 +486,7 @@ unsigned int MathOpt::LCP::convexHull(arma::sp_mat &A, arma::vec &b) {
 	 return v;
   }(*this->bi);
   arma::sp_mat A_common = arma::join_cols(this->A, -this->M);
-  arma::vec bCommon     = arma::join_cols(this->b, this->q);
+  arma::vec    bCommon  = arma::join_cols(this->b, this->q);
 
   if (Ai->size() == 1) {
 	 A.zeros(Ai->at(0)->n_rows + A_common.n_rows, Ai->at(0)->n_cols + A_common.n_cols);
@@ -761,11 +756,10 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP(bool indicators) {
  * @return True if successful
  */
 bool MathOpt::LCP::setMIPLinearObjective(const arma::vec &c) {
-  if (c.size() > this->nC)
-	 throw ZEROException(ZEROErrorCode::InvalidData, "Too many columns in the input vector");
+  ZEROAssert(c.size() <= this->nC);
   this->c_Obj.zeros(this->nC);
   this->c_Obj.subvec(0, c.size() - 1) = c;
-  this->ObjType                     = 1;
+  this->ObjType                       = 1;
   LOG_S(2) << "MathOpt::LCP::setMIPLinearObjective: Set LINEAR objective";
   this->MadeObjective = false;
   return true;
@@ -779,15 +773,15 @@ bool MathOpt::LCP::setMIPLinearObjective(const arma::vec &c) {
  * @return True if successful
  */
 bool MathOpt::LCP::setMIPQuadraticObjective(const arma::vec &c, const arma::sp_mat &Q) {
-  if (c.size() > this->nC)
-	 throw ZEROException(ZEROErrorCode::InvalidData, "Too many columns in the input vector");
-  if (c.size() != Q.n_cols || !Q.is_square())
-	 throw ZEROException(ZEROErrorCode::InvalidData, "Q does not match the dimensions of Q");
+  ZEROAssert(c.size() <= this->nC);
+  ZEROAssert(c.size() == Q.n_cols);
+  ZEROAssert(Q.is_square());
+
   this->c_Obj.zeros(this->nC);
   this->c_Obj.subvec(0, c.size() - 1) = c;
   this->Q_Obj.zeros(this->nC, this->nC);
   this->Q_Obj.submat(0, 0, c.size() - 1, c.size() - 1) = Q;
-  this->ObjType                                       = 2;
+  this->ObjType                                        = 2;
   LOG_S(2) << "MathOpt::LCP::setMIPLinearObjective: Set QUADRATIC objective";
   this->MadeObjective = false;
   return true;
@@ -849,7 +843,6 @@ void MathOpt::LCP::setMIPObjective(GRBModel &MIP) {
   }
   this->MadeObjective = true;
   MIP.update();
-  return;
 }
 
 
