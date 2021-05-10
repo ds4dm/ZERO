@@ -47,12 +47,12 @@ namespace MathOpt {
   class LCP {
 
   protected:
-	 // Essential data ironment for MIP/LP solves
+	 // Essential data environment for MIP/LP solves
 	 GRBEnv *     Env{}; ///< A pointer to the Gurobi Env
 	 unsigned int ObjType =
 		  0; ///< Type of the objective for MIP/MINLP. 0 is feasibility, 1 linear, 2 quadratic
-	 arma::vec    Obj;  ///< The linear objective for the LCP in case of MIP/MINLP
-	 arma::sp_mat Qobj; ///< The quadratic objective matrix Q for the LCP in case of MIP/MINLP
+	 arma::vec    c_Obj;  ///< The linear objective for the LCP in case of MIP/MINLP
+	 arma::sp_mat Q_Obj; ///< The quadratic objective matrix Q for the LCP in case of MIP/MINLP
 	 bool         MadeObjective = false; ///< True if the objective has been updated.
 	 arma::sp_mat M;                     ///< The matrix M in @f$Mx+q@f$ that defines the LCP
 	 arma::vec    q;                     ///< The vector q in @f$Mx+q@f$ that defines the LCP
@@ -66,10 +66,6 @@ namespace MathOpt {
 		  {}; ///< The additional constraint matrix A to the problem, in the form @f$Ax \leq b@f$
 	 arma::vec b =
 		  {}; ///< The additional constraint RHSs b to the problem, in the form @f$Ax \leq b@f$
-	 arma::sp_mat _Acut = {}; ///< Additional cutting planes (eventually) added to the model, in the
-									  ///< form @f$Ax \leq b@f$
-	 arma::vec _bcut = {};    ///< Additional cutting planes (eventually) added to the model, in the
-									  ///< form @f$Ax \leq b@f$
 	 bool         MadeRlxdModel{false}; ///< True if a relaxed model has been already initialized
 	 unsigned int nR{}, nC{};           ///< The number of rows and columns in the matrix M
 
@@ -132,12 +128,10 @@ namespace MathOpt {
 
 	 // Fields getters
 	 inline arma::sp_mat  getM() const { return this->M; }  ///< Read-only access to LCP::M
-	 inline arma::sp_mat *getMstar() { return &(this->M); } ///< Reference access to LCP::M
 	 inline arma::vec     getq() const { return this->q; }  ///< Read-only access to LCP::q
 	 inline unsigned int  getNumberLeader() const {
       return this->NumberLeader;
 	 } ///< Read-only access to LCP::NumberLeader
-	 inline arma::vec *        getqstar() { return &(this->q); } ///< Reference access to LCP::q
 	 const inline unsigned int getLStart() const {
 		return LeadStart;
 	 } ///< Read-only access to LCP::LeadStart

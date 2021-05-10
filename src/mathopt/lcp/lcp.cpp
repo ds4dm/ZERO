@@ -152,7 +152,7 @@ MathOpt::LCP::LCP(GRBEnv *env, const Game::NashGame &N) : RelaxedModel(*env) {
   this->M     = M_local;
   this->q     = q_local;
   this->Compl = Compl_local;
-  //Warning for you, user: check that you have anyway the bounds in the Nash game's LCP...
+  // Warning for you, user: check that you have anyway the bounds in the Nash game's LCP...
   this->BoundsX = NashBounds;
   if (this->BoundsX.size() < this->M.n_cols)
 	 for (unsigned int i = this->BoundsX.size(); i < this->M.n_cols; ++i)
@@ -187,11 +187,12 @@ void MathOpt::LCP::makeRelaxed() {
 	 LOG_S(3) << "MathOpt::LCP::makeRelaxed: Initializing variables";
 	 //@todo Bounds are currently not used for the MIP LCP. This should be extended to an MCP
 	 for (unsigned int i = 0; i < nC; i++)
-		x[i] = RelaxedModel.addVar(0,//BoundsX.at(i).first,
-											GRB_INFINITY,//BoundsX.at(i).second > 0 ? BoundsX.at(i).second : GRB_INFINITY,
-											1,
-											GRB_CONTINUOUS,
-											"x_" + std::to_string(i));
+		x[i] = RelaxedModel.addVar(
+			 0,            // BoundsX.at(i).first,
+			 GRB_INFINITY, // BoundsX.at(i).second > 0 ? BoundsX.at(i).second : GRB_INFINITY,
+			 1,
+			 GRB_CONTINUOUS,
+			 "x_" + std::to_string(i));
 	 for (unsigned int i = 0; i < nR; i++)
 		z[i] = RelaxedModel.addVar(0, GRB_INFINITY, 1, GRB_CONTINUOUS, "z_" + std::to_string(i));
 
@@ -211,19 +212,6 @@ void MathOpt::LCP::makeRelaxed() {
 		Utils::addSparseConstraints(A, b, x, "commonCons", &RelaxedModel, GRB_LESS_EQUAL, nullptr);
 		LOG_S(3) << "MathOpt::LCP::makeRelaxed: Added common constraints";
 	 }
-
-	 // Added cuts
-	 if (this->_Acut.n_nonzero != 0 && this->_bcut.n_rows != 0) {
-		if (_Acut.n_cols != nC || _Acut.n_rows != _bcut.n_rows) {
-		  LOG_S(1) << "(" << _Acut.n_rows << "," << _Acut.n_cols << ")\t" << _bcut.n_rows << " "
-					  << nC;
-		  throw ZEROException(ZEROErrorCode::InvalidData, "Acut and bcut are incompatible");
-		}
-
-		Utils::addSparseConstraints(
-			 _Acut, _bcut, x, "commonCons", &RelaxedModel, GRB_LESS_EQUAL, nullptr);
-		LOG_S(3) << "MathOpt::LCP::makeRelaxed: Added cut constraints";
-	 }
 	 RelaxedModel.update();
 	 this->MadeRlxdModel = true;
 
@@ -237,7 +225,7 @@ void MathOpt::LCP::makeRelaxed() {
 
 /**
  * @brief Solves the LCP as a Mixed-Integer Program. Note that the returned model is either a MIP or
- * a MNILP, depending on the class' LCP::PureMIP boolean switch. In the first case,
+ * a MINLP, depending on the class' LCP::PureMIP boolean switch. In the first case,
  * complementarities are modeled through SOS1 or indicator constraints. Otherwise, there is
  * bi-linear term for each complementarity.
  * @param solve Determines whether the returned model is already solved or not
@@ -495,7 +483,7 @@ unsigned int MathOpt::LCP::convexHull(arma::sp_mat &A, arma::vec &b) {
 		v.push_back(x.get());
 	 return v;
   }(*this->Ai);
-  const auto tempbi = [](vec_Vec &uv) {
+  const auto temp_bi = [](vec_Vec &uv) {
 	 std::vector<arma::vec *> v{};
 	 std::for_each(uv.begin(), uv.end(), [&v](const std::unique_ptr<arma::vec> &ptr) {
 		v.push_back(ptr.get());
@@ -503,9 +491,7 @@ unsigned int MathOpt::LCP::convexHull(arma::sp_mat &A, arma::vec &b) {
 	 return v;
   }(*this->bi);
   arma::sp_mat A_common = arma::join_cols(this->A, -this->M);
-  A_common              = arma::join_cols(this->_Acut, A_common);
   arma::vec bCommon     = arma::join_cols(this->b, this->q);
-  bCommon               = arma::join_cols(this->_bcut, bCommon);
 
   if (Ai->size() == 1) {
 	 A.zeros(Ai->at(0)->n_rows + A_common.n_rows, Ai->at(0)->n_cols + A_common.n_cols);
@@ -514,7 +500,7 @@ unsigned int MathOpt::LCP::convexHull(arma::sp_mat &A, arma::vec &b) {
 	 b = arma::join_cols(*bi->at(0), bCommon);
 	 return 1;
   } else
-	 return MathOpt::convexHull(&tempAi, &tempbi, A, b, A_common, bCommon);
+	 return MathOpt::convexHull(&tempAi, &temp_bi, A, b, A_common, bCommon);
 }
 
 
@@ -560,13 +546,11 @@ void MathOpt::LCP::makeQP(MathOpt::QP_Objective &QP_obj, MathOpt::QP_Param &QP) 
 
 void MathOpt::LCP::addCustomCuts(const arma::sp_mat &A_in, const arma::vec &b_in) {
 
-  if (this->A.n_cols != A_in.n_cols)
-	 throw ZEROException(ZEROErrorCode::InvalidData, "Mismatch in A columns");
-  if (b_in.size() != A_in.n_rows)
-	 throw ZEROException(ZEROErrorCode::InvalidData, "Mismatch in A and b rows");
+  ZEROAssert(this->A.n_cols == A_in.n_cols);
+  ZEROAssert(b_in.size() == A_in.n_rows);
 
-  this->_Acut = arma::join_cols(this->_Acut, A_in);
-  this->_bcut = arma::join_cols(this->_bcut, b_in);
+  this->A = arma::join_cols(this->A, A_in);
+  this->b = arma::join_cols(this->b, b_in);
   if (MadeRlxdModel) {
 	 GRBVar x[nC];
 	 for (unsigned int i = 0; i < nC; i++)
@@ -577,22 +561,19 @@ void MathOpt::LCP::addCustomCuts(const arma::sp_mat &A_in, const arma::vec &b_in
 
 	 LOG_S(1) << "MathOpt::LCP::addCustomCuts: Added cut constraint";
   }
-
-  // debug this->_Acut.print_dense("Matrix Acut");
-  // debug this->_bcut.print("Vector bcut");
 }
 
 
 /**
  * @brief Given the cut, the method checks whether there is already one (up to a numerical
  * tolerance) in the LCP
- * @param Arow The LHS of the cut
- * @param b The RHS of the cut
+ * @param A_in The LHS of the cut
+ * @param b_in The RHS of the cut
  * @param tol The numerical tolerance
  * @return True if the cut is already present, false otherwise.
  */
-bool MathOpt::LCP::containsCut(const arma::vec &Arow, const double b, double tol) {
-  return Utils::containsConstraint(this->_Acut, this->_bcut, Arow, b, tol);
+bool MathOpt::LCP::containsCut(const arma::vec &A_in, const double b_in, double tol) {
+  return Utils::containsConstraint(this->A, this->b, A_in, b_in, tol);
 }
 
 
@@ -628,7 +609,7 @@ ZEROStatus MathOpt::LCP::solvePATH(double timelimit, arma::vec &z, arma::vec &x,
  * Data::LCP::Algorithms::MIP
  * @param solLimit The number of solutions in the pool for if @p algo is Data::LCP::Algorithms::MIP
  * @param cutOff Bounds the optima solution to be >= than a given threshold. Used if different from
- * -GRB_INFINITY. As output, the object willm be filled with the incumbent optimal value
+ * -GRB_INFINITY. As output, the object will be filled with the incumbent optimal value
  * @return A ZEROStatus for the problem
  */
 
@@ -686,8 +667,8 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 
 
 
-	 //Model->set(GRB_IntParam_OutputFlag, 1);
-	 //Model->write("TheLCP.lp");
+	 // Model->set(GRB_IntParam_OutputFlag, 1);
+	 // Model->write("TheLCP.lp");
 	 Model->optimize();
 
 	 if (this->extractSols(Model.get(), zSol, xSol, true)) {
@@ -774,7 +755,7 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP(bool indicators) {
 }
 
 /**
- * @brief Given the linear vector x @p c , sets thelinear objective for the MIP reformulation of the
+ * @brief Given the linear vector x @p c, sets the linear objective for the MIP reformulation of the
  * LCP.
  * @param c Linear vector for the primal variables
  * @return True if successful
@@ -782,8 +763,8 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP(bool indicators) {
 bool MathOpt::LCP::setMIPLinearObjective(const arma::vec &c) {
   if (c.size() > this->nC)
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Too many columns in the input vector");
-  this->Obj.zeros(this->nC);
-  this->Obj.subvec(0, c.size() - 1) = c;
+  this->c_Obj.zeros(this->nC);
+  this->c_Obj.subvec(0, c.size() - 1) = c;
   this->ObjType                     = 1;
   LOG_S(2) << "MathOpt::LCP::setMIPLinearObjective: Set LINEAR objective";
   this->MadeObjective = false;
@@ -802,10 +783,10 @@ bool MathOpt::LCP::setMIPQuadraticObjective(const arma::vec &c, const arma::sp_m
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Too many columns in the input vector");
   if (c.size() != Q.n_cols || !Q.is_square())
 	 throw ZEROException(ZEROErrorCode::InvalidData, "Q does not match the dimensions of Q");
-  this->Obj.zeros(this->nC);
-  this->Obj.subvec(0, c.size() - 1) = c;
-  this->Qobj.zeros(this->nC, this->nC);
-  this->Qobj.submat(0, 0, c.size() - 1, c.size() - 1) = Q;
+  this->c_Obj.zeros(this->nC);
+  this->c_Obj.subvec(0, c.size() - 1) = c;
+  this->Q_Obj.zeros(this->nC, this->nC);
+  this->Q_Obj.submat(0, 0, c.size() - 1, c.size() - 1) = Q;
   this->ObjType                                       = 2;
   LOG_S(2) << "MathOpt::LCP::setMIPLinearObjective: Set QUADRATIC objective";
   this->MadeObjective = false;
@@ -826,16 +807,16 @@ void MathOpt::LCP::setMIPObjective(GRBModel &MIP) {
 	 // Linear part of the objective
 	 GRBQuadExpr obj = 0;
 	 // Get hold of the Variables and Eqn Variables
-	 for (unsigned int i = 0; i < this->Obj.size(); i++) {
+	 for (unsigned int i = 0; i < this->c_Obj.size(); i++) {
 		GRBVar vars[]  = {MIP.getVarByName("x_" + std::to_string(i))};
-		double coeff[] = {this->Obj.at(i)};
+		double coeff[] = {this->c_Obj.at(i)};
 		obj.addTerms(coeff, vars, 1);
 	 }
 
 	 if (this->ObjType == 2) {
 		MIP.set(GRB_IntParam_NonConvex, 2);
 		// Add a quadratic part
-		for (arma::sp_mat::const_iterator it = this->Qobj.begin(); it != this->Qobj.end(); ++it) {
+		for (arma::sp_mat::const_iterator it = this->Q_Obj.begin(); it != this->Q_Obj.end(); ++it) {
 		  obj.addTerm(*it,
 						  MIP.getVarByName("x_" + std::to_string(it.col())),
 						  MIP.getVarByName("x_" + std::to_string(it.row())));
