@@ -303,7 +303,8 @@ void MathOpt::getDualMembershipLP(std::unique_ptr<GRBModel> &convexModel,
 	 convexModel->addConstr(a[V.n_cols], GRB_GREATER_EQUAL, beta, "Abs_1_beta");
 	 convexModel->addConstr(a[V.n_cols], GRB_GREATER_EQUAL, -beta, "Abs_2_beta");
 
-	 expr += a[V.n_cols];
+	 //Never had a ray to the normalization!
+	 //expr += a[V.n_cols];
 
 	 //   Normalization, to be filled later
 	 // convexModel->addConstr(0, GRB_LESS_EQUAL, 1, "Normalization");
