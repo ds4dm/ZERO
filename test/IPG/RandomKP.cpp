@@ -105,10 +105,10 @@ int main(int argc, char **argv) {
 						  std::ifstream existCheck(Logfile);
 						  std::ofstream results(Logfile, std::ios::app);
 
-						  auto cuts      = stat.AlgorithmData.Cuts.get();
+						  auto theCuts      = stat.AlgorithmData.Cuts.get();
 						  int  totalCuts = 0;
-						  for (auto cut : cuts)
-							 totalCuts += cut.second;
+						  for (const auto& thecut : theCuts)
+							 totalCuts += thecut.second;
 
 						  if (!existCheck.good()) {
 							 results << "Instance;m;n;ins;Algorithm;LCPAlgo;ObjType;Cuts;Players;isPureNE;"
@@ -128,9 +128,9 @@ int main(int argc, char **argv) {
 						          << std::to_string(stat.Status.get()) << ";" << stat.NumVar.get() << ";"
 						          << std::to_string(stat.WallClockTime.get()) << ";"
 						          << std::to_string(stat.AlgorithmData.Threads.get()) << ";"
-						          << stat.NumIterations.get() << ";" << cuts.at(0).second << ";"
-						          << cuts.at(1).second << ";" << cuts.at(2).second << ";"
-						          << cuts.at(3).second << ";" << cuts.at(4).second << ";" << totalCuts
+						          << stat.NumIterations.get() << ";" << theCuts.at(0).second << ";"
+						          << theCuts.at(1).second << ";" << theCuts.at(2).second << ";"
+						          << theCuts.at(3).second << ";" << theCuts.at(4).second << ";" << totalCuts
 						          << "\n";
 
 
