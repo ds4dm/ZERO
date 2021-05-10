@@ -63,7 +63,8 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
 	 LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i << ") Payoff of "
 					 << incumbentPayoffs.at(i) << " vs bestResponse of " << bestPayoff;
 	 // Since it's minimization, difference between the incumbent and best response payoff
-	 auto diff = incumbentPayoffs.at(i) - bestPayoff;
+	 double absdiff = incumbentPayoffs.at(i) - bestPayoff;
+
 
 
 	 // If this is unbounded, well, infeasible!
@@ -76,18 +77,19 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
 		// Otherwise, let's see how much do we differ
 
 
-		if (std::abs(diff) > this->Tolerance) {
+		if (Utils::isEqual(
+				  incumbentPayoffs.at(i), bestPayoff, this->Tolerance, 1 - this->Tolerance)) {
 		  // Discrepancy between payoffs! Need to investigate.
 
 
-		  if (diff > 10 * this->Tolerance) {
+		  if (absdiff > 10 * this->Tolerance) {
 			 // It means the current payoff is more than then optimal response. Then
 			 // this is not a best response. Theoretically, this cannot happen from
 			 // an outer approximation. This can however happen for numerical reasons
 
 			 LOG_S(WARNING) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i << ")"
 								 << " No best response (" << incumbentPayoffs.at(i) << " vs " << bestPayoff
-								 << " with diff=" << incumbentPayoffs.at(i) - bestPayoff << ")";
+								 << " with absdiff=" << incumbentPayoffs.at(i) - bestPayoff << ")";
 			 this->EPECObject->Stats.Status.set(ZEROStatus::Numerical);
 			 throw ZEROException(ZEROErrorCode::Numeric,
 										"Invalid payoffs relation (better best response).");
@@ -227,7 +229,7 @@ bool Algorithms::EPEC::OuterApproximation::equilibriumOracle(
 		double dualObj = dualMembershipModel->getObjective().getValue();
 
 		// Maximization of the dual membership gives zero. Then, the point is feasible
-		if (std::abs(dualObj) < this->Tolerance) {
+		if (Utils::isEqual(dualObj, 0, this->Tolerance)) {
 
 		  arma::vec sol(xOfI.size(), arma::fill::zeros);
 
@@ -277,8 +279,9 @@ bool Algorithms::EPEC::OuterApproximation::equilibriumOracle(
 		  // xOfI.print("xOfI");
 		  //******DEBUG********
 
-		  assert(arma::sum(support) > 1 - 1e-3);
-		  if (support.max() == 1 && arma::abs(rays).max() < 1e-4) {
+		  // assert(arma::sum(support) > 1 - 1e-3);
+		  if (Utils::isEqual(support.max(), 1, this->Tolerance) &&
+				Utils::isEqual(arma::abs(rays).max(), this->Tolerance * 10)) {
 			 this->Trees.at(player)->setPure();
 		  } else {
 			 if (this->isFeasiblePure(player, xOfI)) {
@@ -377,7 +380,7 @@ bool Algorithms::EPEC::OuterApproximation::equilibriumOracle(
 		  } // status optimal for leaderModel
 		  else if (status == GRB_UNBOUNDED) {
 			 // Well, we have a ray. But let's normalize it...
-			 // cutLHS = Utils::normalizeVec(cutLHS);
+			 cutLHS = Utils::normalizeVec(cutLHS);
 			 LOG_S(1) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
 						 << ") new ray";
 			 // Add the ray and repeat
@@ -412,17 +415,20 @@ void Algorithms::EPEC::OuterApproximation::addValueCut(const unsigned int player
 																		 const double       RHS,
 																		 const arma::vec &  xMinusI) {
 
-  arma::vec LHS     = (this->EPECObject->LeaderObjective.at(player)->c +
-                   this->EPECObject->LeaderObjective.at(player)->C * xMinusI);
-  double    trueRHS = Utils::round_nplaces(RHS, 5);
+  arma::vec LHS = (this->EPECObject->LeaderObjective.at(player)->c +
+						 this->EPECObject->LeaderObjective.at(player)->C * xMinusI);
+
+  if (Utils::nonzeroDecimals(RHS, 6) >= 6) {
+	 LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::addValueCut: "
+						 "Numerically unstable cut. Discarding. "
+					 << player;
+	 return;
+  }
+  double trueRHS = Utils::round_nplaces(RHS, 5);
 
 
-  // Generally, do not normalize these inequalities. They are somehow stable.
-  // LHS.print("LHS with RHS of "+std::to_string(trueRHS));
-  // Utils::normalizeIneq(LHS, trueRHS, false);
-  // LHS.print("LHS with RHS of "+std::to_string(trueRHS));
   //  LHS.print("LHS with RHS of " + std::to_string(trueRHS));
-  // Utils::normalizeIneq(LHS, trueRHS, true);
+  Utils::normalizeIneq(LHS, trueRHS, false);
 
 
   LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::addValueCut: "
@@ -539,8 +545,11 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 					 Data::EPEC::BranchingStrategy::HybridBranching)
 				  branchingLocations.at(j) = this->hybridBranching(j, Incumbent.at(j));
 				else if (this->EPECObject->Stats.AlgorithmData.BranchingStrategy.get() ==
-							Data::EPEC::BranchingStrategy::DeviationBranching)
+							Data::EPEC::BranchingStrategy::DeviationBranching) {
 				  branchingLocations.at(j) = this->deviationBranching(j, Incumbent.at(j));
+				  if (branchingLocations.at(j) == -1)
+					 branchingLocations.at(j) = this->getFirstBranchLocation(j, Incumbent.at(j));
+				}
 				// Check if we detected infeasibility
 				if (branchingLocations.at(j) == -2) {
 				  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::solve: "
