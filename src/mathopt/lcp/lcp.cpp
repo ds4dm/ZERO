@@ -23,11 +23,11 @@
 void MathOpt::LCP::defConst(GRBEnv *env)
 
 {
-  this->RelaxedModel.set(GRB_IntParam_OutputFlag, 0);
   this->Env = env;
   this->nR  = this->M.n_rows;
   this->nC  = this->M.n_cols;
   int diff  = this->nC - this->BoundsX.size();
+  ZEROAssert(diff >= 0);
   if (diff > 0)
 	 for (int i = 0; i < diff; ++i)
 		this->BoundsX.push_back({0, -1});
@@ -55,8 +55,8 @@ void MathOpt::LCP::processBounds() {
   }
 
   if (!shedded.empty()) {
-	 LOG_S(INFO) << "MathOpt::LCP::processBounds: " << shedded.size()
-					 << " bounds and trivial constraints processed";
+	 LOG_S(INFO) << "MathOpt::LCP::processBounds: Shedding " << shedded.size()
+					 << " trivial complementarities.";
 	 std::sort(shedded.begin(), shedded.end());
 
 	 for (int i = shedded.size() - 1; i >= 0; --i) {
@@ -71,6 +71,7 @@ void MathOpt::LCP::processBounds() {
   }
 
   this->nR = this->nR - shedded.size();
+  ZEROAssert(this->nR == this->Compl.size());
 }
 
 
@@ -183,8 +184,9 @@ void MathOpt::LCP::makeRelaxed() {
 	 if (this->MadeRlxdModel)
 		return;
 	 LOG_S(3) << "MathOpt::LCP::makeRelaxed: Creating the relaxed model";
+
+
 	 GRBVar x[nC], z[nR];
-	 LOG_S(3) << "MathOpt::LCP::makeRelaxed: Initializing variables";
 	 //@todo Bounds are currently not used for the MIP LCP. This should be extended to an MCP
 	 for (unsigned int i = 0; i < nC; i++)
 		x[i] = RelaxedModel.addVar(
@@ -195,24 +197,25 @@ void MathOpt::LCP::makeRelaxed() {
 			 "x_" + std::to_string(i));
 	 for (unsigned int i = 0; i < nR; i++)
 		z[i] = RelaxedModel.addVar(0, GRB_INFINITY, 1, GRB_CONTINUOUS, "z_" + std::to_string(i));
-
-
 	 LOG_S(3) << "MathOpt::LCP::makeRelaxed: Added variables";
 
+	 // Define complementarities
 	 Utils::addSparseConstraints(M, -q, x, "zdef", &RelaxedModel, GRB_EQUAL, z);
-
 	 LOG_S(3) << "MathOpt::LCP::makeRelaxed: Added equation definitions";
-	 // If @f$Ax \leq b@f$ constraints are there, they should be included too!
+
+	 // If Ax<=b constraints are there, they should be included too!
 	 if (this->A.n_nonzero != 0 && this->b.n_rows != 0) {
 		if (A.n_cols != nC || A.n_rows != b.n_rows) {
 		  LOG_S(1) << "(" << A.n_rows << "," << A.n_cols << ")\t" << b.n_rows << " " << nC;
 		  throw ZEROException(ZEROErrorCode::InvalidData, "A and b are incompatible");
 		}
-
 		Utils::addSparseConstraints(A, b, x, "commonCons", &RelaxedModel, GRB_LESS_EQUAL, nullptr);
 		LOG_S(3) << "MathOpt::LCP::makeRelaxed: Added common constraints";
 	 }
+
+	 // Finalize and update.
 	 RelaxedModel.update();
+	 RelaxedModel.set(GRB_IntParam_OutputFlag, 0);
 	 this->MadeRlxdModel = true;
 
   } catch (GRBException &e) {
