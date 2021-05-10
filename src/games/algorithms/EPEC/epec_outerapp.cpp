@@ -13,6 +13,8 @@
 
 #include "games/algorithms/EPEC/epec_outerapp.h"
 
+#include <memory>
+
 
 /**
  * @brief Overrides Algorithms::EPEC::PolyBase::isSolved with a custom method.
@@ -31,7 +33,7 @@ bool Algorithms::EPEC::OuterApproximation::isSolved(double tol) {
 
 /**
  * @brief Checks whether the current outer approximation equilibrium is feasible and solves the
- * problem. Otherwise, it adde cuts or generate useful information for thext iterations
+ * problem. Otherwise, it adds cuts or generate useful information for the next iterations
  * @param addedCuts [out] is true if at least a cut has been added
  * @return
  */
@@ -42,91 +44,107 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
   if (!this->EPECObject->NashEquilibrium)
 	 return false;
 
-  // Then, the feasibility is implied also by the deviations
-  bool      result = {true};
+
+  // The returned result
+  bool result = true;
+
+  // The best response object. filled for every players
   arma::vec bestResponse;
-  arma::vec currentResponsesZ =
+  // Compute payoffs in the current solution
+  arma::vec incumbentPayoffs =
 		this->EPECObject->TheNashGame->computeQPObjectiveValues(this->EPECObject->SolutionX, true);
+  // For any player
   for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i) {
+	 // Reset the feasibility
 	 this->Trees.at(i)->resetFeasibility();
-	 double bestResponseZ =
-		  this->EPECObject->respondSol(bestResponse, i, this->EPECObject->SolutionX);
+	 // Compute the payoff of the best response, as well as the best response
+	 double bestPayoff = this->EPECObject->respondSol(
+		  bestResponse, i, this->EPECObject->SolutionX, {}, this->Trees.at(i)->OriginalLCP.get());
 	 LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i << ") Payoff of "
-					 << currentResponsesZ.at(i) << " vs bestResponse of " << bestResponseZ;
-	 auto diff = currentResponsesZ.at(i) - bestResponseZ;
-	 if (bestResponseZ == GRB_INFINITY) {
+					 << incumbentPayoffs.at(i) << " vs bestResponse of " << bestPayoff;
+	 // Since it's minimization, difference between the incumbent and best response payoff
+	 auto diff = incumbentPayoffs.at(i) - bestPayoff;
+
+
+	 // If this is unbounded, well, infeasible!
+	 if (bestPayoff == GRB_INFINITY) {
 		LOG_S(1) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
 					<< ") Unbounded deviation";
 		addedCuts = false;
-		return false;
-	 }
-	 // minimization standard
-	 if (std::abs(diff) > this->Tolerance) {
-		// Discrepancy between payoffs! Need to investigate.
-		if (diff > 10 * this->Tolerance) {
-		  // It means the current payoff is more than then optimal response. Then
-		  // this is not a best response. Theoretically, this cannot happen from
-		  // an outer approximation. This if case is a warning case then
-		  //@todo numerical tolerances
-
-		  LOG_S(WARNING) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i << ")"
-							  << " No best response (" << currentResponsesZ.at(i) << " vs "
-							  << bestResponseZ << " with diff=" << currentResponsesZ.at(i) - bestResponseZ
-							  << ")";
-		  LOG_S(WARNING) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
-							  << ") This may be due to numerical issues!";
-		  this->EPECObject->Stats.Status.set(ZEROStatus::Numerical);
-		  throw ZEROException(
-				ZEROErrorCode::Numeric,
-				"Invalid payoffs relation (better best response). This may be due to numerical issues");
-		} else
-		// if (-diff > 10 * this->Tolerance)
-		{
-		  // It means the current payoff is less than the optimal response. The
-		  // approximation is not good, and this point is infeasible. Then, we can
-		  // generate a value-cut
-		  arma::vec xMinusI;
-		  this->EPECObject->getXMinusI(this->EPECObject->SolutionX, i, xMinusI);
-		  this->addValueCut(i, bestResponseZ, xMinusI);
-		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i << ") Value cut";
-		  result = false;
-		}
+		result    = false;
 	 } else {
-		// Here we have a best response whose payoff coincides with the one of the
-		// equilibrium. The strategy might not be feasible, though.
-		arma::vec xOfI;
-		this->EPECObject->getXofI(this->EPECObject->SolutionX, i, xOfI, false);
+		// Otherwise, let's see how much do we differ
 
-		// Check if we need to add the point to the vertex storage.
-		arma::vec vertex = bestResponse.subvec(0, xOfI.size() - 1);
-		// vertex.print("Best Response");
-		if (!Utils::containsRow(*this->Trees.at(i)->getV(), vertex, this->Tolerance)) {
-		  this->Trees.at(i)->addVertex(vertex);
-		  LOG_S(1) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
-					  << ") Adding vertex (Best Response)";
-		} else {
-		  LOG_S(1) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
-					  << ") Already known vertex (Best Response)";
-		}
 
-		if (!Utils::isZero(xOfI - bestResponse.subvec(0, xOfI.size() - 1), this->Tolerance)) {
-		  // Then, if the answers do not coincide, we need to refine the
-		  // approximation or determine if this strategy is anyhow feasible.
-		  // We search for a convex combination of best responses so that we can
-		  // certify the answer is inside the convex-hull (or not).
+		if (std::abs(diff) > this->Tolerance) {
+		  // Discrepancy between payoffs! Need to investigate.
 
-		  int budget = 50;
-		  if (!this->equilibriumOracle(xOfI, this->EPECObject->SolutionX, i, budget, addedCuts)) {
-			 LOG_S(1) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
-						 << ") Oracle says NO.";
+
+		  if (diff > 10 * this->Tolerance) {
+			 // It means the current payoff is more than then optimal response. Then
+			 // this is not a best response. Theoretically, this cannot happen from
+			 // an outer approximation. This can however happen for numerical reasons
+
+			 LOG_S(WARNING) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i << ")"
+								 << " No best response (" << incumbentPayoffs.at(i) << " vs " << bestPayoff
+								 << " with diff=" << incumbentPayoffs.at(i) - bestPayoff << ")";
+			 this->EPECObject->Stats.Status.set(ZEROStatus::Numerical);
+			 throw ZEROException(ZEROErrorCode::Numeric,
+										"Invalid payoffs relation (better best response).");
+		  } else
+		  // In any other case, we are good to go.
+		  {
+			 // It means the current payoff is less than the optimal response. The
+			 // approximation is not good, and this point is infeasible. Then, we can
+			 // generate a value-cut
+			 arma::vec xMinusI;
+			 this->EPECObject->getXMinusI(this->EPECObject->SolutionX, i, xMinusI);
+			 this->addValueCut(i, bestPayoff, xMinusI);
+			 LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
+							 << ") Value cut";
 			 result = false;
 		  }
-
 		} else {
-		  this->Trees.at(i)->setFeasible();
-		  this->Trees.at(i)->setPure();
-		  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
-						  << ") Feasible strategy (Best Response)";
+
+		  // Here we have a best response whose payoff coincides with the one of the
+		  // equilibrium. The strategy might not be feasible, though.
+
+		  // Get xOfI
+		  arma::vec xOfI;
+		  this->EPECObject->getXofI(this->EPECObject->SolutionX, i, xOfI, false);
+
+		  // Check if we need to add the point to the vertex storage.
+		  arma::vec vertex = bestResponse.subvec(0, xOfI.size() - 1);
+		  // Add the best response to the storage
+		  if (this->Trees.at(i)->addVertex(vertex, true)) {
+			 LOG_S(1) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
+						 << ") Adding vertex (Best Response)";
+		  } else {
+			 LOG_S(1) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
+						 << ") Already known vertex (Best Response)";
+		  }
+
+		  if (!Utils::isZero(xOfI - vertex, this->Tolerance)) {
+			 // Then, if the answers aren't equal, we need to refine the
+			 // approximation or determine if this strategy is anyhow feasible.
+			 // We search for a convex combination of best responses so that we can
+			 // certify the answer is inside the convex-hull (or not).
+
+			 int budget = this->EPECObject->PlayersQP.at(i)->getNy();
+			 if (!this->equilibriumOracle(xOfI, this->EPECObject->SolutionX, i, budget, addedCuts)) {
+				LOG_S(1) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
+							<< ") Oracle says NO.";
+				result = false;
+			 }
+			 // Otherwise, the result is true...
+
+		  } else {
+			 // Feasible point
+			 this->Trees.at(i)->setFeasible();
+			 this->Trees.at(i)->setPure();
+			 LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::isFeasible (P" << i
+							 << ") Feasible strategy (Best Response)";
+		  }
 		}
 	 }
   }
@@ -150,7 +168,8 @@ void Algorithms::EPEC::OuterApproximation::updateMembership(const unsigned int &
 										 PlayerTree->V,
 										 PlayerTree->RayCounter,
 										 PlayerTree->R,
-										 xOfI);
+										 xOfI,
+										 PlayerTree->containsOrigin);
 }
 
 
@@ -159,11 +178,15 @@ bool Algorithms::EPEC::OuterApproximation::equilibriumOracle(
 
 
   // Store the leaderModel outside the loop
-  auto   leaderModel = this->EPECObject->respond(player, x);
+  auto leaderModel =
+		this->EPECObject->respond(player, x, this->Trees.at(player)->OriginalLCP.get());
   GRBVar l[xOfI.size()]; // Dual membership variables
   for (unsigned int i = 0; i < xOfI.size(); i++)
 	 l[i] = leaderModel->getVarByName("x_" + std::to_string(i));
-
+  leaderModel->set(GRB_IntParam_InfUnbdInfo, 1);
+  leaderModel->set(GRB_IntParam_DualReductions, 0);
+  leaderModel->set(GRB_IntParam_OutputFlag, 0);
+  leaderModel->set(GRB_IntParam_SolutionLimit, 100);
 
 
   // Store Membership LP outside the loop
@@ -172,29 +195,39 @@ bool Algorithms::EPEC::OuterApproximation::equilibriumOracle(
   GRBVar y[xOfI.size()]; // Dual membership variables
   for (unsigned int i = 0; i < xOfI.size(); i++)
 	 y[i] = dualMembershipModel->getVarByName("alpha_" + std::to_string(i));
+  GRBVar betaVar = dualMembershipModel->getVarByName("beta");
+  // Update the objective for the membership. Avoid doing it every time
+  // Update normalization
+  GRBLinExpr expr = -betaVar;
+  for (int j = 0; j < xOfI.size(); ++j)
+	 expr += xOfI.at(j) * y[j];
+  dualMembershipModel->setObjective(expr, GRB_MAXIMIZE);
 
 
 
   for (int k = 0; k < budget; ++k) {
 	 // First, we check whether the point is a convex combination of feasible
 	 // KNOWN points
-
 	 auto V = this->Trees.at(player)->V;
 
-
+	 // Avoid for the firs time. We already have it
 	 if (k > 0)
 		this->updateMembership(player, xOfI);
+
 
 	 dualMembershipModel->optimize();
 
 	 int status = dualMembershipModel->get(GRB_IntAttr_Status);
+
 	 LOG_S(1) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player << ")"
-				 << " MermbershipLP status is " << status
+				 << " MembershipLP status is " << status
 				 << " (Objective=" << dualMembershipModel->getObjective().getValue() << ")";
+
 	 if (status == GRB_OPTIMAL) {
+		double dualObj = dualMembershipModel->getObjective().getValue();
 
 		// Maximization of the dual membership gives zero. Then, the point is feasible
-		if (std::abs(dualMembershipModel->getObjective().getValue()) < this->Tolerance) {
+		if (std::abs(dualObj) < this->Tolerance) {
 
 		  arma::vec sol(xOfI.size(), arma::fill::zeros);
 
@@ -207,49 +240,61 @@ bool Algorithms::EPEC::OuterApproximation::equilibriumOracle(
 
 		  this->Trees.at(player)->setFeasible();
 
-		  arma::vec support, rayz;
+		  arma::vec support, rays;
 		  support.zeros(this->Trees.at(player)->getVertexCount());
-		  rayz.zeros(this->Trees.at(player)->getRayCount());
+		  rays.zeros(this->Trees.at(player)->getRayCount());
 		  for (unsigned int v = 0; v < this->Trees.at(player)->getVertexCount(); ++v) {
-			 // abs to avoid misunderstanding with sign conventions
 			 support.at(v) =
 				  dualMembershipModel->getConstrByName("V_" + std::to_string(v)).get(GRB_DoubleAttr_Pi);
 		  }
 		  bool flag = false;
 		  for (unsigned int r = 0; r < this->Trees.at(player)->getRayCount(); ++r) {
-			 // abs to avoid misunderstanding with sign conventions
-			 rayz.at(r) =
+			 rays.at(r) =
 				  dualMembershipModel->getConstrByName("R_" + std::to_string(r)).get(GRB_DoubleAttr_Pi);
-			 if (rayz.at(r) > this->Tolerance) {
+			 //******DEBUG********
+			 /*if (rays.at(r) > this->Tolerance) {
 
 				LOG_S(WARNING) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P"
 									<< player << ")"
 									<< " Ray " << r << " has a positive coefficient.";
 				flag = true;
 			 }
+			  */
+			 //******DEBUG********
 		  }
-		  auto test = arma::accu(support);
-		  support.print("support vertices" + std::to_string(test));
-		  rayz.print("support rays");
 
-		  if (support.max() == 1) {
+		  //******DEBUG********
+		  // auto test = arma::accu(support);
+		  // support.print("support vertices" + std::to_string(test));
+		  // rays.print("support rays");
+		  //******DEBUG********
+
+		  // Check whether this is pure or not.
+		  //******DEBUG********
+		  // dualMembershipModel->write("Membership.lp");
+		  // this->Trees.at(player)->V.impl_print_dense("V");
+		  // this->Trees.at(player)->R.impl_print_dense("R");
+		  // xOfI.print("xOfI");
+		  //******DEBUG********
+
+		  assert(arma::sum(support) > 1 - 1e-3);
+		  if (support.max() == 1 && arma::abs(rays).max() < 1e-4) {
 			 this->Trees.at(player)->setPure();
 		  } else {
 			 if (this->isFeasiblePure(player, xOfI)) {
 				this->Trees.at(player)->setPure();
 				LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
 								<< ")"
-								<< "This is a pure strategy.";
+								<< " Pure strategy.";
 			 } else {
 				LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
 								<< ")"
-								<< "This is a mixed strategy.";
+								<< " Mixed strategy.";
 			 }
 		  }
 		  return true;
-		  //}
-		} else {
 
+		} else {
 
 		  // This is not a convex combination! The dual membership objective is not zero
 
@@ -259,76 +304,87 @@ bool Algorithms::EPEC::OuterApproximation::equilibriumOracle(
 		  LOG_S(1) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
 					  << ")"
 						  " The point is NOT a convex combination of known points!";
-		  arma::vec cutLHS;
-		  cutLHS.zeros(xOfI.size());
+		  arma::vec cutLHS(xOfI.size(), arma::fill::zeros);
 
+		  // Load the Farkas' certificate
 		  for (unsigned int i = 0; i < xOfI.size(); i++)
 			 cutLHS.at(i) = y[i].get(GRB_DoubleAttr_X);
 
-
 		  // Optimize the resulting inequality over the original feasible set
-		  GRBLinExpr expr = 0;
+		  expr = 0;
 		  for (unsigned int i = 0; i < xOfI.size(); ++i)
 			 expr += cutLHS.at(i) * l[i];
 
 
 		  leaderModel->setObjective(expr, GRB_MAXIMIZE);
 		  leaderModel->update();
-		  leaderModel->set(GRB_IntParam_InfUnbdInfo, 1);
-		  leaderModel->set(GRB_IntParam_DualReductions, 0);
-		  leaderModel->set(GRB_IntParam_OutputFlag, 0);
 		  leaderModel->optimize();
 		  status = leaderModel->get(GRB_IntAttr_Status);
 
+
+		  // If the status is optimal, either a vertex or a cut
 		  if (status == GRB_OPTIMAL ||
 				(status == GRB_SUBOPTIMAL && leaderModel->get(GRB_IntAttr_SolCount) > 0)) {
-			 double cutV = leaderModel->getObjective().getValue();
-			 LOG_S(1) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
-						 << ")"
-							 " LeaderModel status = "
-						 << std::to_string(status) << " with objective=" << cutV;
-			 arma::vec val = cutLHS.t() * xOfI; // c^T xOfI
-			 LOG_S(1) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
-						 << ") c^Tv=" << cutV << " -- c^TxOfI=" << val.at(0);
-			 if (cutV - val.at(0) < -this->Tolerance) {
-				// False, but we have a cut :-)
-				// Ciao Moni
-				Utils::normalizeIneq(cutLHS, cutV, true);
-				arma::sp_mat cutL = Utils::resizePatch(
-					 arma::sp_mat{cutLHS}.t(), 1, this->PolyLCP.at(player)->getNumCols());
 
-				this->PolyLCP.at(player)->addCustomCuts(cutL, arma::vec{cutV});
-				LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
-								<< ") adding a cut";
-				addedCuts = true;
-				return false;
-			 } else {
+			 // For any solution found
+			 int numSols = leaderModel->get(GRB_IntAttr_SolCount);
 
-				// We found a new vertex
-				arma::vec v(V.n_cols, arma::fill::zeros);
-				for (unsigned int i = 0; i < V.n_cols; ++i)
-				  v[i] = l[i].get(GRB_DoubleAttr_X);
+			 for (int s = 0; s < numSols; ++s) {
 
-				this->Trees.at(player)->addVertex(v);
+				leaderModel->set(GRB_IntParam_SolutionNumber, s);
+				double betaPlayer = leaderModel->getObjective().getValue();
+
 				LOG_S(1) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
-							<< ") adding vertex for Player. " << (budget - k - 1) << "/" << budget
-							<< " iterations left";
-				break;
+							<< ")"
+								" LeaderModel status = "
+							<< std::to_string(status) << " with objective=" << betaPlayer;
+
+				double betaXofI = arma::as_scalar(cutLHS.t() * xOfI); // c^T xOfI
+
+				LOG_S(1) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
+							<< ") c^Tv=" << betaPlayer << " -- c^TxOfI=" << betaXofI;
+				double violation = betaXofI - betaPlayer;
+
+				if (violation >= this->Tolerance) {
+				  // False, but we have a cut :-)
+				  // Ciao Moni
+				  Utils::normalizeIneq(cutLHS, betaPlayer, true);
+				  // Resize for the extra variables...
+				  arma::sp_mat cutL = Utils::resizePatch(
+						arma::sp_mat{cutLHS}.t(), 1, this->PolyLCP.at(player)->getNumCols());
+
+				  // Add the cut and return false
+				  this->PolyLCP.at(player)->addCustomCuts(cutL, arma::vec{betaPlayer});
+				  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
+								  << ") adding a cut";
+				  addedCuts = true;
+				  return false;
+				} else {
+
+				  // We found a new vertex
+				  arma::vec v(V.n_cols, arma::fill::zeros);
+				  for (unsigned int i = 0; i < V.n_cols; ++i)
+					 v[i] = l[i].get(GRB_DoubleAttr_X);
+
+				  this->Trees.at(player)->addVertex(v, false);
+				  LOG_S(1) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
+							  << ") adding vertex for Player. " << (budget - k - 1) << "/" << budget
+							  << " iterations left";
+				}
 			 }
+
 
 		  } // status optimal for leaderModel
 		  else if (status == GRB_UNBOUNDED) {
-			 // First of all, we should normalize whatever we have here
-			 cutLHS = Utils::normalizeVec(cutLHS);
-
+			 // Well, we have a ray. But let's normalize it...
+			 // cutLHS = Utils::normalizeVec(cutLHS);
 			 LOG_S(1) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
 						 << ") new ray";
+			 // Add the ray and repeat
 			 this->Trees.at(player)->addRay(cutLHS);
-			 break;
-
-
 		  } // status unbounded for leaderModel
 
+		  // Otherwise, we don't know what happened
 		  else {
 			 throw ZEROException(ZEROErrorCode::Assertion,
 										"Unknown status (" + std::to_string(status) +
@@ -356,22 +412,62 @@ void Algorithms::EPEC::OuterApproximation::addValueCut(const unsigned int player
 																		 const double       RHS,
 																		 const arma::vec &  xMinusI) {
 
-  arma::vec LHS = this->EPECObject->LeaderObjective.at(player)->c +
-						this->EPECObject->LeaderObjective.at(player)->C * xMinusI;
-  double trueRHS = RHS;
-  Utils::normalizeIneq(LHS, trueRHS, false);
+  arma::vec LHS     = (this->EPECObject->LeaderObjective.at(player)->c +
+                   this->EPECObject->LeaderObjective.at(player)->C * xMinusI);
+  double    trueRHS = Utils::round_nplaces(RHS, 5);
 
-  arma::sp_mat cutLHS =
-		Utils::resizePatch(arma::sp_mat{LHS}.t(), 1, this->PolyLCP.at(player)->getNumCols());
+
+  // Generally, do not normalize these inequalities. They are somehow stable.
+  // LHS.print("LHS with RHS of "+std::to_string(trueRHS));
+  // Utils::normalizeIneq(LHS, trueRHS, false);
+  // LHS.print("LHS with RHS of "+std::to_string(trueRHS));
+  //  LHS.print("LHS with RHS of " + std::to_string(trueRHS));
+  // Utils::normalizeIneq(LHS, trueRHS, true);
+
+
   LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::addValueCut: "
 					  "adding cut for Player "
 				  << player;
-  if (!this->PolyLCP.at(player)->containsCut(-LHS, -trueRHS, this->Tolerance))
-	 this->PolyLCP.at(player)->addCustomCuts(-cutLHS, arma::vec{-trueRHS});
+
+  // Resize
+  arma::sp_mat cutLHS =
+		Utils::resizePatch(arma::sp_mat{LHS}.t(), 1, this->PolyLCP.at(player)->getNumCols());
+
+  this->PolyLCP.at(player)->addCustomCuts(-cutLHS, arma::vec{-trueRHS});
 }
 
+
+void Algorithms::EPEC::OuterApproximation::originFeasibility(unsigned int player) {
+  /**
+	* @brief Gets the LCP for player @p player, and tries to see whether the origin is feasible. If
+	* the answer is yes, sets the corresponding object in the tree to true.
+	*/
+  arma::vec zeros(this->EPECObject->LeaderObjective.at(player)->C.n_cols, arma::fill::zeros);
+  auto      origin = this->EPECObject->PlayersLCP.at(player).get()->LCPasMILP(
+      this->EPECObject->LeaderObjective.at(player)->C,
+      this->EPECObject->LeaderObjective.at(player)->c,
+      zeros,
+      false);
+
+  for (unsigned int j = 0; j < this->EPECObject->LeaderObjective.at(player)->c.size(); j++) {
+	 origin->addConstr(
+		  origin->getVarByName("x_" + std::to_string(j)), GRB_EQUAL, 0, "Fix_x_" + std::to_string(j));
+  }
+  origin->update();
+  origin->optimize();
+  if (origin->get(GRB_IntAttr_Status) == GRB_OPTIMAL) {
+	 this->Trees.at(player)->containsOrigin = true;
+	 LOG_S(1) << "Algorithms::EPEC::OuterApproximation::originFeasibility: "
+					 "Feasible origin for player "
+				 << player;
+  } else {
+	 LOG_S(1) << "Algorithms::EPEC::OuterApproximation::originFeasibility: "
+					 "Infeasible origin for player "
+				 << player;
+  }
+}
 /**
- * @brief Given the Game::EPEC instance, this methos solves it through the outer approximation
+ * @brief Given the Game::EPEC instance, this method solves it through the outer approximation
  * scheme.
  */
 void Algorithms::EPEC::OuterApproximation::solve() {
@@ -383,14 +479,18 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 
   this->EPECObject->Stats.NumIterations.set(0);
 
+
   // Initialize Trees
   // We actually do not use the complex tree structure for this vanilla-version, but we nevertheless
   // give the user the capability of doing so.
-  this->Trees     = std::vector<OuterTree *>(this->EPECObject->NumPlayers, 0);
-  this->Incumbent = std::vector<OuterTree::Node *>(this->EPECObject->NumPlayers, 0);
+  this->Trees     = std::vector<OuterTree *>(this->EPECObject->NumPlayers, nullptr);
+  this->Incumbent = std::vector<OuterTree::Node *>(this->EPECObject->NumPlayers, nullptr);
   for (unsigned int i = 0; i < this->EPECObject->NumPlayers; i++) {
-	 Trees.at(i)     = new OuterTree(this->PolyLCP.at(i)->getNumRows(), this->Env);
+	 Trees.at(i) = new OuterTree(this->PolyLCP.at(i)->getNumRows(), this->Env);
+	 this->Trees.at(i)->OriginalLCP =
+		  std::make_unique<MathOpt::PolyLCP>(this->Env, *EPECObject->PlayersLowerLevels.at(i).get());
 	 Incumbent.at(i) = Trees.at(i)->getRoot();
+	 this->originFeasibility(i);
   }
 
   bool branch = true;
@@ -435,11 +535,16 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 				  break;
 				}
 			 } else {
-				branchingLocations.at(j) = this->hybridBranching(j, Incumbent.at(j));
+				if (this->EPECObject->Stats.AlgorithmData.BranchingStrategy.get() ==
+					 Data::EPEC::BranchingStrategy::HybridBranching)
+				  branchingLocations.at(j) = this->hybridBranching(j, Incumbent.at(j));
+				else if (this->EPECObject->Stats.AlgorithmData.BranchingStrategy.get() ==
+							Data::EPEC::BranchingStrategy::DeviationBranching)
+				  branchingLocations.at(j) = this->deviationBranching(j, Incumbent.at(j));
 				// Check if we detected infeasibility
 				if (branchingLocations.at(j) == -2) {
 				  LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::solve: "
-									  "hybridBranching proves infeasiblity for player "
+									  "hybridBranching proves infeasibility for player "
 								  << j;
 				  infeasibilityDetection = true;
 				  break;
@@ -590,15 +695,15 @@ void Algorithms::EPEC::OuterApproximation::solve() {
  * @param x The strategy for the player
  * @return A Gurobi pointer to the model
  */
-std::unique_ptr<GRBModel> Algorithms::EPEC::OuterApproximation::getFeasQP(const unsigned int player,
-																								  const arma::vec &  x) {
+std::unique_ptr<GRBModel>
+Algorithms::EPEC::OuterApproximation::getFeasibilityQP(const unsigned int player,
+																		 const arma::vec &  x) {
 
 
-  // this->EPECObject->getXMinusI(this->EPECObject->SolutionX, player, xMinusI);
-  arma::vec zeros;
-  // Dummy vector of zeros associated to x^{-i}
-  zeros.zeros(this->EPECObject->PlayersQP.at(player)->getNx());
-  auto model = this->EPECObject->PlayersQP.at(player)->solveFixed(zeros, false);
+  arma::vec xMinusI;
+  this->EPECObject->getXMinusI(this->EPECObject->SolutionX, player, xMinusI);
+  xMinusI.resize(this->EPECObject->PlayersQP.at(player)->getNx());
+  auto model = this->EPECObject->PlayersQP.at(player)->solveFixed(xMinusI, false);
   // Enforce QP::y to be x, namely the point to belong to the feasible region
   for (unsigned int j = 0; j < x.size(); j++)
 	 model->addConstr(model->getVarByName("y_" + std::to_string(j)),
@@ -607,7 +712,6 @@ std::unique_ptr<GRBModel> Algorithms::EPEC::OuterApproximation::getFeasQP(const 
 							"Fix_y_" + std::to_string(j));
   // Reset the objective
   model->setObjective(GRBLinExpr{0}, GRB_MINIMIZE);
-  // model->write("dat/test.lp");
   return model;
 }
 
@@ -697,100 +801,13 @@ int Algorithms::EPEC::OuterApproximation::hybridBranching(const unsigned int pla
 			 this->EPECObject->makePlayerQP(player);
 			 // Get the QP model with other players decision QP::x fixed to zero
 			 // (since they only appear in the objective);
-			 auto model = this->getFeasQP(player, x);
+			 auto model = this->getFeasibilityQP(player, x);
 			 model->optimize();
 			 const int status = model->get(GRB_IntAttr_Status);
 			 if (status == GRB_INFEASIBLE) {
 				// If the status is infeasible, bingo! We want to get a measure of
 				// the constraint violations given by the current x
-				model->feasRelax(0, false, false, true);
-				model->optimize();
-				if (model->getObjective().getValue() > bestScore) {
-				  bestId    = i;
-				  bestScore = model->getObjective().getValue();
-				  LOG_S(INFO) << "OuterApproximation::hybridBranching: Player " << player
-								  << " has violation of " << bestScore << " with complementarity " << i;
-				} else {
-				  LOG_S(INFO) << "OuterApproximation::hybridBranching: Player " << player
-								  << " has violation of " << model->getObjective().getValue()
-								  << " with complementarity " << i;
-				}
-			 } else {
-				LOG_S(INFO) << "OuterApproximation::hybridBranching: Player " << player
-								<< " has no violation with complementarity " << i;
-			 }
-		  }
-		}
-	 }
-  }
-  return bestId;
-}
-
-
-
-/**
- * @brief Given @p player -- containing the id of the player, returns the branching
- * decision for that node given by a hybrid branching rule. In
- * particular, the method return the complementarity that maximizes the payoff.
- * @p node contains the tree's node. It isn't const since a branching candidate
- * can be pruned if infeasibility is detected. Note that if the problem is infeasible, namely one
- * complementarity branching candidate results in an infeasible relaxation, then all branching
- * candidates are removed from the list of branching candidates.
- * @param player The player id
- * @param node The pointer to the incumbent OuterTree::Node
- * @return The branching candidate. -1 if none. -2 if infeasible.
- **/
-int Algorithms::EPEC::OuterApproximation::rationalBranching(const unsigned int player,
-																				OuterTree::Node *  node) {
-
-  LOG_S(INFO) << "OuterApproximation::hybridBranching: Player " << player;
-
-  int bestId = -1;
-  if (this->EPECObject->NashEquilibrium) {
-	 arma::vec zeros, x;
-
-	 this->EPECObject->getXofI(this->EPECObject->SolutionX, player, x);
-	 if (x.size() != this->EPECObject->LeaderObjective.at(player)->c.n_rows)
-		throw ZEROException(ZEROErrorCode::Assertion, "wrong dimensioned x^i");
-
-	 auto              currentEncoding = node->getEncoding();
-	 std::vector<bool> incumbentApproximation;
-	 double            bestScore = -1.0;
-
-	 for (unsigned int i = 0; i < currentEncoding.size(); i++) {
-		// For each complementarity
-
-
-		if (node->getAllowedBranchings().at(i)) {
-		  // Consider it if it is a good candidate for branching (namely, we
-		  // didn't branch on it, or it wasn't proven to be infeasible)
-		  incumbentApproximation = currentEncoding;
-		  // Include this complementarity in the approximation
-		  incumbentApproximation.at(i) = true;
-		  // Build the approximation
-		  this->PolyLCP.at(player)->outerApproximate(incumbentApproximation, true);
-		  // If the approximation is infeasible, the
-		  if (!this->PolyLCP.at(player)->getFeasOuterApp()) {
-			 // The problem is infeasible!
-			 LOG_S(INFO) << "OuterApproximation::hybridBranching: Player " << player
-							 << " has an infeasible problem (outer relaxation induction)";
-			 for (unsigned int j = 0; j < currentEncoding.size(); j++) {
-				Trees.at(player)->denyBranchingLocation(*node, j);
-			 }
-			 return -2;
-		  } else {
-			 // In this case, we can check if the solution belongs to the outer
-			 // approximation
-			 this->EPECObject->makePlayerQP(player);
-			 // Get the QP model with other players decision QP::x fixed to zero
-			 // (since they only appear in the objective);
-			 auto model = this->getFeasQP(player, x);
-			 model->optimize();
-			 const int status = model->get(GRB_IntAttr_Status);
-			 if (status == GRB_INFEASIBLE) {
-				// If the status is infeasible, bingo! We want to get a measure of
-				// the constraint violations given by the current x
-				model->feasRelax(0, false, false, true);
+				model->feasRelax(1, false, false, true);
 				model->optimize();
 				if (model->getObjective().getValue() > bestScore) {
 				  bestId    = i;
@@ -857,9 +874,9 @@ int Algorithms::EPEC::OuterApproximation::infeasibleBranching(const unsigned int
 
 /**
  * @brief Given @p player -- containing the id of the player, returns the branching
- * decision for that node, where the complementarity helps to cut off a
- * possible deviation . In particular, the method return the (positive) id of
- * the complementarity equation if there is a feasible branching decision at
+ * decision for that node, where the complementarity helps include the deviation. In particular, the
+ * method return the (positive) id of the complementarity equation if there is a feasible branching
+ * decision at
  * @p node, and a negative value otherwise.
  * @param player The player id
  * @param node The pointer to the incumbent OuterTree::Node
@@ -877,7 +894,8 @@ int Algorithms::EPEC::OuterApproximation::deviationBranching(const unsigned int 
 	 arma::vec x;
 	 this->EPECObject->getXWithoutHull(this->EPECObject->SolutionX, x);
 	 std::vector<short int> currentSolution = this->PolyLCP.at(player)->solEncode(x);
-	 this->EPECObject->respondSol(dev, player, this->EPECObject->SolutionX);
+	 this->EPECObject->respondSol(
+		  dev, player, this->EPECObject->SolutionX, {}, this->Trees.at(player)->OriginalLCP.get());
 	 auto encoding = this->PolyLCP.at(player)->solEncode(dev);
 
 	 for (unsigned int i = 0; i < encoding.size(); i++) {
@@ -963,7 +981,7 @@ int Algorithms::EPEC::OuterApproximation::getFirstBranchLocation(const unsigned 
  * branching decision at @p node, and a negative value otherwise.
  * @param player The player id
  * @param node The pointer to the incumbent OuterTree::Node
- * @return A vector of 4 ints with the branching location given by the most
+ * @return A vector of 4 integers with the branching location given by the most
  * Algorithms::EPEC::OuterApproximation::infeasibleBranching,
  * Algorithms::EPEC::OuterApproximation::deviationBranching,
  * Algorithms::EPEC::OuterApproximation::hybridBranching, and
@@ -1090,7 +1108,7 @@ Algorithms::EPEC::OuterTree::Node::Node(Node &parent, unsigned int idComp, unsig
  * @param encSize The number of complementarities
  */
 Algorithms::EPEC::OuterTree::Node::Node(unsigned int encSize) {
-  this->Encoding          = std::vector<bool>(encSize, 0);
+  this->Encoding          = std::vector<bool>(encSize, false);
   this->Id                = 0;
   this->AllowedBranchings = std::vector<bool>(encSize, true);
 }
@@ -1104,7 +1122,7 @@ Algorithms::EPEC::OuterTree::Node::Node(unsigned int encSize) {
  * @param location The denied branching location
  */
 void Algorithms::EPEC::OuterTree::denyBranchingLocation(Algorithms::EPEC::OuterTree::Node &node,
-																		  const unsigned int &location) {
+																		  const unsigned int &location) const {
   if (location >= this->EncodingSize)
 	 throw ZEROException(ZEROErrorCode::OutOfRange, "idComp is larger than the encoding size");
   if (!node.AllowedBranchings.at(location))
@@ -1144,12 +1162,22 @@ Algorithms::EPEC::OuterTree::singleBranch(const unsigned int                 idC
  * @brief Adds a vertex to OuterTree::V
  * @param vertex The vector containing the vertex
  */
-void Algorithms::EPEC::OuterTree::addVertex(const arma::vec &vertex) {
+bool Algorithms::EPEC::OuterTree::addVertex(const arma::vec &vertex, bool checkDuplicates) {
   if (vertex.size() != this->V.n_cols && this->V.n_rows > 0)
 	 throw ZEROException(ZEROErrorCode::OutOfRange, "Ill-dimensioned vertex");
-  int nCols = this->V.n_cols < 1 ? vertex.size() : this->V.n_cols;
-  this->V.resize(this->V.n_rows + 1, nCols);
-  this->V.row(this->V.n_rows - 1) = vertex.t();
+
+  bool go = false;
+  if (checkDuplicates)
+	 go = Utils::containsRow(this->V, vertex, 1e-5);
+
+
+  if (!go) {
+	 int nCols = this->V.n_cols < 1 ? vertex.size() : this->V.n_cols;
+	 this->V.resize(this->V.n_rows + 1, nCols);
+	 this->V.row(this->V.n_rows - 1) = vertex.t();
+	 return true;
+  }
+  return false;
 }
 
 /**
