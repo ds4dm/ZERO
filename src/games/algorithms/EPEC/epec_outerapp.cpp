@@ -424,9 +424,9 @@ void Algorithms::EPEC::OuterApproximation::addValueCut(const unsigned int player
 
   if (Utils::nonzeroDecimals(RHS, 6) >= 6) {
 	 LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::addValueCut: "
-						 "Numerically unstable cut. Discarding. "
+						 "Numerically unstable cut. This may cause numerical problems. "
 					 << player;
-	 return;
+	 //return;
   }
   double trueRHS = Utils::round_nplaces(RHS, 5);
 
