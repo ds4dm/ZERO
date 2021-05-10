@@ -72,11 +72,11 @@ long int MathOpt::MP_Param::load(const std::string &filename, long int pos) {
 	 if (BO.n_cols != 2)
 		throw ZEROException(ZEROErrorCode::IOError, "Invalid bounds object in loaded file");
 
-	 for (unsigned int i = 0; i < B.n_cols; ++i)
+	 for (unsigned int i = 0; i < B_in.n_cols; ++i)
 		this->Bounds.push_back(
 			 {BO.at(i, 0) > 0 ? BO.at(i, 0) : 0, BO.at(i, 1) > 0 ? BO.at(i, 1) : -1});
 
-	 int diff = B.n_cols - BO.n_rows;
+	 int diff = B_in.n_cols - BO.n_rows;
 	 for (unsigned int i = 0; i < diff; ++i)
 		this->Bounds.push_back({0, -1});
   }
