@@ -124,7 +124,7 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
 		  << arma::endr << 1 << 0 << 0 << 0 << 0 << 0 << 0 << 0 << arma::endr << 0 << 1 << 0 << 0 << 0
 		  << 0 << 0 << 0 << arma::endr << 0 << 0 << 1 << 0 << 0 << 0 << 0 << 0;
   Nhard << 2 << 2 << arma::endr << 0 << 0 << arma::endr << 3 << 0 << arma::endr << 0 << 0
-		  << arma::endr << 1 << 1 << arma::endr;
+		  << arma::endr << 1 << 1 << arma::endr <<  0 << 0 << arma::endr<<  0 << 0 << arma::endr<<  0 << 0 << arma::endr;
   qhard << 1 << -1 << 1 << 10 << -1;
   BOOST_CHECK_NO_THROW(q1.KKT(M, N, q)); // Should not throw any exception!
   // Following are hard requirements, if this fails, then addDummy test
@@ -179,7 +179,6 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
   q2.save("../test/EPEC/q2.dat", true);
   BOOST_TEST_MESSAGE("Saved QP_Param objects");
   MathOpt::QP_Param q1loader(&env);
-  q1.getB(true).print_dense("OriginalB");
   q1loader.load("../test/EPEC/q1.dat", 0);
   MathOpt::QP_Param q2loader(&env);
   q2loader.load("../test/EPEC/q2.dat", 0);
