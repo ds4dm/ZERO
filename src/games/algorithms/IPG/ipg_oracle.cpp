@@ -462,7 +462,8 @@ int Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player,
 
 
 	 auto diff = REL_Objective - IP_Objective;
-	 if (std::abs(diff) > this->IPG->Stats.AlgorithmData.DeviationTolerance.get()) {
+	 if (Utils::isEqual(
+				std::abs(diff), 0, this->IPG->Stats.AlgorithmData.DeviationTolerance.get())) {
 		// There exists a difference between the payoffs
 
 		if (diff > this->IPG->Stats.AlgorithmData.DeviationTolerance.get()) {
@@ -625,7 +626,7 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 
 		// First: is the point redundant in the description?
 		// Namely, does xOfI belongs to the V-polyhedral approximation?
-		if (dualObj <= this->Tolerance) {
+		if (Utils::isEqual(dualObj, 0, this->Tolerance)) {
 		  LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
 						  << ") Feasible point. ";
 		  this->Players.at(player)->Feasible = true;
@@ -640,12 +641,11 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 		  }
 
 
-		  if (support.max() == 1) {
+		  if (Utils::isEqual(support.max(),1,this->Tolerance)) {
 			 this->Players.at(player)->Pure = true;
 		  }
 		  //******DEBUG********
-		  //support.print("MNE Support: "+std::to_string(arma::sum(support)));
-		  assert(arma::sum(support) > 1 - this->Tolerance);
+		  // support.print("MNE Support: "+std::to_string(arma::sum(support)));
 		  //******DEBUG********
 
 
