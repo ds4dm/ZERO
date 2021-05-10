@@ -48,12 +48,12 @@ namespace MathOpt {
 			 Model{(*env)} {}; ///< Empty constructor initializing only the Gurobi environment
 
 	 /// Set data at construct time
-	 QP_Param(const arma::sp_mat& Q,
-				 const arma::sp_mat& C,
-				 const arma::sp_mat& A,
-				 const arma::sp_mat& B,
-				 const arma::vec&    c,
-				 const arma::vec&    b,
+	 QP_Param(const arma::sp_mat& Q_in,
+				 const arma::sp_mat& C_in,
+				 const arma::sp_mat& A_in,
+				 const arma::sp_mat& B_in,
+				 const arma::vec&    c_in,
+				 const arma::vec&    b_in,
 				 GRBEnv *     env = nullptr);
 	 ;
 
@@ -65,18 +65,18 @@ namespace MathOpt {
 		this->size();
 	 }
 
-	 QP_Param &set(const arma::sp_mat &Q,
-						const arma::sp_mat &C,
-						const arma::sp_mat &A,
-						const arma::sp_mat &B,
-						const arma::vec &   c,
-						const arma::vec &   b) final; // Copy data into this
-	 QP_Param &set(arma::sp_mat &&Q,
-						arma::sp_mat &&C,
-						arma::sp_mat &&A,
-						arma::sp_mat &&B,
-						arma::vec &&   c,
-						arma::vec &&   b) final; // Move data into this
+	 QP_Param &set(const arma::sp_mat &Q_in,
+						const arma::sp_mat &C_in,
+						const arma::sp_mat &A_in,
+						const arma::sp_mat &B_in,
+						const arma::vec &   c_in,
+						const arma::vec &   b_in) final; // Copy data into this
+	 QP_Param &set(arma::sp_mat &&Q_in,
+						arma::sp_mat &&C_in,
+						arma::sp_mat &&A_in,
+						arma::sp_mat &&B_in,
+						arma::vec &&   c_in,
+						arma::vec &&   b_in) final; // Move data into this
 	 QP_Param &set(const QP_Objective &obj, const QP_Constraints &cons) final;
 
 	 QP_Param &set(QP_Objective &&obj, QP_Constraints &&cons) final;

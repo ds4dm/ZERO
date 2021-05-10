@@ -15,7 +15,7 @@
 
 /**
  * @brief Return a stream containing a stream with the description of the problem
- * @param os Outputstream
+ * @param os Output stream
  * @param Q The QP_Param object
  * @return An std::ostream with the description
  */
@@ -42,8 +42,6 @@ bool MathOpt::QP_Param::operator==(const QP_Param &Q2) const {
 	 return false;
   if (!Utils::isZero(this->getB(true) - Q2.getB(true)))
 	 return false;
-
-
   if (!Utils::isZero(this->c - Q2.getc()))
 	 return false;
   for (unsigned int i = 0; i < this->Bounds.size(); ++i)
@@ -133,7 +131,7 @@ std::unique_ptr<GRBModel> MathOpt::QP_Param::solveFixed(arma::vec x, bool solve)
  * As per the convention, y is the decision variable for the QP and
  * that is parameterized in x
  * The KKT conditions are
- * \f$0 \leq y \perp  My + numParams + q \geq 0\f$
+ * \f$0 \leq y \perp  My + Nx + q \geq 0\f$
  * @param M The output M term
  * @param N The output N term
  * @param q The output q term
@@ -141,16 +139,18 @@ std::unique_ptr<GRBModel> MathOpt::QP_Param::solveFixed(arma::vec x, bool solve)
  */
 unsigned int MathOpt::QP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const {
   this->forceDataCheck();
-  auto BwithBounds = arma::join_cols(this->B, this->B_bounds);
-  M                = arma::join_cols( // In armadillo join_cols(A, B) is same as [A;B] in
-                       // Matlab
-                       //  join_rows(A, B) is same as [A B] in Matlab
-      arma::join_rows(this->Q, BwithBounds.t()),
-      arma::join_rows(-BwithBounds, arma::zeros<arma::sp_mat>(this->numConstr, this->numConstr)));
-  // M.print_dense();
-  N = arma::join_cols(this->C, -this->A);
-  // N.print_dense();
-  q = arma::join_cols(this->c, arma::join_cols(this->b, this->b_bounds));
+  M = arma::join_cols( // In armadillo join_cols(A, B) is same as [A;B] in
+							  // Matlab
+							  //  join_rows(A, B) is same as [A B] in Matlab
+		arma::join_rows(this->Q, this->getB(true).t()),
+		arma::join_rows(-this->getB(true),
+							 arma::zeros<arma::sp_mat>(this->numConstr, this->numConstr)));
+
+  ZEROAssert(M.n_cols == (numVars + numConstr + this->B_bounds.n_rows));
+  N = arma::join_cols(this->C, -this->getA(true));
+  ZEROAssert(N.n_cols == numParams);
+  q = arma::join_cols(this->c, this->getb(true));
+  ZEROAssert(q.size() == (this->c.size() + this->b.size() + this->b_bounds.size()));
   // q.print();
   return M.n_rows;
 }
@@ -158,44 +158,44 @@ unsigned int MathOpt::QP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec 
 
 /**
  * @brief Constructor to set the data, while keeping the input objects intact
- * @param Q Quadratic term for y in the objective
- * @param C Bi-linear term for x-y in the objective
- * @param A Matrix of constraints for the parameters x
- * @param B Matrix of constraints for the variables y
- * @param c Vector of linear terms for y in the objective
- * @param b Vector of RHS in the constraints
+ * @param Q_in Quadratic term for y in the objective
+ * @param C_in Bi-linear term for x-y in the objective
+ * @param A_in Matrix of constraints for the parameters x
+ * @param B_in Matrix of constraints for the variables y
+ * @param c_in Vector of linear terms for y in the objective
+ * @param b_in Vector of RHS in the constraints
  * @return A pointer to this
  */
-MathOpt::QP_Param &MathOpt::QP_Param::set(const arma::sp_mat &Q,
-														const arma::sp_mat &C,
-														const arma::sp_mat &A,
-														const arma::sp_mat &B,
-														const arma::vec &   c,
-														const arma::vec &   b) {
+MathOpt::QP_Param &MathOpt::QP_Param::set(const arma::sp_mat &Q_in,
+														const arma::sp_mat &C_in,
+														const arma::sp_mat &A_in,
+														const arma::sp_mat &B_in,
+														const arma::vec &   c_in,
+														const arma::vec &   b_in) {
   this->MadeyQy = false;
-  MP_Param::set(Q, C, A, B, c, b);
+  MP_Param::set(Q_in, C_in, A_in, B_in, c_in, b_in);
   return *this;
 }
 
 /**
  * @brief Constructor to set the data through std::move
- * @param Q Quadratic term for y in the objective
- * @param C Bi-linear term for x-y in the objective
- * @param A Matrix of constraints for the parameters x
- * @param B Matrix of constraints for the variables y
- * @param c Vector of linear terms for y in the objective
- * @param b Vector of RHS in the constraints
+ * @param Q_in Quadratic term for y in the objective
+ * @param C_in Bi-linear term for x-y in the objective
+ * @param A_in Matrix of constraints for the parameters x
+ * @param B_in Matrix of constraints for the variables y
+ * @param c_in Vector of linear terms for y in the objective
+ * @param b_in Vector of RHS in the constraints
  * @return A pointer to this
  * @warning The input data may be corrupted after
  */
-MathOpt::QP_Param &MathOpt::QP_Param::set(arma::sp_mat &&Q,
-														arma::sp_mat &&C,
-														arma::sp_mat &&A,
-														arma::sp_mat &&B,
-														arma::vec &&   c,
-														arma::vec &&   b) {
+MathOpt::QP_Param &MathOpt::QP_Param::set(arma::sp_mat &&Q_in,
+														arma::sp_mat &&C_in,
+														arma::sp_mat &&A_in,
+														arma::sp_mat &&B_in,
+														arma::vec &&   c_in,
+														arma::vec &&   b_in) {
   this->MadeyQy = false;
-  MP_Param::set(Q, C, A, B, c, b);
+  MP_Param::set(Q_in, C_in, A_in, B_in, c_in, b_in);
   return *this;
 }
 
@@ -271,33 +271,32 @@ void MathOpt::QP_Param::save(const std::string &filename, bool append) const {
  */
 long int MathOpt::QP_Param::load(const std::string &filename, long int pos) {
 
-  arma::sp_mat Q, A, B, C, BO;
-  arma::vec    c, b;
+  arma::sp_mat Q_in, A_in, B_in, C_in, BO;
+  arma::vec    c_in, b_in;
   std::string  headercheck;
   pos = Utils::appendRead(headercheck, filename, pos);
   if (headercheck != "QP_Param")
 	 throw ZEROException(ZEROErrorCode::IOError, "Invalid header");
-  pos = Utils::appendRead(Q, filename, pos, std::string("QP_Param::Q"));
-  pos = Utils::appendRead(A, filename, pos, std::string("QP_Param::A"));
-  pos = Utils::appendRead(B, filename, pos, std::string("QP_Param::B"));
-  pos = Utils::appendRead(C, filename, pos, std::string("QP_Param::C"));
-  pos = Utils::appendRead(b, filename, pos, std::string("QP_Param::b"));
-  pos = Utils::appendRead(c, filename, pos, std::string("QP_Param::c"));
+  pos = Utils::appendRead(Q_in, filename, pos, std::string("QP_Param::Q"));
+  pos = Utils::appendRead(A_in, filename, pos, std::string("QP_Param::A"));
+  pos = Utils::appendRead(B_in, filename, pos, std::string("QP_Param::B"));
+  pos = Utils::appendRead(C_in, filename, pos, std::string("QP_Param::C"));
+  pos = Utils::appendRead(b_in, filename, pos, std::string("QP_Param::b"));
+  pos = Utils::appendRead(c_in, filename, pos, std::string("QP_Param::c"));
   pos = Utils::appendRead(BO, filename, pos, std::string("QP_Param::Bounds"));
   if (BO.n_rows > 0) {
-	 if (BO.n_cols != 2)
-		throw ZEROException(ZEROErrorCode::IOError, "Invalid bounds object in loaded file");
+	 ZEROAssert(BO.n_cols == 2);
 
-	 for (unsigned int i = 0; i < B.n_cols; ++i)
+	 for (unsigned int i = 0; i < B_in.n_cols; ++i)
 		this->Bounds.push_back(
 			 {BO.at(i, 0) > 0 ? BO.at(i, 0) : 0, BO.at(i, 1) > 0 ? BO.at(i, 1) : -1});
 
-	 int diff = B.n_cols - BO.n_rows;
+	 int diff = B_in.n_cols - BO.n_rows;
 	 for (unsigned int i = 0; i < diff; ++i)
 		this->Bounds.push_back({0, -1});
   }
   LOG_S(1) << "Loaded QP_Param to file " << filename;
-  this->set(Q, C, A, B, c, b);
+  this->set(Q_in, C_in, A_in, B_in, c_in, b_in);
   return pos;
 }
 
@@ -314,16 +313,16 @@ long int MathOpt::QP_Param::load(const std::string &filename, long int pos) {
  * @return A pointer to this
  * @warning The input data may be corrupted after
  */
-MathOpt::QP_Param::QP_Param(const arma::sp_mat &Q,
-									 const arma::sp_mat &C,
-									 const arma::sp_mat &A,
-									 const arma::sp_mat &B,
-									 const arma::vec &   c,
-									 const arma::vec &   b,
+MathOpt::QP_Param::QP_Param(const arma::sp_mat &Q_in,
+									 const arma::sp_mat &C_in,
+									 const arma::sp_mat &A_in,
+									 const arma::sp_mat &B_in,
+									 const arma::vec &   c_in,
+									 const arma::vec &   b_in,
 									 GRBEnv *            env)
 	 : MP_Param(env), MadeyQy{false}, Model{(*env)} {
   this->MadeyQy = false;
-  this->set(Q, C, A, B, c, b);
+  this->set(Q_in, C_in, A_in, B_in, c_in, b_in);
   this->size();
   this->forceDataCheck();
 }
