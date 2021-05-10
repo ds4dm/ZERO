@@ -116,7 +116,7 @@ namespace Utils {
   std::string      printBounds(const VariableBounds &bounds);
   arma::vec        normalizeVec(const arma::vec &v);
   void                          normalizeIneq(arma::vec &lhs, double &rhs, bool force);
-  double           round_nplaces(const double &value, const double &tol = 1e-6);
+  double           round_nplaces(const double &value, const int &numDecimals = 5);
   void             addSparseConstraints(const arma::sp_mat &A,
 													 const arma::vec &   b,
 													 GRBVar *            x,

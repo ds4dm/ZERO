@@ -498,29 +498,13 @@ std::string Utils::printBounds(const VariableBounds &bounds) {
 
 
 /**
- * Round the input @p value to a decimal up to @p to points.
+ * Round the input @p value to a decimal up to @p numDecimals.
  * @param value The input number
- * @param tol  Decimal precision tolerance
+ * @param numDecimals  Decimal precision tolerance
  * @return The rounded value
  */
-double Utils::round_nplaces(const double &value, const double &tol)
-// from
-// https://www.daniweb.com/programming/software-development/code/217332/round-double-to-n-decimal-places
-{
-  uint32_t to     = round(log10(tol));
-  uint32_t places = 1, whole = *(&value);
-  for (uint32_t i = 0; i < to; i++)
-	 places *= 10;
-  double ret = value;
-
-  ret -= whole; // leave decimals
-
-  ret *= places;    // 0.1234 -> 123.4
-  ret = round(ret); // 123.4 -> 123
-  ret /= places;    // 123 -> .123
-
-  ret += whole; // bring the whole value back
-  return ret;
+double Utils::round_nplaces(const double &value, const int &numDecimals) {
+  return roundf(value * pow(10, numDecimals)) / pow(10, numDecimals);
 }
 
 /**
