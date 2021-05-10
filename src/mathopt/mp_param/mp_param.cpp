@@ -286,6 +286,7 @@ void MathOpt::MP_Param::detectBounds() {
 void MathOpt::MP_Param::rewriteBounds() {
 
 
+  LOG_S(2) << "MathOpt::MP_Param::rewriteBounds: Starting.";
   int boundSize = this->Bounds.size();
   // assert(boundSize == this->numVars);
   this->B_bounds.zeros(boundSize, boundSize);
