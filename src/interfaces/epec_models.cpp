@@ -30,7 +30,7 @@ std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::pr
   return ost;
 }
 
-std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::FollPar& P) {
+std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::FollPar &P) {
   ost << "Follower Parameters: " << '\n';
   ost << "********************" << '\n';
   ost << Models::EPEC::prn::label << "Linear Costs"
@@ -82,16 +82,16 @@ std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::Le
   return ost;
 }
 
-std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::EPECInstance& I) {
+std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::EPECInstance &I) {
   ost << "EPEC Instance: " << '\n';
   ost << "******************" << '\n';
-  for (const auto& a : I.Countries)
+  for (const auto &a : I.Countries)
 	 ost << a << '\n';
   ost << "Transportation Costs:" << '\n' << I.TransportationCosts << '\n';
   return ost;
 }
 
-std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::LeadAllPar& P) {
+std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::LeadAllPar &P) {
   ost << "\n\n";
   ost << "***************************"
 		<< "\n";
@@ -148,7 +148,7 @@ std::ostream &Models::EPEC::operator<<(std::ostream &ost, const Models::EPEC::Le
 
 bool Models::EPEC::EPEC::ParamValid(
 	 const LeadAllPar &Params ///< Object whose validity is to be tested
-	 ) const
+) const
 /**
  * @brief Checks the Validity of Models::EPEC::LeadAllPar object
  * @details Checks the following:
@@ -247,10 +247,10 @@ void Models::EPEC::EPEC::make_LL_LeadCons(
 	 const unsigned int price_lim_cons, ///< Does a constraint on price limit
 	 ///< exist or no limit?
 	 const unsigned int activeTaxCaps, ///< Number of active Tax Caps constraints. If strictly
-												 ///< positive, tax cap constraint(s) will be enforced
-    const unsigned int disableTrade ///< If greater than zero, the quantity of
-    ///< exported goods will be forced to zero
-	 ) const noexcept
+												  ///< positive, tax cap constraint(s) will be enforced
+	 const unsigned int disableTrade   ///< If greater than zero, the quantity of
+	 ///< exported goods will be forced to zero
+) const noexcept
 /**
  * Makes the leader level constraints for a country.
  * The constraints added are as follows:
@@ -275,21 +275,21 @@ void Models::EPEC::EPEC::make_LL_LeadCons(
  */
 {
   if (activeTaxCaps > 0) {
-    // Tax Caps are active
-    // Different tax caps
-    // Note that the loop is performed until this->taxVars is hit
-    for (unsigned int follower = 0; follower < this->taxVars; follower++) {
-      if (Params.FollowerParam.tax_caps.at(follower) >= 0) {
-        // Constraints for Tax limits
-        LeadCons(follower, Loc.at(LeaderVars::Tax) + follower) = 1;
-        LeadRHS(follower) = Params.FollowerParam.tax_caps.at(follower);
-      }
-    }
+	 // Tax Caps are active
+	 // Different tax caps
+	 // Note that the loop is performed until this->taxVars is hit
+	 for (unsigned int follower = 0; follower < this->taxVars; follower++) {
+		if (Params.FollowerParam.tax_caps.at(follower) >= 0) {
+		  // Constraints for Tax limits
+		  LeadCons(follower, Loc.at(LeaderVars::Tax) + follower) = 1;
+		  LeadRHS(follower) = Params.FollowerParam.tax_caps.at(follower);
+		}
+	 }
   }
   // Export - import <= Local Production
   // (28b)
   for (unsigned int i = 0; i < Params.n_followers; i++)
-    LeadCons.at(activeTaxCaps, i) = -1;
+	 LeadCons.at(activeTaxCaps, i) = -1;
   LeadCons.at(activeTaxCaps, Loc.at(LeaderVars::NetExport)) = 1;
   LeadCons.at(activeTaxCaps, Loc.at(LeaderVars::NetImport)) = -1;
 
@@ -297,115 +297,96 @@ void Models::EPEC::EPEC::make_LL_LeadCons(
   // Import limit - In more precise terms, everything that comes in minus
   // everything that goes out should satisfy this limit (28c)
   if (import_lim_cons) {
-    LeadCons(activeTaxCaps + import_lim_cons,
-             Loc.at(LeaderVars::NetImport)) = 1;
-    LeadCons(activeTaxCaps + import_lim_cons,
-             Loc.at(LeaderVars::NetExport)) = -1;
-    LeadRHS(activeTaxCaps + import_lim_cons) = Params.LeaderParam.import_limit;
+	 LeadCons(activeTaxCaps + import_lim_cons, Loc.at(LeaderVars::NetImport)) = 1;
+	 LeadCons(activeTaxCaps + import_lim_cons, Loc.at(LeaderVars::NetExport)) = -1;
+	 LeadRHS(activeTaxCaps + import_lim_cons) = Params.LeaderParam.import_limit;
   }
   // Export limit - In more precise terms, everything that goes out minus
   // everything that comes in should satisfy this limit (28d)
   if (export_lim_cons) {
-    LeadCons(activeTaxCaps + import_lim_cons + export_lim_cons,
-             Loc.at(LeaderVars::NetExport)) = 1;
-    LeadCons(activeTaxCaps + import_lim_cons + export_lim_cons,
-             Loc.at(LeaderVars::NetImport)) = -1;
-    LeadRHS(activeTaxCaps + import_lim_cons + export_lim_cons) =
-        Params.LeaderParam.export_limit;
+	 LeadCons(activeTaxCaps + import_lim_cons + export_lim_cons, Loc.at(LeaderVars::NetExport)) = 1;
+	 LeadCons(activeTaxCaps + import_lim_cons + export_lim_cons, Loc.at(LeaderVars::NetImport)) = -1;
+	 LeadRHS(activeTaxCaps + import_lim_cons + export_lim_cons) = Params.LeaderParam.export_limit;
   }
   // (28g)
   if (price_lim_cons) {
-    for (unsigned int i = 0; i < Params.n_followers; i++)
-      LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons +
-                      export_lim_cons,
-                  i) = -Params.DemandParam.beta;
-    LeadCons.at(
-        activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons,
-        Loc.at(LeaderVars::NetImport)) = -Params.DemandParam.beta;
-    LeadCons.at(
-        activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons,
-        Loc.at(LeaderVars::NetExport)) = Params.DemandParam.beta;
-    LeadRHS.at(activeTaxCaps + price_lim_cons + import_lim_cons +
-               export_lim_cons) =
-        Params.LeaderParam.price_limit - Params.DemandParam.alpha;
+	 for (unsigned int i = 0; i < Params.n_followers; i++)
+		LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons, i) =
+			 -Params.DemandParam.beta;
+	 LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons,
+					 Loc.at(LeaderVars::NetImport)) = -Params.DemandParam.beta;
+	 LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons,
+					 Loc.at(LeaderVars::NetExport)) = Params.DemandParam.beta;
+	 LeadRHS.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons) =
+		  Params.LeaderParam.price_limit - Params.DemandParam.alpha;
   }
 
   if (disableTrade > 0) {
-    LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons +
-                    export_lim_cons + disableTrade,
-                Loc.at(LeaderVars::NetExport)) = 1;
-    LeadRHS.at(activeTaxCaps + price_lim_cons + import_lim_cons +
-               export_lim_cons + disableTrade) = 0;
+	 LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + disableTrade,
+					 Loc.at(LeaderVars::NetExport)) = 1;
+	 LeadRHS.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + disableTrade) =
+		  0;
   }
   // revenue tax
   if (Params.LeaderParam.tax_revenue) {
 
-    // If taxation paradigm is not standard (0), then just one tax variable is
-    // used.
-    unsigned int standardTax = 1;
-    unsigned int carbonTax = 0;
-    if (Params.LeaderParam.tax_type != TaxType::StandardTax) {
-      standardTax = 0;
-      // If carbon tax, we should modify McCornick inequalities
-      if (Params.LeaderParam.tax_type == TaxType::CarbonTax)
-        carbonTax = 1;
-    }
+	 // If taxation paradigm is not standard (0), then just one tax variable is
+	 // used.
+	 unsigned int standardTax = 1;
+	 unsigned int carbonTax   = 0;
+	 if (Params.LeaderParam.tax_type != TaxType::StandardTax) {
+		standardTax = 0;
+		// If carbon tax, we should modify McCornick inequalities
+		if (Params.LeaderParam.tax_type == TaxType::CarbonTax)
+		  carbonTax = 1;
+	 }
 
-    for (unsigned int i = 0; i < Params.n_followers; i++) {
-      double t_cap = (Params.FollowerParam.tax_caps.at(i * standardTax) >= 0
-                          ? Params.FollowerParam.tax_caps.at(i * standardTax)
-                          : 0);
-      double carbonCorrection =
-          (carbonTax == 1) ? Params.FollowerParam.emission_costs.at(i) : 1;
-      // -u_i + \bar{q}_it_i + \bar{t}_iq_i \le \bar{t}_i \bar{q}_i
-      LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons +
-                      export_lim_cons + disableTrade + i * 3 + 1,
-                  Loc.at(LeaderVars::TaxQuad) + i) = -1;
-      LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons +
-                      export_lim_cons + disableTrade + i * 3 + 1,
-                  Loc.at(LeaderVars::Tax) + i * standardTax) =
-          Params.FollowerParam.capacities.at(i) * carbonCorrection;
-      LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons +
-                      export_lim_cons + disableTrade + i * 3 + 1,
-                  Loc.at(LeaderVars::FollowerStart) + i) =
-          t_cap * carbonCorrection;
-      LeadRHS.at(activeTaxCaps + price_lim_cons + import_lim_cons +
-                 export_lim_cons + disableTrade + i * 3 + 1) =
-          t_cap * Params.FollowerParam.capacities.at(i) * carbonCorrection;
+	 for (unsigned int i = 0; i < Params.n_followers; i++) {
+		double t_cap            = (Params.FollowerParam.tax_caps.at(i * standardTax) >= 0
+												 ? Params.FollowerParam.tax_caps.at(i * standardTax)
+												 : 0);
+		double carbonCorrection = (carbonTax == 1) ? Params.FollowerParam.emission_costs.at(i) : 1;
+		// -u_i + \bar{q}_it_i + \bar{t}_iq_i \le \bar{t}_i \bar{q}_i
+		LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons +
+							 disableTrade + i * 3 + 1,
+						Loc.at(LeaderVars::TaxQuad) + i) = -1;
+		LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons +
+							 disableTrade + i * 3 + 1,
+						Loc.at(LeaderVars::Tax) + i * standardTax) =
+			 Params.FollowerParam.capacities.at(i) * carbonCorrection;
+		LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons +
+							 disableTrade + i * 3 + 1,
+						Loc.at(LeaderVars::FollowerStart) + i) = t_cap * carbonCorrection;
+		LeadRHS.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + disableTrade +
+					  i * 3 + 1) = t_cap * Params.FollowerParam.capacities.at(i) * carbonCorrection;
 
-      // -u_i + \bar{q}_it_i  \le 0
-      LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons +
-                      export_lim_cons + disableTrade + i * 3 + 2,
-                  Loc.at(LeaderVars::TaxQuad) + i) = -1;
-      LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons +
-                      export_lim_cons + disableTrade + i * 3 + 2,
-                  Loc.at(LeaderVars::Tax) + i * standardTax) =
-          Params.FollowerParam.capacities.at(i) * carbonCorrection;
-      LeadRHS.at(activeTaxCaps + price_lim_cons + import_lim_cons +
-                 export_lim_cons + disableTrade + i * 3 + 2) = 0;
+		// -u_i + \bar{q}_it_i  \le 0
+		LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons +
+							 disableTrade + i * 3 + 2,
+						Loc.at(LeaderVars::TaxQuad) + i) = -1;
+		LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons +
+							 disableTrade + i * 3 + 2,
+						Loc.at(LeaderVars::Tax) + i * standardTax) =
+			 Params.FollowerParam.capacities.at(i) * carbonCorrection;
+		LeadRHS.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + disableTrade +
+					  i * 3 + 2) = 0;
 
-      // -u_i + \bar{t}_iq_i  \le 0
-      LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons +
-                      export_lim_cons + disableTrade + i * 3 + 3,
-                  Loc.at(LeaderVars::TaxQuad) + i) = -1;
-      LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons +
-                      export_lim_cons + disableTrade + i * 3 + 3,
-                  Loc.at(LeaderVars::FollowerStart) + i) =
-          t_cap * carbonCorrection;
-      LeadRHS.at(activeTaxCaps + price_lim_cons + import_lim_cons +
-                 export_lim_cons + disableTrade + i * 3 + 3) = 0;
-    }
+		// -u_i + \bar{t}_iq_i  \le 0
+		LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons +
+							 disableTrade + i * 3 + 3,
+						Loc.at(LeaderVars::TaxQuad) + i)       = -1;
+		LeadCons.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons +
+							 disableTrade + i * 3 + 3,
+						Loc.at(LeaderVars::FollowerStart) + i) = t_cap * carbonCorrection;
+		LeadRHS.at(activeTaxCaps + price_lim_cons + import_lim_cons + export_lim_cons + disableTrade +
+					  i * 3 + 3)                              = 0;
+	 }
   }
-  LOG_S(1) << "********** Price Limit constraint: "
-                           << price_lim_cons;
-  LOG_S(1) << "********** Import Limit constraint: "
-                           << import_lim_cons;
-  LOG_S(1) << "********** Export Limit constraint: "
-                           << export_lim_cons;
-  LOG_S(1) << "********** Tax Limit constraints: "
-                           << activeTaxCaps << "\n\t";
-  LOG_S(1) << "********** Trade disabled: "
-                           << ((disableTrade > 0) ? "True" : "False") << "\n\t";
+  LOG_S(1) << "********** Price Limit constraint: " << price_lim_cons;
+  LOG_S(1) << "********** Import Limit constraint: " << import_lim_cons;
+  LOG_S(1) << "********** Export Limit constraint: " << export_lim_cons;
+  LOG_S(1) << "********** Tax Limit constraints: " << activeTaxCaps << "\n\t";
+  LOG_S(1) << "********** Trade disabled: " << ((disableTrade > 0) ? "True" : "False") << "\n\t";
 }
 
 
@@ -473,11 +454,11 @@ Models::EPEC::EPEC &Models::EPEC::EPEC::addCountry(Models::EPEC::LeadAllPar Para
   if (Params.LeaderParam.tax_type == Models::EPEC::TaxType::StandardTax) {
 	 LOG_S(1) << "Country " << Params.name << " has a standard tax paradigm.";
 	 this->taxVars = Params.n_followers;
-    // Since we have a standard taxation paradigm, we have to consider all
-    // different tax caps
-    activeTaxCaps = count_if(Params.FollowerParam.tax_caps.begin(),
-                             Params.FollowerParam.tax_caps.end(),
-                             [](double i) { return i >= 0; });
+	 // Since we have a standard taxation paradigm, we have to consider all
+	 // different tax caps
+	 activeTaxCaps = count_if(Params.FollowerParam.tax_caps.begin(),
+									  Params.FollowerParam.tax_caps.end(),
+									  [](double i) { return i >= 0; });
   } else {
 	 if (Params.LeaderParam.tax_type == Models::EPEC::TaxType::SingleTax) {
 		LOG_S(1) << "Country " << Params.name << " has a single tax paradigm.";
@@ -485,21 +466,20 @@ Models::EPEC::EPEC &Models::EPEC::EPEC::addCountry(Models::EPEC::LeadAllPar Para
 		LOG_S(1) << "Country " << Params.name << " has a carbon tax paradigm.";
 	 }
 	 this->taxVars = 1;
-    // There is no standard taxation paradigm (so we have carbon or single).
-    // Hence we want to consider just one caps, arbitrary the first
-    activeTaxCaps = count_if(Params.FollowerParam.tax_caps.begin(),
-                             Params.FollowerParam.tax_caps.end(),
-                             [](double i) { return i >= 0; });
-    if (activeTaxCaps >= 0) {
-      if (!std::equal(Params.FollowerParam.tax_caps.begin() + 1,
-                      Params.FollowerParam.tax_caps.end(),
-                      Params.FollowerParam.tax_caps.begin())) {
-        LOG_S(WARNING)
-            << "Tax caps are not equal within a non-standard tax framework. "
-               "Using the first value as tax limit.";
-      }
-      activeTaxCaps = 1;
-    }
+	 // There is no standard taxation paradigm (so we have carbon or single).
+	 // Hence we want to consider just one caps, arbitrary the first
+	 activeTaxCaps = count_if(Params.FollowerParam.tax_caps.begin(),
+									  Params.FollowerParam.tax_caps.end(),
+									  [](double i) { return i >= 0; });
+	 if (activeTaxCaps >= 0) {
+		if (!std::equal(Params.FollowerParam.tax_caps.begin() + 1,
+							 Params.FollowerParam.tax_caps.end(),
+							 Params.FollowerParam.tax_caps.begin())) {
+		  LOG_S(WARNING) << "Tax caps are not equal within a non-standard tax framework. "
+								  "Using the first value as tax limit.";
+		}
+		activeTaxCaps = 1;
+	 }
   }
 
   const unsigned int LeadVars =
@@ -522,7 +502,8 @@ Models::EPEC::EPEC &Models::EPEC::EPEC::addCountry(Models::EPEC::LeadAllPar Para
   }
 
   // Leader Constraints
-  short int import_lim_cons{0}, export_lim_cons{0}, price_lim_cons{0},      trade_allow_cons{0};;
+  short int import_lim_cons{0}, export_lim_cons{0}, price_lim_cons{0}, trade_allow_cons{0};
+  ;
   if (Params.LeaderParam.import_limit >= 0)
 	 import_lim_cons = 1;
   if (Params.LeaderParam.export_limit >= 0)
@@ -530,22 +511,20 @@ Models::EPEC::EPEC &Models::EPEC::EPEC::addCountry(Models::EPEC::LeadAllPar Para
   if (Params.LeaderParam.price_limit >= 0)
 	 price_lim_cons = 1;
   if (Params.LeaderParam.tradeAllowed == false)
-    trade_allow_cons = 1;
+	 trade_allow_cons = 1;
 
-  arma::sp_mat LeadCons(activeTaxCaps + // Tax limit constraints
-                        1+ // Export - import <= Domestic production
-                        import_lim_cons +      // Import limit constraint
-                        export_lim_cons +  // Export limit constraint
-                        price_lim_cons +   // Price limit constraint
-                        trade_allow_cons + // Trade Switch constraint
-                        Params.n_followers * 3 *
-                        Params.LeaderParam.tax_revenue, // revenue ta
-                        Loc[Models::EPEC::LeaderVars::End]);
-  arma::vec LeadRHS(
-      import_lim_cons + export_lim_cons + price_lim_cons + activeTaxCaps +
-      trade_allow_cons +
-      Params.n_followers * 3 * Params.LeaderParam.tax_revenue + 1,
-      arma::fill::zeros);
+  arma::sp_mat LeadCons(activeTaxCaps +        // Tax limit constraints
+									 1 +                // Export - import <= Domestic production
+									 import_lim_cons +  // Import limit constraint
+									 export_lim_cons +  // Export limit constraint
+									 price_lim_cons +   // Price limit constraint
+									 trade_allow_cons + // Trade Switch constraint
+									 Params.n_followers * 3 * Params.LeaderParam.tax_revenue, // revenue ta
+								Loc[Models::EPEC::LeaderVars::End]);
+  arma::vec    LeadRHS(import_lim_cons + export_lim_cons + price_lim_cons + activeTaxCaps +
+                        trade_allow_cons + Params.n_followers * 3 * Params.LeaderParam.tax_revenue +
+                        1,
+                    arma::fill::zeros);
 
   std::vector<std::shared_ptr<MathOpt::QP_Param>> Players{};
   // Create the QP_Param* for each follower
@@ -556,9 +535,15 @@ Models::EPEC::EPEC &Models::EPEC::EPEC::addCountry(Models::EPEC::LeadAllPar Para
 		Players.push_back(Foll);
 	 }
 	 // Make Leader Constraints
-    this->make_LL_LeadCons(LeadCons, LeadRHS, Params, Loc, import_lim_cons,
-                           export_lim_cons, price_lim_cons, activeTaxCaps,
-                           trade_allow_cons);
+	 this->make_LL_LeadCons(LeadCons,
+									LeadRHS,
+									Params,
+									Loc,
+									import_lim_cons,
+									export_lim_cons,
+									price_lim_cons,
+									activeTaxCaps,
+									trade_allow_cons);
   } catch (GRBException &e) {
 	 throw ZEROException(e);
   }
@@ -798,7 +783,7 @@ bool Models::EPEC::EPEC::dataCheck(
 	 const bool chkLeaderLocations, ///< Checks if Models::EPEC::EPEC::LeaderLocations has
 	 ///< size @p n and Models::EPEC::EPEC::NumVariables is set
 	 const bool chkLeadObjec ///< Checks if Models::EPEC::EPEC::LeaderObjective has size @p n
-	 ) const
+) const
 /**
  * Checks the data in Models::EPEC::EPEC object, based on checking flags, @p n is the
  * number of countries in the Models::EPEC::EPEC object.
@@ -925,8 +910,8 @@ void Models::EPEC::EPEC::makeObjectivePlayer(
   }
 }
 
-std::unique_ptr<GRBModel> Models::EPEC::EPEC::Respond(const std::string& name,
-																		const arma::vec & x) const {
+std::unique_ptr<GRBModel> Models::EPEC::EPEC::Respond(const std::string &name,
+																		const arma::vec &  x) const {
   return this->Game::EPEC::respond(this->name2nos.at(name), x, nullptr);
 }
 
@@ -1037,7 +1022,7 @@ std::string to_string(const GRBVar &var) {
   return name.empty() ? "unNamedvar" : name;
 }
 
-void Models::EPEC::EPEC::write(const std::string&  filename,
+void Models::EPEC::EPEC::write(const std::string &filename,
 										 const unsigned int i,
 										 bool               append) const {
   std::ofstream file;
@@ -1051,7 +1036,7 @@ void Models::EPEC::EPEC::write(const std::string&  filename,
   file.close();
 }
 
-void Models::EPEC::EPEC::write(const std::string& filename, bool append) const {
+void Models::EPEC::EPEC::write(const std::string &filename, bool append) const {
   if (append) {
 	 std::ofstream file;
 	 file.open(filename, std::ios::app);
@@ -1064,9 +1049,9 @@ void Models::EPEC::EPEC::write(const std::string& filename, bool append) const {
 	 this->write(filename, i, (append || i));
 }
 
-void Models::EPEC::EPEC::writeSolutionJSON(const std::string&     filename,
-														 const arma::vec& x,
-														 const arma::vec& z) const {
+void Models::EPEC::EPEC::writeSolutionJSON(const std::string &filename,
+														 const arma::vec &  x,
+														 const arma::vec &  z) const {
   /**
 	* @brief Writes the computed Nash Equilibrium in the standard JSON solution
 	* file
@@ -1136,7 +1121,7 @@ void Models::EPEC::EPEC::writeSolutionJSON(const std::string&     filename,
   file << s.GetString();
 }
 
-void Models::EPEC::EPEC::readSolutionJSON(const std::string& filename) {
+void Models::EPEC::EPEC::readSolutionJSON(const std::string &filename) {
   /**
 	* @brief Reads the solution file and load it in the current EPEC instance
 	* **/
@@ -1171,7 +1156,7 @@ void Models::EPEC::EPEC::readSolutionJSON(const std::string& filename) {
   }
 }
 
-void Models::EPEC::EPEC::writeSolution(const int writeLevel, const std::string& filename) const {
+void Models::EPEC::EPEC::writeSolution(const int writeLevel, const std::string &filename) const {
   /**
 	* @brief Writes the computed Nash Equilibrium in the EPEC instance
 	* @p writeLevel is an integer representing the write configuration. 0: only
@@ -1191,7 +1176,7 @@ void Models::EPEC::EPEC::writeSolution(const int writeLevel, const std::string& 
   }
 }
 
-void Models::EPEC::EPECInstance::save(const std::string& filename) {
+void Models::EPEC::EPECInstance::save(const std::string &filename) {
   /**
 	* @brief Writes the current EPEC instance to the standard JSON instance file
 	* @p filename dictates the name of the JSON instance file
@@ -1302,13 +1287,13 @@ void Models::EPEC::EPECInstance::save(const std::string& filename) {
   }
   writer.EndArray();
   writer.EndObject();
-  remove( filename.c_str() );
+  remove(filename.c_str());
   std::ofstream file(filename + ".json");
   file << s.GetString();
   file.close();
 }
 
-void Models::EPEC::EPECInstance::load(const std::string& filename) {
+void Models::EPEC::EPECInstance::load(const std::string &filename) {
   /**
 	* @brief Reads an instance file and return a vector of @p LeadAllPar that can
 	* be fed to the EPEC class
@@ -1330,30 +1315,31 @@ void Models::EPEC::EPECInstance::load(const std::string& filename) {
 		  Models::EPEC::FollPar   FP;
 		  const rapidjson::Value &cap = c["Followers"]["Capacities"];
 		  for (rapidjson::SizeType i = 0; i < cap.GetArray().Size(); i++) {
-			 FP.capacities.push_back(cap[i].GetDouble());
+			 FP.capacities.push_back(Utils::round_nplaces(cap[i].GetDouble(), 5));
 		  }
 		  const rapidjson::Value &lc = c["Followers"]["LinearCosts"];
 		  for (rapidjson::SizeType i = 0; i < lc.GetArray().Size(); i++) {
-			 FP.costs_lin.push_back(lc[i].GetDouble());
+			 FP.costs_lin.push_back(Utils::round_nplaces(lc[i].GetDouble(), 5));
 		  }
 		  const rapidjson::Value &qc = c["Followers"]["QuadraticCosts"];
 		  for (rapidjson::SizeType i = 0; i < qc.GetArray().Size(); i++) {
-			 FP.costs_quad.push_back(qc[i].GetDouble());
+			 FP.costs_quad.push_back(Utils::round_nplaces(qc[i].GetDouble(), 5));
 		  }
 		  const rapidjson::Value &ec = c["Followers"]["EmissionCosts"];
 		  for (rapidjson::SizeType i = 0; i < ec.GetArray().Size(); i++) {
-			 FP.emission_costs.push_back(ec[i].GetDouble());
+			 FP.emission_costs.push_back(Utils::round_nplaces(ec[i].GetDouble(), 5));
 		  }
 		  const rapidjson::Value &tc = c["Followers"]["TaxCaps"];
 		  for (rapidjson::SizeType i = 0; i < tc.GetArray().Size(); i++) {
-			 FP.tax_caps.push_back(tc[i].GetDouble());
+			 FP.tax_caps.push_back(Utils::round_nplaces(tc[i].GetDouble(), 5));
 		  }
 		  const rapidjson::Value &nm = c["Followers"]["Names"];
 		  for (rapidjson::SizeType i = 0; i < nm.GetArray().Size(); i++) {
 			 FP.names.push_back(nm[i].GetString());
 		  }
 		  for (rapidjson::SizeType i = 0; i < c["TransportationCosts"].GetArray().Size(); i++) {
-			 TrCo.at(j, i) = c["TransportationCosts"].GetArray()[i].GetDouble();
+			 TrCo.at(j, i) =
+				  Utils::round_nplaces(c["TransportationCosts"].GetArray()[i].GetDouble(), 5);
 		  }
 		  bool tax_revenue = false;
 		  if (c["LeaderParam"].HasMember("TaxRevenue")) {
@@ -1363,17 +1349,17 @@ void Models::EPEC::EPECInstance::load(const std::string& filename) {
 		  if (c["LeaderParam"].HasMember("TaxationType")) {
 			 tax_type = c["LeaderParam"].GetObject()["TaxationType"].GetInt();
 		  }
-		  LAP.push_back(
-				Models::EPEC::LeadAllPar(FP.capacities.size(),
-												 c["Name"].GetString(),
-												 FP,
-												 {c["DemandParam"].GetObject()["Alpha"].GetDouble(),
-												  c["DemandParam"].GetObject()["Beta"].GetDouble()},
-												 {c["LeaderParam"].GetObject()["ImportLimit"].GetDouble(),
-												  c["LeaderParam"].GetObject()["ExportLimit"].GetDouble(),
-												  c["LeaderParam"].GetObject()["PriceLimit"].GetDouble(),
-												  tax_revenue,
-												  tax_type}));
+		  LAP.push_back(Models::EPEC::LeadAllPar(
+				FP.capacities.size(),
+				c["Name"].GetString(),
+				FP,
+				{Utils::round_nplaces(c["DemandParam"].GetObject()["Alpha"].GetDouble(), 5),
+				 Utils::round_nplaces(c["DemandParam"].GetObject()["Beta"].GetDouble(), 5)},
+				{Utils::round_nplaces(c["LeaderParam"].GetObject()["ImportLimit"].GetDouble(), 5),
+				 Utils::round_nplaces(c["LeaderParam"].GetObject()["ExportLimit"].GetDouble(), 5),
+				 Utils::round_nplaces(c["LeaderParam"].GetObject()["PriceLimit"].GetDouble(), 5),
+				 tax_revenue,
+				 tax_type}));
 		}
 		ifs.close();
 		this->Countries           = LAP;
@@ -1389,8 +1375,8 @@ void Models::EPEC::EPECInstance::load(const std::string& filename) {
 }
 
 void Models::EPEC::EPEC::WriteCountry(const unsigned int i,
-												  const std::string&  filename,
-												  const arma::vec&    x,
+												  const std::string &filename,
+												  const arma::vec &  x,
 												  const bool         append) const {
   // if (!TheLCP) return;
   // const LeadLocs& Loc = this->Locations.at(i);
@@ -1454,8 +1440,8 @@ void Models::EPEC::EPEC::WriteCountry(const unsigned int i,
 
 void Models::EPEC::EPEC::WriteFollower(const unsigned int i,
 													const unsigned int j,
-													const std::string&  filename,
-													const arma::vec&    x) const {
+													const std::string &filename,
+													const arma::vec &  x) const {
   std::ofstream file;
   file.open(filename, std::ios::app);
 
