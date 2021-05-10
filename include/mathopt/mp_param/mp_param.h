@@ -45,11 +45,11 @@ namespace MathOpt {
 	 GRBEnv *       Env;        ///< A pointer to the Gurobi environment
 	 VariableBounds Bounds;     ///< Bounds on the y variables
 	 // Object for sizes and integrity check
-	 unsigned int numParams;    ///< Number of x variables (the ones that are parametrized)
+	 unsigned int numParams;    ///< Number of x parameters
 	 unsigned int numVars;    ///< Number of y variables
 	 unsigned int numConstr; ///< Number of constraints
 
-	 const unsigned int size();
+	 unsigned int size();
 
 	 template <class T> inline bool isZero(const T val) const { return (val >= -Eps && val <= Eps); }
 
@@ -76,51 +76,51 @@ namespace MathOpt {
 	 unsigned int getNumVars() const { return this->numVars; } ///< Read-only access to the private variable numVars
 	 VariableBounds getBounds() const {
 		return this->Bounds;
-	 } ///< Read-only access to the private variable BoundsX
+	 } ///< Read-only access to the Bounds
 
-	 MP_Param &setQ(const arma::sp_mat &Q) {
-		this->Q = Q;
+	 MP_Param &setQ(const arma::sp_mat &Q_in) {
+		this->Q = Q_in;
 		return *this;
 	 } ///< Set the private variable Q
-	 MP_Param &setC(const arma::sp_mat &C) {
-		this->C = C;
+	 MP_Param &setC(const arma::sp_mat &C_in) {
+		this->C = C_in;
 		return *this;
 	 } ///< Set the private variable C
-	 MP_Param &setA(const arma::sp_mat &A) {
-		this->A = A;
+	 MP_Param &setA(const arma::sp_mat &A_in) {
+		this->A = A_in;
 		return *this;
 	 } ///< Set the private variable A
-	 MP_Param &setB(const arma::sp_mat &B) {
-		this->B = B;
+	 MP_Param &setB(const arma::sp_mat &B_in) {
+		this->B = B_in;
 		return *this;
 	 } ///< Set the private variable B
-	 MP_Param &setc(const arma::vec &c) {
-		this->c = c;
+	 MP_Param &setc(const arma::vec &c_in) {
+		this->c = c_in;
 		return *this;
 	 } ///< Set the private variable c
-	 MP_Param &setb(const arma::vec &b) {
-		this->b = b;
+	 MP_Param &setb(const arma::vec &b_in) {
+		this->b = b_in;
 		return *this;
 	 } ///< Set the private variable b
-	 MP_Param &setBounds(const VariableBounds &boundIn) {
-		this->Bounds = boundIn;
+	 MP_Param &setBounds(const VariableBounds &bounds_in) {
+		this->Bounds = bounds_in;
 		// Update the bound processing and update sizes.
 		this->rewriteBounds();
 		return *this;
 	 } ///< Set the Bounds
 	 // Setters and advanced constructors
-	 virtual MP_Param &set(const arma::sp_mat &Q,
-								  const arma::sp_mat &C,
-								  const arma::sp_mat &A,
-								  const arma::sp_mat &B,
-								  const arma::vec &   c,
-								  const arma::vec &   b); // Copy data into this
-	 virtual MP_Param &set(arma::sp_mat &&Q,
-								  arma::sp_mat &&C,
-								  arma::sp_mat &&A,
-								  arma::sp_mat &&B,
-								  arma::vec &&   c,
-								  arma::vec &&   b); // Move data into this
+	 virtual MP_Param &set(const arma::sp_mat &Q_in,
+								  const arma::sp_mat &C_in,
+								  const arma::sp_mat &A_in,
+								  const arma::sp_mat &B_in,
+								  const arma::vec &   c_in,
+								  const arma::vec &   b_in); // Copy data into this
+	 virtual MP_Param &set(arma::sp_mat &&Q_in,
+								  arma::sp_mat &&C_in,
+								  arma::sp_mat &&A_in,
+								  arma::sp_mat &&B_in,
+								  arma::vec &&   c_in,
+								  arma::vec &&   b_in); // Move data into this
 	 virtual MP_Param &set(const QP_Objective &obj, const QP_Constraints &cons);
 
 	 virtual MP_Param &set(QP_Objective &&obj, QP_Constraints &&cons);

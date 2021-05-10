@@ -55,18 +55,18 @@ void MathOpt::MP_Param::save(const std::string &filename, bool append) const {
  * @warning Call MP_Param(GRBEnv *env) before loading
  */
 long int MathOpt::MP_Param::load(const std::string &filename, long int pos) {
-  arma::sp_mat Q, A, B, C, BO;
-  arma::vec    c, b;
+  arma::sp_mat Q_in, A_in, B_in, C_in, BO;
+  arma::vec    c_in, b_in;
   std::string  headercheck;
   pos = Utils::appendRead(headercheck, filename, pos);
   if (headercheck != "MP_Param")
 	 throw ZEROException(ZEROErrorCode::IOError, "Invalid header");
-  pos = Utils::appendRead(Q, filename, pos, std::string("MP_Param::Q"));
-  pos = Utils::appendRead(A, filename, pos, std::string("MP_Param::A"));
-  pos = Utils::appendRead(B, filename, pos, std::string("MP_Param::B"));
-  pos = Utils::appendRead(C, filename, pos, std::string("MP_Param::C"));
-  pos = Utils::appendRead(b, filename, pos, std::string("MP_Param::b"));
-  pos = Utils::appendRead(c, filename, pos, std::string("MP_Param::c"));
+  pos = Utils::appendRead(Q_in, filename, pos, std::string("MP_Param::Q"));
+  pos = Utils::appendRead(A_in, filename, pos, std::string("MP_Param::A"));
+  pos = Utils::appendRead(B_in, filename, pos, std::string("MP_Param::B"));
+  pos = Utils::appendRead(C_in, filename, pos, std::string("MP_Param::C"));
+  pos = Utils::appendRead(b_in, filename, pos, std::string("MP_Param::b"));
+  pos = Utils::appendRead(c_in, filename, pos, std::string("MP_Param::c"));
   pos = Utils::appendRead(BO, filename, pos, std::string("MP_Param::Bounds"));
   if (BO.n_rows > 0) {
 	 if (BO.n_cols != 2)
@@ -81,7 +81,7 @@ long int MathOpt::MP_Param::load(const std::string &filename, long int pos) {
 		this->Bounds.push_back({0, -1});
   }
   LOG_S(1) << "Loaded MP_Param to file " << filename;
-  this->set(Q, C, A, B, c, b);
+  this->set(Q_in, C_in, A_in, B_in, c_in, b_in);
   return pos;
 }
 
@@ -113,7 +113,7 @@ MathOpt::MP_Param &MathOpt::MP_Param::addDummy(unsigned int pars, unsigned int v
 		this->Bounds.push_back({0, -1});
 		B_bounds.at(startingBounds + i, startingVars + i) = -1;
 	 }
-    assert(B_bounds.n_rows==b_bounds.size());
+	 ZEROAssert(B_bounds.n_rows == b_bounds.size());
   }
   switch (position) {
   case -1:
@@ -180,7 +180,7 @@ void MathOpt::MP_Param::detectBounds() {
   std::vector<unsigned int> shedRows; // Keeps track of removed rows
 
   double diff = this->B.n_cols - this->Bounds.size();
-  assert(diff >= 0);
+  ZEROAssert(diff >= 0);
   for (unsigned int i = 0; i < diff; i++)
 	 this->Bounds.push_back({0, -1});
 
@@ -333,7 +333,7 @@ void MathOpt::MP_Param::rewriteBounds() {
  * 	For proper working, MP_Param::dataCheck() has to be run after this.
  * 	@returns @p numVars, Number of variables in the quadratic program, QP
  */
-const unsigned int MathOpt::MP_Param::size() {
+unsigned int MathOpt::MP_Param::size() {
   if (Q.n_elem < 1)
 	 this->numVars = this->c.size();
   else
@@ -345,26 +345,26 @@ const unsigned int MathOpt::MP_Param::size() {
 
 /**
  * @brief Constructor to set the data, while keeping the input objects intact
- * @param Q Quadratic term for y in the objective
- * @param C Bi-linear term for x-y in the objective
- * @param A Matrix of constraints for the parameters x
- * @param B Matrix of constraints for the variables y
- * @param c Vector of linear terms for y in the objective
- * @param b Vector of RHS in the constraints
+ * @param Q_in Quadratic term for y in the objective
+ * @param C_in Bi-linear term for x-y in the objective
+ * @param A_in Matrix of constraints for the parameters x
+ * @param B_in Matrix of constraints for the variables y
+ * @param c_in Vector of linear terms for y in the objective
+ * @param b_in Vector of RHS in the constraints
  * @return A pointer to this
  */
-MathOpt::MP_Param &MathOpt::MP_Param::set(const arma::sp_mat &Q,
-														const arma::sp_mat &C,
-														const arma::sp_mat &A,
-														const arma::sp_mat &B,
-														const arma::vec &   c,
-														const arma::vec &   b) {
-  this->Q = (Q);
-  this->C = (C);
-  this->A = (A);
-  this->B = (B);
-  this->c = (c);
-  this->b = (b);
+MathOpt::MP_Param &MathOpt::MP_Param::set(const arma::sp_mat &Q_in,
+														const arma::sp_mat &C_in,
+														const arma::sp_mat &A_in,
+														const arma::sp_mat &B_in,
+														const arma::vec &   c_in,
+														const arma::vec &   b_in) {
+  this->Q = (Q_in);
+  this->C = (C_in);
+  this->A = (A_in);
+  this->B = (B_in);
+  this->c = (c_in);
+  this->b = (b_in);
   if (!finalize())
 	 throw ZEROException(ZEROErrorCode::InvalidData, "finalize() failed");
   return *this;
@@ -373,27 +373,27 @@ MathOpt::MP_Param &MathOpt::MP_Param::set(const arma::sp_mat &Q,
 
 /**
  * @brief Constructor to set the data through std::move
- * @param Q Quadratic term for y in the objective
- * @param C Bi-linear term for x-y in the objective
- * @param A Matrix of constraints for the parameters x
- * @param B Matrix of constraints for the variables y
- * @param c Vector of linear terms for y in the objective
- * @param b Vector of RHS in the constraints
+ * @param Q_in Quadratic term for y in the objective
+ * @param C_in Bi-linear term for x-y in the objective
+ * @param A_in Matrix of constraints for the parameters x
+ * @param B_in Matrix of constraints for the variables y
+ * @param c_in Vector of linear terms for y in the objective
+ * @param b_in Vector of RHS in the constraints
  * @return A pointer to this
  * @warning The input data may be corrupted after
  */
-MathOpt::MP_Param &MathOpt::MP_Param::set(arma::sp_mat &&Q,
-														arma::sp_mat &&C,
-														arma::sp_mat &&A,
-														arma::sp_mat &&B,
-														arma::vec &&   c,
-														arma::vec &&   b) {
-  this->Q = std::move(Q);
-  this->C = std::move(C);
-  this->A = std::move(A);
-  this->B = std::move(B);
-  this->c = std::move(c);
-  this->b = std::move(b);
+MathOpt::MP_Param &MathOpt::MP_Param::set(arma::sp_mat &&Q_in,
+														arma::sp_mat &&C_in,
+														arma::sp_mat &&A_in,
+														arma::sp_mat &&B_in,
+														arma::vec &&   c_in,
+														arma::vec &&   b_in) {
+  this->Q = std::move(Q_in);
+  this->C = std::move(C_in);
+  this->A = std::move(A_in);
+  this->B = std::move(B_in);
+  this->c = std::move(c_in);
+  this->b = std::move(b_in);
   if (!finalize())
 	 throw ZEROException(ZEROErrorCode::InvalidData, "finalize() failed");
   return *this;
@@ -452,6 +452,9 @@ bool MathOpt::MP_Param::dataCheck(bool forceSymmetry) const {
   if (this->B.n_rows != numConstr) {
 	 return false;
   }
+  if (this->B_bounds.n_rows != b_bounds.size()) {
+	 return false;
+  }
   if (this->C.n_rows != numVars) {
 	 return false;
   }
@@ -494,22 +497,20 @@ void MathOpt::MP_Param::forceDataCheck() const {
  * problem, namely @f$Ax + By \leq b@f$.
  * @param y The values for the variables  y
  * @param x The values for the parameters x
- * @param checkFeas True if feasibility should be checked
+ * @param checkFeasibility True if feasibility should be checked
  * @param tol  A numerical tolerance for the feasibility
  * @return A double value for the objective
  */
 double MathOpt::MP_Param::computeObjective(const arma::vec &y,
 														 const arma::vec &x,
-														 bool             checkFeas,
+														 bool             checkFeasibility,
 														 double           tol) const {
 
-  if (y.n_rows != this->getNumVars())
-	 throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of y");
-  if (x.n_rows != this->getNumParams())
-	 throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of x");
-  if (checkFeas) {
+  ZEROAssert(y.n_rows == this->getNumVars());
+  ZEROAssert(x.n_rows == this->getNumParams());
+  if (checkFeasibility)
 	 this->isFeasible(y, x, tol);
-  }
+
 
   return arma::as_scalar(0.5 * y.t() * Q * y + (C * x).t() * y + c.t() * y);
 }
@@ -525,7 +526,7 @@ double MathOpt::MP_Param::computeObjective(const arma::vec &y,
 bool MathOpt::MP_Param::isFeasible(const arma::vec &y, const arma::vec &x, double tol) const {
   arma::vec slack = A * x + B * y - b;
   if (slack.n_rows) // if infeasible
-	 if (slack.max() >= tol)
+	 if (!Utils::isZero(slack, tol))
 		return false;
 
   return true;
