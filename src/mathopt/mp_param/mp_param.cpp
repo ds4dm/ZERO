@@ -526,7 +526,7 @@ double MathOpt::MP_Param::computeObjective(const arma::vec &y,
 bool MathOpt::MP_Param::isFeasible(const arma::vec &y, const arma::vec &x, double tol) const {
   arma::vec slack = A * x + B * y - b;
   if (slack.n_rows) // if infeasible
-	 if (!Utils::isZero(slack, tol))
+	 if (!Utils::isEqual(slack.max(),0, tol))
 		return false;
 
   return true;

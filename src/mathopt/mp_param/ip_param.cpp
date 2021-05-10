@@ -12,16 +12,17 @@
 
 
 #include "mathopt/mp_param/ip_param.h"
+
+#include <memory>
 /**
  * @brief Return a stream containing a stream with the description of the problem
- * @param os Outputstream
+ * @param os Output stream
  * @param I The IP_Param object
  * @return An std::ostream with the description
  */
 std::ostream &MathOpt::operator<<(std::ostream &os, const MathOpt::IP_Param &I) {
   os << "Parametrized Integer Program with bi-linear objective: " << '\n';
-  os << I.getNumVars() << " decision variables parametrized by " << I.getNumParams() << " variables"
-	  << '\n';
+  os << I.getNumVars() << " decision variables" << '\n';
   os << I.getb().n_rows << " linear inequalities" << '\n' << '\n';
   return os;
 }
@@ -34,13 +35,13 @@ std::ostream &MathOpt::operator<<(std::ostream &os, const MathOpt::IP_Param &I) 
  * @return True if the objects are identical
  */
 bool MathOpt::IP_Param::operator==(const IP_Param &IPG2) const {
-  if (!Utils::isZero(this->B - IPG2.getB()))
+  if (!Utils::isZero(this->getB(true) - IPG2.getB(true)))
 	 return false;
   if (!Utils::isZero(this->C - IPG2.getC()))
 	 return false;
   if (!Utils::isZero(this->c - IPG2.getc()))
 	 return false;
-  if (!Utils::isZero(this->b - IPG2.getb()))
+  if (!Utils::isZero(this->getb(true) - IPG2.getb(true)))
 	 return false;
   for (unsigned int i = 0; i < this->Bounds.size(); ++i)
 	 if (this->Bounds.at(i) != IPG2.Bounds.at(i))
@@ -48,8 +49,8 @@ bool MathOpt::IP_Param::operator==(const IP_Param &IPG2) const {
   return Utils::isZero(this->Integers - IPG2.getIntegers());
 }
 
-MathOpt::IP_Param &MathOpt::IP_Param::setBounds(const VariableBounds &boundIn) {
-  MathOpt::MP_Param::setBounds(boundIn);
+MathOpt::IP_Param &MathOpt::IP_Param::setBounds(const VariableBounds &bound_in) {
+  MathOpt::MP_Param::setBounds(bound_in);
   for (unsigned int i = 0; i < this->numVars; i++) {
 	 auto var = this->IPModel.getVarByName("y_" + std::to_string(i));
 	 var.set(GRB_DoubleAttr_LB, this->Bounds.at(i).first > 0 ? this->Bounds.at(i).first : 0);
@@ -98,7 +99,6 @@ bool MathOpt::IP_Param::finalize() {
 	 this->IPModel.update();
 	 this->IPModel.set(GRB_IntParam_OutputFlag, 0);
 	 this->IPModel.set(GRB_IntParam_InfUnbdInfo, 1);
-	 // this->IPModel.set(GRB_IntParam_DualReductions, 0);
 
   } catch (GRBException &e) {
 	 throw ZEROException(ZEROErrorCode::SolverError,
@@ -126,9 +126,6 @@ void MathOpt::IP_Param::updateModelObjective(const arma::vec &x) {
 	 Cx = this->C * x;
 	 for (unsigned int i = 0; i < this->numVars; i++)
 		Objective += (Cx[i] + this->c.at(i)) * this->IPModel.getVarByName("y_" + std::to_string(i));
-
-	 // this->c.print("c");
-	 // Cx.print("Cx");
 
 
 	 this->IPModel.setObjective(Objective, GRB_MINIMIZE);
@@ -183,65 +180,61 @@ std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(const arma::vec &x, bool
 	 throw ZEROException(e);
   }
   if (relax) {
-	 return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel.relax()));
+	 return std::make_unique<GRBModel>(this->IPModel.relax());
   } else
-	 return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel));
+	 return std::make_unique<GRBModel>(this->IPModel);
 }
 
 /**
  * @brief A setter method with copy arguments.
- * @param C Bi-linear term for x-y in the objective
- * @param B Matrix of constraints for the variables y
- * @param c Vector of linear terms for y in the objective
- * @param b Vector of RHS in the constraints
- * @param _integers A vector containing the indexes of integer variables
+ * @param C_in Bi-linear term for x-y in the objective
+ * @param B_in Matrix of constraints for the variables y
+ * @param c_in Vector of linear terms for y in the objective
+ * @param b_in Vector of RHS in the constraints
+ * @param integers_in A vector containing the indexes of integer variables
+ * @param Bounds_in Variable bounds
  * @return A pointer to this
  */
-MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &  C,
-														const arma::sp_mat &  B,
-														const arma::vec &     b,
-														const arma::vec &     c,
-														const arma::vec &     _integers,
-														const VariableBounds &_Bounds) {
-  if (_integers.is_empty())
-	 throw ZEROException(ZEROErrorCode::InvalidData,
-								"Invalid vector of Integers. Refer to MP_Param is no "
-								"Integers are involved");
-  this->Q.zeros(c.size(), c.size());
-  this->A.zeros(b.size(), C.n_cols);
+MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &  C_in,
+														const arma::sp_mat &  B_in,
+														const arma::vec &     b_in,
+														const arma::vec &     c_in,
+														const arma::vec &     integers_in,
+														const VariableBounds &Bounds_in) {
+  ZEROAssert(!integers_in.empty());
+  this->Q.zeros(c_in.size(), c_in.size());
+  this->A.zeros(b_in.size(), C_in.n_cols);
   this->Finalized = false;
-  this->Integers  = arma::sort(_integers);
-  this->Bounds    = _Bounds;
-  MP_Param::set(Q, C, A, B, c, b);
+  this->Integers  = arma::sort(integers_in);
+  this->Bounds    = Bounds_in;
+  MP_Param::set(Q, C_in, A, B_in, c_in, b_in);
   return *this;
 }
 
 
 /**
  * @brief A move constructor.
- * @param C Bi-linear term for x-y in the objective
- * @param B Matrix of constraints for the variables y
- * @param c Vector of linear terms for y in the objective
- * @param b Vector of RHS in the constraints
- * @param _integers A vector containing the indexes of integer variables
+ * @param C_in Bi-linear term for x-y in the objective
+ * @param B_in Matrix of constraints for the variables y
+ * @param c_in Vector of linear terms for y in the objective
+ * @param b_in Vector of RHS in the constraints
+ * @param integers_in A vector containing the indexes of integer variables
+ * @param Bounds_in Variable bounds
  * @return A pointer to this
  */
-MathOpt::IP_Param &MathOpt::IP_Param::set(arma::sp_mat &&  C,
-														arma::sp_mat &&  B,
-														arma::vec &&     b,
-														arma::vec &&     c,
-														arma::vec &&     _integers,
-														VariableBounds &&_Bounds) {
-  if (_integers.is_empty())
-	 throw ZEROException(ZEROErrorCode::InvalidData,
-								"Invalid vector of Integers. Refer to MP_Param is no "
-								"Integers are involved");
-  this->Q.zeros(c.size(), c.size());
-  this->A.zeros(b.size(), C.n_cols);
+MathOpt::IP_Param &MathOpt::IP_Param::set(arma::sp_mat &&  C_in,
+														arma::sp_mat &&  B_in,
+														arma::vec &&     b_in,
+														arma::vec &&     c_in,
+														arma::vec &&     integers_in,
+														VariableBounds &&Bounds_in) {
+  ZEROAssert(!integers_in.empty());
+  this->Q.zeros(c_in.size(), c_in.size());
+  this->A.zeros(b_in.size(), C_in.n_cols);
   this->Finalized = false;
-  this->Integers  = std::move(_integers);
-  this->Bounds    = std::move(_Bounds);
-  MP_Param::set(Q, C, A, B, c, b);
+  this->Integers  = std::move(integers_in);
+  this->Bounds    = std::move(Bounds_in);
+  MP_Param::set(Q, C_in, A, B_in, c_in, b_in);
   return *this;
 }
 
@@ -262,23 +255,12 @@ double MathOpt::IP_Param::computeObjective(const arma::vec &y,
 														 bool             checkFeas,
 														 double           tol) const {
 
-  if (y.n_rows != this->getNumVars())
-	 throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of y");
-  if (x.n_rows != this->getNumParams())
-	 throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of x");
-  if (checkFeas) {
-	 arma::vec slack = B * y - b;
-	 if (slack.n_rows) // if infeasible
-		if (slack.max() >= tol)
-		  return GRB_INFINITY;
-	 if (y.min() <= -tol) // if infeasible
-		return GRB_INFINITY;
-	 for (const auto i : this->Integers) // Integers
-		if (y.at(i) != trunc(y.at(i)))
-		  return GRB_INFINITY;
-  }
-  arma::vec obj = ((C * x).t() + c.t()) * y;
-  return obj(0);
+  ZEROAssert(y.n_rows == this->getNumVars());
+  ZEROAssert(x.n_rows == this->getNumParams());
+  if (checkFeas)
+	 if (!this->isFeasible(y, x, tol))
+		return -GRB_INFINITY;
+  return arma::as_scalar(((C * x).t() + c.t()) * y);
 }
 
 
@@ -294,10 +276,12 @@ double MathOpt::IP_Param::computeObjective(const arma::vec &y,
 bool MathOpt::IP_Param::isFeasible(const arma::vec &y, const arma::vec &x, double tol) const {
   arma::vec slack = B * y - b;
   if (slack.n_rows) // if infeasible
-	 if (slack.max() >= tol)
+	 if (!Utils::isEqual(slack.max(), 0, tol))
 		return false;
-  for (const auto i : this->Integers) // Integers
-	 if (y.at(i) != trunc(y.at(i)))
+  if (y.min() <= -tol) // if infeasible
+	 return false;
+  for (const auto i : this->Integers)                  // Integers
+	 if (!Utils::isEqual(y.at(i), trunc(y.at(i)), tol)) /**/
 		return false;
   return true;
 }
@@ -310,17 +294,12 @@ bool MathOpt::IP_Param::isFeasible(const arma::vec &y, const arma::vec &x, doubl
  * @param bin The RHS value
  * @return True if the constraint is added
  */
-bool MathOpt::IP_Param::addConstraints(const arma::sp_mat &Ain, const arma::vec &bin) {
+bool MathOpt::IP_Param::addConstraints(const arma::sp_mat &A_in, const arma::vec &b_in) {
 
+  ZEROAssert(this->B.n_cols == A_in.n_cols);
 
-  if (this->B.n_cols != Ain.n_cols) {
-	 throw ZEROException(ZEROErrorCode::Assertion,
-								"Mismatch between the variables of the input "
-								"constraints and the stored ones");
-  }
-
-  this->B = arma::join_cols(this->B, Ain);
-  this->b = arma::join_cols(this->b, bin);
+  this->B = arma::join_cols(this->B, A_in);
+  this->b = arma::join_cols(this->b, b_in);
   this->A = Utils::resizePatch(this->A, this->B.n_rows, this->numParams);
   this->size();
 
@@ -331,7 +310,8 @@ bool MathOpt::IP_Param::addConstraints(const arma::sp_mat &Ain, const arma::vec 
 		y[i] = this->IPModel.getVarByName("y_" + std::to_string(i));
 	 }
 
-	 Utils::addSparseConstraints(Ain, bin, y, "ConstrAdd_", &this->IPModel, GRB_LESS_EQUAL, nullptr);
+	 Utils::addSparseConstraints(
+		  A_in, b_in, y, "ConstrAdd_", &this->IPModel, GRB_LESS_EQUAL, nullptr);
 	 this->IPModel.update();
   }
   return true;
@@ -351,16 +331,17 @@ bool MathOpt::IP_Param::addConstraints(const arma::sp_mat &Ain, const arma::vec 
  */
 unsigned int MathOpt::IP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const {
   this->forceDataCheck();
-  auto BwithBounds = arma::join_cols(this->B, this->B_bounds
-
-  );
-  M                = arma::join_cols( // In armadillo join_cols(A, B) is same as [A;B] in
-                       // Matlab
-                       //  join_rows(A, B) is same as [A B] in Matlab
-      arma::join_rows(this->Q, BwithBounds.t()),
-      arma::join_rows(-BwithBounds, arma::zeros<arma::sp_mat>(this->numConstr, this->numConstr)));
-  N = arma::join_cols(this->C, -this->A);
-  q                = arma::join_cols(this->c, arma::join_cols(this->b, this->b_bounds));
+  M = arma::join_cols( // In armadillo join_cols(A, B) is same as [A;B] in
+							  // Matlab
+							  //  join_rows(A, B) is same as [A B] in Matlab
+		arma::join_rows(this->Q, this->getB(true).t()),
+		arma::join_rows(-this->getB(true),
+							 arma::zeros<arma::sp_mat>(this->numConstr, this->numConstr)));
+  N = arma::join_cols(this->C, -this->getA(true));
+  q = arma::join_cols(this->c, arma::join_cols(this->b, this->b_bounds));
+  ZEROAssert(M.n_cols == (numVars + numConstr + this->B_bounds.n_rows));
+  ZEROAssert(N.n_cols == numParams);
+  ZEROAssert(q.size() == (this->c.size() + this->b.size() + this->b_bounds.size()));
   return M.n_rows;
 }
 /**
@@ -566,14 +547,14 @@ void MathOpt::IP_Param::save(const std::string &filename, bool append) const {
   Utils::appendSave(BO, filename, std::string("IP_Param::Bounds"), false);
   LOG_S(1) << "Saved IP_Param to file " << filename;
 }
-MathOpt::IP_Param::IP_Param(const arma::sp_mat &  C,
-									 const arma::sp_mat &  B,
-									 const arma::vec &     b,
-									 const arma::vec &     c,
-									 const arma::vec &     _integers,
-									 const VariableBounds &_Bounds,
-									 GRBEnv *              env)
-	 : MP_Param(env), IPModel{GRBModel(*env)} {
-  this->set(C, B, b, c, _integers, _Bounds);
+MathOpt::IP_Param::IP_Param(const arma::sp_mat &  C_in,
+									 const arma::sp_mat &  B_in,
+									 const arma::vec &     b_in,
+									 const arma::vec &     c_in,
+									 const arma::vec &     integers_in,
+									 const VariableBounds &Bounds_in,
+									 GRBEnv *              env_in)
+	 : MP_Param(env_in), IPModel{GRBModel(*env_in)} {
+  this->set(C_in, B_in, b_in, c_in, integers_in, Bounds_in);
   this->forceDataCheck();
 }

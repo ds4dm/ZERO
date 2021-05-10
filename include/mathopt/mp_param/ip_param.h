@@ -43,6 +43,13 @@ namespace MathOpt {
 	**/
   class IP_Param : public MP_Param {
   private:
+	 IP_Param(const arma::sp_mat &  C_in,
+				 const arma::sp_mat &  B_in,
+				 const arma::vec &     b_in,
+				 const arma::vec &     c_in,
+				 const arma::vec &     integers_in,
+				 const VariableBounds &Bounds_in,
+				 GRBEnv *              env_in);
 	 GRBModel  IPModel;     ///< Stores the IP model associated with the object
 	 arma::vec Integers;    ///< Stores the indexes of integer variables
 	 bool Finalized{false}; ///< True if the model has been made and constraints cannot be changed
@@ -61,16 +68,6 @@ namespace MathOpt {
 		this->size();
 	 }
 
-	 explicit IP_Param(const arma::sp_mat &  C,
-							 const arma::sp_mat &  B,
-							 const arma::vec &     b,
-							 const arma::vec &     c,
-							 const arma::vec &     _integers,
-							 const VariableBounds &_Bounds,
-							 GRBEnv *              env);
-
-
-
 	 arma::vec getIntegers() const {
 		return this->Integers;
 	 } ///< Read-only getter to IP_Param::Integers
@@ -79,7 +76,7 @@ namespace MathOpt {
 
 	 IP_Param &setBounds(const VariableBounds &boundIn);
 
-	 bool addConstraints(const arma::sp_mat &Ain, const arma::vec &bin);
+	 bool addConstraints(const arma::sp_mat &A_in, const arma::vec &b_in);
 
 	 /**
 	  * @brief A copy constructor from anoter IP_Param
@@ -88,18 +85,18 @@ namespace MathOpt {
 	 IP_Param(const IP_Param &ipg) = default;
 
 	 // Override setters
-	 MathOpt::IP_Param &set(const arma::sp_mat &C,
-									const arma::sp_mat &B,
-									const arma::vec &   b,
-									const arma::vec &   c,
-									const arma::vec &   integers,
-									const VariableBounds &    Bounds); // Copy data into this
-	 IP_Param &         set(arma::sp_mat &&  C,
-									arma::sp_mat &&  B,
-									arma::vec &&     b,
-									arma::vec &&     c,
-									arma::vec &&     integers,
-									VariableBounds &&Bounds); // Copy data into this
+	 MathOpt::IP_Param &set(const arma::sp_mat &C_in,
+									const arma::sp_mat &B_in,
+									const arma::vec &   b_in,
+									const arma::vec &   c_in,
+									const arma::vec &   integers_in,
+									const VariableBounds &    Bounds_in); // Copy data into this
+	 IP_Param &         set(arma::sp_mat &&  C_in,
+									arma::sp_mat &&  B_in,
+									arma::vec &&     b_in,
+									arma::vec &&     c_in,
+									arma::vec &&     integers_in,
+									VariableBounds &&Bounds_in); // Copy data into this
 
 
 	 bool operator==(const IP_Param &IPG2) const;
