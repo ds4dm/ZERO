@@ -15,41 +15,101 @@
 #include <boost/program_options.hpp>
 
 using namespace std;
-using namespace boost::program_options;
 namespace po = boost::program_options;
 
 int main(int argc, char **argv) {
   string resFile, instanceFile, logFile;
-  int    nThreads = 0, verbosity = 0, algorithm = 0;
-  double timeLimit = NAN, devtol = NAN;
-  bool   pure = 0;
+  int    nThreads = 0, verbosity = 0, algorithm = 0, aggressiveness = 0, objective = 0, LCPalgo = 0;
+  double timeLimit = -1, devtol = -1;
 
   po::options_description desc("ZERO-IPG: Allowed options");
-  desc.add_options()("help,h", "Shows this help message")("version,v", "Shows ZERO version")(
-		"input,i",
-		po::value<string>(&instanceFile),
-		"Sets the input path/filename of the instance file (.json appended "
-		"automatically)")("pure,p",
-								po::value<bool>(&pure)->default_value(false),
-								"Controls whether the Algorithm should seek for a pure NE or not")(
-		"Algorithm,a", po::value<int>(&algorithm), "Sets the Algorithm. 0:Oracle")(
-		"solution,s",
-		po::value<string>(&resFile)->default_value("dat/Solution"),
-		"Sets the output path/filename of the solution file (.json appended "
-		"automatically)")("log,l",
-								po::value<string>(&logFile)->default_value("dat/Results.csv"),
-								"Sets the output path/filename of the csv log file")(
-		"timelimit,tl", po::value<double>(&timeLimit)->default_value(-1.0), "Sets the timelimit")(
-		"message,m",
-		po::value<int>(&verbosity)->default_value(0),
-		"Sets the verbosity level for info and warning messages. 0: "
-		"warning and critical. 1: info. 2: debug. 3: trace")(
-		"Threads,t",
-		po::value<int>(&nThreads)->default_value(1),
-		"Sets the number of Threads for Gurobi. (int): number of Threads. 0: "
-		"auto (number of processors)")("devtol,dt",
-												 po::value<double>(&devtol)->default_value(-1.0),
-												 "Sets the deviation tolerance.");
+  desc
+		.add_options()("help,h", "Shows this help message")(
+			 "version,v",
+			 "Shows ZERO version")("input,i",
+										  po::value<string>(&instanceFile),
+										  "Sets the input "
+										  "path/filename of the "
+										  "instance file (.json "
+										  "appended "
+										  "automatically)")("algorithm"
+																  "m,a",
+																  po::value<int>(&algorithm),
+																  "Sets "
+																  "the "
+																  "Algorithm"
+																  "m. "
+																  "0:"
+																  "Oracle")("solution,s",
+																				po::value<string>(&resFile)
+																					 ->default_value("dat/Solution"),
+																				"Sets the output "
+																				"path/filename of the "
+																				"solution file (.json "
+																				"appended "
+																				"automatically)")("log,l",
+																										po::value<string>(
+																											 &logFile)
+																											 ->default_value(
+																												  "dat/"
+																												  "Results."
+																												  "csv"),
+																										"Sets "
+																										"the "
+																										"output "
+																										"path/"
+																										"filenam"
+																										"e of "
+																										"the "
+																										"csv "
+																										"log "
+																										"file")("timelimit,"
+																												  "tl",
+																												  po::value<
+																														double>(
+																														&timeLimit)
+																														->default_value(
+																															 -1.0),
+																												  "Sets the "
+																												  "timelimit")("message,m",
+																																	po::value<
+																																		 int>(
+																																		 &verbosity)
+																																		 ->default_value(
+																																			  0),
+																																	"Sets the verbosity level for info and warning messages. 0: "
+																																	"warning and critical. 1: info. 2: debug. 3: trace")("threads,t",
+																																																		  po::value<
+																																																				int>(
+																																																				&nThreads)
+																																																				->default_value(
+																																																					 1),
+																																																		  "Sets the number of Threads for Gurobi. (int): number of Threads. 0: "
+																																																		  "auto (number of processors)")("devtol,dt",
+																																																													po::value<
+																																																														 double>(
+																																																														 &devtol)
+																																																														 ->default_value(
+																																																															  3e-4),
+																																																													"Sets the deviation tolerance.")("aggressiveness,aggr",
+																																																																								po::value<
+																																																																									 int>(
+																																																																									 &aggressiveness)
+																																																																									 ->default_value(
+																																																																										  0),
+																																																																								"Cutting planes aggressiveness (int): 0: NoThanks; 1: KeepItCool; 2: Truculent")("objective,o",
+																																																																																																			po::value<
+																																																																																																				 int>(
+																																																																																																				 &objective)
+																																																																																																				 ->default_value(
+																																																																																																					  0),
+																																																																																																			"LCP Objective type (int): 0: Feasibility; 1: Linear; 2: Quadratic")("lcpalgo,l",
+																																																																																																																										po::value<
+																																																																																																																											 int>(
+																																																																																																																											 &LCPalgo)
+																																																																																																																											 ->default_value(
+																																																																																																																												  0),
+																																																																																																																										"LCP Algorithm type (int): 0: MIP; 1: MINLP; 2: PATH");
 
   po::variables_map vm;
   po::store(po::parse_command_line(argc, argv, desc), vm);
@@ -70,11 +130,13 @@ int main(int argc, char **argv) {
 		return EXIT_SUCCESS;
   }
 
-  if (instanceFile == "") {
+  if (instanceFile.empty()) {
 	 cout << "-i [--input] option missing.\n Use with --help for help on list "
 				"of arguments\n";
 	 return EXIT_SUCCESS;
   }
+
+  loguru::g_stderr_verbosity = verbosity;
 
 
   // --------------------------------
@@ -91,19 +153,50 @@ int main(int argc, char **argv) {
 	 if (nThreads != 0)
 		ipg.setNumThreads(nThreads);
 	 // Pure NE
-	 if (pure)
-		ipg.setPureNashEquilibrium(true);
 	 // TimeLimit
 	 ipg.setTimeLimit(timeLimit);
 	 if (devtol > 0)
 		ipg.setDeviationTolerance(devtol);
 
 	 // Algorithm
-
-	 switch (algorithm) {
+	 // So far, just one...
+	 ipg.setAlgorithm(Data::IPG::Algorithms::Oracle);
+	 switch (aggressiveness) {
+	 case 0:
+		ipg.setCutsAggressiveness(Data::IPG::CutsAggressiveness::NoThanks);
+		break;
+	 case 1:
+		ipg.setCutsAggressiveness(Data::IPG::CutsAggressiveness::KeepItCool);
+		break;
 	 default:
-		ipg.setAlgorithm(Data::IPG::Algorithms::Oracle);
+		ipg.setCutsAggressiveness(Data::IPG::CutsAggressiveness::Truculent);
 	 }
+
+	 switch (LCPalgo) {
+	 case 0:
+		ipg.setLCPAlgorithm(Data::LCP::Algorithms::MIP);
+		break;
+	 case 1:
+		ipg.setLCPAlgorithm(Data::LCP::Algorithms::MINLP);
+		break;
+	 default:
+		ipg.setLCPAlgorithm(Data::LCP::Algorithms::PATH);
+	 }
+
+	 if (LCPalgo != 2) {
+		switch (objective) {
+		case 0:
+		  ipg.setGameObjective(Data::IPG::Objectives::Feasibility);
+		  break;
+		case 1:
+		  ipg.setGameObjective(Data::IPG::Objectives::Linear);
+		  break;
+		default:
+		  ipg.setGameObjective(Data::IPG::Objectives::Quadratic);
+		}
+	 } else
+		ipg.setGameObjective(Data::IPG::Objectives::Feasibility);
+
 
 	 ipg.findNashEq();
 
@@ -120,18 +213,29 @@ int main(int argc, char **argv) {
 	 std::ofstream results(logFile, ios::app);
 
 	 if (!existCheck.good()) {
-		results << "instance;Algorithm;Players;isPureNE;RequiredPureNE;"
+		results << "Instance;Algorithm;LCPAlgo;ObjType;Cuts;Players;isPureNE;"
 					  "Status;"
-					  "NumVar;ClockTime(s);Threads;Indicators;numInnerIterations\n";
+					  "NumVar;Time;Threads;numIterations;ValueCuts;VPolyCuts;"
+					  "MIRCuts;GMICuts;KPCuts;TotalCuts;\n";
 	 }
 	 existCheck.close();
 
+	 auto cuts      = stat.AlgorithmData.Cuts.get();
+	 int  totalCuts = 0;
+	 for (const auto& cut : cuts)
+		totalCuts += cut.second;
+	 results << instanceFile << ";" << std::to_string(stat.AlgorithmData.Algorithm.get())
+				<< ";" << std::to_string(stat.AlgorithmData.LCPSolver.get()) << ";"
+				<< std::to_string(stat.AlgorithmData.Objective.get()) << ";"
+				<< std::to_string(stat.AlgorithmData.CutAggressiveness.get()) << ";"
+				<< ipg.getNumPlayers() << ";" << std::to_string(stat.PureNashEquilibrium.get()) << ";"
+				<< std::to_string(stat.Status.get()) << ";" << stat.NumVar.get() << ";"
+				<< std::to_string(stat.WallClockTime.get()) << ";"
+				<< std::to_string(stat.AlgorithmData.Threads.get()) << ";" << stat.NumIterations.get()
+				<< ";" << cuts.at(0).second << ";" << cuts.at(1).second << ";" << cuts.at(2).second
+				<< ";" << cuts.at(3).second << ";" << cuts.at(4).second << ";" << totalCuts << "\n";
 
-	 results << instanceFile << ";" << to_string(stat.AlgorithmData.Algorithm.get()) << ";"
-				<< ipg.getNumPlayers() << ";"
-				<< to_string(ipg.getStatistics().PureNashEquilibrium.get()) << ";" << to_string(pure)
-				<< ";" << to_string(stat.Status.get()) << ";" << stat.NumVar.get() << ";"
-				<< wallClockTime << ";" << realThreads << ";" << stat.NumIterations.get() << "\n";
+
 
 	 results.close();
   } catch (ZEROException &e) {
