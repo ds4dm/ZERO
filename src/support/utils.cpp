@@ -448,10 +448,8 @@ bool Utils::isZero(const arma::sp_mat &M, double tol) noexcept {
 }
 
 
-bool Utils::isEqualAbs(const double a, const double b, const double tol)
 
-
-	 void Utils::sortByKey(perps &set) {
+void Utils::sortByKey(perps &set) {
   sort(set.begin(),
 		 set.end(),
 		 [](std::pair<unsigned int, unsigned int> a, std::pair<unsigned int, unsigned int> b) {
