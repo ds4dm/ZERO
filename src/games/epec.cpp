@@ -219,9 +219,6 @@ double Game::EPEC::respondSol(arma::vec &       sol,
 	* @returns The optimal objective value for the player @p player.
 	*/
   auto model = this->respond(player, x, customLCP);
-  LOG_S(1) << "Game::EPEC::respondSol: Writing dat/RespondSol" + std::to_string(player) +
-						".lp to disk";
-  // model->write("dat/RespondSol" + std::to_string(player) + ".lp");
   const int status = model->get(GRB_IntAttr_Status);
   if (status == GRB_UNBOUNDED || status == GRB_OPTIMAL) {
 	 unsigned int Nx = this->PlayersLCP.at(player)->getNumCols();
@@ -263,13 +260,10 @@ double Game::EPEC::respondSol(arma::vec &       sol,
 		  return model->get(GRB_DoubleAttr_ObjVal);
 		}
 	 }
-	 if (status == GRB_OPTIMAL) {
 		return model->get(GRB_DoubleAttr_ObjVal);
-	 }
   } else {
 	 return GRB_INFINITY;
   }
-  return GRB_INFINITY;
 }
 
 const void Game::EPEC::makePlayerQP(const unsigned int i)
