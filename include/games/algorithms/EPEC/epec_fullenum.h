@@ -20,6 +20,11 @@ namespace Algorithms::EPEC {
 	  */
 	 class FullEnumeration : public PolyBase {
 	 public:
+		/**
+		 * @brief Standard constructor.
+		 * @param env Pointer to the Gurobi environment
+		 * @param EPECObject Pointer to the EPEC
+		 */
 		FullEnumeration(GRBEnv *env, Game::EPEC *EPECObject) : PolyBase(env, EPECObject){};
 		void solve();
 	 };

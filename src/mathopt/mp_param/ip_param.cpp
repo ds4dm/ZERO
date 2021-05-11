@@ -287,11 +287,11 @@ bool MathOpt::IP_Param::isFeasible(const arma::vec &y, const arma::vec &x, doubl
 }
 
 /**
- * @brief Adds a constraints to the IP_Param. It stores a description of the new cut @f$A_{in} x
- * &\leq& b_{in}@f$ of @p Ain (and RHS @p bin) in B and b, respectively. @return true if the
+ * @brief Adds a constraints to the IP_Param. It stores a description of the new cut @f$ A_{in}
+ * x\leq& b_{in}@f$ of @p A_in (and RHS @p b_in) in B and b, respectively. @return true if the
  * constraint has been added This works also when the IP_Param is Finalized.
- * @param Ain The vector of LHS
- * @param bin The RHS value
+ * @param A_in The vector of LHS
+ * @param b_in The RHS value
  * @return True if the constraint is added
  */
 bool MathOpt::IP_Param::addConstraints(const arma::sp_mat &A_in, const arma::vec &b_in) {
@@ -319,11 +319,11 @@ bool MathOpt::IP_Param::addConstraints(const arma::sp_mat &A_in, const arma::vec
 
 
 /**
- * @brief  Writes the KKT condition of the relaxation of the parameterized IP
+ * @brief  Writes the KKT condition of the relaxation of the parameterized IP.
  * As per the convention, y is the decision variable for the IP and
- * that is parameterized in x
+ * that is parameterized in x.
  * The KKT conditions are
- * \f$0 \leq y \perp  My + numParams + q \geq 0\f$
+ * \f$0 \leq y \perp  My + Nx + q \geq 0\f$
  * @param M The output M term
  * @param N The output N term
  * @param q The output q term
@@ -547,6 +547,16 @@ void MathOpt::IP_Param::save(const std::string &filename, bool append) const {
   Utils::appendSave(BO, filename, std::string("IP_Param::Bounds"), false);
   LOG_S(1) << "Saved IP_Param to file " << filename;
 }
+/**
+ * @brief Alternative constructor
+ * @param C_in The objective C matrix
+ * @param B_in The constraint matrix
+ * @param b_in The constraint RHS
+ * @param c_in The objective c vector
+ * @param integers_in The indexes of integer variables
+ * @param Bounds_in The input bounds
+ * @param env_in A pointer to the Gurobi environment
+ */
 MathOpt::IP_Param::IP_Param(const arma::sp_mat &  C_in,
 									 const arma::sp_mat &  B_in,
 									 const arma::vec &     b_in,

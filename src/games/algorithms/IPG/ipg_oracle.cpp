@@ -21,12 +21,14 @@
 #include <CglSimpleRounding.hpp>
 #include <memory>
 
+/**
+ * @brief @brief Given @p vertex, it adds a vertex to the field V. If @p checkDuplicate is true,
+ * it will check whether the vertex is already contained in the pool.
+ * @param vertex The input vertex
+ * @param checkDuplicate True if the method needs to check for duplicates
+ * @return True if the vertex is added.
+ */
 bool Algorithms::IPG::IPG_Player::addVertex(const arma::vec &vertex, const bool checkDuplicate) {
-  /**
-	* @brief Given @p vertex, it adds a vertex to the field V. If @p checkDuplicate is true,
-	* it will check whether the vertex is already contained in the bool.
-	* @return true if the vertex is added.
-	*/
   bool go = false;
   if (checkDuplicate)
 	 go = Utils::containsRow(this->V, vertex, this->Tolerance);
@@ -41,7 +43,13 @@ bool Algorithms::IPG::IPG_Player::addVertex(const arma::vec &vertex, const bool 
   return false;
 }
 
-
+/**
+ * @brief @brief Given @p ray, it adds a ray to the field R. If @p checkDuplicate is true,
+ * it will check whether the ray is already contained in the pool.
+ * @param ray The input ray
+ * @param checkDuplicate True if the method needs to check for duplicates
+ * @return True if the ray is added.
+ */
 bool Algorithms::IPG::IPG_Player::addRay(const arma::vec &ray, const bool checkDuplicate) {
   /**
 	* @brief Given @p ray, it adds a ray to the field R. If @p checkDuplicate is true, it
@@ -61,16 +69,14 @@ bool Algorithms::IPG::IPG_Player::addRay(const arma::vec &ray, const bool checkD
   return false;
 }
 
-
+/**
+ * @brief Given @p LHS, @p RHS, it adds the inequalities to the field CutPool_A and b, the
+ * CoinModel, and the working IP_Param.
+ * @param LHS The LHS matrix
+ * @param RHS The RHS vector
+ * @return true if the inequality is added.
+ */
 bool Algorithms::IPG::IPG_Player::addCuts(const arma::sp_mat &LHS, const arma::vec &RHS) {
-  /**
-	* @brief Given @p LHS, @p RHS, it adds the inequalities to the field CutPool_A and b, the
-	* CoinModel, and the working IP_Param.
-	* @param LHS The LHS matrix
-	* @param RHS The RHS vector
-	* @return true if the inequality is added.
-	*/
-
 
   unsigned int newCuts = LHS.n_rows;
   unsigned int cuts    = this->CutPool_A.n_rows;
@@ -107,14 +113,18 @@ bool Algorithms::IPG::IPG_Player::addCuts(const arma::sp_mat &LHS, const arma::v
   return true;
 }
 
+/**
+ * @brief @brief Given a player @p player, one of its best responses @p xOfIBestResponses, the
+ * strategies of the other players @p xMinusI, it adds an inequality of the type \f[ f^i(x^i,\bar
+ * x^{-i}) \geq f^i(\hat x^i, \bar x^{-i})\f] to the cut pool of that player.
+ * @param player The player id
+ * @param RHS The RHS value
+ * @param xMinusI The input \f[ x^{-i} \f]
+ * @return True if the cut was added
+ */
 bool Algorithms::IPG::Oracle::addValueCut(unsigned int     player,
 														double           RHS,
 														const arma::vec &xMinusI) {
-  /**
-	* @brief Given a player @p player, one of its best responses @p xOfIBestResponses, the
-	* strategies of the other players @p xMinusI, it adds an inequality of the type \f[ f^i(x^i,
-	* &\bar& x^{-i}) \geq f^i(\hat x^i, \bar x^{-i})\f] to the cut pool of that player.
-	*/
 
 
 
@@ -144,9 +154,9 @@ bool Algorithms::IPG::Oracle::addValueCut(unsigned int     player,
 		return true;
 	 }
 	 // Force normalization, in case it wasn't before.
-    double RHS = Utils::round_nplaces(RHS, 5);
-    for (unsigned int i = 0; i < LHS.size(); ++i)
-	   LHS.at(i) = Utils::round_nplaces(LHS.at(i), 5);
+	 RHS = Utils::round_nplaces(RHS, 5);
+	 for (unsigned int i = 0; i < LHS.size(); ++i)
+		LHS.at(i) = Utils::round_nplaces(LHS.at(i), 5);
 	 Utils::normalizeIneq(LHS, RHS, true);
 	 LOG_S(0) << "Algorithms::IPG::Oracle::addValueCut: "
 					 "WARNING: Cannot generate another cut. Adding normalized value-cut.";
@@ -159,6 +169,11 @@ bool Algorithms::IPG::Oracle::addValueCut(unsigned int     player,
   return this->Players.at(player)->addCuts(arma::sp_mat{LHS.t()}, arma::vec{-RHS});
 }
 
+/**
+ * @brief Checks if there is more time remaining.
+ * @param remaining An output filled with the time remaining
+ * @return True if there is still time left.
+ */
 bool Algorithms::IPG::Oracle::checkTime(double &remaining) const {
   if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0) {
 	 const std::chrono::duration<double> timeElapsed =
@@ -178,6 +193,10 @@ bool Algorithms::IPG::Oracle::checkTime(double &remaining) const {
   }
 }
 
+/**
+ * @brief Initialize the LCP Objective with the quadratic and linear terms. These will be later used
+ * if necessary
+ */
 void Algorithms::IPG::Oracle::initLCPObjective() {
 
   this->LCP_Q.zeros(this->IPG->NumVariables, this->IPG->NumVariables);
@@ -213,11 +232,10 @@ void Algorithms::IPG::Oracle::initLCPObjective() {
   //******DEBUG********
 }
 
+/**
+ * @brief Solves the IPG with the Equilibrium Oracle algorithm.
+ */
 void Algorithms::IPG::Oracle::solve() {
-  /**
-	* @brief Solves the IPG with the Oracle algorithm.
-	*/
-
   this->initialize();
   bool MIPCuts = this->IPG->Stats.AlgorithmData.CutAggressiveness.get() !=
 					  Data::IPG::CutsAggressiveness::NoThanks;
@@ -416,19 +434,21 @@ void Algorithms::IPG::Oracle::solve() {
 }
 
 
-
+/**
+ * @brief Given the player id @p player, checks whether the current strategy is feasible or
+ * not. In order to do so, a more complex separation technique may be called.
+ * @param player The player id
+ * @param addedCuts Filled with the number of added cuts
+ * @param xOfI The strategy of @p player
+ * @param xMinusI The strategy of the other players
+ * @return 1 if feasible. 0 if infeasible. 2 if iteration limit was hit.
+ */
 int Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player,
 																  int &              addedCuts,
 																  arma::vec &        xOfI,
 																  arma::vec &        xMinusI) {
-  /**
-	* @brief Given the player id @p player, checks whether the current strategy is feasible or
-	* not. In order to do so, a more complex separation technique may be called.
-	* @p player The player id
-	* @p addedCuts Filled with how many cuts were added
-	* @return 0 If the point is infeasible. 1 If the point is feasible. 2 if iteration limit has been
-	* hit
-	*/
+
+  ZEROAssert(player < this->IPG->NumPlayers);
   LOG_S(2) << "Algorithms::IPG::Oracle::preEquilibriumOracle: (P" << player
 			  << ") The oracle has been called. Preprocessing.";
 
@@ -537,30 +557,35 @@ int Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player,
   return 0;
 }
 
+/**
+ * @brief Returns true if all players are playing a pure strategy in a Nash Equilibrium
+ * @return True if the Equilibrium is pure
+ */
 bool Algorithms::IPG::Oracle::isPureStrategy() const {
-  /**
-	* @brief Returns true if all players are playing a pure strategy in a Nash Equilibrium
-	*/
   if (this->Solved)
 	 return this->Pure;
   else
 	 return false;
 }
 
+/**
+ * @brief The main Equilibrium Oracle loop. Given a player, a maximum number of iterations, a
+ * strategy and the other players strategy, it tries to determine if @p xOfI is feasible for @p
+ * player.
+ * @param player The player id
+ * @param iterations The bound on iterations
+ * @param xOfI The strategy of @p player
+ * @param xMinusI The strategies of other players
+ * @param addedCuts The number of added cuts
+ * @return 1 if feasible. 0 if infeasible. 2 if iteration limit was hit.
+ */
 int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 															  const unsigned int iterations,
 															  const arma::vec &  xOfI,
 															  const arma::vec &  xMinusI,
 															  int &              addedCuts) {
-  /**
-	* @brief Given the player and a bound on the number of iterations, tries to decide whether the
-	* given strategy belongs to the feasible region of the player by building the convex-hull with
-	* the known rays and vertices. In @p addedCuts we count the number of cuts added to the player.
-	* @return true if the point belongs to the feasible region.
-	* @p xOfI is the given point to separate.
-	* @return 0 If the point is infeasible. 1 If the point is feasible. 2 if iteration limit has been
-	* hit
-	*/
+
+  ZEROAssert(player < this->IPG->NumPlayers);
 
   LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player << ") Starting separator";
 
@@ -624,151 +649,148 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 
 
 	 // We should check the inequality on the player's model
-	 if (membershipStatus == GRB_OPTIMAL) {
-		double dualObj = dualMembership->getObjective().getValue();
+	 ZEROAssert(membershipStatus == GRB_OPTIMAL);
+	 double dualObj = dualMembership->getObjective().getValue();
 
-		// First: is the point redundant in the description?
-		// Namely, does xOfI belongs to the V-polyhedral approximation?
-		if (Utils::isEqual(dualObj, 0, this->Tolerance)) {
-		  LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
-						  << ") Feasible point. ";
-		  this->Players.at(player)->Feasible = true;
-
-
-		  arma::vec support;
-		  support.zeros(this->Players.at(player)->VertexCounter);
-		  for (unsigned int v = 0; v < this->Players.at(player)->VertexCounter; ++v) {
-			 // abs to avoid misunderstanding with sign conventions
-			 support.at(v) =
-				  dualMembership->getConstrByName("V_" + std::to_string(v)).get(GRB_DoubleAttr_Pi);
-		  }
+	 // First: is the point redundant in the description?
+	 // Namely, does xOfI belongs to the V-polyhedral approximation?
+	 if (Utils::isEqual(dualObj, 0, this->Tolerance)) {
+		LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+						<< ") Feasible point. ";
+		this->Players.at(player)->Feasible = true;
 
 
-		  if (Utils::isEqual(support.max(),1,this->Tolerance)) {
-			 this->Players.at(player)->Pure = true;
-		  }
-		  //******DEBUG********
-		  // support.print("MNE Support: "+std::to_string(arma::sum(support)));
-		  //******DEBUG********
-
-
-		  return 1;
+		arma::vec support;
+		support.zeros(this->Players.at(player)->VertexCounter);
+		for (unsigned int v = 0; v < this->Players.at(player)->VertexCounter; ++v) {
+		  // abs to avoid misunderstanding with sign conventions
+		  support.at(v) =
+				dualMembership->getConstrByName("V_" + std::to_string(v)).get(GRB_DoubleAttr_Pi);
 		}
 
 
-		// Get the separating hyperplane
-
-		arma::vec alphaVal(xOfI.size(), arma::fill::zeros);
-		for (unsigned int i = 0; i < xOfI.size(); i++)
-		  alphaVal.at(i) = y[i].get(GRB_DoubleAttr_X);
-
-
-		//  Optimize the resulting inequality over the original feasible set
-		expr = 0;
-		for (unsigned int i = 0; i < xOfI.size(); ++i)
-		  expr += alphaVal.at(i) * l[i];
-
-
-		LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
-					<< ") DualMembership has " << dualMembership->get(GRB_IntAttr_SolCount)
-					<< " solution(s) with objective =" << dualObj << ".";
-
-
-		playerModel->setObjective(expr, GRB_MAXIMIZE);
-		playerModel->update();
-		playerModel->optimize();
-
-		int leaderStatus = playerModel->get(GRB_IntAttr_Status);
-		int numSols      = playerModel->get(GRB_IntAttr_SolCount);
-
-
-		if (leaderStatus == GRB_OPTIMAL || (leaderStatus == GRB_SUBOPTIMAL && numSols > 0)) {
-
-		  //@todo <numSols or 1?
-		  for (int s = 0; s < numSols; ++s) {
-			 playerModel->set(GRB_IntParam_SolutionNumber, s);
-
-			 // The separating hyperplane plane evaluated at xOfI
-			 double betaX = arma::as_scalar(alphaVal.t() * xOfI);
-			 // The separating hyperplane evaluated at the optimal player's model
-			 double betaPlayer = playerModel->getObjective().getValue();
-
-
-			 // If the violation is negative: new vertex. Namely, the leader go further than xOfI
-			 // If the violation is positive: cutting plane. Namely, xOfI is too far away
-			 auto violation = betaX - betaPlayer;
-
-
-			 //******DEBUG********
-			 // xOfI.print("xOfI");
-			 // alphaVal.print("alpha");
-			 // dualMembership->write("Convex_" + std::to_string(player) + ".sol");
-			 //******DEBUG********
-
-
-			 LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
-						 << ") Violation of " << violation;
-
-			 if (violation >= this->Tolerance) {
-				// We have a cut.
-				// Ciao Moni
-
-				Utils::normalizeIneq(alphaVal, betaPlayer, true);
-
-				//******DEBUG********
-				// alphaVal.print("alphaVal with RHS of" + std::to_string(betaPlayer));
-				//******DEBUG********
-
-				this->Cuts.at(1).second += 1;
-				this->Players.at(player)->addCuts(arma::sp_mat{alphaVal.t()}, arma::vec{betaPlayer});
-
-
-				LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
-								<< ") Adding a cut.";
-				addedCuts = 1;
-				return 0;
-			 } else {
-
-				// We found a new vertex
-				arma::vec v(this->Players.at(player)->V.n_cols, arma::fill::zeros);
-				for (unsigned int i = 0; i < v.size(); ++i)
-				  v[i] = l[i].get(GRB_DoubleAttr_X);
-				// v.print("vertex");
-				auto add = this->Players.at(player)->addVertex(v, numSols > 1);
-				LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
-							<< ") adding vertex for Player (" << std::to_string(add) << "). "
-							<< (iterations - k - 1) << "/" << iterations << " iterations left";
-			 }
-		  }
-
-		} // status optimal for playerModel
-		else if (leaderStatus == GRB_UNBOUNDED) {
-		  // Check for a new ray
-		  alphaVal = Utils::normalizeVec(alphaVal);
-		  LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player << ") new ray";
-		  this->Players.at(player)->addRay(alphaVal);
-
-		} // status unbounded for playerModel
-		else {
-		  throw ZEROException(ZEROErrorCode::Assertion,
-									 "Unknown status for playerModel for player " + std::to_string(player));
+		if (Utils::isEqual(support.max(), 1, this->Tolerance)) {
+		  this->Players.at(player)->Pure = true;
 		}
-		// no separation
-	 } else {
-		throw ZEROException(ZEROErrorCode::Assertion,
-								  "Unknown status for dualMembership for player " + std::to_string(player));
+		//******DEBUG********
+		// support.print("MNE Support: "+std::to_string(arma::sum(support)));
+		//******DEBUG********
+
+
+		return 1;
 	 }
+
+
+	 // Get the separating hyperplane
+
+	 arma::vec alphaVal(xOfI.size(), arma::fill::zeros);
+	 for (unsigned int i = 0; i < xOfI.size(); i++)
+		alphaVal.at(i) = y[i].get(GRB_DoubleAttr_X);
+
+
+	 //  Optimize the resulting inequality over the original feasible set
+	 expr = 0;
+	 for (unsigned int i = 0; i < xOfI.size(); ++i)
+		expr += alphaVal.at(i) * l[i];
+
+
+	 LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+				 << ") DualMembership has " << dualMembership->get(GRB_IntAttr_SolCount)
+				 << " solution(s) with objective =" << dualObj << ".";
+
+
+	 playerModel->setObjective(expr, GRB_MAXIMIZE);
+	 playerModel->update();
+	 playerModel->optimize();
+
+	 int leaderStatus = playerModel->get(GRB_IntAttr_Status);
+	 int numSols      = playerModel->get(GRB_IntAttr_SolCount);
+
+
+	 ZEROAssert((leaderStatus == GRB_OPTIMAL) || (leaderStatus == GRB_SUBOPTIMAL) ||
+					(leaderStatus == GRB_UNBOUNDED));
+	 if (leaderStatus == GRB_OPTIMAL || (leaderStatus == GRB_SUBOPTIMAL && numSols > 0)) {
+
+		//@todo <numSols or 1?
+		for (int s = 0; s < numSols; ++s) {
+		  playerModel->set(GRB_IntParam_SolutionNumber, s);
+
+		  // The separating hyperplane plane evaluated at xOfI
+		  double betaX = arma::as_scalar(alphaVal.t() * xOfI);
+		  // The separating hyperplane evaluated at the optimal player's model
+		  double betaPlayer = playerModel->getObjective().getValue();
+
+
+		  // If the violation is negative: new vertex. Namely, the leader go further than xOfI
+		  // If the violation is positive: cutting plane. Namely, xOfI is too far away
+		  auto violation = betaX - betaPlayer;
+
+
+		  //******DEBUG********
+		  // xOfI.print("xOfI");
+		  // alphaVal.print("alpha");
+		  // dualMembership->write("Convex_" + std::to_string(player) + ".sol");
+		  //******DEBUG********
+
+
+		  LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player << ") Violation of "
+					  << violation;
+
+		  if (violation >= this->Tolerance) {
+			 // We have a cut.
+			 // Ciao Moni
+
+			 Utils::normalizeIneq(alphaVal, betaPlayer, true);
+
+			 //******DEBUG********
+			 // alphaVal.print("alphaVal with RHS of" + std::to_string(betaPlayer));
+			 //******DEBUG********
+
+			 this->Cuts.at(1).second += 1;
+			 this->Players.at(player)->addCuts(arma::sp_mat{alphaVal.t()}, arma::vec{betaPlayer});
+
+
+			 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+							 << ") Adding a cut.";
+			 addedCuts = 1;
+			 return 0;
+		  } else {
+
+			 // We found a new vertex
+			 arma::vec v(this->Players.at(player)->V.n_cols, arma::fill::zeros);
+			 for (unsigned int i = 0; i < v.size(); ++i)
+				v[i] = l[i].get(GRB_DoubleAttr_X);
+			 // v.print("vertex");
+			 auto add = this->Players.at(player)->addVertex(v, numSols > 1);
+			 LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+						 << ") adding vertex for Player (" << std::to_string(add) << "). "
+						 << (iterations - k - 1) << "/" << iterations << " iterations left";
+		  }
+		}
+
+	 } // status optimal for playerModel
+	 else if (leaderStatus == GRB_UNBOUNDED) {
+		// Check for a new ray
+		alphaVal = Utils::normalizeVec(alphaVal);
+		LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player << ") new ray";
+		this->Players.at(player)->addRay(alphaVal);
+
+	 } // status unbounded for playerModel
   }
   // Iteration limit
   return 2;
 }
 
+
+/**
+ * @brief Update the Membership Linear Program for the given player and the verter @p vertex
+ * @param player The player id
+ * @param vertex  The input point to be checked
+ */
 void Algorithms::IPG::Oracle::updateMembership(const unsigned int &player,
 															  const arma::vec &   vertex) {
-  /**
-	* @brief Updates the membership LP in the Player vector for the @p player, the point @p
-	* xOfI
-	**/
+  ZEROAssert(player < this->IPG->NumPlayers);
+  ZEROAssert(vertex.size() == this->IPG->PlayerVariables.at(player));
   MathOpt::getDualMembershipLP(this->Players.at(player)->MembershipLP,
 										 this->Players.at(player)->VertexCounter,
 										 this->Players.at(player)->V,
@@ -779,6 +801,11 @@ void Algorithms::IPG::Oracle::updateMembership(const unsigned int &player,
 }
 
 
+/**
+ * @brief Creates and solves the equilibrium LCP wrt the current game approximation
+ * @param localTimeLimit A time limit for the computation
+ * @return The ZEROStatus for the equilibrium LCP
+ */
 ZEROStatus Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
 
   // Empty objects for market clearing
@@ -859,12 +886,11 @@ ZEROStatus Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
   }
 }
 
+/**
+ * @brief This method initializes some fields for the algorithm. Also, it warm starts the
+ * initial strategies to pure best responses.
+ */
 void Algorithms::IPG::Oracle::initialize() {
-  /**
-	* @brief This method initializes some fields for the algorithm. Also, it warm starts the
-	* initial strategies to pure best responses.
-	*/
-
   // Set the number of iterations to zero.
   this->IPG->Stats.NumIterations.set(0);
 
@@ -900,12 +926,14 @@ void Algorithms::IPG::Oracle::initialize() {
 }
 
 
+/**
+ * @brief Given the player id @p i, builds the vector x^{-i} from the current working
+ * strategies.
+ * @param i The player id
+ * @return The other players strategies (except @p i)
+ */
 arma::vec Algorithms::IPG::Oracle::buildXminusI(const unsigned int i) {
-  /**
-	* @brief Given the player id @p i, builds the vector x^{-i} from the current working
-	* strategies.
-	*/
-  // The size of xMinusI is all the variables minus the ones of i.
+  ZEROAssert(i < this->IPG->NumPlayers);
   arma::vec xMinusI(this->IPG->NumVariables - this->IPG->PlayerVariables.at(i), arma::fill::zeros);
   unsigned int counter = 0;
   for (unsigned int j = 0; j < this->IPG->NumPlayers; ++j) {
@@ -917,21 +945,25 @@ arma::vec Algorithms::IPG::Oracle::buildXminusI(const unsigned int i) {
   }
   return xMinusI;
 }
-
+/**
+ * @brief Given a player @p player, a number of maximum cuts to generate @p maxcuts and a bool
+ * @p rootNode, this method generates some valid inequalities for the @p player 's integer program.
+ * This method uses Coin-OR CGL. So far, Knapsack covers, GMI and MIR inequalities are used. Also,
+ * note that there is no recursive cut generation (meaning, we do not generate cuts from a
+ * previous cut pool) as to better manage numerical stability. @p cutOff requires to cut off the
+ * current solution for @p player.
+ * @param player The current player id
+ * @param maxCuts The maximum number of cuts
+ * @param rootNode True if the cut generation happens at the root node
+ * @param cutOff True if the cuts are required to cutoff the current solution
+ * @return The number of added cuts
+ */
 unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player,
 																			  int          maxCuts,
 																			  bool         rootNode,
 																			  bool         cutOff) {
-  /**
-	* @brief Given a player @p player, a number of maximum cuts to generate @maxcuts and a bool
-	* @rootNode, this method generates some valid inequalities for the @p player 's integer program.
-	* This method uses Coin-OR CGL. So far, Knapsack covers, GMI and MIR inequalities are used. Also,
-	* note that there is no recursive cut generation (meaning, we do not generate cuts from a
-	* previous cutpool) as to better manage numerical stability. @p cutOff requires to cut off the
-	* current solution for @p player.
-	*/
 
-
+  ZEROAssert(player < this->IPG->NumPlayers);
   auto      xOfI     = this->Players.at(player)->Incumbent;
   auto      xOfIDual = this->Players.at(player)->DualIncumbent;
   auto      xMinusI  = this->buildXminusI(player);
@@ -1172,6 +1204,9 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player,
   return 0;
 }
 
+/**
+ * @brief Initializes some pure-strategies for each player.
+ */
 void Algorithms::IPG::Oracle::initializeEducatedGuesses() {
 
 
@@ -1231,13 +1266,15 @@ void Algorithms::IPG::Oracle::initializeEducatedGuesses() {
 	 }
   }
 }
-void Algorithms::IPG::Oracle::initializeCoinModel(const unsigned int player) {
-  /**
-	* @brief This method builds the Coin-OR model used in Oracle::externalCutGenerator for the given
-	* player
-	* @param player The player's id
-	*/
 
+/**
+ * @brief This method builds the Coin-OR model used in Oracle::externalCutGenerator for the given
+ * player
+ * @param player The player's id
+ */
+void Algorithms::IPG::Oracle::initializeCoinModel(const unsigned int player) {
+
+  ZEROAssert(player < this->IPG->NumPlayers);
   // Source the main ingredients. Avoid getting B with bounds, since we already have the raw bounds.
   auto IP_B          = this->Players.at(player)->ParametrizedIP->getB(false);
   auto IP_Bounds     = this->Players.at(player)->ParametrizedIP->getBounds();

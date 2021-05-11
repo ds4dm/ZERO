@@ -179,6 +179,19 @@ void Algorithms::EPEC::OuterApproximation::updateMembership(const unsigned int &
 }
 
 
+
+/**
+ * @brief The main Equilibrium Oracle loop. Given a player, a maximum number of iterations, a
+ * strategy and the other players strategy, it tries to determine if @p xOfI is feasible for @p
+ * player.
+ * @param xOfI The incumbent strategy for @p player
+ * @param x The full solution vector
+ * @param player The player id
+ * @param budget A bound on the number of iteration
+ * @param addedCuts The number of added cuts
+ * @return 1 if feasible. 0 if infeasible. 2 if iteration limit was hit.
+ */
+
 bool Algorithms::EPEC::OuterApproximation::equilibriumOracle(
 	 arma::vec &xOfI, arma::vec &x, unsigned int player, int budget, bool &addedCuts) {
 
@@ -430,10 +443,9 @@ void Algorithms::EPEC::OuterApproximation::addValueCut(const unsigned int player
 	 // Let's try to save what we can.
 	 for (unsigned int i = 0; i < LHS.size(); ++i)
 		LHS.at(i) = Utils::round_nplaces(LHS.at(i), 5);
-    trueRHS = Utils::round_nplaces(RHS, 5);
-    Utils::normalizeIneq(LHS, trueRHS, true);
-  }
-  else {
+	 trueRHS = Utils::round_nplaces(RHS, 5);
+	 Utils::normalizeIneq(LHS, trueRHS, true);
+  } else {
 	 trueRHS = Utils::round_nplaces(RHS, 6);
 	 //  LHS.print("LHS with RHS of " + std::to_string(trueRHS));
 	 Utils::normalizeIneq(LHS, trueRHS, false);
@@ -452,11 +464,13 @@ void Algorithms::EPEC::OuterApproximation::addValueCut(const unsigned int player
 }
 
 
+/**
+ * @brief Gets the LCP for player @p player, and tries to see whether the origin is feasible. If
+ * the answer is yes, sets the corresponding object in the tree to true.
+ * @param player The player's id
+ */
 void Algorithms::EPEC::OuterApproximation::originFeasibility(unsigned int player) {
-  /**
-	* @brief Gets the LCP for player @p player, and tries to see whether the origin is feasible. If
-	* the answer is yes, sets the corresponding object in the tree to true.
-	*/
+
   arma::vec zeros(this->EPECObject->LeaderObjective.at(player)->C.n_cols, arma::fill::zeros);
   auto      origin = this->EPECObject->PlayersLCP.at(player).get()->LCPasMILP(
       this->EPECObject->LeaderObjective.at(player)->C,
@@ -1179,6 +1193,8 @@ Algorithms::EPEC::OuterTree::singleBranch(const unsigned int                 idC
 /**
  * @brief Adds a vertex to OuterTree::V
  * @param vertex The vector containing the vertex
+ * @param checkDuplicates True if the method has to check for duplicates
+ * @return True if the vertex was added
  */
 bool Algorithms::EPEC::OuterTree::addVertex(const arma::vec &vertex, bool checkDuplicates) {
   if (vertex.size() != this->V.n_cols && this->V.n_rows > 0)

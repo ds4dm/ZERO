@@ -40,24 +40,23 @@ bool Algorithms::EPEC::PolyBase::isSolved(unsigned int *player,
 														double        tol) const
 
 {
-  if (!this->EPECObject->TheNashGame)
-	 return false;
+
   if (!this->EPECObject->NashEquilibrium)
 	 return false;
+  tol = this->EPECObject->Stats.AlgorithmData.DeviationTolerance.get();
   if (tol < 0)
-	 tol = this->EPECObject->Stats.AlgorithmData.DeviationTolerance.get();
+	 tol = 1e-5;
   this->EPECObject->TheNashGame->isSolved(
 		this->EPECObject->SolutionX, *player, *profitableDeviation, tol);
   arma::vec objvals =
 		this->EPECObject->TheNashGame->computeQPObjectiveValues(this->EPECObject->SolutionX, true);
   for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i) {
-	 double val = this->EPECObject->respondSol(
-		  *profitableDeviation, i, this->EPECObject->SolutionX);
+	 double val = this->EPECObject->respondSol(*profitableDeviation, i, this->EPECObject->SolutionX);
 	 if (val == GRB_INFINITY)
 		return false;
-	 if (std::abs(val - objvals.at(i)) > tol) {
+	 if (!Utils::isEqual(val, objvals.at(i), tol, 1 - tol)) {
 		*player = i;
-		LOG_S(1) << "Algorithms::EPEC::PolyBase::isSolved: deviation for player " << i << " -- of "
+		LOG_S(0) << "Algorithms::EPEC::PolyBase::isSolved: deviation for player " << i << " -- of "
 					<< std::abs(val - objvals.at(i));
 		return false;
 	 }
@@ -71,7 +70,7 @@ bool Algorithms::EPEC::PolyBase::isSolved(unsigned int *player,
  * @param tol The numerical tolerance
  * @return True if the game is solved
  */
-bool Algorithms::EPEC::PolyBase::isSolved(double tol) const {
+bool Algorithms::EPEC::PolyBase::isSolved(double tol) {
   unsigned int countryNumber;
   arma::vec    ProfDevn;
   bool         ret = this->isSolved(&countryNumber, &ProfDevn, tol);

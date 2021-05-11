@@ -15,14 +15,17 @@
 #include <armadillo>
 
 
-arma::sp_mat
-Utils::resizePatch(const arma::sp_mat &mat, const unsigned int nR, const unsigned int nC) {
-  /**
- @brief Armadillo patch for resizing arma::sp_mat
- @details Armadillo arma::sp_mat::resize() is not robust as it initializes garbage
+/**
+ * @brief  Armadillo arma::sp_mat::resize() is not robust as it initializes garbage
  values to new columns. This fixes the problem by creating new columns with
  guaranteed zero values. For arma::sp_mat
+ * @param mat Input matrix
+ * @param nR Number of rows for the output
+ * @param nC Number of columns for the output
+ * @return The resized @p mat
  */
+arma::sp_mat
+Utils::resizePatch(const arma::sp_mat &mat, const unsigned int nR, const unsigned int nC) {
   arma::sp_mat mMat(nR, nC);
   mMat.zeros();
   if (nR >= mat.n_rows && nC >= mat.n_cols) {
@@ -38,14 +41,17 @@ Utils::resizePatch(const arma::sp_mat &mat, const unsigned int nR, const unsigne
   return mMat;
 }
 
-// For arma::mat
-arma::mat Utils::resizePatch(const arma::mat &mat, const unsigned int nR, const unsigned int nC) {
-  /**
- @brief Armadillo patch for resizing mat
- @details Armadillo mat::resize() is not robust as it initializes garbage
+
+/**
+ * @brief  Armadillo arma::sp_mat::resize() is not robust as it initializes garbage
  values to new columns. This fixes the problem by creating new columns with
- guaranteed zero values. For arma::mat
+ guaranteed zero values. For arma::sp_mat
+ * @param mat Input matrix
+ * @param nR Number of rows for the output
+ * @param nC Number of columns for the output
+ * @return The resized @p mat
  */
+arma::mat Utils::resizePatch(const arma::mat &mat, const unsigned int nR, const unsigned int nC) {
   arma::mat mMat(nR, nC);
   mMat.zeros();
   if (nR >= mat.n_rows && nC >= mat.n_cols) {
@@ -61,14 +67,15 @@ arma::mat Utils::resizePatch(const arma::mat &mat, const unsigned int nR, const 
   return mMat;
 }
 
-// For arma::vec
-arma::vec Utils::resizePatch(const arma::vec &mat, const unsigned int nR) {
-  /**
- @brief Armadillo patch for resizing arma::vec
- @details Armadillo arma::vec::resize() is not robust as it initializes garbage
+/**
+ * @brief  Armadillo arma::mat::resize() is not robust as it initializes garbage
  values to new columns. This fixes the problem by creating new columns with
- guaranteed zero values. For arma::vec
+ guaranteed zero values. For arma::sp_mat
+ * @param mat Input vector (row, or column)
+ * @param nR Number of rows for the output
+ * @return The resized @p mat
  */
+arma::vec Utils::resizePatch(const arma::vec &mat, const unsigned int nR) {
   arma::vec mMat(nR);
   mMat.zeros();
   if (mat.n_rows > 0) {
@@ -80,18 +87,17 @@ arma::vec Utils::resizePatch(const arma::vec &mat, const unsigned int nR) {
   return mMat;
 }
 
-void Utils::appendSave(const arma::sp_mat &matrix, ///< The arma::sp_mat to be saved
-							  const std::string & out,    ///< File name of the output file
-							  const std::string & header, ///< A header that might be used to
-																	///< check data correctness
-							  bool erase                  ///< Should the matrix be appended to the
-																	///< current file or overwritten
-							  )
 /**
- * Utility to append an arma::sp_mat to a data file.
+ * @brief Utility to append an arma::sp_mat to a data file.
+ * @param matrix The arma::sp_mat to be saved
+ * @param out File name of the output file
+ * @param header A header that might be used to check the filetype
+ * @param erase Should the matrix be appended to the file or not?
  */
-{
-  // Using C++ file operations to copy the data into the target given by @out
+void Utils::appendSave(const arma::sp_mat &matrix,
+							  const std::string & out,
+							  const std::string & header,
+							  bool                erase) {
   unsigned int nR{0}, nC{0}, nnz{0};
 
   std::ofstream outfile(out, erase ? std::ios::out : std::ios::app);
@@ -109,17 +115,18 @@ void Utils::appendSave(const arma::sp_mat &matrix, ///< The arma::sp_mat to be s
   outfile.close(); // and close it
 }
 
-long int Utils::appendRead(arma::sp_mat &matrix,  ///< Read and store the solution in this matrix.
-									const std::string &in, ///< File to read from (could be file very many
-																  ///< data is appended one below another)
-									long int pos, ///< Position in the long file where reading should start
-									const std::string &header ///< Any header to check data sanctity
-									)
 /**
- * Utility to read an arma::sp_mat from a long file.
- * @returns The end position from which the next data object can be read.
+ * @brief Utility to read an arma::sp_mat from a long file.
+ * @param matrix  Read and store the solution in this matrix.
+ * @param in File to read from (could be file very many matrices are appended one below another)
+ * @param pos Position in the long file where reading should start
+ * @param header Any header to check data sanctity
+ * @return The end position from which the next data object can be read.
  */
-{
+long int Utils::appendRead(arma::sp_mat &     matrix,
+									const std::string &in,
+									long int           pos,
+									const std::string &header) {
   unsigned int nR = 0, nC = 0, nnz = 0;
 
   std::ifstream infile(in, std::ios::in);
@@ -157,13 +164,17 @@ long int Utils::appendRead(arma::sp_mat &matrix,  ///< Read and store the soluti
   return pos;
 }
 
+/**
+ * @brief Utility to append a standard vector to a data file.
+ * @param v The vector
+ * @param out The output file
+ * @param header An optional header
+ * @param erase Should the file be over written?
+ */
 void appendSave(const std::vector<double> &v,
 					 const std::string &        out,
 					 const std::string &        header,
 					 bool                       erase) {
-  /**
-	* Utility to append an std::vector<double> to a data file.
-	*/
   std::ofstream outfile(out, erase ? std::ios::out : std::ios::app);
   outfile << header << "\n" << v.size() << "\n";
   for (const double x : v)
@@ -171,15 +182,19 @@ void appendSave(const std::vector<double> &v,
   outfile.close();
 }
 
+/**
+ * @brief Utility to read an std::vector<double> from a long file.
+ * @param v The output vector
+ * @param in The input file
+ * @param pos The position of @p v in the file
+ * @param header An optional header check
+ * @return The end position from which the next data object can be read.
+ */
 long int
 appendRead(std::vector<double> &v, const std::string &in, long int pos, const std::string &header) {
   unsigned long int size = 0;
   std::ifstream     infile(in, std::ios::in);
   infile.seekg(pos);
-  /**
-	* Utility to read an std::vector<double> from a long file.
-	* @returns The end position from which the next data object can be read.
-	*/
 
   std::string headerCheckwith;
   infile >> headerCheckwith;
@@ -198,17 +213,19 @@ appendRead(std::vector<double> &v, const std::string &in, long int pos, const st
   return pos;
 }
 
-void Utils::appendSave(const arma::vec &  matrix, ///< The arma::vec to be saved
-							  const std::string &out,    ///< File name of the output file
-							  const std::string &header, ///< A header that might be used to
-																  ///< check data correctness
-							  bool erase                 ///< Should the arma::vec be appended to the
-																  ///< current file or overwritten
-) {
-  /**
-	* Utility to append an arma::vec to a data file.
-	*/
-  // Using C++ file operations to copy the data into the target given by @out
+
+/**
+ * @brief Utility to append an arma::vec to a data file.
+ * @param matrix The arma::vec to be saved
+ * @param out The output file
+ * @param header An optional header
+ * @param erase Erase the file?
+ */
+
+void Utils::appendSave(const arma::vec &  matrix,
+							  const std::string &out,
+							  const std::string &header,
+							  bool               erase) {
   unsigned int nR{0};
 
   std::ofstream outfile(out, erase ? std::ios::out : std::ios::app);
@@ -224,16 +241,18 @@ void Utils::appendSave(const arma::vec &  matrix, ///< The arma::vec to be saved
   outfile.close(); // and close it
 }
 
-long int Utils::appendRead(arma::vec &matrix,     ///< Read and store the solution in this matrix.
-									const std::string &in, ///< File to read from (could be file very many
-																  ///< data is appended one below another)
-									long int pos, ///< Position in the long file where reading should start
-									const std::string &header ///< Any header to check data sanctity
-) {
-  /**
-	* Utility to read an arma::vec from a long file.
-	* @returns The end position from which the next data object can be read.
-	*/
+/**
+ * @brief  Utility to read an arma::vec from a long file.
+ * @param matrix The output matrix
+ * @param in The input file
+ * @param pos The position of @p matrix in the file
+ * @param header An optional header
+ * @return The end position from which the next data object can be read.
+ */
+long int Utils::appendRead(arma::vec &        matrix,
+									const std::string &in,
+									long int           pos,
+									const std::string &header) {
   unsigned int  nR;
   std::string   buffers;
   std::string   checkwith;
@@ -258,13 +277,18 @@ long int Utils::appendRead(arma::vec &matrix,     ///< Read and store the soluti
   return pos;
 }
 
+/**
+ * @brief Utility to save a long int to file
+ * @param v The int
+ * @param out The output file
+ * @param header An optional header
+ * @param erase Overwrite the file?
+ */
 void Utils::appendSave(const long int     v,
 							  const std::string &out,
 							  const std::string &header,
 							  bool               erase)
-/**
- * Utility to save a long int to file
- */
+
 {
   std::ofstream outfile(out, erase ? std::ios::out : std::ios::app);
   outfile << header << "\n";
@@ -272,12 +296,18 @@ void Utils::appendSave(const long int     v,
   outfile.close();
 }
 
+
+
+/**
+ * @brief Utility to read a long int from a file
+ * @param v The output number
+ * @param in The input file
+ * @param pos The position of @p v in the file
+ * @param header An optional header check
+ * @return The end position from which the next data object can be read.
+ */
 long int
 Utils::appendRead(long int &v, const std::string &in, long int pos, const std::string &header) {
-  /**
-	* Utility to read a long int from a long file.
-	* @returns The end position from which the next data object can be read.
-	*/
   std::ifstream infile(in, std::ios::in);
   infile.seekg(pos);
 
@@ -298,20 +328,31 @@ Utils::appendRead(long int &v, const std::string &in, long int pos, const std::s
   return pos;
 }
 
+/**
+ * @brief Utility to save an unsigned int to file
+ * @param v The long int to be saved
+ * @param out The output file
+ * @param header An optional header
+ * @param erase Should the file be erased?
+ */
 void Utils::appendSave(const unsigned int v,
 							  const std::string &out,
 							  const std::string &header,
-							  bool               erase)
-/**
- * Utility to save a long int to file
- */
-{
+							  bool               erase) {
   std::ofstream outfile(out, erase ? std::ios::out : std::ios::app);
   outfile << header << "\n";
   outfile << v << "\n";
   outfile.close();
 }
 
+/**
+ * @brief An utility to read an unsigned int from a file
+ * @param v The output number
+ * @param in The input file
+ * @param pos The position of the data in the file
+ * @param header An optional header
+ * @return The end position from which the next data object can be read.
+ */
 long int
 Utils::appendRead(unsigned int &v, const std::string &in, long int pos, const std::string &header) {
   std::ifstream infile(in, std::ios::in);
@@ -334,21 +375,25 @@ Utils::appendRead(unsigned int &v, const std::string &in, long int pos, const st
   return pos;
 }
 
-void Utils::appendSave(const std::string &v, const std::string &out, bool erase)
 /**
- * Utility to save a long int to file
+ * @brief Utility to write a string to a file
+ * @param v The string to be saved
+ * @param out The output file
+ * @param erase Should the file be erased?
  */
-{
+void Utils::appendSave(const std::string &v, const std::string &out, bool erase) {
   std::ofstream outfile(out, erase ? std::ios::out : std::ios::app);
   outfile << v << "\n";
   outfile.close();
 }
-
+/**
+ * @brief Utility to read a std::string from a long file.
+ * @param v The output string
+ * @param in The input file
+ * @param pos The position of @p v
+ * @return The end position from which the next data object can be read.
+ */
 long int Utils::appendRead(std::string &v, const std::string &in, long int pos) {
-  /**
-	* Utility to read a std::string from a long file.
-	* @returns The end position from which the next data object can be read.
-	*/
   std::ifstream infile(in, std::ios::in);
   infile.seekg(pos);
 
@@ -362,6 +407,16 @@ long int Utils::appendRead(std::string &v, const std::string &in, long int pos) 
   return pos;
 }
 
+/**
+ * @brief Given a matrix @p A and a vector of LHSs @p b, checks if both @p lhs is in @p A, and @p
+ * rhs is in @p b up to a tolerance of @p tol.
+ * @param A The matrix containing the constraints
+ * @param b The vector containing the RHSs
+ * @param lhs The input cut RHS
+ * @param rhs The input cut LHS
+ * @param tol A numerical tolerance
+ * @return True if the constraint was found
+ */
 bool Utils::containsConstraint(const arma::sp_mat &A,
 										 const arma::vec &   b,
 										 const arma::vec &   lhs,
@@ -371,27 +426,47 @@ bool Utils::containsConstraint(const arma::sp_mat &A,
 	 return false;
   for (int i = 0; i < A.n_rows; ++i) {
 	 bool res = true;
-	 for (int j = 0; j < A.n_cols; ++j) {
-		if (std::abs(lhs.at(j) - A.at(i, j)) > tol) {
-		  res = false;
-		  break;
+	 // The RHS is good
+	 if (Utils::isEqual(b.at(i), rhs, tol)) {
+		// Okay. Let's check the cut
+		bool res = true;
+		for (int j = 0; j < A.n_cols; ++j) {
+		  if (!Utils::isEqual(lhs.at(j), A.at(i, j), tol)) {
+			 // Not equal
+			 res = false;
+			 break;
+		  }
 		}
-	 }
-	 if (res && std::abs(b.at(i) - rhs) < tol) {
-		return true;
+		if (res)
+		  return true;
 	 }
   }
   return false;
 }
 
+/**
+ * @brief Check  if the vector @p b contains @p element
+ * @param b The vector containing the elements to be checked
+ * @param element The input element
+ * @param tol A numerical tolerance
+ * @return True if the element was found
+ */
 bool Utils::containsElement(const arma::vec &b, const double &element, const double tol) {
   for (unsigned int i = 0; i < b.size(); ++i) {
-	 if (std::abs(b.at(i) - element) < tol)
+	 if (Utils::isEqual(b.at(i), element, tol))
 		return true;
   }
   return false;
 }
 
+
+/**
+ * @brief Check if @p A contains a row @p row
+ * @param A The input matrix
+ * @param row The input row
+ * @param tol A numerical tolerance
+ * @return True if the row was found
+ */
 bool Utils::containsRow(const arma::sp_mat &A, const arma::vec &row, const double tol) {
 
   if (row.size() != A.n_cols)
@@ -399,7 +474,7 @@ bool Utils::containsRow(const arma::sp_mat &A, const arma::vec &row, const doubl
   for (int i = 0; i < A.n_rows; ++i) {
 	 bool res = true;
 	 for (int j = 0; j < A.n_cols; ++j) {
-		if (std::abs(row.at(j) - A.at(i, j)) > tol) {
+		if (!Utils::isEqual(row.at(j), A.at(i, j), tol)) {
 		  res = false;
 		  break;
 		}
@@ -409,6 +484,16 @@ bool Utils::containsRow(const arma::sp_mat &A, const arma::vec &row, const doubl
   }
   return false;
 }
+/**
+ * @brief Given a matrix @p A and a vector of LHSs @p b, checks if both @p lhs is in @p A, and @p
+ * rhs is in @p b up to a tolerance of @p tol.
+ * @param A The matrix containing the constraints
+ * @param b The vector containing the RHSs
+ * @param lhs The input cut RHS (in a matrix form)
+ * @param rhs The input cut LHS
+ * @param tol A numerical tolerance
+ * @return True if the constraint was found
+ */
 bool Utils::containsConstraint(const arma::sp_mat &A,
 										 const arma::vec &   b,
 										 const arma::sp_mat &lhs,
@@ -420,35 +505,35 @@ bool Utils::containsConstraint(const arma::sp_mat &A,
   return Utils::containsConstraint(A, b, Ai, rhs, tol);
 }
 
-
+/**
+ * @brief Checks if a matrix is a zero matrix
+ * @param M The input matrix
+ * @param tol A numerical tolerance
+ * @return True if all elements are zero
+ */
 bool Utils::isZero(const arma::mat &M, double tol) noexcept {
-  /**
-	* @brief
-	* Checking if a given matrix M is a zero matrix
-	*
-	* @p tol Tolerance, below which a number is treated as 0
-	* @warning Tolerance < 0 always returns @p false with no error.
-	*
-	*/
-  return ((abs(M).max() <= tol));
+
+  return (Utils::isEqual(abs(M).max(), 0, tol));
 }
 
+/**
+ * @brief Checks if a matrix is a zero matrix. Optimized for sparse matrices
+ * @param M The input matrix
+ * @param tol A numerical tolerance
+ * @return True if all elements are zero
+ */
 bool Utils::isZero(const arma::sp_mat &M, double tol) noexcept {
-  /**
-	* @brief
-	* Checking if a given sparse matrix M is a zero matrix
-	*
-	* @p tol Tolerance, below which a number is treated as 0
-	*
-	*/
+
   if (M.n_nonzero != 0)
 	 return false;
 
-  return ((abs(M).max() <= tol));
+  return (Utils::isEqual(abs(M).max(), 0, tol));
 }
 
-
-
+/**
+ * @brief Sort the perps by the first element (key)
+ * @param set The input perps
+ */
 void Utils::sortByKey(perps &set) {
   sort(set.begin(),
 		 set.end(),
@@ -457,6 +542,12 @@ void Utils::sortByKey(perps &set) {
 		 });
 }
 
+/**
+ * @brief Given two VariableBounds, it returns the strictest intersection of them
+ * @param bA First input bound vector
+ * @param bB Second input bound vector
+ * @return The intersection
+ */
 VariableBounds Utils::intersectBounds(const VariableBounds &bA, const VariableBounds &bB) {
   auto longest  = bA.size() >= bB.size() ? bA : bB;
   auto shortest = bA.size() >= bB.size() ? bB : bA;
@@ -490,6 +581,11 @@ VariableBounds Utils::intersectBounds(const VariableBounds &bA, const VariableBo
   return bC;
 }
 
+/**
+ * @brief Given @p bounds, provides a string with the readable output
+ * @param bounds The input bounds
+ * @return A readable output for the bounds
+ */
 std::string Utils::printBounds(const VariableBounds &bounds) {
   std::stringstream r;
   for (unsigned int i = 0; i < bounds.size(); ++i) {
@@ -516,7 +612,13 @@ double Utils::round_nplaces(const double &value, const int &numDecimals) {
  * @p v is the input vector
  * @return The normalized vector
  */
-arma::vec Utils::normalizeVec(const arma::vec &v) { return v / arma::max(arma::abs(v)); }
+arma::vec Utils::normalizeVec(const arma::vec &v) {
+  double norm = arma::max(arma::abs(v));
+	if (Utils::isEqual(norm,0,1e-6))
+	norm =1;
+
+  return v / arma::max(arma::abs(v));
+}
 
 /**
  * Normalizes an inequality according to the "equilibrium normalization". Namely, we divide for
@@ -584,7 +686,7 @@ std::vector<CoinPackedVector> Utils::armaToCoinPackedVector(const arma::sp_mat &
 }
 
 /**
- * Create constraints for a given @p model given the matrix @p A, the RHS vector @b, the variables
+ * Create constraints for a given @p model given the matrix @p A, the RHS vector @p b, the variables
  * @p x, and an additional RHS of variables @p z. The resulting constraints read:
  *  @f$Ax \quad (sense) \quad b+z@f$
  * @param A The input sparse matrix of LHS
@@ -619,6 +721,11 @@ void Utils::addSparseConstraints(const arma::sp_mat &A,
 }
 
 
+/**
+ * @brief Convert a binary vector (0-1 entries) into an unique int
+ * @param x The input vector
+ * @return The int encoding
+ */
 int Utils::vecToBin(const arma::vec &x) {
   int output = 0;
   int power  = 1;
@@ -631,6 +738,13 @@ int Utils::vecToBin(const arma::vec &x) {
 
   return output;
 }
+/**
+ * @brief Given a number @p num and a bound @p decimalBound, counts the number of non-zero decimals up
+ * to @p decimalBound
+ * @param num The input number
+ * @param decimalBound The maximal bound on decimals to be counted
+ * @return The number of non-zero decimals
+ */
 int Utils::nonzeroDecimals(const double num, const int decimalBound) {
 
   double integral = 0;
@@ -646,6 +760,13 @@ int Utils::nonzeroDecimals(const double num, const int decimalBound) {
   }
   return count;
 }
+/**
+ * @brief Checks if two numbers are equal in absolute tolerance
+ * @param a The first number
+ * @param b The second number
+ * @param tol An absolute tolerance
+ * @return True if the two numbers are equal up to the given tolerance
+ */
 bool Utils::isEqualAbs(const double a, const double b, const double tol) {
   float diff = fabs(a - b);
   if (diff <= tol)
@@ -653,17 +774,32 @@ bool Utils::isEqualAbs(const double a, const double b, const double tol) {
   else
 	 return false;
 }
+/**
+ * @brief Checks if two numbers are equal in relative tolerance
+ * @param a The first number
+ * @param b The second number
+ * @param percent Percent of similarity (e.g., 1 and 0.99 are similar at least at 0.99)
+ * @return True if the two numbers are equal up to the given tolerance
+ */
 bool Utils::isEqualRel(const double a, const double b, const double percent) {
   float  diff    = fabs(a - b);
   double A       = fabs(a);
   double B       = fabs(b);
   float  largest = (B > A) ? B : A;
 
-  if (diff <= largest * (1-percent))
+  if (diff <= largest * (1 - percent))
 	 return true;
   else
 	 return false;
 }
+/**
+ * @brief Checks if two numbers are equal in either absolute or relative tolerance
+ * @param a The first number
+ * @param b The second number
+ * @param tol An absolute tolerance
+ * @param percent Percent of similarity (e.g., 1 and 0.99 are similar at least at 0.99)
+ * @return
+ */
 bool Utils::isEqual(const double a, const double b, const double tol, const double percent) {
   if (Utils::isEqualAbs(a, b, tol)) {
 	 return true;

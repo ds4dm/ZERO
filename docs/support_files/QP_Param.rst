@@ -45,15 +45,15 @@ Now the required object can be constructed in multiple ways.
 .. code-block:: c
 
 	// Method 1: Make a call to the constructor
-	Game::QP_Param q1(Q, C, A, B, c, b, &env);
+	MathOpt::QP_Param q1(Q, C, A, B, c, b, &env);
 
 	// Method 2: Using QP_Param::set member function
-	Game::QP_Param q2(&env);
+	MathOpt::QP_Param q2(&env);
 	q2.set(Q, C, A, B, c, b);
 
 	// Method 3: Reading from a file. This requires that such an object is saved to a file at first. 
 	q1.save("dat/q1dat.dat"); // Saving the file so it can be retrieved. 
-	Game::QP_Param q3(&env); 
+	MathOpt::QP_Param q3(&env); 
 	q3.load("dat/q1dat.dat");
 
 	// Checking they are the same
@@ -98,7 +98,7 @@ Solving
  cout<<FixedModel->get(GRB_DoubleAttr_ObjVal<<endl; // Will print -12.757
 
 
-In many cases, one might want to obtain the KKT conditions of a convex quadratic program and that can be obtained as below, using :py:func:`Game::QP_Param::KKT`
+In many cases, one might want to obtain the KKT conditions of a convex quadratic program and that can be obtained as below, using :py:func:`MathOpt::QP_Param::KKT`
 
 The function returns ``M``, ``N`` and ``q``, where the KKT conditions can be written as :math:`0 \leq y \perp Mx + numVars + q \geq 0`.
 

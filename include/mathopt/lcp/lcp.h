@@ -22,6 +22,9 @@
 #include <set>
 
 namespace Data::LCP {
+  /**
+	* @brief The algorithm used to solve the LCP.
+	*/
   enum class Algorithms {
 	 MIP,  ///< Solves the LCP via an (explicit) MIP
 	 PATH, ///< Solves the LCP via PATH
@@ -51,14 +54,16 @@ namespace MathOpt {
 	 GRBEnv *     Env{}; ///< A pointer to the Gurobi Env
 	 unsigned int ObjType =
 		  0; ///< Type of the objective for MIP/MINLP. 0 is feasibility, 1 linear, 2 quadratic
-	 arma::vec    c_Obj;  ///< The linear objective for the LCP in case of MIP/MINLP
+	 arma::vec    c_Obj; ///< The linear objective for the LCP in case of MIP/MINLP
 	 arma::sp_mat Q_Obj; ///< The quadratic objective matrix Q for the LCP in case of MIP/MINLP
 	 bool         MadeObjective = false; ///< True if the objective has been updated.
 	 arma::sp_mat M;                     ///< The matrix M in @f$Mx+q@f$ that defines the LCP
 	 arma::vec    q;                     ///< The vector q in @f$Mx+q@f$ that defines the LCP
 	 perps Compl; ///< Compl dictates which equation (row in M) is complementary to which variable
 					  ///< (column in M). The object is in a <Eqn, Var> form
-	 unsigned int LeadStart{1}, LeadEnd{0}, NumberLeader{0};
+	 unsigned int LeadStart{1};    ///< Starting leader location
+	 unsigned int LeadEnd{0};      ///< Ending leader location
+	 unsigned int NumberLeader{0}; ///< Number of leaders
 	 bool PureMIP = true; ///< True if the LCP is modelled via a pure MIP with SOS1 (or indicator)
 								 ///< constraints. Otherwise, a MINLP introduces a bilinear term for each
 								 ///< complementarity
@@ -67,7 +72,8 @@ namespace MathOpt {
 	 arma::vec b =
 		  {}; ///< The additional constraint RHSs b to the problem, in the form @f$Ax \leq b@f$
 	 bool         MadeRlxdModel{false}; ///< True if a relaxed model has been already initialized
-	 unsigned int nR{}, nC{};           ///< The number of rows and columns in the matrix M
+	 unsigned int nR{};                 ///< The number of rows in the matrix M
+	 unsigned int nC{};                 ///< The number of columns in the matrix M
 
 	 /**
 	  * Stores non-trivial upper and lower bounds on x variables  in as a tuple (j,k) where j the
@@ -104,12 +110,16 @@ namespace MathOpt {
   public:
 	 double Eps{1e-6}; ///< The threshold for optimality and feasability tolerances
 
+	 /**
+	  * @brief No default constructor.
+	  */
 	 LCP() = delete;
 
 
 	 /**
 	  * A base constructor that does not initialize most of objects. This is useful when loading from
 	  * a file
+	  * @param e The Gurobi environment
 	  */
 	 explicit LCP(GRBEnv *e) : Env{e}, RelaxedModel(*e){};
 	 LCP(GRBEnv *      env,
@@ -127,26 +137,55 @@ namespace MathOpt {
 	 ~LCP() = default;
 
 	 // Fields getters
-	 inline arma::sp_mat  getM() const { return this->M; }  ///< Read-only access to LCP::M
-	 inline arma::vec     getq() const { return this->q; }  ///< Read-only access to LCP::q
-	 inline unsigned int  getNumberLeader() const {
-      return this->NumberLeader;
+	 /**
+	  * @brief Read-only access to LCP::M
+	  * @return LCP::M
+	  */
+	 inline arma::sp_mat getM() const { return this->M; }
+	 /**
+	  * @brief Read-only access to LCP::q
+	  * @return LCP::q
+	  */
+	 inline arma::vec getq() const { return this->q; }
+
+	 inline unsigned int getNumberLeader() const {
+		return this->NumberLeader;
 	 } ///< Read-only access to LCP::NumberLeader
-	 const inline unsigned int getLStart() const {
-		return LeadStart;
-	 } ///< Read-only access to LCP::LeadStart
-    const inline arma::sp_mat getA() const {
-	   return this->A;
-    } ///< Read-only access to LCP::A
-    const inline arma::vec getb() const {
-	   return this->b;
-    } ///< Read-only access to LCP::b
-	 const inline unsigned int getLEnd() const {
-		return LeadEnd;
-	 } ///< Read-only access to LCP::LeadEnd
-	 inline perps        getCompl() const { return this->Compl; } ///< Read-only access to LCP::Compl
-	 inline unsigned int getNumCols() const { return this->nC; }; ///< Read-only access to LCP::nC
-	 inline unsigned int getNumRows() const { return this->nR; }; ///< Read-only access to LCP::nR
+	 /**
+	  * @brief Read-only access to LCP::LeadStart
+	  * @return LCP::LeadStart
+	  */
+	 const inline unsigned int getLStart() const { return LeadStart; }
+	 /**
+	  * @brief Read-only access to LCP::A
+	  * @return LCP::A
+	  */
+	 const inline arma::sp_mat getA() const { return this->A; }
+	 /**
+	  * @brief Read-only access to LCP::b
+	  * @return LCP::b
+	  */
+	 const inline arma::vec getb() const { return this->b; }
+	 /**
+	  * @brief Read-only access to LCP::LeadEnd
+	  * @return LCP::LeadEnd
+	  */
+	 const inline unsigned int getLEnd() const { return LeadEnd; }
+	 /**
+	  * @brief Read-only access to LCP::Compl
+	  * @return LCP::Compl
+	  */
+	 inline perps getCompl() const { return this->Compl; }
+	 /**
+	  * @brief Read-only access to  LCP::nC
+	  * @return  LCP::nC
+	  */
+	 inline unsigned int getNumCols() const { return this->nC; };
+	 /**
+	  * @brief Read-only access to  LCP::nR
+	  * @return  LCP::nR
+	  */
+	 inline unsigned int getNumRows() const { return this->nR; };
 
 
 	 inline bool hasCommonConstraints() const {
@@ -161,8 +200,8 @@ namespace MathOpt {
 												arma::vec &           zSol,
 												double                timeLimit,
 												unsigned int          MIPWorkers,
-												double &                objective,
-												unsigned int          solLimit=1);
+												double &              objective,
+												unsigned int          solLimit = 1);
 	 std::unique_ptr<GRBModel> LCPasMIP(bool         solve      = false,
 													double       timeLimit  = -1,
 													unsigned int MIPWorkers = 1,

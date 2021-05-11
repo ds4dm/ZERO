@@ -36,27 +36,38 @@ namespace Game {
 	*/
   class NashGame {
   private:
-	 GRBEnv *       Env = nullptr;
-	 arma::sp_mat   LeaderConstraints;                        ///< Upper level leader constraints LHS
-	 arma::vec      LeaderConstraintsRHS;                     ///< Upper level leader constraints RHS
-	 unsigned int   NumPlayers;                               ///< Number of players in the Nash Game
-	 VariableBounds Bounds;                                   ///< BoundsX on primal variables
+	 GRBEnv *       Env = nullptr;        ///< A pointer to the Gurobi Environment
+	 arma::sp_mat   LeaderConstraints;    ///< Upper level leader constraints LHS
+	 arma::vec      LeaderConstraintsRHS; ///< Upper level leader constraints RHS
+	 unsigned int   NumPlayers;           ///< Number of players in the Nash Game
+	 VariableBounds Bounds;               ///< BoundsX on primal variables
 	 std::vector<std::shared_ptr<MathOpt::MP_Param>> Players; ///< The QP that each player solves
 	 arma::sp_mat                                    MarketClearing; ///< Market clearing constraints
 	 arma::vec MCRHS; ///< RHS to the Market Clearing constraints
 
-	 /// @internal In the vector of variables of all players,
-	 /// which position does the variable corrresponding to this player starts.
+	 /**
+	  * @brief In the vector of variables of all players, which position does the variable
+	  * corresponding to this player starts.
+	  */
 	 std::vector<unsigned int> PrimalPosition;
-	 ///@internal In the vector of variables of all players,
-	 /// which position do the DUAL variable corrresponding to this player starts.
+
+	 /**
+	  * @brief In the vector of variables of all players, which position do the DUAL variable
+	  * corresponding to this player starts.
+	  */
 	 std::vector<unsigned int> DualPosition;
-	 /// @internal Manages the position of Market clearing constraints' duals
+	 /**
+	  * @brief Manages the position of Market clearing constraints' duals
+	  */
 	 unsigned int MC_DualPosition{};
-	 /// @internal Manages the position of where the leader's variables start
+	 /**
+	  * @brief  Manages the position of where the leader's variables start
+	  */
 	 unsigned int LeaderPosition{};
-	 /// Number of leader variables.
-	 /// These many variables will not have a matching complementary equation.
+	 /**
+	  * @brief  Manages the position of where the leader's variables start. These many variables will
+	  * not have a matching complementary equations.
+	  */
 	 unsigned int numLeaderVar;
 
 	 void setPositions();
@@ -67,17 +78,23 @@ namespace Game {
 
 	 /// Constructing a NashGame from a set of MathOpt::MP_Param, Market clearing
 	 /// constraints
-	 explicit NashGame(GRBEnv *                                        e,
-							 const std::vector<std::shared_ptr<MathOpt::MP_Param>>& players,
-							 arma::sp_mat                                    MC,
-							 arma::vec                                       MCRHS,
-							 unsigned int                                    nLeadVar = 0,
-							 arma::sp_mat                                    leadA    = {},
-							 arma::vec                                       leadRHS  = {});
+	 explicit NashGame(GRBEnv *                                               e,
+							 const std::vector<std::shared_ptr<MathOpt::MP_Param>> &players,
+							 arma::sp_mat                                           MC,
+							 arma::vec                                              MCRHS,
+							 unsigned int                                           nLeadVar = 0,
+							 arma::sp_mat                                           leadA    = {},
+							 arma::vec                                              leadRHS  = {});
 
-	 // Copy constructor
+	 /**
+	  * @brief Default copy constructor
+	  * @param N The original copy object
+	  */
 	 NashGame(const NashGame &N);
 
+	 /**
+	  * @brief Default destructor.
+	  */
 	 ~NashGame() = default;
 
 	 // Verbose declaration
@@ -132,18 +149,26 @@ namespace Game {
 	 } ///< Read-only access to the dual variables start position
 
 	 // Members
-	 const NashGame &formulateLCP(arma::sp_mat &  M,
-											arma::vec &     q,
-											perps &         Compl,
-											VariableBounds &Bounds,
-											bool            writeToFile = false,
-											const std::string&     M_name      = "dat/LCP.txt",
-											const std::string&     q_name      = "dat/q.txt") const;
+	 const NashGame &formulateLCP(arma::sp_mat &     M,
+											arma::vec &        q,
+											perps &            Compl,
+											VariableBounds &   Bounds,
+											bool               writeToFile = false,
+											const std::string &M_name      = "dat/LCP.txt",
+											const std::string &q_name      = "dat/q.txt") const;
 
 	 arma::sp_mat rewriteLeadCons() const;
 
+	 /**
+	  * @brief Gets the RHS of the Leader Constraints
+	  * @return THe LeaderConstraintsRHS object
+	  */
 	 inline arma::vec getLeadRHS() const { return this->LeaderConstraintsRHS; }
 
+	 /**
+	  * @brief Gets the RHS of the Market Clearing Constraints plus the leader ones
+	  * @return THe queried object
+	  */
 	 inline arma::vec getMCLeadRHS() const {
 		return arma::join_cols(arma::join_cols(this->LeaderConstraintsRHS, this->MCRHS),
 									  -this->MCRHS);

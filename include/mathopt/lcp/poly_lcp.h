@@ -23,16 +23,16 @@
 
 
 namespace Data::LCP {
+  /** @brief When expanding the feasible region of an inner approximated LCP, this
+	* enum controls the strategy being used.
+	*/
   enum class PolyhedraStrategy {
-	 /** @brief When expanding the feasible region of an inner approximated LCP, this
-	  * enum controls the strategy being used.
-	  */
 	 Sequential        = 0, ///< Adds polyhedra by selecting them in order
 	 ReverseSequential = 1, ///< Adds polyhedra by selecting them in reverse
 	 ///< Sequential order
 	 Random = 2 ///< Adds the next polyhedron by selecting Random feasible one
   };
-}
+} // namespace Data::LCP
 namespace MathOpt {
   /**
 	* @brief Inheritor Class to handle the polyhedral aspects of the LCP class,
@@ -166,6 +166,10 @@ namespace MathOpt {
 		return this->Outer_FeasibleApproximation;
 	 } ///< Getter (read-only) for the field PolyLCP::Outer_FeasibleApproximation
 
+	 /**
+	  * @brief Gets the CurrentPoly object
+	  * @return  PolyLCP::CurrentPoly
+	  */
 	 std::array<std::set<unsigned long int>, 2> getAllPolyhedra() const {
 		return this->CurrentPoly;
 	 }; ///< Getter (read-only) for the field PolyLCP::CurrentPoly
@@ -185,8 +189,11 @@ namespace MathOpt {
 	 unsigned int exactFullEnumeration(bool feasibilityCheck = true);
 	 std::string  feasabilityDetailString() const;
 	 bool         outerApproximate(const std::vector<bool> &encoding, bool clear = true);
+	 /**
+	  * @brief Gets the size of LCP::FeasiblePoly (0) for inner-approximated polyhedra.
+	  * @return The size ofLCP::FeasiblePoly at (0)
+	  */
 	 unsigned int getFeasiblePolyhedra() const { return this->FeasiblePoly[0].size(); }
-
 	 std::vector<short> numToVec(unsigned long number, const unsigned long nCompl, bool inner);
 	 unsigned long      vecToNum(std::vector<short> binary, bool inner);
   };

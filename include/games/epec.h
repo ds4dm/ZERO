@@ -92,6 +92,9 @@ namespace Data::EPEC {
 		  Data::EPEC::BranchingStrategy::HybridBranching;
 	 ///< The branching strategy for the Outer Approximation
 
+	 /**
+	  * @brief Standard initializer constructor.
+	  */
 	 DataObject()
 		  : PolyhedraStrategy{static_cast<Data::LCP::PolyhedraStrategy>(0)},
 			 LCPSolver{static_cast<Data::LCP::Algorithms>(0)} {};
@@ -104,17 +107,22 @@ namespace Game {
   ///@brief Class to handle a Nash game between leaders of Stackelberg games
   class EPEC : public AbstractGame<Data::EPEC::DataObject> {
   private:
-	 std::shared_ptr<Algorithms::EPEC::PolyBase> Algorithm{};
-	 std::vector<unsigned int>                   SizesWithoutHull{};
-	 std::unique_ptr<MathOpt::LCP>               TheLCP; ///< The EPEC nash game written as an LCP
-	 std::unique_ptr<GRBModel> LCPModel;     ///< A Gurobi mode object of the LCP form of EPEC
+	 std::shared_ptr<Algorithms::EPEC::PolyBase>
+		  Algorithm{}; ///< The incumbent algorithm used to solve the instance
+	 std::vector<unsigned int>
+		  SizesWithoutHull{}; ///< Size of leaders' variables without the convex hull variables
+	 std::unique_ptr<MathOpt::LCP> TheLCP;   ///< The EPEC nash game written as an LCP
+	 std::unique_ptr<GRBModel>     LCPModel; ///< A Gurobi mode object of the LCP form of EPEC
 	 std::unique_ptr<GRBModel> LCPModelBase; ///< A Gurobi mode object of the LCP form of EPEC. If
 	 ///< we are searching for a pure NE,
 	 ///< the LCP which is indifferent to pure or mixed NE is stored in this
 	 ///< object.
   protected:
-	 std::vector<std::shared_ptr<Game::NashGame>> PlayersLowerLevels{};
-	 std::vector<std::shared_ptr<MathOpt::LCP>>   PlayersLCP{};
+	 std::vector<std::shared_ptr<Game::NashGame>>
+		  PlayersLowerLevels{}; ///< The lower level Nash Games among the followers
+	 std::vector<std::shared_ptr<MathOpt::LCP>>
+		  PlayersLCP{}; ///< The LCP of each leader, encompassing both Stackelberg and low-level Nash
+							 ///< games
 
 	 std::vector<std::shared_ptr<MathOpt::QP_Param>>
 		  PlayersQP{}; ///< The QP corresponding to each player
@@ -131,41 +139,68 @@ namespace Game {
 	 /// hull variables at the current moment. The used, i.e., the inheritor of
 	 /// Game::EPEC has the responsibility to keep this correct by implementing an
 	 /// override of Game::EPEC::updateLocations.
-	 std::vector<const unsigned int *> LocEnds{};
-	 std::vector<unsigned int>         ConvexHullVariables{};
-	 unsigned int                      numMCVariables{0};
+	 std::vector<const unsigned int *>
+		  LocEnds{}; ///< The ending locations for the leaders' variables
+	 std::vector<unsigned int>
+					  ConvexHullVariables{}; ///< Number of convex hull variables for each leader
+	 unsigned int numMCVariables{0};     ///< Number of market clearning variables
 
-	 bool      Finalized{false};
+	 bool      Finalized{false};         ///< A flag controlling if the EPEC was finalized
 	 arma::vec SolutionZ,                ///< Solution equation values
 		  SolutionX;                      ///< Solution variable values
 	 bool warmstart(const arma::vec &x); ///< Warmstarts EPEC with a solution
 
   private:
-	 void       addDummyLead(unsigned int i); ///< Add Dummy variables for the leaders
-	 const void makePlayerQP(unsigned int i);
+	 void addDummyLead(unsigned int i); ///< Add Dummy variables for the leaders
+	 void makePlayerQP(unsigned int i);
 
 	 void makePlayersQPs();
 
 	 void makeTheLCP();
 
+
 	 void computeLeaderLocations(unsigned int addSpaceForMC = 0);
 
-	 void getXMinusI(const arma::vec &x, const unsigned int &i, arma::vec &solOther) const;
+	 void getXMinusI(const arma::vec &x, const unsigned int &i, arma::vec &xMinusI) const;
 
 	 bool computeNashEq(
 		  bool pureNE, double localTimeLimit, bool check, bool linearWelfare, bool quadraticWelfare);
 
   protected:
-	 // virtual function to be implemented by the inheritor.
+	 /**
+	  * @brief Empty function - optionally re-implementable in derived class
+	  * @param i The player id
+	  * @param QP_obj The QP_object with the objective
+	  */
 	 virtual void makeObjectivePlayer(const unsigned int i, MathOpt::QP_Objective &QP_obj) = 0;
 
-	 // virtual function to be optionally implemented by the inheritor.
-	 virtual void preFinalize();
+	 /**
+	  * @brief Empty function - optionally re-implementable in derived class
+	  * @details This function can be optionally implemented by
+	  * the derived class. Code in this class will be run <i>before</i>
+	  * calling Game::EPEC::finalize().
+	  */
+	 virtual void preFinalize() = 0;
 
-	 virtual void postFinalize();
+	 /**
+	  * @brief Empty function - optionally re-implementable in derived class
+	  * @details This function can be optionally implemented by
+	  * the derived class. Code in this class will be run <i>after</i>
+	  * calling Game::EPEC::finalize().
+	  */
+	 virtual void postFinalize() = 0;
 
-	 virtual void updateLocations() = 0; // If any location tracking system is implemented, that
-	 // can be called from in here.
+	 /**
+	  * @brief Empty function - optionally re-implementable in derived class
+	  * @details If any location tracking system is implemented, that  can be called from in here.
+	  */
+	 virtual void updateLocations() = 0;
+	 /**
+	  * @brief Empty function - optionally re-implementable in derived class
+	  * @details Builds the Market Clearing constraints
+	  * @param MC MC constraints matrix
+	  * @param RHS RHS for the constraints
+	  */
 	 virtual void makeMCConstraints(arma::sp_mat &MC, arma::vec &RHS) const {
 		MC.zeros();
 		RHS.zeros();
@@ -183,14 +218,18 @@ namespace Game {
 
 	 friend class Algorithms::EPEC::FullEnumeration;
 
+	 /**
+	  * @brief The standard constructor. Initialize an empty instance.
+	  * @param env The Gurobi environment pointer.
+	  */
 	 EPEC(GRBEnv *env) { this->Env = env; };
 
 	 void finalize();
 
 	 // Override AbstractGame methods
-	 const void findNashEq() override;
-	 bool       isSolved(double tol = 1e-5) const override;
-	 bool       isPureStrategy(double tol = 1e-5) const override;
+	 void findNashEq() override;
+	 bool isSolved(double tol = 1e-5) const override;
+	 bool isPureStrategy(double tol = 1e-5) const override;
 
 	 std::unique_ptr<GRBModel>
 	 respond(const unsigned int i, const arma::vec &x, MathOpt::PolyLCP *customLCP = nullptr) const;
@@ -201,25 +240,32 @@ namespace Game {
 							 const arma::vec & prevDev   = {},
 							 MathOpt::PolyLCP *customLCP = nullptr) const;
 
+	 /**
+	  * @brief Getter for the incumbent solution (x)
+	  * @return The incumbent x
+	  */
 	 const arma::vec getX() const { return this->SolutionX; }
 
-	 void reset() { this->SolutionX.ones(); }
-
+	 /**
+	  * @brief Getter for the incumbent solution (z)
+	  * @return The incumbent z
+	  */
 	 const arma::vec getZ() const { return this->SolutionZ; }
 
 	 void setAlgorithm(Data::EPEC::Algorithms algorithm);
 
 	 void setRecoverStrategy(Data::EPEC::RecoverStrategy strategy);
 
-    void setBranchingStrategy(Data::EPEC::BranchingStrategy strategy);
+	 void setBranchingStrategy(Data::EPEC::BranchingStrategy strategy);
 
 	 void setAggressiveness(unsigned int a) { this->Stats.AlgorithmData.Aggressiveness = a; }
 
+	 /**
+	  * @brief Set the Data::LCP::PolyhedraStrategy for the inner approximation
+	  */
 	 void setAddPolyMethod(Data::LCP::PolyhedraStrategy add) {
 		this->Stats.AlgorithmData.PolyhedraStrategy.set(add);
 	 }
-	 // Methods to get positions of variables
-	 // The below are all const functions which return an unsigned int.
 
 	 unsigned int getPositionLeadFoll(unsigned int i, unsigned int j) const;
 
@@ -246,7 +292,7 @@ namespace Game {
 
 	 void getXWithoutHull(const arma::vec &x, arma::vec &xWithoutHull) const;
 	 void
-	 getXofI(const arma::vec &x, const unsigned int &i, arma::vec &solI, bool hull = false) const;
+	 getXofI(const arma::vec &x, const unsigned int &i, arma::vec &xOfI, bool hull = false) const;
 	 void setWelfareObjective(bool linear, bool quadratic);
   };
 }; // namespace Game

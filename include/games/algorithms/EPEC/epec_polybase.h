@@ -63,30 +63,30 @@ namespace Algorithms::EPEC {
 
 		virtual void solve() = 0; ///< A general method to solve problems
 		bool isSolved(unsigned int *player, arma::vec *profitableDeviation, double tol = -1) const;
-		[[nodiscard]] bool isSolved(double tol = -1) const; ///< A method to check whether the EPEC is solved or
+		virtual bool isSolved(double tol = 1e5); ///< A method to check whether the EPEC is solved or
 														  ///< not, given a numerical tolerance
 		void makeThePureLCP();
 
-		[[nodiscard]] double
+		 double
 		getValLeadFollPoly(unsigned int i, unsigned int j, unsigned int k, double tol = 1e-5) const;
 
-		[[nodiscard]] double
+		 double
 		getValLeadLeadPoly(unsigned int i, unsigned int j, unsigned int k, double tol = 1e-5) const;
 
-		[[nodiscard]] double getValProbab(unsigned int i, unsigned int k) const;
+		 double getValProbab(unsigned int i, unsigned int k) const;
 
-		[[nodiscard]] bool isPureStrategy(unsigned int i, double tol = 1e-5) const;
+		 bool isPureStrategy(unsigned int i, double tol = 1e-5) const;
 
-		[[nodiscard]] bool isPureStrategy(double tol = 1e-5) const;
+		 bool isPureStrategy(double tol = 1e-5) const;
 
-		[[nodiscard]] std::vector<unsigned int> mixedStrategyPoly(unsigned int i, double tol = 1e-5) const;
-		[[nodiscard]] unsigned int getPositionLeadFollPoly(unsigned int i, unsigned int j, unsigned int k) const;
+		 std::vector<unsigned int> mixedStrategyPoly(unsigned int i, double tol = 1e-5) const;
+		 unsigned int getPositionLeadFollPoly(unsigned int i, unsigned int j, unsigned int k) const;
 
-		[[nodiscard]] unsigned int getPositionLeadLeadPoly(unsigned int i, unsigned int j, unsigned int k) const;
+		 unsigned int getPositionLeadLeadPoly(unsigned int i, unsigned int j, unsigned int k) const;
 
-		[[nodiscard]] unsigned long int getNumPolyLead(unsigned int i) const;
+		 unsigned long int getNumPolyLead(unsigned int i) const;
 
-		[[nodiscard]] unsigned int getPositionProbab(unsigned int i, unsigned int k) const;
+		 unsigned int getPositionProbab(unsigned int i, unsigned int k) const;
 	 };
   } // namespace Algorithms
 

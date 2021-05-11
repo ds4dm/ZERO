@@ -40,10 +40,10 @@ namespace Solvers {
 		double *lb; ///< n-dimensional array of lower bounds
 		double *ub; ///< n-dimensional array of upper bounds
 
-		int *   m_start;
-		int *   m_len;
-		int *   m_row;
-		double *m_data; ///< Data of M, in fortran style
+		int *   m_start; ///< Fortran like start of M
+		int *   m_len; ///< Fortran like length of M
+		int *   m_row; ///< Fortran like row of M
+		double *m_data; ///< Fortran like data of M
 
 		double *q; ///< q vector
 	 } PATHProblem;

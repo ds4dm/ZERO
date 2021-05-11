@@ -45,15 +45,15 @@ namespace Algorithms::EPEC {
 		 * which the resulting child node is infeasible.
 		 * @return The number of unsuitable branching candidates
 		 */
-		[[nodiscard]] inline unsigned long int getCumulativeBranches() const {
+		inline unsigned long int getCumulativeBranches() const {
 		  return std::count(this->AllowedBranchings.begin(), this->AllowedBranchings.end(), false);
 		}
 
-		[[nodiscard]] inline std::vector<bool> getEncoding() const {
+		inline std::vector<bool> getEncoding() const {
 		  return this->Encoding;
 		} ///< Getter method for the encoding.
 
-		[[nodiscard]] inline std::vector<bool> getAllowedBranchings() const {
+		inline std::vector<bool> getAllowedBranchings() const {
 		  return this->AllowedBranchings;
 		} ///< Getter method for the allowed branchings
 
@@ -160,7 +160,11 @@ namespace Algorithms::EPEC {
 
 	 inline Node *getRoot() { return &this->Root; } ///< Getter for the root node
 
-	 inline std::vector<Node> *getNodes() { return &this->Nodes; }; ///< Getter for all the nodes
+	 /**
+	  * @brief A getter method for the nodes in the tree
+	  * @return The pointer to the nodes in the tree
+	  */
+	 inline std::vector<Node> *getNodes() { return &this->Nodes; };
 
 	 void denyBranchingLocation(Node &node, const unsigned int &location) const;
 
@@ -171,8 +175,14 @@ namespace Algorithms::EPEC {
   class OuterApproximation : public PolyBase {
 
   public:
-	 OuterApproximation(GRBEnv *env, Game::EPEC *EPECObject) : PolyBase(env, EPECObject){};
-	 [[nodiscard]] double getTol() const {
+	 /**
+	  * @brief Standard constructor.
+	  * @param env Pointer to the Gurobi environment
+	  * @param EPECObject Pointer to the EPEC
+	  */
+	 explicit OuterApproximation(GRBEnv *env, Game::EPEC *EPECObject) : PolyBase(env, EPECObject){};
+    OuterApproximation() = delete;
+	 double getTol() const {
 		return this->Tolerance;
 	 } ///< Read-Only getter for OuterApproximation::Tolerance
 	 void setTol(double tol) { this->Tolerance = tol; } ///< Setter for OuterApproximation::Tolerance
@@ -181,7 +191,7 @@ namespace Algorithms::EPEC {
 	 void        printCurrentApprox();
 	 static void printBranchingLog(std::vector<int> vector);
 
-	 bool isSolved(double tol = 1e-4);
+	 bool isSolved(double tol = 1e-4) override;
 	 bool isFeasible(bool &addedCuts);
 	 bool isPureStrategy(double tol = 1e-4) const;
 
@@ -192,11 +202,13 @@ namespace Algorithms::EPEC {
 	 bool                           Feasible{false}; ///< True if a feasible solution has been found
 	 double Tolerance = 5 * 1e-4;                    ///< The numerical tolerance for the algorithm
 
-	 [[maybe_unused]] std::vector<int> getNextBranchLocation(unsigned int     player,
-																				OuterTree::Node *node);
-	 int getFirstBranchLocation(const unsigned int player, OuterTree::Node *node);
+	 std::vector<int> getNextBranchLocation(unsigned int player, OuterTree::Node *node);
+	 int              getFirstBranchLocation(const unsigned int player, OuterTree::Node *node);
 
   protected:
+	 /**
+	  * @brief Standard method for post-solve execution.
+	  */
 	 void after();
 
 	 void                      updateMembership(const unsigned int &player, const arma::vec &xOfI);

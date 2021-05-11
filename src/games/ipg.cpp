@@ -13,16 +13,18 @@
 
 #include "../../include/games/ipg.h"
 
+/**
+ * @brief This constructors initializes the integer programming game with the
+ * Gurobi environment @p env and the vector of shared pointers to the
+ * IP_Params in @p players
+ * @param env Pointer to the Gurobi environment
+ * @param players The MathOpt::IP_Param for the players
+ */
 Game::IPG::IPG(
 	 GRBEnv *                                        env,    ///< A pointer to the Gurobi Environment
 	 std::vector<std::shared_ptr<MathOpt::IP_Param>> players ///< A vector containing the pointers to
 																				///< the IP param for each player
 ) {
-  /**
-	* @brief This constructors initializes the integer programming game with the
-	* gurobi environment @p env and the vector of shared pointers to the
-	* IP_Params in @p players
-	*/
 
   this->Env       = env;
   this->PlayersIP = players;
@@ -30,12 +32,14 @@ Game::IPG::IPG(
 }
 
 
+/**
+ * @brief This methods finalizes the model by disabling any edits to the
+ * number of players. The proper object (for instance, the ones counting
+ * players variables) are initialized with the right values.
+ */
 void Game::IPG::finalize() {
-  /**
-	* @brief This methods finalizes the model by disabling any edits to the
-	* number of players. The proper object (for instance, the ones counting
-	* players variables) are initialized with the right values.
-	*/
+
+  this->preFinalize();
   this->NumPlayers      = this->PlayersIP.size();
   this->PlayerVariables = std::vector<unsigned int>(this->NumPlayers);
   this->Solution        = std::vector<arma::vec>(this->NumPlayers);
@@ -46,6 +50,7 @@ void Game::IPG::finalize() {
 	 this->PlayersIP.at(i)->finalize();
   }
   this->Finalized = true;
+  this->postFinalize();
 }
 
 void Game::IPG::getXMinusI(
@@ -94,7 +99,7 @@ void Game::IPG::getXofI(const arma::vec &x, ///< The vector containing the full 
 }
 
 
-const void Game::IPG::findNashEq() {
+void Game::IPG::findNashEq() {
   std::stringstream final_msg;
   if (!this->Finalized)
 	 this->finalize();

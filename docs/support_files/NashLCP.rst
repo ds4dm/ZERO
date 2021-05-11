@@ -1,7 +1,7 @@
 Nash LCP Example
 *****************
 
-Before reading this page, please ensure you are aware of the functionalities described the tutorial for ``QP_Param``. Assume we have two players:
+Assume we have two players:
 
 **Player 1**
 
@@ -27,7 +27,7 @@ where the demand curve is given by :math:`P = a-BQ` where ``P`` is the market pr
 Modeling the problem
 ====================================
 
-To handle this problem, first we create two objects of :py:class:`Game::QP_Param` to model each player's optimization problem, as parameterized by the other.
+To handle this problem, first we create two objects of :cpp:class:`MathOpt::QP_Param` to model each player's optimization problem, as parameterized by the other.
 
 .. code-block:: c
 
@@ -38,13 +38,13 @@ To handle this problem, first we create two objects of :py:class:`Game::QP_Param
         Q(0, 0) = 2 * 1.1;
         C(0, 0) = 1;
         c(0) = -90;
-        auto q1 = std::make_shared<Game::QP_Param>(Q, C, A, B, c, b, &env);
+        auto q1 = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, &env);
 
         Q(0, 0) = 2 * 1.2;
         c(0) = -95;
-        auto q2 = std::make_shared<Game::QP_Param>(Q, C, A, B, c, b, &env);
+        auto q2 = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, &env);
 
-        std::vector<shared_ptr<Game::QP_Param>> q{q1, q2}; // Making a vector shared_ptr to the individual players' problem
+        std::vector<shared_ptr<MathOpt::QP_Param>> q{q1, q2}; // Making a vector shared_ptr to the individual players' problem
 
 
 Next, since we do not have any Market clearing constraints, we set empty matrices for them. Note that, if the problem does not have market clearing constraints, still the matrices have to be input with zero rows and appropriate number of columns.
@@ -55,7 +55,7 @@ Next, since we do not have any Market clearing constraints, we set empty matrice
         vec MCRHS;
         MCRHS.set_size(0);
 
-Finally now, we can make the :py:class:`Game::NashGame` object by invoking the constructor.
+Finally now, we can make the :cpp:class:`Game::NashGame` object by invoking the constructor.
 
 .. code-block:: c
 
@@ -72,7 +72,7 @@ to solve the above problem. The LCP is given as follows.
 
  0 \le q_2 \perp q_1 + 2.4 q_2 - 95 \geq 0
 
-To observe the LCP formulation of this NashGame, one can use :py:func:`Game::NashGame::FormulateLCP` member function.
+To observe the LCP formulation of this NashGame, one can use :cpp:func:`Game::NashGame::FormulateLCP` member function.
 
 .. code-block:: c
 
@@ -84,14 +84,14 @@ To observe the LCP formulation of this NashGame, one can use :py:func:`Game::Nas
         q.print(); 
 
 Here ``M`` and ``q`` are such that the solution to the LCP :math:`0 \le x \perp Mx + q \ge 0` solves the original NashGame. These matrices can be written to a file and solved externally now.
-Alternatively, one can pass it to the :py:class:`Game::LCP` class, and solve it natively. To achieve this, one can pass the above matrices to the constructor of the :py:class:`Game::LCP` class.
+Alternatively, one can pass it to the :cpp:class:`Game::LCP` class, and solve it natively. To achieve this, one can pass the above matrices to the constructor of the :cpp:class:`Game::LCP` class.
 
 .. code-block:: c
 
         GRBEnv env = GRBEnv();
         Game::LCP lcp = Game::LCP(&env, M, q, 1, 0);
 
-More concisely, the class :py:class:`Game::LCP` offers a constructor with the NashGame itself as an argument. This way, one need not explicitly compute ``M``, ``q`` etc., to create the ``Game::LCP`` object.
+More concisely, the class :cpp:class:`Game::LCP` offers a constructor with the NashGame itself as an argument. This way, one need not explicitly compute ``M``, ``q`` etc., to create the ``Game::LCP`` object.
 
 .. code-block:: c
 
@@ -103,17 +103,17 @@ Now the ``Game::LCP`` object can be solved. And indeed the solution helps obtain
 .. code-block:: c
 
  auto model = lcp.LCPasMIP();
- model.optimize();			
+ model.optimize();
  // Alternatively, auto model = lcp.LCPasMIP(true); will already optimize and solve the model.
 
-As was the case with :py:func:`Game::QP_Param::solveFixed`, the above function returns a
+As was the case with :cpp:func:`MathOpt::QP_Param::solveFixed`, the above function returns a
 ``unique_ptr`` to ``GRBModel``. And all native operations to the ``GRBModel` can be performed and the solution be obtained.
 
 ====================================
 Checking the solution
 ====================================
 
-The solution to this problem can be obtained as :math:`q_1=28.271028, q_2=27.803728`. To indeed check that this solution is correct, one can create a solution vector and solve each player's :py:class:`Game::QP_Param` and check that the solution indeed matches.
+The solution to this problem can be obtained as :math:`q_1=28.271028, q_2=27.803728`. To indeed check that this solution is correct, one can create a solution vector and solve each player's :cpp:class:`MathOpt::QP_Param` and check that the solution indeed matches.
  
 .. code-block:: c
 
@@ -121,14 +121,14 @@ The solution to this problem can be obtained as :math:`q_1=28.271028, q_2=27.803
   Nashsol(0) = model->getVarByName("x_0").get(GRB_DoubleAttr_X); // This is 28.271028 
   Nashsol(1) = model->getVarByName("x_1").get(GRB_DoubleAttr_X); // This is 27.803728
 
-  auto nashResp1 = Nash.Respond(0, Nashsol);
-  auto nashResp2 = Nash.Respond(1, Nashsol);
+  auto nashResp1 = Nash.respond(0, Nashsol);
+  auto nashResp2 = Nash.respond(1, Nashsol);
 
   cout<<nashResp1->getVarByName("y_0").get(GRB_DoubleAttr_X)<<endl; // Should print 28.271028
   cout<<nashResp2->getVarByName("y_0").get(GRB_DoubleAttr_X)<<endl; // Should print 27.803728
 
 
-One can, thus check that the values match the solution values obtained earlier. If only does not want the individual ``GRBModel`` handles, but just want to confirm either that the problem is solved or to provide a player with profitable deviation, one can just use :py:func:`Game::NashGame::isSolved` function as follow.
+One can, thus check that the values match the solution values obtained earlier. If only does not want the individual ``GRBModel`` handles, but just want to confirm either that the problem is solved or to provide a player with profitable deviation, one can just use :cpp:func:`Game::NashGame::isSolved` function as follow.
 
 .. code-block:: c
 
@@ -136,9 +136,9 @@ One can, thus check that the values match the solution values obtained earlier. 
 	cout<<Nash.isSolved(Nashsol, temp1, temp2); // This should be true.
 
 
-If the :py:func:`Game::NashGame::isSolved` function returns false, then ``temp1`` and ``temp2`` respectively contain the player with profitable deviation, and the more profitable strategy of the player.
+If the :cpp:func:`Game::NashGame::isSolved` function returns false, then ``temp1`` and ``temp2`` respectively contain the player with profitable deviation, and the more profitable strategy of the player.
 
-And note that, just like :py:class:`Game::QP_Param`, :py:class:`Game::NashGame` can also be saved to and loaded from an external file.
+And note that, just like :cpp:class:`MathOpt::QP_Param`, :cpp:class:`Game::NashGame` can also be saved to and loaded from an external file.
 
 .. code-block:: c
 
@@ -147,4 +147,4 @@ And note that, just like :py:class:`Game::QP_Param`, :py:class:`Game::NashGame` 
         Nash2.load("dat/Nash.dat"); // Loads the object into memory.
 
 
-Now that you are aware of most of the functionalities of :py:class:`Game::NashGame`, let us switch to the next tutorial on the `LCP` class.
+Now that you are aware of most of the functionalities of :cpp:class:`Game::NashGame`, let us switch to the next tutorial on the `LCP` class.

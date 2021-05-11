@@ -263,6 +263,7 @@ int Solvers::PATH::CreateLMCP(int    n,
  * @param z Output vector of x
  * @param x Output vector of z equation values
  * @param timeLimit A double timelimit
+ * @param verbose True if verbosity is required
  */
 Solvers::PATH::PATH(const arma::sp_mat &  M,
 						  const arma::vec &     q,
@@ -380,7 +381,7 @@ Solvers::PATH::PATH(const arma::sp_mat &  M,
 /**
  * @brief Assigns bounds to variables. See PATH documentation for more
  * @param n Number of variables
- * @param n Pointer to variables
+ * @param x Pointer to variables
  * @param lb Lower bounds on variables
  * @param ub Upper bounds on variables
  */
@@ -582,7 +583,7 @@ int Solvers::PATH::jacobian_evaluation(void *  dat,
  * @param dat The data passed by the PATH callback. Usually, it is an instance of the class
  * @param mode Print-mode. Currently unused, see PATH documentation for more
  * @param buf  The char buffer
- * @return
+ * @return Not used. An instance of this
  */
 void *Solvers::PATH::messageCB(void *dat, int mode, char *buf) {
   // std::cout << buf;

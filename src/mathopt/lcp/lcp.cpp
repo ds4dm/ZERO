@@ -536,8 +536,8 @@ void MathOpt::LCP::makeQP(MathOpt::QP_Objective &QP_obj, MathOpt::QP_Param &QP) 
 
 /**
  * @brief Adds custom cuts defined in the input to the LCP::A and LCP::b objects
- * @param A The LHS of the added cuts
- * @param b The RHS of the added cuts
+ * @param A_in The LHS of the added cuts
+ * @param b_in The RHS of the added cuts
  * note This method does not check whether such cuts are already in the LCP.
  */
 

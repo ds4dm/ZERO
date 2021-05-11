@@ -51,21 +51,21 @@ int main(int argc, char **argv) {
 				if (access(filec.c_str(), F_OK) == 0) {
 
 				  std::vector<Data::LCP::Algorithms> algos = {
-						//Data::LCP::Algorithms::MIP,
+						Data::LCP::Algorithms::MIP,
 						//Data::LCP::Algorithms::MINLP,
 						Data::LCP::Algorithms::PATH
 				  };
 
 				  std::vector<Data::IPG::Objectives> objectives = {
-						//Data::IPG::Objectives::Quadratic,
-						//Data::IPG::Objectives::Linear,
+						Data::IPG::Objectives::Quadratic,
+						Data::IPG::Objectives::Linear,
 						Data::IPG::Objectives::Feasibility
 				  };
 
 				  std::vector<Data::IPG::CutsAggressiveness> cuts = {
 						Data::IPG::CutsAggressiveness::NoThanks,
 						Data::IPG::CutsAggressiveness::KeepItCool,
-						Data::IPG::CutsAggressiveness::Truculent
+						//Data::IPG::CutsAggressiveness::Truculent
 				  };
 
 

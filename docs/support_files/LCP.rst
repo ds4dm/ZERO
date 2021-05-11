@@ -2,8 +2,7 @@ LCP Example
 ***************
 
  Before reading this page, please ensure you are aware of the functionalities
- described in @link NashGame_Example Game::NashGame tutorial @endlink before
- following this page.
+ described of Game::NashGame.
 
  Consider the Following linear complementarity problem with constraints
 
@@ -14,7 +13,7 @@ LCP Example
   0 \leq x \perp Mx + numVars + q \geq 0`
 
 
-These are the types of problems that are handled by the class :py:func:`Game::LCP`, but we use a different notation. Instead of using ``y`` to refer to the variables that don't have matching complementary equations, we call *all* the variables as ``x`` and we keep track of the position of variables which are not complementary to any equation.
+These are the types of problems that are handled by the class :cpp:func:`MathOpt::LCP`, but we use a different notation. Instead of using ``y`` to refer to the variables that don't have matching complementary equations, we call *all* the variables as ``x`` and we keep track of the position of variables which are not complementary to any equation.
 
 **Points to note:**
 
@@ -42,7 +41,7 @@ Now consider the following linear complementarity problem.
         0 \le x_5 \perp x_2 - x_3 + 5 \ge 0
 
 
-Here indeed :math:`x_2` is the leader vars component with no complementarity equation. This problem can be entered into the :py:class:`Game::LCP` class as follows.
+Here indeed :math:`x_2` is the leader vars component with no complementarity equation. This problem can be entered into the :cpp:class:`MathOpt::LCP` class as follows.
 
 .. code-block:: c
 
@@ -74,7 +73,7 @@ Here indeed :math:`x_2` is the leader vars component with no complementarity equ
         A(1, 2) = 1;
         b(1) = 12;
 
-Now, since the variable with no complementarity pair is :math:`x_2` which is in position ``1`` (counting from 0) of the vector ``x``, the arguments ``LeadStart`` and ``LeadEnd`` in the constructor, :py:func:`Game::LCP::LCP` are ``1`` as below.
+Now, since the variable with no complementarity pair is :math:`x_2` which is in position ``1`` (counting from 0) of the vector ``x``, the arguments ``LeadStart`` and ``LeadEnd`` in the constructor, :cpp:func:`MathOpt::LCP::LCP` are ``1`` as below.
 
 .. code-block:: c
    
@@ -85,22 +84,16 @@ Now, since the variable with no complementarity pair is :math:`x_2` which is in 
 Solving
 ==========
 
-This problem can be solved either using big-M based disjunctive formulation with the value of the @p bigM can also be chosen.
-But a more preferred means of solving is by using SOS1 constraints, or indicator constraints. Use the former option, only if you are very confident of  your choice of a small value of ``bigM``
+This problem can be solved either with a MIP, a MINLP, or with PATH (:cpp:enum:`Data::LCP::Algorithms`). You refer :cpp:func:`MathOpt::LCP::solve` for various solution method.
 
 .. code-block:: c
 
- // Solve using bigM constraints
- lcp.useIndicators = false;
- lcp.bigM = 1e5;
- auto bigMModel = lcp.LCPasMIP(true);
-
- // Solve using indicator constraints
- lcp.useIndicators = true;
- auto indModel = lcp.LCPasMIP(true);
+ // Solve using PATH
+ arma::vec x;
+ arma::vec z;
+ auto indModel = lcp.solve(Data::LCP::Algorithms::PATH,x,z,-1,1);
 
 
-Both ``bigMModel`` and ``indModel`` are :py:func:`std::unique_ptr`  to ``GRBModel`` objects. So all native gurobi operations can be performed on these objects.
 This LCP as multiple solutions. In fact the solution set can be parameterized as below.
 
 .. math::
@@ -121,7 +114,7 @@ This LCP as multiple solutions. In fact the solution set can be parameterized as
 Utilities
 ====================================
 
-However, sometimes one might want to solve an MPEC. i.e., optimize over the feasible region of the set as decribed above. For this purpose, two functions :py:func:`Game::LCP::LCPasMILP` and :py:func:`Game::LCP::LCPasMIQP` are available, depending upon whether one wants to optimize a linear objective function or a convex quadratic
-objective function over the set of solutions.
+However, sometimes one might want to solve an MPEC. i.e., optimize over the feasible region of the set as decribed above. For this purpose, two functions :cpp:func:`MathOpt::LCP::LCPasMILP` and :cpp:func:`MathOpt::LCP::LCPasMIQP` are available, depending upon whether one wants to optimize a linear objective function or a convex quadratic
+objective function over the set of solutions. Also, note that :cpp:func:`MathOpt::LCP::setMIPLinearObjective`, :cpp:func:`MathOpt::LCP::setMIPQuadraticObjective`, :cpp:func:`MathOpt::LCP::setMIPFeasibilityObjective` can change the objective function of the MIP model (if one is called for solving the LCP).
 
 

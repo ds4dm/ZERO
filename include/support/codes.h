@@ -124,7 +124,10 @@ public:
 
 /**
  * @brief Custom assertion manager
- * @param b The boolean to evaluate
+ * @param b  The assertion expression
+ * @param callerFn Filled with the caller function
+ * @param callerFile Filled with the caller file
+ * @param callerLine Filled with the caller line
  */
 void ZEROAssert(bool        b,
 					 const char *callerFn   = __builtin_FUNCTION(),

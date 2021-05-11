@@ -127,9 +127,9 @@ std::unique_ptr<GRBModel> MathOpt::QP_Param::solveFixed(arma::vec x, bool solve)
 
 
 /**
- * @brief  Writes the KKT condition of the parameterized QP
+ * @brief  Writes the KKT condition of the parameterized QP.
  * As per the convention, y is the decision variable for the QP and
- * that is parameterized in x
+ * that is parameterized in x.
  * The KKT conditions are
  * \f$0 \leq y \perp  My + Nx + q \geq 0\f$
  * @param M The output M term
@@ -303,12 +303,12 @@ long int MathOpt::QP_Param::load(const std::string &filename, long int pos) {
 
 /**
  * @brief Constructor to set the data with copies
- * @param Q Quadratic term for y in the objective
- * @param C Bi-linear term for x-y in the objective
- * @param A Matrix of constraints for the parameters x
- * @param B Matrix of constraints for the variables y
- * @param c Vector of linear terms for y in the objective
- * @param b Vector of RHS in the constraints
+ * @param Q_in Quadratic term for y in the objective
+ * @param C_in Bi-linear term for x-y in the objective
+ * @param A_in Matrix of constraints for the parameters x
+ * @param B_in Matrix of constraints for the variables y
+ * @param c_in Vector of linear terms for y in the objective
+ * @param b_in Vector of RHS in the constraints
  * @param env A Gurobi Environment pointer
  * @return A pointer to this
  * @warning The input data may be corrupted after

@@ -12,14 +12,8 @@
 
 
 #include "games/nash.h"
-Game::NashGame::NashGame(GRBEnv *                                        e,
-								 const std::vector<std::shared_ptr<MathOpt::MP_Param>>& players,
-								 arma::sp_mat                                    MC,
-								 arma::vec                                       MCRHS,
-								 unsigned int                                    nLeadVar,
-								 arma::sp_mat                                    leadA,
-								 arma::vec                                       leadRHS)
-	 : Env{e}, LeaderConstraints{leadA}, LeaderConstraintsRHS{leadRHS}
+
+
 /**
  * @brief
  * Construct a NashGame by giving a std::vector of pointers to
@@ -38,8 +32,22 @@ Game::NashGame::NashGame(GRBEnv *                                        e,
  * It will allocate appropriate space for the dual variables
  * for each player.
  *
+ * @param e A pointer to the Gurobi Environment
+ * @param players The MathOpt::MP_Param associated to the players
+ * @param MC Market clearing LHS matrix
+ * @param MCRHS Market clearing RHS vector
+ * @param nLeadVar Number of leaders' variables
+ * @param leadA Leaders' constraints
+ * @param leadRHS Leaders' RHSs
  */
-{
+Game::NashGame::NashGame(GRBEnv *                                               e,
+								 const std::vector<std::shared_ptr<MathOpt::MP_Param>> &players,
+								 arma::sp_mat                                           MC,
+								 arma::vec                                              MCRHS,
+								 unsigned int                                           nLeadVar,
+								 arma::sp_mat                                           leadA,
+								 arma::vec                                              leadRHS)
+	 : Env{e}, LeaderConstraints{leadA}, LeaderConstraintsRHS{leadRHS} {
   // Setting the class variables
   this->numLeaderVar   = nLeadVar;
   this->NumPlayers     = players.size();
@@ -77,26 +85,29 @@ void Game::NashGame::save(const std::string &filename, bool erase) const {
   Utils::appendSave(this->numLeaderVar, filename, std::string("NashGame::numLeaderVar"), false);
 }
 
+/**
+ * @brief Loads the @p NashGame object stored in a file.  Before calling this
+ * function, use the constructor NashGame::NashGame(GRBEnv *Env) to
+ * initialize. Loads the @p NashGame object stored in a file.  Before calling
+ * this function, use the constructor NashGame::NashGame(GRBEnv *Env) to
+ * initialize.
+ * @details Example usage:
+ *  @code{.cpp}
+ * int main()
+ * {
+ * 		GRBEnv Env;
+ * 		Game::NashGame N(&Env);
+ * 		N.load("./dat/Ndata.dat");
+ * 		std::cout<<N<<'\n';
+ * 		return 0;
+ * }
+ * @endcode
+ * @param filename The filename
+ * @param pos The start writing position
+ * @return The end position
+ */
 long int Game::NashGame::load(const std::string &filename, long int pos) {
-  /**
-	* @brief Loads the @p NashGame object stored in a file.  Before calling this
-	* function, use the constructor NashGame::NashGame(GRBEnv *Env) to
-	* initialize.
-	* @details Loads the @p NashGame object stored in a file.  Before calling
-	* this function, use the constructor NashGame::NashGame(GRBEnv *Env) to
-	* initialize. Example usage:
-	* @code{.cpp}
-	* int main()
-	* {
-	* 		GRBEnv Env;
-	* 		Game::NashGame N(&Env);
-	* 		N.load("./dat/Ndata.dat");
-	* 		std::cout<<N<<'\n';
-	* 		return 0;
-	* }
-	* @endcode
-	*
-	*/
+
   if (!this->Env)
 	 throw ZEROException(ZEROErrorCode::Assertion, "The solver environment is empty.");
   std::string headercheck;
@@ -148,13 +159,13 @@ long int Game::NashGame::load(const std::string &filename, long int pos) {
   return pos;
 }
 
-void Game::NashGame::setPositions()
 /**
- * Stores the position of each players' primal and dual variables. Also
- allocates Leader's position appropriately.
- * The ordering is according to the columns of
-			@image html formulateLCP.png
+ * @brief Stores the position of each players' primal and dual variables. Also allocates Leader's
+ * position appropriately. The ordering is according to the columns of the following image
+ * @image html FormulateLCP.png
  */
+void Game::NashGame::setPositions()
+
 {
   // Defining the variable value
   unsigned int prCnt{0}, dlCnt{0}; // Temporary variables - primal count and dual count
@@ -183,28 +194,30 @@ void Game::NashGame::setPositions()
 		this->Bounds.push_back({theBound.first, theBound.second});
   }
 }
+/**
+ * @brief Formulates the LCP corresponding to the Nash game. Computes the KKT conditions for each
+ Player, calling MP_Param::KKT. Arranges them systematically to return M, q as an LCP @f$0\leq q
+ \perp Mx+q \geq 0 @f$. The way the variables of the players get distributed is shown in the image
+ below
+				 @image html FormulateLCP.png
+ * @warning Does not return the leader constraints. Use NashGame::rewriteLeadCons() to handle them
+ * @param M The output matrix M
+ * @param q The output vector q
+ * @param Compl The output complementarities pairings
+ * @param OutBounds The output Bounds on variables
+ * @param writeToFile If  true, writes  M and  q to file.k
+ * @param M_name Filename for M
+ * @param q_name Filename for Q
+ * @return
+ */
+const Game::NashGame &Game::NashGame::formulateLCP(arma::sp_mat &     M,
+																	arma::vec &        q,
+																	perps &            Compl,
+																	VariableBounds &   OutBounds,
+																	bool               writeToFile,
+																	const std::string &M_name,
+																	const std::string &q_name) const {
 
-const Game::NashGame &Game::NashGame::formulateLCP(
-	 arma::sp_mat &    M,           ///< Where the output  M is stored and returned.
-	 arma::vec &       q,           ///< Where the output  q is stored and returned.
-	 perps &           Compl,       ///< Says which equations are complementary to which variables
-	 VariableBounds &  OutBounds,   ///< BoundsX on primal variables
-	 bool              writeToFile, ///< If  true, writes  M and  q to file.k
-	 const std::string& M_name,      ///< File name to be used to write  M
-	 const std::string& q_name       ///< File name to be used to write  M
-	 ) const {
-  /// @brief Formulates the LCP corresponding to the Nash game.
-  /// @warning Does not return the leader constraints. Use
-  /// NashGame::rewriteLeadCons() to handle them
-  /**
-* Computes the KKT conditions for each Player, calling MP_Param::KKT.
-Arranges them systematically to return M, q
-* as an LCP @f$0\leq q \perp Mx+q \geq 0 @f$.
-				 The way the variables of the players get distributed is shown in
-the image below
-				 @image html formulateLCP.png
-				 @image latex formulateLCP.png
-*/
 
   // To store the individual KKT conditions for each player.
   std::vector<arma::sp_mat> Mi(NumPlayers), Ni(NumPlayers);
@@ -329,15 +342,15 @@ the image below
   return *this;
 }
 
-arma::sp_mat Game::NashGame::rewriteLeadCons() const
-/** @brief Rewrites leader constraint adjusting for dual variables.
+/**
+ * @brief Rewrites leader constraint adjusting for dual variables.
  * Rewrites leader constraints given earlier with added empty columns and spaces
  * corresponding to Market clearing duals and other equation duals.
- *
  * This becomes important if the Lower level complementarity problem is passed
  * to LCP with upper level constraints.
+ * @return  The matrix with the leader constraints
  */
-{
+arma::sp_mat Game::NashGame::rewriteLeadCons() const {
   arma::sp_mat A_in = this->LeaderConstraints;
   arma::sp_mat A_out_expl, A_out_MC, A_out;
   unsigned int NvarLead{0};
@@ -371,15 +384,16 @@ arma::sp_mat Game::NashGame::rewriteLeadCons() const
   }
 }
 
-Game::NashGame &Game::NashGame::addDummy(unsigned int par, int position)
 /**
- * @brief Add dummy variables in a NashGame object.
- * @details Add extra variables at the end of the problem. These are just zero
+ * @brief Add dummy variables (parameters) in a NashGame object. These are just zero
  * columns that don't feature in the problem anywhere. They are of importance
  * only where the NashGame gets converted into an LCP and gets parametrized.
  * Typically, they appear in the upper level objective in such a case.
+ * @param par Number of parameters
+ * @param position Position of the parameters
+ * @return
  */
-{
+Game::NashGame &Game::NashGame::addDummy(unsigned int par, int position) {
   for (auto &q : this->Players)
 	 q->addDummy(par, 0, position);
 
@@ -408,21 +422,22 @@ Game::NashGame &Game::NashGame::addDummy(unsigned int par, int position)
 	 auto nnC = this->MarketClearing.n_cols;
 	 if (position == -1)
 		this->MarketClearing = Utils::resizePatch(this->MarketClearing, nnR, nnC + par);
-	else
+	 else
 		LOG_S(ERROR) << "addDummy at non-final position not implemented";
   }
   this->setPositions();
   return *this;
 }
 
-Game::NashGame &Game::NashGame::addLeadCons(const arma::vec &a, double b)
 /**
- * @brief Adds Leader constraint to a NashGame object.
- * @details In case common constraint to all followers is to be added (like  a
- * leader constraint in an MPEC), this function can be used. It adds a single
+ * @brief Adds Leader constraint to a NashGame object.  In case common constraint to all followers
+ * is to be added (like a leader constraint in an MPEC), this function can be used. It adds a single
  * constraint @f$ a^Tx \leq b@f$
+ * @param a The constraint LHS
+ * @param b The constraint RHS
+ * @return A pointer to this
  */
-{
+Game::NashGame &Game::NashGame::addLeadCons(const arma::vec &a, double b) {
   auto nC = this->LeaderConstraints.n_cols;
   if (a.n_elem != nC)
 	 throw ZEROException(ZEROErrorCode::Assertion,
@@ -438,6 +453,12 @@ Game::NashGame &Game::NashGame::addLeadCons(const arma::vec &a, double b)
   return *this;
 }
 
+/**
+ * @brief Writes the Nash Game sum up to a file
+ * @param filename  The filename
+ * @param append  Should the method append to the file?
+ * @param KKT True if the KKT needs to be included
+ */
 void Game::NashGame::write(const std::string &filename, bool append, bool KKT) const {
   std::ofstream file;
   file.open(filename + ".nash", append ? arma::ios::app : arma::ios::out);
@@ -504,23 +525,17 @@ void Game::NashGame::write(const std::string &filename, bool append, bool KKT) c
   file.close();
 }
 
-std::unique_ptr<GRBModel>
-Game::NashGame::respond(unsigned int player, ///< Player whose optimal response is to be computed
-								const arma::vec &x,  ///< A std::vector of pure strategies (either for all
-								///< players or all other players)
-								bool fullvec ///< Is @p x strategy of all players? (including player @p
-												 ///< player)
-								) const
 /**
  * @brief Given the decision of other players, find the optimal response for
- * player in position @p player
- * @details
- * Given the strategy of each player, returns a Gurobi Model that has the
- * optimal strategy of the player at position @p player.
- * @returns A std::unique_ptr to GRBModel
- *
+ * player in position @p player. Given the strategy of each player, returns a Gurobi Model that has
+ * the optimal strategy of the player at position @p player.
+ * @param player The player id
+ * @param x  A std::vector of pure strategies (either for all players or all other players)
+ * @param fullvec True if @p x contains the strategy for all players
+ * @return
  */
-{
+std::unique_ptr<GRBModel>
+Game::NashGame::respond(unsigned int player, const arma::vec &x, bool fullvec) const {
   arma::vec    solOther;
   unsigned int nVar{this->getNprimals() + this->getNumShadow() + this->getNumLeaderVars()};
   unsigned int nStart, nEnd;
@@ -544,23 +559,21 @@ Game::NashGame::respond(unsigned int player, ///< Player whose optimal response 
   return this->Players.at(player)->solveFixed(solOther, true);
 }
 
-double
-Game::NashGame::respondSol(arma::vec &  sol,    ///< [out] Optimal response
-									unsigned int player, ///< Player whose optimal response is to be computed
-									const arma::vec &x, ///< A std::vector of pure strategies (either for all
-									///< players or all other players)
-									bool fullvec ///< Is @p x strategy of all players? (including player @p
-													 ///< player)
-									) const {
-  /**
-	* @brief Returns the optimal objective value that is obtainable for the
-	* player @p player given the decision @p x of all other players.
-	* @details
-	* Calls Game::NashGame::respond and obtains the std::unique_ptr to GRBModel
-	* of best response by player @p player. Then solves the model and returns the
-	* appropriate objective value.
-	* @returns The optimal objective value for the player @p player.
-	*/
+/**
+ * @brief Returns the optimal objective value that is obtainable for the
+ * player @p player given the decision @p x of all other players. Calls Game::NashGame::respond and
+ * obtains the std::unique_ptr to GRBModel of best response by player @p player. Then solves the
+ * model and returns the appropriate objective value.
+ * @param sol Output optimal response
+ * @param player The input player's id
+ * @param x  A std::vector of pure strategies (either for all players or all other players)
+ * @param fullvec True if @p x contains the strategy for all players
+@returns The optimal objective value for the player @p player.
+ */
+double Game::NashGame::respondSol(arma::vec &      sol,
+											 unsigned int     player,
+											 const arma::vec &x,
+											 bool             fullvec) const {
   auto model = this->respond(player, x, fullvec);
   // Check if the model is solved optimally
   const int status = model->get(GRB_IntAttr_Status);
@@ -576,14 +589,12 @@ Game::NashGame::respondSol(arma::vec &  sol,    ///< [out] Optimal response
 	 return GRB_INFINITY;
 }
 
+/**
+ * @brief Computes players' objective. Computes the objective value of <i> each </i> player in the
+ * Game::NashGame object.
+ * @returns An arma::vec with the objective values.
+ */
 arma::vec Game::NashGame::computeQPObjectiveValues(const arma::vec &x, bool checkFeas) const {
-  /**
-	* @brief Computes players' objective
-	* @details
-	* Computes the objective value of <i> each </i> player in the Game::NashGame
-	* object.
-	* @returns An arma::vec with the objective values.
-	*/
   arma::vec vals;
   vals.zeros(this->NumPlayers);
   for (unsigned int i = 0; i < this->NumPlayers; ++i) {
@@ -611,27 +622,27 @@ arma::vec Game::NashGame::computeQPObjectiveValues(const arma::vec &x, bool chec
   return vals;
 }
 
+/**
+ * @brief Checks if the Nash game is solved.
+ * @details
+ * Checks if the Nash game is solved, if not provides a proof of deviation
+ * @param sol The std::vector of pure strategies for the Nash Game
+ * @param violPlayer Output index of the player with profitable deviation
+ * @param violSol The output pure strategy for that player - which gives a
+ * profitable deviation
+ * @param tol The deviation tolerance
+ */
 bool Game::NashGame::isSolved(const arma::vec &sol,
 										unsigned int &   violPlayer,
 										arma::vec &      violSol,
 										double           tol) const {
-  /**
-	* @brief Checks if the Nash game is solved.
-	* @details
-	* Checks if the Nash game is solved, if not provides a proof of deviation
-	* @param[in] sol - The std::vector of pure strategies for the Nash Game
-	* @param[out] violPlayer - Index of the player with profitable deviation
-	* @param[out] violSol - The pure strategy for that player - which gives a
-	* profitable deviation
-	* @param[in] tol - If the additional profit is smaller than this, then it is
-	* not considered a profitable deviation.
-	*/
+
   arma::vec objvals = this->computeQPObjectiveValues(sol, true);
   for (unsigned int i = 0; i < this->NumPlayers; ++i) {
 	 double val = this->respondSol(violSol, i, sol, true);
 	 if (val == GRB_INFINITY)
 		return false;
-	 if (std::abs(val - objvals.at(i)) > tol) {
+	 if (!Utils::isEqual(val, objvals.at(i), tol)) {
 		violPlayer = i;
 		return false;
 	 }

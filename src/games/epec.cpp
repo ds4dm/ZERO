@@ -11,27 +11,11 @@
  * #############################################*/
 
 #include "games/epec.h"
+
 #include "games/algorithms/EPEC/epec_polybase.h"
+#include <memory>
 
-void Game::EPEC::preFinalize()
-/**
-  @brief Empty function - optionally re-implementable in derived class
-@details This function can be optionally implemented by
- the derived class. Code in this class will be run <i>before</i>
- calling Game::EPEC::finalize().
-*/
-{}
 
-void Game::EPEC::postFinalize()
-/**
-  @brief Empty function - optionally reimplementable in derived class
-@details This function can be optionally implemented by
- the derived class. Code in this class will be run <i>after</i>
- calling Game::EPEC::finalize().
-*/
-{}
-
-void Game::EPEC::finalize()
 /**
  * @brief Finalizes the creation of a Game::EPEC object.
  * @details Performs a bunch of job after all data for a Game::EPEC object are
@@ -41,18 +25,21 @@ void Game::EPEC::finalize()
  * defined. Calls Game::EPEC::addDummyLead
  * 	-	Makes the market clearing constraint in each country. Calls
  */
-{
+void Game::EPEC::finalize() {
   if (this->Finalized)
 	 std::cerr << "Warning in Game::EPEC::finalize: Model already Finalized\n";
 
   this->NumPlayers = static_cast<int>(this->PlayersLowerLevels.size());
-  ;
   /// Game::EPEC::preFinalize() can be overridden, and that code will run before
   /// calling Game::EPEC::finalize()
   this->preFinalize();
 
+  // Vector with the number of variables of the convex hull
   this->ConvexHullVariables = std::vector<unsigned int>(this->NumPlayers, 0);
+  // Reset the statistic of feasible polyhedra for any player
   this->Stats.AlgorithmData.FeasiblePolyhedra.set(std::vector<unsigned int>(this->NumPlayers, 0));
+
+  // Assign locations to the variables
   this->computeLeaderLocations(this->numMCVariables);
   // Initialize leader objective and PlayersQP
   this->LeaderObjective           = std::vector<std::shared_ptr<MathOpt::QP_Objective>>(NumPlayers);
@@ -61,16 +48,20 @@ void Game::EPEC::finalize()
   this->PlayersLCP                = std::vector<std::shared_ptr<MathOpt::LCP>>(NumPlayers);
   this->SizesWithoutHull          = std::vector<unsigned int>(NumPlayers, 0);
 
+  // For each player
   for (unsigned int i = 0; i < this->NumPlayers; i++) {
+	 // Add a trivial variables to the player's lower level
 	 this->addDummyLead(i);
+	 // Leader objective and its dummy-enlarged version with convex hull variables
 	 this->LeaderObjective.at(i)           = std::make_shared<MathOpt::QP_Objective>();
 	 this->LeaderObjectiveConvexHull.at(i) = std::make_shared<MathOpt::QP_Objective>();
+	 // Fill the original objectives
 	 this->makeObjectivePlayer(i, *this->LeaderObjective.at(i).get());
-	 // this->PlayersLCP.at(i) =std::shared_ptr<MathOpt::PolyLCP>(new
-	 // PolyLCP(this->Env,*this->PlayersLowerLevels.at(i).get()));
+	 // Compute sizes
 	 this->SizesWithoutHull.at(i) = *this->LocEnds.at(i);
   }
 
+  // Finalize
   this->Finalized = true;
 
   /// Game::EPEC::postFinalize() can be overridden, and that code will run after
@@ -78,24 +69,30 @@ void Game::EPEC::finalize()
   this->postFinalize();
 }
 
-void Game::EPEC::addDummyLead(
-	 const unsigned int i ///< The leader to whom dummy variables should be added
-) {
-  /// Adds dummy variables to the leader of an EPEC - useful after computing the
-  /// convex hull.
+
+/**
+ * @brief Adds dummy variables to the leader of an EPEC - useful after computing the convex hull.
+ @param i The leader id to whom dummy variables should be added
+ */
+
+void Game::EPEC::addDummyLead(const unsigned int i) {
+  ZEROAssert(i < this->NumPlayers);
   const unsigned int nEPECvars        = this->NumVariables;
   const unsigned int nThisCountryvars = *this->LocEnds.at(i);
-  // this->Locations.at(i).at(Models::LeaderVars::End);
 
-  if (nEPECvars < nThisCountryvars)
-	 throw ZEROException(ZEROErrorCode::Assertion,
-								"Mismatch between variable counts " + std::to_string(nEPECvars) + " and " +
-									 std::to_string(nThisCountryvars));
 
+  ZEROAssert(nEPECvars >= nThisCountryvars);
+
+  // Add dummy vars associated with "everything else"
   this->PlayersLowerLevels.at(i).get()->addDummy(nEPECvars - nThisCountryvars);
 }
 
+/**
+ * @brief Assigns the values to LeaderLocations to each player.
+ * @param addSpaceForMC contains the number of Market Clearing variables
+ */
 void Game::EPEC::computeLeaderLocations(const unsigned int addSpaceForMC) {
+
   this->LeaderLocations       = std::vector<unsigned int>(this->NumPlayers);
   this->LeaderLocations.at(0) = 0;
   for (unsigned int i = 1; i < this->NumPlayers; i++) {
@@ -104,44 +101,58 @@ void Game::EPEC::computeLeaderLocations(const unsigned int addSpaceForMC) {
   this->NumVariables = this->LeaderLocations.back() + *this->LocEnds.back() + addSpaceForMC;
 }
 
-void Game::EPEC::getXMinusI(const arma::vec &x, const unsigned int &i, arma::vec &solOther) const {
+
+/**
+ * @brief Given a solution in @p x, computes the other players' solution x minus @p i in @p xMinusI
+ * @param x The incumbent solution
+ * @param i The player id
+ * @param xMinusI The output strategy
+ */
+void Game::EPEC::getXMinusI(const arma::vec &x, const unsigned int &i, arma::vec &xMinusI) const {
+  ZEROAssert(i < this->NumPlayers);
   const unsigned int nEPECvars            = this->NumVariables;
   const unsigned int nThisCountryvars     = *this->LocEnds.at(i);
   const unsigned int nThisCountryHullVars = this->ConvexHullVariables.at(i);
   const auto         nConvexHullVars      = static_cast<const unsigned int>(
       std::accumulate(this->ConvexHullVariables.rbegin(), this->ConvexHullVariables.rend(), 0));
 
-  solOther.zeros(nEPECvars -        // All variables in EPEC
-					  nThisCountryvars - // Subtracting this country's variables,
-					  // since we only want others'
-					  nConvexHullVars +      // We don't want any convex hull variables
-					  nThisCountryHullVars); // We subtract the hull variables
-													 // associated to the ith player
-													 // convex hull vars, since we double subtracted
+  xMinusI.zeros(nEPECvars -        // All variables in EPEC
+					 nThisCountryvars - // Subtracting this country's variables,
+					 // since we only want others'
+					 nConvexHullVars +      // We don't want any convex hull variables
+					 nThisCountryHullVars); // We subtract the hull variables
+													// associated to the ith player
+													// convex hull vars, since we double subtracted
 
   for (unsigned int j = 0, count = 0, current = 0; j < this->NumPlayers; ++j) {
 	 if (i != j) {
 		current = *this->LocEnds.at(j) - this->ConvexHullVariables.at(j);
-		solOther.subvec(count, count + current - 1) =
+		xMinusI.subvec(count, count + current - 1) =
 			 x.subvec(this->LeaderLocations.at(j), this->LeaderLocations.at(j) + current - 1);
 		count += current;
 	 }
   }
   // We need to keep track of MC_vars also for this country
   for (unsigned int j = 0; j < this->numMCVariables; j++)
-	 solOther.at(solOther.n_rows - this->numMCVariables + j) =
+	 xMinusI.at(xMinusI.n_rows - this->numMCVariables + j) =
 		  x.at(this->NumVariables - this->numMCVariables + j);
 }
 
+
+/**
+ * @brief Given the player id @p i and the solution @p x, the method returns in @p
+ * xWithoutHull the x vector for the given player, with the convex-hull's
+ * variables in case @p hull is false. Also, no MC variables are included
+ * @param x The EPEC's solution
+ * @param i The player id
+ * @param xOfI Output solution vector for i
+ * @param hull True if convex-hull variables need to be included in the output
+ */
 void Game::EPEC::getXofI(const arma::vec &   x,
 								 const unsigned int &i,
-								 arma::vec &         solI,
+								 arma::vec &         xOfI,
 								 bool                hull) const {
-  /**
-	* Given the player id @p i and the solution @p x, the method returns in @p
-	* xWithoutHull the x vector for the given player, with the convex-hull's
-	* variables in case @p hull is false. Also, no MC variables are included
-	*/
+  ZEROAssert(i < this->NumPlayers);
   const unsigned int nThisCountryvars     = *this->LocEnds.at(i);
   const unsigned int nThisCountryHullVars = this->ConvexHullVariables.at(i);
 
@@ -153,18 +164,20 @@ void Game::EPEC::getXofI(const arma::vec &   x,
 	 vars    = nThisCountryvars - nThisCountryHullVars;
 	 current = *this->LocEnds.at(i) - this->ConvexHullVariables.at(i);
   }
-  solI.zeros(vars);
-  solI.subvec(0, vars - 1) =
+  xOfI.zeros(vars);
+  xOfI.subvec(0, vars - 1) =
 		x.subvec(this->LeaderLocations.at(i), this->LeaderLocations.at(i) + current - 1);
 }
 
+
+/**
+ * @brief Given the the solution @p x, the method returns in @p
+ * xWithoutHull the x vector without the convex-hull's
+ * variables.  Also, no MC variables are included
+ * @param x The EPEC's solution
+ * @param xWithoutHull The output solution without convex hull variables
+ */
 void Game::EPEC::getXWithoutHull(const arma::vec &x, arma::vec &xWithoutHull) const {
-  /**
-	* Given the the solution @p x, the method returns in @p
-	* xWithoutHull the x vector without the convex-hull's
-	* variables.  Also, no MC variables are included
-	*
-	*/
   const unsigned int nEPECvars       = this->NumVariables;
   const auto         nConvexHullVars = static_cast<const unsigned int>(
       std::accumulate(this->ConvexHullVariables.rbegin(), this->ConvexHullVariables.rend(), 0));
@@ -180,15 +193,26 @@ void Game::EPEC::getXWithoutHull(const arma::vec &x, arma::vec &xWithoutHull) co
 		  x.subvec(this->LeaderLocations.at(j), this->LeaderLocations.at(j) + current - 1);
 	 count += current;
   }
+
+  for (unsigned int j = 0; j < this->numMCVariables; j++)
+	 xWithoutHull.at(xWithoutHull.n_rows - this->numMCVariables + j) =
+		  x.at(this->NumVariables - this->numMCVariables + j);
 }
 
+
+/**
+ * @brief Given a player id @p i, the incumbent solution @p x (and optionally a custom player LCP @p
+ * customLCP), this method returns the model corresponding to the best response of @p i given the
+ * other players' decisions in @p x.
+ * @param i The player id
+ * @param x The incumbent solution
+ * @param customLCP An optional parameter with a custom LCP
+ * @return A pointer to the Gurobi model for the best response
+ */
 std::unique_ptr<GRBModel>
 Game::EPEC::respond(const unsigned int i, const arma::vec &x, MathOpt::PolyLCP *customLCP) const {
-  if (!this->Finalized)
-	 throw ZEROException(ZEROErrorCode::Assertion, "The model was not Finalized");
-
-  if (i >= this->NumPlayers)
-	 throw ZEROException(ZEROErrorCode::OutOfRange, "Country number is invalid");
+  ZEROAssert(this->Finalized);
+  ZEROAssert(i < this->NumPlayers);
 
   arma::vec solOther;
   this->getXMinusI(x, i, solOther);
@@ -203,22 +227,29 @@ Game::EPEC::respond(const unsigned int i, const arma::vec &x, MathOpt::PolyLCP *
 	 return LCP->LCPasMILP(
 		  this->LeaderObjective.at(i)->C, this->LeaderObjective.at(i)->c, solOther, true);
 }
-
+/**
+ * @brief Returns the optimal objective value that is obtainable for the
+ * player @p player given the decision @p x of all other players.
+ * @details
+ * Calls Game::EPEC::respond and obtains the std::unique_ptr to GRBModel of
+ * best response by player @p player. Then solves the model and returns the
+ * appropriate objective value.
+ * @param sol The optimal response for @p player
+ * @param player The player id
+ * @param x The solution vector
+ * @param prevDev An optional previous deviation encountered. This is useful to normalize any
+ * unbounded best response
+ * @param customLCP An optional pointer to a custom player LCP.
+ * @returns The optimal objective value for the player @p player.
+ */
 double Game::EPEC::respondSol(arma::vec &       sol,
 										unsigned int      player,
 										const arma::vec & x,
 										const arma::vec & prevDev,
 										MathOpt::PolyLCP *customLCP) const {
-  /**
-	* @brief Returns the optimal objective value that is obtainable for the
-	* player @p player given the decision @p x of all other players.
-	* @details
-	* Calls Game::EPEC::respond and obtains the std::unique_ptr to GRBModel of
-	* best response by player @p player. Then solves the model and returns the
-	* appropriate objective value.
-	* @returns The optimal objective value for the player @p player.
-	*/
-  auto model = this->respond(player, x, customLCP);
+  ZEROAssert(this->Finalized);
+  ZEROAssert(player < this->NumPlayers);
+  auto      model  = this->respond(player, x, customLCP);
   const int status = model->get(GRB_IntAttr_Status);
   if (status == GRB_UNBOUNDED || status == GRB_OPTIMAL) {
 	 unsigned int Nx = this->PlayersLCP.at(player)->getNumCols();
@@ -260,58 +291,45 @@ double Game::EPEC::respondSol(arma::vec &       sol,
 		  return model->get(GRB_DoubleAttr_ObjVal);
 		}
 	 }
-		return model->get(GRB_DoubleAttr_ObjVal);
+	 return model->get(GRB_DoubleAttr_ObjVal);
   } else {
 	 return GRB_INFINITY;
   }
 }
 
-const void Game::EPEC::makePlayerQP(const unsigned int i)
 /**
  * @brief Makes the MathOpt::QP_Param corresponding to the @p i-th country.
- * @details
  *  - First gets the Game::LCP object from @p Game::EPEC::PlayersLowerLevels and
  * makes a MathOpt::QP_Param with this LCP as the lower level
  *  - This is achieved by calling LCP::makeQP and using the objective value
  * object in @p Game::EPEC::LeaderObjective
  *  - Finally the locations are updated owing to the complete convex hull
  * calculated during the call to LCP::makeQP
+ * @param i The player's id
  * @note Overloaded as Models::EPEC::makePlayerQP()
  */
-{
-  // LOG_S(INFO) << "Starting Convex hull computation of the country
-  // "
-  // << this->AllLeadPars[i].name << '\n';
-  if (!this->Finalized)
-	 throw ZEROException(ZEROErrorCode::Assertion, "The model was not Finalized");
-  if (i >= this->NumPlayers)
-	 throw ZEROException(ZEROErrorCode::OutOfRange, "The player id is out of range");
-  // if (!this->PlayersQP.at(i).get())
-  {
-	 this->PlayersQP.at(i)     = std::make_shared<MathOpt::QP_Param>(this->Env);
-	 const auto &origLeadObjec = *this->LeaderObjective.at(i).get();
+void Game::EPEC::makePlayerQP(const unsigned int i) {
 
-	 this->LeaderObjectiveConvexHull.at(i).reset(
-		  new MathOpt::QP_Objective{origLeadObjec.Q, origLeadObjec.C, origLeadObjec.c});
-	 this->PlayersLCP.at(i)->makeQP(*this->LeaderObjectiveConvexHull.at(i).get(),
-											  *this->PlayersQP.at(i).get());
-  }
+  ZEROAssert(this->Finalized);
+  ZEROAssert(i < this->NumPlayers);
+  this->PlayersQP.at(i)     = std::make_shared<MathOpt::QP_Param>(this->Env);
+  const auto &origLeadObjec = *this->LeaderObjective.at(i).get();
+
+  this->LeaderObjectiveConvexHull.at(i) = std::make_shared<MathOpt::QP_Objective>(
+		MathOpt::QP_Objective{origLeadObjec.Q, origLeadObjec.C, origLeadObjec.c});
+  this->PlayersLCP.at(i)->makeQP(*this->LeaderObjectiveConvexHull.at(i).get(),
+											*this->PlayersQP.at(i).get());
 }
 
-void Game::EPEC::makePlayersQPs()
 /**
- * @brief Makes the MathOpt::QP_Param for all the countries
- * @details
- * Calls are made to Models::EPEC::makePlayerQP(const unsigned int i) for
- * each valid @p i
- * @note Overloaded as EPEC::makePlayerQP(unsigned int)
+ * @brief Makes the MathOpt::QP_Param for all the countries. Calls are made to
+ * Models::EPEC::makePlayerQP(const unsigned int i) for each valid player id
  */
-{
+void Game::EPEC::makePlayersQPs() {
   for (unsigned int i = 0; i < this->NumPlayers; ++i) {
 	 this->Game::EPEC::makePlayerQP(i);
   }
   for (unsigned int i = 0; i < this->NumPlayers; ++i) {
-	 // LeadLocs &Loc = this->Locations.at(i);
 	 // Adjusting "stuff" because we now have new convHull variables
 	 unsigned long int originalSizeWithoutHull = this->LeaderObjective.at(i)->Q.n_rows;
 	 unsigned long int convHullVarCount =
@@ -343,19 +361,20 @@ void Game::EPEC::makePlayersQPs()
   this->computeLeaderLocations(this->numMCVariables);
 }
 
+/**
+ * @brief Formulates the LCP to compute an equilibrium. In this LCP, each player's feasible region
+ * is given by the PlayersQP associated entry. If the QP stems from a full enumeration, for
+ * instance, the solution will be exact.
+ */
 void Game::EPEC::makeTheLCP() {
-  if (this->PlayersQP.front() == nullptr) {
-	 LOG_S(ERROR) << "Exception in Game::EPEC::makeTheLCP : "
-						  "no country QP has been "
-						  "made."
-					  << '\n';
-	 throw ZEROException(ZEROErrorCode::Assertion, "No country QP has been made");
-  }
+  ZEROAssert(this->PlayersQP.front() != nullptr);
+
+
   // Preliminary set up to get the LCP ready
   unsigned long int Nvar =
 		this->PlayersQP.front()->getNumParams() + this->PlayersQP.front()->getNumVars();
-  arma::sp_mat      MC(0, Nvar), dumA(0, Nvar);
-  arma::vec         MCRHS, dumb;
+  arma::sp_mat MC(0, Nvar), dumA(0, Nvar);
+  arma::vec    MCRHS, dumb;
   MCRHS.zeros(0);
   dumb.zeros(0);
   this->makeMCConstraints(MC, MCRHS);
@@ -366,14 +385,12 @@ void Game::EPEC::makeTheLCP() {
 	 auto m = std::dynamic_pointer_cast<MathOpt::MP_Param>(item);
 	 MPCasted.push_back(m);
   }
-  this->TheNashGame = std::unique_ptr<Game::NashGame>(
-		new Game::NashGame(this->Env, MPCasted, MC, MCRHS, 0, dumA, dumb));
+  this->TheNashGame =
+		std::make_unique<Game::NashGame>(this->Env, MPCasted, MC, MCRHS, 0, dumA, dumb);
   LOG_S(1) << "Game::EPEC::makeTheLCP(): NashGame is ready";
-  this->TheLCP = std::unique_ptr<MathOpt::LCP>(new MathOpt::LCP(this->Env, *TheNashGame));
+  this->TheLCP = std::make_unique<MathOpt::LCP>(this->Env, *TheNashGame);
   LOG_S(1) << "Game::EPEC::makeTheLCP(): LCP is ready";
-
-
-  LOG_S(1) << *TheNashGame;
+  LOG_S(2) << *TheNashGame;
 }
 
 
@@ -462,7 +479,7 @@ void Game::EPEC::setWelfareObjective(bool linear = true, bool quadratic = true) 
  * Given that Game::EPEC::PlayersQP are all filled with a each country's
  * MathOpt::QP_Param problem (either exact or approximate), computes the Nash
  * equilibrium.
- * @p pureNE checks for pure Nash Equilibria. It does not work with
+ * @p pureNE checks for pure Nash Equilibrium. It does not work with
  * EPEC::Algorithms::OuterApproximation
  * @p localTimeLimit sets the timelimit for the solver. a negative value is infinite time
  * @p check If true, the method calls the isSolved() method related to the active algorithm
@@ -528,7 +545,6 @@ bool Game::EPEC::computeNashEq(bool   pureNE,
   this->setWelfareObjective(linearWelfare, quadraticWelfare);
   try {
 	 this->LCPModel->set(GRB_IntParam_OutputFlag, 1);
-	 // this->LCPModel->write("dat/TheLCP.lp");
 	 this->LCPModel->optimize();
   } catch (GRBException &e) {
 	 throw ZEROException(e);
@@ -570,19 +586,17 @@ bool Game::EPEC::computeNashEq(bool   pureNE,
   return this->NashEquilibrium;
 }
 
+/**
+ * @brief Warmstart the solution with @p x
+ * @todo Complete this implementation
+ * @param x The warmstart solution
+ * @return True if the warmstart was successful
+ */
 bool Game::EPEC::warmstart(const arma::vec &x) {
-  //@todo complete implementation
 
-  if (x.size() < this->getNumVar())
-	 throw ZEROException(ZEROErrorCode::OutOfRange,
-								"The number of variables does not fit the instance");
-
-  if (!this->Finalized) {
-	 throw ZEROException(ZEROErrorCode::Assertion, "The EPEC was not Finalized");
-  }
-  if (this->PlayersQP.front() == nullptr) {
-	 LOG_S(WARNING) << "Game::EPEC::warmstart: Generating QP as of warmstart.";
-  }
+  ZEROAssert(x.size() >= this->getNumVar());
+  ZEROAssert(this->Finalized);
+  ZEROAssert(this->PlayersQP.front() == nullptr);
 
   this->SolutionX                  = x;
   std::vector<arma::vec> devns     = std::vector<arma::vec>(this->NumPlayers);
@@ -600,65 +614,62 @@ bool Game::EPEC::warmstart(const arma::vec &x) {
   /// @todo Game::EPEC::warmstart - to complete implementation?
   return true;
 }
-bool Game::EPEC::isPureStrategy(double tol) const {
-  /**
-	* @brief Call the delegated Algorithm and return true if the equilibrium is
-	* pure
-	*/
-  return this->Algorithm->isPureStrategy(tol);
-}
-bool Game::EPEC::isSolved(double tol) const {
-  /**
-	* @brief Call the delegated Algorithm and return true if the EPEC has been
-	* solved.
-	*/
-  return this->Algorithm->isSolved(tol);
-}
 
-const void Game::EPEC::findNashEq() {
-  /**
-	* @brief Computes Nash equilibrium using the Algorithm set in
-	* Game::EPEC::Algorithm
-	* @details
-	* Checks the value of Game::EPEC::Algorithm and delegates the task to
-	* appropriate Algorithm wrappers.
-	*/
+/**
+ * @brief Call the delegated Algorithm method and return true if the equilibrium is pure
+ * @param tol A numerical tolerance
+ * @return True if the incumbent equilibrium is pure
+ */
+bool Game::EPEC::isPureStrategy(double tol) const { return this->Algorithm->isPureStrategy(tol); }
+/**
+ * @brief Call the delegated Algorithm method and return true if there exist a feasible equilibrium
+ * @param tol A numerical tolerance
+ * @return True if the incumbent solution is an equilibrium
+ */
+bool Game::EPEC::isSolved(double tol) const { return this->Algorithm->isSolved(); }
 
-  std::stringstream final_msg;
-  if (!this->Finalized)
-	 throw ZEROException(ZEROErrorCode::Assertion, "The EPEC was not Finalized");
+/**
+ * @brief Computes Nash equilibrium using the Algorithm set in
+ * Game::EPEC::Algorithm. Checks the value of Game::EPEC::Algorithm and delegates the task to
+ * appropriate Algorithm wrappers.
+ */
+void Game::EPEC::findNashEq() {
+
+  ZEROAssert(this->Finalized);
 
   if (this->Stats.Status.get() != ZEROStatus::Uninitialized) {
 	 LOG_S(ERROR) << "Game::EPEC::findNashEq: a Nash Eq was "
 						  "already found. Calling this findNashEq might lead to errors!";
   }
 
-  // Choosing the appropriate algorithm
+
+  std::stringstream final_msg;
+
   switch (this->Stats.AlgorithmData.Algorithm.get()) {
 
   case Data::EPEC::Algorithms::InnerApproximation: {
-	 final_msg << "Inner approximation Algorithm completed. ";
+	 final_msg << "Inner approximation: run completed. ";
 	 this->Algorithm = std::shared_ptr<Algorithms::EPEC::PolyBase>(
 		  new class Algorithms::EPEC::InnerApproximation(this->Env, this));
 	 this->Algorithm->solve();
   } break;
 
   case Data::EPEC::Algorithms::CombinatorialPne: {
-	 final_msg << "CombinatorialPNE Algorithm completed. ";
+	 final_msg << "CombinatorialPNE: run completed. ";
 	 this->Algorithm = std::shared_ptr<Algorithms::EPEC::PolyBase>(
 		  new class Algorithms::EPEC::CombinatorialPNE(this->Env, this));
 	 this->Algorithm->solve();
   } break;
 
   case Data::EPEC::Algorithms::OuterApproximation: {
-	 final_msg << "Outer approximation Algorithm completed. ";
+	 final_msg << "Outer approximation: run completed. ";
 	 this->Algorithm = std::shared_ptr<Algorithms::EPEC::PolyBase>(
 		  new class Algorithms::EPEC::OuterApproximation(this->Env, this));
 	 this->Algorithm->solve();
   } break;
 
   case Data::EPEC::Algorithms::FullEnumeration: {
-	 final_msg << "Full enumeration Algorithm completed. ";
+	 final_msg << "Full enumeration: run completed. ";
 	 this->Algorithm = std::shared_ptr<Algorithms::EPEC::PolyBase>(
 		  new class Algorithms::EPEC::FullEnumeration(this->Env, this));
 	 this->Algorithm->solve();
@@ -685,81 +696,105 @@ const void Game::EPEC::findNashEq() {
 				  << (this->Stats.PureNashEquilibrium.get() == 0 ? "MNE" : "PNE") << ").";
   } break;
   case ZEROStatus::TimeLimit:
-	 final_msg << "Nash equilibrium not found. Time limit attained";
+	 final_msg << "Nash equilibrium not found. The time limit was hit.";
 	 break;
   case ZEROStatus::Numerical:
 	 final_msg << "Nash equilibrium not found. Numerical issues might affect "
 					  "this result.";
 	 break;
   default:
-	 final_msg << "Nash equilibrium not found. Time limit attained";
+	 final_msg << "Nash equilibrium not found. Unknown status.";
 	 break;
   }
   LOG_S(INFO) << "Game::EPEC::findNashEq: " << final_msg.str();
 }
 
-void Game::EPEC::setAlgorithm(Data::EPEC::Algorithms algorithm)
+
 /**
- * Decides the Algorithm to be used for solving the given instance of the
+ * @brief Decides the Algorithm to be used for solving the given instance of the
  * problem. The choice of algorithms are documented in Game::EPECalgorithm
+ * @param algorithm The input algorithm
  */
-{
+void Game::EPEC::setAlgorithm(Data::EPEC::Algorithms algorithm) {
   this->Stats.AlgorithmData.Algorithm.set(algorithm);
 }
 
-void Game::EPEC::setRecoverStrategy(Data::EPEC::RecoverStrategy strategy)
 /**
- * Decides the Algorithm to be used for recovering a PNE out of the
+ * @brief Decides the Algorithm to be used for recovering a PNE out of the
  * InnerApproximation procedure.
+ * @param strategy Input ecovery strategy
  */
-{
+void Game::EPEC::setRecoverStrategy(Data::EPEC::RecoverStrategy strategy) {
   this->Stats.AlgorithmData.RecoverStrategy.set(strategy);
 }
 
+/**
+ * @brief Gets the position of the j-th variable in the i-th leader
+ * Querying Game::EPEC::LCPModel for x[return-value] variable gives the
+ * appropriate variable
+ * @param i Leader number
+ * @param j Follower number
+ * @return The queried position
+ */
 unsigned int Game::EPEC::getPositionLeadFoll(const unsigned int i, const unsigned int j) const {
-  /**
-	* Get the position of the j-th variable in the i-th leader
-	* Querying Game::EPEC::LCPModel for x[return-value] variable gives the
-	* appropriate variable
-	*/
+  ZEROAssert(i < this->NumPlayers);
   const auto LeaderStart = this->TheNashGame->getPrimalLoc(i);
   return LeaderStart + j;
 }
 
+/**
+ * @brief Gets the position of the j-th Follower variable in the i-th leader
+ * Querying Game::EPEC::LCPModel for x[return-value] variable gives the
+ * appropriate variable
+ * @param i Leader number
+ * @param j Follower number
+ * @return The queried position
+ */
 unsigned int Game::EPEC::getPositionLeadLead(const unsigned int i, const unsigned int j) const {
-  /**
-	* Get the position of the j-th Follower variable in the i-th leader
-	* Querying Game::EPEC::LCPModel for x[return-value] variable gives the
-	* appropriate variable
-	*/
+  ZEROAssert(i < this->NumPlayers);
   const auto LeaderStart = this->TheNashGame->getPrimalLoc(i);
   return LeaderStart + this->PlayersLCP.at(i)->getLStart() + j;
 }
 
+/**
+ * @brief Gets the value of the j-th variable in i-th leader
+ * @param i Leader number
+ * @param j Follower number
+ * @return The queried position
+ */
 double Game::EPEC::getValLeadFoll(const unsigned int i, const unsigned int j) const {
-  /**
-	* Get the value of the j-th variable in i-th leader
-	*/
-  if (!this->LCPModel)
-	 throw ZEROException(ZEROErrorCode::Assertion, "The LCP was not made nor solved");
+  ZEROAssert(i < this->NumPlayers);
+  ZEROAssert(this->LCPModel != nullptr);
+
   return this->LCPModel->getVarByName("x_" + std::to_string(this->getPositionLeadFoll(i, j)))
 		.get(GRB_DoubleAttr_X);
 }
 
+/**
+ * @brief Gets the value of the j-th non-follower variable in i-th leader
+ * @param i Leader number
+ * @param j Follower number
+ * @return The queried position
+ */
 double Game::EPEC::getValLeadLead(const unsigned int i, const unsigned int j) const {
-  /**
-	* Get the value of the j-th non-follower variable in i-th leader
-	*/
-  if (!this->LCPModel)
-	 throw ZEROException(ZEROErrorCode::Assertion, "The LCP was not made nor solved");
+  ZEROAssert(i < this->NumPlayers);
+  ZEROAssert(this->LCPModel != nullptr);
   return this->LCPModel->getVarByName("x_" + std::to_string(this->getPositionLeadLead(i, j)))
 		.get(GRB_DoubleAttr_X);
 }
+/**
+ * @brief Sets the branching strategy for the OuterApproximation
+ * @param strategy The input strategy
+ */
 void Game::EPEC::setBranchingStrategy(Data::EPEC::BranchingStrategy strategy) {
   this->Stats.AlgorithmData.BranchingStrategy.set(strategy);
 }
 
-
+/**
+ * @brief Convert a Data::EPEC::Algorithms into a string
+ * @param al The input algorithm
+ * @return  The string literal
+ */
 std::string std::to_string(const Data::EPEC::Algorithms al) {
   switch (al) {
   case Data::EPEC::Algorithms::FullEnumeration:
@@ -774,6 +809,12 @@ std::string std::to_string(const Data::EPEC::Algorithms al) {
   return "";
 }
 
+/**
+ * @brief Convert a Data::EPEC::RecoverStrategy into a string
+ * @param strategy  The input strategy
+ * @return  The string literal
+ */
+
 std::string std::to_string(const Data::EPEC::RecoverStrategy strategy) {
   switch (strategy) {
   case Data::EPEC::RecoverStrategy::IncrementalEnumeration:
@@ -784,6 +825,11 @@ std::string std::to_string(const Data::EPEC::RecoverStrategy strategy) {
   return "";
 }
 
+/**
+ * @brief Convert a Data::EPEC::BranchingStrategy into a string
+ * @param strategy The input strategy
+ * @return The string literal
+ */
 std::string std::to_string(const Data::EPEC::BranchingStrategy strategy) {
   switch (strategy) {
   case Data::EPEC::BranchingStrategy::HybridBranching:

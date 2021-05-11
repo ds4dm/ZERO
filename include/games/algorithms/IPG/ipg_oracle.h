@@ -85,7 +85,8 @@ namespace Algorithms::IPG {
 	 arma::vec                                LCP_c;   ///< Linear vector for the LCP objective
 	 std::vector<std::unique_ptr<IPG_Player>> Players; ///< The support structures of IPG_Players
 	 std::vector<std::pair<std::string, int>> Cuts;    ///< Log of used cutting planes.
-	 arma::vec zLast, xLast; ///< Last x and z from the equilibrium LCP. Used for warmstart
+	 arma::vec zLast; ///< The last z solution. Useful for warmstarts
+    arma::vec xLast; ///< The last x solution. Useful for warmstarts
 	 double    objLast = -GRB_INFINITY; ///< Last objective from the equilibrium LCP. Used as cutOff
 	 void      initialize();
 	 arma::vec buildXminusI(const unsigned int i);
@@ -115,6 +116,11 @@ namespace Algorithms::IPG {
   public:
 	 friend class Game::IPG;
 
+	 /**
+	  * @brief Standard constructor
+	  * @param env  The Gurobi environment
+	  * @param IPGObj The IPG object
+	  */
 	 Oracle(GRBEnv *env, Game::IPG *IPGObj) : Algorithm(env, IPGObj){};
 
 	 void solve();

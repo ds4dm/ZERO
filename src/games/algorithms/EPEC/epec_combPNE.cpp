@@ -38,7 +38,7 @@ void Algorithms::EPEC::CombinatorialPNE::solveWithExcluded(
 /**
  * @brief This method initializes the algorithm recursion with @p combination. Each element is the
  * index of a polyhedron for the corresponding player. If the index is -1, then the recursion will
- * generate childs for any polyhedron of the given player. Otherwise, if there exist a positive
+ * generate children for any polyhedron of the given player. Otherwise, if there exist a positive
  * value @f$v@f$ in a location @f$l@f$, player @f$l@f$ will only play strategies in the polyhedron
  * @f$v@f$.
  * @param combination A set of either -1 or positive numbers corresponding to the polyhedron of each

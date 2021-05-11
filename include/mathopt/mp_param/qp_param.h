@@ -43,6 +43,10 @@ namespace MathOpt {
 	 void makeyQy();
 
   public: // Constructors
+	 /**
+	  * @brief Standard void constructor
+	  * @param env A pointer to the Gurobi environment
+	  */
 	 explicit QP_Param(GRBEnv *env = nullptr)
 		  : MP_Param(env), MadeyQy{false},
 			 Model{(*env)} {}; ///< Empty constructor initializing only the Gurobi environment

@@ -20,41 +20,50 @@
 #include <set>
 #include <string>
 
-namespace Data {
-  namespace IPG {
+namespace Data::IPG {
 
-	 enum class Algorithms {
-		Oracle ///< Solves the IPG via the separation oracle algorithm
-	 };
-	 enum class CutsAggressiveness {
-		NoThanks,   ///< Do not add "standard" Integer Programming cuts to the game
-		KeepItCool, ///< At most one cut per-player
-		Truculent   ///< A storm of cuts at each infeasibility detection
-	 };
-	 enum class Objectives {
-		/**
-		 * @brief Objective types for the MIP reformulation of the LCPs
-		 */
-		Feasibility, ///< The LCP objective is feasibility
-		Quadratic,   ///< The LCP objective is the quadratic sum of the players objectives
-		Linear,      ///< The LCP objective is the linear sum of the players objectives
-	 };
+  /**
+	* @brief IPG Algorithms enum
+	*/
+  enum class Algorithms {
+	 Oracle ///< Solves the IPG via the separation oracle algorithm
+  };
+  /**
+	* @brief Cuts aggressiveness for Algorithms::IPG::Oracle
+	*/
+  enum class CutsAggressiveness {
+	 NoThanks,   ///< Do not add "standard" Integer Programming cuts to the game
+	 KeepItCool, ///< At most one cut per-player
+	 Truculent   ///< A storm of cuts at each infeasibility detection
+  };
+  /**
+	* @brief Objective types for the MIP reformulation of the LCPs
+	*/
+  enum class Objectives {
+	 Feasibility, ///< The LCP objective is feasibility
+	 Quadratic,   ///< The LCP objective is the quadratic sum of the players objectives
+	 Linear,      ///< The LCP objective is the linear sum of the players objectives
+  };
 
-	 class DataObject : public ZEROAlgorithmData {
-	 public:
-		Attr<Data::IPG::CutsAggressiveness> CutAggressiveness = {
-			 Data::IPG::CutsAggressiveness::KeepItCool};
-		Attr<Data::IPG::Algorithms> Algorithm = {
-			 Data::IPG::Algorithms::Oracle};    ///< The selected algorithm
-		Attr<Data::LCP::Algorithms> LCPSolver; ///< The preferred LCP Solver
-		Attr<Data::IPG::Objectives> Objective = {
-			 Data::IPG::Objectives::Linear}; ///< The preferred objective type for the MIP LCP
-		///< reformulation
-		Attr<std::vector<std::pair<std::string, int>>> Cuts;
-		DataObject() : LCPSolver{static_cast<Data::LCP::Algorithms>(0)} {};
-	 };
-  } // namespace IPG
-} // namespace Data
+  class DataObject : public ZEROAlgorithmData {
+  public:
+	 Attr<Data::IPG::CutsAggressiveness> CutAggressiveness = {
+		  Data::IPG::CutsAggressiveness::KeepItCool};
+	 Attr<Data::IPG::Algorithms> Algorithm = {
+		  Data::IPG::Algorithms::Oracle};    ///< The selected algorithm
+	 Attr<Data::LCP::Algorithms> LCPSolver; ///< The preferred LCP Solver
+	 Attr<Data::IPG::Objectives> Objective = {
+		  Data::IPG::Objectives::Linear}; ///< The preferred objective type for the MIP LCP
+	 ///< reformulation
+	 Attr<std::vector<std::pair<std::string, int>>>
+		  Cuts; ///< Statistics about the added cuts. Refer to the indices in
+				  ///< IPG::Algorithms::Oracle
+	 /**
+	  * @brief Standard initializer constructor.
+	  */
+	 DataObject() : LCPSolver{static_cast<Data::LCP::Algorithms>(0)} {};
+  };
+} // namespace Data::IPG
 
 
 namespace Game {
@@ -71,49 +80,77 @@ namespace Game {
 	 std::vector<unsigned int> PlayerVariables{}; ///< The number of variables for each player
 
 
-	 /**
-	  * @brief When the object is Finalized, the solving process can start. No players can be added.
-	  */
 	 bool                   Finalized{false};
 	 std::vector<arma::vec> Solution; ///< Solution variable values, for each player
 
   private:
-	 std::shared_ptr<Algorithms::IPG::Algorithm> Algorithm{};
+	 std::shared_ptr<Algorithms::IPG::Algorithm> Algorithm{}; ///< The Algorithm's instance
 	 void getXMinusI(const arma::vec &x, const unsigned int &i, arma::vec &xMinusI) const;
 	 void getXofI(const arma::vec &x, const unsigned int &i, arma::vec &xOfI) const;
 
 
   protected:
-	 virtual void preFinalize()  = 0;
+	 /**
+	  * @brief Virtual (empty) method. Can be implemented by a derived class
+	  */
+	 virtual void preFinalize() = 0;
+	 /**
+	  * @brief Virtual (empty) method. Can be implemented by a derived class
+	  */
 	 virtual void postFinalize() = 0;
 
   public: // functions
 	 friend class Algorithms::IPG::Algorithm;
 	 friend class Algorithms::IPG::Oracle;
 	 void finalize();
+	 /**
+	  * @brief Standard initializer
+	  * @param env A pointer to the Gurobi Environment
+	  */
 	 IPG(GRBEnv *env) { this->Env = env; };
 	 IPG(GRBEnv *env, std::vector<std::shared_ptr<MathOpt::IP_Param>> players);
 
-	 const void findNashEq() override;
-	 bool       isSolved(double tol = 1e-5) const override;
+	 void findNashEq() override;
+	 bool isSolved(double tol = 1e-5) const override;
 	 bool isPureStrategy(double tol = 1e-5) const override; ///< Return a bool indicating whether the
 	 ///< equilibrium is a pure strategy
 
 
-	 const std::vector<arma::vec> getX() const { return this->Solution; }
+	 /**
+	  * @brief Gets the X in the incumbent solution
+	  * @return A const vector copy of X.
+	  */
+	 std::vector<arma::vec> getX() const { return this->Solution; }
 
 	 ///@brief Get the EPECStatistics object for the current instance
 	 ZEROStatistics<Data::IPG::DataObject> getStatistics() const { return this->Stats; }
 
+	 /**
+	  * @brief Sets the Data::IPG::Algorithms for the solution process.
+	  * @param algorithm An enum from Data::IPG::Algorithms
+	  */
 	 void setAlgorithm(Data::IPG::Algorithms algorithm) {
 		this->Stats.AlgorithmData.Algorithm = algorithm;
 	 }
+	 /**
+	  * @brief Sets the Data::LCP::Algorithms for the LCP solution process.
+	  * @param algo An enum from Data::LCP::Algorithms
+	  */
 	 void setLCPAlgorithm(const Data::LCP::Algorithms algo) {
 		this->Stats.AlgorithmData.LCPSolver.set(algo);
 	 }
+	 /**
+	  * @brief Sets the Data::IPG::Objectives for the LCP objective.
+	  * @param obj An enum from Data::IPG::Objectives
+	  */
 	 void setGameObjective(const Data::IPG::Objectives obj) {
 		this->Stats.AlgorithmData.Objective.set(obj);
 	 }
+	 /**
+	  * @brief Sets the Data::IPG::CutsAggressiveness for the cut aggressiveness in
+	  * Algorithms::IPG::Oracle
+	  * @param aggressiveness An enum from Data::IPG::CutsAggressiveness
+	  */
 	 void setCutsAggressiveness(const Data::IPG::CutsAggressiveness aggressiveness) {
 		this->Stats.AlgorithmData.CutAggressiveness.set(aggressiveness);
 	 }

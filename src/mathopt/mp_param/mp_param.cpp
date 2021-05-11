@@ -192,14 +192,14 @@ void MathOpt::MP_Param::detectBounds() {
 		  for (auto it = B.row(i).begin(); it != B.row(i).end(); ++it) {
 			 unsigned int j = it.col();
 			 // There is just one non-zero on this row!
-			 if (!isZero(B.at(i, j))) {
+			 if (!Utils::isEqual(B.at(i, j), 0)) {
 
 
 				if (B.at(i, j) > 0) {
 				  if (b.at(i) >= 0) {
 					 // This is an upper bound on the variable.
 					 // a_i * x_j <= b_i where a_i,b_i are both positive
-					 double mult  = this->isZero(B.at(i, j) - 1) ? 1 : (B.at(i, j));
+					 double mult  = Utils::isEqual(B.at(i, j), 1) ? 1 : (B.at(i, j));
 					 double bound = b.at(i) / mult;
 
 					 if (bound < Bounds.at(j).second || Bounds.at(j).second == -1) {
@@ -234,7 +234,7 @@ void MathOpt::MP_Param::detectBounds() {
 				else if (B.at(i, j) < 0) {
 				  if (b.at(i) < 0) {
 					 // This is a lower bound. We need to check that is actually useful (bound>0)
-					 double mult  = this->isZero(-B.at(i, j) + 1) ? -1 : (B.at(i, j));
+					 double mult  = Utils::isEqual(B.at(i, j), -1) ? -1 : (B.at(i, j));
 					 double bound = b.at(i) / mult;
 
 					 if (bound > Bounds.at(j).first) {
@@ -328,9 +328,7 @@ void MathOpt::MP_Param::rewriteBounds() {
  *	Computes parameters in MP_Param:
  *		- Computes @p numVars as number of rows in MP_Param::Q
  * 		- Computes @p numParams as number of columns in MP_Param::C
- * 		- Computes @p numConstr as number of rows in MP_Param::b, i.e., the
- *RHS of the constraints
- *
+ * 		- Computes @p numConstr as number of rows in MP_Param::b, i.e., the RHS of the constraints
  * 	For proper working, MP_Param::dataCheck() has to be run after this.
  * 	@returns @p numVars, Number of variables in the quadratic program, QP
  */
@@ -527,7 +525,7 @@ double MathOpt::MP_Param::computeObjective(const arma::vec &y,
 bool MathOpt::MP_Param::isFeasible(const arma::vec &y, const arma::vec &x, double tol) const {
   arma::vec slack = A * x + B * y - b;
   if (slack.n_rows) // if infeasible
-	 if (!Utils::isEqual(slack.max(),0, tol))
+	 if (!Utils::isEqual(slack.max(), 0, tol))
 		return false;
 
   return true;

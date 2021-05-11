@@ -51,13 +51,13 @@ The problem has a pure-strategy Nash equilibrium given by
 Modeling the problem
 ====================================
 
-**Step 1** The first step in modeling a game between Stackelberg leaders is to include `epecsolve.h` and create a derived class of :py:class:`Game::EPEC`. The minimal constructor for :py:class:`Game::EPEC` involves passing a pointer to `GRBEnv` (Check Gurobi's C++ `reference manual <https://www.gurobi.com/documentation/8.1/refman/cpp_api_overview.html>`_
+**Step 1** The first step in modeling a game between Stackelberg leaders is to include `zero.h` and create a derived class of :cpp:class:`Game::EPEC`. The minimal constructor for :cpp:class:`Game::EPEC` involves passing a pointer to `GRBEnv` (Check Gurobi's C++ `reference manual <https://www.gurobi.com/documentation/8.1/refman/cpp_api_overview.html>`_
 ). The derived class should indeed instantiate the base class (Game::EPEC) using such a constructor. The code below, achieves it.
 
 
 .. code-block:: c
 
- #include "epecsolve.h"
+ #include "zero.h"
  class my_Prob : public Game::EPEC
  {
 	public:
@@ -65,13 +65,13 @@ Modeling the problem
  };
 
 
-**Step 2**  Next, we should define the lower level of each leader (u-v leader as well as the x-y leader) as a :py:class:`Game::NashGame` object. For convenience, we write the following two functions that return a ``std::sharedptr<Game::NashGame>``.  Note that
+**Step 2**  Next, we should define the lower level of each leader (u-v leader as well as the x-y leader) as a :cpp:class:`Game::NashGame` object. For convenience, we write the following two functions that return a ``std::shared_ptr<Game::NashGame>``.  Note that
 
 - The referred object contains the follower's game along with any constraint in the leader level.
 - The referred object does not contain the follower's objective (which could potentially depend upon other leaders' variables).
 - We create the object, *without* assuming the presence of other leaders.
 
-The following code returns the ``std::shareptr<>`` as required. To refresh the concepts about creating a :py:class:`Game::NashGame` object, refer to the Nash Game tutorial.
+The following code returns the ``std::shared_ptr<>`` as required. To refresh the concepts about creating a :cpp:class:`Game::NashGame` object, refer to the Nash Game tutorial.
 
 .. code-block:: c
 
@@ -93,7 +93,7 @@ The following code returns the ``std::shareptr<>`` as required. To refresh the c
   B(0, 1) = 1;
   B(1, 0) = 1;
   B(1, 1) = -2;
-  auto foll = std::make_shared<Game::QP_Param>(Q, C, A, B, c, b, env);
+  auto foll = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, env);
 
   // Lower level Market clearing constraints - empty
   arma::sp_mat MC(0, 3);
@@ -106,8 +106,10 @@ The following code returns the ``std::shareptr<>`` as required. To refresh the c
   LeadCons(0, 2) = 1;
   LeadRHS(0) = 5;
 
+  std::shared_ptr<MathOpt::MP_Param>> MPCasted=std::dynamic_cast<MathOpt::MP_Param>(foll);
+
   auto N = std::make_shared<Game::NashGame>(
-      env, std::vector<std::shared_ptr<Game::QP_Param>>{foll}, MC, MCRHS, 1,
+      env, std::vector<std::shared_ptr<MathOpt::QP_Param>>{MPCasted}, MC, MCRHS, 1,
       LeadCons, LeadRHS);
   return N;
  }
@@ -139,7 +141,7 @@ And we have a similar function for the x-y leader.
   // b
   b(0) = 5;
   b(1) = -3;
-  auto foll = std::make_shared<Game::QP_Param>(Q, C, A, B, c, b, env);
+  auto foll = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, env);
 
   // Lower level Market clearing constraints - empty
   arma::sp_mat MC(0, 3);
@@ -157,8 +159,9 @@ And we have a similar function for the x-y leader.
   LeadCons(1, 2) = 0;
   LeadRHS(1) = 0;
 
+  std::shared_ptr<MathOpt::MP_Param>> MPCasted=std::dynamic_cast<MathOpt::MP_Param>(foll);
   auto N = std::make_shared<Game::NashGame>(
-      env, std::vector<std::shared_ptr<Game::QP_Param>>{foll}, MC, MCRHS, 1,
+      env, std::vector<std::shared_ptr<MathOpt::QP_Param>>{MPCasted}, MC, MCRHS, 1,
       LeadCons, LeadRHS);
   return N;
  }
@@ -169,30 +172,30 @@ We also use a member function to add these leaders to the class. The following c
 .. code-block:: c
 
   void My_EPEC_Prob::addLeader(std::shared_ptr<Game::NashGame> N, const unsigned int i) {
-    this->countries_LL.push_back(N);
-    ends[i] = N->getNprimals() + N->getNleaderVars();
+    this->PlayersLowerLevels.push_back(N);
+    ends[i] = N->getNprimals() + N->getNumLeaderVars();
     this->LocEnds.push_back(&ends[i]);
   }
 
 
 Note that the above code achieves the following key ideas, which must always be taken care of while adding leaders to a problem.
 
-- The lower-level Game::NashGame is pushed to ``Game::EPEC::countries_LL``
+- The lower-level Game::NashGame is pushed to ``Game::EPEC::PlayersLowerLevels``
 - Variables that track the number of variables in the current leader (``ends[i]``) is set and is tracked by ``Game::EPEC::LocEnds`` at the appropriate position.
 
 
-**Step 3** :py:class:`Game::EPEC` is a pure virtual (abstract) class and it is mandatory to define two functions by every derived class that it has. First, we define :py:func:`Game::EPEC::make_obj_leader`. This function  has the following signature in its definition in :py:class:`Game::EPEC`.
+**Step 3** :cpp:class:`Game::EPEC` is a pure virtual (abstract) class and it is mandatory to define two functions by every derived class that it has. First, we define :cpp:func:`Game::EPEC::makeObjectivePlayer`. This function  has the following signature in its definition in :cpp:class:`Game::EPEC`.
 
 .. code-block:: c
 
-  virtual void make_obj_leader(const unsigned int i, Game::QP_objective &QP_obj) = 0;
+  virtual void makeObjectivePlayer(const unsigned int i, Game::QP_objective &QP_obj) = 0;
 
 
-The parameter ``i`` take the position of the leader and `QP_obj` is an out-parameter, which should be filled with an object of ``Game::QP_objective``, which has the i-th leader's objective. Note that this should assume the form of :math:`c^T x + (Cx)^T x^{oth}`, where :math:`x` is the current player's set of variables and :math:`x^{oth}` is the remaining set of variables. The definition of this function is shown below.
+The parameter ``i`` take the position of the leader and `QP_obj` is an out-parameter, which should be filled with an object of ``MathOpt::QP_objective``, which has the i-th leader's objective. Note that this should assume the form of :math:`c^T x + (Cx)^T x^{oth}`, where :math:`x` is the current player's set of variables and :math:`x^{oth}` is the remaining set of variables. The definition of this function is shown below.
 
 .. code-block:: c
 
-   void my_Prob::make_obj_leader(const unsigned int i, Game::QP_objective &QP_obj) override 
+   void my_Prob::makeObjectivePlayer(const unsigned int i, Game::QP_objective &QP_obj) override 
  {
     QP_obj.Q.zeros(3, 3);
     QP_obj.C.zeros(3, 3);
@@ -210,23 +213,23 @@ The parameter ``i`` take the position of the leader and `QP_obj` is an out-param
       QP_obj.c(2) = 1;
       break;
     default: // Not strictly required, but for safety
-      throw std::string("Invalid make_obj_leader");
+      throw std::string("Invalid makeObjectivePlayer");
     }
  }
 
 
-**Step 4** Finally, another function Game::EPEC::updateLocs has to be redefined necessarily too. For small, toy examples, this function can only update the location of the last variable as the total number of variables defined by the user plus any convex hull variables. But, for more complicated examples, we refer the user to check :py:func:`Models::EPEC::updateLocs`.
+**Step 4** Finally, another function Game::EPEC::updateLocations has to be redefined necessarily too. For small, toy examples, this function can only update the location of the last variable as the total number of variables defined by the user plus any convex hull variables. But, for more complicated examples, we refer the user to check :cpp:func:`Models::EPEC::updateLocations`.
 
 .. code-block:: c
 
-  void My_EPEC_Prob::updateLocs() override {
+  void My_EPEC_Prob::updateLocations() override {
     ends[0] = this->convexHullVariables.at(0) + 3;
     ends[1] = this->convexHullVariables.at(1) + 3;
   }
 
 **Step 5** Now that the derived class is ready, the EPEC can be solved using an instantiation of the class. We lead you through the corresponding code, below.
 
-To start, with set up a Gurobi environment like we did for Game::QP_Param and Game::NashGame.
+To start, with set up a Gurobi environment like we did for MathOpt::QP_Param and Game::NashGame.
 
 .. code-block:: c
 
@@ -240,9 +243,9 @@ We suggest a log level of ``info`` and higher, using the following code. Not set
 
 .. code-block:: c
 
-  boost::log::core::get()->set_filter(boost::log::trivial::severity >= boost::log::trivial::info);
+  loguru::g_stderr_verbosity = 0; //0 is info. The greater, the more verbose
 
-Next, we create an object for the class and add both the lower level :py:class:`Game::NashGame` using functions defined earlier.
+Next, we create an object for the class and add both the lower level :cpp:class:`Game::NashGame` using functions defined earlier.
 
 .. code-block:: c
 
@@ -256,18 +259,18 @@ Next, we create an object for the class and add both the lower level :py:class:`
   epec.addLeader(xy_lead, 1);
 
 
-Once all the leaders' lower levels are added, we tell the program that we are adding no more players, and the code can do certain pre-processing and space allocation using :py:func:`Game::EPEC::finalize`. We can also optionally tell the program to do other operations before/after finalizing, by defining an override for :py:func:`Game::EPEC::prefinalize` and :py:func:`Game::EPEC::postfinalize` in the derived class.
+Once all the leaders' lower levels are added, we tell the program that we are adding no more players, and the code can do certain pre-processing and space allocation using :cpp:func:`Game::EPEC::finalize`. We can also optionally tell the program to do other operations before/after finalizing, by defining an override for :cpp:func:`Game::EPEC::preFinalize` and :cpp:func:`Game::EPEC::postFinalize` in the derived class.
 
 .. code-block:: c
 
   // Finalize
   epec.finalize();
 
-One can optionally choose the algorithm to be used for solving the problem. Not setting this, chooses the default algorithm ``Game::EPEC::fullEnumeration``
+One can optionally choose the algorithm to be used for solving the problem. Not setting this, chooses the default algorithm ``Algorithms::EPEC::FullEnumeration``
 
 .. code-block:: c
 
-  epec.setAlgorithm(Game::EPECalgorithm::innerApproximation);
+  epec.setAlgorithm(Algorithms::EPEC::InnerApproximation);
 
 
 Finally, the problem can be solved using
@@ -284,32 +287,32 @@ To start with, one can write the GRBModel (Gurobi model) solved in the last iter
 .. code-block:: c
 
  // Writes the model to a file. The model can then be loaded externally, resolved and analyzed.
- epec.writeLcpModel("my_model.lp");  // Writes to an LP file, in a human readable format
- epec.writeLcpModel("my_model.sol"); // Writes to an MPS file, in a machine readable format
+ epec.writeLCPModel("my_model.lp");  // Writes to an LP file, in a human readable format
+ epec.writeLCPModel("my_model.sol"); // Writes to an MPS file, in a machine readable format
  // Writes the solution to the same model.
 
- epec.writeLcpModel("my_model.sol"); // Human and machine readable.
+ epec.writeLCPModel("my_model.sol"); // Human and machine readable.
 
 
 Alternatively, without saving the model, one can directly print the solution to the model.
 Note that an EPEC does not necessarily have a pure-strategy Nash equilibrium or a mixed-strategy Nash equilibrium. However, should it have one, we print the multiple pure strategies along with the associated probability for that strategy. These are achieved using
 
-- :py:func:`Game::EPEC::getVal_Probab`
-- :py:func:`Game::EPEC::getVal_LeadLeadPoly`
-- :py:func:`Game::EPEC::getVal_LeadFollPoly`
+- :cpp:func:`Algorithms::EPEC::PolyBase::getValProbab`
+- :cpp:func:`Algorithms::EPEC::PolyBase::getValLeadLeadPoly`
+- :cpp:func:`Algorithms::EPEC::PolyBase::getValLeadFollPoly`
 
 .. code-block:: c
 
   // Get the set of pure strategies that the leaders will play
-  auto uv_strats = epec.mixedStratPoly(0);
+  auto uv_strats = epec.mixedStrategyPoly(0);
   // Now print the probability of each such pure strategy and the actual strategy too.
   std::for_each(
       std::begin(uv_strats), std::end(uv_strats), [&epec](const unsigned int i) {
-	    // epec.getVal_Probab (a, b) gives the probability used to play b-th pure strategy by the player at position a.
+	    // epec.getValProbab (a, b) gives the probability used to play b-th pure strategy by the player at position a.
         std::cout << "With probability  " << epec.getVal_Probab(0, i) << '\n';
-		// epec.getVal_LeadLeadPoly(a, b, c) gives the bth variable of a-th leader in c-th poly.
+		// epec.getValLeadLeadPoly(a, b, c) gives the bth variable of a-th leader in c-th poly.
         std::cout << "(" << epec.getVal_LeadLeadPoly(0, 0, i) << ", "
-		// epec.getVal_LeadFollPoly(a, b, c) gives the bth follower variable of a-th leader in c-th poly.
+		// epec.getValLeadFollPoly(a, b, c) gives the bth follower variable of a-th leader in c-th poly.
                   << epec.getVal_LeadFollPoly(0, 0, i) << ", "
                   << epec.getVal_LeadFollPoly(0, 1, i) << ")\n";
       });
@@ -318,7 +321,7 @@ Similarly for the x-y leader
 
 .. code-block:: c
 
-  auto xy_strats = epec.mixedStratPoly(1);
+  auto xy_strats = epec.mixedStrategyPoly(1);
   std::for_each(
       std::begin(xy_strats), std::end(xy_strats), [&epec](const unsigned int i) {
         std::cout << "With probability  " << epec.getVal_Probab(1, i) << '\n';
@@ -339,18 +342,18 @@ For your convenience, the entire example source code is given below.
  public:
   My_EPEC_Prob(GRBEnv *e) : EPEC(e) { }
   void addLeader(std::shared_ptr<Game::NashGame> N, const unsigned int i) {
-    this->countries_LL.push_back(N);
-    ends[i] = N->getNprimals() + N->getNleaderVars();
+    this->PlayersLowerLevels.push_back(N);
+    ends[i] = N->getNprimals() + N->getNumLeaderVars();
     this->LocEnds.push_back(&ends[i]);
   }
 
  private:
   unsigned int ends[2];
-  void updateLocs() override {
+  void updateLocations() override {
     ends[0] = this->convexHullVariables.at(0) + 3;
     ends[1] = this->convexHullVariables.at(1) + 3;
   }
-  void make_obj_leader(const unsigned int i,
+  void makeObjectivePlayer(const unsigned int i,
                        Game::QP_objective &QP_obj) override {
     QP_obj.Q.zeros(3, 3);
     QP_obj.C.zeros(3, 3);
@@ -367,7 +370,7 @@ For your convenience, the entire example source code is given below.
       QP_obj.c(2) = 1;
       break;
     default:
-      throw std::string("Invalid make_obj_leader");
+      throw std::string("Invalid makeObjectivePlayer");
     }
   }
  };
@@ -390,7 +393,7 @@ For your convenience, the entire example source code is given below.
   B(0, 1) = 1;
   B(1, 0) = 1;
   B(1, 1) = -2;
-  auto foll = std::make_shared<Game::QP_Param>(Q, C, A, B, c, b, env);
+  auto foll = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, env);
 
   // Lower level Market clearing constraints - empty
   arma::sp_mat MC(0, 3);
@@ -404,7 +407,7 @@ For your convenience, the entire example source code is given below.
   LeadRHS(0) = 5;
 
   auto N = std::make_shared<Game::NashGame>(
-      env, std::vector<std::shared_ptr<Game::QP_Param>>{foll}, MC, MCRHS, 1,
+      env, std::vector<std::shared_ptr<MathOpt::QP_Param>>{foll}, MC, MCRHS, 1,
       LeadCons, LeadRHS);
   return N;
  }
@@ -430,7 +433,7 @@ For your convenience, the entire example source code is given below.
   // b
   b(0) = 5;
   b(1) = -3;
-  auto foll = std::make_shared<Game::QP_Param>(Q, C, A, B, c, b, env);
+  auto foll = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, env);
 
   // Lower level Market clearing constraints - empty
   arma::sp_mat MC(0, 3);
@@ -449,7 +452,7 @@ For your convenience, the entire example source code is given below.
   LeadRHS(1) = 0;
 
   auto N = std::make_shared<Game::NashGame>(
-      env, std::vector<std::shared_ptr<Game::QP_Param>>{foll}, MC, MCRHS, 1,
+      env, std::vector<std::shared_ptr<MathOpt::QP_Param>>{foll}, MC, MCRHS, 1,
       LeadCons, LeadRHS);
   return N;
  }
@@ -480,7 +483,7 @@ For your convenience, the entire example source code is given below.
   std::cout << "u: " << epec.getVal_LeadLead(0, 0) << '\n';
   std::cout << "v_1: " << epec.getVal_LeadFoll(0, 0) << '\n';
   std::cout << "v_2: " << epec.getVal_LeadFoll(0, 1) << '\n';
-  auto uv_strats = epec.mixedStratPoly(0);
+  auto uv_strats = epec.mixedStrategyPoly(0);
   std::for_each(
       std::begin(uv_strats), std::end(uv_strats), [&epec](const unsigned int i) {
         std::cout << "With probability  " << epec.getVal_Probab(0, i) << '\n';
@@ -493,7 +496,7 @@ For your convenience, the entire example source code is given below.
   std::cout << "x: " << epec.getVal_LeadLead(1, 0) << '\n';
   std::cout << "y_1: " << epec.getVal_LeadFoll(1, 0) << '\n';
   std::cout << "y_2: " << epec.getVal_LeadFoll(1, 1) << '\n';
-  auto xy_strats = epec.mixedStratPoly(1);
+  auto xy_strats = epec.mixedStrategyPoly(1);
   std::for_each(
       std::begin(xy_strats), std::end(xy_strats), [&epec](const unsigned int i) {
         std::cout << "With probability  " << epec.getVal_Probab(1, i) << '\n';

@@ -1,10 +1,8 @@
 Command-line interface
 =====================================
 
-EPECSolve has a command line interface built on top of the standard
-modeling paradigm (see documentation for src/Models.cpp). Once the
-executable is compiled via ``make compileEPEC``, the user can run
-EPECSolve with: ``./EPEC $options``.
+EPECs have a command line interface built on top of the standard
+modeling paradigm (see :cpp:class:`Models::EPEC`). 
 
 The following I/O options are available:
 
