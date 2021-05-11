@@ -39,31 +39,22 @@ unsigned int MathOpt::convexHull(
   // Count number of polyhedra and the space we are in!
   const unsigned int nPoly{static_cast<unsigned int>(Ai->size())};
   // Error check
-  if (nPoly == 0)
-	 throw ZEROException(ZEROErrorCode::Assertion, "There are no polyhedra");
+  ZEROAssert(nPoly > 0);
   // consider
   const unsigned int nC{static_cast<unsigned int>(Ai->front()->n_cols)};
   const unsigned int nComm{static_cast<unsigned int>(Acom.n_rows)};
 
-  if (nComm > 0 && Acom.n_cols != nC)
-	 throw ZEROException(ZEROErrorCode::Assertion, "Inconsistend number of variables");
-  if (nComm > 0 && nComm != bcom.n_rows)
-	 throw ZEROException(ZEROErrorCode::Assertion, "Inconsistent number of rows");
+  ZEROAssert(!(nComm > 0 && Acom.n_cols != nC));
+  ZEROAssert(!(nComm > 0 && nComm != bcom.n_rows));
+  ZEROAssert(nPoly == bi->size());
 
   // Count the number of variables in the convex hull.
   unsigned int nFinCons{0}, nFinVar{0};
-  if (nPoly != bi->size())
-	 throw ZEROException(ZEROErrorCode::Assertion, "Inconsistent number of rows in the polyhedron");
+
   for (unsigned int i = 0; i != nPoly; i++) {
-	 if (Ai->at(i)->n_cols != nC)
-		throw ZEROException(ZEROErrorCode::Assertion,
-								  "Inconsistent number of variables: " + std::to_string(i) + "; " +
-										std::to_string(Ai->at(i)->n_cols) + "!=" + std::to_string(nC));
-	 if (Ai->at(i)->n_rows != bi->at(i)->n_rows)
-		throw ZEROException(ZEROErrorCode::Assertion,
-								  "Inconsistent number of rows: " + std::to_string(i) + ";" +
-										std::to_string(Ai->at(i)->n_rows) +
-										"!=" + std::to_string(bi->at(i)->n_rows));
+
+	 ZEROAssert(Ai->at(i)->n_cols == nC);
+	 ZEROAssert(Ai->at(i)->n_rows == bi->at(i)->n_rows);
 	 nFinCons += Ai->at(i)->n_rows;
   }
   // For common constraint copy
@@ -71,7 +62,7 @@ unsigned int MathOpt::convexHull(
 
   const unsigned int FirstCons = nFinCons;
 
-  // 2nd constraint in Eqn 4.31 of Conforti - twice so we have 2 ineq instead of
+  // 2nd constraint in Eqn 4.31 of Conforti et al. - twice so we have 2 ineq instead of
   // 1 eq constr
   nFinCons += nC * 2;
   // 3rd constr in Eqn 4.31. Again as two ineq constr.
@@ -96,12 +87,7 @@ unsigned int MathOpt::convexHull(
   for (unsigned int i = 0; i < nPoly; i++) {
 
 	 if (printEvery || i % 10 == 0)
-		LOG_S(1) << "MathOpt::convexHull: Handling Polyhedron " << i + 1 << " out of " << nPoly;
-	 // First constraint in (4.31)
-	 // A.submat(complRow, i*nC, complRow+nConsInPoly-1, (i+1)*nC-1) =
-	 // *Ai->at(i); // Slowest line. Will arma improve this? First constraint RHS
-	 // A.submat(complRow, nPoly*nC+i, complRow+nConsInPoly-1, nPoly*nC+i) =
-	 // -*bi->at(i); Second constraint in (4.31)
+		LOG_S(3) << "MathOpt::convexHull: Handling Polyhedron " << i + 1 << " out of " << nPoly;
 	 for (unsigned int j = 0; j < nC; j++) {
 		A.at(FirstCons + 2 * j, nC + (i * nC) + j)     = 1;
 		A.at(FirstCons + 2 * j + 1, nC + (i * nC) + j) = -1;
@@ -119,6 +105,7 @@ unsigned int MathOpt::convexHull(
   // Third Constraint RHS
   b.at(FirstCons + nC * 2)     = 1;
   b.at(FirstCons + nC * 2 + 1) = -1;
+  LOG_S(1) << "MathOpt::convexHull: Done";
   return nPoly; ///< Perform increasingly better inner approximations in
   ///< iterations
 }
@@ -135,11 +122,8 @@ void MathOpt::compConvSize(
 	 const arma::vec &   bcom  ///< RHS of the common constraints for all polyhedra
 	 )
 /**
- * @brief INTERNAL FUNCTION NOT FOR GENERAL USE.
- * @warning INTERNAL FUNCTION NOT FOR GENERAL USE.
- * @internal To generate the matrix "A" in MathOpt::convexHull using batch
- * insertion constructors. This is faster than the original line in the code:
- * A.submat(complRow, i*nC, complRow+nConsInPoly-1, (i+1)*nC-1) = *Ai->at(i);
+ * @brief Generates the matrix "A" in MathOpt::convexHull using batch
+ * insertion constructors.
  * Motivation behind this: Response from
  * armadillo:-https://gitlab.com/conradsnicta/armadillo-code/issues/111
  */
@@ -200,57 +184,6 @@ void MathOpt::compConvSize(
   A = arma::sp_mat(locations, val, nFinCons, nFinVar);
 }
 
-arma::vec MathOpt::LPSolve(const arma::sp_mat &A, ///< The constraint matrix
-									const arma::vec &   b, ///< RHS of the constraint matrix
-									const arma::vec &   c, ///< If feasible, returns a std::vector that
-																  ///< minimizes along this direction
-									int &status,    ///< Status of the optimization problem. If optimal,
-														 ///< this will be GRB_OPTIMAL
-									bool positivity ///< Should @f$x\geq0@f$ be enforced?
-									)
-/**
- Checks if the polyhedron given by @f$ Ax\leq b@f$ is feasible.
- If yes, returns the point @f$x@f$ in the polyhedron that minimizes @f$c^Tx@f$
- positivity can be enforced on the variables easily.
-*/
-{
-  unsigned int nR, nC;
-  nR = A.n_rows;
-  nC = A.n_cols;
-  if (c.n_rows != nC)
-	 throw ZEROException(ZEROErrorCode::Assertion, "Inconsistent number of variables");
-  if (b.n_rows != nR)
-	 throw ZEROException(ZEROErrorCode::Assertion, "Inconsistent number of constraints");
-
-  arma::vec    sol = arma::vec(c.n_rows, arma::fill::zeros);
-  const double lb  = positivity ? 0 : -GRB_INFINITY;
-
-  GRBEnv   env;
-  GRBModel model = GRBModel(env);
-  GRBVar   x[nC];
-  // Adding Variables
-  for (unsigned int i = 0; i < nC; i++)
-	 x[i] = model.addVar(lb, GRB_INFINITY, c.at(i), GRB_CONTINUOUS, "x_" + std::to_string(i));
-  // Adding constraints
-
-  Utils::addSparseConstraints(A, b, x, "LPSolve_", &model, GRB_LESS_EQUAL, nullptr);
-  model.set(GRB_IntParam_OutputFlag, 0);
-  model.set(GRB_IntParam_DualReductions, 0);
-  model.optimize();
-  status = model.get(GRB_IntAttr_Status);
-  if (status == GRB_OPTIMAL)
-	 for (unsigned int i = 0; i < nC; i++)
-		sol.at(i) = x[i].get(GRB_DoubleAttr_X);
-  return sol;
-}
-
-void MathOpt::print(const perps &C) noexcept {
-  for (auto p : C)
-	 std::cout << "<" << p.first << ", " << p.second << ">"
-				  << "\t";
-}
-
-
 
 void MathOpt::getDualMembershipLP(std::unique_ptr<GRBModel> &convexModel,
 											 unsigned int &             numV,
@@ -267,14 +200,8 @@ void MathOpt::getDualMembershipLP(std::unique_ptr<GRBModel> &convexModel,
 	*/
 
 
-  if (V.n_rows < 1 && R.n_rows < 1) {
-	 throw ZEROException(ZEROErrorCode::InvalidData, "no points or rays specified.");
-  }
-  if (V.n_cols != vertex.size()) {
-	 throw ZEROException(ZEROErrorCode::InvalidData,
-								"Invalid "
-								"dimension of the input vertex");
-  }
+  ZEROAssert(!(V.n_rows < 1 && R.n_rows < 1));
+  ZEROAssert(V.n_cols == vertex.size());
 
   if (numV == 0 && numR == 0) {
 	 // Initialize the model
@@ -303,8 +230,8 @@ void MathOpt::getDualMembershipLP(std::unique_ptr<GRBModel> &convexModel,
 	 convexModel->addConstr(a[V.n_cols], GRB_GREATER_EQUAL, beta, "Abs_1_beta");
 	 convexModel->addConstr(a[V.n_cols], GRB_GREATER_EQUAL, -beta, "Abs_2_beta");
 
-	 //Never had a ray to the normalization!
-	 //expr += a[V.n_cols];
+	 // Never had a ray to the normalization!
+	 // expr += a[V.n_cols];
 
 	 //   Normalization, to be filled later
 	 // convexModel->addConstr(0, GRB_LESS_EQUAL, 1, "Normalization");
@@ -372,16 +299,6 @@ void MathOpt::getDualMembershipLP(std::unique_ptr<GRBModel> &convexModel,
   }
   convexModel->update();
 
-  /*
-  convexModel->remove(convexModel->getConstrByName("Normalization"));
-  GRBLinExpr normalization = -convexModel->getVarByName("beta");
-  for (int j = 0; j < vertex.size(); ++j) {
-	 // Avoid using the origin...
-	 normalization += vertex.at(j) * convexModel->getVarByName("alpha_" + std::to_string(j));
-  }
-
-  convexModel->addConstr(normalization, GRB_LESS_EQUAL, 1, "Normalization");
-	*/
   LOG_S(3) << "MathOpt::getDualMembershipLP: updated model";
   convexModel->update();
 }
@@ -404,14 +321,8 @@ void MathOpt::getPrimalMembershipLP(std::unique_ptr<GRBModel> &convexModel,
 	*/
 
 
-  if (V.n_rows < 1 && R.n_rows < 1) {
-	 throw ZEROException(ZEROErrorCode::InvalidData, "no points or rays specified.");
-  }
-  if (V.n_cols != vertex.size()) {
-	 throw ZEROException(ZEROErrorCode::InvalidData,
-								"Invalid "
-								"dimension of the input vertex");
-  }
+  ZEROAssert(!(V.n_rows < 1 && R.n_rows < 1));
+  ZEROAssert(V.n_cols == vertex.size());
 
   if (numV == 0 && numR == 0) {
 	 // Initialize the model
@@ -506,14 +417,14 @@ void MathOpt::getPrimalMembershipLP(std::unique_ptr<GRBModel> &convexModel,
 		  for (unsigned int j = 0; j < vertex.size(); ++j)
 			 coeff[j] = V.at(i, j);
 
-		  GRBVar newLambda = convexModel->addVar(0,
-															  GRB_INFINITY,
-															  0,
-															  GRB_CONTINUOUS,
-															  vertex.size() + 1,
-															  &Constrs[0],
-															  coeff,
-															  "lambda_" + std::to_string(i));
+		  convexModel->addVar(0,
+									 GRB_INFINITY,
+									 0,
+									 GRB_CONTINUOUS,
+									 vertex.size() + 1,
+									 &Constrs[0],
+									 coeff,
+									 "lambda_" + std::to_string(i));
 		}
 		// Update the working size of the vertices
 		numV = V.n_rows;
@@ -529,7 +440,7 @@ void MathOpt::getPrimalMembershipLP(std::unique_ptr<GRBModel> &convexModel,
 		for (unsigned int i = numR; i < R.n_rows; i++) {
 		  for (unsigned int j = 0; j < vertex.size(); ++j)
 			 coeff[j] = R.at(i, j);
-		  GRBVar newLambda = convexModel->addVar(
+		  convexModel->addVar(
 				0, GRB_INFINITY, 0, GRB_CONTINUOUS, 1, &PR_Combs[0], coeff, "mu_" + std::to_string(i));
 		}
 

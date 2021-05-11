@@ -37,12 +37,6 @@ namespace MathOpt {
   } QP_constraints;
 
 
-  arma::vec LPSolve(const arma::sp_mat &A,
-						  const arma::vec &   b,
-						  const arma::vec &   c,
-						  int &               status,
-						  bool                positivity = false);
-
   unsigned int convexHull(const std::vector<arma::sp_mat *> *Ai,
 								  const std::vector<arma::vec *> *   bi,
 								  arma::sp_mat &                     A,
