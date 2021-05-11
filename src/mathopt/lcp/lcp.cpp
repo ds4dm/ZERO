@@ -71,7 +71,6 @@ void MathOpt::LCP::processBounds() {
   }
 
   this->nR = this->nR - shedded.size();
-  ZEROAssert(this->nR == this->Compl.size());
 }
 
 
