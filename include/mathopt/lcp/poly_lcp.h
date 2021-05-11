@@ -132,14 +132,14 @@ namespace MathOpt {
 														bool                          innerApproximation = true,
 														bool                          checkFeas          = false,
 														bool                          custom             = false,
-														spmat_Vec *                   custAi             = {},
-														vec_Vec *                     custbi             = {});
+														spmat_Vec *                   customA            = {},
+														vec_Vec *                     customb            = {});
 	 unsigned int      addPoliesFromEncoding(const std::vector<short> &encoding,
 														  bool                      innerApproximation = true,
 														  bool                      checkFeas          = false,
 														  bool                      custom             = false,
-														  spmat_Vec *               custAi             = {},
-														  vec_Vec *                 custbi             = {});
+														  spmat_Vec *               customA            = {},
+														  vec_Vec *                 customb            = {});
 	 unsigned long int getNextPoly(Data::LCP::PolyhedraStrategy method);
 
   public:
