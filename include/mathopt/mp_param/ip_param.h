@@ -43,13 +43,6 @@ namespace MathOpt {
 	**/
   class IP_Param : public MP_Param {
   private:
-	 IP_Param(const arma::sp_mat &  C_in,
-				 const arma::sp_mat &  B_in,
-				 const arma::vec &     b_in,
-				 const arma::vec &     c_in,
-				 const arma::vec &     integers_in,
-				 const VariableBounds &Bounds_in,
-				 GRBEnv *              env_in);
 	 GRBModel  IPModel;     ///< Stores the IP model associated with the object
 	 arma::vec Integers;    ///< Stores the indexes of integer variables
 	 bool Finalized{false}; ///< True if the model has been made and constraints cannot be changed
@@ -68,6 +61,13 @@ namespace MathOpt {
 		this->size();
 	 }
 
+    IP_Param(const arma::sp_mat &  C_in,
+             const arma::sp_mat &  B_in,
+             const arma::vec &     b_in,
+             const arma::vec &     c_in,
+             const arma::vec &     integers_in,
+             const VariableBounds &Bounds_in,
+             GRBEnv *              env_in);
 	 arma::vec getIntegers() const {
 		return this->Integers;
 	 } ///< Read-only getter to IP_Param::Integers
