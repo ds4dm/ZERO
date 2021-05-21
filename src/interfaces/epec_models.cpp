@@ -1149,7 +1149,7 @@ void Models::EPEC::EPEC::readSolutionJSON(const std::string &filename) {
 	 } catch (std::exception &e) {
 		throw ZEROException(ZEROErrorCode::IOError, e.what());
 	 } catch (...) {
-		throw ZEROException(ZEROErrorCode::Unknown, "Unknown errorin readSolutionJSON()");
+		throw ZEROException(ZEROErrorCode::Unknown, "Unknown error in readSolutionJSON()");
 	 }
   } else {
 	 throw ZEROException(ZEROErrorCode::IOError, "File not found");
