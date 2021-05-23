@@ -659,7 +659,7 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 	 }
 	 if (cutOff != -GRB_INFINITY) {
 		GRBQuadExpr obj{Model->getObjective()};
-		Model->addQConstr(obj, GRB_GREATER_EQUAL, cutOff, "cutOff");
+		Model->addQConstr(obj, GRB_LESS_EQUAL, cutOff, "cutOff");
 	 }
 
 
