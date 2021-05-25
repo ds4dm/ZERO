@@ -111,11 +111,13 @@ void Game::IPG::findNashEq() {
 	 this->Algorithm = std::shared_ptr<Algorithms::IPG::Oracle>(
 		  new class Algorithms::IPG::Oracle(this->Env, this));
 	 this->Algorithm->solve();
+	 final_msg << "Status: " << std::to_string(this->Stats.Status.get());
   } break;
   }
   const std::chrono::duration<double> timeElapsed =
 		std::chrono::high_resolution_clock::now() - this->InitTime;
   this->Stats.WallClockTime.set(timeElapsed.count());
+  LOG_S(INFO) << final_msg.str();
 }
 
 bool Game::IPG::isPureStrategy(double tol) const { return this->Algorithm->isPureStrategy(); }

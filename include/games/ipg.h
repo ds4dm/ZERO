@@ -29,6 +29,15 @@ namespace Data::IPG {
 	 Oracle ///< Solves the IPG via the separation oracle algorithm
   };
   /**
+	* @brief Type of MNE to be computed
+	*/
+  enum class SearchType {
+	 Feasibility, ///< Finds just an MNE
+	 Optimal      ///< Finds the optimal MNE given the criterion in Data::IPG::Objective
+  };
+
+
+  /**
 	* @brief Cuts aggressiveness for Algorithms::IPG::Oracle
 	*/
   enum class CutsAggressiveness {
@@ -57,7 +66,8 @@ namespace Data::IPG {
 	 ///< reformulation
 	 Attr<std::vector<std::pair<std::string, int>>>
 		  Cuts; ///< Statistics about the added cuts. Refer to the indices in
-				  ///< IPG::Algorithms::Oracle
+	 ///< IPG::Algorithms::Oracle
+	 Attr<Data::IPG::SearchType> SearchType = {Data::IPG::SearchType::Optimal}; ///< The type of MNE one wants to find.
 	 /**
 	  * @brief Standard initializer constructor.
 	  */
