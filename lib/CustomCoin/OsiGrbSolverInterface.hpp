@@ -15,7 +15,7 @@
 #define OsiGrbSolverInterface_H
 
 #include <string>
-#include "OsiSolverInterface.hpp"
+#include "coin/OsiSolverInterface.hpp"
 #include "OsiGrbConfig.h"
 
 typedef struct _GRBmodel GRBmodel;

@@ -15,16 +15,16 @@
 #include <numeric>
 #include <string>
 
-#include "CoinError.hpp"
-#include "CoinPragma.hpp"
+#include "coin/CoinError.hpp"
+#include "coin/CoinPragma.hpp"
 
-#include "CoinPackedMatrix.hpp"
-#include "CoinWarmStartBasis.hpp"
-#include "OsiColCut.hpp"
-#include "OsiConfig.h"
-#include "OsiCuts.hpp"
-#include "OsiGrbSolverInterface.hpp"
-#include "OsiRowCut.hpp"
+#include "coin/CoinPackedMatrix.hpp"
+#include "coin/CoinWarmStartBasis.hpp"
+#include "coin/OsiColCut.hpp"
+#include "coin/OsiConfig.h"
+#include "coin/OsiCuts.hpp"
+#include "coin/OsiGrbSolverInterface.hpp"
+#include "coin/OsiRowCut.hpp"
 
 extern "C" {
 #include "gurobi_c.h"
