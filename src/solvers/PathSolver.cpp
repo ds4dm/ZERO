@@ -301,8 +301,9 @@ Solvers::PATH::PATH(const arma::sp_mat &  M,
 
 		else {
 			*/
-		int lb = Bounds.at(p.second).first;
-		int ub = Bounds.at(p.second).second;
+		//@todo bounds are unused
+		int lb = 0;
+		int ub = -1;
 
 		// if (lb != ub)
 		{
