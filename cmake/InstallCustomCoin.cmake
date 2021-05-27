@@ -1,7 +1,7 @@
 message(Installing custom COIN-OR Package)
 set(CUSTCOIN_DIR "${ZERO_DEP_DIR}/CustomCoin")
 
-include_directories(${CONDA_INCLUDE_DIR}/coin)
+include_directories(${COIN_INCLUDE_DIR})
 include_directories(${CUSTCOIN_DIR})
 include_directories(${GUROBI_INCLUDE_DIRS})
 

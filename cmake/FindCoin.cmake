@@ -18,7 +18,9 @@ find_library(
         NAMES CoinUtils
         HINTS ${COIN_HINT}
         PATH_SUFFIXES lib)
-#find_path(COIN_INCLUDE_DIR CoinUtility.hpp HINTS ${COIN_HINT}/include PATH_SUFFIXES coin-or)
+
+
+find_path(COIN_INCLUDE_DIR coin/CglConfig.h HINTS ${COIN_HINT} PATH_SUFFIXES include)
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(Coin DEFAULT_MSG COIN_CGL)

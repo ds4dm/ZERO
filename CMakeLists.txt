@@ -47,8 +47,9 @@ set(ZERO_DEP_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib")
 set(GUROBI_DIR "/home/gurobi/9.1.1/linux64/" "/Library/gurobi910/mac64" "C:\\dev\\gurobi900\\win64")
 set(PATH_DIR "${ZERO_DEP_DIR}/path")
 set(CONDA_ENV "${ZERO_DEP_DIR}/conda")
-set(COIN_HINT "${CONDA_ENV}")
 set(SCIP_ROOT_DIR "${CONDA_ENV}" )
+#set(COIN_HINT "/Users/gabrieledragotto/dist" "/local_workspace/draggabr/coin")
+set(COIN_HINT "${CONDA_ENV}")
 
 # Get Conda
 find_package(Conda REQUIRED)
@@ -57,7 +58,7 @@ if (NOT ${FOUND_CONDA})
 endif ()
 #Install deps through Conda?
 if (ZERO_INSTALL_DEPS)
-    execute_process(COMMAND conda create --yes --prefix ${CONDA_ENV} -y)
+    execute_process(COMMAND conda create --yes --prefix ${CONDA_ENV})
     execute_process(COMMAND conda install -c conda-forge --prefix ${CONDA_ENV} armadillo coin-or-cgl boost rapidjson coin-or-osi -y)
 endif ()
 set(CONDA_INCLUDE_DIR "${CONDA_ENV}/include")
@@ -123,7 +124,7 @@ target_link_libraries(
 target_include_directories(
         ZERO
         PUBLIC ${GUROBI_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/include
-        ${PATH_INCLUDE_DIR} ${CONDA_INCLUDE_DIR}
+        ${PATH_INCLUDE_DIR} ${CONDA_INCLUDE_DIR} ${COIN_INCLUDE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/lib/loguru/
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
@@ -184,6 +185,7 @@ message("\tGurobi (lib):\t\t${GUROBI_LIBRARY} ${GUROBI_CXX_LIBRARY}")
 message("\tArmadillo (include):\t${ARMADILLO_INCLUDE_DIRS}")
 message("\tArmadillo (lib):\t\t${ARMADILLO_LIBRARIES}")
 message("\tCoin (lib):\t\t${COIN_UTILS} ${COIN_CGL} ${COIN_OSI}")
+message("\tCoin (include):\t\t${COIN_INCLUDE_DIR}")
 message("\tPATH (include):\t${PATH_INCLUDE_DIR}")
 message("\tPATH (library):\t${PATH_LIBRARY}")
 #message("\tSCIP (include):\t${SCIP_INCLUDE_DIRS}")
