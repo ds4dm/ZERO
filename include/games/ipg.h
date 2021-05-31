@@ -28,14 +28,6 @@ namespace Data::IPG {
   enum class Algorithms {
 	 Oracle ///< Solves the IPG via the separation oracle algorithm
   };
-  /**
-	* @brief Type of MNE to be computed
-	*/
-  enum class SearchType {
-	 Feasibility, ///< Finds just an MNE
-	 Optimal      ///< Finds the optimal MNE given the criterion in Data::IPG::Objective
-  };
-
 
   /**
 	* @brief Cuts aggressiveness for Algorithms::IPG::Oracle
@@ -67,7 +59,6 @@ namespace Data::IPG {
 	 Attr<std::vector<std::pair<std::string, int>>>
 		  Cuts; ///< Statistics about the added cuts. Refer to the indices in
 	 ///< IPG::Algorithms::Oracle
-	 Attr<Data::IPG::SearchType> SearchType = {Data::IPG::SearchType::Optimal}; ///< The type of MNE one wants to find.
 	 /**
 	  * @brief Standard initializer constructor.
 	  */
@@ -92,6 +83,7 @@ namespace Game {
 
 	 bool                   Finalized{false};
 	 std::vector<arma::vec> Solution; ///< Solution variable values, for each player
+	 double                 Payoff;   ///< Payoff associated to the incumbent solution
 
   private:
 	 std::shared_ptr<Algorithms::IPG::Algorithm> Algorithm{}; ///< The Algorithm's instance
@@ -131,6 +123,12 @@ namespace Game {
 	  * @return A const vector copy of X.
 	  */
 	 std::vector<arma::vec> getX() const { return this->Solution; }
+
+	 /***
+	  * @brief Gets the Payoff associated to the incumbent solution
+	  * @return The payoff value
+	  */
+	 double getPayoff() const { return this->Payoff; }
 
 	 ///@brief Get the EPECStatistics object for the current instance
 	 ZEROStatistics<Data::IPG::DataObject> getStatistics() const { return this->Stats; }
