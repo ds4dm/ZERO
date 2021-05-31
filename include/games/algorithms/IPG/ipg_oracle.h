@@ -85,9 +85,12 @@ namespace Algorithms::IPG {
 	 arma::vec                                LCP_c;   ///< Linear vector for the LCP objective
 	 std::vector<std::unique_ptr<IPG_Player>> Players; ///< The support structures of IPG_Players
 	 std::vector<std::pair<std::string, int>> Cuts;    ///< Log of used cutting planes.
-	 arma::vec zLast; ///< The last z solution. Useful for warmstarts
-    arma::vec xLast; ///< The last x solution. Useful for warmstarts
-	 double    objLast = -GRB_INFINITY; ///< Last objective from the equilibrium LCP. Used as cutOff
+	 arma::vec                                zLast; ///< The last z solution. Useful for warmstarts
+	 arma::vec                                xLast; ///< The last x solution. Useful for warmstarts
+	 double objLast = -GRB_INFINITY; ///< Last objective from the equilibrium LCP. Used as cutOff
+	 std::unique_ptr<MathOpt::LCP>   LCP = {}; ///< The last LCP solved
+	 std::unique_ptr<Game::NashGame> NashGame =
+		  {}; /// The last Nash Game to which the LCP object is associated
 	 void      initialize();
 	 arma::vec buildXminusI(const unsigned int i);
 
@@ -111,7 +114,7 @@ namespace Algorithms::IPG {
 
 	 void initLCPObjective();
 
-	 ZEROStatus equilibriumLCP(double localTimeLimit);
+	 ZEROStatus equilibriumLCP(double localTimeLimit, bool build = true, bool firstSolution = true);
 
   public:
 	 friend class Game::IPG;

@@ -12,13 +12,12 @@
  * #############################################*/
 
 #include "games/algorithms/IPG/ipg_oracle.h"
-#include "CglKnapsackCover.hpp"
 #include "coin/CglGMI.hpp"
+#include "coin/CglKnapsackCover.hpp"
 #include "coin/CoinPackedMatrix.hpp"
-#include "coin/OsiGrbSolverInterface.hpp"
 #include "coin/OsiSolverInterface.hpp"
-#include <CglMixedIntegerRounding.hpp>
-#include <CglSimpleRounding.hpp>
+#include <coin/CglGomory.hpp>
+#include <coin/CglMixedIntegerRounding2.hpp>
 #include <memory>
 
 /**
@@ -69,6 +68,7 @@ bool Algorithms::IPG::IPG_Player::addRay(const arma::vec &ray, const bool checkD
   return false;
 }
 
+
 /**
  * @brief Given @p LHS, @p RHS, it adds the inequalities to the field CutPool_A and b, the
  * CoinModel, and the working IP_Param.
@@ -78,15 +78,17 @@ bool Algorithms::IPG::IPG_Player::addRay(const arma::vec &ray, const bool checkD
  */
 bool Algorithms::IPG::IPG_Player::addCuts(const arma::sp_mat &LHS, const arma::vec &RHS) {
 
-  unsigned int newCuts = LHS.n_rows;
-  unsigned int cuts    = this->CutPool_A.n_rows;
-  int          nCols   = this->CutPool_A.n_cols < 1 ? LHS.size() : this->CutPool_A.n_cols;
+  arma::sp_mat LHSClean = Utils::clearMatrix(LHS, 1e-6, 1 - 1e-6);
+  arma::vec    RHSClean = Utils::clearVector(RHS, 1e-6, 1 - 1e-6);
+  unsigned int newCuts  = LHS.n_rows;
+  unsigned int cuts     = this->CutPool_A.n_rows;
+  int          nCols    = this->CutPool_A.n_cols < 1 ? LHSClean.size() : this->CutPool_A.n_cols;
 
   // Add the constraints to the cut pool
   this->CutPool_A.resize(cuts + newCuts, nCols);
   this->CutPool_b.resize(cuts + newCuts);
-  this->CutPool_A.submat(cuts, 0, cuts + newCuts - 1, nCols - 1) = LHS;
-  this->CutPool_b.subvec(cuts, cuts + newCuts - 1)               = RHS;
+  this->CutPool_A.submat(cuts, 0, cuts + newCuts - 1, nCols - 1) = LHSClean;
+  this->CutPool_b.subvec(cuts, cuts + newCuts - 1)               = RHSClean;
   // Add the constraints to the Coin model
 
 
@@ -104,7 +106,7 @@ bool Algorithms::IPG::IPG_Player::addCuts(const arma::sp_mat &LHS, const arma::v
   *******RECURSIVE CUT GENERATION*********/
 
   // Add the constraints to the parametrized IP
-  this->ParametrizedIP->addConstraints(LHS, RHS);
+  this->ParametrizedIP->addConstraints(LHSClean, RHSClean);
 
   //******DEBUG********
   // LHS.print_dense("LHS");
@@ -154,9 +156,9 @@ bool Algorithms::IPG::Oracle::addValueCut(unsigned int     player,
 		return true;
 	 }
 	 // Force normalization, in case it wasn't before.
-	 RHS = Utils::round_nplaces(RHS, 5);
+	 RHS = Utils::round_nplaces(RHS, 6);
 	 for (unsigned int i = 0; i < LHS.size(); ++i)
-		LHS.at(i) = Utils::round_nplaces(LHS.at(i), 5);
+		LHS.at(i) = Utils::round_nplaces(LHS.at(i), 6);
 	 Utils::normalizeIneq(LHS, RHS, true);
 	 LOG_S(0) << "Algorithms::IPG::Oracle::addValueCut: "
 					 "WARNING: Cannot generate another cut. Adding normalized value-cut.";
@@ -183,7 +185,8 @@ bool Algorithms::IPG::Oracle::checkTime(double &remaining) const {
 		LOG_S(1) << "Algorithms::IPG::Oracle::checkTime: "
 						"Time limit hit.";
 		this->IPG->Stats.AlgorithmData.Cuts.set(this->Cuts);
-		this->IPG->Stats.Status.set(ZEROStatus::TimeLimit);
+		if (this->IPG->Stats.Status.get() == ZEROStatus::Uninitialized)
+		  this->IPG->Stats.Status.set(ZEROStatus::TimeLimit);
 		return false;
 	 } else
 		return true;
@@ -262,12 +265,19 @@ void Algorithms::IPG::Oracle::solve() {
 	 }
   }
 
+  // Main loop condition
   bool solved{false};
+  // When an MNE is found via MIP, we start searching for the best one in the incumbent
+  // approximation
+  bool requireOptimality{this->IPG->Stats.AlgorithmData.Objective.get() !=
+								 Data::IPG::Objectives::Feasibility};
+
   // Which players are feasible
   std::vector<int> feasible(this->IPG->NumPlayers, 0);
   // Number of mip cuts added
   std::vector<int> addedMIPCuts(this->IPG->NumPlayers, 0);
   int              Iteration = 0;
+
   while (!solved) {
 	 ZEROStatus status;
 	 // Increase the number of iterations
@@ -283,11 +293,11 @@ void Algorithms::IPG::Oracle::solve() {
 	 if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0) {
 		double remaining;
 		if (this->checkTime(remaining) && remaining > 0)
-		  status = this->equilibriumLCP(remaining);
+		  status = this->equilibriumLCP(remaining * 0.95, true, true);
 		else
 		  return;
 	 } else
-		status = this->equilibriumLCP(-1);
+		status = this->equilibriumLCP(-1, true, true);
 
 
 	 /* ************************************
@@ -304,9 +314,6 @@ void Algorithms::IPG::Oracle::solve() {
 	 /* ************************************
 	  * Support objects
 	  **************************************/
-	 // The status of the LCP
-	 if (status == ZEROStatus::NashEqFound)
-		solved = true;
 	 // Is the player feasible?
 	 std::fill(feasible.begin(), feasible.end(), 0);
 	 // Did we add other cuts?
@@ -319,7 +326,7 @@ void Algorithms::IPG::Oracle::solve() {
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i)
 		xMinusI_s.push_back(this->buildXminusI(i));
 
-	 if (solved) {
+	 if (status == ZEROStatus::NashEqFound) {
 		/* ************************************
 		 * Loop until at least one cut is added, or a solution is found.
 		 **************************************/
@@ -379,7 +386,7 @@ void Algorithms::IPG::Oracle::solve() {
 						addedMIPCuts.at(i) = 1;
 					 }
 				  }
-				} else if (EO == 1) {
+				} else {
 				  /* ************************************
 					* Player is feasible
 					***************************************/
@@ -394,42 +401,60 @@ void Algorithms::IPG::Oracle::solve() {
 			 }
 		  }
 		  // If not solved but there are cuts, or it is solved and there are not cuts, exit.
-		  if ((addedCuts > 0 && solved == false) || (addedCuts == 0 && solved == true))
-			 break; // exit from while we have zero cuts
-		}          // end while cuts
-	 }
+		  if ((addedCuts > 0 && !solved) || (addedCuts == 0 && solved)) {
+			 if (addedCuts == 0 && solved) {
 
-	 /* ************************************
-	  * What if not solved? To Implement
-	  *************************************/
+				// We have solved the problem. Check for a better equilibrium?
+				if (requireOptimality) {
+				  LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: Trying to improve the equilibrium.";
+				  double remaining;
+				  if (this->checkTime(remaining) && remaining > 0)
+					 this->equilibriumLCP(remaining * 0.95, false, false);
+				}
+
+				this->Solved = true;
+				bool pure    = true;
+				for (unsigned int i = 0, counter = 0; i < this->IPG->NumPlayers; ++i) {
+				  this->IPG->Solution.at(i) = this->Players.at(i)->Incumbent;
+				  counter += this->IPG->PlayerVariables.at(i);
+				  if (!this->Players.at(i)->Pure) {
+					 pure = false;
+					 break;
+				  }
+				}
+				this->Pure        = pure;
+				this->IPG->Payoff = this->objLast;
+				this->IPG->Stats.AlgorithmData.Cuts.set(this->Cuts);
+				LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: A Nash Equilibrium has been found ("
+								<< (pure == 0 ? "MNE" : "PNE") << ").";
+				// Return if we do not need optimality
+				this->IPG->Stats.Status.set(ZEROStatus::NashEqFound);
+				return;
+
+			 } else {
+				// addedCuts > 0 && !solved
+				// Not solved but cuts. So far nothing, but need to recompute the MNE. Break from here
+			 }
+		  }
+		} // end while cuts
+	 } else if (status == ZEROStatus::NashEqNotFound) {
+		/* ************************************
+		 * What if not solved? So far, it may be a condition triggered by the cutoff of the optimal
+		 *equilibrium
+		 *************************************/
+		//@todo Implement for unbounded IPGs, where an eq may not exist at a given iteration
+		this->IPG->Stats.AlgorithmData.Cuts.set(this->Cuts);
+		LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: No Nash Equilibrium has been found";
+		this->Solved = false;
+		this->IPG->Stats.Status.set(ZEROStatus::NashEqNotFound);
+		return;
+	 }
 
 	 if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0) {
 		double remaining;
 		if (!this->checkTime(remaining) || remaining <= 0)
 		  return;
 	 }
-  }
-
-  if (solved) {
-	 this->Solved = true;
-	 bool pure    = true;
-	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
-		this->IPG->Solution.at(i) = this->Players.at(i)->Incumbent;
-		if (!this->Players.at(i)->Pure) {
-		  pure = false;
-		  break;
-		}
-	 }
-	 this->Pure = pure;
-	 this->IPG->Stats.Status.set(ZEROStatus::NashEqFound);
-	 this->IPG->Stats.AlgorithmData.Cuts.set(this->Cuts);
-	 LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: A Nash Equilibrium has been found ("
-					 << (pure == 0 ? "MNE" : "PNE") << ").";
-  } else {
-	 this->IPG->Stats.AlgorithmData.Cuts.set(this->Cuts);
-	 LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: No Nash Equilibrium has been found";
-	 this->Solved = false;
-	 this->IPG->Stats.Status.set(ZEROStatus::NashEqNotFound);
   }
 }
 
@@ -486,7 +511,7 @@ int Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player,
 
 	 auto diff = REL_Objective - IP_Objective;
 	 if (!Utils::isEqual(
-				std::abs(diff), 0, this->IPG->Stats.AlgorithmData.DeviationTolerance.get())) {
+				std::abs(diff), 0, 10 * this->IPG->Stats.AlgorithmData.DeviationTolerance.get())) {
 		// There exists a difference between the payoffs
 
 		if (diff > this->IPG->Stats.AlgorithmData.DeviationTolerance.get()) {
@@ -804,65 +829,78 @@ void Algorithms::IPG::Oracle::updateMembership(const unsigned int &player,
 /**
  * @brief Creates and solves the equilibrium LCP wrt the current game approximation
  * @param localTimeLimit A time limit for the computation
+ * @param build If true, a new LCP will be built. Otherwise, the last one will be used.
+ * @param firstSolution If true, the method will just seek for one solution.
  * @return The ZEROStatus for the equilibrium LCP
  */
-ZEROStatus Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
+ZEROStatus
+Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit, bool build, bool firstSolution) {
 
-  // Empty objects for market clearing
-  arma::sp_mat MC(0, this->IPG->NumVariables), dumA(0, this->IPG->NumVariables);
-  arma::vec    MCRHS(0, arma::fill::zeros), dumB(0, arma::fill::zeros);
-  // Downcast the IP_Param to MP_Param
-  std::vector<std::shared_ptr<MathOpt::MP_Param>> MPCasted;
-  for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
-	 auto m = std::dynamic_pointer_cast<MathOpt::MP_Param>(this->Players.at(i)->ParametrizedIP);
-	 MPCasted.push_back(m);
+
+  if (build) {
+	 // Empty objects for market clearing
+	 arma::sp_mat MC(0, this->IPG->NumVariables), dumA(0, this->IPG->NumVariables);
+	 arma::vec    MCRHS(0, arma::fill::zeros), dumB(0, arma::fill::zeros);
+	 // Downcast the IP_Param to MP_Param
+	 std::vector<std::shared_ptr<MathOpt::MP_Param>> MPCasted;
+	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
+		auto m = std::dynamic_pointer_cast<MathOpt::MP_Param>(this->Players.at(i)->ParametrizedIP);
+		MPCasted.push_back(m);
+	 }
+	 // Build the Nash Game
+	 this->NashGame =
+		  std::make_unique<Game::NashGame>(this->Env, MPCasted, MC, MCRHS, 0, dumA, dumB);
+	 LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumLCP: Formulated the NashGame";
+	 // Build the LCP from the Nash Game
+	 this->LCP = std::make_unique<MathOpt::LCP>(this->Env, *this->NashGame);
+
+	 // Record some statistics
+	 this->IPG->Stats.NumVar         = this->LCP->getNumCols();
+	 this->IPG->Stats.NumConstraints = this->LCP->getNumRows();
   }
-  // Build the Nash Game
-  Game::NashGame Nash = Game::NashGame(this->Env, MPCasted, MC, MCRHS, 0, dumA, dumB);
-  LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumLCP: Formulated the NashGame";
-  // Build the LCP from the Nash Game
-  auto LCP = std::make_unique<MathOpt::LCP>(this->Env, Nash);
 
-  // Record some statistics
-  this->IPG->Stats.NumVar         = LCP->getNumCols();
-  this->IPG->Stats.NumConstraints = LCP->getNumRows();
 
   // Discriminate between Solver type and Objective type
   auto Solver        = this->IPG->getStatistics().AlgorithmData.LCPSolver.get();
   auto ObjectiveType = this->IPG->Stats.AlgorithmData.Objective.get();
   if (Solver == Data::LCP::Algorithms::PATH &&
 		ObjectiveType != Data::IPG::Objectives::Feasibility) {
-	 LOG_S(WARNING)
-		  << "Algorithms::IPG::Oracle::equilibriumLCP: Forcing feasibility objective for LCP "
-			  "Solver PATH (input type is unsupported)";
-  } else {
-	 switch (ObjectiveType) {
-	 case Data::IPG::Objectives::Linear: {
-		LCP->setMIPLinearObjective(this->LCP_c);
-	 } break;
-	 case Data::IPG::Objectives::Quadratic:
-		LCP->setMIPQuadraticObjective(this->LCP_c, this->LCP_Q);
-		break;
-	 default:
-		LCP->setMIPFeasibilityObjective();
-	 }
+	 LOG_S(WARNING) << "Algorithms::IPG::Oracle::equilibriumLCP: The LCP's objective is used only "
+							 "for computing the payoff. "
+							 "PATH does not support this optimization.";
+  }
+  switch (ObjectiveType) {
+  case Data::IPG::Objectives::Linear: {
+	 this->LCP->setMIPLinearObjective(this->LCP_c);
+  } break;
+  case Data::IPG::Objectives::Quadratic:
+	 this->LCP->setMIPQuadraticObjective(this->LCP_c, this->LCP_Q);
+	 break;
+  default:
+	 this->LCP->setMIPFeasibilityObjective();
   }
 
-  // Try to warm-start with the previous solution.
-  arma::vec x   = this->xLast;
-  arma::vec z   = this->zLast;
-  double    obj = -GRB_INFINITY;
 
-  auto LCPSolver = LCP->solve(Solver, x, z, localTimeLimit, 1, obj);
+  arma::vec x, z;
+  // Try to warm-start with the previous solution.
+  x = this->xLast;
+  z = this->zLast;
+  // Set the value to the incumbent MNE payoff.
+  double obj      = -GRB_INFINITY;
+  int    solLimit = firstSolution ? 1 : GRB_MAXINT;
+
+  auto LCPSolver = this->LCP->solve(Solver, x, z, localTimeLimit, 1, obj, solLimit);
   if (LCPSolver == ZEROStatus::NashEqFound) {
-	 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumLCP: an Equilibrium has been found";
+	 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumLCP: tentative Equilibrium found";
 
 	 // Record the primal-dual solution and reset feasibility and pure-flag
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
-		this->Players.at(i)->Incumbent = x.subvec(Nash.getPrimalLoc(i), Nash.getPrimalLoc(i + 1) - 1);
-		this->Players.at(i)->DualIncumbent = x.subvec(Nash.getDualLoc(i), Nash.getDualLoc(i + 1) - 1);
-		this->Players.at(i)->Feasible      = false;
-		this->Players.at(i)->Pure          = false;
+		this->Players.at(i)->Incumbent =
+			 x.subvec(this->NashGame->getPrimalLoc(i), this->NashGame->getPrimalLoc(i + 1) - 1);
+		this->Players.at(i)->DualIncumbent =
+			 x.subvec(this->NashGame->getDualLoc(i), this->NashGame->getDualLoc(i + 1) - 1);
+		this->Players.at(i)->Feasible = false;
+		this->Players.at(i)->Pure     = false;
 	 }
 
 	 // Compute the payoffs
@@ -880,8 +918,12 @@ ZEROStatus Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit) {
   } else if (LCPSolver == ZEROStatus::Numerical) {
 	 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumLCP: Numerical errors.";
 	 return ZEROStatus::Numerical;
+  } else if (LCPSolver == ZEROStatus::TimeLimit) {
+	 if (this->IPG->Stats.Status.get() == ZEROStatus::Uninitialized)
+		this->IPG->Stats.Status.set(ZEROStatus::TimeLimit);
+	 return ZEROStatus::TimeLimit;
   } else {
-	 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumLCP: No Equilibrium has been found";
+	 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumLCP: No tentative equilibrium found";
 	 return ZEROStatus::NashEqNotFound;
   }
 }
@@ -917,9 +959,7 @@ void Algorithms::IPG::Oracle::initialize() {
   // Reset cuts statistics
   this->Cuts = {std::pair<std::string, int>("Value", 0),
 					 std::pair<std::string, int>("VPoly", 0),
-					 std::pair<std::string, int>("MIR", 0),
-					 std::pair<std::string, int>("GMI", 0),
-					 std::pair<std::string, int>("KP", 0)};
+					 std::pair<std::string, int>("MIPCuts", 0)};
   this->IPG->Stats.AlgorithmData.Cuts.set(this->Cuts);
   // Initialize the LCP objectives for further use.
   this->initLCPObjective();
@@ -1022,30 +1062,24 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player,
 	 if (!rootNode) {
 		auto solCheck = CoinModel->getColSolution();
 		for (unsigned int i = 0; i < numVars; ++i) {
-		  if (std::abs(primal[i] - solCheck[i]) > 1e-3)
+		  if (!Utils::isEqual(primal[i], solCheck[i]))
 			 throw;
 		}
 
 
 		solCheck = CoinModel->getRowPrice();
 		for (unsigned int i = 0; i < numConstrs; ++i) {
-		  if (std::abs(dual[i] - solCheck[i]) > 1e-3)
+		  if (!Utils::isEqual(dual[i], solCheck[i]))
 			 throw;
 		}
 	 }
 
 	 auto        candidateCuts = new OsiCuts;
 	 CglTreeInfo info          = CglTreeInfo();
-	 /*if (rootNode) {
-		//@todo Check
-		info.inTree  = false;
-		info.options = 4;
-		info.pass    = 0;
-	 } else {
-	  */
-	 info.inTree  = false;
-	 info.options = 4;
-	 info.pass    = 0;
+	 info.inTree               = false;
+	 info.options              = 4;
+	 info.pass                 = 0;
+
 
 
 	 CglKnapsackCover kpGen;
@@ -1053,15 +1087,17 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player,
 	 kpGen.setGlobalCuts(true);
 	 kpGen.setAggressiveness(100);
 	 kpGen.switchOnExpensive();
+	 kpGen.setMaxInKnapsack(xOfI.size() + 10);
 	 kpGen.generateCuts(*CoinModel, *KPs, info);
+
 
 	 for (int(i) = 0; (i) < KPs->sizeCuts(); ++(i))
 		if (KPs->rowCut(i).globallyValid())
 		  candidateCuts->insert(KPs->rowCut(i));
 
 
-	 CglMixedIntegerRounding MIRGen;
-	 auto                    MIRs = new OsiCuts;
+	 CglMixedIntegerRounding2 MIRGen;
+	 auto                     MIRs = new OsiCuts;
 	 MIRGen.setGlobalCuts(true);
 	 MIRGen.setAggressiveness(100);
 	 MIRGen.setDoPreproc(1);
@@ -1075,12 +1111,18 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player,
 
 	 CglGMI GMIGen;
 	 auto   GMIs = new OsiCuts;
-	 GMIGen.getParam().setMAX_SUPPORT(numVars);
-	 GMIGen.getParam().setMAX_SUPPORT_REL(0.8);
-	 GMIGen.getParam().setMAXDYN(CoinModel->getInfinity());
+	 if (!cutOff) {
+		GMIGen.getParam().setMAX_SUPPORT(numVars);
+		GMIGen.getParam().setMAX_SUPPORT_REL(0.8);
+		GMIGen.getParam().setMAXDYN(CoinModel->getInfinity());
+	 }
 	 GMIGen.getParam().setENFORCE_SCALING(true);
 	 GMIGen.setGlobalCuts(true);
 	 GMIGen.setAggressiveness(100);
+	 if (cutOff) {
+		GMIGen.getParam().setAway(1e-4);
+		GMIGen.getParam().setMINVIOL(1e-3);
+	 }
 	 GMIGen.generateCuts(*CoinModel, *GMIs, info);
 
 	 for (int(i) = 0; (i) < GMIs->sizeCuts(); ++(i))
@@ -1090,7 +1132,6 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player,
 
 	 //******DEBUG********
 	 // KPs->printCuts();
-	 // CQs->printCuts();
 	 // GMIs->printCuts();
 	 // MIRs->printCuts();
 	 //******DEBUG********
@@ -1100,24 +1141,27 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player,
 
 
 	 if (cutOff) {
-		// Why not trying a simple rounding?
+		// Try also simple gomory, and verify the cutoff
 
-		CglSimpleRounding roundGen;
-		auto              ROUNDs = new OsiCuts;
-		roundGen.setAggressiveness(100);
-		GMIGen.generateCuts(*CoinModel, *ROUNDs, info);
-
-
-		for (int(i) = 0; (i) < ROUNDs->sizeCuts(); ++(i))
-		  if (ROUNDs->rowCut(i).globallyValid())
-			 candidateCuts->insert(ROUNDs->rowCut(i));
+		CglGomory gomoryGen;
+		auto      GMs = new OsiCuts;
+		gomoryGen.setAggressiveness(100);
+		gomoryGen.setLimit(xOfI.size() + 10);
+		gomoryGen.setLimitAtRoot(xOfI.size() + 10);
+		gomoryGen.setAway(1e-3);
+		gomoryGen.generateCuts(*CoinModel, *GMs, info);
 
 
+		for (int(i) = 0; (i) < GMs->sizeCuts(); ++(i))
+		  if (GMs->rowCut(i).globallyValid())
+			 candidateCuts->insert(GMs->rowCut(i));
+
+		candidateCuts->sort();
 		// We need to be sure to get only the cuts that are actively cutting off the solution.
 		for (int i = 0; i < candidateCuts->sizeCuts(); ++i) {
 		  // Check if we have a violation. Otherwise, erase the cut.
 		  double violation = candidateCuts->rowCut(i).violated(primal);
-		  if (!(violation > 0)) {
+		  if (violation <= 0) {
 			 LOG_S(INFO) << "Algorithms::IPG::Oracle::externalCutGenerator: (P" << player
 							 << ") Discarding a cut (no violation).";
 			 candidateCuts->eraseRowCut(i);
@@ -1129,66 +1173,64 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player,
 	 // Minimum among the candidate cuts and the maximum number of cuts
 	 auto numCuts = std::min(candidateCuts->sizeCuts(), maxCuts);
 
-	 // The final cut matrix and RHS.
-	 arma::sp_mat LHS;
-	 LHS.zeros(numCuts, numVars);
-	 arma::vec RHS(numCuts, arma::fill::zeros);
-
-	 // Iterate over the candidate cuts (in max numCuts iterations), sorted by efficacy
-	 for (int i = 0; i < numCuts; ++i) {
-		// Get the cut
-		auto cut = candidateCuts->rowCut(i);
-
-		// Get the row from the cut
-		auto row = cut.row();
-		// Get the indices and the elements
-		auto indices  = row.getIndices();
-		auto elements = row.getElements();
-
-		// Iterate over the elements to get the index-value pair
-		for (int j = 0; j < row.getNumElements(); j++)
-		  LHS.at(i, indices[j]) = elements[j];
-
-
-		// Discern among the cut senses
-		auto sense = cut.sense();
-		switch (cut.sense()) {
-		case 'E': {
-		  // Equality. Two cuts
-		  LHS.resize(LHS.n_rows + 1, LHS.n_cols);
-		  RHS.resize(RHS.n_rows + 1);
-		  LHS.row(LHS.n_rows - 1) = -LHS.row(i);
-		  RHS.at(RHS.n_rows - 1)  = -cut.rhs();
-		  RHS.at(i)               = cut.rhs();
-		} break;
-		case 'G': {
-		  // Switch signs
-		  RHS.at(i) = -RHS.at(i);
-		  RHS.at(i) = -cut.rhs();
-		} break;
-		case 'L': {
-		  // Just complete the RHS
-		  RHS.at(i) = cut.rhs();
-		} break;
-		case 'R': {
-		  // Ranged inequality. We have both upper and lower bound
-		  RHS.at(i) = cut.rhs();
-		} break;
-		default: {
-		  candidateCuts->printCuts();
-		  throw ZEROException(ZEROErrorCode::InvalidData, "Unknown cut sense.");
-		}
-		}
-	 }
-
-	 // If we got some new cuts, add them to the working integer program
 	 if (numCuts > 0) {
+		// The final cut matrix and RHS.
+		arma::sp_mat LHS;
+		LHS.zeros(numCuts, numVars);
+		arma::vec RHS(numCuts, arma::fill::zeros);
+
+		// Iterate over the candidate cuts (in max numCuts iterations), sorted by efficacy
+		for (int i = 0; i < numCuts; ++i) {
+		  // Get the cut
+		  auto cut = candidateCuts->rowCut(i);
+
+		  // Get the row from the cut
+		  auto row = cut.row();
+		  // Get the indices and the elements
+		  auto indices  = row.getIndices();
+		  auto elements = row.getElements();
+
+		  // Iterate over the elements to get the index-value pair
+		  for (int j = 0; j < row.getNumElements(); j++)
+			 LHS.at(i, indices[j]) = elements[j];
+
+
+		  // Discern among the cut senses
+		  auto sense = cut.sense();
+		  switch (cut.sense()) {
+		  case 'E': {
+			 // Equality. Two cuts
+			 LHS.resize(LHS.n_rows + 1, LHS.n_cols);
+			 RHS.resize(RHS.n_rows + 1);
+			 LHS.row(LHS.n_rows - 1) = -LHS.row(i);
+			 RHS.at(RHS.n_rows - 1)  = -cut.rhs();
+			 RHS.at(i)               = cut.rhs();
+		  } break;
+		  case 'G': {
+			 // Switch signs
+			 RHS.at(i) = -RHS.at(i);
+			 RHS.at(i) = -cut.rhs();
+		  } break;
+		  case 'L': {
+			 // Just complete the RHS
+			 RHS.at(i) = cut.rhs();
+		  } break;
+		  case 'R': {
+			 // Ranged inequality. We have both upper and lower bound
+			 RHS.at(i) = cut.rhs();
+		  } break;
+		  default: {
+			 candidateCuts->printCuts();
+			 throw ZEROException(ZEROErrorCode::InvalidData, "Unknown cut sense.");
+		  }
+		  }
+		}
+
+		// If we got some new cuts, add them to the working integer program
 		// Add the cuts
 		this->Players.at(player)->addCuts(LHS, RHS);
 		// Update the statistics
-		this->Cuts.at(2).second += MIRs->sizeCuts();
-		this->Cuts.at(4).second += KPs->sizeCuts();
-		this->Cuts.at(3).second += GMIs->sizeCuts();
+		this->Cuts.at(2).second += numCuts;
 		LOG_S(INFO) << "Algorithms::IPG::Oracle::externalCutGenerator: (P" << player << ") Added "
 						<< numCuts << " and generated: " << MIRs->sizeCuts() << "  MIRs  - "
 						<< KPs->sizeCuts() << "  KPs - " << GMIs->sizeCuts() << "  GMIs.";
@@ -1201,7 +1243,6 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player,
 	 throw ZEROException(ZEROErrorCode::SolverError,
 								"Invalid Coin-OR interface response: " + e.message());
   }
-  return 0;
 }
 
 /**
@@ -1303,7 +1344,6 @@ void Algorithms::IPG::Oracle::initializeCoinModel(const unsigned int player) {
 
   // Solver interface
   auto CoinModel = new OsiGrbSolverInterface();
-  auto GRBEnvPtr = CoinModel->getEnvironmentPtr();
   // Remember to use the same number of threads...
   GRBsetintparam(CoinModel->getEnvironmentPtr(), "Threads", this->Env->get(GRB_IntParam_Threads));
   // Load the problem from the given objects
