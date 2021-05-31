@@ -145,7 +145,6 @@ int Solvers::PATH::CreateLMCP(int    n,
   Options_SetInt(o, "lemke_rank_deficiency_iterations", 1e2);
   // Very important!
   Options_Set(o, "lemke_start_type advanced");
-  Options_SetInt(o, "nms_initial_reference_factor", 10);
   Options_SetBoolean(o, "crash_perturb", True);
   Options_SetDouble(o, "proximal_perturbation", 1);
   Options_SetInt(o, "crash_nbchange_limit", 50);
