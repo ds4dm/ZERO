@@ -14,6 +14,97 @@
 #include "mathopt/lcp/lcp.h"
 #include "solvers/PathSolver.h"
 
+
+/**
+ * @brief A GRBCallback to warm start a feasible MIP solution with PATH. This is triggered whenever
+ * the number of explored nodes is greater than a given threshold.
+ */
+class LCP_PATHStart : public GRBCallback {
+public:
+  bool          done     = false; ///< If PATH was called at least one time
+  unsigned int  minNodes = 2500;  ///< Threshold on the minimum number of explored nodes
+  GRBVar *      Vars     = {};    ///< Pointer to vars
+  unsigned int  numVars;          ///< Number of vars
+  MathOpt::LCP *LCP;              ///< Pointer to the LCP instance
+  /**
+	* @brief Default constructor
+	* @param LCPin Pointer to the LCP which is solved by Gurobi
+	* @param vars Pointer to the Gurobi variables
+	* @param numvars Number of variables
+	*/
+  LCP_PATHStart(MathOpt::LCP *LCPin, GRBVar *vars, unsigned int numvars) {
+	 this->LCP     = LCPin;
+	 this->numVars = numvars;
+	 this->Vars    = vars;
+  }
+
+protected:
+  /**
+	* @brief Standard override for the Gurobi callback. This will try to generate the PATH's solution
+	* if the number of nodes is greater than the given threshold
+	*/
+  void callback() override {
+	 try {
+		// In MIP
+		if (this->where == GRB_CB_MIPNODE) {
+		  // Trigger just one time
+		  if (!this->done) {
+			 // Statistics
+			 double numExploredNodes = getDoubleInfo(GRB_CB_MIPNODE_NODCNT);
+			 int    numSols          = getIntInfo(GRB_CB_MIPNODE_SOLCNT);
+			 // No solutions found. Check the minimum explored node threshold
+
+			 if (numExploredNodes >= minNodes) {
+				arma::vec x, z;
+				double    obj = -GRB_INFINITY;
+				this->LCP->solve(Data::LCP::Algorithms::PATH, x, z, 15, 0, obj, 1);
+
+				unsigned int len = x.size() + z.size();
+				ZEROAssert(len == this->numVars);
+				double sol[len];
+				// Fill vector
+				unsigned int count = 0;
+				for (unsigned int i = 0; i < x.size(); ++i) {
+				  // this->setSolution(this->Vars[i],x.at(i));
+				  sol[i] = Utils::isEqual(x.at(i), 0, 1e-6, 1 - 1e-5) ? 0 : x.at(i);
+				  // std::cout << this->Vars[i].get(GRB_StringAttr_VarName) << std::endl;
+				  // this->setSolution(this->Vars[i],sol[i]);
+				  // GRBLinExpr expr = {this->Vars[i]};
+				  // this->addCut(expr,GRB_EQUAL,sol[i]);
+				  count++;
+				}
+				for (unsigned int i = 0; i < z.size(); ++i) {
+				  sol[i + count] = Utils::isEqual(z.at(i), 0, 1e-6, 1 - 1e-5) ? 0 : z.at(i);
+				  // GRBLinExpr expr = {this->Vars[i+count]};
+				  // this->addCut(expr,GRB_EQUAL,sol[i+count]);
+				}
+
+				// Set the solution
+				this->setSolution(this->Vars, sol, len);
+				double objtest = this->useSolution();
+				this->done     = true;
+				if (objtest != GRB_INFINITY)
+				  LOG_S(INFO)
+						<< "LCP_PATHStart::callback: Generated a feasible improving solution with PATH.";
+				else {
+				  for (unsigned int i = 0; i < x.size(); ++i)
+					 this->setSolution(this->Vars[i], x.at(i));
+				  objtest = this->useSolution();
+				  if (objtest == GRB_INFINITY)
+					 LOG_S(INFO) << "LCP_PATHStart::callback: Failed to generate a feasible (improving) "
+										 "solution with PATH.";
+				}
+			 }
+		  }
+		}
+	 } catch (GRBException &e) {
+		throw ZEROException(e);
+	 } catch (...) {
+		throw ZEROException(ZEROErrorCode::Unknown, "Unknown exception in LCP_PATHStart::callback");
+	 }
+  }
+};
+
 /**
  * @brief Assigns default values to the class' LCP attributes
  * @param env The Gurobi environment pointer
@@ -188,12 +279,13 @@ void MathOpt::LCP::makeRelaxed() {
 	 GRBVar x[nC], z[nR];
 	 //@todo Bounds are currently not used for the MIP LCP. This should be extended to an MCP
 	 for (unsigned int i = 0; i < nC; i++)
-		x[i] = RelaxedModel.addVar(
-			 0,            // BoundsX.at(i).first,
-			 GRB_INFINITY, // BoundsX.at(i).second > 0 ? BoundsX.at(i).second : GRB_INFINITY,
-			 1,
-			 GRB_CONTINUOUS,
-			 "x_" + std::to_string(i));
+		x[i] = RelaxedModel.addVar(0,
+											// BoundsX.at(i).first,
+											GRB_INFINITY,
+											// BoundsX.at(i).second > 0 ? BoundsX.at(i).second : GRB_INFINITY,
+											1,
+											GRB_CONTINUOUS,
+											"x_" + std::to_string(i));
 	 for (unsigned int i = 0; i < nR; i++)
 		z[i] = RelaxedModel.addVar(0, GRB_INFINITY, 1, GRB_CONTINUOUS, "z_" + std::to_string(i));
 	 LOG_S(3) << "MathOpt::LCP::makeRelaxed: Added variables";
@@ -251,6 +343,9 @@ std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(bool         solve,
 	 model->set(GRB_DoubleParam_TimeLimit, timeLimit);
   if (MIPWorkers > 1)
 	 model->set(GRB_IntParam_ConcurrentMIP, MIPWorkers);
+  model->set(GRB_DoubleParam_IntFeasTol, this->Eps);
+  model->set(GRB_DoubleParam_FeasibilityTol, this->Eps);
+  model->set(GRB_DoubleParam_OptimalityTol, this->Eps);
   model->set(GRB_IntParam_SolutionLimit, solLimit);
   model->set(GRB_IntParam_OutputFlag, 0);
   this->setMIPObjective(*model);
@@ -273,7 +368,8 @@ bool MathOpt::LCP::extractSols(GRBModel *model, arma::vec &z, arma::vec &x, bool
   if (model->get(GRB_IntAttr_Status) == GRB_LOADED)
 	 model->optimize();
   auto status = model->get(GRB_IntAttr_Status);
-  if (!(status == GRB_OPTIMAL || status == GRB_SUBOPTIMAL || status == GRB_SOLUTION_LIMIT))
+  if (!(status == GRB_OPTIMAL || status == GRB_SUBOPTIMAL || status == GRB_SOLUTION_LIMIT) ||
+		(status == GRB_TIME_LIMIT && model->get(GRB_IntAttr_SolCount) == 0))
 	 return false;
   x.zeros(nC);
   if (extractZ)
@@ -629,8 +725,10 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 	 xSol.zeros(this->M.n_cols);
 	 zSol.zeros(this->M.n_rows);
 	 switch (this->solvePATH(timeLimit, xSol, zSol, false)) {
-	 case ZEROStatus::NashEqFound:
+	 case ZEROStatus::NashEqFound: {
+		cutOff = this->computeObjective(xSol);
 		return ZEROStatus::NashEqFound;
+	 }
 	 case ZEROStatus::Solved:
 		return ZEROStatus::NashEqFound;
 	 case ZEROStatus::NotSolved:
@@ -658,15 +756,27 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 		  Model->getVarByName("z_" + std::to_string(i)).set(GRB_DoubleAttr_VarHintVal, zSol.at(i));
 	 }
 	 if (cutOff != -GRB_INFINITY) {
-		GRBQuadExpr obj{Model->getObjective()};
-		Model->addQConstr(obj, GRB_LESS_EQUAL, cutOff, "cutOff");
+		// Add a cutoff
+		Model->set(GRB_DoubleParam_Cutoff, cutOff);
+		// GRBQuadExpr obj{Model->getObjective()};
+		// Model->addQConstr(obj, GRB_LESS_EQUAL, cutOff, "cutOff");
 	 }
 
 
+	 try {
 
-	 // Model->set(GRB_IntParam_OutputFlag, 1);
-	 // Model->write("TheLCP.lp");
-	 Model->optimize();
+		Model->set(GRB_IntParam_OutputFlag, 0);
+		LCP_PATHStart Callback =
+			 LCP_PATHStart(this, Model->getVars(), Model->get(GRB_IntAttr_NumVars));
+		Model->setCallback(&Callback);
+		// Model->set(GRB_IntParam_Presolve, 2);
+		// Model->set(GRB_DoubleParam_Heuristics, 0.15);
+		// Model->set(GRB_IntParam_Cuts, 3);
+		// Model->write("TheLCP.lp");
+		Model->optimize();
+	 } catch (GRBException &e) {
+		throw ZEROException(e);
+	 }
 
 	 if (this->extractSols(Model.get(), zSol, xSol, true)) {
 		cutOff = Model->getObjective().getValue();
@@ -702,10 +812,10 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP(bool indicators) {
 
 	 if (indicators) {
 		// Define binary variables for the two cases (x=0 or z=0)
-		for (unsigned int i = 0; i < this->Compl.size(); i++)
+		for (unsigned int i = 0; i < this->Compl.size(); i++) {
 		  u[i] = model->addVar(0, 1, 0, GRB_BINARY, "u_" + std::to_string(i));
-		for (unsigned int i = 0; i < this->Compl.size(); i++)
 		  v[i] = model->addVar(0, 1, 0, GRB_BINARY, "v_" + std::to_string(i));
+		}
 	 }
 
 	 GRBLinExpr   expr    = 0;
@@ -734,7 +844,7 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP(bool indicators) {
 		  obj += v[counter];
 		} else {
 		  GRBVar sos[]  = {x[p.second], z[p.first]};
-		  double sosw[] = {1, 1};
+		  double sosw[] = {3.0, 1};
 		  obj += x[p.second];
 		  model->addSOS(sos, sosw, 2, GRB_SOS_TYPE1);
 		}
@@ -850,6 +960,21 @@ void MathOpt::LCP::setMIPObjective(GRBModel &MIP) {
 
 
 /**
+ * @brief Computes the objective for the LCP given the internal LCP::Q_Obj and LCP::c_Obj
+ * @param x The incumbent solution
+ * @return The payoff
+ */
+double MathOpt::LCP::computeObjective(const arma::vec &x) {
+
+  ZEROAssert(this->nC == x.size());
+  if (this->c_Obj.empty() && this->Q_Obj.empty())
+	 return 0;
+  else {
+	 return arma::as_scalar(this->c_Obj.t() * x + x.t() * this->Q_Obj * x);
+  }
+}
+
+/**
  * @brief Gets the MINLP model associated with the LCP, where complementarities are modeled with
  * bi-linear terms.
  * @return The Gurobi pointer to the model
@@ -871,25 +996,25 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMINLP() {
 	 GRBLinExpr expr = 0;
 	 for (const auto p : Compl) {
 
+		//@todo bounds
 		int _lb = this->BoundsX.at(p.second).first;
 		int _ub = this->BoundsX.at(p.second).second;
 
 
-		if (_lb != _ub) {
-		  // Otherwise, no bounds and we simplify the first expression for LB
-		  model->addQConstr(x[p.second] * z[p.first],
-								  GRB_EQUAL,
-								  0,
-								  "compl_z_" + std::to_string(p.first) + "_x_" + std::to_string(p.second));
+		// if (_lb != _ub) {
+		//  Otherwise, no bounds and we simplify the first expression for LB
+		model->addQConstr(x[p.second] * z[p.first],
+								GRB_EQUAL,
+								0,
+								"compl_z_" + std::to_string(p.first) + "_x_" + std::to_string(p.second));
+		/*}
+		else{
+		  model->addConstr(x[p.second],GRB_EQUAL,_lb);
 		}
+		 */
 	 }
 
 	 model->set(GRB_IntParam_NonConvex, 2);
-	 model->set(GRB_DoubleParam_IntFeasTol, this->Eps);
-	 model->set(GRB_DoubleParam_FeasibilityTol, this->Eps);
-	 model->set(GRB_DoubleParam_OptimalityTol, this->Eps);
-	 // Get first Equilibrium
-	 model->set(GRB_IntParam_SolutionLimit, 1);
 	 model->update();
 	 return model;
   } catch (GRBException &e) {
