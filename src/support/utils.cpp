@@ -614,8 +614,8 @@ double Utils::round_nplaces(const double &value, const int &numDecimals) {
  */
 arma::vec Utils::normalizeVec(const arma::vec &v) {
   double norm = arma::max(arma::abs(v));
-	if (Utils::isEqual(norm,0,1e-6))
-	norm =1;
+  if (Utils::isEqual(norm, 0, 1e-6))
+	 norm = 1;
 
   return v / arma::max(arma::abs(v));
 }
@@ -669,6 +669,41 @@ CoinPackedMatrix Utils::armaToCoinSparse(const arma::sp_mat &A) {
   assert(A.n_rows == R.getNumRows() && A.n_cols == R.getNumCols());
   return R;
 }
+
+/**
+ * @brief Given an arma::sp_mat @p A, returns the same matrix where the entries within a
+ * relative and absolute tolerance @p tol @p percent are set to zero
+ * @p A The armadillo sparse matrix
+ * @p tol The absolute tolerance
+ * @p percent The relative tolerance
+ * @return The new refactored matrix
+ */
+arma::sp_mat Utils::clearMatrix(const arma::sp_mat &A, double tol, double percent) {
+  arma::sp_mat ACopy = A;
+  for (arma::sp_mat::const_iterator it = A.begin(); it != A.end(); ++it) {
+	 if (Utils::isEqual(*it, 0, tol, percent))
+		ACopy.at(it.row(), it.col()) = 0;
+  }
+  return ACopy;
+}
+
+/**
+ * @brief Given an arma::vec @p A, returns the same vector where the entries within a
+ * relative and absolute tolerance @p tol @p percent are set to zero
+ * @p b The armadillo vector
+ * @p tol The absolute tolerance
+ * @p percent The relative tolerance
+ * @return The new refactored matrix
+ */
+arma::vec Utils::clearVector(const arma::vec &b, double tol, double percent) {
+  arma::vec bCopy = b;
+  for (unsigned int i = 0; i < bCopy.size(); ++i) {
+	 if (Utils::isEqual(b.at(i), 0, tol, percent))
+		bCopy.at(i) = 0;
+  }
+  return bCopy;
+}
+
 
 
 /**
@@ -739,8 +774,8 @@ int Utils::vecToBin(const arma::vec &x) {
   return output;
 }
 /**
- * @brief Given a number @p num and a bound @p decimalBound, counts the number of non-zero decimals up
- * to @p decimalBound
+ * @brief Given a number @p num and a bound @p decimalBound, counts the number of non-zero decimals
+ * up to @p decimalBound
  * @param num The input number
  * @param decimalBound The maximal bound on decimals to be counted
  * @return The number of non-zero decimals

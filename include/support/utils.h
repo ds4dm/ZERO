@@ -134,6 +134,8 @@ namespace Utils {
 					const double b,
 					const double tol     = 1e-6,
 					const double percent = (1 - 1e-4));
+  arma::sp_mat clearMatrix(const arma::sp_mat &A, double tol=1e-6, double percent=1-1e-6);
+  arma::vec clearVector(const arma::vec &b, double tol=1e-6, double percent=1-1e-6);
 } // namespace Utils
 
 // namespace Utils
