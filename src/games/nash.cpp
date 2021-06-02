@@ -583,7 +583,6 @@ double Game::NashGame::respondSol(arma::vec &      sol,
 	 for (unsigned int i = 0; i < Nx; ++i)
 		sol.at(i) = model->getVarByName("y_" + std::to_string(i)).get(GRB_DoubleAttr_X);
 
-	 LOG_S(1) << "Game::NashGame::RespondSol: Player" << player;
 	 return model->get(GRB_DoubleAttr_ObjVal);
   } else
 	 return GRB_INFINITY;
