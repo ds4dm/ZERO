@@ -422,8 +422,10 @@ void Algorithms::IPG::Oracle::solve() {
 					 break;
 				  }
 				}
-				this->Pure        = pure;
-				this->IPG->Payoff = this->objLast;
+				this->Pure      = pure;
+				arma::vec realX = this->xLast.subvec(0, this->LCP_c.size() - 1);
+				this->IPG->SocialWelfare =
+					 arma::as_scalar(this->LCP_c.t() * realX + realX.t() * this->LCP_Q * realX);
 				this->IPG->Stats.AlgorithmData.Cuts.set(this->Cuts);
 				LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: A Nash Equilibrium has been found ("
 								<< (pure == 0 ? "MNE" : "PNE") << ").";
@@ -889,7 +891,10 @@ Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit, bool build, bool 
   double obj      = -GRB_INFINITY;
   int    solLimit = firstSolution ? 1 : GRB_MAXINT;
 
-  auto LCPSolver = this->LCP->solve(Solver, x, z, localTimeLimit, 1, obj, solLimit);
+  int workers = 1;
+  if (this->IPG->Stats.AlgorithmData.Threads.get() >= 8)
+	 workers = (int)floor(this->IPG->Stats.AlgorithmData.Threads.get() / 3);
+  auto LCPSolver = this->LCP->solve(Solver, x, z, localTimeLimit, workers, obj, solLimit);
   if (LCPSolver == ZEROStatus::NashEqFound) {
 	 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumLCP: tentative Equilibrium found";
 

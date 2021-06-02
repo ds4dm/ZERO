@@ -83,7 +83,7 @@ namespace Game {
 
 	 bool                   Finalized{false};
 	 std::vector<arma::vec> Solution; ///< Solution variable values, for each player
-	 double                 Payoff;   ///< Payoff associated to the incumbent solution
+	 double                 SocialWelfare;   ///< SocialWelfare associated to the incumbent solution
 
   private:
 	 std::shared_ptr<Algorithms::IPG::Algorithm> Algorithm{}; ///< The Algorithm's instance
@@ -125,10 +125,10 @@ namespace Game {
 	 std::vector<arma::vec> getX() const { return this->Solution; }
 
 	 /***
-	  * @brief Gets the Payoff associated to the incumbent solution
+	  * @brief Gets the SocialWelfare associated to the incumbent solution
 	  * @return The payoff value
 	  */
-	 double getPayoff() const { return this->Payoff; }
+	 double getSocialWelfare() const { return this->SocialWelfare; }
 
 	 ///@brief Get the EPECStatistics object for the current instance
 	 ZEROStatistics<Data::IPG::DataObject> getStatistics() const { return this->Stats; }

@@ -216,8 +216,8 @@ int main(int argc, char **argv) {
 		if (!existCheck.good()) {
 		  results << "Instance;Algorithm;LCPAlgo;ObjType;Cuts;Players;isPureNE;"
 						 "Status;"
-						 "NumVar;Time;Threads;numIterations;ValueCuts;VPolyCuts;"
-						 "MIRCuts;GMICuts;KPCuts;TotalCuts;\n";
+						 "NumVar;Time;SocialWelfare;Threads;numIterations;ValueCuts;VPolyCuts;"
+						 "MIPCuts;TotalCuts\n";
 		}
 		existCheck.close();
 
@@ -231,10 +231,10 @@ int main(int argc, char **argv) {
 				  << std::to_string(stat.AlgorithmData.CutAggressiveness.get()) << ";"
 				  << ipg.getNumPlayers() << ";" << std::to_string(stat.PureNashEquilibrium.get()) << ";"
 				  << std::to_string(stat.Status.get()) << ";" << stat.NumVar.get() << ";"
-				  << std::to_string(stat.WallClockTime.get()) << ";"
-				  << std::to_string(stat.AlgorithmData.Threads.get()) << ";" << stat.NumIterations.get()
-				  << ";" << cuts.at(0).second << ";" << cuts.at(1).second << ";" << cuts.at(2).second
-				  << ";" << cuts.at(3).second << ";" << cuts.at(4).second << ";" << totalCuts << "\n";
+				  << std::to_string(stat.WallClockTime.get()) << ";" << std::to_string(ipg.getSocialWelfare())
+				  << ";" << std::to_string(stat.AlgorithmData.Threads.get()) << ";"
+				  << stat.NumIterations.get() << ";" << cuts.at(0).second << ";" << cuts.at(1).second
+				  << ";" << cuts.at(2).second << ";" << totalCuts << "\n";
 
 
 		results.close();
