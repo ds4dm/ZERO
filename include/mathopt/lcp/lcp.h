@@ -108,7 +108,7 @@ namespace MathOpt {
 	 unsigned int convexHull(arma::sp_mat &A, arma::vec &b);
 
   public:
-	 double Eps{1e-5}; ///< The threshold for optimality and feasability tolerances
+	 double Eps{1e-6}; ///< The threshold for optimality and feasability tolerances
 
 	 /**
 	  * @brief No default constructor.
@@ -238,7 +238,6 @@ namespace MathOpt {
 	 bool setMIPLinearObjective(const arma::vec &c);
 	 bool setMIPQuadraticObjective(const arma::vec &c, const arma::sp_mat &Q);
 	 bool setMIPFeasibilityObjective();
-	 double computeObjective(const arma::vec &x);
   };
 } // namespace MathOpt
 

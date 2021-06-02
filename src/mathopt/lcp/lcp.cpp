@@ -66,7 +66,7 @@ protected:
 				unsigned int count = 0;
 				for (unsigned int i = 0; i < x.size(); ++i) {
 				  // this->setSolution(this->Vars[i],x.at(i));
-				  sol[i] = Utils::isEqual(x.at(i), 0, 1e-6, 1 - 1e-5) ? 0 : x.at(i);
+				  sol[i] = Utils::isEqual(x.at(i), 0, 1e-6, 1 - 1e-4) ? 0 : x.at(i);
 				  // std::cout << this->Vars[i].get(GRB_StringAttr_VarName) << std::endl;
 				  // this->setSolution(this->Vars[i],sol[i]);
 				  // GRBLinExpr expr = {this->Vars[i]};
@@ -74,7 +74,7 @@ protected:
 				  count++;
 				}
 				for (unsigned int i = 0; i < z.size(); ++i) {
-				  sol[i + count] = Utils::isEqual(z.at(i), 0, 1e-6, 1 - 1e-5) ? 0 : z.at(i);
+				  sol[i + count] = Utils::isEqual(z.at(i), 0, 1e-6, 1 - 1e-4) ? 0 : z.at(i);
 				  // GRBLinExpr expr = {this->Vars[i+count]};
 				  // this->addCut(expr,GRB_EQUAL,sol[i+count]);
 				}
@@ -372,15 +372,13 @@ bool MathOpt::LCP::extractSols(GRBModel *model, arma::vec &z, arma::vec &x, bool
 		(status == GRB_TIME_LIMIT && model->get(GRB_IntAttr_SolCount) == 0))
 	 return false;
   x.zeros(nC);
-  if (extractZ)
+  for (unsigned int i = 0; i < nC; i++)
+	 x.at(i) = model->getVarByName("x_" + std::to_string(i)).get(GRB_DoubleAttr_X);
+  if (extractZ) {
 	 z.zeros(nR);
-  for (unsigned int i = 0; i < nR; i++) {
-	 x[i] = model->getVarByName("x_" + std::to_string(i)).get(GRB_DoubleAttr_X);
-	 if (extractZ)
-		z[i] = model->getVarByName("z_" + std::to_string(i)).get(GRB_DoubleAttr_X);
+	 for (unsigned int i = 0; i < nR; i++)
+		z.at(i) = model->getVarByName("z_" + std::to_string(i)).get(GRB_DoubleAttr_X);
   }
-  for (unsigned int i = nR; i < nC; i++)
-	 x[i] = model->getVarByName("x_" + std::to_string(i)).get(GRB_DoubleAttr_X);
   return true;
 }
 
@@ -725,10 +723,8 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 	 xSol.zeros(this->M.n_cols);
 	 zSol.zeros(this->M.n_rows);
 	 switch (this->solvePATH(timeLimit, xSol, zSol, false)) {
-	 case ZEROStatus::NashEqFound: {
-		cutOff = this->computeObjective(xSol);
+	 case ZEROStatus::NashEqFound:
 		return ZEROStatus::NashEqFound;
-	 }
 	 case ZEROStatus::Solved:
 		return ZEROStatus::NashEqFound;
 	 case ZEROStatus::NotSolved:
@@ -749,11 +745,11 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 	 // MIP Warmstart
 	 if (!xSol.empty()) {
 		for (unsigned int i = 0; i < xSol.size(); ++i)
-		  Model->getVarByName("x_" + std::to_string(i)).set(GRB_DoubleAttr_VarHintVal, xSol.at(i));
+		  Model->getVarByName("x_" + std::to_string(i)).set(GRB_DoubleAttr_Start, xSol.at(i));
 	 }
 	 if (!zSol.empty()) {
 		for (unsigned int i = 0; i < xSol.size(); ++i)
-		  Model->getVarByName("z_" + std::to_string(i)).set(GRB_DoubleAttr_VarHintVal, zSol.at(i));
+		  Model->getVarByName("z_" + std::to_string(i)).set(GRB_DoubleAttr_Start, zSol.at(i));
 	 }
 	 if (cutOff != -GRB_INFINITY) {
 		// Add a cutoff
@@ -765,7 +761,7 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 
 	 try {
 
-		Model->set(GRB_IntParam_OutputFlag, 0);
+		Model->set(GRB_IntParam_OutputFlag, 1);
 		LCP_PATHStart Callback =
 			 LCP_PATHStart(this, Model->getVars(), Model->get(GRB_IntAttr_NumVars));
 		Model->setCallback(&Callback);
@@ -958,21 +954,6 @@ void MathOpt::LCP::setMIPObjective(GRBModel &MIP) {
 }
 
 
-
-/**
- * @brief Computes the objective for the LCP given the internal LCP::Q_Obj and LCP::c_Obj
- * @param x The incumbent solution
- * @return The payoff
- */
-double MathOpt::LCP::computeObjective(const arma::vec &x) {
-
-  ZEROAssert(this->nC == x.size());
-  if (this->c_Obj.empty() && this->Q_Obj.empty())
-	 return 0;
-  else {
-	 return arma::as_scalar(this->c_Obj.t() * x + x.t() * this->Q_Obj * x);
-  }
-}
 
 /**
  * @brief Gets the MINLP model associated with the LCP, where complementarities are modeled with
