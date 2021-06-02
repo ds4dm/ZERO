@@ -403,6 +403,10 @@ void Game::EPEC::makeTheLCP() {
 void Game::EPEC::setWelfareObjective(bool linear = true, bool quadratic = true) {
 
   if (!linear && !quadratic) {
+	 GRBLinExpr obj{0};
+	 for (int i = 0; i <this->TheLCP->getNumCols() ; ++i)
+	   obj += this->LCPModel->getVarByName("x_" + std::to_string(i));
+    this->LCPModel->setObjective(obj, GRB_MINIMIZE);
 	 return;
   }
 
