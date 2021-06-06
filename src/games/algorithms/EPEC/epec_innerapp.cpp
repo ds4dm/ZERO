@@ -131,6 +131,17 @@ void Algorithms::EPEC::InnerApproximation::start() {
 		}
 	 }
 
+    if (this->EPECObject->Stats.AlgorithmData.TimeLimit.get() > 0) {
+	   const std::chrono::duration<double> timeElapsed =
+		    std::chrono::high_resolution_clock::now() - this->EPECObject->InitTime;
+	   const double timeRemaining =
+		    this->EPECObject->Stats.AlgorithmData.TimeLimit.get() - timeElapsed.count();
+	   if (timeRemaining <= 0) {
+		  if (!incrementalEnumeration)
+		    this->EPECObject->Stats.Status.set(ZEROStatus::TimeLimit);
+		  return;
+	   }
+    }
 	 this->EPECObject->makePlayersQPs();
 
 	 // TimeLimit
