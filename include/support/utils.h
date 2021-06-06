@@ -106,10 +106,6 @@ namespace Utils {
 
   VariableBounds intersectBounds(const VariableBounds &bA, const VariableBounds &bB);
 
-  template <class T> inline bool isZeroValue(const T val, double tol = 1e-6) {
-	 return (val >= -tol && val <= tol);
-  }
-
 
   CoinPackedMatrix              armaToCoinSparse(const arma::sp_mat &A);
   std::vector<CoinPackedVector> armaToCoinPackedVector(const arma::sp_mat &A);
