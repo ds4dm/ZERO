@@ -326,6 +326,8 @@ int main(int argc, char **argv) {
   auto timeStart = std::chrono::high_resolution_clock::now();
   try {
 	 GRBEnv env = GRBEnv();
+	 //As to have consistency among results
+	 env.set(GRB_IntParam_Seed,420);
 
 	 // OPTIONS
 	 //------------
@@ -445,7 +447,7 @@ int main(int argc, char **argv) {
 				  << stat.NumericalIssues.get() << ";"
 				  << to_string(stat.AlgorithmData.RecoverStrategy.get()) << ";-";
 	 } else {
-		results << ";-;-;-;-;-;-;-;-;" << std::to_string(stat.AlgorithmData.BranchingStrategy.get());
+		results << ";-;-;-;-;-;-;" << std::to_string(stat.AlgorithmData.BranchingStrategy.get());
 	 }
 	 results << "\n";
 	 results.close();
