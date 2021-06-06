@@ -133,6 +133,8 @@ void MathOpt::LCP::defConst(GRBEnv *env)
  * attributes.
  */
 void MathOpt::LCP::processBounds() {
+  return;
+  //@todo temporarily disabled for PATH
   unsigned int              cnt = 0;
   std::vector<unsigned int> shedded;
   for (auto c : this->Compl) {
@@ -278,7 +280,7 @@ void MathOpt::LCP::makeRelaxed() {
 
 	 GRBVar x[nC], z[nR];
 	 //@todo Bounds are currently not used for the MIP LCP. This should be extended to an MCP
-	 for (unsigned int i = 0; i < nC; i++)
+	 for (unsigned int i = 0; i < nC; i++) {
 		x[i] = RelaxedModel.addVar(0,
 											// BoundsX.at(i).first,
 											GRB_INFINITY,
@@ -286,6 +288,11 @@ void MathOpt::LCP::makeRelaxed() {
 											1,
 											GRB_CONTINUOUS,
 											"x_" + std::to_string(i));
+		if (this->BoundsX.at(i).first == this->BoundsX.at(i).second) {
+		  x[i].set(GRB_DoubleAttr_LB, this->BoundsX.at(i).first);
+		  x[i].set(GRB_DoubleAttr_UB, this->BoundsX.at(i).second);
+		}
+	 }
 	 for (unsigned int i = 0; i < nR; i++)
 		z[i] = RelaxedModel.addVar(0, GRB_INFINITY, 1, GRB_CONTINUOUS, "z_" + std::to_string(i));
 	 LOG_S(3) << "MathOpt::LCP::makeRelaxed: Added variables";
@@ -977,22 +984,11 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMINLP() {
 	 GRBLinExpr expr = 0;
 	 for (const auto p : Compl) {
 
-		//@todo bounds
-		int _lb = this->BoundsX.at(p.second).first;
-		int _ub = this->BoundsX.at(p.second).second;
-
-
-		// if (_lb != _ub) {
 		//  Otherwise, no bounds and we simplify the first expression for LB
 		model->addQConstr(x[p.second] * z[p.first],
 								GRB_EQUAL,
 								0,
 								"compl_z_" + std::to_string(p.first) + "_x_" + std::to_string(p.second));
-		/*}
-		else{
-		  model->addConstr(x[p.second],GRB_EQUAL,_lb);
-		}
-		 */
 	 }
 
 	 model->set(GRB_IntParam_NonConvex, 2);
