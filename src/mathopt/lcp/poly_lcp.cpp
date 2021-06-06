@@ -13,6 +13,8 @@
 
 #include "mathopt/lcp/poly_lcp.h"
 
+#include <memory>
+
 
 
 /**
@@ -38,11 +40,11 @@ std::vector<short int> MathOpt::PolyLCP::solEncode(const arma::vec &z, const arm
 	 unsigned int i, j;
 	 i = p.first;
 	 j = p.second;
-	 if (Utils::isZeroValue(z(i)))
+	 if (Utils::isEqual(z(i), 0))
 		solEncoded.at(i)++;
-	 if (Utils::isZeroValue(x(j)))
+	 if (Utils::isEqual(x(j), 0))
 		solEncoded.at(i)--;
-	 if (!Utils::isZeroValue(x(j)) && !Utils::isZeroValue(z(i)))
+	 if (!Utils::isEqual(x(j), 0) && !Utils::isEqual(z(i), 0))
 		LOG_S(1) << "Infeasible point given! Stay alert! " << x(j) << " " << z(i) << " with i=" << i;
   };
   return solEncoded;
@@ -89,7 +91,7 @@ bool operator<(std::vector<short int> child, std::vector<short int> father) {
 /**
  * @brief Reverse operator. Redirects to <
  */
-bool operator>(const std::vector<int>& encoding1, const std::vector<int>& encoding2) {
+bool operator>(const std::vector<int> &encoding1, const std::vector<int> &encoding2) {
   return (encoding2 < encoding1);
 }
 
@@ -99,6 +101,7 @@ bool operator>(const std::vector<int>& encoding1, const std::vector<int>& encodi
  * @param x The feasible point
  * @param innerApproximation True if the point is added to the inner-full approximation
  * @return True if the point is added.
+ * @warning So far, only for the innerApproximation
  */
 bool MathOpt::PolyLCP::addPolyFromX(const arma::vec &x, bool innerApproximation) {
   const auto        numCompl = this->Compl.size();
@@ -161,28 +164,33 @@ bool MathOpt::PolyLCP::addPolyFromEncoding(const std::vector<short int> &encodin
   if (eval) {
 	 if (!innerApproximation)
 		this->Outer_FeasibleApproximation = true;
+
+	 // Check if it was already added
 	 if (!custom && !CurrentPoly[innerApproximation ? 0 : 1].empty()) {
 		if (CurrentPoly[innerApproximation ? 0 : 1].find(encodingNumber) !=
 			 CurrentPoly[innerApproximation ? 0 : 1].end()) {
 		  return false;
 		}
 	 }
-	 std::unique_ptr<arma::sp_mat> Aii = std::unique_ptr<arma::sp_mat>(new arma::sp_mat(nR, nC));
+
+	 std::unique_ptr<arma::sp_mat> Aii = std::make_unique<arma::sp_mat>(nR, nC);
 	 Aii->zeros();
-	 std::unique_ptr<arma::vec> bii =
-		  std::make_unique<arma::vec>(nR, arma::fill::zeros);
+	 std::unique_ptr<arma::vec> bii = std::make_unique<arma::vec>(nR, arma::fill::zeros);
+
 	 for (unsigned int i = 0; i < this->nR; i++) {
 
 		switch (encoding.at(i)) {
 
+		  // Fix z=0
 		case 1: {
 		  for (auto j = this->M.begin_row(i); j != this->M.end_row(i); ++j)
-			 if (!Utils::isZeroValue((*j)))
+			 if (!Utils::isEqual(*j, 0))
 				Aii->at(i, j.col()) = (*j); // Only mess with non-zero elements of a sparse matrix!
 		  bii->at(i) = -this->q(i);
 		} break;
 
 
+		  // Fix x=0
 		case -1: {
 		  unsigned int variablePosition = (i >= this->LeadStart) ? i + this->NumberLeader : i;
 		  Aii->at(i, variablePosition)  = 1;
@@ -235,7 +243,7 @@ bool MathOpt::PolyLCP::addPolyFromEncoding(const std::vector<short int> &encodin
  * or was not added
  * @warning Use PolyLCP::addPolyFromEncoding for a single polyhedron
  */
-unsigned int MathOpt::PolyLCP::addPoliesFromEncoding(const std::vector<short int>& encoding,
+unsigned int MathOpt::PolyLCP::addPoliesFromEncoding(const std::vector<short int> &encoding,
 																	  bool       innerApproximation,
 																	  bool       checkFeas,
 																	  bool       custom,
@@ -263,8 +271,8 @@ unsigned int MathOpt::PolyLCP::addPoliesFromEncoding(const std::vector<short int
 	 added += this->addPoliesFromEncoding(
 		  encodingCopy, innerApproximation, checkFeas, custom, customA, customb);
   } else
-	 added +=
-		  this->addPolyFromEncoding(encoding, innerApproximation, checkFeas, custom, customA, customb);
+	 added += this->addPolyFromEncoding(
+		  encoding, innerApproximation, checkFeas, custom, customA, customb);
   return added;
 }
 
@@ -292,7 +300,7 @@ unsigned long int MathOpt::PolyLCP::getNextPoly(Data::LCP::PolyhedraStrategy met
 		}
 	 }
 	 return this->Inner_MaxPoly;
-  } break;
+  }
   case Data::LCP::PolyhedraStrategy::ReverseSequential: {
 	 while (this->Inner_ReverseSequentialPolyCounter >= 0) {
 		const auto isAll =
@@ -305,7 +313,7 @@ unsigned long int MathOpt::PolyLCP::getNextPoly(Data::LCP::PolyhedraStrategy met
 		}
 	 }
 	 return this->Inner_MaxPoly;
-  } break;
+  }
   case Data::LCP::PolyhedraStrategy::Random: {
 	 static std::mt19937                              engine(this->RandomSeed);
 	 std::uniform_int_distribution<unsigned long int> dist(0, this->Inner_MaxPoly - 1);
@@ -318,11 +326,10 @@ unsigned long int MathOpt::PolyLCP::getNextPoly(Data::LCP::PolyhedraStrategy met
 		if (!isAll && !isInfeas)
 		  return randomPolyId;
 	 }
-  } break;
   }
-  throw ZEROException(ZEROErrorCode::Unknown, "MathOpt::PolyLCP::getNextPoly generated a weird result.");
-  // This shouldn't happen
-  return -1;
+  }
+  throw ZEROException(ZEROErrorCode::Unknown,
+							 "MathOpt::PolyLCP::getNextPoly generated a weird result.");
 }
 
 /**
@@ -356,7 +363,8 @@ unsigned int MathOpt::PolyLCP::addAPoly(unsigned long int            nPoly,
 	 if (this->checkPolyFeas(choiceDecimal, true)) {
 
 		const std::vector<short int> choice = this->numToVec(choiceDecimal, this->Compl.size(), true);
-		auto                         added  = this->addPolyFromEncoding(choice, true);
+		//Disable feasibility check, since it has been already performed
+		auto                         added  = this->addPolyFromEncoding(choice, true, false);
 		if (added) // If choice is added to All Polyhedra
 		{
 		  add++;
@@ -502,7 +510,7 @@ bool MathOpt::PolyLCP::checkPolyFeas(const unsigned long int &decimalEncoding,
  * one
  * @return True if at least one polyhedron is feasible
  */
-bool MathOpt::PolyLCP::outerApproximate(const std::vector<bool>& encoding, bool clear) {
+bool MathOpt::PolyLCP::outerApproximate(const std::vector<bool> &encoding, bool clear) {
   ZEROAssert(encoding.size() == this->Compl.size());
   if (clear) {
 	 this->clearPolyhedra(false);
@@ -563,7 +571,7 @@ bool MathOpt::PolyLCP::checkPolyFeas(const std::vector<short int> &encoding,
 	 }
 	 if (!innerApproximation) {
 		// We may want to check for parents
-		if (this->numToVec(i, this->Compl.size(), false) < encoding ) {
+		if (this->numToVec(i, this->Compl.size(), false) < encoding) {
 		  LOG_S(1) << "MathOpt::PolyLCP::checkPolyFeas: Parent of a feasible polyhedron. Feasible #"
 					  << encodingNumber;
 		  FeasiblePoly[index].insert(encodingNumber);
