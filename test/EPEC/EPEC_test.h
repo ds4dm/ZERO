@@ -111,7 +111,7 @@ void testEPECInstance(const testInst                            inst,
 	 case TestType::simpleCheck: {
 		unsigned int cn;
 		arma::vec    dev;
-		BOOST_CHECK_MESSAGE(epec.isSolved(), "Invoking isSolved method.");
+		BOOST_CHECK_MESSAGE(epec.isSolved(), "Invoking isSolved method for "+std::to_string(algorithm.Algorithm.get()));
 	 } break;
 	 case TestType::resultCheck: {
 		// Checking
