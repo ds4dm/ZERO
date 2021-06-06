@@ -649,9 +649,13 @@ void Algorithms::EPEC::OuterApproximation::solve() {
 			 this->EPECObject->Stats.AlgorithmData.TimeLimit.get() - timeElapsed.count();
 
 
-		double timeForNextIteration = timeRemaining * 0.998;
-		if (branchesLeft > 0)
+		double timeForNextIteration = timeRemaining * 0.98;
+
+		//@todo Currently not used.
+		/*
+		if (branchesLeft > 0 && false)
 		  timeForNextIteration = (timeRemaining * 0.2) / (cumulativeBranchingCandidates - 1);
+		  */
 
 		LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::solve: Allocating "
 						<< timeForNextIteration << "s for the next iteration (" << branchesLeft
