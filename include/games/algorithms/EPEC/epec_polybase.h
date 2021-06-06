@@ -62,8 +62,8 @@ namespace Algorithms::EPEC {
 		}
 
 		virtual void solve() = 0; ///< A general method to solve problems
-		bool isSolved(unsigned int *player, arma::vec *profitableDeviation, double tol = -1) const;
-		virtual bool isSolved(double tol = 1e5); ///< A method to check whether the EPEC is solved or
+		bool isSolved(unsigned int *player, arma::vec *profitableDeviation, double tol = -1e-5) const;
+		virtual bool isSolved(double tol = 1e-5); ///< A method to check whether the EPEC is solved or
 														  ///< not, given a numerical tolerance
 		void makeThePureLCP();
 
