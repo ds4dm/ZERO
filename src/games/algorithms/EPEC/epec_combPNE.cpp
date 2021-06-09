@@ -126,7 +126,8 @@ void Algorithms::EPEC::CombinatorialPNE::combPNE(
 				return;
 			 }
 		  }
-		}
+		} else if (this->EPECObject->Stats.Status.get() == ZEROStatus::Numerical)
+		  return;
 	 } else {
 		LOG_S(1) << "Algorithms::EPEC::CombinatorialPNE::combPNE:"
 						" configuration pruned.";

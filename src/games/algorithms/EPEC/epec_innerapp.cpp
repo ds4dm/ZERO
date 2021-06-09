@@ -167,6 +167,12 @@ void Algorithms::EPEC::InnerApproximation::start() {
 								false) &&
 						  !incrementalEnumeration;
 	 }
+
+	 //Numerical issues
+	 if (addRandPoly && this->EPECObject->Stats.Status.get() == ZEROStatus::Numerical){
+		return;
+	 }
+
 	 if (addRandPoly)
 		this->EPECObject->Stats.AlgorithmData.LostIntermediateEq.set(
 			 this->EPECObject->Stats.AlgorithmData.LostIntermediateEq.get() + 1);
