@@ -174,7 +174,7 @@ bool Models::EPEC::EPEC::ParamValid(
 	 throw ZEROException(ZEROErrorCode::InvalidData, "The country has no name");
   // Country should have a unique name
   for (const auto &p : this->AllLeadPars)
-	 if (Params.name.compare(p.name) == 0) // i.e., if the strings are same
+	 if (Params.name == p.name) // i.e., if the strings are same
 		throw ZEROException(ZEROErrorCode::InvalidData, "The country has an already existing name");
   return true;
 }
