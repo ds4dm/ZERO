@@ -406,7 +406,7 @@ void Game::EPEC::setWelfareObjective(bool linear = true, bool quadratic = true) 
 	 GRBLinExpr obj{0};
 	 for (int i = 0; i <this->TheLCP->getNumCols() ; ++i)
 	   obj += this->LCPModel->getVarByName("x_" + std::to_string(i));
-    this->LCPModel->setObjective(obj, GRB_MINIMIZE);
+    this->LCPModel->setObjective(obj, GRB_MAXIMIZE);
 	 return;
   }
 
@@ -518,8 +518,9 @@ bool Game::EPEC::computeNashEq(bool   pureNE,
 	*/
 
   unsigned int MIPWorkers = 1;
+  //@todo disabled
   if (solver == Data::LCP::Algorithms::MIP || solver == Data::LCP::Algorithms::MINLP) {
-	 if (this->Stats.AlgorithmData.Threads.get() >= 8) {
+	 if (this->Stats.AlgorithmData.Threads.get() >= 8 && false) {
 		int wrk    = std::round(std::floor(this->Stats.AlgorithmData.Threads.get() / 4));
 		MIPWorkers = std::max(wrk, 1);
 		LOG_S(INFO) << "Game::EPEC::computeNashEq: ConcurrentMIP set to " << MIPWorkers << ".";
@@ -542,6 +543,12 @@ bool Game::EPEC::computeNashEq(bool   pureNE,
 								"true) Cannot search fore pure NE with the OuterApproximation.";
   }
 
+  if (this->TheLCP->getNumRows() > 250000){
+    LOG_S(WARNING) << "Game::EPEC::computeNashEq: Too many complementarities. Aborting";
+	   this->Stats.Status.set(ZEROStatus::Numerical);
+		return false;
+  }
+
   this->LCPModel =
 		this->TheLCP->LCPasMIP(false, localTimeLimit, MIPWorkers, multipleNE ? GRB_MAXINT : 1);
 
@@ -549,6 +556,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,
   this->setWelfareObjective(linearWelfare, quadraticWelfare);
   try {
 	 this->LCPModel->set(GRB_IntParam_OutputFlag, 1);
+	 this->LCPModel->set(GRB_IntParam_NumericFocus, 1);
 	 this->LCPModel->optimize();
   } catch (GRBException &e) {
 	 throw ZEROException(e);
@@ -576,16 +584,16 @@ bool Game::EPEC::computeNashEq(bool   pureNE,
 		}
 	 } else {
 		this->NashEquilibrium = true;
-		LOG_S(INFO) << "Game::EPEC::computeNashEq: An Equilibrium has been found";
+		LOG_S(INFO) << "Game::EPEC::computeNashEq: An Equilibrium has been found (Status: "<<this->LCPModel->get(GRB_IntAttr_Status) <<")";
 	 }
 
   } else {
 	 LOG_S(INFO) << "Game::EPEC::computeNashEq: no equilibrium has been found.";
 	 int status = this->LCPModel->get(GRB_IntAttr_Status);
 	 if (status == GRB_TIME_LIMIT)
-		this->Stats.Status = ZEROStatus::TimeLimit;
+	   this->Stats.Status.set(ZEROStatus::TimeLimit);
 	 else
-		this->Stats.Status = ZEROStatus::NashEqNotFound;
+	   this->Stats.Status.set(ZEROStatus::NashEqFound);
   }
   return this->NashEquilibrium;
 }
@@ -703,8 +711,7 @@ void Game::EPEC::findNashEq() {
 	 final_msg << "Nash equilibrium not found. The time limit was hit.";
 	 break;
   case ZEROStatus::Numerical:
-	 final_msg << "Nash equilibrium not found. Numerical issues might affect "
-					  "this result.";
+	 final_msg << "Nash equilibrium not found. The Numerical issues flag was triggered.";
 	 break;
   default:
 	 final_msg << "Nash equilibrium not found. Unknown status.";
