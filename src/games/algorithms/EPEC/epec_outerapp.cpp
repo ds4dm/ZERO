@@ -97,8 +97,9 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
 							  << " No best response (" << incumbentPayoffs.at(i) << " vs " << bestPayoff
 							  << " with absdiff=" << incumbentPayoffs.at(i) - bestPayoff << ")";
 		  this->EPECObject->Stats.Status.set(ZEROStatus::Numerical);
-		  throw ZEROException(ZEROErrorCode::Numeric,
+		  ZEROException(ZEROErrorCode::Numeric,
 									 "Invalid payoffs relation (better best response).");
+		  return 0;
 		} else
 		// In any other case, we are good to go.
 		{
@@ -434,6 +435,13 @@ void Algorithms::EPEC::OuterApproximation::addValueCut(const unsigned int player
 
   arma::vec LHS = (this->EPECObject->LeaderObjective.at(player)->c +
 						 this->EPECObject->LeaderObjective.at(player)->C * xMinusI);
+
+  //Constant!
+  if (Utils::isEqual(arma::max(LHS),0)) {
+    LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::addValueCut: "
+                   "Constant cut. Discarding. ";
+	 return;
+  }
 
   double trueRHS;
   if (Utils::nonzeroDecimals(RHS, 6) >= 6) {

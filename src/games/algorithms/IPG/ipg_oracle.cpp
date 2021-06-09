@@ -141,6 +141,13 @@ bool Algorithms::IPG::Oracle::addValueCut(unsigned int     player,
   arma::vec LHS = -(this->IPG->PlayersIP.at(player)->getc() +
 						  this->IPG->PlayersIP.at(player)->getC() * xMinusI);
 
+  //Constant!
+  if (Utils::isEqual(arma::max(LHS),0)) {
+	 LOG_S(INFO) << "Algorithms::IPG::Oracle::addValueCut: "
+	                "Constant cut. Discarding. ";
+	 return false;
+  }
+
   //******DEBUG********
   // LHS.impl_raw_print("LHS with RHS=" + std::to_string(-RHS));
   //******DEBUG********
