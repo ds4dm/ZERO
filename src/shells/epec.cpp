@@ -453,8 +453,10 @@ int main(int argc, char **argv) {
 	 results.close();
   } catch (ZEROException &e) {
 	 std::cerr << "" << e.what() << "--" << e.more();
+	 throw ZEROException(e);
   } catch (GRBException &e) {
 	 std::cerr << "" << e.getErrorCode() << "--" << e.getMessage();
+	 throw;
   }
 
   return EXIT_SUCCESS;
