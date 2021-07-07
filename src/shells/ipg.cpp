@@ -97,7 +97,7 @@ int main(int argc, char **argv) {
 																																																																									 &aggressiveness)
 																																																																									 ->default_value(
 																																																																										  0),
-																																																																								"Cutting planes aggressiveness (int): 0: NoThanks; 1: KeepItCool; 2: Truculent")("objective,o",
+																																																																								"Cutting planes aggressiveness (int): -1: NotEvenTry; 0: NoThanks; 1: KeepItCool; 2: Truculent")("objective,o",
 																																																																																																			po::value<
 																																																																																																				 int>(
 																																																																																																				 &objective)
@@ -162,6 +162,9 @@ int main(int argc, char **argv) {
 	 // So far, just one...
 	 ipg.setAlgorithm(Data::IPG::Algorithms::Oracle);
 	 switch (aggressiveness) {
+	 case -1:
+	   ipg.setCutsAggressiveness(Data::IPG::CutsAggressiveness::NotEvenTry);
+	   break;
 	 case 0:
 		ipg.setCutsAggressiveness(Data::IPG::CutsAggressiveness::NoThanks);
 		break;

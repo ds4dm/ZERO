@@ -33,6 +33,7 @@ namespace Data::IPG {
 	* @brief Cuts aggressiveness for Algorithms::IPG::Oracle
 	*/
   enum class CutsAggressiveness {
+	 NotEvenTry, ///< Do not add "standard" IPG cuts to the game, nor tries to replace value cuts
 	 NoThanks,   ///< Do not add "standard" Integer Programming cuts to the game
 	 KeepItCool, ///< At most one cut per-player
 	 Truculent   ///< A storm of cuts at each infeasibility detection

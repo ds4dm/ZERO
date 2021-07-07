@@ -141,10 +141,10 @@ bool Algorithms::IPG::Oracle::addValueCut(unsigned int     player,
   arma::vec LHS = -(this->IPG->PlayersIP.at(player)->getc() +
 						  this->IPG->PlayersIP.at(player)->getC() * xMinusI);
 
-  //Constant!
-  if (Utils::isEqual(arma::max(LHS),0)) {
+  // Constant!
+  if (Utils::isEqual(arma::max(LHS), 0)) {
 	 LOG_S(INFO) << "Algorithms::IPG::Oracle::addValueCut: "
-	                "Constant cut. Discarding. ";
+						 "Constant cut. Discarding. ";
 	 return false;
   }
 
@@ -159,9 +159,12 @@ bool Algorithms::IPG::Oracle::addValueCut(unsigned int     player,
   if (Utils::nonzeroDecimals(RHS, 6) >= 5) {
 	 LOG_S(0) << "Algorithms::IPG::Oracle::addValueCut: "
 					 "Numerically unstable. Generating another cut.";
-	 if (this->externalCutGenerator(player, 1, false, true) != 0) {
-		return true;
+	 if (this->IPG->Stats.AlgorithmData.CutAggressiveness.get() !=
+		  Data::IPG::CutsAggressiveness::NotEvenTry) {
+		if (this->externalCutGenerator(player, 1, false, true) != 0)
+		  return true;
 	 }
+
 	 // Force normalization, in case it wasn't before.
 	 RHS = Utils::round_nplaces(RHS, 6);
 	 for (unsigned int i = 0; i < LHS.size(); ++i)
@@ -247,9 +250,11 @@ void Algorithms::IPG::Oracle::initLCPObjective() {
  */
 void Algorithms::IPG::Oracle::solve() {
   this->initialize();
-  bool MIPCuts = this->IPG->Stats.AlgorithmData.CutAggressiveness.get() !=
-					  Data::IPG::CutsAggressiveness::NoThanks;
-  int cutsAggressiveness = 0;
+  bool MIPCuts            = (this->IPG->Stats.AlgorithmData.CutAggressiveness.get() !=
+                      Data::IPG::CutsAggressiveness::NoThanks ||
+                  this->IPG->Stats.AlgorithmData.CutAggressiveness.get() !=
+                      Data::IPG::CutsAggressiveness::NotEvenTry);
+  int  cutsAggressiveness = 0;
   if (MIPCuts) {
 	 if (this->IPG->Stats.AlgorithmData.CutAggressiveness.get() ==
 		  Data::IPG::CutsAggressiveness::Truculent)
