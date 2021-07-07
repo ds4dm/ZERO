@@ -97,8 +97,7 @@ bool Algorithms::EPEC::OuterApproximation::isFeasible(bool &addedCuts) {
 							  << " No best response (" << incumbentPayoffs.at(i) << " vs " << bestPayoff
 							  << " with absdiff=" << incumbentPayoffs.at(i) - bestPayoff << ")";
 		  this->EPECObject->Stats.Status.set(ZEROStatus::Numerical);
-		  ZEROException(ZEROErrorCode::Numeric,
-									 "Invalid payoffs relation (better best response).");
+		  ZEROException(ZEROErrorCode::Numeric, "Invalid payoffs relation (better best response).");
 		  return 0;
 		} else
 		// In any other case, we are good to go.
@@ -436,10 +435,10 @@ void Algorithms::EPEC::OuterApproximation::addValueCut(const unsigned int player
   arma::vec LHS = (this->EPECObject->LeaderObjective.at(player)->c +
 						 this->EPECObject->LeaderObjective.at(player)->C * xMinusI);
 
-  //Constant!
-  if (Utils::isEqual(arma::max(LHS),0)) {
-    LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::addValueCut: "
-                   "Constant cut. Discarding. ";
+  // Constant!
+  if (Utils::isEqual(arma::max(LHS), 0)) {
+	 LOG_S(INFO) << "Algorithms::EPEC::OuterApproximation::addValueCut: "
+						 "Constant cut. Discarding. ";
 	 return;
   }
 
@@ -853,15 +852,21 @@ int Algorithms::EPEC::OuterApproximation::hybridBranching(const unsigned int pla
 				// the constraint violations given by the current x
 				model->feasRelax(1, false, false, true);
 				model->optimize();
-				if (model->getObjective().getValue() > bestScore) {
-				  bestId    = i;
-				  bestScore = model->getObjective().getValue();
-				  LOG_S(INFO) << "OuterApproximation::hybridBranching: Player " << player
-								  << " has violation of " << bestScore << " with complementarity " << i;
+				if (model->get(GRB_IntAttr_Status) == GRB_OPTIMAL) {
+				  if (model->getObjective().getValue() > bestScore) {
+					 bestId    = i;
+					 bestScore = model->getObjective().getValue();
+					 LOG_S(INFO) << "OuterApproximation::hybridBranching: Player " << player
+									 << " has violation of " << bestScore << " with complementarity " << i;
+				  } else {
+					 LOG_S(INFO) << "OuterApproximation::hybridBranching: Player " << player
+									 << " has violation of " << model->getObjective().getValue()
+									 << " with complementarity " << i;
+				  }
 				} else {
-				  LOG_S(INFO) << "OuterApproximation::hybridBranching: Player " << player
-								  << " has violation of " << model->getObjective().getValue()
-								  << " with complementarity " << i;
+				  LOG_S(WARNING)
+						<< "OuterApproximation::hybridBranching: Numerical difficulties in evaluating "
+						<< std::to_string(i);
 				}
 			 } else {
 				LOG_S(INFO) << "OuterApproximation::hybridBranching: Player " << player
