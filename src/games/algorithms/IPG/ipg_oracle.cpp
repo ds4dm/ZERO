@@ -250,11 +250,12 @@ void Algorithms::IPG::Oracle::initLCPObjective() {
  */
 void Algorithms::IPG::Oracle::solve() {
   this->initialize();
-  bool MIPCuts            = (this->IPG->Stats.AlgorithmData.CutAggressiveness.get() !=
-                      Data::IPG::CutsAggressiveness::NoThanks ||
-                  this->IPG->Stats.AlgorithmData.CutAggressiveness.get() !=
-                      Data::IPG::CutsAggressiveness::NotEvenTry);
-  int  cutsAggressiveness = 0;
+  bool MIPCuts  = true;
+  auto cutLevel = this->IPG->Stats.AlgorithmData.CutAggressiveness.get();
+  if (cutLevel == Data::IPG::CutsAggressiveness::NoThanks ||
+		cutLevel == Data::IPG::CutsAggressiveness::NotEvenTry)
+	 MIPCuts = false;
+  int cutsAggressiveness = 0;
   if (MIPCuts) {
 	 if (this->IPG->Stats.AlgorithmData.CutAggressiveness.get() ==
 		  Data::IPG::CutsAggressiveness::Truculent)

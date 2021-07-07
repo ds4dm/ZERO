@@ -24,92 +24,183 @@ int main(int argc, char **argv) {
 
   po::options_description desc("ZERO-IPG: Allowed options");
   desc
-		.add_options()("help,h", "Shows this help message")(
-			 "version,v",
-			 "Shows ZERO version")("input,i",
-										  po::value<string>(&instanceFile),
-										  "Sets the input "
-										  "path/filename of the "
-										  "instance file (.json "
-										  "appended "
-										  "automatically)")("algorithm"
-																  "m,a",
-																  po::value<int>(&algorithm),
-																  "Sets "
-																  "the "
-																  "Algorithm"
-																  "m. "
-																  "0:"
-																  "Oracle")("solution,s",
-																				po::value<string>(&resFile)
-																					 ->default_value("dat/Solution"),
-																				"Sets the output "
-																				"path/filename of the "
-																				"solution file (.json "
-																				"appended "
-																				"automatically)")("log,l",
-																										po::value<string>(
-																											 &logFile)
-																											 ->default_value(
-																												  "dat/"
-																												  "Results."
-																												  "csv"),
-																										"Sets "
-																										"the "
-																										"output "
-																										"path/"
-																										"filenam"
-																										"e of "
-																										"the "
-																										"csv "
-																										"log "
-																										"file")("timelimit,"
-																												  "tl",
-																												  po::value<
-																														double>(
-																														&timeLimit)
-																														->default_value(
-																															 -1.0),
-																												  "Sets the "
-																												  "timelimit")("verbosity,ve",
-																																	po::value<
-																																		 int>(
-																																		 &verbosity)
-																																		 ->default_value(
-																																			  0),
-																																	"Sets the verbosity level for info and warning messages. 0: "
-																																	"warning and critical. 1: info. 2: debug. 3: trace")("threads,t",
-																																																		  po::value<
-																																																				int>(
-																																																				&nThreads)
-																																																				->default_value(
-																																																					 1),
-																																																		  "Sets the number of Threads for Gurobi. (int): number of Threads. 0: "
-																																																		  "auto (number of processors)")("devtol,dt",
-																																																													po::value<
-																																																														 double>(
-																																																														 &devtol)
-																																																														 ->default_value(
-																																																															  3e-4),
-																																																													"Sets the deviation tolerance.")("aggressiveness,aggr",
-																																																																								po::value<
-																																																																									 int>(
-																																																																									 &aggressiveness)
-																																																																									 ->default_value(
-																																																																										  0),
-																																																																								"Cutting planes aggressiveness (int): -1: NotEvenTry; 0: NoThanks; 1: KeepItCool; 2: Truculent")("objective,o",
-																																																																																																			po::value<
-																																																																																																				 int>(
-																																																																																																				 &objective)
-																																																																																																				 ->default_value(
-																																																																																																					  0),
-																																																																																																			"LCP Objective type (int): 0: Feasibility; 1: Linear; 2: Quadratic")("lcpalgo,l",
-																																																																																																																										po::value<
-																																																																																																																											 int>(
-																																																																																																																											 &LCPalgo)
-																																																																																																																											 ->default_value(
-																																																																																																																												  0),
-																																																																																																																										"LCP Algorithm type (int): 0: MIP; 1: MINLP; 2: PATH");
+		.add_options()(
+			 "help,h", "Shows this help message")("version,v",
+															  "Shows ZERO version")("input,i",
+																							po::value<string>(
+																								 &instanceFile),
+																							"Sets the input "
+																							"path/filename of the "
+																							"instance file (.json "
+																							"appended "
+																							"automatically)")("algorithm"
+																													"m,a",
+																													po::value<
+																														 int>(
+																														 &algorithm),
+																													"Sets "
+																													"the "
+																													"Algorithm"
+																													"m. "
+																													"0:"
+																													"Oracle")("s"
+																																 "o"
+																																 "l"
+																																 "u"
+																																 "t"
+																																 "i"
+																																 "o"
+																																 "n"
+																																 ","
+																																 "s",
+																																 po::value<
+																																	  string>(
+																																	  &resFile)
+																																	  ->default_value(
+																																			"dat/Solution"),
+																																 "S"
+																																 "e"
+																																 "t"
+																																 "s"
+																																 " "
+																																 "t"
+																																 "h"
+																																 "e"
+																																 " "
+																																 "o"
+																																 "u"
+																																 "t"
+																																 "p"
+																																 "u"
+																																 "t"
+																																 " "
+																																 "p"
+																																 "a"
+																																 "t"
+																																 "h"
+																																 "/"
+																																 "f"
+																																 "i"
+																																 "l"
+																																 "e"
+																																 "n"
+																																 "a"
+																																 "m"
+																																 "e"
+																																 " "
+																																 "o"
+																																 "f"
+																																 " "
+																																 "t"
+																																 "h"
+																																 "e"
+																																 " "
+																																 "s"
+																																 "o"
+																																 "l"
+																																 "u"
+																																 "t"
+																																 "i"
+																																 "o"
+																																 "n"
+																																 " "
+																																 "f"
+																																 "i"
+																																 "l"
+																																 "e"
+																																 " "
+																																 "("
+																																 "."
+																																 "j"
+																																 "s"
+																																 "o"
+																																 "n"
+																																 " "
+																																 "a"
+																																 "p"
+																																 "p"
+																																 "e"
+																																 "n"
+																																 "d"
+																																 "e"
+																																 "d"
+																																 " "
+																																 "a"
+																																 "u"
+																																 "t"
+																																 "o"
+																																 "m"
+																																 "a"
+																																 "t"
+																																 "i"
+																																 "c"
+																																 "a"
+																																 "l"
+																																 "l"
+																																 "y"
+																																 ")")("log,l",
+																																		po::value<
+																																			 string>(
+																																			 &logFile)
+																																			 ->default_value(
+																																				  "dat/"
+																																				  "Results."
+																																				  "csv"),
+																																		"Sets "
+																																		"the "
+																																		"output "
+																																		"path/"
+																																		"filenam"
+																																		"e of "
+																																		"the "
+																																		"csv "
+																																		"log "
+																																		"file")("timelimit,"
+																																				  "tl",
+																																				  po::value<
+																																						double>(
+																																						&timeLimit)
+																																						->default_value(
+																																							 -1.0),
+																																				  "Sets the "
+																																				  "timelimit")("verbosity,ve",
+																																									po::value<
+																																										 int>(
+																																										 &verbosity)
+																																										 ->default_value(
+																																											  0),
+																																									"Sets the verbosity level for info and warning messages. 0: "
+																																									"warning and critical. 1: info. 2: debug. 3: trace")("threads,t",
+																																																										  po::value<
+																																																												int>(
+																																																												&nThreads)
+																																																												->default_value(
+																																																													 1),
+																																																										  "Sets the number of Threads for Gurobi. (int): number of Threads. 0: "
+																																																										  "auto (number of processors)")("devtol,dt",
+																																																																					po::value<
+																																																																						 double>(
+																																																																						 &devtol)
+																																																																						 ->default_value(
+																																																																							  3e-4),
+																																																																					"Sets the deviation tolerance.")("aggressiveness,aggr",
+																																																																																po::value<
+																																																																																	 int>(
+																																																																																	 &aggressiveness)
+																																																																																	 ->default_value(
+																																																																																		  0),
+																																																																																"Cutting planes aggressiveness (int): -1: NotEvenTry; 0: NoThanks; 1: KeepItCool; 2: Truculent")("objective,o",
+																																																																																																																 po::value<
+																																																																																																																	  int>(&objective)
+																																																																																																																	  ->default_value(
+																																																																																																																			0),
+																																																																																																																 "LCP Objective type (int): 0: Feasibility; 1: Linear; 2: Quadratic")("lcpalgo,l",
+																																																																																																																																							 po::value<
+																																																																																																																																								  int>(
+																																																																																																																																								  &LCPalgo)
+																																																																																																																																								  ->default_value(
+																																																																																																																																										0),
+																																																																																																																																							 "LCP Algorithm type (int): 0: MIP; 1: MINLP; 2: PATH");
 
   po::variables_map vm;
   po::store(po::parse_command_line(argc, argv, desc), vm);
@@ -163,8 +254,8 @@ int main(int argc, char **argv) {
 	 ipg.setAlgorithm(Data::IPG::Algorithms::Oracle);
 	 switch (aggressiveness) {
 	 case -1:
-	   ipg.setCutsAggressiveness(Data::IPG::CutsAggressiveness::NotEvenTry);
-	   break;
+		ipg.setCutsAggressiveness(Data::IPG::CutsAggressiveness::NotEvenTry);
+		break;
 	 case 0:
 		ipg.setCutsAggressiveness(Data::IPG::CutsAggressiveness::NoThanks);
 		break;
@@ -234,10 +325,11 @@ int main(int argc, char **argv) {
 				  << std::to_string(stat.AlgorithmData.CutAggressiveness.get()) << ";"
 				  << ipg.getNumPlayers() << ";" << std::to_string(stat.PureNashEquilibrium.get()) << ";"
 				  << std::to_string(stat.Status.get()) << ";" << stat.NumVar.get() << ";"
-				  << std::to_string(stat.WallClockTime.get()) << ";" << std::to_string(ipg.getSocialWelfare())
-				  << ";" << std::to_string(stat.AlgorithmData.Threads.get()) << ";"
-				  << stat.NumIterations.get() << ";" << cuts.at(0).second << ";" << cuts.at(1).second
-				  << ";" << cuts.at(2).second << ";" << totalCuts << "\n";
+				  << std::to_string(stat.WallClockTime.get()) << ";"
+				  << std::to_string(ipg.getSocialWelfare()) << ";"
+				  << std::to_string(stat.AlgorithmData.Threads.get()) << ";" << stat.NumIterations.get()
+				  << ";" << cuts.at(0).second << ";" << cuts.at(1).second << ";" << cuts.at(2).second
+				  << ";" << totalCuts << "\n";
 
 
 		results.close();

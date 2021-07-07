@@ -147,6 +147,8 @@ std::string std::to_string(Data::IPG::CutsAggressiveness ct) {
 	 return std::string("NoThanks");
   case Data::IPG::CutsAggressiveness::KeepItCool:
 	 return std::string("KeepItCool");
+  case Data::IPG::CutsAggressiveness::NotEvenTry:
+	 return std::string("NotEvenTry");
   default:
 	 return std::string("Truculent");
   }
