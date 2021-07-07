@@ -61,9 +61,9 @@ namespace MathOpt {
 	 arma::vec    q;                     ///< The vector q in @f$Mx+q@f$ that defines the LCP
 	 perps Compl; ///< Compl dictates which equation (row in M) is complementary to which variable
 					  ///< (column in M). The object is in a <Eqn, Var> form
-	 unsigned int LeadStart{1};    ///< Starting leader location
-	 unsigned int LeadEnd{0};      ///< Ending leader location
-	 unsigned int NumberLeader{0}; ///< Number of leaders
+	 unsigned long int LeadStart{1};    ///< Starting leader location
+	 unsigned long int LeadEnd{0};      ///< Ending leader location
+	 unsigned long int NumberLeader{0}; ///< Number of leaders
 	 bool PureMIP = true; ///< True if the LCP is modelled via a pure MIP with SOS1 (or indicator)
 								 ///< constraints. Otherwise, a MINLP introduces a bilinear term for each
 								 ///< complementarity
@@ -72,8 +72,8 @@ namespace MathOpt {
 	 arma::vec b =
 		  {}; ///< The additional constraint RHSs b to the problem, in the form @f$Ax \leq b@f$
 	 bool         MadeRlxdModel{false}; ///< True if a relaxed model has been already initialized
-	 unsigned int nR{};                 ///< The number of rows in the matrix M
-	 unsigned int nC{};                 ///< The number of columns in the matrix M
+	 unsigned long int nR{};                 ///< The number of rows in the matrix M
+	 unsigned long int nC{};                 ///< The number of columns in the matrix M
 
 	 /**
 	  * Stores non-trivial upper and lower bounds on x variables  in as a tuple (j,k) where j the
@@ -105,7 +105,7 @@ namespace MathOpt {
 	  */
 	 std::unique_ptr<vec_Vec> bi;
 
-	 unsigned int convexHull(arma::sp_mat &A, arma::vec &b);
+	 unsigned long int convexHull(arma::sp_mat &A, arma::vec &b);
 
   public:
 	 double Eps{1e-6}; ///< The threshold for optimality and feasability tolerances
@@ -125,7 +125,7 @@ namespace MathOpt {
 	 LCP(GRBEnv *      env,
 		  arma::sp_mat &M,
 		  arma::vec &   q,
-		  unsigned int  leadStart,
+		  unsigned long int  leadStart,
 		  unsigned      leadEnd,
 		  arma::sp_mat &A,
 		  arma::vec &   b);
@@ -148,14 +148,14 @@ namespace MathOpt {
 	  */
 	 inline arma::vec getq() const { return this->q; }
 
-	 inline unsigned int getNumberLeader() const {
+	 inline unsigned long int getNumberLeader() const {
 		return this->NumberLeader;
 	 } ///< Read-only access to LCP::NumberLeader
 	 /**
 	  * @brief Read-only access to LCP::LeadStart
 	  * @return LCP::LeadStart
 	  */
-	 const inline unsigned int getLStart() const { return LeadStart; }
+	 const inline unsigned long int getLStart() const { return LeadStart; }
 	 /**
 	  * @brief Read-only access to LCP::A
 	  * @return LCP::A
@@ -170,7 +170,7 @@ namespace MathOpt {
 	  * @brief Read-only access to LCP::LeadEnd
 	  * @return LCP::LeadEnd
 	  */
-	 const inline unsigned int getLEnd() const { return LeadEnd; }
+	 const inline unsigned long int getLEnd() const { return LeadEnd; }
 	 /**
 	  * @brief Read-only access to LCP::Compl
 	  * @return LCP::Compl
@@ -180,12 +180,12 @@ namespace MathOpt {
 	  * @brief Read-only access to  LCP::nC
 	  * @return  LCP::nC
 	  */
-	 inline unsigned int getNumCols() const { return this->nC; };
+	 inline unsigned long int getNumCols() const { return this->nC; };
 	 /**
 	  * @brief Read-only access to  LCP::nR
 	  * @return  LCP::nR
 	  */
-	 inline unsigned int getNumRows() const { return this->nR; };
+	 inline unsigned long int getNumRows() const { return this->nR; };
 
 
 	 inline bool hasCommonConstraints() const {
@@ -199,13 +199,13 @@ namespace MathOpt {
 												arma::vec &           xSol,
 												arma::vec &           zSol,
 												double                timeLimit,
-												unsigned int          MIPWorkers,
+												unsigned long int          MIPWorkers,
 												double &              objective,
-												unsigned int          solLimit = 1);
+												unsigned long int          solLimit = 1);
 	 std::unique_ptr<GRBModel> LCPasMIP(bool         solve      = false,
 													double       timeLimit  = -1,
-													unsigned int MIPWorkers = 1,
-													unsigned int solLimit   = 1);
+													unsigned long int MIPWorkers = 1,
+													unsigned long int solLimit   = 1);
 
 	 std::unique_ptr<GRBModel> LCPasMILP(const arma::sp_mat &C,
 													 const arma::vec &   c,
