@@ -288,7 +288,7 @@ bool MathOpt::IP_Param::isFeasible(const arma::vec &y, const arma::vec &x, doubl
 
 /**
  * @brief Adds a constraints to the IP_Param. It stores a description of the new cut @f$ A_{in}
- * x\leq& b_{in}@f$ of @p A_in (and RHS @p b_in) in B and b, respectively. @return true if the
+ * x \leq b_{in}@f$ of @p A_in (and RHS @p b_in) in B and b, respectively. @return true if the
  * constraint has been added This works also when the IP_Param is Finalized.
  * @param A_in The vector of LHS
  * @param b_in The RHS value
