@@ -43,7 +43,7 @@ Modeling the problem
 ====================================
 
 The first step in modeling this Integer Programming Game is to include `zero.h` and create a derived class of :cpp:class:`Game::IPG`. The minimal constructor for :cpp:class:`Game::IPG` involves passing a pointer to `GRBEnv` (Check Gurobi's C++ `reference manual <https://www.gurobi.com/documentation/8.1/refman/cpp_api_overview.html>`_
-). The derived class should indeed instantiate the base class (Game::IPG) using such a constructor. The code below, achieves it.
+). The derived class should indeed instantiate the base class (Game::IPG) using such a constructor. The code below gives an example.
 
 
 .. code-block:: c
@@ -106,7 +106,7 @@ The first step in modeling this Integer Programming Game is to include `zero.h` 
 	 Test.findNashEq();
 
 
-- With the method `setAlgorithm` of :cpp:class:`Models::IPG::IPGInstance`, we set the algorithm that will solve the Integer Programming Game. So far, only :cpp:class:`Algorithms::IPG::Oracle` is available.
+- With the method `setAlgorithm` of :cpp:class:`Game::IPG`, we set the algorithm that will solve the Integer Programming Game. So far, only :cpp:class:`Algorithms::IPG::Oracle` is available.
 - The method `setLCPAlgorithm` specifies the algorithm used to solve the LCPs. It can be either :cpp:class:`Data::LCP::Algorithms::MIP`, :cpp:class:`Data::LCP::Algorithms::PATH`, or :cpp:class:`Data::LCP::Algorithms::MINLP`.
 - The game's objective (not supported by PATH) forces an objective into the LCP problem as to increase the chances of finding a good equilibrium given the objective. Values can be :cpp:class:`Data::IPG::Objectives::Quadratic` :cpp:class:`Data::IPG::Objectives::Linear` :cpp:class:`Data::IPG::Objectives::Feasibility`.
-- Other options can be found in the documentation of :cpp:class:`Models::IPG::IPGInstance`
+- Other options can be found in the documentation of :cpp:class:`Game::IPG`

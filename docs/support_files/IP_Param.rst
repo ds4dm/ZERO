@@ -55,8 +55,8 @@ This data can be entered as follows. We assume the matrix Q is a matrix with:
 
      //Explicitly add the bounds without having to put additional constraints.
 	 VariableBounds    bnds = {{0, 1}, {0, 1}};
-     //Gurobi Environment
-     GRBEnv      test;
+	 //Gurobi Environment
+	 GRBEnv      test;
 	 MathOpt::IP_Param ipParam(_C2, _A2, _b, _c, _integers, bnds, &test);
 
 With :math:`(x_1, x_2) = (-1, 0.5)`, we can provide the value of :math:`f` and solve it through Gurobi
