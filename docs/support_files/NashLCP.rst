@@ -145,6 +145,3 @@ And note that, just like :cpp:class:`MathOpt::QP_Param`, :cpp:class:`Game::NashG
         Nash.save("dat/Nash.dat"); //Saves the object
         Game::NashGame Nash2(&env);
         Nash2.load("dat/Nash.dat"); // Loads the object into memory.
-
-
-Now that you are aware of most of the functionalities of :cpp:class:`Game::NashGame`, let us switch to the next tutorial on the `LCP` class.

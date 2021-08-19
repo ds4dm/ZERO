@@ -21,11 +21,13 @@ This code is distributed under the `CC0 1.0 Universal License <https://github.co
    :caption: Tutorials
    :name: Tutorials
 
-   support_files/EPEC
-   support_files/LCP
-   support_files/NashLCP
    support_files/QP_Param
    support_files/IP_Param
+   support_files/LCP
+   support_files/NashLCP
+   support_files/EPEC
+   support_files/IPG
+
 
 .. toctree::
    :caption: Extended References
