@@ -25,6 +25,7 @@ This code is distributed under the `CC0 1.0 Universal License <https://github.co
    support_files/LCP
    support_files/NashLCP
    support_files/QP_Param
+   support_files/IP_Param
 
 .. toctree::
    :caption: Extended References
