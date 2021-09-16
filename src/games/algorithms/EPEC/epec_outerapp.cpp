@@ -396,7 +396,16 @@ bool Algorithms::EPEC::OuterApproximation::equilibriumOracle(
 
 		  } // status optimal for leaderModel
 		  else if (status == GRB_UNBOUNDED) {
+			 auto relaxed = leaderModel->relax();
+			 relaxed.optimize();
 			 // Well, we have a ray. But let's normalize it...
+			 try {
+				for (unsigned int i = 0; i < cutLHS.size(); ++i)
+				  cutLHS[i] =
+						relaxed.getVarByName("x_" + std::to_string(i)).get(GRB_DoubleAttr_UnbdRay);
+			 } catch (GRBException &e) {
+				throw ZEROException(e);
+			 }
 			 cutLHS = Utils::normalizeVec(cutLHS);
 			 LOG_S(1) << "Algorithms::EPEC::OuterApproximation::equilibriumOracle: (P" << player
 						 << ") new ray";

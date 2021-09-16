@@ -655,7 +655,7 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 	 l[i] = playerModel->getVarByName("y_" + std::to_string(i));
   playerModel->set(GRB_IntParam_OutputFlag, 0);
   playerModel->set(GRB_IntParam_SolutionLimit, 100);
-
+  playerModel->set(GRB_IntParam_InfUnbdInfo, 1);
   // Max number of iterations
   for (int k = 0; k < iterations; ++k) {
 
@@ -810,7 +810,11 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 
 	 } // status optimal for playerModel
 	 else if (leaderStatus == GRB_UNBOUNDED) {
-		// Check for a new ray
+		// Get the extreme ray
+		auto relaxed = playerModel->relax();
+		relaxed.optimize();
+		for (unsigned int i = 0; i < alphaVal.size(); ++i)
+		  alphaVal[i] = relaxed.getVarByName("y_" + std::to_string(i)).get(GRB_DoubleAttr_UnbdRay);
 		alphaVal = Utils::normalizeVec(alphaVal);
 		LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player << ") new ray";
 		this->Players.at(player)->addRay(alphaVal);
