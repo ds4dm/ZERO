@@ -1,6 +1,7 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.16)
 
 include(../cmake/ZERO.cmake)
+
 set(CMAKE_CXX_STANDARD 14)
 project(
   ZERODoc
@@ -15,7 +16,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 option(CXX "enable C++ compilation" ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "../cmake")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/../cmake)
 
 find_package(Sphinx REQUIRED)
 

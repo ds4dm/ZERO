@@ -21,28 +21,30 @@ source_parsers = {'.md': 'recommonmark.parser.CommonMarkParser'}
 todo_include_todos = True
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
-html_contex ={
-    "display_github": True,
-    "github_user": "ds4dm",
-    "github_repo": "ZERO",
-}
+#Style
 html_theme = 'sphinx_rtd_theme'
 html_theme_options = {
     'logo_only': True,
     'display_version': True,
     'prev_next_buttons_location': 'bottom',
     'style_external_links': False,
-    'style_nav_header_background' : '#23084f',
+    'style_nav_header_background' : 'rgb(68, 44, 123)',
     'collapse_navigation': False,
     'sticky_navigation': True,
     'navigation_depth': 5,
     'includehidden': True,
     'titles_only': False
 }
-html_context = {
-    'css_files': ['res/zero.css'],
-}
+html_static_path = ["support_files/res"]
+html_css_files = ["zero.css"]
 html_logo = "support_files/zerowhite.png"
+html_contex ={
+    "display_github": True,
+    "github_user": "ds4dm",
+    "github_repo": "ZERO",
+}
+
+
 # Setup the breathe extension
 breathe_projects = {"ZERO": "./doxyoutput/xml"}
 breathe_default_project = "ZERO"
