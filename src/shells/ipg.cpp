@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
 																													"Algorithm"
 																													"m. "
 																													"0:"
-																													"Oracle")("s"
+																													"CutAndPlay")("s"
 																																 "o"
 																																 "l"
 																																 "u"
@@ -251,7 +251,7 @@ int main(int argc, char **argv) {
 
 	 // Algorithm
 	 // So far, just one...
-	 ipg.setAlgorithm(Data::IPG::Algorithms::Oracle);
+	 ipg.setAlgorithm(Data::IPG::Algorithms::CutAndPlay);
 	 switch (aggressiveness) {
 	 case -1:
 		ipg.setCutsAggressiveness(Data::IPG::CutsAggressiveness::NotEvenTry);

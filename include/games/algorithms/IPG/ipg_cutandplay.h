@@ -27,7 +27,7 @@ namespace Algorithms::IPG {
 
   struct IPG_Player {
 	 ///@brief This structure manages the IPG data for each player of the game, given the
-	 /// Oracle
+	 /// CutAndPlay
 
   protected:
 	 std::unique_ptr<GRBModel> MembershipLP =
@@ -57,7 +57,7 @@ namespace Algorithms::IPG {
 
   public:
 	 ~IPG_Player() = default;
-	 friend class Algorithms::IPG::Oracle;
+	 friend class Algorithms::IPG::CutAndPlay;
 	 IPG_Player(unsigned int incumbentSize, double &tol) : Tolerance{tol} {
 		/**
 		 * @brief Given the @p e as the Gurobi environment, the size of the player's own
@@ -78,8 +78,8 @@ namespace Algorithms::IPG {
   };
 
 
-  ///@brief This class is responsible for the Oracle algorithm for IPG.
-  class Oracle : public Algorithm {
+  ///@brief This class is responsible for the Cut-and-Play algorithm for IPG.
+  class CutAndPlay : public Algorithm {
   private:
 	 arma::sp_mat                             LCP_Q;   ///< Quadratic matrix for the LCP objective
 	 arma::vec                                LCP_c;   ///< Linear vector for the LCP objective
@@ -124,7 +124,7 @@ namespace Algorithms::IPG {
 	  * @param env  The Gurobi environment
 	  * @param IPGObj The IPG object
 	  */
-	 Oracle(GRBEnv *env, Game::IPG *IPGObj) : Algorithm(env, IPGObj){};
+	 CutAndPlay(GRBEnv *env, Game::IPG *IPGObj) : Algorithm(env, IPGObj){};
 
 	 void solve();
 

@@ -111,8 +111,8 @@ add_library(
         src/games/algorithms/EPEC/epec_innerapp.cpp
         src/games/algorithms/EPEC/epec_combPNE.cpp
         src/games/algorithms/EPEC/epec_fullenum.cpp
-        src/games/algorithms/EPEC/epec_outerapp.cpp
-        src/games/algorithms/IPG/ipg_oracle.cpp
+        src/games/algorithms/EPEC/epec_cutandplay.cpp
+        src/games/algorithms/IPG/ipg_cutandplay.cpp
         src/interfaces/epec_models.cpp
         src/interfaces/ipg_models.cpp)
 set_target_properties(

@@ -91,6 +91,6 @@ namespace Algorithms::EPEC {
   } // namespace Algorithms
 
 #include "epec_combPNE.h"
+#include "epec_cutandplay.h"
 #include "epec_fullenum.h"
 #include "epec_innerapp.h"
-#include "epec_outerapp.h"

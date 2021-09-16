@@ -49,7 +49,7 @@ namespace Data::EPEC {
   };
 
   /**
-	* @brief Branching Strategies are triggered when the algorithm "OuterApproximation" is selected.
+	* @brief Branching Strategies are triggered when the algorithm "CutAndPlay" is selected.
 	* They help guiding the search for the next complementarity of each player's LCP that will be
 	* included in the forthcoming iteration.
 	*/
@@ -90,7 +90,7 @@ namespace Data::EPEC {
 
 	 Attr<Data::EPEC::BranchingStrategy> BranchingStrategy =
 		  Data::EPEC::BranchingStrategy::HybridBranching;
-	 ///< The branching strategy for the Outer Approximation
+	 ///< The branching strategy for the Cut-and-Play
 
 	 /**
 	  * @brief Standard initializer constructor.
@@ -212,7 +212,7 @@ namespace Game {
 
 	 friend class Algorithms::EPEC::InnerApproximation;
 
-	 friend class Algorithms::EPEC::OuterApproximation;
+	 friend class Algorithms::EPEC::CutAndPlay;
 
 	 friend class Algorithms::EPEC::CombinatorialPNE;
 

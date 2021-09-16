@@ -106,10 +106,10 @@ void Game::IPG::findNashEq() {
 
   this->InitTime = std::chrono::high_resolution_clock::now();
   switch (this->Stats.AlgorithmData.Algorithm.get()) {
-  case Data::IPG::Algorithms::Oracle: {
-	 final_msg << "Oracle Algorithm completed. ";
-	 this->Algorithm = std::shared_ptr<Algorithms::IPG::Oracle>(
-		  new class Algorithms::IPG::Oracle(this->Env, this));
+  case Data::IPG::Algorithms::CutAndPlay: {
+	 final_msg << "CutAndPlay Algorithm completed. ";
+	 this->Algorithm = std::shared_ptr<Algorithms::IPG::CutAndPlay>(
+		  new class Algorithms::IPG::CutAndPlay(this->Env, this));
 	 this->Algorithm->solve();
 	 final_msg << "Status: " << std::to_string(this->Stats.Status.get());
   } break;
@@ -126,8 +126,8 @@ bool Game::IPG::isSolved(double tol) const { return this->Algorithm->isSolved();
 
 std::string std::to_string(const Data::IPG::Algorithms al) {
   switch (al) {
-  case Data::IPG::Algorithms::Oracle:
-	 return std::string("Oracle");
+  case Data::IPG::Algorithms::CutAndPlay:
+	 return std::string("CutAndPlay");
   }
   return "";
 }

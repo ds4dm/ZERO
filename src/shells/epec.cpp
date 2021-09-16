@@ -283,7 +283,7 @@ int main(int argc, char **argv) {
 																																																																																																																																																																																																	&branching)
 																																																																																																																																																																																																	->default_value(
 																																																																																																																																																																																																		 0),
-																																																																																																																																																																																															  "Sets the Branching Strategy for the OuterApproximation. 0: "
+																																																																																																																																																																																															  "Sets the Branching Strategy for the CutAndPlay. 0: "
 																																																																																																																																																																																															  "Hybrid. "
 																																																																																																																																																																																															  "1: Deviation.");
 

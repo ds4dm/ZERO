@@ -53,4 +53,4 @@ namespace Algorithms {
   } // namespace IPG
 } // namespace Algorithms
 
-#include "ipg_oracle.h"
+#include "ipg_cutandplay.h"

@@ -484,7 +484,7 @@ void Game::EPEC::setWelfareObjective(bool linear = true, bool quadratic = true) 
  * MathOpt::QP_Param problem (either exact or approximate), computes the Nash
  * equilibrium.
  * @p pureNE checks for pure Nash Equilibrium. It does not work with
- * EPEC::Algorithms::OuterApproximation
+ * EPEC::Algorithms::CutAndPlay
  * @p localTimeLimit sets the timelimit for the solver. a negative value is infinite time
  * @p check If true, the method calls the isSolved() method related to the active algorithm
  * EPEC::Algorithms
@@ -530,7 +530,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,
   if (check &&
 		this->Stats.AlgorithmData.Algorithm.get() == Data::EPEC::Algorithms::OuterApproximation) {
 	 LOG_S(WARNING) << "Game::EPEC::computeNashEq: (check flag is "
-							 "true) Cannot search fore multiple NE with the OuterApproximation.";
+							 "true) Cannot search fore multiple NE with the CutAndPlay.";
 	 multipleNE = false;
   }
   if (pureNE) {
@@ -540,7 +540,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,
 		this->Algorithm.get()->makeThePureLCP();
 	 else
 		LOG_S(WARNING) << "Game::EPEC::computeNashEq: (PureNashEquilibrium flag is "
-								"true) Cannot search fore pure NE with the OuterApproximation.";
+								"true) Cannot search fore pure NE with the CutAndPlay.";
   }
 
   if (this->TheLCP->getNumRows() > 250000){
@@ -674,9 +674,9 @@ void Game::EPEC::findNashEq() {
   } break;
 
   case Data::EPEC::Algorithms::OuterApproximation: {
-	 final_msg << "Outer approximation: run completed. ";
+	 final_msg << "Cut-and-Play: run completed. ";
 	 this->Algorithm = std::shared_ptr<Algorithms::EPEC::PolyBase>(
-		  new class Algorithms::EPEC::OuterApproximation(this->Env, this));
+		  new class Algorithms::EPEC::CutAndPlay(this->Env, this));
 	 this->Algorithm->solve();
   } break;
 
@@ -794,7 +794,7 @@ double Game::EPEC::getValLeadLead(const unsigned int i, const unsigned int j) co
 		.get(GRB_DoubleAttr_X);
 }
 /**
- * @brief Sets the branching strategy for the OuterApproximation
+ * @brief Sets the branching strategy for the CutAndPlay
  * @param strategy The input strategy
  */
 void Game::EPEC::setBranchingStrategy(Data::EPEC::BranchingStrategy strategy) {
@@ -815,7 +815,7 @@ std::string std::to_string(const Data::EPEC::Algorithms al) {
   case Data::EPEC::Algorithms::CombinatorialPne:
 	 return std::string("CombinatorialPNE");
   case Data::EPEC::Algorithms::OuterApproximation:
-	 return std::string("OuterApproximation");
+	 return std::string("CutAndPlay");
   }
   return "";
 }

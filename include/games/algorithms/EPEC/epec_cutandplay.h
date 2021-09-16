@@ -25,11 +25,11 @@
 namespace Algorithms::EPEC {
 
   /**
-	* @brief This class manages the outer-approximation tree
+	* @brief This class manages the outer approximation tree
 	*/
   class OuterTree {
   public:
-	 friend Algorithms::EPEC::OuterApproximation;
+	 friend Algorithms::EPEC::CutAndPlay;
 	 struct Node {
 	 public:
 		friend class OuterTree;
@@ -171,8 +171,8 @@ namespace Algorithms::EPEC {
 	 std::vector<long int> singleBranch(unsigned int idComp, Node &t);
   };
 
-  ///@brief This class is responsible for the outer approximation Algorithm
-  class OuterApproximation : public PolyBase {
+  ///@brief This class is responsible for the Cut-and-Play Algorithm
+  class CutAndPlay : public PolyBase {
 
   public:
 	 /**
@@ -180,12 +180,12 @@ namespace Algorithms::EPEC {
 	  * @param env Pointer to the Gurobi environment
 	  * @param EPECObject Pointer to the EPEC
 	  */
-	 explicit OuterApproximation(GRBEnv *env, Game::EPEC *EPECObject) : PolyBase(env, EPECObject){};
-    OuterApproximation() = delete;
+	 explicit CutAndPlay(GRBEnv *env, Game::EPEC *EPECObject) : PolyBase(env, EPECObject){};
+	 CutAndPlay() = delete;
 	 double getTol() const {
 		return this->Tolerance;
-	 } ///< Read-Only getter for OuterApproximation::Tolerance
-	 void setTol(double tol) { this->Tolerance = tol; } ///< Setter for OuterApproximation::Tolerance
+	 } ///< Read-Only getter for CutAndPlay::Tolerance
+	 void setTol(double tol) { this->Tolerance = tol; } ///< Setter for CutAndPlay::Tolerance
 
 	 void        solve() override;
 	 void        printCurrentApprox();

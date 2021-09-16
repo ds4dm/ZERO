@@ -87,11 +87,11 @@ namespace Algorithms {
 	 class FullEnumeration;
 	 class InnerApproximation;
 	 class CombinatorialPNE;
-	 class OuterApproximation;
+	 class CutAndPlay;
   } // namespace EPEC
   namespace IPG {
 	 class Algorithm;
-	 class Oracle;
+	 class CutAndPlay;
   } // namespace IPG
 } // namespace Algorithms
 

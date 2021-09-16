@@ -55,7 +55,7 @@ ZERO currently supports the following algorithms for EPECs:
 -  :cpp:class:`Algorithms::EPEC::FullEnumeration` a full-enumeration algorithm for EPECs (more here_). This is an exact method capable of finding an equilibrium maximizing a given function in the players' variables.
 -  :cpp:class:`Algorithms::EPEC::InnerApproximation` an inner approximation algorithm for EPECs (more here_). This algorithm inner-approximate each player feasible region (namely, it approximates an LCP and hence a finite union of polyhedra) with increasingly bigger representations.
 -  :cpp:class:`Algorithms::EPEC::CombinatorialPNE` a sort of inner approximation algorithm for EPECs (more here_). This algorithm only computes pure equilibria by inner approximating each player's finite union of polyhedra with a single polyhedron. All the combinations are tested for a PNE.
--  :cpp:class:`Algorithms::EPEC::OuterApproximation` outer approximates each player's feasible region with an increasingly tight polyhedral approximation. It uses the concept of `Equilibrium Oracle <https://dragotto.net/the-equilibrium-oracle>`_ to establish the feasibility of an eventual equilibrium.
+-  :cpp:class:`Algorithms::EPEC::CutAndPlay` outer approximates each player's feasible region with an increasingly tight polyhedral approximation. It uses the `CutAndPlay <https://dragotto.net/the-equilibrium-oracle>`_ algorithm scheme.
 
 
 IPG
@@ -63,7 +63,7 @@ IPG
 Integer Programming Games (*IPGs*) are a class of simultaneous non-cooperative games where each player solves an integer program fully parametrized in the player's variable. In other words, the constraints of each player solely depend on the variables of that player. ZERO currently supports IPGs where the objective functions are at most bilinear (w.r.t. the other players) and quadratic in each player's variables.
 :cpp:class:`Game::IPG` implements such games, and there is only one algorithm available:
 
--  :cpp:class:`Algorithms::IPG::Oracle` an outer approximation algorithm (similar to :cpp:class:`Algorithms::EPEC::OuterApproximation`) exploiting the concept of uses the concept of `Equilibrium Oracle <https://dragotto.net/the-equilibrium-oracle>`_. Each player's integer program is approximated with its linear relaxation. A sequence of cutting planes and branching decisions guide the algorithm towards the computation of an equilibrium.
+-  :cpp:class:`Algorithms::IPG::CutAndPlay` an outer approximation algorithm (similar to :cpp:class:`Algorithms::EPEC::CutAndPlay`) again using the `CutAndPlay <https://dragotto.net/the-equilibrium-oracle>`_ algorithm scheme.. Each player's integer program is approximated with its linear relaxation. A sequence of cutting planes and branching decisions guide the algorithm towards the computation of an equilibrium.
 
 ************************************
 Algorithms

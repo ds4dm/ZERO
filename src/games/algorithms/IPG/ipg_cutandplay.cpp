@@ -11,7 +11,7 @@
  *        https://github.com/ds4dm/ZERO
  * #############################################*/
 
-#include "games/algorithms/IPG/ipg_oracle.h"
+#include "games/algorithms/IPG/ipg_cutandplay.h"
 #include "coin/CglGMI.hpp"
 #include "coin/CglKnapsackCover.hpp"
 #include "coin/CoinPackedMatrix.hpp"
@@ -124,7 +124,7 @@ bool Algorithms::IPG::IPG_Player::addCuts(const arma::sp_mat &LHS, const arma::v
  * @param xMinusI The input \f[ x^{-i} \f]
  * @return True if the cut was added
  */
-bool Algorithms::IPG::Oracle::addValueCut(unsigned int     player,
+bool Algorithms::IPG::CutAndPlay::addValueCut(unsigned int     player,
 														double           RHS,
 														const arma::vec &xMinusI) {
 
@@ -143,7 +143,7 @@ bool Algorithms::IPG::Oracle::addValueCut(unsigned int     player,
 
   // Constant!
   if (Utils::isEqual(arma::max(LHS), 0)) {
-	 LOG_S(INFO) << "Algorithms::IPG::Oracle::addValueCut: "
+	 LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::addValueCut: "
 						 "Constant cut. Discarding. ";
 	 return false;
   }
@@ -157,7 +157,7 @@ bool Algorithms::IPG::Oracle::addValueCut(unsigned int     player,
   //******DEBUG********
 
   if (Utils::nonzeroDecimals(RHS, 6) >= 5) {
-	 LOG_S(0) << "Algorithms::IPG::Oracle::addValueCut: "
+	 LOG_S(0) << "Algorithms::IPG::CutAndPlay::addValueCut: "
 					 "Numerically unstable. Generating another cut.";
 	 if (this->IPG->Stats.AlgorithmData.CutAggressiveness.get() !=
 		  Data::IPG::CutsAggressiveness::NotEvenTry) {
@@ -170,7 +170,7 @@ bool Algorithms::IPG::Oracle::addValueCut(unsigned int     player,
 	 for (unsigned int i = 0; i < LHS.size(); ++i)
 		LHS.at(i) = Utils::round_nplaces(LHS.at(i), 6);
 	 Utils::normalizeIneq(LHS, RHS, true);
-	 LOG_S(0) << "Algorithms::IPG::Oracle::addValueCut: "
+	 LOG_S(0) << "Algorithms::IPG::CutAndPlay::addValueCut: "
 					 "WARNING: Cannot generate another cut. Adding normalized value-cut.";
   }
   //******DEBUG********
@@ -186,13 +186,13 @@ bool Algorithms::IPG::Oracle::addValueCut(unsigned int     player,
  * @param remaining An output filled with the time remaining
  * @return True if there is still time left.
  */
-bool Algorithms::IPG::Oracle::checkTime(double &remaining) const {
+bool Algorithms::IPG::CutAndPlay::checkTime(double &remaining) const {
   if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0) {
 	 const std::chrono::duration<double> timeElapsed =
 		  std::chrono::high_resolution_clock::now() - this->IPG->InitTime;
 	 remaining = this->IPG->Stats.AlgorithmData.TimeLimit.get() - timeElapsed.count();
 	 if (remaining <= 0) {
-		LOG_S(1) << "Algorithms::IPG::Oracle::checkTime: "
+		LOG_S(1) << "Algorithms::IPG::CutAndPlay::checkTime: "
 						"Time limit hit.";
 		this->IPG->Stats.AlgorithmData.Cuts.set(this->Cuts);
 		if (this->IPG->Stats.Status.get() == ZEROStatus::Uninitialized)
@@ -210,7 +210,7 @@ bool Algorithms::IPG::Oracle::checkTime(double &remaining) const {
  * @brief Initialize the LCP Objective with the quadratic and linear terms. These will be later used
  * if necessary
  */
-void Algorithms::IPG::Oracle::initLCPObjective() {
+void Algorithms::IPG::CutAndPlay::initLCPObjective() {
 
   this->LCP_Q.zeros(this->IPG->NumVariables, this->IPG->NumVariables);
   this->LCP_c.zeros(this->IPG->NumVariables);
@@ -246,9 +246,9 @@ void Algorithms::IPG::Oracle::initLCPObjective() {
 }
 
 /**
- * @brief Solves the IPG with the Equilibrium Oracle algorithm.
+ * @brief Solves the IPG with the Equilibrium CutAndPlay algorithm.
  */
-void Algorithms::IPG::Oracle::solve() {
+void Algorithms::IPG::CutAndPlay::solve() {
   this->initialize();
   bool MIPCuts  = true;
   auto cutLevel = this->IPG->Stats.AlgorithmData.CutAggressiveness.get();
@@ -266,14 +266,14 @@ void Algorithms::IPG::Oracle::solve() {
 
   if (this->Infeasible) {
 	 this->IPG->Stats.Status.set(ZEROStatus::NashEqNotFound);
-	 LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: A Nash Equilibrium has not been "
+	 LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::solve: A Nash Equilibrium has not been "
 						 "found. At least one of the players problem is infeasible.";
 	 return;
   }
 
   for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
 	 if (MIPCuts) {
-		LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: Adding root cuts.";
+		LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::solve: Adding root cuts.";
 		this->externalCutGenerator(i, 5, true, false);
 	 }
   }
@@ -295,7 +295,7 @@ void Algorithms::IPG::Oracle::solve() {
 	 ZEROStatus status;
 	 // Increase the number of iterations
 	 Iteration++;
-	 LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: Iteration ########### " << Iteration
+	 LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::solve: Iteration ########### " << Iteration
 					 << " ###########";
 	 this->IPG->Stats.NumIterations.set(Iteration);
 
@@ -319,7 +319,7 @@ void Algorithms::IPG::Oracle::solve() {
 
 	 if (status == ZEROStatus::Numerical || this->IPG->Stats.Status.get() == ZEROStatus::Numerical) {
 		this->IPG->Stats.AlgorithmData.Cuts.set(this->Cuts);
-		LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: Numerical errors.";
+		LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::solve: Numerical errors.";
 		this->IPG->Stats.Status.set(ZEROStatus::Numerical);
 		return;
 	 }
@@ -362,7 +362,7 @@ void Algorithms::IPG::Oracle::solve() {
 				 ***************************************/
 				if (this->IPG->Stats.Status.get() == ZEROStatus::Numerical && EO == -1) {
 				  this->IPG->Stats.AlgorithmData.Cuts.set(this->Cuts);
-				  LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: Numerical errors.";
+				  LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::solve: Numerical errors.";
 				  return;
 				}
 
@@ -419,7 +419,7 @@ void Algorithms::IPG::Oracle::solve() {
 
 				// We have solved the problem. Check for a better equilibrium?
 				if (requireOptimality) {
-				  LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: Trying to improve the equilibrium.";
+				  LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::solve: Trying to improve the equilibrium.";
 				  double remaining;
 				  if (this->checkTime(remaining) && remaining > 0)
 					 this->equilibriumLCP(remaining * 0.95, false, false);
@@ -440,7 +440,7 @@ void Algorithms::IPG::Oracle::solve() {
 				this->IPG->SocialWelfare =
 					 arma::as_scalar(this->LCP_c.t() * realX + realX.t() * this->LCP_Q * realX);
 				this->IPG->Stats.AlgorithmData.Cuts.set(this->Cuts);
-				LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: A Nash Equilibrium has been found ("
+				LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::solve: A Nash Equilibrium has been found ("
 								<< (pure == 0 ? "MNE" : "PNE") << ").";
 				// Return if we do not need optimality
 				this->IPG->Stats.Status.set(ZEROStatus::NashEqFound);
@@ -459,7 +459,7 @@ void Algorithms::IPG::Oracle::solve() {
 		 *************************************/
 		//@todo Implement for unbounded IPGs, where an eq may not exist at a given iteration
 		this->IPG->Stats.AlgorithmData.Cuts.set(this->Cuts);
-		LOG_S(INFO) << "Algorithms::IPG::Oracle::solve: No Nash Equilibrium has been found";
+		LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::solve: No Nash Equilibrium has been found";
 		this->Solved = false;
 		this->IPG->Stats.Status.set(ZEROStatus::NashEqNotFound);
 		return;
@@ -483,13 +483,13 @@ void Algorithms::IPG::Oracle::solve() {
  * @param xMinusI The strategy of the other players
  * @return 1 if feasible. 0 if infeasible. 2 if iteration limit was hit.
  */
-int Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player,
+int Algorithms::IPG::CutAndPlay::preEquilibriumOracle(const unsigned int player,
 																  int &              addedCuts,
 																  arma::vec &        xOfI,
 																  arma::vec &        xMinusI) {
 
   ZEROAssert(player < this->IPG->NumPlayers);
-  LOG_S(2) << "Algorithms::IPG::Oracle::preEquilibriumOracle: (P" << player
+  LOG_S(2) << "Algorithms::IPG::CutAndPlay::preEquilibriumOracle: (P" << player
 			  << ") The oracle has been called. Preprocessing.";
 
   if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0) {
@@ -517,7 +517,7 @@ int Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player,
 	 double REL_Objective = this->Players.at(player)->Payoff;
 
 	 if (IP_Objective == GRB_INFINITY) {
-		LOG_S(1) << "Algorithms::IPG::Oracle::preEquilibriumOracle (P" << player
+		LOG_S(1) << "Algorithms::IPG::CutAndPlay::preEquilibriumOracle (P" << player
 					<< ") Unbounded deviation.";
 		addedCuts = false;
 		return 0;
@@ -532,12 +532,12 @@ int Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player,
 		if (diff > this->IPG->Stats.AlgorithmData.DeviationTolerance.get()) {
 		  // This cannot happen!
 		  this->IPG->Stats.Status.set(ZEROStatus::Numerical);
-		  LOG_S(0) << "Algorithms::IPG::Oracle::preEquilibriumOracle: |NUMERICAL WARNING| Invalid "
+		  LOG_S(0) << "Algorithms::IPG::CutAndPlay::preEquilibriumOracle: |NUMERICAL WARNING| Invalid "
 						  "payoff relation (better best response) of " +
 								std::to_string(diff);
 		  return -1;
 		} else {
-		  LOG_S(INFO) << "Algorithms::IPG::Oracle::preEquilibriumOracle:  (P" << player
+		  LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::preEquilibriumOracle:  (P" << player
 						  << ") REL: " << REL_Objective << " vs IP: " << IP_Objective
 						  << ". Adding a value cut.";
 		  // Infeasible strategy. Add a value-cut
@@ -570,13 +570,13 @@ int Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player,
 
 		  if (Utils::isZero(xOfI - bestResponse, this->Tolerance)) {
 			 this->Players.at(player)->Pure = true;
-			 LOG_S(INFO) << "Algorithms::IPG::Oracle::preEquilibriumOracle:  (P" << player
+			 LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::preEquilibriumOracle:  (P" << player
 							 << ") Feasible strategy (BR)";
 			 equal = true;
 		  }
 		}
 
-		LOG_S(2) << "Algorithms::IPG::Oracle::preEquilibriumOracle: (P" << player << ") Found "
+		LOG_S(2) << "Algorithms::IPG::CutAndPlay::preEquilibriumOracle: (P" << player << ") Found "
 					<< bestResponses << " best responses vertices.";
 
 		if (equal)
@@ -590,7 +590,7 @@ int Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player,
 
 
   } else if (status == GRB_UNBOUNDED) {
-	 LOG_S(INFO) << "Algorithms::IPG::Oracle::preEquilibriumOracle:  (P" << player
+	 LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::preEquilibriumOracle:  (P" << player
 					 << ") The problem is unbounded.";
 	 throw ZEROException(ZEROErrorCode::Numeric, "Unbounded best response.");
   }
@@ -601,7 +601,7 @@ int Algorithms::IPG::Oracle::preEquilibriumOracle(const unsigned int player,
  * @brief Returns true if all players are playing a pure strategy in a Nash Equilibrium
  * @return True if the Equilibrium is pure
  */
-bool Algorithms::IPG::Oracle::isPureStrategy() const {
+bool Algorithms::IPG::CutAndPlay::isPureStrategy() const {
   if (this->Solved)
 	 return this->Pure;
   else
@@ -609,7 +609,7 @@ bool Algorithms::IPG::Oracle::isPureStrategy() const {
 }
 
 /**
- * @brief The main Equilibrium Oracle loop. Given a player, a maximum number of iterations, a
+ * @brief The main Equilibrium CutAndPlay loop. Given a player, a maximum number of iterations, a
  * strategy and the other players strategy, it tries to determine if @p xOfI is feasible for @p
  * player.
  * @param player The player id
@@ -619,7 +619,7 @@ bool Algorithms::IPG::Oracle::isPureStrategy() const {
  * @param addedCuts The number of added cuts
  * @return 1 if feasible. 0 if infeasible. 2 if iteration limit was hit.
  */
-int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
+int Algorithms::IPG::CutAndPlay::equilibriumOracle(const unsigned int player,
 															  const unsigned int iterations,
 															  const arma::vec &  xOfI,
 															  const arma::vec &  xMinusI,
@@ -627,7 +627,7 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 
   ZEROAssert(player < this->IPG->NumPlayers);
 
-  LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player << ") Starting separator";
+  LOG_S(2) << "Algorithms::IPG::CutAndPlay::equilibriumOracle: (P" << player << ") Starting separator";
 
 
 
@@ -683,7 +683,7 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 	 int membershipStatus = dualMembership->get(GRB_IntAttr_Status);
 
 
-	 LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+	 LOG_S(2) << "Algorithms::IPG::CutAndPlay::equilibriumOracle: (P" << player
 				 << ") Membership status is " << membershipStatus;
 
 
@@ -695,7 +695,7 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 	 // First: is the point redundant in the description?
 	 // Namely, does xOfI belongs to the V-polyhedral approximation?
 	 if (Utils::isEqual(dualObj, 0, this->Tolerance)) {
-		LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+		LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::equilibriumOracle: (P" << player
 						<< ") Feasible point. ";
 		this->Players.at(player)->Feasible = true;
 
@@ -734,7 +734,7 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 		expr += alphaVal.at(i) * l[i];
 
 
-	 LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+	 LOG_S(2) << "Algorithms::IPG::CutAndPlay::equilibriumOracle: (P" << player
 				 << ") DualMembership has " << dualMembership->get(GRB_IntAttr_SolCount)
 				 << " solution(s) with objective =" << dualObj << ".";
 
@@ -773,7 +773,7 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 		  //******DEBUG********
 
 
-		  LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player << ") Violation of "
+		  LOG_S(2) << "Algorithms::IPG::CutAndPlay::equilibriumOracle: (P" << player << ") Violation of "
 					  << violation;
 
 		  if (violation >= this->Tolerance) {
@@ -790,7 +790,7 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 			 this->Players.at(player)->addCuts(arma::sp_mat{alphaVal.t()}, arma::vec{betaPlayer});
 
 
-			 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+			 LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::equilibriumOracle: (P" << player
 							 << ") Adding a cut.";
 			 addedCuts = 1;
 			 return 0;
@@ -802,7 +802,7 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 				v[i] = l[i].get(GRB_DoubleAttr_X);
 			 // v.print("vertex");
 			 auto add = this->Players.at(player)->addVertex(v, numSols > 1);
-			 LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player
+			 LOG_S(2) << "Algorithms::IPG::CutAndPlay::equilibriumOracle: (P" << player
 						 << ") adding vertex for Player (" << std::to_string(add) << "). "
 						 << (iterations - k - 1) << "/" << iterations << " iterations left";
 		  }
@@ -816,7 +816,7 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
 		for (unsigned int i = 0; i < alphaVal.size(); ++i)
 		  alphaVal[i] = relaxed.getVarByName("y_" + std::to_string(i)).get(GRB_DoubleAttr_UnbdRay);
 		alphaVal = Utils::normalizeVec(alphaVal);
-		LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumOracle: (P" << player << ") new ray";
+		LOG_S(2) << "Algorithms::IPG::CutAndPlay::equilibriumOracle: (P" << player << ") new ray";
 		this->Players.at(player)->addRay(alphaVal);
 
 	 } // status unbounded for playerModel
@@ -831,7 +831,7 @@ int Algorithms::IPG::Oracle::equilibriumOracle(const unsigned int player,
  * @param player The player id
  * @param vertex  The input point to be checked
  */
-void Algorithms::IPG::Oracle::updateMembership(const unsigned int &player,
+void Algorithms::IPG::CutAndPlay::updateMembership(const unsigned int &player,
 															  const arma::vec &   vertex) {
   ZEROAssert(player < this->IPG->NumPlayers);
   ZEROAssert(vertex.size() == this->IPG->PlayerVariables.at(player));
@@ -853,7 +853,7 @@ void Algorithms::IPG::Oracle::updateMembership(const unsigned int &player,
  * @return The ZEROStatus for the equilibrium LCP
  */
 ZEROStatus
-Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit, bool build, bool firstSolution) {
+Algorithms::IPG::CutAndPlay::equilibriumLCP(double localTimeLimit, bool build, bool firstSolution) {
 
 
   if (build) {
@@ -869,7 +869,7 @@ Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit, bool build, bool 
 	 // Build the Nash Game
 	 this->NashGame =
 		  std::make_unique<Game::NashGame>(this->Env, MPCasted, MC, MCRHS, 0, dumA, dumB);
-	 LOG_S(2) << "Algorithms::IPG::Oracle::equilibriumLCP: Formulated the NashGame";
+	 LOG_S(2) << "Algorithms::IPG::CutAndPlay::equilibriumLCP: Formulated the NashGame";
 	 // Build the LCP from the Nash Game
 	 this->LCP = std::make_unique<MathOpt::LCP>(this->Env, *this->NashGame);
 
@@ -884,7 +884,7 @@ Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit, bool build, bool 
   auto ObjectiveType = this->IPG->Stats.AlgorithmData.Objective.get();
   if (Solver == Data::LCP::Algorithms::PATH &&
 		ObjectiveType != Data::IPG::Objectives::Feasibility) {
-	 LOG_S(WARNING) << "Algorithms::IPG::Oracle::equilibriumLCP: The LCP's objective is used only "
+	 LOG_S(WARNING) << "Algorithms::IPG::CutAndPlay::equilibriumLCP: The LCP's objective is used only "
 							 "for computing the payoff. "
 							 "PATH does not support this optimization.";
   }
@@ -913,7 +913,7 @@ Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit, bool build, bool 
 	 workers = (int)floor(this->IPG->Stats.AlgorithmData.Threads.get() / 3);
   auto LCPSolver = this->LCP->solve(Solver, x, z, localTimeLimit, workers, obj, solLimit);
   if (LCPSolver == ZEROStatus::NashEqFound) {
-	 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumLCP: tentative Equilibrium found";
+	 LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::equilibriumLCP: tentative Equilibrium found";
 
 	 // Record the primal-dual solution and reset feasibility and pure-flag
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
@@ -938,14 +938,14 @@ Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit, bool build, bool 
 	 return ZEROStatus::NashEqFound;
 
   } else if (LCPSolver == ZEROStatus::Numerical) {
-	 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumLCP: Numerical errors.";
+	 LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::equilibriumLCP: Numerical errors.";
 	 return ZEROStatus::Numerical;
   } else if (LCPSolver == ZEROStatus::TimeLimit) {
 	 if (this->IPG->Stats.Status.get() == ZEROStatus::Uninitialized)
 		this->IPG->Stats.Status.set(ZEROStatus::TimeLimit);
 	 return ZEROStatus::TimeLimit;
   } else {
-	 LOG_S(INFO) << "Algorithms::IPG::Oracle::equilibriumLCP: No tentative equilibrium found";
+	 LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::equilibriumLCP: No tentative equilibrium found";
 	 return ZEROStatus::NashEqNotFound;
   }
 }
@@ -954,7 +954,7 @@ Algorithms::IPG::Oracle::equilibriumLCP(double localTimeLimit, bool build, bool 
  * @brief This method initializes some fields for the algorithm. Also, it warm starts the
  * initial strategies to pure best responses.
  */
-void Algorithms::IPG::Oracle::initialize() {
+void Algorithms::IPG::CutAndPlay::initialize() {
   // Set the number of iterations to zero.
   this->IPG->Stats.NumIterations.set(0);
 
@@ -994,7 +994,7 @@ void Algorithms::IPG::Oracle::initialize() {
  * @param i The player id
  * @return The other players strategies (except @p i)
  */
-arma::vec Algorithms::IPG::Oracle::buildXminusI(const unsigned int i) {
+arma::vec Algorithms::IPG::CutAndPlay::buildXminusI(const unsigned int i) {
   ZEROAssert(i < this->IPG->NumPlayers);
   arma::vec xMinusI(this->IPG->NumVariables - this->IPG->PlayerVariables.at(i), arma::fill::zeros);
   unsigned int counter = 0;
@@ -1020,7 +1020,7 @@ arma::vec Algorithms::IPG::Oracle::buildXminusI(const unsigned int i) {
  * @param cutOff True if the cuts are required to cutoff the current solution
  * @return The number of added cuts
  */
-unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player,
+unsigned int Algorithms::IPG::CutAndPlay::externalCutGenerator(unsigned int player,
 																			  int          maxCuts,
 																			  bool         rootNode,
 																			  bool         cutOff) {
@@ -1184,7 +1184,7 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player,
 		  // Check if we have a violation. Otherwise, erase the cut.
 		  double violation = candidateCuts->rowCut(i).violated(primal);
 		  if (violation <= 0) {
-			 LOG_S(INFO) << "Algorithms::IPG::Oracle::externalCutGenerator: (P" << player
+			 LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::externalCutGenerator: (P" << player
 							 << ") Discarding a cut (no violation).";
 			 candidateCuts->eraseRowCut(i);
 		  }
@@ -1253,11 +1253,11 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player,
 		this->Players.at(player)->addCuts(LHS, RHS);
 		// Update the statistics
 		this->Cuts.at(2).second += numCuts;
-		LOG_S(INFO) << "Algorithms::IPG::Oracle::externalCutGenerator: (P" << player << ") Added "
+		LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::externalCutGenerator: (P" << player << ") Added "
 						<< numCuts << " and generated: " << MIRs->sizeCuts() << "  MIRs  - "
 						<< KPs->sizeCuts() << "  KPs - " << GMIs->sizeCuts() << "  GMIs.";
 	 } else {
-		LOG_S(INFO) << "Algorithms::IPG::Oracle::externalCutGenerator: (P" << player
+		LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::externalCutGenerator: (P" << player
 						<< ") No cuts added.";
 	 }
 	 return numCuts;
@@ -1270,7 +1270,7 @@ unsigned int Algorithms::IPG::Oracle::externalCutGenerator(unsigned int player,
 /**
  * @brief Initializes some pure-strategies for each player.
  */
-void Algorithms::IPG::Oracle::initializeEducatedGuesses() {
+void Algorithms::IPG::CutAndPlay::initializeEducatedGuesses() {
 
 
   // Reset the working strategies to a pure strategy given by the IP
@@ -1301,7 +1301,7 @@ void Algorithms::IPG::Oracle::initializeEducatedGuesses() {
 				  PureIP->getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_X);
 
 		  this->Players.at(i)->addVertex(this->Players.at(i)->Incumbent, false);
-		  LOG_S(2) << "Algorithms::IPG::Oracle::initializeEducatedGuesses: (P" << i
+		  LOG_S(2) << "Algorithms::IPG::CutAndPlay::initializeEducatedGuesses: (P" << i
 					  << ") Adding a vertex.";
 		}
 
@@ -1316,7 +1316,7 @@ void Algorithms::IPG::Oracle::initializeEducatedGuesses() {
 			 ray.at(k) = relaxed.getVarByName("y_" + std::to_string(k)).get(GRB_DoubleAttr_UnbdRay);
 
 			 this->Players.at(i)->addRay(ray, false);
-			 LOG_S(2) << "Algorithms::IPG::Oracle::initializeEducatedGuesses():  (P" << i
+			 LOG_S(2) << "Algorithms::IPG::CutAndPlay::initializeEducatedGuesses():  (P" << i
 						 << ") Adding a ray";
 		  }
 		}
@@ -1331,11 +1331,11 @@ void Algorithms::IPG::Oracle::initializeEducatedGuesses() {
 }
 
 /**
- * @brief This method builds the Coin-OR model used in Oracle::externalCutGenerator for the given
+ * @brief This method builds the Coin-OR model used in CutAndPlay::externalCutGenerator for the given
  * player
  * @param player The player's id
  */
-void Algorithms::IPG::Oracle::initializeCoinModel(const unsigned int player) {
+void Algorithms::IPG::CutAndPlay::initializeCoinModel(const unsigned int player) {
 
   ZEROAssert(player < this->IPG->NumPlayers);
   // Source the main ingredients. Avoid getting B with bounds, since we already have the raw bounds.

@@ -26,11 +26,11 @@ namespace Data::IPG {
 	* @brief IPG Algorithms enum
 	*/
   enum class Algorithms {
-	 Oracle ///< Solves the IPG via the separation oracle algorithm
+	 CutAndPlay ///< Solves the IPG via the separation CutAndPlay algorithm
   };
 
   /**
-	* @brief Cuts aggressiveness for Algorithms::IPG::Oracle
+	* @brief Cuts aggressiveness for Algorithms::IPG::CutAndPlay
 	*/
   enum class CutsAggressiveness {
 	 NotEvenTry, ///< Do not add "standard" IPG cuts to the game, nor tries to replace value cuts
@@ -52,14 +52,14 @@ namespace Data::IPG {
 	 Attr<Data::IPG::CutsAggressiveness> CutAggressiveness = {
 		  Data::IPG::CutsAggressiveness::KeepItCool};
 	 Attr<Data::IPG::Algorithms> Algorithm = {
-		  Data::IPG::Algorithms::Oracle};    ///< The selected algorithm
+		  Data::IPG::Algorithms::CutAndPlay};    ///< The selected algorithm
 	 Attr<Data::LCP::Algorithms> LCPSolver; ///< The preferred LCP Solver
 	 Attr<Data::IPG::Objectives> Objective = {
 		  Data::IPG::Objectives::Linear}; ///< The preferred objective type for the MIP LCP
 	 ///< reformulation
 	 Attr<std::vector<std::pair<std::string, int>>>
 		  Cuts; ///< Statistics about the added cuts. Refer to the indices in
-	 ///< IPG::Algorithms::Oracle
+	 ///< IPG::Algorithms::CutAndPlay
 	 /**
 	  * @brief Standard initializer constructor.
 	  */
@@ -104,7 +104,7 @@ namespace Game {
 
   public: // functions
 	 friend class Algorithms::IPG::Algorithm;
-	 friend class Algorithms::IPG::Oracle;
+	 friend class Algorithms::IPG::CutAndPlay;
 	 void finalize();
 	 /**
 	  * @brief Standard initializer
@@ -157,7 +157,7 @@ namespace Game {
 	 }
 	 /**
 	  * @brief Sets the Data::IPG::CutsAggressiveness for the cut aggressiveness in
-	  * Algorithms::IPG::Oracle
+	  * Algorithms::IPG::CutAndPlay
 	  * @param aggressiveness An enum from Data::IPG::CutsAggressiveness
 	  */
 	 void setCutsAggressiveness(const Data::IPG::CutsAggressiveness aggressiveness) {
@@ -174,4 +174,4 @@ namespace std {
 
 }; // namespace std
 
-#include "algorithms/IPG/ipg_oracle.h"
+#include "algorithms/IPG/ipg_cutandplay.h"
