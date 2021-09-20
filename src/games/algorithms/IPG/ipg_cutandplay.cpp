@@ -5,7 +5,7 @@
  *
  *             Copyright (c) 2020
  *     Released under the Creative Commons
- *        Zero v1.0 Universal License
+ *         CC BY-NC-SA 4.0 License
  *
  *              Find out more at
  *        https://github.com/ds4dm/ZERO
