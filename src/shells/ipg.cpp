@@ -11,7 +11,7 @@
  * #############################################*/
 
 
-#include "interfaces/ipg_models.h"
+#include "zero.h"
 #include <boost/program_options.hpp>
 
 using namespace std;
