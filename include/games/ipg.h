@@ -175,3 +175,4 @@ namespace std {
 }; // namespace std
 
 #include "algorithms/IPG/ipg_cutandplay.h"
+#include "interfaces/ipg_models.h"

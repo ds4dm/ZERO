@@ -306,3 +306,5 @@ namespace std {
   string to_string(Data::EPEC::BranchingStrategy st);
 
 }; // namespace std
+
+#include "interfaces/epec_models.h"
