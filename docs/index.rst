@@ -5,7 +5,7 @@ ZERO is a multi-purpose C++ solver for Mathematical Programming Games. Currently
 
 License
 **********************
-This code is distributed under the `CC0 1.0 Universal License <https://github.com/ds4dm/ZERO/blob/master/LICENSE>`_.
+This code is distributed under the `CC BY-NC-SA 4.0 License <https://github.com/ds4dm/ZERO/blob/master/LICENSE>`_.
 
 
 
