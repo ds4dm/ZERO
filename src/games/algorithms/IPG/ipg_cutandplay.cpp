@@ -432,7 +432,6 @@ void Algorithms::IPG::CutAndPlay::solve() {
 				  counter += this->IPG->PlayerVariables.at(i);
 				  if (!this->Players.at(i)->Pure) {
 					 pure = false;
-					 break;
 				  }
 				}
 				this->Pure      = pure;
