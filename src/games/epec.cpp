@@ -404,9 +404,9 @@ void Game::EPEC::setWelfareObjective(bool linear = true, bool quadratic = true) 
 
   if (!linear && !quadratic) {
 	 GRBLinExpr obj{0};
-	 for (int i = 0; i <this->TheLCP->getNumCols() ; ++i)
-	   obj += this->LCPModel->getVarByName("x_" + std::to_string(i));
-    this->LCPModel->setObjective(obj, GRB_MAXIMIZE);
+	 for (int i = 0; i < this->TheLCP->getNumCols(); ++i)
+		obj += this->LCPModel->getVarByName("x_" + std::to_string(i));
+	 this->LCPModel->setObjective(obj, GRB_MAXIMIZE);
 	 return;
   }
 
@@ -543,10 +543,10 @@ bool Game::EPEC::computeNashEq(bool   pureNE,
 								"true) Cannot search fore pure NE with the CutAndPlay.";
   }
 
-  if (this->TheLCP->getNumRows() > 250000){
-    LOG_S(WARNING) << "Game::EPEC::computeNashEq: Too many complementarities. Aborting";
-	   this->Stats.Status.set(ZEROStatus::Numerical);
-		return false;
+  if (this->TheLCP->getNumRows() > 250000) {
+	 LOG_S(WARNING) << "Game::EPEC::computeNashEq: Too many complementarities. Aborting";
+	 this->Stats.Status.set(ZEROStatus::Numerical);
+	 return false;
   }
 
   this->LCPModel =
@@ -584,16 +584,17 @@ bool Game::EPEC::computeNashEq(bool   pureNE,
 		}
 	 } else {
 		this->NashEquilibrium = true;
-		LOG_S(INFO) << "Game::EPEC::computeNashEq: An Equilibrium has been found (Status: "<<this->LCPModel->get(GRB_IntAttr_Status) <<")";
+		LOG_S(INFO) << "Game::EPEC::computeNashEq: An Equilibrium has been found (Status: "
+						<< this->LCPModel->get(GRB_IntAttr_Status) << ")";
 	 }
 
   } else {
 	 LOG_S(INFO) << "Game::EPEC::computeNashEq: no equilibrium has been found.";
 	 int status = this->LCPModel->get(GRB_IntAttr_Status);
 	 if (status == GRB_TIME_LIMIT)
-	   this->Stats.Status.set(ZEROStatus::TimeLimit);
+		this->Stats.Status.set(ZEROStatus::TimeLimit);
 	 else
-	   this->Stats.Status.set(ZEROStatus::NashEqFound);
+		this->Stats.Status.set(ZEROStatus::NashEqFound);
   }
   return this->NashEquilibrium;
 }
@@ -779,6 +780,65 @@ double Game::EPEC::getValLeadFoll(const unsigned int i, const unsigned int j) co
 
   return this->LCPModel->getVarByName("x_" + std::to_string(this->getPositionLeadFoll(i, j)))
 		.get(GRB_DoubleAttr_X);
+}
+
+/**
+ * @brief Returns the indices of polyhedra feasible for the leader, from which strategies are played
+ * with probability greater than the tolerance.
+ * @param i Leader index
+ * @param tol Tolerance
+ * @return The queried attribute
+ */
+std::vector<unsigned int> Game::EPEC::mixedStrategyPoly(unsigned int i, double tol) const {
+  ZEROAssert(i < this->NumPlayers);
+  ZEROAssert(this->LCPModel != nullptr);
+  return this->Algorithm->mixedStrategyPoly(i, tol);
+}
+
+/**
+ * @brief Returns the probability associated with the k -th polyhedron of the i -th leader.
+ * @param i Leader index
+ * @param k The polyhedron index
+ * @return The queried attribute
+ */
+double Game::EPEC::getValProbab(unsigned int i, unsigned int k) {
+  ZEROAssert(i < this->NumPlayers);
+  ZEROAssert(this->LCPModel != nullptr);
+  return this->Algorithm->getValProbab(i, k);
+}
+
+/**
+ * @brief For the @p i -th leader, gets the @p k -th pure strategy at position @p j
+ * @param i The leader index
+ * @param j The position index
+ * @param k The pure strategy index
+ * @param tol A numerical tolerance
+ * @return The queried attribute
+ */
+double Game::EPEC::getValLeadFollPoly(const unsigned int i,
+												  const unsigned int j,
+												  const unsigned int k,
+												  const double       tol) const {
+  ZEROAssert(i < this->NumPlayers);
+  ZEROAssert(this->LCPModel != nullptr);
+  return this->Algorithm->getValLeadFollPoly(i, j, k, tol);
+}
+
+/**
+ * @brief For the @p i -th leader, gets the @p k -th pure strategy at leader position @p j
+ * @param i The leader index
+ * @param j The position index
+ * @param k The pure strategy index
+ * @param tol A numerical tolerance
+ * @return The queried attribute
+ */
+double Game::EPEC::getValLeadLeadPoly(const unsigned int i,
+												  const unsigned int j,
+												  const unsigned int k,
+												  const double       tol) const {
+  ZEROAssert(i < this->NumPlayers);
+  ZEROAssert(this->LCPModel != nullptr);
+  return this->Algorithm->getValLeadLeadPoly(i, j, k, tol);
 }
 
 /**

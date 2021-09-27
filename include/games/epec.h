@@ -276,6 +276,18 @@ namespace Game {
 
 	 double getValLeadLead(unsigned int i, unsigned int j) const;
 
+    double getValProbab(unsigned int i, unsigned int k);
+    double getValLeadFollPoly(unsigned int i,
+                              unsigned int j,
+                              unsigned int k,
+                              double       tol=1e-5) const;
+    double getValLeadLeadPoly(unsigned int i,
+                              unsigned int j,
+                              unsigned int k,
+                              double       tol=1e-5) const;
+
+    std::vector<unsigned int> mixedStrategyPoly(unsigned int i, double tol=1e-5) const;
+
 	 /// Get the Game::LCP object solved in the last iteration either to solve the
 	 /// problem or to prove non-existence of Nash equilibrium. Object is returned
 	 /// using constant reference.
