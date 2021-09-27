@@ -931,13 +931,19 @@ void Models::EPEC::EPEC::updateLocations()
   }
 }
 
+/**
+ * @brief This method increases the size of the leader locations
+ * @param L The LeadLocs to increase
+ * @param start The start Leading Vars
+ * @param val The size of the increase
+ * @param startnext Should the append after start?
+ * @note Should be called ONLY after initializing @p L by calling Models::EPEC::init
+ */
 void Models::EPEC::increaseVal(LeadLocs &         L,
 										 const LeaderVars   start,
 										 const unsigned int val,
 										 const bool         startnext)
-/**
- * Should be called ONLY after initializing @p L by calling Models::EPEC::init
- */
+
 {
   auto start_rl = (LeaderVars)(startnext ? start + 1 : start);
   for (LeaderVars l = start_rl; l != Models::EPEC::LeaderVars::End; l = l + 1)
@@ -947,14 +953,18 @@ void Models::EPEC::increaseVal(LeadLocs &         L,
   // "<<L[Models::EPEC::LeaderVars::End];
 }
 
+/**
+ * @brief This method decreases the size of the leader locations
+ * @param L The LeadLocs to decrease
+ * @param start The start Leading Vars
+ * @param val The size of the decrease
+ * @param startnext Should the append after start?
+ * @note Should be called ONLY after initializing @p L by calling Models::EPEC::init
+ */
 void Models::EPEC::decreaseVal(LeadLocs &         L,
 										 const LeaderVars   start,
 										 const unsigned int val,
-										 const bool         startnext)
-/**
- * Should be called ONLY after initializing @p L by calling Models::EPEC::init
- */
-{
+										 const bool         startnext) {
   auto start_rl = (LeaderVars)(startnext ? start + 1 : start);
   for (LeaderVars l = start_rl; l != Models::EPEC::LeaderVars::End; l = l + 1)
 	 L[l] -= val;
@@ -963,6 +973,10 @@ void Models::EPEC::decreaseVal(LeadLocs &         L,
   // "<<L[Models::EPEC::LeaderVars::End];
 }
 
+/**
+ * @brief Initializes the LeadLocs
+ * @param L The input LeadLocs leader locations.
+ */
 void Models::EPEC::init(LeadLocs &L) {
   for (LeaderVars l = Models::EPEC::LeaderVars::FollowerStart; l != Models::EPEC::LeaderVars::End;
 		 l            = l + 1)
@@ -994,6 +1008,12 @@ Models::EPEC::FollPar operator+(const Models::EPEC::FollPar &F1, const Models::E
 
   return Models::EPEC::FollPar(cq, cl, cap, ec, tc, nm);
 }
+/**
+ * @brief Perform an addition of the number of leadervars plus a term @p b
+ * @param a The LeaderVars
+ * @param b The int b
+ * @return The size of the two input, summed.
+ */
 Models::EPEC::LeaderVars Models::EPEC::operator+(Models::EPEC::LeaderVars a, int b) {
   return static_cast<LeaderVars>(static_cast<int>(a) + b);
 }
@@ -1022,9 +1042,15 @@ std::string to_string(const GRBVar &var) {
   return name.empty() ? "unNamedvar" : name;
 }
 
-void Models::EPEC::EPEC::write(const std::string &filename,
-										 const unsigned int i,
-										 bool               append) const {
+/**
+ * @brief Write to a fine the parameters of leader @p i
+ * @param filename The filename
+ * @param i The index of the leader
+ * @param append Append to the file?
+ */
+void Models::EPEC::EPEC::writeLeadParams(const std::string &filename,
+													  const unsigned int i,
+													  bool               append) const {
   std::ofstream file;
   file.open(filename, append ? std::ios::app : std::ios::out);
   const LeadAllPar &Params = this->AllLeadPars.at(i);
@@ -1036,27 +1062,17 @@ void Models::EPEC::EPEC::write(const std::string &filename,
   file.close();
 }
 
-void Models::EPEC::EPEC::write(const std::string &filename, bool append) const {
-  if (append) {
-	 std::ofstream file;
-	 file.open(filename, std::ios::app);
-	 file << "\n\n\n\n\n";
-	 file << "##################################################\n";
-	 file << "############### COUNTRY PARAMETERS ###############\n";
-	 file << "##################################################\n";
-  }
-  for (unsigned int i = 0; i < this->getNumPlayers(); ++i)
-	 this->write(filename, i, (append || i));
-}
+/**
+ * @brief Writes the solution to a JSON file
+ * @param filename The filename
+ * @param x The x vector for the solution
+ * @param z The z vector for the solution
+ */
 
 void Models::EPEC::EPEC::writeSolutionJSON(const std::string &filename,
 														 const arma::vec &  x,
 														 const arma::vec &  z) const {
-  /**
-	* @brief Writes the computed Nash Equilibrium in the standard JSON solution
-	* file
-	* @p filename dictates the name of the .JSON solution file
-	*/
+
   rapidjson::StringBuffer                          s;
   rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(s);
   writer.StartObject();
@@ -1164,10 +1180,9 @@ void Models::EPEC::EPEC::writeSolution(const int writeLevel, const std::string &
 	*/
   if (this->Stats.Status.get() == ZEROStatus::NashEqFound) {
 	 if (writeLevel == 1 || writeLevel == 2) {
-		this->WriteCountry(0, filename + ".txt", this->SolutionX, false);
+		this->WriteCountrySolution(0, filename + ".txt", this->SolutionX, false);
 		for (unsigned int ell = 1; ell < this->getNumPlayers(); ++ell)
-		  this->WriteCountry(ell, filename + ".txt", this->SolutionX, true);
-		this->write(filename + ".txt", true);
+		  this->WriteCountrySolution(ell, filename + ".txt", this->SolutionX, true);
 	 }
 	 if (writeLevel == 2 || writeLevel == 0)
 		this->writeSolutionJSON(filename, this->SolutionX, this->SolutionZ);
@@ -1175,13 +1190,12 @@ void Models::EPEC::EPEC::writeSolution(const int writeLevel, const std::string &
 	 std::cerr << "Error in Models::EPEC::EPEC::writeSolution: no solution to write." << '\n';
   }
 }
-
+/**
+ * @brief Writes the current EPEC instance to the standard JSON instance file
+ * @p filename dictates the name of the JSON instance file
+ */
 void Models::EPEC::EPECInstance::save(const std::string &filename) {
-  /**
-	* @brief Writes the current EPEC instance to the standard JSON instance file
-	* @p filename dictates the name of the JSON instance file
-	* @p epec contains the @p EPECInstance object with the data
-	*/
+
   rapidjson::StringBuffer                          s;
   rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(s);
   writer.StartObject();
@@ -1293,12 +1307,12 @@ void Models::EPEC::EPECInstance::save(const std::string &filename) {
   file.close();
 }
 
+/**
+ * @brief Reads an instance file and return a vector of @p LeadAllPar that can
+ * be fed to the EPEC class
+ * @p filename dictates the name of the JSON instance file
+ */
 void Models::EPEC::EPECInstance::load(const std::string &filename) {
-  /**
-	* @brief Reads an instance file and return a vector of @p LeadAllPar that can
-	* be fed to the EPEC class
-	* @p filename dictates the name of the JSON instance file
-	*/
   std::ifstream ifs(filename + ".json");
   if (ifs.good()) {
 	 rapidjson::IStreamWrapper isw(ifs);
@@ -1374,10 +1388,17 @@ void Models::EPEC::EPECInstance::load(const std::string &filename) {
   }
 }
 
-void Models::EPEC::EPEC::WriteCountry(const unsigned int i,
-												  const std::string &filename,
-												  const arma::vec &  x,
-												  const bool         append) const {
+/**
+ * @brief Write the country solution data to a file
+ * @param i The country (leader) index
+ * @param filename  The filename
+ * @param x The solution vector
+ * @param append Append to file?
+ */
+void Models::EPEC::EPEC::WriteCountrySolution(const unsigned int i,
+															 const std::string &filename,
+															 const arma::vec &  x,
+															 const bool         append) const {
   // if (!TheLCP) return;
   // const LeadLocs& Loc = this->Locations.at(i);
 
@@ -1432,18 +1453,28 @@ void Models::EPEC::EPEC::WriteCountry(const unsigned int i,
   file << "- - - - - - - - - - - - - - - - - - - - - - - - - \n";
   file << "FOLLOWER DETAILS:\n";
   for (unsigned int j = 0; j < Params.n_followers; ++j)
-	 this->WriteFollower(i, j, filename, x);
+	 this->WriteFollower(i, j, filename, x, false);
 
   file << "\n\n\n";
   // FILE OPERATIONS END
 }
 
+/**
+ * @brief Writes the follower's solution to a file
+ * @param i The leader's index
+ * @param j The follower's index
+ * @param filename The filename
+ * @param x The solution vector
+ * @param append Should it append to a file?
+ */
+
 void Models::EPEC::EPEC::WriteFollower(const unsigned int i,
 													const unsigned int j,
 													const std::string &filename,
-													const arma::vec &  x) const {
+													const arma::vec &  x,
+													bool               append) const {
   std::ofstream file;
-  file.open(filename, std::ios::app);
+  file.open(filename, append ? std::ios::app : std::ios::out);
 
   // Country Variables
   const LeadAllPar &Params = this->AllLeadPars.at(i);

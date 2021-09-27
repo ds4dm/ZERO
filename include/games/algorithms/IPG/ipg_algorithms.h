@@ -13,8 +13,7 @@
 #pragma once
 #include "zero.h"
 
-namespace Algorithms {
-  namespace IPG {
+namespace Algorithms::IPG {
 	 class Algorithm {
 		/**
 		 * @brief This abstract class is the base type that every algorithm inherits.
@@ -50,7 +49,7 @@ namespace Algorithms {
 	 };
 
 
-  } // namespace IPG
-} // namespace Algorithms
+  } // namespace Algorithms
 
 #include "ipg_cutandplay.h"
+#include "ipg_zeroregrets.h"

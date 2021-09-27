@@ -14,7 +14,9 @@ extensions = [
     'breathe',
     'exhale',
     'recommonmark',
-    'sphinx.ext.todo'
+    'sphinx.ext.todo',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.mathjax'
 ]
 
 source_parsers = {'.md': 'recommonmark.parser.CommonMarkParser'}

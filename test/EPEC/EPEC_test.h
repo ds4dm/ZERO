@@ -14,16 +14,11 @@
 #pragma once
 #define TEST_NUM_THREADS 4
 
-#include "games/algorithms/EPEC/epec_polybase.h"
-#include "interfaces/epec_models.h"
-#include "mathopt/lcp/lcp.h"
 #include "zero.h"
-#include <armadillo>
 #include <chrono>
 #include <cstdlib>
 #include <ctime>
 #include <exception>
-#include <gurobi_c++.h>
 #include <iomanip>
 #include <iostream>
 #include <random>

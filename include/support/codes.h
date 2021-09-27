@@ -16,10 +16,10 @@
 #include <gurobi_c++.h>
 #include <string>
 
+/**
+ * @brief Set of Status in which the solution Status for a game
+ */
 enum class ZEROStatus {
-  /**
-	* Set of Status in which the solution Status for a game
-	*/
   NashEqNotFound, ///< Instance proved to be infeasible.
   NashEqFound,    ///< Solution found for the instance.
   Solved,         ///< When no nash equilibrium is available, Solved replace NashEqFound
@@ -44,6 +44,9 @@ public:
   Attr() = default;
 };
 
+/**
+ * @brief Data holder for algorithms
+ */
 class ZEROAlgorithmData {
 public:
   Attr<double> DeviationTolerance{
@@ -55,6 +58,10 @@ public:
   Attr<unsigned long int> RandomSeed{42};  ///< Random seed for randomic operations
 };
 
+/**
+ * @brief Statistics object for Algorithms
+ * @tparam DataObjectType The inheritor type
+ */
 template <typename DataObjectType> struct ZEROStatistics {
   explicit ZEROStatistics(DataObjectType t) : AlgorithmData{t} {};
   Attr<ZEROStatus> Status         = ZEROStatus::Uninitialized;
@@ -72,10 +79,10 @@ template <typename DataObjectType> struct ZEROStatistics {
 															///< related to the specific algorithm
 };
 
+/**
+ * This enum class contains the error codes
+ **/
 enum class ZEROErrorCode {
-  /**
-	* This enum class contains the error codes
-	**/
   MemoryError  = 100, ///< Memory error
   InvalidQuery = 101, ///< The attribute/data is not available
   InvalidData  = 102, ///< The data in input is not valid!

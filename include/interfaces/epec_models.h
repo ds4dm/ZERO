@@ -28,12 +28,17 @@ namespace Models {
 	  *climate-conscious countries.
 	  **/
 
-	 typedef struct FollPar    FollPar;
-	 typedef struct DemPar     DemPar;
-	 typedef struct LeadPar    LeadPar;
-	 typedef struct LeadAllPar LeadAllPar;
+	 typedef struct FollPar    FollPar;    ///< The parameters for each follower
+	 typedef struct DemPar     DemPar;     ///< The parameters for each leader  demand curve
+	 typedef struct LeadPar    LeadPar;    ///< The parameters for each leader
+	 typedef struct LeadAllPar LeadAllPar; ///< The parameters for each leader
 
-	 enum class TaxType { StandardTax, SingleTax, CarbonTax };
+
+	 enum class TaxType {
+		StandardTax, ///< Each producer can have a different tax level per unit-energy
+		SingleTax,   ///<  Each producer has the same tax level per unit-energy
+		CarbonTax    ///< The tax to each follower is proportional to the CO2
+	 };             ///< The type of taxation
 
 	 /// @brief Stores the parameters of the follower in a country model
 	 struct FollPar {
@@ -62,7 +67,9 @@ namespace Models {
 				emission_costs{emission_costs_}, tax_caps(tax_caps_), names{names_} {}
 	 };
 
-	 /// @brief Stores the parameters of the demand curve in a country model
+	 /*
+	  * @brief Stores the parameters of the demand curve in a country model
+	  */
 	 struct DemPar {
 		double alpha = 100; ///< Intercept of the demand curve. Written as: Price =
 		///< alpha - beta*(Total quantity in domestic market)
@@ -71,7 +78,9 @@ namespace Models {
 		DemPar(double alpha = 100, double beta = 2) : alpha{alpha}, beta{beta} {};
 	 };
 
-	 /// @brief Stores the parameters of the leader in a country model
+	 /*
+	  * @brief Stores the parameters of the leader in a country model
+	  */
 	 struct LeadPar {
 		double import_limit = -1; ///< Maximum net import in the country. If no limit,
 		///< set the value as -1;
@@ -80,16 +89,23 @@ namespace Models {
 		double price_limit  = -1;   ///< Government does not want the price to exceed this limit
 		bool   tradeAllowed = true; ///< False if the country cannot trade with other countries.
 
-		Models::EPEC::TaxType tax_type =
-			 Models::EPEC::TaxType::StandardTax; ///< 0 For standard, 1 for constant tax, 2
-		///< for carbon tax
-		bool tax_revenue = false; ///< Dictates whether the leader objective will
-		///< include tax revenues
-		// LeadPar(double imp_lim = -1, double exp_lim = -1, double price_limit = -1,
-		// bool tax_revenue = false, Models::EPEC::TaxType tax_type_ =
-		// Models::EPEC::TaxType::StandardTax)
-		// : import_limit{imp_lim}, export_limit{exp_lim},
-		// price_limit{price_limit},tax_type{tax_type_}, tax_revenue{tax_revenue} {}
+		/**
+		 * @brief The taxation type
+		 */
+		Models::EPEC::TaxType tax_type = Models::EPEC::TaxType::StandardTax;
+		/*
+		 * @brief Dictates whether the leader objective willinclude tax revenues
+		 */
+		bool tax_revenue = false;
+		/**s
+		 * @brief Standard constructor for LeadPar
+		 * @param imp_lim Import cap
+		 * @param exp_lim Export cap
+		 * @param price_limit Price cap
+		 * @param tax_revenue Leader tax revenue
+		 * @param tax_type_ Taxation type
+		 * @param tradeBool Is trade allowed?
+		 */
 		LeadPar(double       imp_lim     = -1,
 				  double       exp_lim     = -1,
 				  double       price_limit = -1,
@@ -144,37 +160,73 @@ namespace Models {
 			 : Countries{Countries_}, TransportationCosts{Transp_} {}
 		///< Constructor from instance objects
 
-		void load(const std::string& filename);
+		void load(const std::string &filename);
 		///< Reads the EPECInstance from a file
 
-		void save(const std::string& filename);
+		void save(const std::string &filename);
 		///< Writes the EPECInstance from a file
 	 };
 
 	 enum class LeaderVars {
-		FollowerStart,
-		NetImport,
-		NetExport,
-		CountryImport,
-		Caps,
-		Tax,
-		TaxQuad,
-		DualVar,
-		ConvHullDummy,
-		End
+		FollowerStart, ///< Start of followers variables
+		NetImport,     ///< Net Import variable
+		NetExport,     ///< Net Export variable
+		CountryImport, ///< Net import variables from each other leader
+		Caps,          ///< Caps variables
+		Tax,           ///< Tax variables
+		TaxQuad,       ///< Quadratic (carbon) tax variables
+		DualVar,       ///< Dual variables
+		ConvHullDummy, ///< Extra convex-hull variables
+		End            ///< End of variables
 	 };
 
-	 std::ostream &operator<<(std::ostream &ost, const FollPar& P);
+	 /**
+	  * @brief Print the FollPar
+	  * @param ost Output Stream
+	  * @param P The object to print
+	  * @return  An ostream
+	  */
+	 std::ostream &operator<<(std::ostream &ost, const FollPar &P);
 
+	 /**
+	  * @brief Print the DemPar
+	  * @param ost Output Stream
+	  * @param P The object to print
+	  * @return  An ostream
+	  */
 	 std::ostream &operator<<(std::ostream &ost, const DemPar P);
 
+	 /**
+	  * @brief Print the LeadPar
+	  * @param ost Output Stream
+	  * @param P The object to print
+	  * @return  An ostream
+	  */
 	 std::ostream &operator<<(std::ostream &ost, const LeadPar P);
 
-	 std::ostream &operator<<(std::ostream &ost, const LeadAllPar& P);
+	 /**
+	  * @brief Print the LeadAllPar
+	  * @param ost Output Stream
+	  * @param P The object to print
+	  * @return  An ostream
+	  */
+	 std::ostream &operator<<(std::ostream &ost, const LeadAllPar &P);
 
+	 /**
+	  * @brief Print the LeaderVars
+	  * @param ost Output Stream
+	  * @param P The object to print
+	  * @return  An ostream
+	  */
 	 std::ostream &operator<<(std::ostream &ost, const LeaderVars l);
 
-	 std::ostream &operator<<(std::ostream &ost, const EPECInstance& I);
+	 /**
+	  * @brief Print the EPECInstance
+	  * @param ost Output Stream
+	  * @param P The object to print
+	  * @return  An ostream
+	  */
+	 std::ostream &operator<<(std::ostream &ost, const EPECInstance &I);
 
 	 using LeadLocs = std::map<LeaderVars, unsigned int>;
 
@@ -259,15 +311,16 @@ namespace Models {
 
 		void makeMCConstraints(arma::sp_mat &MCLHS, arma::vec &MCRHS) const override;
 
-		void WriteCountry(const unsigned int i,
-								const std::string&  filename,
-								const arma::vec&    x,
-								const bool         append = true) const;
+		void WriteCountrySolution(const unsigned int i,
+										  const std::string &filename,
+										  const arma::vec &  x,
+										  const bool         append = true) const;
 
 		void WriteFollower(const unsigned int i,
 								 const unsigned int j,
-								 const std::string&  filename,
-								 const arma::vec&    x) const;
+								 const std::string &filename,
+								 const arma::vec &  x,
+								 bool               append) const;
 
 	 public:                        // Attributes
 		bool quadraticTax = {false}; ///< If set to true, a term for the quadratic tax
@@ -298,21 +351,21 @@ namespace Models {
 
 		EPEC &unlock();
 
-		std::unique_ptr<GRBModel> Respond(const std::string& name, const arma::vec &x) const;
+		std::unique_ptr<GRBModel> Respond(const std::string &name, const arma::vec &x) const;
 
 		// Data access methods
 		Game::NashGame *get_LowerLevelNash(const unsigned int i) const;
 
 		// Writing model files
-		void write(const std::string& filename, const unsigned int i, bool append = true) const;
+		void
+		writeLeadParams(const std::string &filename, const unsigned int i, bool append = true) const;
 
-		void write(const std::string& filename, bool append = true) const;
+		void readSolutionJSON(const std::string &filename);
 
-		void readSolutionJSON(const std::string& filename);
+		void
+		writeSolutionJSON(const std::string &filename, const arma::vec &x, const arma::vec &z) const;
 
-		void writeSolutionJSON(const std::string& filename, const arma::vec& x, const arma::vec& z) const;
-
-		void writeSolution(const int writeLevel, const std::string& filename) const;
+		void writeSolution(const int writeLevel, const std::string &filename) const;
 
 		///@brief Get the current EPECInstance loaded
 		const EPECInstance getInstance() const {
@@ -320,8 +373,17 @@ namespace Models {
 		}
 	 };
 
+	 /*
+	  * @brief Enum class for handling print of labels and their values.
+	  */
 	 enum class prn { label, val };
 
+	 /**
+	  * @brief Helper class to print label and their values
+	  * @param ost  Output stream
+	  * @param l The prn to print
+	  * @return An std::oststream
+	  */
 	 std::ostream &operator<<(std::ostream &ost, Models::EPEC::prn l);
   } // namespace EPEC
 } // namespace Models

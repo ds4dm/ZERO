@@ -11,9 +11,8 @@
  * #############################################*/
 
 
-#include "EPEC_test.h"
-
-
+#include "epec_test.h"
+#define BOOST_TEST_DONT_PRINT_LOG_VALUE
 
 BOOST_AUTO_TEST_SUITE(Core__Tests)
 
@@ -107,8 +106,9 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
   arma::vec sol(3);
   sol << 0.5417 << arma::endr << 5.9861 << arma::endr
 		<< 3.4722; // Hard-coding the solution as calculated outside
-  for (unsigned int i = 0; i < Ny; i++)
-	 BOOST_WARN_CLOSE(sol(i), FixedModel->getVar(i).get(GRB_DoubleAttr_X), 0.01);
+  for (unsigned int i = 0; i < Ny; i++) {
+    BOOST_CHECK_CLOSE(sol.at(i), FixedModel->getVar(i).get(GRB_DoubleAttr_X), 0.01);
+  }
   BOOST_CHECK_CLOSE(FixedModel->get(GRB_DoubleAttr_ObjVal), -12.757, 0.01);
 
   // KKT conditions for a QPC

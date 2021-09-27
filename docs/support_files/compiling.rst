@@ -13,7 +13,7 @@ The required packages for ZERO are:
 -  `CMake <https://cmake.org/>`__ (Version 3.14 or later)
 -  `Conda <https://conda.io/>`__  (A somehow recent version)
 -  `Gurobi <https://www.gurobi.com/registration/download-reg>`__ (Version 9.2 or later) as a MIP solver.
--  `PATH <http://pages.cs.wisc.edu/~ferris/path.html>`__ (Version 5.0 or later) as an LCP solver.
+-  `PATH <http://pages.cs.wisc.edu/~ferris/path.html>`__ (Version 5.0 or later) as an LCP solver. You can get a license `here <http://pages.cs.wisc.edu/~ferris/path.html/>`__.
 
 The following packages will be installed by Conda
 
@@ -46,3 +46,6 @@ To build the targets with CMake, then:
    cmake .. && make
 
 If the required packages are installed, Conda and CMake will correctly perform the installation by fetching the remaining components.
+
+* You can supply an extra hint for the Gurobi PATH with the CMake argument `-DZERO_GUROBIHINT:STRING=/gurobi_path/distribution`
+* You can disable external dependencies install through conda with the CMake argument `-DZERO_INSTALL_DEPS=OFF`

@@ -33,7 +33,7 @@ namespace MathOpt {
 	* Ax + By &\leq& b \\
 	* y &\geq& 0
 	* \f}
-	* The shape of C is @f$Ny \times numParams@f$
+	* The shape of C is @f$numVars \times numParams@f$
 	*/
   class QP_Param : public MP_Param {
   private:

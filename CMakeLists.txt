@@ -16,7 +16,7 @@ configure_file(src/support/CMakeConfig.h.in include/support/version.h)
 #######################################
 # PROJECT OPTIONS
 #######################################
-option(ZERO_INSTALL_DEPS "Install ZERO dependencies through conda" OFF)
+option(ZERO_INSTALL_DEPS "Install ZERO dependencies through conda" ON)
 
 
 #######################################
@@ -45,7 +45,8 @@ set(ZERO_DEP_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib")
 #######################################
 # CUSTOM HINTS FOR DEPENDENCIES
 #######################################
-set(GUROBI_DIR "/home/gurobi/9.1.1/linux64/" "/Library/gurobi910/mac64" "C:\\dev\\gurobi900\\win64")
+SET(ZERO_GUROBIHINT "" CACHE STRING "Hint for the Gurobi Path")
+set(GUROBI_DIR "/home/gurobi/9.1.1/linux64/" "/Library/gurobi910/mac64" "C:\\dev\\gurobi900\\win64", ${ZERO_GUROBIHINT})
 set(PATH_DIR "${ZERO_DEP_DIR}/path")
 set(CONDA_ENV "${ZERO_DEP_DIR}/conda")
 set(SCIP_ROOT_DIR "${CONDA_ENV}" )
@@ -113,6 +114,7 @@ add_library(
         src/games/algorithms/EPEC/epec_fullenum.cpp
         src/games/algorithms/EPEC/epec_cutandplay.cpp
         src/games/algorithms/IPG/ipg_cutandplay.cpp
+        src/games/algorithms/IPG/ipg_zeroregrets.cpp
         src/interfaces/epec_models.cpp
         src/interfaces/ipg_models.cpp)
 set_target_properties(
@@ -153,7 +155,7 @@ set_target_properties(
 #######################################
 # ZERO - EPEC TESTS
 #######################################
-add_executable(EPECTests test/EPEC/epec.cpp)
+add_executable(EPECTests test/EPEC/epec_test.cpp)
 target_include_directories(EPECTests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(EPECTests ZERO ${CMAKE_DL_LIBS} Boost::program_options Boost::unit_test_framework)
 set_target_properties(

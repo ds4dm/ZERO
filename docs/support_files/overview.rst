@@ -2,7 +2,7 @@
 Overview
 ##################
 
-Since the potential usage of ZERO's components is wide, the library is structured in a modular way.
+ZERO's components -- or *modules* -- are abstract objects defined inside a suitable *namespace*,  which groups modules with a similar function or goal.
 
 ************************************
 MathOpt
@@ -73,6 +73,15 @@ The children namespace are named after the respective game (e.g, `IPG <../api/na
 
 
 ************************************
+Models
+************************************
+The namespace `Models <../api/namespace_Models.html#namespace-Models>`_  implements some high-level APIs to access the :cpp:class:`Game` modules.
+
+-  :cpp:class:`Models::EPEC::EPEC` high-level access to :cpp:class:`Game::EPEC`.
+-  :cpp:class:`Models::IPG::IPG` high-level access to :cpp:class:`Game::IPG`.
+
+
+************************************
 Utils
 ************************************
 The namespace `Utils <../api/namespace_Utils.html>`_  is an utility namespace with some common methods (e.g., numerical tolerances, comparisons, etc).
@@ -82,6 +91,7 @@ The namespace `Utils <../api/namespace_Utils.html>`_  is an utility namespace wi
 Solvers
 ************************************
 The namespace `Solvers <../api/namespace_Solvers.html#namespace-Solvers>`_  implements some external solvers through a customized interface (e.g., PATH).
+In future releases, we hope to move also Gurobi and other solvers such as SCIP in this namespace and abstract their interface with ZERO.
 
 
 ************************************
