@@ -16,7 +16,7 @@ Citations
 **********************
 Cite ZERO through [ZERO]_, and any of the algorithms via their respective paper (e.g., [CNP]_ for the Cut-And-Play algorithm).
 
-.. [ZERO] Sriram Sankaranarayanan, Gabriele Dragotto, Margarida Carvalho, Andrea Lodi. ZERO: Playing Mathematical Programming Games.
+.. [ZERO] Gabriele Dragotto, Sriram Sankaranarayanan,  Margarida Carvalho, Andrea Lodi. ZERO: Playing Mathematical Programming Games.
 .. [WNMS] Margarida Carvalho, Gabriele Dragotto, Felipe Feijoo, Andrea Lodi, Sriram Sankaranarayanan. When Nash Meets Stackelberg.
 .. [CNP] Margarida Carvalho, Gabriele Dragotto, Andrea Lodi, Sriram Sankaranarayanan. The Cut and Play Algorithm: Computing Nash Equilibria via Outer Approximations.
 

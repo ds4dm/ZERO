@@ -1,34 +1,34 @@
 Parametrized QPs
 *****************
 
-QP_Param stands for *Parametrized Quadratic Program*, a mathematical program in thew following form:
+QP_Param stands for *Parametrized Quadratic Program*, a mathematical program in the following form:
 
 .. math::
     \min_y \frac{1}{2}y^TQy + c^Ty + (Cx)^T y \\
     \text{s.t.} \quad  Ax + By \le b\\
     \quad \quad y \ge 0
 
-where :math:`y` are the decision variables for the program, and :math:`x` are parameters.
+Where :math:`y` are the decision variables for the program, and :math:`x` are parameters.
 You can find the API information in :cpp:class:`MathOpt::QP_Param`. This class is an inheritor of :cpp:class:`MathOpt::MP_Param`.
 
 ====================================
 Modeling the problem
 ====================================
 
-Consider the Following quadratic program.
+Consider the following quadratic program.
 
 .. math::
 
  \min_{y_1, y_2, y_3} (y_1 + y_2 - 2y_3)^2 + 2 x_1y_1 + 2 x_2y_1 + 3 x_1y_3 + y_1-y_2+y_3
 
  \text{s.t.}\;\;\;\;\;  y_1, y_2, y_3 &\ge 0
- 
+
  \;\;\;\;\;\;\;\; y_1 + y_2 + y_3 &\le 10
 
  \;\;\;\;\;\;\;-y_1 +y_2 -2y_3 &\le -1 + x_1 + x_2
 
 
-We can model the problem above with as follows:
+We can model the problem above as follows:
 
 .. code-block:: c
 
@@ -83,7 +83,7 @@ Now the required object can be constructed in multiple ways.
     assert(q1==q2);
     assert(q2==q3);
 
-We can now feed some values for the parameters, and compute the corresponding optimal solution.
+We can now feed some values for the parameters and compute the corresponding optimal solution.
 Assume :math:`(x_1, x_2) = (-1, 0.5)`. Then, we the problem becomes a standard QP as:
 
 .. math::
@@ -113,8 +113,8 @@ Correspondingly, we have the following code:
 Computing solutions
 ==========
 
-``FixedModel`` holds the ``GRBModel`` object, and all operations native to ``GRBModel``, like accessing the value of a variable, a dual multiplier, saving the problem to an .lp file or a .mps file etc. can be performed on the object. In particular, the solution can be compared with hand-calculated solution as shown below.
-	
+``FixedModel`` holds the ``GRBModel`` object, and all operations native to ``GRBModel``, like accessing the value of a variable, a dual multiplier, saving the problem to an .lp file or a .mps file. In particular, we can compare the solution with a hand-calculated one as below.
+
 .. code-block:: c
 
     arma::vec sol(3);

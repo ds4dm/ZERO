@@ -2,9 +2,9 @@ LCPs
 ***************
 
 In the previous tutorial, we introduced the LCP problem. Here we give a brief overview of :cpp:class:`MathOpt::LCP`.
-This class provides the basic tools to solve LCPs. Since the solution of LCPs are union of polyhedra, the inheritor class :cpp:class:`MathOpt::PolyLCP` provides support for the polyhedral aspect of LCPs.
+This class provides the essential tools to solve LCPs. Since the solution of LCPs are union of polyhedra, the inheritor class :cpp:class:`MathOpt::PolyLCP` supports the polyhedral aspect of LCPs.
 
-The types of problems that are handled by the class :cpp:func:`MathOpt::LCP` are in the following form:
+:cpp:func:`MathOpt::LCP` handles problems in the following form:
 
 .. math::
 
@@ -13,12 +13,12 @@ The types of problems that are handled by the class :cpp:func:`MathOpt::LCP` are
   0 \leq x \perp Mx + Ny + q \geq 0
 
 
-Yet we use a different notation. Instead of using ``y`` to refer to the variables that don't have matching complementary equations, we call *all* the variables as ``x`` and we keep track of the position of variables which are not complementary to any equation.
+However, we use a different notation. Instead of using ``y`` to refer to the variables that do not have matching complementary equations, we call *all* the variables as ``x`` and we keep track of the position of variables that are not complementary to any equation.
 
 .. note::
 
-    - The set of indices of ``x`` which are not complementary to any equation should be a consecutive set of indices. For the sake of clarity, these components will be called as *Leader vars components* of ``x``.
-    - Suppose the leader vars components of ``x`` are removed from ``x``, in the remaining components, the first component should be complementary to the first row defined by @p M, second component should be complementary to the second row defined by ``M`` and so on.
+    The set of ``x``'s indices that are not complementary to any equation should be a consecutive set of indices. For the sake of clarity, these components we refer to these as *Leader vars components* of ``x``.
+    - Suppose the leader vars components of ``x`` are not in ``x``, in the remaining components, the first component should be complementary to the first row defined by @p M, the second component should be complementary to the second row defined by ``M`` and so on.
 
 
 
@@ -33,7 +33,7 @@ Now consider the following linear complementarity problem.
 
         0\le x_1 \perp x_4 - 1 \ge 0
 
-        0\le x_2 \le 2 
+        0\le x_2 \le 2
 
         0 \le x_3 \perp 2x_3 + x_5 \ge 0
 
@@ -79,7 +79,7 @@ The variable :math:`x_2` has no complementarity equation. This problem can be en
 Since the variable with no complementarity pair is :math:`x_2` which is in position ``1`` (counting from 0) of the vector ``x``, the arguments ``LeadStart`` and ``LeadEnd`` in the constructor, :cpp:func:`MathOpt::LCP::LCP` are ``1`` as below.
 
 .. code-block:: c
-   
+
    GRBEnv env;
    LCP lcp = LCP(&env, M, q, 1, 1, A, b);
 
@@ -97,27 +97,27 @@ This problem can be solved either with a MIP, a MINLP, or with PATH (:cpp:enum:`
  auto indModel = lcp.solve(Data::LCP::Algorithms::PATH,x,z,-1,1);
 
 
-This LCP as multiple solutions. In fact the solution set can be parameterized as below.
+This LCP has multiple solutions. The solution set can be parameterized as below.
 
 .. math::
 
  x_1 &= 10 + t
- 
+
  x_2 &= t
- 
+
  x_3 &= 0
- 
+
  x_4 &= 1
- 
- x_5 &= 0 
- 
+
+ x_5 &= 0
+
  \text{for}\;\; t \in [0, 1]
- 
+
 ====================================
 Utilities
 ====================================
 
 Two functions :cpp:func:`MathOpt::LCP::LCPasMILP` and :cpp:func:`MathOpt::LCP::LCPasMIQP` allows to to optimize a linear objective function or a convex quadratic
 objective function over the set of solutions. Also, note that :cpp:func:`MathOpt::LCP::setMIPLinearObjective`, :cpp:func:`MathOpt::LCP::setMIPQuadraticObjective`, :cpp:func:`MathOpt::LCP::setMIPFeasibilityObjective` can change the objective function of the MIP model (if one is called for solving the LCP).
-In general, we recomend to use :cpp:func:`MathOpt::LCP::solve`, which is a general methods that delegates the solution to either one available solver.
+In general, we recommend using:cpp:func:`MathOpt::LCP::solve`, which is a general method that delegates the solution to either one available solver.
 

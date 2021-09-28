@@ -1,7 +1,7 @@
 NASPs
 ***************
-NASPs, an acronym for Nash games among Stackelberg Players, are games among the leader of bilevel leaders.
-A detail description of these games is available `in this paper <https://arxiv.org/abs/1910.06452>`_.
+NASPs, an acronym for Nash games among Stackelberg Players, are games among bilevel leaders.
+A detailed description of these games is available `in this paper <https://arxiv.org/abs/1910.06452>`_.
 
 Each player :math:`i` solves the optimization problem in :math:`x^i`, where :math:`c^i` is a real-valued vector of dimension :math:`n_i`, and :math:`Q_o^i` is a :math:`n_o \times n_i` real-valued matrix encapsulating the interactions between any two distinct players :math:`i` and :math:`o`.
 Any leader :math:`i` has :math:`m_i` followers, each of which solves a convex continuous optimization problem.
@@ -17,7 +17,7 @@ For a given leader :math:`i`, and its respective follower :math:`j \in \{1,\dots
 
 
 In the above model, we assume the variables :math:`x^i` are partitioned into leader's variables :math:`w^i` and followers' ones :math:`y^i`.
-In plain English, :math:`n` leaders play a simultaneous non-cooperative game. Each player is a leader, with :math:`m_i` followers. While leaders interact among each other, each follower interact with the other followers of its leader (and not the ones of other leaders).
+In plain English, :math:`n` leaders play a simultaneous non-cooperative game. Each player is a leader, with :math:`m_i` followers. While leaders interact, each follower interacts only with the other followers of its leader (and not those of other leaders).
 
 
 ====================================
@@ -66,7 +66,7 @@ Modeling the problem
 Creating an inheritor class
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The first step in modeling a game between Stackelberg leaders is to include `zero.h` and create a derived class of :cpp:class:`Game::EPEC`. The minimal constructor for :cpp:class:`Game::EPEC` involves passing a pointer to `GRBEnv` (Check Gurobi's C++ `reference manual <https://www.gurobi.com/documentation/8.1/refman/cpp_api_overview.html>`_). The derived class should indeed instantiate the base class (Game::EPEC) using such a constructor. The code below, achieves it.
+The first step in modeling a game between Stackelberg leaders is to include `zero.h` and create a derived class of :cpp:class:`Game::EPEC`. The minimal constructor for :cpp:class:`Game::EPEC` involves passing a pointer to `GRBEnv` (Check Gurobi's C++ `reference manual <https://www.gurobi.com/documentation/8.1/refman/cpp_api_overview.html>`_). The derived class should indeed instantiate the base class (Game::EPEC) using such a constructor.
 
 .. code-block:: c
 
@@ -85,10 +85,10 @@ We define the lower level of each leader (u-v leader as well as the x-y leader) 
 
 .. note::
     #. The referred object contains the follower's game along with any constraint in the leader level.
-    #. The referred object does not contain the follower's objective (which could potentially depend upon other leaders' variables).
+    #. The referred object does not contain the follower's objective (which could depend on other leaders' variables).
     #. We create the object, **without** assuming the presence of other leaders.
 
-The following code returns the ``std::shared_ptr<>`` as required. To refresh the concepts about creating a :cpp:class:`Game::NashGame` object, refer to the previous tutorial on simultaneous games.
+The following code returns the ``std::shared_ptr<>`` as required. Refer to the previous tutorial on simultaneous games to learn how to create a :cpp:class:`Game::NashGame` object.
 
 .. code-block:: c
 
@@ -188,9 +188,9 @@ We introduce a member function to add the leaders to the class.
 .. code-block:: c
 
   void addLeader(std::shared_ptr<Game::NashGame> N, const unsigned int i) {
-	 this->PlayersLowerLevels.push_back(N);
-	 ends[i] = N->getNprimals() + N->getNumLeaderVars();
-	 this->LocEnds.push_back(&ends[i]);
+    this->PlayersLowerLevels.push_back(N);
+    ends[i] = N->getNprimals() + N->getNumLeaderVars();
+    this->LocEnds.push_back(&ends[i]);
   }
 
 
@@ -204,14 +204,14 @@ We introduce a member function to add the leaders to the class.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Re-implementing methods
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-:cpp:class:`Game::EPEC` is a pure virtual (abstract) class and it is mandatory to define two functions by every derived class that it has. First, we define :cpp:func:`Game::EPEC::makeObjectivePlayer`. This function  has the following signature in its definition in :cpp:class:`Game::EPEC`.
+:cpp:class:`Game::EPEC` is a pure virtual (abstract) class and it is mandatory to define two functions by every derived class that it has. First, we define :cpp:func:`Game::EPEC::makeObjectivePlayer`. This function has the following signature in its definition in :cpp:class:`Game::EPEC`.
 
 .. code-block:: c
 
     virtual void makeObjectivePlayer(const unsigned int i, Game::QP_objective &QP_obj) = 0;
 
 
-The parameter ``i`` take the position of the leader and `QP_obj` is an out-parameter, which should be filled with an object of ``MathOpt::QP_objective``, which has the i-th leader's objective. Note that this should assume the form of :math:`c^T x + (Cx)^T x^{oth}`, where :math:`x` is the current player's set of variables and :math:`x^{oth}` is the remaining set of variables. The definition of this function is shown below.
+The parameter ``i``takes the leader's position and `QP_obj` is an out-parameter, which should be filled with an object of ``MathOpt::QP_objective``, which has the i-th leader's objective. Note that this should assume the form of :math:`c^T x + (Cx)^T x^{oth}`, where :math:`x` is the current player's set of variables and :math:`x^{oth}` is the remaining set of variables.
 
 .. code-block:: c
 
@@ -239,7 +239,7 @@ The parameter ``i`` take the position of the leader and `QP_obj` is an out-param
 
 
 Finally,  `Game::EPEC::updateLocations` needs to be implemented.
-For small, toy examples, this function can only update the location of the last variable as the total number of variables defined by the user plus any convex hull variables. But, for more complicated examples, we refer the user to check :cpp:func:`Models::EPEC::updateLocations`.
+For small toy examples, this function can only update the location of the last variable as the total number of variables defined by the user plus any convex hull variables. But, for more complicated examples, we refer the user to check :cpp:func:`Models::EPEC::updateLocations`.
 Also, :cpp:func:`Game::EPEC::preFinalize` and :cpp:func:`Game::EPEC::postFinalize` are required in the derived class. These methods are called before and after :cpp:func:`Game::EPEC::finalize`.
 
 .. code-block:: c
@@ -255,7 +255,7 @@ Also, :cpp:func:`Game::EPEC::preFinalize` and :cpp:func:`Game::EPEC::postFinaliz
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Computing solutions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Now that the derived class is ready, the EPEC can be solved using an instantiation of the class. We lead you through the corresponding code, below.
+Now that the derived class is ready, the EPEC can be solved using an instantiation of the class.
 
 To start, with set up a Gurobi environment like we did for :cpp:class:`MathOpt::QP_Param` and :cpp:class:`Game::NashGame`.
 
@@ -263,14 +263,14 @@ To start, with set up a Gurobi environment like we did for :cpp:class:`MathOpt::
 
     GRBEnv env;
 
-We can then specify the log-level via `loguru`.
+We can then specify the log level via `loguru`.
 
 .. code-block:: c
 
     //0 is info. The greater, the more verbose
     loguru::g_stderr_verbosity = 0;
 
-Next, we create an object for the class and add both the lower level :cpp:class:`Game::NashGame` using functions defined earlier.
+Next, we create an object for the class and add the lower level :cpp:class:`Game::NashGame` using functions defined earlier.
 
 .. code-block:: c
 
@@ -284,21 +284,21 @@ Next, we create an object for the class and add both the lower level :cpp:class:
     epec.addLeader(xy_lead, 1);
 
 
-Once all the leaders' lower levels are added, we tell the program that we are adding no more players, and the code can do certain pre-processing and space allocation using :cpp:func:`Game::EPEC::finalize`. We can also optionally tell the program to do other operations before/after finalizing, by defining an override for :cpp:func:`Game::EPEC::preFinalize` and :cpp:func:`Game::EPEC::postFinalize` in the derived class.
+Once all the leaders' lower levels are in, we tell the program that we are adding no more players, and the code can do certain pre-processing and space allocation using :cpp:func:`Game::EPEC::finalize`. We can also optionally tell the program to do other operations before/after finalizing, by defining an override for :cpp:func:`Game::EPEC::preFinalize` and :cpp:func:`Game::EPEC::postFinalize` in the derived class.
 
 .. code-block:: c
 
     // Finalize
     epec.finalize();
 
-One can optionally choose the algorithm to be used for solving the problem. Not setting this, chooses the default algorithm cpp:class:`Algorithms::EPEC::FullEnumeration`
+One can optionally choose the algorithm to solve the problem. Not setting this, chooses the default algorithm cpp:class:`Algorithms::EPEC::FullEnumeration`
 
 .. code-block:: c
 
     epec.setAlgorithm(Data::EPEC::Algorithms::InnerApproximation);
 
 
-Finally, we can solve the problem
+Finally, we can solve the problem.
 
 .. code-block:: c
 
@@ -314,7 +314,7 @@ Finally, we can solve the problem
 Fetching solutions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To start with, one can write the GRBModel (Gurobi model) solved in the last iteration or acquire a copy of the model. For the model writing, any extension allowed by Gurobi will work in the solver.
+First, one can write the GRBModel (Gurobi model) solved in the last iteration or acquire a copy of the model. For the model writing, any extension allowed by Gurobi will work in the solver.
 
 .. code-block:: c
 
@@ -331,7 +331,7 @@ To start with, one can write the GRBModel (Gurobi model) solved in the last iter
 
 Alternatively, without saving the model, one can directly print the solution to the model.
 Note that an EPEC does not necessarily have a pure-strategy Nash equilibrium or a mixed-strategy Nash equilibrium.
-However, should it have one, we print the multiple pure strategies along with the associated probability for that strategy. These are achieved using
+However, should it have one, we print the multiple pure strategies and the associated probability for that strategy. One can perform such queries with:
 
 - :cpp:func:`Algorithms::EPEC::PolyBase::getValProbab`
 - :cpp:func:`Algorithms::EPEC::PolyBase::getValLeadLeadPoly`
@@ -366,7 +366,7 @@ Similarly, for the x-y leader:
             << epec.getValLeadFollPoly(1, 1, i) << ")\n";
     });
 
-For your convenience, the entire example source code is given below.
+The entire example source code is as follows:
 
 .. code-block:: c
 

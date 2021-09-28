@@ -12,16 +12,17 @@
 
 
 #include "zero.h"
-#include <gurobi_c++.h>
 
 class My_EPEC_Prob : public Game::EPEC {
 public:
-  explicit My_EPEC_Prob(GRBEnv *e) : EPEC(e) {}
+  My_EPEC_Prob(GRBEnv *e) : EPEC(e) {}
   void addLeader(std::shared_ptr<Game::NashGame> N, const unsigned int i) {
 	 this->PlayersLowerLevels.push_back(N);
 	 ends[i] = N->getNprimals() + N->getNumLeaderVars();
 	 this->LocEnds.push_back(&ends[i]);
   }
+  void postFinalize() override { std::cout << "Pre finalized!\n"; }
+  void preFinalize() override { std::cout << "Post finalized!\n"; };
 
 private:
   unsigned int ends[2];
@@ -29,12 +30,12 @@ private:
     ends[0] = this->ConvexHullVariables.at(0) + 3;
     ends[1] = this->ConvexHullVariables.at(1) + 3;
   }
-  void makeObjectivePlayer(const unsigned int i, Game::QP_Objective &QP_obj) override {
+  void makeObjectivePlayer(const unsigned int i, MathOpt::QP_objective &QP_obj) override {
 	 QP_obj.Q.zeros(3, 3);
 	 QP_obj.C.zeros(3, 3);
 	 QP_obj.c.zeros(3);
 	 switch (i) {
-	 case 0: // uvLeader's objective
+	 case 0: // uv_leader's objective
 		QP_obj.C(1, 0) = 1;
 		QP_obj.c(0)    = 1;
 		QP_obj.c(2)    = -1;
@@ -45,12 +46,12 @@ private:
 		QP_obj.c(2)    = 1;
 		break;
 	 default:
-		throw ZEROException(ZEROErrorCode::OutOfRange, "Invalid player" + std::to_string(i));
+		throw std::string("Invalid makeObjectivePlayer");
 	 }
   }
 };
 
-std::shared_ptr<Game::NashGame> uvLeader(GRBEnv *env) {
+std::shared_ptr<Game::NashGame> uv_leader(GRBEnv *env) {
   // 2 variable and 2 constraints
   arma::sp_mat Q(2, 2), C(2, 1), A(2, 1), B(2, 2);
   arma::vec    c(2, arma::fill::zeros);
@@ -81,8 +82,10 @@ std::shared_ptr<Game::NashGame> uvLeader(GRBEnv *env) {
   LeadCons(0, 2) = 1;
   LeadRHS(0)     = 5;
 
-  auto N = std::make_shared<Game::NashGame>(
-		env, std::vector<std::shared_ptr<MathOpt::QP_Param>>{foll}, MC, MCRHS, 1, LeadCons, LeadRHS);
+  std::vector<std::shared_ptr<MathOpt::MP_Param>> MPCasted;
+  MPCasted.push_back(std::dynamic_pointer_cast<MathOpt::MP_Param>(foll));
+
+  auto N = std::make_shared<Game::NashGame>(env, MPCasted, MC, MCRHS, 1, LeadCons, LeadRHS);
   return N;
 }
 
@@ -125,33 +128,32 @@ std::shared_ptr<Game::NashGame> xy_leader(GRBEnv *env) {
   LeadCons(1, 2) = 0;
   LeadRHS(1)     = 0;
 
-  auto N = std::make_shared<Game::NashGame>(
-		env, std::vector<std::shared_ptr<MathOpt::QP_Param>>{foll}, MC, MCRHS, 1, LeadCons, LeadRHS);
+  std::vector<std::shared_ptr<MathOpt::MP_Param>> MPCasted;
+  MPCasted.push_back(std::dynamic_pointer_cast<MathOpt::MP_Param>(foll));
+
+  auto N = std::make_shared<Game::NashGame>(env, MPCasted, MC, MCRHS, 1, LeadCons, LeadRHS);
   return N;
 }
 
 int main() {
   GRBEnv env;
+  loguru::g_stderr_verbosity = 0;
+  My_EPEC_Prob epec(&env);
+  // Adding uv_leader
+  auto uv_lead = uv_leader(&env);
+  epec.addLeader(uv_lead, 0);
+  // Adding xy_leader
+  auto xy_lead = xy_leader(&env);
+  epec.addLeader(xy_lead, 1);
+  // Finalize
+  epec.finalize();
+  epec.setAlgorithm(Data::EPEC::Algorithms::InnerApproximation);
+  // Solve
   try {
-	 My_EPEC_Prob epec(&env);
-	 // Adding uvLeader
-	 auto uv_lead = uvLeader(&env);
-	 epec.addLeader(uv_lead, 0);
-	 // Adding xy_leader
-	 auto xy_lead = xy_leader(&env);
-	 epec.addLeader(xy_lead, 1);
-	 // Finalize
-	 epec.finalize();
-	 epec.setAlgorithm(Game::EPECalgorithm::InnerApproximation);
-	 // Solve
 	 epec.findNashEq();
   } catch (ZEROException &e) {
-	 std::cerr << e.which() << " - " << e.what() << " | " << e.more();
+	 std::cerr << e.what() << " -- " << std::to_string(e.which()) << std::endl;
   }
-  // auto M = epec.getLcpModel();
-  // M.write("dat/ex_model.lp");
-  // M.optimize();
-  // M.write("dat/ex_sol.sol");
 
   std::cout << "\nUV LEADER\n";
   std::cout << "u: " << epec.getValLeadLead(0, 0) << '\n';

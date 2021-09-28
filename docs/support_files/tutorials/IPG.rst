@@ -1,7 +1,7 @@
 IPG
 ***************
-An Integer Programming Game is a simultaneous game among  :math:`n` players solving a Parametrized (mixed) Integer Program.
-In other words, each player :math:`i` solves the following problem:
+An Integer Programming Game is a simultaneous game among  :math:`n` players solving a parameterized (mixed) Integer Program.
+In ZERO, we support IPGs where each player :math:`i` solves the following problem:
 
 .. math::
 
@@ -10,26 +10,24 @@ In other words, each player :math:`i` solves the following problem:
     \quad \quad x^i \ge 0 \\
     \quad \quad  x^i_j \in \mathbb{N} \quad  \forall j \in \mathcal{I}^i
 
-where :math:`\mathcal{I}` is the set of indices of integer variables.
+Where :math:`\mathcal{I}` is the set of indices of integer variables.
+In other words, the objective function takes a specific bi-linear form.
 
 ====================================
 A quick example
 ====================================
 
-Consider the following Integer Programming Game: The first player is the **x** player, where its
-leader's decision variables are :math:`x`. The second player is the **y** player where its variables are :math:`y`.
+Consider the following Integer Programming Game: The first player is the **x** player, whose decision variables are :math:`x`. The second player is the **y** player where its variables are :math:`y`.
 
 .. note::
-    We slightly change the notation with respect to ZERO's arguments for the sake of exposition of this game.
-    For instance, here for :math:`x` we point to the decision variables of the first player, instead of the parameters of a  :cpp:class:`IP_Param`.
-    The example below should clarify any doubt.
+    We slightly change the notation with respect to ZERO's arguments for the exposition of this game. For instance, here for :math:`x`, we point to the first player's variables instead of the parameters of a  :cpp:class:`IP_Param`. The example below should clarify any doubt.
 
 .. image:: IPG.png
   :width: 500
   :alt: The Integer Programming Game for this example is a Knapsack Game.
 
 
-The x player's optimization problem is given below
+The x player's optimization problem is as follows
 
 .. math::
 
@@ -149,7 +147,7 @@ The first step in modeling this Integer Programming Game is to include `zero.h` 
       }
     }
 
-- With the method `setAlgorithm` of :cpp:class:`Game::IPG`, we set the algorithm that will solve the Integer Programming Game. So far, only :cpp:class:`Algorithms::IPG::CutAndPlay` is available.
+- With the method `setAlgorithm` of :cpp:class:`Game::IPG`, we set the algorithm to solve the Integer Programming Game. So far, only :cpp:class:`Algorithms::IPG::CutAndPlay` is available.
 - The method `setLCPAlgorithm` specifies the algorithm used to solve the LCPs. It can be either :cpp:class:`Data::LCP::Algorithms::MIP`, :cpp:class:`Data::LCP::Algorithms::PATH`, or :cpp:class:`Data::LCP::Algorithms::MINLP`.
 - The game's objective (not supported by PATH) forces an objective into the LCP problem as to increase the chances of finding a good equilibrium given the objective. Values can be :cpp:class:`Data::IPG::Objectives::Quadratic` :cpp:class:`Data::IPG::Objectives::Linear` :cpp:class:`Data::IPG::Objectives::Feasibility`.
 - Other options can be found in the documentation of :cpp:class:`Game::IPG`

@@ -1,8 +1,8 @@
-Parametrized MILPs
+Parametrized IPs
 *****************
 
 
-IP_Param stands for *Parametrized Integer Program*, a mathematical program in thew following form:
+IP_Param stands for *Parametrized Integer Program*, a mathematical program in the following form:
 
 .. math::
     \min_y c^Ty + (Cx)^T y \\
@@ -11,7 +11,8 @@ IP_Param stands for *Parametrized Integer Program*, a mathematical program in th
     \quad \quad y_i \in  \mathbb{Z} \quad \forall i \in I
 
 
-where :math:`y` are the decision variables for the program, :math:`x` are parameters, and :math:`I` is the set of indices of integer variables.
+Where :math:`y` are the decision variables for the program, :math:`x` are parameters, and :math:`I` is the set of indices of integer variables.
+ZERO supports Integer Programs with linear constraints and bi-linear objectives (linear in :math:`y`).
 You can find the API information in :cpp:class:`MathOpt::IP_Param`. This class is an inheritor of :cpp:class:`MathOpt::MP_Param`, and we use the same notation of the abstract.
 
 
@@ -26,12 +27,11 @@ Following the previous example on parametrized Quadratic Programs, consider the 
  \max_{y_1, y_2} y_1 + 2y_2 - 2y_1x_1 -3y_2x_2
 
  \text{s.t.} \quad   3y_1+4y_2 &\le 5
- 
+
  \quad \quad  y_1, y_2 &\in \{0,1\}
 
-This is a Knapsack Problem in :math:`y` with an objective function parametrized in some :math:`x` variables.
-
-This data can be entered as follows. We assume the matrix C is a matrix with:
+This is a Knapsack Problem in :math:`y`, with an objective function parametrized in the  :math:`x` variables.
+We assume the matrix C is a matrix with:
 
 * A number of rows corresponding to the number of :math:`y` variables
 * A number of columns corresponding to the number of :math:`x` parameters
