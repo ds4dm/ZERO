@@ -147,17 +147,18 @@ void MathOpt::IP_Param::updateModelObjective(const arma::vec &x) {
  * @return  A pointer to the Gurobi model
  */
 std::unique_ptr<GRBModel> MathOpt::IP_Param::solveFixed(const arma::vec x, bool solve) {
-  std::unique_ptr<GRBModel> model(new GRBModel(this->IPModel));
   if (!this->Finalized)
 	 throw ZEROException(ZEROErrorCode::Assertion, "The model is not Finalized!");
   try {
 	 this->updateModelObjective(x);
+	 std::unique_ptr<GRBModel> model(new GRBModel(this->IPModel));
 	 if (solve)
 		model->optimize();
+    return model;
   } catch (GRBException &e) {
 	 throw ZEROException(e);
   }
-  return model;
+  return nullptr;
 }
 
 
