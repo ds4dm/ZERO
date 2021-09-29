@@ -16,7 +16,7 @@ configure_file(src/support/CMakeConfig.h.in include/support/version.h)
 #######################################
 # PROJECT OPTIONS
 #######################################
-option(ZERO_INSTALL_DEPS "Install ZERO dependencies through conda" ON)
+option(ZERO_INSTALL_DEPS "Install ZERO dependencies through conda" OFF)
 
 
 #######################################
@@ -46,7 +46,7 @@ set(ZERO_DEP_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib")
 # CUSTOM HINTS FOR DEPENDENCIES
 #######################################
 SET(ZERO_GUROBIHINT "" CACHE STRING "Hint for the Gurobi Path")
-set(GUROBI_DIR "/home/gurobi/9.1.1/linux64/" "/Library/gurobi910/mac64" "C:\\dev\\gurobi900\\win64", ${ZERO_GUROBIHINT})
+set(GUROBI_DIR "/home/gurobi/9.1.1/linux64/" "/Library/gurobi910/mac64" "C:\\dev\\gurobi900\\win64" ${ZERO_GUROBIHINT})
 set(PATH_DIR "${ZERO_DEP_DIR}/path")
 set(CONDA_ENV "${ZERO_DEP_DIR}/conda")
 set(SCIP_ROOT_DIR "${CONDA_ENV}" )
@@ -147,30 +147,35 @@ set_target_properties(
 # ZERO - IPG COMMAND LINE
 #######################################
 add_executable(IPGShell src/shells/ipg.cpp)
-target_link_libraries(IPGShell Boost::program_options Boost::unit_test_framework ${CMAKE_DL_LIBS} ZERO)
+target_link_libraries(IPGShell Boost::program_options ${CMAKE_DL_LIBS} ZERO)
 set_target_properties(
         IPGShell PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
         VISIBILITY_INLINES_HIDDEN ON)
 
 #######################################
-# ZERO - EPEC TESTS
+# ZERO - TESTS
 #######################################
-add_executable(EPECTests test/EPEC/epec_test.cpp)
-target_include_directories(EPECTests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
-target_link_libraries(EPECTests ZERO ${CMAKE_DL_LIBS} Boost::program_options Boost::unit_test_framework)
+add_executable(ZEROTests
+               test/tests.cpp
+               test/core_tests.cpp
+               test/epec_test.cpp
+               test/ipg_tests.cpp)
+target_compile_definitions(ZEROTests PRIVATE BOOST_ALL_DYN_LINK)
+target_include_directories(ZEROTests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(ZEROTests ZERO ${CMAKE_DL_LIBS} Boost::unit_test_framework)
 set_target_properties(
-        EPECTests
+        ZEROTests
         PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
         VISIBILITY_INLINES_HIDDEN ON)
 
 #######################################
-# ZERO - IPG TESTS
+# ZERO - Compiling an example
 #######################################
-add_executable(IPGTests test/IPG/RandomKP.cpp)
-target_include_directories(IPGTests PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-target_link_libraries(IPGTests ZERO)
+add_executable(IPGExample examples/IPG.cpp)
+target_include_directories(IPGExample PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(IPGExample ZERO)
 set_target_properties(
-        IPGTests PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
+        IPGExample PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
         VISIBILITY_INLINES_HIDDEN ON)
 
 
