@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utils &mdash; ZERO 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/zero.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Other stuff" href="Codes.html" />
+    <link rel="prev" title="Models" href="Models.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: rgb(68, 44, 123)" >
+            <a href="../../index.html">
+            <img src="../../_static/zerowhite.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rbg.html">What is an RBG?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#mathopt">MathOpt</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../overview.html#mp-program-s">MP_Program(s)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../overview.html#lcps">LCPs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#games">Games</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../overview.html#epecs">EPECs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../overview.html#ipg">IPG</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#algorithms">Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#models">Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#utils">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#solvers">Solvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#shells">Shells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#other-stuff">Other stuff</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compiling.html">Compiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compiling.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compiling.html#downloading-and-compiling">Downloading and Compiling</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/QP_Param.html">Parametrized QPs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/QP_Param.html#computing-solutions">Computing solutions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/IP_Param.html">Parametrized IPs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/IP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/IP_Param.html#computing-solutions">Computing solutions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/NashLCP.html">Simultaneous Games</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/NashLCP.html#a-theory-primer">A theory primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/NashLCP.html#computing-solutions">Computing solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/NashLCP.html#checking-solutions">Checking solutions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/LCP.html">LCPs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/LCP.html#computing-solutions">Computing solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/LCP.html#utilities">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/NASP.html">NASPs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/NASP.html#a-quick-example">A quick example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/NASP.html#modeling-the-problem">Modeling the problem</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/NASP.html#creating-an-inheritor-class">Creating an inheritor class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/NASP.html#the-followers-problems">The followers’ problems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/NASP.html#re-implementing-methods">Re-implementing methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/NASP.html#computing-solutions">Computing solutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/NASP.html#fetching-solutions">Fetching solutions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/IPG.html">IPG</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/IPG.html#a-quick-example">A quick example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/IPG.html#modeling-and-solving-the-problem">Modeling and solving the problem</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="MathOpt.html">MathOpt</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="MathOpt.html#mp-param">MP_Param</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MathOpt.html#qp-param">QP_Param</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MathOpt.html#ip-param">IP_Param</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MathOpt.html#lcp">LCP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MathOpt.html#polylcp">PolyLCP</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Game.html">Game</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Game.html#epec">EPEC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Game.html#ipg">IPG</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Algorithms.html">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Models.html">Models</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Codes.html">Other stuff</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extended Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/library_root.html">Library API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/library_root.html#full-api">Full API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/library_root.html#namespaces">Namespaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/namespace_Algorithms.html">Namespace Algorithms</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_Algorithms.html#namespaces">Namespaces</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/namespace_Algorithms__EPEC.html">Namespace Algorithms::EPEC</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_Algorithms__EPEC.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/namespace_Algorithms__IPG.html">Namespace Algorithms::IPG</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_Algorithms__IPG.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/namespace_Data.html">Namespace Data</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_Data.html#namespaces">Namespaces</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/namespace_Data__EPEC.html">Namespace Data::EPEC</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_Data__EPEC.html#classes">Classes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_Data__EPEC.html#enums">Enums</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/namespace_Data__IPG.html">Namespace Data::IPG</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_Data__IPG.html#classes">Classes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_Data__IPG.html#enums">Enums</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/namespace_Data__LCP.html">Namespace Data::LCP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_Data__LCP.html#enums">Enums</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/namespace_Game.html">Namespace Game</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_Game.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/namespace_MathOpt.html">Namespace MathOpt</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_MathOpt.html#classes">Classes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_MathOpt.html#functions">Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_MathOpt.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/namespace_Models.html">Namespace Models</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_Models.html#namespaces">Namespaces</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/namespace_Models__EPEC.html">Namespace Models::EPEC</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_Models__EPEC.html#classes">Classes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_Models__EPEC.html#enums">Enums</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_Models__EPEC.html#functions">Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_Models__EPEC.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/namespace_Models__IPG.html">Namespace Models::IPG</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_Models__IPG.html#classes">Classes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_Models__IPG.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/namespace_Solvers.html">Namespace Solvers</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_Solvers.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/namespace_Utils.html">Namespace Utils</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/namespace_Utils.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/library_root.html#classes-and-structs">Classes and Structs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node.html">Struct OuterTree::Node</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node.html#nested-relationships">Nested Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/structAlgorithms_1_1IPG_1_1IPG__Player.html">Struct IPG_Player</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/structAlgorithms_1_1IPG_1_1IPG__Player.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/structMathOpt_1_1QP__Constraints.html">Struct QP_Constraints</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/structMathOpt_1_1QP__Constraints.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/structMathOpt_1_1QP__Objective.html">Struct QP_Objective</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/structMathOpt_1_1QP__Objective.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1DemPar.html">Struct DemPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1DemPar.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1EPECInstance.html">Struct EPECInstance</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1EPECInstance.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1FollPar.html">Struct FollPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1FollPar.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1LeadAllPar.html">Struct LeadAllPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1LeadAllPar.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1LeadPar.html">Struct LeadPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1LeadPar.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/structModels_1_1IPG_1_1IPGInstance.html">Struct IPGInstance</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/structModels_1_1IPG_1_1IPGInstance.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/structSolvers_1_1PATH_1_1PATHProblem.html">Struct PATH::PATHProblem</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/structSolvers_1_1PATH_1_1PATHProblem.html#nested-relationships">Nested Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/structSolvers_1_1PATH_1_1PATHProblem.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/structZEROStatistics.html">Template Struct ZEROStatistics</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/structZEROStatistics.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1CombinatorialPNE.html">Class CombinatorialPNE</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1CombinatorialPNE.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1CombinatorialPNE.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1CutAndPlay.html">Class CutAndPlay</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1CutAndPlay.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1CutAndPlay.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1FullEnumeration.html">Class FullEnumeration</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1FullEnumeration.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1FullEnumeration.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1InnerApproximation.html">Class InnerApproximation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1InnerApproximation.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1InnerApproximation.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html">Class OuterTree</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#nested-relationships">Nested Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1PolyBase.html">Class PolyBase</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1PolyBase.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1PolyBase.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classAlgorithms_1_1IPG_1_1Algorithm.html">Class Algorithm</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classAlgorithms_1_1IPG_1_1Algorithm.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classAlgorithms_1_1IPG_1_1Algorithm.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classAlgorithms_1_1IPG_1_1CutAndPlay.html">Class CutAndPlay</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classAlgorithms_1_1IPG_1_1CutAndPlay.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classAlgorithms_1_1IPG_1_1CutAndPlay.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classAttr.html">Template Class Attr</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classAttr.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classData_1_1EPEC_1_1DataObject.html">Class DataObject</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classData_1_1EPEC_1_1DataObject.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classData_1_1EPEC_1_1DataObject.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classData_1_1IPG_1_1DataObject.html">Class DataObject</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classData_1_1IPG_1_1DataObject.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classData_1_1IPG_1_1DataObject.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classGame_1_1AbstractGame.html">Template Class AbstractGame</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classGame_1_1AbstractGame.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classGame_1_1EPEC.html">Class EPEC</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classGame_1_1EPEC.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classGame_1_1EPEC.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classGame_1_1IPG.html">Class IPG</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classGame_1_1IPG.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classGame_1_1IPG.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classGame_1_1NashGame.html">Class NashGame</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classGame_1_1NashGame.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classLCP__PATHStart.html">Class LCP_PATHStart</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classLCP__PATHStart.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classLCP__PATHStart.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classMathOpt_1_1IP__Param.html">Class IP_Param</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classMathOpt_1_1IP__Param.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classMathOpt_1_1IP__Param.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classMathOpt_1_1LCP.html">Class LCP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classMathOpt_1_1LCP.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classMathOpt_1_1LCP.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classMathOpt_1_1MP__Param.html">Class MP_Param</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classMathOpt_1_1MP__Param.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classMathOpt_1_1MP__Param.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classMathOpt_1_1PolyLCP.html">Class PolyLCP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classMathOpt_1_1PolyLCP.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classMathOpt_1_1PolyLCP.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classMathOpt_1_1QP__Param.html">Class QP_Param</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classMathOpt_1_1QP__Param.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classMathOpt_1_1QP__Param.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classModels_1_1EPEC_1_1EPEC.html">Class EPEC</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classModels_1_1EPEC_1_1EPEC.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classModels_1_1EPEC_1_1EPEC.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classModels_1_1IPG_1_1IPG.html">Class IPG</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classModels_1_1IPG_1_1IPG.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classModels_1_1IPG_1_1IPG.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classSolvers_1_1PATH.html">Class PATH</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classSolvers_1_1PATH.html#nested-relationships">Nested Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classSolvers_1_1PATH.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classZEROAlgorithmData.html">Class ZEROAlgorithmData</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classZEROAlgorithmData.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classZEROAlgorithmData.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classZEROException.html">Class ZEROException</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classZEROException.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classZEROException.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/library_root.html#enums">Enums</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/enum_namespaceData_1_1EPEC_1a3f4c2ba1ad7ce924bed99ddf193fd318.html">Enum Algorithms</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/enum_namespaceData_1_1EPEC_1a3f4c2ba1ad7ce924bed99ddf193fd318.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/enum_namespaceData_1_1EPEC_1ac2eb0e7edc79e45ab5e689bd7ac20721.html">Enum BranchingStrategy</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/enum_namespaceData_1_1EPEC_1ac2eb0e7edc79e45ab5e689bd7ac20721.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/enum_namespaceData_1_1EPEC_1a347af28b83353df8afdbd4ee171565b3.html">Enum RecoverStrategy</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/enum_namespaceData_1_1EPEC_1a347af28b83353df8afdbd4ee171565b3.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a34d343f554ac089c3cb14de04aa6d294.html">Enum Algorithms</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a34d343f554ac089c3cb14de04aa6d294.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a2990b118bd0d209b5ca094a208770189.html">Enum CutsAggressiveness</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a2990b118bd0d209b5ca094a208770189.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a03601c4502ada3c2f633e870771b2723.html">Enum Objectives</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a03601c4502ada3c2f633e870771b2723.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/enum_namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82.html">Enum Algorithms</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/enum_namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/enum_namespaceData_1_1LCP_1aa8773225c810ac45575f86ac803105ab.html">Enum PolyhedraStrategy</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/enum_namespaceData_1_1LCP_1aa8773225c810ac45575f86ac803105ab.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/enum_namespaceModels_1_1EPEC_1a20f448e9e7eadf005b6576ee74af0b5f.html">Enum LeaderVars</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/enum_namespaceModels_1_1EPEC_1a20f448e9e7eadf005b6576ee74af0b5f.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/enum_namespaceModels_1_1EPEC_1ac6f525119967602609afe99f64ef4a1b.html">Enum prn</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/enum_namespaceModels_1_1EPEC_1ac6f525119967602609afe99f64ef4a1b.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/enum_namespaceModels_1_1EPEC_1a72626ff0ddf65191cd9b8f82563d38f4.html">Enum TaxType</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/enum_namespaceModels_1_1EPEC_1a72626ff0ddf65191cd9b8f82563d38f4.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/enum_codes_8h_1aec3f6d9705d82787080ef99b37b7efea.html">Enum ZEROErrorCode</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/enum_codes_8h_1aec3f6d9705d82787080ef99b37b7efea.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/enum_codes_8h_1adc92fa8b12e5abec0a79ad40bedc1ccf.html">Enum ZEROStatus</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/enum_codes_8h_1adc92fa8b12e5abec0a79ad40bedc1ccf.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/library_root.html#functions">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_utils_8cpp_1a9f34a72882b09d73c9c88015bd0ea434.html">Function appendRead</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_utils_8cpp_1a9f34a72882b09d73c9c88015bd0ea434.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_utils_8cpp_1ad34ef522429047beeecf29fa7c42e2ec.html">Function appendSave</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_utils_8cpp_1ad34ef522429047beeecf29fa7c42e2ec.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_shells_2epec_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627.html">Function main(int, char **)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_shells_2epec_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_shells_2ipg_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627.html">Function main(int, char **)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_shells_2ipg_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceMathOpt_1af3d7bfcf9b11cefb7f4521d685211934.html">Function MathOpt::compConvSize</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceMathOpt_1af3d7bfcf9b11cefb7f4521d685211934.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceMathOpt_1a25341bffceab79eaf2221135611b0a8c.html">Function MathOpt::convexHull</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceMathOpt_1a25341bffceab79eaf2221135611b0a8c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceMathOpt_1ac356ee2fd095dc2e4c51a69263178d76.html">Function MathOpt::getDualMembershipLP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceMathOpt_1ac356ee2fd095dc2e4c51a69263178d76.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceMathOpt_1ab1496a1c39bd21b7d2aa8a0a464a85a8.html">Function MathOpt::getPrimalMembershipLP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceMathOpt_1ab1496a1c39bd21b7d2aa8a0a464a85a8.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceMathOpt_1aedd7c328cf667c15244fec225b90a65d.html">Function MathOpt::operator&lt;&lt;(std::ostream&amp;, const IP_Param&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceMathOpt_1aedd7c328cf667c15244fec225b90a65d.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceMathOpt_1a81f3217167710fd7c3d4211658cfa5d6.html">Function MathOpt::operator&lt;&lt;(std::ostream&amp;, const QP_Param&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceMathOpt_1a81f3217167710fd7c3d4211658cfa5d6.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceMathOpt_1a8b4c66568c38b6a5b08a7fca9372a7dd.html">Function MathOpt::print</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceMathOpt_1a8b4c66568c38b6a5b08a7fca9372a7dd.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1a3da7b11be5cb5a4f32e65fb62d8cd7f8.html">Function Models::EPEC::decreaseVal</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1a3da7b11be5cb5a4f32e65fb62d8cd7f8.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1aea666749029b52e914764ccb9fd3cea8.html">Function Models::EPEC::increaseVal</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1aea666749029b52e914764ccb9fd3cea8.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1a0dc1dfc75744d5af1ffcb99bfbd2e0be.html">Function Models::EPEC::init</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1a0dc1dfc75744d5af1ffcb99bfbd2e0be.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1a6bf8d5d3a77dddc264c34df3c1412eb0.html">Function Models::EPEC::operator+</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1a6bf8d5d3a77dddc264c34df3c1412eb0.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1a66a72ba604632ae0b01ad06e767a9d83.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const FollPar&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1a66a72ba604632ae0b01ad06e767a9d83.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1ad8eaa0861bd3da4627c98c72ab0ed286.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const DemPar)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1ad8eaa0861bd3da4627c98c72ab0ed286.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1a3ae165ae70cb8c87e3c2ff2e3412481a.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const LeadPar)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1a3ae165ae70cb8c87e3c2ff2e3412481a.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1a2cd02a12eb89f78b5c1a733611bb74ad.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const LeadAllPar&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1a2cd02a12eb89f78b5c1a733611bb74ad.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1a636ebefa1cdfa3e167761452792129f8.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const LeaderVars)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1a636ebefa1cdfa3e167761452792129f8.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1af6366fee7f0b20548c067b30ba2fb2c5.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const EPECInstance&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1af6366fee7f0b20548c067b30ba2fb2c5.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1a04179db61b0d9fed3a91f88ef4f5f2b3.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, Models::EPEC::prn)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceModels_1_1EPEC_1a04179db61b0d9fed3a91f88ef4f5f2b3.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceModels_1_1IPG_1af0de748364bb8991a02668d7bf3b2983.html">Function Models::IPG::operator&lt;&lt;</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceModels_1_1IPG_1af0de748364bb8991a02668d7bf3b2983.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_epec__models_8h_1a179b9a250911142576a44e24929a3a8e.html">Function operator+(const Models::EPEC::FollPar&amp;, const Models::EPEC::FollPar&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_epec__models_8h_1a179b9a250911142576a44e24929a3a8e.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_epec__models_8cpp_1a179b9a250911142576a44e24929a3a8e.html">Function operator+(const Models::EPEC::FollPar&amp;, const Models::EPEC::FollPar&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_epec__models_8cpp_1a179b9a250911142576a44e24929a3a8e.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_poly__lcp_8cpp_1a5229bd1ae73aa992f8d2ef5bff64ba62.html">Function operator&lt;</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_poly__lcp_8cpp_1a5229bd1ae73aa992f8d2ef5bff64ba62.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_zero_8h_1a115ecd3fba0241d9e582929ccac3ff7e.html">Function operator&lt;&lt;(std::ostream&amp;, perps)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_zero_8h_1a115ecd3fba0241d9e582929ccac3ff7e.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_zero_8h_1a2227f7d55cb0efe274cd8776e16f717d.html">Template Function operator&lt;&lt;(std::ostream&amp;, std::vector&lt;T&gt;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_zero_8h_1a2227f7d55cb0efe274cd8776e16f717d.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_zero_8h_1ad1ffe1b9a16567d2d765c957692925fb.html">Template Function operator&lt;&lt;(std::ostream&amp;, std::pair&lt;T, S&gt;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_zero_8h_1ad1ffe1b9a16567d2d765c957692925fb.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_poly__lcp_8cpp_1a8f4b1bc2990943059230a4e78b7ac175.html">Function operator==</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_poly__lcp_8cpp_1a8f4b1bc2990943059230a4e78b7ac175.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_poly__lcp_8cpp_1a02cb57e913aa095d5b880ec2a118ab6a.html">Function operator&gt;</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_poly__lcp_8cpp_1a02cb57e913aa095d5b880ec2a118ab6a.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_epec__models_8h_1a0cb07b2258983336a21ed1a2cdaffd9e.html">Function to_string(const GRBVar&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_epec__models_8h_1a0cb07b2258983336a21ed1a2cdaffd9e.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_epec__models_8h_1a5a58b1d925b1f8570e1a81372a7869f8.html">Function to_string(const GRBConstr&amp;, const GRBModel&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_epec__models_8h_1a5a58b1d925b1f8570e1a81372a7869f8.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_epec__models_8cpp_1a5a58b1d925b1f8570e1a81372a7869f8.html">Function to_string(const GRBConstr&amp;, const GRBModel&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_epec__models_8cpp_1a5a58b1d925b1f8570e1a81372a7869f8.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_epec__models_8cpp_1a0cb07b2258983336a21ed1a2cdaffd9e.html">Function to_string(const GRBVar&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_epec__models_8cpp_1a0cb07b2258983336a21ed1a2cdaffd9e.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1ab3e2647fc3c9c0786122243d72ca08e5.html">Function Utils::addSparseConstraints</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1ab3e2647fc3c9c0786122243d72ca08e5.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a900938c85d2f36c9983df618fa331913.html">Function Utils::appendRead(arma::vec&amp;, const std::string&amp;, long int, const std::string&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a900938c85d2f36c9983df618fa331913.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a2746ebf4cfda2d1efaaf9c0ec40cefb6.html">Function Utils::appendRead(arma::sp_mat&amp;, const std::string&amp;, long int, const std::string&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a2746ebf4cfda2d1efaaf9c0ec40cefb6.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a45ec12e86322677e2a93e37aa798e1e4.html">Function Utils::appendRead(std::vector&lt;double&gt;&amp;, const std::string, long int, const std::string)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a45ec12e86322677e2a93e37aa798e1e4.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a27f7c63b5646bb4ad097ae1dbb172005.html">Function Utils::appendRead(std::string&amp;, const std::string&amp;, long int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a27f7c63b5646bb4ad097ae1dbb172005.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a8070dc9bcb0236d374bb9d7fea5c283c.html">Function Utils::appendRead(long int&amp;, const std::string&amp;, long int, const std::string&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a8070dc9bcb0236d374bb9d7fea5c283c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a59b01cf3c8d70cd18877b3b174ae669c.html">Function Utils::appendRead(unsigned int&amp;, const std::string&amp;, long int, const std::string&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a59b01cf3c8d70cd18877b3b174ae669c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1ad88219f03f632a67bb2fdcff609176b4.html">Function Utils::appendSave(const arma::vec&amp;, const std::string&amp;, const std::string&amp;, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1ad88219f03f632a67bb2fdcff609176b4.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1ae6731fccbae4c8d75e5d668e684db2e8.html">Function Utils::appendSave(const arma::sp_mat&amp;, const std::string&amp;, const std::string&amp;, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1ae6731fccbae4c8d75e5d668e684db2e8.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1ae2dddf8c7060984fd5cd56bf3fbb5b68.html">Function Utils::appendSave(const std::vector&lt;double&gt;, const std::string, const std::string, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1ae2dddf8c7060984fd5cd56bf3fbb5b68.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a04041a67936c0d3d0fbbd776b87cd73a.html">Function Utils::appendSave(const std::string&amp;, const std::string&amp;, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a04041a67936c0d3d0fbbd776b87cd73a.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a4ad4805808857af53bd5c48cc8d0a653.html">Function Utils::appendSave(const long int, const std::string&amp;, const std::string&amp;, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a4ad4805808857af53bd5c48cc8d0a653.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1aee8385c0f78efa4bdae43f837c255670.html">Function Utils::appendSave(const unsigned int, const std::string&amp;, const std::string&amp;, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1aee8385c0f78efa4bdae43f837c255670.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a9747fe982d7704f2ebf38b570435e1db.html">Function Utils::armaToCoinPackedVector</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a9747fe982d7704f2ebf38b570435e1db.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1af6dfca8f1e9281091a679f045688b257.html">Function Utils::armaToCoinSparse</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1af6dfca8f1e9281091a679f045688b257.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1af2040ca2075587adc96e9216334a3ebe.html">Function Utils::clearMatrix</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1af2040ca2075587adc96e9216334a3ebe.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a2e056ebbec945748c331338bdbd3c2b0.html">Function Utils::clearVector</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a2e056ebbec945748c331338bdbd3c2b0.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a03c80abd5bb5411608a27a29bf29cfe2.html">Function Utils::containsConstraint(const arma::sp_mat&amp;, const arma::vec&amp;, const arma::vec&amp;, const double&amp;, const double)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a03c80abd5bb5411608a27a29bf29cfe2.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a557313dad647d166c963d865f0740a44.html">Function Utils::containsConstraint(const arma::sp_mat&amp;, const arma::vec&amp;, const arma::sp_mat&amp;, const double&amp;, const double)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a557313dad647d166c963d865f0740a44.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1acc29a13b2b25cfa7102edf2229af4813.html">Function Utils::containsElement</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1acc29a13b2b25cfa7102edf2229af4813.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1ac18b4a9ad0028ecef8c39abe3673fa51.html">Function Utils::containsRow</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1ac18b4a9ad0028ecef8c39abe3673fa51.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1ad263e83ad30145d2003fbdf370c75d6a.html">Function Utils::intersectBounds</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1ad263e83ad30145d2003fbdf370c75d6a.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a3c508b2e54c6804d6223cd6315bb451b.html">Function Utils::isEqual</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a3c508b2e54c6804d6223cd6315bb451b.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a2ecff1dd315a2069f5676c15b04654fb.html">Function Utils::isEqualAbs</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a2ecff1dd315a2069f5676c15b04654fb.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1abb589709362089e01172ad724dfc5ed4.html">Function Utils::isEqualRel</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1abb589709362089e01172ad724dfc5ed4.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a2d23d6f3d90d92396197fac7a6743531.html">Function Utils::isZero(const arma::mat&amp;, double)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a2d23d6f3d90d92396197fac7a6743531.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a631127fa9fae48e41d6e83edfedfc371.html">Function Utils::isZero(const arma::sp_mat&amp;, double)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a631127fa9fae48e41d6e83edfedfc371.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a95b5a09eeb4a9c7f28dcfd5b55ac3ded.html">Function Utils::nonzeroDecimals</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a95b5a09eeb4a9c7f28dcfd5b55ac3ded.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a713160421bd61df4d4a6c05527f5232e.html">Function Utils::normalizeIneq</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a713160421bd61df4d4a6c05527f5232e.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a2040536589bfbb31bba6b9ef4e028acf.html">Function Utils::normalizeVec</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a2040536589bfbb31bba6b9ef4e028acf.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1adbe567182dd4d6f2c0aed1362e539fc9.html">Function Utils::printBounds</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1adbe567182dd4d6f2c0aed1362e539fc9.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a3f2695b26a8131bc0fe45fcae0c7023d.html">Function Utils::resizePatch(const arma::mat&amp;, const unsigned int, const unsigned int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a3f2695b26a8131bc0fe45fcae0c7023d.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a8748d4160459a637b32e309336969c81.html">Function Utils::resizePatch(const arma::vec&amp;, const unsigned int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a8748d4160459a637b32e309336969c81.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a0c79f31066b7e7af7b1d18316f3efc5c.html">Function Utils::resizePatch(const arma::sp_mat&amp;, const unsigned int, const unsigned int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a0c79f31066b7e7af7b1d18316f3efc5c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a408a19a1615ba7f6d8091bd1e39d2170.html">Function Utils::round_nplaces</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a408a19a1615ba7f6d8091bd1e39d2170.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a0183fff354c82444f2bb66cbccd4478c.html">Function Utils::sortByKey</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a0183fff354c82444f2bb66cbccd4478c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a70db498d70f20edb8ebde9e2d9e417b7.html">Function Utils::vecToBin</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a70db498d70f20edb8ebde9e2d9e417b7.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_codes_8h_1ad928fe496e61376db30942010d562f85.html">Function ZEROAssert(bool, const char *, const char *, const int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_codes_8h_1ad928fe496e61376db30942010d562f85.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_codes_8cpp_1a615e9850da488ec04631fc9bc552d322.html">Function ZEROAssert(bool, const char *, const char *, const int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_codes_8cpp_1a615e9850da488ec04631fc9bc552d322.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/library_root.html#typedefs">Typedefs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/typedef_zero_8h_1aaff3b0535ece33c18614a653b99ebe44.html">Typedef bound</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/typedef_zero_8h_1aaff3b0535ece33c18614a653b99ebe44.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/typedef_namespaceMathOpt_1a47529d426463f867ed4de633f2d8cf23.html">Typedef MathOpt::QP_constraints</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/typedef_namespaceMathOpt_1a47529d426463f867ed4de633f2d8cf23.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/typedef_namespaceMathOpt_1a598d7680682d643b1df433d214cdf2e2.html">Typedef MathOpt::QP_objective</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/typedef_namespaceMathOpt_1a598d7680682d643b1df433d214cdf2e2.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/typedef_namespaceModels_1_1EPEC_1a62149827d4c351dd603cbcc7625f7772.html">Typedef Models::EPEC::DemPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/typedef_namespaceModels_1_1EPEC_1a62149827d4c351dd603cbcc7625f7772.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/typedef_namespaceModels_1_1EPEC_1aca30953c80dcd155a7ab0ee85975d805.html">Typedef Models::EPEC::FollPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/typedef_namespaceModels_1_1EPEC_1aca30953c80dcd155a7ab0ee85975d805.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/typedef_namespaceModels_1_1EPEC_1a2f9cbaec7516972a7acc4285cb46bb65.html">Typedef Models::EPEC::LeadAllPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/typedef_namespaceModels_1_1EPEC_1a2f9cbaec7516972a7acc4285cb46bb65.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/typedef_namespaceModels_1_1EPEC_1af533424de8789ffd456165af21ac7e02.html">Typedef Models::EPEC::LeadLocs</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/typedef_namespaceModels_1_1EPEC_1af533424de8789ffd456165af21ac7e02.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/typedef_namespaceModels_1_1EPEC_1ab279a6d9a0241b15c0bd1a7312f8dd3e.html">Typedef Models::EPEC::LeadPar</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/typedef_namespaceModels_1_1EPEC_1ab279a6d9a0241b15c0bd1a7312f8dd3e.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/typedef_zero_8h_1ad87785d9eb3e6e48c0895b348f6660ca.html">Typedef perps</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/typedef_zero_8h_1ad87785d9eb3e6e48c0895b348f6660ca.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/typedef_zero_8h_1a47898f11e7a4b7433acbc77588a0dc03.html">Typedef spmat_Vec</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/typedef_zero_8h_1a47898f11e7a4b7433acbc77588a0dc03.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/typedef_zero_8h_1a1b3f20417790c203b818f9df92ed5bbc.html">Typedef triple</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/typedef_zero_8h_1a1b3f20417790c203b818f9df92ed5bbc.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/typedef_zero_8h_1a713ae4734a7b474d29ccf6c8a43789e3.html">Typedef VariableBounds</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/typedef_zero_8h_1a713ae4734a7b474d29ccf6c8a43789e3.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/typedef_zero_8h_1a8d8c882d060c4d307810fdf04a6314c6.html">Typedef vec_Vec</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/typedef_zero_8h_1a8d8c882d060c4d307810fdf04a6314c6.html#typedef-documentation">Typedef Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: rgb(68, 44, 123)" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ZERO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Utils</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/support_files/reference/Utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="utils">
+<h1>Utils<a class="headerlink" href="#utils" title="Permalink to this headline"></a></h1>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv45Utils">
+<span id="_CPPv35Utils"></span><span id="_CPPv25Utils"></span><span id="Utils"></span><span class="target" id="namespaceUtils"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Utils</span></span></span><a class="headerlink" href="#_CPPv45Utils" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils11resizePatchERKN4arma3matEKjKj">
+<span id="_CPPv3N5Utils11resizePatchERKN4arma3matEKjKj"></span><span id="_CPPv2N5Utils11resizePatchERKN4arma3matEKjKj"></span><span id="Utils::resizePatch__arma::matCR.unsigned-iC.unsigned-iC"></span><span class="target" id="namespaceUtils_1a3f2695b26a8131bc0fe45fcae0c7023d"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">mat</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">resizePatch</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">mat</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">mat</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nR</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nC</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Armadillo arma::sp_mat::resize() is not robust as it initializes garbage values to new columns. This fixes the problem by creating new columns with guaranteed zero values. For arma::sp_mat. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mat</strong> – Input matrix </p></li>
+<li><p><strong>nR</strong> – Number of rows for the output </p></li>
+<li><p><strong>nC</strong> – Number of columns for the output </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The resized <code class="docutils literal notranslate"><span class="pre">mat</span></code> </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils11resizePatchERKN4arma3vecEKj">
+<span id="_CPPv3N5Utils11resizePatchERKN4arma3vecEKj"></span><span id="_CPPv2N5Utils11resizePatchERKN4arma3vecEKj"></span><span id="Utils::resizePatch__arma::vecCR.unsigned-iC"></span><span class="target" id="namespaceUtils_1a8748d4160459a637b32e309336969c81"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">resizePatch</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">mat</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nR</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Armadillo arma::mat::resize() is not robust as it initializes garbage values to new columns. This fixes the problem by creating new columns with guaranteed zero values. For arma::sp_mat. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mat</strong> – Input vector (row, or column) </p></li>
+<li><p><strong>nR</strong> – Number of rows for the output </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The resized <code class="docutils literal notranslate"><span class="pre">mat</span></code> </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils11containsRowERKN4arma6sp_matERKN4arma3vecEKd">
+<span id="_CPPv3N5Utils11containsRowERKN4arma6sp_matERKN4arma3vecEKd"></span><span id="_CPPv2N5Utils11containsRowERKN4arma6sp_matERKN4arma3vecEKd"></span><span id="Utils::containsRow__arma::sp_matCR.arma::vecCR.doubleC"></span><span class="target" id="namespaceUtils_1ac18b4a9ad0028ecef8c39abe3673fa51"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">containsRow</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">A</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">row</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e-6</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Check if <code class="docutils literal notranslate"><span class="pre">A</span></code> contains a row <code class="docutils literal notranslate"><span class="pre">row</span></code>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> – The input matrix </p></li>
+<li><p><strong>row</strong> – The input row </p></li>
+<li><p><strong>tol</strong> – A numerical tolerance </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the row was found </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils15containsElementERKN4arma3vecERKdKd">
+<span id="_CPPv3N5Utils15containsElementERKN4arma3vecERKdKd"></span><span id="_CPPv2N5Utils15containsElementERKN4arma3vecERKdKd"></span><span id="Utils::containsElement__arma::vecCR.doubleCR.doubleC"></span><span class="target" id="namespaceUtils_1acc29a13b2b25cfa7102edf2229af4813"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">containsElement</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">element</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e-6</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Check if the vector <code class="docutils literal notranslate"><span class="pre">b</span></code> contains <code class="docutils literal notranslate"><span class="pre">element</span></code>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>b</strong> – The vector containing the elements to be checked </p></li>
+<li><p><strong>element</strong> – The input element </p></li>
+<li><p><strong>tol</strong> – A numerical tolerance </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the element was found </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils18containsConstraintERKN4arma6sp_matERKN4arma3vecERKN4arma3vecERKdKd">
+<span id="_CPPv3N5Utils18containsConstraintERKN4arma6sp_matERKN4arma3vecERKN4arma3vecERKdKd"></span><span id="_CPPv2N5Utils18containsConstraintERKN4arma6sp_matERKN4arma3vecERKN4arma3vecERKdKd"></span><span id="Utils::containsConstraint__arma::sp_matCR.arma::vecCR.arma::vecCR.doubleCR.doubleC"></span><span class="target" id="namespaceUtils_1a03c80abd5bb5411608a27a29bf29cfe2"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">containsConstraint</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">A</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">lhs</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rhs</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e-6</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Given a matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> and a vector of LHSs <code class="docutils literal notranslate"><span class="pre">b</span></code>, checks if both <code class="docutils literal notranslate"><span class="pre">lhs</span></code> is in <code class="docutils literal notranslate"><span class="pre">A</span></code>, and <code class="docutils literal notranslate"><span class="pre">rhs</span></code> is in <code class="docutils literal notranslate"><span class="pre">b</span></code> up to a tolerance of <code class="docutils literal notranslate"><span class="pre">tol</span></code>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> – The matrix containing the constraints </p></li>
+<li><p><strong>b</strong> – The vector containing the RHSs </p></li>
+<li><p><strong>lhs</strong> – The input cut RHS </p></li>
+<li><p><strong>rhs</strong> – The input cut LHS </p></li>
+<li><p><strong>tol</strong> – A numerical tolerance </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the constraint was found </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils18containsConstraintERKN4arma6sp_matERKN4arma3vecERKN4arma6sp_matERKdKd">
+<span id="_CPPv3N5Utils18containsConstraintERKN4arma6sp_matERKN4arma3vecERKN4arma6sp_matERKdKd"></span><span id="_CPPv2N5Utils18containsConstraintERKN4arma6sp_matERKN4arma3vecERKN4arma6sp_matERKdKd"></span><span id="Utils::containsConstraint__arma::sp_matCR.arma::vecCR.arma::sp_matCR.doubleCR.doubleC"></span><span class="target" id="namespaceUtils_1a557313dad647d166c963d865f0740a44"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">containsConstraint</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">A</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">lhs</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rhs</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e-6</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Given a matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> and a vector of LHSs <code class="docutils literal notranslate"><span class="pre">b</span></code>, checks if both <code class="docutils literal notranslate"><span class="pre">lhs</span></code> is in <code class="docutils literal notranslate"><span class="pre">A</span></code>, and <code class="docutils literal notranslate"><span class="pre">rhs</span></code> is in <code class="docutils literal notranslate"><span class="pre">b</span></code> up to a tolerance of <code class="docutils literal notranslate"><span class="pre">tol</span></code>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> – The matrix containing the constraints </p></li>
+<li><p><strong>b</strong> – The vector containing the RHSs </p></li>
+<li><p><strong>lhs</strong> – The input cut RHS (in a matrix form) </p></li>
+<li><p><strong>rhs</strong> – The input cut LHS </p></li>
+<li><p><strong>tol</strong> – A numerical tolerance </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the constraint was found </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils10appendSaveERKN4arma3vecERKNSt6stringERKNSt6stringEb">
+<span id="_CPPv3N5Utils10appendSaveERKN4arma3vecERKNSt6stringERKNSt6stringEb"></span><span id="_CPPv2N5Utils10appendSaveERKN4arma3vecERKNSt6stringERKNSt6stringEb"></span><span id="Utils::appendSave__arma::vecCR.ssCR.ssCR.b"></span><span class="target" id="namespaceUtils_1ad88219f03f632a67bb2fdcff609176b4"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">appendSave</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">matrix</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">out</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">header</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><s><span class="pre">&quot;&quot;</span></s>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">erase</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Utility to append an arma::vec to a data file. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>matrix</strong> – The arma::vec to be saved </p></li>
+<li><p><strong>out</strong> – The output file </p></li>
+<li><p><strong>header</strong> – An optional header </p></li>
+<li><p><strong>erase</strong> – Erase the file? </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils10appendReadERN4arma3vecERKNSt6stringElRKNSt6stringE">
+<span id="_CPPv3N5Utils10appendReadERN4arma3vecERKNSt6stringElRKNSt6stringE"></span><span id="_CPPv2N5Utils10appendReadERN4arma3vecERKNSt6stringElRKNSt6stringE"></span><span id="Utils::appendRead__arma::vecR.ssCR.l-i.ssCR"></span><span class="target" id="namespaceUtils_1a900938c85d2f36c9983df618fa331913"></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">appendRead</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">matrix</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">in</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pos</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">header</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><s><span class="pre">&quot;&quot;</span></s><span class="sig-paren">)</span><br /></dt>
+<dd><p>Utility to read an arma::vec from a long file. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>matrix</strong> – The output matrix </p></li>
+<li><p><strong>in</strong> – The input file </p></li>
+<li><p><strong>pos</strong> – The position of <code class="docutils literal notranslate"><span class="pre">matrix</span></code> in the file </p></li>
+<li><p><strong>header</strong> – An optional header </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The end position from which the next data object can be read. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils10appendSaveERKN4arma6sp_matERKNSt6stringERKNSt6stringEb">
+<span id="_CPPv3N5Utils10appendSaveERKN4arma6sp_matERKNSt6stringERKNSt6stringEb"></span><span id="_CPPv2N5Utils10appendSaveERKN4arma6sp_matERKNSt6stringERKNSt6stringEb"></span><span id="Utils::appendSave__arma::sp_matCR.ssCR.ssCR.b"></span><span class="target" id="namespaceUtils_1ae6731fccbae4c8d75e5d668e684db2e8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">appendSave</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">matrix</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">out</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">header</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><s><span class="pre">&quot;&quot;</span></s>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">erase</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Utility to append an arma::sp_mat to a data file. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>matrix</strong> – The arma::sp_mat to be saved </p></li>
+<li><p><strong>out</strong> – File name of the output file </p></li>
+<li><p><strong>header</strong> – A header that might be used to check the filetype </p></li>
+<li><p><strong>erase</strong> – Should the matrix be appended to the file or not? </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils10appendReadERN4arma6sp_matERKNSt6stringElRKNSt6stringE">
+<span id="_CPPv3N5Utils10appendReadERN4arma6sp_matERKNSt6stringElRKNSt6stringE"></span><span id="_CPPv2N5Utils10appendReadERN4arma6sp_matERKNSt6stringElRKNSt6stringE"></span><span id="Utils::appendRead__arma::sp_matR.ssCR.l-i.ssCR"></span><span class="target" id="namespaceUtils_1a2746ebf4cfda2d1efaaf9c0ec40cefb6"></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">appendRead</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">matrix</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">in</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pos</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">header</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><s><span class="pre">&quot;&quot;</span></s><span class="sig-paren">)</span><br /></dt>
+<dd><p>Utility to read an arma::sp_mat from a long file. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>matrix</strong> – Read and store the solution in this matrix. </p></li>
+<li><p><strong>in</strong> – File to read from (could be file very many matrices are appended one below another) </p></li>
+<li><p><strong>pos</strong> – Position in the long file where reading should start </p></li>
+<li><p><strong>header</strong> – Any header to check data sanctity </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The end position from which the next data object can be read. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils10appendSaveEKNSt6vectorIdEEKNSt6stringEKNSt6stringEb">
+<span id="_CPPv3N5Utils10appendSaveEKNSt6vectorIdEEKNSt6stringEKNSt6stringEb"></span><span id="_CPPv2N5Utils10appendSaveEKNSt6vectorIdEEKNSt6stringEKNSt6stringEb"></span><span id="Utils::appendSave__std::vector:double:C.ssC.ssC.b"></span><span class="target" id="namespaceUtils_1ae2dddf8c7060984fd5cd56bf3fbb5b68"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">appendSave</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">out</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">header</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><s><span class="pre">&quot;&quot;</span></s>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">erase</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils10appendReadERNSt6vectorIdEEKNSt6stringElKNSt6stringE">
+<span id="_CPPv3N5Utils10appendReadERNSt6vectorIdEEKNSt6stringElKNSt6stringE"></span><span id="_CPPv2N5Utils10appendReadERNSt6vectorIdEEKNSt6stringElKNSt6stringE"></span><span id="Utils::appendRead__std::vector:double:R.ssC.l-i.ssC"></span><span class="target" id="namespaceUtils_1a45ec12e86322677e2a93e37aa798e1e4"></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">appendRead</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">v</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">in</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pos</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">header</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><s><span class="pre">&quot;&quot;</span></s><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils10appendSaveERKNSt6stringERKNSt6stringEb">
+<span id="_CPPv3N5Utils10appendSaveERKNSt6stringERKNSt6stringEb"></span><span id="_CPPv2N5Utils10appendSaveERKNSt6stringERKNSt6stringEb"></span><span id="Utils::appendSave__ssCR.ssCR.b"></span><span class="target" id="namespaceUtils_1a04041a67936c0d3d0fbbd776b87cd73a"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">appendSave</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">v</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">out</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">erase</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Utility to write a string to a file. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v</strong> – The string to be saved </p></li>
+<li><p><strong>out</strong> – The output file </p></li>
+<li><p><strong>erase</strong> – Should the file be erased? </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils10appendReadERNSt6stringERKNSt6stringEl">
+<span id="_CPPv3N5Utils10appendReadERNSt6stringERKNSt6stringEl"></span><span id="_CPPv2N5Utils10appendReadERNSt6stringERKNSt6stringEl"></span><span id="Utils::appendRead__ssR.ssCR.l-i"></span><span class="target" id="namespaceUtils_1a27f7c63b5646bb4ad097ae1dbb172005"></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">appendRead</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">v</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">in</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pos</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Utility to read a std::string from a long file. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v</strong> – The output string </p></li>
+<li><p><strong>in</strong> – The input file </p></li>
+<li><p><strong>pos</strong> – The position of <code class="docutils literal notranslate"><span class="pre">v</span></code> </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The end position from which the next data object can be read. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils10appendSaveEKlRKNSt6stringERKNSt6stringEb">
+<span id="_CPPv3N5Utils10appendSaveEKlRKNSt6stringERKNSt6stringEb"></span><span id="_CPPv2N5Utils10appendSaveEKlRKNSt6stringERKNSt6stringEb"></span><span id="Utils::appendSave__l-iC.ssCR.ssCR.b"></span><span class="target" id="namespaceUtils_1a4ad4805808857af53bd5c48cc8d0a653"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">appendSave</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">out</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">header</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><s><span class="pre">&quot;&quot;</span></s>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">erase</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Utility to save a long int to file. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v</strong> – The int </p></li>
+<li><p><strong>out</strong> – The output file </p></li>
+<li><p><strong>header</strong> – An optional header </p></li>
+<li><p><strong>erase</strong> – Overwrite the file? </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils10appendReadERlRKNSt6stringElRKNSt6stringE">
+<span id="_CPPv3N5Utils10appendReadERlRKNSt6stringElRKNSt6stringE"></span><span id="_CPPv2N5Utils10appendReadERlRKNSt6stringElRKNSt6stringE"></span><span id="Utils::appendRead__l-iR.ssCR.l-i.ssCR"></span><span class="target" id="namespaceUtils_1a8070dc9bcb0236d374bb9d7fea5c283c"></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">appendRead</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">v</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">in</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pos</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">header</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><s><span class="pre">&quot;&quot;</span></s><span class="sig-paren">)</span><br /></dt>
+<dd><p>Utility to read a long int from a file. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v</strong> – The output number </p></li>
+<li><p><strong>in</strong> – The input file </p></li>
+<li><p><strong>pos</strong> – The position of <code class="docutils literal notranslate"><span class="pre">v</span></code> in the file </p></li>
+<li><p><strong>header</strong> – An optional header check </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The end position from which the next data object can be read. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils10appendSaveEKjRKNSt6stringERKNSt6stringEb">
+<span id="_CPPv3N5Utils10appendSaveEKjRKNSt6stringERKNSt6stringEb"></span><span id="_CPPv2N5Utils10appendSaveEKjRKNSt6stringERKNSt6stringEb"></span><span id="Utils::appendSave__unsigned-iC.ssCR.ssCR.b"></span><span class="target" id="namespaceUtils_1aee8385c0f78efa4bdae43f837c255670"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">appendSave</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">out</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">header</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><s><span class="pre">&quot;&quot;</span></s>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">erase</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Utility to save an unsigned int to file. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v</strong> – The long int to be saved </p></li>
+<li><p><strong>out</strong> – The output file </p></li>
+<li><p><strong>header</strong> – An optional header </p></li>
+<li><p><strong>erase</strong> – Should the file be erased? </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils10appendReadERjRKNSt6stringElRKNSt6stringE">
+<span id="_CPPv3N5Utils10appendReadERjRKNSt6stringElRKNSt6stringE"></span><span id="_CPPv2N5Utils10appendReadERjRKNSt6stringElRKNSt6stringE"></span><span id="Utils::appendRead__unsigned-iR.ssCR.l-i.ssCR"></span><span class="target" id="namespaceUtils_1a59b01cf3c8d70cd18877b3b174ae669c"></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">appendRead</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">v</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">in</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pos</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">header</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><s><span class="pre">&quot;&quot;</span></s><span class="sig-paren">)</span><br /></dt>
+<dd><p>An utility to read an unsigned int from a file. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v</strong> – The output number </p></li>
+<li><p><strong>in</strong> – The input file </p></li>
+<li><p><strong>pos</strong> – The position of the data in the file </p></li>
+<li><p><strong>header</strong> – An optional header </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The end position from which the next data object can be read. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils6isZeroERKN4arma3matEd">
+<span id="_CPPv3N5Utils6isZeroERKN4arma3matEd"></span><span id="_CPPv2N5Utils6isZeroERKN4arma3matEd"></span><span id="Utils::isZero__arma::matCR.double"></span><span class="target" id="namespaceUtils_1a2d23d6f3d90d92396197fac7a6743531"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isZero</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">mat</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">M</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e-6</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><br /></dt>
+<dd><p>Checks if a matrix is a zero matrix. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>M</strong> – The input matrix </p></li>
+<li><p><strong>tol</strong> – A numerical tolerance </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if all elements are zero </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils6isZeroERKN4arma6sp_matEd">
+<span id="_CPPv3N5Utils6isZeroERKN4arma6sp_matEd"></span><span id="_CPPv2N5Utils6isZeroERKN4arma6sp_matEd"></span><span id="Utils::isZero__arma::sp_matCR.double"></span><span class="target" id="namespaceUtils_1a631127fa9fae48e41d6e83edfedfc371"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isZero</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">M</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e-6</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><br /></dt>
+<dd><p>Checks if a matrix is a zero matrix. Optimized for sparse matrices. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>M</strong> – The input matrix </p></li>
+<li><p><strong>tol</strong> – A numerical tolerance </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if all elements are zero </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils9sortByKeyER5perps">
+<span id="_CPPv3N5Utils9sortByKeyER5perps"></span><span id="_CPPv2N5Utils9sortByKeyER5perps"></span><span id="Utils::sortByKey__perpsR"></span><span class="target" id="namespaceUtils_1a0183fff354c82444f2bb66cbccd4478c"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sortByKey</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../../api/typedef_zero_8h_1ad87785d9eb3e6e48c0895b348f6660ca.html#_CPPv45perps" title="perps"><span class="n"><span class="pre">perps</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">P</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Sort the perps by the first element (key) </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>set</strong> – The input perps </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils15intersectBoundsERK14VariableBoundsRK14VariableBounds">
+<span id="_CPPv3N5Utils15intersectBoundsERK14VariableBoundsRK14VariableBounds"></span><span id="_CPPv2N5Utils15intersectBoundsERK14VariableBoundsRK14VariableBounds"></span><span id="Utils::intersectBounds__VariableBoundsCR.VariableBoundsCR"></span><span class="target" id="namespaceUtils_1ad263e83ad30145d2003fbdf370c75d6a"></span><a class="reference internal" href="../../api/typedef_zero_8h_1a713ae4734a7b474d29ccf6c8a43789e3.html#_CPPv414VariableBounds" title="VariableBounds"><span class="n"><span class="pre">VariableBounds</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">intersectBounds</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../../api/typedef_zero_8h_1a713ae4734a7b474d29ccf6c8a43789e3.html#_CPPv414VariableBounds" title="VariableBounds"><span class="n"><span class="pre">VariableBounds</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">bA</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../../api/typedef_zero_8h_1a713ae4734a7b474d29ccf6c8a43789e3.html#_CPPv414VariableBounds" title="VariableBounds"><span class="n"><span class="pre">VariableBounds</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">bB</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Given two VariableBounds, it returns the strictest intersection of them. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bA</strong> – First input bound vector </p></li>
+<li><p><strong>bB</strong> – Second input bound vector </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The intersection </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils16armaToCoinSparseERKN4arma6sp_matE">
+<span id="_CPPv3N5Utils16armaToCoinSparseERKN4arma6sp_matE"></span><span id="_CPPv2N5Utils16armaToCoinSparseERKN4arma6sp_matE"></span><span id="Utils::armaToCoinSparse__arma::sp_matCR"></span><span class="target" id="namespaceUtils_1af6dfca8f1e9281091a679f045688b257"></span><span class="n"><span class="pre">CoinPackedMatrix</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">armaToCoinSparse</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">A</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Given an arma::sp_mat <code class="docutils literal notranslate"><span class="pre">A</span></code>, returns a CoinPackedMatrix. <code class="docutils literal notranslate"><span class="pre">A</span></code> The armadillo sparse matrix. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A CoinPackedMatrix from <code class="docutils literal notranslate"><span class="pre">A</span></code> </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils22armaToCoinPackedVectorERKN4arma6sp_matE">
+<span id="_CPPv3N5Utils22armaToCoinPackedVectorERKN4arma6sp_matE"></span><span id="_CPPv2N5Utils22armaToCoinPackedVectorERKN4arma6sp_matE"></span><span id="Utils::armaToCoinPackedVector__arma::sp_matCR"></span><span class="target" id="namespaceUtils_1a9747fe982d7704f2ebf38b570435e1db"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">CoinPackedVector</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">armaToCoinPackedVector</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">A</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Given an arma::sp_mat <code class="docutils literal notranslate"><span class="pre">A</span></code>, returns an array of CoinPackedVector(s). <code class="docutils literal notranslate"><span class="pre">A</span></code> The armadillo sparse matrix. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A CoinPackedVector arary from <code class="docutils literal notranslate"><span class="pre">A</span></code> </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils11printBoundsERK14VariableBounds">
+<span id="_CPPv3N5Utils11printBoundsERK14VariableBounds"></span><span id="_CPPv2N5Utils11printBoundsERK14VariableBounds"></span><span id="Utils::printBounds__VariableBoundsCR"></span><span class="target" id="namespaceUtils_1adbe567182dd4d6f2c0aed1362e539fc9"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">printBounds</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../../api/typedef_zero_8h_1a713ae4734a7b474d29ccf6c8a43789e3.html#_CPPv414VariableBounds" title="VariableBounds"><span class="n"><span class="pre">VariableBounds</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">bounds</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Given <code class="docutils literal notranslate"><span class="pre">bounds</span></code>, provides a string with the readable output. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>bounds</strong> – The input bounds </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A readable output for the bounds </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils12normalizeVecERKN4arma3vecE">
+<span id="_CPPv3N5Utils12normalizeVecERKN4arma3vecE"></span><span id="_CPPv2N5Utils12normalizeVecERKN4arma3vecE"></span><span id="Utils::normalizeVec__arma::vecCR"></span><span class="target" id="namespaceUtils_1a2040536589bfbb31bba6b9ef4e028acf"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">normalizeVec</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">v</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Normalizes a vector according to the “equilibrium normalization”. Namely, we divide for the largest absolute value among the elements of the vector. <code class="docutils literal notranslate"><span class="pre">v</span></code> is the input vector </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The normalized vector </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils13normalizeIneqERN4arma3vecERdb">
+<span id="_CPPv3N5Utils13normalizeIneqERN4arma3vecERdb"></span><span id="_CPPv2N5Utils13normalizeIneqERN4arma3vecERdb"></span><span id="Utils::normalizeIneq__arma::vecR.doubleR.b"></span><span class="target" id="namespaceUtils_1a713160421bd61df4d4a6c05527f5232e"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">normalizeIneq</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">lhs</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rhs</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">force</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Normalizes an inequality according to the “equilibrium normalization”. Namely, we divide for the largest absolute value among the elements of the lhs and the rhs. If the ration between the largest non-zero and the smallest non-zero (in abs) is greater than 1e2, we normalize with the former. <code class="docutils literal notranslate"><span class="pre">rhs</span></code> is the input and output RHS value <code class="docutils literal notranslate"><span class="pre">lhs</span></code> is the input and output LHS </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils13round_nplacesERKdRKi">
+<span id="_CPPv3N5Utils13round_nplacesERKdRKi"></span><span id="_CPPv2N5Utils13round_nplacesERKdRKi"></span><span id="Utils::round_nplaces__doubleCR.iCR"></span><span class="target" id="namespaceUtils_1a408a19a1615ba7f6d8091bd1e39d2170"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">round_nplaces</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">numDecimals</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">5</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Round the input <code class="docutils literal notranslate"><span class="pre">value</span></code> to a decimal up to <code class="docutils literal notranslate"><span class="pre">numDecimals</span></code>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – The input number </p></li>
+<li><p><strong>numDecimals</strong> – Decimal precision tolerance </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rounded value </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils20addSparseConstraintsERKN4arma6sp_matERKN4arma3vecEP6GRBVarRKNSt6stringEP8GRBModeliP6GRBVar">
+<span id="_CPPv3N5Utils20addSparseConstraintsERKN4arma6sp_matERKN4arma3vecEP6GRBVarRKNSt6stringEP8GRBModeliP6GRBVar"></span><span id="_CPPv2N5Utils20addSparseConstraintsERKN4arma6sp_matERKN4arma3vecEP6GRBVarRKNSt6stringEP8GRBModeliP6GRBVar"></span><span id="Utils::addSparseConstraints__arma::sp_matCR.arma::vecCR.GRBVarP.ssCR.GRBModelP.i.GRBVarP"></span><span class="target" id="namespaceUtils_1ab3e2647fc3c9c0786122243d72ca08e5"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">addSparseConstraints</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">A</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span>, <span class="n"><span class="pre">GRBVar</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">basename</span></span>, <span class="n"><span class="pre">GRBModel</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">model</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sense</span></span>, <span class="n"><span class="pre">GRBVar</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">z</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Create constraints for a given <code class="docutils literal notranslate"><span class="pre">model</span></code> given the matrix <code class="docutils literal notranslate"><span class="pre">A</span></code>, the RHS vector <code class="docutils literal notranslate"><span class="pre">b</span></code>, the variables <code class="docutils literal notranslate"><span class="pre">x</span></code>, and an additional RHS of variables <code class="docutils literal notranslate"><span class="pre">z</span></code>. The resulting constraints read: <span class="math notranslate nohighlight">\(Ax \quad (sense) \quad b+z\)</span> </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> – The input sparse matrix of LHS </p></li>
+<li><p><strong>b</strong> – The input vector of RHS </p></li>
+<li><p><strong>x</strong> – The input variables </p></li>
+<li><p><strong>basename</strong> – The basename of these constraints </p></li>
+<li><p><strong>model</strong> – A pointer to the model </p></li>
+<li><p><strong>sense</strong> – As in Gurobi. </p></li>
+<li><p><strong>z</strong> – Additional RHS of variables </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils11resizePatchERKN4arma6sp_matEKjKj">
+<span id="_CPPv3N5Utils11resizePatchERKN4arma6sp_matEKjKj"></span><span id="_CPPv2N5Utils11resizePatchERKN4arma6sp_matEKjKj"></span><span id="Utils::resizePatch__arma::sp_matCR.unsigned-iC.unsigned-iC"></span><span class="target" id="namespaceUtils_1a0c79f31066b7e7af7b1d18316f3efc5c"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">resizePatch</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">mat</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nR</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nC</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Armadillo arma::sp_mat::resize() is not robust as it initializes garbage values to new columns. This fixes the problem by creating new columns with guaranteed zero values. For arma::sp_mat. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mat</strong> – Input matrix </p></li>
+<li><p><strong>nR</strong> – Number of rows for the output </p></li>
+<li><p><strong>nC</strong> – Number of columns for the output </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The resized <code class="docutils literal notranslate"><span class="pre">mat</span></code> </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils8vecToBinERKN4arma3vecE">
+<span id="_CPPv3N5Utils8vecToBinERKN4arma3vecE"></span><span id="_CPPv2N5Utils8vecToBinERKN4arma3vecE"></span><span id="Utils::vecToBin__arma::vecCR"></span><span class="target" id="namespaceUtils_1a70db498d70f20edb8ebde9e2d9e417b7"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vecToBin</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Convert a binary vector (0-1 entries) into an unique int. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> – The input vector </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The int encoding </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils15nonzeroDecimalsEKdKi">
+<span id="_CPPv3N5Utils15nonzeroDecimalsEKdKi"></span><span id="_CPPv2N5Utils15nonzeroDecimalsEKdKi"></span><span id="Utils::nonzeroDecimals__doubleC.iC"></span><span class="target" id="namespaceUtils_1a95b5a09eeb4a9c7f28dcfd5b55ac3ded"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nonzeroDecimals</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">num</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">decimalBound</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">6</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Given a number <code class="docutils literal notranslate"><span class="pre">num</span></code> and a bound <code class="docutils literal notranslate"><span class="pre">decimalBound</span></code>, counts the number of non-zero decimals up to <code class="docutils literal notranslate"><span class="pre">decimalBound</span></code>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num</strong> – The input number </p></li>
+<li><p><strong>decimalBound</strong> – The maximal bound on decimals to be counted </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The number of non-zero decimals </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils10isEqualAbsEKdKdKd">
+<span id="_CPPv3N5Utils10isEqualAbsEKdKdKd"></span><span id="_CPPv2N5Utils10isEqualAbsEKdKdKd"></span><span id="Utils::isEqualAbs__doubleC.doubleC.doubleC"></span><span class="target" id="namespaceUtils_1a2ecff1dd315a2069f5676c15b04654fb"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isEqualAbs</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e-6</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Checks if two numbers are equal in absolute tolerance. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> – The first number </p></li>
+<li><p><strong>b</strong> – The second number </p></li>
+<li><p><strong>tol</strong> – An absolute tolerance </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the two numbers are equal up to the given tolerance </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils10isEqualRelEKdKdKd">
+<span id="_CPPv3N5Utils10isEqualRelEKdKdKd"></span><span id="_CPPv2N5Utils10isEqualRelEKdKdKd"></span><span id="Utils::isEqualRel__doubleC.doubleC.doubleC"></span><span class="target" id="namespaceUtils_1abb589709362089e01172ad724dfc5ed4"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isEqualRel</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">percent</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">1</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="w"> </span><span class="m"><span class="pre">1e-4</span></span><span class="p"><span class="pre">)</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Checks if two numbers are equal in relative tolerance. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> – The first number </p></li>
+<li><p><strong>b</strong> – The second number </p></li>
+<li><p><strong>percent</strong> – Percent of similarity (e.g., 1 and 0.99 are similar at least at 0.99) </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the two numbers are equal up to the given tolerance </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils7isEqualEKdKdKdKd">
+<span id="_CPPv3N5Utils7isEqualEKdKdKdKd"></span><span id="_CPPv2N5Utils7isEqualEKdKdKdKd"></span><span id="Utils::isEqual__doubleC.doubleC.doubleC.doubleC"></span><span class="target" id="namespaceUtils_1a3c508b2e54c6804d6223cd6315bb451b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isEqual</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e-6</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">percent</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">1</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="w"> </span><span class="m"><span class="pre">1e-4</span></span><span class="p"><span class="pre">)</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Checks if two numbers are equal in either absolute or relative tolerance. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> – The first number </p></li>
+<li><p><strong>b</strong> – The second number </p></li>
+<li><p><strong>tol</strong> – An absolute tolerance </p></li>
+<li><p><strong>percent</strong> – Percent of similarity (e.g., 1 and 0.99 are similar at least at 0.99) </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils11clearMatrixERKN4arma6sp_matEdd">
+<span id="_CPPv3N5Utils11clearMatrixERKN4arma6sp_matEdd"></span><span id="_CPPv2N5Utils11clearMatrixERKN4arma6sp_matEdd"></span><span id="Utils::clearMatrix__arma::sp_matCR.double.double"></span><span class="target" id="namespaceUtils_1af2040ca2075587adc96e9216334a3ebe"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">clearMatrix</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">A</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e-6</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">percent</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="w"> </span><span class="m"><span class="pre">1e-6</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Given an arma::sp_mat <code class="docutils literal notranslate"><span class="pre">A</span></code>, returns the same matrix where the entries within a relative and absolute tolerance <code class="docutils literal notranslate"><span class="pre">tol</span></code> <code class="docutils literal notranslate"><span class="pre">percent</span></code> are set to zero <code class="docutils literal notranslate"><span class="pre">A</span></code> The armadillo sparse matrix <code class="docutils literal notranslate"><span class="pre">tol</span></code> The absolute tolerance <code class="docutils literal notranslate"><span class="pre">percent</span></code> The relative tolerance. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The new refactored matrix </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N5Utils11clearVectorERKN4arma3vecEdd">
+<span id="_CPPv3N5Utils11clearVectorERKN4arma3vecEdd"></span><span id="_CPPv2N5Utils11clearVectorERKN4arma3vecEdd"></span><span id="Utils::clearVector__arma::vecCR.double.double"></span><span class="target" id="namespaceUtils_1a2e056ebbec945748c331338bdbd3c2b0"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">clearVector</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e-6</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">percent</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="w"> </span><span class="m"><span class="pre">1e-6</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Given an arma::vec <code class="docutils literal notranslate"><span class="pre">A</span></code>, returns the same vector where the entries within a relative and absolute tolerance <code class="docutils literal notranslate"><span class="pre">tol</span></code> <code class="docutils literal notranslate"><span class="pre">percent</span></code> are set to zero <code class="docutils literal notranslate"><span class="pre">b</span></code> The armadillo vector <code class="docutils literal notranslate"><span class="pre">tol</span></code> The absolute tolerance <code class="docutils literal notranslate"><span class="pre">percent</span></code> The relative tolerance. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The new refactored matrix </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Models.html" class="btn btn-neutral float-left" title="Models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Codes.html" class="btn btn-neutral float-right" title="Other stuff" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Gabriele Dragotto, Sriram Sankaranarayanan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

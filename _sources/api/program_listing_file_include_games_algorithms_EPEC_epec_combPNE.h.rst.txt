@@ -1,0 +1,47 @@
+
+.. _program_listing_file_include_games_algorithms_EPEC_epec_combPNE.h:
+
+Program Listing for File epec_combPNE.h
+=======================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_games_algorithms_EPEC_epec_combPNE.h>` (``include/games/algorithms/EPEC/epec_combPNE.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /* #############################################
+    *             This file is part of
+    *                    ZERO
+    *
+    *             Copyright (c) 2020
+    *     Released under the Creative Commons
+    *         CC BY-NC-SA 4.0 License
+    *
+    *              Find out more at
+    *        https://github.com/ds4dm/ZERO
+    * #############################################*/
+   
+   #pragma once
+   #include "epec_polybase.h"
+   #include "zero.h"
+   #include <armadillo>
+   #include <gurobi_c++.h>
+   #include <iostream>
+   #include <memory>
+   #include <set>
+   #include <string>
+   
+   namespace Algorithms::EPEC {
+   
+     class CombinatorialPNE : public PolyBase {
+     public:
+        CombinatorialPNE(GRBEnv *env, Game::EPEC *EPECObject) : PolyBase(env, EPECObject){};
+        void solve() { this->solveWithExcluded(std::vector<std::set<unsigned long int>>{}); }
+        void solveWithExcluded(const std::vector<std::set<unsigned long int>> &excludeList = {});
+   
+     private:
+        void combPNE(std::vector<long int>                           combination,
+                         const std::vector<std::set<unsigned long int>> &excludeList);
+     };
+   } // namespace Algorithms::EPEC

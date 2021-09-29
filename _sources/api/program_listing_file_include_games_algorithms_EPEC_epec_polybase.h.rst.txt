@@ -8,7 +8,7 @@ Program Listing for File epec_polybase.h
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
-.. code-block:: none
+.. code-block:: cpp
 
    /* #############################################
     *             This file is part of
@@ -16,7 +16,7 @@ Program Listing for File epec_polybase.h
     *
     *             Copyright (c) 2020
     *     Released under the Creative Commons
-    *        Zero v1.0 Universal License
+    *         CC BY-NC-SA 4.0 License
     *
     *              Find out more at
     *        https://github.com/ds4dm/ZERO
@@ -26,10 +26,8 @@ Program Listing for File epec_polybase.h
    #pragma once
    #include "mathopt/lcp/lcp.h"
    #include "zero.h"
-   #include <boost/log/trivial.hpp>
    
-   namespace Algorithms {
-     namespace EPEC {
+   namespace Algorithms::EPEC {
         class PolyBase {
         protected:
            GRBEnv *    Env;        
@@ -37,12 +35,14 @@ Program Listing for File epec_polybase.h
            std::vector<std::shared_ptr<MathOpt::PolyLCP>> PolyLCP{}; 
    
    
-           void postSolving() {
+           void after() {
              std::vector<unsigned int> feasible;
              for (unsigned int i = 0; i < this->EPECObject->NumPlayers; i++)
                 feasible.push_back(this->PolyLCP.at(i)->getFeasiblePolyhedra());
              this->EPECObject->Stats.AlgorithmData.FeasiblePolyhedra.set(feasible);
-             this->EPECObject->Stats.PureNashEquilibrium = this->isPureStrategy();
+             if (this->EPECObject->NashEquilibrium)
+               this->EPECObject->Stats.PureNashEquilibrium = this->isPureStrategy();
+           LOG_S(3) << "Algorithms::EPEC::PolyBase::after: post-processing results.";
            }
    
         public:
@@ -58,35 +58,34 @@ Program Listing for File epec_polybase.h
            }
    
            virtual void solve() = 0; 
-           bool isSolved(unsigned int *player, arma::vec *profitableDeviation, double tol = -1) const;
-           bool isSolved(double tol = -1) const; 
+           bool isSolved(unsigned int *player, arma::vec *profitableDeviation, double tol = -1e-5) const;
+           virtual bool isSolved(double tol = 1e-5); 
            void makeThePureLCP();
    
-           double
+            double
            getValLeadFollPoly(unsigned int i, unsigned int j, unsigned int k, double tol = 1e-5) const;
    
-           double
+            double
            getValLeadLeadPoly(unsigned int i, unsigned int j, unsigned int k, double tol = 1e-5) const;
    
-           double getValProbab(unsigned int i, unsigned int k) const;
+            double getValProbab(unsigned int i, unsigned int k) const;
    
-           bool isPureStrategy(unsigned int i, double tol = 1e-5) const;
+            bool isPureStrategy(unsigned int i, double tol = 1e-5) const;
    
-           bool isPureStrategy(double tol = 1e-5) const;
+            bool isPureStrategy(double tol = 1e-5) const;
    
-           std::vector<unsigned int> mixedStrategyPoly(unsigned int i, double tol = 1e-5) const;
-           unsigned int getPositionLeadFollPoly(unsigned int i, unsigned int j, unsigned int k) const;
+            std::vector<unsigned int> mixedStrategyPoly(unsigned int i, double tol = 1e-5) const;
+            unsigned int getPositionLeadFollPoly(unsigned int i, unsigned int j, unsigned int k) const;
    
-           unsigned int getPositionLeadLeadPoly(unsigned int i, unsigned int j, unsigned int k) const;
+            unsigned int getPositionLeadLeadPoly(unsigned int i, unsigned int j, unsigned int k) const;
    
-           unsigned long int getNumPolyLead(unsigned int i) const;
+            unsigned long int getNumPolyLead(unsigned int i) const;
    
-           unsigned int getPositionProbab(unsigned int i, unsigned int k) const;
+            unsigned int getPositionProbab(unsigned int i, unsigned int k) const;
         };
-     } // namespace EPEC
-   } // namespace Algorithms
+     } // namespace Algorithms
    
-   #include "epec_combinatorialpne.h"
-   #include "epec_fullenumeration.h"
-   #include "epec_innerapproximation.h"
-   #include "epec_outerapproximation.h"
+   #include "epec_combPNE.h"
+   #include "epec_cutandplay.h"
+   #include "epec_fullenum.h"
+   #include "epec_innerapp.h"

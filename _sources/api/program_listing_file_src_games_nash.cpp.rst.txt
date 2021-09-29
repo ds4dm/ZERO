@@ -8,7 +8,7 @@ Program Listing for File nash.cpp
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
-.. code-block:: none
+.. code-block:: cpp
 
    /* #############################################
     *             This file is part of
@@ -16,7 +16,7 @@ Program Listing for File nash.cpp
     *
     *             Copyright (c) 2020
     *     Released under the Creative Commons
-    *        Zero v1.0 Universal License
+    *         CC BY-NC-SA 4.0 License
     *
     *              Find out more at
     *        https://github.com/ds4dm/ZERO
@@ -24,19 +24,16 @@ Program Listing for File nash.cpp
    
    
    #include "games/nash.h"
-   #include <armadillo>
-   #include <boost/log/trivial.hpp>
-   #include <iostream>
-   #include <memory>
-   Game::NashGame::NashGame(GRBEnv *                                        e,
-                                    std::vector<std::shared_ptr<MathOpt::MP_Param>> players,
-                                    arma::sp_mat                                    MC,
-                                    arma::vec                                       MCRHS,
-                                    unsigned int                                    nLeadVar,
-                                    arma::sp_mat                                    leadA,
-                                    arma::vec                                       leadRHS)
-        : Env{e}, LeaderConstraints{leadA}, LeaderConstraintsRHS{leadRHS}
-   {
+   
+   
+   Game::NashGame::NashGame(GRBEnv *                                               e,
+                                    const std::vector<std::shared_ptr<MathOpt::MP_Param>> &players,
+                                    arma::sp_mat                                           MC,
+                                    arma::vec                                              MCRHS,
+                                    unsigned int                                           nLeadVar,
+                                    arma::sp_mat                                           leadA,
+                                    arma::vec                                              leadRHS)
+        : Env{e}, LeaderConstraints{leadA}, LeaderConstraintsRHS{leadRHS} {
      // Setting the class variables
      this->numLeaderVar   = nLeadVar;
      this->NumPlayers     = players.size();
@@ -75,6 +72,7 @@ Program Listing for File nash.cpp
    }
    
    long int Game::NashGame::load(const std::string &filename, long int pos) {
+   
      if (!this->Env)
         throw ZEROException(ZEROErrorCode::Assertion, "The solver environment is empty.");
      std::string headercheck;
@@ -127,12 +125,13 @@ Program Listing for File nash.cpp
    }
    
    void Game::NashGame::setPositions()
+   
    {
      // Defining the variable value
      unsigned int prCnt{0}, dlCnt{0}; // Temporary variables - primal count and dual count
      for (unsigned int i = 0; i < NumPlayers; i++) {
         PrimalPosition.at(i) = prCnt;
-        prCnt += Players.at(i)->getNy();
+        prCnt += Players.at(i)->getNumVars();
      }
    
    
@@ -155,16 +154,14 @@ Program Listing for File nash.cpp
            this->Bounds.push_back({theBound.first, theBound.second});
      }
    }
+   const Game::NashGame &Game::NashGame::formulateLCP(arma::sp_mat &     M,
+                                                                       arma::vec &        q,
+                                                                       perps &            Compl,
+                                                                       VariableBounds &   OutBounds,
+                                                                       bool               writeToFile,
+                                                                       const std::string &M_name,
+                                                                       const std::string &q_name) const {
    
-   const Game::NashGame &Game::NashGame::formulateLCP(
-        arma::sp_mat &    M,           
-        arma::vec &       q,           
-        perps &           Compl,       
-        VariableBounds &  OutBounds,   
-        bool              writeToFile, 
-        const std::string M_name,      
-        const std::string q_name       
-        ) const {
    
      // To store the individual KKT conditions for each player.
      std::vector<arma::sp_mat> Mi(NumPlayers), Ni(NumPlayers);
@@ -183,11 +180,11 @@ Program Listing for File nash.cpp
      for (unsigned int i = 0; i < NumPlayers; i++) {
         this->Players[i]->KKT(Mi[i], Ni[i], qi[i]);
         unsigned int numPrim, numDual;
-        numPrim = this->Players[i]->getNy();
-        numDual = this->Players[i]->getb().n_rows;
+        numPrim = this->Players[i]->getNumVars();
+        numDual = this->Players[i]->getb(true).n_rows;
         // Adding the primal equations
         // Region 1 in Formulate LCP.ipe
-        LOG_S(1) << "Game::NashGame::formulateLCP: Region 1";
+        LOG_S(3) << "Game::NashGame::formulateLCP: Region 1";
         if (i > 0) { // For the first player, no need to add anything 'before' 0-th
            // position
            M.submat(this->PrimalPosition.at(i),
@@ -197,13 +194,13 @@ Program Listing for File nash.cpp
                 Ni[i].submat(0, 0, numPrim - 1, this->PrimalPosition.at(i) - 1);
         }
         // Region 2 in Formulate LCP.ipe
-        LOG_S(1) << "Game::NashGame::formulateLCP: Region 2";
+        LOG_S(3) << "Game::NashGame::formulateLCP: Region 2";
         M.submat(this->PrimalPosition.at(i),
                     this->PrimalPosition.at(i),
                     this->PrimalPosition.at(i + 1) - 1,
                     this->PrimalPosition.at(i + 1) - 1) = Mi[i].submat(0, 0, numPrim - 1, numPrim - 1);
         // Region 3 in Formulate LCP.ipe
-        LOG_S(1) << "Game::NashGame::formulateLCP: Region 3";
+        LOG_S(3) << "Game::NashGame::formulateLCP: Region 3";
         if (this->PrimalPosition.at(i + 1) != this->DualPosition.at(0)) {
            M.submat(this->PrimalPosition.at(i),
                        this->PrimalPosition.at(i + 1),
@@ -212,7 +209,7 @@ Program Listing for File nash.cpp
                 Ni[i].submat(0, this->PrimalPosition.at(i), numPrim - 1, Ni[i].n_cols - 1);
         }
         // Region 4 in Formulate LCP.ipe
-        LOG_S(1) << "Game::NashGame::formulateLCP: Region 4";
+        LOG_S(3) << "Game::NashGame::formulateLCP: Region 4";
         if (this->DualPosition.at(i) != this->DualPosition.at(i + 1)) {
            M.submat(this->PrimalPosition.at(i),
                        this->DualPosition.at(i),
@@ -221,14 +218,14 @@ Program Listing for File nash.cpp
                 Mi[i].submat(0, numPrim, numPrim - 1, numPrim + numDual - 1);
         }
         // RHS
-        LOG_S(1) << "Game::NashGame::formulateLCP: Region RHS";
+        LOG_S(3) << "Game::NashGame::formulateLCP: Region RHS";
         q.subvec(this->PrimalPosition.at(i), this->PrimalPosition.at(i + 1) - 1) =
              qi[i].subvec(0, numPrim - 1);
         for (unsigned int j = this->PrimalPosition.at(i); j < this->PrimalPosition.at(i + 1); j++)
            Compl.push_back({j, j});
         // Adding the dual equations
         // Region 5 in Formulate LCP.ipe
-        LOG_S(1) << "Game::NashGame::formulateLCP: Region 5";
+        LOG_S(3) << "Game::NashGame::formulateLCP: Region 5";
         if (numDual > 0) {
            if (i > 0) // For the first player, no need to add anything 'before' 0-th
              // position
@@ -238,14 +235,14 @@ Program Listing for File nash.cpp
                          this->PrimalPosition.at(i) - 1) =
                    Ni[i].submat(numPrim, 0, Ni[i].n_rows - 1, this->PrimalPosition.at(i) - 1);
            // Region 6 in Formulate LCP.ipe
-           LOG_S(1) << "Game::NashGame::formulateLCP: Region 6";
+           LOG_S(3) << "Game::NashGame::formulateLCP: Region 6";
            M.submat(this->DualPosition.at(i) - numLeaderVar,
                        this->PrimalPosition.at(i),
                        this->DualPosition.at(i + 1) - numLeaderVar - 1,
                        this->PrimalPosition.at(i + 1) - 1) =
                 Mi[i].submat(numPrim, 0, numPrim + numDual - 1, numPrim - 1);
            // Region 7 in Formulate LCP.ipe
-           LOG_S(1) << "Game::NashGame::formulateLCP: Region 7";
+           LOG_S(3) << "Game::NashGame::formulateLCP: Region 7";
            if (this->DualPosition.at(0) != this->PrimalPosition.at(i + 1)) {
              M.submat(this->DualPosition.at(i) - numLeaderVar,
                          this->PrimalPosition.at(i + 1),
@@ -254,14 +251,14 @@ Program Listing for File nash.cpp
                    Ni[i].submat(numPrim, this->PrimalPosition.at(i), Ni[i].n_rows - 1, Ni[i].n_cols - 1);
            }
            // Region 8 in Formulate LCP.ipe
-           LOG_S(1) << "Game::NashGame::formulateLCP: Region 8";
+           LOG_S(3) << "Game::NashGame::formulateLCP: Region 8";
            M.submat(this->DualPosition.at(i) - numLeaderVar,
                        this->DualPosition.at(i),
                        this->DualPosition.at(i + 1) - numLeaderVar - 1,
                        this->DualPosition.at(i + 1) - 1) =
                 Mi[i].submat(numPrim, numPrim, numPrim + numDual - 1, numPrim + numDual - 1);
            // RHS
-           LOG_S(1) << "Game::NashGame::formulateLCP: Region RHS";
+           LOG_S(3) << "Game::NashGame::formulateLCP: Region RHS";
            q.subvec(this->DualPosition.at(i) - numLeaderVar,
                        this->DualPosition.at(i + 1) - numLeaderVar - 1) =
                 qi[i].subvec(numPrim, qi[i].n_rows - 1);
@@ -271,7 +268,7 @@ Program Listing for File nash.cpp
              Compl.push_back({j, j + numLeaderVar});
         }
      }
-     LOG_S(1) << "Game::NashGame::formulateLCP: MC RHS";
+     LOG_S(3) << "Game::NashGame::formulateLCP: MC RHS";
      if (this->MCRHS.n_elem >= 1) // It is possible that it is a Cournot game and
                                             // there are no MC conditions!
      {
@@ -289,8 +286,7 @@ Program Listing for File nash.cpp
      return *this;
    }
    
-   arma::sp_mat Game::NashGame::rewriteLeadCons() const
-   {
+   arma::sp_mat Game::NashGame::rewriteLeadCons() const {
      arma::sp_mat A_in = this->LeaderConstraints;
      arma::sp_mat A_out_expl, A_out_MC, A_out;
      unsigned int NvarLead{0};
@@ -324,8 +320,7 @@ Program Listing for File nash.cpp
      }
    }
    
-   Game::NashGame &Game::NashGame::addDummy(unsigned int par, int position)
-   {
+   Game::NashGame &Game::NashGame::addDummy(unsigned int par, int position) {
      for (auto &q : this->Players)
         q->addDummy(par, 0, position);
    
@@ -352,20 +347,16 @@ Program Listing for File nash.cpp
      if (this->MarketClearing.n_rows) {
         auto nnR = this->MarketClearing.n_rows;
         auto nnC = this->MarketClearing.n_cols;
-        switch (position) {
-        case -1:
+        if (position == -1)
            this->MarketClearing = Utils::resizePatch(this->MarketClearing, nnR, nnC + par);
-           break;
-        default:
+        else
            LOG_S(ERROR) << "addDummy at non-final position not implemented";
-        }
      }
      this->setPositions();
      return *this;
    }
    
-   Game::NashGame &Game::NashGame::addLeadCons(const arma::vec &a, double b)
-   {
+   Game::NashGame &Game::NashGame::addLeadCons(const arma::vec &a, double b) {
      auto nC = this->LeaderConstraints.n_cols;
      if (a.n_elem != nC)
         throw ZEROException(ZEROErrorCode::Assertion,
@@ -448,11 +439,7 @@ Program Listing for File nash.cpp
    }
    
    std::unique_ptr<GRBModel>
-   Game::NashGame::respond(unsigned int player, 
-                                   const arma::vec &x,  
-                                   bool fullvec 
-                                   ) const
-   {
+   Game::NashGame::respond(unsigned int player, const arma::vec &x, bool fullvec) const {
      arma::vec    solOther;
      unsigned int nVar{this->getNprimals() + this->getNumShadow() + this->getNumLeaderVars()};
      unsigned int nStart, nEnd;
@@ -476,12 +463,10 @@ Program Listing for File nash.cpp
      return this->Players.at(player)->solveFixed(solOther, true);
    }
    
-   double
-   Game::NashGame::respondSol(arma::vec &  sol,    
-                                       unsigned int player, 
-                                       const arma::vec &x, 
-                                       bool fullvec 
-                                       ) const {
+   double Game::NashGame::respondSol(arma::vec &      sol,
+                                                unsigned int     player,
+                                                const arma::vec &x,
+                                                bool             fullvec) const {
      auto model = this->respond(player, x, fullvec);
      // Check if the model is solved optimally
      const int status = model->get(GRB_IntAttr_Status);
@@ -491,7 +476,6 @@ Program Listing for File nash.cpp
         for (unsigned int i = 0; i < Nx; ++i)
            sol.at(i) = model->getVarByName("y_" + std::to_string(i)).get(GRB_DoubleAttr_X);
    
-        LOG_S(1) << "Game::NashGame::RespondSol: Player" << player;
         return model->get(GRB_DoubleAttr_ObjVal);
      } else
         return GRB_INFINITY;
@@ -529,12 +513,13 @@ Program Listing for File nash.cpp
                                            unsigned int &   violPlayer,
                                            arma::vec &      violSol,
                                            double           tol) const {
+   
      arma::vec objvals = this->computeQPObjectiveValues(sol, true);
      for (unsigned int i = 0; i < this->NumPlayers; ++i) {
         double val = this->respondSol(violSol, i, sol, true);
         if (val == GRB_INFINITY)
            return false;
-        if (std::abs(val - objvals.at(i)) > tol) {
+        if (!Utils::isEqual(val, objvals.at(i), tol)) {
            violPlayer = i;
            return false;
         }

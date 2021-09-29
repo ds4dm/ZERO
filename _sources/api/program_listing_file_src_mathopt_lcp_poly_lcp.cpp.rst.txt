@@ -8,7 +8,7 @@ Program Listing for File poly_lcp.cpp
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
-.. code-block:: none
+.. code-block:: cpp
 
    /* #############################################
     *             This file is part of
@@ -16,7 +16,7 @@ Program Listing for File poly_lcp.cpp
     *
     *             Copyright (c) 2020
     *     Released under the Creative Commons
-    *        Zero v1.0 Universal License
+    *         CC BY-NC-SA 4.0 License
     *
     *              Find out more at
     *        https://github.com/ds4dm/ZERO
@@ -24,16 +24,8 @@ Program Listing for File poly_lcp.cpp
    
    
    #include "mathopt/lcp/poly_lcp.h"
-   #include "zero.h"
-   #include <algorithm>
-   #include <armadillo>
-   #include <boost/log/trivial.hpp>
-   #include <gurobi_c++.h>
-   #include <iostream>
+   
    #include <memory>
-   #include <random>
-   #include <set>
-   #include <string>
    
    
    
@@ -47,11 +39,11 @@ Program Listing for File poly_lcp.cpp
         unsigned int i, j;
         i = p.first;
         j = p.second;
-        if (Utils::isZeroValue(z(i)))
+        if (Utils::isEqual(z(i), 0))
            solEncoded.at(i)++;
-        if (Utils::isZeroValue(x(j)))
+        if (Utils::isEqual(x(j), 0))
            solEncoded.at(i)--;
-        if (!Utils::isZeroValue(x(j)) && !Utils::isZeroValue(z(i)))
+        if (!Utils::isEqual(x(j), 0) && !Utils::isEqual(z(i), 0))
            LOG_S(1) << "Infeasible point given! Stay alert! " << x(j) << " " << z(i) << " with i=" << i;
      };
      return solEncoded;
@@ -72,17 +64,18 @@ Program Listing for File poly_lcp.cpp
    bool operator<(std::vector<short int> child, std::vector<short int> father) {
      if (child.size() != father.size())
         return false;
-   
-     for (unsigned long i = 0; i < father.size(); ++i) {
-        if (father.at(i) != 0 && father.at(i) != 2) {
-           if (child.at(i) != father.at(i))
-             return false;
+     else {
+        for (unsigned long i = 0; i < father.size(); ++i) {
+           if (father.at(i) != 0 && father.at(i) != 2) {
+             if (child.at(i) != father.at(i))
+                return false;
+           }
         }
+        return true;
      }
-     return true;
    }
    
-   bool operator>(std::vector<int> encoding1, std::vector<int> encoding2) {
+   bool operator>(const std::vector<int> &encoding1, const std::vector<int> &encoding2) {
      return (encoding2 < encoding1);
    }
    
@@ -92,19 +85,18 @@ Program Listing for File poly_lcp.cpp
      std::stringstream encStr;
      for (auto vv : encoding)
         encStr << vv << " ";
-     LOG_S(1) << "MathOpt::PolyLCP::addPolyFromX: Handling point with encoding: " << encStr.str()
-                 << '\n';
+     LOG_S(2) << "MathOpt::PolyLCP::addPolyFromX: Handling point with encoding: " << encStr.str();
      // Check if the encoding polyhedron is already in the current inner approximation
      for (const auto &i : this->CurrentPoly[0]) {
         std::vector<short int> bin = this->numToVec(i, numCompl, true);
         if (encoding < bin) {
-           LOG_S(1) << "MathOpt::PolyLCP::addPolyFromX: Encoding " << i
+           LOG_S(2) << "MathOpt::PolyLCP::addPolyFromX: Encoding " << i
                        << " already in the inner approximation! ";
            return false;
         }
      }
    
-     LOG_S(1) << "MathOpt::PolyLCP::addPolyFromX: The encoding is not in the inner approximation!";
+     LOG_S(2) << "MathOpt::PolyLCP::addPolyFromX: The encoding is not in the inner approximation!";
      // If it is not in CurrentPoly
      // First change any zero indices of encoding to 1
      for (short &i : encoding) {
@@ -116,14 +108,14 @@ Program Listing for File poly_lcp.cpp
    
    
    
-   bool MathOpt::PolyLCP::addPolyFromEncoding(const std::vector<short int> encoding,
-                                                            bool                         innerApproximation,
-                                                            bool                         checkFeas,
-                                                            bool                         custom,
-                                                            spmat_Vec *                  custAi,
-                                                            vec_Vec *                    custbi) {
+   bool MathOpt::PolyLCP::addPolyFromEncoding(const std::vector<short int> &encoding,
+                                                            bool                          innerApproximation,
+                                                            bool                          checkFeas,
+                                                            bool                          custom,
+                                                            spmat_Vec *                   customA,
+                                                            vec_Vec *                     customb) {
      unsigned int encodingNumber = this->vecToNum(encoding, innerApproximation);
-     bool         eval           = false;
+     bool         eval;
      if (checkFeas)
         eval = this->checkPolyFeas(encoding, innerApproximation);
      else
@@ -132,28 +124,33 @@ Program Listing for File poly_lcp.cpp
      if (eval) {
         if (!innerApproximation)
            this->Outer_FeasibleApproximation = true;
+   
+        // Check if it was already added
         if (!custom && !CurrentPoly[innerApproximation ? 0 : 1].empty()) {
            if (CurrentPoly[innerApproximation ? 0 : 1].find(encodingNumber) !=
                 CurrentPoly[innerApproximation ? 0 : 1].end()) {
              return false;
            }
         }
-        std::unique_ptr<arma::sp_mat> Aii = std::unique_ptr<arma::sp_mat>(new arma::sp_mat(nR, nC));
+   
+        std::unique_ptr<arma::sp_mat> Aii = std::make_unique<arma::sp_mat>(nR, nC);
         Aii->zeros();
-        std::unique_ptr<arma::vec> bii =
-             std::unique_ptr<arma::vec>(new arma::vec(nR, arma::fill::zeros));
+        std::unique_ptr<arma::vec> bii = std::make_unique<arma::vec>(nR, arma::fill::zeros);
+   
         for (unsigned int i = 0; i < this->nR; i++) {
    
            switch (encoding.at(i)) {
    
+             // Fix z=0
            case 1: {
              for (auto j = this->M.begin_row(i); j != this->M.end_row(i); ++j)
-                if (!Utils::isZeroValue((*j)))
+                if (!Utils::isEqual(*j, 0))
                    Aii->at(i, j.col()) = (*j); // Only mess with non-zero elements of a sparse matrix!
              bii->at(i) = -this->q(i);
            } break;
    
    
+             // Fix x=0
            case -1: {
              unsigned int variablePosition = (i >= this->LeadStart) ? i + this->NumberLeader : i;
              Aii->at(i, variablePosition)  = 1;
@@ -173,8 +170,8 @@ Program Listing for File poly_lcp.cpp
            }
         }
         if (custom) {
-           custAi->push_back(std::move(Aii));
-           custbi->push_back(std::move(bii));
+           customA->push_back(std::move(Aii));
+           customb->push_back(std::move(bii));
         } else {
            CurrentPoly[innerApproximation ? 0 : 1].insert(encodingNumber);
            this->Ai->push_back(std::move(Aii));
@@ -187,35 +184,37 @@ Program Listing for File poly_lcp.cpp
    
    
    
-   MathOpt::PolyLCP &MathOpt::PolyLCP::addPoliesFromEncoding(const std::vector<short int> encoding,
-                                                                                bool       innerApproximation,
-                                                                                bool       checkFeas,
-                                                                                bool       custom,
-                                                                                spmat_Vec *custAi,
-                                                                                vec_Vec *  custbi) {
-     bool flag = false; // flag that there may be multiple polyhedra, i.e. 0 in
+   unsigned int MathOpt::PolyLCP::addPoliesFromEncoding(const std::vector<short int> &encoding,
+                                                                         bool       innerApproximation,
+                                                                         bool       checkFeas,
+                                                                         bool       custom,
+                                                                         spmat_Vec *customA,
+                                                                         vec_Vec *  customb) {
+     unsigned int added = 0;     // number of added polyhedron
+     bool         flag  = false; // flag that there may be multiple polyhedra, i.e. 0 in
      // some encoding entry
      std::vector<short int> encodingCopy(encoding);
-     unsigned int           i = 0;
+     unsigned int           i;
      for (i = 0; i < this->nR; i++) {
         if (encoding.at(i) == 2 && innerApproximation)
            throw ZEROException(ZEROErrorCode::InvalidData,
                                      "Non-allowed encoding for innerApproximation");
-        if (encoding.at(i) == 0) {
+        else if (encoding.at(i) == 0) {
            flag = true;
            break;
         }
      }
      if (flag) {
         encodingCopy[i] = 1;
-        this->addPoliesFromEncoding(
-             encodingCopy, innerApproximation, checkFeas, custom, custAi, custbi);
+        added += this->addPoliesFromEncoding(
+             encodingCopy, innerApproximation, checkFeas, custom, customA, customb);
         encodingCopy[i] = -1;
-        this->addPoliesFromEncoding(
-             encodingCopy, innerApproximation, checkFeas, custom, custAi, custbi);
+        added += this->addPoliesFromEncoding(
+             encodingCopy, innerApproximation, checkFeas, custom, customA, customb);
      } else
-        this->addPolyFromEncoding(encoding, innerApproximation, checkFeas, custom, custAi, custbi);
-     return *this;
+        added += this->addPolyFromEncoding(
+             encoding, innerApproximation, checkFeas, custom, customA, customb);
+     return added;
    }
    
    
@@ -234,7 +233,7 @@ Program Listing for File poly_lcp.cpp
            }
         }
         return this->Inner_MaxPoly;
-     } break;
+     }
      case Data::LCP::PolyhedraStrategy::ReverseSequential: {
         while (this->Inner_ReverseSequentialPolyCounter >= 0) {
            const auto isAll =
@@ -247,7 +246,7 @@ Program Listing for File poly_lcp.cpp
            }
         }
         return this->Inner_MaxPoly;
-     } break;
+     }
      case Data::LCP::PolyhedraStrategy::Random: {
         static std::mt19937                              engine(this->RandomSeed);
         std::uniform_int_distribution<unsigned long int> dist(0, this->Inner_MaxPoly - 1);
@@ -260,10 +259,10 @@ Program Listing for File poly_lcp.cpp
            if (!isAll && !isInfeas)
              return randomPolyId;
         }
-     } break;
      }
-     // This shouldn't happen
-     return -1;
+     }
+     throw ZEROException(ZEROErrorCode::Unknown,
+                                "MathOpt::PolyLCP::getNextPoly generated a weird result.");
    }
    
    unsigned int MathOpt::PolyLCP::addAPoly(unsigned long int            nPoly,
@@ -289,7 +288,8 @@ Program Listing for File poly_lcp.cpp
         if (this->checkPolyFeas(choiceDecimal, true)) {
    
            const std::vector<short int> choice = this->numToVec(choiceDecimal, this->Compl.size(), true);
-           auto                         added  = this->addPolyFromEncoding(choice, true);
+           //Disable feasibility check, since it has been already performed
+           auto                         added  = this->addPolyFromEncoding(choice, true, false);
            if (added) // If choice is added to All Polyhedra
            {
              add++;
@@ -299,7 +299,6 @@ Program Listing for File poly_lcp.cpp
            }
         }
      }
-     return add;
    }
    
    
@@ -324,7 +323,7 @@ Program Listing for File poly_lcp.cpp
      this->addPoliesFromEncoding(encoding, true, feasibilityCheck);
      if (this->Ai->empty()) {
         LOG_S(WARNING) << "Empty vector of polyhedra given! Problem might be infeasible." << '\n';
-        // 0 <= -1 for infeasability
+        // 0 <= -1 for infeasibility
         std::unique_ptr<arma::sp_mat> A(new arma::sp_mat(1, this->M.n_cols));
         std::unique_ptr<arma::vec>    b(new arma::vec(1));
         b->at(0) = -1;
@@ -384,13 +383,11 @@ Program Listing for File poly_lcp.cpp
            this->numToVec(decimalEncoding, this->Compl.size(), innerApproximation), innerApproximation);
    }
    
-   void MathOpt::PolyLCP::outerApproximate(const std::vector<bool> encoding, bool clear) {
-     if (encoding.size() != this->Compl.size()) {
-        throw ZEROException(ZEROErrorCode::InvalidData, "Mismatch in encoding size");
-     }
+   bool MathOpt::PolyLCP::outerApproximate(const std::vector<bool> &encoding, bool clear) {
+     ZEROAssert(encoding.size() == this->Compl.size());
      if (clear) {
         this->clearPolyhedra(false);
-        LOG_S(ERROR) << "MathOpt::PolyLCP::outerApproximate: clearing current approximation.";
+        LOG_S(INFO) << "MathOpt::PolyLCP::outerApproximate: clearing current approximation.";
      }
      std::vector<short int> localEncoding = {};
      // We push 0 for each complementary that has to be fixed either to +1 or -1
@@ -401,7 +398,7 @@ Program Listing for File poly_lcp.cpp
         else
            localEncoding.push_back(2);
      }
-     this->addPoliesFromEncoding(localEncoding, false, true);
+     return this->addPoliesFromEncoding(localEncoding, false, true) > 0;
    }
    
    
@@ -441,7 +438,7 @@ Program Listing for File poly_lcp.cpp
         }
         if (!innerApproximation) {
            // We may want to check for parents
-           if (encoding > this->numToVec(i, this->Compl.size(), false)) {
+           if (this->numToVec(i, this->Compl.size(), false) < encoding) {
              LOG_S(1) << "MathOpt::PolyLCP::checkPolyFeas: Parent of a feasible polyhedron. Feasible #"
                          << encodingNumber;
              FeasiblePoly[index].insert(encodingNumber);
@@ -494,7 +491,6 @@ Program Listing for File poly_lcp.cpp
      } catch (GRBException &e) {
         throw ZEROException(e);
      }
-     return false;
    }
    
    
@@ -547,4 +543,17 @@ Program Listing for File poly_lcp.cpp
      this->CurrentPoly[inner ? 0 : 1].clear();
      if (!inner)
         this->Outer_FeasibleApproximation = false;
+   }
+   
+   std::string std::to_string(const Data::LCP::PolyhedraStrategy add) {
+     switch (add) {
+     case Data::LCP::PolyhedraStrategy::Sequential:
+        return std::string("Sequential");
+     case Data::LCP::PolyhedraStrategy::ReverseSequential:
+        return std::string("ReverseSequential");
+     case Data::LCP::PolyhedraStrategy::Random:
+        return std::string("Random");
+     default:
+        return std::string("Unknown");
+     }
    }

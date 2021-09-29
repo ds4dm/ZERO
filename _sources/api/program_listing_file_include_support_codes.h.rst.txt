@@ -8,7 +8,7 @@ Program Listing for File codes.h
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
-.. code-block:: none
+.. code-block:: cpp
 
    /* #############################################
     *             This file is part of
@@ -16,7 +16,7 @@ Program Listing for File codes.h
     *
     *             Copyright (c) 2020
     *     Released under the Creative Commons
-    *        Zero v1.0 Universal License
+    *         CC BY-NC-SA 4.0 License
     *
     *              Find out more at
     *        https://github.com/ds4dm/ZERO
@@ -45,12 +45,12 @@ Program Listing for File codes.h
    
    public:
      Attr(T value) : Object{value} {};
-     T    get() const { return Object; }
-     void set(const T &value) { Object = value; }
+     [[nodiscard]] T get() const { return Object; }
+     void            set(const T &value) { Object = value; }
      // T &operator=(const T &a) { std::cerr << "Operation not allowed. Use set()";
      // } operator T() { std::cerr << "Operation not allowed. Use get()"; }
+     Attr() = default;
    };
-   
    
    class ZEROAlgorithmData {
    public:
@@ -63,7 +63,7 @@ Program Listing for File codes.h
    };
    
    template <typename DataObjectType> struct ZEROStatistics {
-     ZEROStatistics(DataObjectType t) : AlgorithmData{t} {};
+     explicit ZEROStatistics(DataObjectType t) : AlgorithmData{t} {};
      Attr<ZEROStatus> Status         = ZEROStatus::Uninitialized;
      Attr<int>        NumVar         = {0};  
      Attr<int>        NumConstraints = {0};  
@@ -106,7 +106,7 @@ Program Listing for File codes.h
            : error_code(code), error_additional(more) {
         this->error_desc = std::to_string(error_code);
      };
-     ZEROException(GRBException &e)
+     explicit ZEROException(GRBException &e)
            : error_code(ZEROErrorCode::SolverError),
              error_additional(std::to_string(e.getErrorCode()) + e.getMessage()) {
         this->error_desc = std::to_string(error_code);
@@ -116,3 +116,8 @@ Program Listing for File codes.h
      virtual ZEROErrorCode which() const noexcept { return error_code; };
      const char *          more() const noexcept { return error_additional.c_str(); };
    };
+   
+   void ZEROAssert(bool        b,
+                        const char *callerFn   = __builtin_FUNCTION(),
+                        const char *callerFile = __builtin_FILE(),
+                        const int   callerLine = __builtin_LINE());

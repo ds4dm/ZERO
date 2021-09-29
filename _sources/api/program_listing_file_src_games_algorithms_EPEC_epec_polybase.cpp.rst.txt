@@ -8,7 +8,7 @@ Program Listing for File epec_polybase.cpp
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
-.. code-block:: none
+.. code-block:: cpp
 
    /* #############################################
     *             This file is part of
@@ -16,7 +16,7 @@ Program Listing for File epec_polybase.cpp
     *
     *             Copyright (c) 2020
     *     Released under the Creative Commons
-    *        Zero v1.0 Universal License
+    *         CC BY-NC-SA 4.0 License
     *
     *              Find out more at
     *        https://github.com/ds4dm/ZERO
@@ -24,8 +24,6 @@ Program Listing for File epec_polybase.cpp
    
    
    #include "games/algorithms/EPEC/epec_polybase.h"
-   #include "zero.h"
-   #include <boost/log/trivial.hpp>
    
    
    bool Algorithms::EPEC::PolyBase::isSolved(unsigned int *player,
@@ -33,12 +31,12 @@ Program Listing for File epec_polybase.cpp
                                                            double        tol) const
    
    {
-     if (!this->EPECObject->TheNashGame)
-        return false;
+   
      if (!this->EPECObject->NashEquilibrium)
         return false;
+     tol = this->EPECObject->Stats.AlgorithmData.DeviationTolerance.get();
      if (tol < 0)
-        tol = this->EPECObject->Stats.AlgorithmData.DeviationTolerance.get();
+        tol = 1e-5;
      this->EPECObject->TheNashGame->isSolved(
            this->EPECObject->SolutionX, *player, *profitableDeviation, tol);
      arma::vec objvals =
@@ -47,9 +45,9 @@ Program Listing for File epec_polybase.cpp
         double val = this->EPECObject->respondSol(*profitableDeviation, i, this->EPECObject->SolutionX);
         if (val == GRB_INFINITY)
            return false;
-        if (std::abs(val - objvals.at(i)) > tol) {
+        if (!Utils::isEqual(val, objvals.at(i), tol, 1 - tol)) {
            *player = i;
-           LOG_S(1) << "Algorithms::EPEC::PolyBase::isSolved: deviation for player " << i << " -- of "
+           LOG_S(0) << "Algorithms::EPEC::PolyBase::isSolved: deviation for player " << i << " -- of "
                        << std::abs(val - objvals.at(i));
            return false;
         }
@@ -57,7 +55,7 @@ Program Listing for File epec_polybase.cpp
      return true;
    }
    
-   bool Algorithms::EPEC::PolyBase::isSolved(double tol) const {
+   bool Algorithms::EPEC::PolyBase::isSolved(double tol) {
      unsigned int countryNumber;
      arma::vec    ProfDevn;
      bool         ret = this->isSolved(&countryNumber, &ProfDevn, tol);
@@ -89,7 +87,7 @@ Program Listing for File epec_polybase.cpp
    
    unsigned int Algorithms::EPEC::PolyBase::getPositionProbab(const unsigned int i,
                                                                                  const unsigned int k) const {
-     const auto PolyProbab = static_cast<MathOpt::PolyLCP *>(this->EPECObject->PlayersLCP.at(i).get())
+     const auto PolyProbab = dynamic_cast<MathOpt::PolyLCP *>(this->EPECObject->PlayersLCP.at(i).get())
                                            ->convPolyWeight(k, true);
      if (PolyProbab == 0)
         return 0;
@@ -184,7 +182,6 @@ Program Listing for File epec_polybase.cpp
         GRBVar       pure_bin[nPolyLead];
         GRBLinExpr   objectiveTerm{0};
         unsigned int count{0}, i, j;
-        //@todo fix bug in else
         for (i = 0; i < this->EPECObject->getNumPlayers(); i++) {
            for (j = 0; j < this->getNumPolyLead(i); ++j) {
              pure_bin[count] = this->EPECObject->LCPModel->addVar(

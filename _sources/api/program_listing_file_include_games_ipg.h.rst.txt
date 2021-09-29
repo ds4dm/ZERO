@@ -8,7 +8,7 @@ Program Listing for File ipg.h
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
-.. code-block:: none
+.. code-block:: cpp
 
    /* #############################################
     *             This file is part of
@@ -16,7 +16,7 @@ Program Listing for File ipg.h
     *
     *             Copyright (c) 2020
     *     Released under the Creative Commons
-    *        Zero v1.0 Universal License
+    *         CC BY-NC-SA 4.0 License
     *
     *              Find out more at
     *        https://github.com/ds4dm/ZERO
@@ -32,26 +32,39 @@ Program Listing for File ipg.h
    #include <set>
    #include <string>
    
-   namespace Data {
-     namespace IPG {
+   namespace Data::IPG {
    
-        enum class Algorithms {
-           Oracle 
-        };
-        enum class LCPAlgorithms {
-           PATH, 
-           MIP   
-        };
+     enum class Algorithms {
+        CutAndPlay 
+     };
    
-        class DataObject : public ZEROAlgorithmData {
-        public:
-           Attr<Data::IPG::Algorithms> Algorithm = {
-                Data::IPG::Algorithms::Oracle}; 
-           Attr<Data::IPG::LCPAlgorithms> LCPSolver = {Data::IPG::LCPAlgorithms::PATH};
-           DataObject(){};
-        };
-     } // namespace IPG
-   } // namespace Data
+     enum class CutsAggressiveness {
+        NotEvenTry, 
+        NoThanks,   
+        KeepItCool, 
+        Truculent   
+     };
+     enum class Objectives {
+        Feasibility, 
+        Quadratic,   
+        Linear,      
+     };
+   
+     class DataObject : public ZEROAlgorithmData {
+     public:
+        Attr<Data::IPG::CutsAggressiveness> CutAggressiveness = {
+             Data::IPG::CutsAggressiveness::KeepItCool};
+        Attr<Data::IPG::Algorithms> Algorithm = {
+             Data::IPG::Algorithms::CutAndPlay};    
+        Attr<Data::LCP::Algorithms> LCPSolver; 
+        Attr<Data::IPG::Objectives> Objective = {
+             Data::IPG::Objectives::Linear}; 
+        Attr<std::vector<std::pair<std::string, int>>>
+             Cuts; 
+   
+        DataObject() : LCPSolver{static_cast<Data::LCP::Algorithms>(0)} {};
+     };
+   } // namespace Data::IPG
    
    
    namespace Game {
@@ -66,46 +79,62 @@ Program Listing for File ipg.h
    
         bool                   Finalized{false};
         std::vector<arma::vec> Solution; 
+        double                 SocialWelfare;   
    
      private:
-        std::shared_ptr<Algorithms::IPG::Algorithm> Algorithm{};
+        std::shared_ptr<Algorithms::IPG::Algorithm> Algorithm{}; 
         void getXMinusI(const arma::vec &x, const unsigned int &i, arma::vec &xMinusI) const;
         void getXofI(const arma::vec &x, const unsigned int &i, arma::vec &xOfI) const;
-        bool computeNashEq(double localTimeLimit = -1.0, bool check = false);
    
    
      protected:
-        virtual void preFinalize()  = 0;
+        virtual void preFinalize() = 0;
         virtual void postFinalize() = 0;
    
      public: // functions
         friend class Algorithms::IPG::Algorithm;
-        friend class Algorithms::IPG::Oracle;
+        friend class Algorithms::IPG::CutAndPlay;
         void finalize();
         IPG(GRBEnv *env) { this->Env = env; };
         IPG(GRBEnv *env, std::vector<std::shared_ptr<MathOpt::IP_Param>> players);
    
-        const void findNashEq() override;
-        bool       isSolved(double tol = 1e-5) const override;
+        void findNashEq() override;
+        bool isSolved(double tol = 1e-5) const override;
         bool isPureStrategy(double tol = 1e-5) const override; 
    
-        std::unique_ptr<GRBModel> respondModel(const unsigned int i, const arma::vec &x) const;
    
-        const std::vector<arma::vec> getX() const { return this->Solution; }
+        std::vector<arma::vec> getX() const { return this->Solution; }
+   
+        /***
+         * @brief Gets the SocialWelfare associated to the incumbent solution
+         * @return The payoff value
+         */
+        double getSocialWelfare() const { return this->SocialWelfare; }
    
         ZEROStatistics<Data::IPG::DataObject> getStatistics() const { return this->Stats; }
    
         void setAlgorithm(Data::IPG::Algorithms algorithm) {
            this->Stats.AlgorithmData.Algorithm = algorithm;
-        };
+        }
+        void setLCPAlgorithm(const Data::LCP::Algorithms algo) {
+           this->Stats.AlgorithmData.LCPSolver.set(algo);
+        }
+        void setGameObjective(const Data::IPG::Objectives obj) {
+           this->Stats.AlgorithmData.Objective.set(obj);
+        }
+        void setCutsAggressiveness(const Data::IPG::CutsAggressiveness aggressiveness) {
+           this->Stats.AlgorithmData.CutAggressiveness.set(aggressiveness);
+        }
      };
    
    
    } // namespace Game
    namespace std {
-   
      string to_string(Data::IPG::Algorithms al);
+     string to_string(Data::IPG::Objectives ob);
+     string to_string(Data::IPG::CutsAggressiveness ct);
    
    }; // namespace std
    
-   #include "algorithms/IPG/ipg_oracle.h"
+   #include "algorithms/IPG/ipg_cutandplay.h"
+   #include "interfaces/ipg_models.h"

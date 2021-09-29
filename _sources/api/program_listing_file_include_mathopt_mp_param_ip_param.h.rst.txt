@@ -8,7 +8,7 @@ Program Listing for File ip_param.h
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
-.. code-block:: none
+.. code-block:: cpp
 
    /* #############################################
     *             This file is part of
@@ -16,7 +16,7 @@ Program Listing for File ip_param.h
     *
     *             Copyright (c) 2020
     *     Released under the Creative Commons
-    *        Zero v1.0 Universal License
+    *         CC BY-NC-SA 4.0 License
     *
     *              Find out more at
     *        https://github.com/ds4dm/ZERO
@@ -51,43 +51,43 @@ Program Listing for File ip_param.h
         using MP_Param::set;
    
      public: // Constructors
-        explicit IP_Param(GRBEnv *env = nullptr) : MP_Param(env), IPModel{(*env)} { this->size(); }
+        explicit IP_Param(GRBEnv *env = nullptr) : MP_Param(env), IPModel{GRBModel(*env)} {
+           this->size();
+        }
    
-        explicit IP_Param(arma::sp_mat C,
-                                arma::sp_mat B,
-                                arma::vec    b,
-                                arma::vec    c,
-                                arma::vec    _integers,
-                                GRBEnv *     env = nullptr);
-        ;
-   
+       IP_Param(const arma::sp_mat &  C_in,
+                const arma::sp_mat &  B_in,
+                const arma::vec &     b_in,
+                const arma::vec &     c_in,
+                const arma::vec &     integers_in,
+                const VariableBounds &Bounds_in,
+                GRBEnv *              env_in);
         arma::vec getIntegers() const {
            return this->Integers;
         } 
    
         bool finalize() override;
    
-        bool addConstraint(arma::vec Ain, double bin, bool checkDuplicate = true, double tol = 1e-5);
+        IP_Param &setBounds(const VariableBounds &boundIn);
+   
+        bool addConstraints(const arma::sp_mat &A_in, const arma::vec &b_in);
    
         IP_Param(const IP_Param &ipg) = default;
    
         // Override setters
-        IP_Param &set(const arma::sp_mat &C,
-                           const arma::sp_mat &B,
-                           const arma::vec &   b,
-                           const arma::vec &   c,
-                           const arma::vec &   integers); // Copy data into this
-        IP_Param &set(arma::sp_mat &&C,
-                           arma::sp_mat &&B,
-                           arma::vec &&   b,
-                           arma::vec &&   c,
-                           arma::vec &&   integers); // Copy data into this
+        MathOpt::IP_Param &set(const arma::sp_mat &C_in,
+                                       const arma::sp_mat &B_in,
+                                       const arma::vec &   b_in,
+                                       const arma::vec &   c_in,
+                                       const arma::vec &   integers_in,
+                                       const VariableBounds &    Bounds_in); // Copy data into this
+        IP_Param &         set(arma::sp_mat &&  C_in,
+                                       arma::sp_mat &&  B_in,
+                                       arma::vec &&     b_in,
+                                       arma::vec &&     c_in,
+                                       arma::vec &&     integers_in,
+                                       VariableBounds &&Bounds_in); // Copy data into this
    
-        IP_Param &
-        set(const QP_Objective &obj, const QP_Constraints &cons, const arma::vec &integers = {});
-   
-   
-        IP_Param &set(QP_Objective &&obj, QP_Constraints &&cons, arma::vec &&integers = {});
    
         bool operator==(const IP_Param &IPG2) const;
    
@@ -99,15 +99,16 @@ Program Listing for File ip_param.h
         void save(const std::string &filename, bool append) const override;
         long load(const std::string &filename, long pos = 0) override;
    
-        void updateModelObjective(arma::vec x);
+        void updateModelObjective(const arma::vec &x);
    
         std::unique_ptr<GRBModel> solveFixed(arma::vec x, bool solve = false) override;
    
-        std::unique_ptr<GRBModel> getIPModel(arma::vec x, bool relax = false);
+        std::unique_ptr<GRBModel> getIPModel(const arma::vec &x, bool relax = false);
    
         unsigned int KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const override;
    
    
         bool isFeasible(const arma::vec &y, const arma::vec &x, double tol) const override;
+        void presolve();
      };
    } // namespace MathOpt

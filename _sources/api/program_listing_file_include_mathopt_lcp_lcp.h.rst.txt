@@ -8,7 +8,7 @@ Program Listing for File lcp.h
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
-.. code-block:: none
+.. code-block:: cpp
 
    /* #############################################
     *             This file is part of
@@ -16,7 +16,7 @@ Program Listing for File lcp.h
     *
     *             Copyright (c) 2020
     *     Released under the Creative Commons
-    *        Zero v1.0 Universal License
+    *         CC BY-NC-SA 4.0 License
     *
     *              Find out more at
     *        https://github.com/ds4dm/ZERO
@@ -33,40 +33,45 @@ Program Listing for File lcp.h
    #include <memory>
    #include <set>
    
-   namespace Data {
-     namespace LCP {
+   namespace Data::LCP {
+     enum class Algorithms {
+        MIP,  
+        PATH, 
+        MINLP 
+     };
+   } // namespace Data::LCP
+   namespace std {
    
-        enum class PolyhedraStrategy {
-           Sequential        = 0, 
-           ReverseSequential = 1, 
-           Random = 2 
-        };
-        enum class Algorithms {
-           MIP,  
-           PATH, 
-           MINLP 
-        };
-     } // namespace LCP
-   } // namespace Data
+     string to_string(Data::LCP::Algorithms al);
+   
+   }; // namespace std
    
    namespace MathOpt {
    
      class LCP {
    
      protected:
-        // Essential data ironment for MIP/LP solves
-        GRBEnv *     Env; 
-        arma::sp_mat M;   
-        arma::vec    q;   
+        // Essential data environment for MIP/LP solves
+        GRBEnv *     Env{}; 
+        unsigned int ObjType =
+             0; 
+        arma::vec    c_Obj; 
+        arma::sp_mat Q_Obj; 
+        bool         MadeObjective = false; 
+        arma::sp_mat M;                     
+        arma::vec    q;                     
         perps Compl; 
-        unsigned int LeadStart{1}, LeadEnd{0}, NumberLeader{0};
+        unsigned long int LeadStart{1};    
+        unsigned long int LeadEnd{0};      
+        unsigned long int NumberLeader{0}; 
         bool PureMIP = true; 
-        arma::sp_mat A     = {}; 
-        arma::vec    b     = {}; 
-        arma::sp_mat _Acut = {}; 
-        arma::vec    _bcut = {}; 
+        arma::sp_mat A =
+             {}; 
+        arma::vec b =
+             {}; 
         bool         MadeRlxdModel{false}; 
-        unsigned int nR, nC;               
+        unsigned long int nR{};                 
+        unsigned long int nC{};                 
    
         VariableBounds BoundsX;
    
@@ -76,6 +81,8 @@ Program Listing for File lcp.h
    
         void makeRelaxed();
    
+        void setMIPObjective(GRBModel &convexModel);
+   
         std::unique_ptr<GRBModel> getMIP(bool indicators = false);
    
         std::unique_ptr<GRBModel> getMINLP();
@@ -83,7 +90,7 @@ Program Listing for File lcp.h
         std::unique_ptr<spmat_Vec> Ai;
         std::unique_ptr<vec_Vec> bi;
    
-        unsigned int convexHull(arma::sp_mat &A, arma::vec &b);
+        unsigned long int convexHull(arma::sp_mat &A, arma::vec &b);
    
      public:
         double Eps{1e-6}; 
@@ -92,41 +99,34 @@ Program Listing for File lcp.h
    
    
         explicit LCP(GRBEnv *e) : Env{e}, RelaxedModel(*e){};
-        LCP(GRBEnv *     env,
-             arma::sp_mat M,
-             arma::vec    q,
-             unsigned int leadStart,
-             unsigned     leadEnd,
-             arma::sp_mat A = {},
-             arma::vec    b = {});
-        LCP(GRBEnv *     env,
-             arma::sp_mat M,
-             arma::vec    q,
-             perps        Compl,
-             arma::sp_mat A = {},
-             arma::vec    b = {});
+        LCP(GRBEnv *      env,
+             arma::sp_mat &M,
+             arma::vec &   q,
+             unsigned long int  leadStart,
+             unsigned      leadEnd,
+             arma::sp_mat &A,
+             arma::vec &   b);
+        LCP(GRBEnv *env, arma::sp_mat &M, arma::vec &q, perps &Compl, arma::sp_mat &A, arma::vec &b);
    
         LCP(GRBEnv *env, const Game::NashGame &N);
    
         ~LCP() = default;
    
         // Fields getters
-        inline arma::sp_mat  getM() const { return this->M; }  
-        inline arma::sp_mat *getMstar() { return &(this->M); } 
-        inline arma::vec     getq() const { return this->q; }  
-        inline unsigned int  getNumberLeader() const {
-         return this->NumberLeader;
+        inline arma::sp_mat getM() const { return this->M; }
+        inline arma::vec getq() const { return this->q; }
+   
+        inline unsigned long int getNumberLeader() const {
+           return this->NumberLeader;
         } 
-        inline arma::vec *        getqstar() { return &(this->q); } 
-        const inline unsigned int getLStart() const {
-           return LeadStart;
-        } 
-        const inline unsigned int getLEnd() const {
-           return LeadEnd;
-        } 
-        inline perps        getCompl() const { return this->Compl; } 
-        inline unsigned int getNumCols() const { return this->nC; }; 
-        inline unsigned int getNumRows() const { return this->nR; }; 
+   
+        const inline unsigned long int getLStart() const { return LeadStart; }
+        const inline arma::sp_mat getA() const { return this->A; }
+        const inline arma::vec getb() const { return this->b; }
+        const inline unsigned long int getLEnd() const { return LeadEnd; }
+        inline perps getCompl() const { return this->Compl; }
+        inline unsigned long int getNumCols() const { return this->nC; };
+        inline unsigned long int getNumRows() const { return this->nR; };
    
    
         inline bool hasCommonConstraints() const {
@@ -136,43 +136,51 @@ Program Listing for File lcp.h
    
         bool extractSols(GRBModel *model, arma::vec &z, arma::vec &x, bool extractZ = false) const;
    
-        ZEROStatus solve(Data::LCP::Algorithms algo, arma::vec &x, arma::vec &z, double timeLimit = -1);
+        ZEROStatus                solve(Data::LCP::Algorithms algo,
+                                                   arma::vec &           xSol,
+                                                   arma::vec &           zSol,
+                                                   double                timeLimit,
+                                                   unsigned long int          MIPWorkers,
+                                                   double &              objective,
+                                                   unsigned long int          solLimit = 1);
+        std::unique_ptr<GRBModel> LCPasMIP(bool         solve      = false,
+                                                       double       timeLimit  = -1,
+                                                       unsigned long int MIPWorkers = 1,
+                                                       unsigned long int solLimit   = 1);
    
-        std::unique_ptr<GRBModel> LCPasMIP(bool solve = false);
-   
-        std::unique_ptr<GRBModel> MPECasMILP(const arma::sp_mat &C,
-                                                         const arma::vec &   c,
-                                                         const arma::vec &   x_minus_i,
-                                                         bool                solve = false);
+        std::unique_ptr<GRBModel> LCPasMILP(const arma::sp_mat &C,
+                                                        const arma::vec &   c,
+                                                        const arma::vec &   x_minus_i,
+                                                        bool                solve = false);
    
    
-        std::unique_ptr<GRBModel> MPECasMIQP(const arma::sp_mat &Q,
-                                                         const arma::sp_mat &C,
-                                                         const arma::vec &   c,
-                                                         const arma::vec &   x_minus_i,
-                                                         bool                solve = false);
+        std::unique_ptr<GRBModel> LCPasMIQP(const arma::sp_mat &Q,
+                                                        const arma::sp_mat &C,
+                                                        const arma::vec &   c,
+                                                        const arma::vec &   x_minus_i,
+                                                        bool                solve = false);
    
    
         ZEROStatus solvePATH(double timelimit, arma::vec &x, arma::vec &z, bool verbose = true);
    
-        void save(std::string filename, bool erase = true) const;
+        void save(const std::string &filename, bool erase = true) const;
    
-        long int load(std::string filename, long int pos = 0);
+        long int load(const std::string &filename, long int pos = 0);
    
         virtual void makeQP(MathOpt::QP_Objective &QP_obj, MathOpt::QP_Param &QP);
    
-        void addCustomCuts(const arma::sp_mat A, const arma::vec b);
+        void addCustomCuts(const arma::sp_mat &A, const arma::vec &b);
    
-        bool containsCut(const arma::vec LHS, const double RHS, double tol = 1e-5);
+        bool containsCut(const arma::vec &LHS, const double RHS, double tol = 1e-5);
    
-        arma::vec zFromX(const arma::vec x);
+        arma::vec zFromX(const arma::vec &x);
    
         void processBounds();
+        bool setMIPLinearObjective(const arma::vec &c);
+        bool setMIPQuadraticObjective(const arma::vec &c, const arma::sp_mat &Q);
+        bool setMIPFeasibilityObjective();
      };
    } // namespace MathOpt
    
-   namespace std {
-     string to_string(Data::LCP::PolyhedraStrategy add);
-   }
    
    #include "poly_lcp.h"

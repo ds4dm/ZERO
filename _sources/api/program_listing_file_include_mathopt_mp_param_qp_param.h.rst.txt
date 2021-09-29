@@ -8,7 +8,7 @@ Program Listing for File qp_param.h
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
-.. code-block:: none
+.. code-block:: cpp
 
    /* #############################################
     *             This file is part of
@@ -16,7 +16,7 @@ Program Listing for File qp_param.h
     *
     *             Copyright (c) 2020
     *     Released under the Creative Commons
-    *        Zero v1.0 Universal License
+    *         CC BY-NC-SA 4.0 License
     *
     *              Find out more at
     *        https://github.com/ds4dm/ZERO
@@ -48,12 +48,12 @@ Program Listing for File qp_param.h
              : MP_Param(env), MadeyQy{false},
                 Model{(*env)} {}; 
    
-        QP_Param(arma::sp_mat Q,
-                    arma::sp_mat C,
-                    arma::sp_mat A,
-                    arma::sp_mat B,
-                    arma::vec    c,
-                    arma::vec    b,
+        QP_Param(const arma::sp_mat& Q_in,
+                    const arma::sp_mat& C_in,
+                    const arma::sp_mat& A_in,
+                    const arma::sp_mat& B_in,
+                    const arma::vec&    c_in,
+                    const arma::vec&    b_in,
                     GRBEnv *     env = nullptr);
         ;
    
@@ -61,18 +61,18 @@ Program Listing for File qp_param.h
            this->size();
         }
    
-        QP_Param &set(const arma::sp_mat &Q,
-                           const arma::sp_mat &C,
-                           const arma::sp_mat &A,
-                           const arma::sp_mat &B,
-                           const arma::vec &   c,
-                           const arma::vec &   b) final; // Copy data into this
-        QP_Param &set(arma::sp_mat &&Q,
-                           arma::sp_mat &&C,
-                           arma::sp_mat &&A,
-                           arma::sp_mat &&B,
-                           arma::vec &&   c,
-                           arma::vec &&   b) final; // Move data into this
+        QP_Param &set(const arma::sp_mat &Q_in,
+                           const arma::sp_mat &C_in,
+                           const arma::sp_mat &A_in,
+                           const arma::sp_mat &B_in,
+                           const arma::vec &   c_in,
+                           const arma::vec &   b_in) final; // Copy data into this
+        QP_Param &set(arma::sp_mat &&Q_in,
+                           arma::sp_mat &&C_in,
+                           arma::sp_mat &&A_in,
+                           arma::sp_mat &&B_in,
+                           arma::vec &&   c_in,
+                           arma::vec &&   b_in) final; // Move data into this
         QP_Param &set(const QP_Objective &obj, const QP_Constraints &cons) final;
    
         QP_Param &set(QP_Objective &&obj, QP_Constraints &&cons) final;

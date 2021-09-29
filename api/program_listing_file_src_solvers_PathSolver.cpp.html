@@ -1,77 +1,40 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Program Listing for File PathSolver.cpp &mdash; ZERO 1.0.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../res/zero.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/zero.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
         <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
         <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search"  style="background: #23084f" >
-          
-
-          
+        <div class="wy-side-nav-search"  style="background: rgb(68, 44, 123)" >
             <a href="../index.html">
-          
-
-          
-            
             <img src="../_static/zerowhite.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                1.0.1
+                1.1.0
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -79,55 +42,104 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Quick Start</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quick Start</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/rbg.html">What is an RBG?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#mathopt">MathOpt</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/overview.html#mp-program-s">MP_Program(s)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/overview.html#lcps">LCPs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#games">Games</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/overview.html#epecs">EPECs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/overview.html#ipg">IPG</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#algorithms">Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#models">Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#utils">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#solvers">Solvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#shells">Shells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#other-stuff">Other stuff</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#dependencies">Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#downloading-and-compiling">Downloading and Compiling</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Tutorials</span></p>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/tutorials/QP_Param.html">Parametrized QPs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/QP_Param.html#computing-solutions">Computing solutions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#utilities">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/tutorials/IP_Param.html">Parametrized IPs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/IP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/IP_Param.html#computing-solutions">Computing solutions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/tutorials/NashLCP.html">Simultaneous Games</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/NashLCP.html#a-theory-primer">A theory primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/NashLCP.html#computing-solutions">Computing solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/NashLCP.html#checking-solutions">Checking solutions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/tutorials/LCP.html">LCPs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/LCP.html#computing-solutions">Computing solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/LCP.html#utilities">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/tutorials/NASP.html">NASPs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/NASP.html#a-quick-example">A quick example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/NASP.html#modeling-the-problem">Modeling the problem</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/tutorials/NASP.html#creating-an-inheritor-class">Creating an inheritor class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/tutorials/NASP.html#the-followers-problems">The followers’ problems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/tutorials/NASP.html#re-implementing-methods">Re-implementing methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/tutorials/NASP.html#computing-solutions">Computing solutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/tutorials/NASP.html#fetching-solutions">Fetching solutions</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Extended References</span></p>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/tutorials/IPG.html">IPG</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/IPG.html#a-quick-example">A quick example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/IPG.html#modeling-and-solving-the-problem">Modeling and solving the problem</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/reference/MathOpt.html">MathOpt</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/reference/MathOpt.html#mp-param">MP_Param</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/reference/MathOpt.html#qp-param">QP_Param</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/reference/MathOpt.html#ip-param">IP_Param</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/reference/MathOpt.html#lcp">LCP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/reference/MathOpt.html#polylcp">PolyLCP</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/reference/Game.html">Game</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/reference/Game.html#epec">EPEC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/reference/Game.html#ipg">IPG</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/reference/Algorithms.html">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/reference/Models.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/reference/Utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/reference/Codes.html">Other stuff</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extended Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="library_root.html">Library API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
@@ -256,6 +268,11 @@
 <li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CombinatorialPNE.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CutAndPlay.html">Class CutAndPlay</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CutAndPlay.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CutAndPlay.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1FullEnumeration.html">Class FullEnumeration</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1FullEnumeration.html#inheritance-relationships">Inheritance Relationships</a></li>
 <li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1FullEnumeration.html#class-documentation">Class Documentation</a></li>
@@ -264,11 +281,6 @@
 <li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1InnerApproximation.html">Class InnerApproximation</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1InnerApproximation.html#inheritance-relationships">Inheritance Relationships</a></li>
 <li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1InnerApproximation.html#class-documentation">Class Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterApproximation.html">Class OuterApproximation</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterApproximation.html#inheritance-relationships">Inheritance Relationships</a></li>
-<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterApproximation.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html">Class OuterTree</a><ul>
@@ -286,9 +298,9 @@
 <li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Algorithm.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Oracle.html">Class Oracle</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Oracle.html#inheritance-relationships">Inheritance Relationships</a></li>
-<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Oracle.html#class-documentation">Class Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1CutAndPlay.html">Class CutAndPlay</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1CutAndPlay.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1CutAndPlay.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="classAttr.html">Template Class Attr</a><ul>
@@ -321,6 +333,11 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="classGame_1_1NashGame.html">Class NashGame</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="classGame_1_1NashGame.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classLCP__PATHStart.html">Class LCP_PATHStart</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classLCP__PATHStart.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classLCP__PATHStart.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1IP__Param.html">Class IP_Param</a><ul>
@@ -380,6 +397,10 @@
 <li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1a3f4c2ba1ad7ce924bed99ddf193fd318.html#enum-documentation">Enum Documentation</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1ac2eb0e7edc79e45ab5e689bd7ac20721.html">Enum BranchingStrategy</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1ac2eb0e7edc79e45ab5e689bd7ac20721.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1a347af28b83353df8afdbd4ee171565b3.html">Enum RecoverStrategy</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1a347af28b83353df8afdbd4ee171565b3.html#enum-documentation">Enum Documentation</a></li>
 </ul>
@@ -388,8 +409,12 @@
 <li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a34d343f554ac089c3cb14de04aa6d294.html#enum-documentation">Enum Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a1a0a91a80ea38eefb37b54452fbd70a4.html">Enum LCPAlgorithms</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a1a0a91a80ea38eefb37b54452fbd70a4.html#enum-documentation">Enum Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a2990b118bd0d209b5ca094a208770189.html">Enum CutsAggressiveness</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a2990b118bd0d209b5ca094a208770189.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a03601c4502ada3c2f633e870771b2723.html">Enum Objectives</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a03601c4502ada3c2f633e870771b2723.html#enum-documentation">Enum Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82.html">Enum Algorithms</a><ul>
@@ -423,12 +448,12 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="library_root.html#functions">Functions</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="function_utils_8cpp_1ad85f66e4cbb90a0976aa1e9e49571c93.html">Function appendRead</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_utils_8cpp_1ad85f66e4cbb90a0976aa1e9e49571c93.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_utils_8cpp_1a9f34a72882b09d73c9c88015bd0ea434.html">Function appendRead</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_utils_8cpp_1a9f34a72882b09d73c9c88015bd0ea434.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_utils_8cpp_1a8a3281f033159773e6047a595cfa129a.html">Function appendSave</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_utils_8cpp_1a8a3281f033159773e6047a595cfa129a.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_utils_8cpp_1ad34ef522429047beeecf29fa7c42e2ec.html">Function appendSave</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_utils_8cpp_1ad34ef522429047beeecf29fa7c42e2ec.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_shells_2epec_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627.html">Function main(int, char **)</a><ul>
@@ -443,16 +468,16 @@
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1af3d7bfcf9b11cefb7f4521d685211934.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1a0a13d06524e3ad2baf756e15a794a745.html">Function MathOpt::convexHull</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1a0a13d06524e3ad2baf756e15a794a745.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1a25341bffceab79eaf2221135611b0a8c.html">Function MathOpt::convexHull</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1a25341bffceab79eaf2221135611b0a8c.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1aabf121bcb871000488825dd64750500c.html">Function MathOpt::getDualMembershipLP</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1aabf121bcb871000488825dd64750500c.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1ac356ee2fd095dc2e4c51a69263178d76.html">Function MathOpt::getDualMembershipLP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1ac356ee2fd095dc2e4c51a69263178d76.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1aa4eaa00160eb2098969ef087c92eea5d.html">Function MathOpt::LPSolve</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1aa4eaa00160eb2098969ef087c92eea5d.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1ab1496a1c39bd21b7d2aa8a0a464a85a8.html">Function MathOpt::getPrimalMembershipLP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1ab1496a1c39bd21b7d2aa8a0a464a85a8.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1aedd7c328cf667c15244fec225b90a65d.html">Function MathOpt::operator&lt;&lt;(std::ostream&amp;, const IP_Param&amp;)</a><ul>
@@ -483,8 +508,8 @@
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a6bf8d5d3a77dddc264c34df3c1412eb0.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1aa732ff410b4c32a84be09a6ed7f55ae7.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const FollPar)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1aa732ff410b4c32a84be09a6ed7f55ae7.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a66a72ba604632ae0b01ad06e767a9d83.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const FollPar&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a66a72ba604632ae0b01ad06e767a9d83.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1ad8eaa0861bd3da4627c98c72ab0ed286.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const DemPar)</a><ul>
@@ -495,16 +520,16 @@
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a3ae165ae70cb8c87e3c2ff2e3412481a.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a4e4c4e18bf05a12b53b88e7eaa41a5ab.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const LeadAllPar)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a4e4c4e18bf05a12b53b88e7eaa41a5ab.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a2cd02a12eb89f78b5c1a733611bb74ad.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const LeadAllPar&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a2cd02a12eb89f78b5c1a733611bb74ad.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a636ebefa1cdfa3e167761452792129f8.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const LeaderVars)</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a636ebefa1cdfa3e167761452792129f8.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a2c4c41c1a12f3393f92719601bceb38a.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, EPECInstance)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a2c4c41c1a12f3393f92719601bceb38a.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1af6366fee7f0b20548c067b30ba2fb2c5.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const EPECInstance&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1af6366fee7f0b20548c067b30ba2fb2c5.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a04179db61b0d9fed3a91f88ef4f5f2b3.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, Models::EPEC::prn)</a><ul>
@@ -543,8 +568,8 @@
 <li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a8f4b1bc2990943059230a4e78b7ac175.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_poly__lcp_8cpp_1a71a85978f94cee44e3edd97887a3126c.html">Function operator&gt;</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a71a85978f94cee44e3edd97887a3126c.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_poly__lcp_8cpp_1a02cb57e913aa095d5b880ec2a118ab6a.html">Function operator&gt;</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a02cb57e913aa095d5b880ec2a118ab6a.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_epec__models_8h_1a0cb07b2258983336a21ed1a2cdaffd9e.html">Function to_string(const GRBVar&amp;)</a><ul>
@@ -563,52 +588,72 @@
 <li class="toctree-l5"><a class="reference internal" href="function_epec__models_8cpp_1a0cb07b2258983336a21ed1a2cdaffd9e.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a5564b70694570623dc79e723715dfdfe.html">Function Utils::appendRead(arma::vec&amp;, const std::string, long int, const std::string)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a5564b70694570623dc79e723715dfdfe.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ab3e2647fc3c9c0786122243d72ca08e5.html">Function Utils::addSparseConstraints</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ab3e2647fc3c9c0786122243d72ca08e5.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a539f748060b159cd9c3fd87ecf12ffd5.html">Function Utils::appendRead(arma::sp_mat&amp;, const std::string, long int, const std::string)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a539f748060b159cd9c3fd87ecf12ffd5.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a900938c85d2f36c9983df618fa331913.html">Function Utils::appendRead(arma::vec&amp;, const std::string&amp;, long int, const std::string&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a900938c85d2f36c9983df618fa331913.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a2746ebf4cfda2d1efaaf9c0ec40cefb6.html">Function Utils::appendRead(arma::sp_mat&amp;, const std::string&amp;, long int, const std::string&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a2746ebf4cfda2d1efaaf9c0ec40cefb6.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a45ec12e86322677e2a93e37aa798e1e4.html">Function Utils::appendRead(std::vector&lt;double&gt;&amp;, const std::string, long int, const std::string)</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a45ec12e86322677e2a93e37aa798e1e4.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a4bb2fe103587ca0fc76ae3dfa90f6550.html">Function Utils::appendRead(std::string&amp;, const std::string, long int)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a4bb2fe103587ca0fc76ae3dfa90f6550.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a27f7c63b5646bb4ad097ae1dbb172005.html">Function Utils::appendRead(std::string&amp;, const std::string&amp;, long int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a27f7c63b5646bb4ad097ae1dbb172005.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ab7b9cda903f076c6a33d6bfed99687ea.html">Function Utils::appendRead(long int&amp;, const std::string, long int, const std::string)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ab7b9cda903f076c6a33d6bfed99687ea.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a8070dc9bcb0236d374bb9d7fea5c283c.html">Function Utils::appendRead(long int&amp;, const std::string&amp;, long int, const std::string&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a8070dc9bcb0236d374bb9d7fea5c283c.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a048882f6fb236cfd507d3b091c7aa831.html">Function Utils::appendRead(unsigned int&amp;, const std::string, long int, const std::string)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a048882f6fb236cfd507d3b091c7aa831.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a59b01cf3c8d70cd18877b3b174ae669c.html">Function Utils::appendRead(unsigned int&amp;, const std::string&amp;, long int, const std::string&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a59b01cf3c8d70cd18877b3b174ae669c.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a61870426848613ebcd38331a4e05e716.html">Function Utils::appendSave(const arma::vec&amp;, const std::string, const std::string, bool)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a61870426848613ebcd38331a4e05e716.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ad88219f03f632a67bb2fdcff609176b4.html">Function Utils::appendSave(const arma::vec&amp;, const std::string&amp;, const std::string&amp;, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ad88219f03f632a67bb2fdcff609176b4.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a5f5f645750d3b82e63e5f96723c62ee1.html">Function Utils::appendSave(const arma::sp_mat&amp;, const std::string, const std::string, bool)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a5f5f645750d3b82e63e5f96723c62ee1.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ae6731fccbae4c8d75e5d668e684db2e8.html">Function Utils::appendSave(const arma::sp_mat&amp;, const std::string&amp;, const std::string&amp;, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ae6731fccbae4c8d75e5d668e684db2e8.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ae2dddf8c7060984fd5cd56bf3fbb5b68.html">Function Utils::appendSave(const std::vector&lt;double&gt;, const std::string, const std::string, bool)</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ae2dddf8c7060984fd5cd56bf3fbb5b68.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a5199a480ca51ac0ab387e025df9b2e00.html">Function Utils::appendSave(const std::string, const std::string, bool)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a5199a480ca51ac0ab387e025df9b2e00.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a04041a67936c0d3d0fbbd776b87cd73a.html">Function Utils::appendSave(const std::string&amp;, const std::string&amp;, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a04041a67936c0d3d0fbbd776b87cd73a.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1aa7023f92db9e7ef180450d9ed74ade7d.html">Function Utils::appendSave(const long int, const std::string, const std::string, bool)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1aa7023f92db9e7ef180450d9ed74ade7d.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a4ad4805808857af53bd5c48cc8d0a653.html">Function Utils::appendSave(const long int, const std::string&amp;, const std::string&amp;, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a4ad4805808857af53bd5c48cc8d0a653.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1aaf5fef95399ba94379ed1ee4e20cd354.html">Function Utils::appendSave(const unsigned int, const std::string, const std::string, bool)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1aaf5fef95399ba94379ed1ee4e20cd354.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1aee8385c0f78efa4bdae43f837c255670.html">Function Utils::appendSave(const unsigned int, const std::string&amp;, const std::string&amp;, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1aee8385c0f78efa4bdae43f837c255670.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a9747fe982d7704f2ebf38b570435e1db.html">Function Utils::armaToCoinPackedVector</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a9747fe982d7704f2ebf38b570435e1db.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1af6dfca8f1e9281091a679f045688b257.html">Function Utils::armaToCoinSparse</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1af6dfca8f1e9281091a679f045688b257.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1af2040ca2075587adc96e9216334a3ebe.html">Function Utils::clearMatrix</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1af2040ca2075587adc96e9216334a3ebe.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a2e056ebbec945748c331338bdbd3c2b0.html">Function Utils::clearVector</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a2e056ebbec945748c331338bdbd3c2b0.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a03c80abd5bb5411608a27a29bf29cfe2.html">Function Utils::containsConstraint(const arma::sp_mat&amp;, const arma::vec&amp;, const arma::vec&amp;, const double&amp;, const double)</a><ul>
@@ -631,24 +676,40 @@
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ad263e83ad30145d2003fbdf370c75d6a.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a11aefd04593b7eba9a60fe5a003eccb3.html">Function Utils::isZero(arma::mat, double)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a11aefd04593b7eba9a60fe5a003eccb3.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a3c508b2e54c6804d6223cd6315bb451b.html">Function Utils::isEqual</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a3c508b2e54c6804d6223cd6315bb451b.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1aa580da91e3cbe8df451f84747c1e2872.html">Function Utils::isZero(arma::sp_mat, double)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1aa580da91e3cbe8df451f84747c1e2872.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a2ecff1dd315a2069f5676c15b04654fb.html">Function Utils::isEqualAbs</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a2ecff1dd315a2069f5676c15b04654fb.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1afd63a1b9c36080d26ef9ad6585562f6d.html">Template Function Utils::isZeroValue</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1afd63a1b9c36080d26ef9ad6585562f6d.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1abb589709362089e01172ad724dfc5ed4.html">Function Utils::isEqualRel</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1abb589709362089e01172ad724dfc5ed4.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a2d23d6f3d90d92396197fac7a6743531.html">Function Utils::isZero(const arma::mat&amp;, double)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a2d23d6f3d90d92396197fac7a6743531.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a631127fa9fae48e41d6e83edfedfc371.html">Function Utils::isZero(const arma::sp_mat&amp;, double)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a631127fa9fae48e41d6e83edfedfc371.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a95b5a09eeb4a9c7f28dcfd5b55ac3ded.html">Function Utils::nonzeroDecimals</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a95b5a09eeb4a9c7f28dcfd5b55ac3ded.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a713160421bd61df4d4a6c05527f5232e.html">Function Utils::normalizeIneq</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a713160421bd61df4d4a6c05527f5232e.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a2040536589bfbb31bba6b9ef4e028acf.html">Function Utils::normalizeVec</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a2040536589bfbb31bba6b9ef4e028acf.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1adbe567182dd4d6f2c0aed1362e539fc9.html">Function Utils::printBounds</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1adbe567182dd4d6f2c0aed1362e539fc9.html#function-documentation">Function Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a0c79f31066b7e7af7b1d18316f3efc5c.html">Function Utils::resizePatch(const arma::sp_mat&amp;, const unsigned int, const unsigned int)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a0c79f31066b7e7af7b1d18316f3efc5c.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a3f2695b26a8131bc0fe45fcae0c7023d.html">Function Utils::resizePatch(const arma::mat&amp;, const unsigned int, const unsigned int)</a><ul>
@@ -659,8 +720,28 @@
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a8748d4160459a637b32e309336969c81.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a0c79f31066b7e7af7b1d18316f3efc5c.html">Function Utils::resizePatch(const arma::sp_mat&amp;, const unsigned int, const unsigned int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a0c79f31066b7e7af7b1d18316f3efc5c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a408a19a1615ba7f6d8091bd1e39d2170.html">Function Utils::round_nplaces</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a408a19a1615ba7f6d8091bd1e39d2170.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a0183fff354c82444f2bb66cbccd4478c.html">Function Utils::sortByKey</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a0183fff354c82444f2bb66cbccd4478c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a70db498d70f20edb8ebde9e2d9e417b7.html">Function Utils::vecToBin</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a70db498d70f20edb8ebde9e2d9e417b7.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_codes_8h_1ad928fe496e61376db30942010d562f85.html">Function ZEROAssert(bool, const char *, const char *, const int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_codes_8h_1ad928fe496e61376db30942010d562f85.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_codes_8cpp_1a615e9850da488ec04631fc9bc552d322.html">Function ZEROAssert(bool, const char *, const char *, const int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_codes_8cpp_1a615e9850da488ec04631fc9bc552d322.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -670,12 +751,12 @@
 <li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1aaff3b0535ece33c18614a653b99ebe44.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceMathOpt_1a7077c09ae1bba23b9181ac92bf0c6dea.html">Typedef MathOpt::QP_constraints</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceMathOpt_1a7077c09ae1bba23b9181ac92bf0c6dea.html#typedef-documentation">Typedef Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceMathOpt_1a47529d426463f867ed4de633f2d8cf23.html">Typedef MathOpt::QP_constraints</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceMathOpt_1a47529d426463f867ed4de633f2d8cf23.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceMathOpt_1aa0a70822f74c1fc679e018023c08905e.html">Typedef MathOpt::QP_objective</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceMathOpt_1aa0a70822f74c1fc679e018023c08905e.html#typedef-documentation">Typedef Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceMathOpt_1a598d7680682d643b1df433d214cdf2e2.html">Typedef MathOpt::QP_objective</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceMathOpt_1a598d7680682d643b1df433d214cdf2e2.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1a62149827d4c351dd603cbcc7625f7772.html">Typedef Models::EPEC::DemPar</a><ul>
@@ -698,24 +779,24 @@
 <li class="toctree-l5"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1ab279a6d9a0241b15c0bd1a7312f8dd3e.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a23f2df644233cc2499005f53997039b4.html">Typedef perps</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a23f2df644233cc2499005f53997039b4.html#typedef-documentation">Typedef Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1ad87785d9eb3e6e48c0895b348f6660ca.html">Typedef perps</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1ad87785d9eb3e6e48c0895b348f6660ca.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a13e22b2209a1025ac5c30d6361619219.html">Typedef spmat_Vec</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a13e22b2209a1025ac5c30d6361619219.html#typedef-documentation">Typedef Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a47898f11e7a4b7433acbc77588a0dc03.html">Typedef spmat_Vec</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a47898f11e7a4b7433acbc77588a0dc03.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a1b3f20417790c203b818f9df92ed5bbc.html">Typedef triple</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a1b3f20417790c203b818f9df92ed5bbc.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a58d910cf6fdc1337ace92535234dc1d4.html">Typedef VariableBounds</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a58d910cf6fdc1337ace92535234dc1d4.html#typedef-documentation">Typedef Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a713ae4734a7b474d29ccf6c8a43789e3.html">Typedef VariableBounds</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a713ae4734a7b474d29ccf6c8a43789e3.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a61c9afcb946e96d4e4e6156d9c1bee8c.html">Typedef vec_Vec</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a61c9afcb946e96d4e4e6156d9c1bee8c.html#typedef-documentation">Typedef Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a8d8c882d060c4d307810fdf04a6314c6.html">Typedef vec_Vec</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a8d8c882d060c4d307810fdf04a6314c6.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -726,571 +807,531 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: rgb(68, 44, 123)" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">ZERO</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Program Listing for File PathSolver.cpp</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-            
             <a href="../_sources/api/program_listing_file_src_solvers_PathSolver.cpp.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="program-listing-for-file-pathsolver-cpp">
-<span id="program-listing-file-src-solvers-pathsolver-cpp"></span><h1>Program Listing for File PathSolver.cpp<a class="headerlink" href="#program-listing-for-file-pathsolver-cpp" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="program-listing-for-file-pathsolver-cpp">
+<span id="program-listing-file-src-solvers-pathsolver-cpp"></span><h1>Program Listing for File PathSolver.cpp<a class="headerlink" href="#program-listing-for-file-pathsolver-cpp" title="Permalink to this headline"></a></h1>
 <p>↰ <a class="reference internal" href="file_src_solvers_PathSolver.cpp.html#file-src-solvers-pathsolver-cpp"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">src/solvers/PathSolver.cpp</span></code>)</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>#include &lt;boost/log/trivial.hpp&gt;
-extern &quot;C&quot; {
-#include &quot;path/License.h&quot;
-#include &quot;path/MCP_Interface.h&quot;
-#include &quot;path/Macros.h&quot;
-#include &quot;path/Options.h&quot;
-#include &quot;path/Output.h&quot;
-#include &quot;path/Output_Interface.h&quot;
-#include &quot;path/Path.h&quot;
-#include &quot;path/PathOptions.h&quot;
-#include &quot;path/Types.h&quot;
-}
-#include &quot;solvers/PathSolver.h&quot;
-#include &quot;support/codes.h&quot;
-
-void Solvers::PATH::sort(int rows, int cols, int elements, int *row, int *col, double *data) {
-  double *m_data;
-  int *   m_start;
-  int *   m_len;
-  int *   m_row;
-
-  int i = 0, cs = 0, ce = 0;
-
-  m_start = new int[cols + 1];
-  m_len   = new int[cols + 1];
-  m_row   = new int[elements + 1];
-  m_data  = new double[elements + 1];
-
-  for (i = 0; i &lt; cols; i++) {
-     m_len[i] = 0;
-  }
-
-  for (i = 0; i &lt; elements; i++) {
-     if ((col[i] &lt; 1) || (col[i] &gt; cols)) {
-        throw(&quot;column incorrect.\n&quot;);
-     }
-
-     if ((row[i] &lt; 1) || (row[i] &gt; rows)) {
-        throw(&quot;column incorrect.\n&quot;);
-     }
-
-     m_len[col[i] - 1]++;
-  }
-
-  m_start[0] = 0;
-  for (i = 1; i &lt; cols; i++) {
-     m_start[i]   = m_start[i - 1] + m_len[i - 1];
-     m_len[i - 1] = 0;
-  }
-  m_len[i - 1] = 0;
-
-  for (i = 0; i &lt; elements; i++) {
-     cs         = col[i] - 1;
-     ce         = m_start[cs] + m_len[cs];
-     m_row[ce]  = row[i];
-     m_data[ce] = data[i];
-     m_len[cs]++;
-  }
-
-  elements = 0;
-  for (i = 0; i &lt; cols; i++) {
-     cs = m_start[i];
-     ce = cs + m_len[i];
-
-     while (cs &lt; ce) {
-        row[elements]  = m_row[cs];
-        col[elements]  = i + 1;
-        data[elements] = m_data[cs];
-        elements++;
-        cs++;
-     }
-  }
-
-  return;
-}
-
-int Solvers::PATH::CreateLMCP(int    n,
-                                        int    m_nnz,
-                                        int    m_i[],
-                                        int    m_j[],
-                                        double m_ij[],
-                                        double q[],
-                                        double lb[],
-                                        double ub[],
-                                        double x[],
-                                        double z[],
-                                        int    verbose,
-                                        double timeLimit) {
-  MCP_Termination termination;
-  Information     information;
-
-  Output_SetLog(stdout);
-
-
-  auto o = Options_Create();
-  Path_AddOptions(o);
-  Options_Default(o);
-
-
-  double *xSol, *zSol;
-  double  dnnz;
-  int     i;
-
-  Output_Printf(
-        Output_Log | Output_Status | Output_Listing, &quot;%s: PathWrapper LCP Link\n&quot;, Path_Version());
-
-
-  if (timeLimit &gt; 0)
-     Options_SetDouble(o, &quot;time_limit&quot;, timeLimit);
-
-  Options_SetDouble(o, &quot;major_iteration_limit&quot;, 1000);
-  Options_SetDouble(o, &quot;minor_iteration_limit&quot;, 1500);
-  Options_SetDouble(o, &quot;cumulative_iteration_limit&quot;, 20000);
-
-  if (n == 0) {
-     fprintf(stdout, &quot;\n ** EXIT - No variables.\n&quot;);
-     Options_Destroy(o);
-     this-&gt;status = ZEROStatus::Solved;
-     return MCP_Solved;
-  }
-
-  dnnz = MIN(1.0 * m_nnz, 1.0 * n * n);
-
-  fprintf(stdout,
-             &quot;%d row/cols, %f non-zeros, %3.2f%% dense.\n\n&quot;,
-             n,
-             dnnz,
-             100.0 * dnnz / (1.0 * n * n));
-
-  this-&gt;Problem.n       = n;
-  this-&gt;Problem.nnz     = m_nnz;
-  this-&gt;Problem.x       = x;
-  this-&gt;Problem.q       = q;
-  this-&gt;Problem.lb      = lb;
-  this-&gt;Problem.ub      = ub;
-  this-&gt;Problem.m_start = new int[n];
-  this-&gt;Problem.m_len   = new int[n];
-  this-&gt;Problem.m_row   = new int[m_nnz + 1];
-  this-&gt;Problem.m_data  = new double[m_nnz + 1];
-
-  sort(n, n, m_nnz, m_i, m_j, m_ij);
-
-  int m_index = 0, m_count = 0;
-  for (i = 0; i &lt; n; i++) {
-     this-&gt;Problem.m_start[i] = m_count + 1;
-     this-&gt;Problem.m_len[i]   = 0;
-
-     while ((m_index &lt; m_nnz) &amp;&amp; (m_j[m_index] &lt;= i + 1)) {
-        if (m_ij[m_index] != 0) {
-          this-&gt;Problem.m_len[i]++;
-          this-&gt;Problem.m_row[m_count]  = m_i[m_index];
-          this-&gt;Problem.m_data[m_count] = m_ij[m_index];
-          m_count++;
-        }
-        m_index++;
-     }
-  }
-  this-&gt;Problem.nnz = m_count;
-
-
-
-  License_SetString(
-        &quot;2617827524&amp;Courtesy&amp;&amp;&amp;USR&amp;64785&amp;11_12_2017&amp;1000&amp;PATH&amp;GEN&amp;31_12_2020&amp;0_0_0&amp;5000&amp;0_0&quot;);
-  auto m = MCP_Create(this-&gt;Problem.n, this-&gt;Problem.nnz + 1);
-  MCP_SetInterface(m, &amp;this-&gt;PATH_Interface);
-  MCP_SetPresolveInterface(m, &amp;this-&gt;PATH_Presolve);
-  Output_SetInterface(&amp;this-&gt;PATH_Output);
-  MCP_Jacobian_Structure_Constant(m, static_cast&lt;Boolean&gt;(true));
-
-
-
-  Information info;
-  info.generate_output = Output_Log | Output_Status | Output_Listing;
-  info.use_start       = True;
-  info.use_basics      = True;
-
-  try {
-     termination = Path_Solve(m, &amp;info);
-  } catch (...) {
-     throw ZEROException(ZEROErrorCode::SolverError, &quot;PATHWrapper threw an exception&quot;);
-  }
-
-
-  switch (termination) {
-  case MCP_Solved: {
-     this-&gt;status = ZEROStatus::Solved;
-     xSol         = MCP_GetX(m);
-     zSol         = MCP_GetF(m);
-     fprintf(stdout, &quot;%d is  %f \n&quot;, n, xSol[i]);
-     for (i = 0; i &lt; n; i++) {
-        x[i] = xSol[i];
-
-        z[i] = zSol[i];
-     }
-  } break;
-  case MCP_TimeLimit:
-     this-&gt;status = ZEROStatus::TimeLimit;
-     break;
-  case MCP_Infeasible:
-     this-&gt;status = ZEROStatus::NotSolved;
-  default:
-     this-&gt;status = ZEROStatus::NotSolved;
-  }
-
-
-
-  MCP_Destroy(m);
-  Options_Destroy(o);
-  Path_Destroy();
-
-  return termination;
-}
-
-Solvers::PATH::PATH(const arma::sp_mat &amp;  M,
-                          const arma::vec &amp;     q,
-                          const perps &amp;         Compl,
-                          const VariableBounds &amp;Bounds,
-                          arma::vec &amp;           x,
-                          arma::vec             z,
-                          double                timeLimit) {
-  int n   = 0;
-  int nnz = 0;
-
-
-  this-&gt;Filled = false;
-  std::vector&lt;double&gt; _q, _Mij, _lb, _ub, _xsol, _zsol;
-  std::vector&lt;int&gt;    _Mi, _Mj, _xmap, _zmap;
-  unsigned int        row = 1; // Fortran style, we start from 1
-
-
-
-  for (const auto p : Compl) {
-     // For each complementarity
-     // z[p.first] \perp x[p.second]
-
-
-     {
-        /*if (M.row(p.first).n_nonzero &gt;0) {
-          LOG_S(WARNING) &lt;&lt; &quot;Solvers::PathLCP: Empty row associated with z_&quot;
-                                              &lt;&lt; std::to_string(p.first);
-        }
-
-        else {
-            */
-        int lb = Bounds.at(p.second).first;
-        int ub = Bounds.at(p.second).second;
-
-        // if (lb != ub)
-        {
-          ++n;
-          // Avoid inserting fixed variables
-
-          _lb.push_back(lb &gt; 0 ? lb : 0);
-          _ub.push_back(ub &gt;= 0 ? ub : 1e20); // PATH will treat 1e20 as infinite
-
-
-          // std::cout &lt;&lt; &quot;Row&quot; &lt;&lt; std::to_string(row);
-          for (auto v = M.begin_row(p.first); v != M.end_row(p.first); ++v) {
-             if (*v != 0) {
-                _Mi.push_back(row);
-                _Mj.push_back(v.col() + 1);
-                _Mij.push_back(*v);
-                // std::cout &lt;&lt; &quot;\t&quot; + std::to_string(*v) + &quot;*x_&quot; + std::to_string(v.col());
-                ++nnz;
-             }
-          }
-          _q.push_back(q.at(p.first));
-          // std::cout &lt;&lt; &quot;\t+&quot; + std::to_string(q.at(p.first)) + &quot;\t\tPERP&quot; &lt;&lt;
-          // std::to_string(p.second)
-          //            &lt;&lt; &quot;\n\n&quot;;
-          _xmap.push_back(p.second);
-          _zmap.push_back(p.first);
-
-          _xsol.push_back(0);
-          _zsol.push_back(0);
-
-          ++row;
-        } // end bounds
-     }   // end empty row
-  }     // end while
-
-
-  int stat = 0;
-  _Mi.push_back(0);
-  _Mj.push_back(0);
-  _Mij.push_back(0);
-  _q.push_back(0);
-  _lb.push_back(0);
-  _ub.push_back(0);
-
-  try {
-     stat = this-&gt;CreateLMCP(n,
-                                     nnz,
-                                     &amp;_Mi[0],
-                                     &amp;_Mj[0],
-                                     &amp;_Mij[0],
-                                     &amp;_q[0],
-                                     &amp;_lb[0],
-                                     &amp;_ub[0],
-                                     &amp;_xsol[0],
-                                     &amp;_zsol[0],
-                                     true,
-                                     timeLimit);
-  } catch (...) {
-     throw ZEROException(ZEROErrorCode::SolverError, &quot;PATH threw an exception&quot;);
-  }
-
-
-  if (stat == 1) {
-     LOG_S(1) &lt;&lt; &quot;Solvers::PathLCP: Found a solution&quot;;
-     x.zeros(M.n_cols);
-     z.zeros(M.n_rows);
-     for (unsigned int i = 0; i &lt; _xsol.size(); ++i) {
-        x.at(_xmap.at(i)) = _xsol.at(i);
-        z.at(_zmap.at(i)) = _zsol.at(i);
-     }
-     // z.print(&quot;z&quot;);
-     // x.print(&quot;x&quot;);
-     this-&gt;status = ZEROStatus::NashEqFound;
-  } else {
-     LOG_S(1) &lt;&lt; &quot;Solvers::PathLCP: No solution found (STATUS=&quot; &lt;&lt; std::to_string(status) &lt;&lt; &quot;)&quot;;
-     this-&gt;status = ZEROStatus::NashEqNotFound;
-  }
-}
-
-
-void Solvers::PATH::C_bounds(int n, double *x, double *lb, double *ub) {
-  int i;
-
-  for (i = 0; i &lt; n; i++) {
-     x[i]  = this-&gt;Problem.x[i];
-     lb[i] = this-&gt;Problem.lb[i];
-     ub[i] = this-&gt;Problem.ub[i];
-     // std::cout &lt;&lt;&quot;\nx_&quot;&lt;&lt;std::to_string(i)&lt;&lt;&quot; in [&quot;&lt;&lt;std::to_string(lb[i])&lt;&lt;&quot;,
-     // &quot;&lt;&lt;std::to_string(ub[i])&lt;&lt;&quot;]&quot;;
-  }
-  // std::cout &lt;&lt; &quot;\n done\n&quot;;
-}
-
-
-int Solvers::PATH::C_function_evaluation(int n, double *x, double *f) {
-  int    col, colStart, colEnd, row;
-  double value;
-
-  for (col = 0; col &lt; n; col++) {
-     f[col] = Problem.q[col];
-  }
-
-  for (col = 0; col &lt; n; col++) {
-     value = x[col];
-
-     if (value != 0) {
-        colStart = Problem.m_start[col] - 1;
-        colEnd   = colStart + Problem.m_len[col];
-
-        while (colStart &lt; colEnd) {
-          row = Problem.m_row[colStart] - 1;
-          f[row] += Problem.m_data[colStart] * value;
-          colStart++;
-        }
-     }
-  }
-
-  return 0;
-}
-
-int Solvers::PATH::C_jacobian_evaluation(int     n,
-                                                      double *x,
-                                                      int     wantf,
-                                                      double *f,
-                                                      int *   nnz,
-                                                      int *   col_start,
-                                                      int *   col_len,
-                                                      int *   row,
-                                                      double *data) {
-  int element;
-
-  if (wantf) {
-     this-&gt;C_function_evaluation(n, x, f);
-  }
-
-  if (!Filled) {
-     for (element = 0; element &lt; Problem.n; element++) {
-        col_start[element] = Problem.m_start[element];
-        col_len[element]   = Problem.m_len[element];
-     }
-
-     for (element = 0; element &lt; Problem.nnz; element++) {
-        row[element]  = Problem.m_row[element];
-        data[element] = Problem.m_data[element];
-     }
-
-     Filled = true;
-  }
-
-  *nnz = Problem.nnz;
-  return 0;
-}
-
-void *Solvers::PATH::mcp_typ(void *dat, int nnz, int *typ) {
-  int i;
-
-  for (i = 0; i &lt; nnz; i++) {
-     typ[i] = PRESOLVE_LINEAR;
-  }
-  return dat;
-}
-
-void Solvers::PATH::C_problem_size(int *n, int *nnz) {
-  *n   = this-&gt;Problem.n;
-  *nnz = this-&gt;Problem.nnz + 1;
-}
-void Solvers::PATH::bounds(void *dat, int n, double *x, double *lb, double *ub) {
-  auto *self = static_cast&lt;Solvers::PATH *&gt;(dat);
-  self-&gt;C_bounds(n, x, lb, ub);
-  return;
-}
-void Solvers::PATH::problem_size(void *dat, int *n, int *nnz) {
-  auto *self = static_cast&lt;Solvers::PATH *&gt;(dat);
-  self-&gt;C_problem_size(n, nnz);
-}
-
-void Solvers::PATH::start(void *dat) {
-  auto *self   = static_cast&lt;Solvers::PATH *&gt;(dat);
-  self-&gt;Filled = 0;
-}
-
-int Solvers::PATH::function_evaluation(void *dat, int n, double *x, double *f) {
-  auto *self = static_cast&lt;Solvers::PATH *&gt;(dat);
-  return self-&gt;C_function_evaluation(n, x, f);
-}
-
-int Solvers::PATH::jacobian_evaluation(void *  dat,
-                                                    int     n,
-                                                    double *x,
-                                                    int     wantf,
-                                                    double *f,
-                                                    int *   nnz,
-                                                    int *   col_start,
-                                                    int *   col_len,
-                                                    int *   row,
-                                                    double *data) {
-  auto *self = static_cast&lt;Solvers::PATH *&gt;(dat);
-  return self-&gt;C_jacobian_evaluation(n, x, wantf, f, nnz, col_start, col_len, row, data);
-}
-
-void *Solvers::PATH::messageCB(void *dat, int mode, char *buf) {
-  std::cout &lt;&lt; buf;
-  return dat;
-}
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;path/License.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;path/MCP_Interface.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;path/Macros.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;path/Options.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;path/Output.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;path/Output_Interface.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;path/Path.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;path/PathOptions.h&quot;</span><span class="cp"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;solvers/PathSolver.h&quot;</span><span class="cp"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">Solvers</span><span class="o">::</span><span class="n">PATH</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">rows</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">elements</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">row</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">col</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">m_data</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="w">   </span><span class="n">m_start</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="w">   </span><span class="n">m_len</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="w">   </span><span class="n">m_row</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">cs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">ce</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">m_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">[</span><span class="n">cols</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="n">m_len</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">[</span><span class="n">cols</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="n">m_row</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">[</span><span class="n">elements</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="n">m_data</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">double</span><span class="p">[</span><span class="n">elements</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">cols</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="n">m_len</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">elements</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">col</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">(</span><span class="n">col</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">cols</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">throw</span><span class="p">(</span><span class="s">&quot;column incorrect.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">row</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">rows</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">throw</span><span class="p">(</span><span class="s">&quot;column incorrect.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">     </span><span class="n">m_len</span><span class="p">[</span><span class="n">col</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">m_start</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">cols</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="n">m_start</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">m_start</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">m_len</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+<span class="w">     </span><span class="n">m_len</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="n">m_len</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">elements</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="n">cs</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="n">col</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="n">ce</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="n">m_start</span><span class="p">[</span><span class="n">cs</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">m_len</span><span class="p">[</span><span class="n">cs</span><span class="p">];</span><span class="w"></span>
+<span class="w">     </span><span class="n">m_row</span><span class="p">[</span><span class="n">ce</span><span class="p">]</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">row</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">     </span><span class="n">m_data</span><span class="p">[</span><span class="n">ce</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">     </span><span class="n">m_len</span><span class="p">[</span><span class="n">cs</span><span class="p">]</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">elements</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">cols</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="n">cs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m_start</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">     </span><span class="n">ce</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cs</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">m_len</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+
+<span class="w">     </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">cs</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ce</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">row</span><span class="p">[</span><span class="n">elements</span><span class="p">]</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">m_row</span><span class="p">[</span><span class="n">cs</span><span class="p">];</span><span class="w"></span>
+<span class="w">        </span><span class="n">col</span><span class="p">[</span><span class="n">elements</span><span class="p">]</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">data</span><span class="p">[</span><span class="n">elements</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m_data</span><span class="p">[</span><span class="n">cs</span><span class="p">];</span><span class="w"></span>
+<span class="w">        </span><span class="n">elements</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">cs</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">Solvers</span><span class="o">::</span><span class="n">PATH</span><span class="o">::</span><span class="n">CreateLMCP</span><span class="p">(</span><span class="kt">int</span><span class="w">    </span><span class="n">n</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                        </span><span class="kt">int</span><span class="w">    </span><span class="n">m_nnz</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                        </span><span class="kt">int</span><span class="w">    </span><span class="n">m_i</span><span class="p">[],</span><span class="w"></span>
+<span class="w">                                        </span><span class="kt">int</span><span class="w">    </span><span class="n">m_j</span><span class="p">[],</span><span class="w"></span>
+<span class="w">                                        </span><span class="kt">double</span><span class="w"> </span><span class="n">m_ij</span><span class="p">[],</span><span class="w"></span>
+<span class="w">                                        </span><span class="kt">double</span><span class="w"> </span><span class="n">q</span><span class="p">[],</span><span class="w"></span>
+<span class="w">                                        </span><span class="kt">double</span><span class="w"> </span><span class="n">lb</span><span class="p">[],</span><span class="w"></span>
+<span class="w">                                        </span><span class="kt">double</span><span class="w"> </span><span class="n">ub</span><span class="p">[],</span><span class="w"></span>
+<span class="w">                                        </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">[],</span><span class="w"></span>
+<span class="w">                                        </span><span class="kt">double</span><span class="w"> </span><span class="n">z</span><span class="p">[],</span><span class="w"></span>
+<span class="w">                                        </span><span class="kt">int</span><span class="w">    </span><span class="n">verbose</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                        </span><span class="kt">double</span><span class="w"> </span><span class="n">timeLimit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">MCP_Termination</span><span class="w"> </span><span class="n">termination</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">Information</span><span class="w">     </span><span class="n">information</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">Output_SetLog</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span><span class="w"></span>
+
+
+
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Options_Create</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="n">Path_AddOptions</span><span class="p">(</span><span class="n">o</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Options_Default</span><span class="p">(</span><span class="n">o</span><span class="p">);</span><span class="w"></span>
+
+
+
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">xSol</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">zSol</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">double</span><span class="w">  </span><span class="n">dnnz</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w">     </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">verbose</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="n">Options_SetBoolean</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;output&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">False</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">Options_SetBoolean</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;output_errors&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">False</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">Options_SetBoolean</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;output_crash_iterations&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">False</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">Options_SetBoolean</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;output_major_iterations&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">False</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">Options_SetBoolean</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;output_minor_iterations&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">False</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">Options_SetBoolean</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;output_options&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">False</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">Options_SetBoolean</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;output_warnings&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">False</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">timeLimit</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="w">     </span><span class="n">Options_SetDouble</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;time_limit&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">timeLimit</span><span class="p">);</span><span class="w"></span>
+
+
+<span class="w">  </span><span class="n">Options_SetInt</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;cumulative_iteration_limit&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">4e6</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Options_SetInt</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;major_iteration_limit&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">1e6</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Options_SetInt</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;minor_iteration_limit&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">1e5</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Options_SetInt</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;crash_iteration_limit&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">5e2</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Options_SetInt</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;nms_memory_size&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">1e2</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Options_SetInt</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;lemke_rank_deficiency_iterations&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">1e2</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// Very important!</span>
+<span class="w">  </span><span class="n">Options_Set</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;lemke_start_type advanced&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Options_SetBoolean</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;crash_perturb&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">True</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Options_SetDouble</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;proximal_perturbation&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Options_SetInt</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;crash_nbchange_limit&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">50</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Options_SetDouble</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;convergence_tolerance&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">1e-6</span><span class="p">);</span><span class="w"></span>
+
+
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="n">Options_Destroy</span><span class="p">(</span><span class="n">o</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">Numerical</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">MCP_Solved</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">dnnz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MIN</span><span class="p">(</span><span class="mf">1.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">m_nnz</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">verbose</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stdout</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="s">&quot;%d row/cols, %f non-zeros, %3.2f%% dense.</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="n">n</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="n">dnnz</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="mf">100.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dnnz</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mf">1.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">n</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">nnz</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">m_nnz</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">x</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">q</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">lb</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="n">lb</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">ub</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="n">ub</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">m_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">[</span><span class="n">n</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">m_len</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">[</span><span class="n">n</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">m_row</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">[</span><span class="n">m_nnz</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">m_data</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">double</span><span class="p">[</span><span class="n">m_nnz</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">sort</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">m_nnz</span><span class="p">,</span><span class="w"> </span><span class="n">m_i</span><span class="p">,</span><span class="w"> </span><span class="n">m_j</span><span class="p">,</span><span class="w"> </span><span class="n">m_ij</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">m_index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">m_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">m_start</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m_count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">m_len</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">     </span><span class="k">while</span><span class="w"> </span><span class="p">((</span><span class="n">m_index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">m_nnz</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">m_j</span><span class="p">[</span><span class="n">m_index</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">m_ij</span><span class="p">[</span><span class="n">m_index</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">m_len</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
+<span class="w">          </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">m_row</span><span class="p">[</span><span class="n">m_count</span><span class="p">]</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">m_i</span><span class="p">[</span><span class="n">m_index</span><span class="p">];</span><span class="w"></span>
+<span class="w">          </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">m_data</span><span class="p">[</span><span class="n">m_count</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m_ij</span><span class="p">[</span><span class="n">m_index</span><span class="p">];</span><span class="w"></span>
+<span class="w">          </span><span class="n">m_count</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">m_index</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">nnz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m_count</span><span class="p">;</span><span class="w"></span>
+
+
+
+<span class="w">  </span><span class="n">License_SetString</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="s">&quot;2830898829&amp;Courtesy&amp;&amp;&amp;USR&amp;45321&amp;5_1_2021&amp;1000&amp;PATH&amp;GEN&amp;31_12_2025&amp;0_0_0&amp;6000&amp;0_0&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MCP_Create</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">nnz</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">MCP_SetInterface</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">PATH_Interface</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">MCP_SetPresolveInterface</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">PATH_Presolve</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">verbose</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="w">     </span><span class="n">Output_SetInterface</span><span class="p">(</span><span class="o">&amp;</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">PATH_Output</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">MCP_Jacobian_Structure_Constant</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span><span class="p">(</span><span class="nb">true</span><span class="p">));</span><span class="w"></span>
+
+
+
+<span class="w">  </span><span class="n">Information</span><span class="w"> </span><span class="n">info</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">verbose</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="w">     </span><span class="n">info</span><span class="p">.</span><span class="n">generate_output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Output_Log</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Output_Status</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Output_Listing</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">info</span><span class="p">.</span><span class="n">use_start</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">False</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">info</span><span class="p">.</span><span class="n">use_basics</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">False</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="n">termination</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Path_Solve</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">info</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(...)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="k">throw</span><span class="w"> </span><span class="n">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">SolverError</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PATHWrapper threw an exception&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+
+<span class="w">  </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">termination</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nl">MCP_Solved</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">Solved</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="n">xSol</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="n">MCP_GetX</span><span class="p">(</span><span class="n">m</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">zSol</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="n">MCP_GetF</span><span class="p">(</span><span class="n">m</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xSol</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">z</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zSol</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nl">MCP_TimeLimit</span><span class="p">:</span><span class="w"></span>
+<span class="w">     </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">TimeLimit</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nl">MCP_Infeasible</span><span class="p">:</span><span class="w"></span>
+<span class="w">     </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">NotSolved</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
+<span class="w">     </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">Numerical</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+
+
+<span class="w">  </span><span class="n">MCP_Destroy</span><span class="p">(</span><span class="n">m</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Options_Destroy</span><span class="p">(</span><span class="n">o</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Path_Destroy</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">termination</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="n">Solvers</span><span class="o">::</span><span class="n">PATH</span><span class="o">::</span><span class="n">PATH</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="w"> </span><span class="o">&amp;</span><span class="w">  </span><span class="n">M</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="o">&amp;</span><span class="w">     </span><span class="n">q</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">perps</span><span class="w"> </span><span class="o">&amp;</span><span class="w">         </span><span class="n">Compl</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">VariableBounds</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Bounds</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="o">&amp;</span><span class="w">           </span><span class="n">z</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="o">&amp;</span><span class="w">           </span><span class="n">x</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="kt">double</span><span class="w">                </span><span class="n">timeLimit</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="kt">bool</span><span class="w">                  </span><span class="n">verbose</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// Note that for path z and x are inverted (z are variables, x equations definitions).</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">nnz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// M.save(&quot;LCP_M.dat&quot;, arma::csv_ascii);</span>
+<span class="w">  </span><span class="c1">// q.save(&quot;LCP_q.dat&quot;,arma::csv_ascii);</span>
+
+<span class="w">  </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Filled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_q</span><span class="p">,</span><span class="w"> </span><span class="n">_Mij</span><span class="p">,</span><span class="w"> </span><span class="n">_lb</span><span class="p">,</span><span class="w"> </span><span class="n">_ub</span><span class="p">,</span><span class="w"> </span><span class="n">_xsol</span><span class="p">,</span><span class="w"> </span><span class="n">_zsol</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w">    </span><span class="n">_Mi</span><span class="p">,</span><span class="w"> </span><span class="n">_Mj</span><span class="p">,</span><span class="w"> </span><span class="n">_xmap</span><span class="p">,</span><span class="w"> </span><span class="n">_zmap</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w">        </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c1">// Fortran style, we start from 1</span>
+
+
+
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="nl">p</span> <span class="p">:</span><span class="w"> </span><span class="n">Compl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="c1">// For each complementarity</span>
+<span class="w">     </span><span class="c1">// z[p.first] \perp x[p.second]</span>
+
+
+<span class="w">     </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/*if (M.row(p.first).n_nonzero &gt;0) {</span>
+<span class="cm">          LOG_S(WARNING) &lt;&lt; &quot;Solvers::PathLCP: Empty row associated with z_&quot;</span>
+<span class="cm">                                              &lt;&lt; std::to_string(p.first);</span>
+<span class="cm">        }</span>
+
+<span class="cm">        else {</span>
+<span class="cm">            */</span><span class="w"></span>
+<span class="w">        </span><span class="c1">//@todo bounds are unused</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">lb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">ub</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">        </span><span class="c1">// if (lb != ub)</span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="o">++</span><span class="n">n</span><span class="p">;</span><span class="w"></span>
+<span class="w">          </span><span class="c1">// Avoid inserting fixed variables</span>
+
+<span class="w">          </span><span class="n">_lb</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">lb</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nl">lb</span> <span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">          </span><span class="n">_ub</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">ub</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nl">ub</span> <span class="p">:</span><span class="w"> </span><span class="mf">1e20</span><span class="p">);</span><span class="w"> </span><span class="c1">// PATH will treat 1e20 as infinite</span>
+
+<span class="w">          </span><span class="n">_q</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">));</span><span class="w"></span>
+<span class="w">          </span><span class="n">_xmap</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">second</span><span class="p">);</span><span class="w"></span>
+<span class="w">          </span><span class="n">_zmap</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">          </span><span class="n">_xsol</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">          </span><span class="n">_zsol</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">          </span><span class="o">++</span><span class="n">row</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="c1">// end bounds</span>
+<span class="w">     </span><span class="p">}</span><span class="w">   </span><span class="c1">// end empty row</span>
+<span class="w">  </span><span class="p">}</span><span class="w">     </span><span class="c1">// end while</span>
+
+
+<span class="w">  </span><span class="c1">// Sparse iterator for M</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="o">::</span><span class="n">const_iterator</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">M</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">M</span><span class="p">.</span><span class="n">end</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">it</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="n">_Mi</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">row</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">_Mj</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">col</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">_Mij</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="o">*</span><span class="n">it</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="o">++</span><span class="n">nnz</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="cm">/*</span>
+<span class="cm">  _Mi.push_back(0);</span>
+<span class="cm">  _Mj.push_back(0);</span>
+<span class="cm">  _Mij.push_back(0);</span>
+<span class="cm">  _q.push_back(0);</span>
+<span class="cm">  _lb.push_back(0);</span>
+<span class="cm">  _ub.push_back(0);</span>
+<span class="cm">    */</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="n">stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">CreateLMCP</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                     </span><span class="n">nnz</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                     </span><span class="o">&amp;</span><span class="n">_Mi</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"></span>
+<span class="w">                                     </span><span class="o">&amp;</span><span class="n">_Mj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"></span>
+<span class="w">                                     </span><span class="o">&amp;</span><span class="n">_Mij</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"></span>
+<span class="w">                                     </span><span class="o">&amp;</span><span class="n">_q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"></span>
+<span class="w">                                     </span><span class="o">&amp;</span><span class="n">_lb</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"></span>
+<span class="w">                                     </span><span class="o">&amp;</span><span class="n">_ub</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"></span>
+<span class="w">                                     </span><span class="o">&amp;</span><span class="n">_xsol</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"></span>
+<span class="w">                                     </span><span class="o">&amp;</span><span class="n">_zsol</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"></span>
+<span class="w">                                     </span><span class="n">verbose</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                     </span><span class="n">timeLimit</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(...)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="k">throw</span><span class="w"> </span><span class="n">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">SolverError</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PATH threw an exception&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">stat</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="n">LOG_S</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Solvers::PathLCP: Found a solution&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="n">z</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">M</span><span class="p">.</span><span class="n">n_cols</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">x</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">M</span><span class="p">.</span><span class="n">n_rows</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">_xsol</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">z</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">_xmap</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_xsol</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">x</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">_zmap</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_zsol</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<span class="w">     </span><span class="c1">// z.print(&quot;z&quot;);</span>
+<span class="w">     </span><span class="c1">// x.print(&quot;x&quot;);</span>
+<span class="w">     </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">NashEqFound</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="n">LOG_S</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Solvers::PathLCP: No solution found (STATUS=&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">status</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;)&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+
+<span class="kt">void</span><span class="w"> </span><span class="n">Solvers</span><span class="o">::</span><span class="n">PATH</span><span class="o">::</span><span class="n">C_bounds</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">lb</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">ub</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">     </span><span class="n">lb</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">lb</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">     </span><span class="n">ub</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">ub</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">     </span><span class="c1">// std::cout &lt;&lt;&quot;\nx_&quot;&lt;&lt;std::to_string(i)&lt;&lt;&quot; in [&quot;&lt;&lt;std::to_string(lb[i])&lt;&lt;&quot;,</span>
+<span class="w">     </span><span class="c1">// &quot;&lt;&lt;std::to_string(ub[i])&lt;&lt;&quot;]&quot;;</span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// std::cout &lt;&lt; &quot;\n done\n&quot;;</span>
+<span class="p">}</span><span class="w"></span>
+
+
+<span class="kt">int</span><span class="w"> </span><span class="n">Solvers</span><span class="o">::</span><span class="n">PATH</span><span class="o">::</span><span class="n">C_function_evaluation</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w">    </span><span class="n">col</span><span class="p">,</span><span class="w"> </span><span class="n">colStart</span><span class="p">,</span><span class="w"> </span><span class="n">colEnd</span><span class="p">,</span><span class="w"> </span><span class="n">row</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">col</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="n">f</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Problem</span><span class="p">.</span><span class="n">q</span><span class="p">[</span><span class="n">col</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">col</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="n">col</span><span class="p">];</span><span class="w"></span>
+
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">colStart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Problem</span><span class="p">.</span><span class="n">m_start</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">colEnd</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">colStart</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Problem</span><span class="p">.</span><span class="n">m_len</span><span class="p">[</span><span class="n">col</span><span class="p">];</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">colStart</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">colEnd</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Problem</span><span class="p">.</span><span class="n">m_row</span><span class="p">[</span><span class="n">colStart</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">          </span><span class="n">f</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">Problem</span><span class="p">.</span><span class="n">m_data</span><span class="p">[</span><span class="n">colStart</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"></span>
+<span class="w">          </span><span class="n">colStart</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">Solvers</span><span class="o">::</span><span class="n">PATH</span><span class="o">::</span><span class="n">C_jacobian_evaluation</span><span class="p">(</span><span class="kt">int</span><span class="w">     </span><span class="n">n</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                      </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                      </span><span class="kt">int</span><span class="w">     </span><span class="n">wantf</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                      </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">f</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                      </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="w">   </span><span class="n">nnz</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                      </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="w">   </span><span class="n">col_start</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                      </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="w">   </span><span class="n">col_len</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                      </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="w">   </span><span class="n">row</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                      </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">element</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">wantf</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">C_function_evaluation</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">Filled</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">element</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">Problem</span><span class="p">.</span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">element</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">col_start</span><span class="p">[</span><span class="n">element</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Problem</span><span class="p">.</span><span class="n">m_start</span><span class="p">[</span><span class="n">element</span><span class="p">];</span><span class="w"></span>
+<span class="w">        </span><span class="n">col_len</span><span class="p">[</span><span class="n">element</span><span class="p">]</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">Problem</span><span class="p">.</span><span class="n">m_len</span><span class="p">[</span><span class="n">element</span><span class="p">];</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">     </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">element</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">Problem</span><span class="p">.</span><span class="n">nnz</span><span class="p">;</span><span class="w"> </span><span class="n">element</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">row</span><span class="p">[</span><span class="n">element</span><span class="p">]</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">Problem</span><span class="p">.</span><span class="n">m_row</span><span class="p">[</span><span class="n">element</span><span class="p">];</span><span class="w"></span>
+<span class="w">        </span><span class="n">data</span><span class="p">[</span><span class="n">element</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Problem</span><span class="p">.</span><span class="n">m_data</span><span class="p">[</span><span class="n">element</span><span class="p">];</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">     </span><span class="n">Filled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="o">*</span><span class="n">nnz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Problem</span><span class="p">.</span><span class="n">nnz</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">Solvers</span><span class="o">::</span><span class="n">PATH</span><span class="o">::</span><span class="n">mcp_typ</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">nnz</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">typ</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">nnz</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="n">typ</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PRESOLVE_LINEAR</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">dat</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">Solvers</span><span class="o">::</span><span class="n">PATH</span><span class="o">::</span><span class="n">C_problem_size</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">nnz</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="o">*</span><span class="n">n</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">n</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="o">*</span><span class="n">nnz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Problem</span><span class="p">.</span><span class="n">nnz</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="n">Solvers</span><span class="o">::</span><span class="n">PATH</span><span class="o">::</span><span class="n">bounds</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">lb</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">ub</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="o">*</span><span class="n">self</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Solvers</span><span class="o">::</span><span class="n">PATH</span><span class="w"> </span><span class="o">*&gt;</span><span class="p">(</span><span class="n">dat</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">self</span><span class="o">-&gt;</span><span class="n">C_bounds</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">lb</span><span class="p">,</span><span class="w"> </span><span class="n">ub</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="n">Solvers</span><span class="o">::</span><span class="n">PATH</span><span class="o">::</span><span class="n">problem_size</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">nnz</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="o">*</span><span class="n">self</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Solvers</span><span class="o">::</span><span class="n">PATH</span><span class="w"> </span><span class="o">*&gt;</span><span class="p">(</span><span class="n">dat</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">self</span><span class="o">-&gt;</span><span class="n">C_problem_size</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">nnz</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">Solvers</span><span class="o">::</span><span class="n">PATH</span><span class="o">::</span><span class="n">start</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">dat</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="o">*</span><span class="n">self</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Solvers</span><span class="o">::</span><span class="n">PATH</span><span class="w"> </span><span class="o">*&gt;</span><span class="p">(</span><span class="n">dat</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">self</span><span class="o">-&gt;</span><span class="n">Filled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">Solvers</span><span class="o">::</span><span class="n">PATH</span><span class="o">::</span><span class="n">function_evaluation</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="o">*</span><span class="n">self</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Solvers</span><span class="o">::</span><span class="n">PATH</span><span class="w"> </span><span class="o">*&gt;</span><span class="p">(</span><span class="n">dat</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">self</span><span class="o">-&gt;</span><span class="n">C_function_evaluation</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">Solvers</span><span class="o">::</span><span class="n">PATH</span><span class="o">::</span><span class="n">jacobian_evaluation</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w">  </span><span class="n">dat</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                    </span><span class="kt">int</span><span class="w">     </span><span class="n">n</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                    </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                    </span><span class="kt">int</span><span class="w">     </span><span class="n">wantf</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                    </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">f</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                    </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="w">   </span><span class="n">nnz</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                    </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="w">   </span><span class="n">col_start</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                    </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="w">   </span><span class="n">col_len</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                    </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="w">   </span><span class="n">row</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                    </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="o">*</span><span class="n">self</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Solvers</span><span class="o">::</span><span class="n">PATH</span><span class="w"> </span><span class="o">*&gt;</span><span class="p">(</span><span class="n">dat</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">self</span><span class="o">-&gt;</span><span class="n">C_jacobian_evaluation</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">wantf</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="n">nnz</span><span class="p">,</span><span class="w"> </span><span class="n">col_start</span><span class="p">,</span><span class="w"> </span><span class="n">col_len</span><span class="p">,</span><span class="w"> </span><span class="n">row</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">Solvers</span><span class="o">::</span><span class="n">PATH</span><span class="o">::</span><span class="n">messageCB</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">mode</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// std::cout &lt;&lt; buf;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">dat</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
+</section>
 
 
            </div>
-           
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        
-        &copy; Copyright Gabriele Dragotto, Sriram Sankaranarayanan
-
-    </p>
+    <p>&#169; Copyright Gabriele Dragotto, Sriram Sankaranarayanan.</p>
   </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

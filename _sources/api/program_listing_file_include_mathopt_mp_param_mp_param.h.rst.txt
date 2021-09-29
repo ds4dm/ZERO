@@ -8,7 +8,7 @@ Program Listing for File mp_param.h
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
-.. code-block:: none
+.. code-block:: cpp
 
    /* #############################################
     *             This file is part of
@@ -16,7 +16,7 @@ Program Listing for File mp_param.h
     *
     *             Copyright (c) 2020
     *     Released under the Creative Commons
-    *        Zero v1.0 Universal License
+    *         CC BY-NC-SA 4.0 License
     *
     *              Find out more at
     *        https://github.com/ds4dm/ZERO
@@ -39,19 +39,22 @@ Program Listing for File mp_param.h
      private:
         double Eps{1e-6}; 
      protected:
-        arma::sp_mat   Q, A, B, C;       
-        arma::vec      c, b;             
-        GRBEnv *       Env;              
-        VariableBounds Bounds;           
-        bool           BoundsSwitch = 0; 
+        arma::sp_mat   Q; 
+       arma::sp_mat   A; 
+       arma::sp_mat   B; 
+       arma::sp_mat   C; 
+        arma::sp_mat   B_bounds;   
+        arma::vec      b_bounds;   
+        arma::vec      c; 
+        arma::vec  b;       
+        GRBEnv *       Env;        
+        VariableBounds Bounds;     
         // Object for sizes and integrity check
-        unsigned int Nx;    
-        unsigned int Ny;    
-        unsigned int Ncons; 
+        unsigned int numParams; 
+        unsigned int numVars;   
+        unsigned int numConstr; 
    
-        const unsigned int size();
-   
-        template <class T> inline bool isZero(const T val) const { return (val >= -Eps && val <= Eps); }
+        unsigned int size();
    
         bool dataCheck(bool forceSymmetry = true) const;
         void detectBounds();
@@ -61,68 +64,68 @@ Program Listing for File mp_param.h
    
      public:
         // Default constructors
-        MP_Param(GRBEnv *env = nullptr)
-             : Env{env} {}; 
+        MP_Param(GRBEnv *env = nullptr) : Env{env} {};
         MP_Param(const MP_Param &M) = default; 
    
         // Getters and setters
-        arma::sp_mat getQ() const { return this->Q; }   
-        arma::sp_mat getC() const { return this->C; }   
-        arma::sp_mat getA() const { return this->A; }   
-        arma::sp_mat getB() const { return this->B; }   
-        arma::vec    getc() const { return this->c; }   
-        arma::vec    getb() const { return this->b; }   
-        unsigned int getNx() const { return this->Nx; } 
-        unsigned int getNy() const { return this->Ny; } 
-        VariableBounds getBounds() const {
-           return this->Bounds;
+        arma::sp_mat getQ() const { return this->Q; } 
+        arma::sp_mat getC() const { return this->C; } 
+        arma::sp_mat getA(bool bounds = true) const;  
+        arma::sp_mat getB(bool bounds = true) const;  
+        arma::vec    getc() const { return this->c; } 
+        arma::vec    getb(bool bounds = true) const;  
+        unsigned int getNumParams() const {
+           return this->numParams;
+        } 
+        unsigned int getNumVars() const {
+           return this->numVars;
+        } 
+        VariableBounds getBounds() const { return this->Bounds; } 
+   
+        MP_Param &setQ(const arma::sp_mat &Q_in) {
+           this->Q = Q_in;
+           return *this;
+        } 
+        MP_Param &setC(const arma::sp_mat &C_in) {
+           this->C = C_in;
+           return *this;
+        } 
+        MP_Param &setA(const arma::sp_mat &A_in) {
+           this->A = A_in;
+           return *this;
+        } 
+        MP_Param &setB(const arma::sp_mat &B_in) {
+           this->B = B_in;
+           return *this;
+        } 
+        MP_Param &setc(const arma::vec &c_in) {
+           this->c = c_in;
+           return *this;
+        } 
+        MP_Param &setb(const arma::vec &b_in) {
+           this->b = b_in;
+           return *this;
         } 
    
-        MP_Param &setQ(const arma::sp_mat &Q) {
-           this->Q = Q;
-           return *this;
-        } 
-        MP_Param &setC(const arma::sp_mat &C) {
-           this->C = C;
-           return *this;
-        } 
-        MP_Param &setA(const arma::sp_mat &A) {
-           this->A = A;
-           return *this;
-        } 
-        MP_Param &setB(const arma::sp_mat &B) {
-           this->B = B;
-           return *this;
-        } 
-        MP_Param &setc(const arma::vec &c) {
-           this->c = c;
-           return *this;
-        } 
-        MP_Param &setb(const arma::vec &b) {
-           this->b = b;
-           return *this;
-        } 
-   
-        MP_Param &setBounds(const VariableBounds &boundIn) {
-           this->Bounds = boundIn;
+        MP_Param &setBounds(const VariableBounds &bounds_in) {
+           this->Bounds = bounds_in;
            // Update the bound processing and update sizes.
-           this->finalize();
+           this->rewriteBounds();
            return *this;
         } 
-   
         // Setters and advanced constructors
-        virtual MP_Param &set(const arma::sp_mat &Q,
-                                     const arma::sp_mat &C,
-                                     const arma::sp_mat &A,
-                                     const arma::sp_mat &B,
-                                     const arma::vec &   c,
-                                     const arma::vec &   b); // Copy data into this
-        virtual MP_Param &set(arma::sp_mat &&Q,
-                                     arma::sp_mat &&C,
-                                     arma::sp_mat &&A,
-                                     arma::sp_mat &&B,
-                                     arma::vec &&   c,
-                                     arma::vec &&   b); // Move data into this
+        virtual MP_Param &set(const arma::sp_mat &Q_in,
+                                     const arma::sp_mat &C_in,
+                                     const arma::sp_mat &A_in,
+                                     const arma::sp_mat &B_in,
+                                     const arma::vec &   c_in,
+                                     const arma::vec &   b_in); // Copy data into this
+        virtual MP_Param &set(arma::sp_mat &&Q_in,
+                                     arma::sp_mat &&C_in,
+                                     arma::sp_mat &&A_in,
+                                     arma::sp_mat &&B_in,
+                                     arma::vec &&   c_in,
+                                     arma::vec &&   b_in); // Move data into this
         virtual MP_Param &set(const QP_Objective &obj, const QP_Constraints &cons);
    
         virtual MP_Param &set(QP_Objective &&obj, QP_Constraints &&cons);
@@ -132,9 +135,7 @@ Program Listing for File mp_param.h
         virtual void                      save(const std::string &filename, bool append) const;
         virtual long int                  load(const std::string &filename, long int pos = 0);
         virtual unsigned int              KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const = 0;
-        virtual std::unique_ptr<GRBModel> solveFixed(const arma::vec x, bool solve = false) {
-           return std::unique_ptr<GRBModel>(new GRBModel(this->Env));
-        };
+        virtual std::unique_ptr<GRBModel> solveFixed(const arma::vec x, bool solve = false) = 0;
         virtual double computeObjective(const arma::vec &y,
                                                    const arma::vec &x,
                                                    bool             checkFeas = true,

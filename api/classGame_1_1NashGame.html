@@ -1,79 +1,43 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Class NashGame &mdash; ZERO 1.0.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../res/zero.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/zero.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
         <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
         <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Class IP_Param" href="classMathOpt_1_1IP__Param.html" />
+    <link rel="next" title="Class LCP_PATHStart" href="classLCP__PATHStart.html" />
     <link rel="prev" title="Class IPG" href="classGame_1_1IPG.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search"  style="background: #23084f" >
-          
-
-          
+        <div class="wy-side-nav-search"  style="background: rgb(68, 44, 123)" >
             <a href="../index.html">
-          
-
-          
-            
             <img src="../_static/zerowhite.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                1.0.1
+                1.1.0
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -81,55 +45,104 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Quick Start</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quick Start</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/rbg.html">What is an RBG?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#mathopt">MathOpt</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/overview.html#mp-program-s">MP_Program(s)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/overview.html#lcps">LCPs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#games">Games</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/overview.html#epecs">EPECs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/overview.html#ipg">IPG</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#algorithms">Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#models">Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#utils">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#solvers">Solvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#shells">Shells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#other-stuff">Other stuff</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#dependencies">Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#downloading-and-compiling">Downloading and Compiling</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Tutorials</span></p>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/tutorials/QP_Param.html">Parametrized QPs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/QP_Param.html#computing-solutions">Computing solutions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#utilities">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/tutorials/IP_Param.html">Parametrized IPs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/IP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/IP_Param.html#computing-solutions">Computing solutions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/tutorials/NashLCP.html">Simultaneous Games</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/NashLCP.html#a-theory-primer">A theory primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/NashLCP.html#computing-solutions">Computing solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/NashLCP.html#checking-solutions">Checking solutions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/tutorials/LCP.html">LCPs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/LCP.html#computing-solutions">Computing solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/LCP.html#utilities">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/tutorials/NASP.html">NASPs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/NASP.html#a-quick-example">A quick example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/NASP.html#modeling-the-problem">Modeling the problem</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/tutorials/NASP.html#creating-an-inheritor-class">Creating an inheritor class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/tutorials/NASP.html#the-followers-problems">The followers’ problems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/tutorials/NASP.html#re-implementing-methods">Re-implementing methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/tutorials/NASP.html#computing-solutions">Computing solutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/tutorials/NASP.html#fetching-solutions">Fetching solutions</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Extended References</span></p>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/tutorials/IPG.html">IPG</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/IPG.html#a-quick-example">A quick example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/IPG.html#modeling-and-solving-the-problem">Modeling and solving the problem</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/reference/MathOpt.html">MathOpt</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/reference/MathOpt.html#mp-param">MP_Param</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/reference/MathOpt.html#qp-param">QP_Param</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/reference/MathOpt.html#ip-param">IP_Param</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/reference/MathOpt.html#lcp">LCP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/reference/MathOpt.html#polylcp">PolyLCP</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/reference/Game.html">Game</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/reference/Game.html#epec">EPEC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/reference/Game.html#ipg">IPG</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/reference/Algorithms.html">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/reference/Models.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/reference/Utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/reference/Codes.html">Other stuff</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extended Reference</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="library_root.html">Library API</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
@@ -258,6 +271,11 @@
 <li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CombinatorialPNE.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CutAndPlay.html">Class CutAndPlay</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CutAndPlay.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CutAndPlay.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1FullEnumeration.html">Class FullEnumeration</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1FullEnumeration.html#inheritance-relationships">Inheritance Relationships</a></li>
 <li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1FullEnumeration.html#class-documentation">Class Documentation</a></li>
@@ -266,11 +284,6 @@
 <li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1InnerApproximation.html">Class InnerApproximation</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1InnerApproximation.html#inheritance-relationships">Inheritance Relationships</a></li>
 <li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1InnerApproximation.html#class-documentation">Class Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterApproximation.html">Class OuterApproximation</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterApproximation.html#inheritance-relationships">Inheritance Relationships</a></li>
-<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterApproximation.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html">Class OuterTree</a><ul>
@@ -288,9 +301,9 @@
 <li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Algorithm.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Oracle.html">Class Oracle</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Oracle.html#inheritance-relationships">Inheritance Relationships</a></li>
-<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Oracle.html#class-documentation">Class Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1CutAndPlay.html">Class CutAndPlay</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1CutAndPlay.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1CutAndPlay.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="classAttr.html">Template Class Attr</a><ul>
@@ -323,6 +336,11 @@
 </li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">Class NashGame</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classLCP__PATHStart.html">Class LCP_PATHStart</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classLCP__PATHStart.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classLCP__PATHStart.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1IP__Param.html">Class IP_Param</a><ul>
@@ -382,6 +400,10 @@
 <li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1a3f4c2ba1ad7ce924bed99ddf193fd318.html#enum-documentation">Enum Documentation</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1ac2eb0e7edc79e45ab5e689bd7ac20721.html">Enum BranchingStrategy</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1ac2eb0e7edc79e45ab5e689bd7ac20721.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1a347af28b83353df8afdbd4ee171565b3.html">Enum RecoverStrategy</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1a347af28b83353df8afdbd4ee171565b3.html#enum-documentation">Enum Documentation</a></li>
 </ul>
@@ -390,8 +412,12 @@
 <li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a34d343f554ac089c3cb14de04aa6d294.html#enum-documentation">Enum Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a1a0a91a80ea38eefb37b54452fbd70a4.html">Enum LCPAlgorithms</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a1a0a91a80ea38eefb37b54452fbd70a4.html#enum-documentation">Enum Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a2990b118bd0d209b5ca094a208770189.html">Enum CutsAggressiveness</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a2990b118bd0d209b5ca094a208770189.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a03601c4502ada3c2f633e870771b2723.html">Enum Objectives</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a03601c4502ada3c2f633e870771b2723.html#enum-documentation">Enum Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82.html">Enum Algorithms</a><ul>
@@ -425,12 +451,12 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="library_root.html#functions">Functions</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="function_utils_8cpp_1ad85f66e4cbb90a0976aa1e9e49571c93.html">Function appendRead</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_utils_8cpp_1ad85f66e4cbb90a0976aa1e9e49571c93.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_utils_8cpp_1a9f34a72882b09d73c9c88015bd0ea434.html">Function appendRead</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_utils_8cpp_1a9f34a72882b09d73c9c88015bd0ea434.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_utils_8cpp_1a8a3281f033159773e6047a595cfa129a.html">Function appendSave</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_utils_8cpp_1a8a3281f033159773e6047a595cfa129a.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_utils_8cpp_1ad34ef522429047beeecf29fa7c42e2ec.html">Function appendSave</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_utils_8cpp_1ad34ef522429047beeecf29fa7c42e2ec.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_shells_2epec_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627.html">Function main(int, char **)</a><ul>
@@ -445,16 +471,16 @@
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1af3d7bfcf9b11cefb7f4521d685211934.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1a0a13d06524e3ad2baf756e15a794a745.html">Function MathOpt::convexHull</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1a0a13d06524e3ad2baf756e15a794a745.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1a25341bffceab79eaf2221135611b0a8c.html">Function MathOpt::convexHull</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1a25341bffceab79eaf2221135611b0a8c.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1aabf121bcb871000488825dd64750500c.html">Function MathOpt::getDualMembershipLP</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1aabf121bcb871000488825dd64750500c.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1ac356ee2fd095dc2e4c51a69263178d76.html">Function MathOpt::getDualMembershipLP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1ac356ee2fd095dc2e4c51a69263178d76.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1aa4eaa00160eb2098969ef087c92eea5d.html">Function MathOpt::LPSolve</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1aa4eaa00160eb2098969ef087c92eea5d.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1ab1496a1c39bd21b7d2aa8a0a464a85a8.html">Function MathOpt::getPrimalMembershipLP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1ab1496a1c39bd21b7d2aa8a0a464a85a8.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1aedd7c328cf667c15244fec225b90a65d.html">Function MathOpt::operator&lt;&lt;(std::ostream&amp;, const IP_Param&amp;)</a><ul>
@@ -485,8 +511,8 @@
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a6bf8d5d3a77dddc264c34df3c1412eb0.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1aa732ff410b4c32a84be09a6ed7f55ae7.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const FollPar)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1aa732ff410b4c32a84be09a6ed7f55ae7.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a66a72ba604632ae0b01ad06e767a9d83.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const FollPar&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a66a72ba604632ae0b01ad06e767a9d83.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1ad8eaa0861bd3da4627c98c72ab0ed286.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const DemPar)</a><ul>
@@ -497,16 +523,16 @@
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a3ae165ae70cb8c87e3c2ff2e3412481a.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a4e4c4e18bf05a12b53b88e7eaa41a5ab.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const LeadAllPar)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a4e4c4e18bf05a12b53b88e7eaa41a5ab.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a2cd02a12eb89f78b5c1a733611bb74ad.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const LeadAllPar&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a2cd02a12eb89f78b5c1a733611bb74ad.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a636ebefa1cdfa3e167761452792129f8.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const LeaderVars)</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a636ebefa1cdfa3e167761452792129f8.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a2c4c41c1a12f3393f92719601bceb38a.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, EPECInstance)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a2c4c41c1a12f3393f92719601bceb38a.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1af6366fee7f0b20548c067b30ba2fb2c5.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const EPECInstance&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1af6366fee7f0b20548c067b30ba2fb2c5.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a04179db61b0d9fed3a91f88ef4f5f2b3.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, Models::EPEC::prn)</a><ul>
@@ -545,8 +571,8 @@
 <li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a8f4b1bc2990943059230a4e78b7ac175.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_poly__lcp_8cpp_1a71a85978f94cee44e3edd97887a3126c.html">Function operator&gt;</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a71a85978f94cee44e3edd97887a3126c.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_poly__lcp_8cpp_1a02cb57e913aa095d5b880ec2a118ab6a.html">Function operator&gt;</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a02cb57e913aa095d5b880ec2a118ab6a.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_epec__models_8h_1a0cb07b2258983336a21ed1a2cdaffd9e.html">Function to_string(const GRBVar&amp;)</a><ul>
@@ -565,52 +591,72 @@
 <li class="toctree-l5"><a class="reference internal" href="function_epec__models_8cpp_1a0cb07b2258983336a21ed1a2cdaffd9e.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a5564b70694570623dc79e723715dfdfe.html">Function Utils::appendRead(arma::vec&amp;, const std::string, long int, const std::string)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a5564b70694570623dc79e723715dfdfe.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ab3e2647fc3c9c0786122243d72ca08e5.html">Function Utils::addSparseConstraints</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ab3e2647fc3c9c0786122243d72ca08e5.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a539f748060b159cd9c3fd87ecf12ffd5.html">Function Utils::appendRead(arma::sp_mat&amp;, const std::string, long int, const std::string)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a539f748060b159cd9c3fd87ecf12ffd5.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a900938c85d2f36c9983df618fa331913.html">Function Utils::appendRead(arma::vec&amp;, const std::string&amp;, long int, const std::string&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a900938c85d2f36c9983df618fa331913.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a2746ebf4cfda2d1efaaf9c0ec40cefb6.html">Function Utils::appendRead(arma::sp_mat&amp;, const std::string&amp;, long int, const std::string&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a2746ebf4cfda2d1efaaf9c0ec40cefb6.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a45ec12e86322677e2a93e37aa798e1e4.html">Function Utils::appendRead(std::vector&lt;double&gt;&amp;, const std::string, long int, const std::string)</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a45ec12e86322677e2a93e37aa798e1e4.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a4bb2fe103587ca0fc76ae3dfa90f6550.html">Function Utils::appendRead(std::string&amp;, const std::string, long int)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a4bb2fe103587ca0fc76ae3dfa90f6550.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a27f7c63b5646bb4ad097ae1dbb172005.html">Function Utils::appendRead(std::string&amp;, const std::string&amp;, long int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a27f7c63b5646bb4ad097ae1dbb172005.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ab7b9cda903f076c6a33d6bfed99687ea.html">Function Utils::appendRead(long int&amp;, const std::string, long int, const std::string)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ab7b9cda903f076c6a33d6bfed99687ea.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a8070dc9bcb0236d374bb9d7fea5c283c.html">Function Utils::appendRead(long int&amp;, const std::string&amp;, long int, const std::string&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a8070dc9bcb0236d374bb9d7fea5c283c.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a048882f6fb236cfd507d3b091c7aa831.html">Function Utils::appendRead(unsigned int&amp;, const std::string, long int, const std::string)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a048882f6fb236cfd507d3b091c7aa831.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a59b01cf3c8d70cd18877b3b174ae669c.html">Function Utils::appendRead(unsigned int&amp;, const std::string&amp;, long int, const std::string&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a59b01cf3c8d70cd18877b3b174ae669c.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a61870426848613ebcd38331a4e05e716.html">Function Utils::appendSave(const arma::vec&amp;, const std::string, const std::string, bool)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a61870426848613ebcd38331a4e05e716.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ad88219f03f632a67bb2fdcff609176b4.html">Function Utils::appendSave(const arma::vec&amp;, const std::string&amp;, const std::string&amp;, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ad88219f03f632a67bb2fdcff609176b4.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a5f5f645750d3b82e63e5f96723c62ee1.html">Function Utils::appendSave(const arma::sp_mat&amp;, const std::string, const std::string, bool)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a5f5f645750d3b82e63e5f96723c62ee1.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ae6731fccbae4c8d75e5d668e684db2e8.html">Function Utils::appendSave(const arma::sp_mat&amp;, const std::string&amp;, const std::string&amp;, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ae6731fccbae4c8d75e5d668e684db2e8.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ae2dddf8c7060984fd5cd56bf3fbb5b68.html">Function Utils::appendSave(const std::vector&lt;double&gt;, const std::string, const std::string, bool)</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ae2dddf8c7060984fd5cd56bf3fbb5b68.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a5199a480ca51ac0ab387e025df9b2e00.html">Function Utils::appendSave(const std::string, const std::string, bool)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a5199a480ca51ac0ab387e025df9b2e00.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a04041a67936c0d3d0fbbd776b87cd73a.html">Function Utils::appendSave(const std::string&amp;, const std::string&amp;, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a04041a67936c0d3d0fbbd776b87cd73a.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1aa7023f92db9e7ef180450d9ed74ade7d.html">Function Utils::appendSave(const long int, const std::string, const std::string, bool)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1aa7023f92db9e7ef180450d9ed74ade7d.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a4ad4805808857af53bd5c48cc8d0a653.html">Function Utils::appendSave(const long int, const std::string&amp;, const std::string&amp;, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a4ad4805808857af53bd5c48cc8d0a653.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1aaf5fef95399ba94379ed1ee4e20cd354.html">Function Utils::appendSave(const unsigned int, const std::string, const std::string, bool)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1aaf5fef95399ba94379ed1ee4e20cd354.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1aee8385c0f78efa4bdae43f837c255670.html">Function Utils::appendSave(const unsigned int, const std::string&amp;, const std::string&amp;, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1aee8385c0f78efa4bdae43f837c255670.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a9747fe982d7704f2ebf38b570435e1db.html">Function Utils::armaToCoinPackedVector</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a9747fe982d7704f2ebf38b570435e1db.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1af6dfca8f1e9281091a679f045688b257.html">Function Utils::armaToCoinSparse</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1af6dfca8f1e9281091a679f045688b257.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1af2040ca2075587adc96e9216334a3ebe.html">Function Utils::clearMatrix</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1af2040ca2075587adc96e9216334a3ebe.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a2e056ebbec945748c331338bdbd3c2b0.html">Function Utils::clearVector</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a2e056ebbec945748c331338bdbd3c2b0.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a03c80abd5bb5411608a27a29bf29cfe2.html">Function Utils::containsConstraint(const arma::sp_mat&amp;, const arma::vec&amp;, const arma::vec&amp;, const double&amp;, const double)</a><ul>
@@ -633,24 +679,40 @@
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ad263e83ad30145d2003fbdf370c75d6a.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a11aefd04593b7eba9a60fe5a003eccb3.html">Function Utils::isZero(arma::mat, double)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a11aefd04593b7eba9a60fe5a003eccb3.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a3c508b2e54c6804d6223cd6315bb451b.html">Function Utils::isEqual</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a3c508b2e54c6804d6223cd6315bb451b.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1aa580da91e3cbe8df451f84747c1e2872.html">Function Utils::isZero(arma::sp_mat, double)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1aa580da91e3cbe8df451f84747c1e2872.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a2ecff1dd315a2069f5676c15b04654fb.html">Function Utils::isEqualAbs</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a2ecff1dd315a2069f5676c15b04654fb.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1afd63a1b9c36080d26ef9ad6585562f6d.html">Template Function Utils::isZeroValue</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1afd63a1b9c36080d26ef9ad6585562f6d.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1abb589709362089e01172ad724dfc5ed4.html">Function Utils::isEqualRel</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1abb589709362089e01172ad724dfc5ed4.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a2d23d6f3d90d92396197fac7a6743531.html">Function Utils::isZero(const arma::mat&amp;, double)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a2d23d6f3d90d92396197fac7a6743531.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a631127fa9fae48e41d6e83edfedfc371.html">Function Utils::isZero(const arma::sp_mat&amp;, double)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a631127fa9fae48e41d6e83edfedfc371.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a95b5a09eeb4a9c7f28dcfd5b55ac3ded.html">Function Utils::nonzeroDecimals</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a95b5a09eeb4a9c7f28dcfd5b55ac3ded.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a713160421bd61df4d4a6c05527f5232e.html">Function Utils::normalizeIneq</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a713160421bd61df4d4a6c05527f5232e.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a2040536589bfbb31bba6b9ef4e028acf.html">Function Utils::normalizeVec</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a2040536589bfbb31bba6b9ef4e028acf.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1adbe567182dd4d6f2c0aed1362e539fc9.html">Function Utils::printBounds</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1adbe567182dd4d6f2c0aed1362e539fc9.html#function-documentation">Function Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a0c79f31066b7e7af7b1d18316f3efc5c.html">Function Utils::resizePatch(const arma::sp_mat&amp;, const unsigned int, const unsigned int)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a0c79f31066b7e7af7b1d18316f3efc5c.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a3f2695b26a8131bc0fe45fcae0c7023d.html">Function Utils::resizePatch(const arma::mat&amp;, const unsigned int, const unsigned int)</a><ul>
@@ -661,8 +723,28 @@
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a8748d4160459a637b32e309336969c81.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a0c79f31066b7e7af7b1d18316f3efc5c.html">Function Utils::resizePatch(const arma::sp_mat&amp;, const unsigned int, const unsigned int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a0c79f31066b7e7af7b1d18316f3efc5c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a408a19a1615ba7f6d8091bd1e39d2170.html">Function Utils::round_nplaces</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a408a19a1615ba7f6d8091bd1e39d2170.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a0183fff354c82444f2bb66cbccd4478c.html">Function Utils::sortByKey</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a0183fff354c82444f2bb66cbccd4478c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a70db498d70f20edb8ebde9e2d9e417b7.html">Function Utils::vecToBin</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a70db498d70f20edb8ebde9e2d9e417b7.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_codes_8h_1ad928fe496e61376db30942010d562f85.html">Function ZEROAssert(bool, const char *, const char *, const int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_codes_8h_1ad928fe496e61376db30942010d562f85.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_codes_8cpp_1a615e9850da488ec04631fc9bc552d322.html">Function ZEROAssert(bool, const char *, const char *, const int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_codes_8cpp_1a615e9850da488ec04631fc9bc552d322.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -672,12 +754,12 @@
 <li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1aaff3b0535ece33c18614a653b99ebe44.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceMathOpt_1a7077c09ae1bba23b9181ac92bf0c6dea.html">Typedef MathOpt::QP_constraints</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceMathOpt_1a7077c09ae1bba23b9181ac92bf0c6dea.html#typedef-documentation">Typedef Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceMathOpt_1a47529d426463f867ed4de633f2d8cf23.html">Typedef MathOpt::QP_constraints</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceMathOpt_1a47529d426463f867ed4de633f2d8cf23.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceMathOpt_1aa0a70822f74c1fc679e018023c08905e.html">Typedef MathOpt::QP_objective</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceMathOpt_1aa0a70822f74c1fc679e018023c08905e.html#typedef-documentation">Typedef Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceMathOpt_1a598d7680682d643b1df433d214cdf2e2.html">Typedef MathOpt::QP_objective</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceMathOpt_1a598d7680682d643b1df433d214cdf2e2.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1a62149827d4c351dd603cbcc7625f7772.html">Typedef Models::EPEC::DemPar</a><ul>
@@ -700,24 +782,24 @@
 <li class="toctree-l5"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1ab279a6d9a0241b15c0bd1a7312f8dd3e.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a23f2df644233cc2499005f53997039b4.html">Typedef perps</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a23f2df644233cc2499005f53997039b4.html#typedef-documentation">Typedef Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1ad87785d9eb3e6e48c0895b348f6660ca.html">Typedef perps</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1ad87785d9eb3e6e48c0895b348f6660ca.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a13e22b2209a1025ac5c30d6361619219.html">Typedef spmat_Vec</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a13e22b2209a1025ac5c30d6361619219.html#typedef-documentation">Typedef Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a47898f11e7a4b7433acbc77588a0dc03.html">Typedef spmat_Vec</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a47898f11e7a4b7433acbc77588a0dc03.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a1b3f20417790c203b818f9df92ed5bbc.html">Typedef triple</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a1b3f20417790c203b818f9df92ed5bbc.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a58d910cf6fdc1337ace92535234dc1d4.html">Typedef VariableBounds</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a58d910cf6fdc1337ace92535234dc1d4.html#typedef-documentation">Typedef Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a713ae4734a7b474d29ccf6c8a43789e3.html">Typedef VariableBounds</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a713ae4734a7b474d29ccf6c8a43789e3.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a61c9afcb946e96d4e4e6156d9c1bee8c.html">Typedef vec_Vec</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a61c9afcb946e96d4e4e6156d9c1bee8c.html#typedef-documentation">Typedef Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a8d8c882d060c4d307810fdf04a6314c6.html">Typedef vec_Vec</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a8d8c882d060c4d307810fdf04a6314c6.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -728,428 +810,439 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: rgb(68, 44, 123)" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">ZERO</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="library_root.html">Library API</a> &raquo;</li>
-        
       <li>Class NashGame</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-            
             <a href="../_sources/api/classGame_1_1NashGame.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="class-nashgame">
-<span id="exhale-class-classgame-1-1nashgame"></span><h1>Class NashGame<a class="headerlink" href="#class-nashgame" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="class-nashgame">
+<span id="exhale-class-classgame-1-1nashgame"></span><h1>Class NashGame<a class="headerlink" href="#class-nashgame" title="Permalink to this headline"></a></h1>
 <ul class="simple">
 <li><p>Defined in <a class="reference internal" href="file_include_games_nash.h.html#file-include-games-nash-h"><span class="std std-ref">File nash.h</span></a></p></li>
 </ul>
-<div class="section" id="class-documentation">
-<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline"></a></h2>
 <dl class="cpp class">
-<dt id="_CPPv4N4Game8NashGameE">
-<span id="_CPPv3N4Game8NashGameE"></span><span id="_CPPv2N4Game8NashGameE"></span><span id="Game::NashGame"></span><span class="target" id="classGame_1_1NashGame"></span><em class="property">class </em><code class="sig-prename descclassname">Game<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">NashGame</code><a class="headerlink" href="#_CPPv4N4Game8NashGameE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGameE">
+<span id="_CPPv3N4Game8NashGameE"></span><span id="_CPPv2N4Game8NashGameE"></span><span id="Game::NashGame"></span><span class="target" id="classGame_1_1NashGame"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="../support_files/reference/Game.html#_CPPv44Game" title="Game"><span class="n"><span class="pre">Game</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">NashGame</span></span></span><a class="headerlink" href="#_CPPv4N4Game8NashGameE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Class to model Nash-cournot games with each player playing a QP. </p>
 <p>Stores a vector of QPs with each player’s optimization problem. Potentially common (leader) constraints can be stored too.</p>
-<p>Helpful in rewriting the Nash-Cournot game as an LCP Helpful in rewriting leader constraints after incorporating dual variables etc <dl class="simple">
-<dt><strong>Warning</strong></dt><dd><p>This has public fields which if accessed and changed can cause undefined behavior! </p>
-</dd>
-</dl>
+<p>Helpful in rewriting the Nash-Cournot game as an LCP Helpful in rewriting leader constraints after incorporating dual variables etc <div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This has public fields which if accessed and changed can cause undefined behavior! </p>
+</div>
 </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N4Game8NashGame8NashGameEP6GRBEnv">
-<span id="_CPPv3N4Game8NashGame8NashGameEP6GRBEnv"></span><span id="_CPPv2N4Game8NashGame8NashGameEP6GRBEnv"></span><span id="Game::NashGame::NashGame__GRBEnvP"></span><span class="target" id="classGame_1_1NashGame_1aacdedcbc71d5ed952f81afad5bca50be"></span><code class="sig-name descname">NashGame</code><span class="sig-paren">(</span>GRBEnv *<em>e</em><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4N4Game8NashGame8NashGameEP6GRBEnv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>To be used only when <a class="reference internal" href="#classGame_1_1NashGame"><span class="std std-ref">NashGame</span></a> is being loaded from a file. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGame8NashGameEP6GRBEnv">
+<span id="_CPPv3N4Game8NashGame8NashGameEP6GRBEnv"></span><span id="_CPPv2N4Game8NashGame8NashGameEP6GRBEnv"></span><span id="Game::NashGame::NashGame__GRBEnvP"></span><span class="target" id="classGame_1_1NashGame_1aacdedcbc71d5ed952f81afad5bca50be"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NashGame</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">GRBEnv</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">e</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N4Game8NashGame8NashGameEP6GRBEnv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>To be used only when <a class="reference internal" href="../support_files/reference/Game.html#classGame_1_1NashGame"><span class="std std-ref">NashGame</span></a> is being loaded from a file. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N4Game8NashGame8NashGameEP6GRBEnvNSt6vectorINSt10shared_ptrIN7MathOpt8MP_ParamEEEEEN4arma6sp_matEN4arma3vecEjN4arma6sp_matEN4arma3vecE">
-<span id="_CPPv3N4Game8NashGame8NashGameEP6GRBEnvNSt6vectorINSt10shared_ptrIN7MathOpt8MP_ParamEEEEEN4arma6sp_matEN4arma3vecEjN4arma6sp_matEN4arma3vecE"></span><span id="_CPPv2N4Game8NashGame8NashGameEP6GRBEnvNSt6vectorINSt10shared_ptrIN7MathOpt8MP_ParamEEEEEN4arma6sp_matEN4arma3vecEjN4arma6sp_matEN4arma3vecE"></span><span id="Game::NashGame::NashGame__GRBEnvP.std::vector:std::shared_ptr:MathOpt::MP_Param::.arma::sp_mat.arma::vec.unsigned-i.arma::sp_mat.arma::vec"></span><span class="target" id="classGame_1_1NashGame_1a9c43509eb4c570dcec6a3b8f5dcd5073"></span><code class="sig-name descname">NashGame</code><span class="sig-paren">(</span>GRBEnv *<em>e</em>, std::vector&lt;std::shared_ptr&lt;MathOpt::<a class="reference internal" href="classMathOpt_1_1MP__Param.html#_CPPv4N7MathOpt8MP_ParamE" title="MathOpt::MP_Param">MP_Param</a>&gt;&gt; <em>players</em>, arma::sp_mat <em>MC</em>, arma::vec <em>MCRHS</em>, unsigned int <em>nLeadVar</em> = 0, arma::sp_mat <em>leadA</em> = {}, arma::vec <em>leadRHS</em> = {}<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8NashGame8NashGameEP6GRBEnvNSt6vectorINSt10shared_ptrIN7MathOpt8MP_ParamEEEEEN4arma6sp_matEN4arma3vecEjN4arma6sp_matEN4arma3vecE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Constructing a <a class="reference internal" href="#classGame_1_1NashGame"><span class="std std-ref">NashGame</span></a> from a set of <a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param"><span class="std std-ref">MathOpt::MP_Param</span></a>, Market clearing constraints. </p>
-<p>Construct a <a class="reference internal" href="#classGame_1_1NashGame"><span class="std std-ref">NashGame</span></a> by giving a std::vector of pointers to MP_Param, defining each player’s game A set of Market clearing constraints and its RHS And if there are leader variables, the number of leader vars.</p>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGame8NashGameEP6GRBEnvRKNSt6vectorINSt10shared_ptrIN7MathOpt8MP_ParamEEEEEN4arma6sp_matEN4arma3vecEjN4arma6sp_matEN4arma3vecE">
+<span id="_CPPv3N4Game8NashGame8NashGameEP6GRBEnvRKNSt6vectorINSt10shared_ptrIN7MathOpt8MP_ParamEEEEEN4arma6sp_matEN4arma3vecEjN4arma6sp_matEN4arma3vecE"></span><span id="_CPPv2N4Game8NashGame8NashGameEP6GRBEnvRKNSt6vectorINSt10shared_ptrIN7MathOpt8MP_ParamEEEEEN4arma6sp_matEN4arma3vecEjN4arma6sp_matEN4arma3vecE"></span><span id="Game::NashGame::NashGame__GRBEnvP.std::vector:std::shared_ptr:MathOpt::MP_Param::CR.arma::sp_mat.arma::vec.unsigned-i.arma::sp_mat.arma::vec"></span><span class="target" id="classGame_1_1NashGame_1a51bb81a5a819ad7ed58b68687c7fa161"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NashGame</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">GRBEnv</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">e</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../support_files/reference/MathOpt.html#_CPPv47MathOpt" title="MathOpt"><span class="n"><span class="pre">MathOpt</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classMathOpt_1_1MP__Param.html#_CPPv4N7MathOpt8MP_ParamE" title="MathOpt::MP_Param"><span class="n"><span class="pre">MP_Param</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">players</span></span>, <span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">MC</span></span>, <span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">MCRHS</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nLeadVar</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span>, <span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">leadA</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">leadRHS</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8NashGame8NashGameEP6GRBEnvRKNSt6vectorINSt10shared_ptrIN7MathOpt8MP_ParamEEEEEN4arma6sp_matEN4arma3vecEjN4arma6sp_matEN4arma3vecE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Constructing a <a class="reference internal" href="../support_files/reference/Game.html#classGame_1_1NashGame"><span class="std std-ref">NashGame</span></a> from a set of <a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param"><span class="std std-ref">MathOpt::MP_Param</span></a>, Market clearing constraints. </p>
+<p>Construct a <a class="reference internal" href="../support_files/reference/Game.html#classGame_1_1NashGame"><span class="std std-ref">NashGame</span></a> by giving a std::vector of pointers to MP_Param, defining each player’s game A set of Market clearing constraints and its RHS And if there are leader variables, the number of leader vars.</p>
 <p>Have a std::vector of pointers to <a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param"><span class="std std-ref">MathOpt::MP_Param</span></a> ready such that the variables are separated in <span class="math notranslate nohighlight">\(x^{i}\)</span> and <span class="math notranslate nohighlight">\(x^{-i}\)</span> format.</p>
 <p>In the correct ordering of variables, have the Market clearing equations ready.</p>
-<p>Now call this constructor. It will allocate appropriate space for the dual variables for each player. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N4Game8NashGame8NashGameERK8NashGame">
-<span id="_CPPv3N4Game8NashGame8NashGameERK8NashGame"></span><span id="_CPPv2N4Game8NashGame8NashGameERK8NashGame"></span><span id="Game::NashGame::NashGame__NashGameCR"></span><span class="target" id="classGame_1_1NashGame_1ac2aa48fd0039afc8d593b4bda813f60d"></span><code class="sig-name descname">NashGame</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N4Game8NashGame8NashGameERK8NashGame" title="Game::NashGame::NashGame">NashGame</a> &amp;<em>N</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8NashGame8NashGameERK8NashGame" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N4Game8NashGameD0Ev">
-<span id="_CPPv3N4Game8NashGameD0Ev"></span><span id="_CPPv2N4Game8NashGameD0Ev"></span><span id="Game::NashGame::~NashGame"></span><span class="target" id="classGame_1_1NashGame_1a7ad163b3b089c26ba55648b9fe70ba7e"></span><code class="sig-name descname">~NashGame</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = default<a class="headerlink" href="#_CPPv4N4Game8NashGameD0Ev" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK4Game8NashGame11getNprimalsEv">
-<span id="_CPPv3NK4Game8NashGame11getNprimalsEv"></span><span id="_CPPv2NK4Game8NashGame11getNprimalsEv"></span><span id="Game::NashGame::getNprimalsC"></span><span class="target" id="classGame_1_1NashGame_1ac347ccb8c45795b43787d555469aa093"></span>unsigned int <code class="sig-name descname">getNprimals</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8NashGame11getNprimalsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Read-only access to the number of of primal variables. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK4Game8NashGame12getNumShadowEv">
-<span id="_CPPv3NK4Game8NashGame12getNumShadowEv"></span><span id="_CPPv2NK4Game8NashGame12getNumShadowEv"></span><span id="Game::NashGame::getNumShadowC"></span><span class="target" id="classGame_1_1NashGame_1a00b13bf8f455e427537d555b24a0e3da"></span>unsigned int <code class="sig-name descname">getNumShadow</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8NashGame12getNumShadowEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Read-only access to the number of Market clearing Shadow prices, equal to the number of &lt; Market clearing constraints. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK4Game8NashGame16getNumLeaderVarsEv">
-<span id="_CPPv3NK4Game8NashGame16getNumLeaderVarsEv"></span><span id="_CPPv2NK4Game8NashGame16getNumLeaderVarsEv"></span><span id="Game::NashGame::getNumLeaderVarsC"></span><span class="target" id="classGame_1_1NashGame_1a355934998135635c8e9794abfb8efbae"></span>unsigned int <code class="sig-name descname">getNumLeaderVars</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8NashGame16getNumLeaderVarsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Read-only access to the number of the leader variables in the problem. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK4Game8NashGame14getNumDualVarsEv">
-<span id="_CPPv3NK4Game8NashGame14getNumDualVarsEv"></span><span id="_CPPv2NK4Game8NashGame14getNumDualVarsEv"></span><span id="Game::NashGame::getNumDualVarsC"></span><span class="target" id="classGame_1_1NashGame_1af3353bd2178250bfe790096c09b55b8e"></span>unsigned int <code class="sig-name descname">getNumDualVars</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8NashGame14getNumDualVarsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Read-only access to the number of dual variables and that is indeed the sum of the number &lt; dual variables for each player. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK4Game8NashGame12getPrimalLocEj">
-<span id="_CPPv3NK4Game8NashGame12getPrimalLocEj"></span><span id="_CPPv2NK4Game8NashGame12getPrimalLocEj"></span><span id="Game::NashGame::getPrimalLoc__unsigned-iC"></span><span class="target" id="classGame_1_1NashGame_1a9a70ec7fb975faef2d3d657bd143222e"></span>unsigned int <code class="sig-name descname">getPrimalLoc</code><span class="sig-paren">(</span>unsigned int <em>i</em> = 0<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8NashGame12getPrimalLocEj" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Read-only access to the primal variable of i th player. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK4Game8NashGame12getMCDualLocEv">
-<span id="_CPPv3NK4Game8NashGame12getMCDualLocEv"></span><span id="_CPPv2NK4Game8NashGame12getMCDualLocEv"></span><span id="Game::NashGame::getMCDualLocC"></span><span class="target" id="classGame_1_1NashGame_1a01943b4a836a42006467b91131a37696"></span>unsigned int <code class="sig-name descname">getMCDualLoc</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8NashGame12getMCDualLocEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Read-only access to the Market-clearing dual variables start position. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK4Game8NashGame12getLeaderLocEv">
-<span id="_CPPv3NK4Game8NashGame12getLeaderLocEv"></span><span id="_CPPv2NK4Game8NashGame12getLeaderLocEv"></span><span id="Game::NashGame::getLeaderLocC"></span><span class="target" id="classGame_1_1NashGame_1a66673f16f9660e547b3b1210b71cc55d"></span>unsigned int <code class="sig-name descname">getLeaderLoc</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8NashGame12getLeaderLocEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Read-only access to the leaders’ variables start position. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK4Game8NashGame10getDualLocEj">
-<span id="_CPPv3NK4Game8NashGame10getDualLocEj"></span><span id="_CPPv2NK4Game8NashGame10getDualLocEj"></span><span id="Game::NashGame::getDualLoc__unsigned-iC"></span><span class="target" id="classGame_1_1NashGame_1ae74f9212b2e44f34ea863a453c5d9da5"></span>unsigned int <code class="sig-name descname">getDualLoc</code><span class="sig-paren">(</span>unsigned int <em>i</em> = 0<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8NashGame10getDualLocEj" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Read-only access to the dual variables start position. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK4Game8NashGame12formulateLCPERN4arma6sp_matERN4arma3vecER5perpsR14VariableBoundsbNSt6stringENSt6stringE">
-<span id="_CPPv3NK4Game8NashGame12formulateLCPERN4arma6sp_matERN4arma3vecER5perpsR14VariableBoundsbNSt6stringENSt6stringE"></span><span id="_CPPv2NK4Game8NashGame12formulateLCPERN4arma6sp_matERN4arma3vecER5perpsR14VariableBoundsbNSt6stringENSt6stringE"></span><span id="Game::NashGame::formulateLCP__arma::sp_matR.arma::vecR.perpsR.VariableBoundsR.b.ss.ssC"></span><span class="target" id="classGame_1_1NashGame_1a225726952019314351fe3f7c001d1004"></span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N4Game8NashGameE" title="Game::NashGame">NashGame</a> &amp;<code class="sig-name descname">formulateLCP</code><span class="sig-paren">(</span>arma::sp_mat &amp;<em>M</em>, arma::vec &amp;<em>q</em>, <a class="reference internal" href="typedef_zero_8h_1a23f2df644233cc2499005f53997039b4.html#_CPPv45perps" title="perps">perps</a> &amp;<em>Compl</em>, <a class="reference internal" href="typedef_zero_8h_1a58d910cf6fdc1337ace92535234dc1d4.html#_CPPv414VariableBounds" title="VariableBounds">VariableBounds</a> &amp;<em>Bounds</em>, bool <em>writeToFile</em> = false, std::string <em>M_name</em> = &quot;dat/LCP.txt&quot;, std::string <em>q_name</em> = &quot;dat/q.txt&quot;<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8NashGame12formulateLCPERN4arma6sp_matERN4arma3vecER5perpsR14VariableBoundsbNSt6stringENSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">M</span></code>: Where the output M is stored and returned. </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">q</span></code>: Where the output q is stored and returned. </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Compl</span></code>: Says which equations are complementary to which variables </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Bounds</span></code>: BoundsX on primal variables </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">writeToFile</span></code>: If true, writes M and q to file.k </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">M_name</span></code>: File name to be used to write M </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">q_name</span></code>: File name to be used to write M </p></li>
+<p>Now call this constructor. It will allocate appropriate space for the dual variables for each player.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>e</strong> – A pointer to the Gurobi Environment </p></li>
+<li><p><strong>players</strong> – The <a class="reference internal" href="classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param"><span class="std std-ref">MathOpt::MP_Param</span></a> associated to the players </p></li>
+<li><p><strong>MC</strong> – Market clearing LHS matrix </p></li>
+<li><p><strong>MCRHS</strong> – Market clearing RHS vector </p></li>
+<li><p><strong>nLeadVar</strong> – Number of leaders’ variables </p></li>
+<li><p><strong>leadA</strong> – Leaders’ constraints </p></li>
+<li><p><strong>leadRHS</strong> – Leaders’ RHSs </p></li>
 </ul>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK4Game8NashGame15rewriteLeadConsEv">
-<span id="_CPPv3NK4Game8NashGame15rewriteLeadConsEv"></span><span id="_CPPv2NK4Game8NashGame15rewriteLeadConsEv"></span><span id="Game::NashGame::rewriteLeadConsC"></span><span class="target" id="classGame_1_1NashGame_1abf230eb987cd688fdd07043ded0da58a"></span>arma::sp_mat <code class="sig-name descname">rewriteLeadCons</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8NashGame15rewriteLeadConsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Rewrites leader constraint adjusting for dual variables. Rewrites leader constraints given earlier with added empty columns and spaces corresponding to Market clearing duals and other equation duals. </p>
-<p>This becomes important if the Lower level complementarity problem is passed to LCP with upper level constraints. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGame8NashGameERK8NashGame">
+<span id="_CPPv3N4Game8NashGame8NashGameERK8NashGame"></span><span id="_CPPv2N4Game8NashGame8NashGameERK8NashGame"></span><span id="Game::NashGame::NashGame__NashGameCR"></span><span class="target" id="classGame_1_1NashGame_1ac2aa48fd0039afc8d593b4bda813f60d"></span><span class="sig-name descname"><span class="n"><span class="pre">NashGame</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4Game8NashGame8NashGameERK8NashGame" title="Game::NashGame::NashGame"><span class="n"><span class="pre">NashGame</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">N</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8NashGame8NashGameERK8NashGame" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Default copy constructor. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>N</strong> – The original copy object </p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK4Game8NashGame10getLeadRHSEv">
-<span id="_CPPv3NK4Game8NashGame10getLeadRHSEv"></span><span id="_CPPv2NK4Game8NashGame10getLeadRHSEv"></span><span id="Game::NashGame::getLeadRHSC"></span><span class="target" id="classGame_1_1NashGame_1a5c7681fc0b377f71b9ca8bb8580537e4"></span>arma::vec <code class="sig-name descname">getLeadRHS</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8NashGame10getLeadRHSEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGameD0Ev">
+<span id="_CPPv3N4Game8NashGameD0Ev"></span><span id="_CPPv2N4Game8NashGameD0Ev"></span><span id="Game::NashGame::~NashGame"></span><span class="target" id="classGame_1_1NashGame_1a7ad163b3b089c26ba55648b9fe70ba7e"></span><span class="sig-name descname"><span class="n"><span class="pre">~NashGame</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N4Game8NashGameD0Ev" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Default destructor. </p>
+</dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK4Game8NashGame12getMCLeadRHSEv">
-<span id="_CPPv3NK4Game8NashGame12getMCLeadRHSEv"></span><span id="_CPPv2NK4Game8NashGame12getMCLeadRHSEv"></span><span id="Game::NashGame::getMCLeadRHSC"></span><span class="target" id="classGame_1_1NashGame_1af8f1f02f8b2a5e8ce5a48d9960816abe"></span>arma::vec <code class="sig-name descname">getMCLeadRHS</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8NashGame12getMCLeadRHSEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame12formulateLCPERN4arma6sp_matERN4arma3vecER5perpsR14VariableBoundsbRKNSt6stringERKNSt6stringE">
+<span id="_CPPv3NK4Game8NashGame12formulateLCPERN4arma6sp_matERN4arma3vecER5perpsR14VariableBoundsbRKNSt6stringERKNSt6stringE"></span><span id="_CPPv2NK4Game8NashGame12formulateLCPERN4arma6sp_matERN4arma3vecER5perpsR14VariableBoundsbRKNSt6stringERKNSt6stringE"></span><span id="Game::NashGame::formulateLCP__arma::sp_matR.arma::vecR.perpsR.VariableBoundsR.b.ssCR.ssCRC"></span><span class="target" id="classGame_1_1NashGame_1a5909e7f64744d34a2e9467289e9d063b"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4Game8NashGameE" title="Game::NashGame"><span class="n"><span class="pre">NashGame</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">formulateLCP</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">M</span></span>, <span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">q</span></span>, <a class="reference internal" href="typedef_zero_8h_1ad87785d9eb3e6e48c0895b348f6660ca.html#_CPPv45perps" title="perps"><span class="n"><span class="pre">perps</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Compl</span></span>, <a class="reference internal" href="typedef_zero_8h_1a713ae4734a7b474d29ccf6c8a43789e3.html#_CPPv414VariableBounds" title="VariableBounds"><span class="n"><span class="pre">VariableBounds</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Bounds</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">writeToFile</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">M_name</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><s><span class="pre">&quot;dat/LCP.txt&quot;</span></s>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">q_name</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><s><span class="pre">&quot;dat/q.txt&quot;</span></s><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4Game8NashGame12formulateLCPERN4arma6sp_matERN4arma3vecER5perpsR14VariableBoundsbRKNSt6stringERKNSt6stringE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Formulates the LCP corresponding to the Nash game. Computes the KKT conditions for each Player, calling MP_Param::KKT. Arranges them systematically to return M, q as an LCP <span class="math notranslate nohighlight">\(0\leq q \perp Mx+q \geq 0 \)</span>. The way the variables of the players get distributed is shown in the image below. </p>
+<p><img alt="../_images/FormulateLCP.png" src="../_images/FormulateLCP.png" /></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Does not return the leader constraints. Use <a class="reference internal" href="../support_files/reference/Game.html#classGame_1_1NashGame_1a1dbbf2ec7e19794d3bf5365c9c677c3c"><span class="std std-ref">NashGame::rewriteLeadCons()</span></a> to handle them </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>M</strong> – The output matrix M </p></li>
+<li><p><strong>q</strong> – The output vector q </p></li>
+<li><p><strong>Compl</strong> – The output complementarities pairings </p></li>
+<li><p><strong>OutBounds</strong> – The output Bounds on variables </p></li>
+<li><p><strong>writeToFile</strong> – If true, writes M and q to file.k </p></li>
+<li><p><strong>M_name</strong> – Filename for M </p></li>
+<li><p><strong>q_name</strong> – Filename for Q </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK4Game8NashGame7respondEjRKN4arma3vecEb">
-<span id="_CPPv3NK4Game8NashGame7respondEjRKN4arma3vecEb"></span><span id="_CPPv2NK4Game8NashGame7respondEjRKN4arma3vecEb"></span><span id="Game::NashGame::respond__unsigned-i.arma::vecCR.bC"></span><span class="target" id="classGame_1_1NashGame_1a7ba3582b68f5908207b227c512446ac9"></span>std::unique_ptr&lt;GRBModel&gt; <code class="sig-name descname">respond</code><span class="sig-paren">(</span>unsigned int <em>player</em>, <em class="property">const</em> arma::vec &amp;<em>x</em>, bool <em>fullvec</em> = true<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8NashGame7respondEjRKN4arma3vecEb" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Given the decision of other players, find the optimal response for player in position <code class="docutils literal notranslate"><span class="pre">player</span></code>. </p>
-<p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">player</span></code>: Player whose optimal response is to be computed </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: A std::vector of pure strategies (either for all players or all other players) </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">fullvec</span></code>: Is <code class="docutils literal notranslate"><span class="pre">x</span></code> strategy of all players? (including player <code class="docutils literal notranslate"><span class="pre">player</span></code>) </p></li>
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame15rewriteLeadConsEv">
+<span id="_CPPv3NK4Game8NashGame15rewriteLeadConsEv"></span><span id="_CPPv2NK4Game8NashGame15rewriteLeadConsEv"></span><span id="Game::NashGame::rewriteLeadConsC"></span><span class="target" id="classGame_1_1NashGame_1a1dbbf2ec7e19794d3bf5365c9c677c3c"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rewriteLeadCons</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4Game8NashGame15rewriteLeadConsEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Rewrites leader constraint adjusting for dual variables. Rewrites leader constraints given earlier with added empty columns and spaces corresponding to Market clearing duals and other equation duals. This becomes important if the Lower level complementarity problem is passed to LCP with upper level constraints. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The matrix with the leader constraints </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame10getLeadRHSEv">
+<span id="_CPPv3NK4Game8NashGame10getLeadRHSEv"></span><span id="_CPPv2NK4Game8NashGame10getLeadRHSEv"></span><span id="Game::NashGame::getLeadRHSC"></span><span class="target" id="classGame_1_1NashGame_1a3ee08aede90db91f0c38b283c8fa003c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getLeadRHS</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4Game8NashGame10getLeadRHSEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Gets the RHS of the Leader Constraints. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>THe LeaderConstraintsRHS object </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame12getMCLeadRHSEv">
+<span id="_CPPv3NK4Game8NashGame12getMCLeadRHSEv"></span><span id="_CPPv2NK4Game8NashGame12getMCLeadRHSEv"></span><span id="Game::NashGame::getMCLeadRHSC"></span><span class="target" id="classGame_1_1NashGame_1a9822cf86f807f3bac5286b9e015dc759"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getMCLeadRHS</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4Game8NashGame12getMCLeadRHSEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Gets the RHS of the Market Clearing Constraints plus the leader ones. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>THe queried object </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame7respondEjRKN4arma3vecEb">
+<span id="_CPPv3NK4Game8NashGame7respondEjRKN4arma3vecEb"></span><span id="_CPPv2NK4Game8NashGame7respondEjRKN4arma3vecEb"></span><span id="Game::NashGame::respond__unsigned-i.arma::vecCR.bC"></span><span class="target" id="classGame_1_1NashGame_1a346af2f0ac0b1086d12feb08b9c0fda3"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">GRBModel</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">respond</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">player</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">fullvec</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4Game8NashGame7respondEjRKN4arma3vecEb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Given the decision of other players, find the optimal response for player in position <code class="docutils literal notranslate"><span class="pre">player</span></code>. Given the strategy of each player, returns a Gurobi Model that has the optimal strategy of the player at position <code class="docutils literal notranslate"><span class="pre">player</span></code>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>player</strong> – The player id </p></li>
+<li><p><strong>x</strong> – A std::vector of pure strategies (either for all players or all other players) </p></li>
+<li><p><strong>fullvec</strong> – True if <code class="docutils literal notranslate"><span class="pre">x</span></code> contains the strategy for all players </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame10respondSolERN4arma3vecEjRKN4arma3vecEb">
+<span id="_CPPv3NK4Game8NashGame10respondSolERN4arma3vecEjRKN4arma3vecEb"></span><span id="_CPPv2NK4Game8NashGame10respondSolERN4arma3vecEjRKN4arma3vecEb"></span><span id="Game::NashGame::respondSol__arma::vecR.unsigned-i.arma::vecCR.bC"></span><span class="target" id="classGame_1_1NashGame_1a484f6890402e4b2bcc0ad713f5c6f60b"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">respondSol</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">sol</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">player</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">fullvec</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4Game8NashGame10respondSolERN4arma3vecEjRKN4arma3vecEb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns the optimal objective value that is obtainable for the player <code class="docutils literal notranslate"><span class="pre">player</span></code> given the decision <code class="docutils literal notranslate"><span class="pre">x</span></code> of all other players. Calls <a class="reference internal" href="../support_files/reference/Game.html#classGame_1_1NashGame_1a346af2f0ac0b1086d12feb08b9c0fda3"><span class="std std-ref">Game::NashGame::respond</span></a> and obtains the std::unique_ptr to GRBModel of best response by player <code class="docutils literal notranslate"><span class="pre">player</span></code>. Then solves the model and returns the appropriate objective value. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sol</strong> – Output optimal response </p></li>
+<li><p><strong>player</strong> – The input player’s id </p></li>
+<li><p><strong>x</strong> – A std::vector of pure strategies (either for all players or all other players) </p></li>
+<li><p><strong>fullvec</strong> – True if <code class="docutils literal notranslate"><span class="pre">x</span></code> contains the strategy for all players </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The optimal objective value for the player <code class="docutils literal notranslate"><span class="pre">player</span></code>. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame24computeQPObjectiveValuesERKN4arma3vecEb">
+<span id="_CPPv3NK4Game8NashGame24computeQPObjectiveValuesERKN4arma3vecEb"></span><span id="_CPPv2NK4Game8NashGame24computeQPObjectiveValuesERKN4arma3vecEb"></span><span id="Game::NashGame::computeQPObjectiveValues__arma::vecCR.bC"></span><span class="target" id="classGame_1_1NashGame_1a176a394bb37520dbb0aade9472fb671c"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">computeQPObjectiveValues</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">checkFeas</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4Game8NashGame24computeQPObjectiveValuesERKN4arma3vecEb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Computes players’ objective. Computes the objective value of <em> each </em> player in the <a class="reference internal" href="../support_files/reference/Game.html#classGame_1_1NashGame"><span class="std std-ref">Game::NashGame</span></a> object. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An arma::vec with the objective values. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame8isSolvedERKN4arma3vecERjRN4arma3vecEd">
+<span id="_CPPv3NK4Game8NashGame8isSolvedERKN4arma3vecERjRN4arma3vecEd"></span><span id="_CPPv2NK4Game8NashGame8isSolvedERKN4arma3vecERjRN4arma3vecEd"></span><span id="Game::NashGame::isSolved__arma::vecCR.unsigned-iR.arma::vecR.doubleC"></span><span class="target" id="classGame_1_1NashGame_1a28ff99cbe8f408add01afcbda9249934"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isSolved</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">sol</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">violPlayer</span></span>, <span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">violSol</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e-4</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4Game8NashGame8isSolvedERKN4arma3vecERjRN4arma3vecEd" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Checks if the Nash game is solved. </p>
+<p>Checks if the Nash game is solved, if not provides a proof of deviation </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sol</strong> – The std::vector of pure strategies for the Nash <a class="reference internal" href="../support_files/reference/Game.html#namespaceGame"><span class="std std-ref">Game</span></a> </p></li>
+<li><p><strong>violPlayer</strong> – Output index of the player with profitable deviation </p></li>
+<li><p><strong>violSol</strong> – The output pure strategy for that player - which gives a profitable deviation </p></li>
+<li><p><strong>tol</strong> – The deviation tolerance </p></li>
 </ul>
 </dd>
 </dl>
-</p>
-<p>Given the strategy of each player, returns a Gurobi Model that has the optimal strategy of the player at position <code class="docutils literal notranslate"><span class="pre">player</span></code>. <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>A std::unique_ptr to GRBModel </p>
-</dd>
-</dl>
-</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK4Game8NashGame10respondSolERN4arma3vecEjRKN4arma3vecEb">
-<span id="_CPPv3NK4Game8NashGame10respondSolERN4arma3vecEjRKN4arma3vecEb"></span><span id="_CPPv2NK4Game8NashGame10respondSolERN4arma3vecEjRKN4arma3vecEb"></span><span id="Game::NashGame::respondSol__arma::vecR.unsigned-i.arma::vecCR.bC"></span><span class="target" id="classGame_1_1NashGame_1a78017631a3a9c922c996394c18f4d6fa"></span>double <code class="sig-name descname">respondSol</code><span class="sig-paren">(</span>arma::vec &amp;<em>sol</em>, unsigned int <em>player</em>, <em class="property">const</em> arma::vec &amp;<em>x</em>, bool <em>fullvec</em> = true<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8NashGame10respondSolERN4arma3vecEjRKN4arma3vecEb" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">sol</span></code>: Optimal response </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">player</span></code>: Player whose optimal response is to be computed </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: A std::vector of pure strategies (either for all players or all other players) </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">fullvec</span></code>: Is <code class="docutils literal notranslate"><span class="pre">x</span></code> strategy of all players? (including player <code class="docutils literal notranslate"><span class="pre">player</span></code>) </p></li>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGame8addDummyEji">
+<span id="_CPPv3N4Game8NashGame8addDummyEji"></span><span id="_CPPv2N4Game8NashGame8addDummyEji"></span><span id="Game::NashGame::addDummy__unsigned-i.i"></span><span class="target" id="classGame_1_1NashGame_1a7eb1ccdea694ca28f9b51c9def3458b3"></span><a class="reference internal" href="#_CPPv4N4Game8NashGameE" title="Game::NashGame"><span class="n"><span class="pre">NashGame</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">addDummy</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">par</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">position</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8NashGame8addDummyEji" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Add dummy variables (parameters) in a <a class="reference internal" href="../support_files/reference/Game.html#classGame_1_1NashGame"><span class="std std-ref">NashGame</span></a> object. These are just zero columns that don’t feature in the problem anywhere. They are of importance only where the <a class="reference internal" href="../support_files/reference/Game.html#classGame_1_1NashGame"><span class="std std-ref">NashGame</span></a> gets converted into an LCP and gets parametrized. Typically, they appear in the upper level objective in such a case. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>par</strong> – Number of parameters </p></li>
+<li><p><strong>position</strong> – Position of the parameters </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGame11addLeadConsERKN4arma3vecEd">
+<span id="_CPPv3N4Game8NashGame11addLeadConsERKN4arma3vecEd"></span><span id="_CPPv2N4Game8NashGame11addLeadConsERKN4arma3vecEd"></span><span id="Game::NashGame::addLeadCons__arma::vecCR.double"></span><span class="target" id="classGame_1_1NashGame_1ab02ae78595c039ea0dae1807a685112d"></span><a class="reference internal" href="#_CPPv4N4Game8NashGameE" title="Game::NashGame"><span class="n"><span class="pre">NashGame</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">addLeadCons</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">a</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8NashGame11addLeadConsERKN4arma3vecEd" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Adds Leader constraint to a <a class="reference internal" href="../support_files/reference/Game.html#classGame_1_1NashGame"><span class="std std-ref">NashGame</span></a> object. In case common constraint to all followers is to be added (like a leader constraint in an MPEC), this function can be used. It adds a single constraint <span class="math notranslate nohighlight">\( a^Tx \leq b\)</span>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> – The constraint LHS </p></li>
+<li><p><strong>b</strong> – The constraint RHS </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A pointer to this </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame5writeERKNSt6stringEbb">
+<span id="_CPPv3NK4Game8NashGame5writeERKNSt6stringEbb"></span><span id="_CPPv2NK4Game8NashGame5writeERKNSt6stringEbb"></span><span id="Game::NashGame::write__ssCR.b.bC"></span><span class="target" id="classGame_1_1NashGame_1ad7f7f6ff549dd69e36c12efb1c494eb3"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">write</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">filename</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">append</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">KKT</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4Game8NashGame5writeERKNSt6stringEbb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Writes the Nash <a class="reference internal" href="../support_files/reference/Game.html#namespaceGame"><span class="std std-ref">Game</span></a> sum up to a file. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – The filename </p></li>
+<li><p><strong>append</strong> – Should the method append to the file? </p></li>
+<li><p><strong>KKT</strong> – True if the KKT needs to be included </p></li>
 </ul>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK4Game8NashGame24computeQPObjectiveValuesERKN4arma3vecEb">
-<span id="_CPPv3NK4Game8NashGame24computeQPObjectiveValuesERKN4arma3vecEb"></span><span id="_CPPv2NK4Game8NashGame24computeQPObjectiveValuesERKN4arma3vecEb"></span><span id="Game::NashGame::computeQPObjectiveValues__arma::vecCR.bC"></span><span class="target" id="classGame_1_1NashGame_1aa83af941dd82ecd72241228b951e064b"></span>arma::vec <code class="sig-name descname">computeQPObjectiveValues</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>x</em>, bool <em>checkFeas</em> = false<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8NashGame24computeQPObjectiveValuesERKN4arma3vecEb" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK4Game8NashGame8isSolvedERKN4arma3vecERjRN4arma3vecEd">
-<span id="_CPPv3NK4Game8NashGame8isSolvedERKN4arma3vecERjRN4arma3vecEd"></span><span id="_CPPv2NK4Game8NashGame8isSolvedERKN4arma3vecERjRN4arma3vecEd"></span><span id="Game::NashGame::isSolved__arma::vecCR.unsigned-iR.arma::vecR.doubleC"></span><span class="target" id="classGame_1_1NashGame_1aa5d3f4ad6caac841f642df324767ba5b"></span>bool <code class="sig-name descname">isSolved</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>sol</em>, unsigned int &amp;<em>violPlayer</em>, arma::vec &amp;<em>violSol</em>, double <em>tol</em> = 1e-4<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8NashGame8isSolvedERKN4arma3vecERjRN4arma3vecEd" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N4Game8NashGame8addDummyEji">
-<span id="_CPPv3N4Game8NashGame8addDummyEji"></span><span id="_CPPv2N4Game8NashGame8addDummyEji"></span><span id="Game::NashGame::addDummy__unsigned-i.i"></span><span class="target" id="classGame_1_1NashGame_1a7eb1ccdea694ca28f9b51c9def3458b3"></span><a class="reference internal" href="#_CPPv4N4Game8NashGameE" title="Game::NashGame">NashGame</a> &amp;<code class="sig-name descname">addDummy</code><span class="sig-paren">(</span>unsigned int <em>par</em> = 0, int <em>position</em> = -1<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8NashGame8addDummyEji" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Add dummy variables in a <a class="reference internal" href="#classGame_1_1NashGame"><span class="std std-ref">NashGame</span></a> object. </p>
-<p>Add extra variables at the end of the problem. These are just zero columns that don’t feature in the problem anywhere. They are of importance only where the <a class="reference internal" href="#classGame_1_1NashGame"><span class="std std-ref">NashGame</span></a> gets converted into an LCP and gets parametrized. Typically, they appear in the upper level objective in such a case. </p>
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame4saveERKNSt6stringEb">
+<span id="_CPPv3NK4Game8NashGame4saveERKNSt6stringEb"></span><span id="_CPPv2NK4Game8NashGame4saveERKNSt6stringEb"></span><span id="Game::NashGame::save__ssCR.bC"></span><span class="target" id="classGame_1_1NashGame_1a4c9edf968d11aee274eaefc63cc5dce6"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">save</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">filename</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">erase</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4Game8NashGame4saveERKNSt6stringEb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Saves the <code class="docutils literal notranslate"><a class="reference internal" href="../support_files/reference/Game.html#classGame_1_1NashGame"><span class="std std-ref"><span class="pre">Game::NashGame</span></span></a></code> object in a loadable file. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N4Game8NashGame11addLeadConsERKN4arma3vecEd">
-<span id="_CPPv3N4Game8NashGame11addLeadConsERKN4arma3vecEd"></span><span id="_CPPv2N4Game8NashGame11addLeadConsERKN4arma3vecEd"></span><span id="Game::NashGame::addLeadCons__arma::vecCR.double"></span><span class="target" id="classGame_1_1NashGame_1ab02ae78595c039ea0dae1807a685112d"></span><a class="reference internal" href="#_CPPv4N4Game8NashGameE" title="Game::NashGame">NashGame</a> &amp;<code class="sig-name descname">addLeadCons</code><span class="sig-paren">(</span><em class="property">const</em> arma::vec &amp;<em>a</em>, double <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8NashGame11addLeadConsERKN4arma3vecEd" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Adds Leader constraint to a <a class="reference internal" href="#classGame_1_1NashGame"><span class="std std-ref">NashGame</span></a> object. </p>
-<p>In case common constraint to all followers is to be added (like a leader constraint in an MPEC), this function can be used. It adds a single constraint <span class="math notranslate nohighlight">\( a^Tx \leq b\)</span> </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK4Game8NashGame5writeERKNSt6stringEbb">
-<span id="_CPPv3NK4Game8NashGame5writeERKNSt6stringEbb"></span><span id="_CPPv2NK4Game8NashGame5writeERKNSt6stringEbb"></span><span id="Game::NashGame::write__ssCR.b.bC"></span><span class="target" id="classGame_1_1NashGame_1ac270d2f9e85d24aaf23bbf323c78d872"></span>void <code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>filename</em>, bool <em>append</em> = true, bool <em>KKT</em> = false<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8NashGame5writeERKNSt6stringEbb" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK4Game8NashGame4saveERKNSt6stringEb">
-<span id="_CPPv3NK4Game8NashGame4saveERKNSt6stringEb"></span><span id="_CPPv2NK4Game8NashGame4saveERKNSt6stringEb"></span><span id="Game::NashGame::save__ssCR.bC"></span><span class="target" id="classGame_1_1NashGame_1abc808b8d3aabc54275f2e456a4056723"></span>void <code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>filename</em>, bool <em>erase</em> = true<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK4Game8NashGame4saveERKNSt6stringEb" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Saves the <code class="docutils literal notranslate"><a class="reference internal" href="#classGame_1_1NashGame"><span class="std std-ref"><span class="pre">Game::NashGame</span></span></a></code> object in a loadable file. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N4Game8NashGame4loadERKNSt6stringEl">
-<span id="_CPPv3N4Game8NashGame4loadERKNSt6stringEl"></span><span id="_CPPv2N4Game8NashGame4loadERKNSt6stringEl"></span><span id="Game::NashGame::load__ssCR.l-i"></span><span class="target" id="classGame_1_1NashGame_1a246d31eb40b443f95f83030f230e24e3"></span>long int <code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>filename</em>, long int <em>pos</em> = 0<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8NashGame4loadERKNSt6stringEl" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Loads the <code class="docutils literal notranslate"><a class="reference internal" href="#classGame_1_1NashGame"><span class="std std-ref"><span class="pre">Game::NashGame</span></span></a></code> object stored in a file. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGame4loadERKNSt6stringEl">
+<span id="_CPPv3N4Game8NashGame4loadERKNSt6stringEl"></span><span id="_CPPv2N4Game8NashGame4loadERKNSt6stringEl"></span><span id="Game::NashGame::load__ssCR.l-i"></span><span class="target" id="classGame_1_1NashGame_1a246d31eb40b443f95f83030f230e24e3"></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">load</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">filename</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pos</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8NashGame4loadERKNSt6stringEl" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Loads the <code class="docutils literal notranslate"><a class="reference internal" href="../support_files/reference/Game.html#classGame_1_1NashGame"><span class="std std-ref"><span class="pre">Game::NashGame</span></span></a></code> object stored in a file. </p>
+<p>Loads the <code class="docutils literal notranslate"><a class="reference internal" href="../support_files/reference/Game.html#classGame_1_1NashGame"><span class="std std-ref"><span class="pre">NashGame</span></span></a></code> object stored in a file. Before calling this function, use the constructor <a class="reference internal" href="../support_files/reference/Game.html#classGame_1_1NashGame_1aacdedcbc71d5ed952f81afad5bca50be"><span class="std std-ref">NashGame::NashGame(GRBEnv *Env)</span></a> to initialize. Loads the <code class="docutils literal notranslate"><a class="reference internal" href="../support_files/reference/Game.html#classGame_1_1NashGame"><span class="std std-ref"><span class="pre">NashGame</span></span></a></code> object stored in a file. Before calling this function, use the constructor <a class="reference internal" href="../support_files/reference/Game.html#classGame_1_1NashGame_1aacdedcbc71d5ed952f81afad5bca50be"><span class="std std-ref">NashGame::NashGame(GRBEnv *Env)</span></a> to initialize.</p>
+<p>Example usage: <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">GRBEnv</span><span class="w"> </span><span class="n">Env</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Game</span><span class="o">::</span><span class="n">NashGame</span><span class="w"> </span><span class="n">N</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Env</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">N</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;./dat/Ndata.dat&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">N</span><span class="o">&lt;&lt;</span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+ </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – The filename </p></li>
+<li><p><strong>pos</strong> – The start writing position </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The end position </p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Private Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N4Game8NashGame12setPositionsEv">
-<span id="_CPPv3N4Game8NashGame12setPositionsEv"></span><span id="_CPPv2N4Game8NashGame12setPositionsEv"></span><span id="Game::NashGame::setPositions"></span><span class="target" id="classGame_1_1NashGame_1a93574f4ebf6ce5a16334043a67c21f03"></span>void <code class="sig-name descname">setPositions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8NashGame12setPositionsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Stores the position of each players’ primal and dual variables. Also allocates Leader’s position appropriately. The ordering is according to the columns of <img alt="doxyoutput/xml/formulateLCP.png" src="doxyoutput/xml/formulateLCP.png" /></p>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGame12setPositionsEv">
+<span id="_CPPv3N4Game8NashGame12setPositionsEv"></span><span id="_CPPv2N4Game8NashGame12setPositionsEv"></span><span id="Game::NashGame::setPositions"></span><span class="target" id="classGame_1_1NashGame_1a93574f4ebf6ce5a16334043a67c21f03"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setPositions</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8NashGame12setPositionsEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Stores the position of each players’ primal and dual variables. Also allocates Leader’s position appropriately. The ordering is according to the columns of the following image. </p>
+<p><img alt="../_images/FormulateLCP.png" src="../_images/FormulateLCP.png" /></p>
 </dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Private Members</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
 <dl class="cpp var">
-<dt id="_CPPv4N4Game8NashGame3EnvE">
-<span id="_CPPv3N4Game8NashGame3EnvE"></span><span id="_CPPv2N4Game8NashGame3EnvE"></span><span id="Game::NashGame::Env__GRBEnvP"></span><span class="target" id="classGame_1_1NashGame_1a9d644ce0882320934b9b723ab804ca01"></span>GRBEnv *<code class="sig-name descname">Env</code> = nullptr<a class="headerlink" href="#_CPPv4N4Game8NashGame3EnvE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGame3EnvE">
+<span id="_CPPv3N4Game8NashGame3EnvE"></span><span id="_CPPv2N4Game8NashGame3EnvE"></span><span id="Game::NashGame::Env__GRBEnvP"></span><span class="target" id="classGame_1_1NashGame_1a9d644ce0882320934b9b723ab804ca01"></span><span class="n"><span class="pre">GRBEnv</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">Env</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N4Game8NashGame3EnvE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>A pointer to the Gurobi Environment. </p>
+</dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N4Game8NashGame17LeaderConstraintsE">
-<span id="_CPPv3N4Game8NashGame17LeaderConstraintsE"></span><span id="_CPPv2N4Game8NashGame17LeaderConstraintsE"></span><span id="Game::NashGame::LeaderConstraints__arma::sp_mat"></span><span class="target" id="classGame_1_1NashGame_1a69062fef79730d6d87aea99352524bfb"></span>arma::sp_mat <code class="sig-name descname">LeaderConstraints</code><a class="headerlink" href="#_CPPv4N4Game8NashGame17LeaderConstraintsE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGame17LeaderConstraintsE">
+<span id="_CPPv3N4Game8NashGame17LeaderConstraintsE"></span><span id="_CPPv2N4Game8NashGame17LeaderConstraintsE"></span><span id="Game::NashGame::LeaderConstraints__arma::sp_mat"></span><span class="target" id="classGame_1_1NashGame_1a69062fef79730d6d87aea99352524bfb"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LeaderConstraints</span></span></span><a class="headerlink" href="#_CPPv4N4Game8NashGame17LeaderConstraintsE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Upper level leader constraints LHS. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N4Game8NashGame20LeaderConstraintsRHSE">
-<span id="_CPPv3N4Game8NashGame20LeaderConstraintsRHSE"></span><span id="_CPPv2N4Game8NashGame20LeaderConstraintsRHSE"></span><span id="Game::NashGame::LeaderConstraintsRHS__arma::vec"></span><span class="target" id="classGame_1_1NashGame_1a54cddc6679f55f88af4b6e6fcdf9aa9e"></span>arma::vec <code class="sig-name descname">LeaderConstraintsRHS</code><a class="headerlink" href="#_CPPv4N4Game8NashGame20LeaderConstraintsRHSE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGame20LeaderConstraintsRHSE">
+<span id="_CPPv3N4Game8NashGame20LeaderConstraintsRHSE"></span><span id="_CPPv2N4Game8NashGame20LeaderConstraintsRHSE"></span><span id="Game::NashGame::LeaderConstraintsRHS__arma::vec"></span><span class="target" id="classGame_1_1NashGame_1a54cddc6679f55f88af4b6e6fcdf9aa9e"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LeaderConstraintsRHS</span></span></span><a class="headerlink" href="#_CPPv4N4Game8NashGame20LeaderConstraintsRHSE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Upper level leader constraints RHS. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N4Game8NashGame10NumPlayersE">
-<span id="_CPPv3N4Game8NashGame10NumPlayersE"></span><span id="_CPPv2N4Game8NashGame10NumPlayersE"></span><span id="Game::NashGame::NumPlayers__unsigned-i"></span><span class="target" id="classGame_1_1NashGame_1a42cc938da995c37fbd84806463c9aaca"></span>unsigned int <code class="sig-name descname">NumPlayers</code><a class="headerlink" href="#_CPPv4N4Game8NashGame10NumPlayersE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Number of players in the Nash Game. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGame10NumPlayersE">
+<span id="_CPPv3N4Game8NashGame10NumPlayersE"></span><span id="_CPPv2N4Game8NashGame10NumPlayersE"></span><span id="Game::NashGame::NumPlayers__unsigned-i"></span><span class="target" id="classGame_1_1NashGame_1a42cc938da995c37fbd84806463c9aaca"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NumPlayers</span></span></span><a class="headerlink" href="#_CPPv4N4Game8NashGame10NumPlayersE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Number of players in the Nash <a class="reference internal" href="../support_files/reference/Game.html#namespaceGame"><span class="std std-ref">Game</span></a>. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N4Game8NashGame6BoundsE">
-<span id="_CPPv3N4Game8NashGame6BoundsE"></span><span id="_CPPv2N4Game8NashGame6BoundsE"></span><span id="Game::NashGame::Bounds__VariableBounds"></span><span class="target" id="classGame_1_1NashGame_1ae3e91a2e89c7aecdea78eb1abc413642"></span><a class="reference internal" href="typedef_zero_8h_1a58d910cf6fdc1337ace92535234dc1d4.html#_CPPv414VariableBounds" title="VariableBounds">VariableBounds</a> <code class="sig-name descname">Bounds</code><a class="headerlink" href="#_CPPv4N4Game8NashGame6BoundsE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGame6BoundsE">
+<span id="_CPPv3N4Game8NashGame6BoundsE"></span><span id="_CPPv2N4Game8NashGame6BoundsE"></span><span id="Game::NashGame::Bounds__VariableBounds"></span><span class="target" id="classGame_1_1NashGame_1ae3e91a2e89c7aecdea78eb1abc413642"></span><a class="reference internal" href="typedef_zero_8h_1a713ae4734a7b474d29ccf6c8a43789e3.html#_CPPv414VariableBounds" title="VariableBounds"><span class="n"><span class="pre">VariableBounds</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Bounds</span></span></span><a class="headerlink" href="#_CPPv4N4Game8NashGame6BoundsE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>BoundsX on primal variables. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N4Game8NashGame7PlayersE">
-<span id="_CPPv3N4Game8NashGame7PlayersE"></span><span id="_CPPv2N4Game8NashGame7PlayersE"></span><span id="Game::NashGame::Players__std::vector:std::shared_ptr:MathOpt::MP_Param::"></span><span class="target" id="classGame_1_1NashGame_1af5a1bfa95f610c276ca7ef0489847500"></span>std::vector&lt;std::shared_ptr&lt;MathOpt::<a class="reference internal" href="classMathOpt_1_1MP__Param.html#_CPPv4N7MathOpt8MP_ParamE" title="MathOpt::MP_Param">MP_Param</a>&gt;&gt; <code class="sig-name descname">Players</code><a class="headerlink" href="#_CPPv4N4Game8NashGame7PlayersE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGame7PlayersE">
+<span id="_CPPv3N4Game8NashGame7PlayersE"></span><span id="_CPPv2N4Game8NashGame7PlayersE"></span><span id="Game::NashGame::Players__std::vector:std::shared_ptr:MathOpt::MP_Param::"></span><span class="target" id="classGame_1_1NashGame_1af5a1bfa95f610c276ca7ef0489847500"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../support_files/reference/MathOpt.html#_CPPv47MathOpt" title="MathOpt"><span class="n"><span class="pre">MathOpt</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classMathOpt_1_1MP__Param.html#_CPPv4N7MathOpt8MP_ParamE" title="MathOpt::MP_Param"><span class="n"><span class="pre">MP_Param</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Players</span></span></span><a class="headerlink" href="#_CPPv4N4Game8NashGame7PlayersE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>The QP that each player solves. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N4Game8NashGame14MarketClearingE">
-<span id="_CPPv3N4Game8NashGame14MarketClearingE"></span><span id="_CPPv2N4Game8NashGame14MarketClearingE"></span><span id="Game::NashGame::MarketClearing__arma::sp_mat"></span><span class="target" id="classGame_1_1NashGame_1a77402999e8c65c0e8b406dd20e95f534"></span>arma::sp_mat <code class="sig-name descname">MarketClearing</code><a class="headerlink" href="#_CPPv4N4Game8NashGame14MarketClearingE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGame14MarketClearingE">
+<span id="_CPPv3N4Game8NashGame14MarketClearingE"></span><span id="_CPPv2N4Game8NashGame14MarketClearingE"></span><span id="Game::NashGame::MarketClearing__arma::sp_mat"></span><span class="target" id="classGame_1_1NashGame_1a77402999e8c65c0e8b406dd20e95f534"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MarketClearing</span></span></span><a class="headerlink" href="#_CPPv4N4Game8NashGame14MarketClearingE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Market clearing constraints. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N4Game8NashGame5MCRHSE">
-<span id="_CPPv3N4Game8NashGame5MCRHSE"></span><span id="_CPPv2N4Game8NashGame5MCRHSE"></span><span id="Game::NashGame::MCRHS__arma::vec"></span><span class="target" id="classGame_1_1NashGame_1a61332b6f39e1dff806c15e5b4f831634"></span>arma::vec <code class="sig-name descname">MCRHS</code><a class="headerlink" href="#_CPPv4N4Game8NashGame5MCRHSE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGame5MCRHSE">
+<span id="_CPPv3N4Game8NashGame5MCRHSE"></span><span id="_CPPv2N4Game8NashGame5MCRHSE"></span><span id="Game::NashGame::MCRHS__arma::vec"></span><span class="target" id="classGame_1_1NashGame_1a61332b6f39e1dff806c15e5b4f831634"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MCRHS</span></span></span><a class="headerlink" href="#_CPPv4N4Game8NashGame5MCRHSE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>RHS to the Market Clearing constraints. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N4Game8NashGame14PrimalPositionE">
-<span id="_CPPv3N4Game8NashGame14PrimalPositionE"></span><span id="_CPPv2N4Game8NashGame14PrimalPositionE"></span><span id="Game::NashGame::PrimalPosition__std::vector:unsigned-i:"></span><span class="target" id="classGame_1_1NashGame_1aec5719e31a1487539116400c71f55cbb"></span>std::vector&lt;unsigned int&gt; <code class="sig-name descname">PrimalPosition</code><a class="headerlink" href="#_CPPv4N4Game8NashGame14PrimalPositionE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGame14PrimalPositionE">
+<span id="_CPPv3N4Game8NashGame14PrimalPositionE"></span><span id="_CPPv2N4Game8NashGame14PrimalPositionE"></span><span id="Game::NashGame::PrimalPosition__std::vector:unsigned-i:"></span><span class="target" id="classGame_1_1NashGame_1aec5719e31a1487539116400c71f55cbb"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PrimalPosition</span></span></span><a class="headerlink" href="#_CPPv4N4Game8NashGame14PrimalPositionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>In the vector of variables of all players, which position does the variable corresponding to this player starts. </p>
+</dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N4Game8NashGame12DualPositionE">
-<span id="_CPPv3N4Game8NashGame12DualPositionE"></span><span id="_CPPv2N4Game8NashGame12DualPositionE"></span><span id="Game::NashGame::DualPosition__std::vector:unsigned-i:"></span><span class="target" id="classGame_1_1NashGame_1a11f9ce7c07f9d73b69b56fc7915d9ae4"></span>std::vector&lt;unsigned int&gt; <code class="sig-name descname">DualPosition</code><a class="headerlink" href="#_CPPv4N4Game8NashGame12DualPositionE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGame12DualPositionE">
+<span id="_CPPv3N4Game8NashGame12DualPositionE"></span><span id="_CPPv2N4Game8NashGame12DualPositionE"></span><span id="Game::NashGame::DualPosition__std::vector:unsigned-i:"></span><span class="target" id="classGame_1_1NashGame_1a11f9ce7c07f9d73b69b56fc7915d9ae4"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DualPosition</span></span></span><a class="headerlink" href="#_CPPv4N4Game8NashGame12DualPositionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>In the vector of variables of all players, which position do the DUAL variable corresponding to this player starts. </p>
+</dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N4Game8NashGame15MC_DualPositionE">
-<span id="_CPPv3N4Game8NashGame15MC_DualPositionE"></span><span id="_CPPv2N4Game8NashGame15MC_DualPositionE"></span><span id="Game::NashGame::MC_DualPosition__unsigned-i"></span><span class="target" id="classGame_1_1NashGame_1a054c3b99ec1e643e03282ff7032ea2a8"></span>unsigned int <code class="sig-name descname">MC_DualPosition</code><a class="headerlink" href="#_CPPv4N4Game8NashGame15MC_DualPositionE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGame15MC_DualPositionE">
+<span id="_CPPv3N4Game8NashGame15MC_DualPositionE"></span><span id="_CPPv2N4Game8NashGame15MC_DualPositionE"></span><span id="Game::NashGame::MC_DualPosition__unsigned-i"></span><span class="target" id="classGame_1_1NashGame_1a054c3b99ec1e643e03282ff7032ea2a8"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MC_DualPosition</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N4Game8NashGame15MC_DualPositionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Manages the position of Market clearing constraints’ duals. </p>
+</dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N4Game8NashGame14LeaderPositionE">
-<span id="_CPPv3N4Game8NashGame14LeaderPositionE"></span><span id="_CPPv2N4Game8NashGame14LeaderPositionE"></span><span id="Game::NashGame::LeaderPosition__unsigned-i"></span><span class="target" id="classGame_1_1NashGame_1acfc02f61ed0c658f63a930e8cb3fc36f"></span>unsigned int <code class="sig-name descname">LeaderPosition</code><a class="headerlink" href="#_CPPv4N4Game8NashGame14LeaderPositionE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGame14LeaderPositionE">
+<span id="_CPPv3N4Game8NashGame14LeaderPositionE"></span><span id="_CPPv2N4Game8NashGame14LeaderPositionE"></span><span id="Game::NashGame::LeaderPosition__unsigned-i"></span><span class="target" id="classGame_1_1NashGame_1acfc02f61ed0c658f63a930e8cb3fc36f"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LeaderPosition</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N4Game8NashGame14LeaderPositionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Manages the position of where the leader’s variables start. </p>
+</dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N4Game8NashGame12numLeaderVarE">
-<span id="_CPPv3N4Game8NashGame12numLeaderVarE"></span><span id="_CPPv2N4Game8NashGame12numLeaderVarE"></span><span id="Game::NashGame::numLeaderVar__unsigned-i"></span><span class="target" id="classGame_1_1NashGame_1a0e956dd244cc178612c475dcdcad0110"></span>unsigned int <code class="sig-name descname">numLeaderVar</code><a class="headerlink" href="#_CPPv4N4Game8NashGame12numLeaderVarE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Number of leader variables. These many variables will not have a matching complementary equation. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGame12numLeaderVarE">
+<span id="_CPPv3N4Game8NashGame12numLeaderVarE"></span><span id="_CPPv2N4Game8NashGame12numLeaderVarE"></span><span id="Game::NashGame::numLeaderVar__unsigned-i"></span><span class="target" id="classGame_1_1NashGame_1a0e956dd244cc178612c475dcdcad0110"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numLeaderVar</span></span></span><a class="headerlink" href="#_CPPv4N4Game8NashGame12numLeaderVarE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Manages the position of where the leader’s variables start. These many variables will not have a matching complementary equations. </p>
 </dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Friends</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
 <dl class="cpp function">
-<dt id="_CPPv4N4Game8NashGamelsERNSt7ostreamERK8NashGame">
-<span id="_CPPv3N4Game8NashGamelsERNSt7ostreamERK8NashGame"></span><span id="_CPPv2N4Game8NashGamelsERNSt7ostreamERK8NashGame"></span><span id="Game::NashGame::lshift-operator__osR.NashGameCR"></span><span class="target" id="classGame_1_1NashGame_1ab09efa101cfa90c75e805a1ad569a8cf"></span><em class="property">friend</em> std::ostream &amp;<code class="sig-name descname">operator&lt;&lt;</code><span class="sig-paren">(</span>std::ostream &amp;<em>os</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4N4Game8NashGameE" title="Game::NashGame">NashGame</a> &amp;<em>N</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8NashGamelsERNSt7ostreamERK8NashGame" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="target" id="classGame_1_1NashGame_1ab09efa101cfa90c75e805a1ad569a8cf"></span><span class="sig-name descname"><span class="pre">inline</span> <span class="pre">friend</span> <span class="pre">friend</span> <span class="pre">std::ostream</span> <span class="pre">&amp;</span> <span class="pre">operator&lt;&lt;</span> <span class="pre">(std::ostream</span> <span class="pre">&amp;os,</span> <span class="pre">const</span> <span class="pre">NashGame</span> <span class="pre">&amp;N)</span></span></dt>
 <dd></dd></dl>
 
 </div>
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="classMathOpt_1_1IP__Param.html" class="btn btn-neutral float-right" title="Class IP_Param" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="classGame_1_1IPG.html" class="btn btn-neutral float-left" title="Class IPG" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classGame_1_1IPG.html" class="btn btn-neutral float-left" title="Class IPG" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classLCP__PATHStart.html" class="btn btn-neutral float-right" title="Class LCP_PATHStart" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        
-        &copy; Copyright Gabriele Dragotto, Sriram Sankaranarayanan
-
-    </p>
+    <p>&#169; Copyright Gabriele Dragotto, Sriram Sankaranarayanan.</p>
   </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

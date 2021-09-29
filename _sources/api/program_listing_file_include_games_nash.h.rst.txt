@@ -8,7 +8,7 @@ Program Listing for File nash.h
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
-.. code-block:: none
+.. code-block:: cpp
 
    /* #############################################
     *             This file is part of
@@ -16,7 +16,7 @@ Program Listing for File nash.h
     *
     *             Copyright (c) 2020
     *     Released under the Creative Commons
-    *        Zero v1.0 Universal License
+    *         CC BY-NC-SA 4.0 License
     *
     *              Find out more at
     *        https://github.com/ds4dm/ZERO
@@ -35,19 +35,20 @@ Program Listing for File nash.h
    namespace Game {
      class NashGame {
      private:
-        GRBEnv *       Env = nullptr;
-        arma::sp_mat   LeaderConstraints;                        
-        arma::vec      LeaderConstraintsRHS;                     
-        unsigned int   NumPlayers;                               
-        VariableBounds Bounds;                                   
+        GRBEnv *       Env = nullptr;        
+        arma::sp_mat   LeaderConstraints;    
+        arma::vec      LeaderConstraintsRHS; 
+        unsigned int   NumPlayers;           
+        VariableBounds Bounds;               
         std::vector<std::shared_ptr<MathOpt::MP_Param>> Players; 
         arma::sp_mat                                    MarketClearing; 
         arma::vec MCRHS; 
    
         std::vector<unsigned int> PrimalPosition;
+   
         std::vector<unsigned int> DualPosition;
-        unsigned int MC_DualPosition;
-        unsigned int LeaderPosition;
+        unsigned int MC_DualPosition{};
+        unsigned int LeaderPosition{};
         unsigned int numLeaderVar;
    
         void setPositions();
@@ -55,15 +56,14 @@ Program Listing for File nash.h
      public: // Constructors
         explicit NashGame(GRBEnv *e) noexcept : Env{e} {};
    
-        explicit NashGame(GRBEnv *                                        e,
-                                std::vector<std::shared_ptr<MathOpt::MP_Param>> players,
-                                arma::sp_mat                                    MC,
-                                arma::vec                                       MCRHS,
-                                unsigned int                                    nLeadVar = 0,
-                                arma::sp_mat                                    leadA    = {},
-                                arma::vec                                       leadRHS  = {});
+        explicit NashGame(GRBEnv *                                               e,
+                                const std::vector<std::shared_ptr<MathOpt::MP_Param>> &players,
+                                arma::sp_mat                                           MC,
+                                arma::vec                                              MCRHS,
+                                unsigned int                                           nLeadVar = 0,
+                                arma::sp_mat                                           leadA    = {},
+                                arma::vec                                              leadRHS  = {});
    
-        // Copy constructor
         NashGame(const NashGame &N);
    
         ~NashGame() = default;
@@ -118,13 +118,13 @@ Program Listing for File nash.h
         } 
    
         // Members
-        const NashGame &formulateLCP(arma::sp_mat &  M,
-                                               arma::vec &     q,
-                                               perps &         Compl,
-                                               VariableBounds &Bounds,
-                                               bool            writeToFile = false,
-                                               std::string     M_name      = "dat/LCP.txt",
-                                               std::string     q_name      = "dat/q.txt") const;
+        const NashGame &formulateLCP(arma::sp_mat &     M,
+                                               arma::vec &        q,
+                                               perps &            Compl,
+                                               VariableBounds &   Bounds,
+                                               bool               writeToFile = false,
+                                               const std::string &M_name      = "dat/LCP.txt",
+                                               const std::string &q_name      = "dat/q.txt") const;
    
         arma::sp_mat rewriteLeadCons() const;
    

@@ -8,7 +8,7 @@ Program Listing for File ipg_models.cpp
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
-.. code-block:: none
+.. code-block:: cpp
 
    /* #############################################
     *             This file is part of
@@ -16,7 +16,7 @@ Program Listing for File ipg_models.cpp
     *
     *             Copyright (c) 2020
     *     Released under the Creative Commons
-    *        Zero v1.0 Universal License
+    *         CC BY-NC-SA 4.0 License
     *
     *              Find out more at
     *        https://github.com/ds4dm/ZERO
@@ -24,17 +24,9 @@ Program Listing for File ipg_models.cpp
    
    
    #include "interfaces/ipg_models.h"
-   #include <armadillo>
-   #include <boost/log/trivial.hpp>
-   #include <gurobi_c++.h>
-   #include <iomanip>
-   #include <iostream>
-   #include <map>
-   #include <memory>
    #include <rapidjson/document.h>
    #include <rapidjson/istreamwrapper.h>
    #include <rapidjson/prettywriter.h>
-   #include <vector>
    
    
    void Models::IPG::IPG::writeSolution(std::string filename) const {
@@ -59,7 +51,7 @@ Program Listing for File ipg_models.cpp
      writer.EndObject();
      writer.Key("Solution");
    
-     for (unsigned int i = 0, count = 0; i < this->getNumPlayers(); i++) {
+     for (unsigned int i = 0; i < this->getNumPlayers(); i++) {
         writer.Key(("x_" + std::to_string(i)).c_str());
         writer.StartArray();
         for (unsigned int j = 0; j < this->Solution.at(i).size(); j++)
@@ -73,7 +65,7 @@ Program Listing for File ipg_models.cpp
    Models::IPG::IPG::IPG(GRBEnv *env, std::string instanceFileName) : Game::IPG::IPG(env) {
      this->Env = env;
      this->Instance.load(instanceFileName);
-     this->PlayersIP.empty();
+     this->PlayersIP.clear();
      for (unsigned int i = 0; i < this->Instance.PlayerVariables.size(); ++i) {
         auto player = std::make_shared<MathOpt::IP_Param>(this->Env);
         player->load(this->Instance.IPFiles.at(i));
@@ -83,12 +75,17 @@ Program Listing for File ipg_models.cpp
    Models::IPG::IPG::IPG(GRBEnv *env, IPGInstance instance) : Game::IPG::IPG(env) {
      this->Env      = env;
      this->Instance = instance;
-     this->PlayersIP.empty();
+     this->PlayersIP.clear();
      for (unsigned int i = 0; i < this->Instance.PlayerVariables.size(); ++i) {
         auto player = std::make_shared<MathOpt::IP_Param>(this->Env);
         player->load(this->Instance.IPFiles.at(i));
         this->PlayersIP.push_back(player);
      }
+     this->NumPlayers=this->PlayersIP.size();
+   }
+   std::shared_ptr<const MathOpt::IP_Param> Models::IPG::IPG::getIPParam(unsigned int player) {
+     ZEROAssert(player < this->NumPlayers);
+     return this->PlayersIP.at(player);
    }
    
    
@@ -104,7 +101,7 @@ Program Listing for File ipg_models.cpp
      writer.Uint(this->NumVariables);
      writer.Key("Players");
      writer.StartArray();
-     for (unsigned int i = 0, count = 0; i < this->PlayerVariables.size(); i++) {
+     for (unsigned int i = 0; i < this->PlayerVariables.size(); i++) {
         writer.StartObject();
         writer.Key("NumVariables");
         writer.Uint(this->PlayerVariables.at(i));
@@ -115,6 +112,7 @@ Program Listing for File ipg_models.cpp
      writer.EndArray();
      writer.EndObject();
      writer.EndObject();
+     remove( filename.c_str() );
      std::ofstream file(filename + ".json");
      file << s.GetString();
      file.close();
@@ -131,7 +129,6 @@ Program Listing for File ipg_models.cpp
            auto                           IPG = d["IntegerProgrammingGame"].GetObject();
    
            unsigned int              nPlayers   = IPG["nPlayers"].GetInt();
-           unsigned int              nVariables = IPG["nVariables"].GetInt();
            std::vector<unsigned int> playerVariables;
    
            for (int j = 0; j < nPlayers; ++j) {
@@ -145,14 +142,14 @@ Program Listing for File ipg_models.cpp
                 throw ZEROException(ZEROErrorCode::IOError,
                                            "Cannot open the IP param for player " + std::to_string(j));
              }
-             if (ParametrizedProblem.getNy() != c["NumVariables"].GetInt()) {
+             if (ParametrizedProblem.getNumVars() != c["NumVariables"].GetInt()) {
                 throw ZEROException(ZEROErrorCode::InvalidData,
                                            "The IP param for player " + std::to_string(j) +
                                                 " has a different number of variables y wrt the instance file");
              }
              this->IPFiles.push_back(fileName);
-             this->PlayerVariables.push_back(ParametrizedProblem.getNy());
-             this->NumVariables += ParametrizedProblem.getNy();
+             this->PlayerVariables.push_back(ParametrizedProblem.getNumVars());
+             this->NumVariables += ParametrizedProblem.getNumVars();
            }
            ifs.close();
         } catch (...) {
@@ -165,12 +162,13 @@ Program Listing for File ipg_models.cpp
    void Models::IPG::IPGInstance::addIPParam(const MathOpt::IP_Param &ip, const std::string filename) {
    
      try {
+       remove( filename.c_str() );
         std::ifstream ifs(filename);
         if (!ifs.good())
            ip.save(filename, 0);
         this->IPFiles.push_back(filename);
-        this->PlayerVariables.push_back(ip.getNy());
-        this->NumVariables += ip.getNy();
+        this->PlayerVariables.push_back(ip.getNumVars());
+        this->NumVariables += ip.getNumVars();
    
      } catch (...) {
         throw ZEROException(ZEROErrorCode::IOError, "Cannot write the IPG data");

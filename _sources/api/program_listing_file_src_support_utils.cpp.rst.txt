@@ -8,7 +8,7 @@ Program Listing for File utils.cpp
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
-.. code-block:: none
+.. code-block:: cpp
 
    /* #############################################
     *             This file is part of
@@ -16,7 +16,7 @@ Program Listing for File utils.cpp
     *
     *             Copyright (c) 2020
     *     Released under the Creative Commons
-    *        Zero v1.0 Universal License
+    *         CC BY-NC-SA 4.0 License
     *
     *              Find out more at
     *        https://github.com/ds4dm/ZERO
@@ -25,8 +25,6 @@ Program Listing for File utils.cpp
    
    #include "support/utils.h"
    #include <armadillo>
-   #include <boost/log/trivial.hpp>
-   #include <fstream>
    
    
    arma::sp_mat
@@ -46,7 +44,7 @@ Program Listing for File utils.cpp
      return mMat;
    }
    
-   // For arma::mat
+   
    arma::mat Utils::resizePatch(const arma::mat &mat, const unsigned int nR, const unsigned int nC) {
      arma::mat mMat(nR, nC);
      mMat.zeros();
@@ -63,7 +61,6 @@ Program Listing for File utils.cpp
      return mMat;
    }
    
-   // For arma::vec
    arma::vec Utils::resizePatch(const arma::vec &mat, const unsigned int nR) {
      arma::vec mMat(nR);
      mMat.zeros();
@@ -76,13 +73,10 @@ Program Listing for File utils.cpp
      return mMat;
    }
    
-   void Utils::appendSave(const arma::sp_mat &matrix, 
-                                 const std::string   out,    
-                                 const std::string   header, 
-                                 bool erase                  
-                                 )
-   {
-     // Using C++ file operations to copy the data into the target given by @out
+   void Utils::appendSave(const arma::sp_mat &matrix,
+                                 const std::string & out,
+                                 const std::string & header,
+                                 bool                erase) {
      unsigned int nR{0}, nC{0}, nnz{0};
    
      std::ofstream outfile(out, erase ? std::ios::out : std::ios::app);
@@ -100,12 +94,10 @@ Program Listing for File utils.cpp
      outfile.close(); // and close it
    }
    
-   long int Utils::appendRead(arma::sp_mat &matrix, 
-                                       const std::string in, 
-                                       long int pos, 
-                                       const std::string header 
-                                       )
-   {
+   long int Utils::appendRead(arma::sp_mat &     matrix,
+                                       const std::string &in,
+                                       long int           pos,
+                                       const std::string &header) {
      unsigned int nR = 0, nC = 0, nnz = 0;
    
      std::ifstream infile(in, std::ios::in);
@@ -114,7 +106,7 @@ Program Listing for File utils.cpp
      std::string headerCheckwith;
      infile >> headerCheckwith;
    
-     if (header != "" && header != headerCheckwith)
+     if (!header.empty() && header != headerCheckwith)
         throw ZEROException(ZEROErrorCode::InvalidData,
                                    "Wrong header. Expected " + header + " found " + headerCheckwith);
    
@@ -143,10 +135,10 @@ Program Listing for File utils.cpp
      return pos;
    }
    
-   void appendSave(const std::vector<double> v,
-                        const std::string         out,
-                        const std::string         header,
-                        bool                      erase) {
+   void appendSave(const std::vector<double> &v,
+                        const std::string &        out,
+                        const std::string &        header,
+                        bool                       erase) {
      std::ofstream outfile(out, erase ? std::ios::out : std::ios::app);
      outfile << header << "\n" << v.size() << "\n";
      for (const double x : v)
@@ -155,14 +147,15 @@ Program Listing for File utils.cpp
    }
    
    long int
-   appendRead(std::vector<double> &v, const std::string in, long int pos, const std::string header) {
+   appendRead(std::vector<double> &v, const std::string &in, long int pos, const std::string &header) {
      unsigned long int size = 0;
      std::ifstream     infile(in, std::ios::in);
      infile.seekg(pos);
+   
      std::string headerCheckwith;
      infile >> headerCheckwith;
    
-     if (header != "" && header != headerCheckwith)
+     if (!header.empty() && header != headerCheckwith)
         throw ZEROException(ZEROErrorCode::InvalidData,
                                    "Wrong header. Expected " + header + " found " + headerCheckwith);
    
@@ -176,12 +169,11 @@ Program Listing for File utils.cpp
      return pos;
    }
    
-   void Utils::appendSave(const arma::vec & matrix, 
-                                 const std::string out,    
-                                 const std::string header, 
-                                 bool erase                
-   ) {
-     // Using C++ file operations to copy the data into the target given by @out
+   
+   void Utils::appendSave(const arma::vec &  matrix,
+                                 const std::string &out,
+                                 const std::string &header,
+                                 bool               erase) {
      unsigned int nR{0};
    
      std::ofstream outfile(out, erase ? std::ios::out : std::ios::app);
@@ -191,17 +183,16 @@ Program Listing for File utils.cpp
      outfile << header << "\n";
    
      outfile << nR << "\n";
-     for (auto it = matrix.begin(); it != matrix.end(); ++it)
-        outfile << (*it) << "\n"; // Write the required information of arma::sp_mat
+     for (double it : matrix)
+        outfile << it << "\n"; // Write the required information of arma::sp_mat
      outfile << "\n";
      outfile.close(); // and close it
    }
    
-   long int Utils::appendRead(arma::vec &matrix,    
-                                       const std::string in, 
-                                       long int pos, 
-                                       const std::string header 
-   ) {
+   long int Utils::appendRead(arma::vec &        matrix,
+                                       const std::string &in,
+                                       long int           pos,
+                                       const std::string &header) {
      unsigned int  nR;
      std::string   buffers;
      std::string   checkwith;
@@ -209,7 +200,7 @@ Program Listing for File utils.cpp
      inFile.seekg(pos);
    
      inFile >> checkwith;
-     if (header != "" && checkwith != header)
+     if (!header.empty() && checkwith != header)
         throw ZEROException(ZEROErrorCode::InvalidData,
                                    "Wrong header. Expected " + header + " found " + checkwith);
      inFile >> nR;
@@ -226,10 +217,11 @@ Program Listing for File utils.cpp
      return pos;
    }
    
-   void Utils::appendSave(const long int    v,
-                                 const std::string out,
-                                 const std::string header,
-                                 bool              erase)
+   void Utils::appendSave(const long int     v,
+                                 const std::string &out,
+                                 const std::string &header,
+                                 bool               erase)
+   
    {
      std::ofstream outfile(out, erase ? std::ios::out : std::ios::app);
      outfile << header << "\n";
@@ -237,15 +229,17 @@ Program Listing for File utils.cpp
      outfile.close();
    }
    
+   
+   
    long int
-   Utils::appendRead(long int &v, const std::string in, long int pos, const std::string header) {
+   Utils::appendRead(long int &v, const std::string &in, long int pos, const std::string &header) {
      std::ifstream infile(in, std::ios::in);
      infile.seekg(pos);
    
      std::string headerCheckwith;
      infile >> headerCheckwith;
    
-     if (header != "" && header != headerCheckwith)
+     if (!header.empty() && header != headerCheckwith)
         throw ZEROException(ZEROErrorCode::InvalidData,
                                    "Wrong header. Expected " + header + " found " + headerCheckwith);
    
@@ -260,10 +254,9 @@ Program Listing for File utils.cpp
    }
    
    void Utils::appendSave(const unsigned int v,
-                                 const std::string  out,
-                                 const std::string  header,
-                                 bool               erase)
-   {
+                                 const std::string &out,
+                                 const std::string &header,
+                                 bool               erase) {
      std::ofstream outfile(out, erase ? std::ios::out : std::ios::app);
      outfile << header << "\n";
      outfile << v << "\n";
@@ -271,14 +264,14 @@ Program Listing for File utils.cpp
    }
    
    long int
-   Utils::appendRead(unsigned int &v, const std::string in, long int pos, const std::string header) {
+   Utils::appendRead(unsigned int &v, const std::string &in, long int pos, const std::string &header) {
      std::ifstream infile(in, std::ios::in);
      infile.seekg(pos);
    
      std::string headerCheckwith;
      infile >> headerCheckwith;
    
-     if (header != "" && header != headerCheckwith)
+     if (!header.empty() && header != headerCheckwith)
         throw ZEROException(ZEROErrorCode::InvalidData,
                                    "Wrong header. Expected " + header + " found " + headerCheckwith);
    
@@ -292,14 +285,12 @@ Program Listing for File utils.cpp
      return pos;
    }
    
-   void Utils::appendSave(const std::string v, const std::string out, bool erase)
-   {
+   void Utils::appendSave(const std::string &v, const std::string &out, bool erase) {
      std::ofstream outfile(out, erase ? std::ios::out : std::ios::app);
      outfile << v << "\n";
      outfile.close();
    }
-   
-   long int Utils::appendRead(std::string &v, const std::string in, long int pos) {
+   long int Utils::appendRead(std::string &v, const std::string &in, long int pos) {
      std::ifstream infile(in, std::ios::in);
      infile.seekg(pos);
    
@@ -322,14 +313,19 @@ Program Listing for File utils.cpp
         return false;
      for (int i = 0; i < A.n_rows; ++i) {
         bool res = true;
-        for (int j = 0; j < A.n_cols; ++j) {
-           if (std::abs(lhs.at(j) - A.at(i, j)) > tol) {
-             res = false;
-             break;
+        // The RHS is good
+        if (Utils::isEqual(b.at(i), rhs, tol)) {
+           // Okay. Let's check the cut
+           bool res = true;
+           for (int j = 0; j < A.n_cols; ++j) {
+             if (!Utils::isEqual(lhs.at(j), A.at(i, j), tol)) {
+                // Not equal
+                res = false;
+                break;
+             }
            }
-        }
-        if (res && std::abs(b.at(i) - rhs) < tol) {
-           return true;
+           if (res)
+             return true;
         }
      }
      return false;
@@ -337,11 +333,12 @@ Program Listing for File utils.cpp
    
    bool Utils::containsElement(const arma::vec &b, const double &element, const double tol) {
      for (unsigned int i = 0; i < b.size(); ++i) {
-        if (std::abs(b.at(i) - element) < tol)
+        if (Utils::isEqual(b.at(i), element, tol))
            return true;
      }
      return false;
    }
+   
    
    bool Utils::containsRow(const arma::sp_mat &A, const arma::vec &row, const double tol) {
    
@@ -350,7 +347,7 @@ Program Listing for File utils.cpp
      for (int i = 0; i < A.n_rows; ++i) {
         bool res = true;
         for (int j = 0; j < A.n_cols; ++j) {
-           if (std::abs(row.at(j) - A.at(i, j)) > tol) {
+           if (!Utils::isEqual(row.at(j), A.at(i, j), tol)) {
              res = false;
              break;
            }
@@ -371,17 +368,19 @@ Program Listing for File utils.cpp
      return Utils::containsConstraint(A, b, Ai, rhs, tol);
    }
    
+   bool Utils::isZero(const arma::mat &M, double tol) noexcept {
    
-   bool Utils::isZero(arma::mat M, double tol) noexcept {
-     return ((abs(M).max() <= tol));
+     return (Utils::isEqual(abs(M).max(), 0, tol));
    }
    
-   bool Utils::isZero(arma::sp_mat M, double tol) noexcept {
+   bool Utils::isZero(const arma::sp_mat &M, double tol) noexcept {
+   
      if (M.n_nonzero != 0)
         return false;
    
-     return ((abs(M).max() <= tol));
+     return (Utils::isEqual(abs(M).max(), 0, tol));
    }
+   
    void Utils::sortByKey(perps &set) {
      sort(set.begin(),
             set.end(),
@@ -391,23 +390,27 @@ Program Listing for File utils.cpp
    }
    
    VariableBounds Utils::intersectBounds(const VariableBounds &bA, const VariableBounds &bB) {
-     VariableBounds bC;
-     auto           longest  = bA.size() >= bB.size() ? bA : bB;
-     auto           shortest = bA.size() >= bB.size() ? bB : bA;
+     auto longest  = bA.size() >= bB.size() ? bA : bB;
+     auto shortest = bA.size() >= bB.size() ? bB : bA;
    
      // Set the size of the longest
-     bC.resize(longest.size());
+     VariableBounds bC(longest.size());
    
      for (unsigned int i = 0; i < shortest.size(); ++i) {
         // Lower bound. The higher, the better
-        bC.at(i).first = bA.at(i).first > bB.at(i).first ? bA.at(i).first : bB.at(i).first;
-        // Upper bound. The lower, the better
-        if (bA.at(i).second < 0)
-           bC.at(i).second = bB.at(i).second;
+        if (bA.at(i).first >= 0 || bB.at(i).first >= 0)
+           bC.at(i).first = bA.at(i).first > bB.at(i).first ? bA.at(i).first : bB.at(i).first;
         else
-           bC.at(i).second = (bA.at(i).second < bB.at(i).second || bB.at(i).second < 0)
-                                        ? bA.at(i).second
-                                        : bB.at(i).second;
+           bC.at(i).first = 0;
+        // Upper bound. The lower, the better
+        if (bA.at(i).second < 0 && bB.at(i).second)
+           bC.at(i).second = -1;
+        else {
+           if (bA.at(i).second >= 0)
+             bC.at(i).second = bA.at(i).second;
+           else
+             bC.at(i).second = bB.at(i).second;
+        }
      }
    
      // Fill remaining element
@@ -426,4 +429,161 @@ Program Listing for File utils.cpp
            << std::to_string(bounds.at(i).second) << "]\n";
      }
      return r.str();
+   }
+   
+   
+   double Utils::round_nplaces(const double &value, const int &numDecimals) {
+     return roundf(value * pow(10, numDecimals)) / pow(10, numDecimals);
+   }
+   
+   arma::vec Utils::normalizeVec(const arma::vec &v) {
+     double norm = arma::max(arma::abs(v));
+     if (Utils::isEqual(norm, 0, 1e-6))
+        norm = 1;
+   
+     return v / arma::max(arma::abs(v));
+   }
+   
+   void Utils::normalizeIneq(arma::vec &lhs, double &rhs, bool force) {
+     // lhs.print("Input with RHS="+std::to_string(rhs));
+     arma::vec abs  = arma::abs(lhs);
+     double    norm = abs.max();
+     for (auto &elem : abs) {
+        if (std::abs(elem) < norm && elem != 0)
+           norm = std::abs(elem);
+     }
+     double ratio = abs.max() / norm;
+     if ((ratio > 1e2) || force) {
+        LOG_S(5) << "Utils::normalizeIneq:  normalizing inequality.";
+        // Force this for very bad inequalities with too much of range...
+        if (ratio > 1e2)
+           norm = abs.max();
+   
+        assert(norm != 0);
+        rhs = rhs / norm;
+        lhs = lhs / norm;
+     }
+     // lhs.print("Normalized with RHS="+std::to_string(rhs));
+   }
+   
+   CoinPackedMatrix Utils::armaToCoinSparse(const arma::sp_mat &A) {
+     CoinPackedMatrix              R   = CoinPackedMatrix(true, A.n_cols, 0);
+     auto                          nnz = A.n_nonzero;
+     std::vector<CoinPackedVector> cols(A.n_cols);
+     for (arma::sp_mat::const_iterator it = A.begin(); it != A.end(); ++it)
+        cols.at(it.col()).insert(it.row(), *it);
+   
+     for (unsigned int i = 0; i < A.n_cols; ++i)
+        R.appendCol(cols.at(i));
+   
+   
+     assert(A.n_rows == R.getNumRows() && A.n_cols == R.getNumCols());
+     return R;
+   }
+   
+   arma::sp_mat Utils::clearMatrix(const arma::sp_mat &A, double tol, double percent) {
+     arma::sp_mat ACopy = A;
+     for (arma::sp_mat::const_iterator it = A.begin(); it != A.end(); ++it) {
+        if (Utils::isEqual(*it, 0, tol, percent))
+           ACopy.at(it.row(), it.col()) = 0;
+     }
+     return ACopy;
+   }
+   
+   arma::vec Utils::clearVector(const arma::vec &b, double tol, double percent) {
+     arma::vec bCopy = b;
+     for (unsigned int i = 0; i < bCopy.size(); ++i) {
+        if (Utils::isEqual(b.at(i), 0, tol, percent))
+           bCopy.at(i) = 0;
+     }
+     return bCopy;
+   }
+   
+   
+   
+   std::vector<CoinPackedVector> Utils::armaToCoinPackedVector(const arma::sp_mat &A) {
+     std::vector<CoinPackedVector> vectors(A.n_rows);
+   
+     for (arma::sp_mat::const_iterator it = A.begin(); it != A.end(); ++it)
+        vectors.at(it.row()).insert(it.col(), *it);
+   
+     return vectors;
+   }
+   
+   void Utils::addSparseConstraints(const arma::sp_mat &A,
+                                               const arma::vec &   b,
+                                               GRBVar *            x,
+                                               const std::string & basename,
+                                               GRBModel *          model,
+                                               int                 sense = GRB_LESS_EQUAL,
+                                               GRBVar *            z     = nullptr) {
+     std::vector<GRBLinExpr> Constraints(A.n_rows, 0);
+     for (arma::sp_mat::const_iterator it = A.begin(); it != A.end(); ++it) {
+        double coeff = *it;
+        Constraints.at(it.row()).addTerms(&coeff, &x[it.col()], 1);
+     }
+     if (z != nullptr) {
+        for (unsigned int i = 0; i < A.n_rows; ++i) {
+           model->addConstr(Constraints.at(i) - z[i], sense, b(i), basename + "_" + std::to_string(i));
+        }
+     } else {
+        for (unsigned int i = 0; i < A.n_rows; ++i) {
+           model->addConstr(Constraints.at(i), sense, b(i), basename + "_" + std::to_string(i));
+        }
+     }
+   }
+   
+   
+   int Utils::vecToBin(const arma::vec &x) {
+     int output = 0;
+     int power  = 1;
+     int len    = x.size();
+   
+     for (int i = 0; i < len; i++) {
+        output += x.at(len - 1 - i) * power;
+        power *= 2;
+     }
+   
+     return output;
+   }
+   int Utils::nonzeroDecimals(const double num, const int decimalBound) {
+   
+     double integral = 0;
+     // Take the fractional
+     modf(num, &integral);
+     double fractional = num - integral;
+     int    count      = 0;
+   
+     for (unsigned int i = 0; i < decimalBound; ++i) {
+        fractional *= 10;
+        if (static_cast<long>(fractional) % 10 != 0)
+           ++count;
+     }
+     return count;
+   }
+   bool Utils::isEqualAbs(const double a, const double b, const double tol) {
+     float diff = fabs(a - b);
+     if (diff <= tol)
+        return true;
+     else
+        return false;
+   }
+   bool Utils::isEqualRel(const double a, const double b, const double percent) {
+     float  diff    = fabs(a - b);
+     double A       = fabs(a);
+     double B       = fabs(b);
+     float  largest = (B > A) ? B : A;
+   
+     if (diff <= largest * (1 - percent))
+        return true;
+     else
+        return false;
+   }
+   bool Utils::isEqual(const double a, const double b, const double tol, const double percent) {
+     if (Utils::isEqualAbs(a, b, tol)) {
+        return true;
+     } else if (Utils::isEqualRel(a, b, percent)) {
+        return true;
+     }
+     return false;
    }

@@ -1,79 +1,43 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Class PATH &mdash; ZERO 1.0.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../res/zero.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/zero.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
         <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
         <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Class ZEROAlgorithmData" href="classZEROAlgorithmData.html" />
     <link rel="prev" title="Class IPG" href="classModels_1_1IPG_1_1IPG.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search"  style="background: #23084f" >
-          
-
-          
+        <div class="wy-side-nav-search"  style="background: rgb(68, 44, 123)" >
             <a href="../index.html">
-          
-
-          
-            
             <img src="../_static/zerowhite.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                1.0.1
+                1.1.0
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -81,55 +45,104 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Quick Start</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Quick Start</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/rbg.html">What is an RBG?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#mathopt">MathOpt</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/overview.html#mp-program-s">MP_Program(s)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/overview.html#lcps">LCPs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#games">Games</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/overview.html#epecs">EPECs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/overview.html#ipg">IPG</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#algorithms">Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#models">Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#utils">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#solvers">Solvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#shells">Shells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/overview.html#other-stuff">Other stuff</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../support_files/compiling.html">Compiling</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#dependencies">Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../support_files/compiling.html#downloading-and-compiling">Downloading and Compiling</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../support_files/command_line.html">Command-line interface</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Tutorials</span></p>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../support_files/EPEC.html">EPEC Example</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#u-v-player">u-v player</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#x-y-player">x-y player</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#nash-equilibrium">Nash Equilibrium</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/EPEC.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/tutorials/QP_Param.html">Parametrized QPs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/QP_Param.html#computing-solutions">Computing solutions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../support_files/LCP.html">LCP Example</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#modeling-the-problem">Modeling the problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#solving">Solving</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/LCP.html#utilities">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/tutorials/IP_Param.html">Parametrized IPs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/IP_Param.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/IP_Param.html#computing-solutions">Computing solutions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../support_files/NashLCP.html">Nash LCP Example</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/NashLCP.html#checking-the-solution">Checking the solution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/tutorials/NashLCP.html">Simultaneous Games</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/NashLCP.html#a-theory-primer">A theory primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/NashLCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/NashLCP.html#computing-solutions">Computing solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/NashLCP.html#checking-solutions">Checking solutions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../support_files/QP_Param.html">QP_Param Example</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#modeling-the-problem">Modeling the problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../support_files/QP_Param.html#solving">Solving</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/tutorials/LCP.html">LCPs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/LCP.html#modeling-the-problem">Modeling the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/LCP.html#computing-solutions">Computing solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/LCP.html#utilities">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/tutorials/NASP.html">NASPs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/NASP.html#a-quick-example">A quick example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/NASP.html#modeling-the-problem">Modeling the problem</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/tutorials/NASP.html#creating-an-inheritor-class">Creating an inheritor class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/tutorials/NASP.html#the-followers-problems">The followers’ problems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/tutorials/NASP.html#re-implementing-methods">Re-implementing methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/tutorials/NASP.html#computing-solutions">Computing solutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/tutorials/NASP.html#fetching-solutions">Fetching solutions</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Extended References</span></p>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/tutorials/IPG.html">IPG</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/IPG.html#a-quick-example">A quick example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/tutorials/IPG.html#modeling-and-solving-the-problem">Modeling and solving the problem</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/reference/MathOpt.html">MathOpt</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/reference/MathOpt.html#mp-param">MP_Param</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/reference/MathOpt.html#qp-param">QP_Param</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/reference/MathOpt.html#ip-param">IP_Param</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/reference/MathOpt.html#lcp">LCP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../support_files/reference/MathOpt.html#polylcp">PolyLCP</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/reference/Game.html">Game</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/reference/Game.html#epec">EPEC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../support_files/reference/Game.html#ipg">IPG</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/reference/Algorithms.html">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/reference/Models.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/reference/Utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_files/reference/Codes.html">Other stuff</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extended Reference</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="library_root.html">Library API</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
@@ -258,6 +271,11 @@
 <li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CombinatorialPNE.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CutAndPlay.html">Class CutAndPlay</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CutAndPlay.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1CutAndPlay.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1FullEnumeration.html">Class FullEnumeration</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1FullEnumeration.html#inheritance-relationships">Inheritance Relationships</a></li>
 <li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1FullEnumeration.html#class-documentation">Class Documentation</a></li>
@@ -266,11 +284,6 @@
 <li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1InnerApproximation.html">Class InnerApproximation</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1InnerApproximation.html#inheritance-relationships">Inheritance Relationships</a></li>
 <li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1InnerApproximation.html#class-documentation">Class Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterApproximation.html">Class OuterApproximation</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterApproximation.html#inheritance-relationships">Inheritance Relationships</a></li>
-<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterApproximation.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1EPEC_1_1OuterTree.html">Class OuterTree</a><ul>
@@ -288,9 +301,9 @@
 <li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Algorithm.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Oracle.html">Class Oracle</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Oracle.html#inheritance-relationships">Inheritance Relationships</a></li>
-<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1Oracle.html#class-documentation">Class Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1CutAndPlay.html">Class CutAndPlay</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1CutAndPlay.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1CutAndPlay.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="classAttr.html">Template Class Attr</a><ul>
@@ -323,6 +336,11 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="classGame_1_1NashGame.html">Class NashGame</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="classGame_1_1NashGame.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classLCP__PATHStart.html">Class LCP_PATHStart</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classLCP__PATHStart.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classLCP__PATHStart.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="classMathOpt_1_1IP__Param.html">Class IP_Param</a><ul>
@@ -382,6 +400,10 @@
 <li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1a3f4c2ba1ad7ce924bed99ddf193fd318.html#enum-documentation">Enum Documentation</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1ac2eb0e7edc79e45ab5e689bd7ac20721.html">Enum BranchingStrategy</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1ac2eb0e7edc79e45ab5e689bd7ac20721.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1a347af28b83353df8afdbd4ee171565b3.html">Enum RecoverStrategy</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1EPEC_1a347af28b83353df8afdbd4ee171565b3.html#enum-documentation">Enum Documentation</a></li>
 </ul>
@@ -390,8 +412,12 @@
 <li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a34d343f554ac089c3cb14de04aa6d294.html#enum-documentation">Enum Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a1a0a91a80ea38eefb37b54452fbd70a4.html">Enum LCPAlgorithms</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a1a0a91a80ea38eefb37b54452fbd70a4.html#enum-documentation">Enum Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a2990b118bd0d209b5ca094a208770189.html">Enum CutsAggressiveness</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a2990b118bd0d209b5ca094a208770189.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a03601c4502ada3c2f633e870771b2723.html">Enum Objectives</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="enum_namespaceData_1_1IPG_1a03601c4502ada3c2f633e870771b2723.html#enum-documentation">Enum Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="enum_namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82.html">Enum Algorithms</a><ul>
@@ -425,12 +451,12 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="library_root.html#functions">Functions</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="function_utils_8cpp_1ad85f66e4cbb90a0976aa1e9e49571c93.html">Function appendRead</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_utils_8cpp_1ad85f66e4cbb90a0976aa1e9e49571c93.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_utils_8cpp_1a9f34a72882b09d73c9c88015bd0ea434.html">Function appendRead</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_utils_8cpp_1a9f34a72882b09d73c9c88015bd0ea434.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_utils_8cpp_1a8a3281f033159773e6047a595cfa129a.html">Function appendSave</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_utils_8cpp_1a8a3281f033159773e6047a595cfa129a.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_utils_8cpp_1ad34ef522429047beeecf29fa7c42e2ec.html">Function appendSave</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_utils_8cpp_1ad34ef522429047beeecf29fa7c42e2ec.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_shells_2epec_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627.html">Function main(int, char **)</a><ul>
@@ -445,16 +471,16 @@
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1af3d7bfcf9b11cefb7f4521d685211934.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1a0a13d06524e3ad2baf756e15a794a745.html">Function MathOpt::convexHull</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1a0a13d06524e3ad2baf756e15a794a745.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1a25341bffceab79eaf2221135611b0a8c.html">Function MathOpt::convexHull</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1a25341bffceab79eaf2221135611b0a8c.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1aabf121bcb871000488825dd64750500c.html">Function MathOpt::getDualMembershipLP</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1aabf121bcb871000488825dd64750500c.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1ac356ee2fd095dc2e4c51a69263178d76.html">Function MathOpt::getDualMembershipLP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1ac356ee2fd095dc2e4c51a69263178d76.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1aa4eaa00160eb2098969ef087c92eea5d.html">Function MathOpt::LPSolve</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1aa4eaa00160eb2098969ef087c92eea5d.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1ab1496a1c39bd21b7d2aa8a0a464a85a8.html">Function MathOpt::getPrimalMembershipLP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceMathOpt_1ab1496a1c39bd21b7d2aa8a0a464a85a8.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceMathOpt_1aedd7c328cf667c15244fec225b90a65d.html">Function MathOpt::operator&lt;&lt;(std::ostream&amp;, const IP_Param&amp;)</a><ul>
@@ -485,8 +511,8 @@
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a6bf8d5d3a77dddc264c34df3c1412eb0.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1aa732ff410b4c32a84be09a6ed7f55ae7.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const FollPar)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1aa732ff410b4c32a84be09a6ed7f55ae7.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a66a72ba604632ae0b01ad06e767a9d83.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const FollPar&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a66a72ba604632ae0b01ad06e767a9d83.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1ad8eaa0861bd3da4627c98c72ab0ed286.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const DemPar)</a><ul>
@@ -497,16 +523,16 @@
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a3ae165ae70cb8c87e3c2ff2e3412481a.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a4e4c4e18bf05a12b53b88e7eaa41a5ab.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const LeadAllPar)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a4e4c4e18bf05a12b53b88e7eaa41a5ab.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a2cd02a12eb89f78b5c1a733611bb74ad.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const LeadAllPar&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a2cd02a12eb89f78b5c1a733611bb74ad.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a636ebefa1cdfa3e167761452792129f8.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const LeaderVars)</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a636ebefa1cdfa3e167761452792129f8.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a2c4c41c1a12f3393f92719601bceb38a.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, EPECInstance)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a2c4c41c1a12f3393f92719601bceb38a.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1af6366fee7f0b20548c067b30ba2fb2c5.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, const EPECInstance&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1af6366fee7f0b20548c067b30ba2fb2c5.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceModels_1_1EPEC_1a04179db61b0d9fed3a91f88ef4f5f2b3.html">Function Models::EPEC::operator&lt;&lt;(std::ostream&amp;, Models::EPEC::prn)</a><ul>
@@ -545,8 +571,8 @@
 <li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a8f4b1bc2990943059230a4e78b7ac175.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_poly__lcp_8cpp_1a71a85978f94cee44e3edd97887a3126c.html">Function operator&gt;</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a71a85978f94cee44e3edd97887a3126c.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_poly__lcp_8cpp_1a02cb57e913aa095d5b880ec2a118ab6a.html">Function operator&gt;</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_poly__lcp_8cpp_1a02cb57e913aa095d5b880ec2a118ab6a.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_epec__models_8h_1a0cb07b2258983336a21ed1a2cdaffd9e.html">Function to_string(const GRBVar&amp;)</a><ul>
@@ -565,52 +591,72 @@
 <li class="toctree-l5"><a class="reference internal" href="function_epec__models_8cpp_1a0cb07b2258983336a21ed1a2cdaffd9e.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a5564b70694570623dc79e723715dfdfe.html">Function Utils::appendRead(arma::vec&amp;, const std::string, long int, const std::string)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a5564b70694570623dc79e723715dfdfe.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ab3e2647fc3c9c0786122243d72ca08e5.html">Function Utils::addSparseConstraints</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ab3e2647fc3c9c0786122243d72ca08e5.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a539f748060b159cd9c3fd87ecf12ffd5.html">Function Utils::appendRead(arma::sp_mat&amp;, const std::string, long int, const std::string)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a539f748060b159cd9c3fd87ecf12ffd5.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a900938c85d2f36c9983df618fa331913.html">Function Utils::appendRead(arma::vec&amp;, const std::string&amp;, long int, const std::string&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a900938c85d2f36c9983df618fa331913.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a2746ebf4cfda2d1efaaf9c0ec40cefb6.html">Function Utils::appendRead(arma::sp_mat&amp;, const std::string&amp;, long int, const std::string&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a2746ebf4cfda2d1efaaf9c0ec40cefb6.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a45ec12e86322677e2a93e37aa798e1e4.html">Function Utils::appendRead(std::vector&lt;double&gt;&amp;, const std::string, long int, const std::string)</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a45ec12e86322677e2a93e37aa798e1e4.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a4bb2fe103587ca0fc76ae3dfa90f6550.html">Function Utils::appendRead(std::string&amp;, const std::string, long int)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a4bb2fe103587ca0fc76ae3dfa90f6550.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a27f7c63b5646bb4ad097ae1dbb172005.html">Function Utils::appendRead(std::string&amp;, const std::string&amp;, long int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a27f7c63b5646bb4ad097ae1dbb172005.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ab7b9cda903f076c6a33d6bfed99687ea.html">Function Utils::appendRead(long int&amp;, const std::string, long int, const std::string)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ab7b9cda903f076c6a33d6bfed99687ea.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a8070dc9bcb0236d374bb9d7fea5c283c.html">Function Utils::appendRead(long int&amp;, const std::string&amp;, long int, const std::string&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a8070dc9bcb0236d374bb9d7fea5c283c.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a048882f6fb236cfd507d3b091c7aa831.html">Function Utils::appendRead(unsigned int&amp;, const std::string, long int, const std::string)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a048882f6fb236cfd507d3b091c7aa831.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a59b01cf3c8d70cd18877b3b174ae669c.html">Function Utils::appendRead(unsigned int&amp;, const std::string&amp;, long int, const std::string&amp;)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a59b01cf3c8d70cd18877b3b174ae669c.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a61870426848613ebcd38331a4e05e716.html">Function Utils::appendSave(const arma::vec&amp;, const std::string, const std::string, bool)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a61870426848613ebcd38331a4e05e716.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ad88219f03f632a67bb2fdcff609176b4.html">Function Utils::appendSave(const arma::vec&amp;, const std::string&amp;, const std::string&amp;, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ad88219f03f632a67bb2fdcff609176b4.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a5f5f645750d3b82e63e5f96723c62ee1.html">Function Utils::appendSave(const arma::sp_mat&amp;, const std::string, const std::string, bool)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a5f5f645750d3b82e63e5f96723c62ee1.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ae6731fccbae4c8d75e5d668e684db2e8.html">Function Utils::appendSave(const arma::sp_mat&amp;, const std::string&amp;, const std::string&amp;, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ae6731fccbae4c8d75e5d668e684db2e8.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ae2dddf8c7060984fd5cd56bf3fbb5b68.html">Function Utils::appendSave(const std::vector&lt;double&gt;, const std::string, const std::string, bool)</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ae2dddf8c7060984fd5cd56bf3fbb5b68.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a5199a480ca51ac0ab387e025df9b2e00.html">Function Utils::appendSave(const std::string, const std::string, bool)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a5199a480ca51ac0ab387e025df9b2e00.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a04041a67936c0d3d0fbbd776b87cd73a.html">Function Utils::appendSave(const std::string&amp;, const std::string&amp;, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a04041a67936c0d3d0fbbd776b87cd73a.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1aa7023f92db9e7ef180450d9ed74ade7d.html">Function Utils::appendSave(const long int, const std::string, const std::string, bool)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1aa7023f92db9e7ef180450d9ed74ade7d.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a4ad4805808857af53bd5c48cc8d0a653.html">Function Utils::appendSave(const long int, const std::string&amp;, const std::string&amp;, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a4ad4805808857af53bd5c48cc8d0a653.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1aaf5fef95399ba94379ed1ee4e20cd354.html">Function Utils::appendSave(const unsigned int, const std::string, const std::string, bool)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1aaf5fef95399ba94379ed1ee4e20cd354.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1aee8385c0f78efa4bdae43f837c255670.html">Function Utils::appendSave(const unsigned int, const std::string&amp;, const std::string&amp;, bool)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1aee8385c0f78efa4bdae43f837c255670.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a9747fe982d7704f2ebf38b570435e1db.html">Function Utils::armaToCoinPackedVector</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a9747fe982d7704f2ebf38b570435e1db.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1af6dfca8f1e9281091a679f045688b257.html">Function Utils::armaToCoinSparse</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1af6dfca8f1e9281091a679f045688b257.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1af2040ca2075587adc96e9216334a3ebe.html">Function Utils::clearMatrix</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1af2040ca2075587adc96e9216334a3ebe.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a2e056ebbec945748c331338bdbd3c2b0.html">Function Utils::clearVector</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a2e056ebbec945748c331338bdbd3c2b0.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a03c80abd5bb5411608a27a29bf29cfe2.html">Function Utils::containsConstraint(const arma::sp_mat&amp;, const arma::vec&amp;, const arma::vec&amp;, const double&amp;, const double)</a><ul>
@@ -633,24 +679,40 @@
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ad263e83ad30145d2003fbdf370c75d6a.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a11aefd04593b7eba9a60fe5a003eccb3.html">Function Utils::isZero(arma::mat, double)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a11aefd04593b7eba9a60fe5a003eccb3.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a3c508b2e54c6804d6223cd6315bb451b.html">Function Utils::isEqual</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a3c508b2e54c6804d6223cd6315bb451b.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1aa580da91e3cbe8df451f84747c1e2872.html">Function Utils::isZero(arma::sp_mat, double)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1aa580da91e3cbe8df451f84747c1e2872.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a2ecff1dd315a2069f5676c15b04654fb.html">Function Utils::isEqualAbs</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a2ecff1dd315a2069f5676c15b04654fb.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1afd63a1b9c36080d26ef9ad6585562f6d.html">Template Function Utils::isZeroValue</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1afd63a1b9c36080d26ef9ad6585562f6d.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1abb589709362089e01172ad724dfc5ed4.html">Function Utils::isEqualRel</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1abb589709362089e01172ad724dfc5ed4.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a2d23d6f3d90d92396197fac7a6743531.html">Function Utils::isZero(const arma::mat&amp;, double)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a2d23d6f3d90d92396197fac7a6743531.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a631127fa9fae48e41d6e83edfedfc371.html">Function Utils::isZero(const arma::sp_mat&amp;, double)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a631127fa9fae48e41d6e83edfedfc371.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a95b5a09eeb4a9c7f28dcfd5b55ac3ded.html">Function Utils::nonzeroDecimals</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a95b5a09eeb4a9c7f28dcfd5b55ac3ded.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a713160421bd61df4d4a6c05527f5232e.html">Function Utils::normalizeIneq</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a713160421bd61df4d4a6c05527f5232e.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a2040536589bfbb31bba6b9ef4e028acf.html">Function Utils::normalizeVec</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a2040536589bfbb31bba6b9ef4e028acf.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1adbe567182dd4d6f2c0aed1362e539fc9.html">Function Utils::printBounds</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1adbe567182dd4d6f2c0aed1362e539fc9.html#function-documentation">Function Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a0c79f31066b7e7af7b1d18316f3efc5c.html">Function Utils::resizePatch(const arma::sp_mat&amp;, const unsigned int, const unsigned int)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a0c79f31066b7e7af7b1d18316f3efc5c.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a3f2695b26a8131bc0fe45fcae0c7023d.html">Function Utils::resizePatch(const arma::mat&amp;, const unsigned int, const unsigned int)</a><ul>
@@ -661,8 +723,28 @@
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a8748d4160459a637b32e309336969c81.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a0c79f31066b7e7af7b1d18316f3efc5c.html">Function Utils::resizePatch(const arma::sp_mat&amp;, const unsigned int, const unsigned int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a0c79f31066b7e7af7b1d18316f3efc5c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a408a19a1615ba7f6d8091bd1e39d2170.html">Function Utils::round_nplaces</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a408a19a1615ba7f6d8091bd1e39d2170.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a0183fff354c82444f2bb66cbccd4478c.html">Function Utils::sortByKey</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a0183fff354c82444f2bb66cbccd4478c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a70db498d70f20edb8ebde9e2d9e417b7.html">Function Utils::vecToBin</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a70db498d70f20edb8ebde9e2d9e417b7.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_codes_8h_1ad928fe496e61376db30942010d562f85.html">Function ZEROAssert(bool, const char *, const char *, const int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_codes_8h_1ad928fe496e61376db30942010d562f85.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_codes_8cpp_1a615e9850da488ec04631fc9bc552d322.html">Function ZEROAssert(bool, const char *, const char *, const int)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_codes_8cpp_1a615e9850da488ec04631fc9bc552d322.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -672,12 +754,12 @@
 <li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1aaff3b0535ece33c18614a653b99ebe44.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceMathOpt_1a7077c09ae1bba23b9181ac92bf0c6dea.html">Typedef MathOpt::QP_constraints</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceMathOpt_1a7077c09ae1bba23b9181ac92bf0c6dea.html#typedef-documentation">Typedef Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceMathOpt_1a47529d426463f867ed4de633f2d8cf23.html">Typedef MathOpt::QP_constraints</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceMathOpt_1a47529d426463f867ed4de633f2d8cf23.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceMathOpt_1aa0a70822f74c1fc679e018023c08905e.html">Typedef MathOpt::QP_objective</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceMathOpt_1aa0a70822f74c1fc679e018023c08905e.html#typedef-documentation">Typedef Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_namespaceMathOpt_1a598d7680682d643b1df433d214cdf2e2.html">Typedef MathOpt::QP_objective</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_namespaceMathOpt_1a598d7680682d643b1df433d214cdf2e2.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1a62149827d4c351dd603cbcc7625f7772.html">Typedef Models::EPEC::DemPar</a><ul>
@@ -700,24 +782,24 @@
 <li class="toctree-l5"><a class="reference internal" href="typedef_namespaceModels_1_1EPEC_1ab279a6d9a0241b15c0bd1a7312f8dd3e.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a23f2df644233cc2499005f53997039b4.html">Typedef perps</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a23f2df644233cc2499005f53997039b4.html#typedef-documentation">Typedef Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1ad87785d9eb3e6e48c0895b348f6660ca.html">Typedef perps</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1ad87785d9eb3e6e48c0895b348f6660ca.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a13e22b2209a1025ac5c30d6361619219.html">Typedef spmat_Vec</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a13e22b2209a1025ac5c30d6361619219.html#typedef-documentation">Typedef Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a47898f11e7a4b7433acbc77588a0dc03.html">Typedef spmat_Vec</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a47898f11e7a4b7433acbc77588a0dc03.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a1b3f20417790c203b818f9df92ed5bbc.html">Typedef triple</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a1b3f20417790c203b818f9df92ed5bbc.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a58d910cf6fdc1337ace92535234dc1d4.html">Typedef VariableBounds</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a58d910cf6fdc1337ace92535234dc1d4.html#typedef-documentation">Typedef Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a713ae4734a7b474d29ccf6c8a43789e3.html">Typedef VariableBounds</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a713ae4734a7b474d29ccf6c8a43789e3.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a61c9afcb946e96d4e4e6156d9c1bee8c.html">Typedef vec_Vec</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a61c9afcb946e96d4e4e6156d9c1bee8c.html#typedef-documentation">Typedef Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_zero_8h_1a8d8c882d060c4d307810fdf04a6314c6.html">Typedef vec_Vec</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="typedef_zero_8h_1a8d8c882d060c4d307810fdf04a6314c6.html#typedef-documentation">Typedef Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -728,463 +810,426 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: rgb(68, 44, 123)" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">ZERO</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="library_root.html">Library API</a> &raquo;</li>
-        
       <li>Class PATH</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-            
             <a href="../_sources/api/classSolvers_1_1PATH.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="class-path">
-<span id="exhale-class-classsolvers-1-1path"></span><h1>Class PATH<a class="headerlink" href="#class-path" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="class-path">
+<span id="exhale-class-classsolvers-1-1path"></span><h1>Class PATH<a class="headerlink" href="#class-path" title="Permalink to this headline"></a></h1>
 <ul class="simple">
 <li><p>Defined in <a class="reference internal" href="file_include_solvers_PathSolver.h.html#file-include-solvers-pathsolver-h"><span class="std std-ref">File PathSolver.h</span></a></p></li>
 </ul>
-<div class="section" id="nested-relationships">
-<h2>Nested Relationships<a class="headerlink" href="#nested-relationships" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="nested-types">
-<h3>Nested Types<a class="headerlink" href="#nested-types" title="Permalink to this headline">¶</a></h3>
+<section id="nested-relationships">
+<h2>Nested Relationships<a class="headerlink" href="#nested-relationships" title="Permalink to this headline"></a></h2>
+<section id="nested-types">
+<h3>Nested Types<a class="headerlink" href="#nested-types" title="Permalink to this headline"></a></h3>
 <ul class="simple">
 <li><p><a class="reference internal" href="structSolvers_1_1PATH_1_1PATHProblem.html#exhale-struct-structsolvers-1-1path-1-1pathproblem"><span class="std std-ref">Struct PATH::PATHProblem</span></a></p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="class-documentation">
-<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline"></a></h2>
 <dl class="cpp class">
-<dt id="_CPPv4N7Solvers4PATHE">
-<span id="_CPPv3N7Solvers4PATHE"></span><span id="_CPPv2N7Solvers4PATHE"></span><span id="Solvers::PATH"></span><span class="target" id="classSolvers_1_1PATH"></span><em class="property">class </em><code class="sig-prename descclassname">Solvers<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">PATH</code><a class="headerlink" href="#_CPPv4N7Solvers4PATHE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATHE">
+<span id="_CPPv3N7Solvers4PATHE"></span><span id="_CPPv2N7Solvers4PATHE"></span><span id="Solvers::PATH"></span><span class="target" id="classSolvers_1_1PATH"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Solvers</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">PATH</span></span></span><a class="headerlink" href="#_CPPv4N7Solvers4PATHE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>This class manages the external solver <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a>, for mixed-complementarity problems. </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N7Solvers4PATH4PATHEv">
-<span id="_CPPv3N7Solvers4PATH4PATHEv"></span><span id="_CPPv2N7Solvers4PATH4PATHEv"></span><span id="Solvers::PATH::PATH"></span><span class="target" id="classSolvers_1_1PATH_1a5de342d4cf3d1c33f738d3aca41e8939"></span><code class="sig-name descname">PATH</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = delete<a class="headerlink" href="#_CPPv4N7Solvers4PATH4PATHEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH4PATHEv">
+<span id="_CPPv3N7Solvers4PATH4PATHEv"></span><span id="_CPPv2N7Solvers4PATH4PATHEv"></span><span id="Solvers::PATH::PATH"></span><span class="target" id="classSolvers_1_1PATH_1a5de342d4cf3d1c33f738d3aca41e8939"></span><span class="sig-name descname"><span class="n"><span class="pre">PATH</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N7Solvers4PATH4PATHEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7Solvers4PATH4PATHERKN4arma6sp_matERKN4arma3vecERK5perpsRK14VariableBoundsRN4arma3vecEN4arma3vecEd">
-<span id="_CPPv3N7Solvers4PATH4PATHERKN4arma6sp_matERKN4arma3vecERK5perpsRK14VariableBoundsRN4arma3vecEN4arma3vecEd"></span><span id="_CPPv2N7Solvers4PATH4PATHERKN4arma6sp_matERKN4arma3vecERK5perpsRK14VariableBoundsRN4arma3vecEN4arma3vecEd"></span><span id="Solvers::PATH::PATH__arma::sp_matCR.arma::vecCR.perpsCR.VariableBoundsCR.arma::vecR.arma::vec.double"></span><span class="target" id="classSolvers_1_1PATH_1a2b0ac945bef8ba6d3cf6e0a259d0deed"></span><code class="sig-name descname">PATH</code><span class="sig-paren">(</span><em class="property">const</em> arma::sp_mat &amp;<em>M</em>, <em class="property">const</em> arma::vec &amp;<em>q</em>, <em class="property">const</em> <a class="reference internal" href="typedef_zero_8h_1a23f2df644233cc2499005f53997039b4.html#_CPPv45perps" title="perps">perps</a> &amp;<em>Compl</em>, <em class="property">const</em> <a class="reference internal" href="typedef_zero_8h_1a58d910cf6fdc1337ace92535234dc1d4.html#_CPPv414VariableBounds" title="VariableBounds">VariableBounds</a> &amp;<em>Bounds</em>, arma::vec &amp;<em>x</em>, arma::vec <em>z</em>, double <em>timeLimit</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH4PATHERKN4arma6sp_matERKN4arma3vecERK5perpsRK14VariableBoundsRN4arma3vecEN4arma3vecEd" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH4PATHERKN4arma6sp_matERKN4arma3vecERK5perpsRK14VariableBoundsRN4arma3vecERN4arma3vecEdb">
+<span id="_CPPv3N7Solvers4PATH4PATHERKN4arma6sp_matERKN4arma3vecERK5perpsRK14VariableBoundsRN4arma3vecERN4arma3vecEdb"></span><span id="_CPPv2N7Solvers4PATH4PATHERKN4arma6sp_matERKN4arma3vecERK5perpsRK14VariableBoundsRN4arma3vecERN4arma3vecEdb"></span><span id="Solvers::PATH::PATH__arma::sp_matCR.arma::vecCR.perpsCR.VariableBoundsCR.arma::vecR.arma::vecR.double.b"></span><span class="target" id="classSolvers_1_1PATH_1abd49449df694f959aed5d43399618365"></span><span class="sig-name descname"><span class="n"><span class="pre">PATH</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">M</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">q</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="typedef_zero_8h_1ad87785d9eb3e6e48c0895b348f6660ca.html#_CPPv45perps" title="perps"><span class="n"><span class="pre">perps</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Compl</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="typedef_zero_8h_1a713ae4734a7b474d29ccf6c8a43789e3.html#_CPPv414VariableBounds" title="VariableBounds"><span class="n"><span class="pre">VariableBounds</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Bounds</span></span>, <span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">z</span></span>, <span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">timeLimit</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">verbose</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH4PATHERKN4arma6sp_matERKN4arma3vecERK5perpsRK14VariableBoundsRN4arma3vecERN4arma3vecEdb" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Main public method to use the solver. </p>
-<p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">M</span></code>: The matrix M in the LCP </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">q</span></code>: The vector q in the LCP </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Compl</span></code>: Pairs of complementarities &lt;Eqn, Var&gt; </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Bounds</span></code>: Bounds on variables </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: Output vector of x </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code>: Output vector of z equation values </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">timeLimit</span></code>: A double timelimit </p></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>M</strong> – The matrix M in the LCP </p></li>
+<li><p><strong>q</strong> – The vector q in the LCP </p></li>
+<li><p><strong>Compl</strong> – Pairs of complementarities &lt;Eqn, Var&gt; </p></li>
+<li><p><strong>Bounds</strong> – Bounds on variables </p></li>
+<li><p><strong>z</strong> – Output vector of x </p></li>
+<li><p><strong>x</strong> – Output vector of z equation values </p></li>
+<li><p><strong>timeLimit</strong> – A double timelimit </p></li>
+<li><p><strong>verbose</strong> – True if verbosity is required </p></li>
 </ul>
 </dd>
 </dl>
-</p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK7Solvers4PATH9getStatusEv">
-<span id="_CPPv3NK7Solvers4PATH9getStatusEv"></span><span id="_CPPv2NK7Solvers4PATH9getStatusEv"></span><span id="Solvers::PATH::getStatusC"></span><span class="target" id="classSolvers_1_1PATH_1a2bfe3d7a973bfc62a69523411be95388"></span><a class="reference internal" href="enum_codes_8h_1adc92fa8b12e5abec0a79ad40bedc1ccf.html#_CPPv410ZEROStatus" title="ZEROStatus">ZEROStatus</a> <code class="sig-name descname">getStatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7Solvers4PATH9getStatusEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Read-only getter for the status. </p>
 </dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Static Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N7Solvers4PATH9messageCBEPviPc">
-<span id="_CPPv3N7Solvers4PATH9messageCBEPviPc"></span><span id="_CPPv2N7Solvers4PATH9messageCBEPviPc"></span><span id="Solvers::PATH::messageCB__voidP.i.cP"></span><span class="target" id="classSolvers_1_1PATH_1a8c41a7d08516f688e6903d57c4ea8325"></span>void *<code class="sig-name descname">messageCB</code><span class="sig-paren">(</span>void *<em>dat</em>, int <em>mode</em>, char *<em>buf</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH9messageCBEPviPc" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH9messageCBEPviPc">
+<span id="_CPPv3N7Solvers4PATH9messageCBEPviPc"></span><span id="_CPPv2N7Solvers4PATH9messageCBEPviPc"></span><span id="Solvers::PATH::messageCB__voidP.i.cP"></span><span class="target" id="classSolvers_1_1PATH_1a8c41a7d08516f688e6903d57c4ea8325"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">messageCB</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">dat</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">mode</span></span>, <span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">buf</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH9messageCBEPviPc" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Message callback for path. </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p></p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">dat</span></code>: The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mode</span></code>: Print-mode. Currently unused, see <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">buf</span></code>: The char buffer </p></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dat</strong> – The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p></li>
+<li><p><strong>mode</strong> – Print-mode. Currently unused, see <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more </p></li>
+<li><p><strong>buf</strong> – The char buffer </p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Not used. An instance of this </p>
+</dd>
 </dl>
-</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7Solvers4PATH7mcp_typEPviPi">
-<span id="_CPPv3N7Solvers4PATH7mcp_typEPviPi"></span><span id="_CPPv2N7Solvers4PATH7mcp_typEPviPi"></span><span id="Solvers::PATH::mcp_typ__voidP.i.iP"></span><span class="target" id="classSolvers_1_1PATH_1a9d4c58f28069e511a2dff725553a6c23"></span>void *<code class="sig-name descname">mcp_typ</code><span class="sig-paren">(</span>void *<em>dat</em>, int <em>nnz</em>, int *<em>typ</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH7mcp_typEPviPi" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH7mcp_typEPviPi">
+<span id="_CPPv3N7Solvers4PATH7mcp_typEPviPi"></span><span id="_CPPv2N7Solvers4PATH7mcp_typEPviPi"></span><span id="Solvers::PATH::mcp_typ__voidP.i.iP"></span><span class="target" id="classSolvers_1_1PATH_1a9d4c58f28069e511a2dff725553a6c23"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mcp_typ</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">dat</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nnz</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">typ</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH7mcp_typEPviPi" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Presolving type for the variable. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>Not used. An instance of this </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">dat</span></code>: The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">nnz</span></code>: Number of non-zeros in M </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">typ</span></code>: The output vector for presolve </p></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dat</strong> – The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p></li>
+<li><p><strong>nnz</strong> – Number of non-zeros in M </p></li>
+<li><p><strong>typ</strong> – The output vector for presolve </p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Not used. An instance of this </p>
+</dd>
 </dl>
-</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7Solvers4PATH19jacobian_evaluationEPviPdiPdPiPiPiPiPd">
-<span id="_CPPv3N7Solvers4PATH19jacobian_evaluationEPviPdiPdPiPiPiPiPd"></span><span id="_CPPv2N7Solvers4PATH19jacobian_evaluationEPviPdiPdPiPiPiPiPd"></span><span id="Solvers::PATH::jacobian_evaluation__voidP.i.doubleP.i.doubleP.iP.iP.iP.iP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1a73c977ba9914db2fe52aa0104524291d"></span>int <code class="sig-name descname">jacobian_evaluation</code><span class="sig-paren">(</span>void *<em>dat</em>, int <em>n</em>, double *<em>x</em>, int <em>wantf</em>, double *<em>f</em>, int *<em>nnz</em>, int *<em>col_start</em>, int *<em>col_len</em>, int *<em>row</em>, double *<em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH19jacobian_evaluationEPviPdiPdPiPiPiPiPd" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH19jacobian_evaluationEPviPdiPdPiPiPiPiPd">
+<span id="_CPPv3N7Solvers4PATH19jacobian_evaluationEPviPdiPdPiPiPiPiPd"></span><span id="_CPPv2N7Solvers4PATH19jacobian_evaluationEPviPdiPdPiPiPiPiPd"></span><span id="Solvers::PATH::jacobian_evaluation__voidP.i.doubleP.i.doubleP.iP.iP.iP.iP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1a73c977ba9914db2fe52aa0104524291d"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">jacobian_evaluation</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">dat</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">wantf</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">nnz</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">col_start</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">col_len</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">row</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH19jacobian_evaluationEPviPdiPdPiPiPiPiPd" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Static wrapper for PATH::c_jacobian_evaluation. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>Unused. This is a callback function </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">dat</span></code>: The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Number of variables </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: Vector of variables for the lcp. Here we call them </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">wantf</span></code>: True (positive) if the function value is needed </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code>: The output object for the function value </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">nnz</span></code>: Number of non-zeros </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">col_start</span></code>: Column start vector </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">col_len</span></code>: Column length vector </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">row</span></code>: Row vector </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>: M_Data vector </p></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dat</strong> – The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p></li>
+<li><p><strong>n</strong> – Number of variables </p></li>
+<li><p><strong>x</strong> – Vector of variables for the lcp. Here we call them </p></li>
+<li><p><strong>wantf</strong> – True (positive) if the function value is needed </p></li>
+<li><p><strong>f</strong> – The output object for the function value </p></li>
+<li><p><strong>nnz</strong> – Number of non-zeros </p></li>
+<li><p><strong>col_start</strong> – Column start vector </p></li>
+<li><p><strong>col_len</strong> – Column length vector </p></li>
+<li><p><strong>row</strong> – Row vector </p></li>
+<li><p><strong>data</strong> – M_Data vector </p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Unused. This is a callback function </p>
+</dd>
 </dl>
-</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7Solvers4PATH19function_evaluationEPviPdPd">
-<span id="_CPPv3N7Solvers4PATH19function_evaluationEPviPdPd"></span><span id="_CPPv2N7Solvers4PATH19function_evaluationEPviPdPd"></span><span id="Solvers::PATH::function_evaluation__voidP.i.doubleP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1ad28276e7cce88e626aa0f342678c9035"></span>int <code class="sig-name descname">function_evaluation</code><span class="sig-paren">(</span>void *<em>dat</em>, int <em>n</em>, double *<em>x</em>, double *<em>f</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH19function_evaluationEPviPdPd" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH19function_evaluationEPviPdPd">
+<span id="_CPPv3N7Solvers4PATH19function_evaluationEPviPdPd"></span><span id="_CPPv2N7Solvers4PATH19function_evaluationEPviPdPd"></span><span id="Solvers::PATH::function_evaluation__voidP.i.doubleP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1ad28276e7cce88e626aa0f342678c9035"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">function_evaluation</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">dat</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH19function_evaluationEPviPdPd" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Static wrapper for PATH::c_function_evaluation. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>Unused. This is a callback function </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">dat</span></code>: The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Number of variables </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: Vector of variables for the lcp. Here we call them </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code>: The output object for the function value </p></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dat</strong> – The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p></li>
+<li><p><strong>n</strong> – Number of variables </p></li>
+<li><p><strong>x</strong> – Vector of variables for the lcp. Here we call them </p></li>
+<li><p><strong>f</strong> – The output object for the function value </p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Unused. This is a callback function </p>
+</dd>
 </dl>
-</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7Solvers4PATH5startEPv">
-<span id="_CPPv3N7Solvers4PATH5startEPv"></span><span id="_CPPv2N7Solvers4PATH5startEPv"></span><span id="Solvers::PATH::start__voidP"></span><span class="target" id="classSolvers_1_1PATH_1a1155a368e7e42347f37aff438181ae4e"></span>void <code class="sig-name descname">start</code><span class="sig-paren">(</span>void *<em>dat</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH5startEPv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH5startEPv">
+<span id="_CPPv3N7Solvers4PATH5startEPv"></span><span id="_CPPv2N7Solvers4PATH5startEPv"></span><span id="Solvers::PATH::start__voidP"></span><span class="target" id="classSolvers_1_1PATH_1a1155a368e7e42347f37aff438181ae4e"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">start</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">dat</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH5startEPv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Starting function for <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a>. This is called whenever the solver is initialized. </p>
-<p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">dat</span></code>: The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p></li>
-</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dat</strong> – The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7Solvers4PATH6boundsEPviPdPdPd">
-<span id="_CPPv3N7Solvers4PATH6boundsEPviPdPdPd"></span><span id="_CPPv2N7Solvers4PATH6boundsEPviPdPdPd"></span><span id="Solvers::PATH::bounds__voidP.i.doubleP.doubleP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1a5535947807c7949bb55b0b3ef0d2e504"></span>void <code class="sig-name descname">bounds</code><span class="sig-paren">(</span>void *<em>dat</em>, int <em>n</em>, double *<em>x</em>, double *<em>lb</em>, double *<em>ub</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH6boundsEPviPdPdPd" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH6boundsEPviPdPdPd">
+<span id="_CPPv3N7Solvers4PATH6boundsEPviPdPdPd"></span><span id="_CPPv2N7Solvers4PATH6boundsEPviPdPdPd"></span><span id="Solvers::PATH::bounds__voidP.i.doubleP.doubleP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1a5535947807c7949bb55b0b3ef0d2e504"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bounds</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">dat</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">lb</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ub</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH6boundsEPviPdPdPd" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Static wrapper for PATH::c_bounds. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
-<p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">dat</span></code>: The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Number of variables </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: Pointer to variables </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">lb</span></code>: Lower bounds on variables </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ub</span></code>: Upper bounds on variables </p></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dat</strong> – The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p></li>
+<li><p><strong>n</strong> – Number of variables </p></li>
+<li><p><strong>x</strong> – Pointer to variables </p></li>
+<li><p><strong>lb</strong> – Lower bounds on variables </p></li>
+<li><p><strong>ub</strong> – Upper bounds on variables </p></li>
 </ul>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7Solvers4PATH12problem_sizeEPvPiPi">
-<span id="_CPPv3N7Solvers4PATH12problem_sizeEPvPiPi"></span><span id="_CPPv2N7Solvers4PATH12problem_sizeEPvPiPi"></span><span id="Solvers::PATH::problem_size__voidP.iP.iP"></span><span class="target" id="classSolvers_1_1PATH_1a87411f8522cd693364da4dc8c58787a3"></span>void <code class="sig-name descname">problem_size</code><span class="sig-paren">(</span>void *<em>dat</em>, int *<em>n</em>, int *<em>nnz</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH12problem_sizeEPvPiPi" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH12problem_sizeEPvPiPi">
+<span id="_CPPv3N7Solvers4PATH12problem_sizeEPvPiPi"></span><span id="_CPPv2N7Solvers4PATH12problem_sizeEPvPiPi"></span><span id="Solvers::PATH::problem_size__voidP.iP.iP"></span><span class="target" id="classSolvers_1_1PATH_1a87411f8522cd693364da4dc8c58787a3"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">problem_size</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">dat</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">n</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">nnz</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH12problem_sizeEPvPiPi" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Static wrapper for PATH::c_problem_size. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
-<p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">dat</span></code>: The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Number of variables </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">nnz</span></code>: Number of non-zeros in M </p></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dat</strong> – The data passed by the <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> callback. Usually, it is an instance of the class </p></li>
+<li><p><strong>n</strong> – Number of variables </p></li>
+<li><p><strong>nnz</strong> – Number of non-zeros in M </p></li>
 </ul>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Private Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N7Solvers4PATH10CreateLMCPEiiA_iA_iA_dA_dA_dA_dA_dA_did">
-<span id="_CPPv3N7Solvers4PATH10CreateLMCPEiiA_iA_iA_dA_dA_dA_dA_dA_did"></span><span id="_CPPv2N7Solvers4PATH10CreateLMCPEiiA_iA_iA_dA_dA_dA_dA_dA_did"></span><span id="Solvers::PATH::CreateLMCP__i.i.iA.iA.doubleA.doubleA.doubleA.doubleA.doubleA.doubleA.i.double"></span><span class="target" id="classSolvers_1_1PATH_1a910fa4ef3edd5879b0257b90fb26dffa"></span>int <code class="sig-name descname">CreateLMCP</code><span class="sig-paren">(</span>int <em>n</em>, int <em>m_nnz</em>, int <em>m_i</em>[], int <em>m_j</em>[], double <em>m_ij</em>[], double <em>q</em>[], double <em>lb</em>[], double <em>ub</em>[], double <em>x</em>[], double <em>z</em>[], int <em>verbose</em>, double <em>timeLimit</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH10CreateLMCPEiiA_iA_iA_dA_dA_dA_dA_dA_did" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH10CreateLMCPEiiA_iA_iA_dA_dA_dA_dA_dA_did">
+<span id="_CPPv3N7Solvers4PATH10CreateLMCPEiiA_iA_iA_dA_dA_dA_dA_dA_did"></span><span id="_CPPv2N7Solvers4PATH10CreateLMCPEiiA_iA_iA_dA_dA_dA_dA_dA_did"></span><span id="Solvers::PATH::CreateLMCP__i.i.iA.iA.doubleA.doubleA.doubleA.doubleA.doubleA.doubleA.i.double"></span><span class="target" id="classSolvers_1_1PATH_1a910fa4ef3edd5879b0257b90fb26dffa"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CreateLMCP</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">m_nnz</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">m_i</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">m_j</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">m_ij</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">q</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">lb</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ub</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">z</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">verbose</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">timeLimit</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH10CreateLMCPEiiA_iA_iA_dA_dA_dA_dA_dA_did" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Internal method to create the linear mixed-complemetarity problem. </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>The <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> MCP_Termination code </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Number of x variables </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">m_nnz</span></code>: Number of non-zeros in M </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">m_i</span></code>: Row indexes for M non-zeros. Fortran style: start is 1 (not 0) </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">m_j</span></code>: Column indexes for M non-zeros. Fortran style: start is 1 (not 0) </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">m_ij</span></code>: The data in M corresponding to row <code class="docutils literal notranslate"><span class="pre">m_i</span></code> and column <code class="docutils literal notranslate"><span class="pre">m_j</span></code> </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">q</span></code>: The q vector </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">lb</span></code>: Vector of lower bounds on x </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ub</span></code>: Vector of upper bounds on x </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: Output vector of x variables </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code>: Output vector of z equation values </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code>: True if <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> will be verbose </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">timeLimit</span></code>: A double timelimit </p></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> – Number of x variables </p></li>
+<li><p><strong>m_nnz</strong> – Number of non-zeros in M </p></li>
+<li><p><strong>m_i</strong> – Row indexes for M non-zeros. Fortran style: start is 1 (not 0) </p></li>
+<li><p><strong>m_j</strong> – Column indexes for M non-zeros. Fortran style: start is 1 (not 0) </p></li>
+<li><p><strong>m_ij</strong> – The data in M corresponding to row <code class="docutils literal notranslate"><span class="pre">m_i</span></code> and column <code class="docutils literal notranslate"><span class="pre">m_j</span></code> </p></li>
+<li><p><strong>q</strong> – The q vector </p></li>
+<li><p><strong>lb</strong> – Vector of lower bounds on x </p></li>
+<li><p><strong>ub</strong> – Vector of upper bounds on x </p></li>
+<li><p><strong>x</strong> – Output vector of x variables </p></li>
+<li><p><strong>z</strong> – Output vector of z equation values </p></li>
+<li><p><strong>verbose</strong> – True if <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> will be verbose </p></li>
+<li><p><strong>timeLimit</strong> – A double timelimit </p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> MCP_Termination code </p>
+</dd>
 </dl>
-</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7Solvers4PATH4sortEiiiPiPiPd">
-<span id="_CPPv3N7Solvers4PATH4sortEiiiPiPiPd"></span><span id="_CPPv2N7Solvers4PATH4sortEiiiPiPiPd"></span><span id="Solvers::PATH::sort__i.i.i.iP.iP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1abe40abf4f2297d4a756bfbd26b86564f"></span>void <code class="sig-name descname">sort</code><span class="sig-paren">(</span>int <em>rows</em>, int <em>cols</em>, int <em>elements</em>, int *<em>row</em>, int *<em>col</em>, double *<em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH4sortEiiiPiPiPd" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH4sortEiiiPiPiPd">
+<span id="_CPPv3N7Solvers4PATH4sortEiiiPiPiPd"></span><span id="_CPPv2N7Solvers4PATH4sortEiiiPiPiPd"></span><span id="Solvers::PATH::sort__i.i.i.iP.iP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1abe40abf4f2297d4a756bfbd26b86564f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sort</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rows</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">cols</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">elements</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">row</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">col</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH4sortEiiiPiPiPd" title="Permalink to this definition"></a><br /></dt>
 <dd><p>This function is from <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a>. Sorts the data in M. </p>
-<p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">rows</span></code>: Row count </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cols</span></code>: Column counts </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">elements</span></code>: Element counts </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">row</span></code>: Row data pointer </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">col</span></code>: Column data pointer </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>: M-data pointer </p></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rows</strong> – Row count </p></li>
+<li><p><strong>cols</strong> – Column counts </p></li>
+<li><p><strong>elements</strong> – Element counts </p></li>
+<li><p><strong>row</strong> – Row data pointer </p></li>
+<li><p><strong>col</strong> – Column data pointer </p></li>
+<li><p><strong>data</strong> – M-data pointer </p></li>
 </ul>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7Solvers4PATH14C_problem_sizeEPiPi">
-<span id="_CPPv3N7Solvers4PATH14C_problem_sizeEPiPi"></span><span id="_CPPv2N7Solvers4PATH14C_problem_sizeEPiPi"></span><span id="Solvers::PATH::C_problem_size__iP.iP"></span><span class="target" id="classSolvers_1_1PATH_1ac3577d9f9a0a60ed3dedf541675dc04f"></span>void <code class="sig-name descname">C_problem_size</code><span class="sig-paren">(</span>int *<em>n</em>, int *<em>nnz</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH14C_problem_sizeEPiPi" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH14C_problem_sizeEPiPi">
+<span id="_CPPv3N7Solvers4PATH14C_problem_sizeEPiPi"></span><span id="_CPPv2N7Solvers4PATH14C_problem_sizeEPiPi"></span><span id="Solvers::PATH::C_problem_size__iP.iP"></span><span class="target" id="classSolvers_1_1PATH_1ac3577d9f9a0a60ed3dedf541675dc04f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">C_problem_size</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">n</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">nnz</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH14C_problem_sizeEPiPi" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Fills the problem size. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
-<p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Number of variables </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">nnz</span></code>: Number of non-zeros in M </p></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> – Number of variables </p></li>
+<li><p><strong>nnz</strong> – Number of non-zeros in M </p></li>
 </ul>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7Solvers4PATH8C_boundsEiPdPdPd">
-<span id="_CPPv3N7Solvers4PATH8C_boundsEiPdPdPd"></span><span id="_CPPv2N7Solvers4PATH8C_boundsEiPdPdPd"></span><span id="Solvers::PATH::C_bounds__i.doubleP.doubleP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1a9d12b23197a22ef2bf9ae4ed5334caea"></span>void <code class="sig-name descname">C_bounds</code><span class="sig-paren">(</span>int <em>n</em>, double *<em>z</em>, double *<em>lb</em>, double *<em>ub</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH8C_boundsEiPdPdPd" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH8C_boundsEiPdPdPd">
+<span id="_CPPv3N7Solvers4PATH8C_boundsEiPdPdPd"></span><span id="_CPPv2N7Solvers4PATH8C_boundsEiPdPdPd"></span><span id="Solvers::PATH::C_bounds__i.doubleP.doubleP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1a9d12b23197a22ef2bf9ae4ed5334caea"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">C_bounds</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">z</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">lb</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ub</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH8C_boundsEiPdPdPd" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Assigns bounds to variables. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
-<p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Number of variables </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Pointer to variables </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">lb</span></code>: Lower bounds on variables </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ub</span></code>: Upper bounds on variables </p></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> – Number of variables </p></li>
+<li><p><strong>x</strong> – Pointer to variables </p></li>
+<li><p><strong>lb</strong> – Lower bounds on variables </p></li>
+<li><p><strong>ub</strong> – Upper bounds on variables </p></li>
 </ul>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7Solvers4PATH21C_function_evaluationEiPdPd">
-<span id="_CPPv3N7Solvers4PATH21C_function_evaluationEiPdPd"></span><span id="_CPPv2N7Solvers4PATH21C_function_evaluationEiPdPd"></span><span id="Solvers::PATH::C_function_evaluation__i.doubleP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1a00a6d1a5b7faa19634237bbbff2752ce"></span>int <code class="sig-name descname">C_function_evaluation</code><span class="sig-paren">(</span>int <em>n</em>, double *<em>x</em>, double *<em>f</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH21C_function_evaluationEiPdPd" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH21C_function_evaluationEiPdPd">
+<span id="_CPPv3N7Solvers4PATH21C_function_evaluationEiPdPd"></span><span id="_CPPv2N7Solvers4PATH21C_function_evaluationEiPdPd"></span><span id="Solvers::PATH::C_function_evaluation__i.doubleP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1a00a6d1a5b7faa19634237bbbff2752ce"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">C_function_evaluation</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH21C_function_evaluationEiPdPd" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Static wrapper for PATH::c_function_evaluation. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>Unused. This is a callback function </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Number of variables </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: Vector of variables for the lcp. Here we call them </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code>: The output object for the function value </p></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> – Number of variables </p></li>
+<li><p><strong>x</strong> – Vector of variables for the lcp. Here we call them </p></li>
+<li><p><strong>f</strong> – The output object for the function value </p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Unused. This is a callback function </p>
+</dd>
 </dl>
-</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N7Solvers4PATH21C_jacobian_evaluationEiPdiPdPiPiPiPiPd">
-<span id="_CPPv3N7Solvers4PATH21C_jacobian_evaluationEiPdiPdPiPiPiPiPd"></span><span id="_CPPv2N7Solvers4PATH21C_jacobian_evaluationEiPdiPdPiPiPiPiPd"></span><span id="Solvers::PATH::C_jacobian_evaluation__i.doubleP.i.doubleP.iP.iP.iP.iP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1a5567d40864bea273cd46e2a3b6018104"></span>int <code class="sig-name descname">C_jacobian_evaluation</code><span class="sig-paren">(</span>int <em>n</em>, double *<em>x</em>, int <em>wantf</em>, double *<em>f</em>, int *<em>nnz</em>, int *<em>col_start</em>, int *<em>col_len</em>, int *<em>row</em>, double *<em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH21C_jacobian_evaluationEiPdiPdPiPiPiPiPd" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH21C_jacobian_evaluationEiPdiPdPiPiPiPiPd">
+<span id="_CPPv3N7Solvers4PATH21C_jacobian_evaluationEiPdiPdPiPiPiPiPd"></span><span id="_CPPv2N7Solvers4PATH21C_jacobian_evaluationEiPdiPdPiPiPiPiPd"></span><span id="Solvers::PATH::C_jacobian_evaluation__i.doubleP.i.doubleP.iP.iP.iP.iP.doubleP"></span><span class="target" id="classSolvers_1_1PATH_1a5567d40864bea273cd46e2a3b6018104"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">C_jacobian_evaluation</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">wantf</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">nnz</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">col_start</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">col_len</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">row</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7Solvers4PATH21C_jacobian_evaluationEiPdiPdPiPiPiPiPd" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Evaluates the jacobian at a given point. Eventually, returns the value of the complementarity. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>Unused. This is a callback function </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Number of variables </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: Vector of variables for the lcp. Here we call them </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">wantf</span></code>: True (positive) if the function value is needed </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code>: The output object for the function value </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">nnz</span></code>: Number of non-zeros </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">col_start</span></code>: Column start vector </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">col_len</span></code>: Column length vector </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">row</span></code>: Row vector </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>: M_Data vector </p></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> – Number of variables </p></li>
+<li><p><strong>x</strong> – Vector of variables for the lcp. Here we call them </p></li>
+<li><p><strong>wantf</strong> – True (positive) if the function value is needed </p></li>
+<li><p><strong>f</strong> – The output object for the function value </p></li>
+<li><p><strong>nnz</strong> – Number of non-zeros </p></li>
+<li><p><strong>col_start</strong> – Column start vector </p></li>
+<li><p><strong>col_len</strong> – Column length vector </p></li>
+<li><p><strong>row</strong> – Row vector </p></li>
+<li><p><strong>data</strong> – M_Data vector </p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Unused. This is a callback function </p>
+</dd>
 </dl>
-</p>
 </dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Private Members</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
 <dl class="cpp var">
-<dt id="_CPPv4N7Solvers4PATH6statusE">
-<span id="_CPPv3N7Solvers4PATH6statusE"></span><span id="_CPPv2N7Solvers4PATH6statusE"></span><span id="Solvers::PATH::status__ZEROStatus"></span><span class="target" id="classSolvers_1_1PATH_1a0a683bb28112f56d04479d43536e597c"></span><a class="reference internal" href="enum_codes_8h_1adc92fa8b12e5abec0a79ad40bedc1ccf.html#_CPPv410ZEROStatus" title="ZEROStatus">ZEROStatus</a> <code class="sig-name descname">status</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH6statusE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH6statusE">
+<span id="_CPPv3N7Solvers4PATH6statusE"></span><span id="_CPPv2N7Solvers4PATH6statusE"></span><span id="Solvers::PATH::status__ZEROStatus"></span><span class="target" id="classSolvers_1_1PATH_1a0a683bb28112f56d04479d43536e597c"></span><a class="reference internal" href="enum_codes_8h_1adc92fa8b12e5abec0a79ad40bedc1ccf.html#_CPPv410ZEROStatus" title="ZEROStatus"><span class="n"><span class="pre">ZEROStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">status</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="enum_codes_8h_1adc92fa8b12e5abec0a79ad40bedc1ccf.html#_CPPv410ZEROStatus" title="ZEROStatus"><span class="n"><span class="pre">ZEROStatus</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_codes_8h_1adc92fa8b12e5abec0a79ad40bedc1ccf.html#_CPPv4N10ZEROStatus9NumericalE" title="ZEROStatus::Numerical"><span class="n"><span class="pre">Numerical</span></span></a><a class="headerlink" href="#_CPPv4N7Solvers4PATH6statusE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Status for the solver’ instance. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N7Solvers4PATH6FilledE">
-<span id="_CPPv3N7Solvers4PATH6FilledE"></span><span id="_CPPv2N7Solvers4PATH6FilledE"></span><span id="Solvers::PATH::Filled__b"></span><span class="target" id="classSolvers_1_1PATH_1abffda59f9d6e4c57449242a883de5695"></span>bool <code class="sig-name descname">Filled</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH6FilledE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH6FilledE">
+<span id="_CPPv3N7Solvers4PATH6FilledE"></span><span id="_CPPv2N7Solvers4PATH6FilledE"></span><span id="Solvers::PATH::Filled__b"></span><span class="target" id="classSolvers_1_1PATH_1abffda59f9d6e4c57449242a883de5695"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Filled</span></span></span><a class="headerlink" href="#_CPPv4N7Solvers4PATH6FilledE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Boolean controlling instance’s filling. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N7Solvers4PATH7ProblemE">
-<span id="_CPPv3N7Solvers4PATH7ProblemE"></span><span id="_CPPv2N7Solvers4PATH7ProblemE"></span><span id="Solvers::PATH::Problem__PATHProblem"></span><span class="target" id="classSolvers_1_1PATH_1aad5a07df3e072b5e1d2d08f1b0982880"></span><a class="reference internal" href="#_CPPv4N7Solvers4PATH11PATHProblemE" title="Solvers::PATH::PATHProblem">PATHProblem</a> <code class="sig-name descname">Problem</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH7ProblemE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH7ProblemE">
+<span id="_CPPv3N7Solvers4PATH7ProblemE"></span><span id="_CPPv2N7Solvers4PATH7ProblemE"></span><span id="Solvers::PATH::Problem__PATHProblem"></span><span class="target" id="classSolvers_1_1PATH_1aad5a07df3e072b5e1d2d08f1b0982880"></span><a class="reference internal" href="#_CPPv4N7Solvers4PATH11PATHProblemE" title="Solvers::PATH::PATHProblem"><span class="n"><span class="pre">PATHProblem</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Problem</span></span></span><a class="headerlink" href="#_CPPv4N7Solvers4PATH7ProblemE" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N7Solvers4PATH14PATH_InterfaceE">
-<span id="_CPPv3N7Solvers4PATH14PATH_InterfaceE"></span><span id="_CPPv2N7Solvers4PATH14PATH_InterfaceE"></span><span id="Solvers::PATH::PATH_Interface__MCP_Interface"></span><span class="target" id="classSolvers_1_1PATH_1a4164ffe4deb54c00be6355a5e46f05e7"></span>MCP_Interface <code class="sig-name descname">PATH_Interface</code> = {this, reinterpret_cast&lt;void (*)<span class="sig-paren">(</span>void*, int*, int*<span class="sig-paren">)</span>&gt;(this-&gt;problem_size), reinterpret_cast&lt;void (*)<span class="sig-paren">(</span>void*, int, double*, double*, double*<span class="sig-paren">)</span>&gt;(this-&gt;bounds), reinterpret_cast&lt;int (*)<span class="sig-paren">(</span>void*, int, double*, double*<span class="sig-paren">)</span>&gt;(&amp;this-&gt;function_evaluation), reinterpret_cast&lt;int (*)<span class="sig-paren">(</span>void*, int, double*, int, double*, int*, int*, int*, int*, double*<span class="sig-paren">)</span>&gt;(&amp;this-&gt;jacobian_evaluation), static_cast&lt;void (*)<span class="sig-paren">(</span>void*<span class="sig-paren">)</span>&gt;(this-&gt;start), NULL, NULL, NULL, NULL}<a class="headerlink" href="#_CPPv4N7Solvers4PATH14PATH_InterfaceE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH14PATH_InterfaceE">
+<span id="_CPPv3N7Solvers4PATH14PATH_InterfaceE"></span><span id="_CPPv2N7Solvers4PATH14PATH_InterfaceE"></span><span id="Solvers::PATH::PATH_Interface__MCP_Interface"></span><span class="target" id="classSolvers_1_1PATH_1a4164ffe4deb54c00be6355a5e46f05e7"></span><span class="n"><span class="pre">MCP_Interface</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PATH_Interface</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="k"><span class="pre">this</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">reinterpret_cast</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">this</span></span><span class="o"><span class="pre">-&gt;</span></span><span class="n"><span class="pre">problem_size</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">reinterpret_cast</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">this</span></span><span class="o"><span class="pre">-&gt;</span></span><span class="n"><span class="pre">bounds</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">reinterpret_cast</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><span class="o"><span class="pre">&amp;</span></span><span class="k"><span class="pre">this</span></span><span class="o"><span class="pre">-&gt;</span></span><span class="n"><span class="pre">function_evaluation</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">reinterpret_cast</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><span class="o"><span class="pre">&amp;</span></span><span class="k"><span class="pre">this</span></span><span class="o"><span class="pre">-&gt;</span></span><span class="n"><span class="pre">jacobian_evaluation</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">static_cast</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">this</span></span><span class="o"><span class="pre">-&gt;</span></span><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N7Solvers4PATH14PATH_InterfaceE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>The MCP_Interface initializer. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N7Solvers4PATH13PATH_PresolveE">
-<span id="_CPPv3N7Solvers4PATH13PATH_PresolveE"></span><span id="_CPPv2N7Solvers4PATH13PATH_PresolveE"></span><span id="Solvers::PATH::PATH_Presolve__Presolve_Interface"></span><span class="target" id="classSolvers_1_1PATH_1ae4674579401aabe67e82d25d2817c887"></span>Presolve_Interface <code class="sig-name descname">PATH_Presolve</code> = {NULL, NULL, NULL, NULL, NULL, reinterpret_cast&lt;void (*)<span class="sig-paren">(</span>void*, int, int*<span class="sig-paren">)</span>&gt;(this-&gt;mcp_typ), NULL}<a class="headerlink" href="#_CPPv4N7Solvers4PATH13PATH_PresolveE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH13PATH_PresolveE">
+<span id="_CPPv3N7Solvers4PATH13PATH_PresolveE"></span><span id="_CPPv2N7Solvers4PATH13PATH_PresolveE"></span><span id="Solvers::PATH::PATH_Presolve__Presolve_Interface"></span><span class="target" id="classSolvers_1_1PATH_1ae4674579401aabe67e82d25d2817c887"></span><span class="n"><span class="pre">Presolve_Interface</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PATH_Presolve</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="n"><span class="pre">NULL</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">reinterpret_cast</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">this</span></span><span class="o"><span class="pre">-&gt;</span></span><span class="n"><span class="pre">mcp_typ</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N7Solvers4PATH13PATH_PresolveE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>The Presolve_Interface initializer. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N7Solvers4PATH11PATH_OutputE">
-<span id="_CPPv3N7Solvers4PATH11PATH_OutputE"></span><span id="_CPPv2N7Solvers4PATH11PATH_OutputE"></span><span id="Solvers::PATH::PATH_Output__Output_Interface"></span><span class="target" id="classSolvers_1_1PATH_1a645cab7c4f8ac6062a3ef01e3378a1fe"></span>Output_Interface <code class="sig-name descname">PATH_Output</code> = {NULL, reinterpret_cast&lt;void (*)<span class="sig-paren">(</span>void*, int, char*<span class="sig-paren">)</span>&gt;(this-&gt;messageCB), NULL}<a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATH_OutputE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH11PATH_OutputE">
+<span id="_CPPv3N7Solvers4PATH11PATH_OutputE"></span><span id="_CPPv2N7Solvers4PATH11PATH_OutputE"></span><span id="Solvers::PATH::PATH_Output__Output_Interface"></span><span class="target" id="classSolvers_1_1PATH_1a645cab7c4f8ac6062a3ef01e3378a1fe"></span><span class="n"><span class="pre">Output_Interface</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PATH_Output</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="n"><span class="pre">NULL</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">reinterpret_cast</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">this</span></span><span class="o"><span class="pre">-&gt;</span></span><span class="n"><span class="pre">messageCB</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATH_OutputE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>The Output_Interface initializer. See <a class="reference internal" href="#classSolvers_1_1PATH"><span class="std std-ref">PATH</span></a> documentation for more. </p>
 </dd></dl>
 
 </div>
 <dl class="cpp struct">
-<dt id="_CPPv4N7Solvers4PATH11PATHProblemE">
-<span id="_CPPv3N7Solvers4PATH11PATHProblemE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblemE"></span><span id="Solvers::PATH::PATHProblem"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem"></span><em class="property">struct </em><code class="sig-name descname">PATHProblem</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblemE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH11PATHProblemE">
+<span id="_CPPv3N7Solvers4PATH11PATHProblemE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblemE"></span><span id="Solvers::PATH::PATHProblem"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PATHProblem</span></span></span><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblemE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>This struct manages an LCP where each complementarity is given by <span class="math notranslate nohighlight">\(x \perp z=(Mx+q)\)</span>. </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Members</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
 <dl class="cpp var">
-<dt id="_CPPv4N7Solvers4PATH11PATHProblem1nE">
-<span id="_CPPv3N7Solvers4PATH11PATHProblem1nE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem1nE"></span><span id="Solvers::PATH::PATHProblem::n__i"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a4b8be75d5ca5c71ea84923e93ff1b1da"></span>int <code class="sig-name descname">n</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem1nE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH11PATHProblem1nE">
+<span id="_CPPv3N7Solvers4PATH11PATHProblem1nE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem1nE"></span><span id="Solvers::PATH::PATHProblem::n__i"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a4b8be75d5ca5c71ea84923e93ff1b1da"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">n</span></span></span><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem1nE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Number of x variables, namely complementarities. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N7Solvers4PATH11PATHProblem3nnzE">
-<span id="_CPPv3N7Solvers4PATH11PATHProblem3nnzE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem3nnzE"></span><span id="Solvers::PATH::PATHProblem::nnz__i"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a28806873e3f14ae6bc9323f81f702032"></span>int <code class="sig-name descname">nnz</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem3nnzE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH11PATHProblem3nnzE">
+<span id="_CPPv3N7Solvers4PATH11PATHProblem3nnzE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem3nnzE"></span><span id="Solvers::PATH::PATHProblem::nnz__i"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a28806873e3f14ae6bc9323f81f702032"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nnz</span></span></span><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem3nnzE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Number of non-zeros in M. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N7Solvers4PATH11PATHProblem1xE">
-<span id="_CPPv3N7Solvers4PATH11PATHProblem1xE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem1xE"></span><span id="Solvers::PATH::PATHProblem::x__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a575bde07ffc409beee257004bf402a06"></span>double *<code class="sig-name descname">x</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem1xE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH11PATHProblem1xE">
+<span id="_CPPv3N7Solvers4PATH11PATHProblem1xE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem1xE"></span><span id="Solvers::PATH::PATHProblem::x__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a575bde07ffc409beee257004bf402a06"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">x</span></span></span><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem1xE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Pointer to x values. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N7Solvers4PATH11PATHProblem2lbE">
-<span id="_CPPv3N7Solvers4PATH11PATHProblem2lbE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem2lbE"></span><span id="Solvers::PATH::PATHProblem::lb__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a1c5e6f6d626545681e813f0fdf77b989"></span>double *<code class="sig-name descname">lb</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem2lbE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH11PATHProblem2lbE">
+<span id="_CPPv3N7Solvers4PATH11PATHProblem2lbE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem2lbE"></span><span id="Solvers::PATH::PATHProblem::lb__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a1c5e6f6d626545681e813f0fdf77b989"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">lb</span></span></span><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem2lbE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>n-dimensional array of lower bounds </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N7Solvers4PATH11PATHProblem2ubE">
-<span id="_CPPv3N7Solvers4PATH11PATHProblem2ubE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem2ubE"></span><span id="Solvers::PATH::PATHProblem::ub__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a7fe06ccfe5a6d7e0075971ed760bb2c0"></span>double *<code class="sig-name descname">ub</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem2ubE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH11PATHProblem2ubE">
+<span id="_CPPv3N7Solvers4PATH11PATHProblem2ubE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem2ubE"></span><span id="Solvers::PATH::PATHProblem::ub__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a7fe06ccfe5a6d7e0075971ed760bb2c0"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">ub</span></span></span><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem2ubE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>n-dimensional array of upper bounds </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N7Solvers4PATH11PATHProblem7m_startE">
-<span id="_CPPv3N7Solvers4PATH11PATHProblem7m_startE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem7m_startE"></span><span id="Solvers::PATH::PATHProblem::m_start__iP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a3954965949d54967d009c0e269f09a80"></span>int *<code class="sig-name descname">m_start</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem7m_startE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N7Solvers4PATH11PATHProblem5m_lenE">
-<span id="_CPPv3N7Solvers4PATH11PATHProblem5m_lenE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem5m_lenE"></span><span id="Solvers::PATH::PATHProblem::m_len__iP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a7033f34254f566dadb6935cdcede7aff"></span>int *<code class="sig-name descname">m_len</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem5m_lenE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N7Solvers4PATH11PATHProblem5m_rowE">
-<span id="_CPPv3N7Solvers4PATH11PATHProblem5m_rowE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem5m_rowE"></span><span id="Solvers::PATH::PATHProblem::m_row__iP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1ae268ec976315ecf4f9ebb11ca54320c5"></span>int *<code class="sig-name descname">m_row</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem5m_rowE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N7Solvers4PATH11PATHProblem6m_dataE">
-<span id="_CPPv3N7Solvers4PATH11PATHProblem6m_dataE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem6m_dataE"></span><span id="Solvers::PATH::PATHProblem::m_data__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a1b441242681204e95423f0fe20cbeef9"></span>double *<code class="sig-name descname">m_data</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem6m_dataE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Data of M, in fortran style. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH11PATHProblem7m_startE">
+<span id="_CPPv3N7Solvers4PATH11PATHProblem7m_startE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem7m_startE"></span><span id="Solvers::PATH::PATHProblem::m_start__iP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a3954965949d54967d009c0e269f09a80"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">m_start</span></span></span><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem7m_startE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Fortran like start of M. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N7Solvers4PATH11PATHProblem1qE">
-<span id="_CPPv3N7Solvers4PATH11PATHProblem1qE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem1qE"></span><span id="Solvers::PATH::PATHProblem::q__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1af38478e2e44aa8d520f06a2965f5b7f2"></span>double *<code class="sig-name descname">q</code><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem1qE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH11PATHProblem5m_lenE">
+<span id="_CPPv3N7Solvers4PATH11PATHProblem5m_lenE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem5m_lenE"></span><span id="Solvers::PATH::PATHProblem::m_len__iP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a7033f34254f566dadb6935cdcede7aff"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">m_len</span></span></span><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem5m_lenE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Fortran like length of M. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH11PATHProblem5m_rowE">
+<span id="_CPPv3N7Solvers4PATH11PATHProblem5m_rowE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem5m_rowE"></span><span id="Solvers::PATH::PATHProblem::m_row__iP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1ae268ec976315ecf4f9ebb11ca54320c5"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">m_row</span></span></span><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem5m_rowE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Fortran like row of M. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH11PATHProblem6m_dataE">
+<span id="_CPPv3N7Solvers4PATH11PATHProblem6m_dataE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem6m_dataE"></span><span id="Solvers::PATH::PATHProblem::m_data__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1a1b441242681204e95423f0fe20cbeef9"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">m_data</span></span></span><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem6m_dataE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Fortran like data of M. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N7Solvers4PATH11PATHProblem1qE">
+<span id="_CPPv3N7Solvers4PATH11PATHProblem1qE"></span><span id="_CPPv2N7Solvers4PATH11PATHProblem1qE"></span><span id="Solvers::PATH::PATHProblem::q__doubleP"></span><span class="target" id="structSolvers_1_1PATH_1_1PATHProblem_1af38478e2e44aa8d520f06a2965f5b7f2"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">q</span></span></span><a class="headerlink" href="#_CPPv4N7Solvers4PATH11PATHProblem1qE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>q vector </p>
 </dd></dl>
 
@@ -1193,63 +1238,38 @@
 
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="classZEROAlgorithmData.html" class="btn btn-neutral float-right" title="Class ZEROAlgorithmData" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="classModels_1_1IPG_1_1IPG.html" class="btn btn-neutral float-left" title="Class IPG" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classModels_1_1IPG_1_1IPG.html" class="btn btn-neutral float-left" title="Class IPG" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classZEROAlgorithmData.html" class="btn btn-neutral float-right" title="Class ZEROAlgorithmData" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        
-        &copy; Copyright Gabriele Dragotto, Sriram Sankaranarayanan
-
-    </p>
+    <p>&#169; Copyright Gabriele Dragotto, Sriram Sankaranarayanan.</p>
   </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

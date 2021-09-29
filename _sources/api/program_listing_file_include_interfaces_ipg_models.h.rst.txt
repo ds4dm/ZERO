@@ -8,7 +8,7 @@ Program Listing for File ipg_models.h
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
-.. code-block:: none
+.. code-block:: cpp
 
    /* #############################################
     *             This file is part of
@@ -16,7 +16,7 @@ Program Listing for File ipg_models.h
     *
     *             Copyright (c) 2020
     *     Released under the Creative Commons
-    *        Zero v1.0 Universal License
+    *         CC BY-NC-SA 4.0 License
     *
     *              Find out more at
     *        https://github.com/ds4dm/ZERO
@@ -61,6 +61,7 @@ Program Listing for File ipg_models.h
         public:
            IPG(GRBEnv *env, const std::string instanceFileName);
            IPG(GRBEnv *env, IPGInstance instance);
+           std::shared_ptr<const MathOpt::IP_Param> getIPParam(unsigned int player);
    
            void writeSolution(std::string filename) const;
    

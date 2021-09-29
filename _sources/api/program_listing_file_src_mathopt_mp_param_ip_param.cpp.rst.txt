@@ -8,7 +8,7 @@ Program Listing for File ip_param.cpp
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
-.. code-block:: none
+.. code-block:: cpp
 
    /* #############################################
     *             This file is part of
@@ -16,7 +16,7 @@ Program Listing for File ip_param.cpp
     *
     *             Copyright (c) 2020
     *     Released under the Creative Commons
-    *        Zero v1.0 Universal License
+    *         CC BY-NC-SA 4.0 License
     *
     *              Find out more at
     *        https://github.com/ds4dm/ZERO
@@ -24,14 +24,11 @@ Program Listing for File ip_param.cpp
    
    
    #include "mathopt/mp_param/ip_param.h"
-   #include <armadillo>
-   #include <boost/log/trivial.hpp>
-   #include <iostream>
-   #include <memory>
    
+   #include <memory>
    std::ostream &MathOpt::operator<<(std::ostream &os, const MathOpt::IP_Param &I) {
      os << "Parametrized Integer Program with bi-linear objective: " << '\n';
-     os << I.getNy() << " decision variables parametrized by " << I.getNx() << " variables" << '\n';
+     os << I.getNumVars() << " decision variables" << '\n';
      os << I.getb().n_rows << " linear inequalities" << '\n' << '\n';
      return os;
    }
@@ -39,13 +36,13 @@ Program Listing for File ip_param.cpp
    
    
    bool MathOpt::IP_Param::operator==(const IP_Param &IPG2) const {
-     if (!Utils::isZero(this->B - IPG2.getB()))
+     if (!Utils::isZero(this->getB(true) - IPG2.getB(true)))
         return false;
      if (!Utils::isZero(this->C - IPG2.getC()))
         return false;
      if (!Utils::isZero(this->c - IPG2.getc()))
         return false;
-     if (!Utils::isZero(this->b - IPG2.getb()))
+     if (!Utils::isZero(this->getb(true) - IPG2.getb(true)))
         return false;
      for (unsigned int i = 0; i < this->Bounds.size(); ++i)
         if (this->Bounds.at(i) != IPG2.Bounds.at(i))
@@ -53,6 +50,18 @@ Program Listing for File ip_param.cpp
      return Utils::isZero(this->Integers - IPG2.getIntegers());
    }
    
+   MathOpt::IP_Param &MathOpt::IP_Param::setBounds(const VariableBounds &bound_in) {
+     MathOpt::MP_Param::setBounds(bound_in);
+     for (unsigned int i = 0; i < this->numVars; i++) {
+        auto var = this->IPModel.getVarByName("y_" + std::to_string(i));
+        var.set(GRB_DoubleAttr_LB, this->Bounds.at(i).first > 0 ? this->Bounds.at(i).first : 0);
+        var.set(GRB_DoubleAttr_UB,
+                   this->Bounds.at(i).second > 0 ? this->Bounds.at(i).second : GRB_INFINITY);
+     }
+     this->IPModel.update();
+     this->rewriteBounds();
+     return *this;
+   } 
    
    bool MathOpt::IP_Param::finalize() {
    
@@ -60,8 +69,8 @@ Program Listing for File ip_param.cpp
         return true;
      MP_Param::finalize();
      try {
-        GRBVar y[this->Ny];
-        for (unsigned int i = 0; i < this->Ny; i++) {
+        GRBVar y[this->numVars];
+        for (unsigned int i = 0; i < this->numVars; i++) {
            y[i] = this->IPModel.addVar(Bounds.at(i).first > 0 ? Bounds.at(i).first : 0,
                                                 Bounds.at(i).second > 0 ? Bounds.at(i).second : GRB_INFINITY,
                                                 c.at(i),
@@ -69,20 +78,23 @@ Program Listing for File ip_param.cpp
                                                 "y_" + std::to_string(i));
         }
         // Add integralities
-        for (unsigned int i = 0; i < this->Integers.size(); ++i)
+        for (unsigned int i = 0; i < this->Integers.size(); ++i) {
            y[static_cast<int>(Integers.at(i))].set(GRB_CharAttr_VType, 'I');
-   
-        for (unsigned int i = 0; i < this->Ncons; i++) {
-           GRBLinExpr LHS{0};
-           for (auto j = B.begin_row(i); j != B.end_row(i); ++j)
-             LHS += (*j) * y[j.col()];
-           this->IPModel.addConstr(LHS, GRB_LESS_EQUAL, b[i]);
+           // Unfortunately, we need to reset the bounds for these variables
+           auto var = y[static_cast<int>(Integers.at(i))];
+           var.set(GRB_DoubleAttr_LB,
+                     this->Bounds.at(Integers.at(i)).first > 0 ? this->Bounds.at(Integers.at(i)).first
+                                                                             : 0);
+           var.set(GRB_DoubleAttr_UB,
+                     this->Bounds.at(Integers.at(i)).second > 0 ? this->Bounds.at(Integers.at(i)).second
+                                                                               : GRB_INFINITY);
         }
    
+        Utils::addSparseConstraints(B, b, y, "Constr_", &this->IPModel, GRB_LESS_EQUAL, nullptr);
+   
         this->IPModel.update();
-        this->IPModel.set(GRB_IntParam_OutputFlag, 1);
+        this->IPModel.set(GRB_IntParam_OutputFlag, 0);
         this->IPModel.set(GRB_IntParam_InfUnbdInfo, 1);
-        this->IPModel.set(GRB_IntParam_DualReductions, 0);
    
      } catch (GRBException &e) {
         throw ZEROException(ZEROErrorCode::SolverError,
@@ -92,11 +104,11 @@ Program Listing for File ip_param.cpp
      return true;
    }
    
-   void MathOpt::IP_Param::updateModelObjective(const arma::vec x) {
-     if (x.size() != this->Nx)
+   void MathOpt::IP_Param::updateModelObjective(const arma::vec &x) {
+     if (x.size() != this->numParams)
         throw ZEROException(ZEROErrorCode::Assertion,
                                    "Invalid argument size: " + std::to_string(x.size()) +
-                                        " != " + std::to_string(Nx));
+                                        " != " + std::to_string(numParams));
      if (!this->Finalized)
         throw ZEROException(ZEROErrorCode::Assertion, "The model is not Finalized!");
      try {
@@ -104,36 +116,34 @@ Program Listing for File ip_param.cpp
         GRBQuadExpr Objective = 0;
         arma::vec   Cx;
         Cx = this->C * x;
-        for (unsigned int i = 0; i < this->Ny; i++)
+        for (unsigned int i = 0; i < this->numVars; i++)
            Objective += (Cx[i] + this->c.at(i)) * this->IPModel.getVarByName("y_" + std::to_string(i));
    
-        // this->c.print("c");
-        // Cx.print("Cx");
    
-   
-        IPModel.setObjective(Objective, GRB_MINIMIZE);
-        IPModel.update();
+        this->IPModel.setObjective(Objective, GRB_MINIMIZE);
+        this->IPModel.update();
      } catch (GRBException &e) {
         throw ZEROException(e);
      }
    }
    
    std::unique_ptr<GRBModel> MathOpt::IP_Param::solveFixed(const arma::vec x, bool solve) {
-     std::unique_ptr<GRBModel> model(new GRBModel(this->IPModel));
      if (!this->Finalized)
         throw ZEROException(ZEROErrorCode::Assertion, "The model is not Finalized!");
      try {
         this->updateModelObjective(x);
+        std::unique_ptr<GRBModel> model(new GRBModel(this->IPModel));
         if (solve)
            model->optimize();
+       return model;
      } catch (GRBException &e) {
         throw ZEROException(e);
      }
-     return model;
+     return nullptr;
    }
    
    
-   std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(const arma::vec x, bool relax) {
+   std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(const arma::vec &x, bool relax) {
      if (!this->Finalized)
         throw ZEROException(ZEROErrorCode::Assertion, "The model is not Finalized!");
      try {
@@ -142,66 +152,44 @@ Program Listing for File ip_param.cpp
         throw ZEROException(e);
      }
      if (relax) {
-        return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel.relax()));
+        return std::make_unique<GRBModel>(this->IPModel.relax());
      } else
-        return std::unique_ptr<GRBModel>(new GRBModel(this->IPModel));
+        return std::make_unique<GRBModel>(this->IPModel);
    }
    
-   MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &C,
-                                                           const arma::sp_mat &B,
-                                                           const arma::vec &   b,
-                                                           const arma::vec &   c,
-                                                           const arma::vec &   _integers) {
-     if (_integers.is_empty())
-        throw ZEROException(ZEROErrorCode::InvalidData,
-                                   "Invalid vector of Integers. Refer to MP_Param is no "
-                                   "Integers are involved");
-     this->Q.zeros(c.size(), c.size());
-     this->A.zeros(b.size(), C.n_cols);
+   MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &  C_in,
+                                                           const arma::sp_mat &  B_in,
+                                                           const arma::vec &     b_in,
+                                                           const arma::vec &     c_in,
+                                                           const arma::vec &     integers_in,
+                                                           const VariableBounds &Bounds_in) {
+     ZEROAssert(!integers_in.empty());
+     this->Q.zeros(c_in.size(), c_in.size());
+     this->A.zeros(b_in.size(), C_in.n_cols);
      this->Finalized = false;
-     this->Integers  = (_integers);
-     MP_Param::set(Q, C, A, B, c, b);
+     this->Integers  = arma::sort(integers_in);
+     this->Bounds    = Bounds_in;
+     MP_Param::set(Q, C_in, A, B_in, c_in, b_in);
      return *this;
    }
    
    
-   MathOpt::IP_Param &MathOpt::IP_Param::set(
-        arma::sp_mat &&C, arma::sp_mat &&B, arma::vec &&b, arma::vec &&c, arma::vec &&_integers) {
-     if (_integers.is_empty())
-        throw ZEROException(ZEROErrorCode::InvalidData,
-                                   "Invalid vector of Integers. Refer to MP_Param is no "
-                                   "Integers are involved");
-     this->Q.zeros(c.size(), c.size());
-     this->A.zeros(b.size(), C.n_cols);
+   MathOpt::IP_Param &MathOpt::IP_Param::set(arma::sp_mat &&  C_in,
+                                                           arma::sp_mat &&  B_in,
+                                                           arma::vec &&     b_in,
+                                                           arma::vec &&     c_in,
+                                                           arma::vec &&     integers_in,
+                                                           VariableBounds &&Bounds_in) {
+     ZEROAssert(!integers_in.empty());
+     this->Q.zeros(c_in.size(), c_in.size());
+     this->A.zeros(b_in.size(), C_in.n_cols);
      this->Finalized = false;
-     this->Integers  = std::move(_integers);
-     MP_Param::set(Q, C, A, B, c, b);
+     this->Integers  = std::move(integers_in);
+     this->Bounds    = std::move(Bounds_in);
+     MP_Param::set(Q, C_in, A, B_in, c_in, b_in);
      return *this;
    }
    
-   MathOpt::IP_Param &
-   MathOpt::IP_Param::set(QP_Objective &&obj, QP_Constraints &&cons, arma::vec &&_integers) {
-     if (_integers.is_empty())
-        throw ZEROException(ZEROErrorCode::InvalidData,
-                                   "Invalid vector of Integers. Refer to MP_Param is no "
-                                   "Integers are involved");
-     if (obj.Q.size() > 0)
-        LOG_S(WARNING) << "MathOpt::IP_Param::set: obj.Q will be ignored";
-     if (cons.A.size() > 0)
-        LOG_S(WARNING) << "MathOpt::IP_Param::set: cons.A will be ignored";
-     return this->set(std::move(obj.C),
-                            std::move(cons.B),
-                            std::move(cons.b),
-                            std::move(obj.c),
-                            std::move(_integers));
-   }
-   
-   
-   MathOpt::IP_Param &MathOpt::IP_Param::set(const QP_Objective &  obj,
-                                                           const QP_Constraints &cons,
-                                                           const arma::vec &     _integers) {
-     return this->set(obj.C, cons.B, cons.b, obj.c, _integers);
-   }
    
    
    double MathOpt::IP_Param::computeObjective(const arma::vec &y,
@@ -209,83 +197,183 @@ Program Listing for File ip_param.cpp
                                                             bool             checkFeas,
                                                             double           tol) const {
    
-     if (y.n_rows != this->getNy())
-        throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of y");
-     if (x.n_rows != this->getNx())
-        throw ZEROException(ZEROErrorCode::InvalidData, "Invalid size of x");
-     if (checkFeas) {
-        arma::vec slack = B * y - b;
-        if (slack.n_rows) // if infeasible
-           if (slack.max() >= tol)
-             return GRB_INFINITY;
-        if (y.min() <= -tol) // if infeasible
-           return GRB_INFINITY;
-        for (const auto i : this->Integers) // Integers
-           if (y.at(i) != trunc(y.at(i)))
-             return GRB_INFINITY;
-     }
-     arma::vec obj = ((C * x).t() + c.t()) * y;
-     return obj(0);
+     ZEROAssert(y.n_rows == this->getNumVars());
+     ZEROAssert(x.n_rows == this->getNumParams());
+     if (checkFeas)
+        if (!this->isFeasible(y, x, tol))
+           return -GRB_INFINITY;
+     return arma::as_scalar(((C * x).t() + c.t()) * y);
    }
    
    
    bool MathOpt::IP_Param::isFeasible(const arma::vec &y, const arma::vec &x, double tol) const {
      arma::vec slack = B * y - b;
      if (slack.n_rows) // if infeasible
-        if (slack.max() >= tol)
+        if (!Utils::isEqual(slack.max(), 0, tol))
            return false;
-     for (const auto i : this->Integers) // Integers
-        if (y.at(i) != trunc(y.at(i)))
+     if (y.min() <= -tol) // if infeasible
+        return false;
+     for (const auto i : this->Integers)                  // Integers
+        if (!Utils::isEqual(y.at(i), trunc(y.at(i)), tol)) 
            return false;
      return true;
    }
    
-   bool MathOpt::IP_Param::addConstraint(arma::vec Ain, double bin, bool checkDuplicate, double tol) {
+   bool MathOpt::IP_Param::addConstraints(const arma::sp_mat &A_in, const arma::vec &b_in) {
    
+     ZEROAssert(this->B.n_cols == A_in.n_cols);
    
-     if (this->B.n_cols != Ain.size())
-        throw ZEROException(ZEROErrorCode::Assertion,
-                                   "Mismatch between the variables of the input "
-                                   "constraints and the stored ones");
+     this->B = arma::join_cols(this->B, A_in);
+     this->b = arma::join_cols(this->b, b_in);
+     this->A = Utils::resizePatch(this->A, this->B.n_rows, this->numParams);
+     this->size();
    
-     bool go{true};
-     if (checkDuplicate)
-        go = Utils::containsConstraint(this->B, this->b, Ain, bin, tol);
-   
-   
-     if (!go) {
-        this->B = arma::join_cols(this->B, arma::sp_mat{Ain.t()});
-        this->b = arma::join_cols(this->b, arma::vec{bin});
-        this->A = Utils::resizePatch(this->A, this->B.n_rows, this->Nx);
-        this->size();
-   
-        // If model hasn't been made, we do not need to update it
-        //@todo
-        if (this->Finalized && false) {
-           GRBLinExpr LHS{0};
-           for (auto j = 0; j < Ain.size(); ++j)
-             LHS += Ain.at(j) * this->IPModel.getVarByName("y_" + std::to_string(j));
-           this->IPModel.addConstr(LHS, GRB_LESS_EQUAL, bin);
-           this->IPModel.update();
+     // If model hasn't been made, we do not need to update it
+     if (this->Finalized) {
+        GRBVar y[numVars];
+        for (unsigned int i = 0; i < this->numVars; i++) {
+           y[i] = this->IPModel.getVarByName("y_" + std::to_string(i));
         }
-        return true;
-     } else
-        return false;
+   
+        Utils::addSparseConstraints(
+             A_in, b_in, y, "ConstrAdd_", &this->IPModel, GRB_LESS_EQUAL, nullptr);
+        this->IPModel.update();
+     }
+     return true;
    }
+   
    
    unsigned int MathOpt::IP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const {
      this->forceDataCheck();
      M = arma::join_cols( // In armadillo join_cols(A, B) is same as [A;B] in
                                  // Matlab
                                  //  join_rows(A, B) is same as [A B] in Matlab
-           arma::join_rows(this->Q, this->B.t()),
-           arma::join_rows(-this->B, arma::zeros<arma::sp_mat>(this->Ncons, this->Ncons)));
-     // M.print_dense();
-     N = arma::join_cols(this->C, -this->A);
-     // N.print_dense();
-     q = arma::join_cols(this->c, this->b);
-     // q.print();
+           arma::join_rows(this->Q, this->getB(true).t()),
+           arma::join_rows(-this->getB(true),
+                                arma::zeros<arma::sp_mat>(this->numConstr, this->numConstr)));
+     N = arma::join_cols(this->C, -this->getA(true));
+     q = arma::join_cols(this->c, arma::join_cols(this->b, this->b_bounds));
+     ZEROAssert(M.n_cols == (numVars + numConstr + this->B_bounds.n_rows));
+     ZEROAssert(N.n_cols == numParams);
+     ZEROAssert(q.size() == (this->c.size() + this->b.size() + this->b_bounds.size()));
      return M.n_rows;
+   }
+   void MathOpt::IP_Param::presolve() {
+     if (!this->Finalized)
+        this->finalize();
+     auto       p      = new GRBModel(this->IPModel);
+     GRBLinExpr linObj = 0;
+     for (unsigned int i = 0; i < this->numVars; i++)
+        linObj += (this->c.at(i)) * this->IPModel.getVarByName("y_" + std::to_string(i));
+     p->setObjective(linObj);
+     p->set(GRB_IntParam_Presolve, 2);
+     p->set(GRB_IntParam_DualReductions, 0);
+     p->set(GRB_IntParam_OutputFlag, 0);
+     auto presolved = p->presolve();
+   
+     unsigned int nvar    = presolved.get(GRB_IntAttr_NumVars);
+     unsigned int nconstr = presolved.get(GRB_IntAttr_NumConstrs);
+   
+   
+     // Constraint matrix and bounds
+     auto         vars = presolved.getVars();
+     arma::sp_mat pre_B(nconstr, nvar);
+     pre_B.zeros();
+     for (int v = 0; v < nvar; ++v) {
+        auto varCol = presolved.getCol(vars[v]);
+        auto lb     = vars[v].get(GRB_DoubleAttr_LB);
+        auto ub     = vars[v].get(GRB_DoubleAttr_UB);
+        if (lb != this->Bounds.at(v).first)
+           this->Bounds.at(v).first = lb;
+        if (ub != this->Bounds.at(v).second)
+           this->Bounds.at(v).second = ub;
+   
+        if (varCol.size() > 0) {
+           for (int c = 0; c < nconstr; ++c) {
+             auto val = varCol.getCoeff(c);
+             if (val > 1e-6 || val < -1e-6)
+                pre_B.at(c, v) = val;
+           }
+        }
+     }
+   
+     // LHS and senses
+     arma::vec pre_b(nconstr);
+     auto      constrs = presolved.getConstrs();
+     for (int c = 0; c < nconstr; ++c) {
+        auto sense = constrs[c].get(GRB_CharAttr_Sense);
+        switch (sense) {
+        case '<':
+           pre_b.at(c) = constrs[c].get(GRB_DoubleAttr_RHS);
+           break;
+        case '>': {
+           // Change row sense
+           pre_b.at(c)  = -constrs[c].get(GRB_DoubleAttr_RHS);
+           pre_B.row(c) = -pre_B.row(c);
+        } break;
+        default: {
+           // Sense is =. We need one more inequality
+           Utils::resizePatch(pre_B, pre_B.n_rows + 1, pre_B.n_cols + 1);
+           Utils::resizePatch(pre_b, pre_b.size() + 1);
+           // Regular coefficient for row c
+           pre_b.at(c) = constrs[c].get(GRB_DoubleAttr_RHS);
+           // inverted coefficients for row c+nconstrs
+           pre_B.row(pre_B.n_rows - 1) = -pre_B.row(c);
+           pre_b.at(pre_b.size() - 1)  = -pre_b.at(c);
+        }
+        }
+     }
+   
+     // Objective coefficients
+     GRBLinExpr obj = presolved.getObjective().getLinExpr();
+     for (int v = 0; v < obj.size(); ++v) {
+   
+        auto varIndexStr = obj.getVar(v).get(GRB_StringAttr_VarName);
+        // Replace y_ (first 2 characters) with nothing
+        auto varIndex = stoi(varIndexStr.replace(varIndexStr.begin(), varIndexStr.begin() + 2, ""));
+   
+        auto oc = obj.getCoeff(v);
+        auto pc = this->c.at(varIndex, 0);
+        if (std::abs(oc - pc) > 1e-5) {
+           std::cout << "Modified objective coefficients for variable " << varIndex << ": " << pc
+                        << " became " << oc;
+           // Update c
+           this->c.at(varIndex) = oc;
+           // We need to update C as well
+           auto ratio = pc / oc;
+           // Guess the number of other players
+           auto modulo = this->numParams / this->numVars;
+           // std::cout << "ratio" << ratio << "\n";
+           for (unsigned int m = 0; m < modulo; ++m) {
+             // std::cout << "pre" << this->C.at(v, m * this->numVars + varIndex) << "\n";
+             this->C.at(v, m * this->numVars + v) = this->C.at(v, m * this->numVars + varIndex) * ratio;
+             // std::cout << "post" << this->C.at(v, m * this->numVars + varIndex) << "\n";
+           }
+   
+           // throw ZEROException(ZEROErrorCode::SolverError, "Invalid presolve mapping");
+        }
+     }
+   
+     // resize A, assuming it's empty
+     this->A.zeros(nconstr, this->numParams);
+     this->b         = pre_b;
+     this->B         = pre_B;
+     this->Finalized = false;
+   
+     // Reset the model.
+     auto _constrs   = IPModel.getConstrs();
+     auto _vars      = IPModel.getVars();
+     auto numVars    = IPModel.get(GRB_IntAttr_NumVars);
+     auto numConstrs = IPModel.get(GRB_IntAttr_NumConstrs);
+     for (unsigned i = 0; i < numConstrs; ++i)
+        IPModel.remove(_constrs[i]);
+     for (unsigned i = 0; i < numVars; ++i)
+        IPModel.remove(_vars[i]);
+     IPModel.reset(1);
+     IPModel.update();
+     this->finalize();
+   
+     LOG_S(1) << "MathOpt::IP_Param::presolve: done.";
    }
    
    
@@ -304,20 +392,20 @@ Program Listing for File ip_param.cpp
      pos = Utils::appendRead(_c, filename, pos, std::string("IP_Param::c"));
      pos = Utils::appendRead(_integers, filename, pos, std::string("IP_Param::Integers"));
      pos = Utils::appendRead(BO, filename, pos, std::string("IP_Param::Bounds"));
+     VariableBounds Bond;
      if (BO.n_rows > 0) {
         if (BO.n_cols != 2)
            throw ZEROException(ZEROErrorCode::IOError, "Invalid bounds object in loaded file");
    
         for (unsigned int i = 0; i < _B.n_cols; ++i)
-           this->Bounds.push_back(
-                {BO.at(i, 0) > 0 ? BO.at(i, 0) : 0, BO.at(i, 1) > 0 ? BO.at(i, 1) : -1});
+           Bond.push_back({BO.at(i, 0) > 0 ? BO.at(i, 0) : 0, BO.at(i, 1) > 0 ? BO.at(i, 1) : -1});
    
         int diff = _B.n_cols - BO.n_rows;
         for (unsigned int i = 0; i < diff; ++i)
-           this->Bounds.push_back({0, -1});
+           Bond.push_back({0, -1});
      }
      LOG_S(1) << "Loaded IP_Param to file " << filename;
-     this->set(_C, _B, _b, _c, _integers);
+     this->set(_C, _B, _b, _c, _integers, Bond);
      return pos;
    }
    
@@ -326,21 +414,26 @@ Program Listing for File ip_param.cpp
    
      Utils::appendSave(std::string("IP_Param"), filename, append);
      Utils::appendSave(this->C, filename, std::string("IP_Param::C"), false);
-     Utils::appendSave(this->B, filename, std::string("IP_Param::B"), false);
-     Utils::appendSave(this->b, filename, std::string("IP_Param::b"), false);
+     Utils::appendSave(this->getB(true), filename, std::string("IP_Param::B"), false);
+     Utils::appendSave(this->getb(true), filename, std::string("IP_Param::b"), false);
      Utils::appendSave(this->c, filename, std::string("IP_Param::c"), false);
      Utils::appendSave(this->Integers, filename, std::string("IP_Param::Integers"), false);
-     arma::sp_mat BO(this->Ny, 2);
-     for (unsigned int i = 0; i < this->Ny; ++i) {
+     arma::sp_mat BO(this->numVars, 2);
+     for (unsigned int i = 0; i < this->numVars; ++i) {
         BO.at(i, 0) = this->Bounds.at(i).first;
         BO.at(i, 1) = this->Bounds.at(i).second;
      }
      Utils::appendSave(BO, filename, std::string("IP_Param::Bounds"), false);
      LOG_S(1) << "Saved IP_Param to file " << filename;
    }
-   MathOpt::IP_Param::IP_Param(
-        arma::sp_mat C, arma::sp_mat B, arma::vec b, arma::vec c, arma::vec _integers, GRBEnv *env)
-        : MP_Param(env), IPModel{(*env)} {
-     this->set(C, B, b, c, _integers);
+   MathOpt::IP_Param::IP_Param(const arma::sp_mat &  C_in,
+                                        const arma::sp_mat &  B_in,
+                                        const arma::vec &     b_in,
+                                        const arma::vec &     c_in,
+                                        const arma::vec &     integers_in,
+                                        const VariableBounds &Bounds_in,
+                                        GRBEnv *              env_in)
+        : MP_Param(env_in), IPModel{GRBModel(*env_in)} {
+     this->set(C_in, B_in, b_in, c_in, integers_in, Bounds_in);
      this->forceDataCheck();
    }

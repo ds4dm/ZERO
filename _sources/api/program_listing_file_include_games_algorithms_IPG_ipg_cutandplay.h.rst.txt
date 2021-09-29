@@ -1,0 +1,131 @@
+
+.. _program_listing_file_include_games_algorithms_IPG_ipg_cutandplay.h:
+
+Program Listing for File ipg_cutandplay.h
+=========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_games_algorithms_IPG_ipg_cutandplay.h>` (``include/games/algorithms/IPG/ipg_cutandplay.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /* #############################################
+    *             This file is part of
+    *                    ZERO
+    *
+    *             Copyright (c) 2020
+    *     Released under the Creative Commons
+    *         CC BY-NC-SA 4.0 License
+    *
+    *              Find out more at
+    *        https://github.com/ds4dm/ZERO
+    * #############################################*/
+   
+   
+   #pragma once
+   
+   #include "ipg_algorithms.h"
+   #include "zero.h"
+   #include <OsiGrbSolverInterface.hpp>
+   #include <armadillo>
+   #include <gurobi_c++.h>
+   #include <iostream>
+   #include <memory>
+   #include <set>
+   #include <string>
+   
+   namespace Algorithms::IPG {
+   
+     struct IPG_Player {
+   
+     protected:
+        std::unique_ptr<GRBModel> MembershipLP =
+             {}; 
+        std::shared_ptr<MathOpt::IP_Param> ParametrizedIP =
+             {}; 
+        std::shared_ptr<OsiGrbSolverInterface> CoinModel =
+             {}; 
+        arma::sp_mat V = {}; 
+        arma::sp_mat R              = {};    
+        bool         containsOrigin = false; 
+        unsigned int VertexCounter  = 0;     
+        unsigned int RayCounter     = 0;     
+        arma::sp_mat CutPool_A =
+             {}; 
+        arma::vec CutPool_b =
+             {}; 
+        double    Tolerance = 1e-6; 
+        arma::vec Incumbent;        
+        arma::vec
+                 DualIncumbent; 
+        double Payoff;        
+        bool   Pure;          
+        bool   Feasible = false;
+   
+     public:
+        ~IPG_Player() = default;
+        friend class Algorithms::IPG::CutAndPlay;
+        IPG_Player(unsigned int incumbentSize, double &tol) : Tolerance{tol} {
+           this->ParametrizedIP = std::unique_ptr<MathOpt::IP_Param>();
+           this->MembershipLP   = std::unique_ptr<GRBModel>();
+           this->Incumbent.zeros(incumbentSize);
+        };
+   
+        bool addVertex(const arma::vec &vertex, const bool checkDuplicate = false);
+   
+        bool addRay(const arma::vec &ray, const bool checkDuplicate = false);
+   
+        bool addCuts(const arma::sp_mat &LHS, const arma::vec &RHS);
+     };
+   
+   
+     class CutAndPlay : public Algorithm {
+     private:
+        arma::sp_mat                             LCP_Q;   
+        arma::vec                                LCP_c;   
+        std::vector<std::unique_ptr<IPG_Player>> Players; 
+        std::vector<std::pair<std::string, int>> Cuts;    
+        arma::vec                                zLast; 
+        arma::vec                                xLast; 
+        double objLast = -GRB_INFINITY; 
+        std::unique_ptr<MathOpt::LCP>   LCP = {}; 
+        std::unique_ptr<Game::NashGame> NashGame =
+             {}; 
+        void      initialize();
+        arma::vec buildXminusI(const unsigned int i);
+   
+        void         initializeEducatedGuesses();
+        void         initializeCoinModel(const unsigned int player);
+        unsigned int externalCutGenerator(unsigned int player, int maxCuts, bool rootNode, bool cutOff);
+        bool         addValueCut(unsigned int player, double RHS, const arma::vec &xMinusI);
+        int          preEquilibriumOracle(const unsigned int player,
+                                                     int &              addedCuts,
+                                                     arma::vec &        xOfI,
+                                                     arma::vec &        xMinusI);
+   
+        void updateMembership(const unsigned int &player, const arma::vec &vertex);
+   
+        int  equilibriumOracle(const unsigned int player,
+                                       const unsigned int iterations,
+                                       const arma::vec &  xOfI,
+                                       const arma::vec &  xMinusI,
+                                       int &              addedCuts);
+        bool checkTime(double &remaining) const;
+   
+        void initLCPObjective();
+   
+        ZEROStatus equilibriumLCP(double localTimeLimit, bool build = true, bool firstSolution = true);
+   
+     public:
+        friend class Game::IPG;
+   
+        CutAndPlay(GRBEnv *env, Game::IPG *IPGObj) : Algorithm(env, IPGObj){};
+   
+        void solve();
+   
+        bool isSolved() const { return this->Solved; };
+   
+        bool isPureStrategy() const;
+     };
+   } // namespace Algorithms::IPG

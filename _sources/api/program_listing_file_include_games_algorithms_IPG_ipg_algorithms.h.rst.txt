@@ -8,7 +8,7 @@ Program Listing for File ipg_algorithms.h
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
-.. code-block:: none
+.. code-block:: cpp
 
    /* #############################################
     *             This file is part of
@@ -16,19 +16,16 @@ Program Listing for File ipg_algorithms.h
     *
     *             Copyright (c) 2020
     *     Released under the Creative Commons
-    *        Zero v1.0 Universal License
+    *         CC BY-NC-SA 4.0 License
     *
     *              Find out more at
     *        https://github.com/ds4dm/ZERO
     * #############################################*/
    
    #pragma once
-   #include <games/ipg.h>
-   
    #include "zero.h"
    
-   namespace Algorithms {
-     namespace IPG {
+   namespace Algorithms::IPG {
         class Algorithm {
         protected:
            Game::IPG *IPG;
@@ -53,7 +50,7 @@ Program Listing for File ipg_algorithms.h
         };
    
    
-     } // namespace IPG
-   } // namespace Algorithms
+     } // namespace Algorithms
    
-   #include "ipg_oracle.h"
+   #include "ipg_cutandplay.h"
+   #include "ipg_zeroregrets.h"

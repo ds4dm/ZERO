@@ -8,7 +8,7 @@ Program Listing for File poly_lcp.h
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
-.. code-block:: none
+.. code-block:: cpp
 
    /* #############################################
     *             This file is part of
@@ -16,7 +16,7 @@ Program Listing for File poly_lcp.h
     *
     *             Copyright (c) 2020
     *     Released under the Creative Commons
-    *        Zero v1.0 Universal License
+    *         CC BY-NC-SA 4.0 License
     *
     *              Find out more at
     *        https://github.com/ds4dm/ZERO
@@ -33,6 +33,14 @@ Program Listing for File poly_lcp.h
    #include <set>
    #include <string>
    
+   
+   namespace Data::LCP {
+     enum class PolyhedraStrategy {
+        Sequential        = 0, 
+        ReverseSequential = 1, 
+        Random = 2 
+     };
+   } // namespace Data::LCP
    namespace MathOpt {
      class PolyLCP : public LCP {
    
@@ -62,18 +70,18 @@ Program Listing for File poly_lcp.h
         }
    
    
-        bool              addPolyFromEncoding(std::vector<short int> encoding,
-                                                           bool                   innerApproximation = true,
-                                                           bool                   checkFeas          = false,
-                                                           bool                   custom             = false,
-                                                           spmat_Vec *            custAi             = {},
-                                                           vec_Vec *              custbi             = {});
-        PolyLCP &         addPoliesFromEncoding(std::vector<short int> encoding,
-                                                             bool                   innerApproximation = true,
-                                                             bool                   checkFeas          = false,
-                                                             bool                   custom             = false,
-                                                             spmat_Vec *            custAi             = {},
-                                                             vec_Vec *              custbi             = {});
+        bool              addPolyFromEncoding(const std::vector<short int> &encoding,
+                                                           bool                          innerApproximation = true,
+                                                           bool                          checkFeas          = false,
+                                                           bool                          custom             = false,
+                                                           spmat_Vec *                   customA            = {},
+                                                           vec_Vec *                     customb            = {});
+        unsigned int      addPoliesFromEncoding(const std::vector<short> &encoding,
+                                                             bool                      innerApproximation = true,
+                                                             bool                      checkFeas          = false,
+                                                             bool                      custom             = false,
+                                                             spmat_Vec *               customA            = {},
+                                                             vec_Vec *                 customb            = {});
         unsigned long int getNextPoly(Data::LCP::PolyhedraStrategy method);
    
      public:
@@ -112,10 +120,14 @@ Program Listing for File poly_lcp.h
         bool         addPolyFromX(const arma::vec &x, bool innerApproximation);
         unsigned int exactFullEnumeration(bool feasibilityCheck = true);
         std::string  feasabilityDetailString() const;
-        void         outerApproximate(std::vector<bool> encoding, bool clear = true);
+        bool         outerApproximate(const std::vector<bool> &encoding, bool clear = true);
         unsigned int getFeasiblePolyhedra() const { return this->FeasiblePoly[0].size(); }
-   
         std::vector<short> numToVec(unsigned long number, const unsigned long nCompl, bool inner);
         unsigned long      vecToNum(std::vector<short> binary, bool inner);
      };
+   
    } // namespace MathOpt
+   
+   namespace std {
+     string to_string(Data::LCP::PolyhedraStrategy add);
+   }

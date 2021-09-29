@@ -8,7 +8,7 @@ Program Listing for File PathSolver.h
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
-.. code-block:: none
+.. code-block:: cpp
 
    /* #############################################
     *             This file is part of
@@ -16,7 +16,7 @@ Program Listing for File PathSolver.h
     *
     *             Copyright (c) 2020
     *     Released under the Creative Commons
-    *        Zero v1.0 Universal License
+    *         CC BY-NC-SA 4.0 License
     *
     *              Find out more at
     *        https://github.com/ds4dm/ZERO
@@ -45,16 +45,16 @@ Program Listing for File PathSolver.h
            double *lb; 
            double *ub; 
    
-           int *   m_start;
-           int *   m_len;
-           int *   m_row;
+           int *   m_start; 
+           int *   m_len; 
+           int *   m_row; 
            double *m_data; 
    
            double *q; 
         } PATHProblem;
    
    
-        ZEROStatus    status; 
+        ZEROStatus    status = ZEROStatus::Numerical; 
         bool          Filled; 
         PATHProblem   Problem;
         MCP_Interface PATH_Interface = {
@@ -116,9 +116,10 @@ Program Listing for File PathSolver.h
                const arma::vec &     q,
                const perps &         Compl,
                const VariableBounds &Bounds,
-               arma::vec &           x,
-               arma::vec             z,
-               double                timeLimit);
+               arma::vec &           z,
+               arma::vec  &           x,
+               double                timeLimit,
+               bool verbose);
         ZEROStatus getStatus() const { return this->status; } 
    
    

@@ -1,0 +1,192 @@
+
+.. _program_listing_file_include_games_algorithms_EPEC_epec_cutandplay.h:
+
+Program Listing for File epec_cutandplay.h
+==========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_games_algorithms_EPEC_epec_cutandplay.h>` (``include/games/algorithms/EPEC/epec_cutandplay.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /* #############################################
+    *             This file is part of
+    *                    ZERO
+    *
+    *             Copyright (c) 2020
+    *     Released under the Creative Commons
+    *         CC BY-NC-SA 4.0 License
+    *
+    *              Find out more at
+    *        https://github.com/ds4dm/ZERO
+    * #############################################*/
+   
+   
+   #pragma once
+   
+   #include "epec_polybase.h"
+   #include "zero.h"
+   #include <armadillo>
+   #include <gurobi_c++.h>
+   #include <iostream>
+   #include <memory>
+   #include <set>
+   #include <string>
+   
+   namespace Algorithms::EPEC {
+   
+     class OuterTree {
+     public:
+        friend Algorithms::EPEC::CutAndPlay;
+        struct Node {
+        public:
+           friend class OuterTree;
+   
+           explicit Node(unsigned int encSize);
+   
+           Node(Node &parent, unsigned int idComp, unsigned long int id);
+           Node(Node &parent, std::vector<int> idComps, unsigned long int id);
+   
+           inline unsigned long int getCumulativeBranches() const {
+             return std::count(this->AllowedBranchings.begin(), this->AllowedBranchings.end(), false);
+           }
+   
+           inline std::vector<bool> getEncoding() const {
+             return this->Encoding;
+           } 
+   
+           inline std::vector<bool> getAllowedBranchings() const {
+             return this->AllowedBranchings;
+           } 
+   
+   
+        private:
+           std::vector<unsigned int> IdComps; 
+   
+           std::vector<bool> Encoding;
+   
+           std::vector<bool> AllowedBranchings;
+           unsigned long int Id;       
+           Node *            Parent{}; 
+        };
+   
+     private:
+        Node         Root         = Node(0); 
+        unsigned int EncodingSize = 0;       
+        unsigned int NodeCounter = 1; 
+   
+        std::vector<Node> Nodes{};
+        bool isPure{false}; 
+        bool isFeasible{
+             false}; 
+   
+        unsigned int nextIdentifier() {
+           this->NodeCounter++;
+           return (this->NodeCounter - 1);
+        } 
+   
+     protected:
+        std::unique_ptr<GRBModel> MembershipLP;
+        std::unique_ptr<MathOpt::PolyLCP> OriginalLCP;
+   
+        arma::sp_mat V{};
+        arma::sp_mat R{}; 
+        unsigned int VertexCounter  = 0;     
+        unsigned int RayCounter     = 0;     
+        bool         containsOrigin = false; 
+   
+     public:
+        OuterTree(unsigned int encSize, GRBEnv *env) : MembershipLP(new GRBModel(*env)) {
+           this->Root         = Node(encSize);
+           this->EncodingSize = encSize;
+           this->Nodes.push_back(this->Root);
+        } 
+   
+   
+        inline void resetFeasibility() {
+           this->isPure     = false;
+           this->isFeasible = false;
+        } 
+   
+        inline bool getPure() const { return this->isPure; } 
+   
+        inline void setFeasible() {
+           this->isFeasible = true;
+        } 
+   
+        inline void setPure() { this->isPure = true; } 
+   
+        inline unsigned int getEncodingSize() const {
+           return this->EncodingSize;
+        } 
+   
+        inline const arma::sp_mat *getV() { return &this->V; } 
+   
+        inline const arma::sp_mat *getR() { return &this->R; } 
+   
+        inline unsigned int getVertexCount() const {
+           return this->VertexCounter;
+        } 
+        inline unsigned int getRayCount() const {
+           return this->RayCounter;
+        } 
+   
+   
+   
+        inline bool addVertex(const arma::vec &vertex, bool checkDuplicates);
+   
+        inline void addRay(const arma::vec &ray);
+   
+        inline Node *getRoot() { return &this->Root; } 
+   
+        inline std::vector<Node> *getNodes() { return &this->Nodes; };
+   
+        void denyBranchingLocation(Node &node, const unsigned int &location) const;
+   
+        std::vector<long int> singleBranch(unsigned int idComp, Node &t);
+     };
+   
+     class CutAndPlay : public PolyBase {
+   
+     public:
+        explicit CutAndPlay(GRBEnv *env, Game::EPEC *EPECObject) : PolyBase(env, EPECObject){};
+        CutAndPlay() = delete;
+        double getTol() const {
+           return this->Tolerance;
+        } 
+        void setTol(double tol) { this->Tolerance = tol; } 
+   
+        void        solve() override;
+        void        printCurrentApprox();
+        static void printBranchingLog(std::vector<int> vector);
+   
+        bool isSolved(double tol = 1e-4) override;
+        bool isFeasible(bool &addedCuts);
+        bool isPureStrategy(double tol = 1e-4) const;
+   
+   
+     private:
+        std::vector<OuterTree *>       Trees; 
+        std::vector<OuterTree::Node *> Incumbent;       
+        bool                           Feasible{false}; 
+        double Tolerance = 3 * 1e-5;                    
+   
+        std::vector<int> getNextBranchLocation(unsigned int player, OuterTree::Node *node);
+        int              getFirstBranchLocation(const unsigned int player, OuterTree::Node *node);
+   
+     protected:
+        void after();
+   
+        void                      updateMembership(const unsigned int &player, const arma::vec &xOfI);
+        int                       hybridBranching(unsigned int player, OuterTree::Node *node);
+        int                       infeasibleBranching(unsigned int player, const OuterTree::Node *node);
+        int                       deviationBranching(unsigned int player, const OuterTree::Node *node);
+        std::unique_ptr<GRBModel> getFeasibilityQP(const unsigned int player, const arma::vec &x);
+        void addValueCut(unsigned int player, double RHS, const arma::vec &xMinusI);
+        bool equilibriumOracle(
+             arma::vec &xOfI, arma::vec &x, unsigned int player, int budget, bool &addedCuts);
+        bool isFeasiblePure(const unsigned int player, const arma::vec &x);
+        void originFeasibility(unsigned int player);
+     };
+   } // namespace Algorithms::EPEC

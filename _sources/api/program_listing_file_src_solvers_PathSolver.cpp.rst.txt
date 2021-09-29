@@ -8,9 +8,8 @@ Program Listing for File PathSolver.cpp
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
-.. code-block:: none
+.. code-block:: cpp
 
-   #include <boost/log/trivial.hpp>
    extern "C" {
    #include "path/License.h"
    #include "path/MCP_Interface.h"
@@ -20,10 +19,8 @@ Program Listing for File PathSolver.cpp
    #include "path/Output_Interface.h"
    #include "path/Path.h"
    #include "path/PathOptions.h"
-   #include "path/Types.h"
    }
    #include "solvers/PathSolver.h"
-   #include "support/codes.h"
    
    void Solvers::PATH::sort(int rows, int cols, int elements, int *row, int *col, double *data) {
      double *m_data;
@@ -82,8 +79,6 @@ Program Listing for File PathSolver.cpp
            cs++;
         }
      }
-   
-     return;
    }
    
    int Solvers::PATH::CreateLMCP(int    n,
@@ -104,40 +99,61 @@ Program Listing for File PathSolver.cpp
      Output_SetLog(stdout);
    
    
+   
      auto o = Options_Create();
      Path_AddOptions(o);
      Options_Default(o);
+   
    
    
      double *xSol, *zSol;
      double  dnnz;
      int     i;
    
-     Output_Printf(
-           Output_Log | Output_Status | Output_Listing, "%s: PathWrapper LCP Link\n", Path_Version());
    
-   
+     if (verbose == 0) {
+        Options_SetBoolean(o, "output", False);
+        Options_SetBoolean(o, "output_errors", False);
+        Options_SetBoolean(o, "output_crash_iterations", False);
+        Options_SetBoolean(o, "output_major_iterations", False);
+        Options_SetBoolean(o, "output_minor_iterations", False);
+        Options_SetBoolean(o, "output_options", False);
+        Options_SetBoolean(o, "output_warnings", False);
+     }
      if (timeLimit > 0)
         Options_SetDouble(o, "time_limit", timeLimit);
    
-     Options_SetDouble(o, "major_iteration_limit", 1000);
-     Options_SetDouble(o, "minor_iteration_limit", 1500);
-     Options_SetDouble(o, "cumulative_iteration_limit", 20000);
+   
+     Options_SetInt(o, "cumulative_iteration_limit", 4e6);
+     Options_SetInt(o, "major_iteration_limit", 1e6);
+     Options_SetInt(o, "minor_iteration_limit", 1e5);
+     Options_SetInt(o, "crash_iteration_limit", 5e2);
+     Options_SetInt(o, "nms_memory_size", 1e2);
+     Options_SetInt(o, "lemke_rank_deficiency_iterations", 1e2);
+     // Very important!
+     Options_Set(o, "lemke_start_type advanced");
+     Options_SetBoolean(o, "crash_perturb", True);
+     Options_SetDouble(o, "proximal_perturbation", 1);
+     Options_SetInt(o, "crash_nbchange_limit", 50);
+     Options_SetDouble(o, "convergence_tolerance", 1e-6);
+   
+   
    
      if (n == 0) {
-        fprintf(stdout, "\n ** EXIT - No variables.\n");
         Options_Destroy(o);
-        this->status = ZEROStatus::Solved;
+        this->status = ZEROStatus::Numerical;
         return MCP_Solved;
      }
    
      dnnz = MIN(1.0 * m_nnz, 1.0 * n * n);
    
-     fprintf(stdout,
-                "%d row/cols, %f non-zeros, %3.2f%% dense.\n\n",
-                n,
-                dnnz,
-                100.0 * dnnz / (1.0 * n * n));
+     if (verbose != 0) {
+        fprintf(stdout,
+                   "%d row/cols, %f non-zeros, %3.2f%% dense.\n\n",
+                   n,
+                   dnnz,
+                   100.0 * dnnz / (1.0 * n * n));
+     }
    
      this->Problem.n       = n;
      this->Problem.nnz     = m_nnz;
@@ -172,19 +188,21 @@ Program Listing for File PathSolver.cpp
    
    
      License_SetString(
-           "2617827524&Courtesy&&&USR&64785&11_12_2017&1000&PATH&GEN&31_12_2020&0_0_0&5000&0_0");
+           "2830898829&Courtesy&&&USR&45321&5_1_2021&1000&PATH&GEN&31_12_2025&0_0_0&6000&0_0");
      auto m = MCP_Create(this->Problem.n, this->Problem.nnz + 1);
      MCP_SetInterface(m, &this->PATH_Interface);
      MCP_SetPresolveInterface(m, &this->PATH_Presolve);
-     Output_SetInterface(&this->PATH_Output);
+     if (verbose != 0)
+        Output_SetInterface(&this->PATH_Output);
      MCP_Jacobian_Structure_Constant(m, static_cast<Boolean>(true));
    
    
    
      Information info;
-     info.generate_output = Output_Log | Output_Status | Output_Listing;
-     info.use_start       = True;
-     info.use_basics      = True;
+     if (verbose != 0)
+        info.generate_output = Output_Log | Output_Status | Output_Listing;
+     info.use_start  = False;
+     info.use_basics = False;
    
      try {
         termination = Path_Solve(m, &info);
@@ -198,7 +216,6 @@ Program Listing for File PathSolver.cpp
         this->status = ZEROStatus::Solved;
         xSol         = MCP_GetX(m);
         zSol         = MCP_GetF(m);
-        fprintf(stdout, "%d is  %f \n", n, xSol[i]);
         for (i = 0; i < n; i++) {
            x[i] = xSol[i];
    
@@ -211,7 +228,7 @@ Program Listing for File PathSolver.cpp
      case MCP_Infeasible:
         this->status = ZEROStatus::NotSolved;
      default:
-        this->status = ZEROStatus::NotSolved;
+        this->status = ZEROStatus::Numerical;
      }
    
    
@@ -227,12 +244,17 @@ Program Listing for File PathSolver.cpp
                              const arma::vec &     q,
                              const perps &         Compl,
                              const VariableBounds &Bounds,
+                             arma::vec &           z,
                              arma::vec &           x,
-                             arma::vec             z,
-                             double                timeLimit) {
+                             double                timeLimit,
+                             bool                  verbose) {
+   
+     // Note that for path z and x are inverted (z are variables, x equations definitions).
      int n   = 0;
      int nnz = 0;
    
+     // M.save("LCP_M.dat", arma::csv_ascii);
+     // q.save("LCP_q.dat",arma::csv_ascii);
    
      this->Filled = false;
      std::vector<double> _q, _Mij, _lb, _ub, _xsol, _zsol;
@@ -254,8 +276,9 @@ Program Listing for File PathSolver.cpp
    
            else {
                */
-           int lb = Bounds.at(p.second).first;
-           int ub = Bounds.at(p.second).second;
+           //@todo bounds are unused
+           int lb = 0;
+           int ub = -1;
    
            // if (lb != ub)
            {
@@ -265,21 +288,7 @@ Program Listing for File PathSolver.cpp
              _lb.push_back(lb > 0 ? lb : 0);
              _ub.push_back(ub >= 0 ? ub : 1e20); // PATH will treat 1e20 as infinite
    
-   
-             // std::cout << "Row" << std::to_string(row);
-             for (auto v = M.begin_row(p.first); v != M.end_row(p.first); ++v) {
-                if (*v != 0) {
-                   _Mi.push_back(row);
-                   _Mj.push_back(v.col() + 1);
-                   _Mij.push_back(*v);
-                   // std::cout << "\t" + std::to_string(*v) + "*x_" + std::to_string(v.col());
-                   ++nnz;
-                }
-             }
              _q.push_back(q.at(p.first));
-             // std::cout << "\t+" + std::to_string(q.at(p.first)) + "\t\tPERP" <<
-             // std::to_string(p.second)
-             //            << "\n\n";
              _xmap.push_back(p.second);
              _zmap.push_back(p.first);
    
@@ -292,13 +301,23 @@ Program Listing for File PathSolver.cpp
      }     // end while
    
    
+     // Sparse iterator for M
+     for (arma::sp_mat::const_iterator it = M.begin(); it != M.end(); ++it) {
+        _Mi.push_back(it.row() + 1);
+        _Mj.push_back(it.col() + 1);
+        _Mij.push_back(*it);
+        ++nnz;
+     }
+   
      int stat = 0;
+     /*
      _Mi.push_back(0);
      _Mj.push_back(0);
      _Mij.push_back(0);
      _q.push_back(0);
      _lb.push_back(0);
      _ub.push_back(0);
+       */
    
      try {
         stat = this->CreateLMCP(n,
@@ -311,7 +330,7 @@ Program Listing for File PathSolver.cpp
                                         &_ub[0],
                                         &_xsol[0],
                                         &_zsol[0],
-                                        true,
+                                        verbose,
                                         timeLimit);
      } catch (...) {
         throw ZEROException(ZEROErrorCode::SolverError, "PATH threw an exception");
@@ -320,18 +339,17 @@ Program Listing for File PathSolver.cpp
    
      if (stat == 1) {
         LOG_S(1) << "Solvers::PathLCP: Found a solution";
-        x.zeros(M.n_cols);
-        z.zeros(M.n_rows);
+        z.zeros(M.n_cols);
+        x.zeros(M.n_rows);
         for (unsigned int i = 0; i < _xsol.size(); ++i) {
-           x.at(_xmap.at(i)) = _xsol.at(i);
-           z.at(_zmap.at(i)) = _zsol.at(i);
+           z.at(_xmap.at(i)) = _xsol.at(i);
+           x.at(_zmap.at(i)) = _zsol.at(i);
         }
         // z.print("z");
         // x.print("x");
         this->status = ZEROStatus::NashEqFound;
      } else {
         LOG_S(1) << "Solvers::PathLCP: No solution found (STATUS=" << std::to_string(status) << ")";
-        this->status = ZEROStatus::NashEqNotFound;
      }
    }
    
@@ -457,6 +475,6 @@ Program Listing for File PathSolver.cpp
    }
    
    void *Solvers::PATH::messageCB(void *dat, int mode, char *buf) {
-     std::cout << buf;
+     // std::cout << buf;
      return dat;
    }

@@ -8,7 +8,7 @@ Program Listing for File ipg.cpp
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
-.. code-block:: none
+.. code-block:: cpp
 
    /* #############################################
     *             This file is part of
@@ -16,45 +16,47 @@ Program Listing for File ipg.cpp
     *
     *             Copyright (c) 2020
     *     Released under the Creative Commons
-    *        Zero v1.0 Universal License
+    *         CC BY-NC-SA 4.0 License
     *
     *              Find out more at
     *        https://github.com/ds4dm/ZERO
     * #############################################*/
    
    
-   #include "games/ipg.h"
-   #include "zero.h"
-   #include <armadillo>
-   #include <boost/log/trivial.hpp>
-   #include <memory>
+   #include "../../include/games/ipg.h"
    
    Game::IPG::IPG(
         GRBEnv *                                        env,    
         std::vector<std::shared_ptr<MathOpt::IP_Param>> players 
    ) {
+   
      this->Env       = env;
      this->PlayersIP = players;
      this->finalize();
    }
+   
+   
    void Game::IPG::finalize() {
+   
+     this->preFinalize();
      this->NumPlayers      = this->PlayersIP.size();
      this->PlayerVariables = std::vector<unsigned int>(this->NumPlayers);
      this->Solution        = std::vector<arma::vec>(this->NumPlayers);
      this->NumVariables    = 0;
      for (unsigned int i = 0; i < this->NumPlayers; ++i) {
-        PlayerVariables.at(i) = this->PlayersIP.at(i)->getNy();
+        PlayerVariables.at(i) = this->PlayersIP.at(i)->getNumVars();
         this->NumVariables += PlayerVariables.at(i);
         this->PlayersIP.at(i)->finalize();
      }
      this->Finalized = true;
+     this->postFinalize();
    }
    
    void Game::IPG::getXMinusI(
         const arma::vec &x,         
         const unsigned int &i,      
         arma::vec &         xMinusI 
-        ) const {
+   ) const {
      if (this->NumVariables != x.size())
         throw ZEROException(ZEROErrorCode::Assertion, "Invalid size of x");
    
@@ -73,7 +75,7 @@ Program Listing for File ipg.cpp
    void Game::IPG::getXofI(const arma::vec &x, 
                                    const unsigned int &i,   
                                    arma::vec &         xOfI 
-                                   ) const {
+   ) const {
      if (this->NumVariables != x.size())
         throw ZEROException(ZEROErrorCode::Assertion, "Invalid size of x");
    
@@ -86,24 +88,25 @@ Program Listing for File ipg.cpp
    }
    
    
-   const void Game::IPG::findNashEq() {
+   void Game::IPG::findNashEq() {
      std::stringstream final_msg;
      if (!this->Finalized)
         this->finalize();
    
      this->InitTime = std::chrono::high_resolution_clock::now();
      switch (this->Stats.AlgorithmData.Algorithm.get()) {
-     case Data::IPG::Algorithms::Oracle: {
-        final_msg << "Oracle Algorithm completed. ";
-        this->Algorithm = std::shared_ptr<Algorithms::IPG::Oracle>(
-             new class Algorithms::IPG::Oracle(this->Env, this));
+     case Data::IPG::Algorithms::CutAndPlay: {
+        final_msg << "CutAndPlay Algorithm completed. ";
+        this->Algorithm = std::shared_ptr<Algorithms::IPG::CutAndPlay>(
+             new class Algorithms::IPG::CutAndPlay(this->Env, this));
         this->Algorithm->solve();
+        final_msg << "Status: " << std::to_string(this->Stats.Status.get());
      } break;
      }
      const std::chrono::duration<double> timeElapsed =
            std::chrono::high_resolution_clock::now() - this->InitTime;
-     this->Stats.WallClockTime.set(timeElapsed.count() * std::chrono::milliseconds::period::num /
-                                             std::chrono::milliseconds::period::den);
+     this->Stats.WallClockTime.set(timeElapsed.count());
+     LOG_S(INFO) << final_msg.str();
    }
    
    bool Game::IPG::isPureStrategy(double tol) const { return this->Algorithm->isPureStrategy(); }
@@ -112,8 +115,30 @@ Program Listing for File ipg.cpp
    
    std::string std::to_string(const Data::IPG::Algorithms al) {
      switch (al) {
-     case Data::IPG::Algorithms::Oracle:
-        return std::string("Oracle");
+     case Data::IPG::Algorithms::CutAndPlay:
+        return std::string("CutAndPlay");
      }
      return "";
+   }
+   std::string std::to_string(Data::IPG::Objectives ob) {
+     switch (ob) {
+     case Data::IPG::Objectives::Linear:
+        return std::string("Linear");
+     case Data::IPG::Objectives::Quadratic:
+        return std::string("Quadratic");
+     default:
+        return std::string("Feasibility");
+     }
+   }
+   std::string std::to_string(Data::IPG::CutsAggressiveness ct) {
+     switch (ct) {
+     case Data::IPG::CutsAggressiveness::NoThanks:
+        return std::string("NoThanks");
+     case Data::IPG::CutsAggressiveness::KeepItCool:
+        return std::string("KeepItCool");
+     case Data::IPG::CutsAggressiveness::NotEvenTry:
+        return std::string("NotEvenTry");
+     default:
+        return std::string("Truculent");
+     }
    }

@@ -8,7 +8,7 @@ Program Listing for File codes.cpp
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
-.. code-block:: none
+.. code-block:: cpp
 
    /* #############################################
     *             This file is part of
@@ -16,7 +16,7 @@ Program Listing for File codes.cpp
     *
     *             Copyright (c) 2020
     *     Released under the Creative Commons
-    *        Zero v1.0 Universal License
+    *         CC BY-NC-SA 4.0 License
     *
     *              Find out more at
     *        https://github.com/ds4dm/ZERO
@@ -24,7 +24,6 @@ Program Listing for File codes.cpp
    
    
    #include "support/codes.h"
-   #include <string>
    
    std::string std::to_string(const ZEROErrorCode &code) {
      string wrap = "ZEROErrorCode ";
@@ -75,5 +74,15 @@ Program Listing for File codes.cpp
         return std::string("NUMERICAL_ISSUES");
      default:
         return std::string("UNKWNOWN");
+     }
+   }
+   
+   void ZEROAssert(bool b, const char *callerFn, const char *callerFile, const int callerLine) {
+     if (!b) {
+        std::string errorLine = "Assertion failed in " + std::string{callerFn} + ":" +
+                                        std::string{callerFile} + " in line " + std::to_string(callerLine);
+        std::cerr << errorLine << std::endl;
+        throw ZEROException(ZEROErrorCode::Assertion,
+                                   errorLine);
      }
    }
