@@ -402,11 +402,9 @@ void Game::EPEC::makeTheLCP() {
  */
 void Game::EPEC::setWelfareObjective(bool linear = true, bool quadratic = true) {
 
+
   if (!linear && !quadratic) {
-	 GRBLinExpr obj{0};
-	 for (int i = 0; i < this->TheLCP->getNumCols(); ++i)
-		obj += this->LCPModel->getVarByName("x_" + std::to_string(i));
-	 this->LCPModel->setObjective(obj, GRB_MAXIMIZE);
+	 this->LCPModel->setObjective(GRBLinExpr{0}, GRB_MAXIMIZE);
 	 return;
   }
 
@@ -594,7 +592,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,
 	 if (status == GRB_TIME_LIMIT)
 		this->Stats.Status.set(ZEROStatus::TimeLimit);
 	 else
-		this->Stats.Status.set(ZEROStatus::NashEqFound);
+		this->Stats.Status.set(ZEROStatus::NashEqNotFound);
   }
   return this->NashEquilibrium;
 }
