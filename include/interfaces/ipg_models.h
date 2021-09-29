@@ -52,6 +52,7 @@ namespace Models {
 	 public:
 		IPG(GRBEnv *env, const std::string instanceFileName);
 		IPG(GRBEnv *env, IPGInstance instance);
+		std::shared_ptr<const MathOpt::IP_Param> getIPParam(unsigned int player);
 
 		void writeSolution(std::string filename) const;
 
