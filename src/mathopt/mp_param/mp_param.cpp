@@ -289,38 +289,52 @@ void MathOpt::MP_Param::rewriteBounds() {
   LOG_S(2) << "MathOpt::MP_Param::rewriteBounds: Starting.";
   int boundSize = this->Bounds.size();
   // assert(boundSize == this->numVars);
-  this->B_bounds.zeros(boundSize, boundSize);
-  this->b_bounds.zeros(boundSize);
+  arma::sp_mat LB(boundSize, boundSize);
+  arma::sp_mat UB(boundSize, boundSize);
+  arma::vec    rLB(boundSize), rUB(boundSize);
+  int          nLB = 0, nUB = 0;
+
+
   for (unsigned int i = 0; i < boundSize; ++i) {
 	 auto bound = this->Bounds.at(i);
 
 
 	 // Two bounds
 	 if (bound.second >= 0) {
-		// We have both bounds. Add a new line
-		this->B_bounds.resize(this->B_bounds.n_rows + 1, boundSize);
-		this->b_bounds.resize(this->b_bounds.n_rows + 1);
+		// We have both bounds.
+
 
 		///////////////
 		// The lower bound
-		this->B_bounds.at(i, i) = -1;
+		LB.at(nLB, i) = -1;
 		// Zero if none
-		this->b_bounds.at(i) = -(bound.first > 0 ? bound.first : 0);
+		rLB.at(nLB) = -(bound.first > 0 ? bound.first : 0);
+		++nLB;
 
 		///////////////
 		// The upper bound
-		this->B_bounds.at(this->B_bounds.n_rows - 1, i) = 1;
+		UB.at(nUB, i) = 1;
 		// There is one for sure, since the if condition
-		this->b_bounds.at(this->b_bounds.size() - 1) = bound.second;
+		rUB.at(nUB) = bound.second;
+		++nUB;
+
 	 } else {
 		// The lower bound
-		this->B_bounds.at(i, i) = -1;
+		LB.at(nLB, i) = -1;
 		// Zero if none
-		this->b_bounds.at(i) = -(bound.first > 0 ? bound.first : 0);
+		rLB.at(nLB) = -(bound.first > 0 ? bound.first : 0);
+		++nLB;
 	 }
   }
+  this->B_bounds.zeros(nLB + nUB, boundSize);
+  this->b_bounds.zeros(nLB + nUB);
 
-  assert(this->b_bounds.size() == this->B_bounds.n_rows);
+  this->B_bounds.submat(0, 0, nUB - 1, boundSize - 1)         = UB;
+  this->b_bounds.subvec(0, nUB - 1)                           = rUB;
+  this->B_bounds.submat(nUB, 0, nLB + nUB - 1, boundSize - 1) = LB;
+  this->b_bounds.subvec(nUB, nLB + nUB - 1)                   = rLB;
+
+  ZEROAssert(this->b_bounds.size() == this->B_bounds.n_rows);
 }
 
 
