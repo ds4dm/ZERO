@@ -3,7 +3,7 @@ Overview
 ##################
 
 ZERO's components -- or *modules* -- are abstract objects defined inside a suitable *namespace*,  which groups modules with a similar function or goal.
-
+ 
 ************************************
 MathOpt
 ************************************
