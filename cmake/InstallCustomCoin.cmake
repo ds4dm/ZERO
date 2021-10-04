@@ -1,4 +1,4 @@
-message(Installing custom COIN-OR Package)
+message("Installing custom COIN-OR Package")
 set(CUSTCOIN_DIR "${ZERO_DEP_DIR}/CustomCoin")
 
 include_directories(${COIN_INCLUDE_DIR})
@@ -7,7 +7,7 @@ include_directories(${GUROBI_INCLUDE_DIRS})
 
 
 add_library(libCustomCoin STATIC ${CUSTCOIN_DIR}/OsiGrbSolverInterface.cpp
-            ${CUSTCOIN_DIR}/CglKnapsackCoverZERO.cpp
+            #${CUSTCOIN_DIR}/CglKnapsackCoverZERO.cpp
             )
 
 if (NOT WIN32 OR MINGW)

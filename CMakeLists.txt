@@ -28,7 +28,7 @@ if (NOT CMAKE_BUILD_TYPE)
 endif ()
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -frtti -fvisibility-inlines-hidden -fvisibility=hidden")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -frtti -fvisibility-inlines-hidden -fvisibility=hidden")
 #DEBUG AND PROFILING ON APPLE SILICON
 set(CMAKE_OSX_ARCHITECTURES "x86_64")
 if (CMAKE_BUILD_TYPE EQUAL "DEBUG" AND NOT ROSSOBIANCO)
@@ -49,7 +49,7 @@ SET(ZERO_GUROBIHINT "" CACHE STRING "Hint for the Gurobi Path")
 set(GUROBI_DIR "/home/gurobi/9.1.1/linux64/" "/Library/gurobi910/mac64" "C:\\dev\\gurobi900\\win64" ${ZERO_GUROBIHINT})
 set(PATH_DIR "${ZERO_DEP_DIR}/path")
 set(CONDA_ENV "${ZERO_DEP_DIR}/conda")
-set(SCIP_ROOT_DIR "${CONDA_ENV}" )
+set(SCIP_ROOT_DIR "${CONDA_ENV}")
 #set(COIN_HINT "/Users/gabrieledragotto/dist" "/local_workspace/draggabr/coin")
 set(COIN_HINT "${CONDA_ENV}")
 
@@ -58,29 +58,39 @@ find_package(Conda REQUIRED)
 if (NOT ${FOUND_CONDA})
     message("Warning. No Conda found.")
 endif ()
-#Install deps through Conda?
-if (ZERO_INSTALL_DEPS)
-    execute_process(COMMAND conda create --yes --prefix ${CONDA_ENV})
-    MESSAGE("COMMAND conda install -c conda-forge --prefix ${CONDA_ENV} armadillo coin-or-cgl boost rapidjson coin-or-osi -y")
-    execute_process(COMMAND conda install -c conda-forge --prefix ${CONDA_ENV} armadillo coin-or-cgl boost rapidjson coin-or-osi -y)
-endif ()
-set(CONDA_INCLUDE_DIR "${CONDA_ENV}/include")
 
-# Boost
-set(Boost_NO_SYSTEM_PATHS ON)
-set(BOOST_ROOT "${CONDA_ENV}")
-set(Boost_NO_CMAKE ON)
-find_package(Boost REQUIRED COMPONENTS program_options unit_test_framework HINTS ${CONDA_ENV} PATHS ${CONDA_ENV} NO_DEFAULT_PATH)
-# Gurobi
-find_package(GUROBI REQUIRED)
-# Path
-find_package(PATH REQUIRED)
-# Armadillo
-find_package(Armadillo REQUIRED HINTS ${CONDA_ENV} PATHS ${CONDA_ENV} NO_DEFAULT_PATH)
-# CoinUtils and CGL
-find_package(Coin REQUIRED)
-# Scip
-#find_package(SCIP REQUIRED)
+set(ZERO_LOOP ON)
+while (ZERO_LOOP)
+    #Install deps through Conda?
+    if (ZERO_INSTALL_DEPS)
+        execute_process(COMMAND conda create --yes --prefix ${CONDA_ENV})
+        execute_process(COMMAND conda install -c conda-forge --prefix ${CONDA_ENV} armadillo coin-or-cgl boost rapidjson coin-or-osi -y)
+        set(ZERO_INSTALL_DEPS OFF)
+    endif ()
+    set(CONDA_INCLUDE_DIR "${CONDA_ENV}/include")
+
+    # Boost
+    set(Boost_NO_SYSTEM_PATHS ON)
+    set(BOOST_ROOT "${CONDA_ENV}")
+    set(Boost_NO_CMAKE ON)
+    find_package(Boost COMPONENTS program_options unit_test_framework HINTS ${CONDA_ENV} PATHS ${CONDA_ENV} NO_DEFAULT_PATH)
+    # Gurobi
+    find_package(GUROBI)
+    # Path
+    find_package(PATH)
+    # Armadillo
+    find_package(Armadillo HINTS ${CONDA_ENV} PATHS ${CONDA_ENV} NO_DEFAULT_PATH)
+    # CoinUtils and CGL
+    find_package(Coin)
+    # Scip
+    #find_package(SCIP REQUIRED)
+    if (Boost_FOUND AND GUROBI_FOUND AND PATH_FOUND AND Armadillo_FOUND AND Coin_FOUND)
+        set(ZERO_LOOP OFF)
+        set(ZERO_INSTALL_DEPS OFF)
+    else ()
+        set(ZERO_INSTALL_DEPS ON)
+    endif ()
+endwhile ()
 # CustomCoin
 include(cmake/InstallCustomCoin.cmake)
 
@@ -124,7 +134,7 @@ target_link_libraries(
         ZERO
         PRIVATE blas lapack pthread m ${LUSOL_LIBRARY} ${PATH_LIBRARY} ${CMAKE_DL_LIBS}
         PUBLIC ${ARMADILLO_LIBRARIES} ${GUROBI_LIBRARY} ${GUROBI_CXX_LIBRARY}
-        ${COIN_UTILS} ${COIN_CGL}  ${COIN_OSI} libCustomCoin)
+        ${COIN_UTILS} ${COIN_CGL} ${COIN_OSI} libCustomCoin)
 target_include_directories(
         ZERO
         PUBLIC ${GUROBI_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/include
