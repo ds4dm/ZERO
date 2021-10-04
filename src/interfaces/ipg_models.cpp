@@ -74,7 +74,7 @@ Models::IPG::IPG::IPG(GRBEnv *env, IPGInstance instance) : Game::IPG::IPG(env) {
 	 player->load(this->Instance.IPFiles.at(i));
 	 this->PlayersIP.push_back(player);
   }
-  this->NumPlayers=this->PlayersIP.size();
+  this->NumPlayers = this->PlayersIP.size();
 }
 std::shared_ptr<const MathOpt::IP_Param> Models::IPG::IPG::getIPParam(unsigned int player) {
   ZEROAssert(player < this->NumPlayers);
@@ -110,7 +110,7 @@ void Models::IPG::IPGInstance::save(std::string filename) {
   writer.EndArray();
   writer.EndObject();
   writer.EndObject();
-  remove( filename.c_str() );
+  remove(filename.c_str());
   std::ofstream file(filename + ".json");
   file << s.GetString();
   file.close();
@@ -131,13 +131,15 @@ void Models::IPG::IPGInstance::load(std::string filename) {
 		std::vector<MathOpt::IP_Param> LAP = {};
 		auto                           IPG = d["IntegerProgrammingGame"].GetObject();
 
-		unsigned int              nPlayers   = IPG["nPlayers"].GetInt();
+		unsigned int              nPlayers = IPG["nPlayers"].GetInt();
 		std::vector<unsigned int> playerVariables;
+		GRBEnv                    env;
+		env.set(GRB_IntParam_OutputFlag, 0);
 
 		for (int j = 0; j < nPlayers; ++j) {
 		  const rapidjson::Value &c = IPG["Players"].GetArray()[j].GetObject();
 
-		  MathOpt::IP_Param ParametrizedProblem(new GRBEnv);
+		  MathOpt::IP_Param ParametrizedProblem(&env);
 		  std::string       fileName = c["IP_ParamFile"].GetString();
 		  try {
 			 ParametrizedProblem.load(fileName);
@@ -165,7 +167,7 @@ void Models::IPG::IPGInstance::load(std::string filename) {
 void Models::IPG::IPGInstance::addIPParam(const MathOpt::IP_Param &ip, const std::string filename) {
 
   try {
-    remove( filename.c_str() );
+	 remove(filename.c_str());
 	 std::ifstream ifs(filename);
 	 if (!ifs.good())
 		ip.save(filename, 0);
