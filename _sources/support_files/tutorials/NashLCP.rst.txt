@@ -1,5 +1,5 @@
 Simultaneous Games
-*****************
+**********************
 
 In this class, we use a Linear Complementarity Problem (*LCP*) to solve a simultaneous non-cooperative game among :math:`n` players (aka Nash Games in the optimization community).
 Specifically, each player solves Parametrized Quadratic Program -- stored in an instance of :cpp:class:`MathOpt::QP_Param` -- where the parameters are the other players' decisions the variables are the player's decision variables.
@@ -55,6 +55,7 @@ The above problem corresponds to a `Cournot Competition <https://en.wikipedia.or
 To handle this problem, first, we create two objects of :cpp:class:`MathOpt::QP_Param` to model each player's optimization problem, as parameterized by the other.
 
 .. code-block:: c
+
     #include "zero.h"
     //[...] Your other code here
     GRBEnv env;
@@ -129,7 +130,7 @@ More concisely, the class :cpp:class:`Game::LCP` offers a constructor with a Nas
 Computing solutions
 ====================================
 
-We can now solve the instance of ``Game::LCP`.
+We can now solve the instance of `Game::LCP`.
 
 .. code-block:: c
 

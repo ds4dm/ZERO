@@ -7,6 +7,7 @@
   <title>LCPs &mdash; ZERO 1.0.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/collapsible-lists/css/tree_view.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/zero.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -336,6 +337,11 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/classGame_1_1NashGame.html">Class NashGame</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../api/classGame_1_1NashGame.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/classGRBCallback.html">Class GRBCallback</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classGRBCallback.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../api/classGRBCallback.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/classLCP__PATHStart.html">Class LCP_PATHStart</a><ul>
@@ -838,7 +844,7 @@
 <h1>LCPs<a class="headerlink" href="#lcps" title="Permalink to this headline"></a></h1>
 <p>In the previous tutorial, we introduced the LCP problem. Here we give a brief overview of <a class="reference internal" href="../../api/classMathOpt_1_1LCP.html#_CPPv4N7MathOpt3LCPE" title="MathOpt::LCP"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">MathOpt::LCP</span></code></a>.
 This class provides the essential tools to solve LCPs. Since the solution of LCPs are union of polyhedra, the inheritor class <a class="reference internal" href="../../api/classMathOpt_1_1PolyLCP.html#_CPPv4N7MathOpt7PolyLCPE" title="MathOpt::PolyLCP"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">MathOpt::PolyLCP</span></code></a> supports the polyhedral aspect of LCPs.</p>
-<p><a class="reference internal" href="../../api/classMathOpt_1_1LCP.html#_CPPv4N7MathOpt3LCPE" title="MathOpt::LCP"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">MathOpt::LCP()</span></code></a> handles problems in the following form:</p>
+<p><a class="reference internal" href="../../api/classMathOpt_1_1LCP.html#_CPPv4N7MathOpt3LCPE" title="MathOpt::LCP"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">MathOpt::LCP</span></code></a> handles problems in the following form:</p>
 <div class="math notranslate nohighlight">
 \[ \begin{align}\begin{aligned}Ax + By \leq b\\0 \leq x \perp Mx + Ny + q \geq 0\end{aligned}\end{align} \]</div>
 <p>However, we use a different notation. Instead of using <code class="docutils literal notranslate"><span class="pre">y</span></code> to refer to the variables that do not have matching complementary equations, we call <em>all</em> the variables as <code class="docutils literal notranslate"><span class="pre">x</span></code> and we keep track of the position of variables that are not complementary to any equation.</p>
