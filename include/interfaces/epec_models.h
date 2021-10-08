@@ -215,7 +215,7 @@ namespace Models {
 	 /**
 	  * @brief Print the LeaderVars
 	  * @param ost Output Stream
-	  * @param P The object to print
+	  * @param l The object to print
 	  * @return  An ostream
 	  */
 	 std::ostream &operator<<(std::ostream &ost, const LeaderVars l);
@@ -223,7 +223,7 @@ namespace Models {
 	 /**
 	  * @brief Print the EPECInstance
 	  * @param ost Output Stream
-	  * @param P The object to print
+	  * @param I The object to print
 	  * @return  An ostream
 	  */
 	 std::ostream &operator<<(std::ostream &ost, const EPECInstance &I);

@@ -6,7 +6,7 @@ A **Reciprocally Bilinear Game** is a simultaneous non-cooperative game among :m
     \min{x^i} (c^i)^\top x^i + (x^{-i})^\top C^ix^i \\
     \text{s.t.} \quad  x^i \in \mathcal{X}^i
 
-where $\mathcal{X}^i$ is a set (not necessarily closed), :math:`C` and :math:`c` are a matrix and a vector of appropriate dimensions. An RBG is *polyhedrally representable* if :math:`\text{cl conv}(\mathcal{X}^i)` is a polyhedron for every :math:`i`, and one can optimize an arbitrary linear funciton on :math:`\mathcal{X}^i`.
+where :math:`\mathcal{X}^i` is a set (not necessarily closed), :math:`C` and :math:`c` are a matrix and a vector of appropriate dimensions. An RBG is *polyhedrally representable* if :math:`\text{cl conv}(\mathcal{X}^i)` is a polyhedron for every :math:`i`, and one can optimize an arbitrary linear funciton on :math:`\mathcal{X}^i`.
 As a standard game-theory notation, the operator :math:`(\cdot)^i` refers to an object of player :math:`i` with :math:`i \in \{ 1,2,\dots,n\}`, and :math:`(\cdot)^{-i}` be :math:`(\cdot^1,\dots, \cdot^{i-1},\cdot^{i+1},\dots,\cdot^{n})`.
 
 From the definition, the following properties hold for each player :math:`i`:

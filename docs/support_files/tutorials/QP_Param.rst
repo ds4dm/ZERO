@@ -109,9 +109,9 @@ Correspondingly, we have the following code:
     // With the second parameters, we require a model which has already been solved
     auto FixedModel = q2.solveFixed(x,true);
 
-==========
+====================
 Computing solutions
-==========
+====================
 
 ``FixedModel`` holds the ``GRBModel`` object, and all operations native to ``GRBModel``, like accessing the value of a variable, a dual multiplier, saving the problem to an .lp file or a .mps file. In particular, we can compare the solution with a hand-calculated one as below.
 

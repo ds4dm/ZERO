@@ -4,7 +4,7 @@ LCPs
 In the previous tutorial, we introduced the LCP problem. Here we give a brief overview of :cpp:class:`MathOpt::LCP`.
 This class provides the essential tools to solve LCPs. Since the solution of LCPs are union of polyhedra, the inheritor class :cpp:class:`MathOpt::PolyLCP` supports the polyhedral aspect of LCPs.
 
-:cpp:func:`MathOpt::LCP` handles problems in the following form:
+:cpp:class:`MathOpt::LCP` handles problems in the following form:
 
 .. math::
 
