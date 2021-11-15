@@ -116,9 +116,8 @@ void Game::EPEC::getXMinusI(const arma::vec &x, const unsigned int &i, arma::vec
   const auto         nConvexHullVars      = static_cast<const unsigned int>(
       std::accumulate(this->ConvexHullVariables.rbegin(), this->ConvexHullVariables.rend(), 0));
 
-  xMinusI.zeros(nEPECvars -        // All variables in EPEC
-					 nThisCountryvars - // Subtracting this country's variables,
-					 // since we only want others'
+  xMinusI.zeros(nEPECvars -            // All variables in EPEC
+					 nThisCountryvars -     // Subtracting this country's variables
 					 nConvexHullVars +      // We don't want any convex hull variables
 					 nThisCountryHullVars); // We subtract the hull variables
 													// associated to the ith player
@@ -148,9 +147,9 @@ void Game::EPEC::getXMinusI(const arma::vec &x, const unsigned int &i, arma::vec
  * @param xOfI Output solution vector for i
  * @param hull True if convex-hull variables need to be included in the output
  */
-void Game::EPEC::getXofI(const arma::vec &   x,
+void Game::EPEC::getXofI(const arma::vec    &x,
 								 const unsigned int &i,
-								 arma::vec &         xOfI,
+								 arma::vec          &xOfI,
 								 bool                hull) const {
   ZEROAssert(i < this->NumPlayers);
   const unsigned int nThisCountryvars     = *this->LocEnds.at(i);
@@ -207,10 +206,11 @@ void Game::EPEC::getXWithoutHull(const arma::vec &x, arma::vec &xWithoutHull) co
  * @param i The player id
  * @param x The incumbent solution
  * @param customLCP An optional parameter with a custom LCP
- * @return A pointer to the Gurobi model for the best response
+ * @return A pointer to the (solved) Gurobi model for the best response
  */
-std::unique_ptr<GRBModel>
-Game::EPEC::respond(const unsigned int i, const arma::vec &x, MathOpt::PolyLCP *customLCP) const {
+std::unique_ptr<GRBModel> Game::EPEC::bestResponseProgram(const unsigned int i,
+																			 const arma::vec   &x,
+																			 MathOpt::PolyLCP  *customLCP) const {
   ZEROAssert(this->Finalized);
   ZEROAssert(i < this->NumPlayers);
 
@@ -228,7 +228,7 @@ Game::EPEC::respond(const unsigned int i, const arma::vec &x, MathOpt::PolyLCP *
 		  this->LeaderObjective.at(i)->C, this->LeaderObjective.at(i)->c, solOther, true);
 }
 /**
- * @brief Returns the optimal objective value that is obtainable for the
+ * @brief Returns the best-response value for the
  * player @p player given the decision @p x of all other players.
  * @details
  * Calls Game::EPEC::respond and obtains the std::unique_ptr to GRBModel of
@@ -242,23 +242,26 @@ Game::EPEC::respond(const unsigned int i, const arma::vec &x, MathOpt::PolyLCP *
  * @param customLCP An optional pointer to a custom player LCP.
  * @returns The optimal objective value for the player @p player.
  */
-double Game::EPEC::respondSol(arma::vec &       sol,
-										unsigned int      player,
-										const arma::vec & x,
-										const arma::vec & prevDev,
-										MathOpt::PolyLCP *customLCP) const {
+double Game::EPEC::bestResponse(arma::vec        &sol,
+										  unsigned int      player,
+										  const arma::vec  &x,
+										  const arma::vec  &prevDev,
+										  MathOpt::PolyLCP *customLCP) const {
   ZEROAssert(this->Finalized);
   ZEROAssert(player < this->NumPlayers);
-  auto      model  = this->respond(player, x, customLCP);
+
+  auto      model  = this->bestResponseProgram(player, x, customLCP);
   const int status = model->get(GRB_IntAttr_Status);
+
   if (status == GRB_UNBOUNDED || status == GRB_OPTIMAL) {
+	 //If unbounded or optimal either solution or extreme ray
 	 unsigned int Nx = this->PlayersLCP.at(player)->getNumCols();
 	 sol.zeros(Nx);
 	 for (unsigned int i = 0; i < Nx; ++i)
 		sol.at(i) = model->getVarByName("x_" + std::to_string(i)).get(GRB_DoubleAttr_X);
 
 	 if (status == GRB_UNBOUNDED) {
-		LOG_S(WARNING) << "Game::EPEC::respondSol: deviation is "
+		LOG_S(WARNING) << "Game::EPEC::bestResponse: deviation is "
 								"unbounded.";
 		GRBLinExpr obj = 0;
 		model->setObjective(obj);
@@ -374,9 +377,9 @@ void Game::EPEC::makeTheLCP() {
   unsigned long int Nvar =
 		this->PlayersQP.front()->getNumParams() + this->PlayersQP.front()->getNumVars();
   arma::sp_mat MC(0, Nvar), dumA(0, Nvar);
-  arma::vec    MCRHS, dumb;
+  arma::vec    MCRHS, empty;
   MCRHS.zeros(0);
-  dumb.zeros(0);
+  empty.zeros(0);
   this->makeMCConstraints(MC, MCRHS);
   LOG_S(1) << "Game::EPEC::makeTheLCP(): Market Clearing "
 				  "constraints are ready";
@@ -386,7 +389,7 @@ void Game::EPEC::makeTheLCP() {
 	 MPCasted.push_back(m);
   }
   this->TheNashGame =
-		std::make_unique<Game::NashGame>(this->Env, MPCasted, MC, MCRHS, 0, dumA, dumb);
+		std::make_unique<Game::NashGame>(this->Env, MPCasted, MC, MCRHS, 0, dumA, empty);
   LOG_S(1) << "Game::EPEC::makeTheLCP(): NashGame is ready";
   this->TheLCP = std::make_unique<MathOpt::LCP>(this->Env, *TheNashGame);
   LOG_S(1) << "Game::EPEC::makeTheLCP(): LCP is ready";
@@ -516,10 +519,9 @@ bool Game::EPEC::computeNashEq(bool   pureNE,
 	*/
 
   unsigned int MIPWorkers = 1;
-  //@todo disabled
   if (solver == Data::LCP::Algorithms::MIP || solver == Data::LCP::Algorithms::MINLP) {
-	 if (this->Stats.AlgorithmData.Threads.get() >= 8 && false) {
-		int wrk    = std::round(std::floor(this->Stats.AlgorithmData.Threads.get() / 4));
+	 if (this->Stats.AlgorithmData.Threads.get() >= 8) {
+		int wrk    = static_cast<int>(std::round(std::floor(this->Stats.AlgorithmData.Threads.get() / 4)));
 		MIPWorkers = std::max(wrk, 1);
 		LOG_S(INFO) << "Game::EPEC::computeNashEq: ConcurrentMIP set to " << MIPWorkers << ".";
 	 }
@@ -535,7 +537,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,
 	 LOG_S(INFO) << "Game::EPEC::computeNashEq: (PureNashEquilibrium flag is "
 						 "true) Searching for a pure NE.";
 	 if (this->Stats.AlgorithmData.Algorithm.get() != Data::EPEC::Algorithms::OuterApproximation)
-		this->Algorithm.get()->makeThePureLCP();
+		this->Algorithm->makeThePureLCP();
 	 else
 		LOG_S(WARNING) << "Game::EPEC::computeNashEq: (PureNashEquilibrium flag is "
 								"true) Cannot search fore pure NE with the CutAndPlay.";

@@ -243,7 +243,7 @@ bool Algorithms::EPEC::InnerApproximation::getAllDeviations(
 
   for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i) { // For each country
 	 // If we cannot compute a deviation, it means model is infeasible!
-	 if (this->EPECObject->respondSol(deviations.at(i), i, guessSol, prevDev.at(i), nullptr) == GRB_INFINITY)
+	 if (this->EPECObject->bestResponse(deviations.at(i), i, guessSol, prevDev.at(i), nullptr) == GRB_INFINITY)
 		return false;
 	 // cout << "Game::EPEC::getAllDeviations: deviations(i): "
 	 // <<deviations.at(i);

@@ -51,7 +51,8 @@ bool Algorithms::EPEC::PolyBase::isSolved(unsigned int *player,
   arma::vec objvals =
 		this->EPECObject->TheNashGame->computeQPObjectiveValues(this->EPECObject->SolutionX, true);
   for (unsigned int i = 0; i < this->EPECObject->NumPlayers; ++i) {
-	 double val = this->EPECObject->respondSol(*profitableDeviation, i, this->EPECObject->SolutionX);
+	 double val =
+		  this->EPECObject->bestResponse(*profitableDeviation, i, this->EPECObject->SolutionX);
 	 if (val == GRB_INFINITY)
 		return false;
 	 if (!Utils::isEqual(val, objvals.at(i), tol, 1 - tol)) {

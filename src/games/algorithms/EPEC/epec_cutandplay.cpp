@@ -58,7 +58,7 @@ bool Algorithms::EPEC::CutAndPlay::isFeasible(bool &addedCuts) {
 	 // Reset the feasibility
 	 this->Trees.at(i)->resetFeasibility();
 	 // Compute the payoff of the best response, as well as the best response
-	 auto bestModel = this->EPECObject->respond(
+	 auto bestModel = this->EPECObject->bestResponseProgram(
 		  i, this->EPECObject->SolutionX, this->Trees.at(i)->OriginalLCP.get());
 	 const int status = bestModel->get(GRB_IntAttr_Status);
 
@@ -151,6 +151,7 @@ bool Algorithms::EPEC::CutAndPlay::isFeasible(bool &addedCuts) {
 		  this->Trees.at(i)->setPure();
 		  LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::isFeasible (P" << i
 						  << ") Feasible strategy (Best Response)";
+		  return true;
 		}
 	 }
   }
@@ -198,7 +199,7 @@ bool Algorithms::EPEC::CutAndPlay::equilibriumOracle(
 
   // Store the leaderModel outside the loop
   auto leaderModel =
-		this->EPECObject->respond(player, x, this->Trees.at(player)->OriginalLCP.get());
+		this->EPECObject->bestResponseProgram(player, x, this->Trees.at(player)->OriginalLCP.get());
   GRBVar l[xOfI.size()]; // Dual membership variables
   for (unsigned int i = 0; i < xOfI.size(); i++)
 	 l[i] = leaderModel->getVarByName("x_" + std::to_string(i));
@@ -952,7 +953,7 @@ int Algorithms::EPEC::CutAndPlay::deviationBranching(const unsigned int     play
 	 arma::vec x;
 	 this->EPECObject->getXWithoutHull(this->EPECObject->SolutionX, x);
 	 std::vector<short int> currentSolution = this->PolyLCP.at(player)->solEncode(x);
-	 this->EPECObject->respondSol(
+	 this->EPECObject->bestResponse(
 		  dev, player, this->EPECObject->SolutionX, {}, this->Trees.at(player)->OriginalLCP.get());
 	 auto encoding = this->PolyLCP.at(player)->solEncode(dev);
 
