@@ -7,6 +7,7 @@
   <title>Program Listing for File epec.h &mdash; ZERO 1.0.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
       <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
       <link rel="stylesheet" href="../_static/zero.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -333,6 +334,11 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="classGame_1_1NashGame.html">Class NashGame</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="classGame_1_1NashGame.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classGRBCallback.html">Class GRBCallback</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classGRBCallback.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classGRBCallback.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="classLCP__PATHStart.html">Class LCP_PATHStart</a><ul>
@@ -994,10 +1000,9 @@
 <span class="w">     </span><span class="kt">bool</span><span class="w"> </span><span class="nf">isSolved</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">tol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-5</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="kt">bool</span><span class="w"> </span><span class="nf">isPureStrategy</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">tol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-5</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">     </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">GRBModel</span><span class="o">&gt;</span><span class="w"></span>
-<span class="w">     </span><span class="n">respond</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">MathOpt</span><span class="o">::</span><span class="n">PolyLCP</span><span class="w"> </span><span class="o">*</span><span class="n">customLCP</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">GRBModel</span><span class="o">&gt;</span><span class="w"> </span><span class="n">bestResponseProgram</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">MathOpt</span><span class="o">::</span><span class="n">PolyLCP</span><span class="w"> </span><span class="o">*</span><span class="n">customLCP</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">     </span><span class="kt">double</span><span class="w"> </span><span class="nf">respondSol</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="o">&amp;</span><span class="w">       </span><span class="n">sol</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="kt">double</span><span class="w"> </span><span class="nf">bestResponse</span><span class="p">(</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="o">&amp;</span><span class="w">       </span><span class="n">sol</span><span class="p">,</span><span class="w"></span>
 <span class="w">                             </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w">      </span><span class="n">player</span><span class="p">,</span><span class="w"></span>
 <span class="w">                             </span><span class="k">const</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"></span>
 <span class="w">                             </span><span class="k">const</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">prevDev</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="p">{},</span><span class="w"></span>
