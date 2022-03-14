@@ -74,11 +74,12 @@ long int MathOpt::MP_Param::load(const std::string &filename, long int pos) {
 
 	 for (unsigned int i = 0; i < B_in.n_cols; ++i)
 		this->Bounds.push_back(
-			 {BO.at(i, 0) > 0 ? BO.at(i, 0) : 0, BO.at(i, 1) > 0 ? BO.at(i, 1) : -1});
+			 {abs(BO.at(i, 0)) < 1e20 ? BO.at(i, 0) : Utils::getSign(BO.at(i, 0)) * GRB_INFINITY,
+			  abs(BO.at(i, 1)) < 1e20 ? BO.at(i, 1) : Utils::getSign(BO.at(i, 1)) * GRB_INFINITY});
 
 	 int diff = B_in.n_cols - BO.n_rows;
 	 for (unsigned int i = 0; i < diff; ++i)
-		this->Bounds.push_back({0, -1});
+		this->Bounds.push_back({0, GRB_INFINITY});
   }
   LOG_S(1) << "Loaded MP_Param to file " << filename;
   this->set(Q_in, C_in, A_in, B_in, c_in, b_in);
@@ -110,7 +111,7 @@ MathOpt::MP_Param &MathOpt::MP_Param::addDummy(unsigned int pars, unsigned int v
 	 B_bounds = Utils::resizePatch(B_bounds, B_bounds.n_rows + vars, this->numVars);
 	 b_bounds = Utils::resizePatch(b_bounds, b_bounds.size() + vars);
 	 for (unsigned int i = 0; i < vars; ++i) {
-		this->Bounds.push_back({0, -1});
+		this->Bounds.push_back({0, GRB_INFINITY});
 		B_bounds.at(startingBounds + i, startingVars + i) = -1;
 	 }
 	 ZEROAssert(B_bounds.n_rows == b_bounds.size());
@@ -182,7 +183,7 @@ void MathOpt::MP_Param::detectBounds() {
   double diff = this->B.n_cols - this->Bounds.size();
   ZEROAssert(diff >= 0);
   for (unsigned int i = 0; i < diff; i++)
-	 this->Bounds.push_back({0, -1});
+	 this->Bounds.push_back({0, GRB_INFINITY});
 
   for (unsigned int i = 0; i < B.n_rows; i++) {
 	 if (B.row(i).n_nonzero == 1) {
@@ -202,7 +203,7 @@ void MathOpt::MP_Param::detectBounds() {
 					 double mult  = Utils::isEqual(B.at(i, j), 1) ? 1 : (B.at(i, j));
 					 double bound = b.at(i) / mult;
 
-					 if (bound < Bounds.at(j).second || Bounds.at(j).second == -1) {
+					 if (bound < Bounds.at(j).second || Bounds.at(j).second == GRB_INFINITY) {
 						// If we have an improving UB
 						if (bound != 0) {
 						  /*LOG_S(INFO)
@@ -233,7 +234,7 @@ void MathOpt::MP_Param::detectBounds() {
 
 				else if (B.at(i, j) < 0) {
 				  if (b.at(i) < 0) {
-					 // This is a lower bound. We need to check that is actually useful (bound>0)
+					 // This is a lower bound. We need to check that is actually useful
 					 double mult  = Utils::isEqual(B.at(i, j), -1) ? -1 : (B.at(i, j));
 					 double bound = b.at(i) / mult;
 
@@ -300,7 +301,7 @@ void MathOpt::MP_Param::rewriteBounds() {
 
 
 	 // Two bounds
-	 if (bound.second >= 0) {
+	 if (bound.second != GRB_INFINITY) {
 		// We have both bounds.
 
 
@@ -308,7 +309,7 @@ void MathOpt::MP_Param::rewriteBounds() {
 		// The lower bound
 		LB.at(nLB, i) = -1;
 		// Zero if none
-		rLB.at(nLB) = -(bound.first > 0 ? bound.first : 0);
+		rLB.at(nLB) = -bound.first;
 		++nLB;
 
 		///////////////
@@ -322,7 +323,7 @@ void MathOpt::MP_Param::rewriteBounds() {
 		// The lower bound
 		LB.at(nLB, i) = -1;
 		// Zero if none
-		rLB.at(nLB) = -(bound.first > 0 ? bound.first : 0);
+		rLB.at(nLB) = -bound.first;
 		++nLB;
 	 }
   }

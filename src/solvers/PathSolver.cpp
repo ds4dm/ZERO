@@ -21,9 +21,9 @@ extern "C" {
  */
 void Solvers::PATH::sort(int rows, int cols, int elements, int *row, int *col, double *data) {
   double *m_data;
-  int *   m_start;
-  int *   m_len;
-  int *   m_row;
+  int    *m_start;
+  int    *m_len;
+  int    *m_row;
 
   int i = 0, cs = 0, ce = 0;
 
@@ -264,12 +264,12 @@ int Solvers::PATH::CreateLMCP(int    n,
  * @param timeLimit A double timelimit
  * @param verbose True if verbosity is required
  */
-Solvers::PATH::PATH(const arma::sp_mat &  M,
-						  const arma::vec &     q,
-						  const perps &         Compl,
+Solvers::PATH::PATH(const arma::sp_mat   &M,
+						  const arma::vec      &q,
+						  const perps          &Compl,
 						  const VariableBounds &Bounds,
-						  arma::vec &           z,
-						  arma::vec &           x,
+						  arma::vec            &z,
+						  arma::vec            &x,
 						  double                timeLimit,
 						  bool                  verbose) {
 
@@ -300,9 +300,8 @@ Solvers::PATH::PATH(const arma::sp_mat &  M,
 
 		else {
 			*/
-		//@todo bounds are unused
-		int lb = 0;
-		int ub = -1;
+		int lb = Bounds.at(p.second).first;
+		int ub = Bounds.at(p.second).second;
 
 		// if (lb != ub)
 		{
@@ -450,10 +449,10 @@ int Solvers::PATH::C_jacobian_evaluation(int     n,
 													  double *x,
 													  int     wantf,
 													  double *f,
-													  int *   nnz,
-													  int *   col_start,
-													  int *   col_len,
-													  int *   row,
+													  int    *nnz,
+													  int    *col_start,
+													  int    *col_len,
+													  int    *row,
 													  double *data) {
   int element;
 
@@ -564,15 +563,15 @@ int Solvers::PATH::function_evaluation(void *dat, int n, double *x, double *f) {
  * @param data M_Data vector
  * @return Unused. This is a callback function
  */
-int Solvers::PATH::jacobian_evaluation(void *  dat,
+int Solvers::PATH::jacobian_evaluation(void   *dat,
 													int     n,
 													double *x,
 													int     wantf,
 													double *f,
-													int *   nnz,
-													int *   col_start,
-													int *   col_len,
-													int *   row,
+													int    *nnz,
+													int    *col_start,
+													int    *col_len,
+													int    *row,
 													double *data) {
   auto *self = static_cast<Solvers::PATH *>(dat);
   return self->C_jacobian_evaluation(n, x, wantf, f, nnz, col_start, col_len, row, data);

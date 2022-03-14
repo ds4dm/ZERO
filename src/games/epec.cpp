@@ -624,7 +624,6 @@ bool Game::EPEC::warmstart(const arma::vec &x) {
   else
 	 LOG_S(WARNING) << "Game::EPEC::warmstart: "
 							 "The loaded solution is NOT optimal. Trying to repair.";
-  /// @todo Game::EPEC::warmstart - to complete implementation?
   return true;
 }
 

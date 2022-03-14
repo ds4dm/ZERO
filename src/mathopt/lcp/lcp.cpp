@@ -21,11 +21,11 @@
  */
 class LCP_PATHStart : public GRBCallback {
 public:
-  bool          done     = false; ///< If PATH was called at least one time
-  unsigned long int  minNodes = 2500;  ///< Threshold on the minimum number of explored nodes
-  GRBVar *      Vars     = {};    ///< Pointer to vars
-  unsigned long int  numVars;          ///< Number of vars
-  MathOpt::LCP *LCP;              ///< Pointer to the LCP instance
+  bool              done     = false; ///< If PATH was called at least one time
+  unsigned long int minNodes = 2500;  ///< Threshold on the minimum number of explored nodes
+  GRBVar           *Vars     = {};    ///< Pointer to vars
+  unsigned long int numVars;          ///< Number of vars
+  MathOpt::LCP     *LCP;              ///< Pointer to the LCP instance
   /**
 	* @brief Default constructor
 	* @param LCPin Pointer to the LCP which is solved by Gurobi
@@ -121,7 +121,7 @@ void MathOpt::LCP::defConst(GRBEnv *env)
   ZEROAssert(diff >= 0);
   if (diff > 0)
 	 for (int i = 0; i < diff; ++i)
-		this->BoundsX.push_back({0, -1});
+		this->BoundsX.push_back({-GRB_INFINITY, GRB_INFINITY});
 
   this->processBounds();
 }
@@ -133,8 +133,6 @@ void MathOpt::LCP::defConst(GRBEnv *env)
  * attributes.
  */
 void MathOpt::LCP::processBounds() {
-  return;
-  //@todo temporarily disabled for PATH
   unsigned long int              cnt = 0;
   std::vector<unsigned long int> shedded;
   for (auto c : this->Compl) {
@@ -205,13 +203,13 @@ MathOpt::LCP::LCP(
  * @param A Additional constraints matrix LHS
  * @param b Additional constraints RHS
  */
-MathOpt::LCP::LCP(GRBEnv *      env,
-						arma::sp_mat &M,
-						arma::vec &   q,
-						unsigned long int  leadStart,
-						unsigned      leadEnd,
-						arma::sp_mat &A,
-						arma::vec &   b)
+MathOpt::LCP::LCP(GRBEnv           *env,
+						arma::sp_mat     &M,
+						arma::vec        &q,
+						unsigned long int leadStart,
+						unsigned          leadEnd,
+						arma::sp_mat     &A,
+						arma::vec        &b)
 	 : M{M}, q{q}, A{A}, b{b}, RelaxedModel(*env)
 
 {
@@ -249,7 +247,7 @@ MathOpt::LCP::LCP(GRBEnv *env, const Game::NashGame &N) : RelaxedModel(*env) {
   this->BoundsX = NashBounds;
   if (this->BoundsX.size() < this->M.n_cols)
 	 for (unsigned long int i = this->BoundsX.size(); i < this->M.n_cols; ++i)
-		this->BoundsX.push_back({0, -1});
+		this->BoundsX.push_back({0, GRB_INFINITY});
   this->A     = N.rewriteLeadCons();
   this->b     = N.getMCLeadRHS();
   this->Compl = perps(Compl);
@@ -279,22 +277,17 @@ void MathOpt::LCP::makeRelaxed() {
 
 
 	 GRBVar x[nC], z[nR];
-	 //@todo Bounds are currently not used for the MIP LCP. This should be extended to an MCP
 	 for (unsigned long int i = 0; i < nC; i++) {
-		x[i] = RelaxedModel.addVar(0,
-											// BoundsX.at(i).first,
-											GRB_INFINITY,
-											// BoundsX.at(i).second > 0 ? BoundsX.at(i).second : GRB_INFINITY,
+		x[i] = RelaxedModel.addVar(BoundsX.at(i).first,
+											BoundsX.at(i).second > 0 ? BoundsX.at(i).second : GRB_INFINITY,
+											// 0, GRB_INFINITY,
 											1,
 											GRB_CONTINUOUS,
 											"x_" + std::to_string(i));
-		if (this->BoundsX.at(i).first == this->BoundsX.at(i).second) {
-		  x[i].set(GRB_DoubleAttr_LB, this->BoundsX.at(i).first);
-		  x[i].set(GRB_DoubleAttr_UB, this->BoundsX.at(i).second);
-		}
 	 }
 	 for (unsigned long int i = 0; i < nR; i++)
-		z[i] = RelaxedModel.addVar(0, GRB_INFINITY, 1, GRB_CONTINUOUS, "z_" + std::to_string(i));
+		z[i] = RelaxedModel.addVar(
+			 -GRB_INFINITY, GRB_INFINITY, 1, GRB_CONTINUOUS, "z_" + std::to_string(i));
 	 LOG_S(3) << "MathOpt::LCP::makeRelaxed: Added variables";
 
 	 // Define complementarities
@@ -335,8 +328,8 @@ void MathOpt::LCP::makeRelaxed() {
  * @param solLimit Sets the number of solutions in the pool
  * @return The unique pointer to the model
  */
-std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(bool         solve,
-																 double       timeLimit,
+std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(bool              solve,
+																 double            timeLimit,
 																 unsigned long int MIPWorkers,
 																 unsigned long int solLimit) {
   makeRelaxed();
@@ -417,8 +410,8 @@ arma::vec MathOpt::LCP::zFromX(const arma::vec &x) { return (this->M * x + this-
  * constraints. Hence, is not a MILP
  */
 std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMILP(const arma::sp_mat &C,
-																  const arma::vec &   c,
-																  const arma::vec &   x_minus_i,
+																  const arma::vec    &c,
+																  const arma::vec    &x_minus_i,
 																  bool                solve) {
 
   if (!this->PureMIP)
@@ -465,8 +458,8 @@ std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMILP(const arma::sp_mat &C,
 
 std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIQP(const arma::sp_mat &Q,
 																  const arma::sp_mat &C,
-																  const arma::vec &   c,
-																  const arma::vec &   x_minus_i,
+																  const arma::vec    &c,
+																  const arma::vec    &x_minus_i,
 																  bool                solve)
 
 {
@@ -499,8 +492,10 @@ void MathOpt::LCP::save(const std::string &filename, bool erase) const {
   Utils::appendSave(this->M, filename, std::string("LCP::M"), false);
   Utils::appendSave(this->q, filename, std::string("LCP::q"), false);
 
-  Utils::appendSave(static_cast<long int>(this->LeadStart), filename, std::string("LCP::LeadStart"), false);
-  Utils::appendSave(static_cast<long int>(this->LeadEnd), filename, std::string("LCP::LeadEnd"), false);
+  Utils::appendSave(
+		static_cast<long int>(this->LeadStart), filename, std::string("LCP::LeadStart"), false);
+  Utils::appendSave(
+		static_cast<long int>(this->LeadEnd), filename, std::string("LCP::LeadEnd"), false);
 
   Utils::appendSave(this->A, filename, std::string("LCP::A"), false);
   Utils::appendSave(this->b, filename, std::string("LCP::b"), false);
@@ -534,7 +529,7 @@ long int MathOpt::LCP::load(const std::string &filename, long int pos) {
 
   arma::sp_mat M_t, A, Bounds;
   arma::vec    q_t, b;
-   long int LeadStart_t, LeadEnd_t;
+  long int     LeadStart_t, LeadEnd_t;
   pos = Utils::appendRead(M_t, filename, pos, std::string("LCP::M"));
   pos = Utils::appendRead(q_t, filename, pos, std::string("LCP::q"));
   pos = Utils::appendRead(LeadStart_t, filename, pos, std::string("LCP::LeadStart"));
@@ -554,7 +549,12 @@ long int MathOpt::LCP::load(const std::string &filename, long int pos) {
 
 	 for (unsigned long int i = 0; i < this->M.n_cols; ++i)
 		this->BoundsX.push_back(
-			 {Bounds.at(i, 0) > 0 ? Bounds.at(i, 0) : 0, Bounds.at(i, 1) > 0 ? Bounds.at(i, 1) : -1});
+			 {abs(Bounds.at(i, 0)) < 1e20 ? Bounds.at(i, 0)
+													: Utils::getSign(Bounds.at(i, 0)) * GRB_INFINITY,
+
+
+			  abs(Bounds.at(i, 1)) < 1e20 ? Bounds.at(i, 1)
+													: Utils::getSign(Bounds.at(i, 1)) * GRB_INFINITY});
   }
 
 
@@ -718,12 +718,12 @@ ZEROStatus MathOpt::LCP::solvePATH(double timelimit, arma::vec &z, arma::vec &x,
  */
 
 ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
-										 arma::vec &           xSol,
-										 arma::vec &           zSol,
+										 arma::vec            &xSol,
+										 arma::vec            &zSol,
 										 double                timeLimit,
-										 unsigned long int          MIPWorkers,
-										 double &              cutOff,
-										 unsigned long int          solLimit) {
+										 unsigned long int     MIPWorkers,
+										 double               &cutOff,
+										 unsigned long int     solLimit) {
 
 
   if (algo == Data::LCP::Algorithms::PATH) {
@@ -810,7 +810,7 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP(bool indicators) {
   std::unique_ptr<GRBModel> model{new GRBModel(this->RelaxedModel)};
   // Creating the model
   try {
-	 GRBVar     x[nC], z[nR], u[this->Compl.size()], v[this->Compl.size()];
+	 GRBVar     x[nC], z[nR], u[this->Compl.size()], l[this->Compl.size()], in[this->Compl.size()];
 	 GRBLinExpr obj = 0;
 	 // Get hold of the Variables and Eqn Variables
 	 for (unsigned long int i = 0; i < nC; i++)
@@ -819,44 +819,52 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP(bool indicators) {
 	 for (unsigned long int i = 0; i < nR; i++)
 		z[i] = model->getVarByName("z_" + std::to_string(i));
 
-	 if (indicators) {
-		// Define binary variables for the two cases (x=0 or z=0)
-		for (unsigned long int i = 0; i < this->Compl.size(); i++) {
-		  u[i] = model->addVar(0, 1, 0, GRB_BINARY, "u_" + std::to_string(i));
-		  v[i] = model->addVar(0, 1, 0, GRB_BINARY, "v_" + std::to_string(i));
-		}
-	 }
 
-	 GRBLinExpr   expr    = 0;
+	 GRBLinExpr        expr    = 0;
 	 unsigned long int counter = 0;
 	 for (const auto p : Compl) {
 
 
-		if (indicators) {
-		  // u[i]=1 --> z[i] <=0
+		double LB = this->BoundsX.at(p.second).first;
+		double UB = this->BoundsX.at(p.second).second;
+		// std::cout << std::to_string(LB) << " - " << std::to_string(UB) << "\n";
+
+		l[counter]  = model->addVar(0, 1, 0, GRB_BINARY, "l_" + std::to_string(p.second));
+		in[counter] = model->addVar(0, 1, 0, GRB_BINARY, "in_" + std::to_string(p.second));
+		u[counter]  = model->addVar(
+          0, UB >= GRB_INFINITY ? 0 : 1, 0, GRB_BINARY, "u_" + std::to_string(p.second));
+
+		model->addGenConstrIndicator(
+			 in[counter], 1, z[p.first], GRB_EQUAL, 0, "ind_z_" + std::to_string(p.first) + "_zero");
+
+		if (UB < GRB_INFINITY) {
 		  model->addGenConstrIndicator(u[counter],
 												 1,
 												 z[p.first],
 												 GRB_LESS_EQUAL,
 												 0,
-												 "ind_z_" + std::to_string(p.first) + "_zero");
-		  // v[i]=1 --> x[i] <=0
-		  model->addGenConstrIndicator(v[counter],
-												 1,
-												 x[p.second],
-												 GRB_LESS_EQUAL,
-												 0,
-												 "ind_x_" + std::to_string(p.second) + "_zero");
+												 "ind_z_" + std::to_string(p.first) + "_negative");
 
-		  model->addConstr(
-				u[counter] + v[counter], GRB_EQUAL, 1, "uv_sum_" + std::to_string(counter));
-		  obj += v[counter];
-		} else {
-		  GRBVar sos[]  = {x[p.second], z[p.first]};
-		  double sosw[] = {3.0, 1};
-		  obj += x[p.second];
-		  model->addSOS(sos, sosw, 2, GRB_SOS_TYPE1);
+		  model->addGenConstrIndicator(
+				u[counter], 1, x[p.second], GRB_EQUAL, UB, "ind_x_" + std::to_string(p.first) + "_UB");
 		}
+
+		model->addGenConstrIndicator(l[counter],
+											  1,
+											  z[p.first],
+											  GRB_GREATER_EQUAL,
+											  0,
+											  "ind_z_" + std::to_string(p.first) + "_positive");
+
+		model->addGenConstrIndicator(
+			 l[counter], 1, x[p.second], GRB_EQUAL, LB, "ind_x_" + std::to_string(p.first) + "_LB");
+
+		obj += x[p.second]+ l[counter];
+
+		model->addConstr(u[counter] + l[counter] + in[counter] == 1,
+							  "MCP_" + std::to_string(p.second));
+
+
 		counter++;
 	 }
 	 //  If any equation or variable is to be fixed to zero, that happens here!
@@ -974,7 +982,9 @@ void MathOpt::LCP::setMIPObjective(GRBModel &MIP) {
  * @return The Gurobi pointer to the model
  */
 std::unique_ptr<GRBModel> MathOpt::LCP::getMINLP() {
+  //@todo Not working with lower bounds other than 0
   makeRelaxed();
+  LOG_S(0) << "MathOpt::LCP::getMINLP: may not work if UB and LB defined for x.";
   std::unique_ptr<GRBModel> model{new GRBModel(this->RelaxedModel)};
   // Creating the model
   try {

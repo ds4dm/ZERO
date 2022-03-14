@@ -60,11 +60,8 @@ void MathOpt::QP_Param::makeyQy() {
 	 return;
   GRBVar y[this->numVars];
   for (unsigned int i = 0; i < numVars; i++)
-	 y[i] = this->Model.addVar(Bounds.at(i).first,
-										Bounds.at(i).second > 0 ? Bounds.at(i).second : GRB_INFINITY,
-										0,
-										GRB_CONTINUOUS,
-										"y_" + std::to_string(i));
+	 y[i] = this->Model.addVar(
+		  Bounds.at(i).first, Bounds.at(i).second, 0, GRB_CONTINUOUS, "y_" + std::to_string(i));
 
 
   GRBQuadExpr yQy{0};
@@ -170,8 +167,8 @@ MathOpt::QP_Param &MathOpt::QP_Param::set(const arma::sp_mat &Q_in,
 														const arma::sp_mat &C_in,
 														const arma::sp_mat &A_in,
 														const arma::sp_mat &B_in,
-														const arma::vec &   c_in,
-														const arma::vec &   b_in) {
+														const arma::vec    &c_in,
+														const arma::vec    &b_in) {
   this->MadeyQy = false;
   MP_Param::set(Q_in, C_in, A_in, B_in, c_in, b_in);
   return *this;
@@ -192,8 +189,8 @@ MathOpt::QP_Param &MathOpt::QP_Param::set(arma::sp_mat &&Q_in,
 														arma::sp_mat &&C_in,
 														arma::sp_mat &&A_in,
 														arma::sp_mat &&B_in,
-														arma::vec &&   c_in,
-														arma::vec &&   b_in) {
+														arma::vec    &&c_in,
+														arma::vec    &&b_in) {
   this->MadeyQy = false;
   MP_Param::set(Q_in, C_in, A_in, B_in, c_in, b_in);
   return *this;
@@ -289,11 +286,12 @@ long int MathOpt::QP_Param::load(const std::string &filename, long int pos) {
 
 	 for (unsigned int i = 0; i < B_in.n_cols; ++i)
 		this->Bounds.push_back(
-			 {BO.at(i, 0) > 0 ? BO.at(i, 0) : 0, BO.at(i, 1) > 0 ? BO.at(i, 1) : -1});
+			 {abs(BO.at(i, 0)) < 1e20 ? BO.at(i, 0) : Utils::getSign(BO.at(i, 0)) * GRB_INFINITY,
+			  abs(BO.at(i, 1)) < 1e20 ? BO.at(i, 1) : Utils::getSign(BO.at(i, 1)) * GRB_INFINITY});
 
 	 int diff = B_in.n_cols - BO.n_rows;
 	 for (unsigned int i = 0; i < diff; ++i)
-		this->Bounds.push_back({0, -1});
+		this->Bounds.push_back({0, GRB_INFINITY});
   }
   LOG_S(1) << "Loaded QP_Param to file " << filename;
   this->set(Q_in, C_in, A_in, B_in, c_in, b_in);
@@ -317,9 +315,9 @@ MathOpt::QP_Param::QP_Param(const arma::sp_mat &Q_in,
 									 const arma::sp_mat &C_in,
 									 const arma::sp_mat &A_in,
 									 const arma::sp_mat &B_in,
-									 const arma::vec &   c_in,
-									 const arma::vec &   b_in,
-									 GRBEnv *            env)
+									 const arma::vec    &c_in,
+									 const arma::vec    &b_in,
+									 GRBEnv             *env)
 	 : MP_Param(env), MadeyQy{false}, Model{(*env)} {
   this->MadeyQy = false;
   this->set(Q_in, C_in, A_in, B_in, c_in, b_in);

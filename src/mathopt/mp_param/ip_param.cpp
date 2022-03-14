@@ -53,9 +53,14 @@ MathOpt::IP_Param &MathOpt::IP_Param::setBounds(const VariableBounds &bound_in) 
   MathOpt::MP_Param::setBounds(bound_in);
   for (unsigned int i = 0; i < this->numVars; i++) {
 	 auto var = this->IPModel.getVarByName("y_" + std::to_string(i));
-	 var.set(GRB_DoubleAttr_LB, this->Bounds.at(i).first > 0 ? this->Bounds.at(i).first : 0);
-	 var.set(GRB_DoubleAttr_UB,
-				this->Bounds.at(i).second > 0 ? this->Bounds.at(i).second : GRB_INFINITY);
+	 var.set(GRB_DoubleAttr_LB,
+				abs(this->Bounds.at(i).first) < 1e20
+					 ? this->Bounds.at(i).first
+					 : Utils::getSign(this->Bounds.at(i).first) * GRB_INFINITY);
+	 var.set(GRB_DoubleAttr_LB,
+				abs(this->Bounds.at(i).second) < 1e20
+					 ? this->Bounds.at(i).second
+					 : Utils::getSign(this->Bounds.at(i).second) * GRB_INFINITY);
   }
   this->IPModel.update();
   this->rewriteBounds();
@@ -75,8 +80,8 @@ bool MathOpt::IP_Param::finalize() {
   try {
 	 GRBVar y[this->numVars];
 	 for (unsigned int i = 0; i < this->numVars; i++) {
-		y[i] = this->IPModel.addVar(Bounds.at(i).first > 0 ? Bounds.at(i).first : 0,
-											 Bounds.at(i).second > 0 ? Bounds.at(i).second : GRB_INFINITY,
+		y[i] = this->IPModel.addVar(Bounds.at(i).first,
+											 Bounds.at(i).second,
 											 c.at(i),
 											 GRB_CONTINUOUS,
 											 "y_" + std::to_string(i));
@@ -86,12 +91,8 @@ bool MathOpt::IP_Param::finalize() {
 		y[static_cast<int>(Integers.at(i))].set(GRB_CharAttr_VType, 'I');
 		// Unfortunately, we need to reset the bounds for these variables
 		auto var = y[static_cast<int>(Integers.at(i))];
-		var.set(GRB_DoubleAttr_LB,
-				  this->Bounds.at(Integers.at(i)).first > 0 ? this->Bounds.at(Integers.at(i)).first
-																		  : 0);
-		var.set(GRB_DoubleAttr_UB,
-				  this->Bounds.at(Integers.at(i)).second > 0 ? this->Bounds.at(Integers.at(i)).second
-																			: GRB_INFINITY);
+		var.set(GRB_DoubleAttr_LB, this->Bounds.at(Integers.at(i)).first);
+		var.set(GRB_DoubleAttr_UB, this->Bounds.at(Integers.at(i)).second);
 	 }
 
 	 Utils::addSparseConstraints(B, b, y, "Constr_", &this->IPModel, GRB_LESS_EQUAL, nullptr);
@@ -154,7 +155,7 @@ std::unique_ptr<GRBModel> MathOpt::IP_Param::solveFixed(const arma::vec x, bool 
 	 std::unique_ptr<GRBModel> model(new GRBModel(this->IPModel));
 	 if (solve)
 		model->optimize();
-    return model;
+	 return model;
   } catch (GRBException &e) {
 	 throw ZEROException(e);
   }
@@ -196,11 +197,11 @@ std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(const arma::vec &x, bool
  * @param Bounds_in Variable bounds
  * @return A pointer to this
  */
-MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &  C_in,
-														const arma::sp_mat &  B_in,
-														const arma::vec &     b_in,
-														const arma::vec &     c_in,
-														const arma::vec &     integers_in,
+MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat   &C_in,
+														const arma::sp_mat   &B_in,
+														const arma::vec      &b_in,
+														const arma::vec      &c_in,
+														const arma::vec      &integers_in,
 														const VariableBounds &Bounds_in) {
   ZEROAssert(!integers_in.empty());
   this->Q.zeros(c_in.size(), c_in.size());
@@ -223,11 +224,11 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat &  C_in,
  * @param Bounds_in Variable bounds
  * @return A pointer to this
  */
-MathOpt::IP_Param &MathOpt::IP_Param::set(arma::sp_mat &&  C_in,
-														arma::sp_mat &&  B_in,
-														arma::vec &&     b_in,
-														arma::vec &&     c_in,
-														arma::vec &&     integers_in,
+MathOpt::IP_Param &MathOpt::IP_Param::set(arma::sp_mat   &&C_in,
+														arma::sp_mat   &&B_in,
+														arma::vec      &&b_in,
+														arma::vec      &&c_in,
+														arma::vec      &&integers_in,
 														VariableBounds &&Bounds_in) {
   ZEROAssert(!integers_in.empty());
   this->Q.zeros(c_in.size(), c_in.size());
@@ -515,11 +516,13 @@ long int MathOpt::IP_Param::load(const std::string &filename, long int pos) {
 		throw ZEROException(ZEROErrorCode::IOError, "Invalid bounds object in loaded file");
 
 	 for (unsigned int i = 0; i < _B.n_cols; ++i)
-		Bond.push_back({BO.at(i, 0) > 0 ? BO.at(i, 0) : 0, BO.at(i, 1) > 0 ? BO.at(i, 1) : -1});
+		Bond.push_back(
+			 {abs(BO.at(i, 0)) < 1e20 ? BO.at(i, 0) : Utils::getSign(BO.at(i, 0)) * GRB_INFINITY,
+			  abs(BO.at(i, 1)) < 1e20 ? BO.at(i, 1) : Utils::getSign(BO.at(i, 1)) * GRB_INFINITY});
 
 	 int diff = _B.n_cols - BO.n_rows;
 	 for (unsigned int i = 0; i < diff; ++i)
-		Bond.push_back({0, -1});
+		Bond.push_back({0, GRB_INFINITY});
   }
   LOG_S(1) << "Loaded IP_Param to file " << filename;
   this->set(_C, _B, _b, _c, _integers, Bond);
@@ -558,13 +561,13 @@ void MathOpt::IP_Param::save(const std::string &filename, bool append) const {
  * @param Bounds_in The input bounds
  * @param env_in A pointer to the Gurobi environment
  */
-MathOpt::IP_Param::IP_Param(const arma::sp_mat &  C_in,
-									 const arma::sp_mat &  B_in,
-									 const arma::vec &     b_in,
-									 const arma::vec &     c_in,
-									 const arma::vec &     integers_in,
+MathOpt::IP_Param::IP_Param(const arma::sp_mat   &C_in,
+									 const arma::sp_mat   &B_in,
+									 const arma::vec      &b_in,
+									 const arma::vec      &c_in,
+									 const arma::vec      &integers_in,
 									 const VariableBounds &Bounds_in,
-									 GRBEnv *              env_in)
+									 GRBEnv               *env_in)
 	 : MP_Param(env_in), IPModel{GRBModel(*env_in)} {
   this->set(C_in, B_in, b_in, c_in, integers_in, Bounds_in);
   this->forceDataCheck();

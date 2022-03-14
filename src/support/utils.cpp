@@ -95,8 +95,8 @@ arma::vec Utils::resizePatch(const arma::vec &mat, const unsigned int nR) {
  * @param erase Should the matrix be appended to the file or not?
  */
 void Utils::appendSave(const arma::sp_mat &matrix,
-							  const std::string & out,
-							  const std::string & header,
+							  const std::string  &out,
+							  const std::string  &header,
 							  bool                erase) {
   unsigned int nR{0}, nC{0}, nnz{0};
 
@@ -123,7 +123,7 @@ void Utils::appendSave(const arma::sp_mat &matrix,
  * @param header Any header to check data sanctity
  * @return The end position from which the next data object can be read.
  */
-long int Utils::appendRead(arma::sp_mat &     matrix,
+long int Utils::appendRead(arma::sp_mat      &matrix,
 									const std::string &in,
 									long int           pos,
 									const std::string &header) {
@@ -172,8 +172,8 @@ long int Utils::appendRead(arma::sp_mat &     matrix,
  * @param erase Should the file be over written?
  */
 void appendSave(const std::vector<double> &v,
-					 const std::string &        out,
-					 const std::string &        header,
+					 const std::string         &out,
+					 const std::string         &header,
 					 bool                       erase) {
   std::ofstream outfile(out, erase ? std::ios::out : std::ios::app);
   outfile << header << "\n" << v.size() << "\n";
@@ -222,7 +222,7 @@ appendRead(std::vector<double> &v, const std::string &in, long int pos, const st
  * @param erase Erase the file?
  */
 
-void Utils::appendSave(const arma::vec &  matrix,
+void Utils::appendSave(const arma::vec   &matrix,
 							  const std::string &out,
 							  const std::string &header,
 							  bool               erase) {
@@ -249,7 +249,7 @@ void Utils::appendSave(const arma::vec &  matrix,
  * @param header An optional header
  * @return The end position from which the next data object can be read.
  */
-long int Utils::appendRead(arma::vec &        matrix,
+long int Utils::appendRead(arma::vec         &matrix,
 									const std::string &in,
 									long int           pos,
 									const std::string &header) {
@@ -418,9 +418,9 @@ long int Utils::appendRead(std::string &v, const std::string &in, long int pos) 
  * @return True if the constraint was found
  */
 bool Utils::containsConstraint(const arma::sp_mat &A,
-										 const arma::vec &   b,
-										 const arma::vec &   lhs,
-										 const double &      rhs,
+										 const arma::vec    &b,
+										 const arma::vec    &lhs,
+										 const double       &rhs,
 										 const double        tol) {
   if (lhs.size() != A.n_cols)
 	 return false;
@@ -495,9 +495,9 @@ bool Utils::containsRow(const arma::sp_mat &A, const arma::vec &row, const doubl
  * @return True if the constraint was found
  */
 bool Utils::containsConstraint(const arma::sp_mat &A,
-										 const arma::vec &   b,
+										 const arma::vec    &b,
 										 const arma::sp_mat &lhs,
-										 const double &      rhs,
+										 const double       &rhs,
 										 const double        tol) {
   if (lhs.n_rows > 1)
 	 return false;
@@ -733,12 +733,12 @@ std::vector<CoinPackedVector> Utils::armaToCoinPackedVector(const arma::sp_mat &
  * @param z Additional RHS of variables
  */
 void Utils::addSparseConstraints(const arma::sp_mat &A,
-											const arma::vec &   b,
-											GRBVar *            x,
-											const std::string & basename,
-											GRBModel *          model,
+											const arma::vec    &b,
+											GRBVar             *x,
+											const std::string  &basename,
+											GRBModel           *model,
 											int                 sense = GRB_LESS_EQUAL,
-											GRBVar *            z     = nullptr) {
+											GRBVar             *z     = nullptr) {
   std::vector<GRBLinExpr> Constraints(A.n_rows, 0);
   for (arma::sp_mat::const_iterator it = A.begin(); it != A.end(); ++it) {
 	 double coeff = *it;
@@ -843,3 +843,10 @@ bool Utils::isEqual(const double a, const double b, const double tol, const doub
   }
   return false;
 }
+
+/**
+ * @brief Gets the sign
+ * @param val Input data
+ * @return Either -1 or 1
+ */
+int Utils::getSign(double val) { return val >= 0 ? 1 : -1; }
