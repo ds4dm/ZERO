@@ -20,6 +20,9 @@ However, we use a different notation. Instead of using ``y`` to refer to the var
     The set of ``x``'s indices that are not complementary to any equation should be a consecutive set of indices. For the sake of clarity, these components we refer to these as *Leader vars components* of ``x``.
     - Suppose the leader vars components of ``x`` are not in ``x``, in the remaining components, the first component should be complementary to the first row defined by @p M, the second component should be complementary to the second row defined by ``M`` and so on.
 
+.. note::
+
+    For the sake of explaination, we assume that the lower bounds for the ``x`` variables is 0. However, ZERO handles arbitrary lower and upper bounds on these variables. In other words, it handles Mixed LCPs.
 
 
 ====================================
