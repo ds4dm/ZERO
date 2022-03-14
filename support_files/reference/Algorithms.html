@@ -20,7 +20,7 @@
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
         <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -146,6 +146,7 @@
 <p class="caption" role="heading"><span class="caption-text">Extended Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/library_root.html">Library API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/library_root.html#page-hierarchy">Page Hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/library_root.html#class-hierarchy">Class Hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/library_root.html#file-hierarchy">File Hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/library_root.html#full-api">Full API</a><ul>
@@ -681,6 +682,10 @@
 <li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1ac18b4a9ad0028ecef8c39abe3673fa51.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a2c8e9800a4bf7531c2ebb9c6defc2341.html">Function Utils::getSign</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a2c8e9800a4bf7531c2ebb9c6defc2341.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1ad263e83ad30145d2003fbdf370c75d6a.html">Function Utils::intersectBounds</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1ad263e83ad30145d2003fbdf370c75d6a.html#function-documentation">Function Documentation</a></li>
 </ul>
@@ -853,7 +858,9 @@
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC16CombinatorialPNEE">
 <span id="_CPPv3N10Algorithms4EPEC16CombinatorialPNEE"></span><span id="_CPPv2N10Algorithms4EPEC16CombinatorialPNEE"></span><span id="Algorithms::EPEC::CombinatorialPNE"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1CombinatorialPNE"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CombinatorialPNE</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv410Algorithms" title="Algorithms"><span class="n"><span class="pre">Algorithms</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N10Algorithms4EPECE" title="Algorithms::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1PolyBase.html#_CPPv4N10Algorithms4EPEC8PolyBaseE" title="Algorithms::EPEC::PolyBase"><span class="n"><span class="pre">PolyBase</span></span></a><br /></dt>
-<dd><em>#include &lt;epec_combPNE.h&gt;</em><p>This class is responsible for the Combinatorial Pure-nash Equilibrium algorithm. In short, it tries to assign to each LCP related to player in the <a class="reference internal" href="../../api/classGame_1_1EPEC.html#classGame_1_1EPEC"><span class="std std-ref">Game::EPEC</span></a> a single polyhedron. Hence, the resulting <a class="reference internal" href="Game.html#classGame_1_1NashGame"><span class="std std-ref">Game::NashGame</span></a> should be easier to solver. If this approximated problem has a solution, it may be a pure-nash equilibrium, since every players’ strategy lays in only one polyhedron. </p>
+<dd><div class="docutils container">
+<em>#include &lt;epec_combPNE.h&gt;</em></div>
+<p>This class is responsible for the Combinatorial Pure-nash Equilibrium algorithm. In short, it tries to assign to each LCP related to player in the <a class="reference internal" href="../../api/classGame_1_1EPEC.html#classGame_1_1EPEC"><span class="std std-ref">Game::EPEC</span></a> a single polyhedron. Hence, the resulting <a class="reference internal" href="Game.html#classGame_1_1NashGame"><span class="std std-ref">Game::NashGame</span></a> should be easier to solver. If this approximated problem has a solution, it may be a pure-nash equilibrium, since every players’ strategy lays in only one polyhedron. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
@@ -901,7 +908,9 @@
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC10CutAndPlayE">
 <span id="_CPPv3N10Algorithms4EPEC10CutAndPlayE"></span><span id="_CPPv2N10Algorithms4EPEC10CutAndPlayE"></span><span id="Algorithms::EPEC::CutAndPlay"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1CutAndPlay"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CutAndPlay</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv410Algorithms" title="Algorithms"><span class="n"><span class="pre">Algorithms</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N10Algorithms4EPECE" title="Algorithms::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1PolyBase.html#_CPPv4N10Algorithms4EPEC8PolyBaseE" title="Algorithms::EPEC::PolyBase"><span class="n"><span class="pre">PolyBase</span></span></a><br /></dt>
-<dd><em>#include &lt;epec_cutandplay.h&gt;</em><p>This class is responsible for the Cut-and-Play Algorithm. </p>
+<dd><div class="docutils container">
+<em>#include &lt;epec_cutandplay.h&gt;</em></div>
+<p>This class is responsible for the Cut-and-Play Algorithm. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
@@ -1017,7 +1026,7 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC10CutAndPlay15hybridBranchingEjPN9OuterTree4NodeE">
 <span id="_CPPv3N10Algorithms4EPEC10CutAndPlay15hybridBranchingEjPN9OuterTree4NodeE"></span><span id="_CPPv2N10Algorithms4EPEC10CutAndPlay15hybridBranchingEjPN9OuterTree4NodeE"></span><span id="Algorithms::EPEC::CutAndPlay::hybridBranching__unsigned-i.OuterTree::NodeP"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1CutAndPlay_1acdee0c4ec7fae075dbdb90a7c639a274"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hybridBranching</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">player</span></span>, <a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTreeE" title="Algorithms::EPEC::OuterTree"><span class="n"><span class="pre">OuterTree</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node"><span class="n"><span class="pre">Node</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">node</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Given <code class="docutils literal notranslate"><span class="pre">player</span></code>  containing the id of the player, returns the branching decision for that node given by a hybrid branching rule. In particular, the method return the complementarity id maximizing a combination of constraint violations and number of violated constraints. <code class="docutils literal notranslate"><span class="pre">node</span></code> contains the tree’s node. It isn’t const since a branching candidate can be pruned if infeasibility is detected. Note that if the problem is infeasible, namely one complementarity branching candidate results in an infeasible relaxation, then all branching candidates are removed from the list of branching candidates. </p>
+<dd><p>Given <code class="docutils literal notranslate"><span class="pre">player</span></code> &amp;#8212; containing the id of the player, returns the branching decision for that node given by a hybrid branching rule. In particular, the method return the complementarity id maximizing a combination of constraint violations and number of violated constraints. <code class="docutils literal notranslate"><span class="pre">node</span></code> contains the tree’s node. It isn’t const since a branching candidate can be pruned if infeasibility is detected. Note that if the problem is infeasible, namely one complementarity branching candidate results in an infeasible relaxation, then all branching candidates are removed from the list of branching candidates. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1034,7 +1043,7 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC10CutAndPlay19infeasibleBranchingEjPKN9OuterTree4NodeE">
 <span id="_CPPv3N10Algorithms4EPEC10CutAndPlay19infeasibleBranchingEjPKN9OuterTree4NodeE"></span><span id="_CPPv2N10Algorithms4EPEC10CutAndPlay19infeasibleBranchingEjPKN9OuterTree4NodeE"></span><span id="Algorithms::EPEC::CutAndPlay::infeasibleBranching__unsigned-i.OuterTree::NodeCP"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1CutAndPlay_1af01722008ee9c2ce285a10328a68cfc4"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">infeasibleBranching</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">player</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTreeE" title="Algorithms::EPEC::OuterTree"><span class="n"><span class="pre">OuterTree</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node"><span class="n"><span class="pre">Node</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">node</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Given <code class="docutils literal notranslate"><span class="pre">player</span></code>  containing the id of the player, returns the branching decision for that node, where the complementarity is the most (possibly) infeasible one (with both x and z positive). In particular, the method return the (positive) id of the complementarity equation if there is a feasible branching decision at <code class="docutils literal notranslate"><span class="pre">node</span></code>, and a negative value otherwise. </p>
+<dd><p>Given <code class="docutils literal notranslate"><span class="pre">player</span></code> &amp;#8212; containing the id of the player, returns the branching decision for that node, where the complementarity is the most (possibly) infeasible one (with both x and z positive). In particular, the method return the (positive) id of the complementarity equation if there is a feasible branching decision at <code class="docutils literal notranslate"><span class="pre">node</span></code>, and a negative value otherwise. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1051,7 +1060,7 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC10CutAndPlay18deviationBranchingEjPKN9OuterTree4NodeE">
 <span id="_CPPv3N10Algorithms4EPEC10CutAndPlay18deviationBranchingEjPKN9OuterTree4NodeE"></span><span id="_CPPv2N10Algorithms4EPEC10CutAndPlay18deviationBranchingEjPKN9OuterTree4NodeE"></span><span id="Algorithms::EPEC::CutAndPlay::deviationBranching__unsigned-i.OuterTree::NodeCP"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1CutAndPlay_1a1d01ec2cf13b05e4f2a4665fb36293eb"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">deviationBranching</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">player</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTreeE" title="Algorithms::EPEC::OuterTree"><span class="n"><span class="pre">OuterTree</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node"><span class="n"><span class="pre">Node</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">node</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Given <code class="docutils literal notranslate"><span class="pre">player</span></code>  containing the id of the player, returns the branching decision for that node, where the complementarity helps include the deviation. In particular, the method return the (positive) id of the complementarity equation if there is a feasible branching decision at <code class="docutils literal notranslate"><span class="pre">node</span></code>, and a negative value otherwise. </p>
+<dd><p>Given <code class="docutils literal notranslate"><span class="pre">player</span></code> &amp;#8212; containing the id of the player, returns the branching decision for that node, where the complementarity helps include the deviation. In particular, the method return the (positive) id of the complementarity equation if there is a feasible branching decision at <code class="docutils literal notranslate"><span class="pre">node</span></code>, and a negative value otherwise. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1151,7 +1160,7 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC10CutAndPlay21getNextBranchLocationEjPN9OuterTree4NodeE">
 <span id="_CPPv3N10Algorithms4EPEC10CutAndPlay21getNextBranchLocationEjPN9OuterTree4NodeE"></span><span id="_CPPv2N10Algorithms4EPEC10CutAndPlay21getNextBranchLocationEjPN9OuterTree4NodeE"></span><span id="Algorithms::EPEC::CutAndPlay::getNextBranchLocation__unsigned-i.OuterTree::NodeP"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1CutAndPlay_1a6a0de0b12666acf2c81d132dab4b47c6"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNextBranchLocation</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">player</span></span>, <a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTreeE" title="Algorithms::EPEC::OuterTree"><span class="n"><span class="pre">OuterTree</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node"><span class="n"><span class="pre">Node</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">node</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Given <code class="docutils literal notranslate"><span class="pre">player</span></code>  containing the id of the player  and <code class="docutils literal notranslate"><span class="pre">node</span></code> containing a node, returns the branching decision for that node, with respect to the current node. In particular, the method return the (positive) id of the complementarity equation if there is a feasible branching decision at <code class="docutils literal notranslate"><span class="pre">node</span></code>, and a negative value otherwise. </p>
+<dd><p>Given <code class="docutils literal notranslate"><span class="pre">player</span></code> &amp;#8212; containing the id of the player &amp;#8212; and <code class="docutils literal notranslate"><span class="pre">node</span></code> containing a node, returns the branching decision for that node, with respect to the current node. In particular, the method return the (positive) id of the complementarity equation if there is a feasible branching decision at <code class="docutils literal notranslate"><span class="pre">node</span></code>, and a negative value otherwise. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1168,7 +1177,7 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC10CutAndPlay22getFirstBranchLocationEKjPN9OuterTree4NodeE">
 <span id="_CPPv3N10Algorithms4EPEC10CutAndPlay22getFirstBranchLocationEKjPN9OuterTree4NodeE"></span><span id="_CPPv2N10Algorithms4EPEC10CutAndPlay22getFirstBranchLocationEKjPN9OuterTree4NodeE"></span><span id="Algorithms::EPEC::CutAndPlay::getFirstBranchLocation__unsigned-iC.OuterTree::NodeP"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1CutAndPlay_1a3df06d1677ac663d9db606ef249359e8"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getFirstBranchLocation</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">player</span></span>, <a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTreeE" title="Algorithms::EPEC::OuterTree"><span class="n"><span class="pre">OuterTree</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node"><span class="n"><span class="pre">Node</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">node</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Given <code class="docutils literal notranslate"><span class="pre">player</span></code>  containing the id of the player, returns the branching decision for that node, with no complementarity condition enforced. In particular, the method return the (positive) id of the complementarity equation if there is a feasible branching decision at <code class="docutils literal notranslate"><span class="pre">node</span></code>, and a negative value otherwise. </p>
+<dd><p>Given <code class="docutils literal notranslate"><span class="pre">player</span></code> &amp;#8212; containing the id of the player, returns the branching decision for that node, with no complementarity condition enforced. In particular, the method return the (positive) id of the complementarity equation if there is a feasible branching decision at <code class="docutils literal notranslate"><span class="pre">node</span></code>, and a negative value otherwise. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1215,7 +1224,9 @@
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC15FullEnumerationE">
 <span id="_CPPv3N10Algorithms4EPEC15FullEnumerationE"></span><span id="_CPPv2N10Algorithms4EPEC15FullEnumerationE"></span><span id="Algorithms::EPEC::FullEnumeration"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1FullEnumeration"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FullEnumeration</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv410Algorithms" title="Algorithms"><span class="n"><span class="pre">Algorithms</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N10Algorithms4EPECE" title="Algorithms::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1PolyBase.html#_CPPv4N10Algorithms4EPEC8PolyBaseE" title="Algorithms::EPEC::PolyBase"><span class="n"><span class="pre">PolyBase</span></span></a><br /></dt>
-<dd><em>#include &lt;epec_fullenum.h&gt;</em><p>This class manages the full enumeration algorithm for <a class="reference internal" href="../../api/classGame_1_1EPEC.html#classGame_1_1EPEC"><span class="std std-ref">Game::EPEC</span></a> objects. </p>
+<dd><div class="docutils container">
+<em>#include &lt;epec_fullenum.h&gt;</em></div>
+<p>This class manages the full enumeration algorithm for <a class="reference internal" href="../../api/classGame_1_1EPEC.html#classGame_1_1EPEC"><span class="std std-ref">Game::EPEC</span></a> objects. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
@@ -1244,7 +1255,9 @@
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC18InnerApproximationE">
 <span id="_CPPv3N10Algorithms4EPEC18InnerApproximationE"></span><span id="_CPPv2N10Algorithms4EPEC18InnerApproximationE"></span><span id="Algorithms::EPEC::InnerApproximation"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1InnerApproximation"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InnerApproximation</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv410Algorithms" title="Algorithms"><span class="n"><span class="pre">Algorithms</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N10Algorithms4EPECE" title="Algorithms::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1PolyBase.html#_CPPv4N10Algorithms4EPEC8PolyBaseE" title="Algorithms::EPEC::PolyBase"><span class="n"><span class="pre">PolyBase</span></span></a><br /></dt>
-<dd><em>#include &lt;epec_innerapp.h&gt;</em><p>This class manages the inner enumeration algorithm for <a class="reference internal" href="../../api/classGame_1_1EPEC.html#classGame_1_1EPEC"><span class="std std-ref">Game::EPEC</span></a> objects. Since each player’s feasible region is a <a class="reference internal" href="../../api/classMathOpt_1_1PolyLCP.html#classMathOpt_1_1PolyLCP"><span class="std std-ref">MathOpt::PolyLCP</span></a> with finitely many polyhedra, each of these region is increasingly expanded with this algorithm. The expansion happens either by adding polyhedra containing profitable moves, or by adding random polyhedra. </p>
+<dd><div class="docutils container">
+<em>#include &lt;epec_innerapp.h&gt;</em></div>
+<p>This class manages the inner enumeration algorithm for <a class="reference internal" href="../../api/classGame_1_1EPEC.html#classGame_1_1EPEC"><span class="std std-ref">Game::EPEC</span></a> objects. Since each player’s feasible region is a <a class="reference internal" href="../../api/classMathOpt_1_1PolyLCP.html#classMathOpt_1_1PolyLCP"><span class="std std-ref">MathOpt::PolyLCP</span></a> with finitely many polyhedra, each of these region is increasingly expanded with this algorithm. The expansion happens either by adding polyhedra containing profitable moves, or by adding random polyhedra. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
@@ -1334,7 +1347,9 @@
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTreeE">
 <span id="_CPPv3N10Algorithms4EPEC9OuterTreeE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTreeE"></span><span id="Algorithms::EPEC::OuterTree"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OuterTree</span></span></span><br /></dt>
-<dd><em>#include &lt;epec_cutandplay.h&gt;</em><p>This class manages the outer approximation tree. </p>
+<dd><div class="docutils container">
+<em>#include &lt;epec_cutandplay.h&gt;</em></div>
+<p>This class manages the outer approximation tree. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
@@ -1495,7 +1510,9 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4NodeE">
 <span id="_CPPv3N10Algorithms4EPEC9OuterTree4NodeE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4NodeE"></span><span id="Algorithms::EPEC::OuterTree::Node"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Node</span></span></span><br /></dt>
-<dd><em>#include &lt;epec_cutandplay.h&gt;</em><div class="breathe-sectiondef docutils container">
+<dd><div class="docutils container">
+<em>#include &lt;epec_cutandplay.h&gt;</em></div>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4Node4NodeEj">
@@ -1598,7 +1615,9 @@
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC8PolyBaseE">
 <span id="_CPPv3N10Algorithms4EPEC8PolyBaseE"></span><span id="_CPPv2N10Algorithms4EPEC8PolyBaseE"></span><span id="Algorithms::EPEC::PolyBase"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PolyBase</span></span></span><br /></dt>
-<dd><em>#include &lt;epec_polybase.h&gt;</em><p>Subclassed by <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1CombinatorialPNE"><span class="std std-ref">Algorithms::EPEC::CombinatorialPNE</span></a>, <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1CutAndPlay"><span class="std std-ref">Algorithms::EPEC::CutAndPlay</span></a>, <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1FullEnumeration"><span class="std std-ref">Algorithms::EPEC::FullEnumeration</span></a>, <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1InnerApproximation"><span class="std std-ref">Algorithms::EPEC::InnerApproximation</span></a></p>
+<dd><div class="docutils container">
+<em>#include &lt;epec_polybase.h&gt;</em></div>
+<p>Subclassed by <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1CombinatorialPNE"><span class="std std-ref">Algorithms::EPEC::CombinatorialPNE</span></a>, <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1CutAndPlay"><span class="std std-ref">Algorithms::EPEC::CutAndPlay</span></a>, <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1FullEnumeration"><span class="std std-ref">Algorithms::EPEC::FullEnumeration</span></a>, <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1InnerApproximation"><span class="std std-ref">Algorithms::EPEC::InnerApproximation</span></a></p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
@@ -1878,7 +1897,9 @@
 <dd><dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG9AlgorithmE">
 <span id="_CPPv3N10Algorithms3IPG9AlgorithmE"></span><span id="_CPPv2N10Algorithms3IPG9AlgorithmE"></span><span id="Algorithms::IPG::Algorithm"></span><span class="target" id="classAlgorithms_1_1IPG_1_1Algorithm"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Algorithm</span></span></span><br /></dt>
-<dd><em>#include &lt;ipg_algorithms.h&gt;</em><p>Subclassed by <a class="reference internal" href="#classAlgorithms_1_1IPG_1_1CutAndPlay"><span class="std std-ref">Algorithms::IPG::CutAndPlay</span></a></p>
+<dd><div class="docutils container">
+<em>#include &lt;ipg_algorithms.h&gt;</em></div>
+<p>Subclassed by <a class="reference internal" href="#classAlgorithms_1_1IPG_1_1CutAndPlay"><span class="std std-ref">Algorithms::IPG::CutAndPlay</span></a></p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
@@ -1958,7 +1979,9 @@
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10CutAndPlayE">
 <span id="_CPPv3N10Algorithms3IPG10CutAndPlayE"></span><span id="_CPPv2N10Algorithms3IPG10CutAndPlayE"></span><span id="Algorithms::IPG::CutAndPlay"></span><span class="target" id="classAlgorithms_1_1IPG_1_1CutAndPlay"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CutAndPlay</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv410Algorithms" title="Algorithms"><span class="n"><span class="pre">Algorithms</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N10Algorithms3IPGE" title="Algorithms::IPG"><span class="n"><span class="pre">IPG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classAlgorithms_1_1IPG_1_1Algorithm.html#_CPPv4N10Algorithms3IPG9AlgorithmE" title="Algorithms::IPG::Algorithm"><span class="n"><span class="pre">Algorithm</span></span></a><br /></dt>
-<dd><em>#include &lt;ipg_cutandplay.h&gt;</em><p>This class is responsible for the Cut-and-Play algorithm for <a class="reference internal" href="#namespaceAlgorithms_1_1IPG"><span class="std std-ref">IPG</span></a>. </p>
+<dd><div class="docutils container">
+<em>#include &lt;ipg_cutandplay.h&gt;</em></div>
+<p>This class is responsible for the Cut-and-Play algorithm for <a class="reference internal" href="#namespaceAlgorithms_1_1IPG"><span class="std std-ref">IPG</span></a>. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
@@ -2242,7 +2265,9 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_PlayerE">
 <span id="_CPPv3N10Algorithms3IPG10IPG_PlayerE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_PlayerE"></span><span id="Algorithms::IPG::IPG_Player"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IPG_Player</span></span></span><br /></dt>
-<dd><em>#include &lt;ipg_cutandplay.h&gt;</em><div class="breathe-sectiondef docutils container">
+<dd><div class="docutils container">
+<em>#include &lt;ipg_cutandplay.h&gt;</em></div>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_PlayerD0Ev">
@@ -2330,7 +2355,7 @@
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player1VE">
 <span id="_CPPv3N10Algorithms3IPG10IPG_Player1VE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player1VE"></span><span id="Algorithms::IPG::IPG_Player::V__arma::sp_mat"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a5b65eb80d5d0e5a3f6b1432a35d01224"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">V</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>This object stores an array of points  for each player  that are descriptor for the convex-hull of the integer programming game. </p>
+<dd><p>This object stores an array of points &amp;#8212; for each player &amp;#8212; that are descriptor for the convex-hull of the integer programming game. </p>
 </dd></dl>
 
 <dl class="cpp var">

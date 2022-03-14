@@ -20,7 +20,7 @@
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
         <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -146,6 +146,7 @@
 <p class="caption" role="heading"><span class="caption-text">Extended Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/library_root.html">Library API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/library_root.html#page-hierarchy">Page Hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/library_root.html#class-hierarchy">Class Hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/library_root.html#file-hierarchy">File Hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/library_root.html#full-api">Full API</a><ul>
@@ -681,6 +682,10 @@
 <li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1ac18b4a9ad0028ecef8c39abe3673fa51.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a2c8e9800a4bf7531c2ebb9c6defc2341.html">Function Utils::getSign</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a2c8e9800a4bf7531c2ebb9c6defc2341.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1ad263e83ad30145d2003fbdf370c75d6a.html">Function Utils::intersectBounds</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1ad263e83ad30145d2003fbdf370c75d6a.html#function-documentation">Function Documentation</a></li>
 </ul>
@@ -993,7 +998,9 @@
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N7MathOpt8IP_ParamE">
 <span id="_CPPv3N7MathOpt8IP_ParamE"></span><span id="_CPPv2N7MathOpt8IP_ParamE"></span><span id="MathOpt::IP_Param"></span><span class="target" id="classMathOpt_1_1IP__Param"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IP_Param</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv47MathOpt" title="MathOpt"><span class="n"><span class="pre">MathOpt</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classMathOpt_1_1MP__Param.html#_CPPv4N7MathOpt8MP_ParamE" title="MathOpt::MP_Param"><span class="n"><span class="pre">MP_Param</span></span></a><br /></dt>
-<dd><em>#include &lt;ip_param.h&gt;</em><p>This class handles parametrized integer programs, and inherits from <a class="reference internal" href="../../api/classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param"><span class="std std-ref">MP_Param</span></a>. A parametrized Integer Program is defined as as. </p>
+<dd><div class="docutils container">
+<em>#include &lt;ip_param.h&gt;</em></div>
+<p>This class handles parametrized integer programs, and inherits from <a class="reference internal" href="../../api/classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param"><span class="std std-ref">MP_Param</span></a>. A parametrized Integer Program is defined as as. </p>
 <p><div class="math notranslate nohighlight">
 \[ \min_y c^Ty + (Cx)^T y \]</div>
  Subject to <div class="math notranslate nohighlight">
@@ -1405,7 +1412,9 @@
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N7MathOpt3LCPE">
 <span id="_CPPv3N7MathOpt3LCPE"></span><span id="_CPPv2N7MathOpt3LCPE"></span><span id="MathOpt::LCP"></span><span class="target" id="classMathOpt_1_1LCP"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LCP</span></span></span><br /></dt>
-<dd><em>#include &lt;lcp.h&gt;</em><p>This class manages and solves linear complementarity problems (LCPs). Let <span class="math notranslate nohighlight">\(M\)</span> be a matrix, <span class="math notranslate nohighlight">\(q\)</span> a vector with as many elements as the number of rows of <span class="math notranslate nohighlight">\(M\)</span>. The associated <a class="reference internal" href="../../api/classMathOpt_1_1LCP.html#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> problem is to find. </p>
+<dd><div class="docutils container">
+<em>#include &lt;lcp.h&gt;</em></div>
+<p>This class manages and solves linear complementarity problems (LCPs). Let <span class="math notranslate nohighlight">\(M\)</span> be a matrix, <span class="math notranslate nohighlight">\(q\)</span> a vector with as many elements as the number of rows of <span class="math notranslate nohighlight">\(M\)</span>. The associated <a class="reference internal" href="../../api/classMathOpt_1_1LCP.html#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> problem is to find. </p>
 <p><div class="math notranslate nohighlight">
 \[ z=Mx+q \qquad x^\top z = 0 \]</div>
  Possibly, there can be additional side constraints in the form of <div class="math notranslate nohighlight">
@@ -2073,7 +2082,9 @@ Internal member that can be called from multiple constructors to assign default 
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N7MathOpt8MP_ParamE">
 <span id="_CPPv3N7MathOpt8MP_ParamE"></span><span id="_CPPv2N7MathOpt8MP_ParamE"></span><span id="MathOpt::MP_Param"></span><span class="target" id="classMathOpt_1_1MP__Param"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MP_Param</span></span></span><br /></dt>
-<dd><em>#include &lt;mp_param.h&gt;</em><p>This class handles parameterized mathematical programs (MP) Their form is the one of. </p>
+<dd><div class="docutils container">
+<em>#include &lt;mp_param.h&gt;</em></div>
+<p>This class handles parameterized mathematical programs (MP) Their form is the one of. </p>
 <p><div class="math notranslate nohighlight">
 \[ \min_y \frac{1}{2}y^TQy + c^Ty + (Cx)^T y \]</div>
  Subject to <div class="math notranslate nohighlight">
@@ -2533,7 +2544,9 @@ Internal member that can be called from multiple constructors to assign default 
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N7MathOpt7PolyLCPE">
 <span id="_CPPv3N7MathOpt7PolyLCPE"></span><span id="_CPPv2N7MathOpt7PolyLCPE"></span><span id="MathOpt::PolyLCP"></span><span class="target" id="classMathOpt_1_1PolyLCP"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PolyLCP</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv47MathOpt" title="MathOpt"><span class="n"><span class="pre">MathOpt</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classMathOpt_1_1LCP.html#_CPPv4N7MathOpt3LCPE" title="MathOpt::LCP"><span class="n"><span class="pre">LCP</span></span></a><br /></dt>
-<dd><em>#include &lt;poly_lcp.h&gt;</em><p>Inheritor Class to handle the polyhedral aspects of the <a class="reference internal" href="../../api/classMathOpt_1_1LCP.html#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> class, and support algorithms. It mainly approximates the <a class="reference internal" href="../../api/classMathOpt_1_1LCP.html#classMathOpt_1_1LCP"><span class="std std-ref">MathOpt::LCP</span></a> feasible region with polyhedra. Each polyhedron is encoded with a {-1, 0, 1 2} scheme, which is used through the class. </p>
+<dd><div class="docutils container">
+<em>#include &lt;poly_lcp.h&gt;</em></div>
+<p>Inheritor Class to handle the polyhedral aspects of the <a class="reference internal" href="../../api/classMathOpt_1_1LCP.html#classMathOpt_1_1LCP"><span class="std std-ref">LCP</span></a> class, and support algorithms. It mainly approximates the <a class="reference internal" href="../../api/classMathOpt_1_1LCP.html#classMathOpt_1_1LCP"><span class="std std-ref">MathOpt::LCP</span></a> feasible region with polyhedra. Each polyhedron is encoded with a {-1, 0, 1 2} scheme, which is used through the class. </p>
 <p>There are three different usages for this class. Consider an encoding vector <span class="math notranslate nohighlight">\( \bar{e} \)</span> with a number of elements equal to <a class="reference internal" href="../../api/classMathOpt_1_1LCP.html#classMathOpt_1_1LCP_1aa6f8091c7caacc7a44d95333fd8a7fe5"><span class="std std-ref">LCP::nC</span></a>.</p>
 <p><ul class="simple">
 <li><p>An inner approximation scheme, where the <a class="reference internal" href="../../api/classMathOpt_1_1LCP.html#classMathOpt_1_1LCP"><span class="std std-ref">MathOpt::LCP</span></a> is approximated by a union of polyhedra from the inside. For a given complementarity <span class="math notranslate nohighlight">\( i \in [nC] \)</span> , each polyhedron either fixes the complementarity to zero (e.g., <span class="math notranslate nohighlight">\( z_i = 0 \)</span> ) with an encoding <span class="math notranslate nohighlight">\( \bar{e}_i=1 \)</span> , or the corresponding variable to zero (e.g., <span class="math notranslate nohighlight">\( x_i = 0 \)</span> ) with an encoding <span class="math notranslate nohighlight">\( \bar{e}_i=-1 \)</span> . An encoding of <span class="math notranslate nohighlight">\( \bar{e}_i=-0 \)</span> is not allowed in the polyhedron. However, the methods in this class will generate children polyhedron having either <span class="math notranslate nohighlight">\( \bar{e}_i=-1 \)</span> or <span class="math notranslate nohighlight">\( \bar{e}_i=+1 \)</span></p></li>
@@ -2976,7 +2989,9 @@ Internal member that can be called from multiple constructors to assign default 
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4N7MathOpt14QP_ConstraintsE">
 <span id="_CPPv3N7MathOpt14QP_ConstraintsE"></span><span id="_CPPv2N7MathOpt14QP_ConstraintsE"></span><span id="MathOpt::QP_Constraints"></span><span class="target" id="structMathOpt_1_1QP__Constraints"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QP_Constraints</span></span></span><br /></dt>
-<dd><em>#include &lt;mathopt.h&gt;</em><p>struct to handle the constraint params of <a class="reference internal" href="../../api/classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param"><span class="std std-ref">MP_Param</span></a> and inheritors </p>
+<dd><div class="docutils container">
+<em>#include &lt;mathopt.h&gt;</em></div>
+<p>struct to handle the constraint params of <a class="reference internal" href="../../api/classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param"><span class="std std-ref">MP_Param</span></a> and inheritors </p>
 <p>Refer <a class="reference internal" href="../../api/classMathOpt_1_1QP__Param.html#classMathOpt_1_1QP__Param"><span class="std std-ref">QP_Param</span></a> class for what A, B and b mean. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
@@ -3001,7 +3016,9 @@ Internal member that can be called from multiple constructors to assign default 
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4N7MathOpt12QP_ObjectiveE">
 <span id="_CPPv3N7MathOpt12QP_ObjectiveE"></span><span id="_CPPv2N7MathOpt12QP_ObjectiveE"></span><span id="MathOpt::QP_Objective"></span><span class="target" id="structMathOpt_1_1QP__Objective"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QP_Objective</span></span></span><br /></dt>
-<dd><em>#include &lt;mathopt.h&gt;</em><p>struct to handle the objective params of <a class="reference internal" href="../../api/classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param"><span class="std std-ref">MP_Param</span></a> and inheritors </p>
+<dd><div class="docutils container">
+<em>#include &lt;mathopt.h&gt;</em></div>
+<p>struct to handle the objective params of <a class="reference internal" href="../../api/classMathOpt_1_1MP__Param.html#classMathOpt_1_1MP__Param"><span class="std std-ref">MP_Param</span></a> and inheritors </p>
 <p>Refer <a class="reference internal" href="../../api/classMathOpt_1_1QP__Param.html#classMathOpt_1_1QP__Param"><span class="std std-ref">QP_Param</span></a> class for what Q, C and c mean. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
@@ -3026,7 +3043,9 @@ Internal member that can be called from multiple constructors to assign default 
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N7MathOpt8QP_ParamE">
 <span id="_CPPv3N7MathOpt8QP_ParamE"></span><span id="_CPPv2N7MathOpt8QP_ParamE"></span><span id="MathOpt::QP_Param"></span><span class="target" id="classMathOpt_1_1QP__Param"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QP_Param</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv47MathOpt" title="MathOpt"><span class="n"><span class="pre">MathOpt</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classMathOpt_1_1MP__Param.html#_CPPv4N7MathOpt8MP_ParamE" title="MathOpt::MP_Param"><span class="n"><span class="pre">MP_Param</span></span></a><br /></dt>
-<dd><em>#include &lt;qp_param.h&gt;</em><p>A class to handle parameterized quadratic programs (QP), defined as. </p>
+<dd><div class="docutils container">
+<em>#include &lt;qp_param.h&gt;</em></div>
+<p>A class to handle parameterized quadratic programs (QP), defined as. </p>
 <p><div class="math notranslate nohighlight">
 \[ \min_y \frac{1}{2}y^TQy + c^Ty + (Cx)^T y \]</div>
  Subject to <div class="math notranslate nohighlight">

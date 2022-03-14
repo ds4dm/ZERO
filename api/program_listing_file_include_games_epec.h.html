@@ -143,6 +143,7 @@
 <p class="caption" role="heading"><span class="caption-text">Extended Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="library_root.html">Library API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul>
@@ -678,6 +679,10 @@
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ac18b4a9ad0028ecef8c39abe3673fa51.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a2c8e9800a4bf7531c2ebb9c6defc2341.html">Function Utils::getSign</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a2c8e9800a4bf7531c2ebb9c6defc2341.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ad263e83ad30145d2003fbdf370c75d6a.html">Function Utils::intersectBounds</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ad263e83ad30145d2003fbdf370c75d6a.html#function-documentation">Function Documentation</a></li>
 </ul>
@@ -866,25 +871,25 @@
 
 <span class="k">namespace</span><span class="w"> </span><span class="nn">Data</span><span class="o">::</span><span class="nn">EPEC</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-<span class="w">  </span><span class="k">enum</span> <span class="k">class</span><span class="w"> </span><span class="nc">Algorithms</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Algorithms</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
 <span class="w">     </span><span class="n">FullEnumeration</span><span class="p">,</span><span class="w"></span>
 <span class="w">     </span><span class="n">InnerApproximation</span><span class="p">,</span><span class="w"></span>
 <span class="w">     </span><span class="n">CombinatorialPne</span><span class="p">,</span><span class="w"></span>
 <span class="w">     </span><span class="n">OuterApproximation</span><span class="w"></span>
 <span class="w">  </span><span class="p">};</span><span class="w"></span>
-<span class="w">  </span><span class="k">enum</span> <span class="k">class</span><span class="w"> </span><span class="nc">RecoverStrategy</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">RecoverStrategy</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">     </span><span class="n">IncrementalEnumeration</span><span class="p">,</span><span class="w"></span>
 <span class="w">     </span><span class="n">Combinatorial</span><span class="w"></span>
 <span class="w">  </span><span class="p">};</span><span class="w"></span>
 
-<span class="w">  </span><span class="k">enum</span> <span class="k">class</span><span class="w"> </span><span class="nc">BranchingStrategy</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">BranchingStrategy</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">     </span><span class="n">HybridBranching</span><span class="p">,</span><span class="w"></span>
 <span class="w">     </span><span class="n">DeviationBranching</span><span class="p">,</span><span class="w"></span>
 <span class="w">  </span><span class="p">};</span><span class="w"></span>
 
 
-<span class="w">  </span><span class="k">class</span> <span class="nc">DataObject</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">ZEROAlgorithmData</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">class</span><span class="w"> </span><span class="nc">DataObject</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">ZEROAlgorithmData</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="k">public</span><span class="o">:</span><span class="w"></span>
 <span class="w">     </span><span class="n">Attr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">Algorithms</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Algorithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">          </span><span class="n">Data</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">Algorithms</span><span class="o">::</span><span class="n">FullEnumeration</span><span class="p">};</span><span class="w"></span>
@@ -914,7 +919,7 @@
 
 <span class="k">namespace</span><span class="w"> </span><span class="nn">Game</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-<span class="w">  </span><span class="k">class</span> <span class="nc">EPEC</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">AbstractGame</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">DataObject</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">class</span><span class="w"> </span><span class="nc">EPEC</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">AbstractGame</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">DataObject</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="k">private</span><span class="o">:</span><span class="w"></span>
 <span class="w">     </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Algorithms</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">PolyBase</span><span class="o">&gt;</span><span class="w"></span>
 <span class="w">          </span><span class="n">Algorithm</span><span class="p">{};</span><span class="w"></span>
@@ -981,15 +986,15 @@
 
 <span class="w">  </span><span class="k">public</span><span class="o">:</span><span class="w"> </span><span class="c1">// functions</span>
 <span class="w">     </span><span class="c1">// Friends algorithmic classes</span>
-<span class="w">     </span><span class="k">friend</span><span class="w"> </span><span class="k">class</span> <span class="nc">Algorithms</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">PolyBase</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="k">friend</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Algorithms</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">PolyBase</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">     </span><span class="k">friend</span><span class="w"> </span><span class="k">class</span> <span class="nc">Algorithms</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">InnerApproximation</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="k">friend</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Algorithms</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">InnerApproximation</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">     </span><span class="k">friend</span><span class="w"> </span><span class="k">class</span> <span class="nc">Algorithms</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">CutAndPlay</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="k">friend</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Algorithms</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">CutAndPlay</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">     </span><span class="k">friend</span><span class="w"> </span><span class="k">class</span> <span class="nc">Algorithms</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">CombinatorialPNE</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="k">friend</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Algorithms</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">CombinatorialPNE</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">     </span><span class="k">friend</span><span class="w"> </span><span class="k">class</span> <span class="nc">Algorithms</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">FullEnumeration</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="k">friend</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Algorithms</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">FullEnumeration</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">     </span><span class="n">EPEC</span><span class="p">(</span><span class="n">GRBEnv</span><span class="w"> </span><span class="o">*</span><span class="n">env</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Env</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">env</span><span class="p">;</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
 
@@ -1024,9 +1029,9 @@
 <span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">PolyhedraStrategy</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">add</span><span class="p">);</span><span class="w"></span>
 <span class="w">     </span><span class="p">}</span><span class="w"></span>
 
-<span class="w">     </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">getPositionLeadFoll</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getPositionLeadFoll</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">     </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">getPositionLeadLead</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getPositionLeadLead</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">     </span><span class="c1">// The following obtain the variable values</span>
 <span class="w">     </span><span class="kt">double</span><span class="w"> </span><span class="nf">getValLeadFoll</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>

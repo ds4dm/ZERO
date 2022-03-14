@@ -20,7 +20,7 @@
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
         <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -146,6 +146,7 @@
 <p class="caption" role="heading"><span class="caption-text">Extended Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/library_root.html">Library API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/library_root.html#page-hierarchy">Page Hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/library_root.html#class-hierarchy">Class Hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/library_root.html#file-hierarchy">File Hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/library_root.html#full-api">Full API</a><ul>
@@ -681,6 +682,10 @@
 <li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1ac18b4a9ad0028ecef8c39abe3673fa51.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a2c8e9800a4bf7531c2ebb9c6defc2341.html">Function Utils::getSign</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a2c8e9800a4bf7531c2ebb9c6defc2341.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1ad263e83ad30145d2003fbdf370c75d6a.html">Function Utils::intersectBounds</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1ad263e83ad30145d2003fbdf370c75d6a.html#function-documentation">Function Documentation</a></li>
 </ul>
@@ -849,10 +854,12 @@
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN4Game12AbstractGameE">
 <span id="_CPPv3I0EN4Game12AbstractGameE"></span><span id="_CPPv2I0EN4Game12AbstractGameE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DataObjectType</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classGame_1_1AbstractGame"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AbstractGame</span></span></span><br /></dt>
-<dd><em>#include &lt;games.h&gt;</em><p>An abstract class for a game. </p>
-<p><dl class="field-list simple">
-<dt class="field-odd">tparam DataObjectType</dt>
-<dd class="field-odd"><p>The object type for the data <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">aGame</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">AbstractGame</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">::</span><span class="n">aGame</span><span class="o">::</span><span class="n">DataObject</span><span class="o">&gt;</span><span class="p">{</span><span class="w"></span>
+<dd><div class="docutils container">
+<em>#include &lt;games.h&gt;</em></div>
+<p>An abstract class for a game. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><p><strong>DataObjectType</strong> – The object type for the data <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">aGame</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">AbstractGame</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">::</span><span class="n">aGame</span><span class="o">::</span><span class="n">DataObject</span><span class="o">&gt;</span><span class="p">{</span><span class="w"></span>
 
 <span class="w">   </span><span class="k">public</span><span class="o">:</span><span class="w"></span>
 <span class="w">     </span><span class="c1">//Override AbstractGame methods</span>
@@ -866,7 +873,6 @@
  </p>
 </dd>
 </dl>
-</p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
@@ -1052,7 +1058,9 @@
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N4Game4EPECE">
 <span id="_CPPv3N4Game4EPECE"></span><span id="_CPPv2N4Game4EPECE"></span><span id="Game::EPEC"></span><span class="target" id="classGame_1_1EPEC"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EPEC</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv44Game" title="Game"><span class="n"><span class="pre">Game</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classGame_1_1AbstractGame.html#_CPPv4I0EN4Game12AbstractGameE" title="Game::AbstractGame"><span class="n"><span class="pre">AbstractGame</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Data</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">EPEC</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classData_1_1EPEC_1_1DataObject.html#_CPPv4N4Data4EPEC10DataObjectE" title="Data::EPEC::DataObject"><span class="n"><span class="pre">DataObject</span></span></a><span class="p"><span class="pre">&gt;</span></span><br /></dt>
-<dd><em>#include &lt;epec.h&gt;</em><p>Class to handle a Nash game between leaders of Stackelberg games. </p>
+<dd><div class="docutils container">
+<em>#include &lt;epec.h&gt;</em></div>
+<p>Class to handle a Nash game between leaders of Stackelberg games. </p>
 <p>Subclassed by <a class="reference internal" href="Models.html#classModels_1_1EPEC_1_1EPEC"><span class="std std-ref">Models::EPEC::EPEC</span></a></p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
@@ -1428,7 +1436,7 @@
 <p>Warmstart the solution with <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
 <p><dl>
 <dt class="sig sig-object cpp">
-<em><span class="pre">Todo:</span></em></dt>
+<a class="reference internal" href="../../api/page_todo.html#todo_1_todo000001"><span class="std std-ref"><span class="pre">Todo:</span></span></a></dt>
 <dd><p>Complete this implementation </p>
 </dd></dl>
 
@@ -1726,7 +1734,9 @@
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N4Game3IPGE">
 <span id="_CPPv3N4Game3IPGE"></span><span id="_CPPv2N4Game3IPGE"></span><span id="Game::IPG"></span><span class="target" id="classGame_1_1IPG"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IPG</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv44Game" title="Game"><span class="n"><span class="pre">Game</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classGame_1_1AbstractGame.html#_CPPv4I0EN4Game12AbstractGameE" title="Game::AbstractGame"><span class="n"><span class="pre">AbstractGame</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Data</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">IPG</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classData_1_1IPG_1_1DataObject.html#_CPPv4N4Data3IPG10DataObjectE" title="Data::IPG::DataObject"><span class="n"><span class="pre">DataObject</span></span></a><span class="p"><span class="pre">&gt;</span></span><br /></dt>
-<dd><em>#include &lt;ipg.h&gt;</em><p>This class handles Integer Programming Games (<a class="reference internal" href="../../api/classGame_1_1IPG.html#classGame_1_1IPG"><span class="std std-ref">IPG</span></a>), namely multiple agents solving an integer programming game. </p>
+<dd><div class="docutils container">
+<em>#include &lt;ipg.h&gt;</em></div>
+<p>This class handles Integer Programming Games (<a class="reference internal" href="../../api/classGame_1_1IPG.html#classGame_1_1IPG"><span class="std std-ref">IPG</span></a>), namely multiple agents solving an integer programming game. </p>
 <p>Subclassed by <a class="reference internal" href="Models.html#classModels_1_1IPG_1_1IPG"><span class="std std-ref">Models::IPG::IPG</span></a></p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
@@ -1953,13 +1963,15 @@
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGameE">
 <span id="_CPPv3N4Game8NashGameE"></span><span id="_CPPv2N4Game8NashGameE"></span><span id="Game::NashGame"></span><span class="target" id="classGame_1_1NashGame"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NashGame</span></span></span><br /></dt>
-<dd><em>#include &lt;nash.h&gt;</em><p>Class to model Nash-cournot games with each player playing a QP. </p>
+<dd><div class="docutils container">
+<em>#include &lt;nash.h&gt;</em></div>
+<p>Class to model Nash-cournot games with each player playing a QP. </p>
 <p>Stores a vector of QPs with each player’s optimization problem. Potentially common (leader) constraints can be stored too.</p>
-<p>Helpful in rewriting the Nash-Cournot game as an LCP Helpful in rewriting leader constraints after incorporating dual variables etc <div class="admonition warning">
+<p>Helpful in rewriting the Nash-Cournot game as an LCP Helpful in rewriting leader constraints after incorporating dual variables etc </p>
+<div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This has public fields which if accessed and changed can cause undefined behavior! </p>
 </div>
-</p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
@@ -2010,7 +2022,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame12formulateLCPERN4arma6sp_matERN4arma3vecER5perpsR14VariableBoundsbRKNSt6stringERKNSt6stringE">
-<span id="_CPPv3NK4Game8NashGame12formulateLCPERN4arma6sp_matERN4arma3vecER5perpsR14VariableBoundsbRKNSt6stringERKNSt6stringE"></span><span id="_CPPv2NK4Game8NashGame12formulateLCPERN4arma6sp_matERN4arma3vecER5perpsR14VariableBoundsbRKNSt6stringERKNSt6stringE"></span><span id="Game::NashGame::formulateLCP__arma::sp_matR.arma::vecR.perpsR.VariableBoundsR.b.ssCR.ssCRC"></span><span class="target" id="classGame_1_1NashGame_1a5909e7f64744d34a2e9467289e9d063b"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../../api/classGame_1_1NashGame.html#_CPPv4N4Game8NashGameE" title="Game::NashGame"><span class="n"><span class="pre">NashGame</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">formulateLCP</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">M</span></span>, <span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">q</span></span>, <a class="reference internal" href="../../api/typedef_zero_8h_1ad87785d9eb3e6e48c0895b348f6660ca.html#_CPPv45perps" title="perps"><span class="n"><span class="pre">perps</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Compl</span></span>, <a class="reference internal" href="../../api/typedef_zero_8h_1a713ae4734a7b474d29ccf6c8a43789e3.html#_CPPv414VariableBounds" title="VariableBounds"><span class="n"><span class="pre">VariableBounds</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Bounds</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">writeToFile</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">M_name</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><s><span class="pre">&quot;dat/LCP.txt&quot;</span></s>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">q_name</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><s><span class="pre">&quot;dat/q.txt&quot;</span></s><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<span id="_CPPv3NK4Game8NashGame12formulateLCPERN4arma6sp_matERN4arma3vecER5perpsR14VariableBoundsbRKNSt6stringERKNSt6stringE"></span><span id="_CPPv2NK4Game8NashGame12formulateLCPERN4arma6sp_matERN4arma3vecER5perpsR14VariableBoundsbRKNSt6stringERKNSt6stringE"></span><span id="Game::NashGame::formulateLCP__arma::sp_matR.arma::vecR.perpsR.VariableBoundsR.b.ssCR.ssCRC"></span><span class="target" id="classGame_1_1NashGame_1a5909e7f64744d34a2e9467289e9d063b"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../../api/classGame_1_1NashGame.html#_CPPv4N4Game8NashGameE" title="Game::NashGame"><span class="n"><span class="pre">NashGame</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">formulateLCP</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">M</span></span>, <span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">q</span></span>, <a class="reference internal" href="../../api/typedef_zero_8h_1ad87785d9eb3e6e48c0895b348f6660ca.html#_CPPv45perps" title="perps"><span class="n"><span class="pre">perps</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Compl</span></span>, <a class="reference internal" href="../../api/typedef_zero_8h_1a713ae4734a7b474d29ccf6c8a43789e3.html#_CPPv414VariableBounds" title="VariableBounds"><span class="n"><span class="pre">VariableBounds</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Bounds</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">writeToFile</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">M_name</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;dat/LCP.txt&quot;</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">q_name</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;dat/q.txt&quot;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
 <dd><p>Formulates the LCP corresponding to the Nash game. Computes the KKT conditions for each Player, calling MP_Param::KKT. Arranges them systematically to return M, q as an LCP <span class="math notranslate nohighlight">\(0\leq q \perp Mx+q \geq 0 \)</span>. The way the variables of the players get distributed is shown in the image below. </p>
 <p><img alt="../../_images/FormulateLCP.png" src="../../_images/FormulateLCP.png" /></p>
 <div class="admonition warning">
@@ -2312,8 +2324,8 @@
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
 <dl class="cpp function">
-<dt class="sig sig-object cpp">
-<span class="target" id="classGame_1_1NashGame_1ab09efa101cfa90c75e805a1ad569a8cf"></span><span class="sig-name descname"><span class="pre">inline</span> <span class="pre">friend</span> <span class="pre">friend</span> <span class="pre">std::ostream</span> <span class="pre">&amp;</span> <span class="pre">operator&lt;&lt;</span> <span class="pre">(std::ostream</span> <span class="pre">&amp;os,</span> <span class="pre">const</span> <span class="pre">NashGame</span> <span class="pre">&amp;N)</span></span></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGamelsERNSt7ostreamERK8NashGame">
+<span id="_CPPv3N4Game8NashGamelsERNSt7ostreamERK8NashGame"></span><span id="_CPPv2N4Game8NashGamelsERNSt7ostreamERK8NashGame"></span><span id="Game::NashGame::lshift-operator__osR.NashGameCR"></span><span class="target" id="classGame_1_1NashGame_1ab09efa101cfa90c75e805a1ad569a8cf"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">os</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../../api/classGame_1_1NashGame.html#_CPPv4N4Game8NashGameE" title="Game::NashGame"><span class="n"><span class="pre">NashGame</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">N</span></span><span class="sig-paren">)</span><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -2702,7 +2714,7 @@
 <p>Warmstart the solution with <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
 <p><dl>
 <dt class="sig sig-object cpp">
-<em><span class="pre">Todo:</span></em></dt>
+<a class="reference internal" href="../../api/page_todo.html#todo_1_todo000001"><span class="std std-ref"><span class="pre">Todo:</span></span></a></dt>
 <dd><p>Complete this implementation </p>
 </dd></dl>
 

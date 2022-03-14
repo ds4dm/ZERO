@@ -20,7 +20,7 @@
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
         <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -146,6 +146,7 @@
 <p class="caption" role="heading"><span class="caption-text">Extended Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/library_root.html">Library API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/library_root.html#page-hierarchy">Page Hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/library_root.html#class-hierarchy">Class Hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/library_root.html#file-hierarchy">File Hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/library_root.html#full-api">Full API</a><ul>
@@ -681,6 +682,10 @@
 <li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1ac18b4a9ad0028ecef8c39abe3673fa51.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1a2c8e9800a4bf7531c2ebb9c6defc2341.html">Function Utils::getSign</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1a2c8e9800a4bf7531c2ebb9c6defc2341.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/function_namespaceUtils_1ad263e83ad30145d2003fbdf370c75d6a.html">Function Utils::intersectBounds</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../api/function_namespaceUtils_1ad263e83ad30145d2003fbdf370c75d6a.html#function-documentation">Function Documentation</a></li>
 </ul>
@@ -874,9 +879,9 @@ follower’s variables are <span class="math notranslate nohighlight">\(x\)</spa
 <h3>Creating an inheritor class<a class="headerlink" href="#creating-an-inheritor-class" title="Permalink to this headline"></a></h3>
 <p>The first step in modeling a game between Stackelberg leaders is to include <cite>zero.h</cite> and create a derived class of <a class="reference internal" href="../../api/classGame_1_1EPEC.html#_CPPv4N4Game4EPECE" title="Game::EPEC"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">Game::EPEC</span></code></a>. The minimal constructor for <a class="reference internal" href="../../api/classGame_1_1EPEC.html#_CPPv4N4Game4EPECE" title="Game::EPEC"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">Game::EPEC</span></code></a> involves passing a pointer to <cite>GRBEnv</cite> (Check Gurobi’s C++ <a class="reference external" href="https://www.gurobi.com/documentation/8.1/refman/cpp_api_overview.html">reference manual</a>). The derived class should indeed instantiate the base class (Game::EPEC) using such a constructor.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;zero.h&quot;</span><span class="cp"></span>
-<span class="n">class</span><span class="w"> </span><span class="nl">my_Prob</span> <span class="p">:</span><span class="w"> </span><span class="n">public</span><span class="w"> </span><span class="n">Game</span><span class="o">::</span><span class="n">EPEC</span><span class="w"></span>
+<span class="n">class</span><span class="w"> </span><span class="n">my_Prob</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">public</span><span class="w"> </span><span class="n">Game</span><span class="o">::</span><span class="n">EPEC</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
-<span class="nl">public</span><span class="p">:</span><span class="w"></span>
+<span class="n">public</span><span class="o">:</span><span class="w"></span>
 <span class="w">    </span><span class="n">my_Prob</span><span class="p">(</span><span class="n">GRBEnv</span><span class="w"> </span><span class="o">*</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Game</span><span class="o">::</span><span class="n">EPEC</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
 <span class="p">};</span><span class="w"></span>
 </pre></div>
@@ -1132,8 +1137,8 @@ However, should it have one, we print the multiple pure strategies and the assoc
 <p>The entire example source code is as follows:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;zero.h&quot;</span><span class="cp"></span>
 
-<span class="n">class</span><span class="w"> </span><span class="nl">My_EPEC_Prob</span> <span class="p">:</span><span class="w"> </span><span class="n">public</span><span class="w"> </span><span class="n">Game</span><span class="o">::</span><span class="n">EPEC</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="nl">public</span><span class="p">:</span><span class="w"></span>
+<span class="n">class</span><span class="w"> </span><span class="n">My_EPEC_Prob</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">public</span><span class="w"> </span><span class="n">Game</span><span class="o">::</span><span class="n">EPEC</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="n">public</span><span class="o">:</span><span class="w"></span>
 <span class="w">  </span><span class="n">My_EPEC_Prob</span><span class="p">(</span><span class="n">GRBEnv</span><span class="w"> </span><span class="o">*</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">EPEC</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
 <span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">addLeader</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Game</span><span class="o">::</span><span class="n">NashGame</span><span class="o">&gt;</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">     </span><span class="n">this</span><span class="o">-&gt;</span><span class="n">PlayersLowerLevels</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">N</span><span class="p">);</span><span class="w"></span>
@@ -1143,7 +1148,7 @@ However, should it have one, we print the multiple pure strategies and the assoc
 <span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">postFinalize</span><span class="p">()</span><span class="w"> </span><span class="n">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Pre finalized!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 <span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">preFinalize</span><span class="p">()</span><span class="w"> </span><span class="n">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Post finalized!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
 
-<span class="nl">private</span><span class="p">:</span><span class="w"></span>
+<span class="n">private</span><span class="o">:</span><span class="w"></span>
 <span class="w">  </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">ends</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span><span class="w"></span>
 <span class="w">  </span><span class="kt">void</span><span class="w">         </span><span class="nf">updateLocations</span><span class="p">()</span><span class="w"> </span><span class="n">override</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">ends</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">this</span><span class="o">-&gt;</span><span class="n">ConvexHullVariables</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"></span>

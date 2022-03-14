@@ -143,6 +143,7 @@
 <p class="caption" role="heading"><span class="caption-text">Extended Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="library_root.html">Library API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul>
@@ -676,6 +677,10 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ac18b4a9ad0028ecef8c39abe3673fa51.html">Function Utils::containsRow</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1ac18b4a9ad0028ecef8c39abe3673fa51.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1a2c8e9800a4bf7531c2ebb9c6defc2341.html">Function Utils::getSign</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="function_namespaceUtils_1a2c8e9800a4bf7531c2ebb9c6defc2341.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="function_namespaceUtils_1ad263e83ad30145d2003fbdf370c75d6a.html">Function Utils::intersectBounds</a><ul>
@@ -1229,7 +1234,7 @@
 
 <span class="w">     </span><span class="c1">//------------</span>
 
-<span class="w">     </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="nl">Countrie</span> <span class="p">:</span><span class="w"> </span><span class="n">instance</span><span class="p">.</span><span class="n">Countries</span><span class="p">)</span><span class="w"></span>
+<span class="w">     </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Countrie</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">instance</span><span class="p">.</span><span class="n">Countries</span><span class="p">)</span><span class="w"></span>
 <span class="w">        </span><span class="n">epec</span><span class="p">.</span><span class="n">addCountry</span><span class="p">(</span><span class="n">Countrie</span><span class="p">);</span><span class="w"></span>
 <span class="w">     </span><span class="n">epec</span><span class="p">.</span><span class="n">addTranspCosts</span><span class="p">(</span><span class="n">instance</span><span class="p">.</span><span class="n">TransportationCosts</span><span class="p">);</span><span class="w"></span>
 <span class="w">     </span><span class="n">epec</span><span class="p">.</span><span class="n">finalize</span><span class="p">();</span><span class="w"></span>
@@ -1274,7 +1279,7 @@
 
 <span class="w">     </span><span class="n">results</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">instanceFile</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;;&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">to_string</span><span class="p">(</span><span class="n">stat</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">Algorithm</span><span class="p">.</span><span class="n">get</span><span class="p">())</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;;&quot;</span><span class="w"></span>
 <span class="w">                </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">instance</span><span class="p">.</span><span class="n">Countries</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;;[&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="nl">countrie</span> <span class="p">:</span><span class="w"> </span><span class="n">instance</span><span class="p">.</span><span class="n">Countries</span><span class="p">)</span><span class="w"></span>
+<span class="w">     </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">countrie</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">instance</span><span class="p">.</span><span class="n">Countries</span><span class="p">)</span><span class="w"></span>
 <span class="w">        </span><span class="n">results</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">countrie</span><span class="p">.</span><span class="n">n_followers</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">     </span><span class="n">results</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; ];&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">to_string</span><span class="p">(</span><span class="n">epec</span><span class="p">.</span><span class="n">getStatistics</span><span class="p">().</span><span class="n">PureNashEquilibrium</span><span class="p">.</span><span class="n">get</span><span class="p">())</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;;&quot;</span><span class="w"></span>
