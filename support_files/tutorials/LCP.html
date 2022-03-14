@@ -858,6 +858,10 @@ This class provides the essential tools to solve LCPs. Since the solution of LCP
 <p>The set of <code class="docutils literal notranslate"><span class="pre">x</span></code>’s indices that are not complementary to any equation should be a consecutive set of indices. For the sake of clarity, these components we refer to these as <em>Leader vars components</em> of <code class="docutils literal notranslate"><span class="pre">x</span></code>.
 - Suppose the leader vars components of <code class="docutils literal notranslate"><span class="pre">x</span></code> are not in <code class="docutils literal notranslate"><span class="pre">x</span></code>, in the remaining components, the first component should be complementary to the first row defined by &#64;p M, the second component should be complementary to the second row defined by <code class="docutils literal notranslate"><span class="pre">M</span></code> and so on.</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For the sake of explaination, we assume that the lower bounds for the <code class="docutils literal notranslate"><span class="pre">x</span></code> variables is 0. However, ZERO handles arbitrary lower and upper bounds on these variables. In other words, it handles Mixed LCPs.</p>
+</div>
 <section id="modeling-the-problem">
 <h2>Modeling the problem<a class="headerlink" href="#modeling-the-problem" title="Permalink to this headline"></a></h2>
 <p>Now consider the following linear complementarity problem.</p>
