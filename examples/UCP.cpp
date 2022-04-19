@@ -96,21 +96,22 @@ int main() {
 	 UCPGame.setDeviationTolerance(1e-6); // Numerical tolerance
 	 UCPGame.setNumThreads(8);            // How many threads, if supported by the solver?
 	 UCPGame.setLCPAlgorithm(Data::LCP::Algorithms::MIP); // How do we solve the LCPs?
-	 UCPGame.setTimeLimit(1000000);                        // Time limit in second
-	 UCPGame.finalize();                                   // Lock the model
+	 UCPGame.setTimeLimit(1000000);                       // Time limit in second
+	 UCPGame.finalize();                                  // Lock the model
+	 UCPGame.setPresolve(false);
 	 // Run and get the results
 	 UCPGame.findNashEq();
 
-	 int quantity=0;
+	 int quantity = 0;
 	 for (int i = 0; i < numPlayers; ++i) {
 		UCPGame.getX().at(i).print("Player " + std::to_string(i) + ":");
-		quantity+=UCPGame.getX().at(i).at(0);
+		quantity += UCPGame.getX().at(i).at(0);
 	 }
 
-	 double price = alpha - beta*quantity;
+	 double price = alpha - beta * quantity;
 
-	 std::cout << "\n\nThe Price is: \t\t"<<price << std::endl;
-	 std::cout << "The Quantity is: \t\t"<<quantity<< std::endl;
+	 std::cout << "\n\nThe Price is: \t\t" << price << std::endl;
+	 std::cout << "The Quantity is: \t\t" << quantity << std::endl;
 
   } catch (ZEROException &e) {
 	 throw ZEROException(e);

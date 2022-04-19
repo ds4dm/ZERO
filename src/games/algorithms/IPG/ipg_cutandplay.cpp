@@ -965,7 +965,8 @@ void Algorithms::IPG::CutAndPlay::initialize() {
 	 this->Players.at(i) =
 		  std::make_unique<IPG_Player>(this->IPG->PlayersIP.at(i)->getNumVars(), this->Tolerance);
 	 //@todo be aware of variables' changes in presolve
-	 this->IPG->PlayersIP.at(i)->presolve();
+	 if (this->IPG->Stats.AlgorithmData.Presolve.get())
+	   this->IPG->PlayersIP.at(i)->presolve();
 	 // Add the working IP
 	 auto WorkingIP                      = new MathOpt::IP_Param(*this->IPG->PlayersIP.at(i).get());
 	 this->Players.at(i)->ParametrizedIP = std::make_shared<MathOpt::IP_Param>(*WorkingIP);

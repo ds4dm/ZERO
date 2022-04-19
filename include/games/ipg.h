@@ -52,17 +52,18 @@ namespace Data::IPG {
 	 Attr<Data::IPG::CutsAggressiveness> CutAggressiveness = {
 		  Data::IPG::CutsAggressiveness::KeepItCool};
 	 Attr<Data::IPG::Algorithms> Algorithm = {
-		  Data::IPG::Algorithms::CutAndPlay};    ///< The selected algorithm
-	 Attr<Data::LCP::Algorithms> LCPSolver; ///< The preferred LCP Solver
+		  Data::IPG::Algorithms::CutAndPlay}; ///< The selected algorithm
+	 Attr<Data::LCP::Algorithms> LCPSolver;  ///< The preferred LCP Solver
 	 Attr<Data::IPG::Objectives> Objective = {
 		  Data::IPG::Objectives::Linear}; ///< The preferred objective type for the MIP LCP
 	 ///< reformulation
 	 Attr<std::vector<std::pair<std::string, int>>>
 		  Cuts; ///< Statistics about the added cuts. Refer to the indices in
-	 ///< IPG::Algorithms::CutAndPlay
-	 /**
-	  * @brief Standard initializer constructor.
-	  */
+				  ///< IPG::Algorithms::CutAndPlay
+				  /**
+					* @brief Standard initializer constructor.
+					*/
+	 Attr<double> Presolve = {true};
 	 DataObject() : LCPSolver{static_cast<Data::LCP::Algorithms>(0)} {};
   };
 } // namespace Data::IPG
@@ -83,8 +84,8 @@ namespace Game {
 
 
 	 bool                   Finalized{false};
-	 std::vector<arma::vec> Solution; ///< Solution variable values, for each player
-	 double                 SocialWelfare;   ///< SocialWelfare associated to the incumbent solution
+	 std::vector<arma::vec> Solution;      ///< Solution variable values, for each player
+	 double                 SocialWelfare; ///< SocialWelfare associated to the incumbent solution
 
   private:
 	 std::shared_ptr<Algorithms::IPG::Algorithm> Algorithm{}; ///< The Algorithm's instance
@@ -140,6 +141,14 @@ namespace Game {
 	  */
 	 void setAlgorithm(Data::IPG::Algorithms algorithm) {
 		this->Stats.AlgorithmData.Algorithm = algorithm;
+	 }
+
+	 /**
+	  * @brief Sets the Data::IPG::Presolve for the solution process.
+	  * @param value A boolean for Data::IPG::Presolve
+	  */
+	 void setPresolve(bool value) {
+		this->Stats.AlgorithmData.Presolve=value;
 	 }
 	 /**
 	  * @brief Sets the Data::LCP::Algorithms for the LCP solution process.
