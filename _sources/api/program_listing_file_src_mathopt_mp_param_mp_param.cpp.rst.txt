@@ -154,7 +154,7 @@ Program Listing for File mp_param.cpp
      // non-zero element, A_i is a zero vector
      std::vector<unsigned int> shedRows; // Keeps track of removed rows
    
-     double diff = this->B.n_cols - this->Bounds.size();
+     double diff = double(this->B.n_cols) - this->Bounds.size();
      ZEROAssert(diff >= 0);
      for (unsigned int i = 0; i < diff; i++)
         this->Bounds.push_back({0, GRB_INFINITY});
