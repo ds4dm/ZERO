@@ -292,6 +292,7 @@ Program Listing for File mp_param.cpp
            ++nLB;
         }
      }
+   
      this->B_bounds.zeros(nLB + nUB, boundSize);
      this->b_bounds.zeros(nLB + nUB);
    
@@ -318,8 +319,8 @@ Program Listing for File mp_param.cpp
                                                            const arma::sp_mat &C_in,
                                                            const arma::sp_mat &A_in,
                                                            const arma::sp_mat &B_in,
-                                                           const arma::vec &   c_in,
-                                                           const arma::vec &   b_in) {
+                                                           const arma::vec    &c_in,
+                                                           const arma::vec    &b_in) {
      this->Q = (Q_in);
      this->C = (C_in);
      this->A = (A_in);
@@ -336,8 +337,8 @@ Program Listing for File mp_param.cpp
                                                            arma::sp_mat &&C_in,
                                                            arma::sp_mat &&A_in,
                                                            arma::sp_mat &&B_in,
-                                                           arma::vec &&   c_in,
-                                                           arma::vec &&   b_in) {
+                                                           arma::vec    &&c_in,
+                                                           arma::vec    &&b_in) {
      this->Q = std::move(Q_in);
      this->C = std::move(C_in);
      this->A = std::move(A_in);
@@ -364,32 +365,42 @@ Program Listing for File mp_param.cpp
    bool MathOpt::MP_Param::dataCheck(bool forceSymmetry) const {
      if (!Q.is_empty()) {
         if (forceSymmetry) {
-           if (!this->Q.is_symmetric() && this->Q.n_rows > 0)
+           if (!this->Q.is_symmetric() && this->Q.n_rows > 0) {
+             LOG_S(0) << "MathOpt::MP_Param::dataCheck: Mismatch in Q Symmetry or rows";
              return false;
+           }
         }
         if (this->Q.n_cols > 0 && this->Q.n_cols != numVars) {
+           LOG_S(0) << "MathOpt::MP_Param::dataCheck: Mismatch in Q columns";
            return false;
         }
      }
      if (!this->A.is_empty() && this->A.n_cols != numParams) {
+        LOG_S(0) << "MathOpt::MP_Param::dataCheck: Mismatch in A columns";
         return false;
      }
      if (!this->A.is_empty() && this->A.n_rows != numConstr) {
+        LOG_S(0) << "MathOpt::MP_Param::dataCheck: Mismatch in A rows";
         return false;
      }
      if (this->B.n_cols != numVars) {
+        LOG_S(0) << "MathOpt::MP_Param::dataCheck: Mismatch in B columns";
         return false;
      }
      if (this->B.n_rows != numConstr) {
+        LOG_S(0) << "MathOpt::MP_Param::dataCheck: Mismatch in B rows";
         return false;
      }
      if (this->B_bounds.n_rows != b_bounds.size()) {
+        LOG_S(0) << "MathOpt::MP_Param::dataCheck: Mismatch in Bounds rows";
         return false;
      }
      if (this->C.n_rows != numVars) {
+        LOG_S(0) << "MathOpt::MP_Param::dataCheck: Mismatch in C rows";
         return false;
      }
      if (this->c.size() != numVars) {
+        LOG_S(0) << "MathOpt::MP_Param::dataCheck: Mismatch C size";
         return false;
      }
      return true;
