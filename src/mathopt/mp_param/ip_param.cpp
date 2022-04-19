@@ -354,126 +354,133 @@ unsigned int MathOpt::IP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec 
 void MathOpt::IP_Param::presolve() {
   if (!this->Finalized)
 	 this->finalize();
-  auto       p      = new GRBModel(this->IPModel);
-  GRBLinExpr linObj = 0;
-  for (unsigned int i = 0; i < this->numVars; i++)
-	 linObj += (this->c.at(i)) * this->IPModel.getVarByName("y_" + std::to_string(i));
-  p->setObjective(linObj);
-  p->set(GRB_IntParam_Presolve, 2);
-  p->set(GRB_IntParam_DualReductions, 0);
-  p->set(GRB_IntParam_OutputFlag, 0);
-  auto presolved = p->presolve();
+  try {
+	 auto       p      = new GRBModel(this->IPModel);
+	 GRBLinExpr linObj = 0;
+	 for (unsigned int i = 0; i < this->numVars; i++)
+		linObj += (this->c.at(i)) * this->IPModel.getVarByName("y_" + std::to_string(i));
+	 p->setObjective(linObj);
+	 p->set(GRB_IntParam_Presolve, 2);
+	 p->set(GRB_IntParam_DualReductions, 0);
+	 p->set(GRB_IntParam_OutputFlag, 0);
+	 auto presolved = p->presolve();
 
-  unsigned int nvar    = presolved.get(GRB_IntAttr_NumVars);
-  unsigned int nconstr = presolved.get(GRB_IntAttr_NumConstrs);
+	 unsigned int nvar    = presolved.get(GRB_IntAttr_NumVars);
+	 unsigned int nconstr = presolved.get(GRB_IntAttr_NumConstrs);
 
 
-  // Constraint matrix and bounds
-  auto         vars = presolved.getVars();
-  arma::sp_mat pre_B(nconstr, nvar);
-  pre_B.zeros();
-  for (int v = 0; v < nvar; ++v) {
-	 auto varCol = presolved.getCol(vars[v]);
-	 auto lb     = vars[v].get(GRB_DoubleAttr_LB);
-	 auto ub     = vars[v].get(GRB_DoubleAttr_UB);
-	 if (lb != this->Bounds.at(v).first)
-		this->Bounds.at(v).first = lb;
-	 if (ub != this->Bounds.at(v).second)
-		this->Bounds.at(v).second = ub;
+	 // Constraint matrix and bounds
+	 auto         vars = presolved.getVars();
+	 arma::sp_mat pre_B(nconstr, nvar);
+	 pre_B.zeros();
+	 for (int v = 0; v < nvar; ++v) {
+		auto varCol = presolved.getCol(vars[v]);
+		auto lb     = vars[v].get(GRB_DoubleAttr_LB);
+		auto ub     = vars[v].get(GRB_DoubleAttr_UB);
+		if (lb != this->Bounds.at(v).first)
+		  this->Bounds.at(v).first = lb;
+		if (ub != this->Bounds.at(v).second)
+		  this->Bounds.at(v).second = ub;
 
-	 if (varCol.size() > 0) {
-		for (int c = 0; c < nconstr; ++c) {
-		  auto val = varCol.getCoeff(c);
-		  if (val > 1e-6 || val < -1e-6)
-			 pre_B.at(c, v) = val;
+		if (varCol.size() > 0) {
+		  for (int c = 0; c < nconstr; ++c) {
+			 auto val = varCol.getCoeff(c);
+			 if (val > 1e-6 || val < -1e-6)
+				pre_B.at(c, v) = val;
+		  }
 		}
 	 }
-  }
 
-  // LHS and senses
-  arma::vec pre_b(nconstr);
-  auto      constrs = presolved.getConstrs();
-  for (int c = 0; c < nconstr; ++c) {
-	 auto sense = constrs[c].get(GRB_CharAttr_Sense);
-	 switch (sense) {
-	 case '<':
-		pre_b.at(c) = constrs[c].get(GRB_DoubleAttr_RHS);
-		break;
-	 case '>': {
-		// Change row sense
-		pre_b.at(c)  = -constrs[c].get(GRB_DoubleAttr_RHS);
-		pre_B.row(c) = -pre_B.row(c);
-	 } break;
-	 default: {
-		// Sense is =. We need one more inequality
-		Utils::resizePatch(pre_B, pre_B.n_rows + 1, pre_B.n_cols + 1);
-		Utils::resizePatch(pre_b, pre_b.size() + 1);
-		// Regular coefficient for row c
-		pre_b.at(c) = constrs[c].get(GRB_DoubleAttr_RHS);
-		// inverted coefficients for row c+nconstrs
-		pre_B.row(pre_B.n_rows - 1) = -pre_B.row(c);
-		pre_b.at(pre_b.size() - 1)  = -pre_b.at(c);
-	 }
-	 }
-  }
-
-  // Objective coefficients
-  GRBLinExpr obj = presolved.getObjective().getLinExpr();
-  for (int v = 0; v < obj.size(); ++v) {
-
-	 auto varIndexStr = obj.getVar(v).get(GRB_StringAttr_VarName);
-	 // Replace y_ (first 2 characters) with nothing
-	 auto varIndex = stoi(varIndexStr.replace(varIndexStr.begin(), varIndexStr.begin() + 2, ""));
-
-	 auto oc = obj.getCoeff(v);
-	 auto pc = this->c.at(varIndex, 0);
-	 if (std::abs(oc - pc) > 1e-5) {
-		std::cout << "Modified objective coefficients for variable " << varIndex << ": " << pc
-					 << " became " << oc;
-		// Update c
-		this->c.at(varIndex) = oc;
-		// We need to update C as well
-		auto ratio = pc / oc;
-		// Guess the number of other players
-		auto modulo = this->numParams / this->numVars;
-		// std::cout << "ratio" << ratio << "\n";
-		for (unsigned int m = 0; m < modulo; ++m) {
-		  // std::cout << "pre" << this->C.at(v, m * this->numVars + varIndex) << "\n";
-		  this->C.at(v, m * this->numVars + v) = this->C.at(v, m * this->numVars + varIndex) * ratio;
-		  // std::cout << "post" << this->C.at(v, m * this->numVars + varIndex) << "\n";
+	 // LHS and senses
+	 arma::vec pre_b(nconstr);
+	 auto      constrs = presolved.getConstrs();
+	 for (int c = 0; c < nconstr; ++c) {
+		auto sense = constrs[c].get(GRB_CharAttr_Sense);
+		switch (sense) {
+		case '<':
+		  pre_b.at(c) = constrs[c].get(GRB_DoubleAttr_RHS);
+		  break;
+		case '>': {
+		  // Change row sense
+		  pre_b.at(c)  = -constrs[c].get(GRB_DoubleAttr_RHS);
+		  pre_B.row(c) = -pre_B.row(c);
+		} break;
+		default: {
+		  // Sense is =. We need one more inequality
+		  Utils::resizePatch(pre_B, pre_B.n_rows + 1, pre_B.n_cols + 1);
+		  Utils::resizePatch(pre_b, pre_b.size() + 1);
+		  // Regular coefficient for row c
+		  pre_b.at(c) = constrs[c].get(GRB_DoubleAttr_RHS);
+		  // inverted coefficients for row c+nconstrs
+		  pre_B.row(pre_B.n_rows - 1) = -pre_B.row(c);
+		  pre_b.at(pre_b.size() - 1)  = -pre_b.at(c);
 		}
-
-		// throw ZEROException(ZEROErrorCode::SolverError, "Invalid presolve mapping");
+		}
 	 }
+
+	 // Objective coefficients
+	 GRBLinExpr obj = presolved.getObjective().getLinExpr();
+	 for (int v = 0; v < obj.size(); ++v) {
+
+		auto varIndexStr = obj.getVar(v).get(GRB_StringAttr_VarName);
+		// Replace y_ (first 2 characters) with nothing
+		auto varIndex = stoi(varIndexStr.replace(varIndexStr.begin(), varIndexStr.begin() + 2, ""));
+
+		auto oc = obj.getCoeff(v);
+		auto pc = this->c.at(varIndex, 0);
+		if (std::abs(oc - pc) > 1e-5) {
+		  std::cout << "Modified objective coefficients for variable " << varIndex << ": " << pc
+						<< " became " << oc;
+		  // Update c
+		  this->c.at(varIndex) = oc;
+		  // We need to update C as well
+		  auto ratio = pc / oc;
+		  // Guess the number of other players
+		  auto modulo = this->numParams / this->numVars;
+		  // std::cout << "ratio" << ratio << "\n";
+		  for (unsigned int m = 0; m < modulo; ++m) {
+			 // std::cout << "pre" << this->C.at(v, m * this->numVars + varIndex) << "\n";
+			 this->C.at(v, m * this->numVars + v) =
+				  this->C.at(v, m * this->numVars + varIndex) * ratio;
+			 // std::cout << "post" << this->C.at(v, m * this->numVars + varIndex) << "\n";
+		  }
+
+		  // throw ZEROException(ZEROErrorCode::SolverError, "Invalid presolve mapping");
+		}
+	 }
+
+	 /**
+	 if (arma::norm(this->B.row(0) - pre_B.row(0), "inf") > 1e-4) {
+		this->B.row(0).print_dense("Pre");
+		pre_B.row(0).print_dense("post");
+		LOG_S(WARNING) << "MathOpt::IP_Param::presolve: presolved identified differences.";
+	 }
+	  **/
+	 // resize A, assuming it's empty
+	 this->A.zeros(nconstr, this->numParams);
+	 this->b         = pre_b;
+	 this->B         = pre_B;
+	 this->Finalized = false;
+
+	 // Reset the model.
+	 auto _constrs   = IPModel.getConstrs();
+	 auto _vars      = IPModel.getVars();
+	 auto numVars    = IPModel.get(GRB_IntAttr_NumVars);
+	 auto numConstrs = IPModel.get(GRB_IntAttr_NumConstrs);
+	 for (unsigned i = 0; i < numConstrs; ++i)
+		IPModel.remove(_constrs[i]);
+	 for (unsigned i = 0; i < numVars; ++i)
+		IPModel.remove(_vars[i]);
+	 IPModel.reset(1);
+	 IPModel.update();
+	 this->finalize();
+
+	 LOG_S(1) << "MathOpt::IP_Param::presolve: done.";
+  } catch (GRBException &e) {
+	 std::cerr  << e.getErrorCode() << " - "<< e.getMessage() << std::endl;
+	 throw ZEROException(ZEROErrorCode::SolverError,
+								std::to_string(e.getErrorCode()) + e.getMessage());
   }
-
-  /**
-  if (arma::norm(this->B.row(0) - pre_B.row(0), "inf") > 1e-4) {
-	 this->B.row(0).print_dense("Pre");
-	 pre_B.row(0).print_dense("post");
-	 LOG_S(WARNING) << "MathOpt::IP_Param::presolve: presolved identified differences.";
-  }
-	**/
-  // resize A, assuming it's empty
-  this->A.zeros(nconstr, this->numParams);
-  this->b         = pre_b;
-  this->B         = pre_B;
-  this->Finalized = false;
-
-  // Reset the model.
-  auto _constrs   = IPModel.getConstrs();
-  auto _vars      = IPModel.getVars();
-  auto numVars    = IPModel.get(GRB_IntAttr_NumVars);
-  auto numConstrs = IPModel.get(GRB_IntAttr_NumConstrs);
-  for (unsigned i = 0; i < numConstrs; ++i)
-	 IPModel.remove(_constrs[i]);
-  for (unsigned i = 0; i < numVars; ++i)
-	 IPModel.remove(_vars[i]);
-  IPModel.reset(1);
-  IPModel.update();
-  this->finalize();
-
-  LOG_S(1) << "MathOpt::IP_Param::presolve: done.";
 }
 
 
