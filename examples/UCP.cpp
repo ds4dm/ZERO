@@ -22,8 +22,8 @@ int main() {
 	 std::vector<double> a_in       = {10, 45, 35};
 	 std::vector<double> b_in       = {1000, 100, 2000};
 	 std::vector<double> c_in       = {0.05, 0.1, 0.002};
-	 std::vector<double> UB_in      = {600, 250, 500};
 	 std::vector<double> LB_in      = {400, 200, 300};
+	 std::vector<double> UB_in      = {500, 250, 400};
 	 int                 numPlayers = 3;
 
 	 // 3 vars (in order) : --- x^i_c --- x^i_b  ---- z^i
@@ -83,7 +83,7 @@ int main() {
 		IPG_Instance.addIPParam(Player, "UCP_Player" + std::to_string(i));
 
 		arma::vec xTest(6, arma::fill::zeros);
-		Player.getIPModel(xTest, false)->write("test.lp");
+		Player.getIPModel(xTest, false)->write("test" + std::to_string(i) + ".lp");
 	 }
 
 
@@ -93,15 +93,24 @@ int main() {
 	 // Select the equilibrium to compute a Nash Equilibrium
 	 UCPGame.setAlgorithm(Data::IPG::Algorithms::CutAndPlay);
 	 // A few optional settings
-	 UCPGame.setDeviationTolerance(3e-4); // Numerical tolerance
-	 UCPGame.setNumThreads(4);            // How many threads, if supported by the solver?
+	 UCPGame.setDeviationTolerance(1e-6); // Numerical tolerance
+	 UCPGame.setNumThreads(8);            // How many threads, if supported by the solver?
 	 UCPGame.setLCPAlgorithm(Data::LCP::Algorithms::MIP); // How do we solve the LCPs?
-	 UCPGame.setTimeLimit(5);                             // Time limit in second
-	 UCPGame.finalize();                                  // Lock the model
+	 UCPGame.setTimeLimit(1000000);                        // Time limit in second
+	 UCPGame.finalize();                                   // Lock the model
 	 // Run and get the results
 	 UCPGame.findNashEq();
-	 UCPGame.getX().at(0).print("Player 1:"); // Print the solution
-	 UCPGame.getX().at(1).print("\n Player 2:");
+
+	 int quantity=0;
+	 for (int i = 0; i < numPlayers; ++i) {
+		UCPGame.getX().at(i).print("Player " + std::to_string(i) + ":");
+		quantity+=UCPGame.getX().at(i).at(0);
+	 }
+
+	 double price = alpha - beta*quantity;
+
+	 std::cout << "\n\nThe Price is: \t\t"<<price << std::endl;
+	 std::cout << "The Quantity is: \t\t"<<quantity<< std::endl;
 
   } catch (ZEROException &e) {
 	 throw ZEROException(e);
