@@ -55,13 +55,14 @@ Program Listing for File ipg.h
         Attr<Data::IPG::CutsAggressiveness> CutAggressiveness = {
              Data::IPG::CutsAggressiveness::KeepItCool};
         Attr<Data::IPG::Algorithms> Algorithm = {
-             Data::IPG::Algorithms::CutAndPlay};    
-        Attr<Data::LCP::Algorithms> LCPSolver; 
+             Data::IPG::Algorithms::CutAndPlay}; 
+        Attr<Data::LCP::Algorithms> LCPSolver;  
         Attr<Data::IPG::Objectives> Objective = {
              Data::IPG::Objectives::Linear}; 
         Attr<std::vector<std::pair<std::string, int>>>
              Cuts; 
    
+        Attr<double> Presolve = {true};
         DataObject() : LCPSolver{static_cast<Data::LCP::Algorithms>(0)} {};
      };
    } // namespace Data::IPG
@@ -78,8 +79,8 @@ Program Listing for File ipg.h
    
    
         bool                   Finalized{false};
-        std::vector<arma::vec> Solution; 
-        double                 SocialWelfare;   
+        std::vector<arma::vec> Solution;      
+        double                 SocialWelfare; 
    
      private:
         std::shared_ptr<Algorithms::IPG::Algorithm> Algorithm{}; 
@@ -115,6 +116,10 @@ Program Listing for File ipg.h
    
         void setAlgorithm(Data::IPG::Algorithms algorithm) {
            this->Stats.AlgorithmData.Algorithm = algorithm;
+        }
+   
+        void setPresolve(bool value) {
+           this->Stats.AlgorithmData.Presolve=value;
         }
         void setLCPAlgorithm(const Data::LCP::Algorithms algo) {
            this->Stats.AlgorithmData.LCPSolver.set(algo);
