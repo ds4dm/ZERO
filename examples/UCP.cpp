@@ -19,17 +19,19 @@ int main() {
 	 Models::IPG::IPGInstance IPG_Instance; // The IPG Instance
 
 
-	 std::vector<double> a_in       = {10, 45, 35};
-	 std::vector<double> b_in       = {1000, 100, 2000};
-	 std::vector<double> c_in       = {0.05, 0.1, 0.002};
-	 std::vector<double> LB_in      = {400, 200, 300};
-	 std::vector<double> UB_in      = {500, 250, 400};
-	 int                 numPlayers = 3;
+	 std::vector<double> a_in         = {10, 45, 35};
+	 std::vector<double> b_in         = {4000, 100, 2000};
+	 std::vector<double> c_in         = {0.05, 0.1, 0.002};
+	 std::vector<double> LB_in        = {400, 200, 300};
+	 std::vector<double> UB_in        = {600, 250, 500};
+	 std::vector<double> solutionSeed = {502.5, 0, 300};
+	 int                 numPlayers   = 3;
+	 bool                solution     = false;
 
 	 // 3 vars (in order) : --- x^i_c --- x^i_b  ---- z^i
 	 int    numVars   = 3;
-	 int    numConstr = 5;
-	 double alpha     = 200;
+	 int    numConstr = 5 + (solution ? 2 : 0);
+	 double alpha     = 500;
 	 double beta      = 0.2;
 
 
@@ -39,9 +41,8 @@ int main() {
 		arma::sp_mat   A(numConstr, numVars);                  // Constraints
 		arma::vec      b(numConstr);                           // RHS for constraints
 		arma::vec      IntegerIndexes = {1};                   // The index of the integer variables
-		VariableBounds VarBounds      = {{LB_in.at(i), UB_in.at(i)},
-													{0, 1},
-													{0, UB_in.at(i) * UB_in.at(i)}}; // Bounds on variables
+		VariableBounds VarBounds      = {
+					{0, UB_in.at(i)}, {0, 1}, {0, UB_in.at(i) * UB_in.at(i)+10}}; // Bounds on variables
 
 		// Linear coefficients of x^i_c
 		c.at(0) = a_in.at(i) - alpha;
@@ -58,25 +59,37 @@ int main() {
 		}
 
 		// Lower bound
-		A.at(0, 1) = LB_in.at(i);
 		A.at(0, 0) = -1;
+		A.at(0, 1) = LB_in.at(i);
 		b.at(0)    = 0;
 		// Upper bound
-		A.at(1, 1) = -UB_in.at(i);
 		A.at(1, 0) = 1;
+		A.at(1, 1) = -UB_in.at(i);
 		b.at(1)    = 0;
+
+
 		// McCormick 1
 		A.at(2, 2) = 1;
 		A.at(2, 0) = -(LB_in.at(i) + UB_in.at(i));
-		b.at(2)    = -LB_in.at(i) * UB_in.at(i);
+		A.at(2, 1) = LB_in.at(i) * UB_in.at(i);
+		b.at(2)=0;
 		// McCormick 2
 		A.at(3, 2) = -1;
 		A.at(3, 0) = 2 * LB_in.at(i);
-		b.at(3)    = LB_in.at(i) * LB_in.at(i);
-		// McCormick 3
+		A.at(3, 1) = -LB_in.at(i) * LB_in.at(i);
+		b.at(3)=0;
+		//  McCormick 3
 		A.at(4, 2) = -1;
 		A.at(4, 0) = 2 * UB_in.at(i);
-		b.at(4)    = UB_in.at(i) * UB_in.at(i);
+		A.at(4, 1) = -UB_in.at(i) * UB_in.at(i);
+		b.at(4)=0;
+
+		if (solution) {
+		  A.at(5, 0) = 1;
+		  b.at(5)    = solutionSeed.at(i);
+		  A.at(6, 0) = -1;
+		  b.at(6)    = -solutionSeed.at(i);
+		}
 
 
 		MathOpt::IP_Param Player(C, A, b, c, IntegerIndexes, VarBounds, &GurobiEnv);
@@ -96,13 +109,14 @@ int main() {
 	 UCPGame.setDeviationTolerance(1e-6); // Numerical tolerance
 	 UCPGame.setNumThreads(8);            // How many threads, if supported by the solver?
 	 UCPGame.setLCPAlgorithm(Data::LCP::Algorithms::MIP); // How do we solve the LCPs?
-	 UCPGame.setTimeLimit(1000000);                       // Time limit in second
-	 UCPGame.finalize();                                  // Lock the model
+	 UCPGame.setGameObjective(Data::IPG::Objectives::Quadratic);
+	 UCPGame.setTimeLimit(1000000);                        // Time limit in second
+	 UCPGame.finalize();                                   // Lock the model
 	 UCPGame.setPresolve(false);
 	 // Run and get the results
 	 UCPGame.findNashEq();
 
-	 int quantity = 0;
+	 double quantity = 0;
 	 for (int i = 0; i < numPlayers; ++i) {
 		UCPGame.getX().at(i).print("Player " + std::to_string(i) + ":");
 		quantity += UCPGame.getX().at(i).at(0);
@@ -110,7 +124,8 @@ int main() {
 
 	 double price = alpha - beta * quantity;
 
-	 std::cout << "\n\nThe Price is: \t\t" << price << std::endl;
+	 std::cout << "\n\nThe social welfare is: \t\t" << UCPGame.getSocialWelfare() << std::endl;
+	 std::cout << "The Price is: \t\t" << price << std::endl;
 	 std::cout << "The Quantity is: \t\t" << quantity << std::endl;
 
   } catch (ZEROException &e) {
