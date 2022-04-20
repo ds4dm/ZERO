@@ -23,7 +23,7 @@ class LCP_PATHStart : public GRBCallback {
 public:
   bool              done     = false; ///< If PATH was called at least one time
   unsigned long int minNodes = 2500;  ///< Threshold on the minimum number of explored nodes
-  GRBVar           *Vars     = {};    ///< Pointer to vars
+  GRBVar			  *Vars     = {};    ///< Pointer to vars
   unsigned long int numVars;          ///< Number of vars
   MathOpt::LCP     *LCP;              ///< Pointer to the LCP instance
   /**
@@ -60,39 +60,41 @@ protected:
 				this->LCP->solve(Data::LCP::Algorithms::PATH, x, z, 15, 0, obj, 1);
 
 				unsigned long int len = x.size() + z.size();
-				ZEROAssert(len == this->numVars);
-				double sol[len];
-				// Fill vector
-				unsigned long int count = 0;
-				for (unsigned long int i = 0; i < x.size(); ++i) {
-				  // this->setSolution(this->Vars[i],x.at(i));
-				  sol[i] = Utils::isEqual(x.at(i), 0, 1e-6, 1 - 1e-4) ? 0 : x.at(i);
-				  // std::cout << this->Vars[i].get(GRB_StringAttr_VarName) << std::endl;
-				  // this->setSolution(this->Vars[i],sol[i]);
-				  // GRBLinExpr expr = {this->Vars[i]};
-				  // this->addCut(expr,GRB_EQUAL,sol[i]);
-				  count++;
-				}
-				for (unsigned long int i = 0; i < z.size(); ++i) {
-				  sol[i + count] = Utils::isEqual(z.at(i), 0, 1e-6, 1 - 1e-4) ? 0 : z.at(i);
-				  // GRBLinExpr expr = {this->Vars[i+count]};
-				  // this->addCut(expr,GRB_EQUAL,sol[i+count]);
-				}
+				if (len == this->numVars) {
+				  double sol[len];
+				  // Fill vector
+				  unsigned long int count = 0;
+				  for (unsigned long int i = 0; i < x.size(); ++i) {
+					 // this->setSolution(this->Vars[i],x.at(i));
+					 sol[i] = Utils::isEqual(x.at(i), 0, 1e-6, 1 - 1e-4) ? 0 : x.at(i);
+					 // std::cout << this->Vars[i].get(GRB_StringAttr_VarName) << std::endl;
+					 // this->setSolution(this->Vars[i],sol[i]);
+					 // GRBLinExpr expr = {this->Vars[i]};
+					 // this->addCut(expr,GRB_EQUAL,sol[i]);
+					 count++;
+				  }
+				  for (unsigned long int i = 0; i < z.size(); ++i) {
+					 sol[i + count] = Utils::isEqual(z.at(i), 0, 1e-6, 1 - 1e-4) ? 0 : z.at(i);
+					 // GRBLinExpr expr = {this->Vars[i+count]};
+					 // this->addCut(expr,GRB_EQUAL,sol[i+count]);
+				  }
 
-				// Set the solution
-				this->setSolution(this->Vars, sol, len);
-				double objtest = this->useSolution();
-				this->done     = true;
-				if (objtest != GRB_INFINITY)
-				  LOG_S(INFO)
-						<< "LCP_PATHStart::callback: Generated a feasible improving solution with PATH.";
-				else {
-				  for (unsigned long int i = 0; i < x.size(); ++i)
-					 this->setSolution(this->Vars[i], x.at(i));
-				  objtest = this->useSolution();
-				  if (objtest == GRB_INFINITY)
-					 LOG_S(INFO) << "LCP_PATHStart::callback: Failed to generate a feasible (improving) "
-										 "solution with PATH.";
+				  // Set the solution
+				  this->setSolution(this->Vars, sol, len);
+				  double objtest = this->useSolution();
+				  this->done     = true;
+				  if (objtest != GRB_INFINITY)
+					 LOG_S(INFO) << "LCP_PATHStart::callback: Generated a feasible improving solution "
+										 "with PATH.";
+				  else {
+					 for (unsigned long int i = 0; i < x.size(); ++i)
+						this->setSolution(this->Vars[i], x.at(i));
+					 objtest = this->useSolution();
+					 if (objtest == GRB_INFINITY)
+						LOG_S(INFO)
+							 << "LCP_PATHStart::callback: Failed to generate a feasible (improving) "
+								 "solution with PATH.";
+				  }
 				}
 			 }
 		  }
@@ -349,15 +351,19 @@ std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(bool              solve,
 	 model->set(GRB_DoubleParam_TimeLimit, timeLimit);
   if (MIPWorkers > 1)
 	 model->set(GRB_IntParam_ConcurrentMIP, MIPWorkers);
-  model->set(GRB_DoubleParam_IntFeasTol, this->Eps);
+  /*model->set(GRB_DoubleParam_IntFeasTol, this->Eps);
   model->set(GRB_DoubleParam_FeasibilityTol, this->Eps);
   model->set(GRB_DoubleParam_OptimalityTol, this->Eps);
+	*/
   model->set(GRB_IntParam_SolutionLimit, solLimit);
   model->set(GRB_IntParam_OutputFlag, 0);
+  model->setObjective(GRBLinExpr{0}, GRB_MINIMIZE);
+  model->write("TheLCP.lp");
   this->setMIPObjective(*model);
 
   if (solve)
 	 model->optimize();
+
   return model;
 }
 
@@ -756,13 +762,17 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 	 auto Model = this->LCPasMIP(false, timeLimit, MIPWorkers, solLimit);
 
 	 // MIP Warmstart
-	 if (!xSol.empty()) {
-		for (unsigned long int i = 0; i < xSol.size(); ++i)
-		  Model->getVarByName("x_" + std::to_string(i)).set(GRB_DoubleAttr_Start, xSol.at(i));
-	 }
-	 if (!zSol.empty()) {
-		for (unsigned long int i = 0; i < xSol.size(); ++i)
-		  Model->getVarByName("z_" + std::to_string(i)).set(GRB_DoubleAttr_Start, zSol.at(i));
+	 try {
+		if (!xSol.empty()) {
+		  for (unsigned long int i = 0; i < xSol.size(); ++i)
+			 Model->getVarByName("x_" + std::to_string(i)).set(GRB_DoubleAttr_Start, xSol.at(i));
+		}
+		if (!zSol.empty()) {
+		  for (unsigned long int i = 0; i < xSol.size(); ++i)
+			 Model->getVarByName("z_" + std::to_string(i)).set(GRB_DoubleAttr_Start, zSol.at(i));
+		}
+	 } catch (...) {
+		LOG_S(WARNING) << "MathOpt::LCP::solve: Cannot complete warmstart. Skipping.";
 	 }
 	 if (cutOff != -GRB_INFINITY) {
 		// Add a cutoff
@@ -859,7 +869,7 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP(bool indicators) {
 		model->addGenConstrIndicator(
 			 l[counter], 1, x[p.second], GRB_EQUAL, LB, "ind_x_" + std::to_string(p.first) + "_LB");
 
-		obj += x[p.second]+ l[counter];
+		obj += x[p.second] + l[counter];
 
 		model->addConstr(u[counter] + l[counter] + in[counter] == 1,
 							  "MCP_" + std::to_string(p.second));
