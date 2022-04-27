@@ -1194,15 +1194,15 @@
 <span class="w">     </span><span class="c1">// Algorithm</span>
 
 <span class="w">     </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">algorithm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="n">epec</span><span class="p">.</span><span class="n">setAlgorithm</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">Algorithms</span><span class="o">::</span><span class="n">InnerApproximation</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">aggressiveness</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
 <span class="w">          </span><span class="n">epec</span><span class="p">.</span><span class="n">setAggressiveness</span><span class="p">(</span><span class="n">aggressiveness</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">add</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="w"></span>
 <span class="w">          </span><span class="n">epec</span><span class="p">.</span><span class="n">setAddPolyMethod</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">PolyhedraStrategy</span><span class="o">::</span><span class="n">ReverseSequential</span><span class="p">);</span><span class="w"></span>
 <span class="w">          </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">2</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">2</span><span class="p">:</span><span class="w"></span>
 <span class="w">          </span><span class="n">epec</span><span class="p">.</span><span class="n">setAddPolyMethod</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">PolyhedraStrategy</span><span class="o">::</span><span class="n">Random</span><span class="p">);</span><span class="w"></span>
 <span class="w">          </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
@@ -1212,14 +1212,14 @@
 <span class="w">          </span><span class="n">epec</span><span class="p">.</span><span class="n">setRecoverStrategy</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">RecoverStrategy</span><span class="o">::</span><span class="n">Combinatorial</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="p">}</span><span class="w"></span>
-<span class="w">     </span><span class="k">case</span><span class="w"> </span><span class="mi">2</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="k">case</span><span class="w"> </span><span class="mi">2</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="n">epec</span><span class="p">.</span><span class="n">setAlgorithm</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">Algorithms</span><span class="o">::</span><span class="n">CombinatorialPne</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="p">}</span><span class="w"></span>
-<span class="w">     </span><span class="k">case</span><span class="w"> </span><span class="mi">3</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="k">case</span><span class="w"> </span><span class="mi">3</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="n">epec</span><span class="p">.</span><span class="n">setAlgorithm</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">Algorithms</span><span class="o">::</span><span class="n">OuterApproximation</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">branching</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span><span class="w"></span>
 <span class="w">          </span><span class="n">epec</span><span class="p">.</span><span class="n">setBranchingStrategy</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">EPEC</span><span class="o">::</span><span class="n">BranchingStrategy</span><span class="o">::</span><span class="n">HybridBranching</span><span class="p">);</span><span class="w"></span>
 <span class="w">          </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"></span>

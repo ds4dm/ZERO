@@ -1100,13 +1100,13 @@
 <span class="w">     </span><span class="c1">// So far, just one...</span>
 <span class="w">     </span><span class="n">ipg</span><span class="p">.</span><span class="n">setAlgorithm</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Algorithms</span><span class="o">::</span><span class="n">CutAndPlay</span><span class="p">);</span><span class="w"></span>
 <span class="w">     </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">aggressiveness</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="k">case</span><span class="w"> </span><span class="mi">-1</span><span class="o">:</span><span class="w"></span>
+<span class="w">     </span><span class="k">case</span><span class="w"> </span><span class="mi">-1</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="n">ipg</span><span class="p">.</span><span class="n">setCutsAggressiveness</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">CutsAggressiveness</span><span class="o">::</span><span class="n">NotEvenTry</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="o">:</span><span class="w"></span>
+<span class="w">     </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="n">ipg</span><span class="p">.</span><span class="n">setCutsAggressiveness</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">CutsAggressiveness</span><span class="o">::</span><span class="n">NoThanks</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"></span>
+<span class="w">     </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="n">ipg</span><span class="p">.</span><span class="n">setCutsAggressiveness</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">CutsAggressiveness</span><span class="o">::</span><span class="n">KeepItCool</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
@@ -1114,10 +1114,10 @@
 <span class="w">     </span><span class="p">}</span><span class="w"></span>
 
 <span class="w">     </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">LCPalgo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="o">:</span><span class="w"></span>
+<span class="w">     </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="n">ipg</span><span class="p">.</span><span class="n">setLCPAlgorithm</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">Algorithms</span><span class="o">::</span><span class="n">MIP</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"></span>
+<span class="w">     </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="n">ipg</span><span class="p">.</span><span class="n">setLCPAlgorithm</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">Algorithms</span><span class="o">::</span><span class="n">MINLP</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
@@ -1126,10 +1126,10 @@
 
 <span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">LCPalgo</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">objective</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span><span class="w"></span>
 <span class="w">          </span><span class="n">ipg</span><span class="p">.</span><span class="n">setGameObjective</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Objectives</span><span class="o">::</span><span class="n">Feasibility</span><span class="p">);</span><span class="w"></span>
 <span class="w">          </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="w"></span>
 <span class="w">          </span><span class="n">ipg</span><span class="p">.</span><span class="n">setGameObjective</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Objectives</span><span class="o">::</span><span class="n">Linear</span><span class="p">);</span><span class="w"></span>
 <span class="w">          </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"></span>

@@ -1047,7 +1047,7 @@
 
 
 <span class="w">  </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">termination</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nl">MCP_Solved</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">MCP_Solved</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">     </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">Solved</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="n">xSol</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="n">MCP_GetX</span><span class="p">(</span><span class="n">m</span><span class="p">);</span><span class="w"></span>
 <span class="w">     </span><span class="n">zSol</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="n">MCP_GetF</span><span class="p">(</span><span class="n">m</span><span class="p">);</span><span class="w"></span>
@@ -1057,10 +1057,10 @@
 <span class="w">        </span><span class="n">z</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zSol</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
 <span class="w">     </span><span class="p">}</span><span class="w"></span>
 <span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nl">MCP_TimeLimit</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">MCP_TimeLimit</span><span class="p">:</span><span class="w"></span>
 <span class="w">     </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">TimeLimit</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nl">MCP_Infeasible</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">MCP_Infeasible</span><span class="p">:</span><span class="w"></span>
 <span class="w">     </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">NotSolved</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
 <span class="w">     </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ZEROStatus</span><span class="o">::</span><span class="n">Numerical</span><span class="p">;</span><span class="w"></span>
