@@ -784,7 +784,6 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 
 	 try {
 
-		Model->set(GRB_IntParam_OutputFlag, 1);
 		LCP_PATHStart Callback =
 			 LCP_PATHStart(this, Model->getVars(), Model->get(GRB_IntAttr_NumVars));
 		Model->setCallback(&Callback);
