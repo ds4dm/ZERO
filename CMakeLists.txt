@@ -46,7 +46,7 @@ set(ZERO_DEP_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib")
 # CUSTOM HINTS FOR DEPENDENCIES
 #######################################
 SET(ZERO_GUROBIHINT "" CACHE STRING "Hint for the Gurobi Path")
-set(GUROBI_DIR "/home/gurobi/9.1.1/linux64/" "/Library/gurobi910/mac64" "C:\\dev\\gurobi900\\win64" ${ZERO_GUROBIHINT})
+set(GUROBI_DIR "/home/gurobi/9.1.1/linux64/" "/Library/gurobi950/macos_universal2" "C:\\dev\\gurobi900\\win64" ${ZERO_GUROBIHINT})
 set(PATH_DIR "${ZERO_DEP_DIR}/path")
 set(CONDA_ENV "${ZERO_DEP_DIR}/conda")
 set(SCIP_ROOT_DIR "${CONDA_ENV}")
@@ -193,6 +193,13 @@ target_include_directories(UCPExample PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
 target_link_libraries(UCPExample ZERO)
 set_target_properties(
         UCPExample PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
+        VISIBILITY_INLINES_HIDDEN ON)
+
+add_executable(NASPExample examples/NASP_converter.cpp)
+target_include_directories(NASPExample PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(NASPExample ZERO)
+set_target_properties(
+        NASPExample PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
         VISIBILITY_INLINES_HIDDEN ON)
 
 
