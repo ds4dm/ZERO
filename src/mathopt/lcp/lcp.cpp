@@ -57,9 +57,10 @@ protected:
 			 if (numExploredNodes >= minNodes) {
 				arma::vec x, z;
 				double    obj = -GRB_INFINITY;
+				this->done    = true;
 				this->LCP->solve(Data::LCP::Algorithms::PATH, x, z, 15, 0, obj, 1);
 
-				unsigned long int len = x.size() + z.size();
+				long len = std::min(long(x.size() + z.size()), long(this->numVars));
 				if (len == this->numVars) {
 				  double sol[len];
 				  // Fill vector
@@ -73,7 +74,7 @@ protected:
 					 // this->addCut(expr,GRB_EQUAL,sol[i]);
 					 count++;
 				  }
-				  for (unsigned long int i = 0; i < z.size(); ++i) {
+				  for (unsigned long int i = 0; i < z.size() && x.size() + i < len; ++i) {
 					 sol[i + count] = Utils::isEqual(z.at(i), 0, 1e-6, 1 - 1e-4) ? 0 : z.at(i);
 					 // GRBLinExpr expr = {this->Vars[i+count]};
 					 // this->addCut(expr,GRB_EQUAL,sol[i+count]);
@@ -358,7 +359,6 @@ std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(bool              solve,
   model->set(GRB_IntParam_SolutionLimit, solLimit);
   model->set(GRB_IntParam_OutputFlag, 0);
   model->setObjective(GRBLinExpr{0}, GRB_MINIMIZE);
-  model->write("TheLCP.lp");
   this->setMIPObjective(*model);
 
   if (solve)
@@ -962,7 +962,7 @@ void MathOpt::LCP::setMIPObjective(GRBModel &MIP) {
 	 // Feasibility MIP
 	 GRBLinExpr obj = 0;
 	 // Get hold of the Variables and Eqn Variables
-	 /*
+
 	 for (unsigned long int i = 0; i < nC; i++) {
 		GRBVar vars[]  = {MIP.getVarByName("x_" + std::to_string(i))};
 		double coeff[] = {1};
@@ -974,7 +974,6 @@ void MathOpt::LCP::setMIPObjective(GRBModel &MIP) {
 		double coeff[] = {1};
 		obj.addTerms(coeff, vars, 1);
 	 }
-	  */
 
 	 MIP.setObjective(obj, GRB_MINIMIZE);
 	 MIP.set(GRB_IntParam_MIPFocus, 1);
