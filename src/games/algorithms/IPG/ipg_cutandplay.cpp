@@ -142,7 +142,7 @@ bool Algorithms::IPG::CutAndPlay::addValueCut(unsigned int     player,
 						  this->IPG->PlayersIP.at(player)->getC() * xMinusI);
 
   // Constant!
-  if (Utils::isEqual(arma::max(LHS), 0)) {
+  if (Utils::isEqual(arma::max(arma::abs(LHS)), 0)) {
 	 LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::addValueCut: "
 						 "Constant cut. Discarding. ";
 	 return false;
