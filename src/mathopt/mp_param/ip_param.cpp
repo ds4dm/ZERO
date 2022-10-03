@@ -88,13 +88,14 @@ bool MathOpt::IP_Param::finalize() {
 	 }
 	 // Add integralities
 	 for (unsigned int i = 0; i < this->Integers.size(); ++i) {
-		y[static_cast<int>(Integers.at(i))].set(GRB_CharAttr_VType, 'I');
-		// Unfortunately, we need to reset the bounds for these variables
 		auto var = y[static_cast<int>(Integers.at(i))];
+		// Unfortunately, we need to reset the bounds for these variables
+		var.set(GRB_CharAttr_VType, 'I');
 		var.set(GRB_DoubleAttr_LB, this->Bounds.at(Integers.at(i)).first);
 		var.set(GRB_DoubleAttr_UB, this->Bounds.at(Integers.at(i)).second);
 	 }
 
+	 this->IPModel.update();
 	 Utils::addSparseConstraints(B, b, y, "Constr_", &this->IPModel, GRB_LESS_EQUAL, nullptr);
 
 	 this->IPModel.update();
@@ -350,8 +351,10 @@ unsigned int MathOpt::IP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec 
  * @brief Presolved the IP model and replaces the object in the class with the (possibly) simplified
  * model. Note: this should be used with care. First, it can mess the sizes of the
  * variables/constraints. Second, it may be resource consuming.
+ * @todo currently disabled. check the method
  */
 void MathOpt::IP_Param::presolve() {
+  return;
   if (!this->Finalized)
 	 this->finalize();
   try {
@@ -477,9 +480,7 @@ void MathOpt::IP_Param::presolve() {
 
 	 LOG_S(1) << "MathOpt::IP_Param::presolve: done.";
   } catch (GRBException &e) {
-	 std::cerr  << e.getErrorCode() << " - "<< e.getMessage() << std::endl;
-	 throw ZEROException(ZEROErrorCode::SolverError,
-								std::to_string(e.getErrorCode()) + e.getMessage());
+	 LOG_S(1) << "MathOpt::IP_Param::presolve: cannot complete presolve.";
   }
 }
 

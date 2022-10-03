@@ -257,7 +257,7 @@ void MathOpt::MP_Param::detectBounds() {
 	 // Shed the rows of A,B,b
 	 std::sort(shedRows.begin(), shedRows.end());
 
-	 for (auto i = shedRows.size() - 1; i >= 0; --i) {
+	 for (long i = shedRows.size() - 1; i >= 0; --i) {
 		A.shed_row(shedRows.at(i));
 		B.shed_row(shedRows.at(i));
 		b.shed_row(shedRows.at(i));
