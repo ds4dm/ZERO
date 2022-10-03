@@ -15,7 +15,7 @@
 
 #include "ipg_algorithms.h"
 #include "zero.h"
-#include <OsiGrbSolverInterface.hpp>
+#include <include/OsiGrbSolverInterface.hpp>
 #include <armadillo>
 #include <gurobi_c++.h>
 #include <iostream>

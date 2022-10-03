@@ -1,12 +1,12 @@
 extern "C" {
-#include "path/License.h"
-#include "path/MCP_Interface.h"
-#include "path/Macros.h"
-#include "path/Options.h"
-#include "path/Output.h"
-#include "path/Output_Interface.h"
-#include "path/Path.h"
-#include "path/PathOptions.h"
+#include "License.h"
+#include "MCP_Interface.h"
+#include "Macros.h"
+#include "Options.h"
+#include "Output.h"
+#include "Output_Interface.h"
+#include "Path.h"
+#include "PathOptions.h"
 }
 #include "solvers/PathSolver.h"
 
@@ -309,7 +309,7 @@ Solvers::PATH::PATH(const arma::sp_mat   &M,
 		  // Avoid inserting fixed variables
 
 		  _lb.push_back(lb > 0 ? lb : 0);
-		  _ub.push_back(ub >= 0 ? ub : 1e20); // PATH will treat 1e20 as infinite
+		  _ub.push_back(ub >= 0 ? ub : 1e20); // PATH will treat 1e20 as infinite. Note that negative UBs means infinity
 
 		  _q.push_back(q.at(p.first));
 		  _xmap.push_back(p.second);

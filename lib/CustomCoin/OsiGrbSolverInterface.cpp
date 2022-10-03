@@ -23,7 +23,7 @@
 #include "coin/OsiColCut.hpp"
 #include "coin/OsiConfig.h"
 #include "coin/OsiCuts.hpp"
-#include "coin/OsiGrbSolverInterface.hpp"
+#include "include/OsiGrbSolverInterface.hpp"
 #include "coin/OsiRowCut.hpp"
 
 extern "C" {

@@ -15,9 +15,9 @@
 #include "zero.h"
 #include <armadillo>
 extern "C" {
-#include <path/MCP_Interface.h>
-#include <path/Output_Interface.h>
-#include <path/Presolve_Interface.h>
+#include <MCP_Interface.h>
+#include <Output_Interface.h>
+#include <Presolve_Interface.h>
 }
 namespace Solvers {
 
