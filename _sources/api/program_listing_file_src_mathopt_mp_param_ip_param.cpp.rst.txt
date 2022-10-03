@@ -84,13 +84,14 @@ Program Listing for File ip_param.cpp
         }
         // Add integralities
         for (unsigned int i = 0; i < this->Integers.size(); ++i) {
-           y[static_cast<int>(Integers.at(i))].set(GRB_CharAttr_VType, 'I');
-           // Unfortunately, we need to reset the bounds for these variables
            auto var = y[static_cast<int>(Integers.at(i))];
+           // Unfortunately, we need to reset the bounds for these variables
+           var.set(GRB_CharAttr_VType, 'I');
            var.set(GRB_DoubleAttr_LB, this->Bounds.at(Integers.at(i)).first);
            var.set(GRB_DoubleAttr_UB, this->Bounds.at(Integers.at(i)).second);
         }
    
+        this->IPModel.update();
         Utils::addSparseConstraints(B, b, y, "Constr_", &this->IPModel, GRB_LESS_EQUAL, nullptr);
    
         this->IPModel.update();
@@ -260,6 +261,7 @@ Program Listing for File ip_param.cpp
      return M.n_rows;
    }
    void MathOpt::IP_Param::presolve() {
+     return;
      if (!this->Finalized)
         this->finalize();
      try {
@@ -378,9 +380,7 @@ Program Listing for File ip_param.cpp
    
         LOG_S(1) << "MathOpt::IP_Param::presolve: done.";
      } catch (GRBException &e) {
-        std::cerr  << e.getErrorCode() << " - "<< e.getMessage() << std::endl;
-        throw ZEROException(ZEROErrorCode::SolverError,
-                                   std::to_string(e.getErrorCode()) + e.getMessage());
+        LOG_S(1) << "MathOpt::IP_Param::presolve: cannot complete presolve.";
      }
    }
    
