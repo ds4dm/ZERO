@@ -13,7 +13,7 @@
 
 #pragma once
 
-#include "lib/loguru.hpp"
+#include "include/loguru.hpp"
 
 
 #include <armadillo>
