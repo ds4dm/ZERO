@@ -327,13 +327,13 @@ void MathOpt::LCP::makeRelaxed() {
  * bi-linear term for each complementarity.
  * @param solve Determines whether the returned model is already solved or not
  * @param timeLimit Sets the timeLimit for the MIP solver
- * @param MIPWorkers Sets the number of concurrent MIPWorkers
+ * @param threads Sets the number of threads
  * @param solLimit Sets the number of solutions in the pool
  * @return The unique pointer to the model
  */
 std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(bool              solve,
 																 double            timeLimit,
-																 unsigned long int MIPWorkers,
+																 unsigned long int threads,
 																 unsigned long int solLimit) {
   makeRelaxed();
   std::unique_ptr<GRBModel> model;
@@ -350,8 +350,8 @@ std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(bool              solve,
 
   if (timeLimit > 0)
 	 model->set(GRB_DoubleParam_TimeLimit, timeLimit);
-  if (MIPWorkers > 1)
-	 model->set(GRB_IntParam_ConcurrentMIP, MIPWorkers);
+  if (threads > 1)
+	 model->set(GRB_IntParam_Threads, threads);
   /*model->set(GRB_DoubleParam_IntFeasTol, this->Eps);
   model->set(GRB_DoubleParam_FeasibilityTol, this->Eps);
   model->set(GRB_DoubleParam_OptimalityTol, this->Eps);
@@ -715,7 +715,7 @@ ZEROStatus MathOpt::LCP::solvePATH(double timelimit, arma::vec &z, arma::vec &x,
  * @param zSol The resulting solution for z, if any. If the vector is filled, it will be seeded as a
  * warmstart if Data::LCP::Algorithms::MIP
  * @param timeLimit A double time limit
- * @param MIPWorkers The absolute number of MIP Workers in case @p algo is
+ * @param threads The absolute number of threads in case @p algo is
  * Data::LCP::Algorithms::MIP
  * @param solLimit The number of solutions in the pool for if @p algo is Data::LCP::Algorithms::MIP
  * @param cutOff Bounds the optima solution to be >= than a given threshold. Used if different from
@@ -727,7 +727,7 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 										 arma::vec            &xSol,
 										 arma::vec            &zSol,
 										 double                timeLimit,
-										 unsigned long int     MIPWorkers,
+										 unsigned long int     threads,
 										 double               &cutOff,
 										 unsigned long int     solLimit) {
 
@@ -759,7 +759,7 @@ ZEROStatus MathOpt::LCP::solve(Data::LCP::Algorithms algo,
 	 else
 		this->PureMIP = true;
 
-	 auto Model = this->LCPasMIP(false, timeLimit, MIPWorkers, solLimit);
+	 auto Model = this->LCPasMIP(false, timeLimit, threads, solLimit);
 
 	 // MIP Warmstart
 	 try {

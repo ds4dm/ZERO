@@ -518,12 +518,12 @@ bool Game::EPEC::computeNashEq(bool   pureNE,
 	* In these cases, we can only use a MIP solver to get multiple solutions or PNEs
 	*/
 
-  unsigned int MIPWorkers = 1;
+  unsigned int threads = 1;
   if (solver == Data::LCP::Algorithms::MIP || solver == Data::LCP::Algorithms::MINLP) {
 	 if (this->Stats.AlgorithmData.Threads.get() >= 8) {
 		int wrk    = static_cast<int>(std::round(std::floor(this->Stats.AlgorithmData.Threads.get() / 4)));
-		MIPWorkers = std::max(wrk, 1);
-		LOG_S(INFO) << "Game::EPEC::computeNashEq: ConcurrentMIP set to " << MIPWorkers << ".";
+		threads = std::max(wrk, 1);
+		LOG_S(INFO) << "Game::EPEC::computeNashEq: Threads set to " << threads << ".";
 	 }
   }
   bool multipleNE = check;
@@ -550,7 +550,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,
   }
 
   this->LCPModel =
-		this->TheLCP->LCPasMIP(false, localTimeLimit, MIPWorkers, multipleNE ? GRB_MAXINT : 1);
+		this->TheLCP->LCPasMIP(false, localTimeLimit, threads, multipleNE ? GRB_MAXINT : 1);
 
 
   this->setWelfareObjective(linearWelfare, quadraticWelfare);

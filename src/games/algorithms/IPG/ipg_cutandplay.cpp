@@ -909,7 +909,7 @@ Algorithms::IPG::CutAndPlay::equilibriumLCP(double localTimeLimit, bool build, b
 
   int workers = 1;
   if (this->IPG->Stats.AlgorithmData.Threads.get() >= 8)
-	 workers = (int)floor(this->IPG->Stats.AlgorithmData.Threads.get() / 3);
+	 workers = (int)(this->IPG->Stats.AlgorithmData.Threads.get());
   auto LCPSolver = this->LCP->solve(Solver, x, z, localTimeLimit, workers, obj, solLimit);
   if (LCPSolver == ZEROStatus::NashEqFound) {
 	 LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::equilibriumLCP: tentative Equilibrium found";
