@@ -33,15 +33,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: rgb(68, 44, 123)" >
-            <a href="../../index.html">
-            <img src="../../_static/zerowhite.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/zerowhite.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
                 1.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -834,8 +838,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Parametrized IPs</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Parametrized IPs</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/support_files/tutorials/IP_Param.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -867,44 +871,44 @@ We assume the matrix C is a matrix with:</p>
 <li><p>A number of rows corresponding to the number of <span class="math notranslate nohighlight">\(y\)</span> variables</p></li>
 <li><p>A number of columns corresponding to the number of <span class="math notranslate nohighlight">\(x\)</span> parameters</p></li>
 </ul>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;zero.h&quot;</span><span class="cp"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;zero.h&quot;</span>
 <span class="c1">//[...] Your other code here</span>
 <span class="c1">//The linear objectives in y</span>
-<span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w">                </span><span class="nf">_c</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
+<span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w">                </span><span class="nf">_c</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 <span class="c1">//The matrix of interaction coefficients among parameters and variables</span>
-<span class="n">arma</span><span class="o">::</span><span class="n">mat</span><span class="w">                </span><span class="n">_C</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
+<span class="n">arma</span><span class="o">::</span><span class="n">mat</span><span class="w">                </span><span class="n">_C</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
 <span class="c1">//The constraint matrix</span>
-<span class="n">arma</span><span class="o">::</span><span class="n">mat</span><span class="w">                </span><span class="n">_A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
+<span class="n">arma</span><span class="o">::</span><span class="n">mat</span><span class="w">                </span><span class="n">_A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
 
 <span class="c1">//The list of indexes of variable that are integer</span>
-<span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="nf">_integers</span><span class="p">(</span><span class="n">_c</span><span class="p">.</span><span class="n">size</span><span class="p">());</span><span class="w"></span>
+<span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="nf">_integers</span><span class="p">(</span><span class="n">_c</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
 
 <span class="c1">//All variables are integer here</span>
-<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">_c</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">_integers</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">_c</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="w">    </span><span class="n">_integers</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
 
 
 <span class="c1">//Invert the sign since we have a maximization</span>
-<span class="n">_C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
-<span class="n">_C</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"></span>
-<span class="n">_c</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="n">_c</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-2</span><span class="p">;</span><span class="w"></span>
+<span class="n">_C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="n">_C</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="n">_c</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="n">_c</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-2</span><span class="p">;</span>
 
 <span class="c1">//Knapsack Constraint</span>
-<span class="n">_A</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"></span>
-<span class="n">_A</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"></span>
+<span class="n">_A</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="n">_A</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
 
-<span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="n">_b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="p">{</span><span class="mi">5</span><span class="p">};</span><span class="w"></span>
+<span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="n">_b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="p">{</span><span class="mi">5</span><span class="p">};</span>
 
 <span class="c1">//Convert to sparse objects</span>
-<span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="w">      </span><span class="n">_C2</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="p">{</span><span class="n">_C</span><span class="p">};</span><span class="w"></span>
-<span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="w">      </span><span class="n">_A2</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="p">{</span><span class="n">_A</span><span class="p">};</span><span class="w"></span>
+<span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="w">      </span><span class="n">_C2</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="p">{</span><span class="n">_C</span><span class="p">};</span>
+<span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="w">      </span><span class="n">_A2</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="p">{</span><span class="n">_A</span><span class="p">};</span>
 
 <span class="c1">//Explicitly add the bounds without having to put additional constraints.</span>
-<span class="n">VariableBounds</span><span class="w">    </span><span class="n">bnds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">}};</span><span class="w"></span>
+<span class="n">VariableBounds</span><span class="w">    </span><span class="n">bnds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">}};</span>
 <span class="c1">//Gurobi Environment</span>
-<span class="n">GRBEnv</span><span class="w">      </span><span class="n">test</span><span class="p">;</span><span class="w"></span>
-<span class="n">MathOpt</span><span class="o">::</span><span class="n">IP_Param</span><span class="w"> </span><span class="nf">ipParam</span><span class="p">(</span><span class="n">_C2</span><span class="p">,</span><span class="w"> </span><span class="n">_A2</span><span class="p">,</span><span class="w"> </span><span class="n">_b</span><span class="p">,</span><span class="w"> </span><span class="n">_c</span><span class="p">,</span><span class="w"> </span><span class="n">_integers</span><span class="p">,</span><span class="w"> </span><span class="n">bnds</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">test</span><span class="p">);</span><span class="w"></span>
+<span class="n">GRBEnv</span><span class="w">      </span><span class="n">test</span><span class="p">;</span>
+<span class="n">MathOpt</span><span class="o">::</span><span class="n">IP_Param</span><span class="w"> </span><span class="nf">ipParam</span><span class="p">(</span><span class="n">_C2</span><span class="p">,</span><span class="w"> </span><span class="n">_A2</span><span class="p">,</span><span class="w"> </span><span class="n">_b</span><span class="p">,</span><span class="w"> </span><span class="n">_c</span><span class="p">,</span><span class="w"> </span><span class="n">_integers</span><span class="p">,</span><span class="w"> </span><span class="n">bnds</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">test</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
@@ -912,12 +916,12 @@ We assume the matrix C is a matrix with:</p>
 <h2>Computing solutions<a class="headerlink" href="#computing-solutions" title="Permalink to this headline"></a></h2>
 <p>With <span class="math notranslate nohighlight">\((x_1, x_2) = (-1, 0.5)\)</span>, we can provide the value of <span class="math notranslate nohighlight">\(f\)</span> and solve it through Gurobi</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Enter the value of x in an arma::vec</span>
-<span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="nf">x</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
-<span class="n">x</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span><span class="w"></span>
+<span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="nf">x</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">x</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span>
 
 <span class="c1">// Uses Gurobi to solve the model, returns a unique_ptr to GRBModel</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">FixedModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ipParam</span><span class="p">.</span><span class="n">solveFixed</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="nb">true</span><span class="p">);</span><span class="w"></span>
+<span class="k">auto</span><span class="w"> </span><span class="n">FixedModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ipParam</span><span class="p">.</span><span class="n">solveFixed</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="nb">true</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>

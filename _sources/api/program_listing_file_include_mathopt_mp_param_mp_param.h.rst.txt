@@ -106,7 +106,6 @@ Program Listing for File mp_param.h
            this->b = b_in;
            return *this;
         } 
-   
         MP_Param &setBounds(const VariableBounds &bounds_in) {
            this->Bounds = bounds_in;
            // Update the bound processing and update sizes.

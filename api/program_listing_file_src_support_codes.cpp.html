@@ -30,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: rgb(68, 44, 123)" >
-            <a href="../index.html">
-            <img src="../_static/zerowhite.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/zerowhite.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
                 1.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -831,8 +835,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Program Listing for File codes.cpp</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Program Listing for File codes.cpp</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/program_listing_file_src_support_codes.cpp.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -855,72 +859,72 @@
 <span class="cm"> *</span>
 <span class="cm"> *              Find out more at</span>
 <span class="cm"> *        https://github.com/ds4dm/ZERO</span>
-<span class="cm"> * #############################################*/</span><span class="w"></span>
+<span class="cm"> * #############################################*/</span>
 
 
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;support/codes.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;support/codes.h&quot;</span>
 
-<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">std::to_string</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ZEROErrorCode</span><span class="w"> </span><span class="o">&amp;</span><span class="n">code</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">string</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ZEROErrorCode &quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">code</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROErrorCode</span><span class="o">::</span><span class="no">MemoryError</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;100: Memory error&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROErrorCode</span><span class="o">::</span><span class="no">InvalidQuery</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;101: The attribute/data is not available&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROErrorCode</span><span class="o">::</span><span class="no">InvalidData</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;102: The input data is invalid&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROErrorCode</span><span class="o">::</span><span class="no">SolverError</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;103: A third-party solver has thrown an error&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROErrorCode</span><span class="o">::</span><span class="no">OutOfRange</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;104: Index out of range&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROErrorCode</span><span class="o">::</span><span class="no">Numeric</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;105: Numerical issues&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROErrorCode</span><span class="o">::</span><span class="no">IOError</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;106: IO Interface error&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROErrorCode</span><span class="o">::</span><span class="no">Assertion</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;107: Assertion failed&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;0: Unknown error&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">std::to_string</span><span class="p">(</span><span class="n">ZEROStatus</span><span class="w"> </span><span class="n">st</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">st</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROStatus</span><span class="o">::</span><span class="no">NashEqNotFound</span><span class="p">:</span><span class="w"></span>
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;NO_NASH_EQ_FOUND&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROStatus</span><span class="o">::</span><span class="no">NashEqFound</span><span class="p">:</span><span class="w"></span>
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;NASH_EQ_FOUND&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROStatus</span><span class="o">::</span><span class="no">Solved</span><span class="p">:</span><span class="w"></span>
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;SOLVED&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROStatus</span><span class="o">::</span><span class="no">NotSolved</span><span class="p">:</span><span class="w"></span>
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;NOT_SOLVED&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROStatus</span><span class="o">::</span><span class="no">TimeLimit</span><span class="p">:</span><span class="w"></span>
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;TIME_LIMIT&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROStatus</span><span class="o">::</span><span class="no">Uninitialized</span><span class="p">:</span><span class="w"></span>
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;UNINITIALIZED&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROStatus</span><span class="o">::</span><span class="no">Numerical</span><span class="p">:</span><span class="w"></span>
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;NUMERICAL_ISSUES&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;UNKWNOWN&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">std::to_string</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ZEROErrorCode</span><span class="w"> </span><span class="o">&amp;</span><span class="n">code</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">string</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ZEROErrorCode &quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">code</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROErrorCode</span><span class="o">::</span><span class="no">MemoryError</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;100: Memory error&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROErrorCode</span><span class="o">::</span><span class="no">InvalidQuery</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;101: The attribute/data is not available&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROErrorCode</span><span class="o">::</span><span class="no">InvalidData</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;102: The input data is invalid&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROErrorCode</span><span class="o">::</span><span class="no">SolverError</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;103: A third-party solver has thrown an error&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROErrorCode</span><span class="o">::</span><span class="no">OutOfRange</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;104: Index out of range&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROErrorCode</span><span class="o">::</span><span class="no">Numeric</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;105: Numerical issues&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROErrorCode</span><span class="o">::</span><span class="no">IOError</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;106: IO Interface error&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROErrorCode</span><span class="o">::</span><span class="no">Assertion</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;107: Assertion failed&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">default</span><span class="o">:</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;0: Unknown error&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">std::to_string</span><span class="p">(</span><span class="n">ZEROStatus</span><span class="w"> </span><span class="n">st</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">st</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROStatus</span><span class="o">::</span><span class="no">NashEqNotFound</span><span class="p">:</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;NO_NASH_EQ_FOUND&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROStatus</span><span class="o">::</span><span class="no">NashEqFound</span><span class="p">:</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;NASH_EQ_FOUND&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROStatus</span><span class="o">::</span><span class="no">Solved</span><span class="p">:</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;SOLVED&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROStatus</span><span class="o">::</span><span class="no">NotSolved</span><span class="p">:</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;NOT_SOLVED&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROStatus</span><span class="o">::</span><span class="no">TimeLimit</span><span class="p">:</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;TIME_LIMIT&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROStatus</span><span class="o">::</span><span class="no">Uninitialized</span><span class="p">:</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;UNINITIALIZED&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">ZEROStatus</span><span class="o">::</span><span class="no">Numerical</span><span class="p">:</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;NUMERICAL_ISSUES&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="k">default</span><span class="o">:</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;UNKWNOWN&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="kt">void</span><span class="w"> </span><span class="nf">ZEROAssert</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">callerFn</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">callerFile</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">callerLine</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">errorLine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Assertion failed in &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">{</span><span class="n">callerFn</span><span class="p">}</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;:&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
-<span class="w">                                     </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">{</span><span class="n">callerFile</span><span class="p">}</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; in line &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">callerLine</span><span class="p">);</span><span class="w"></span>
-<span class="w">     </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">errorLine</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="k">throw</span><span class="w"> </span><span class="n">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">Assertion</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                </span><span class="n">errorLine</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">ZEROAssert</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">callerFn</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">callerFile</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">callerLine</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">errorLine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Assertion failed in &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">{</span><span class="n">callerFn</span><span class="p">}</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;:&quot;</span><span class="w"> </span><span class="o">+</span>
+<span class="w">                                     </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">{</span><span class="n">callerFile</span><span class="p">}</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; in line &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">callerLine</span><span class="p">);</span>
+<span class="w">     </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">errorLine</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">     </span><span class="k">throw</span><span class="w"> </span><span class="n">ZEROException</span><span class="p">(</span><span class="n">ZEROErrorCode</span><span class="o">::</span><span class="n">Assertion</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">errorLine</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>

@@ -30,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: rgb(68, 44, 123)" >
-            <a href="../index.html">
-            <img src="../_static/zerowhite.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/zerowhite.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
                 1.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -831,8 +835,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Program Listing for File ipg.h</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Program Listing for File ipg.h</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/program_listing_file_include_games_ipg.h.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -855,129 +859,129 @@
 <span class="cm"> *</span>
 <span class="cm"> *              Find out more at</span>
 <span class="cm"> *        https://github.com/ds4dm/ZERO</span>
-<span class="cm"> * #############################################*/</span><span class="w"></span>
+<span class="cm"> * #############################################*/</span>
 
 
 <span class="cp">#pragma once</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;zero.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;armadillo&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;gurobi_c++.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;set&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;zero.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;armadillo&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;gurobi_c++.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;set&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
 
-<span class="k">namespace</span><span class="w"> </span><span class="nn">Data</span><span class="o">::</span><span class="nn">IPG</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">Data</span><span class="o">::</span><span class="nn">IPG</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">  </span><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Algorithms</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="n">CutAndPlay</span><span class="w"></span>
-<span class="w">  </span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Algorithms</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="n">CutAndPlay</span>
+<span class="w">  </span><span class="p">};</span>
 
-<span class="w">  </span><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">CutsAggressiveness</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="n">NotEvenTry</span><span class="p">,</span><span class="w"></span>
-<span class="w">     </span><span class="n">NoThanks</span><span class="p">,</span><span class="w"></span>
-<span class="w">     </span><span class="n">KeepItCool</span><span class="p">,</span><span class="w"></span>
-<span class="w">     </span><span class="n">Truculent</span><span class="w"></span>
-<span class="w">  </span><span class="p">};</span><span class="w"></span>
-<span class="w">  </span><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Objectives</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="n">Feasibility</span><span class="p">,</span><span class="w"></span>
-<span class="w">     </span><span class="n">Quadratic</span><span class="p">,</span><span class="w"></span>
-<span class="w">     </span><span class="n">Linear</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">CutsAggressiveness</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="n">NotEvenTry</span><span class="p">,</span>
+<span class="w">     </span><span class="n">NoThanks</span><span class="p">,</span>
+<span class="w">     </span><span class="n">KeepItCool</span><span class="p">,</span>
+<span class="w">     </span><span class="n">Truculent</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="w">  </span><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Objectives</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="n">Feasibility</span><span class="p">,</span>
+<span class="w">     </span><span class="n">Quadratic</span><span class="p">,</span>
+<span class="w">     </span><span class="n">Linear</span><span class="p">,</span>
+<span class="w">  </span><span class="p">};</span>
 
-<span class="w">  </span><span class="k">class</span><span class="w"> </span><span class="nc">DataObject</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">ZEROAlgorithmData</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">public</span><span class="o">:</span><span class="w"></span>
-<span class="w">     </span><span class="n">Attr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">CutsAggressiveness</span><span class="o">&gt;</span><span class="w"> </span><span class="n">CutAggressiveness</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">          </span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">CutsAggressiveness</span><span class="o">::</span><span class="n">KeepItCool</span><span class="p">};</span><span class="w"></span>
-<span class="w">     </span><span class="n">Attr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Algorithms</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Algorithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">          </span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Algorithms</span><span class="o">::</span><span class="n">CutAndPlay</span><span class="p">};</span><span class="w"></span>
-<span class="w">     </span><span class="n">Attr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">Algorithms</span><span class="o">&gt;</span><span class="w"> </span><span class="n">LCPSolver</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="n">Attr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Objectives</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Objective</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">          </span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Objectives</span><span class="o">::</span><span class="n">Linear</span><span class="p">};</span><span class="w"></span>
-<span class="w">     </span><span class="n">Attr</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;&gt;&gt;</span><span class="w"></span>
-<span class="w">          </span><span class="n">Cuts</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">class</span><span class="w"> </span><span class="nc">DataObject</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">ZEROAlgorithmData</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="o">:</span>
+<span class="w">     </span><span class="n">Attr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">CutsAggressiveness</span><span class="o">&gt;</span><span class="w"> </span><span class="n">CutAggressiveness</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">CutsAggressiveness</span><span class="o">::</span><span class="n">KeepItCool</span><span class="p">};</span>
+<span class="w">     </span><span class="n">Attr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Algorithms</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Algorithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Algorithms</span><span class="o">::</span><span class="n">CutAndPlay</span><span class="p">};</span>
+<span class="w">     </span><span class="n">Attr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">Algorithms</span><span class="o">&gt;</span><span class="w"> </span><span class="n">LCPSolver</span><span class="p">;</span>
+<span class="w">     </span><span class="n">Attr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Objectives</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Objective</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Objectives</span><span class="o">::</span><span class="n">Linear</span><span class="p">};</span>
+<span class="w">     </span><span class="n">Attr</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;&gt;&gt;</span>
+<span class="w">          </span><span class="n">Cuts</span><span class="p">;</span>
 
-<span class="w">     </span><span class="n">Attr</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Presolve</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="nb">true</span><span class="p">};</span><span class="w"></span>
-<span class="w">     </span><span class="n">DataObject</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">LCPSolver</span><span class="p">{</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">Algorithms</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">0</span><span class="p">)}</span><span class="w"> </span><span class="p">{};</span><span class="w"></span>
-<span class="w">  </span><span class="p">};</span><span class="w"></span>
+<span class="w">     </span><span class="n">Attr</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Presolve</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="nb">true</span><span class="p">};</span>
+<span class="w">     </span><span class="n">DataObject</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">LCPSolver</span><span class="p">{</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">Algorithms</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">0</span><span class="p">)}</span><span class="w"> </span><span class="p">{};</span>
+<span class="w">  </span><span class="p">};</span>
 <span class="p">}</span><span class="w"> </span><span class="c1">// namespace Data::IPG</span>
 
 
-<span class="k">namespace</span><span class="w"> </span><span class="nn">Game</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">Game</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">  </span><span class="k">class</span><span class="w"> </span><span class="nc">IPG</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">AbstractGame</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">DataObject</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">class</span><span class="w"> </span><span class="nc">IPG</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">AbstractGame</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">DataObject</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">protected</span><span class="o">:</span><span class="w"> </span><span class="c1">// Datafields</span>
-<span class="w">     </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">MathOpt</span><span class="o">::</span><span class="n">IP_Param</span><span class="o">&gt;&gt;</span><span class="w"></span>
-<span class="w">          </span><span class="n">PlayersIP</span><span class="p">{};</span><span class="w"></span>
+<span class="w">     </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">MathOpt</span><span class="o">::</span><span class="n">IP_Param</span><span class="o">&gt;&gt;</span>
+<span class="w">          </span><span class="n">PlayersIP</span><span class="p">{};</span>
 
-<span class="w">     </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">PlayerVariables</span><span class="p">{};</span><span class="w"></span>
-
-
-<span class="w">     </span><span class="kt">bool</span><span class="w">                   </span><span class="n">Finalized</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span><span class="w"></span>
-<span class="w">     </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Solution</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="kt">double</span><span class="w">                 </span><span class="n">SocialWelfare</span><span class="p">;</span><span class="w"></span>
-
-<span class="w">  </span><span class="k">private</span><span class="o">:</span><span class="w"></span>
-<span class="w">     </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Algorithms</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Algorithm</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Algorithm</span><span class="p">{};</span><span class="w"></span>
-<span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="nf">getXMinusI</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">&amp;</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="o">&amp;</span><span class="n">xMinusI</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="nf">getXofI</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">&amp;</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="o">&amp;</span><span class="n">xOfI</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">PlayerVariables</span><span class="p">{};</span>
 
 
-<span class="w">  </span><span class="k">protected</span><span class="o">:</span><span class="w"></span>
-<span class="w">     </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">preFinalize</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">postFinalize</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="kt">bool</span><span class="w">                   </span><span class="n">Finalized</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
+<span class="w">     </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Solution</span><span class="p">;</span>
+<span class="w">     </span><span class="kt">double</span><span class="w">                 </span><span class="n">SocialWelfare</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">private</span><span class="o">:</span>
+<span class="w">     </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Algorithms</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Algorithm</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Algorithm</span><span class="p">{};</span>
+<span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="nf">getXMinusI</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">&amp;</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="o">&amp;</span><span class="n">xMinusI</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="nf">getXofI</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">&amp;</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="o">&amp;</span><span class="n">xOfI</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+
+<span class="w">  </span><span class="k">protected</span><span class="o">:</span>
+<span class="w">     </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">preFinalize</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">     </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">postFinalize</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 
 <span class="w">  </span><span class="k">public</span><span class="o">:</span><span class="w"> </span><span class="c1">// functions</span>
-<span class="w">     </span><span class="k">friend</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Algorithms</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Algorithm</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="k">friend</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Algorithms</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">CutAndPlay</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="nf">finalize</span><span class="p">();</span><span class="w"></span>
-<span class="w">     </span><span class="n">IPG</span><span class="p">(</span><span class="n">GRBEnv</span><span class="w"> </span><span class="o">*</span><span class="n">env</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Env</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">env</span><span class="p">;</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
-<span class="w">     </span><span class="n">IPG</span><span class="p">(</span><span class="n">GRBEnv</span><span class="w"> </span><span class="o">*</span><span class="n">env</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">MathOpt</span><span class="o">::</span><span class="n">IP_Param</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">players</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="k">friend</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Algorithms</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Algorithm</span><span class="p">;</span>
+<span class="w">     </span><span class="k">friend</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Algorithms</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">CutAndPlay</span><span class="p">;</span>
+<span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="nf">finalize</span><span class="p">();</span>
+<span class="w">     </span><span class="n">IPG</span><span class="p">(</span><span class="n">GRBEnv</span><span class="w"> </span><span class="o">*</span><span class="n">env</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Env</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">env</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="w">     </span><span class="n">IPG</span><span class="p">(</span><span class="n">GRBEnv</span><span class="w"> </span><span class="o">*</span><span class="n">env</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">MathOpt</span><span class="o">::</span><span class="n">IP_Param</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">players</span><span class="p">);</span>
 
-<span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="nf">findNashEq</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="kt">bool</span><span class="w"> </span><span class="nf">isSolved</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">tol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-5</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="kt">bool</span><span class="w"> </span><span class="nf">isPureStrategy</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">tol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-5</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="nf">findNashEq</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<span class="w">     </span><span class="kt">bool</span><span class="w"> </span><span class="nf">isSolved</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">tol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-5</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<span class="w">     </span><span class="kt">bool</span><span class="w"> </span><span class="nf">isPureStrategy</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">tol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-5</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
 
 
-<span class="w">     </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span><span class="w"> </span><span class="n">getX</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Solution</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">     </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="o">&gt;</span><span class="w"> </span><span class="n">getX</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Solution</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
 <span class="w">     </span><span class="cm">/***</span>
 <span class="cm">      * @brief Gets the SocialWelfare associated to the incumbent solution</span>
 <span class="cm">      * @return The payoff value</span>
-<span class="cm">      */</span><span class="w"></span>
-<span class="w">     </span><span class="kt">double</span><span class="w"> </span><span class="n">getSocialWelfare</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">SocialWelfare</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="cm">      */</span>
+<span class="w">     </span><span class="kt">double</span><span class="w"> </span><span class="n">getSocialWelfare</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">SocialWelfare</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-<span class="w">     </span><span class="n">ZEROStatistics</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">DataObject</span><span class="o">&gt;</span><span class="w"> </span><span class="n">getStatistics</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">     </span><span class="n">ZEROStatistics</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">DataObject</span><span class="o">&gt;</span><span class="w"> </span><span class="n">getStatistics</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-<span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="n">setAlgorithm</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Algorithms</span><span class="w"> </span><span class="n">algorithm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">Algorithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">algorithm</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="n">setAlgorithm</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Algorithms</span><span class="w"> </span><span class="n">algorithm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">Algorithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">algorithm</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 
-<span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="n">setPresolve</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">Presolve</span><span class="o">=</span><span class="n">value</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"></span>
-<span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="n">setLCPAlgorithm</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Data</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">Algorithms</span><span class="w"> </span><span class="n">algo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">LCPSolver</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">algo</span><span class="p">);</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"></span>
-<span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="n">setGameObjective</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Objectives</span><span class="w"> </span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">Objective</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"></span>
-<span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="n">setCutsAggressiveness</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">CutsAggressiveness</span><span class="w"> </span><span class="n">aggressiveness</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">CutAggressiveness</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">aggressiveness</span><span class="p">);</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">};</span><span class="w"></span>
+<span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="n">setPresolve</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">Presolve</span><span class="o">=</span><span class="n">value</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
+<span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="n">setLCPAlgorithm</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Data</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">Algorithms</span><span class="w"> </span><span class="n">algo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">LCPSolver</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">algo</span><span class="p">);</span>
+<span class="w">     </span><span class="p">}</span>
+<span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="n">setGameObjective</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Objectives</span><span class="w"> </span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">Objective</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+<span class="w">     </span><span class="p">}</span>
+<span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="n">setCutsAggressiveness</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">CutsAggressiveness</span><span class="w"> </span><span class="n">aggressiveness</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Stats</span><span class="p">.</span><span class="n">AlgorithmData</span><span class="p">.</span><span class="n">CutAggressiveness</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">aggressiveness</span><span class="p">);</span>
+<span class="w">     </span><span class="p">}</span>
+<span class="w">  </span><span class="p">};</span>
 
 
 <span class="p">}</span><span class="w"> </span><span class="c1">// namespace Game</span>
-<span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">string</span><span class="w"> </span><span class="nf">to_string</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Algorithms</span><span class="w"> </span><span class="n">al</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="n">string</span><span class="w"> </span><span class="nf">to_string</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Objectives</span><span class="w"> </span><span class="n">ob</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="n">string</span><span class="w"> </span><span class="nf">to_string</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">CutsAggressiveness</span><span class="w"> </span><span class="n">ct</span><span class="p">);</span><span class="w"></span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">string</span><span class="w"> </span><span class="nf">to_string</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Algorithms</span><span class="w"> </span><span class="n">al</span><span class="p">);</span>
+<span class="w">  </span><span class="n">string</span><span class="w"> </span><span class="nf">to_string</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Objectives</span><span class="w"> </span><span class="n">ob</span><span class="p">);</span>
+<span class="w">  </span><span class="n">string</span><span class="w"> </span><span class="nf">to_string</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">CutsAggressiveness</span><span class="w"> </span><span class="n">ct</span><span class="p">);</span>
 
 <span class="p">};</span><span class="w"> </span><span class="c1">// namespace std</span>
 
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;algorithms/IPG/ipg_cutandplay.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;interfaces/ipg_models.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;algorithms/IPG/ipg_cutandplay.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;interfaces/ipg_models.h&quot;</span>
 </pre></div>
 </div>
 </section>

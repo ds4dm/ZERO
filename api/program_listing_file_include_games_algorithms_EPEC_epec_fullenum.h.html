@@ -30,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: rgb(68, 44, 123)" >
-            <a href="../index.html">
-            <img src="../_static/zerowhite.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/zerowhite.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
                 1.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -831,8 +835,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Program Listing for File epec_fullenum.h</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Program Listing for File epec_fullenum.h</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/program_listing_file_include_games_algorithms_EPEC_epec_fullenum.h.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -855,18 +859,18 @@
 <span class="cm"> *</span>
 <span class="cm"> *              Find out more at</span>
 <span class="cm"> *        https://github.com/ds4dm/ZERO</span>
-<span class="cm"> * #############################################*/</span><span class="w"></span>
+<span class="cm"> * #############################################*/</span>
 
 <span class="cp">#pragma once</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;epec_polybase.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;zero.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;epec_polybase.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;zero.h&quot;</span>
 
-<span class="k">namespace</span><span class="w"> </span><span class="nn">Algorithms</span><span class="o">::</span><span class="nn">EPEC</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="k">class</span><span class="w"> </span><span class="nc">FullEnumeration</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">PolyBase</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="k">public</span><span class="o">:</span><span class="w"></span>
-<span class="w">        </span><span class="n">FullEnumeration</span><span class="p">(</span><span class="n">GRBEnv</span><span class="w"> </span><span class="o">*</span><span class="n">env</span><span class="p">,</span><span class="w"> </span><span class="n">Game</span><span class="o">::</span><span class="n">EPEC</span><span class="w"> </span><span class="o">*</span><span class="n">EPECObject</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">PolyBase</span><span class="p">(</span><span class="n">env</span><span class="p">,</span><span class="w"> </span><span class="n">EPECObject</span><span class="p">){};</span><span class="w"></span>
-<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="nf">solve</span><span class="p">();</span><span class="w"></span>
-<span class="w">     </span><span class="p">};</span><span class="w"></span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">Algorithms</span><span class="o">::</span><span class="nn">EPEC</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="k">class</span><span class="w"> </span><span class="nc">FullEnumeration</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">PolyBase</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="k">public</span><span class="o">:</span>
+<span class="w">        </span><span class="n">FullEnumeration</span><span class="p">(</span><span class="n">GRBEnv</span><span class="w"> </span><span class="o">*</span><span class="n">env</span><span class="p">,</span><span class="w"> </span><span class="n">Game</span><span class="o">::</span><span class="n">EPEC</span><span class="w"> </span><span class="o">*</span><span class="n">EPECObject</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">PolyBase</span><span class="p">(</span><span class="n">env</span><span class="p">,</span><span class="w"> </span><span class="n">EPECObject</span><span class="p">){};</span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="nf">solve</span><span class="p">();</span>
+<span class="w">     </span><span class="p">};</span>
 <span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="c1">// namespace Algorithms</span>
 </pre></div>
 </div>

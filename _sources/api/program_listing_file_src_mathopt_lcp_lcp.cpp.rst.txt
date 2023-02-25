@@ -34,7 +34,6 @@ Program Listing for File lcp.cpp
      GRBVar              *Vars     = {};    
      unsigned long int numVars;          
      MathOpt::LCP     *LCP;              
-   
      LCP_PATHStart(MathOpt::LCP *LCPin, GRBVar *vars, unsigned long int numvars) {
         this->LCP     = LCPin;
         this->numVars = numvars;

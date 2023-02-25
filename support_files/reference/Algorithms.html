@@ -33,15 +33,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: rgb(68, 44, 123)" >
-            <a href="../../index.html">
-            <img src="../../_static/zerowhite.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/zerowhite.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
                 1.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -834,8 +838,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Algorithms</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Algorithms</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/support_files/reference/Algorithms.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -906,6 +910,361 @@
 </dd></dl>
 
 <dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTreeE">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTreeE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTreeE"></span><span id="Algorithms::EPEC::OuterTree"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OuterTree</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;epec_cutandplay.h&gt;</em></div>
+<p>This class manages the outer approximation tree. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree9OuterTreeEjP6GRBEnv">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree9OuterTreeEjP6GRBEnv"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree9OuterTreeEjP6GRBEnv"></span><span id="Algorithms::EPEC::OuterTree::OuterTree__unsigned-i.GRBEnvP"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a1f98c3bc8310acefc0dbc8ee3d4f535e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OuterTree</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">encSize</span></span>, <span class="n"><span class="pre">GRBEnv</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">env</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Constructor of the Tree given the encoding size. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree16resetFeasibilityEv">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree16resetFeasibilityEv"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree16resetFeasibilityEv"></span><span id="Algorithms::EPEC::OuterTree::resetFeasibility"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1ab042e5e576e3e36126ea2fada5793203"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">resetFeasibility</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Reset the feasibility parameters for the tree. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK10Algorithms4EPEC9OuterTree7getPureEv">
+<span id="_CPPv3NK10Algorithms4EPEC9OuterTree7getPureEv"></span><span id="_CPPv2NK10Algorithms4EPEC9OuterTree7getPureEv"></span><span id="Algorithms::EPEC::OuterTree::getPureC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1abc38eb3539e40c988a44d20dc4dc7a7a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPure</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p>Read-only getter for <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1OuterTree_1ac0a409408dc27aab47cd057f29d3384b"><span class="std std-ref">OuterTree::isPure</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree11setFeasibleEv">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree11setFeasibleEv"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree11setFeasibleEv"></span><span id="Algorithms::EPEC::OuterTree::setFeasible"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1ab8f9d433168626ccfa0e16c797274409"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setFeasible</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Read-only getter for <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1OuterTree_1a0e3f528da7c28f362a24e3458e6dca03"><span class="std std-ref">OuterTree::isFeasible</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree7setPureEv">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree7setPureEv"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree7setPureEv"></span><span id="Algorithms::EPEC::OuterTree::setPure"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1afdcb034e21cc2bb56b3faf7256005cef"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setPure</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Setter for <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1OuterTree_1ac0a409408dc27aab47cd057f29d3384b"><span class="std std-ref">OuterTree::isPure</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK10Algorithms4EPEC9OuterTree15getEncodingSizeEv">
+<span id="_CPPv3NK10Algorithms4EPEC9OuterTree15getEncodingSizeEv"></span><span id="_CPPv2NK10Algorithms4EPEC9OuterTree15getEncodingSizeEv"></span><span id="Algorithms::EPEC::OuterTree::getEncodingSizeC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a23f75f3cc4f5ef165e0c23a3e256f8d1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getEncodingSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p>Getter for the encoding size. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4getVEv">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree4getVEv"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4getVEv"></span><span id="Algorithms::EPEC::OuterTree::getV"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a0cd344e6e7e3cd36f675b1bc2a8029be"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">getV</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Getter for <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1OuterTree_1a52c8cfb47fec23b4d0d28ebdc4329001"><span class="std std-ref">OuterTree::V</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4getREv">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree4getREv"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4getREv"></span><span id="Algorithms::EPEC::OuterTree::getR"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a937b54a35f9938fed119b518ea0ec6fe"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">getR</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Getter for <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1OuterTree_1a8515614ef3e61061f2baba3aa8c61e14"><span class="std std-ref">OuterTree::R</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK10Algorithms4EPEC9OuterTree14getVertexCountEv">
+<span id="_CPPv3NK10Algorithms4EPEC9OuterTree14getVertexCountEv"></span><span id="_CPPv2NK10Algorithms4EPEC9OuterTree14getVertexCountEv"></span><span id="Algorithms::EPEC::OuterTree::getVertexCountC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a572d665acb93571db3540e61c972b4b0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getVertexCount</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p>Getter for <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1OuterTree_1ac64343e5298f6cf3710126158f63e94f"><span class="std std-ref">OuterTree::VertexCounter</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK10Algorithms4EPEC9OuterTree11getRayCountEv">
+<span id="_CPPv3NK10Algorithms4EPEC9OuterTree11getRayCountEv"></span><span id="_CPPv2NK10Algorithms4EPEC9OuterTree11getRayCountEv"></span><span id="Algorithms::EPEC::OuterTree::getRayCountC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1ad543f952b157161c3589ef68d5a76cc7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getRayCount</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p>Getter for <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1OuterTree_1ae1de66800e983880fe1cfe422f77bff7"><span class="std std-ref">OuterTree::RayCounter</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree9addVertexERKN4arma3vecEb">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree9addVertexERKN4arma3vecEb"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree9addVertexERKN4arma3vecEb"></span><span id="Algorithms::EPEC::OuterTree::addVertex__arma::vecCR.b"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a1bc8deee7400a2ff383bf51147b6ed44"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">addVertex</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">vertex</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">checkDuplicates</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Adds a vertex to <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1OuterTree_1a52c8cfb47fec23b4d0d28ebdc4329001"><span class="std std-ref">OuterTree::V</span></a>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vertex</strong> – The vector containing the vertex </p></li>
+<li><p><strong>checkDuplicates</strong> – True if the method has to check for duplicates </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the vertex was added </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree6addRayERKN4arma3vecE">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree6addRayERKN4arma3vecE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree6addRayERKN4arma3vecE"></span><span id="Algorithms::EPEC::OuterTree::addRay__arma::vecCR"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1ad2f86e4110e517977ca2fa39af99afee"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">addRay</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ray</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Adds a ray to <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1OuterTree_1a8515614ef3e61061f2baba3aa8c61e14"><span class="std std-ref">OuterTree::R</span></a>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ray</strong> – The vector containing the ray </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree7getRootEv">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree7getRootEv"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree7getRootEv"></span><span id="Algorithms::EPEC::OuterTree::getRoot"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1afaf88ef9c160f261e68ada3877ac0f9b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node"><span class="n"><span class="pre">Node</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">getRoot</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Getter for the root node. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree8getNodesEv">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree8getNodesEv"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree8getNodesEv"></span><span id="Algorithms::EPEC::OuterTree::getNodes"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a0ca19aa9cbe4763f8e73aa4a388102bb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node"><span class="n"><span class="pre">Node</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">getNodes</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>A getter method for the nodes in the tree. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The pointer to the nodes in the tree </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK10Algorithms4EPEC9OuterTree21denyBranchingLocationER4NodeRKj">
+<span id="_CPPv3NK10Algorithms4EPEC9OuterTree21denyBranchingLocationER4NodeRKj"></span><span id="_CPPv2NK10Algorithms4EPEC9OuterTree21denyBranchingLocationER4NodeRKj"></span><span id="Algorithms::EPEC::OuterTree::denyBranchingLocation__NodeR.unsigned-iCRC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a4657288575a2d054adeb7d016e0735fd"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">denyBranchingLocation</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node"><span class="n"><span class="pre">Node</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">node</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">location</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p>If a complementarity equation <code class="docutils literal notranslate"><span class="pre">location</span></code> has proven to be infeasible or it isn’t a candidate for branching, this method prevents any further branching on it for the node <code class="docutils literal notranslate"><span class="pre">node</span></code>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node</strong> – The node pointer </p></li>
+<li><p><strong>location</strong> – The denied branching location </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree12singleBranchEjR4Node">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree12singleBranchEjR4Node"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree12singleBranchEjR4Node"></span><span id="Algorithms::EPEC::OuterTree::singleBranch__unsigned-i.NodeR"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a2e07a081bf455dd50068d8df5f5e4324"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">singleBranch</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idComp</span></span>, <a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node"><span class="n"><span class="pre">Node</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Given the <code class="docutils literal notranslate"><span class="pre">idComp</span></code> and the parent node <code class="docutils literal notranslate"><span class="pre">t</span></code>, creates a single child by branching on <code class="docutils literal notranslate"><span class="pre">idComp</span></code>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>idComp</strong> – The branching id for the complementarity </p></li>
+<li><p><strong>t</strong> – The pointer to the node </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The node counter stored in a single-element vector </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-attributes">Protected Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree12MembershipLPE">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree12MembershipLPE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree12MembershipLPE"></span><span id="Algorithms::EPEC::OuterTree::MembershipLP__std::unique_ptr:GRBModel:"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1aff7323811a3dbb82de87f555e3b481bb"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">GRBModel</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MembershipLP</span></span></span><br /></dt>
+<dd><p>Stores the pointer to the MembershipLP associated to the tree. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree11OriginalLCPE">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree11OriginalLCPE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree11OriginalLCPE"></span><span id="Algorithms::EPEC::OuterTree::OriginalLCP__std::unique_ptr:MathOpt::PolyLCP:"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a76f7805c283a621d182d1eecdeb4da0b"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="MathOpt.html#_CPPv47MathOpt" title="MathOpt"><span class="n"><span class="pre">MathOpt</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classMathOpt_1_1PolyLCP.html#_CPPv4N7MathOpt7PolyLCPE" title="MathOpt::PolyLCP"><span class="n"><span class="pre">PolyLCP</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OriginalLCP</span></span></span><br /></dt>
+<dd><p>Stores the original LCP. This object is separated from the working one to avoid bugs and numerical problems. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree1VE">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree1VE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree1VE"></span><span id="Algorithms::EPEC::OuterTree::V__arma::sp_mat"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a52c8cfb47fec23b4d0d28ebdc4329001"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">V</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>Stores the known extreme vertices of the player’s feasible region. These are used to derive valid cuts, or certify that an equilibrium is inside (outside) the convex-hull of the feasible region. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree1RE">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree1RE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree1RE"></span><span id="Algorithms::EPEC::OuterTree::R__arma::sp_mat"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a8515614ef3e61061f2baba3aa8c61e14"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">R</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>As in V, but instead of vertices, this object contains rays. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree13VertexCounterE">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree13VertexCounterE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree13VertexCounterE"></span><span id="Algorithms::EPEC::OuterTree::VertexCounter__unsigned-i"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1ac64343e5298f6cf3710126158f63e94f"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VertexCounter</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd><p>The counter for node ids. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree10RayCounterE">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree10RayCounterE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree10RayCounterE"></span><span id="Algorithms::EPEC::OuterTree::RayCounter__unsigned-i"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1ae1de66800e983880fe1cfe422f77bff7"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RayCounter</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd><p>The counter for node ids. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree14containsOriginE">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree14containsOriginE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree14containsOriginE"></span><span id="Algorithms::EPEC::OuterTree::containsOrigin__b"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1ad4f838a783c933ba937d28478e95253f"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">containsOrigin</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><br /></dt>
+<dd><p>True if the origin is feasible. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree14nextIdentifierEv">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree14nextIdentifierEv"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree14nextIdentifierEv"></span><span id="Algorithms::EPEC::OuterTree::nextIdentifier"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a448ecf43fd2cce8e03601159dcb56445"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nextIdentifier</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Increments the node counter and get the id of the new node. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4RootE">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree4RootE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4RootE"></span><span id="Algorithms::EPEC::OuterTree::Root__Node"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a6dafa9836ba225cd64efc84c8a2a44ea"></span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node"><span class="n"><span class="pre">Node</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Root</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node"><span class="n"><span class="pre">Node</span></span></a><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">0</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dd><p>The root node of the tree. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree12EncodingSizeE">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree12EncodingSizeE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree12EncodingSizeE"></span><span id="Algorithms::EPEC::OuterTree::EncodingSize__unsigned-i"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1acc6ae51ee98e21b58808b7bc536cb0ba"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EncodingSize</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd><p>The size of the encoding, namely the number of complementarity equations. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree11NodeCounterE">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree11NodeCounterE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree11NodeCounterE"></span><span id="Algorithms::EPEC::OuterTree::NodeCounter__unsigned-i"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a4e2e3020f620a2aec15b81121623bfd2"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NodeCounter</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><br /></dt>
+<dd><p>The counter for node ids. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree5NodesE">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree5NodesE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree5NodesE"></span><span id="Algorithms::EPEC::OuterTree::Nodes__std::vector:Node:"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a5fbf30100832b1f1469c18eef23502ba"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node"><span class="n"><span class="pre">Node</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Nodes</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>Storage of nodes in the tree with the vertices in V </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree6isPureE">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree6isPureE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree6isPureE"></span><span id="Algorithms::EPEC::OuterTree::isPure__b"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1ac0a409408dc27aab47cd057f29d3384b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isPure</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="k"><span class="pre">false</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>True if the strategy at the current node is a pure-strategy. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree10isFeasibleE">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree10isFeasibleE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree10isFeasibleE"></span><span id="Algorithms::EPEC::OuterTree::isFeasible__b"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a0e3f528da7c28f362a24e3458e6dca03"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isFeasible</span></span></span><span class="p"><span class="pre">{</span></span><span class="k"><span class="pre">false</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>True if the strategy at the current node is feasible for the original game. </p>
+</dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4NodeE">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree4NodeE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4NodeE"></span><span id="Algorithms::EPEC::OuterTree::Node"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Node</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;epec_cutandplay.h&gt;</em></div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4Node4NodeEj">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree4Node4NodeEj"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4Node4NodeEj"></span><span id="Algorithms::EPEC::OuterTree::Node::Node__unsigned-i"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a868f7a08221e99b74722b37dd1abfc10"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Node</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">encSize</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Constructor for the root node, given the encoding size, namely the number of complementarity equations. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>encSize</strong> – The number of complementarities </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4Node4NodeER4Nodejm">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree4Node4NodeER4Nodejm"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4Node4NodeER4Nodejm"></span><span id="Algorithms::EPEC::OuterTree::Node::Node__NodeR.unsigned-i.unsigned-l-i"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a1589c99f0c0735bb871fc1a6a75feb3a"></span><span class="sig-name descname"><span class="n"><span class="pre">Node</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4Node4NodeER4Nodejm" title="Algorithms::EPEC::OuterTree::Node::Node"><span class="n"><span class="pre">Node</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">parent</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idComp</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Given the parent node address <code class="docutils literal notranslate"><span class="pre">parent</span></code>, the <code class="docutils literal notranslate"><span class="pre">idComp</span></code> to branch on, and the <code class="docutils literal notranslate"><span class="pre">id</span></code>, creates a new node. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> – The parent node </p></li>
+<li><p><strong>idComp</strong> – The id of the node </p></li>
+<li><p><strong>id</strong> – The The branching candidate </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4Node4NodeER4NodeNSt6vectorIiEEm">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree4Node4NodeER4NodeNSt6vectorIiEEm"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4Node4NodeER4NodeNSt6vectorIiEEm"></span><span id="Algorithms::EPEC::OuterTree::Node::Node__NodeR.std::vector:i:.unsigned-l-i"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a08d255e4a1a35d6f3a3285545d685f0a"></span><span class="sig-name descname"><span class="n"><span class="pre">Node</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4Node4NodeER4NodeNSt6vectorIiEEm" title="Algorithms::EPEC::OuterTree::Node::Node"><span class="n"><span class="pre">Node</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">parent</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idComps</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Given the parent node address <code class="docutils literal notranslate"><span class="pre">parent</span></code>, the <code class="docutils literal notranslate"><span class="pre">idsComp</span></code> to branch on (containing all the complementarities ids), and the <code class="docutils literal notranslate"><span class="pre">id</span></code>, creates a new node. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> – The parent node pointer </p></li>
+<li><p><strong>idsComp</strong> – The vector of branching locations </p></li>
+<li><p><strong>id</strong> – The node id for the children </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK10Algorithms4EPEC9OuterTree4Node21getCumulativeBranchesEv">
+<span id="_CPPv3NK10Algorithms4EPEC9OuterTree4Node21getCumulativeBranchesEv"></span><span id="_CPPv2NK10Algorithms4EPEC9OuterTree4Node21getCumulativeBranchesEv"></span><span id="Algorithms::EPEC::OuterTree::Node::getCumulativeBranchesC"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a9bcbc3d58a02ff0ddd6ca02c9c81710b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getCumulativeBranches</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p>Returns the number of variables that cannot be candidate for the branching decisions, namely the ones on which a branching decision has already been taken, or for which the resulting child node is infeasible. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of unsuitable branching candidates </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK10Algorithms4EPEC9OuterTree4Node11getEncodingEv">
+<span id="_CPPv3NK10Algorithms4EPEC9OuterTree4Node11getEncodingEv"></span><span id="_CPPv2NK10Algorithms4EPEC9OuterTree4Node11getEncodingEv"></span><span id="Algorithms::EPEC::OuterTree::Node::getEncodingC"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a0d3f03f7047c1ffe6bbe0ed5534b0965"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getEncoding</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p>Getter method for the encoding. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK10Algorithms4EPEC9OuterTree4Node20getAllowedBranchingsEv">
+<span id="_CPPv3NK10Algorithms4EPEC9OuterTree4Node20getAllowedBranchingsEv"></span><span id="_CPPv2NK10Algorithms4EPEC9OuterTree4Node20getAllowedBranchingsEv"></span><span id="Algorithms::EPEC::OuterTree::Node::getAllowedBranchingsC"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a32acc86fe50a0184403c1d2ce8188389"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getAllowedBranchings</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p>Getter method for the allowed branchings. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4Node7IdCompsE">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree4Node7IdCompsE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4Node7IdCompsE"></span><span id="Algorithms::EPEC::OuterTree::Node::IdComps__std::vector:unsigned-i:"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a56e4757981a87359ba30209ac1edc64d"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IdComps</span></span></span><br /></dt>
+<dd><p>Contains the branching decisions taken at the node. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4Node8EncodingE">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree4Node8EncodingE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4Node8EncodingE"></span><span id="Algorithms::EPEC::OuterTree::Node::Encoding__std::vector:b:"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a661b7461044d4e70472353a24214e6f0"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Encoding</span></span></span><br /></dt>
+<dd><p>An encoding of bool. True if the complementarity condition is included in the current node outer approximation, false otherwise. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4Node17AllowedBranchingsE">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree4Node17AllowedBranchingsE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4Node17AllowedBranchingsE"></span><span id="Algorithms::EPEC::OuterTree::Node::AllowedBranchings__std::vector:b:"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a214124cd22efaea8c19a8ff161036bae"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AllowedBranchings</span></span></span><br /></dt>
+<dd><p>A vector where true means that the corresponding complementarity is a candidate for branching at the current node </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4Node2IdE">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree4Node2IdE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4Node2IdE"></span><span id="Algorithms::EPEC::OuterTree::Node::Id__unsigned-l-i"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a343d810708b0bae132827fb9ac296567"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Id</span></span></span><br /></dt>
+<dd><p>A long int giving the numerical identifier for the node. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4Node6ParentE">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree4Node6ParentE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4Node6ParentE"></span><span id="Algorithms::EPEC::OuterTree::Node::Parent__NodeP"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a4c5320da1819ef6dc8a2e890ccde1fdb"></span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node"><span class="n"><span class="pre">Node</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">Parent</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>A pointer to the parent node. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
+<dl>
+<dt class="sig sig-object cpp">
+<em class="property"><span class="pre">friend</span> <span class="pre">class</span></em> <span class="pre">OuterTree</span></dt>
+</dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC10CutAndPlayE">
 <span id="_CPPv3N10Algorithms4EPEC10CutAndPlayE"></span><span id="_CPPv2N10Algorithms4EPEC10CutAndPlayE"></span><span id="Algorithms::EPEC::CutAndPlay"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1CutAndPlay"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CutAndPlay</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv410Algorithms" title="Algorithms"><span class="n"><span class="pre">Algorithms</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N10Algorithms4EPECE" title="Algorithms::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1PolyBase.html#_CPPv4N10Algorithms4EPEC8PolyBaseE" title="Algorithms::EPEC::PolyBase"><span class="n"><span class="pre">PolyBase</span></span></a><br /></dt>
 <dd><div class="docutils container">
@@ -931,6 +1290,18 @@
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC10CutAndPlay10CutAndPlayEv">
 <span id="_CPPv3N10Algorithms4EPEC10CutAndPlay10CutAndPlayEv"></span><span id="_CPPv2N10Algorithms4EPEC10CutAndPlay10CutAndPlayEv"></span><span id="Algorithms::EPEC::CutAndPlay::CutAndPlay"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1CutAndPlay_1abd9902d3e75469c60b7aab3670e5c6a3"></span><span class="sig-name descname"><span class="n"><span class="pre">CutAndPlay</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><br /></dt>
 <dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK10Algorithms4EPEC10CutAndPlay6getTolEv">
+<span id="_CPPv3NK10Algorithms4EPEC10CutAndPlay6getTolEv"></span><span id="_CPPv2NK10Algorithms4EPEC10CutAndPlay6getTolEv"></span><span id="Algorithms::EPEC::CutAndPlay::getTolC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1CutAndPlay_1a2b826a25c927bfc4310ead3cdb34e846"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getTol</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p>Read-Only getter for <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1CutAndPlay_1adf01ec4b6de524e656207b59860da6c7"><span class="std std-ref">CutAndPlay::Tolerance</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC10CutAndPlay6setTolEd">
+<span id="_CPPv3N10Algorithms4EPEC10CutAndPlay6setTolEd"></span><span id="_CPPv2N10Algorithms4EPEC10CutAndPlay6setTolEd"></span><span id="Algorithms::EPEC::CutAndPlay::setTol__double"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1CutAndPlay_1a9c015f8f874507b4c9627be2283b8878"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setTol</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Setter for <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1CutAndPlay_1adf01ec4b6de524e656207b59860da6c7"><span class="std std-ref">CutAndPlay::Tolerance</span></a>. </p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC10CutAndPlay5solveEv">
@@ -1345,274 +1716,6 @@
 </dd></dl>
 
 <dl class="cpp class">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTreeE">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTreeE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTreeE"></span><span id="Algorithms::EPEC::OuterTree"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OuterTree</span></span></span><br /></dt>
-<dd><div class="docutils container">
-<em>#include &lt;epec_cutandplay.h&gt;</em></div>
-<p>This class manages the outer approximation tree. </p>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree9addVertexERKN4arma3vecEb">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree9addVertexERKN4arma3vecEb"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree9addVertexERKN4arma3vecEb"></span><span id="Algorithms::EPEC::OuterTree::addVertex__arma::vecCR.b"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a1bc8deee7400a2ff383bf51147b6ed44"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">addVertex</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">vertex</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">checkDuplicates</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Adds a vertex to <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1OuterTree_1a52c8cfb47fec23b4d0d28ebdc4329001"><span class="std std-ref">OuterTree::V</span></a>. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>vertex</strong> – The vector containing the vertex </p></li>
-<li><p><strong>checkDuplicates</strong> – True if the method has to check for duplicates </p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>True if the vertex was added </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree6addRayERKN4arma3vecE">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree6addRayERKN4arma3vecE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree6addRayERKN4arma3vecE"></span><span id="Algorithms::EPEC::OuterTree::addRay__arma::vecCR"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1ad2f86e4110e517977ca2fa39af99afee"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">addRay</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ray</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Adds a ray to <a class="reference internal" href="#classAlgorithms_1_1EPEC_1_1OuterTree_1a8515614ef3e61061f2baba3aa8c61e14"><span class="std std-ref">OuterTree::R</span></a>. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>ray</strong> – The vector containing the ray </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree8getNodesEv">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree8getNodesEv"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree8getNodesEv"></span><span id="Algorithms::EPEC::OuterTree::getNodes"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a0ca19aa9cbe4763f8e73aa4a388102bb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node"><span class="n"><span class="pre">Node</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">getNodes</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
-<dd><p>A getter method for the nodes in the tree. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The pointer to the nodes in the tree </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4NK10Algorithms4EPEC9OuterTree21denyBranchingLocationER4NodeRKj">
-<span id="_CPPv3NK10Algorithms4EPEC9OuterTree21denyBranchingLocationER4NodeRKj"></span><span id="_CPPv2NK10Algorithms4EPEC9OuterTree21denyBranchingLocationER4NodeRKj"></span><span id="Algorithms::EPEC::OuterTree::denyBranchingLocation__NodeR.unsigned-iCRC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a4657288575a2d054adeb7d016e0735fd"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">denyBranchingLocation</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node"><span class="n"><span class="pre">Node</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">node</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">location</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
-<dd><p>If a complementarity equation <code class="docutils literal notranslate"><span class="pre">location</span></code> has proven to be infeasible or it isn’t a candidate for branching, this method prevents any further branching on it for the node <code class="docutils literal notranslate"><span class="pre">node</span></code>. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>node</strong> – The node pointer </p></li>
-<li><p><strong>location</strong> – The denied branching location </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree12singleBranchEjR4Node">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree12singleBranchEjR4Node"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree12singleBranchEjR4Node"></span><span id="Algorithms::EPEC::OuterTree::singleBranch__unsigned-i.NodeR"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a2e07a081bf455dd50068d8df5f5e4324"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">singleBranch</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idComp</span></span>, <a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node"><span class="n"><span class="pre">Node</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Given the <code class="docutils literal notranslate"><span class="pre">idComp</span></code> and the parent node <code class="docutils literal notranslate"><span class="pre">t</span></code>, creates a single child by branching on <code class="docutils literal notranslate"><span class="pre">idComp</span></code>. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>idComp</strong> – The branching id for the complementarity </p></li>
-<li><p><strong>t</strong> – The pointer to the node </p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The node counter stored in a single-element vector </p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-attributes">Protected Attributes</p>
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree12MembershipLPE">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree12MembershipLPE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree12MembershipLPE"></span><span id="Algorithms::EPEC::OuterTree::MembershipLP__std::unique_ptr:GRBModel:"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1aff7323811a3dbb82de87f555e3b481bb"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">GRBModel</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MembershipLP</span></span></span><br /></dt>
-<dd><p>Stores the pointer to the MembershipLP associated to the tree. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree11OriginalLCPE">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree11OriginalLCPE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree11OriginalLCPE"></span><span id="Algorithms::EPEC::OuterTree::OriginalLCP__std::unique_ptr:MathOpt::PolyLCP:"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a76f7805c283a621d182d1eecdeb4da0b"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="MathOpt.html#_CPPv47MathOpt" title="MathOpt"><span class="n"><span class="pre">MathOpt</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classMathOpt_1_1PolyLCP.html#_CPPv4N7MathOpt7PolyLCPE" title="MathOpt::PolyLCP"><span class="n"><span class="pre">PolyLCP</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OriginalLCP</span></span></span><br /></dt>
-<dd><p>Stores the original LCP. This object is separated from the working one to avoid bugs and numerical problems. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree1VE">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree1VE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree1VE"></span><span id="Algorithms::EPEC::OuterTree::V__arma::sp_mat"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a52c8cfb47fec23b4d0d28ebdc4329001"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">V</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>Stores the known extreme vertices of the player’s feasible region. These are used to derive valid cuts, or certify that an equilibrium is inside (outside) the convex-hull of the feasible region. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree1RE">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree1RE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree1RE"></span><span id="Algorithms::EPEC::OuterTree::R__arma::sp_mat"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a8515614ef3e61061f2baba3aa8c61e14"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">R</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>As in V, but instead of vertices, this object contains rays. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree13VertexCounterE">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree13VertexCounterE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree13VertexCounterE"></span><span id="Algorithms::EPEC::OuterTree::VertexCounter__unsigned-i"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1ac64343e5298f6cf3710126158f63e94f"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VertexCounter</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
-<dd><p>The counter for node ids. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree10RayCounterE">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree10RayCounterE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree10RayCounterE"></span><span id="Algorithms::EPEC::OuterTree::RayCounter__unsigned-i"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1ae1de66800e983880fe1cfe422f77bff7"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RayCounter</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
-<dd><p>The counter for node ids. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree14containsOriginE">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree14containsOriginE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree14containsOriginE"></span><span id="Algorithms::EPEC::OuterTree::containsOrigin__b"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1ad4f838a783c933ba937d28478e95253f"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">containsOrigin</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><br /></dt>
-<dd><p>True if the origin is feasible. </p>
-</dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4RootE">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree4RootE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4RootE"></span><span id="Algorithms::EPEC::OuterTree::Root__Node"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a6dafa9836ba225cd64efc84c8a2a44ea"></span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node"><span class="n"><span class="pre">Node</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Root</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node"><span class="n"><span class="pre">Node</span></span></a><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">0</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
-<dd><p>The root node of the tree. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree12EncodingSizeE">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree12EncodingSizeE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree12EncodingSizeE"></span><span id="Algorithms::EPEC::OuterTree::EncodingSize__unsigned-i"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1acc6ae51ee98e21b58808b7bc536cb0ba"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EncodingSize</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
-<dd><p>The size of the encoding, namely the number of complementarity equations. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree11NodeCounterE">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree11NodeCounterE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree11NodeCounterE"></span><span id="Algorithms::EPEC::OuterTree::NodeCounter__unsigned-i"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a4e2e3020f620a2aec15b81121623bfd2"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NodeCounter</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><br /></dt>
-<dd><p>The counter for node ids. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree5NodesE">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree5NodesE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree5NodesE"></span><span id="Algorithms::EPEC::OuterTree::Nodes__std::vector:Node:"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a5fbf30100832b1f1469c18eef23502ba"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node"><span class="n"><span class="pre">Node</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Nodes</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>Storage of nodes in the tree with the vertices in V </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree6isPureE">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree6isPureE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree6isPureE"></span><span id="Algorithms::EPEC::OuterTree::isPure__b"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1ac0a409408dc27aab47cd057f29d3384b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isPure</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="k"><span class="pre">false</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>True if the strategy at the current node is a pure-strategy. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree10isFeasibleE">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree10isFeasibleE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree10isFeasibleE"></span><span id="Algorithms::EPEC::OuterTree::isFeasible__b"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a0e3f528da7c28f362a24e3458e6dca03"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isFeasible</span></span></span><span class="p"><span class="pre">{</span></span><span class="k"><span class="pre">false</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>True if the strategy at the current node is feasible for the original game. </p>
-</dd></dl>
-
-</div>
-<dl class="cpp struct">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4NodeE">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree4NodeE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4NodeE"></span><span id="Algorithms::EPEC::OuterTree::Node"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Node</span></span></span><br /></dt>
-<dd><div class="docutils container">
-<em>#include &lt;epec_cutandplay.h&gt;</em></div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4Node4NodeEj">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree4Node4NodeEj"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4Node4NodeEj"></span><span id="Algorithms::EPEC::OuterTree::Node::Node__unsigned-i"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a868f7a08221e99b74722b37dd1abfc10"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Node</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">encSize</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Constructor for the root node, given the encoding size, namely the number of complementarity equations. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>encSize</strong> – The number of complementarities </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4Node4NodeER4Nodejm">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree4Node4NodeER4Nodejm"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4Node4NodeER4Nodejm"></span><span id="Algorithms::EPEC::OuterTree::Node::Node__NodeR.unsigned-i.unsigned-l-i"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a1589c99f0c0735bb871fc1a6a75feb3a"></span><span class="sig-name descname"><span class="n"><span class="pre">Node</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4Node4NodeER4Nodejm" title="Algorithms::EPEC::OuterTree::Node::Node"><span class="n"><span class="pre">Node</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">parent</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idComp</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Given the parent node address <code class="docutils literal notranslate"><span class="pre">parent</span></code>, the <code class="docutils literal notranslate"><span class="pre">idComp</span></code> to branch on, and the <code class="docutils literal notranslate"><span class="pre">id</span></code>, creates a new node. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>parent</strong> – The parent node </p></li>
-<li><p><strong>idComp</strong> – The id of the node </p></li>
-<li><p><strong>id</strong> – The The branching candidate </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4Node4NodeER4NodeNSt6vectorIiEEm">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree4Node4NodeER4NodeNSt6vectorIiEEm"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4Node4NodeER4NodeNSt6vectorIiEEm"></span><span id="Algorithms::EPEC::OuterTree::Node::Node__NodeR.std::vector:i:.unsigned-l-i"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a08d255e4a1a35d6f3a3285545d685f0a"></span><span class="sig-name descname"><span class="n"><span class="pre">Node</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4Node4NodeER4NodeNSt6vectorIiEEm" title="Algorithms::EPEC::OuterTree::Node::Node"><span class="n"><span class="pre">Node</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">parent</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idComps</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Given the parent node address <code class="docutils literal notranslate"><span class="pre">parent</span></code>, the <code class="docutils literal notranslate"><span class="pre">idsComp</span></code> to branch on (containing all the complementarities ids), and the <code class="docutils literal notranslate"><span class="pre">id</span></code>, creates a new node. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>parent</strong> – The parent node pointer </p></li>
-<li><p><strong>idsComp</strong> – The vector of branching locations </p></li>
-<li><p><strong>id</strong> – The node id for the children </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4NK10Algorithms4EPEC9OuterTree4Node21getCumulativeBranchesEv">
-<span id="_CPPv3NK10Algorithms4EPEC9OuterTree4Node21getCumulativeBranchesEv"></span><span id="_CPPv2NK10Algorithms4EPEC9OuterTree4Node21getCumulativeBranchesEv"></span><span id="Algorithms::EPEC::OuterTree::Node::getCumulativeBranchesC"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a9bcbc3d58a02ff0ddd6ca02c9c81710b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getCumulativeBranches</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
-<dd><p>Returns the number of variables that cannot be candidate for the branching decisions, namely the ones on which a branching decision has already been taken, or for which the resulting child node is infeasible. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The number of unsuitable branching candidates </p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4Node7IdCompsE">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree4Node7IdCompsE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4Node7IdCompsE"></span><span id="Algorithms::EPEC::OuterTree::Node::IdComps__std::vector:unsigned-i:"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a56e4757981a87359ba30209ac1edc64d"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IdComps</span></span></span><br /></dt>
-<dd><p>Contains the branching decisions taken at the node. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4Node8EncodingE">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree4Node8EncodingE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4Node8EncodingE"></span><span id="Algorithms::EPEC::OuterTree::Node::Encoding__std::vector:b:"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a661b7461044d4e70472353a24214e6f0"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Encoding</span></span></span><br /></dt>
-<dd><p>An encoding of bool. True if the complementarity condition is included in the current node outer approximation, false otherwise. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4Node17AllowedBranchingsE">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree4Node17AllowedBranchingsE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4Node17AllowedBranchingsE"></span><span id="Algorithms::EPEC::OuterTree::Node::AllowedBranchings__std::vector:b:"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a214124cd22efaea8c19a8ff161036bae"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AllowedBranchings</span></span></span><br /></dt>
-<dd><p>A vector where true means that the corresponding complementarity is a candidate for branching at the current node </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4Node2IdE">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree4Node2IdE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4Node2IdE"></span><span id="Algorithms::EPEC::OuterTree::Node::Id__unsigned-l-i"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a343d810708b0bae132827fb9ac296567"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Id</span></span></span><br /></dt>
-<dd><p>A long int giving the numerical identifier for the node. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4Node6ParentE">
-<span id="_CPPv3N10Algorithms4EPEC9OuterTree4Node6ParentE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4Node6ParentE"></span><span id="Algorithms::EPEC::OuterTree::Node::Parent__NodeP"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a4c5320da1819ef6dc8a2e890ccde1fdb"></span><a class="reference internal" href="../../api/classAlgorithms_1_1EPEC_1_1OuterTree.html#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node"><span class="n"><span class="pre">Node</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">Parent</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>A pointer to the parent node. </p>
-</dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
-<dl>
-<dt class="sig sig-object cpp">
-<em class="property"><span class="pre">friend</span> <span class="pre">class</span></em> <span class="pre">OuterTree</span></dt>
-</dl>
-
-</div>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC8PolyBaseE">
 <span id="_CPPv3N10Algorithms4EPEC8PolyBaseE"></span><span id="_CPPv2N10Algorithms4EPEC8PolyBaseE"></span><span id="Algorithms::EPEC::PolyBase"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1PolyBase"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PolyBase</span></span></span><br /></dt>
 <dd><div class="docutils container">
@@ -1976,6 +2079,184 @@
 </div>
 </dd></dl>
 
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_PlayerE">
+<span id="_CPPv3N10Algorithms3IPG10IPG_PlayerE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_PlayerE"></span><span id="Algorithms::IPG::IPG_Player"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IPG_Player</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;ipg_cutandplay.h&gt;</em></div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_PlayerD0Ev">
+<span id="_CPPv3N10Algorithms3IPG10IPG_PlayerD0Ev"></span><span id="_CPPv2N10Algorithms3IPG10IPG_PlayerD0Ev"></span><span id="Algorithms::IPG::IPG_Player::~IPG_Player"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a6140b60a384facf8b7f931160190b61d"></span><span class="sig-name descname"><span class="n"><span class="pre">~IPG_Player</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player10IPG_PlayerEjRd">
+<span id="_CPPv3N10Algorithms3IPG10IPG_Player10IPG_PlayerEjRd"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player10IPG_PlayerEjRd"></span><span id="Algorithms::IPG::IPG_Player::IPG_Player__unsigned-i.doubleR"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1ae64c860bc9abf2921befbb9220f1cdaf"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IPG_Player</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">incumbentSize</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player9addVertexERKN4arma3vecEKb">
+<span id="_CPPv3N10Algorithms3IPG10IPG_Player9addVertexERKN4arma3vecEKb"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player9addVertexERKN4arma3vecEKb"></span><span id="Algorithms::IPG::IPG_Player::addVertex__arma::vecCR.bC"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a9b78a6c0663a34671b0e18846e55b686"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">addVertex</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">vertex</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">checkDuplicate</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Given <code class="docutils literal notranslate"><span class="pre">vertex</span></code>, it adds a vertex to the field V. If <code class="docutils literal notranslate"><span class="pre">checkDuplicate</span></code> is true, it will check whether the vertex is already contained in the pool. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vertex</strong> – The input vertex </p></li>
+<li><p><strong>checkDuplicate</strong> – True if the method needs to check for duplicates </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the vertex is added. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player6addRayERKN4arma3vecEKb">
+<span id="_CPPv3N10Algorithms3IPG10IPG_Player6addRayERKN4arma3vecEKb"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player6addRayERKN4arma3vecEKb"></span><span id="Algorithms::IPG::IPG_Player::addRay__arma::vecCR.bC"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1ac19b2a02a01baded50a7695b63cf9777"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">addRay</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ray</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">checkDuplicate</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Given <code class="docutils literal notranslate"><span class="pre">ray</span></code>, it adds a ray to the field R. If <code class="docutils literal notranslate"><span class="pre">checkDuplicate</span></code> is true, it will check whether the ray is already contained in the pool. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ray</strong> – The input ray </p></li>
+<li><p><strong>checkDuplicate</strong> – True if the method needs to check for duplicates </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the ray is added. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player7addCutsERKN4arma6sp_matERKN4arma3vecE">
+<span id="_CPPv3N10Algorithms3IPG10IPG_Player7addCutsERKN4arma6sp_matERKN4arma3vecE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player7addCutsERKN4arma6sp_matERKN4arma3vecE"></span><span id="Algorithms::IPG::IPG_Player::addCuts__arma::sp_matCR.arma::vecCR"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a38a8f043701c7b51380b38485212c691"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">addCuts</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">LHS</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">RHS</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Given <code class="docutils literal notranslate"><span class="pre">LHS</span></code>, <code class="docutils literal notranslate"><span class="pre">RHS</span></code>, it adds the inequalities to the field CutPool_A and b, the CoinModel, and the working IP_Param. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>LHS</strong> – The LHS matrix </p></li>
+<li><p><strong>RHS</strong> – The RHS vector </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true if the inequality is added. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-attributes">Protected Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player12MembershipLPE">
+<span id="_CPPv3N10Algorithms3IPG10IPG_Player12MembershipLPE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player12MembershipLPE"></span><span id="Algorithms::IPG::IPG_Player::MembershipLP__std::unique_ptr:GRBModel:"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a398ed920aeb477c77538dadef1ef33b8"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">GRBModel</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MembershipLP</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>This structure manages the <a class="reference internal" href="#namespaceAlgorithms_1_1IPG"><span class="std std-ref">IPG</span></a> data for each player of the game, given the <a class="reference internal" href="#classAlgorithms_1_1IPG_1_1CutAndPlay"><span class="std std-ref">CutAndPlay</span></a>. </p>
+<p>The model approximating the feasible region with vertices and rays </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player14ParametrizedIPE">
+<span id="_CPPv3N10Algorithms3IPG10IPG_Player14ParametrizedIPE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player14ParametrizedIPE"></span><span id="Algorithms::IPG::IPG_Player::ParametrizedIP__std::shared_ptr:MathOpt::IP_Param:"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a7681583ff33851471d1d07a8857b86a1"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="MathOpt.html#_CPPv47MathOpt" title="MathOpt"><span class="n"><span class="pre">MathOpt</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classMathOpt_1_1IP__Param.html#_CPPv4N7MathOpt8IP_ParamE" title="MathOpt::IP_Param"><span class="n"><span class="pre">IP_Param</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ParametrizedIP</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>The (working) player integer program, to which cuts are added. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player9CoinModelE">
+<span id="_CPPv3N10Algorithms3IPG10IPG_Player9CoinModelE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player9CoinModelE"></span><span id="Algorithms::IPG::IPG_Player::CoinModel__std::shared_ptr:OsiGrbSolverInterface:"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1af0b95e7360051ebfc132abe65a7e3abe"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">OsiGrbSolverInterface</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CoinModel</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>Quick workaround for now. This object stores the CoinOR model related to the field ParametrizedIP. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player1VE">
+<span id="_CPPv3N10Algorithms3IPG10IPG_Player1VE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player1VE"></span><span id="Algorithms::IPG::IPG_Player::V__arma::sp_mat"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a5b65eb80d5d0e5a3f6b1432a35d01224"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">V</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>This object stores an array of points &amp;#8212; for each player &amp;#8212; that are descriptor for the convex-hull of the integer programming game. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player1RE">
+<span id="_CPPv3N10Algorithms3IPG10IPG_Player1RE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player1RE"></span><span id="Algorithms::IPG::IPG_Player::R__arma::sp_mat"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1aea720c4309cef88548398e920e71a904"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">R</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>As in V, but for rays. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player14containsOriginE">
+<span id="_CPPv3N10Algorithms3IPG10IPG_Player14containsOriginE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player14containsOriginE"></span><span id="Algorithms::IPG::IPG_Player::containsOrigin__b"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1abbcd6a746fe9b9e4505f08d6e51b544f"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">containsOrigin</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><br /></dt>
+<dd><p>True if the origin is a feasible point. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player13VertexCounterE">
+<span id="_CPPv3N10Algorithms3IPG10IPG_Player13VertexCounterE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player13VertexCounterE"></span><span id="Algorithms::IPG::IPG_Player::VertexCounter__unsigned-i"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1aef57ff8821ab83f94d9c0e0b87d637a7"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VertexCounter</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd><p>The number of Vertices in the membership LP. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player10RayCounterE">
+<span id="_CPPv3N10Algorithms3IPG10IPG_Player10RayCounterE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player10RayCounterE"></span><span id="Algorithms::IPG::IPG_Player::RayCounter__unsigned-i"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a25b389df8596b50a64191cac6000f783"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RayCounter</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd><p>The number or Rays in the membership LP. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player9CutPool_AE">
+<span id="_CPPv3N10Algorithms3IPG10IPG_Player9CutPool_AE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player9CutPool_AE"></span><span id="Algorithms::IPG::IPG_Player::CutPool_A__arma::sp_mat"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a2b91a7f9164abb1f10d188d6a561932e"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CutPool_A</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>Stores the LHS of the valids cuts for the convex hull of the player’s <a class="reference internal" href="#namespaceAlgorithms_1_1IPG"><span class="std std-ref">IPG</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player9CutPool_bE">
+<span id="_CPPv3N10Algorithms3IPG10IPG_Player9CutPool_bE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player9CutPool_bE"></span><span id="Algorithms::IPG::IPG_Player::CutPool_b__arma::vec"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a3cf7e5a53a2680b0ae7ff706fb83e5a7"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CutPool_b</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>Stores the RHS of the valids cuts for the convex hull of the player’s <a class="reference internal" href="#namespaceAlgorithms_1_1IPG"><span class="std std-ref">IPG</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player9ToleranceE">
+<span id="_CPPv3N10Algorithms3IPG10IPG_Player9ToleranceE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player9ToleranceE"></span><span id="Algorithms::IPG::IPG_Player::Tolerance__double"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a3fdbed53232ff46305161fa54a90443d"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Tolerance</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e-6</span></span><br /></dt>
+<dd><p>Numerical tolerance. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player9IncumbentE">
+<span id="_CPPv3N10Algorithms3IPG10IPG_Player9IncumbentE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player9IncumbentE"></span><span id="Algorithms::IPG::IPG_Player::Incumbent__arma::vec"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a16b2bd1139fafc77cf5c8939fff68a4b"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Incumbent</span></span></span><br /></dt>
+<dd><p>Stores the current strategy of the player at a given iteration. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player13DualIncumbentE">
+<span id="_CPPv3N10Algorithms3IPG10IPG_Player13DualIncumbentE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player13DualIncumbentE"></span><span id="Algorithms::IPG::IPG_Player::DualIncumbent__arma::vec"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a63bbb7d45f63bdf0ceff4f14a1c5bba6"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DualIncumbent</span></span></span><br /></dt>
+<dd><p>Stores the (dual) current strategy of the player at a given iteration. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player6PayoffE">
+<span id="_CPPv3N10Algorithms3IPG10IPG_Player6PayoffE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player6PayoffE"></span><span id="Algorithms::IPG::IPG_Player::Payoff__double"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1aaf2a399c6a31b7facf0d126d64e656ef"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Payoff</span></span></span><br /></dt>
+<dd><p>Stores the current payof. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player4PureE">
+<span id="_CPPv3N10Algorithms3IPG10IPG_Player4PureE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player4PureE"></span><span id="Algorithms::IPG::IPG_Player::Pure__b"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a6d6bc1314ea29425f1c912e0c8ebd1bd"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Pure</span></span></span><br /></dt>
+<dd><p>True if the strategy is pure. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player8FeasibleE">
+<span id="_CPPv3N10Algorithms3IPG10IPG_Player8FeasibleE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player8FeasibleE"></span><span id="Algorithms::IPG::IPG_Player::Feasible__b"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1ab3310ec7c7a9695692297f51bea13f1d"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Feasible</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
+<dl>
+<dt class="sig sig-object cpp">
+<em class="property"><span class="pre">friend</span> <span class="pre">class</span></em> <span class="pre">Algorithms::IPG::CutAndPlay</span></dt>
+</dl>
+
+</div>
+</dd></dl>
+
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10CutAndPlayE">
 <span id="_CPPv3N10Algorithms3IPG10CutAndPlayE"></span><span id="_CPPv2N10Algorithms3IPG10CutAndPlayE"></span><span id="Algorithms::IPG::CutAndPlay"></span><span class="target" id="classAlgorithms_1_1IPG_1_1CutAndPlay"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CutAndPlay</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv410Algorithms" title="Algorithms"><span class="n"><span class="pre">Algorithms</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N10Algorithms3IPGE" title="Algorithms::IPG"><span class="n"><span class="pre">IPG</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classAlgorithms_1_1IPG_1_1Algorithm.html#_CPPv4N10Algorithms3IPG9AlgorithmE" title="Algorithms::IPG::Algorithm"><span class="n"><span class="pre">Algorithm</span></span></a><br /></dt>
@@ -2257,184 +2538,6 @@
 <dl>
 <dt class="sig sig-object cpp">
 <em class="property"><span class="pre">friend</span> <span class="pre">class</span></em> <span class="pre">Game::IPG</span></dt>
-</dl>
-
-</div>
-</dd></dl>
-
-<dl class="cpp struct">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_PlayerE">
-<span id="_CPPv3N10Algorithms3IPG10IPG_PlayerE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_PlayerE"></span><span id="Algorithms::IPG::IPG_Player"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IPG_Player</span></span></span><br /></dt>
-<dd><div class="docutils container">
-<em>#include &lt;ipg_cutandplay.h&gt;</em></div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_PlayerD0Ev">
-<span id="_CPPv3N10Algorithms3IPG10IPG_PlayerD0Ev"></span><span id="_CPPv2N10Algorithms3IPG10IPG_PlayerD0Ev"></span><span id="Algorithms::IPG::IPG_Player::~IPG_Player"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a6140b60a384facf8b7f931160190b61d"></span><span class="sig-name descname"><span class="n"><span class="pre">~IPG_Player</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player10IPG_PlayerEjRd">
-<span id="_CPPv3N10Algorithms3IPG10IPG_Player10IPG_PlayerEjRd"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player10IPG_PlayerEjRd"></span><span id="Algorithms::IPG::IPG_Player::IPG_Player__unsigned-i.doubleR"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1ae64c860bc9abf2921befbb9220f1cdaf"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IPG_Player</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">incumbentSize</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player9addVertexERKN4arma3vecEKb">
-<span id="_CPPv3N10Algorithms3IPG10IPG_Player9addVertexERKN4arma3vecEKb"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player9addVertexERKN4arma3vecEKb"></span><span id="Algorithms::IPG::IPG_Player::addVertex__arma::vecCR.bC"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a9b78a6c0663a34671b0e18846e55b686"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">addVertex</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">vertex</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">checkDuplicate</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Given <code class="docutils literal notranslate"><span class="pre">vertex</span></code>, it adds a vertex to the field V. If <code class="docutils literal notranslate"><span class="pre">checkDuplicate</span></code> is true, it will check whether the vertex is already contained in the pool. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>vertex</strong> – The input vertex </p></li>
-<li><p><strong>checkDuplicate</strong> – True if the method needs to check for duplicates </p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>True if the vertex is added. </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player6addRayERKN4arma3vecEKb">
-<span id="_CPPv3N10Algorithms3IPG10IPG_Player6addRayERKN4arma3vecEKb"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player6addRayERKN4arma3vecEKb"></span><span id="Algorithms::IPG::IPG_Player::addRay__arma::vecCR.bC"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1ac19b2a02a01baded50a7695b63cf9777"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">addRay</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ray</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">checkDuplicate</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Given <code class="docutils literal notranslate"><span class="pre">ray</span></code>, it adds a ray to the field R. If <code class="docutils literal notranslate"><span class="pre">checkDuplicate</span></code> is true, it will check whether the ray is already contained in the pool. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ray</strong> – The input ray </p></li>
-<li><p><strong>checkDuplicate</strong> – True if the method needs to check for duplicates </p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>True if the ray is added. </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player7addCutsERKN4arma6sp_matERKN4arma3vecE">
-<span id="_CPPv3N10Algorithms3IPG10IPG_Player7addCutsERKN4arma6sp_matERKN4arma3vecE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player7addCutsERKN4arma6sp_matERKN4arma3vecE"></span><span id="Algorithms::IPG::IPG_Player::addCuts__arma::sp_matCR.arma::vecCR"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a38a8f043701c7b51380b38485212c691"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">addCuts</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">LHS</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">RHS</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Given <code class="docutils literal notranslate"><span class="pre">LHS</span></code>, <code class="docutils literal notranslate"><span class="pre">RHS</span></code>, it adds the inequalities to the field CutPool_A and b, the CoinModel, and the working IP_Param. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>LHS</strong> – The LHS matrix </p></li>
-<li><p><strong>RHS</strong> – The RHS vector </p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>true if the inequality is added. </p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-attributes">Protected Attributes</p>
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player12MembershipLPE">
-<span id="_CPPv3N10Algorithms3IPG10IPG_Player12MembershipLPE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player12MembershipLPE"></span><span id="Algorithms::IPG::IPG_Player::MembershipLP__std::unique_ptr:GRBModel:"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a398ed920aeb477c77538dadef1ef33b8"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">GRBModel</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MembershipLP</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>This structure manages the <a class="reference internal" href="#namespaceAlgorithms_1_1IPG"><span class="std std-ref">IPG</span></a> data for each player of the game, given the <a class="reference internal" href="#classAlgorithms_1_1IPG_1_1CutAndPlay"><span class="std std-ref">CutAndPlay</span></a>. </p>
-<p>The model approximating the feasible region with vertices and rays </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player14ParametrizedIPE">
-<span id="_CPPv3N10Algorithms3IPG10IPG_Player14ParametrizedIPE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player14ParametrizedIPE"></span><span id="Algorithms::IPG::IPG_Player::ParametrizedIP__std::shared_ptr:MathOpt::IP_Param:"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a7681583ff33851471d1d07a8857b86a1"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="MathOpt.html#_CPPv47MathOpt" title="MathOpt"><span class="n"><span class="pre">MathOpt</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classMathOpt_1_1IP__Param.html#_CPPv4N7MathOpt8IP_ParamE" title="MathOpt::IP_Param"><span class="n"><span class="pre">IP_Param</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ParametrizedIP</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>The (working) player integer program, to which cuts are added. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player9CoinModelE">
-<span id="_CPPv3N10Algorithms3IPG10IPG_Player9CoinModelE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player9CoinModelE"></span><span id="Algorithms::IPG::IPG_Player::CoinModel__std::shared_ptr:OsiGrbSolverInterface:"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1af0b95e7360051ebfc132abe65a7e3abe"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">OsiGrbSolverInterface</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CoinModel</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>Quick workaround for now. This object stores the CoinOR model related to the field ParametrizedIP. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player1VE">
-<span id="_CPPv3N10Algorithms3IPG10IPG_Player1VE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player1VE"></span><span id="Algorithms::IPG::IPG_Player::V__arma::sp_mat"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a5b65eb80d5d0e5a3f6b1432a35d01224"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">V</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>This object stores an array of points &amp;#8212; for each player &amp;#8212; that are descriptor for the convex-hull of the integer programming game. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player1RE">
-<span id="_CPPv3N10Algorithms3IPG10IPG_Player1RE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player1RE"></span><span id="Algorithms::IPG::IPG_Player::R__arma::sp_mat"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1aea720c4309cef88548398e920e71a904"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">R</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>As in V, but for rays. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player14containsOriginE">
-<span id="_CPPv3N10Algorithms3IPG10IPG_Player14containsOriginE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player14containsOriginE"></span><span id="Algorithms::IPG::IPG_Player::containsOrigin__b"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1abbcd6a746fe9b9e4505f08d6e51b544f"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">containsOrigin</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><br /></dt>
-<dd><p>True if the origin is a feasible point. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player13VertexCounterE">
-<span id="_CPPv3N10Algorithms3IPG10IPG_Player13VertexCounterE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player13VertexCounterE"></span><span id="Algorithms::IPG::IPG_Player::VertexCounter__unsigned-i"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1aef57ff8821ab83f94d9c0e0b87d637a7"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VertexCounter</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
-<dd><p>The number of Vertices in the membership LP. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player10RayCounterE">
-<span id="_CPPv3N10Algorithms3IPG10IPG_Player10RayCounterE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player10RayCounterE"></span><span id="Algorithms::IPG::IPG_Player::RayCounter__unsigned-i"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a25b389df8596b50a64191cac6000f783"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RayCounter</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
-<dd><p>The number or Rays in the membership LP. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player9CutPool_AE">
-<span id="_CPPv3N10Algorithms3IPG10IPG_Player9CutPool_AE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player9CutPool_AE"></span><span id="Algorithms::IPG::IPG_Player::CutPool_A__arma::sp_mat"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a2b91a7f9164abb1f10d188d6a561932e"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CutPool_A</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>Stores the LHS of the valids cuts for the convex hull of the player’s <a class="reference internal" href="#namespaceAlgorithms_1_1IPG"><span class="std std-ref">IPG</span></a>. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player9CutPool_bE">
-<span id="_CPPv3N10Algorithms3IPG10IPG_Player9CutPool_bE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player9CutPool_bE"></span><span id="Algorithms::IPG::IPG_Player::CutPool_b__arma::vec"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a3cf7e5a53a2680b0ae7ff706fb83e5a7"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CutPool_b</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>Stores the RHS of the valids cuts for the convex hull of the player’s <a class="reference internal" href="#namespaceAlgorithms_1_1IPG"><span class="std std-ref">IPG</span></a>. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player9ToleranceE">
-<span id="_CPPv3N10Algorithms3IPG10IPG_Player9ToleranceE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player9ToleranceE"></span><span id="Algorithms::IPG::IPG_Player::Tolerance__double"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a3fdbed53232ff46305161fa54a90443d"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Tolerance</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e-6</span></span><br /></dt>
-<dd><p>Numerical tolerance. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player9IncumbentE">
-<span id="_CPPv3N10Algorithms3IPG10IPG_Player9IncumbentE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player9IncumbentE"></span><span id="Algorithms::IPG::IPG_Player::Incumbent__arma::vec"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a16b2bd1139fafc77cf5c8939fff68a4b"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Incumbent</span></span></span><br /></dt>
-<dd><p>Stores the current strategy of the player at a given iteration. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player13DualIncumbentE">
-<span id="_CPPv3N10Algorithms3IPG10IPG_Player13DualIncumbentE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player13DualIncumbentE"></span><span id="Algorithms::IPG::IPG_Player::DualIncumbent__arma::vec"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a63bbb7d45f63bdf0ceff4f14a1c5bba6"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DualIncumbent</span></span></span><br /></dt>
-<dd><p>Stores the (dual) current strategy of the player at a given iteration. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player6PayoffE">
-<span id="_CPPv3N10Algorithms3IPG10IPG_Player6PayoffE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player6PayoffE"></span><span id="Algorithms::IPG::IPG_Player::Payoff__double"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1aaf2a399c6a31b7facf0d126d64e656ef"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Payoff</span></span></span><br /></dt>
-<dd><p>Stores the current payof. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player4PureE">
-<span id="_CPPv3N10Algorithms3IPG10IPG_Player4PureE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player4PureE"></span><span id="Algorithms::IPG::IPG_Player::Pure__b"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1a6d6bc1314ea29425f1c912e0c8ebd1bd"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Pure</span></span></span><br /></dt>
-<dd><p>True if the strategy is pure. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms3IPG10IPG_Player8FeasibleE">
-<span id="_CPPv3N10Algorithms3IPG10IPG_Player8FeasibleE"></span><span id="_CPPv2N10Algorithms3IPG10IPG_Player8FeasibleE"></span><span id="Algorithms::IPG::IPG_Player::Feasible__b"></span><span class="target" id="structAlgorithms_1_1IPG_1_1IPG__Player_1ab3310ec7c7a9695692297f51bea13f1d"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Feasible</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><br /></dt>
-<dd></dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
-<dl>
-<dt class="sig sig-object cpp">
-<em class="property"><span class="pre">friend</span> <span class="pre">class</span></em> <span class="pre">Algorithms::IPG::CutAndPlay</span></dt>
 </dl>
 
 </div>

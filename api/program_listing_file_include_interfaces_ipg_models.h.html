@@ -30,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: rgb(68, 44, 123)" >
-            <a href="../index.html">
-            <img src="../_static/zerowhite.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/zerowhite.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
                 1.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -831,8 +835,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Program Listing for File ipg_models.h</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Program Listing for File ipg_models.h</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/program_listing_file_include_interfaces_ipg_models.h.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -855,53 +859,53 @@
 <span class="cm"> *</span>
 <span class="cm"> *              Find out more at</span>
 <span class="cm"> *        https://github.com/ds4dm/ZERO</span>
-<span class="cm"> * #############################################*/</span><span class="w"></span>
+<span class="cm"> * #############################################*/</span>
 
 
 <span class="cp">#pragma once</span>
 
 
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;zero.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;armadillo&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;gurobi_c++.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;utility&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;zero.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;armadillo&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;gurobi_c++.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;utility&gt;</span>
 
-<span class="k">namespace</span><span class="w"> </span><span class="nn">Models</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">namespace</span><span class="w"> </span><span class="nn">IPG</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">Models</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">namespace</span><span class="w"> </span><span class="nn">IPG</span><span class="w"> </span><span class="p">{</span>
 <span class="w">     </span><span class="k">class</span><span class="w"> </span><span class="nc">IPG</span><span class="p">;</span><span class="w"> </span><span class="c1">// Forward declaration for IPGInstance</span>
-<span class="w">     </span><span class="k">struct</span><span class="w"> </span><span class="nc">IPGInstance</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="k">protected</span><span class="o">:</span><span class="w"></span>
-<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w">  </span><span class="n">IPFiles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span><span class="w"></span>
-<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w">              </span><span class="n">NumVariables</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span><span class="w"></span>
-<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">PlayerVariables</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span><span class="w"></span>
+<span class="w">     </span><span class="k">struct</span><span class="w"> </span><span class="nc">IPGInstance</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="k">protected</span><span class="o">:</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w">  </span><span class="n">IPFiles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w">              </span><span class="n">NumVariables</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">PlayerVariables</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
 
-<span class="w">     </span><span class="k">public</span><span class="o">:</span><span class="w"></span>
-<span class="w">        </span><span class="k">friend</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Models</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">IPG</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">filename</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="k">public</span><span class="o">:</span>
+<span class="w">        </span><span class="k">friend</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Models</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">IPG</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">filename</span><span class="p">);</span>
 
-<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">filename</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="nf">addIPParam</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">MathOpt</span><span class="o">::</span><span class="n">IP_Param</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ip</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">filename</span><span class="p">);</span><span class="w"></span>
-<span class="w">     </span><span class="p">};</span><span class="w"></span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">filename</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="nf">addIPParam</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">MathOpt</span><span class="o">::</span><span class="n">IP_Param</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ip</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">filename</span><span class="p">);</span>
+<span class="w">     </span><span class="p">};</span>
 
-<span class="w">     </span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ost</span><span class="p">,</span><span class="w"> </span><span class="n">IPGInstance</span><span class="w"> </span><span class="n">I</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ost</span><span class="p">,</span><span class="w"> </span><span class="n">IPGInstance</span><span class="w"> </span><span class="n">I</span><span class="p">);</span>
 
-<span class="w">     </span><span class="k">class</span><span class="w"> </span><span class="nc">IPG</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Game</span><span class="o">::</span><span class="n">IPG</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="k">private</span><span class="o">:</span><span class="w"></span>
-<span class="w">        </span><span class="kt">void</span><span class="w">        </span><span class="n">preFinalize</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">{};</span><span class="w"></span>
-<span class="w">        </span><span class="kt">void</span><span class="w">        </span><span class="nf">postFinalize</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">{};</span><span class="w"></span>
-<span class="w">        </span><span class="n">IPGInstance</span><span class="w"> </span><span class="n">Instance</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="k">class</span><span class="w"> </span><span class="nc">IPG</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Game</span><span class="o">::</span><span class="n">IPG</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="k">private</span><span class="o">:</span>
+<span class="w">        </span><span class="kt">void</span><span class="w">        </span><span class="n">preFinalize</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">{};</span>
+<span class="w">        </span><span class="kt">void</span><span class="w">        </span><span class="nf">postFinalize</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">{};</span>
+<span class="w">        </span><span class="n">IPGInstance</span><span class="w"> </span><span class="n">Instance</span><span class="p">;</span>
 
-<span class="w">     </span><span class="k">public</span><span class="o">:</span><span class="w"></span>
-<span class="w">        </span><span class="n">IPG</span><span class="p">(</span><span class="n">GRBEnv</span><span class="w"> </span><span class="o">*</span><span class="n">env</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">instanceFileName</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">IPG</span><span class="p">(</span><span class="n">GRBEnv</span><span class="w"> </span><span class="o">*</span><span class="n">env</span><span class="p">,</span><span class="w"> </span><span class="n">IPGInstance</span><span class="w"> </span><span class="n">instance</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">MathOpt</span><span class="o">::</span><span class="n">IP_Param</span><span class="o">&gt;</span><span class="w"> </span><span class="n">getIPParam</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">player</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="k">public</span><span class="o">:</span>
+<span class="w">        </span><span class="n">IPG</span><span class="p">(</span><span class="n">GRBEnv</span><span class="w"> </span><span class="o">*</span><span class="n">env</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">instanceFileName</span><span class="p">);</span>
+<span class="w">        </span><span class="n">IPG</span><span class="p">(</span><span class="n">GRBEnv</span><span class="w"> </span><span class="o">*</span><span class="n">env</span><span class="p">,</span><span class="w"> </span><span class="n">IPGInstance</span><span class="w"> </span><span class="n">instance</span><span class="p">);</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">MathOpt</span><span class="o">::</span><span class="n">IP_Param</span><span class="o">&gt;</span><span class="w"> </span><span class="n">getIPParam</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">player</span><span class="p">);</span>
 
-<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="nf">writeSolution</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">filename</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="nf">writeSolution</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">filename</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
 
-<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">IPGInstance</span><span class="w"> </span><span class="nf">getInstance</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Instance</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">     </span><span class="p">};</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">IPGInstance</span><span class="w"> </span><span class="nf">getInstance</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Instance</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">     </span><span class="p">};</span>
 
 <span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="c1">// namespace IPG</span>
 <span class="p">}</span><span class="w"> </span><span class="c1">// namespace Models</span>

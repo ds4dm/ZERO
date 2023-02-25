@@ -33,15 +33,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: rgb(68, 44, 123)" >
-            <a href="../index.html">
-            <img src="../_static/zerowhite.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/zerowhite.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
                 1.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -834,9 +838,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="library_root.html">Library API</a> &raquo;</li>
-      <li>Class NashGame</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">Library API</a></li>
+      <li class="breadcrumb-item active">Class NashGame</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/classGame_1_1NashGame.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -909,6 +913,54 @@
 <dt class="sig sig-object cpp" id="_CPPv4N4Game8NashGameD0Ev">
 <span id="_CPPv3N4Game8NashGameD0Ev"></span><span id="_CPPv2N4Game8NashGameD0Ev"></span><span id="Game::NashGame::~NashGame"></span><span class="target" id="classGame_1_1NashGame_1a7ad163b3b089c26ba55648b9fe70ba7e"></span><span class="sig-name descname"><span class="n"><span class="pre">~NashGame</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N4Game8NashGameD0Ev" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Default destructor. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame11getNprimalsEv">
+<span id="_CPPv3NK4Game8NashGame11getNprimalsEv"></span><span id="_CPPv2NK4Game8NashGame11getNprimalsEv"></span><span id="Game::NashGame::getNprimalsC"></span><span class="target" id="classGame_1_1NashGame_1ad1d3b9de9fde00bb56f21784174145e5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNprimals</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4Game8NashGame11getNprimalsEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Read-only access to the number of of primal variables. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame12getNumShadowEv">
+<span id="_CPPv3NK4Game8NashGame12getNumShadowEv"></span><span id="_CPPv2NK4Game8NashGame12getNumShadowEv"></span><span id="Game::NashGame::getNumShadowC"></span><span class="target" id="classGame_1_1NashGame_1af0ac79695f4362877cde5c4c83c4288d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNumShadow</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4Game8NashGame12getNumShadowEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Read-only access to the number of Market clearing Shadow prices, equal to the number of Market clearing constraints. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame16getNumLeaderVarsEv">
+<span id="_CPPv3NK4Game8NashGame16getNumLeaderVarsEv"></span><span id="_CPPv2NK4Game8NashGame16getNumLeaderVarsEv"></span><span id="Game::NashGame::getNumLeaderVarsC"></span><span class="target" id="classGame_1_1NashGame_1a2b2377ba2f1df47392b18e7f917e67d0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNumLeaderVars</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4Game8NashGame16getNumLeaderVarsEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Read-only access to the number of the leader variables in the problem. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame14getNumDualVarsEv">
+<span id="_CPPv3NK4Game8NashGame14getNumDualVarsEv"></span><span id="_CPPv2NK4Game8NashGame14getNumDualVarsEv"></span><span id="Game::NashGame::getNumDualVarsC"></span><span class="target" id="classGame_1_1NashGame_1ada21bbbaf24c086cc3017046d1392b21"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNumDualVars</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4Game8NashGame14getNumDualVarsEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Read-only access to the number of dual variables and that is indeed the sum of the number dual variables for each player. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame12getPrimalLocEj">
+<span id="_CPPv3NK4Game8NashGame12getPrimalLocEj"></span><span id="_CPPv2NK4Game8NashGame12getPrimalLocEj"></span><span id="Game::NashGame::getPrimalLoc__unsigned-iC"></span><span class="target" id="classGame_1_1NashGame_1a0c72cfd05756f5f63c9d92eaece3e921"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPrimalLoc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4Game8NashGame12getPrimalLocEj" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Read-only access to the primal variable of i th player. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame12getMCDualLocEv">
+<span id="_CPPv3NK4Game8NashGame12getMCDualLocEv"></span><span id="_CPPv2NK4Game8NashGame12getMCDualLocEv"></span><span id="Game::NashGame::getMCDualLocC"></span><span class="target" id="classGame_1_1NashGame_1ab1538d5bac464a88c11ac2438c362a98"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getMCDualLoc</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4Game8NashGame12getMCDualLocEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Read-only access to the Market-clearing dual variables start position. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame12getLeaderLocEv">
+<span id="_CPPv3NK4Game8NashGame12getLeaderLocEv"></span><span id="_CPPv2NK4Game8NashGame12getLeaderLocEv"></span><span id="Game::NashGame::getLeaderLocC"></span><span class="target" id="classGame_1_1NashGame_1a44edfcdfc067edcbea485b9c3f1040c8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getLeaderLoc</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4Game8NashGame12getLeaderLocEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Read-only access to the leaders’ variables start position. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame10getDualLocEj">
+<span id="_CPPv3NK4Game8NashGame10getDualLocEj"></span><span id="_CPPv2NK4Game8NashGame10getDualLocEj"></span><span id="Game::NashGame::getDualLoc__unsigned-iC"></span><span class="target" id="classGame_1_1NashGame_1aff52d0e942ec759e8bcfeb2054602c0f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getDualLoc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4Game8NashGame10getDualLocEj" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Read-only access to the dual variables start position. </p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -1096,14 +1148,14 @@
 <span id="_CPPv3N4Game8NashGame4loadERKNSt6stringEl"></span><span id="_CPPv2N4Game8NashGame4loadERKNSt6stringEl"></span><span id="Game::NashGame::load__ssCR.l-i"></span><span class="target" id="classGame_1_1NashGame_1a246d31eb40b443f95f83030f230e24e3"></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">load</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">filename</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pos</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Game8NashGame4loadERKNSt6stringEl" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Loads the <code class="docutils literal notranslate"><a class="reference internal" href="../support_files/reference/Game.html#classGame_1_1NashGame"><span class="std std-ref"><span class="pre">Game::NashGame</span></span></a></code> object stored in a file. </p>
 <p>Loads the <code class="docutils literal notranslate"><a class="reference internal" href="../support_files/reference/Game.html#classGame_1_1NashGame"><span class="std std-ref"><span class="pre">NashGame</span></span></a></code> object stored in a file. Before calling this function, use the constructor <a class="reference internal" href="../support_files/reference/Game.html#classGame_1_1NashGame_1aacdedcbc71d5ed952f81afad5bca50be"><span class="std std-ref">NashGame::NashGame(GRBEnv *Env)</span></a> to initialize. Loads the <code class="docutils literal notranslate"><a class="reference internal" href="../support_files/reference/Game.html#classGame_1_1NashGame"><span class="std std-ref"><span class="pre">NashGame</span></span></a></code> object stored in a file. Before calling this function, use the constructor <a class="reference internal" href="../support_files/reference/Game.html#classGame_1_1NashGame_1aacdedcbc71d5ed952f81afad5bca50be"><span class="std std-ref">NashGame::NashGame(GRBEnv *Env)</span></a> to initialize.</p>
-<p>Example usage: <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">GRBEnv</span><span class="w"> </span><span class="n">Env</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">Game</span><span class="o">::</span><span class="n">NashGame</span><span class="w"> </span><span class="n">N</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Env</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">N</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;./dat/Ndata.dat&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">N</span><span class="o">&lt;&lt;</span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<p>Example usage: <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="n">GRBEnv</span><span class="w"> </span><span class="n">Env</span><span class="p">;</span>
+<span class="w">        </span><span class="n">Game</span><span class="o">::</span><span class="n">NashGame</span><span class="w"> </span><span class="n">N</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Env</span><span class="p">);</span>
+<span class="w">        </span><span class="n">N</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;./dat/Ndata.dat&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">N</span><span class="o">&lt;&lt;</span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
  </p>

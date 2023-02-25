@@ -33,15 +33,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: rgb(68, 44, 123)" >
-            <a href="../../index.html">
-            <img src="../../_static/zerowhite.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/zerowhite.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
                 1.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -834,8 +838,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Game</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Game</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/support_files/reference/Game.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -851,210 +855,6 @@
 <dt class="sig sig-object cpp" id="_CPPv44Game">
 <span id="_CPPv34Game"></span><span id="_CPPv24Game"></span><span id="Game"></span><span class="target" id="namespaceGame"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Game</span></span></span><a class="headerlink" href="#_CPPv44Game" title="Permalink to this definition"></a><br /></dt>
 <dd><p>This namespace contains the definitions for classes related to games. </p>
-<dl class="cpp class">
-<dt class="sig sig-object cpp" id="_CPPv4I0EN4Game12AbstractGameE">
-<span id="_CPPv3I0EN4Game12AbstractGameE"></span><span id="_CPPv2I0EN4Game12AbstractGameE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DataObjectType</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classGame_1_1AbstractGame"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AbstractGame</span></span></span><br /></dt>
-<dd><div class="docutils container">
-<em>#include &lt;games.h&gt;</em></div>
-<p>An abstract class for a game. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Template Parameters</dt>
-<dd class="field-odd"><p><strong>DataObjectType</strong> – The object type for the data <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">aGame</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">AbstractGame</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">::</span><span class="n">aGame</span><span class="o">::</span><span class="n">DataObject</span><span class="o">&gt;</span><span class="p">{</span><span class="w"></span>
-
-<span class="w">   </span><span class="k">public</span><span class="o">:</span><span class="w"></span>
-<span class="w">     </span><span class="c1">//Override AbstractGame methods</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">findNashEq</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">bool</span><span class="w">       </span><span class="nf">isSolved</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">tol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-5</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">isPureStrategy</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">tol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-5</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"></span>
-
-<span class="p">}</span><span class="w"></span>
-</pre></div>
-</div>
- </p>
-</dd>
-</dl>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame12AbstractGameEP6GRBEnv">
-<span id="_CPPv3N4Game12AbstractGame12AbstractGameEP6GRBEnv"></span><span id="_CPPv2N4Game12AbstractGame12AbstractGameEP6GRBEnv"></span><span id="Game::AbstractGame::AbstractGame__GRBEnvP"></span><span class="target" id="classGame_1_1AbstractGame_1a994e78ea9cbe14be8786836082024e9a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AbstractGame</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">GRBEnv</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">env</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Standard constructor with the Gurobi Environment. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>env</strong> – A pointer to the Gurobi environment </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame12AbstractGameEv">
-<span id="_CPPv3N4Game12AbstractGame12AbstractGameEv"></span><span id="_CPPv2N4Game12AbstractGame12AbstractGameEv"></span><span id="Game::AbstractGame::AbstractGame"></span><span class="target" id="classGame_1_1AbstractGame_1a112372b7b49c59c64538fa065fdbe54f"></span><span class="sig-name descname"><span class="n"><span class="pre">AbstractGame</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><br /></dt>
-<dd><p>Default constructor. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame12AbstractGameER12AbstractGame">
-<span id="_CPPv3N4Game12AbstractGame12AbstractGameER12AbstractGame"></span><span id="_CPPv2N4Game12AbstractGame12AbstractGameER12AbstractGame"></span><span id="Game::AbstractGame::AbstractGame__AbstractGameR"></span><span class="target" id="classGame_1_1AbstractGame_1a29232b09b7a9b7f61e5d04ce83fe8f1d"></span><span class="sig-name descname"><span class="n"><span class="pre">AbstractGame</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../../api/classGame_1_1AbstractGame.html#_CPPv4N4Game12AbstractGame12AbstractGameER12AbstractGame" title="Game::AbstractGame::AbstractGame"><span class="n"><span class="pre">AbstractGame</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><br /></dt>
-<dd><p>Copy constructor. Not active. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGameD0Ev">
-<span id="_CPPv3N4Game12AbstractGameD0Ev"></span><span id="_CPPv2N4Game12AbstractGameD0Ev"></span><span id="Game::AbstractGame::~AbstractGame"></span><span class="target" id="classGame_1_1AbstractGame_1a1c50cfa3e8b728eebb8662ed184b206a"></span><span class="sig-name descname"><span class="n"><span class="pre">~AbstractGame</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><br /></dt>
-<dd><p>Deconstructor. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame10findNashEqEv">
-<span id="_CPPv3N4Game12AbstractGame10findNashEqEv"></span><span id="_CPPv2N4Game12AbstractGame10findNashEqEv"></span><span id="Game::AbstractGame::findNashEq"></span><span class="target" id="classGame_1_1AbstractGame_1a35ee9e01d5c8826eaf0f8e305a439de5"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">findNashEq</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
-<dd><p>The main method to start the solving process. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4NK4Game12AbstractGame8isSolvedEd">
-<span id="_CPPv3NK4Game12AbstractGame8isSolvedEd"></span><span id="_CPPv2NK4Game12AbstractGame8isSolvedEd"></span><span id="Game::AbstractGame::isSolved__doubleC"></span><span class="target" id="classGame_1_1AbstractGame_1af46405f6383d00abaa8320ac49d88066"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isSolved</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e-5</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
-<dd><p>Return a bool true if the strategies are all pure, for any player. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4NK4Game12AbstractGame14isPureStrategyEd">
-<span id="_CPPv3NK4Game12AbstractGame14isPureStrategyEd"></span><span id="_CPPv2NK4Game12AbstractGame14isPureStrategyEd"></span><span id="Game::AbstractGame::isPureStrategy__doubleC"></span><span class="target" id="classGame_1_1AbstractGame_1a4efc3116423b078421949dc18cfb3e32"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isPureStrategy</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e-5</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
-<dd><p>Return a bool indicating whether the equilibrium is a pure strategy. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4NK4Game12AbstractGame13getStatisticsEv">
-<span id="_CPPv3NK4Game12AbstractGame13getStatisticsEv"></span><span id="_CPPv2NK4Game12AbstractGame13getStatisticsEv"></span><span id="Game::AbstractGame::getStatisticsC"></span><span class="target" id="classGame_1_1AbstractGame_1a8db787260e01e0a9004d00f2a19fcf5a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="../../api/structZEROStatistics.html#_CPPv4I0E14ZEROStatistics" title="ZEROStatistics"><span class="n"><span class="pre">ZEROStatistics</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../../api/classGame_1_1AbstractGame.html#_CPPv4I0EN4Game12AbstractGameE" title="Game::AbstractGame::DataObjectType"><span class="n"><span class="pre">DataObjectType</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getStatistics</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
-<dd><p>Getter for statistics. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Returns the appropriate Data Object Type </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame13setNumThreadsEj">
-<span id="_CPPv3N4Game12AbstractGame13setNumThreadsEj"></span><span id="_CPPv2N4Game12AbstractGame13setNumThreadsEj"></span><span id="Game::AbstractGame::setNumThreads__unsigned-i"></span><span class="target" id="classGame_1_1AbstractGame_1a8b891e54ad22f7364e8f164c37848aa8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setNumThreads</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">t</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Sets the number of threads for Gurobi. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>t</strong> – The number of threads </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame13setRandomSeedEj">
-<span id="_CPPv3N4Game12AbstractGame13setRandomSeedEj"></span><span id="_CPPv2N4Game12AbstractGame13setRandomSeedEj"></span><span id="Game::AbstractGame::setRandomSeed__unsigned-i"></span><span class="target" id="classGame_1_1AbstractGame_1a8f9d5a9d366c2604993c3e3df4e69b6a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setRandomSeed</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">t</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Sets the random seed for pseudo-random operations. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>t</strong> – The seed </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame22setPureNashEquilibriumEb">
-<span id="_CPPv3N4Game12AbstractGame22setPureNashEquilibriumEb"></span><span id="_CPPv2N4Game12AbstractGame22setPureNashEquilibriumEb"></span><span id="Game::AbstractGame::setPureNashEquilibrium__b"></span><span class="target" id="classGame_1_1AbstractGame_1ab3f40775d56c9ca540961b99ce646960"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setPureNashEquilibrium</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Requires the algorithm to find a pure equilibrium. </p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This field may not be used by all the inheritor algorithms. </p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>val</strong> – The boolean requirement </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame21setDeviationToleranceEd">
-<span id="_CPPv3N4Game12AbstractGame21setDeviationToleranceEd"></span><span id="_CPPv2N4Game12AbstractGame21setDeviationToleranceEd"></span><span id="Game::AbstractGame::setDeviationTolerance__double"></span><span class="target" id="classGame_1_1AbstractGame_1a4b5301f753b2f1dacdb354971d2511ee"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setDeviationTolerance</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Sets the tolerance for profitable deviations. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>val</strong> – Deviation tolerance </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame12setTimeLimitEd">
-<span id="_CPPv3N4Game12AbstractGame12setTimeLimitEd"></span><span id="_CPPv2N4Game12AbstractGame12setTimeLimitEd"></span><span id="Game::AbstractGame::setTimeLimit__double"></span><span class="target" id="classGame_1_1AbstractGame_1a44346c2909132d7977b6fb4ac4852723"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setTimeLimit</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Sets the timelimit. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>val</strong> – The timelimit </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4NK4Game12AbstractGame9getNumVarEv">
-<span id="_CPPv3NK4Game12AbstractGame9getNumVarEv"></span><span id="_CPPv2NK4Game12AbstractGame9getNumVarEv"></span><span id="Game::AbstractGame::getNumVarC"></span><span class="target" id="classGame_1_1AbstractGame_1ad3f7c02e978d71834bc13b74162571f4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNumVar</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><br /></dt>
-<dd><p>Gets the number of variables. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The number of variable </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4NK4Game12AbstractGame13getNumPlayersEv">
-<span id="_CPPv3NK4Game12AbstractGame13getNumPlayersEv"></span><span id="_CPPv2NK4Game12AbstractGame13getNumPlayersEv"></span><span id="Game::AbstractGame::getNumPlayersC"></span><span class="target" id="classGame_1_1AbstractGame_1a6a84032e333484d0313064cfee3ba46c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNumPlayers</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><br /></dt>
-<dd><p>Gets the number of players. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The number of players </p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-attributes">Protected Attributes</p>
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame8InitTimeE">
-<span id="_CPPv3N4Game12AbstractGame8InitTimeE"></span><span id="_CPPv2N4Game12AbstractGame8InitTimeE"></span><span id="Game::AbstractGame::InitTime__std::chrono::high_resolution_clock::time_point"></span><span class="target" id="classGame_1_1AbstractGame_1a6d06c8b5fe1f191283a9926b30d6b1d0"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">chrono</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">high_resolution_clock</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">time_point</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InitTime</span></span></span><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame5StatsE">
-<span id="_CPPv3N4Game12AbstractGame5StatsE"></span><span id="_CPPv2N4Game12AbstractGame5StatsE"></span><span id="Game::AbstractGame::Stats__ZEROStatistics:DataObjectType:"></span><span class="target" id="classGame_1_1AbstractGame_1a5ecc6e6433baef6b13f35d7bb45856ce"></span><a class="reference internal" href="../../api/structZEROStatistics.html#_CPPv4I0E14ZEROStatistics" title="ZEROStatistics"><span class="n"><span class="pre">ZEROStatistics</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../../api/classGame_1_1AbstractGame.html#_CPPv4I0EN4Game12AbstractGameE" title="Game::AbstractGame::DataObjectType"><span class="n"><span class="pre">DataObjectType</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Stats</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../../api/structZEROStatistics.html#_CPPv4I0E14ZEROStatistics" title="ZEROStatistics"><span class="n"><span class="pre">ZEROStatistics</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../../api/classGame_1_1AbstractGame.html#_CPPv4I0EN4Game12AbstractGameE" title="Game::AbstractGame::DataObjectType"><span class="n"><span class="pre">DataObjectType</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="../../api/classGame_1_1AbstractGame.html#_CPPv4I0EN4Game12AbstractGameE" title="Game::AbstractGame::DataObjectType"><span class="n"><span class="pre">DataObjectType</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame3EnvE">
-<span id="_CPPv3N4Game12AbstractGame3EnvE"></span><span id="_CPPv2N4Game12AbstractGame3EnvE"></span><span id="Game::AbstractGame::Env__GRBEnvP"></span><span class="target" id="classGame_1_1AbstractGame_1ad6cd844e2dcfbc9ce2b8069c6ef3e2be"></span><span class="n"><span class="pre">GRBEnv</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">Env</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>Store run time information. </p>
-<p>The Gurobi environment </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame12NumVariablesE">
-<span id="_CPPv3N4Game12AbstractGame12NumVariablesE"></span><span id="_CPPv2N4Game12AbstractGame12NumVariablesE"></span><span id="Game::AbstractGame::NumVariables__unsigned-i"></span><span class="target" id="classGame_1_1AbstractGame_1a2fd0ab6ee7cda7a9a582b79e94705bc7"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NumVariables</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>The number of variables in the game. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame10NumPlayersE">
-<span id="_CPPv3N4Game12AbstractGame10NumPlayersE"></span><span id="_CPPv2N4Game12AbstractGame10NumPlayersE"></span><span id="Game::AbstractGame::NumPlayers__unsigned-i"></span><span class="target" id="classGame_1_1AbstractGame_1a01da21edfe49ed5771a9eed714b87418"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NumPlayers</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>The number of players in the game. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame15NashEquilibriumE">
-<span id="_CPPv3N4Game12AbstractGame15NashEquilibriumE"></span><span id="_CPPv2N4Game12AbstractGame15NashEquilibriumE"></span><span id="Game::AbstractGame::NashEquilibrium__b"></span><span class="target" id="classGame_1_1AbstractGame_1ab8f814c2c71542d1aa73bd66ef93befc"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NashEquilibrium</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="k"><span class="pre">false</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>True if computeNashEq returned an equilibrium. Note that this can be the equilibrium of an approximation, and not to the original game. Refer to <a class="reference internal" href="#classGame_1_1AbstractGame_1af46405f6383d00abaa8320ac49d88066"><span class="std std-ref">isSolved()</span></a> to get a definitive answer. </p>
-</dd></dl>
-
-</div>
-</dd></dl>
-
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N4Game4EPECE">
 <span id="_CPPv3N4Game4EPECE"></span><span id="_CPPv2N4Game4EPECE"></span><span id="Game::EPEC"></span><span class="target" id="classGame_1_1EPEC"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EPEC</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv44Game" title="Game"><span class="n"><span class="pre">Game</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classGame_1_1AbstractGame.html#_CPPv4I0EN4Game12AbstractGameE" title="Game::AbstractGame"><span class="n"><span class="pre">AbstractGame</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Data</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">EPEC</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classData_1_1EPEC_1_1DataObject.html#_CPPv4N4Data4EPEC10DataObjectE" title="Data::EPEC::DataObject"><span class="n"><span class="pre">DataObject</span></span></a><span class="p"><span class="pre">&gt;</span></span><br /></dt>
@@ -1732,6 +1532,210 @@
 </dd></dl>
 
 <dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4Game12AbstractGameE">
+<span id="_CPPv3I0EN4Game12AbstractGameE"></span><span id="_CPPv2I0EN4Game12AbstractGameE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DataObjectType</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classGame_1_1AbstractGame"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AbstractGame</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;games.h&gt;</em></div>
+<p>An abstract class for a game. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><p><strong>DataObjectType</strong> – The object type for the data <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">aGame</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">AbstractGame</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">::</span><span class="n">aGame</span><span class="o">::</span><span class="n">DataObject</span><span class="o">&gt;</span><span class="p">{</span>
+
+<span class="w">   </span><span class="k">public</span><span class="o">:</span>
+<span class="w">     </span><span class="c1">//Override AbstractGame methods</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">findNashEq</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w">       </span><span class="nf">isSolved</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">tol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-5</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">isPureStrategy</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">tol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-5</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+ </p>
+</dd>
+</dl>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame12AbstractGameEP6GRBEnv">
+<span id="_CPPv3N4Game12AbstractGame12AbstractGameEP6GRBEnv"></span><span id="_CPPv2N4Game12AbstractGame12AbstractGameEP6GRBEnv"></span><span id="Game::AbstractGame::AbstractGame__GRBEnvP"></span><span class="target" id="classGame_1_1AbstractGame_1a994e78ea9cbe14be8786836082024e9a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AbstractGame</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">GRBEnv</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">env</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Standard constructor with the Gurobi Environment. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>env</strong> – A pointer to the Gurobi environment </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame12AbstractGameEv">
+<span id="_CPPv3N4Game12AbstractGame12AbstractGameEv"></span><span id="_CPPv2N4Game12AbstractGame12AbstractGameEv"></span><span id="Game::AbstractGame::AbstractGame"></span><span class="target" id="classGame_1_1AbstractGame_1a112372b7b49c59c64538fa065fdbe54f"></span><span class="sig-name descname"><span class="n"><span class="pre">AbstractGame</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><br /></dt>
+<dd><p>Default constructor. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame12AbstractGameER12AbstractGame">
+<span id="_CPPv3N4Game12AbstractGame12AbstractGameER12AbstractGame"></span><span id="_CPPv2N4Game12AbstractGame12AbstractGameER12AbstractGame"></span><span id="Game::AbstractGame::AbstractGame__AbstractGameR"></span><span class="target" id="classGame_1_1AbstractGame_1a29232b09b7a9b7f61e5d04ce83fe8f1d"></span><span class="sig-name descname"><span class="n"><span class="pre">AbstractGame</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../../api/classGame_1_1AbstractGame.html#_CPPv4N4Game12AbstractGame12AbstractGameER12AbstractGame" title="Game::AbstractGame::AbstractGame"><span class="n"><span class="pre">AbstractGame</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><br /></dt>
+<dd><p>Copy constructor. Not active. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGameD0Ev">
+<span id="_CPPv3N4Game12AbstractGameD0Ev"></span><span id="_CPPv2N4Game12AbstractGameD0Ev"></span><span id="Game::AbstractGame::~AbstractGame"></span><span class="target" id="classGame_1_1AbstractGame_1a1c50cfa3e8b728eebb8662ed184b206a"></span><span class="sig-name descname"><span class="n"><span class="pre">~AbstractGame</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><br /></dt>
+<dd><p>Deconstructor. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame10findNashEqEv">
+<span id="_CPPv3N4Game12AbstractGame10findNashEqEv"></span><span id="_CPPv2N4Game12AbstractGame10findNashEqEv"></span><span id="Game::AbstractGame::findNashEq"></span><span class="target" id="classGame_1_1AbstractGame_1a35ee9e01d5c8826eaf0f8e305a439de5"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">findNashEq</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd><p>The main method to start the solving process. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game12AbstractGame8isSolvedEd">
+<span id="_CPPv3NK4Game12AbstractGame8isSolvedEd"></span><span id="_CPPv2NK4Game12AbstractGame8isSolvedEd"></span><span id="Game::AbstractGame::isSolved__doubleC"></span><span class="target" id="classGame_1_1AbstractGame_1af46405f6383d00abaa8320ac49d88066"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isSolved</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e-5</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd><p>Return a bool true if the strategies are all pure, for any player. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game12AbstractGame14isPureStrategyEd">
+<span id="_CPPv3NK4Game12AbstractGame14isPureStrategyEd"></span><span id="_CPPv2NK4Game12AbstractGame14isPureStrategyEd"></span><span id="Game::AbstractGame::isPureStrategy__doubleC"></span><span class="target" id="classGame_1_1AbstractGame_1a4efc3116423b078421949dc18cfb3e32"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isPureStrategy</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e-5</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd><p>Return a bool indicating whether the equilibrium is a pure strategy. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game12AbstractGame13getStatisticsEv">
+<span id="_CPPv3NK4Game12AbstractGame13getStatisticsEv"></span><span id="_CPPv2NK4Game12AbstractGame13getStatisticsEv"></span><span id="Game::AbstractGame::getStatisticsC"></span><span class="target" id="classGame_1_1AbstractGame_1a8db787260e01e0a9004d00f2a19fcf5a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="../../api/structZEROStatistics.html#_CPPv4I0E14ZEROStatistics" title="ZEROStatistics"><span class="n"><span class="pre">ZEROStatistics</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../../api/classGame_1_1AbstractGame.html#_CPPv4I0EN4Game12AbstractGameE" title="Game::AbstractGame::DataObjectType"><span class="n"><span class="pre">DataObjectType</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getStatistics</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p>Getter for statistics. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Returns the appropriate Data Object Type </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame13setNumThreadsEj">
+<span id="_CPPv3N4Game12AbstractGame13setNumThreadsEj"></span><span id="_CPPv2N4Game12AbstractGame13setNumThreadsEj"></span><span id="Game::AbstractGame::setNumThreads__unsigned-i"></span><span class="target" id="classGame_1_1AbstractGame_1a8b891e54ad22f7364e8f164c37848aa8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setNumThreads</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">t</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Sets the number of threads for Gurobi. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>t</strong> – The number of threads </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame13setRandomSeedEj">
+<span id="_CPPv3N4Game12AbstractGame13setRandomSeedEj"></span><span id="_CPPv2N4Game12AbstractGame13setRandomSeedEj"></span><span id="Game::AbstractGame::setRandomSeed__unsigned-i"></span><span class="target" id="classGame_1_1AbstractGame_1a8f9d5a9d366c2604993c3e3df4e69b6a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setRandomSeed</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">t</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Sets the random seed for pseudo-random operations. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>t</strong> – The seed </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame22setPureNashEquilibriumEb">
+<span id="_CPPv3N4Game12AbstractGame22setPureNashEquilibriumEb"></span><span id="_CPPv2N4Game12AbstractGame22setPureNashEquilibriumEb"></span><span id="Game::AbstractGame::setPureNashEquilibrium__b"></span><span class="target" id="classGame_1_1AbstractGame_1ab3f40775d56c9ca540961b99ce646960"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setPureNashEquilibrium</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Requires the algorithm to find a pure equilibrium. </p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This field may not be used by all the inheritor algorithms. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>val</strong> – The boolean requirement </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame21setDeviationToleranceEd">
+<span id="_CPPv3N4Game12AbstractGame21setDeviationToleranceEd"></span><span id="_CPPv2N4Game12AbstractGame21setDeviationToleranceEd"></span><span id="Game::AbstractGame::setDeviationTolerance__double"></span><span class="target" id="classGame_1_1AbstractGame_1a4b5301f753b2f1dacdb354971d2511ee"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setDeviationTolerance</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Sets the tolerance for profitable deviations. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>val</strong> – Deviation tolerance </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame12setTimeLimitEd">
+<span id="_CPPv3N4Game12AbstractGame12setTimeLimitEd"></span><span id="_CPPv2N4Game12AbstractGame12setTimeLimitEd"></span><span id="Game::AbstractGame::setTimeLimit__double"></span><span class="target" id="classGame_1_1AbstractGame_1a44346c2909132d7977b6fb4ac4852723"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setTimeLimit</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Sets the timelimit. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>val</strong> – The timelimit </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game12AbstractGame9getNumVarEv">
+<span id="_CPPv3NK4Game12AbstractGame9getNumVarEv"></span><span id="_CPPv2NK4Game12AbstractGame9getNumVarEv"></span><span id="Game::AbstractGame::getNumVarC"></span><span class="target" id="classGame_1_1AbstractGame_1ad3f7c02e978d71834bc13b74162571f4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNumVar</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><br /></dt>
+<dd><p>Gets the number of variables. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of variable </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game12AbstractGame13getNumPlayersEv">
+<span id="_CPPv3NK4Game12AbstractGame13getNumPlayersEv"></span><span id="_CPPv2NK4Game12AbstractGame13getNumPlayersEv"></span><span id="Game::AbstractGame::getNumPlayersC"></span><span class="target" id="classGame_1_1AbstractGame_1a6a84032e333484d0313064cfee3ba46c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNumPlayers</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><br /></dt>
+<dd><p>Gets the number of players. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of players </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-attributes">Protected Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame8InitTimeE">
+<span id="_CPPv3N4Game12AbstractGame8InitTimeE"></span><span id="_CPPv2N4Game12AbstractGame8InitTimeE"></span><span id="Game::AbstractGame::InitTime__std::chrono::high_resolution_clock::time_point"></span><span class="target" id="classGame_1_1AbstractGame_1a6d06c8b5fe1f191283a9926b30d6b1d0"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">chrono</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">high_resolution_clock</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">time_point</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InitTime</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame5StatsE">
+<span id="_CPPv3N4Game12AbstractGame5StatsE"></span><span id="_CPPv2N4Game12AbstractGame5StatsE"></span><span id="Game::AbstractGame::Stats__ZEROStatistics:DataObjectType:"></span><span class="target" id="classGame_1_1AbstractGame_1a5ecc6e6433baef6b13f35d7bb45856ce"></span><a class="reference internal" href="../../api/structZEROStatistics.html#_CPPv4I0E14ZEROStatistics" title="ZEROStatistics"><span class="n"><span class="pre">ZEROStatistics</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../../api/classGame_1_1AbstractGame.html#_CPPv4I0EN4Game12AbstractGameE" title="Game::AbstractGame::DataObjectType"><span class="n"><span class="pre">DataObjectType</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Stats</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../../api/structZEROStatistics.html#_CPPv4I0E14ZEROStatistics" title="ZEROStatistics"><span class="n"><span class="pre">ZEROStatistics</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../../api/classGame_1_1AbstractGame.html#_CPPv4I0EN4Game12AbstractGameE" title="Game::AbstractGame::DataObjectType"><span class="n"><span class="pre">DataObjectType</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="../../api/classGame_1_1AbstractGame.html#_CPPv4I0EN4Game12AbstractGameE" title="Game::AbstractGame::DataObjectType"><span class="n"><span class="pre">DataObjectType</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame3EnvE">
+<span id="_CPPv3N4Game12AbstractGame3EnvE"></span><span id="_CPPv2N4Game12AbstractGame3EnvE"></span><span id="Game::AbstractGame::Env__GRBEnvP"></span><span class="target" id="classGame_1_1AbstractGame_1ad6cd844e2dcfbc9ce2b8069c6ef3e2be"></span><span class="n"><span class="pre">GRBEnv</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">Env</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>Store run time information. </p>
+<p>The Gurobi environment </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame12NumVariablesE">
+<span id="_CPPv3N4Game12AbstractGame12NumVariablesE"></span><span id="_CPPv2N4Game12AbstractGame12NumVariablesE"></span><span id="Game::AbstractGame::NumVariables__unsigned-i"></span><span class="target" id="classGame_1_1AbstractGame_1a2fd0ab6ee7cda7a9a582b79e94705bc7"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NumVariables</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>The number of variables in the game. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame10NumPlayersE">
+<span id="_CPPv3N4Game12AbstractGame10NumPlayersE"></span><span id="_CPPv2N4Game12AbstractGame10NumPlayersE"></span><span id="Game::AbstractGame::NumPlayers__unsigned-i"></span><span class="target" id="classGame_1_1AbstractGame_1a01da21edfe49ed5771a9eed714b87418"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NumPlayers</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>The number of players in the game. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4Game12AbstractGame15NashEquilibriumE">
+<span id="_CPPv3N4Game12AbstractGame15NashEquilibriumE"></span><span id="_CPPv2N4Game12AbstractGame15NashEquilibriumE"></span><span id="Game::AbstractGame::NashEquilibrium__b"></span><span class="target" id="classGame_1_1AbstractGame_1ab8f814c2c71542d1aa73bd66ef93befc"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NashEquilibrium</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="k"><span class="pre">false</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>True if computeNashEq returned an equilibrium. Note that this can be the equilibrium of an approximation, and not to the original game. Refer to <a class="reference internal" href="#classGame_1_1AbstractGame_1af46405f6383d00abaa8320ac49d88066"><span class="std std-ref">isSolved()</span></a> to get a definitive answer. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N4Game3IPGE">
 <span id="_CPPv3N4Game3IPGE"></span><span id="_CPPv2N4Game3IPGE"></span><span id="Game::IPG"></span><span class="target" id="classGame_1_1IPG"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IPG</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv44Game" title="Game"><span class="n"><span class="pre">Game</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classGame_1_1AbstractGame.html#_CPPv4I0EN4Game12AbstractGameE" title="Game::AbstractGame"><span class="n"><span class="pre">AbstractGame</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Data</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">IPG</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classData_1_1IPG_1_1DataObject.html#_CPPv4N4Data3IPG10DataObjectE" title="Data::IPG::DataObject"><span class="n"><span class="pre">DataObject</span></span></a><span class="p"><span class="pre">&gt;</span></span><br /></dt>
 <dd><div class="docutils container">
@@ -2032,6 +2036,54 @@
 </dd></dl>
 
 <dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame11getNprimalsEv">
+<span id="_CPPv3NK4Game8NashGame11getNprimalsEv"></span><span id="_CPPv2NK4Game8NashGame11getNprimalsEv"></span><span id="Game::NashGame::getNprimalsC"></span><span class="target" id="classGame_1_1NashGame_1ad1d3b9de9fde00bb56f21784174145e5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNprimals</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p>Read-only access to the number of of primal variables. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame12getNumShadowEv">
+<span id="_CPPv3NK4Game8NashGame12getNumShadowEv"></span><span id="_CPPv2NK4Game8NashGame12getNumShadowEv"></span><span id="Game::NashGame::getNumShadowC"></span><span class="target" id="classGame_1_1NashGame_1af0ac79695f4362877cde5c4c83c4288d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNumShadow</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p>Read-only access to the number of Market clearing Shadow prices, equal to the number of Market clearing constraints. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame16getNumLeaderVarsEv">
+<span id="_CPPv3NK4Game8NashGame16getNumLeaderVarsEv"></span><span id="_CPPv2NK4Game8NashGame16getNumLeaderVarsEv"></span><span id="Game::NashGame::getNumLeaderVarsC"></span><span class="target" id="classGame_1_1NashGame_1a2b2377ba2f1df47392b18e7f917e67d0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNumLeaderVars</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p>Read-only access to the number of the leader variables in the problem. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame14getNumDualVarsEv">
+<span id="_CPPv3NK4Game8NashGame14getNumDualVarsEv"></span><span id="_CPPv2NK4Game8NashGame14getNumDualVarsEv"></span><span id="Game::NashGame::getNumDualVarsC"></span><span class="target" id="classGame_1_1NashGame_1ada21bbbaf24c086cc3017046d1392b21"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNumDualVars</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p>Read-only access to the number of dual variables and that is indeed the sum of the number dual variables for each player. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame12getPrimalLocEj">
+<span id="_CPPv3NK4Game8NashGame12getPrimalLocEj"></span><span id="_CPPv2NK4Game8NashGame12getPrimalLocEj"></span><span id="Game::NashGame::getPrimalLoc__unsigned-iC"></span><span class="target" id="classGame_1_1NashGame_1a0c72cfd05756f5f63c9d92eaece3e921"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPrimalLoc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p>Read-only access to the primal variable of i th player. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame12getMCDualLocEv">
+<span id="_CPPv3NK4Game8NashGame12getMCDualLocEv"></span><span id="_CPPv2NK4Game8NashGame12getMCDualLocEv"></span><span id="Game::NashGame::getMCDualLocC"></span><span class="target" id="classGame_1_1NashGame_1ab1538d5bac464a88c11ac2438c362a98"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getMCDualLoc</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p>Read-only access to the Market-clearing dual variables start position. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame12getLeaderLocEv">
+<span id="_CPPv3NK4Game8NashGame12getLeaderLocEv"></span><span id="_CPPv2NK4Game8NashGame12getLeaderLocEv"></span><span id="Game::NashGame::getLeaderLocC"></span><span class="target" id="classGame_1_1NashGame_1a44edfcdfc067edcbea485b9c3f1040c8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getLeaderLoc</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p>Read-only access to the leaders’ variables start position. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame10getDualLocEj">
+<span id="_CPPv3NK4Game8NashGame10getDualLocEj"></span><span id="_CPPv2NK4Game8NashGame10getDualLocEj"></span><span id="Game::NashGame::getDualLoc__unsigned-iC"></span><span class="target" id="classGame_1_1NashGame_1aff52d0e942ec759e8bcfeb2054602c0f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getDualLoc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p>Read-only access to the dual variables start position. </p>
+</dd></dl>
+
+<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK4Game8NashGame12formulateLCPERN4arma6sp_matERN4arma3vecER5perpsR14VariableBoundsbRKNSt6stringERKNSt6stringE">
 <span id="_CPPv3NK4Game8NashGame12formulateLCPERN4arma6sp_matERN4arma3vecER5perpsR14VariableBoundsbRKNSt6stringERKNSt6stringE"></span><span id="_CPPv2NK4Game8NashGame12formulateLCPERN4arma6sp_matERN4arma3vecER5perpsR14VariableBoundsbRKNSt6stringERKNSt6stringE"></span><span id="Game::NashGame::formulateLCP__arma::sp_matR.arma::vecR.perpsR.VariableBoundsR.b.ssCR.ssCRC"></span><span class="target" id="classGame_1_1NashGame_1a5909e7f64744d34a2e9467289e9d063b"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../../api/classGame_1_1NashGame.html#_CPPv4N4Game8NashGameE" title="Game::NashGame"><span class="n"><span class="pre">NashGame</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">formulateLCP</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">M</span></span>, <span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">q</span></span>, <a class="reference internal" href="../../api/typedef_zero_8h_1ad87785d9eb3e6e48c0895b348f6660ca.html#_CPPv45perps" title="perps"><span class="n"><span class="pre">perps</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Compl</span></span>, <a class="reference internal" href="../../api/typedef_zero_8h_1a713ae4734a7b474d29ccf6c8a43789e3.html#_CPPv414VariableBounds" title="VariableBounds"><span class="n"><span class="pre">VariableBounds</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Bounds</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">writeToFile</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">M_name</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;dat/LCP.txt&quot;</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">q_name</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;dat/q.txt&quot;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
 <dd><p>Formulates the LCP corresponding to the Nash game. Computes the KKT conditions for each Player, calling MP_Param::KKT. Arranges them systematically to return M, q as an LCP <span class="math notranslate nohighlight">\(0\leq q \perp Mx+q \geq 0 \)</span>. The way the variables of the players get distributed is shown in the image below. </p>
@@ -2216,14 +2268,14 @@
 <span id="_CPPv3N4Game8NashGame4loadERKNSt6stringEl"></span><span id="_CPPv2N4Game8NashGame4loadERKNSt6stringEl"></span><span id="Game::NashGame::load__ssCR.l-i"></span><span class="target" id="classGame_1_1NashGame_1a246d31eb40b443f95f83030f230e24e3"></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">load</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">filename</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pos</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><br /></dt>
 <dd><p>Loads the <code class="docutils literal notranslate"><a class="reference internal" href="#classGame_1_1NashGame"><span class="std std-ref"><span class="pre">Game::NashGame</span></span></a></code> object stored in a file. </p>
 <p>Loads the <code class="docutils literal notranslate"><a class="reference internal" href="#classGame_1_1NashGame"><span class="std std-ref"><span class="pre">NashGame</span></span></a></code> object stored in a file. Before calling this function, use the constructor <a class="reference internal" href="#classGame_1_1NashGame_1aacdedcbc71d5ed952f81afad5bca50be"><span class="std std-ref">NashGame::NashGame(GRBEnv *Env)</span></a> to initialize. Loads the <code class="docutils literal notranslate"><a class="reference internal" href="#classGame_1_1NashGame"><span class="std std-ref"><span class="pre">NashGame</span></span></a></code> object stored in a file. Before calling this function, use the constructor <a class="reference internal" href="#classGame_1_1NashGame_1aacdedcbc71d5ed952f81afad5bca50be"><span class="std std-ref">NashGame::NashGame(GRBEnv *Env)</span></a> to initialize.</p>
-<p>Example usage: <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">GRBEnv</span><span class="w"> </span><span class="n">Env</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">Game</span><span class="o">::</span><span class="n">NashGame</span><span class="w"> </span><span class="n">N</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Env</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">N</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;./dat/Ndata.dat&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">N</span><span class="o">&lt;&lt;</span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<p>Example usage: <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="n">GRBEnv</span><span class="w"> </span><span class="n">Env</span><span class="p">;</span>
+<span class="w">        </span><span class="n">Game</span><span class="o">::</span><span class="n">NashGame</span><span class="w"> </span><span class="n">N</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Env</span><span class="p">);</span>
+<span class="w">        </span><span class="n">N</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;./dat/Ndata.dat&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">N</span><span class="o">&lt;&lt;</span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
  </p>

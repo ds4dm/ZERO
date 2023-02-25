@@ -32,15 +32,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: rgb(68, 44, 123)" >
-            <a href="../index.html">
-            <img src="../_static/zerowhite.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/zerowhite.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
                 1.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -833,9 +837,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="library_root.html">Library API</a> &raquo;</li>
-      <li>Class OuterTree</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">Library API</a></li>
+      <li class="breadcrumb-item active">Class OuterTree</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/classAlgorithms_1_1EPEC_1_1OuterTree.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -868,6 +872,66 @@
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree9OuterTreeEjP6GRBEnv">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree9OuterTreeEjP6GRBEnv"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree9OuterTreeEjP6GRBEnv"></span><span id="Algorithms::EPEC::OuterTree::OuterTree__unsigned-i.GRBEnvP"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a1f98c3bc8310acefc0dbc8ee3d4f535e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OuterTree</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">encSize</span></span>, <span class="n"><span class="pre">GRBEnv</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">env</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC9OuterTree9OuterTreeEjP6GRBEnv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Constructor of the Tree given the encoding size. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree16resetFeasibilityEv">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree16resetFeasibilityEv"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree16resetFeasibilityEv"></span><span id="Algorithms::EPEC::OuterTree::resetFeasibility"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1ab042e5e576e3e36126ea2fada5793203"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">resetFeasibility</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC9OuterTree16resetFeasibilityEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Reset the feasibility parameters for the tree. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK10Algorithms4EPEC9OuterTree7getPureEv">
+<span id="_CPPv3NK10Algorithms4EPEC9OuterTree7getPureEv"></span><span id="_CPPv2NK10Algorithms4EPEC9OuterTree7getPureEv"></span><span id="Algorithms::EPEC::OuterTree::getPureC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1abc38eb3539e40c988a44d20dc4dc7a7a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPure</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC9OuterTree7getPureEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Read-only getter for <a class="reference internal" href="../support_files/reference/Algorithms.html#classAlgorithms_1_1EPEC_1_1OuterTree_1ac0a409408dc27aab47cd057f29d3384b"><span class="std std-ref">OuterTree::isPure</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree11setFeasibleEv">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree11setFeasibleEv"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree11setFeasibleEv"></span><span id="Algorithms::EPEC::OuterTree::setFeasible"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1ab8f9d433168626ccfa0e16c797274409"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setFeasible</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC9OuterTree11setFeasibleEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Read-only getter for <a class="reference internal" href="../support_files/reference/Algorithms.html#classAlgorithms_1_1EPEC_1_1OuterTree_1a0e3f528da7c28f362a24e3458e6dca03"><span class="std std-ref">OuterTree::isFeasible</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree7setPureEv">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree7setPureEv"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree7setPureEv"></span><span id="Algorithms::EPEC::OuterTree::setPure"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1afdcb034e21cc2bb56b3faf7256005cef"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setPure</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC9OuterTree7setPureEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Setter for <a class="reference internal" href="../support_files/reference/Algorithms.html#classAlgorithms_1_1EPEC_1_1OuterTree_1ac0a409408dc27aab47cd057f29d3384b"><span class="std std-ref">OuterTree::isPure</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK10Algorithms4EPEC9OuterTree15getEncodingSizeEv">
+<span id="_CPPv3NK10Algorithms4EPEC9OuterTree15getEncodingSizeEv"></span><span id="_CPPv2NK10Algorithms4EPEC9OuterTree15getEncodingSizeEv"></span><span id="Algorithms::EPEC::OuterTree::getEncodingSizeC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a23f75f3cc4f5ef165e0c23a3e256f8d1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getEncodingSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC9OuterTree15getEncodingSizeEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Getter for the encoding size. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4getVEv">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree4getVEv"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4getVEv"></span><span id="Algorithms::EPEC::OuterTree::getV"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a0cd344e6e7e3cd36f675b1bc2a8029be"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">getV</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC9OuterTree4getVEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Getter for <a class="reference internal" href="../support_files/reference/Algorithms.html#classAlgorithms_1_1EPEC_1_1OuterTree_1a52c8cfb47fec23b4d0d28ebdc4329001"><span class="std std-ref">OuterTree::V</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree4getREv">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree4getREv"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree4getREv"></span><span id="Algorithms::EPEC::OuterTree::getR"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a937b54a35f9938fed119b518ea0ec6fe"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">getR</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC9OuterTree4getREv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Getter for <a class="reference internal" href="../support_files/reference/Algorithms.html#classAlgorithms_1_1EPEC_1_1OuterTree_1a8515614ef3e61061f2baba3aa8c61e14"><span class="std std-ref">OuterTree::R</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK10Algorithms4EPEC9OuterTree14getVertexCountEv">
+<span id="_CPPv3NK10Algorithms4EPEC9OuterTree14getVertexCountEv"></span><span id="_CPPv2NK10Algorithms4EPEC9OuterTree14getVertexCountEv"></span><span id="Algorithms::EPEC::OuterTree::getVertexCountC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a572d665acb93571db3540e61c972b4b0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getVertexCount</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC9OuterTree14getVertexCountEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Getter for <a class="reference internal" href="../support_files/reference/Algorithms.html#classAlgorithms_1_1EPEC_1_1OuterTree_1ac64343e5298f6cf3710126158f63e94f"><span class="std std-ref">OuterTree::VertexCounter</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK10Algorithms4EPEC9OuterTree11getRayCountEv">
+<span id="_CPPv3NK10Algorithms4EPEC9OuterTree11getRayCountEv"></span><span id="_CPPv2NK10Algorithms4EPEC9OuterTree11getRayCountEv"></span><span id="Algorithms::EPEC::OuterTree::getRayCountC"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1ad543f952b157161c3589ef68d5a76cc7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getRayCount</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC9OuterTree11getRayCountEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Getter for <a class="reference internal" href="../support_files/reference/Algorithms.html#classAlgorithms_1_1EPEC_1_1OuterTree_1ae1de66800e983880fe1cfe422f77bff7"><span class="std std-ref">OuterTree::RayCounter</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree9addVertexERKN4arma3vecEb">
 <span id="_CPPv3N10Algorithms4EPEC9OuterTree9addVertexERKN4arma3vecEb"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree9addVertexERKN4arma3vecEb"></span><span id="Algorithms::EPEC::OuterTree::addVertex__arma::vecCR.b"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a1bc8deee7400a2ff383bf51147b6ed44"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">addVertex</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vec</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">vertex</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">checkDuplicates</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC9OuterTree9addVertexERKN4arma3vecEb" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Adds a vertex to <a class="reference internal" href="../support_files/reference/Algorithms.html#classAlgorithms_1_1EPEC_1_1OuterTree_1a52c8cfb47fec23b4d0d28ebdc4329001"><span class="std std-ref">OuterTree::V</span></a>. </p>
@@ -893,6 +957,12 @@
 <dd class="field-odd"><p><strong>ray</strong> – The vector containing the ray </p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree7getRootEv">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree7getRootEv"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree7getRootEv"></span><span id="Algorithms::EPEC::OuterTree::getRoot"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1afaf88ef9c160f261e68ada3877ac0f9b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N10Algorithms4EPEC9OuterTree4NodeE" title="Algorithms::EPEC::OuterTree::Node"><span class="n"><span class="pre">Node</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">getRoot</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC9OuterTree7getRootEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Getter for the root node. </p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -980,6 +1050,15 @@
 <dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree14containsOriginE">
 <span id="_CPPv3N10Algorithms4EPEC9OuterTree14containsOriginE"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree14containsOriginE"></span><span id="Algorithms::EPEC::OuterTree::containsOrigin__b"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1ad4f838a783c933ba937d28478e95253f"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">containsOrigin</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC9OuterTree14containsOriginE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>True if the origin is feasible. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Algorithms4EPEC9OuterTree14nextIdentifierEv">
+<span id="_CPPv3N10Algorithms4EPEC9OuterTree14nextIdentifierEv"></span><span id="_CPPv2N10Algorithms4EPEC9OuterTree14nextIdentifierEv"></span><span id="Algorithms::EPEC::OuterTree::nextIdentifier"></span><span class="target" id="classAlgorithms_1_1EPEC_1_1OuterTree_1a448ecf43fd2cce8e03601159dcb56445"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nextIdentifier</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Algorithms4EPEC9OuterTree14nextIdentifierEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Increments the node counter and get the id of the new node. </p>
 </dd></dl>
 
 </div>
@@ -1077,6 +1156,18 @@
 <dd class="field-odd"><p>The number of unsuitable branching candidates </p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK10Algorithms4EPEC9OuterTree4Node11getEncodingEv">
+<span id="_CPPv3NK10Algorithms4EPEC9OuterTree4Node11getEncodingEv"></span><span id="_CPPv2NK10Algorithms4EPEC9OuterTree4Node11getEncodingEv"></span><span id="Algorithms::EPEC::OuterTree::Node::getEncodingC"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a0d3f03f7047c1ffe6bbe0ed5534b0965"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getEncoding</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC9OuterTree4Node11getEncodingEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Getter method for the encoding. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK10Algorithms4EPEC9OuterTree4Node20getAllowedBranchingsEv">
+<span id="_CPPv3NK10Algorithms4EPEC9OuterTree4Node20getAllowedBranchingsEv"></span><span id="_CPPv2NK10Algorithms4EPEC9OuterTree4Node20getAllowedBranchingsEv"></span><span id="Algorithms::EPEC::OuterTree::Node::getAllowedBranchingsC"></span><span class="target" id="structAlgorithms_1_1EPEC_1_1OuterTree_1_1Node_1a32acc86fe50a0184403c1d2ce8188389"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getAllowedBranchings</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK10Algorithms4EPEC9OuterTree4Node20getAllowedBranchingsEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Getter method for the allowed branchings. </p>
 </dd></dl>
 
 </div>

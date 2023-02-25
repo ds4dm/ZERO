@@ -33,15 +33,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: rgb(68, 44, 123)" >
-            <a href="../../index.html">
-            <img src="../../_static/zerowhite.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/zerowhite.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
                 1.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -834,8 +838,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Models</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Models</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/support_files/reference/Models.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -1187,6 +1191,61 @@
 </div>
 <dl class="cpp struct">
 <dt class="sig sig-object cpp">
+<span class="target" id="structModels_1_1EPEC_1_1FollPar"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FollPar</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;epec_models.h&gt;</em></div>
+<p>Stores the parameters of the follower in a country model. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7FollPar7FollParENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorINSt6stringEEE">
+<span id="_CPPv3N6Models4EPEC7FollPar7FollParENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorINSt6stringEEE"></span><span id="_CPPv2N6Models4EPEC7FollPar7FollParENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorINSt6stringEEE"></span><span id="Models::EPEC::FollPar::FollPar__std::vector:double:.std::vector:double:.std::vector:double:.std::vector:double:.std::vector:double:.std::vector:ss:"></span><span class="target" id="structModels_1_1EPEC_1_1FollPar_1afd8e5da8172424552185f726f03d48be"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FollPar</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">costs_quad_</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">costs_lin_</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">capacities_</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">emission_costs_</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tax_caps_</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">names_</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7FollPar10costs_quadE">
+<span id="_CPPv3N6Models4EPEC7FollPar10costs_quadE"></span><span id="_CPPv2N6Models4EPEC7FollPar10costs_quadE"></span><span id="Models::EPEC::FollPar::costs_quad__std::vector:double:"></span><span class="target" id="structModels_1_1EPEC_1_1FollPar_1ac57404b2c776fc7deb2515a351359593"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">costs_quad</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>Quadratic coefficient of i-th follower’s cost. Size of this std::vector should be equal to n_followers. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7FollPar9costs_linE">
+<span id="_CPPv3N6Models4EPEC7FollPar9costs_linE"></span><span id="_CPPv2N6Models4EPEC7FollPar9costs_linE"></span><span id="Models::EPEC::FollPar::costs_lin__std::vector:double:"></span><span class="target" id="structModels_1_1EPEC_1_1FollPar_1a310fb22160f252faf7750ad1767ce299"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">costs_lin</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>Linear coefficient of i-th follower’s cost. Size of this std::vector should be equal to n_followers. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7FollPar10capacitiesE">
+<span id="_CPPv3N6Models4EPEC7FollPar10capacitiesE"></span><span id="_CPPv2N6Models4EPEC7FollPar10capacitiesE"></span><span id="Models::EPEC::FollPar::capacities__std::vector:double:"></span><span class="target" id="structModels_1_1EPEC_1_1FollPar_1abb8a29173712d65ca2587d50ad231807"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">capacities</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>Production capacity of each follower. Size of this std::vector should be equal to n_followers. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7FollPar14emission_costsE">
+<span id="_CPPv3N6Models4EPEC7FollPar14emission_costsE"></span><span id="_CPPv2N6Models4EPEC7FollPar14emission_costsE"></span><span id="Models::EPEC::FollPar::emission_costs__std::vector:double:"></span><span class="target" id="structModels_1_1EPEC_1_1FollPar_1ae0f9f835c80c44df8c6b013bbd1ba864"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">emission_costs</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>Emission costs for unit quantity of the fuel. Emission costs feature only on the leader’s problem. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7FollPar8tax_capsE">
+<span id="_CPPv3N6Models4EPEC7FollPar8tax_capsE"></span><span id="_CPPv2N6Models4EPEC7FollPar8tax_capsE"></span><span id="Models::EPEC::FollPar::tax_caps__std::vector:double:"></span><span class="target" id="structModels_1_1EPEC_1_1FollPar_1a9c3d8a38f226b75a401c1ce3cf57315e"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">tax_caps</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>Individual tax caps for each follower. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7FollPar5namesE">
+<span id="_CPPv3N6Models4EPEC7FollPar5namesE"></span><span id="_CPPv2N6Models4EPEC7FollPar5namesE"></span><span id="Models::EPEC::FollPar::names__std::vector:ss:"></span><span class="target" id="structModels_1_1EPEC_1_1FollPar_1ac65aea541dd0ab4502938c629ba85b90"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">names</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>Optional Names for the Followers. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp">
 <span class="target" id="structModels_1_1EPEC_1_1DemPar"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DemPar</span></span></span><br /></dt>
 <dd><div class="docutils container">
 <em>#include &lt;epec_models.h&gt;</em></div>
@@ -1210,6 +1269,174 @@
 <dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC6DemPar4betaE">
 <span id="_CPPv3N6Models4EPEC6DemPar4betaE"></span><span id="_CPPv2N6Models4EPEC6DemPar4betaE"></span><span id="Models::EPEC::DemPar::beta__double"></span><span class="target" id="structModels_1_1EPEC_1_1DemPar_1a0929cd327d703fbb5e327efb92c0235d"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">beta</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">2</span></span><br /></dt>
 <dd><p>Slope of the demand curve. Written as: Price = alpha - beta*(Total quantity in domestic market) </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp">
+<span class="target" id="structModels_1_1EPEC_1_1LeadPar"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LeadPar</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;epec_models.h&gt;</em></div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7LeadPar7LeadParEdddbjb">
+<span id="_CPPv3N6Models4EPEC7LeadPar7LeadParEdddbjb"></span><span id="_CPPv2N6Models4EPEC7LeadPar7LeadParEdddbjb"></span><span id="Models::EPEC::LeadPar::LeadPar__double.double.double.b.unsigned-i.b"></span><span class="target" id="structModels_1_1EPEC_1_1LeadPar_1ac283ad059e7e305fee15ed96bdf9da71"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LeadPar</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">imp_lim</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">exp_lim</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">price_limit</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tax_revenue</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tax_type_</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tradeBool</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Standard constructor for <a class="reference internal" href="#structModels_1_1EPEC_1_1LeadPar"><span class="std std-ref">LeadPar</span></a>. </p>
+<p>s </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>imp_lim</strong> – Import cap </p></li>
+<li><p><strong>exp_lim</strong> – Export cap </p></li>
+<li><p><strong>price_limit</strong> – Price cap </p></li>
+<li><p><strong>tax_revenue</strong> – Leader tax revenue </p></li>
+<li><p><strong>tax_type_</strong> – Taxation type </p></li>
+<li><p><strong>tradeBool</strong> – Is trade allowed? </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7LeadPar12import_limitE">
+<span id="_CPPv3N6Models4EPEC7LeadPar12import_limitE"></span><span id="_CPPv2N6Models4EPEC7LeadPar12import_limitE"></span><span id="Models::EPEC::LeadPar::import_limit__double"></span><span class="target" id="structModels_1_1EPEC_1_1LeadPar_1a7b196c903710f27aa80a0fc36951d851"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">import_limit</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span><br /></dt>
+<dd><p>Maximum net import in the country. If no limit, set the value as -1;. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7LeadPar12export_limitE">
+<span id="_CPPv3N6Models4EPEC7LeadPar12export_limitE"></span><span id="_CPPv2N6Models4EPEC7LeadPar12export_limitE"></span><span id="Models::EPEC::LeadPar::export_limit__double"></span><span class="target" id="structModels_1_1EPEC_1_1LeadPar_1a2b27e4e4f7660445145cfa50cea8fbba"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">export_limit</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span><br /></dt>
+<dd><p>Maximum net export in the country. If no limit, set the value as -1;. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7LeadPar11price_limitE">
+<span id="_CPPv3N6Models4EPEC7LeadPar11price_limitE"></span><span id="_CPPv2N6Models4EPEC7LeadPar11price_limitE"></span><span id="Models::EPEC::LeadPar::price_limit__double"></span><span class="target" id="structModels_1_1EPEC_1_1LeadPar_1af31bec6f088e85f573528595e0ec331c"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">price_limit</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span><br /></dt>
+<dd><p>Government does not want the price to exceed this limit. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7LeadPar12tradeAllowedE">
+<span id="_CPPv3N6Models4EPEC7LeadPar12tradeAllowedE"></span><span id="_CPPv2N6Models4EPEC7LeadPar12tradeAllowedE"></span><span id="Models::EPEC::LeadPar::tradeAllowed__b"></span><span class="target" id="structModels_1_1EPEC_1_1LeadPar_1ae12c41f356cf5ceba26c7876ab1a1cc6"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">tradeAllowed</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><br /></dt>
+<dd><p>False if the country cannot trade with other countries. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7LeadPar8tax_typeE">
+<span id="_CPPv3N6Models4EPEC7LeadPar8tax_typeE"></span><span id="_CPPv2N6Models4EPEC7LeadPar8tax_typeE"></span><span id="Models::EPEC::LeadPar::tax_type__Models::EPEC::TaxType"></span><span class="target" id="structModels_1_1EPEC_1_1LeadPar_1afd5e0484eaee7aea6922cfb97e614a16"></span><a class="reference internal" href="#_CPPv46Models" title="Models"><span class="n"><span class="pre">Models</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/enum_namespaceModels_1_1EPEC_1a72626ff0ddf65191cd9b8f82563d38f4.html#_CPPv4N6Models4EPEC7TaxTypeE" title="Models::EPEC::TaxType"><span class="n"><span class="pre">TaxType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">tax_type</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv46Models" title="Models"><span class="n"><span class="pre">Models</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/enum_namespaceModels_1_1EPEC_1a72626ff0ddf65191cd9b8f82563d38f4.html#_CPPv4N6Models4EPEC7TaxTypeE" title="Models::EPEC::TaxType"><span class="n"><span class="pre">TaxType</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/enum_namespaceModels_1_1EPEC_1a72626ff0ddf65191cd9b8f82563d38f4.html#_CPPv4N6Models4EPEC7TaxType11StandardTaxE" title="Models::EPEC::TaxType::StandardTax"><span class="n"><span class="pre">StandardTax</span></span></a><br /></dt>
+<dd><p>The taxation type. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7LeadPar11tax_revenueE">
+<span id="_CPPv3N6Models4EPEC7LeadPar11tax_revenueE"></span><span id="_CPPv2N6Models4EPEC7LeadPar11tax_revenueE"></span><span id="Models::EPEC::LeadPar::tax_revenue__b"></span><span class="target" id="structModels_1_1EPEC_1_1LeadPar_1ad35206db7977e4aff373df3215dadbe5"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">tax_revenue</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp">
+<span class="target" id="structModels_1_1EPEC_1_1LeadAllPar"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LeadAllPar</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;epec_models.h&gt;</em></div>
+<p>Stores the parameters of a country model. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC10LeadAllPar10LeadAllParEjNSt6stringEN6Models4EPEC7FollParEN6Models4EPEC6DemParEN6Models4EPEC7LeadParE">
+<span id="_CPPv3N6Models4EPEC10LeadAllPar10LeadAllParEjNSt6stringEN6Models4EPEC7FollParEN6Models4EPEC6DemParEN6Models4EPEC7LeadParE"></span><span id="_CPPv2N6Models4EPEC10LeadAllPar10LeadAllParEjNSt6stringEN6Models4EPEC7FollParEN6Models4EPEC6DemParEN6Models4EPEC7LeadParE"></span><span id="Models::EPEC::LeadAllPar::LeadAllPar__unsigned-i.ss.Models::EPEC::FollPar.Models::EPEC::DemPar.Models::EPEC::LeadPar"></span><span class="target" id="structModels_1_1EPEC_1_1LeadAllPar_1af247391a0d877b22fe1422f000117ee9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LeadAllPar</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n_foll</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name</span></span>, <a class="reference internal" href="#_CPPv46Models" title="Models"><span class="n"><span class="pre">Models</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1FollPar.html#_CPPv4N6Models4EPEC7FollParE" title="Models::EPEC::FollPar"><span class="n"><span class="pre">FollPar</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">FP</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <a class="reference internal" href="#_CPPv46Models" title="Models"><span class="n"><span class="pre">Models</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1DemPar.html#_CPPv4N6Models4EPEC6DemParE" title="Models::EPEC::DemPar"><span class="n"><span class="pre">DemPar</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">DP</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <a class="reference internal" href="#_CPPv46Models" title="Models"><span class="n"><span class="pre">Models</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1LeadPar.html#_CPPv4N6Models4EPEC7LeadParE" title="Models::EPEC::LeadPar"><span class="n"><span class="pre">LeadPar</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">LP</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC10LeadAllPar11n_followersE">
+<span id="_CPPv3N6Models4EPEC10LeadAllPar11n_followersE"></span><span id="_CPPv2N6Models4EPEC10LeadAllPar11n_followersE"></span><span id="Models::EPEC::LeadAllPar::n_followers__unsigned-i"></span><span class="target" id="structModels_1_1EPEC_1_1LeadAllPar_1ab696bcbbb309a9a673115005997a317a"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">n_followers</span></span></span><br /></dt>
+<dd><p>Number of followers in the country. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC10LeadAllPar4nameE">
+<span id="_CPPv3N6Models4EPEC10LeadAllPar4nameE"></span><span id="_CPPv2N6Models4EPEC10LeadAllPar4nameE"></span><span id="Models::EPEC::LeadAllPar::name__ss"></span><span class="target" id="structModels_1_1EPEC_1_1LeadAllPar_1a46d9cd37e4795c702d73e03c09880962"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">name</span></span></span><br /></dt>
+<dd><p>Country Name. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC10LeadAllPar13FollowerParamE">
+<span id="_CPPv3N6Models4EPEC10LeadAllPar13FollowerParamE"></span><span id="_CPPv2N6Models4EPEC10LeadAllPar13FollowerParamE"></span><span id="Models::EPEC::LeadAllPar::FollowerParam__Models::EPEC::FollPar"></span><span class="target" id="structModels_1_1EPEC_1_1LeadAllPar_1a62bc7dade634b7db36e63cec064f2c31"></span><a class="reference internal" href="#_CPPv46Models" title="Models"><span class="n"><span class="pre">Models</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1FollPar.html#_CPPv4N6Models4EPEC7FollParE" title="Models::EPEC::FollPar"><span class="n"><span class="pre">FollPar</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FollowerParam</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>A struct to hold Follower Parameters. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC10LeadAllPar11DemandParamE">
+<span id="_CPPv3N6Models4EPEC10LeadAllPar11DemandParamE"></span><span id="_CPPv2N6Models4EPEC10LeadAllPar11DemandParamE"></span><span id="Models::EPEC::LeadAllPar::DemandParam__Models::EPEC::DemPar"></span><span class="target" id="structModels_1_1EPEC_1_1LeadAllPar_1aff1107294713fd28b0a6c980f328fecb"></span><a class="reference internal" href="#_CPPv46Models" title="Models"><span class="n"><span class="pre">Models</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1DemPar.html#_CPPv4N6Models4EPEC6DemParE" title="Models::EPEC::DemPar"><span class="n"><span class="pre">DemPar</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DemandParam</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>A struct to hold Demand Parameters. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC10LeadAllPar11LeaderParamE">
+<span id="_CPPv3N6Models4EPEC10LeadAllPar11LeaderParamE"></span><span id="_CPPv2N6Models4EPEC10LeadAllPar11LeaderParamE"></span><span id="Models::EPEC::LeadAllPar::LeaderParam__Models::EPEC::LeadPar"></span><span class="target" id="structModels_1_1EPEC_1_1LeadAllPar_1a9d2ecaf0a04552eb74116a9c59dee2ad"></span><a class="reference internal" href="#_CPPv46Models" title="Models"><span class="n"><span class="pre">Models</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1LeadPar.html#_CPPv4N6Models4EPEC7LeadParE" title="Models::EPEC::LeadPar"><span class="n"><span class="pre">LeadPar</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LeaderParam</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>A struct to hold Leader Parameters. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC12EPECInstanceE">
+<span id="_CPPv3N6Models4EPEC12EPECInstanceE"></span><span id="_CPPv2N6Models4EPEC12EPECInstanceE"></span><span id="Models::EPEC::EPECInstance"></span><span class="target" id="structModels_1_1EPEC_1_1EPECInstance"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EPECInstance</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;epec_models.h&gt;</em></div>
+<p>Stores a single Instance. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC12EPECInstance12EPECInstanceENSt6stringE">
+<span id="_CPPv3N6Models4EPEC12EPECInstance12EPECInstanceENSt6stringE"></span><span id="_CPPv2N6Models4EPEC12EPECInstance12EPECInstanceENSt6stringE"></span><span id="Models::EPEC::EPECInstance::EPECInstance__ss"></span><span class="target" id="structModels_1_1EPEC_1_1EPECInstance_1a3d85a739d7f38f47697d6c405ca6cbb4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EPECInstance</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">filename</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Constructor from instance file. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC12EPECInstance12EPECInstanceENSt6vectorIN6Models4EPEC10LeadAllParEEEN4arma6sp_matE">
+<span id="_CPPv3N6Models4EPEC12EPECInstance12EPECInstanceENSt6vectorIN6Models4EPEC10LeadAllParEEEN4arma6sp_matE"></span><span id="_CPPv2N6Models4EPEC12EPECInstance12EPECInstanceENSt6vectorIN6Models4EPEC10LeadAllParEEEN4arma6sp_matE"></span><span id="Models::EPEC::EPECInstance::EPECInstance__std::vector:Models::EPEC::LeadAllPar:.arma::sp_mat"></span><span class="target" id="structModels_1_1EPEC_1_1EPECInstance_1aa0c7b629481820864480529c319a3713"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EPECInstance</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv46Models" title="Models"><span class="n"><span class="pre">Models</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1LeadAllPar.html#_CPPv4N6Models4EPEC10LeadAllParE" title="Models::EPEC::LeadAllPar"><span class="n"><span class="pre">LeadAllPar</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Countries_</span></span>, <span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Transp_</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Constructor from instance objects. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC12EPECInstance4loadERKNSt6stringE">
+<span id="_CPPv3N6Models4EPEC12EPECInstance4loadERKNSt6stringE"></span><span id="_CPPv2N6Models4EPEC12EPECInstance4loadERKNSt6stringE"></span><span id="Models::EPEC::EPECInstance::load__ssCR"></span><span class="target" id="structModels_1_1EPEC_1_1EPECInstance_1a3fda249f47e76e47bebe6bd19eb22722"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">load</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">filename</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Reads the <a class="reference internal" href="#structModels_1_1EPEC_1_1EPECInstance"><span class="std std-ref">EPECInstance</span></a> from a file. </p>
+<p>Reads an instance file and return a vector of <code class="docutils literal notranslate"><a class="reference internal" href="#structModels_1_1EPEC_1_1LeadAllPar"><span class="std std-ref"><span class="pre">LeadAllPar</span></span></a></code> that can be fed to the <a class="reference internal" href="#classModels_1_1EPEC_1_1EPEC"><span class="std std-ref">EPEC</span></a> class <code class="docutils literal notranslate"><span class="pre">filename</span></code> dictates the name of the JSON instance file. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC12EPECInstance4saveERKNSt6stringE">
+<span id="_CPPv3N6Models4EPEC12EPECInstance4saveERKNSt6stringE"></span><span id="_CPPv2N6Models4EPEC12EPECInstance4saveERKNSt6stringE"></span><span id="Models::EPEC::EPECInstance::save__ssCR"></span><span class="target" id="structModels_1_1EPEC_1_1EPECInstance_1ad6fde9d3dd087efdbd572fdf0adccb51"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">save</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">filename</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Writes the <a class="reference internal" href="#structModels_1_1EPEC_1_1EPECInstance"><span class="std std-ref">EPECInstance</span></a> from a file. </p>
+<p>Writes the current <a class="reference internal" href="#classModels_1_1EPEC_1_1EPEC"><span class="std std-ref">EPEC</span></a> instance to the standard JSON instance file <code class="docutils literal notranslate"><span class="pre">filename</span></code> dictates the name of the JSON instance file. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC12EPECInstance9CountriesE">
+<span id="_CPPv3N6Models4EPEC12EPECInstance9CountriesE"></span><span id="_CPPv2N6Models4EPEC12EPECInstance9CountriesE"></span><span id="Models::EPEC::EPECInstance::Countries__std::vector:Models::EPEC::LeadAllPar:"></span><span class="target" id="structModels_1_1EPEC_1_1EPECInstance_1a86500bf211ca0527c532341f69de04cf"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv46Models" title="Models"><span class="n"><span class="pre">Models</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1LeadAllPar.html#_CPPv4N6Models4EPEC10LeadAllParE" title="Models::EPEC::LeadAllPar"><span class="n"><span class="pre">LeadAllPar</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Countries</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p><a class="reference internal" href="#structModels_1_1EPEC_1_1LeadAllPar"><span class="std std-ref">LeadAllPar</span></a> vector. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC12EPECInstance19TransportationCostsE">
+<span id="_CPPv3N6Models4EPEC12EPECInstance19TransportationCostsE"></span><span id="_CPPv2N6Models4EPEC12EPECInstance19TransportationCostsE"></span><span id="Models::EPEC::EPECInstance::TransportationCosts__arma::sp_mat"></span><span class="target" id="structModels_1_1EPEC_1_1EPECInstance_1aecf166f99ef21d1f1362a39b733eb596"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TransportationCosts</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd><p>Transportation costs matrix. </p>
 </dd></dl>
 
 </div>
@@ -1591,217 +1818,6 @@
 </div>
 </dd></dl>
 
-<dl class="cpp struct">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC12EPECInstanceE">
-<span id="_CPPv3N6Models4EPEC12EPECInstanceE"></span><span id="_CPPv2N6Models4EPEC12EPECInstanceE"></span><span id="Models::EPEC::EPECInstance"></span><span class="target" id="structModels_1_1EPEC_1_1EPECInstance"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EPECInstance</span></span></span><br /></dt>
-<dd><div class="docutils container">
-<em>#include &lt;epec_models.h&gt;</em></div>
-<p>Stores a single Instance. </p>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC12EPECInstance4loadERKNSt6stringE">
-<span id="_CPPv3N6Models4EPEC12EPECInstance4loadERKNSt6stringE"></span><span id="_CPPv2N6Models4EPEC12EPECInstance4loadERKNSt6stringE"></span><span id="Models::EPEC::EPECInstance::load__ssCR"></span><span class="target" id="structModels_1_1EPEC_1_1EPECInstance_1a3fda249f47e76e47bebe6bd19eb22722"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">load</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">filename</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Reads the <a class="reference internal" href="#structModels_1_1EPEC_1_1EPECInstance"><span class="std std-ref">EPECInstance</span></a> from a file. </p>
-<p>Reads an instance file and return a vector of <code class="docutils literal notranslate"><a class="reference internal" href="#structModels_1_1EPEC_1_1LeadAllPar"><span class="std std-ref"><span class="pre">LeadAllPar</span></span></a></code> that can be fed to the <a class="reference internal" href="#classModels_1_1EPEC_1_1EPEC"><span class="std std-ref">EPEC</span></a> class <code class="docutils literal notranslate"><span class="pre">filename</span></code> dictates the name of the JSON instance file. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC12EPECInstance4saveERKNSt6stringE">
-<span id="_CPPv3N6Models4EPEC12EPECInstance4saveERKNSt6stringE"></span><span id="_CPPv2N6Models4EPEC12EPECInstance4saveERKNSt6stringE"></span><span id="Models::EPEC::EPECInstance::save__ssCR"></span><span class="target" id="structModels_1_1EPEC_1_1EPECInstance_1ad6fde9d3dd087efdbd572fdf0adccb51"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">save</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">filename</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Writes the <a class="reference internal" href="#structModels_1_1EPEC_1_1EPECInstance"><span class="std std-ref">EPECInstance</span></a> from a file. </p>
-<p>Writes the current <a class="reference internal" href="#classModels_1_1EPEC_1_1EPEC"><span class="std std-ref">EPEC</span></a> instance to the standard JSON instance file <code class="docutils literal notranslate"><span class="pre">filename</span></code> dictates the name of the JSON instance file. </p>
-</dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC12EPECInstance9CountriesE">
-<span id="_CPPv3N6Models4EPEC12EPECInstance9CountriesE"></span><span id="_CPPv2N6Models4EPEC12EPECInstance9CountriesE"></span><span id="Models::EPEC::EPECInstance::Countries__std::vector:Models::EPEC::LeadAllPar:"></span><span class="target" id="structModels_1_1EPEC_1_1EPECInstance_1a86500bf211ca0527c532341f69de04cf"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv46Models" title="Models"><span class="n"><span class="pre">Models</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1LeadAllPar.html#_CPPv4N6Models4EPEC10LeadAllParE" title="Models::EPEC::LeadAllPar"><span class="n"><span class="pre">LeadAllPar</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Countries</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p><a class="reference internal" href="#structModels_1_1EPEC_1_1LeadAllPar"><span class="std std-ref">LeadAllPar</span></a> vector. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC12EPECInstance19TransportationCostsE">
-<span id="_CPPv3N6Models4EPEC12EPECInstance19TransportationCostsE"></span><span id="_CPPv2N6Models4EPEC12EPECInstance19TransportationCostsE"></span><span id="Models::EPEC::EPECInstance::TransportationCosts__arma::sp_mat"></span><span class="target" id="structModels_1_1EPEC_1_1EPECInstance_1aecf166f99ef21d1f1362a39b733eb596"></span><span class="n"><span class="pre">arma</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sp_mat</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TransportationCosts</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>Transportation costs matrix. </p>
-</dd></dl>
-
-</div>
-</dd></dl>
-
-<dl class="cpp struct">
-<dt class="sig sig-object cpp">
-<span class="target" id="structModels_1_1EPEC_1_1FollPar"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FollPar</span></span></span><br /></dt>
-<dd><div class="docutils container">
-<em>#include &lt;epec_models.h&gt;</em></div>
-<p>Stores the parameters of the follower in a country model. </p>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7FollPar7FollParENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorINSt6stringEEE">
-<span id="_CPPv3N6Models4EPEC7FollPar7FollParENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorINSt6stringEEE"></span><span id="_CPPv2N6Models4EPEC7FollPar7FollParENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorIdEENSt6vectorINSt6stringEEE"></span><span id="Models::EPEC::FollPar::FollPar__std::vector:double:.std::vector:double:.std::vector:double:.std::vector:double:.std::vector:double:.std::vector:ss:"></span><span class="target" id="structModels_1_1EPEC_1_1FollPar_1afd8e5da8172424552185f726f03d48be"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FollPar</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">costs_quad_</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">costs_lin_</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">capacities_</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">emission_costs_</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tax_caps_</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">names_</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><br /></dt>
-<dd></dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7FollPar10costs_quadE">
-<span id="_CPPv3N6Models4EPEC7FollPar10costs_quadE"></span><span id="_CPPv2N6Models4EPEC7FollPar10costs_quadE"></span><span id="Models::EPEC::FollPar::costs_quad__std::vector:double:"></span><span class="target" id="structModels_1_1EPEC_1_1FollPar_1ac57404b2c776fc7deb2515a351359593"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">costs_quad</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>Quadratic coefficient of i-th follower’s cost. Size of this std::vector should be equal to n_followers. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7FollPar9costs_linE">
-<span id="_CPPv3N6Models4EPEC7FollPar9costs_linE"></span><span id="_CPPv2N6Models4EPEC7FollPar9costs_linE"></span><span id="Models::EPEC::FollPar::costs_lin__std::vector:double:"></span><span class="target" id="structModels_1_1EPEC_1_1FollPar_1a310fb22160f252faf7750ad1767ce299"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">costs_lin</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>Linear coefficient of i-th follower’s cost. Size of this std::vector should be equal to n_followers. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7FollPar10capacitiesE">
-<span id="_CPPv3N6Models4EPEC7FollPar10capacitiesE"></span><span id="_CPPv2N6Models4EPEC7FollPar10capacitiesE"></span><span id="Models::EPEC::FollPar::capacities__std::vector:double:"></span><span class="target" id="structModels_1_1EPEC_1_1FollPar_1abb8a29173712d65ca2587d50ad231807"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">capacities</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>Production capacity of each follower. Size of this std::vector should be equal to n_followers. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7FollPar14emission_costsE">
-<span id="_CPPv3N6Models4EPEC7FollPar14emission_costsE"></span><span id="_CPPv2N6Models4EPEC7FollPar14emission_costsE"></span><span id="Models::EPEC::FollPar::emission_costs__std::vector:double:"></span><span class="target" id="structModels_1_1EPEC_1_1FollPar_1ae0f9f835c80c44df8c6b013bbd1ba864"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">emission_costs</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>Emission costs for unit quantity of the fuel. Emission costs feature only on the leader’s problem. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7FollPar8tax_capsE">
-<span id="_CPPv3N6Models4EPEC7FollPar8tax_capsE"></span><span id="_CPPv2N6Models4EPEC7FollPar8tax_capsE"></span><span id="Models::EPEC::FollPar::tax_caps__std::vector:double:"></span><span class="target" id="structModels_1_1EPEC_1_1FollPar_1a9c3d8a38f226b75a401c1ce3cf57315e"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">tax_caps</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>Individual tax caps for each follower. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7FollPar5namesE">
-<span id="_CPPv3N6Models4EPEC7FollPar5namesE"></span><span id="_CPPv2N6Models4EPEC7FollPar5namesE"></span><span id="Models::EPEC::FollPar::names__std::vector:ss:"></span><span class="target" id="structModels_1_1EPEC_1_1FollPar_1ac65aea541dd0ab4502938c629ba85b90"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">names</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>Optional Names for the Followers. </p>
-</dd></dl>
-
-</div>
-</dd></dl>
-
-<dl class="cpp struct">
-<dt class="sig sig-object cpp">
-<span class="target" id="structModels_1_1EPEC_1_1LeadAllPar"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LeadAllPar</span></span></span><br /></dt>
-<dd><div class="docutils container">
-<em>#include &lt;epec_models.h&gt;</em></div>
-<p>Stores the parameters of a country model. </p>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC10LeadAllPar10LeadAllParEjNSt6stringEN6Models4EPEC7FollParEN6Models4EPEC6DemParEN6Models4EPEC7LeadParE">
-<span id="_CPPv3N6Models4EPEC10LeadAllPar10LeadAllParEjNSt6stringEN6Models4EPEC7FollParEN6Models4EPEC6DemParEN6Models4EPEC7LeadParE"></span><span id="_CPPv2N6Models4EPEC10LeadAllPar10LeadAllParEjNSt6stringEN6Models4EPEC7FollParEN6Models4EPEC6DemParEN6Models4EPEC7LeadParE"></span><span id="Models::EPEC::LeadAllPar::LeadAllPar__unsigned-i.ss.Models::EPEC::FollPar.Models::EPEC::DemPar.Models::EPEC::LeadPar"></span><span class="target" id="structModels_1_1EPEC_1_1LeadAllPar_1af247391a0d877b22fe1422f000117ee9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LeadAllPar</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n_foll</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name</span></span>, <a class="reference internal" href="#_CPPv46Models" title="Models"><span class="n"><span class="pre">Models</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1FollPar.html#_CPPv4N6Models4EPEC7FollParE" title="Models::EPEC::FollPar"><span class="n"><span class="pre">FollPar</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">FP</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <a class="reference internal" href="#_CPPv46Models" title="Models"><span class="n"><span class="pre">Models</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1DemPar.html#_CPPv4N6Models4EPEC6DemParE" title="Models::EPEC::DemPar"><span class="n"><span class="pre">DemPar</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">DP</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <a class="reference internal" href="#_CPPv46Models" title="Models"><span class="n"><span class="pre">Models</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1LeadPar.html#_CPPv4N6Models4EPEC7LeadParE" title="Models::EPEC::LeadPar"><span class="n"><span class="pre">LeadPar</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">LP</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><br /></dt>
-<dd></dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC10LeadAllPar11n_followersE">
-<span id="_CPPv3N6Models4EPEC10LeadAllPar11n_followersE"></span><span id="_CPPv2N6Models4EPEC10LeadAllPar11n_followersE"></span><span id="Models::EPEC::LeadAllPar::n_followers__unsigned-i"></span><span class="target" id="structModels_1_1EPEC_1_1LeadAllPar_1ab696bcbbb309a9a673115005997a317a"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">n_followers</span></span></span><br /></dt>
-<dd><p>Number of followers in the country. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC10LeadAllPar4nameE">
-<span id="_CPPv3N6Models4EPEC10LeadAllPar4nameE"></span><span id="_CPPv2N6Models4EPEC10LeadAllPar4nameE"></span><span id="Models::EPEC::LeadAllPar::name__ss"></span><span class="target" id="structModels_1_1EPEC_1_1LeadAllPar_1a46d9cd37e4795c702d73e03c09880962"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">name</span></span></span><br /></dt>
-<dd><p>Country Name. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC10LeadAllPar13FollowerParamE">
-<span id="_CPPv3N6Models4EPEC10LeadAllPar13FollowerParamE"></span><span id="_CPPv2N6Models4EPEC10LeadAllPar13FollowerParamE"></span><span id="Models::EPEC::LeadAllPar::FollowerParam__Models::EPEC::FollPar"></span><span class="target" id="structModels_1_1EPEC_1_1LeadAllPar_1a62bc7dade634b7db36e63cec064f2c31"></span><a class="reference internal" href="#_CPPv46Models" title="Models"><span class="n"><span class="pre">Models</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1FollPar.html#_CPPv4N6Models4EPEC7FollParE" title="Models::EPEC::FollPar"><span class="n"><span class="pre">FollPar</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FollowerParam</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>A struct to hold Follower Parameters. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC10LeadAllPar11DemandParamE">
-<span id="_CPPv3N6Models4EPEC10LeadAllPar11DemandParamE"></span><span id="_CPPv2N6Models4EPEC10LeadAllPar11DemandParamE"></span><span id="Models::EPEC::LeadAllPar::DemandParam__Models::EPEC::DemPar"></span><span class="target" id="structModels_1_1EPEC_1_1LeadAllPar_1aff1107294713fd28b0a6c980f328fecb"></span><a class="reference internal" href="#_CPPv46Models" title="Models"><span class="n"><span class="pre">Models</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1DemPar.html#_CPPv4N6Models4EPEC6DemParE" title="Models::EPEC::DemPar"><span class="n"><span class="pre">DemPar</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DemandParam</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>A struct to hold Demand Parameters. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC10LeadAllPar11LeaderParamE">
-<span id="_CPPv3N6Models4EPEC10LeadAllPar11LeaderParamE"></span><span id="_CPPv2N6Models4EPEC10LeadAllPar11LeaderParamE"></span><span id="Models::EPEC::LeadAllPar::LeaderParam__Models::EPEC::LeadPar"></span><span class="target" id="structModels_1_1EPEC_1_1LeadAllPar_1a9d2ecaf0a04552eb74116a9c59dee2ad"></span><a class="reference internal" href="#_CPPv46Models" title="Models"><span class="n"><span class="pre">Models</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/structModels_1_1EPEC_1_1LeadPar.html#_CPPv4N6Models4EPEC7LeadParE" title="Models::EPEC::LeadPar"><span class="n"><span class="pre">LeadPar</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LeaderParam</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd><p>A struct to hold Leader Parameters. </p>
-</dd></dl>
-
-</div>
-</dd></dl>
-
-<dl class="cpp struct">
-<dt class="sig sig-object cpp">
-<span class="target" id="structModels_1_1EPEC_1_1LeadPar"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LeadPar</span></span></span><br /></dt>
-<dd><div class="docutils container">
-<em>#include &lt;epec_models.h&gt;</em></div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7LeadPar7LeadParEdddbjb">
-<span id="_CPPv3N6Models4EPEC7LeadPar7LeadParEdddbjb"></span><span id="_CPPv2N6Models4EPEC7LeadPar7LeadParEdddbjb"></span><span id="Models::EPEC::LeadPar::LeadPar__double.double.double.b.unsigned-i.b"></span><span class="target" id="structModels_1_1EPEC_1_1LeadPar_1ac283ad059e7e305fee15ed96bdf9da71"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LeadPar</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">imp_lim</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">exp_lim</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">price_limit</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tax_revenue</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tax_type_</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tradeBool</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Standard constructor for <a class="reference internal" href="#structModels_1_1EPEC_1_1LeadPar"><span class="std std-ref">LeadPar</span></a>. </p>
-<p>s </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>imp_lim</strong> – Import cap </p></li>
-<li><p><strong>exp_lim</strong> – Export cap </p></li>
-<li><p><strong>price_limit</strong> – Price cap </p></li>
-<li><p><strong>tax_revenue</strong> – Leader tax revenue </p></li>
-<li><p><strong>tax_type_</strong> – Taxation type </p></li>
-<li><p><strong>tradeBool</strong> – Is trade allowed? </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7LeadPar12import_limitE">
-<span id="_CPPv3N6Models4EPEC7LeadPar12import_limitE"></span><span id="_CPPv2N6Models4EPEC7LeadPar12import_limitE"></span><span id="Models::EPEC::LeadPar::import_limit__double"></span><span class="target" id="structModels_1_1EPEC_1_1LeadPar_1a7b196c903710f27aa80a0fc36951d851"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">import_limit</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span><br /></dt>
-<dd><p>Maximum net import in the country. If no limit, set the value as -1;. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7LeadPar12export_limitE">
-<span id="_CPPv3N6Models4EPEC7LeadPar12export_limitE"></span><span id="_CPPv2N6Models4EPEC7LeadPar12export_limitE"></span><span id="Models::EPEC::LeadPar::export_limit__double"></span><span class="target" id="structModels_1_1EPEC_1_1LeadPar_1a2b27e4e4f7660445145cfa50cea8fbba"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">export_limit</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span><br /></dt>
-<dd><p>Maximum net export in the country. If no limit, set the value as -1;. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7LeadPar11price_limitE">
-<span id="_CPPv3N6Models4EPEC7LeadPar11price_limitE"></span><span id="_CPPv2N6Models4EPEC7LeadPar11price_limitE"></span><span id="Models::EPEC::LeadPar::price_limit__double"></span><span class="target" id="structModels_1_1EPEC_1_1LeadPar_1af31bec6f088e85f573528595e0ec331c"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">price_limit</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span><br /></dt>
-<dd><p>Government does not want the price to exceed this limit. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7LeadPar12tradeAllowedE">
-<span id="_CPPv3N6Models4EPEC7LeadPar12tradeAllowedE"></span><span id="_CPPv2N6Models4EPEC7LeadPar12tradeAllowedE"></span><span id="Models::EPEC::LeadPar::tradeAllowed__b"></span><span class="target" id="structModels_1_1EPEC_1_1LeadPar_1ae12c41f356cf5ceba26c7876ab1a1cc6"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">tradeAllowed</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><br /></dt>
-<dd><p>False if the country cannot trade with other countries. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7LeadPar8tax_typeE">
-<span id="_CPPv3N6Models4EPEC7LeadPar8tax_typeE"></span><span id="_CPPv2N6Models4EPEC7LeadPar8tax_typeE"></span><span id="Models::EPEC::LeadPar::tax_type__Models::EPEC::TaxType"></span><span class="target" id="structModels_1_1EPEC_1_1LeadPar_1afd5e0484eaee7aea6922cfb97e614a16"></span><a class="reference internal" href="#_CPPv46Models" title="Models"><span class="n"><span class="pre">Models</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/enum_namespaceModels_1_1EPEC_1a72626ff0ddf65191cd9b8f82563d38f4.html#_CPPv4N6Models4EPEC7TaxTypeE" title="Models::EPEC::TaxType"><span class="n"><span class="pre">TaxType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">tax_type</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv46Models" title="Models"><span class="n"><span class="pre">Models</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N6Models4EPECE" title="Models::EPEC"><span class="n"><span class="pre">EPEC</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/enum_namespaceModels_1_1EPEC_1a72626ff0ddf65191cd9b8f82563d38f4.html#_CPPv4N6Models4EPEC7TaxTypeE" title="Models::EPEC::TaxType"><span class="n"><span class="pre">TaxType</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/enum_namespaceModels_1_1EPEC_1a72626ff0ddf65191cd9b8f82563d38f4.html#_CPPv4N6Models4EPEC7TaxType11StandardTaxE" title="Models::EPEC::TaxType::StandardTax"><span class="n"><span class="pre">StandardTax</span></span></a><br /></dt>
-<dd><p>The taxation type. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models4EPEC7LeadPar11tax_revenueE">
-<span id="_CPPv3N6Models4EPEC7LeadPar11tax_revenueE"></span><span id="_CPPv2N6Models4EPEC7LeadPar11tax_revenueE"></span><span id="Models::EPEC::LeadPar::tax_revenue__b"></span><span class="target" id="structModels_1_1EPEC_1_1LeadPar_1ad35206db7977e4aff373df3215dadbe5"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">tax_revenue</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><br /></dt>
-<dd></dd></dl>
-
-</div>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="cpp type">
@@ -1815,6 +1831,59 @@
 <dd></dd></dl>
 
 </div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models3IPG11IPGInstanceE">
+<span id="_CPPv3N6Models3IPG11IPGInstanceE"></span><span id="_CPPv2N6Models3IPG11IPGInstanceE"></span><span id="Models::IPG::IPGInstance"></span><span class="target" id="structModels_1_1IPG_1_1IPGInstance"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IPGInstance</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;ipg_models.h&gt;</em></div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models3IPG11IPGInstance4loadENSt6stringE">
+<span id="_CPPv3N6Models3IPG11IPGInstance4loadENSt6stringE"></span><span id="_CPPv2N6Models3IPG11IPGInstance4loadENSt6stringE"></span><span id="Models::IPG::IPGInstance::load__ss"></span><span class="target" id="structModels_1_1IPG_1_1IPGInstance_1aa91608dd6c7bb1762690e92f98bf6bb9"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">load</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">filename</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Reads the <a class="reference internal" href="#structModels_1_1IPG_1_1IPGInstance"><span class="std std-ref">IPGInstance</span></a> from a file. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models3IPG11IPGInstance4saveENSt6stringE">
+<span id="_CPPv3N6Models3IPG11IPGInstance4saveENSt6stringE"></span><span id="_CPPv2N6Models3IPG11IPGInstance4saveENSt6stringE"></span><span id="Models::IPG::IPGInstance::save__ss"></span><span class="target" id="structModels_1_1IPG_1_1IPGInstance_1aea4a2e3e8937c06adbea4abc60158121"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">save</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">filename</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Writes the <a class="reference internal" href="#structModels_1_1IPG_1_1IPGInstance"><span class="std std-ref">IPGInstance</span></a> from a file. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models3IPG11IPGInstance10addIPParamERKN7MathOpt8IP_ParamEKNSt6stringE">
+<span id="_CPPv3N6Models3IPG11IPGInstance10addIPParamERKN7MathOpt8IP_ParamEKNSt6stringE"></span><span id="_CPPv2N6Models3IPG11IPGInstance10addIPParamERKN7MathOpt8IP_ParamEKNSt6stringE"></span><span id="Models::IPG::IPGInstance::addIPParam__MathOpt::IP_ParamCR.ssC"></span><span class="target" id="structModels_1_1IPG_1_1IPGInstance_1a1a3f09591e276fd57227027c2ac9f7d8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">addIPParam</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="MathOpt.html#_CPPv47MathOpt" title="MathOpt"><span class="n"><span class="pre">MathOpt</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classMathOpt_1_1IP__Param.html#_CPPv4N7MathOpt8IP_ParamE" title="MathOpt::IP_Param"><span class="n"><span class="pre">IP_Param</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ip</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">filename</span></span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-attributes">Protected Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models3IPG11IPGInstance7IPFilesE">
+<span id="_CPPv3N6Models3IPG11IPGInstance7IPFilesE"></span><span id="_CPPv2N6Models3IPG11IPGInstance7IPFilesE"></span><span id="Models::IPG::IPGInstance::IPFiles__std::vector:ss:"></span><span class="target" id="structModels_1_1IPG_1_1IPGInstance_1a30e4be71b780b264a0abd874b64b6591"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IPFiles</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models3IPG11IPGInstance12NumVariablesE">
+<span id="_CPPv3N6Models3IPG11IPGInstance12NumVariablesE"></span><span id="_CPPv2N6Models3IPG11IPGInstance12NumVariablesE"></span><span id="Models::IPG::IPGInstance::NumVariables__unsigned-i"></span><span class="target" id="structModels_1_1IPG_1_1IPGInstance_1ab869317eb55ee443fad962a79e3f7b36"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NumVariables</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6Models3IPG11IPGInstance15PlayerVariablesE">
+<span id="_CPPv3N6Models3IPG11IPGInstance15PlayerVariablesE"></span><span id="_CPPv2N6Models3IPG11IPGInstance15PlayerVariablesE"></span><span id="Models::IPG::IPGInstance::PlayerVariables__std::vector:unsigned-i:"></span><span class="target" id="structModels_1_1IPG_1_1IPGInstance_1a3264608e01b6d5fadcf08c71025d225b"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PlayerVariables</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
+<dl>
+<dt class="sig sig-object cpp">
+<em class="property"><span class="pre">friend</span> <span class="pre">class</span></em> <span class="pre">Models::IPG::IPG</span></dt>
+</dl>
+
+</div>
+</dd></dl>
+
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N6Models3IPG3IPGE">
 <span id="_CPPv3N6Models3IPG3IPGE"></span><span id="_CPPv2N6Models3IPG3IPGE"></span><span id="Models::IPG::IPG"></span><span class="target" id="classModels_1_1IPG_1_1IPG"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IPG</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="Game.html#_CPPv44Game" title="Game"><span class="n"><span class="pre">Game</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classGame_1_1IPG.html#_CPPv4N4Game3IPGE" title="Game::IPG"><span class="n"><span class="pre">IPG</span></span></a><br /></dt>
@@ -1870,59 +1939,6 @@
 <dt class="sig sig-object cpp" id="_CPPv4N6Models3IPG3IPG8InstanceE">
 <span id="_CPPv3N6Models3IPG3IPG8InstanceE"></span><span id="_CPPv2N6Models3IPG3IPG8InstanceE"></span><span id="Models::IPG::IPG::Instance__IPGInstance"></span><span class="target" id="classModels_1_1IPG_1_1IPG_1ab16091dec42c539439a2711b83045b36"></span><a class="reference internal" href="../../api/structModels_1_1IPG_1_1IPGInstance.html#_CPPv4N6Models3IPG11IPGInstanceE" title="Models::IPG::IPGInstance"><span class="n"><span class="pre">IPGInstance</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Instance</span></span></span><br /></dt>
 <dd></dd></dl>
-
-</div>
-</dd></dl>
-
-<dl class="cpp struct">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models3IPG11IPGInstanceE">
-<span id="_CPPv3N6Models3IPG11IPGInstanceE"></span><span id="_CPPv2N6Models3IPG11IPGInstanceE"></span><span id="Models::IPG::IPGInstance"></span><span class="target" id="structModels_1_1IPG_1_1IPGInstance"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IPGInstance</span></span></span><br /></dt>
-<dd><div class="docutils container">
-<em>#include &lt;ipg_models.h&gt;</em></div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models3IPG11IPGInstance4loadENSt6stringE">
-<span id="_CPPv3N6Models3IPG11IPGInstance4loadENSt6stringE"></span><span id="_CPPv2N6Models3IPG11IPGInstance4loadENSt6stringE"></span><span id="Models::IPG::IPGInstance::load__ss"></span><span class="target" id="structModels_1_1IPG_1_1IPGInstance_1aa91608dd6c7bb1762690e92f98bf6bb9"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">load</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">filename</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Reads the <a class="reference internal" href="#structModels_1_1IPG_1_1IPGInstance"><span class="std std-ref">IPGInstance</span></a> from a file. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models3IPG11IPGInstance4saveENSt6stringE">
-<span id="_CPPv3N6Models3IPG11IPGInstance4saveENSt6stringE"></span><span id="_CPPv2N6Models3IPG11IPGInstance4saveENSt6stringE"></span><span id="Models::IPG::IPGInstance::save__ss"></span><span class="target" id="structModels_1_1IPG_1_1IPGInstance_1aea4a2e3e8937c06adbea4abc60158121"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">save</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">filename</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Writes the <a class="reference internal" href="#structModels_1_1IPG_1_1IPGInstance"><span class="std std-ref">IPGInstance</span></a> from a file. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models3IPG11IPGInstance10addIPParamERKN7MathOpt8IP_ParamEKNSt6stringE">
-<span id="_CPPv3N6Models3IPG11IPGInstance10addIPParamERKN7MathOpt8IP_ParamEKNSt6stringE"></span><span id="_CPPv2N6Models3IPG11IPGInstance10addIPParamERKN7MathOpt8IP_ParamEKNSt6stringE"></span><span id="Models::IPG::IPGInstance::addIPParam__MathOpt::IP_ParamCR.ssC"></span><span class="target" id="structModels_1_1IPG_1_1IPGInstance_1a1a3f09591e276fd57227027c2ac9f7d8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">addIPParam</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="MathOpt.html#_CPPv47MathOpt" title="MathOpt"><span class="n"><span class="pre">MathOpt</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../api/classMathOpt_1_1IP__Param.html#_CPPv4N7MathOpt8IP_ParamE" title="MathOpt::IP_Param"><span class="n"><span class="pre">IP_Param</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ip</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">filename</span></span><span class="sig-paren">)</span><br /></dt>
-<dd></dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-attributes">Protected Attributes</p>
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models3IPG11IPGInstance7IPFilesE">
-<span id="_CPPv3N6Models3IPG11IPGInstance7IPFilesE"></span><span id="_CPPv2N6Models3IPG11IPGInstance7IPFilesE"></span><span id="Models::IPG::IPGInstance::IPFiles__std::vector:ss:"></span><span class="target" id="structModels_1_1IPG_1_1IPGInstance_1a30e4be71b780b264a0abd874b64b6591"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IPFiles</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models3IPG11IPGInstance12NumVariablesE">
-<span id="_CPPv3N6Models3IPG11IPGInstance12NumVariablesE"></span><span id="_CPPv2N6Models3IPG11IPGInstance12NumVariablesE"></span><span id="Models::IPG::IPGInstance::NumVariables__unsigned-i"></span><span class="target" id="structModels_1_1IPG_1_1IPGInstance_1ab869317eb55ee443fad962a79e3f7b36"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NumVariables</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6Models3IPG11IPGInstance15PlayerVariablesE">
-<span id="_CPPv3N6Models3IPG11IPGInstance15PlayerVariablesE"></span><span id="_CPPv2N6Models3IPG11IPGInstance15PlayerVariablesE"></span><span id="Models::IPG::IPGInstance::PlayerVariables__std::vector:unsigned-i:"></span><span class="target" id="structModels_1_1IPG_1_1IPGInstance_1a3264608e01b6d5fadcf08c71025d225b"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PlayerVariables</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><br /></dt>
-<dd></dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
-<dl>
-<dt class="sig sig-object cpp">
-<em class="property"><span class="pre">friend</span> <span class="pre">class</span></em> <span class="pre">Models::IPG::IPG</span></dt>
-</dl>
 
 </div>
 </dd></dl>

@@ -33,15 +33,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: rgb(68, 44, 123)" >
-            <a href="../../index.html">
-            <img src="../../_static/zerowhite.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/zerowhite.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
                 1.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -834,8 +838,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>IPG</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">IPG</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/support_files/tutorials/IPG.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -877,90 +881,90 @@ In other words, the objective function takes a specific bi-linear form.</p>
 <h2>Modeling and solving the problem<a class="headerlink" href="#modeling-and-solving-the-problem" title="Permalink to this headline"></a></h2>
 <p>The first step in modeling this Integer Programming Game is to include <cite>zero.h</cite> and create a derived class of <a class="reference internal" href="../../api/classGame_1_1IPG.html#_CPPv4N4Game3IPGE" title="Game::IPG"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">Game::IPG</span></code></a>. The minimal constructor for <a class="reference internal" href="../../api/classGame_1_1IPG.html#_CPPv4N4Game3IPGE" title="Game::IPG"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">Game::IPG</span></code></a> involves passing a pointer to <cite>GRBEnv</cite> (Check Gurobi’s C++ <a class="reference external" href="https://www.gurobi.com/documentation/8.1/refman/cpp_api_overview.html">reference manual</a>
 ). The derived class should indeed instantiate the base class (Game::IPG) using such a constructor. The code below gives an example.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;zero.h&gt;</span><span class="cp"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;zero.h&gt;</span>
 
 
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">  </span><span class="n">GRBEnv</span><span class="w"> </span><span class="n">GurobiEnv</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="n">try</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">GRBEnv</span><span class="w"> </span><span class="n">GurobiEnv</span><span class="p">;</span>
+<span class="w">  </span><span class="n">try</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">     </span><span class="n">Models</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">IPGInstance</span><span class="w"> </span><span class="n">IPG_Instance</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="kt">int</span><span class="w">                      </span><span class="n">numItems</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="kt">int</span><span class="w">                      </span><span class="n">numPlayers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="n">Models</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">IPGInstance</span><span class="w"> </span><span class="n">IPG_Instance</span><span class="p">;</span>
+<span class="w">     </span><span class="kt">int</span><span class="w">                      </span><span class="n">numItems</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">     </span><span class="kt">int</span><span class="w">                      </span><span class="n">numPlayers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
 
 <span class="w">     </span><span class="c1">// Objective terms</span>
-<span class="w">     </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w">    </span><span class="n">c</span><span class="p">(</span><span class="n">numItems</span><span class="p">);</span><span class="w"></span>
-<span class="w">     </span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="w"> </span><span class="n">C</span><span class="p">(</span><span class="n">numPlayers</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">numItems</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="n">numItems</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w">    </span><span class="n">c</span><span class="p">(</span><span class="n">numItems</span><span class="p">);</span>
+<span class="w">     </span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="w"> </span><span class="n">C</span><span class="p">(</span><span class="n">numPlayers</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">numItems</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="n">numItems</span><span class="p">);</span>
 <span class="w">     </span><span class="c1">// Constraints</span>
-<span class="w">     </span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">numItems</span><span class="p">);</span><span class="w"></span>
-<span class="w">     </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w">    </span><span class="n">b</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">arma</span><span class="o">::</span><span class="n">sp_mat</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">numItems</span><span class="p">);</span>
+<span class="w">     </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w">    </span><span class="n">b</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 <span class="w">     </span><span class="c1">// The index of the integer variables</span>
-<span class="w">     </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="n">IntegerIndexes</span><span class="p">(</span><span class="n">numItems</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="n">IntegerIndexes</span><span class="p">(</span><span class="n">numItems</span><span class="p">);</span>
 <span class="w">     </span><span class="c1">// Implicit bounds on variables. Could be omitted</span>
-<span class="w">     </span><span class="n">VariableBounds</span><span class="w"> </span><span class="n">VarBounds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">}};</span><span class="w"></span>
+<span class="w">     </span><span class="n">VariableBounds</span><span class="w"> </span><span class="n">VarBounds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">}};</span>
 
-<span class="w">     </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numItems</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="n">IntegerIndexes</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numItems</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="w">        </span><span class="n">IntegerIndexes</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
 
-<span class="w">     </span><span class="n">C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="n">C</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="n">C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">     </span><span class="n">C</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
 
-<span class="w">     </span><span class="n">a</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="n">a</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="n">b</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="n">a</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">     </span><span class="n">a</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">     </span><span class="n">b</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 
 <span class="w">     </span><span class="c1">// The standard is minimization.</span>
-<span class="w">     </span><span class="n">c</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="n">c</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-2</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="n">c</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">     </span><span class="n">c</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-2</span><span class="p">;</span>
 
 <span class="w">     </span><span class="c1">// Create a parametrized Integer Program</span>
-<span class="w">     </span><span class="n">MathOpt</span><span class="o">::</span><span class="n">IP_Param</span><span class="w"> </span><span class="n">PlayerOne</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">IntegerIndexes</span><span class="p">,</span><span class="w"> </span><span class="n">VarBounds</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GurobiEnv</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">MathOpt</span><span class="o">::</span><span class="n">IP_Param</span><span class="w"> </span><span class="n">PlayerOne</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">IntegerIndexes</span><span class="p">,</span><span class="w"> </span><span class="n">VarBounds</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GurobiEnv</span><span class="p">);</span>
 
 <span class="w">     </span><span class="c1">// Let&#39;s create another parametrized Integer Program for the second player.</span>
 <span class="w">     </span><span class="c1">// We&#39;ll reuse the previously created matrices and vectors</span>
 
-<span class="w">     </span><span class="n">C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="n">C</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="n">C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="w">     </span><span class="n">C</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
 
-<span class="w">     </span><span class="n">a</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="n">a</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="n">a</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">     </span><span class="n">a</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 
-<span class="w">     </span><span class="n">c</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-3</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="n">c</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-5</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="n">c</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-3</span><span class="p">;</span>
+<span class="w">     </span><span class="n">c</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-5</span><span class="p">;</span>
 
-<span class="w">     </span><span class="n">MathOpt</span><span class="o">::</span><span class="n">IP_Param</span><span class="w"> </span><span class="n">PlayerTwo</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">IntegerIndexes</span><span class="p">,</span><span class="w"> </span><span class="n">VarBounds</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GurobiEnv</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">MathOpt</span><span class="o">::</span><span class="n">IP_Param</span><span class="w"> </span><span class="n">PlayerTwo</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">IntegerIndexes</span><span class="p">,</span><span class="w"> </span><span class="n">VarBounds</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GurobiEnv</span><span class="p">);</span>
 
 
 <span class="w">     </span><span class="c1">// Add the players to the instance. We also specify a file path to write the instance</span>
-<span class="w">     </span><span class="n">IPG_Instance</span><span class="p">.</span><span class="n">addIPParam</span><span class="p">(</span><span class="n">PlayerOne</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;A_Parametrized_KnapsackProblem1&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">     </span><span class="n">IPG_Instance</span><span class="p">.</span><span class="n">addIPParam</span><span class="p">(</span><span class="n">PlayerTwo</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;A_Parametrized_KnapsackProblem2&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">IPG_Instance</span><span class="p">.</span><span class="n">addIPParam</span><span class="p">(</span><span class="n">PlayerOne</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;A_Parametrized_KnapsackProblem1&quot;</span><span class="p">);</span>
+<span class="w">     </span><span class="n">IPG_Instance</span><span class="p">.</span><span class="n">addIPParam</span><span class="p">(</span><span class="n">PlayerTwo</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;A_Parametrized_KnapsackProblem2&quot;</span><span class="p">);</span>
 <span class="w">     </span><span class="c1">// Save the instance with the standardize format</span>
-<span class="w">     </span><span class="n">IPG_Instance</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">&quot;A_Knapsack_Game&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">IPG_Instance</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">&quot;A_Knapsack_Game&quot;</span><span class="p">);</span>
 <span class="w">     </span><span class="c1">// Create a model from the instance</span>
-<span class="w">     </span><span class="n">Models</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">IPG</span><span class="w"> </span><span class="n">IPG_Model</span><span class="p">(</span><span class="o">&amp;</span><span class="n">GurobiEnv</span><span class="p">,</span><span class="w"> </span><span class="n">IPG_Instance</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">Models</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">IPG</span><span class="w"> </span><span class="n">IPG_Model</span><span class="p">(</span><span class="o">&amp;</span><span class="n">GurobiEnv</span><span class="p">,</span><span class="w"> </span><span class="n">IPG_Instance</span><span class="p">);</span>
 <span class="w">     </span><span class="c1">// Select the equilibrium to compute a Nash Equilibrium</span>
-<span class="w">     </span><span class="n">IPG_Model</span><span class="p">.</span><span class="n">setAlgorithm</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Algorithms</span><span class="o">::</span><span class="n">CutAndPlay</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">IPG_Model</span><span class="p">.</span><span class="n">setAlgorithm</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Algorithms</span><span class="o">::</span><span class="n">CutAndPlay</span><span class="p">);</span>
 <span class="w">     </span><span class="c1">// Extra parameters</span>
-<span class="w">     </span><span class="n">IPG_Model</span><span class="p">.</span><span class="n">setDeviationTolerance</span><span class="p">(</span><span class="mf">3e-4</span><span class="p">);</span><span class="w"></span>
-<span class="w">     </span><span class="n">IPG_Model</span><span class="p">.</span><span class="n">setNumThreads</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span><span class="w"></span>
-<span class="w">     </span><span class="n">IPG_Model</span><span class="p">.</span><span class="n">setLCPAlgorithm</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">Algorithms</span><span class="o">::</span><span class="n">PATH</span><span class="p">);</span><span class="w"></span>
-<span class="w">     </span><span class="n">IPG_Model</span><span class="p">.</span><span class="n">setGameObjective</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Objectives</span><span class="o">::</span><span class="n">Feasibility</span><span class="p">);</span><span class="w"></span>
-<span class="w">     </span><span class="n">IPG_Model</span><span class="p">.</span><span class="n">setTimeLimit</span><span class="p">(</span><span class="mi">600</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">IPG_Model</span><span class="p">.</span><span class="n">setDeviationTolerance</span><span class="p">(</span><span class="mf">3e-4</span><span class="p">);</span>
+<span class="w">     </span><span class="n">IPG_Model</span><span class="p">.</span><span class="n">setNumThreads</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<span class="w">     </span><span class="n">IPG_Model</span><span class="p">.</span><span class="n">setLCPAlgorithm</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">LCP</span><span class="o">::</span><span class="n">Algorithms</span><span class="o">::</span><span class="n">PATH</span><span class="p">);</span>
+<span class="w">     </span><span class="n">IPG_Model</span><span class="p">.</span><span class="n">setGameObjective</span><span class="p">(</span><span class="n">Data</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Objectives</span><span class="o">::</span><span class="n">Feasibility</span><span class="p">);</span>
+<span class="w">     </span><span class="n">IPG_Model</span><span class="p">.</span><span class="n">setTimeLimit</span><span class="p">(</span><span class="mi">600</span><span class="p">);</span>
 <span class="w">     </span><span class="c1">// Lock the model</span>
-<span class="w">     </span><span class="n">IPG_Model</span><span class="p">.</span><span class="n">finalize</span><span class="p">();</span><span class="w"></span>
+<span class="w">     </span><span class="n">IPG_Model</span><span class="p">.</span><span class="n">finalize</span><span class="p">();</span>
 <span class="w">     </span><span class="c1">// Run!</span>
-<span class="w">     </span><span class="n">IPG_Model</span><span class="p">.</span><span class="n">findNashEq</span><span class="p">();</span><span class="w"></span>
+<span class="w">     </span><span class="n">IPG_Model</span><span class="p">.</span><span class="n">findNashEq</span><span class="p">();</span>
 
 <span class="w">     </span><span class="c1">// Print the solution</span>
 
-<span class="w">     </span><span class="n">IPG_Model</span><span class="p">.</span><span class="n">getX</span><span class="p">().</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Player 1:&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">     </span><span class="n">IPG_Model</span><span class="p">.</span><span class="n">getX</span><span class="p">().</span><span class="n">at</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s"> Player 2:&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">IPG_Model</span><span class="p">.</span><span class="n">getX</span><span class="p">().</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Player 1:&quot;</span><span class="p">);</span>
+<span class="w">     </span><span class="n">IPG_Model</span><span class="p">.</span><span class="n">getX</span><span class="p">().</span><span class="n">at</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s"> Player 2:&quot;</span><span class="p">);</span>
 
-<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="n">catch</span><span class="w"> </span><span class="p">(</span><span class="n">ZEROException</span><span class="w"> </span><span class="o">&amp;</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="n">throw</span><span class="w"> </span><span class="n">ZEROException</span><span class="p">(</span><span class="n">e</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="n">catch</span><span class="w"> </span><span class="p">(</span><span class="n">ZEROException</span><span class="w"> </span><span class="o">&amp;</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="n">throw</span><span class="w"> </span><span class="n">ZEROException</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <ul class="simple">
