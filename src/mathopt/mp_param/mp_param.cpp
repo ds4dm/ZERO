@@ -471,6 +471,10 @@ bool MathOpt::MP_Param::dataCheck(bool forceSymmetry) const {
 	 LOG_S(0) << "MathOpt::MP_Param::dataCheck: Mismatch in C rows";
 	 return false;
   }
+  if (this->C.n_cols != numParams) {
+	 LOG_S(0) << "MathOpt::MP_Param::dataCheck: Mismatch in C cols";
+	 return false;
+  }
   if (this->c.size() != numVars) {
 	 LOG_S(0) << "MathOpt::MP_Param::dataCheck: Mismatch C size";
 	 return false;
