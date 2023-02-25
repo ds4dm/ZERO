@@ -30,7 +30,7 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -frtti -fvisibility-inlines-hidden -fvisibility=hidden")
 #DEBUG AND PROFILING ON APPLE SILICON
-set(CMAKE_OSX_ARCHITECTURES "x86_64")
+#set(CMAKE_OSX_ARCHITECTURES "x86_64")
 if (CMAKE_BUILD_TYPE EQUAL "DEBUG" AND NOT ROSSOBIANCO)
     message("Using MacOs debug setting")
     set(CMAKE_CXX_COMPILER "clang++")
@@ -46,11 +46,10 @@ set(ZERO_DEP_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib")
 # CUSTOM HINTS FOR DEPENDENCIES
 #######################################
 SET(ZERO_GUROBIHINT "" CACHE STRING "Hint for the Gurobi Path")
-set(GUROBI_DIR "/home/gurobi/9.5.0/linux64/" "/Library/gurobi950/macos_universal2" "C:\\dev\\gurobi900\\win64" ${ZERO_GUROBIHINT})
+set(GUROBI_DIR "/home/gurobi/10.0.0/linux64/" "/Library/gurobi1000/macos_universal2" "C:\\dev\\gurobi1000\\win64" ${ZERO_GUROBIHINT})
 set(PATH_DIR "${ZERO_DEP_DIR}/path")
 set(CONDA_ENV "${ZERO_DEP_DIR}/conda")
 set(SCIP_ROOT_DIR "${CONDA_ENV}")
-#set(COIN_HINT "/Users/gabrieledragotto/dist" "/local_workspace/draggabr/coin")
 set(COIN_HINT "${CONDA_ENV}")
 
 # Get Conda
