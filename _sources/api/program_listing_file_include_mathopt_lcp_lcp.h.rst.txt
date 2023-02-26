@@ -139,12 +139,12 @@ Program Listing for File lcp.h
                                                    arma::vec &           xSol,
                                                    arma::vec &           zSol,
                                                    double                timeLimit,
-                                                   unsigned long int          MIPWorkers,
+                                                   unsigned long int          threads,
                                                    double &              objective,
                                                    unsigned long int          solLimit = 1);
         std::unique_ptr<GRBModel> LCPasMIP(bool         solve      = false,
                                                        double       timeLimit  = -1,
-                                                       unsigned long int MIPWorkers = 1,
+                                                       unsigned long int threads = 1,
                                                        unsigned long int solLimit   = 1);
    
         std::unique_ptr<GRBModel> LCPasMILP(const arma::sp_mat &C,

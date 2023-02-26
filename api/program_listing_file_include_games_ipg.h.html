@@ -38,7 +38,7 @@
               <img src="../_static/zerowhite.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.1.0
+                1.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -307,6 +307,11 @@
 <li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1CutAndPlay.html">Class CutAndPlay</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1CutAndPlay.html#inheritance-relationships">Inheritance Relationships</a></li>
 <li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1CutAndPlay.html#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1ZERORegrets.html">Class ZERORegrets</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1ZERORegrets.html#inheritance-relationships">Inheritance Relationships</a></li>
+<li class="toctree-l5"><a class="reference internal" href="classAlgorithms_1_1IPG_1_1ZERORegrets.html#class-documentation">Class Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="classAttr.html">Template Class Attr</a><ul>
@@ -874,7 +879,8 @@
 <span class="k">namespace</span><span class="w"> </span><span class="nn">Data</span><span class="o">::</span><span class="nn">IPG</span><span class="w"> </span><span class="p">{</span>
 
 <span class="w">  </span><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Algorithms</span><span class="w"> </span><span class="p">{</span>
-<span class="w">     </span><span class="n">CutAndPlay</span>
+<span class="w">     </span><span class="n">CutAndPlay</span><span class="p">,</span>
+<span class="w">     </span><span class="n">ZERORegrets</span>
 <span class="w">  </span><span class="p">};</span>
 
 <span class="w">  </span><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">CutsAggressiveness</span><span class="w"> </span><span class="p">{</span>
@@ -887,6 +893,8 @@
 <span class="w">     </span><span class="n">Feasibility</span><span class="p">,</span>
 <span class="w">     </span><span class="n">Quadratic</span><span class="p">,</span>
 <span class="w">     </span><span class="n">Linear</span><span class="p">,</span>
+<span class="w">     </span><span class="n">ZERORegrets_SocialCost</span><span class="p">,</span>
+<span class="w">     </span><span class="n">ZERORegrets_PlayerOne</span>
 <span class="w">  </span><span class="p">};</span>
 
 <span class="w">  </span><span class="k">class</span><span class="w"> </span><span class="nc">DataObject</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">ZEROAlgorithmData</span><span class="w"> </span><span class="p">{</span>
@@ -923,8 +931,6 @@
 
 <span class="w">  </span><span class="k">private</span><span class="o">:</span>
 <span class="w">     </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Algorithms</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Algorithm</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Algorithm</span><span class="p">{};</span>
-<span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="nf">getXMinusI</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">&amp;</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="o">&amp;</span><span class="n">xMinusI</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
-<span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="nf">getXofI</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">&amp;</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w"> </span><span class="o">&amp;</span><span class="n">xOfI</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
 
 
 <span class="w">  </span><span class="k">protected</span><span class="o">:</span>
@@ -934,6 +940,7 @@
 <span class="w">  </span><span class="k">public</span><span class="o">:</span><span class="w"> </span><span class="c1">// functions</span>
 <span class="w">     </span><span class="k">friend</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Algorithms</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">Algorithm</span><span class="p">;</span>
 <span class="w">     </span><span class="k">friend</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Algorithms</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">CutAndPlay</span><span class="p">;</span>
+<span class="w">     </span><span class="k">friend</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Algorithms</span><span class="o">::</span><span class="n">IPG</span><span class="o">::</span><span class="n">ZERORegrets</span><span class="p">;</span>
 <span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="nf">finalize</span><span class="p">();</span>
 <span class="w">     </span><span class="n">IPG</span><span class="p">(</span><span class="n">GRBEnv</span><span class="w"> </span><span class="o">*</span><span class="n">env</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Env</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">env</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
 <span class="w">     </span><span class="n">IPG</span><span class="p">(</span><span class="n">GRBEnv</span><span class="w"> </span><span class="o">*</span><span class="n">env</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">MathOpt</span><span class="o">::</span><span class="n">IP_Param</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">players</span><span class="p">);</span>
@@ -980,7 +987,7 @@
 
 <span class="p">};</span><span class="w"> </span><span class="c1">// namespace std</span>
 
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;algorithms/IPG/ipg_cutandplay.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;algorithms/IPG/ipg_algorithms.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;interfaces/ipg_models.h&quot;</span>
 </pre></div>
 </div>

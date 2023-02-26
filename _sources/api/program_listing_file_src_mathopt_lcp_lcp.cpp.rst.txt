@@ -276,7 +276,7 @@ Program Listing for File lcp.cpp
    
    std::unique_ptr<GRBModel> MathOpt::LCP::LCPasMIP(bool              solve,
                                                                     double            timeLimit,
-                                                                    unsigned long int MIPWorkers,
+                                                                    unsigned long int threads,
                                                                     unsigned long int solLimit) {
      makeRelaxed();
      std::unique_ptr<GRBModel> model;
@@ -293,8 +293,8 @@ Program Listing for File lcp.cpp
    
      if (timeLimit > 0)
         model->set(GRB_DoubleParam_TimeLimit, timeLimit);
-     if (MIPWorkers > 1)
-        model->set(GRB_IntParam_ConcurrentMIP, MIPWorkers);
+     if (threads > 1)
+        model->set(GRB_IntParam_Threads, threads);
      /*model->set(GRB_DoubleParam_IntFeasTol, this->Eps);
      model->set(GRB_DoubleParam_FeasibilityTol, this->Eps);
      model->set(GRB_DoubleParam_OptimalityTol, this->Eps);
@@ -557,7 +557,7 @@ Program Listing for File lcp.cpp
                                             arma::vec            &xSol,
                                             arma::vec            &zSol,
                                             double                timeLimit,
-                                            unsigned long int     MIPWorkers,
+                                            unsigned long int     threads,
                                             double               &cutOff,
                                             unsigned long int     solLimit) {
    
@@ -589,7 +589,7 @@ Program Listing for File lcp.cpp
         else
            this->PureMIP = true;
    
-        auto Model = this->LCPasMIP(false, timeLimit, MIPWorkers, solLimit);
+        auto Model = this->LCPasMIP(false, timeLimit, threads, solLimit);
    
         // MIP Warmstart
         try {

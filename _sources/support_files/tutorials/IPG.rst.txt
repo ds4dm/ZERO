@@ -70,84 +70,75 @@ The first step in modeling this Integer Programming Game is to include `zero.h` 
       GRBEnv GurobiEnv;
       try {
 
-         Models::IPG::IPGInstance IPG_Instance;
-         int                      numItems   = 2;
-         int                      numPlayers = 2;
+         Models::IPG::IPGInstance IPG_Instance; // The IPG Instance
+         int                      numItems = 2, numPlayers = 2;
 
-         // Objective terms
-         arma::vec    c(numItems);
-         arma::sp_mat C(numPlayers * (numItems - 1), numItems);
-         // Constraints
-         arma::sp_mat a(1, numItems);
-         arma::vec    b(1);
-         // The index of the integer variables
-         arma::vec IntegerIndexes(numItems);
-         // Implicit bounds on variables. Could be omitted
-         VariableBounds VarBounds = {{0, 1}, {0, 1}};
+         arma::vec      c(numItems);                              // Profits c in the objective
+         arma::sp_mat   C(numPlayers * (numItems - 1), numItems); // C terms in the objective
+         arma::sp_mat   a(1, numItems);                           // LHS for Knapsack constraint
+         arma::vec      b(1);                                     // RHS for constraints
+         arma::vec      IntegerIndexes(numItems);                 // The index of the integer variables
+         VariableBounds VarBounds = {{0, 1}, {0, 1}};             // Implicit bounds on variables
 
+         // Fill the values in the paramterized integer problem
          for (unsigned int i = 0; i < numItems; ++i)
             IntegerIndexes.at(i) = i;
 
-         C(0, 0) = 2;
+         C(0, 0) = 2; // C terms in the objective
          C(1, 1) = 3;
-
-         a(0, 0) = 3;
+         a(0, 0) = 3; // Knapsack Constraints
          a(0, 1) = 4;
-         b(0)    = 5;
-
-         // The standard is minimization.
-         c(0) = -1;
-         c(1) = -2;
+         b(0)    = 5;  // Knapsack Capacity
+         c(0)    = -1; // The standard is minimization, hence minus
+         c(1)    = -2;
 
          // Create a parametrized Integer Program
          MathOpt::IP_Param PlayerOne(C, a, b, c, IntegerIndexes, VarBounds, &GurobiEnv);
 
-         // Let's create another parametrized Integer Program for the second player.
-         // We'll reuse the previously created matrices and vectors
-
+         // Parametrized Integer Program for the second player.
          C(0, 0) = 5;
          C(1, 1) = 4;
-
          a(0, 0) = 2;
          a(0, 1) = 5;
-
-         c(0) = -3;
-         c(1) = -5;
+         c(0)    = -3;
+         c(1)    = -5;
 
          MathOpt::IP_Param PlayerTwo(C, a, b, c, IntegerIndexes, VarBounds, &GurobiEnv);
 
-
-         // Add the players to the instance. We also specify a file path to write the instance
+         // Add the players to the instance. We can also specify a file path to write the instance
          IPG_Instance.addIPParam(PlayerOne, "A_Parametrized_KnapsackProblem1");
          IPG_Instance.addIPParam(PlayerTwo, "A_Parametrized_KnapsackProblem2");
-         // Save the instance with the standardize format
-         IPG_Instance.save("A_Knapsack_Game");
-         // Create a model from the instance
-         Models::IPG::IPG IPG_Model(&GurobiEnv, IPG_Instance);
-         // Select the equilibrium to compute a Nash Equilibrium
-         IPG_Model.setAlgorithm(Data::IPG::Algorithms::CutAndPlay);
-         // Extra parameters
-         IPG_Model.setDeviationTolerance(3e-4);
-         IPG_Model.setNumThreads(4);
-         IPG_Model.setLCPAlgorithm(Data::LCP::Algorithms::PATH);
-         IPG_Model.setGameObjective(Data::IPG::Objectives::Feasibility);
-         IPG_Model.setTimeLimit(600);
-         // Lock the model
-         IPG_Model.finalize();
-         // Run!
-         IPG_Model.findNashEq();
+         IPG_Instance.save("A_Knapsack_Game"); // Save the instance with the standardize format
+         Models::IPG::IPG KnapsackGame(&GurobiEnv, IPG_Instance); // Create a model from the instance
+         // A few optional settings
+         KnapsackGame.setNumThreads(4);            // How many threads, if supported by the solver?
+         KnapsackGame.setTimeLimit(5);             // Time limit in second
+         KnapsackGame.finalize();                  // Lock the model
+         KnapsackGame.setDeviationTolerance(3e-4); // Numerical tolerance
+         // Run and get the results
 
-         // Print the solution
 
-         IPG_Model.getX().at(0).print("Player 1:");
-         IPG_Model.getX().at(1).print("\n Player 2:");
+         // Cut and Play
+         KnapsackGame.setAlgorithm(Data::IPG::Algorithms::CutAndPlay);
+         KnapsackGame.setLCPAlgorithm(Data::LCP::Algorithms::MIP); // How do we solve the LCPs?
+         KnapsackGame.findNashEq();
+         std::cout << "The Cut-and-Play solution" << std::endl;
+         KnapsackGame.getX().at(0).print("Player 1:"); // Print the solution
+         KnapsackGame.getX().at(1).print("\n Player 2:");
 
+         // Zero Regrets
+         KnapsackGame.setAlgorithm(Data::IPG::Algorithms::ZERORegrets);
+         KnapsackGame.setGameObjective(Data::IPG::Objectives::ZERORegrets_PlayerOne);
+         KnapsackGame.findNashEq();
+         std::cout << "The ZERO Regrets solution" << std::endl;
+         KnapsackGame.getX().at(0).print("Player 1:"); // Print the solution
+         KnapsackGame.getX().at(1).print("\n Player 2:");
       } catch (ZEROException &e) {
          throw ZEROException(e);
       }
     }
 
-- With the method `setAlgorithm` of :cpp:class:`Game::IPG`, we set the algorithm to solve the Integer Programming Game. So far, only :cpp:class:`Algorithms::IPG::CutAndPlay` is available.
-- The method `setLCPAlgorithm` specifies the algorithm used to solve the LCPs. It can be either :cpp:class:`Data::LCP::Algorithms::MIP`, :cpp:class:`Data::LCP::Algorithms::PATH`, or :cpp:class:`Data::LCP::Algorithms::MINLP`.
-- The game's objective (not supported by PATH) forces an objective into the LCP problem as to increase the chances of finding a good equilibrium given the objective. Values can be :cpp:class:`Data::IPG::Objectives::Quadratic` :cpp:class:`Data::IPG::Objectives::Linear` :cpp:class:`Data::IPG::Objectives::Feasibility`.
+- With the method `setAlgorithm` of :cpp:class:`Game::IPG`, we set the algorithm to solve the Integer Programming Game. We can use either :cpp:class:`Algorithms::IPG::CutAndPlay` to compute _a_ mixed Nash equilibrium or :cpp:class:`Algorithms::IPG::ZERORegrets` to compute _a_ pure Nash equilibrium maximizing some function. In the latter case,
+- The method `setLCPAlgorithm` specifies the algorithm used to solve the LCPs with the Cut-and-Play. It can be either :cpp:class:`Data::LCP::Algorithms::MIP`, :cpp:class:`Data::LCP::Algorithms::PATH`, or :cpp:class:`Data::LCP::Algorithms::MINLP`.
+- The game's objective (not supported by PATH) forces an objective into the LCP (Cut-and-Play) or MIP (ZERORegrets) problem as to increase the chances of finding a good equilibrium given the objective. In case :cpp:class:`Algorithms::IPG::ZERORegrets` is selected, the algorithm will certify the optimality of the returned equilibrium.the  Values can be :cpp:class:`Data::IPG::Objectives::Quadratic` :cpp:class:`Data::IPG::Objectives::Linear` :cpp:class:`Data::IPG::Objectives::Feasibility`.
 - Other options can be found in the documentation of :cpp:class:`Game::IPG`

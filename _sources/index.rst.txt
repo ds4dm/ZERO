@@ -15,11 +15,12 @@ This code is distributed under the `CC BY-NC-SA 4.0 License <https://github.com/
 
 Citations
 **********************
-Cite ZERO through [ZERO]_, and any of the algorithms via their respective paper (e.g., [CNP]_ for the Cut-And-Play algorithm).
+Cite ZERO through [ZERO]_, and any of the algorithms via their respective paper (e.g., [CNP]_ for the Cut-And-Play algorithm or [ZERORegrets] for the ZERO Regrets algorithm).
 
 .. [ZERO] Gabriele Dragotto, Sriram Sankaranarayanan,  Margarida Carvalho, Andrea Lodi. ZERO: Playing Mathematical Programming Games.
 .. [WNMS] Margarida Carvalho, Gabriele Dragotto, Felipe Feijoo, Andrea Lodi, Sriram Sankaranarayanan. When Nash Meets Stackelberg.
 .. [CNP] Margarida Carvalho, Gabriele Dragotto, Andrea Lodi, Sriram Sankaranarayanan. The Cut and Play Algorithm: Computing Nash Equilibria via Outer Approximations.
+.. [ZERORegrets] Gabriele Dragotto, Rosario Scatamacchia. The ZERO Regrets Algorithm: Optimizing over Pure Nash Equilibria via Integer Programming.
 
 .. toctree::
    :caption: Quick Start

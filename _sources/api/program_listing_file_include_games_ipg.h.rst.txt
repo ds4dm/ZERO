@@ -35,7 +35,8 @@ Program Listing for File ipg.h
    namespace Data::IPG {
    
      enum class Algorithms {
-        CutAndPlay 
+        CutAndPlay, 
+        ZERORegrets 
      };
    
      enum class CutsAggressiveness {
@@ -48,6 +49,8 @@ Program Listing for File ipg.h
         Feasibility, 
         Quadratic,   
         Linear,      
+        ZERORegrets_SocialCost, 
+        ZERORegrets_PlayerOne 
      };
    
      class DataObject : public ZEROAlgorithmData {
@@ -84,8 +87,6 @@ Program Listing for File ipg.h
    
      private:
         std::shared_ptr<Algorithms::IPG::Algorithm> Algorithm{}; 
-        void getXMinusI(const arma::vec &x, const unsigned int &i, arma::vec &xMinusI) const;
-        void getXofI(const arma::vec &x, const unsigned int &i, arma::vec &xOfI) const;
    
    
      protected:
@@ -95,6 +96,7 @@ Program Listing for File ipg.h
      public: // functions
         friend class Algorithms::IPG::Algorithm;
         friend class Algorithms::IPG::CutAndPlay;
+        friend class Algorithms::IPG::ZERORegrets;
         void finalize();
         IPG(GRBEnv *env) { this->Env = env; };
         IPG(GRBEnv *env, std::vector<std::shared_ptr<MathOpt::IP_Param>> players);
@@ -141,5 +143,5 @@ Program Listing for File ipg.h
    
    }; // namespace std
    
-   #include "algorithms/IPG/ipg_cutandplay.h"
+   #include "algorithms/IPG/ipg_algorithms.h"
    #include "interfaces/ipg_models.h"
