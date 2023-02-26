@@ -138,7 +138,7 @@ The first step in modeling this Integer Programming Game is to include `zero.h` 
       }
     }
 
-- With the method `setAlgorithm` of :cpp:class:`Game::IPG`, we set the algorithm to solve the Integer Programming Game. We can use either :cpp:class:`Algorithms::IPG::CutAndPlay` to compute _a_ mixed Nash equilibrium or :cpp:class:`Algorithms::IPG::ZERORegrets` to compute _a_ pure Nash equilibrium maximizing some function. In the latter case,
+- With the method `setAlgorithm` of :cpp:class:`Game::IPG`, we set the algorithm to solve the Integer Programming Game. We can use either :cpp:class:`Algorithms::IPG::CutAndPlay` to compute a mixed Nash equilibrium or :cpp:class:`Algorithms::IPG::ZERORegrets` to compute the pure Nash equilibrium maximizing some function. In the latter case,
 - The method `setLCPAlgorithm` specifies the algorithm used to solve the LCPs with the Cut-and-Play. It can be either :cpp:class:`Data::LCP::Algorithms::MIP`, :cpp:class:`Data::LCP::Algorithms::PATH`, or :cpp:class:`Data::LCP::Algorithms::MINLP`.
 - The game's objective (not supported by PATH) forces an objective into the LCP (Cut-and-Play) or MIP (ZERORegrets) problem as to increase the chances of finding a good equilibrium given the objective. In case :cpp:class:`Algorithms::IPG::ZERORegrets` is selected, the algorithm will certify the optimality of the returned equilibrium.the  Values can be :cpp:class:`Data::IPG::Objectives::Quadratic` :cpp:class:`Data::IPG::Objectives::Linear` :cpp:class:`Data::IPG::Objectives::Feasibility`.
 - Other options can be found in the documentation of :cpp:class:`Game::IPG`
