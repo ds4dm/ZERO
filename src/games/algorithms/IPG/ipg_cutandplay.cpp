@@ -280,11 +280,6 @@ void Algorithms::IPG::CutAndPlay::solve() {
 
   // Main loop condition
   bool solved{false};
-  // When an MNE is found via MIP, we start searching for the best one in the incumbent
-  // approximation
-  bool requireOptimality{this->IPG->Stats.AlgorithmData.Objective.get() !=
-								 Data::IPG::Objectives::Feasibility};
-
   // Which players are feasible
   std::vector<int> feasible(this->IPG->NumPlayers, 0);
   // Number of mip cuts added
@@ -417,14 +412,6 @@ void Algorithms::IPG::CutAndPlay::solve() {
 		  if ((addedCuts > 0 && !solved) || (addedCuts == 0 && solved)) {
 			 if (addedCuts == 0 && solved) {
 
-				// We have solved the problem. Check for a better equilibrium?
-				if (requireOptimality) {
-				  LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::solve: Trying to improve the equilibrium.";
-				  double remaining;
-				  if (this->checkTime(remaining) && remaining > 0)
-					 this->equilibriumLCP(remaining * 0.95, false, false);
-				}
-
 				this->Solved = true;
 				bool pure    = true;
 				for (unsigned int i = 0, counter = 0; i < this->IPG->NumPlayers; ++i) {
@@ -438,6 +425,8 @@ void Algorithms::IPG::CutAndPlay::solve() {
 				arma::vec realX = this->xLast.subvec(0, this->LCP_c.size() - 1);
 				this->IPG->SocialWelfare =
 					 arma::as_scalar(this->LCP_c.t() * realX + realX.t() * this->LCP_Q * realX);
+				//realX.print("real x");
+				//std::cout << "social welfare is "<<this->IPG->SocialWelfare <<std::endl;
 				this->IPG->Stats.AlgorithmData.Cuts.set(this->Cuts);
 				LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::solve: A Nash Equilibrium has been found ("
 								<< (pure == 0 ? "MNE" : "PNE") << ").";
@@ -915,9 +904,11 @@ Algorithms::IPG::CutAndPlay::equilibriumLCP(double localTimeLimit, bool build, b
 	 LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::equilibriumLCP: tentative Equilibrium found";
 
 	 // Record the primal-dual solution and reset feasibility and pure-flag
+	 //x.print("Whole x");
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
 		this->Players.at(i)->Incumbent =
 			 x.subvec(this->NashGame->getPrimalLoc(i), this->NashGame->getPrimalLoc(i + 1) - 1);
+		//this->Players.at(i)->Incumbent.print("x of "+std::to_string(i));
 		this->Players.at(i)->DualIncumbent =
 			 x.subvec(this->NashGame->getDualLoc(i), this->NashGame->getDualLoc(i + 1) - 1);
 		this->Players.at(i)->Feasible = false;
