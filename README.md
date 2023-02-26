@@ -68,6 +68,6 @@ If you use ZERO for your research, please refer to the following papers:
 This code is distributed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International.
 
 ## Maintenance
-- [@gdragotto](https://github.com/gdragotto) - Contact: [gabriele.dragotto@princeton.edu](mailto:gabriele.dragotto@princeton.edu)
+- [@gdragotto](https://github.com/gdragotto) - Contact: [gdragotto@princeton.edu](mailto:gdragotto@princeton.edu)
 - [@ssriram1992](https://github.com/ssriram1992/) - Contact: [srirams@iima.ac.in](mailto:srirams@iima.ac.in)
 
