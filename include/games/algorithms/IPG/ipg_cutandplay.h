@@ -13,7 +13,6 @@
 
 #pragma once
 
-#include "ipg_algorithms.h"
 #include "zero.h"
 #include <include/OsiGrbSolverInterface.hpp>
 #include <armadillo>

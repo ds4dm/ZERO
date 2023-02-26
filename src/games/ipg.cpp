@@ -21,7 +21,7 @@
  * @param players The MathOpt::IP_Param for the players
  */
 Game::IPG::IPG(
-	 GRBEnv *                                        env,    ///< A pointer to the Gurobi Environment
+	 GRBEnv                                         *env,    ///< A pointer to the Gurobi Environment
 	 std::vector<std::shared_ptr<MathOpt::IP_Param>> players ///< A vector containing the pointers to
 																				///< the IP param for each player
 ) {
@@ -53,50 +53,6 @@ void Game::IPG::finalize() {
   this->postFinalize();
 }
 
-void Game::IPG::getXMinusI(
-	 const arma::vec &x,         ///< The vector containing the full solution. It should
-										  ///< have the same size of the field NumVariables
-	 const unsigned int &i,      ///< The index of the designed player
-	 arma::vec &         xMinusI ///< An output vector containing x^{-i}
-) const {
-  /**
-	* @brief Given @p x as the solution vector and @p i as index of player, the
-	* method returns x^{-i}
-	*/
-  if (this->NumVariables != x.size())
-	 throw ZEROException(ZEROErrorCode::Assertion, "Invalid size of x");
-
-  xMinusI.zeros(this->NumVariables - this->PlayerVariables.at(i));
-
-  for (unsigned int j = 0, posIn = 0, posOut = 0; j < this->NumPlayers; ++j) {
-	 if (i != j) {
-		xMinusI.subvec(posOut, posOut + this->PlayerVariables.at(j) - 1) =
-			 x.subvec(posIn, posIn + this->PlayerVariables.at(j) - 1);
-		posOut += this->PlayerVariables.at(j);
-	 }
-	 posIn += this->PlayerVariables.at(j);
-  }
-}
-
-void Game::IPG::getXofI(const arma::vec &x, ///< The vector containing the full solution. It should
-														  ///< have the same size of the field NumVariables
-								const unsigned int &i,   ///< The index of the designed player
-								arma::vec &         xOfI ///< An output vector containing x^i
-) const {
-  /**
-	* @brief Given @p x as the solution vector and @p i as index of player, the
-	* method returns x^i
-	*/
-  if (this->NumVariables != x.size())
-	 throw ZEROException(ZEROErrorCode::Assertion, "Invalid size of x");
-
-  unsigned int count = 0;
-  for (unsigned int j = 0; j < i; ++j)
-	 count += this->PlayerVariables.at(j);
-
-  xOfI.zeros(this->PlayerVariables.at(i));
-  xOfI = x.subvec(count, count + this->PlayerVariables.at(i) - 1);
-}
 
 
 void Game::IPG::findNashEq() {
@@ -110,6 +66,13 @@ void Game::IPG::findNashEq() {
 	 final_msg << "CutAndPlay Algorithm completed. ";
 	 this->Algorithm = std::shared_ptr<Algorithms::IPG::CutAndPlay>(
 		  new class Algorithms::IPG::CutAndPlay(this->Env, this));
+	 this->Algorithm->solve();
+	 final_msg << "Status: " << std::to_string(this->Stats.Status.get());
+  } break;
+  case Data::IPG::Algorithms::ZERORegrets: {
+	 final_msg << "ZERORegrets Algorithm completed. ";
+	 this->Algorithm = std::shared_ptr<Algorithms::IPG::ZERORegrets>(
+		  new class Algorithms::IPG::ZERORegrets(this->Env, this));
 	 this->Algorithm->solve();
 	 final_msg << "Status: " << std::to_string(this->Stats.Status.get());
   } break;

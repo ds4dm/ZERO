@@ -92,6 +92,7 @@ namespace Algorithms {
   namespace IPG {
 	 class Algorithm;
 	 class CutAndPlay;
+	 class ZERORegrets;
   } // namespace IPG
 } // namespace Algorithms
 

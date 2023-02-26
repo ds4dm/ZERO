@@ -26,7 +26,8 @@ namespace Data::IPG {
 	* @brief IPG Algorithms enum
 	*/
   enum class Algorithms {
-	 CutAndPlay ///< Solves the IPG via the separation CutAndPlay algorithm
+	 CutAndPlay, ///< Solves the IPG via the CutAndPlay algorithm
+	 ZERORegrets ///< Solves the IPG via the ZERO Regrets algorithm
   };
 
   /**
@@ -45,6 +46,8 @@ namespace Data::IPG {
 	 Feasibility, ///< The LCP objective is feasibility
 	 Quadratic,   ///< The LCP objective is the quadratic sum of the players objectives
 	 Linear,      ///< The LCP objective is the linear sum of the players objectives
+	 ZERORegrets_SocialCost, ///< The MIP objective is the social welfare
+	 ZERORegrets_PlayerOne ///< The MIP objective is the one of the first player
   };
 
   class DataObject : public ZEROAlgorithmData {
@@ -89,8 +92,6 @@ namespace Game {
 
   private:
 	 std::shared_ptr<Algorithms::IPG::Algorithm> Algorithm{}; ///< The Algorithm's instance
-	 void getXMinusI(const arma::vec &x, const unsigned int &i, arma::vec &xMinusI) const;
-	 void getXofI(const arma::vec &x, const unsigned int &i, arma::vec &xOfI) const;
 
 
   protected:
@@ -106,6 +107,7 @@ namespace Game {
   public: // functions
 	 friend class Algorithms::IPG::Algorithm;
 	 friend class Algorithms::IPG::CutAndPlay;
+	 friend class Algorithms::IPG::ZERORegrets;
 	 void finalize();
 	 /**
 	  * @brief Standard initializer
@@ -183,5 +185,5 @@ namespace std {
 
 }; // namespace std
 
-#include "algorithms/IPG/ipg_cutandplay.h"
+#include "algorithms/IPG/ipg_algorithms.h"
 #include "interfaces/ipg_models.h"
