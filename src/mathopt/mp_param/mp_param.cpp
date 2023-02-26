@@ -205,23 +205,20 @@ void MathOpt::MP_Param::detectBounds() {
 
 				  if (bound < Bounds.at(j).second || Bounds.at(j).second == GRB_INFINITY) {
 					 // If we have an improving UB
-						/*LOG_S(INFO)
-							 << "MathOpt::MP_Param::detectBounds: Variable " << std::to_string(j)
-							 << " has an upper bound of " << std::to_string(bound);*/
-						Bounds.at(j).second = bound;
+					 LOG_S(5) << "MathOpt::MP_Param::detectBounds: Variable " << std::to_string(j)
+								 << " has an upper bound of " << std::to_string(bound);
+					 Bounds.at(j).second = bound;
 				  }
 				  // In any case, shed the row
 				  shedRows.push_back(i);
 				} else {
 				  // a_i * x_j <= b_i where a_i<0 and b_i>0
 				  // This is a variable fixed to zero
-				  /*LOG_S(INFO) << "MathOpt::MP_Param::detectBounds: Variable "
-													<< std::to_string(j) << " is fixed to zero.";*/
+				  LOG_S(5) << "MathOpt::MP_Param::detectBounds: Variable " << std::to_string(j)
+							  << " is fixed to zero.";
 				  Bounds.at(j).second = 0;
 				  shedRows.push_back(i);
 				}
-				break;
-				// next row
 			 }
 
 			 else if (B.at(i, j) < 0) {
@@ -232,17 +229,16 @@ void MathOpt::MP_Param::detectBounds() {
 
 				  if (bound > Bounds.at(j).first) {
 					 // We have an improving lower bound
-					 /*LOG_S(INFO)
-						  << "MathOpt::MP_Param::detectBounds: Variable " << std::to_string(j)
-						  << " has a lower bound of " << std::to_string(bound);*/
+					 LOG_S(5) << "MathOpt::MP_Param::detectBounds: Variable " << std::to_string(j)
+								 << " has a lower bound of " << std::to_string(bound);
 					 Bounds.at(j).first = bound;
 				  }
 				  // In any case, shed the row
 				  shedRows.push_back(i);
 				} else {
 				  // Trivial constraint. Can be removed
-				  /*LOG_S(INFO) << "MathOpt::MP_Param::detectBounds: Trivial constraint "
-													<< std::to_string(i) << " pruned";*/
+				  LOG_S(5) << "MathOpt::MP_Param::detectBounds: Trivial constraint "
+							  << std::to_string(i) << " pruned";
 				  shedRows.push_back(i);
 				}
 				// next row
