@@ -232,9 +232,6 @@ void Algorithms::IPG::ZERORegrets::solve() {
 		solved = true;
 		// last objective
 		auto last_obj = this->JointProgram->getObjective().getValue();
-
-		this->JointProgram->write("dat/TheJointProgram.lp");
-
 		// Fetch the solution. This goes outside the main loop
 		for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
 		  this->xLast.at(i) = arma::zeros(this->IPG->PlayersIP.at(i)->getNumVars());
