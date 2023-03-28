@@ -3,7 +3,7 @@ What is an RBG?
 A **Reciprocally Bilinear Game** is a simultaneous non-cooperative game among :math:`n` players with each player :math:`i=1,2,\dots,n` solving the optimization problem
 
 .. math::
-    \min{x^i} (c^i)^\top x^i + (x^{-i})^\top C^ix^i \\
+    \min{x^i} (c^i)^\top x^i + (x^{-i})^\top C^ix^i + d^Tx^{-i} \\
     \text{s.t.} \quad  x^i \in \mathcal{X}^i
 
 where :math:`\mathcal{X}^i` is a set (not necessarily closed), :math:`C` and :math:`c` are a matrix and a vector of appropriate dimensions. An RBG is *polyhedrally representable* if :math:`\text{cl conv}(\mathcal{X}^i)` is a polyhedron for every :math:`i`, and one can optimize an arbitrary linear funciton on :math:`\mathcal{X}^i`.

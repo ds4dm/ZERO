@@ -5,7 +5,7 @@ Parametrized IPs
 IP_Param stands for *Parametrized Integer Program*, a mathematical program in the following form:
 
 .. math::
-    \min_y c^Ty + (Cx)^T y \\
+    \min_y c^Ty + (Cx)^T y + d^Tx \\
     \text{s.t.} \quad By \le b \\
     \quad \quad y \ge 0 \\
     \quad \quad y_i \in  \mathbb{Z} \quad \forall i \in I
@@ -41,7 +41,7 @@ We assume the matrix C is a matrix with:
     #include "zero.h"
     //[...] Your other code here
     //The linear objectives in y
-    arma::vec                _c(2);
+    arma::vec                _c(2), _d(2);
     //The matrix of interaction coefficients among parameters and variables
     arma::mat                _C = arma::zeros(2, 2);
     //The constraint matrix
@@ -60,6 +60,8 @@ We assume the matrix C is a matrix with:
     _C(1, 1) = 3;
     _c(0) = -1;
     _c(1) = -2;
+    _d(0) = 0;
+    _d(1) = 0;
 
     //Knapsack Constraint
     _A(0, 0) = 3;
@@ -75,7 +77,7 @@ We assume the matrix C is a matrix with:
     VariableBounds    bnds = {{0, 1}, {0, 1}};
     //Gurobi Environment
     GRBEnv      test;
-    MathOpt::IP_Param ipParam(_C2, _A2, _b, _c, _integers, bnds, &test);
+    MathOpt::IP_Param ipParam(_C2, _A2, _b, _c, _d, _integers, bnds, &test);
 
 
 ====================================

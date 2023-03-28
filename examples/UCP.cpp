@@ -61,13 +61,14 @@ int main() {
 
 
 	 for (int i = 0; i < numPlayers; ++i) {
-		arma::vec      c(numVars);                             // Linear profit in the objective
+		arma::vec      c(numVars); // Linear profit in the objective
+		arma::vec      d(numVars * (numPlayers - 1), arma::fill::zeros);
 		arma::sp_mat   C(numVars, numVars * (numPlayers - 1)); // C terms in the objective
 		arma::sp_mat   A(numConstr, numVars);                  // Constraints
 		arma::vec      b(numConstr);                           // RHS for constraints
 		arma::vec      IntegerIndexes = {1};                   // The index of the integer variables
 		VariableBounds VarBounds      = {
-					{0, UB_in.at(i)}, {0, 1}, {0, UB_in.at(i) * UB_in.at(i) + 10}}; // Bounds on variables
+          {0, UB_in.at(i)}, {0, 1}, {0, UB_in.at(i) * UB_in.at(i) + 10}}; // Bounds on variables
 
 		// Linear coefficients of x^i_c
 		c.at(0) = a_in.at(i) - alpha;
@@ -117,7 +118,7 @@ int main() {
 		}
 
 
-		MathOpt::IP_Param Player(C, A, b, c, IntegerIndexes, VarBounds, &GurobiEnv);
+		MathOpt::IP_Param Player(C, A, b, c, d, IntegerIndexes, VarBounds, &GurobiEnv);
 		IPG_Instance.addIPParam(Player, "UCP_Player" + std::to_string(i));
 
 

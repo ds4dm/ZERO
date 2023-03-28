@@ -5,7 +5,7 @@ In ZERO, we support IPGs where each player :math:`i` solves the following proble
 
 .. math::
 
-    \min_{x^i} (c^i) ^\top x^i + (x^{-i})^\top C^ix^i \\
+    \min_{x^i} (c^i) ^\top x^i + (x^{-i})^\top C^ix^i + d^T x^{-i} \\
     \text{s.t.} \quad A^ix^i\le b^i \\
     \quad \quad x^i \ge 0 \\
     \quad \quad  x^i_j \in \mathbb{N} \quad  \forall j \in \mathcal{I}^i
@@ -73,8 +73,8 @@ The first step in modeling this Integer Programming Game is to include `zero.h` 
          Models::IPG::IPGInstance IPG_Instance; // The IPG Instance
          int                      numItems = 2, numPlayers = 2;
 
-         arma::vec      c(numItems);                              // Profits c in the objective
-         arma::sp_mat   C(numPlayers * (numItems - 1), numItems); // C terms in the objective
+         arma::vec      c(numItems), d(numItems * (numPlayers - 1));                              // Profits c in the objective
+         arma::sp_mat   C(numItems * (numPlayers - 1), numItems); // C terms in the objective
          arma::sp_mat   a(1, numItems);                           // LHS for Knapsack constraint
          arma::vec      b(1);                                     // RHS for constraints
          arma::vec      IntegerIndexes(numItems);                 // The index of the integer variables
@@ -91,9 +91,11 @@ The first step in modeling this Integer Programming Game is to include `zero.h` 
          b(0)    = 5;  // Knapsack Capacity
          c(0)    = -1; // The standard is minimization, hence minus
          c(1)    = -2;
+         d(0)    = 0;
+         d(1)    = 0;
 
          // Create a parametrized Integer Program
-         MathOpt::IP_Param PlayerOne(C, a, b, c, IntegerIndexes, VarBounds, &GurobiEnv);
+         MathOpt::IP_Param PlayerOne(C, a, b, c, d, IntegerIndexes, VarBounds, &GurobiEnv);
 
          // Parametrized Integer Program for the second player.
          C(0, 0) = 5;
@@ -103,7 +105,7 @@ The first step in modeling this Integer Programming Game is to include `zero.h` 
          c(0)    = -3;
          c(1)    = -5;
 
-         MathOpt::IP_Param PlayerTwo(C, a, b, c, IntegerIndexes, VarBounds, &GurobiEnv);
+         MathOpt::IP_Param PlayerTwo(C, a, b, c, d, IntegerIndexes, VarBounds, &GurobiEnv);
 
          // Add the players to the instance. We can also specify a file path to write the instance
          IPG_Instance.addIPParam(PlayerOne, "A_Parametrized_KnapsackProblem1");

@@ -22,9 +22,9 @@ int main(int argc, char **argv) {
 	 int                      numItems = 2, numPlayers = 2;
 
 	 arma::vec      c(numItems);                              // Profits c in the objective
-	 arma::sp_mat   C(numPlayers * (numItems - 1), numItems); // C terms in the objective
+	 arma::sp_mat   C(numItems * (numPlayers - 1), numItems); // C terms in the objective
 	 arma::sp_mat   a(1, numItems);                           // LHS for Knapsack constraint
-	 arma::vec      b(1);                                     // RHS for constraints
+	 arma::vec      b(1), d(2,arma::fill::zeros);                                     // RHS for constraints
 	 arma::vec      IntegerIndexes(numItems);                 // The index of the integer variables
 	 VariableBounds VarBounds = {{0, 1}, {0, 1}};             // Implicit bounds on variables
 
@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
 	 c(1)    = -2;
 
 	 // Create a parametrized Integer Program
-	 MathOpt::IP_Param PlayerOne(C, a, b, c, IntegerIndexes, VarBounds, &GurobiEnv);
+	 MathOpt::IP_Param PlayerOne(C, a, b, c, d, IntegerIndexes, VarBounds, &GurobiEnv);
 
 	 // Parametrized Integer Program for the second player.
 	 C(0, 0) = 5;
@@ -51,7 +51,7 @@ int main(int argc, char **argv) {
 	 c(0)    = -3;
 	 c(1)    = -5;
 
-	 MathOpt::IP_Param PlayerTwo(C, a, b, c, IntegerIndexes, VarBounds, &GurobiEnv);
+	 MathOpt::IP_Param PlayerTwo(C, a, b, c, d, IntegerIndexes, VarBounds, &GurobiEnv);
 
 	 // Add the players to the instance. We can also specify a file path to write the instance
 	 IPG_Instance.addIPParam(PlayerOne, "A_Parametrized_KnapsackProblem1");

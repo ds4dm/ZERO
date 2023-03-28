@@ -4,7 +4,7 @@ Parametrized QPs
 QP_Param stands for *Parametrized Quadratic Program*, a mathematical program in the following form:
 
 .. math::
-    \min_y \frac{1}{2}y^TQy + c^Ty + (Cx)^T y \\
+    \min_y \frac{1}{2}y^TQy + c^Ty + (Cx)^T y + d^T x \\
     \text{s.t.} \quad  Ax + By \le b\\
     \quad \quad y \ge 0
 
@@ -46,6 +46,7 @@ We can model the problem above as follows:
 
     // The matrix for x and y interaction
     arma::sp_mat C(3, 2);
+    arma::vec d(3);
     C.zeros(); C(0, 0) = 2; C(0, 1) = 2; C(2, 0) = 3;
     // The vector for linear terms in y
     arma::vec c(3);
@@ -68,11 +69,11 @@ Now the required object can be constructed in multiple ways.
 .. code-block:: c
 
     // Method 1: Make a call to the constructor
-    MathOpt::QP_Param q1(Q, C, A, B, c, b, &env);
+    MathOpt::QP_Param q1(Q, C, A, B, c, b, d, &env);
 
     // Method 2: Using QP_Param::set member function
     MathOpt::QP_Param q2(&env);
-    q2.set(Q, C, A, B, c, b);
+    q2.set(Q, C, A, B, c, b, d);
 
     // Method 3: Reading from a file. This requires that such an object is saved to a file at first.
     q1.save("dat/q1dat.dat"); // Saving the file so it can be retrieved.
