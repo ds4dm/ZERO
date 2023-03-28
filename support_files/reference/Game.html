@@ -950,7 +950,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sol</strong> – The optimal response for <code class="docutils literal notranslate"><span class="pre">player</span></code> </p></li>
+<li><p><strong>sol</strong> – The optimal response for <code class="docutils literal notranslate"><span class="pre">player</span></code></p></li>
 <li><p><strong>player</strong> – The player id </p></li>
 <li><p><strong>x</strong> – The solution vector </p></li>
 <li><p><strong>prevDev</strong> – An optional previous deviation encountered. This is useful to normalize any unbounded best response </p></li>
@@ -1408,7 +1408,7 @@
 <dd><p>Makes the <a class="reference internal" href="../../api/classMathOpt_1_1QP__Param.html#classMathOpt_1_1QP__Param"><span class="std std-ref">MathOpt::QP_Param</span></a> corresponding to the <code class="docutils literal notranslate"><span class="pre">i-th</span></code> country. </p>
 <p><ul class="simple">
 <li><p>First gets the Game::LCP object from <code class="docutils literal notranslate"><a class="reference internal" href="../../api/classGame_1_1EPEC.html#classGame_1_1EPEC_1a1dc1b8bd642e450bc1e30eefe963fe13"><span class="std std-ref"><span class="pre">Game::EPEC::PlayersLowerLevels</span></span></a></code> and makes a <a class="reference internal" href="../../api/classMathOpt_1_1QP__Param.html#classMathOpt_1_1QP__Param"><span class="std std-ref">MathOpt::QP_Param</span></a> with this LCP as the lower level</p></li>
-<li><p>This is achieved by calling LCP::makeQP and using the objective value object in <code class="docutils literal notranslate"><a class="reference internal" href="../../api/classGame_1_1EPEC.html#classGame_1_1EPEC_1a65834e121a2b29b9205ceb6a237e9e26"><span class="std std-ref"><span class="pre">Game::EPEC::LeaderObjective</span></span></a></code> </p></li>
+<li><p>This is achieved by calling LCP::makeQP and using the objective value object in <code class="docutils literal notranslate"><a class="reference internal" href="../../api/classGame_1_1EPEC.html#classGame_1_1EPEC_1a65834e121a2b29b9205ceb6a237e9e26"><span class="std std-ref"><span class="pre">Game::EPEC::LeaderObjective</span></span></a></code></p></li>
 <li><p>Finally the locations are updated owing to the complete convex hull calculated during the call to LCP::makeQP </p></li>
 </ul>
 </p>
@@ -1555,7 +1555,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
- </p>
+</p>
 </dd>
 </dl>
 <div class="breathe-sectiondef docutils container">
@@ -1828,7 +1828,7 @@
 <dd><p>Sets the <a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a34d343f554ac089c3cb14de04aa6d294.html#namespaceData_1_1IPG_1a34d343f554ac089c3cb14de04aa6d294"><span class="std std-ref">Data::IPG::Algorithms</span></a> for the solution process. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>algorithm</strong> – An enum from <a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a34d343f554ac089c3cb14de04aa6d294.html#namespaceData_1_1IPG_1a34d343f554ac089c3cb14de04aa6d294"><span class="std std-ref">Data::IPG::Algorithms</span></a> </p>
+<dd class="field-odd"><p><strong>algorithm</strong> – An enum from <a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a34d343f554ac089c3cb14de04aa6d294.html#namespaceData_1_1IPG_1a34d343f554ac089c3cb14de04aa6d294"><span class="std std-ref">Data::IPG::Algorithms</span></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1850,7 +1850,7 @@
 <dd><p>Sets the <a class="reference internal" href="../../api/enum_namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82.html#namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82"><span class="std std-ref">Data::LCP::Algorithms</span></a> for the LCP solution process. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>algo</strong> – An enum from <a class="reference internal" href="../../api/enum_namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82.html#namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82"><span class="std std-ref">Data::LCP::Algorithms</span></a> </p>
+<dd class="field-odd"><p><strong>algo</strong> – An enum from <a class="reference internal" href="../../api/enum_namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82.html#namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82"><span class="std std-ref">Data::LCP::Algorithms</span></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1861,7 +1861,7 @@
 <dd><p>Sets the <a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a03601c4502ada3c2f633e870771b2723.html#namespaceData_1_1IPG_1a03601c4502ada3c2f633e870771b2723"><span class="std std-ref">Data::IPG::Objectives</span></a> for the LCP objective. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>obj</strong> – An enum from <a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a03601c4502ada3c2f633e870771b2723.html#namespaceData_1_1IPG_1a03601c4502ada3c2f633e870771b2723"><span class="std std-ref">Data::IPG::Objectives</span></a> </p>
+<dd class="field-odd"><p><strong>obj</strong> – An enum from <a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a03601c4502ada3c2f633e870771b2723.html#namespaceData_1_1IPG_1a03601c4502ada3c2f633e870771b2723"><span class="std std-ref">Data::IPG::Objectives</span></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1872,7 +1872,7 @@
 <dd><p>Sets the <a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a2990b118bd0d209b5ca094a208770189.html#namespaceData_1_1IPG_1a2990b118bd0d209b5ca094a208770189"><span class="std std-ref">Data::IPG::CutsAggressiveness</span></a> for the cut aggressiveness in <a class="reference internal" href="Algorithms.html#classAlgorithms_1_1IPG_1_1CutAndPlay"><span class="std std-ref">Algorithms::IPG::CutAndPlay</span></a>. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>aggressiveness</strong> – An enum from <a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a2990b118bd0d209b5ca094a208770189.html#namespaceData_1_1IPG_1a2990b118bd0d209b5ca094a208770189"><span class="std std-ref">Data::IPG::CutsAggressiveness</span></a> </p>
+<dd class="field-odd"><p><strong>aggressiveness</strong> – An enum from <a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a2990b118bd0d209b5ca094a208770189.html#namespaceData_1_1IPG_1a2990b118bd0d209b5ca094a208770189"><span class="std std-ref">Data::IPG::CutsAggressiveness</span></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2178,7 +2178,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sol</strong> – The std::vector of pure strategies for the Nash <a class="reference internal" href="#namespaceGame"><span class="std std-ref">Game</span></a> </p></li>
+<li><p><strong>sol</strong> – The std::vector of pure strategies for the Nash <a class="reference internal" href="#namespaceGame"><span class="std std-ref">Game</span></a></p></li>
 <li><p><strong>violPlayer</strong> – Output index of the player with profitable deviation </p></li>
 <li><p><strong>violSol</strong> – The output pure strategy for that player - which gives a profitable deviation </p></li>
 <li><p><strong>tol</strong> – The deviation tolerance </p></li>
@@ -2465,7 +2465,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sol</strong> – The optimal response for <code class="docutils literal notranslate"><span class="pre">player</span></code> </p></li>
+<li><p><strong>sol</strong> – The optimal response for <code class="docutils literal notranslate"><span class="pre">player</span></code></p></li>
 <li><p><strong>player</strong> – The player id </p></li>
 <li><p><strong>x</strong> – The solution vector </p></li>
 <li><p><strong>prevDev</strong> – An optional previous deviation encountered. This is useful to normalize any unbounded best response </p></li>
@@ -2923,7 +2923,7 @@
 <dd><p>Makes the <a class="reference internal" href="../../api/classMathOpt_1_1QP__Param.html#classMathOpt_1_1QP__Param"><span class="std std-ref">MathOpt::QP_Param</span></a> corresponding to the <code class="docutils literal notranslate"><span class="pre">i-th</span></code> country. </p>
 <p><ul class="simple">
 <li><p>First gets the Game::LCP object from <code class="docutils literal notranslate"><a class="reference internal" href="../../api/classGame_1_1EPEC.html#classGame_1_1EPEC_1a1dc1b8bd642e450bc1e30eefe963fe13"><span class="std std-ref"><span class="pre">Game::EPEC::PlayersLowerLevels</span></span></a></code> and makes a <a class="reference internal" href="../../api/classMathOpt_1_1QP__Param.html#classMathOpt_1_1QP__Param"><span class="std std-ref">MathOpt::QP_Param</span></a> with this LCP as the lower level</p></li>
-<li><p>This is achieved by calling LCP::makeQP and using the objective value object in <code class="docutils literal notranslate"><a class="reference internal" href="../../api/classGame_1_1EPEC.html#classGame_1_1EPEC_1a65834e121a2b29b9205ceb6a237e9e26"><span class="std std-ref"><span class="pre">Game::EPEC::LeaderObjective</span></span></a></code> </p></li>
+<li><p>This is achieved by calling LCP::makeQP and using the objective value object in <code class="docutils literal notranslate"><a class="reference internal" href="../../api/classGame_1_1EPEC.html#classGame_1_1EPEC_1a65834e121a2b29b9205ceb6a237e9e26"><span class="std std-ref"><span class="pre">Game::EPEC::LeaderObjective</span></span></a></code></p></li>
 <li><p>Finally the locations are updated owing to the complete convex hull calculated during the call to LCP::makeQP </p></li>
 </ul>
 </p>
@@ -3140,7 +3140,7 @@
 <dd><p>Sets the <a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a34d343f554ac089c3cb14de04aa6d294.html#namespaceData_1_1IPG_1a34d343f554ac089c3cb14de04aa6d294"><span class="std std-ref">Data::IPG::Algorithms</span></a> for the solution process. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>algorithm</strong> – An enum from <a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a34d343f554ac089c3cb14de04aa6d294.html#namespaceData_1_1IPG_1a34d343f554ac089c3cb14de04aa6d294"><span class="std std-ref">Data::IPG::Algorithms</span></a> </p>
+<dd class="field-odd"><p><strong>algorithm</strong> – An enum from <a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a34d343f554ac089c3cb14de04aa6d294.html#namespaceData_1_1IPG_1a34d343f554ac089c3cb14de04aa6d294"><span class="std std-ref">Data::IPG::Algorithms</span></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -3162,7 +3162,7 @@
 <dd><p>Sets the <a class="reference internal" href="../../api/enum_namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82.html#namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82"><span class="std std-ref">Data::LCP::Algorithms</span></a> for the LCP solution process. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>algo</strong> – An enum from <a class="reference internal" href="../../api/enum_namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82.html#namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82"><span class="std std-ref">Data::LCP::Algorithms</span></a> </p>
+<dd class="field-odd"><p><strong>algo</strong> – An enum from <a class="reference internal" href="../../api/enum_namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82.html#namespaceData_1_1LCP_1a1544a7ac1023309e720d6da2b9148a82"><span class="std std-ref">Data::LCP::Algorithms</span></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -3173,7 +3173,7 @@
 <dd><p>Sets the <a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a03601c4502ada3c2f633e870771b2723.html#namespaceData_1_1IPG_1a03601c4502ada3c2f633e870771b2723"><span class="std std-ref">Data::IPG::Objectives</span></a> for the LCP objective. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>obj</strong> – An enum from <a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a03601c4502ada3c2f633e870771b2723.html#namespaceData_1_1IPG_1a03601c4502ada3c2f633e870771b2723"><span class="std std-ref">Data::IPG::Objectives</span></a> </p>
+<dd class="field-odd"><p><strong>obj</strong> – An enum from <a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a03601c4502ada3c2f633e870771b2723.html#namespaceData_1_1IPG_1a03601c4502ada3c2f633e870771b2723"><span class="std std-ref">Data::IPG::Objectives</span></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -3184,7 +3184,7 @@
 <dd><p>Sets the <a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a2990b118bd0d209b5ca094a208770189.html#namespaceData_1_1IPG_1a2990b118bd0d209b5ca094a208770189"><span class="std std-ref">Data::IPG::CutsAggressiveness</span></a> for the cut aggressiveness in <a class="reference internal" href="Algorithms.html#classAlgorithms_1_1IPG_1_1CutAndPlay"><span class="std std-ref">Algorithms::IPG::CutAndPlay</span></a>. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>aggressiveness</strong> – An enum from <a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a2990b118bd0d209b5ca094a208770189.html#namespaceData_1_1IPG_1a2990b118bd0d209b5ca094a208770189"><span class="std std-ref">Data::IPG::CutsAggressiveness</span></a> </p>
+<dd class="field-odd"><p><strong>aggressiveness</strong> – An enum from <a class="reference internal" href="../../api/enum_namespaceData_1_1IPG_1a2990b118bd0d209b5ca094a208770189.html#namespaceData_1_1IPG_1a2990b118bd0d209b5ca094a208770189"><span class="std std-ref">Data::IPG::CutsAggressiveness</span></a></p>
 </dd>
 </dl>
 </dd></dl>

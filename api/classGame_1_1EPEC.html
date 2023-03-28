@@ -964,7 +964,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sol</strong> – The optimal response for <code class="docutils literal notranslate"><span class="pre">player</span></code> </p></li>
+<li><p><strong>sol</strong> – The optimal response for <code class="docutils literal notranslate"><span class="pre">player</span></code></p></li>
 <li><p><strong>player</strong> – The player id </p></li>
 <li><p><strong>x</strong> – The solution vector </p></li>
 <li><p><strong>prevDev</strong> – An optional previous deviation encountered. This is useful to normalize any unbounded best response </p></li>
@@ -1422,7 +1422,7 @@
 <dd><p>Makes the <a class="reference internal" href="classMathOpt_1_1QP__Param.html#classMathOpt_1_1QP__Param"><span class="std std-ref">MathOpt::QP_Param</span></a> corresponding to the <code class="docutils literal notranslate"><span class="pre">i-th</span></code> country. </p>
 <p><ul class="simple">
 <li><p>First gets the Game::LCP object from <code class="docutils literal notranslate"><a class="reference internal" href="#classGame_1_1EPEC_1a1dc1b8bd642e450bc1e30eefe963fe13"><span class="std std-ref"><span class="pre">Game::EPEC::PlayersLowerLevels</span></span></a></code> and makes a <a class="reference internal" href="classMathOpt_1_1QP__Param.html#classMathOpt_1_1QP__Param"><span class="std std-ref">MathOpt::QP_Param</span></a> with this LCP as the lower level</p></li>
-<li><p>This is achieved by calling LCP::makeQP and using the objective value object in <code class="docutils literal notranslate"><a class="reference internal" href="#classGame_1_1EPEC_1a65834e121a2b29b9205ceb6a237e9e26"><span class="std std-ref"><span class="pre">Game::EPEC::LeaderObjective</span></span></a></code> </p></li>
+<li><p>This is achieved by calling LCP::makeQP and using the objective value object in <code class="docutils literal notranslate"><a class="reference internal" href="#classGame_1_1EPEC_1a65834e121a2b29b9205ceb6a237e9e26"><span class="std std-ref"><span class="pre">Game::EPEC::LeaderObjective</span></span></a></code></p></li>
 <li><p>Finally the locations are updated owing to the complete convex hull calculated during the call to LCP::makeQP </p></li>
 </ul>
 </p>

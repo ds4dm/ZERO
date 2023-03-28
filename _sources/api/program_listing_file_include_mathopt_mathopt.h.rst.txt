@@ -37,6 +37,7 @@ Program Listing for File mathopt.h
      typedef struct QP_Objective {
         arma::sp_mat Q;
         arma::sp_mat C;
+        arma::vec    d;
         arma::vec    c;
      } QP_objective;
      typedef struct QP_Constraints {

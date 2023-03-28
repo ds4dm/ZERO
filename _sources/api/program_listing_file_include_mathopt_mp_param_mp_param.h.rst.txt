@@ -39,16 +39,17 @@ Program Listing for File mp_param.h
      private:
         double Eps{1e-6}; 
      protected:
-        arma::sp_mat   Q; 
-       arma::sp_mat   A; 
-       arma::sp_mat   B; 
-       arma::sp_mat   C; 
-        arma::sp_mat   B_bounds;   
-        arma::vec      b_bounds;   
-        arma::vec      c; 
-        arma::vec  b;       
-        GRBEnv *       Env;        
-        VariableBounds Bounds;     
+        arma::sp_mat   Q;        
+        arma::sp_mat   A;        
+        arma::sp_mat   B;        
+        arma::sp_mat   C;        
+        arma::sp_mat   B_bounds; 
+        arma::vec      b_bounds; 
+        arma::vec      c;        
+        arma::vec      d;        
+        arma::vec      b;        
+        GRBEnv        *Env;      
+        VariableBounds Bounds;   
         // Object for sizes and integrity check
         unsigned int numParams; 
         unsigned int numVars;   
@@ -73,6 +74,7 @@ Program Listing for File mp_param.h
         arma::sp_mat getA(bool bounds = true) const;  
         arma::sp_mat getB(bool bounds = true) const;  
         arma::vec    getc() const { return this->c; } 
+        arma::vec    getd() const { return this->d; } 
         arma::vec    getb(bool bounds = true) const;  
         unsigned int getNumParams() const {
            return this->numParams;
@@ -102,6 +104,10 @@ Program Listing for File mp_param.h
            this->c = c_in;
            return *this;
         } 
+        MP_Param &setd(const arma::vec &d_in) {
+           this->d = d_in;
+           return *this;
+        } 
         MP_Param &setb(const arma::vec &b_in) {
            this->b = b_in;
            return *this;
@@ -117,30 +123,32 @@ Program Listing for File mp_param.h
                                      const arma::sp_mat &C_in,
                                      const arma::sp_mat &A_in,
                                      const arma::sp_mat &B_in,
-                                     const arma::vec &   c_in,
-                                     const arma::vec &   b_in); // Copy data into this
+                                     const arma::vec    &c_in,
+                                     const arma::vec    &b_in,
+                                     const arma::vec    &d_in); // Copy data into this
         virtual MP_Param &set(arma::sp_mat &&Q_in,
                                      arma::sp_mat &&C_in,
                                      arma::sp_mat &&A_in,
                                      arma::sp_mat &&B_in,
-                                     arma::vec &&   c_in,
-                                     arma::vec &&   b_in); // Move data into this
+                                     arma::vec    &&c_in,
+                                     arma::vec    &&b_in,
+                                     arma::vec    &&d_in); // Move data into this
         virtual MP_Param &set(const QP_Objective &obj, const QP_Constraints &cons);
    
         virtual MP_Param &set(QP_Objective &&obj, QP_Constraints &&cons);
    
         virtual MP_Param &addDummy(unsigned int pars, unsigned int vars = 0, int position = -1);
    
-        virtual void                      save(const std::string &filename, bool append) const;
-        virtual long int                  load(const std::string &filename, long int pos = 0);
-        virtual unsigned int              KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const = 0;
+        virtual void     save(const std::string &filename, bool append) const;
+        virtual long int load(const std::string &filename, long int pos = 0);
+        virtual unsigned int KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const = 0;
         virtual std::unique_ptr<GRBModel> solveFixed(const arma::vec x, bool solve = false) = 0;
-        virtual double computeObjective(const arma::vec &y,
-                                                   const arma::vec &x,
-                                                   bool             checkFeas = true,
-                                                   double           tol       = 1e-6) const;
-        void           forceDataCheck() const;
-        virtual bool   isFeasible(const arma::vec &y, const arma::vec &x, double tol) const;
+        virtual double                    computeObjective(const arma::vec &y,
+                                                                            const arma::vec &x,
+                                                                            bool             checkFeas = true,
+                                                                            double           tol       = 1e-6) const;
+        void                              forceDataCheck() const;
+        virtual bool isFeasible(const arma::vec &y, const arma::vec &x, double tol) const;
      };
    
    } // namespace MathOpt
