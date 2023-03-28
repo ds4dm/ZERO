@@ -26,7 +26,7 @@ namespace MathOpt {
   std::ostream &operator<<(std::ostream &os, const QP_Param &Q);
   /**
 	* @brief A class to handle parameterized quadratic programs (QP), defined as \f[
-	* \min_y \frac{1}{2}y^TQy + c^Ty + (Cx)^T y
+	* \min_y \frac{1}{2}y^TQy + c^Ty + (Cx)^T y + d^T x
 	* \f]
 	* Subject to
 	* \f{eqnarray}{
@@ -58,6 +58,7 @@ namespace MathOpt {
 				 const arma::sp_mat& B_in,
 				 const arma::vec&    c_in,
 				 const arma::vec&    b_in,
+				 const arma::vec&    d_in,
 				 GRBEnv *     env = nullptr);
 	 ;
 
@@ -74,13 +75,15 @@ namespace MathOpt {
 						const arma::sp_mat &A_in,
 						const arma::sp_mat &B_in,
 						const arma::vec &   c_in,
-						const arma::vec &   b_in) final; // Copy data into this
+						const arma::vec &   b_in,
+						const arma::vec &   d_in) final; // Copy data into this
 	 QP_Param &set(arma::sp_mat &&Q_in,
 						arma::sp_mat &&C_in,
 						arma::sp_mat &&A_in,
 						arma::sp_mat &&B_in,
 						arma::vec &&   c_in,
-						arma::vec &&   b_in) final; // Move data into this
+						arma::vec &&   b_in,
+						arma::vec &&   d_in) final; // Move data into this
 	 QP_Param &set(const QP_Objective &obj, const QP_Constraints &cons) final;
 
 	 QP_Param &set(QP_Objective &&obj, QP_Constraints &&cons) final;

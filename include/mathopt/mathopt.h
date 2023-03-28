@@ -23,10 +23,11 @@
 namespace MathOpt {
 
   ///@brief struct to handle the objective params of MP_Param and inheritors
-  ///@details Refer QP_Param class for what Q, C and c mean.
+  ///@details Refer QP_Param class for what Q, C and c,d mean.
   typedef struct QP_Objective {
 	 arma::sp_mat Q;
 	 arma::sp_mat C;
+	 arma::vec    d;
 	 arma::vec    c;
   } QP_objective;
   ///@brief struct to handle the constraint params of MP_Param and inheritors

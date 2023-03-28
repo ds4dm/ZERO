@@ -196,9 +196,10 @@ void Models::EPEC::EPEC::make_LL_QP(
   // Two constraints. One saying that you should be less than capacity
   // Another saying that you should be less than leader imposed cap!
   arma::sp_mat A(1, Loc.at(Models::EPEC::LeaderVars::End) - 1), B(1, 1);
-  arma::vec    c(1), b(1);
+  arma::vec    c(1), b(1), d(1);
   c.fill(0);
   b.fill(0);
+  d.fill(0);
   A.zeros();
   B.zeros();
   C.zeros();
@@ -232,7 +233,7 @@ void Models::EPEC::EPEC::make_LL_QP(
   B(0, 0) = 1;
   b(0)    = Params.FollowerParam.capacities.at(follower);
 
-  Foll->set(std::move(Q), std::move(C), std::move(A), std::move(B), std::move(c), std::move(b));
+  Foll->set(std::move(Q), std::move(C), std::move(A), std::move(B), std::move(c), std::move(b), std::move(d));
 }
 
 void Models::EPEC::EPEC::make_LL_LeadCons(
@@ -761,7 +762,8 @@ void Models::EPEC::EPEC::make_MC_leader(const unsigned int i)
 											arma::sp_mat{0, nEPECvars - nThisMCvars}, // A
 											arma::sp_mat{0, nThisMCvars},             // B
 											arma::vec{0},                             // c
-											arma::vec{}                               // b
+											arma::vec{},                               // b
+		                          arma::vec{}
 	 );
   } catch (GRBException &e) {
 	 throw ZEROException(e);

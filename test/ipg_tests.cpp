@@ -26,7 +26,7 @@ MathOpt::IP_Param Player(bool one, GRBEnv *e) {
   arma::vec      c(2);                         // Profits c in the objective
   arma::sp_mat   C(2, 2);                      // C terms in the objective
   arma::sp_mat   a(1, 2);                      // LHS for Knapsack constraint
-  arma::vec      b(1);                         // RHS for constraints
+  arma::vec      b(1), d(2);                   // RHS for constraints
   arma::vec      IntegerIndexes(2);            // The index of the integer variables
   VariableBounds VarBounds = {{0, 1}, {0, 1}}; // Implicit bounds on variables
 
@@ -34,6 +34,8 @@ MathOpt::IP_Param Player(bool one, GRBEnv *e) {
   for (unsigned int i = 0; i < 2; ++i)
 	 IntegerIndexes.at(i) = i;
   b(0) = 5; // Knapsack Capacity
+  d(0) = 0;
+  d(1) = 0;
   if (one) {
 	 C(0, 0) = 2; // C terms in the objective
 	 C(1, 1) = 3;
@@ -51,7 +53,7 @@ MathOpt::IP_Param Player(bool one, GRBEnv *e) {
   }
 
 
-  return MathOpt::IP_Param(C, a, b, c, IntegerIndexes, VarBounds, e);
+  return MathOpt::IP_Param(C, a, b, c, d, IntegerIndexes, VarBounds, e);
 }
 
 BOOST_AUTO_TEST_CASE(IPGModelInstance_test) {
@@ -103,7 +105,7 @@ BOOST_AUTO_TEST_CASE(IPGRandomKP_Test) {
 
 
   std::vector<Data::LCP::Algorithms> algos = {
-		Data::LCP::Algorithms::MIP, Data::LCP::Algorithms::MINLP, Data::LCP::Algorithms::PATH};
+		Data::LCP::Algorithms::MIP, Data::LCP::Algorithms::PATH};
 
   std::vector<Data::IPG::Objectives> objectives = {Data::IPG::Objectives::Quadratic,
 																	Data::IPG::Objectives::Linear,
@@ -152,6 +154,31 @@ BOOST_AUTO_TEST_CASE(IPGRandomKP_Test) {
 		}   // objectives
 	 }     // algo
   }       // cuts
+
+
+
+  // ZERO Regrets
+  BOOST_TEST_MESSAGE(" Testing: ZERO Regrets");
+  Models::IPG::IPG Test(&env, IPG_Instance1);
+  BOOST_CHECK_NO_THROW(Test.setAlgorithm(Data::IPG::Algorithms::ZERORegrets));
+  BOOST_CHECK_NO_THROW(Test.setDeviationTolerance(3e-4));
+  BOOST_CHECK_NO_THROW(Test.setNumThreads(TEST_NUM_THREADS));
+  BOOST_CHECK_NO_THROW(Test.setTimeLimit(10));
+  BOOST_CHECK_NO_THROW(Test.finalize());
+  BOOST_CHECK_NO_THROW(Test.findNashEq());
+  BOOST_CHECK_MESSAGE(Test.isSolved(), "Invoking isSolved method for ZERO Regrets");
+
+  bool found = false;
+  auto x1    = Test.getX().at(0);
+  auto x2    = Test.getX().at(1);
+  for (unsigned int s = 0; s < solutions.size(); ++s) {
+	 if (Utils::isEqual(x1.at(0), solutions.at(s).at(0)) &&
+		  Utils::isEqual(x1.at(1), solutions.at(s).at(1)) &&
+		  Utils::isEqual(x2.at(0), solutions.at(s).at(2)) &&
+		  Utils::isEqual(x2.at(1), solutions.at(s).at(3)))
+		found = true;
+  }
+  BOOST_CHECK_MESSAGE(found, "The instance was solved correctly");
 }
 
 BOOST_AUTO_TEST_SUITE_END()

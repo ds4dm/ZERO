@@ -71,7 +71,7 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
   C(0, 0) = 2;
   C(0, 1) = 2;
   C(2, 0) = 3;
-  arma::vec c(3);
+  arma::vec c(3), d(2);
   c << 1 << arma::endr << -1 << arma::endr << 1 << arma::endr;
   arma::sp_mat A(2, 2);
   A.zeros();
@@ -89,10 +89,10 @@ BOOST_AUTO_TEST_CASE(QPParam_test) {
 
   // Constructor
   BOOST_TEST_MESSAGE("Constructor tests");
-  MathOpt::QP_Param       q1(Q, C, A, B, c, b, &env);
+  MathOpt::QP_Param       q1(Q, C, A, B, c, b, d, &env);
   const MathOpt::QP_Param q_ref(q1);
   MathOpt::QP_Param       q2(&env);
-  q2.set(Q, C, A, B, c, b);
+  q2.set(Q, C, A, B, c, b, d);
   BOOST_CHECK(q1 == q2);
   // Checking if the constructor is sensible
   BOOST_CHECK(q1.getNumParams() == Nx && q1.getNumVars() == Ny);
@@ -212,15 +212,15 @@ BOOST_AUTO_TEST_CASE(NashGame_test) {
 	* Solution: q1=28.271, q2=27.8037
 	*/
   arma::sp_mat Q(1, 1), A(0, 1), B(0, 1), C(1, 1);
-  arma::vec    b, c(1);
+  arma::vec    b, c(1), d(1);
   b.set_size(0);
   Q(0, 0) = 2 * 1.1;
   C(0, 0) = 1;
   c(0)    = -90;
-  auto q1 = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, &env);
+  auto q1 = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, d, &env);
   Q(0, 0) = 2 * 1.2;
   c(0)    = -95;
-  auto q2 = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, &env);
+  auto q2 = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, d, &env);
 
   // Creating the Nashgame
   std::vector<std::shared_ptr<MathOpt::QP_Param>> q{q1, q2};
@@ -442,7 +442,7 @@ BOOST_AUTO_TEST_CASE(IPParam_test) {
 	*/
 
 
-  arma::vec    c(2);
+  arma::vec    c(2), d(2);
   arma::sp_mat C(2, 2);
   // Constraints
   arma::sp_mat a(1, 2);
@@ -467,10 +467,10 @@ BOOST_AUTO_TEST_CASE(IPParam_test) {
 
   // Constructor
   BOOST_TEST_MESSAGE("Constructor tests");
-  MathOpt::IP_Param       IP1(C, a, b, c, IntegerIndexes, VarBounds, &env);
+  MathOpt::IP_Param       IP1(C, a, b, c, d, IntegerIndexes, VarBounds, &env);
   const MathOpt::IP_Param IP2(IP1);
   MathOpt::IP_Param       IP3(&env);
-  IP3.set(C, a, b, c, IntegerIndexes, VarBounds);
+  IP3.set(C, a, b, c, d, IntegerIndexes, VarBounds);
   BOOST_CHECK(IP2 == IP3);
   BOOST_CHECK(IP1 == IP3);
   // Checking if the constructor is sensible

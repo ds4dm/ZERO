@@ -61,6 +61,7 @@ void Game::IPG::findNashEq() {
 	 this->finalize();
 
   this->InitTime = std::chrono::high_resolution_clock::now();
+  this->Solution = std::vector<arma::vec>(this->NumPlayers);
   switch (this->Stats.AlgorithmData.Algorithm.get()) {
   case Data::IPG::Algorithms::CutAndPlay: {
 	 final_msg << "CutAndPlay Algorithm completed. ";

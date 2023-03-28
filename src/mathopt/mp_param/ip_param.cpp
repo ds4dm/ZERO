@@ -28,7 +28,6 @@ std::ostream &MathOpt::operator<<(std::ostream &os, const MathOpt::IP_Param &I) 
 }
 
 
-
 /**
  * @brief Compares two IP_param objects
  * @param IPG2 The second IP_Param
@@ -40,6 +39,8 @@ bool MathOpt::IP_Param::operator==(const IP_Param &IPG2) const {
   if (!Utils::isZero(this->C - IPG2.getC()))
 	 return false;
   if (!Utils::isZero(this->c - IPG2.getc()))
+	 return false;
+  if (!Utils::isZero(this->d - IPG2.getd()))
 	 return false;
   if (!Utils::isZero(this->getb(true) - IPG2.getb(true)))
 	 return false;
@@ -123,7 +124,7 @@ void MathOpt::IP_Param::updateModelObjective(const arma::vec &x) {
 	 throw ZEROException(ZEROErrorCode::Assertion, "The model is not Finalized!");
   try {
 	 // Make the linear part of the objective
-	 GRBQuadExpr Objective = 0;
+	 GRBQuadExpr Objective = arma::as_scalar(this->d.t() * x);
 	 arma::vec   Cx;
 	 Cx = this->C * x;
 	 for (unsigned int i = 0; i < this->numVars; i++)
@@ -194,6 +195,7 @@ std::unique_ptr<GRBModel> MathOpt::IP_Param::getIPModel(const arma::vec &x, bool
  * @param B_in Matrix of constraints for the variables y
  * @param c_in Vector of linear terms for y in the objective
  * @param b_in Vector of RHS in the constraints
+ * @param d_in Vector of linear terms for x in the objective
  * @param integers_in A vector containing the indexes of integer variables
  * @param Bounds_in Variable bounds
  * @return A pointer to this
@@ -202,6 +204,7 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat   &C_in,
 														const arma::sp_mat   &B_in,
 														const arma::vec      &b_in,
 														const arma::vec      &c_in,
+														const arma::vec      &d_in,
 														const arma::vec      &integers_in,
 														const VariableBounds &Bounds_in) {
   ZEROAssert(!integers_in.empty());
@@ -210,7 +213,7 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat   &C_in,
   this->Finalized = false;
   this->Integers  = arma::sort(integers_in);
   this->Bounds    = Bounds_in;
-  MP_Param::set(Q, C_in, A, B_in, c_in, b_in);
+  MP_Param::set(Q, C_in, A, B_in, c_in, b_in, d_in);
   return *this;
 }
 
@@ -221,6 +224,7 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(const arma::sp_mat   &C_in,
  * @param B_in Matrix of constraints for the variables y
  * @param c_in Vector of linear terms for y in the objective
  * @param b_in Vector of RHS in the constraints
+ * @param d_in Vector of linear terms for x in the objective
  * @param integers_in A vector containing the indexes of integer variables
  * @param Bounds_in Variable bounds
  * @return A pointer to this
@@ -229,6 +233,7 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(arma::sp_mat   &&C_in,
 														arma::sp_mat   &&B_in,
 														arma::vec      &&b_in,
 														arma::vec      &&c_in,
+														arma::vec      &&d_in,
 														arma::vec      &&integers_in,
 														VariableBounds &&Bounds_in) {
   ZEROAssert(!integers_in.empty());
@@ -237,16 +242,16 @@ MathOpt::IP_Param &MathOpt::IP_Param::set(arma::sp_mat   &&C_in,
   this->Finalized = false;
   this->Integers  = std::move(integers_in);
   this->Bounds    = std::move(Bounds_in);
-  MP_Param::set(Q, C_in, A, B_in, c_in, b_in);
+  MP_Param::set(Q, C_in, A, B_in, c_in, b_in, d_in);
   return *this;
 }
 
 
 
 /**
- * @brief  Computes @f$(Cx)^Ty + c^Ty@f$ given the input values @p y and @p x. @p checkFeas if @p
- * true, checks if the given @f$(x,y)@f$ satisfies the constraints of the problem, namely @f$Ax + By
- * \leq b@f$.
+ * @brief  Computes @f$(Cx)^Ty + c^Ty + d^Tx @f$ given the input values @p y and @p x. @p checkFeas
+ * if @p true, checks if the given @f$(x,y)@f$ satisfies the constraints of the problem, namely
+ * @f$Ax + By \leq b@f$.
  * @param y The values for the variables  y
  * @param x The values for the parameters x
  * @param checkFeas True if feasibility should be checked
@@ -263,7 +268,7 @@ double MathOpt::IP_Param::computeObjective(const arma::vec &y,
   if (checkFeas)
 	 if (!this->isFeasible(y, x, tol))
 		return -GRB_INFINITY;
-  return arma::as_scalar(((C * x).t() + c.t()) * y);
+  return arma::as_scalar(((C * x).t() + c.t()) * y + this->d.t() * x);
 }
 
 
@@ -507,7 +512,7 @@ long int MathOpt::IP_Param::load(const std::string &filename, long int pos) {
 
 
   arma::sp_mat _C, _B, BO;
-  arma::vec    _b, _c, _integers;
+  arma::vec    _b, _c, _integers, _d;
   std::string  headercheck;
   pos = Utils::appendRead(headercheck, filename, pos);
   if (headercheck != "IP_Param")
@@ -516,6 +521,7 @@ long int MathOpt::IP_Param::load(const std::string &filename, long int pos) {
   pos = Utils::appendRead(_B, filename, pos, std::string("IP_Param::B"));
   pos = Utils::appendRead(_b, filename, pos, std::string("IP_Param::b"));
   pos = Utils::appendRead(_c, filename, pos, std::string("IP_Param::c"));
+  pos = Utils::appendRead(_d, filename, pos, std::string("IP_Param::d"));
   pos = Utils::appendRead(_integers, filename, pos, std::string("IP_Param::Integers"));
   pos = Utils::appendRead(BO, filename, pos, std::string("IP_Param::Bounds"));
   VariableBounds Bond;
@@ -533,7 +539,7 @@ long int MathOpt::IP_Param::load(const std::string &filename, long int pos) {
 		Bond.push_back({0, GRB_INFINITY});
   }
   LOG_S(1) << "Loaded IP_Param to file " << filename;
-  this->set(_C, _B, _b, _c, _integers, Bond);
+  this->set(_C, _B, _b, _c, _d, _integers, Bond);
   return pos;
 }
 
@@ -550,6 +556,7 @@ void MathOpt::IP_Param::save(const std::string &filename, bool append) const {
   Utils::appendSave(this->getB(true), filename, std::string("IP_Param::B"), false);
   Utils::appendSave(this->getb(true), filename, std::string("IP_Param::b"), false);
   Utils::appendSave(this->c, filename, std::string("IP_Param::c"), false);
+  Utils::appendSave(this->d, filename, std::string("IP_Param::d"), false);
   Utils::appendSave(this->Integers, filename, std::string("IP_Param::Integers"), false);
   arma::sp_mat BO(this->numVars, 2);
   for (unsigned int i = 0; i < this->numVars; ++i) {
@@ -565,6 +572,7 @@ void MathOpt::IP_Param::save(const std::string &filename, bool append) const {
  * @param B_in The constraint matrix
  * @param b_in The constraint RHS
  * @param c_in The objective c vector
+ * @param d_in The objective c vector
  * @param integers_in The indexes of integer variables
  * @param Bounds_in The input bounds
  * @param env_in A pointer to the Gurobi environment
@@ -573,10 +581,11 @@ MathOpt::IP_Param::IP_Param(const arma::sp_mat   &C_in,
 									 const arma::sp_mat   &B_in,
 									 const arma::vec      &b_in,
 									 const arma::vec      &c_in,
+									 const arma::vec      &d_in,
 									 const arma::vec      &integers_in,
 									 const VariableBounds &Bounds_in,
 									 GRBEnv               *env_in)
 	 : MP_Param(env_in), IPModel{GRBModel(*env_in)} {
-  this->set(C_in, B_in, b_in, c_in, integers_in, Bounds_in);
+  this->set(C_in, B_in, b_in, c_in, d_in, integers_in, Bounds_in);
   this->forceDataCheck();
 }

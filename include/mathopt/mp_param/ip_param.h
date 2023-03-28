@@ -31,7 +31,7 @@ namespace MathOpt {
   /**
 	* @brief This class handles parametrized integer programs, and inherits from MP_Param.
 	* A parametrized Integer Program is defined as as \f[
-	* \min_y c^Ty + (Cx)^T y
+	* \min_y c^Ty + (Cx)^T y + d^T x
 	* \f]
 	* Subject to
 	* \f{eqnarray}{
@@ -61,13 +61,14 @@ namespace MathOpt {
 		this->size();
 	 }
 
-    IP_Param(const arma::sp_mat &  C_in,
-             const arma::sp_mat &  B_in,
-             const arma::vec &     b_in,
-             const arma::vec &     c_in,
-             const arma::vec &     integers_in,
-             const VariableBounds &Bounds_in,
-             GRBEnv *              env_in);
+	 IP_Param(const arma::sp_mat   &C_in,
+				 const arma::sp_mat   &B_in,
+				 const arma::vec      &b_in,
+				 const arma::vec      &c_in,
+				 const arma::vec      &d_in,
+				 const arma::vec      &integers_in,
+				 const VariableBounds &Bounds_in,
+				 GRBEnv               *env_in);
 	 arma::vec getIntegers() const {
 		return this->Integers;
 	 } ///< Read-only getter to IP_Param::Integers
@@ -85,17 +86,19 @@ namespace MathOpt {
 	 IP_Param(const IP_Param &ipg) = default;
 
 	 // Override setters
-	 MathOpt::IP_Param &set(const arma::sp_mat &C_in,
-									const arma::sp_mat &B_in,
-									const arma::vec &   b_in,
-									const arma::vec &   c_in,
-									const arma::vec &   integers_in,
-									const VariableBounds &    Bounds_in); // Copy data into this
-	 IP_Param &         set(arma::sp_mat &&  C_in,
-									arma::sp_mat &&  B_in,
-									arma::vec &&     b_in,
-									arma::vec &&     c_in,
-									arma::vec &&     integers_in,
+	 MathOpt::IP_Param &set(const arma::sp_mat   &C_in,
+									const arma::sp_mat   &B_in,
+									const arma::vec      &b_in,
+									const arma::vec      &c_in,
+									const arma::vec      &d_in,
+									const arma::vec      &integers_in,
+									const VariableBounds &Bounds_in); // Copy data into this
+	 IP_Param          &set(arma::sp_mat   &&C_in,
+									arma::sp_mat   &&B_in,
+									arma::vec      &&b_in,
+									arma::vec      &&c_in,
+									arma::vec      &&d_in,
+									arma::vec      &&integers_in,
 									VariableBounds &&Bounds_in); // Copy data into this
 
 

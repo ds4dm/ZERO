@@ -26,7 +26,7 @@ namespace MathOpt {
   /**
 	* @brief This class handles parameterized mathematical programs (MP)
 	* Their form is the one of \f[
-	* \min_y \frac{1}{2}y^TQy + c^Ty + (Cx)^T y
+	* \min_y \frac{1}{2}y^TQy + c^Ty + (Cx)^T y + d^Tx
 	* \f]
 	* Subject to
 	* \f{eqnarray}{
@@ -38,16 +38,17 @@ namespace MathOpt {
   private:
 	 double Eps{1e-6}; ///< A numerical tolerance
   protected:
-	 arma::sp_mat   Q; ///< The Q matrix in the objective
-    arma::sp_mat   A; ///< The A matrix for the parameters' constraints
-    arma::sp_mat   B; ///< The B matrix for the variables' constraints
-    arma::sp_mat   C; ///< The C matrix in the objective
-	 arma::sp_mat   B_bounds;   ///< Implicit rows of B accounting for variables' bounds
-	 arma::vec      b_bounds;   ///< The implicit rows of b accounting for the variables' bounds
-	 arma::vec      c; ///< The c vector in the objective
-	 arma::vec  b;       ///< The constraints' RHS
-	 GRBEnv *       Env;        ///< A pointer to the Gurobi environment
-	 VariableBounds Bounds;     ///< Bounds on the y variables
+	 arma::sp_mat   Q;        ///< The Q matrix in the objective
+	 arma::sp_mat   A;        ///< The A matrix for the parameters' constraints
+	 arma::sp_mat   B;        ///< The B matrix for the variables' constraints
+	 arma::sp_mat   C;        ///< The C matrix in the objective
+	 arma::sp_mat   B_bounds; ///< Implicit rows of B accounting for variables' bounds
+	 arma::vec      b_bounds; ///< The implicit rows of b accounting for the variables' bounds
+	 arma::vec      c;        ///< The c vector in the objective
+	 arma::vec      d;        ///< The d vector in the objective
+	 arma::vec      b;        ///< The constraints' RHS
+	 GRBEnv        *Env;      ///< A pointer to the Gurobi environment
+	 VariableBounds Bounds;   ///< Bounds on the y variables
 	 // Object for sizes and integrity check
 	 unsigned int numParams; ///< Number of x parameters
 	 unsigned int numVars;   ///< Number of y variables
@@ -80,6 +81,7 @@ namespace MathOpt {
 	 arma::sp_mat getA(bool bounds = true) const;  ///< Read-only access to the private variable A
 	 arma::sp_mat getB(bool bounds = true) const;  ///< Read-only access to the private variable B
 	 arma::vec    getc() const { return this->c; } ///< Read-only access to the private variable c
+	 arma::vec    getd() const { return this->d; } ///< Read-only access to the private variable d
 	 arma::vec    getb(bool bounds = true) const;  ///< Read-only access to the private variable b
 	 unsigned int getNumParams() const {
 		return this->numParams;
@@ -109,6 +111,10 @@ namespace MathOpt {
 		this->c = c_in;
 		return *this;
 	 } ///< Set the private variable c
+	 MP_Param &setd(const arma::vec &d_in) {
+		this->d = d_in;
+		return *this;
+	 } ///< Set the private variable d
 	 MP_Param &setb(const arma::vec &b_in) {
 		this->b = b_in;
 		return *this;
@@ -129,22 +135,24 @@ namespace MathOpt {
 								  const arma::sp_mat &C_in,
 								  const arma::sp_mat &A_in,
 								  const arma::sp_mat &B_in,
-								  const arma::vec &   c_in,
-								  const arma::vec &   b_in); // Copy data into this
+								  const arma::vec    &c_in,
+								  const arma::vec    &b_in,
+								  const arma::vec    &d_in); // Copy data into this
 	 virtual MP_Param &set(arma::sp_mat &&Q_in,
 								  arma::sp_mat &&C_in,
 								  arma::sp_mat &&A_in,
 								  arma::sp_mat &&B_in,
-								  arma::vec &&   c_in,
-								  arma::vec &&   b_in); // Move data into this
+								  arma::vec    &&c_in,
+								  arma::vec    &&b_in,
+								  arma::vec    &&d_in); // Move data into this
 	 virtual MP_Param &set(const QP_Objective &obj, const QP_Constraints &cons);
 
 	 virtual MP_Param &set(QP_Objective &&obj, QP_Constraints &&cons);
 
 	 virtual MP_Param &addDummy(unsigned int pars, unsigned int vars = 0, int position = -1);
 
-	 virtual void                      save(const std::string &filename, bool append) const;
-	 virtual long int                  load(const std::string &filename, long int pos = 0);
+	 virtual void     save(const std::string &filename, bool append) const;
+	 virtual long int load(const std::string &filename, long int pos = 0);
 	 /**
 	  * @brief A virtual method to take the KKT of the program, in a complementarity form.
 	  * @param M Output M matrix for variables
@@ -152,7 +160,7 @@ namespace MathOpt {
 	  * @param q Output q vector
 	  * @return The rows of M
 	  */
-	 virtual unsigned int              KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const = 0;
+	 virtual unsigned int KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec &q) const = 0;
 	 /**
 	  * @brief Returns the optimal Gurobi model where the paramers are fixed to @p x
 	  * @param x The input parameters
@@ -160,12 +168,12 @@ namespace MathOpt {
 	  * @return The best response model
 	  */
 	 virtual std::unique_ptr<GRBModel> solveFixed(const arma::vec x, bool solve = false) = 0;
-	 virtual double computeObjective(const arma::vec &y,
-												const arma::vec &x,
-												bool             checkFeas = true,
-												double           tol       = 1e-6) const;
-	 void           forceDataCheck() const;
-	 virtual bool   isFeasible(const arma::vec &y, const arma::vec &x, double tol) const;
+	 virtual double                    computeObjective(const arma::vec &y,
+																		 const arma::vec &x,
+																		 bool             checkFeas = true,
+																		 double           tol       = 1e-6) const;
+	 void                              forceDataCheck() const;
+	 virtual bool isFeasible(const arma::vec &y, const arma::vec &x, double tol) const;
   };
 
 } // namespace MathOpt

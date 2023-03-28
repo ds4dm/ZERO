@@ -44,6 +44,8 @@ bool MathOpt::QP_Param::operator==(const QP_Param &Q2) const {
 	 return false;
   if (!Utils::isZero(this->c - Q2.getc()))
 	 return false;
+  if (!Utils::isZero(this->d - Q2.getd()))
+	 return false;
   for (unsigned int i = 0; i < this->Bounds.size(); ++i)
 	 if (this->Bounds.at(i) != Q2.Bounds.at(i))
 		return false;
@@ -98,7 +100,7 @@ std::unique_ptr<GRBModel> MathOpt::QP_Param::solveFixed(arma::vec x, bool solve)
 									 " != " + std::to_string(numParams));
   std::unique_ptr<GRBModel> model(new GRBModel(this->Model));
   try {
-	 GRBQuadExpr yQy = model->getObjective();
+	 GRBQuadExpr yQy = model->getObjective()+ arma::as_scalar(this->d.t() * x);
 	 arma::vec   Cx, Ax;
 	 Cx = this->C * x;
 	 Ax = this->A * x;
@@ -107,7 +109,7 @@ std::unique_ptr<GRBModel> MathOpt::QP_Param::solveFixed(arma::vec x, bool solve)
 		y[i] = model->getVarByName("y_" + std::to_string(i));
 		yQy += (Cx[i] + c[i]) * y[i];
 	 }
-	 model->setObjective(yQy, GRB_MINIMIZE);
+	 model->setObjective(yQy , GRB_MINIMIZE);
 
 	 Utils::addSparseConstraints(B, b - Ax, y, "Constr_", model.get(), GRB_LESS_EQUAL, nullptr);
 
@@ -161,6 +163,7 @@ unsigned int MathOpt::QP_Param::KKT(arma::sp_mat &M, arma::sp_mat &N, arma::vec 
  * @param B_in Matrix of constraints for the variables y
  * @param c_in Vector of linear terms for y in the objective
  * @param b_in Vector of RHS in the constraints
+ * @param d_in Vector of linear terms for x in the objective
  * @return A pointer to this
  */
 MathOpt::QP_Param &MathOpt::QP_Param::set(const arma::sp_mat &Q_in,
@@ -168,9 +171,10 @@ MathOpt::QP_Param &MathOpt::QP_Param::set(const arma::sp_mat &Q_in,
 														const arma::sp_mat &A_in,
 														const arma::sp_mat &B_in,
 														const arma::vec    &c_in,
-														const arma::vec    &b_in) {
+														const arma::vec    &b_in,
+														const arma::vec    &d_in = {}) {
   this->MadeyQy = false;
-  MP_Param::set(Q_in, C_in, A_in, B_in, c_in, b_in);
+  MP_Param::set(Q_in, C_in, A_in, B_in, c_in, b_in, d_in);
   return *this;
 }
 
@@ -182,17 +186,19 @@ MathOpt::QP_Param &MathOpt::QP_Param::set(const arma::sp_mat &Q_in,
  * @param B_in Matrix of constraints for the variables y
  * @param c_in Vector of linear terms for y in the objective
  * @param b_in Vector of RHS in the constraints
+ * @param d_in Vector of linear terms for x in the objective
  * @return A pointer to this
  * @warning The input data may be corrupted after
  */
-MathOpt::QP_Param &MathOpt::QP_Param::set(arma::sp_mat &&Q_in,
-														arma::sp_mat &&C_in,
-														arma::sp_mat &&A_in,
-														arma::sp_mat &&B_in,
-														arma::vec    &&c_in,
-														arma::vec    &&b_in) {
+MathOpt::QP_Param &MathOpt::QP_Param::set(arma::sp_mat   &&Q_in,
+														arma::sp_mat   &&C_in,
+														arma::sp_mat   &&A_in,
+														arma::sp_mat   &&B_in,
+														arma::vec      &&c_in,
+														arma::vec &&b_in,
+														arma::vec &&d_in = {}) {
   this->MadeyQy = false;
-  MP_Param::set(Q_in, C_in, A_in, B_in, c_in, b_in);
+  MP_Param::set(Q_in, C_in, A_in, B_in, c_in, b_in, d_in);
   return *this;
 }
 
@@ -209,7 +215,8 @@ MathOpt::QP_Param &MathOpt::QP_Param::set(QP_Objective &&obj, QP_Constraints &&c
 						 std::move(cons.A),
 						 std::move(cons.B),
 						 std::move(obj.c),
-						 std::move(cons.b));
+						 std::move(cons.b),
+						 std::move(obj.d));
 }
 
 /**
@@ -219,7 +226,7 @@ MathOpt::QP_Param &MathOpt::QP_Param::set(QP_Objective &&obj, QP_Constraints &&c
  * @return A pointer to this
  */
 MathOpt::QP_Param &MathOpt::QP_Param::set(const QP_Objective &obj, const QP_Constraints &cons) {
-  return this->set(obj.Q, obj.C, cons.A, cons.B, obj.c, cons.b);
+  return this->set(obj.Q, obj.C, cons.A, cons.B, obj.c, cons.b, obj.d);
 }
 
 
@@ -249,6 +256,7 @@ void MathOpt::QP_Param::save(const std::string &filename, bool append) const {
   Utils::appendSave(this->C, filename, std::string("QP_Param::C"), false);
   Utils::appendSave(this->getb(true), filename, std::string("QP_Param::b"), false);
   Utils::appendSave(this->c, filename, std::string("QP_Param::c"), false);
+  Utils::appendSave(this->d, filename, std::string("QP_Param::d"), false);
   arma::sp_mat BO(this->numVars, 2);
   for (unsigned int i = 0; i < this->numVars; ++i) {
 	 BO.at(i, 0) = this->Bounds.at(i).first;
@@ -269,7 +277,7 @@ void MathOpt::QP_Param::save(const std::string &filename, bool append) const {
 long int MathOpt::QP_Param::load(const std::string &filename, long int pos) {
 
   arma::sp_mat Q_in, A_in, B_in, C_in, BO;
-  arma::vec    c_in, b_in;
+  arma::vec    c_in, b_in, d_in;
   std::string  headercheck;
   pos = Utils::appendRead(headercheck, filename, pos);
   if (headercheck != "QP_Param")
@@ -280,6 +288,7 @@ long int MathOpt::QP_Param::load(const std::string &filename, long int pos) {
   pos = Utils::appendRead(C_in, filename, pos, std::string("QP_Param::C"));
   pos = Utils::appendRead(b_in, filename, pos, std::string("QP_Param::b"));
   pos = Utils::appendRead(c_in, filename, pos, std::string("QP_Param::c"));
+  pos = Utils::appendRead(d_in, filename, pos, std::string("QP_Param::d"));
   pos = Utils::appendRead(BO, filename, pos, std::string("QP_Param::Bounds"));
   if (BO.n_rows > 0) {
 	 ZEROAssert(BO.n_cols == 2);
@@ -294,7 +303,7 @@ long int MathOpt::QP_Param::load(const std::string &filename, long int pos) {
 		this->Bounds.push_back({0, GRB_INFINITY});
   }
   LOG_S(1) << "Loaded QP_Param to file " << filename;
-  this->set(Q_in, C_in, A_in, B_in, c_in, b_in);
+  this->set(Q_in, C_in, A_in, B_in, c_in, b_in, d_in);
   return pos;
 }
 
@@ -317,10 +326,11 @@ MathOpt::QP_Param::QP_Param(const arma::sp_mat &Q_in,
 									 const arma::sp_mat &B_in,
 									 const arma::vec    &c_in,
 									 const arma::vec    &b_in,
+									 const arma::vec    &d_in,
 									 GRBEnv             *env)
 	 : MP_Param(env), MadeyQy{false}, Model{(*env)} {
   this->MadeyQy = false;
-  this->set(Q_in, C_in, A_in, B_in, c_in, b_in);
+  this->set(Q_in, C_in, A_in, B_in, c_in, b_in, d_in);
   this->size();
   this->forceDataCheck();
 }

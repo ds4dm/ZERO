@@ -38,6 +38,7 @@ void MathOpt::MP_Param::save(const std::string &filename, bool append) const {
   Utils::appendSave(this->C, filename, std::string("MP_Param::C"), false);
   Utils::appendSave(this->getb(true), filename, std::string("MP_Param::b"), false);
   Utils::appendSave(this->c, filename, std::string("MP_Param::c"), false);
+  Utils::appendSave(this->d, filename, std::string("MP_Param::d"), false);
   arma::sp_mat BO(this->numVars, 2);
   for (unsigned int i = 0; i < this->numVars; ++i) {
 	 BO.at(i, 0) = this->Bounds.at(i).first;
@@ -56,7 +57,7 @@ void MathOpt::MP_Param::save(const std::string &filename, bool append) const {
  */
 long int MathOpt::MP_Param::load(const std::string &filename, long int pos) {
   arma::sp_mat Q_in, A_in, B_in, C_in, BO;
-  arma::vec    c_in, b_in;
+  arma::vec    c_in, b_in, d_in;
   std::string  headercheck;
   pos = Utils::appendRead(headercheck, filename, pos);
   if (headercheck != "MP_Param")
@@ -67,6 +68,7 @@ long int MathOpt::MP_Param::load(const std::string &filename, long int pos) {
   pos = Utils::appendRead(C_in, filename, pos, std::string("MP_Param::C"));
   pos = Utils::appendRead(b_in, filename, pos, std::string("MP_Param::b"));
   pos = Utils::appendRead(c_in, filename, pos, std::string("MP_Param::c"));
+  pos = Utils::appendRead(d_in, filename, pos, std::string("MP_Param::d"));
   pos = Utils::appendRead(BO, filename, pos, std::string("MP_Param::Bounds"));
   if (BO.n_rows > 0) {
 	 if (BO.n_cols != 2)
@@ -82,7 +84,7 @@ long int MathOpt::MP_Param::load(const std::string &filename, long int pos) {
 		this->Bounds.push_back({0, GRB_INFINITY});
   }
   LOG_S(1) << "Loaded MP_Param to file " << filename;
-  this->set(Q_in, C_in, A_in, B_in, c_in, b_in);
+  this->set(Q_in, C_in, A_in, B_in, c_in, b_in, d_in);
   return pos;
 }
 
@@ -118,10 +120,14 @@ MathOpt::MP_Param &MathOpt::MP_Param::addDummy(unsigned int pars, unsigned int v
   }
   switch (position) {
   case -1:
-	 if (pars)
+	 if (pars) {
 		A = Utils::resizePatch(A, this->numConstr, this->numParams);
-	 if (vars || pars)
+		d = Utils::resizePatch(d, this->numParams);
+	 }
+	 if (vars || pars) {
 		C = Utils::resizePatch(C, this->numVars, this->numParams);
+		d = Utils::resizePatch(d, this->numParams);
+	 }
 	 break;
   case 0:
 	 if (pars) {
@@ -129,6 +135,7 @@ MathOpt::MP_Param &MathOpt::MP_Param::addDummy(unsigned int pars, unsigned int v
 		  A = arma::join_rows(arma::zeros<arma::sp_mat>(this->numConstr, pars), A);
 		else
 		  A.zeros(this->numConstr, pars + A.n_cols);
+		d = Utils::resizePatch(d, this->numParams);
 	 }
 	 if (vars || pars) {
 		C = Utils::resizePatch(C, this->numVars, C.n_cols);
@@ -350,6 +357,7 @@ unsigned int MathOpt::MP_Param::size() {
  * @param A_in Matrix of constraints for the parameters x
  * @param B_in Matrix of constraints for the variables y
  * @param c_in Vector of linear terms for y in the objective
+ *  @param d_in Vector of linear terms for x in the objective
  * @param b_in Vector of RHS in the constraints
  * @return A pointer to this
  */
@@ -358,13 +366,15 @@ MathOpt::MP_Param &MathOpt::MP_Param::set(const arma::sp_mat &Q_in,
 														const arma::sp_mat &A_in,
 														const arma::sp_mat &B_in,
 														const arma::vec    &c_in,
-														const arma::vec    &b_in) {
+														const arma::vec    &b_in,
+														const arma::vec    &d_in = {}) {
   this->Q = (Q_in);
   this->C = (C_in);
   this->A = (A_in);
   this->B = (B_in);
   this->c = (c_in);
   this->b = (b_in);
+  this->d = (d_in);
   if (!finalize())
 	 throw ZEROException(ZEROErrorCode::InvalidData, "finalize() failed");
   return *this;
@@ -378,6 +388,7 @@ MathOpt::MP_Param &MathOpt::MP_Param::set(const arma::sp_mat &Q_in,
  * @param A_in Matrix of constraints for the parameters x
  * @param B_in Matrix of constraints for the variables y
  * @param c_in Vector of linear terms for y in the objective
+ * @param d_in Vector of linear terms for x in the objective
  * @param b_in Vector of RHS in the constraints
  * @return A pointer to this
  * @warning The input data may be corrupted after
@@ -387,12 +398,14 @@ MathOpt::MP_Param &MathOpt::MP_Param::set(arma::sp_mat &&Q_in,
 														arma::sp_mat &&A_in,
 														arma::sp_mat &&B_in,
 														arma::vec    &&c_in,
-														arma::vec    &&b_in) {
+														arma::vec    &&b_in,
+														arma::vec    &&d_in = {}) {
   this->Q = std::move(Q_in);
   this->C = std::move(C_in);
   this->A = std::move(A_in);
   this->B = std::move(B_in);
   this->c = std::move(c_in);
+  this->d = std::move(d_in);
   this->b = std::move(b_in);
   if (!finalize())
 	 throw ZEROException(ZEROErrorCode::InvalidData, "finalize() failed");
@@ -406,7 +419,7 @@ MathOpt::MP_Param &MathOpt::MP_Param::set(arma::sp_mat &&Q_in,
  * @return A pointer to this
  */
 MathOpt::MP_Param &MathOpt::MP_Param::set(const QP_Objective &obj, const QP_Constraints &cons) {
-  return this->set(obj.Q, obj.C, cons.A, cons.B, obj.c, cons.b);
+  return this->set(obj.Q, obj.C, cons.A, cons.B, obj.c, cons.b, obj.d);
 }
 /**
  * @brief A move constructor given a QP_Objective and QP_Constraints
@@ -421,7 +434,8 @@ MathOpt::MP_Param &MathOpt::MP_Param::set(QP_Objective &&obj, QP_Constraints &&c
 						 std::move(cons.A),
 						 std::move(cons.B),
 						 std::move(obj.c),
-						 std::move(cons.b));
+						 std::move(cons.b),
+						 std::move(obj.d));
 }
 
 /**
@@ -471,6 +485,10 @@ bool MathOpt::MP_Param::dataCheck(bool forceSymmetry) const {
 	 LOG_S(0) << "MathOpt::MP_Param::dataCheck: Mismatch in C cols";
 	 return false;
   }
+  if (this->d.size() != numParams) {
+	 LOG_S(0) << "MathOpt::MP_Param::dataCheck: Mismatch in d size";
+	 return false;
+  }
   if (this->c.size() != numVars) {
 	 LOG_S(0) << "MathOpt::MP_Param::dataCheck: Mismatch C size";
 	 return false;
@@ -492,6 +510,10 @@ bool MathOpt::MP_Param::finalize() {
   this->detectBounds();
   this->rewriteBounds();
   this->size();
+  if (this->d.size() != numParams) {
+	 LOG_S(WARNING) << "MathOpt::MP_Param::finalize: Mismatch in d size. Reshaping d";
+	 this->d = Utils::resizePatch(this->d, numParams);
+  }
   return this->dataCheck();
 }
 
@@ -526,7 +548,7 @@ double MathOpt::MP_Param::computeObjective(const arma::vec &y,
 	 this->isFeasible(y, x, tol);
 
 
-  return arma::as_scalar(0.5 * y.t() * Q * y + (C * x).t() * y + c.t() * y);
+  return arma::as_scalar(0.5 * y.t() * Q * y + (C * x).t() * y + c.t() * y + d.t() * x);
 }
 
 /**

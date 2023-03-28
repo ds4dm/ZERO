@@ -125,8 +125,8 @@ bool Algorithms::IPG::IPG_Player::addCuts(const arma::sp_mat &LHS, const arma::v
  * @return True if the cut was added
  */
 bool Algorithms::IPG::CutAndPlay::addValueCut(unsigned int     player,
-														double           RHS,
-														const arma::vec &xMinusI) {
+															 double           RHS,
+															 const arma::vec &xMinusI) {
 
 
 
@@ -178,7 +178,9 @@ bool Algorithms::IPG::CutAndPlay::addValueCut(unsigned int     player,
   //******DEBUG********
   this->Cuts.at(0).second += 1;
   // Again, minus sign on RHS (the inequality is >=)
-  return this->Players.at(player)->addCuts(arma::sp_mat{LHS.t()}, arma::vec{-RHS});
+  return this->Players.at(player)->addCuts(
+		arma::sp_mat{LHS.t()},
+		arma::vec{-RHS + this->IPG->PlayersIP.at(player)->getd().t() * xMinusI});
 }
 
 /**
@@ -412,21 +414,18 @@ void Algorithms::IPG::CutAndPlay::solve() {
 		  if ((addedCuts > 0 && !solved) || (addedCuts == 0 && solved)) {
 			 if (addedCuts == 0 && solved) {
 
-				this->Solved = true;
-				bool pure    = true;
+				this->Solved             = true;
+				bool pure                = true;
+				this->IPG->SocialWelfare = 0;
 				for (unsigned int i = 0, counter = 0; i < this->IPG->NumPlayers; ++i) {
 				  this->IPG->Solution.at(i) = this->Players.at(i)->Incumbent;
 				  counter += this->IPG->PlayerVariables.at(i);
+				  this->IPG->SocialWelfare += this->Players.at(i)->Payoff;
 				  if (!this->Players.at(i)->Pure) {
 					 pure = false;
 				  }
 				}
-				this->Pure      = pure;
-				arma::vec realX = this->xLast.subvec(0, this->LCP_c.size() - 1);
-				this->IPG->SocialWelfare =
-					 arma::as_scalar(this->LCP_c.t() * realX + realX.t() * this->LCP_Q * realX);
-				//realX.print("real x");
-				//std::cout << "social welfare is "<<this->IPG->SocialWelfare <<std::endl;
+				this->Pure = pure;
 				this->IPG->Stats.AlgorithmData.Cuts.set(this->Cuts);
 				LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::solve: A Nash Equilibrium has been found ("
 								<< (pure == 0 ? "MNE" : "PNE") << ").";
@@ -472,9 +471,9 @@ void Algorithms::IPG::CutAndPlay::solve() {
  * @return 1 if feasible. 0 if infeasible. 2 if iteration limit was hit.
  */
 int Algorithms::IPG::CutAndPlay::preEquilibriumOracle(const unsigned int player,
-																  int &              addedCuts,
-																  arma::vec &        xOfI,
-																  arma::vec &        xMinusI) {
+																		int               &addedCuts,
+																		arma::vec         &xOfI,
+																		arma::vec         &xMinusI) {
 
   ZEROAssert(player < this->IPG->NumPlayers);
   LOG_S(2) << "Algorithms::IPG::CutAndPlay::preEquilibriumOracle: (P" << player
@@ -503,7 +502,7 @@ int Algorithms::IPG::CutAndPlay::preEquilibriumOracle(const unsigned int player,
 
 	 double IP_Objective  = PureIP->getObjective().getValue();
 	 double REL_Objective = this->Players.at(player)->Payoff;
-
+	 
 	 if (IP_Objective == GRB_INFINITY) {
 		LOG_S(1) << "Algorithms::IPG::CutAndPlay::preEquilibriumOracle (P" << player
 					<< ") Unbounded deviation.";
@@ -520,9 +519,10 @@ int Algorithms::IPG::CutAndPlay::preEquilibriumOracle(const unsigned int player,
 		if (diff > this->IPG->Stats.AlgorithmData.DeviationTolerance.get()) {
 		  // This cannot happen!
 		  this->IPG->Stats.Status.set(ZEROStatus::Numerical);
-		  LOG_S(0) << "Algorithms::IPG::CutAndPlay::preEquilibriumOracle: |NUMERICAL WARNING| Invalid "
-						  "payoff relation (better best response) of " +
-								std::to_string(diff);
+		  LOG_S(WARNING)
+				<< "Algorithms::IPG::CutAndPlay::preEquilibriumOracle: |NUMERICAL WARNING| Invalid "
+					"payoff relation (better best response) of " +
+						 std::to_string(diff);
 		  return -1;
 		} else {
 		  LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::preEquilibriumOracle:  (P" << player
@@ -608,14 +608,15 @@ bool Algorithms::IPG::CutAndPlay::isPureStrategy() const {
  * @return 1 if feasible. 0 if infeasible. 2 if iteration limit was hit.
  */
 int Algorithms::IPG::CutAndPlay::equilibriumOracle(const unsigned int player,
-															  const unsigned int iterations,
-															  const arma::vec &  xOfI,
-															  const arma::vec &  xMinusI,
-															  int &              addedCuts) {
+																	const unsigned int iterations,
+																	const arma::vec   &xOfI,
+																	const arma::vec   &xMinusI,
+																	int               &addedCuts) {
 
   ZEROAssert(player < this->IPG->NumPlayers);
 
-  LOG_S(2) << "Algorithms::IPG::CutAndPlay::equilibriumOracle: (P" << player << ") Starting separator";
+  LOG_S(2) << "Algorithms::IPG::CutAndPlay::equilibriumOracle: (P" << player
+			  << ") Starting separator";
 
 
 
@@ -761,8 +762,8 @@ int Algorithms::IPG::CutAndPlay::equilibriumOracle(const unsigned int player,
 		  //******DEBUG********
 
 
-		  LOG_S(2) << "Algorithms::IPG::CutAndPlay::equilibriumOracle: (P" << player << ") Violation of "
-					  << violation;
+		  LOG_S(2) << "Algorithms::IPG::CutAndPlay::equilibriumOracle: (P" << player
+					  << ") Violation of " << violation;
 
 		  if (violation >= this->Tolerance) {
 			 // We have a cut.
@@ -820,7 +821,7 @@ int Algorithms::IPG::CutAndPlay::equilibriumOracle(const unsigned int player,
  * @param vertex  The input point to be checked
  */
 void Algorithms::IPG::CutAndPlay::updateMembership(const unsigned int &player,
-															  const arma::vec &   vertex) {
+																	const arma::vec    &vertex) {
   ZEROAssert(player < this->IPG->NumPlayers);
   ZEROAssert(vertex.size() == this->IPG->PlayerVariables.at(player));
   MathOpt::getDualMembershipLP(this->Players.at(player)->MembershipLP,
@@ -872,9 +873,10 @@ Algorithms::IPG::CutAndPlay::equilibriumLCP(double localTimeLimit, bool build, b
   auto ObjectiveType = this->IPG->Stats.AlgorithmData.Objective.get();
   if (Solver == Data::LCP::Algorithms::PATH &&
 		ObjectiveType != Data::IPG::Objectives::Feasibility) {
-	 LOG_S(WARNING) << "Algorithms::IPG::CutAndPlay::equilibriumLCP: The LCP's objective is used only "
-							 "for computing the payoff. "
-							 "PATH does not support this optimization.";
+	 LOG_S(WARNING)
+		  << "Algorithms::IPG::CutAndPlay::equilibriumLCP: The LCP's objective is used only "
+			  "for computing the payoff. "
+			  "PATH does not support this optimization.";
   }
   switch (ObjectiveType) {
   case Data::IPG::Objectives::Linear: {
@@ -904,11 +906,11 @@ Algorithms::IPG::CutAndPlay::equilibriumLCP(double localTimeLimit, bool build, b
 	 LOG_S(INFO) << "Algorithms::IPG::CutAndPlay::equilibriumLCP: tentative Equilibrium found";
 
 	 // Record the primal-dual solution and reset feasibility and pure-flag
-	 //x.print("Whole x");
+	 // x.print("Whole x");
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
 		this->Players.at(i)->Incumbent =
 			 x.subvec(this->NashGame->getPrimalLoc(i), this->NashGame->getPrimalLoc(i + 1) - 1);
-		//this->Players.at(i)->Incumbent.print("x of "+std::to_string(i));
+		// this->Players.at(i)->Incumbent.print("x of "+std::to_string(i));
 		this->Players.at(i)->DualIncumbent =
 			 x.subvec(this->NashGame->getDualLoc(i), this->NashGame->getDualLoc(i + 1) - 1);
 		this->Players.at(i)->Feasible = false;
@@ -957,7 +959,7 @@ void Algorithms::IPG::CutAndPlay::initialize() {
 		  std::make_unique<IPG_Player>(this->IPG->PlayersIP.at(i)->getNumVars(), this->Tolerance);
 	 //@todo be aware of variables' changes in presolve
 	 if (this->IPG->Stats.AlgorithmData.Presolve.get())
-	   this->IPG->PlayersIP.at(i)->presolve();
+		this->IPG->PlayersIP.at(i)->presolve();
 	 // Add the working IP
 	 auto WorkingIP                      = new MathOpt::IP_Param(*this->IPG->PlayersIP.at(i).get());
 	 this->Players.at(i)->ParametrizedIP = std::make_shared<MathOpt::IP_Param>(*WorkingIP);
@@ -1012,9 +1014,9 @@ arma::vec Algorithms::IPG::CutAndPlay::buildXminusI(const unsigned int i) {
  * @return The number of added cuts
  */
 unsigned int Algorithms::IPG::CutAndPlay::externalCutGenerator(unsigned int player,
-																			  int          maxCuts,
-																			  bool         rootNode,
-																			  bool         cutOff) {
+																					int          maxCuts,
+																					bool         rootNode,
+																					bool         cutOff) {
 
   ZEROAssert(player < this->IPG->NumPlayers);
   auto      xOfI     = this->Players.at(player)->Incumbent;
@@ -1322,8 +1324,8 @@ void Algorithms::IPG::CutAndPlay::initializeEducatedGuesses() {
 }
 
 /**
- * @brief This method builds the Coin-OR model used in CutAndPlay::externalCutGenerator for the given
- * player
+ * @brief This method builds the Coin-OR model used in CutAndPlay::externalCutGenerator for the
+ * given player
  * @param player The player's id
  */
 void Algorithms::IPG::CutAndPlay::initializeCoinModel(const unsigned int player) {
