@@ -95,7 +95,7 @@ The following code returns the ``std::shared_ptr<>`` as required. Refer to the p
     std::shared_ptr<Game::NashGame> uv_leader(GRBEnv *env) {
       // 2 variable and 2 constraints
       arma::sp_mat Q(2, 2), C(2, 1), A(2, 1), B(2, 2);
-      arma::vec    c(2, arma::fill::zeros);
+      arma::vec    c(2, arma::fill::zeros), d(2, arma::fill::zeros);
       arma::vec    b(2, arma::fill::zeros);
       // Q remains as 0
       // C remains as 0
@@ -110,7 +110,7 @@ The following code returns the ``std::shared_ptr<>`` as required. Refer to the p
       B(0, 1)   = 1;
       B(1, 0)   = 1;
       B(1, 1)   = -2;
-      auto foll = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, env);
+      auto foll = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, d, env);
 
       // Lower level Market clearing constraints - empty
       arma::sp_mat MC(0, 3);
@@ -139,7 +139,7 @@ Next, we have a similar procedure for the x-y leader.
     std::shared_ptr<Game::NashGame> xy_leader(GRBEnv *env) {
       // 2 variable and 2 constraints
       arma::sp_mat Q(2, 2), C(2, 1), A(2, 1), B(2, 2);
-      arma::vec    c(2, arma::fill::zeros);
+      arma::vec    c(2, arma::fill::zeros), d(2, arma::fill::zeros);
       arma::vec    b(2, arma::fill::zeros);
       // Q remains as 0
       // C remains as 0
@@ -157,7 +157,7 @@ Next, we have a similar procedure for the x-y leader.
       // b
       b(0)      = 5;
       b(1)      = -3;
-      auto foll = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, env);
+      auto foll = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, d, env);
 
       // Lower level Market clearing constraints - empty
       arma::sp_mat MC(0, 3);
@@ -220,6 +220,7 @@ The parameter ``i``takes the leader's position and `QP_obj` is an out-parameter,
         QP_obj.Q.zeros(3, 3);
         QP_obj.C.zeros(3, 3);
         QP_obj.c.zeros(3);
+        QP_obj.d.zeros(3);
         switch (i)
         {
             case 0: // uv_leader's objective
@@ -393,6 +394,7 @@ The entire example source code is as follows:
          QP_obj.Q.zeros(3, 3);
          QP_obj.C.zeros(3, 3);
          QP_obj.c.zeros(3);
+         QP_obj.d.zeros(3);
          switch (i) {
          case 0: // uv_leader's objective
             QP_obj.C(1, 0) = 1;
@@ -413,7 +415,7 @@ The entire example source code is as follows:
     std::shared_ptr<Game::NashGame> uv_leader(GRBEnv *env) {
       // 2 variable and 2 constraints
       arma::sp_mat Q(2, 2), C(2, 1), A(2, 1), B(2, 2);
-      arma::vec    c(2, arma::fill::zeros);
+      arma::vec    c(2, arma::fill::zeros), d(2, arma::fill::zeros);
       arma::vec    b(2, arma::fill::zeros);
       // Q remains as 0
       // C remains as 0
@@ -428,7 +430,7 @@ The entire example source code is as follows:
       B(0, 1)   = 1;
       B(1, 0)   = 1;
       B(1, 1)   = -2;
-      auto foll = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, env);
+      auto foll = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, d, env);
 
       // Lower level Market clearing constraints - empty
       arma::sp_mat MC(0, 3);
@@ -451,7 +453,7 @@ The entire example source code is as follows:
     std::shared_ptr<Game::NashGame> xy_leader(GRBEnv *env) {
       // 2 variable and 2 constraints
       arma::sp_mat Q(2, 2), C(2, 1), A(2, 1), B(2, 2);
-      arma::vec    c(2, arma::fill::zeros);
+      arma::vec    c(2, arma::fill::zeros), d(2, arma::fill::zeros);
       arma::vec    b(2, arma::fill::zeros);
       // Q remains as 0
       // C remains as 0
@@ -469,7 +471,7 @@ The entire example source code is as follows:
       // b
       b(0)      = 5;
       b(1)      = -3;
-      auto foll = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, env);
+      auto foll = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, d, env);
 
       // Lower level Market clearing constraints - empty
       arma::sp_mat MC(0, 3);

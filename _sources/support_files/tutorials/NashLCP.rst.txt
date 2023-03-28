@@ -60,17 +60,17 @@ To handle this problem, first, we create two objects of :cpp:class:`MathOpt::QP_
     //[...] Your other code here
     GRBEnv env;
     arma::sp_mat Q(1, 1), A(0, 1), B(0, 1), C(1, 1);
-    arma::vec b, c(1);
+    arma::vec b, c(1), d(1);
     b.set_size(0);
 
     Q(0, 0) = 2 * 1.1;
     C(0, 0) = 1;
     c(0) = -90;
-    auto q1 = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, &env);
+    auto q1 = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, d, &env);
 
     Q(0, 0) = 2 * 1.2;
     c(0) = -95;
-    auto q2 = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, &env);
+    auto q2 = std::make_shared<MathOpt::QP_Param>(Q, C, A, B, c, b, d, &env);
 
     // We create a vector with the two QP_Params
     std::vector<shared_ptr<MathOpt::QP_Param>> q{q1, q2};

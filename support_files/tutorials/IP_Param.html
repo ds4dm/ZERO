@@ -858,7 +858,7 @@
 <h1>Parametrized IPs<a class="headerlink" href="#parametrized-ips" title="Permalink to this headline"></a></h1>
 <p>IP_Param stands for <em>Parametrized Integer Program</em>, a mathematical program in the following form:</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\min_y c^Ty + (Cx)^T y \\
+\[\begin{split}\min_y c^Ty + (Cx)^T y + d^Tx \\
 \text{s.t.} \quad By \le b \\
 \quad \quad y \ge 0 \\
 \quad \quad y_i \in  \mathbb{Z} \quad \forall i \in I\end{split}\]</div>
@@ -879,7 +879,7 @@ We assume the matrix C is a matrix with:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;zero.h&quot;</span>
 <span class="c1">//[...] Your other code here</span>
 <span class="c1">//The linear objectives in y</span>
-<span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w">                </span><span class="nf">_c</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">arma</span><span class="o">::</span><span class="n">vec</span><span class="w">                </span><span class="nf">_c</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="n">_d</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 <span class="c1">//The matrix of interaction coefficients among parameters and variables</span>
 <span class="n">arma</span><span class="o">::</span><span class="n">mat</span><span class="w">                </span><span class="n">_C</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arma</span><span class="o">::</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
 <span class="c1">//The constraint matrix</span>
@@ -898,6 +898,8 @@ We assume the matrix C is a matrix with:</p>
 <span class="n">_C</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
 <span class="n">_c</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
 <span class="n">_c</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-2</span><span class="p">;</span>
+<span class="n">_d</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="n">_d</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 
 <span class="c1">//Knapsack Constraint</span>
 <span class="n">_A</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
@@ -913,7 +915,7 @@ We assume the matrix C is a matrix with:</p>
 <span class="n">VariableBounds</span><span class="w">    </span><span class="n">bnds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">}};</span>
 <span class="c1">//Gurobi Environment</span>
 <span class="n">GRBEnv</span><span class="w">      </span><span class="n">test</span><span class="p">;</span>
-<span class="n">MathOpt</span><span class="o">::</span><span class="n">IP_Param</span><span class="w"> </span><span class="nf">ipParam</span><span class="p">(</span><span class="n">_C2</span><span class="p">,</span><span class="w"> </span><span class="n">_A2</span><span class="p">,</span><span class="w"> </span><span class="n">_b</span><span class="p">,</span><span class="w"> </span><span class="n">_c</span><span class="p">,</span><span class="w"> </span><span class="n">_integers</span><span class="p">,</span><span class="w"> </span><span class="n">bnds</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">test</span><span class="p">);</span>
+<span class="n">MathOpt</span><span class="o">::</span><span class="n">IP_Param</span><span class="w"> </span><span class="nf">ipParam</span><span class="p">(</span><span class="n">_C2</span><span class="p">,</span><span class="w"> </span><span class="n">_A2</span><span class="p">,</span><span class="w"> </span><span class="n">_b</span><span class="p">,</span><span class="w"> </span><span class="n">_c</span><span class="p">,</span><span class="w"> </span><span class="n">_d</span><span class="p">,</span><span class="w"> </span><span class="n">_integers</span><span class="p">,</span><span class="w"> </span><span class="n">bnds</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">test</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>

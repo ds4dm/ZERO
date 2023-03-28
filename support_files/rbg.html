@@ -858,7 +858,7 @@
 <h1>What is an RBG?<a class="headerlink" href="#what-is-an-rbg" title="Permalink to this headline"></a></h1>
 <p>A <strong>Reciprocally Bilinear Game</strong> is a simultaneous non-cooperative game among <span class="math notranslate nohighlight">\(n\)</span> players with each player <span class="math notranslate nohighlight">\(i=1,2,\dots,n\)</span> solving the optimization problem</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\min{x^i} (c^i)^\top x^i + (x^{-i})^\top C^ix^i \\
+\[\begin{split}\min{x^i} (c^i)^\top x^i + (x^{-i})^\top C^ix^i + d^Tx^{-i} \\
 \text{s.t.} \quad  x^i \in \mathcal{X}^i\end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathcal{X}^i\)</span> is a set (not necessarily closed), <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(c\)</span> are a matrix and a vector of appropriate dimensions. An RBG is <em>polyhedrally representable</em> if <span class="math notranslate nohighlight">\(\text{cl conv}(\mathcal{X}^i)\)</span> is a polyhedron for every <span class="math notranslate nohighlight">\(i\)</span>, and one can optimize an arbitrary linear funciton on <span class="math notranslate nohighlight">\(\mathcal{X}^i\)</span>.
 As a standard game-theory notation, the operator <span class="math notranslate nohighlight">\((\cdot)^i\)</span> refers to an object of player <span class="math notranslate nohighlight">\(i\)</span> with <span class="math notranslate nohighlight">\(i \in \{ 1,2,\dots,n\}\)</span>, and <span class="math notranslate nohighlight">\((\cdot)^{-i}\)</span> be <span class="math notranslate nohighlight">\((\cdot^1,\dots, \cdot^{i-1},\cdot^{i+1},\dots,\cdot^{n})\)</span>.</p>
