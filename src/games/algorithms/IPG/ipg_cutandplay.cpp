@@ -502,7 +502,7 @@ int Algorithms::IPG::CutAndPlay::preEquilibriumOracle(const unsigned int player,
 
 	 double IP_Objective  = PureIP->getObjective().getValue();
 	 double REL_Objective = this->Players.at(player)->Payoff;
-	 
+
 	 if (IP_Objective == GRB_INFINITY) {
 		LOG_S(1) << "Algorithms::IPG::CutAndPlay::preEquilibriumOracle (P" << player
 					<< ") Unbounded deviation.";
