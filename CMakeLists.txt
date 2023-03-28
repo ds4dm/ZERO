@@ -204,11 +204,11 @@ set_target_properties(
         VISIBILITY_INLINES_HIDDEN ON)
 
 
-add_executable(Approximation examples/approximation/test_appli.cpp)
-target_include_directories(Approximation PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-target_link_libraries(Approximation ZERO)
+add_executable(CNGExample examples/CNG.cpp)
+target_include_directories(CNGExample PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(CNGExample ZERO)
 set_target_properties(
-        Approximation PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
+        CNGExample PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
         VISIBILITY_INLINES_HIDDEN ON)
 
 
