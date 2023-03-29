@@ -117,6 +117,7 @@ Program Listing for File ipg_cutandplay.cpp
    
      arma::vec LHS = -(this->IPG->PlayersIP.at(player)->getc() +
                              this->IPG->PlayersIP.at(player)->getC() * xMinusI);
+     RHS += -arma::as_scalar(this->IPG->PlayersIP.at(player)->getd().t() * xMinusI);
    
      // Constant!
      if (Utils::isEqual(arma::max(arma::abs(LHS)), 0)) {
@@ -157,7 +158,7 @@ Program Listing for File ipg_cutandplay.cpp
      // Again, minus sign on RHS (the inequality is >=)
      return this->Players.at(player)->addCuts(
            arma::sp_mat{LHS.t()},
-           arma::vec{-RHS + this->IPG->PlayersIP.at(player)->getd().t() * xMinusI});
+           arma::vec{-RHS});
    }
    
    bool Algorithms::IPG::CutAndPlay::checkTime(double &remaining) const {
