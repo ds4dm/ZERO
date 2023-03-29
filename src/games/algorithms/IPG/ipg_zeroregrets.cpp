@@ -204,7 +204,7 @@ void Algorithms::IPG::ZERORegrets::solve() {
 	 if (this->IPG->Stats.AlgorithmData.TimeLimit.get() > 0) {
 		double remaining;
 		if (this->checkTime(remaining) && remaining > 0) {
-		  this->JointProgram->set(GRB_DoubleParam_TimeLimit, remaining * 0.95);
+		  this->JointProgram->set(GRB_DoubleParam_TimeLimit, remaining * 0.99);
 		} else {
 		  this->IPG->Stats.AlgorithmData.Cuts.set(this->Cuts);
 		  return;
@@ -212,7 +212,6 @@ void Algorithms::IPG::ZERORegrets::solve() {
 	 }
 
 	 this->JointProgram->optimize();
-	 this->JointProgram->write("Joint.lp");
 	 MIPStatus = this->JointProgram->get(GRB_IntAttr_Status);
 
 	 if (MIPStatus != GRB_OPTIMAL and MIPStatus != GRB_TIME_LIMIT) {
@@ -235,8 +234,17 @@ void Algorithms::IPG::ZERORegrets::solve() {
 	 // How many cuts added in total?
 	 unsigned int addedCuts = 0;
 
+	 if (MIPStatus == GRB_TIME_LIMIT && this->JointProgram->get(GRB_IntAttr_SolCount) == 0) {
+		LOG_S(1) << "Algorithms::IPG::ZERORegrets::solve: "
+						"Time limit hit.";
+		if (this->IPG->Stats.Status.get() == ZEROStatus::Uninitialized)
+		  this->IPG->Stats.Status.set(ZEROStatus::TimeLimit);
+		break;
+	 }
+
 	 try {
-		if (MIPStatus == GRB_OPTIMAL or MIPStatus == GRB_TIME_LIMIT) {
+		if (MIPStatus == GRB_OPTIMAL or
+			 (MIPStatus == GRB_TIME_LIMIT && this->JointProgram->get(GRB_IntAttr_SolCount) > 0)) {
 		  // Reset solution status
 		  solved = true;
 		  // last objective
@@ -290,7 +298,7 @@ void Algorithms::IPG::ZERORegrets::solve() {
 		}
 
 		this->Cuts.at(0).second += addedCuts;
-		LOG_S(INFO) << "Algorithms::IPG::ZERORegrets::initialize: Added " << std::to_string(addedCuts)
+		LOG_S(INFO) << "Algorithms::IPG::ZERORegrets::solve: Added " << std::to_string(addedCuts)
 						<< " cuts.";
 		this->IPG->Stats.AlgorithmData.Cuts.set(this->Cuts);
 	 } catch (GRBException &e) {
