@@ -74,11 +74,11 @@ void Algorithms::IPG::ZERORegrets::initialize() {
   // Add the payoff variable for each player
   GRBQuadExpr payoff = 0;
   for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
-	 payoff = 0;
-	 auto C = this->IPG->PlayersIP.at(i)->getC();
-	 auto c = this->IPG->PlayersIP.at(i)->getc();
-	 auto d = this->IPG->PlayersIP.at(i)->getd();
-	 int counterd=0;
+	 payoff        = 0;
+	 auto C        = this->IPG->PlayersIP.at(i)->getC();
+	 auto c        = this->IPG->PlayersIP.at(i)->getc();
+	 auto d        = this->IPG->PlayersIP.at(i)->getd();
+	 int  counterd = 0;
 	 for (int j = 0; j < this->IPG->PlayersIP.at(i)->getNumVars(); j++) {
 		payoff.addTerm(c.at(j), this->x[i][j]);
 		int counter = 0;
@@ -152,7 +152,7 @@ bool Algorithms::IPG::ZERORegrets::addEquilibriumInequality(unsigned int     pla
   auto C            = this->IPG->PlayersIP.at(player)->getC();
   auto c            = this->IPG->PlayersIP.at(player)->getc();
   auto d            = this->IPG->PlayersIP.at(player)->getd();
-  int counterd=0;
+  int  counterd     = 0;
   for (int j = 0; j < this->IPG->PlayersIP.at(player)->getNumVars(); j++) {
 	 payoff += c.at(j) * xOfI.at(j);
 	 int counter = 0;
@@ -215,7 +215,7 @@ void Algorithms::IPG::ZERORegrets::solve() {
 	 this->JointProgram->write("Joint.lp");
 	 MIPStatus = this->JointProgram->get(GRB_IntAttr_Status);
 
-	 if (MIPStatus == GRB_INFEASIBLE or MIPStatus == GRB_UNBOUNDED or MIPStatus == GRB_CUTOFF) {
+	 if (MIPStatus != GRB_OPTIMAL and MIPStatus != GRB_TIME_LIMIT) {
 		this->IPG->Stats.AlgorithmData.Cuts.set(this->Cuts);
 		if (!this->Solved) {
 		  this->IPG->Stats.Status.set(ZEROStatus::NashEqNotFound);
@@ -227,12 +227,6 @@ void Algorithms::IPG::ZERORegrets::solve() {
 		  return;
 		}
 	 }
-
-	 if (MIPStatus != GRB_OPTIMAL and MIPStatus != GRB_TIME_LIMIT) {
-		LOG_S(WARNING) << "Algorithms::IPG::ZERORegrets::solve: Unknown MIP Status: " << MIPStatus;
-		ZEROException(ZEROErrorCode::SolverError);
-	 }
-
 
 
 	 /* ************************************
@@ -246,15 +240,17 @@ void Algorithms::IPG::ZERORegrets::solve() {
 		  // Reset solution status
 		  solved = true;
 		  // last objective
-		  auto      last_obj     = this->JointProgram->getObjective().getValue();
-		  arma::vec last_payoffs = arma::zeros(this->IPG->NumPlayers);
+		  auto      last_obj       = this->JointProgram->getObjective().getValue();
+		  arma::vec last_payoffs   = arma::zeros(this->IPG->NumPlayers);
+		  this->IPG->SocialWelfare = 0;
 		  // Fetch the solution. This goes outside the main loop
 		  for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i) {
 			 last_payoffs.at(i) = p[i].get(GRB_DoubleAttr_X);
-			 this->xLast.at(i)  = arma::zeros(this->IPG->PlayersIP.at(i)->getNumVars());
+			 this->IPG->SocialWelfare += last_payoffs.at(i);
+			 this->xLast.at(i) = arma::zeros(this->IPG->PlayersIP.at(i)->getNumVars());
 			 for (int j = 0; j < this->IPG->PlayersIP.at(i)->getNumVars(); j++) {
 				this->xLast.at(i).at(j) = x[i][j].get(GRB_DoubleAttr_X);
-				//std::cout << "x_" << i << "," << j
+				// std::cout << "x_" << i << "," << j
 				//			 << "=" << this->xLast.at(i).at(j) << std::endl;
 			 }
 		  }
@@ -279,7 +275,7 @@ void Algorithms::IPG::ZERORegrets::solve() {
 			 }
 			 // std::cout << std::endl;
 
-			 //std::cout << last_payoffs.at(i) << " versus br of " << BR_payoff << "\n";
+			 // std::cout << last_payoffs.at(i) << " versus br of " << BR_payoff << "\n";
 			 if ((last_payoffs.at(i) - BR_payoff) >
 				  this->IPG->Stats.AlgorithmData.DeviationTolerance.get()) {
 				// There is a deviation, not solved!
@@ -309,6 +305,7 @@ void Algorithms::IPG::ZERORegrets::solve() {
 	 this->Solved = true;
 	 for (unsigned int i = 0; i < this->IPG->NumPlayers; ++i)
 		this->IPG->Solution.at(i) = this->xLast.at(i);
+
 	 this->IPG->Stats.AlgorithmData.Cuts.set(this->Cuts);
   }
 
