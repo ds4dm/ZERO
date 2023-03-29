@@ -45,7 +45,10 @@ int main(int argc, char **argv) {
 		  arma::vec      IntegerIndexes(nodes);                // The index of the integer variables
 		  VariableBounds VarBounds;                            // Implicit bounds on variables
 		  auto           data = arma::mat();
-		  data.load("dat/CNG/Instance-" + std::to_string(nodes) + "_" + std::to_string(instance));
+		  std::string    instanceName =
+				"dat/CNG/Instance-" + std::to_string(nodes) + "_" + std::to_string(instance);
+		  data.load(instanceName);
+		  std::cout << "###INSTANCE " << instanceName << std::endl;
 		  // data.load("dat/CNG/Toy");
 
 
@@ -121,7 +124,8 @@ int main(int argc, char **argv) {
 		  CNG.setDeviationTolerance(3e-4); // Numerical tolerance
 		  // Cut and Play
 		  CNG.setAlgorithm(Data::IPG::Algorithms::CutAndPlay);
-		  CNG.setLCPAlgorithm(Data::LCP::Algorithms::MIP); // How do we solve the LCPs?
+		  CNG.setGameObjective(Data::IPG::Objectives::Feasibility);
+		  CNG.setLCPAlgorithm(Data::LCP::Algorithms::PATH); // How do we solve the LCPs?
 		  CNG.findNashEq();
 		  std::cout << "The Cut-and-Play solution" << std::endl;
 		  CNG.getX().at(0).print("Player 1:"); // Print the solution
