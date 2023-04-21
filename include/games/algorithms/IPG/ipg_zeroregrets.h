@@ -55,6 +55,6 @@ namespace Algorithms::IPG {
 	 void solve();
 
 	 bool isSolved() const { return this->Solved; };
-	 bool isPureStrategy() const { return true; };
+	 bool isPureStrategy() const override { return true; };
   };
 } // namespace Algorithms::IPG

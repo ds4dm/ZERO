@@ -13,17 +13,34 @@
 
 #include <zero.h>
 
+arma::vec compute_correct_payoffs(arma::vec x,
+											 arma::vec alpha,
+											 double    gamma,
+											 double    delta,
+											 double    eta,
+											 double    epsilon,
+											 arma::vec costsA,
+											 arma::vec costsD) {
+  arma::vec payoffs(2, arma::fill::zeros);
+  for (int i = 0; i < costsA.size(); ++i) {
+	 payoffs.at(0) += costsD.at(i) * (1 + (delta - 1) * alpha.at(i) + (epsilon - 1) * x.at(i) +
+												 (1 + eta - epsilon - delta) * x.at(i) * alpha.at(i));
+	 payoffs.at(1) += costsA.at(i) * (1 + (gamma - 1) * alpha.at(i) + gamma * x.at(i) +
+												 (gamma - eta) * x.at(i) * alpha.at(i));
+  }
+  return payoffs;
+}
 
 int main(int argc, char **argv) {
 
   loguru::g_stderr_verbosity = 10;
   GRBEnv        GurobiEnv;
-  std::string   logFile = "CNG_Results.csv";
+  std::string   logFile = "CNG_Results2.csv";
   std::ifstream existCheck(logFile);
   std::ofstream results(logFile, std::ios::app);
 
   if (!existCheck.good()) {
-	 results << "Instance;Algorithm;isPureNE;Status;Time;SocialWelfare;numIterations\n";
+	 results << "Instance;Algorithm;isPureNE;Status;Time;WelfareD;numIterations\n";
   }
   existCheck.close();
   try {
@@ -130,12 +147,19 @@ int main(int argc, char **argv) {
 		  std::cout << "The Cut-and-Play solution" << std::endl;
 		  CNG.getX().at(0).print("Player 1:"); // Print the solution
 		  CNG.getX().at(1).print("\n Player 2:");
-		  auto stat = CNG.getStatistics();
+		  auto stat    = CNG.getStatistics();
+		  auto payoffs = compute_correct_payoffs(CNG.getX().at(0),
+															  CNG.getX().at(1),
+															  gamma,
+															  delta,
+															  eta,
+															  epsilon,
+															  data.row(1),
+															  data.row(2));
 
 		  results << std::to_string(nodes) + "_" + std::to_string(instance) << ";CutAndPlay;"
-					 << std::to_string(stat.PureNashEquilibrium.get()) << ";"
 					 << std::to_string(stat.Status.get()) << ";"
-					 << std::to_string(stat.WallClockTime.get()) << ";" << CNG.getSocialWelfare() << ";"
+					 << std::to_string(stat.WallClockTime.get()) << ";" << payoffs.at(0) << ";"
 					 << stat.NumIterations.get() << "\n";
 
 		  Models::IPG::IPG CNG2(&GurobiEnv, IPG_Instance); // Create a model from the instance
@@ -150,13 +174,24 @@ int main(int argc, char **argv) {
 		  std::cout << "The ZERO Regrets solution" << std::endl;
 		  CNG2.getX().at(0).print("Player 1:"); // Print the solution
 		  CNG2.getX().at(1).print("\n Player 2:");
+
+		  arma::vec payoffs2 = arma::zeros(2);
+		  if (!CNG2.getX().at(0).empty())
+			 payoffs2 = compute_correct_payoffs(CNG2.getX().at(0),
+														  CNG2.getX().at(1),
+														  gamma,
+														  delta,
+														  eta,
+														  epsilon,
+														  data.row(1),
+														  data.row(2));
+
 		  auto stat2 = CNG2.getStatistics();
 
 		  results << std::to_string(nodes) + "_" + std::to_string(instance) << ";ZERORegrets;"
-					 << std::to_string(stat2.PureNashEquilibrium.get()) << ";"
 					 << std::to_string(stat2.Status.get()) << ";"
-					 << std::to_string(stat2.WallClockTime.get()) << ";" << CNG2.getSocialWelfare()
-					 << ";" << stat2.NumIterations.get() << "\n";
+					 << std::to_string(stat2.WallClockTime.get()) << ";" << payoffs2.at(0) << ";"
+					 << stat2.NumIterations.get() << "\n";
 
 		  // break;
 		  results.flush();
