@@ -29,9 +29,9 @@ If you use ZERO for your research, please refer to the following papers:
 
   ```
   @article{Dragotto_2021_CNP,
-    title        = {{The Cut and Play Algorithm: Computing Nash Equilibria via Outer Approximations}},
+    title        = {{The Cut-and-Play Algorithm: Computing Nash Equilibria via Outer Approximations}},
     author       = {Carvalho, Margarida and Dragotto, Gabriele and Lodi, Andrea and Sankaranarayanan, Sriram},
-    year         = 2021,
+    year         = 2023,
     journal      = {arXiv},
     volume       = {abs/2111.05726},
     url          = {https://arxiv.org/abs/2111.05726},
@@ -44,11 +44,10 @@ If you use ZERO for your research, please refer to the following papers:
   @article{Dragotto_2021_ZERORegrets,
     title        = {{The Zero Regrets Algorithm: Optimizing over Pure Nash Equilibria via Integer Programming}},
     author       = {Dragotto, Gabriele and Scatamacchia, Rosario},
-    year         = 2021,
-    journal      = {arXiv},
-    volume       = {abs/2111.06382},
-    url          = {https://arxiv.org/abs/2111.06382},
-    eprinttype   = {arXiv}
+    year         = 2023,
+    journal      = {INFORMS Journal on Computing},
+    volume       = {To Appear},
+    url          = {https://doi.org/10.1287/ijoc.2022.0282}
   }
   ```
 * [Mathematical Programming Games](https://publications.polymtl.ca/10220/), Ph.D. Thesis:
