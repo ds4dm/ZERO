@@ -4,7 +4,7 @@
 ZERO is a modular C++ library for Mathematical Programming Games. It provides a comprehensive toolkit of modeling interfaces, helper tools, and algorithms to design games and find their Nash equilibria.
 
 ## Documentation
-The documentation is available [at our website](https://docs.getzero.one).
+The documentation is available [here](https://ds4dm.github.io/ZERO/).
 
 
 ## Citing
