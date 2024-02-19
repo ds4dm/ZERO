@@ -127,6 +127,7 @@ namespace Algorithms::EPEC {
 	 inline void resetFeasibility() {
 		this->isPure     = false;
 		this->isFeasible = false;
+		this->useRay = false;
 	 } ///< Reset the feasibility parameters for the tree
 
 	 inline bool getPure() const { return this->isPure; } ///< Read-only getter for OuterTree::isPure
@@ -169,6 +170,7 @@ namespace Algorithms::EPEC {
 	 void denyBranchingLocation(Node &node, const unsigned int &location) const;
 
 	 std::vector<long int> singleBranch(unsigned int idComp, Node &t);
+	 bool                  useRay;
   };
 
   ///@brief This class is responsible for the Cut-and-Play Algorithm
@@ -194,12 +196,14 @@ namespace Algorithms::EPEC {
 	 bool isSolved(double tol = 1e-4) override;
 	 bool isFeasible(bool &addedCuts);
 	 bool isPureStrategy(double tol = 1e-4) const;
+	 inline bool useRay() const{ return this->hasRay;};
 
 
   private:
 	 std::vector<OuterTree *>       Trees; ///< The vector of pointer to OuterTree for each player
 	 std::vector<OuterTree::Node *> Incumbent;       ///< The incumbent nodes for each player
 	 bool                           Feasible{false}; ///< True if a feasible solution has been found
+	 bool hasRay{false}; ///< True if a ray has been used
 	 double Tolerance = 3 * 1e-5;                    ///< The numerical tolerance for the algorithm
 
 	 std::vector<int> getNextBranchLocation(unsigned int player, OuterTree::Node *node);
@@ -221,5 +225,6 @@ namespace Algorithms::EPEC {
 		  arma::vec &xOfI, arma::vec &x, unsigned int player, int budget, bool &addedCuts);
 	 bool isFeasiblePure(const unsigned int player, const arma::vec &x);
 	 void originFeasibility(unsigned int player);
+	 bool repairProcedure(const arma::vec &x);
   };
 } // namespace Algorithms::EPEC

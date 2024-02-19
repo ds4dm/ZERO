@@ -1,0 +1,4 @@
+rsync -aPrvz -e 'ssh -p 1234 -i /Users/gabrieledragotto/Documents/Keys/Gerad_rsa' --progress ./src draggabr@127.0.0.1:/home/draggabr/ZERO/src
+rsync -aPrvz -e 'ssh -p 1234 -i /Users/gabrieledragotto/Documents/Keys/Gerad_rsa' --progress ./include draggabr@127.0.0.1:/home/draggabr/ZERO/include
+rsync -aPrvz -e 'ssh -p 1234 -i /Users/gabrieledragotto/Documents/Keys/Gerad_rsa' --progress ./CMakeLists.txt draggabr@127.0.0.1:/home/draggabr/ZERO/CMakeLists.txt
+rsync -aPrvz -e 'ssh -p 1234 -i /Users/gabrieledragotto/Documents/Keys/Gerad_rsa' --progress ./cmake draggabr@127.0.0.1:/home/draggabr/ZERO/cmake

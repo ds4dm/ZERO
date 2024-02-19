@@ -189,12 +189,6 @@ set_target_properties(
         IPGExample PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
         VISIBILITY_INLINES_HIDDEN ON)
 
-add_executable(UCPExample examples/UCP.cpp)
-target_include_directories(UCPExample PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-target_link_libraries(UCPExample ZERO)
-set_target_properties(
-        UCPExample PROPERTIES POSITION_INDEPENDENT_CODE ON CXX_VISIBILITY_PRESET hidden
-        VISIBILITY_INLINES_HIDDEN ON)
 
 add_executable(NASPExample examples/NASP.cpp)
 target_include_directories(NASPExample PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)

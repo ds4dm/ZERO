@@ -83,6 +83,8 @@ namespace Data::EPEC {
 													 ///< for each leader.
 	 Attr<int> LostIntermediateEq = {0}; ///< Counts the number of approximation steps where the
 													 ///< problem (approximated) has no nash equilibrium
+	 Attr<bool> UseRay = {0}; ///< If the outer approximation algorithm found a solution with a ray.
+
 	 Attr<Data::LCP::Algorithms>
 		  LCPSolver; ///< Preferred method to solve the LCPs. Note that
 						 ///< <Data::LCP::Algorithms::PATH may not be available for any

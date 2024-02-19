@@ -26,266 +26,216 @@ int main(int argc, char **argv) {
   bool   bound = false, pure = false;
 
   po::options_description desc("ZERO-EPEC: Allowed options");
-  desc.add_options()(
-		"help,h", "Shows this help message")("version,v",
-														 "Shows ZERO version")("input,i",
-																					  po::value<string>(&instanceFile),
-																					  "Sets the input path/filename of "
-																					  "the instance file (.json "
-																					  "appended "
-																					  "automatically)")("pure,p",
-																											  po::value<bool>(
-																													&pure)
-																													->default_value(
-																														 false),
-																											  "Controls "
-																											  "whether the "
-																											  "Algorithm "
-																											  "should "
-																											  "seek for a "
-																											  "pure NE or "
-																											  "not. If "
-																											  "Algorithm is "
-																											  "CombinatorialPN"
-																											  "E, this is "
-																											  "automatically "
-																											  "true.")("recove"
-																														  "r,r",
-																														  po::value<
-																																int>(
-																																&recover)
-																																->default_value(
-																																	 0),
-																														  "If "
-																														  "InnerA"
-																														  "pproxi"
-																														  "mati"
-																														  "on is "
-																														  "used "
-																														  "along "
-																														  "with "
-																														  "PureNa"
-																														  "shEqui"
-																														  "libr"
-																														  "ium, "
-																														  "which "
-																														  "strate"
-																														  "gy "
-																														  "should"
-																														  " "
-																														  "be "
-																														  "used "
-																														  "to "
-																														  "retrie"
-																														  "ve a "
-																														  "pure "
-																														  "NE. "
-																														  "0: "
-																														  "Increm"
-																														  "entalE"
-																														  "nume"
-																														  "ration"
-																														  ", "
-																														  "1:"
-																														  "Combin"
-																														  "atoria"
-																														  "lPN"
-																														  "E")("A"
-																																 "l"
-																																 "g"
-																																 "o"
-																																 "r"
-																																 "i"
-																																 "t"
-																																 "h"
-																																 "m"
-																																 ","
-																																 "a",
-																																 po::value<
-																																	  int>(
-																																	  &algorithm),
-																																 "S"
-																																 "e"
-																																 "t"
-																																 "s"
-																																 " "
-																																 "t"
-																																 "h"
-																																 "e"
-																																 " "
-																																 "A"
-																																 "l"
-																																 "g"
-																																 "o"
-																																 "r"
-																																 "i"
-																																 "t"
-																																 "h"
-																																 "m"
-																																 "."
-																																 " "
-																																 "0"
-																																 ":"
-																																 "F"
-																																 "u"
-																																 "l"
-																																 "l"
-																																 "E"
-																																 "n"
-																																 "u"
-																																 "m"
-																																 "e"
-																																 "r"
-																																 "a"
-																																 "t"
-																																 "i"
-																																 "o"
-																																 "n"
-																																 ","
-																																 " "
-																																 "1"
-																																 ":"
-																																 "I"
-																																 "n"
-																																 "n"
-																																 "e"
-																																 "r"
-																																 "A"
-																																 "p"
-																																 "p"
-																																 "r"
-																																 "o"
-																																 "x"
-																																 "i"
-																																 "m"
-																																 "a"
-																																 "t"
-																																 "i"
-																																 "o"
-																																 "n"
-																																 ","
-																																 " "
-																																 "2"
-																																 ":"
-																																 "C"
-																																 "o"
-																																 "m"
-																																 "b"
-																																 "i"
-																																 "n"
-																																 "a"
-																																 "t"
-																																 "o"
-																																 "r"
-																																 "i"
-																																 "a"
-																																 "l"
-																																 "P"
-																																 "N"
-																																 "E"
-																																 ","
-																																 " "
-																																 "3"
-																																 ":"
-																																 "O"
-																																 "u"
-																																 "t"
-																																 "e"
-																																 "r"
-																																 "A"
-																																 "p"
-																																 "p"
-																																 "r"
-																																 "o"
-																																 "x"
-																																 "i"
-																																 "m"
-																																 "a"
-																																 "t"
-																																 "i"
-																																 "o"
-																																 "n")("solution,s",
-																																		po::value<
-																																			 string>(
-																																			 &resFile)
-																																			 ->default_value(
-																																				  "dat/Solution"),
-																																		"Sets the output path/filename of the solution file (.json appended "
-																																		"automatically)")("log,l",
-																																								po::value<
-																																									 string>(
-																																									 &logFile)
-																																									 ->default_value(
-																																										  "dat/Results.csv"),
-																																								"Sets the output path/filename of the csv log file")("timelimit,tl",
-																																																									  po::value<
-																																																											double>(
-																																																											&timeLimit)
-																																																											->default_value(
-																																																												 -1.0),
-																																																									  "Sets the timelimit for solving the Nash Equilibrium model")("writelevel,w",
-																																																																														po::value<
-																																																																															 int>(
-																																																																															 &writeLevel)
-																																																																															 ->default_value(
-																																																																																  0),
-																																																																														"Sets the writeLevel param. 0: only Json. 1: only human-readable. 2: "
-																																																																														"both")("message,m",
-																																																																																  po::value<
-																																																																																		int>(
-																																																																																		&verbosity)
-																																																																																		->default_value(
-																																																																																			 0),
-																																																																																  "Sets the verbosity level for info and warning messages. 0: "
-																																																																																  "warning and critical. 1: info. 2: debug. 3: trace")("Threads,t",
-																																																																																																		 po::value<
-																																																																																																			  int>(
-																																																																																																			  &nThreads)
-																																																																																																			  ->default_value(
-																																																																																																					1),
-																																																																																																		 "Sets the number of Threads for Gurobi. (int): number of Threads. 0: "
-																																																																																																		 "auto (number of processors)")("aggr,ag",
-																																																																																																												  po::value<
-																																																																																																														int>(
-																																																																																																														&aggressiveness)
-																																																																																																														->default_value(
-																																																																																																															 1),
-																																																																																																												  "Sets the Aggressiveness for the InnerApproximation, namely the number "
-																																																																																																												  "of Random polyhedra added if no deviation is found. (int)")("bound,bo",
-																																																																																																																																	po::value<
-																																																																																																																																		 bool>(
-																																																																																																																																		 &bound)
-																																																																																																																																		 ->default_value(
-																																																																																																																																			  false),
-																																																																																																																																	"Decides whether primal variables should be bounded or not.")("devtol,dt",
-																																																																																																																																																					  po::value<
-																																																																																																																																																							double>(
-																																																																																																																																																							&devtol)
-																																																																																																																																																							->default_value(
-																																																																																																																																																								 -1.0),
-																																																																																																																																																					  "Sets the deviation tolerance.")("BoundBigM,bbm",
-																																																																																																																																																																  po::value<
-																																																																																																																																																																		double>(
-																																																																																																																																																																		&boundBigM)
-																																																																																																																																																																		->default_value(
-																																																																																																																																																																			 1e5),
-																																																																																																																																																																  "Set the bounding BigM related to the parameter --bound")("add,ad",
-																																																																																																																																																																																				po::
-																																																																																																																																																																																					 value<
-																																																																																																																																																																																						  int>(
-																																																																																																																																																																																						  &add)
-																																																																																																																																																																																						  ->default_value(0),
-																																																																																																																																																																																				"Sets the Game::EPECAddPolyMethod for the InnerApproximation. 0: "
-																																																																																																																																																																																				"Sequential. "
-																																																																																																																																																																																				"1: ReverseSequential. 2:Random.")("branching,br",
-																																																																																																																																																																																															  po::value<
-																																																																																																																																																																																																	int>(
-																																																																																																																																																																																																	&branching)
-																																																																																																																																																																																																	->default_value(
-																																																																																																																																																																																																		 0),
-																																																																																																																																																																																															  "Sets the Branching Strategy for the CutAndPlay. 0: "
-																																																																																																																																																																																															  "Hybrid. "
-																																																																																																																																																																																															  "1: Deviation.");
+  desc.add_options()("help,h", "Shows this help message")("version,v", "Shows ZERO version")(
+		"input,i",
+		po::value<string>(&instanceFile),
+		"Sets the input path/filename of "
+		"the instance file (.json "
+		"appended "
+		"automatically)")("pure,p",
+								po::value<bool>(&pure)->default_value(false),
+								"Controls "
+								"whether the "
+								"Algorithm "
+								"should "
+								"seek for a "
+								"pure NE or "
+								"not. If "
+								"Algorithm is "
+								"CombinatorialPN"
+								"E, this is "
+								"automatically "
+								"true.")("recove"
+											"r,r",
+											po::value<int>(&recover)->default_value(0),
+											"If "
+											"InnerA"
+											"pproxi"
+											"mati"
+											"on is "
+											"used "
+											"along "
+											"with "
+											"PureNa"
+											"shEqui"
+											"libr"
+											"ium, "
+											"which "
+											"strate"
+											"gy "
+											"should"
+											" "
+											"be "
+											"used "
+											"to "
+											"retrie"
+											"ve a "
+											"pure "
+											"NE. "
+											"0: "
+											"Increm"
+											"entalE"
+											"nume"
+											"ration"
+											", "
+											"1:"
+											"Combin"
+											"atoria"
+											"lPN"
+											"E")("A"
+												  "l"
+												  "g"
+												  "o"
+												  "r"
+												  "i"
+												  "t"
+												  "h"
+												  "m"
+												  ","
+												  "a",
+												  po::value<int>(&algorithm),
+												  "S"
+												  "e"
+												  "t"
+												  "s"
+												  " "
+												  "t"
+												  "h"
+												  "e"
+												  " "
+												  "A"
+												  "l"
+												  "g"
+												  "o"
+												  "r"
+												  "i"
+												  "t"
+												  "h"
+												  "m"
+												  "."
+												  " "
+												  "0"
+												  ":"
+												  "F"
+												  "u"
+												  "l"
+												  "l"
+												  "E"
+												  "n"
+												  "u"
+												  "m"
+												  "e"
+												  "r"
+												  "a"
+												  "t"
+												  "i"
+												  "o"
+												  "n"
+												  ","
+												  " "
+												  "1"
+												  ":"
+												  "I"
+												  "n"
+												  "n"
+												  "e"
+												  "r"
+												  "A"
+												  "p"
+												  "p"
+												  "r"
+												  "o"
+												  "x"
+												  "i"
+												  "m"
+												  "a"
+												  "t"
+												  "i"
+												  "o"
+												  "n"
+												  ","
+												  " "
+												  "2"
+												  ":"
+												  "C"
+												  "o"
+												  "m"
+												  "b"
+												  "i"
+												  "n"
+												  "a"
+												  "t"
+												  "o"
+												  "r"
+												  "i"
+												  "a"
+												  "l"
+												  "P"
+												  "N"
+												  "E"
+												  ","
+												  " "
+												  "3"
+												  ":"
+												  "O"
+												  "u"
+												  "t"
+												  "e"
+												  "r"
+												  "A"
+												  "p"
+												  "p"
+												  "r"
+												  "o"
+												  "x"
+												  "i"
+												  "m"
+												  "a"
+												  "t"
+												  "i"
+												  "o"
+												  "n")(
+		"solution,s",
+		po::value<string>(&resFile)->default_value("dat/Solution"),
+		"Sets the output path/filename of the solution file (.json appended "
+		"automatically)")("log,l",
+								po::value<string>(&logFile)->default_value("dat/Results.csv"),
+								"Sets the output path/filename of the csv log file")(
+		"timelimit,tl",
+		po::value<double>(&timeLimit)->default_value(-1.0),
+		"Sets the timelimit for solving the Nash Equilibrium model")(
+		"writelevel,w",
+		po::value<int>(&writeLevel)->default_value(0),
+		"Sets the writeLevel param. 0: only Json. 1: only human-readable. 2: "
+		"both")("message,m",
+				  po::value<int>(&verbosity)->default_value(0),
+				  "Sets the verbosity level for info and warning messages. 0: "
+				  "warning and critical. 1: info. 2: debug. 3: trace")(
+		"Threads,t",
+		po::value<int>(&nThreads)->default_value(1),
+		"Sets the number of Threads for Gurobi. (int): number of Threads. 0: "
+		"auto (number of processors)")(
+		"aggr,ag",
+		po::value<int>(&aggressiveness)->default_value(1),
+		"Sets the Aggressiveness for the InnerApproximation, namely the number "
+		"of Random polyhedra added if no deviation is found. (int)")(
+		"bound,bo",
+		po::value<bool>(&bound)->default_value(false),
+		"Decides whether primal variables should be bounded or not.")(
+		"devtol,dt",
+		po::value<double>(&devtol)->default_value(-1.0),
+		"Sets the deviation tolerance.")("BoundBigM,bbm",
+													po::value<double>(&boundBigM)->default_value(1e5),
+													"Set the bounding BigM related to the parameter --bound")(
+		"add,ad",
+		po::value<int>(&add)->default_value(0),
+		"Sets the Game::EPECAddPolyMethod for the InnerApproximation. 0: "
+		"Sequential. "
+		"1: ReverseSequential. 2:Random.")("branching,br",
+													  po::value<int>(&branching)->default_value(0),
+													  "Sets the Branching Strategy for the CutAndPlay. 0: "
+													  "Hybrid. "
+													  "1: Deviation.");
 
   po::variables_map vm;
   po::store(po::parse_command_line(argc, argv, desc), vm);
@@ -326,8 +276,8 @@ int main(int argc, char **argv) {
   auto timeStart = std::chrono::high_resolution_clock::now();
   try {
 	 GRBEnv env = GRBEnv();
-	 //As to have consistency among results
-	 env.set(GRB_IntParam_Seed,420);
+	 // As to have consistency among results
+	 env.set(GRB_IntParam_Seed, 420);
 
 	 // OPTIONS
 	 //------------
@@ -415,7 +365,7 @@ int main(int argc, char **argv) {
 					  "(s);Threads;numInnerIterations;LostIntermediateEq;"
 					  "Aggressiveness;"
 					  "AddPolyMethod;NumericalIssues;"
-					  "recoveryStrategy;branchingStrategy\n";
+					  "recoveryStrategy;branchingStrategy;useRay\n";
 	 }
 	 existCheck.close();
 
@@ -447,7 +397,8 @@ int main(int argc, char **argv) {
 				  << stat.NumericalIssues.get() << ";"
 				  << to_string(stat.AlgorithmData.RecoverStrategy.get()) << ";-";
 	 } else {
-		results << ";-;-;-;-;-;-;" << std::to_string(stat.AlgorithmData.BranchingStrategy.get());
+		results << ";-;-;-;-;-;-;" << std::to_string(stat.AlgorithmData.BranchingStrategy.get())
+				  << ";" << std::to_string(stat.AlgorithmData.UseRay.get());
 	 }
 	 results << "\n";
 	 results.close();

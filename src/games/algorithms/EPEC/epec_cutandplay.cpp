@@ -48,7 +48,7 @@ bool Algorithms::EPEC::CutAndPlay::isFeasible(bool &addedCuts) {
   // The returned result
   bool result = true;
 
-  // The best response object. filled for every players
+  // The best response object. filled for every player
   arma::vec bestResponse;
   // Compute payoffs in the current solution
   arma::vec incumbentPayoffs =
@@ -63,95 +63,99 @@ bool Algorithms::EPEC::CutAndPlay::isFeasible(bool &addedCuts) {
 	 const int status = bestModel->get(GRB_IntAttr_Status);
 
 	 if (status == GRB_UNBOUNDED) {
-		LOG_S(1) << "Algorithms::EPEC::CutAndPlay::isFeasible (P" << i
-					<< ") Unbounded deviation";
+		LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::isFeasible (P" << i << ") Unbounded deviation";
 		addedCuts = false;
 		result    = false;
-	 }
-
-	 // Get the best response
-	 unsigned int Nx = this->EPECObject->PlayersLCP.at(i)->getNumCols();
-	 bestResponse.zeros(Nx);
-	 for (unsigned int j = 0; j < Nx; ++j)
-		bestResponse.at(j) = bestModel->getVarByName("x_" + std::to_string(j)).get(GRB_DoubleAttr_X);
-	 double bestPayoff = bestModel->getObjective().getValue();
-
-
-	 LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::isFeasible (P" << i << ") Payoff of "
-					 << incumbentPayoffs.at(i) << " vs bestResponse of " << bestPayoff;
-	 // Since it's minimization, difference between the incumbent and best response payoff
-	 double absdiff = incumbentPayoffs.at(i) - bestPayoff;
-
-
-
-	 if (!Utils::isEqual(incumbentPayoffs.at(i), bestPayoff, this->Tolerance, 1 - this->Tolerance)) {
-		// Discrepancy between payoffs! Need to investigate.
-
-
-		if (absdiff > 10 * this->Tolerance) {
-		  // It means the current payoff is more than then optimal response. Then
-		  // this is not a best response. Theoretically, this cannot happen from
-		  // an outer approximation. This can however happen for numerical reasons
-
-		  LOG_S(WARNING) << "Algorithms::EPEC::CutAndPlay::isFeasible (P" << i << ")"
-							  << " No best response (" << incumbentPayoffs.at(i) << " vs " << bestPayoff
-							  << " with absdiff=" << incumbentPayoffs.at(i) - bestPayoff << ")";
-		  this->EPECObject->Stats.Status.set(ZEROStatus::Numerical);
-		  ZEROException(ZEROErrorCode::Numeric, "Invalid payoffs relation (better best response).");
-		  return 0;
-		} else
-		// In any other case, we are good to go.
-		{
-		  // It means the current payoff is less than the optimal response. The
-		  // approximation is not good, and this point is infeasible. Then, we can
-		  // generate a value-cut
-		  arma::vec xMinusI;
-		  this->EPECObject->getXMinusI(this->EPECObject->SolutionX, i, xMinusI);
-		  this->addValueCut(i, bestPayoff, xMinusI);
-		  LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::isFeasible (P" << i << ") Value cut";
-		  result = false;
-		}
 	 } else {
 
-		// Here we have a best response whose payoff coincides with the one of the
-		// equilibrium. The strategy might not be feasible, though.
+		// Get the best response
+		unsigned int Nx = this->EPECObject->PlayersLCP.at(i)->getNumCols();
+		bestResponse.zeros(Nx);
+		for (unsigned int j = 0; j < Nx; ++j)
+		  bestResponse.at(j) =
+				bestModel->getVarByName("x_" + std::to_string(j)).get(GRB_DoubleAttr_X);
+		double bestPayoff = bestModel->getObjective().getValue();
 
-		// Get xOfI
-		arma::vec xOfI;
-		this->EPECObject->getXofI(this->EPECObject->SolutionX, i, xOfI, false);
 
-		// Check if we need to add the point to the vertex storage.
-		arma::vec vertex = bestResponse.subvec(0, xOfI.size() - 1);
-		// Add the best response to the storage
-		if (this->Trees.at(i)->addVertex(vertex, true)) {
-		  LOG_S(1) << "Algorithms::EPEC::CutAndPlay::isFeasible (P" << i
-					  << ") Adding vertex (Best Response)";
-		} else {
-		  LOG_S(1) << "Algorithms::EPEC::CutAndPlay::isFeasible (P" << i
-					  << ") Already known vertex (Best Response)";
-		}
+		LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::isFeasible (P" << i << ") Payoff of "
+						<< incumbentPayoffs.at(i) << " vs bestResponse of " << bestPayoff;
+		// Since it's minimization, difference between the incumbent and best response payoff
+		double absdiff = incumbentPayoffs.at(i) - bestPayoff;
 
-		if (!Utils::isZero(xOfI - vertex, this->Tolerance)) {
-		  // Then, if the answers aren't equal, we need to refine the
-		  // approximation or determine if this strategy is anyhow feasible.
-		  // We search for a convex combination of best responses so that we can
-		  // certify the answer is inside the convex-hull (or not).
 
-		  int budget = this->EPECObject->PlayersQP.at(i)->getNumVars();
-		  if (!this->equilibriumOracle(xOfI, this->EPECObject->SolutionX, i, budget, addedCuts)) {
-			 LOG_S(1) << "Algorithms::EPEC::CutAndPlay::isFeasible (P" << i
-						 << ") CutAndPlay says NO.";
+
+		if (!Utils::isEqual(
+				  incumbentPayoffs.at(i), bestPayoff, this->Tolerance, 1 - this->Tolerance)) {
+		  // Discrepancy between payoffs! Need to investigate.
+
+
+		  if (absdiff > 10 * this->Tolerance) {
+			 // It means the current payoff is more than then optimal response. Then
+			 // this is not a best response. Theoretically, this cannot happen from
+			 // an outer approximation. This can however happen for numerical reasons
+
+			 LOG_S(WARNING) << "Algorithms::EPEC::CutAndPlay::isFeasible (P" << i << ")"
+								 << " No best response (" << incumbentPayoffs.at(i) << " vs " << bestPayoff
+								 << " with absdiff=" << incumbentPayoffs.at(i) - bestPayoff << ")";
+			 this->EPECObject->Stats.Status.set(ZEROStatus::Numerical);
+			 ZEROException(ZEROErrorCode::Numeric, "Invalid payoffs relation (better best response).");
+			 return 0;
+		  } else
+		  // In any other case, we are good to go.
+		  {
+			 // It means the current payoff is less than the optimal response. The
+			 // approximation is not good, and this point is infeasible. Then, we can
+			 // generate a value-cut
+			 arma::vec xMinusI;
+			 this->EPECObject->getXMinusI(this->EPECObject->SolutionX, i, xMinusI);
+			 this->addValueCut(i, bestPayoff, xMinusI);
+			 LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::isFeasible (P" << i << ") Value cut";
 			 result = false;
 		  }
-		  // Otherwise, the result is true...
-
 		} else {
-		  // Feasible point
-		  this->Trees.at(i)->setFeasible();
-		  this->Trees.at(i)->setPure();
-		  LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::isFeasible (P" << i
-						  << ") Feasible strategy (Best Response)";
-		  return true;
+
+		  // Here we have a best response whose payoff coincides with the one of the
+		  // equilibrium. The strategy might not be feasible, though.
+
+		  // Get xOfI
+		  arma::vec xOfI;
+		  this->EPECObject->getXofI(this->EPECObject->SolutionX, i, xOfI, false);
+
+		  // Check if we need to add the point to the vertex storage.
+		  arma::vec vertex = bestResponse.subvec(0, xOfI.size() - 1);
+		  // Add the best response to the storage
+		  if (this->Trees.at(i)->addVertex(vertex, true)) {
+			 LOG_S(1) << "Algorithms::EPEC::CutAndPlay::isFeasible (P" << i
+						 << ") Adding vertex (Best Response)";
+		  } else {
+			 LOG_S(1) << "Algorithms::EPEC::CutAndPlay::isFeasible (P" << i
+						 << ") Already known vertex (Best Response)";
+		  }
+
+		  if (!Utils::isZero(xOfI - vertex, this->Tolerance)) {
+			 // Then, if the answers aren't equal, we need to refine the
+			 // approximation or determine if this strategy is anyhow feasible.
+			 // We search for a convex combination of best responses so that we can
+			 // certify the answer is inside the convex-hull (or not).
+
+			 int budget = this->EPECObject->PlayersQP.at(i)->getNumVars();
+			 if (!this->equilibriumOracle(xOfI, this->EPECObject->SolutionX, i, budget, addedCuts)) {
+				LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::isFeasible (P" << i
+								<< ") CutAndPlay says NO.";
+				result = false;
+			 } else {
+				LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::isFeasible (P" << i
+								<< ") CutAndPlay says YES.";
+			 }
+			 // Otherwise, the result is true...
+
+		  } else {
+			 // Feasible point
+			 this->Trees.at(i)->setFeasible();
+			 this->Trees.at(i)->setPure();
+			 LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::isFeasible (P" << i
+							 << ") Feasible strategy (Best Response)";
+		  }
 		}
 	 }
   }
@@ -166,7 +170,7 @@ bool Algorithms::EPEC::CutAndPlay::isFeasible(bool &addedCuts) {
  * @param xOfI  The point for which the membership LP should be updated for
  */
 void Algorithms::EPEC::CutAndPlay::updateMembership(const unsigned int &player,
-																				const arma::vec &   xOfI) {
+																	 const arma::vec    &xOfI) {
 
 
   auto PlayerTree = Trees.at(player);
@@ -180,6 +184,98 @@ void Algorithms::EPEC::CutAndPlay::updateMembership(const unsigned int &player,
 }
 
 
+/**
+ * @brief This is the main repair procedure to convert a proof with rays to one with vertices
+ * @param x The full solution vector
+ * @return True if no rays are used, false otherwise
+ */
+bool Algorithms::EPEC::CutAndPlay::repairProcedure(const arma::vec &x) {
+  LOG_S(1) << "Algorithms::EPEC::CutAndPlay::repairProcedure:  Repairing rays proofs...";
+
+  for (int player = 0; player < this->EPECObject->NumPlayers; ++player) {
+	 auto PlayerTree = this->Trees.at(player);
+	 if (PlayerTree->useRay) {
+
+		bool  converted = false;
+		float B         = 1e3;
+		while (!converted) {
+
+		  // Get xOfI
+		  arma::vec xOfI;
+		  this->EPECObject->getXofI(this->EPECObject->SolutionX, player, xOfI, false);
+		  unsigned int rayCount = 0;
+
+		  // Get the restricted membership without rays
+		  std::unique_ptr<GRBModel> restrictedMembership{new GRBModel(*this->EPECObject->Env)};
+		  MathOpt::getDualMembershipLP(restrictedMembership,
+												 PlayerTree->VertexCounter,
+												 PlayerTree->V,
+												 rayCount,
+												 arma::sp_mat(),
+												 xOfI,
+												 PlayerTree->containsOrigin);
+
+
+		  auto leaderModel = this->EPECObject->bestResponseProgram(
+				player, x, this->Trees.at(player)->OriginalLCP.get());
+		  auto   nvars = this->EPECObject->LeaderObjective.at(player)->c.n_rows;
+		  GRBVar l[nvars]; // Dual membership variables
+		  for (unsigned int i = 0; i < nvars; i++)
+			 l[i] = leaderModel->getVarByName("x_" + std::to_string(i));
+
+
+
+		  // Convert the rays to a vertices
+		  auto R = this->Trees.at(player)->getR();
+
+		  // For each ray
+		  for (unsigned int i = 0; i < R->n_rows; ++i) {
+			 GRBLinExpr obj = 0;
+			 for (unsigned int j = 0; j < nvars; j++)
+				obj += R->at(i, j) * l[j];
+
+			 auto constr = leaderModel->addConstr(obj <= B);
+			 leaderModel->setObjective(obj);
+			 leaderModel->optimize();
+			 leaderModel->remove(constr);
+
+
+			 arma::vec vertex(nvars);
+			 for (unsigned int j = 0; j < nvars; j++)
+				vertex.at(j) = l[j].get(GRB_DoubleAttr_X);
+
+			 this->Trees.at(player)->addVertex(vertex, false);
+		  }
+
+		  this->updateMembership(player, xOfI);
+		  auto dualMembershipModel = this->Trees.at(player)->MembershipLP.get();
+		  dualMembershipModel->optimize();
+
+		  int status = dualMembershipModel->get(GRB_IntAttr_Status);
+
+
+
+		  if (status == GRB_OPTIMAL) {
+			 double dualObj = dualMembershipModel->getObjective().getValue();
+
+			 // Maximization of the dual membership gives zero. Then, the point is feasible
+			 if (Utils::isEqual(dualObj, 0, this->Tolerance)) {
+				PlayerTree->useRay = false;
+				LOG_S(1) << "Algorithms::EPEC::CutAndPlay::repairProcedure: (P" << player << ")"
+							<< "Rays successfully converted to vertices.";
+				converted = true;
+			 }
+		  }
+		  if (!converted) {
+			 B = B * 10;
+			 LOG_S(1) << "Algorithms::EPEC::CutAndPlay::repairProcedure: (P" << player << ")"
+						 << "Rays were not converted to vertices. Retrying...";
+		  }
+		}
+	 }
+  }
+  this->EPECObject->Stats.AlgorithmData.UseRay.set(false);
+}
 
 /**
  * @brief The main Equilibrium CutAndPlay loop. Given a player, a maximum number of iterations, a
@@ -254,8 +350,7 @@ bool Algorithms::EPEC::CutAndPlay::equilibriumOracle(
 		  for (unsigned int i = 0; i < xOfI.size(); i++)
 			 sol.at(i) = y[i].get(GRB_DoubleAttr_X);
 
-		  LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::equilibriumOracle: (P" << player
-						  << ")"
+		  LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::equilibriumOracle: (P" << player << ")"
 						  << " The point is a convex combination of known points!";
 
 		  this->Trees.at(player)->setFeasible();
@@ -267,20 +362,14 @@ bool Algorithms::EPEC::CutAndPlay::equilibriumOracle(
 			 support.at(v) =
 				  dualMembershipModel->getConstrByName("V_" + std::to_string(v)).get(GRB_DoubleAttr_Pi);
 		  }
-		  bool flag = false;
 		  for (unsigned int r = 0; r < this->Trees.at(player)->getRayCount(); ++r) {
 			 rays.at(r) =
 				  dualMembershipModel->getConstrByName("R_" + std::to_string(r)).get(GRB_DoubleAttr_Pi);
-			 //******DEBUG********
-			 /*if (rays.at(r) > this->Tolerance) {
-
-				LOG_S(WARNING) << "Algorithms::EPEC::CutAndPlay::equilibriumOracle: (P"
-									<< player << ")"
+			 if (rays.at(r) > this->Tolerance) {
+				this->Trees.at(player)->useRay = false;
+				LOG_S(WARNING) << "Algorithms::EPEC::CutAndPlay::equilibriumOracle: (P" << player << ")"
 									<< " Ray " << r << " has a positive coefficient.";
-				flag = true;
 			 }
-			  */
-			 //******DEBUG********
 		  }
 
 		  //******DEBUG********
@@ -304,12 +393,10 @@ bool Algorithms::EPEC::CutAndPlay::equilibriumOracle(
 		  } else {
 			 if (this->isFeasiblePure(player, xOfI)) {
 				this->Trees.at(player)->setPure();
-				LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::equilibriumOracle: (P" << player
-								<< ")"
+				LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::equilibriumOracle: (P" << player << ")"
 								<< " Pure strategy.";
 			 } else {
-				LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::equilibriumOracle: (P" << player
-								<< ")"
+				LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::equilibriumOracle: (P" << player << ")"
 								<< " Mixed strategy.";
 			 }
 		  }
@@ -439,8 +526,8 @@ bool Algorithms::EPEC::CutAndPlay::equilibriumOracle(
  * @param xMinusI The strategies of the other players
  */
 void Algorithms::EPEC::CutAndPlay::addValueCut(const unsigned int player,
-																		 const double       RHS,
-																		 const arma::vec &  xMinusI) {
+															  const double       RHS,
+															  const arma::vec   &xMinusI) {
 
   arma::vec LHS = (this->EPECObject->LeaderObjective.at(player)->c +
 						 this->EPECObject->LeaderObjective.at(player)->C * xMinusI);
@@ -668,15 +755,12 @@ void Algorithms::EPEC::CutAndPlay::solve() {
 
 		double timeForNextIteration = timeRemaining * 0.98;
 
-		//@todo Currently not used.
-		/*
-		if (branchesLeft > 0 && false)
-		  timeForNextIteration = (timeRemaining * 0.2) / (cumulativeBranchingCandidates - 1);
-		  */
 
-		LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::solve: Allocating "
-						<< timeForNextIteration << "s for the next iteration (" << branchesLeft
-						<< " complementarities left).";
+		if (branchesLeft > 0)
+		  timeForNextIteration = (timeRemaining) / (cumulativeBranchingCandidates - 1);
+
+		LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::solve: Allocating " << timeForNextIteration
+						<< "s for the next iteration (" << branchesLeft << " complementarities left).";
 		this->EPECObject->computeNashEq(
 			 this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(),
 			 timeForNextIteration,
@@ -708,6 +792,19 @@ void Algorithms::EPEC::CutAndPlay::solve() {
 		bool addedCuts{false};
 		if (this->isFeasible(addedCuts)) {
 		  this->Feasible = true;
+
+		  bool useRay = false;
+		  for (int j = 0; j < this->EPECObject->NumPlayers; ++j) {
+			 if (this->Trees.at(j)->useRay) {
+				useRay = true;
+			 }
+		  }
+		  if (useRay) {
+			 this->EPECObject->Stats.AlgorithmData.UseRay.set(true);
+			 // this->repairProcedure(this->EPECObject->SolutionX);
+		  }
+
+
 		  this->EPECObject->Stats.Status.set(ZEROStatus::NashEqFound);
 		  LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::solve: "
 							  "Solved. ";
@@ -748,9 +845,8 @@ void Algorithms::EPEC::CutAndPlay::solve() {
  * @param x The strategy for the player
  * @return A Gurobi pointer to the model
  */
-std::unique_ptr<GRBModel>
-Algorithms::EPEC::CutAndPlay::getFeasibilityQP(const unsigned int player,
-																		 const arma::vec &  x) {
+std::unique_ptr<GRBModel> Algorithms::EPEC::CutAndPlay::getFeasibilityQP(const unsigned int player,
+																								 const arma::vec   &x) {
 
 
   arma::vec xMinusI;
@@ -776,8 +872,7 @@ Algorithms::EPEC::CutAndPlay::getFeasibilityQP(const unsigned int player,
  * @param x The strategy for the player
  * @return A Gurobi pointer to the model
  */
-bool Algorithms::EPEC::CutAndPlay::isFeasiblePure(const unsigned int player,
-																			 const arma::vec &  x) {
+bool Algorithms::EPEC::CutAndPlay::isFeasiblePure(const unsigned int player, const arma::vec &x) {
 
 
   auto model = this->PolyLCP.at(player)->LCPasMIP(false, -1, 1, 1);
@@ -811,7 +906,7 @@ bool Algorithms::EPEC::CutAndPlay::isFeasiblePure(const unsigned int player,
  * @return The branching candidate. -1 if none. -2 if infeasible.
  **/
 int Algorithms::EPEC::CutAndPlay::hybridBranching(const unsigned int player,
-																			 OuterTree::Node *  node) {
+																  OuterTree::Node   *node) {
 
   LOG_S(INFO) << "CutAndPlay::hybridBranching: Player " << player;
 
@@ -874,9 +969,8 @@ int Algorithms::EPEC::CutAndPlay::hybridBranching(const unsigned int player,
 									 << " with complementarity " << i;
 				  }
 				} else {
-				  LOG_S(WARNING)
-						<< "CutAndPlay::hybridBranching: Numerical difficulties in evaluating "
-						<< std::to_string(i);
+				  LOG_S(WARNING) << "CutAndPlay::hybridBranching: Numerical difficulties in evaluating "
+									  << std::to_string(i);
 				}
 			 } else {
 				LOG_S(INFO) << "CutAndPlay::hybridBranching: Player " << player
@@ -901,7 +995,7 @@ int Algorithms::EPEC::CutAndPlay::hybridBranching(const unsigned int player,
  * @return The branching candidate. Negative if none
  */
 int Algorithms::EPEC::CutAndPlay::infeasibleBranching(const unsigned int     player,
-																				  const OuterTree::Node *node) {
+																		const OuterTree::Node *node) {
 
   int result = -1;
   if (this->EPECObject->NashEquilibrium) {
@@ -942,7 +1036,7 @@ int Algorithms::EPEC::CutAndPlay::infeasibleBranching(const unsigned int     pla
  * @return The branching candidate. Negative if none
  */
 int Algorithms::EPEC::CutAndPlay::deviationBranching(const unsigned int     player,
-																				 const OuterTree::Node *node) {
+																	  const OuterTree::Node *node) {
 
 
   int result = -1;
@@ -978,7 +1072,7 @@ int Algorithms::EPEC::CutAndPlay::deviationBranching(const unsigned int     play
  * @return The branching candidate. Negative if none
  */
 int Algorithms::EPEC::CutAndPlay::getFirstBranchLocation(const unsigned int player,
-																					  OuterTree::Node *  node) {
+																			OuterTree::Node   *node) {
   /**
 	* Given @p player -- containing the id of the player, returns the branching
 	* decision for that node. In
@@ -1049,7 +1143,7 @@ int Algorithms::EPEC::CutAndPlay::getFirstBranchLocation(const unsigned int play
  */
 [[maybe_unused]] std::vector<int>
 Algorithms::EPEC::CutAndPlay::getNextBranchLocation(const unsigned int player,
-																				OuterTree::Node *  node) {
+																	 OuterTree::Node   *node) {
 
   std::vector<int> decisions = {-1, -1, -1, -1};
   decisions.at(0)            = this->infeasibleBranching(player, node);
@@ -1261,7 +1355,7 @@ void Algorithms::EPEC::OuterTree::addRay(const arma::vec &ray) {
  * @param idsComp  The vector of branching locations
  * @param id  The node id for the children
  */
-Algorithms::EPEC::OuterTree::Node::Node(Node &            parent,
+Algorithms::EPEC::OuterTree::Node::Node(Node             &parent,
 													 std::vector<int>  idsComp,
 													 unsigned long int id) {
   this->IdComps           = std::vector<unsigned int>();
