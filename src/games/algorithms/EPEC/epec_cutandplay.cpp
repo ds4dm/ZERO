@@ -190,7 +190,7 @@ void Algorithms::EPEC::CutAndPlay::updateMembership(const unsigned int &player,
  * @return True if no rays are used, false otherwise
  */
 bool Algorithms::EPEC::CutAndPlay::repairProcedure(const arma::vec &x) {
-  LOG_S(1) << "Algorithms::EPEC::CutAndPlay::repairProcedure:  Repairing rays proofs...";
+  LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::repairProcedure:  Repairing rays proofs...";
 
   for (int player = 0; player < this->EPECObject->NumPlayers; ++player) {
 	 auto PlayerTree = this->Trees.at(player);
@@ -206,71 +206,76 @@ bool Algorithms::EPEC::CutAndPlay::repairProcedure(const arma::vec &x) {
 		  unsigned int rayCount = 0;
 
 		  // Get the restricted membership without rays
-		  std::unique_ptr<GRBModel> restrictedMembership{new GRBModel(*this->EPECObject->Env)};
-		  MathOpt::getDualMembershipLP(restrictedMembership,
-												 PlayerTree->VertexCounter,
-												 PlayerTree->V,
-												 rayCount,
-												 arma::sp_mat(),
-												 xOfI,
-												 PlayerTree->containsOrigin);
+		  try{
+			std::unique_ptr<GRBModel> restrictedMembership{new GRBModel(*this->EPECObject->Env)};
+			MathOpt::getDualMembershipLP(restrictedMembership,
+													PlayerTree->VertexCounter,
+													PlayerTree->V,
+													rayCount,
+													arma::sp_mat(),
+													xOfI,
+													PlayerTree->containsOrigin);
 
 
-		  auto leaderModel = this->EPECObject->bestResponseProgram(
-				player, x, this->Trees.at(player)->OriginalLCP.get());
-		  auto   nvars = this->EPECObject->LeaderObjective.at(player)->c.n_rows;
-		  GRBVar l[nvars]; // Dual membership variables
-		  for (unsigned int i = 0; i < nvars; i++)
-			 l[i] = leaderModel->getVarByName("x_" + std::to_string(i));
-
-
-
-		  // Convert the rays to a vertices
-		  auto R = this->Trees.at(player)->getR();
-
-		  // For each ray
-		  for (unsigned int i = 0; i < R->n_rows; ++i) {
-			 GRBLinExpr obj = 0;
-			 for (unsigned int j = 0; j < nvars; j++)
-				obj += R->at(i, j) * l[j];
-
-			 auto constr = leaderModel->addConstr(obj <= B);
-			 leaderModel->setObjective(obj);
-			 leaderModel->optimize();
-			 leaderModel->remove(constr);
-
-
-			 arma::vec vertex(nvars);
-			 for (unsigned int j = 0; j < nvars; j++)
-				vertex.at(j) = l[j].get(GRB_DoubleAttr_X);
-
-			 this->Trees.at(player)->addVertex(vertex, false);
-		  }
-
-		  this->updateMembership(player, xOfI);
-		  auto dualMembershipModel = this->Trees.at(player)->MembershipLP.get();
-		  dualMembershipModel->optimize();
-
-		  int status = dualMembershipModel->get(GRB_IntAttr_Status);
+			auto leaderModel = this->EPECObject->bestResponseProgram(
+					player, x, this->Trees.at(player)->OriginalLCP.get());
+			auto   nvars = this->EPECObject->LeaderObjective.at(player)->c.n_rows;
+			GRBVar l[nvars]; // Dual membership variables
+			for (unsigned int i = 0; i < nvars; i++)
+				l[i] = leaderModel->getVarByName("x_" + std::to_string(i));
 
 
 
-		  if (status == GRB_OPTIMAL) {
-			 double dualObj = dualMembershipModel->getObjective().getValue();
+			// Convert the rays to a vertices
+			auto R = this->Trees.at(player)->getR();
 
-			 // Maximization of the dual membership gives zero. Then, the point is feasible
-			 if (Utils::isEqual(dualObj, 0, this->Tolerance)) {
-				PlayerTree->useRay = false;
-				LOG_S(1) << "Algorithms::EPEC::CutAndPlay::repairProcedure: (P" << player << ")"
-							<< "Rays successfully converted to vertices.";
-				converted = true;
-			 }
-		  }
-		  if (!converted) {
-			 B = B * 10;
-			 LOG_S(1) << "Algorithms::EPEC::CutAndPlay::repairProcedure: (P" << player << ")"
-						 << "Rays were not converted to vertices. Retrying...";
-		  }
+			// For each ray
+			for (unsigned int i = 0; i < R->n_rows; ++i) {
+				GRBLinExpr obj = 0;
+				for (unsigned int j = 0; j < nvars; j++)
+					obj += R->at(i, j) * l[j];
+
+				auto constr = leaderModel->addConstr(obj <= B);
+				leaderModel->setObjective(obj);
+				leaderModel->optimize();
+				leaderModel->remove(constr);
+
+
+				arma::vec vertex(nvars);
+				for (unsigned int j = 0; j < nvars; j++)
+					vertex.at(j) = l[j].get(GRB_DoubleAttr_X);
+
+				this->Trees.at(player)->addVertex(vertex, false);
+			}
+
+			this->updateMembership(player, xOfI);
+			auto dualMembershipModel = this->Trees.at(player)->MembershipLP.get();
+			dualMembershipModel->optimize();
+
+			int status = dualMembershipModel->get(GRB_IntAttr_Status);
+
+
+
+			if (status == GRB_OPTIMAL) {
+				double dualObj = dualMembershipModel->getObjective().getValue();
+
+				// Maximization of the dual membership gives zero. Then, the point is feasible
+				if (Utils::isEqual(dualObj, 0, this->Tolerance)) {
+					PlayerTree->useRay = false;
+					LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::repairProcedure: (P" << player << ")"
+									<< "Rays successfully converted to vertices.";
+					converted = true;
+				}
+			}
+			if (!converted) {
+				B = B * 10;
+				LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::repairProcedure: (P" << player << ")"
+								<< "Rays were not converted to vertices. Retrying...";
+			}
+		  }catch (GRBException &e) {
+			std::cout << e.getMessage() << std::endl;
+		  throw ZEROException(e);
+		}
 		}
 	 }
   }
@@ -366,7 +371,7 @@ bool Algorithms::EPEC::CutAndPlay::equilibriumOracle(
 			 rays.at(r) =
 				  dualMembershipModel->getConstrByName("R_" + std::to_string(r)).get(GRB_DoubleAttr_Pi);
 			 if (rays.at(r) > this->Tolerance) {
-				this->Trees.at(player)->useRay = false;
+				this->Trees.at(player)->useRay = true;
 				LOG_S(WARNING) << "Algorithms::EPEC::CutAndPlay::equilibriumOracle: (P" << player << ")"
 									<< " Ray " << r << " has a positive coefficient.";
 			 }
@@ -546,11 +551,11 @@ void Algorithms::EPEC::CutAndPlay::addValueCut(const unsigned int player,
 					 << player;
 	 // Let's try to save what we can.
 	 for (unsigned int i = 0; i < LHS.size(); ++i)
-		LHS.at(i) = Utils::round_nplaces(LHS.at(i), 5);
-	 trueRHS = Utils::round_nplaces(RHS, 5);
+		LHS.at(i) = Utils::round_nplaces(LHS.at(i), 7);
+	 trueRHS = Utils::round_nplaces(RHS, 7);
 	 Utils::normalizeIneq(LHS, trueRHS, true);
   } else {
-	 trueRHS = Utils::round_nplaces(RHS, 6);
+	 trueRHS = Utils::round_nplaces(RHS, 7);
 	 //  LHS.print("LHS with RHS of " + std::to_string(trueRHS));
 	 Utils::normalizeIneq(LHS, trueRHS, false);
   }
@@ -634,111 +639,125 @@ void Algorithms::EPEC::CutAndPlay::solve() {
   int                   cumulativeBranchingCandidates = 0;
   unsigned int          branchingChoices              = 0;
   std::vector<long int> branches;
+
+  int num_branches_per_player = 3;
+
+
   while (!solved) {
-	 branchingLocations.clear();
 	 this->EPECObject->Stats.NumIterations.set(this->EPECObject->Stats.NumIterations.get() + 1);
 	 LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::solve: Iteration "
 					 << std::to_string(this->EPECObject->Stats.NumIterations.get());
 
-	 branchingLocations            = std::vector<int>(this->EPECObject->NumPlayers, -1);
-	 branchingCandidatesNumber     = std::vector<int>(this->EPECObject->NumPlayers, 0);
-	 cumulativeBranchingCandidates = 0;
+	 for (int branched_on = 0; branched_on < num_branches_per_player; ++branched_on) {
 
-	 for (int j = 0; j < this->EPECObject->NumPlayers; ++j) {
-		branchingCandidatesNumber.at(j) =
-			 Trees.at(j)->getEncodingSize() - Incumbent.at(j)->getCumulativeBranches();
-		cumulativeBranchingCandidates += branchingCandidatesNumber.at(j);
-	 }
+		LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::solve: Round "
+					 << std::to_string(branched_on +1) << " of branching";
+		branchingLocations.clear();
+		branchingLocations            = std::vector<int>(this->EPECObject->NumPlayers, -1);
+		branchingCandidatesNumber     = std::vector<int>(this->EPECObject->NumPlayers, 0);
+		cumulativeBranchingCandidates = 0;
 
-	 bool infeasibilityDetection = false;
-	 branchingChoices            = 0;
-	 if (branch) {
-		for (int j = 0; j < this->EPECObject->NumPlayers && !infeasibilityDetection; ++j) {
-		  // Check if we can branch
-		  if (branchingCandidatesNumber.at(j) != 0) {
-			 // In the first iteration, no complex branching rule.
-			 if (this->EPECObject->Stats.NumIterations.get() == 1) {
+		for (int j = 0; j < this->EPECObject->NumPlayers; ++j) {
+		  branchingCandidatesNumber.at(j) =
+				Trees.at(j)->getEncodingSize() - Incumbent.at(j)->getCumulativeBranches();
+		  cumulativeBranchingCandidates += branchingCandidatesNumber.at(j);
+		}
+
+		bool infeasibilityDetection = false;
+		branchingChoices            = 0;
+		if (branch) {
+		  for (int j = 0; j < this->EPECObject->NumPlayers && !infeasibilityDetection; ++j) {
+			 // Check if we can branch
+			 if (branchingCandidatesNumber.at(j) != 0) {
+				// In the first iteration, no complex branching rule.
+				if (this->EPECObject->Stats.NumIterations.get() == 1) {
+				  branchingLocations.at(j) = this->getFirstBranchLocation(j, Incumbent.at(j));
+				  // Check if we detected infeasibility
+				  if (branchingLocations.at(j) < 0) {
+					 LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::solve: "
+										 "firstBranching proves infeasibility for player  "
+									 << j;
+					 infeasibilityDetection = true;
+					 break;
+				  }
+				} else {
+				  if (this->EPECObject->Stats.AlgorithmData.BranchingStrategy.get() ==
+						Data::EPEC::BranchingStrategy::HybridBranching)
+					 branchingLocations.at(j) = this->hybridBranching(j, Incumbent.at(j));
+				  else if (this->EPECObject->Stats.AlgorithmData.BranchingStrategy.get() ==
+							  Data::EPEC::BranchingStrategy::DeviationBranching) {
+					 branchingLocations.at(j) = this->deviationBranching(j, Incumbent.at(j));
+					 if (branchingLocations.at(j) == -1)
+						branchingLocations.at(j) = this->getFirstBranchLocation(j, Incumbent.at(j));
+				  }
+				  // Check if we detected infeasibility
+				  if (branchingLocations.at(j) == -2) {
+					 LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::solve: "
+										 "hybridBranching proves infeasibility for player "
+									 << j;
+					 infeasibilityDetection = true;
+					 break;
+				  }
+				}
+			 }
+		  }
+
+		  if (infeasibilityDetection) {
+			 LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::solve: "
+								 "Solved without any equilibrium. Proven infeasibility";
+			 this->EPECObject->Stats.Status.set(ZEROStatus::NashEqNotFound);
+			 solved = true;
+			 return;
+		  }
+
+
+		  // Check that there is at least a player has a branching selection with
+		  // hybrid branching
+		  if (*std::max_element(branchingLocations.begin(), branchingLocations.end()) < 0) {
+
+			 // No branching candidates.
+			 LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::solve: "
+								 "No more hybrid branching candidates for "
+								 "any player. Checking if "
+								 "any complementarities are left.";
+			 this->printCurrentApprox();
+			 for (int j = 0; j < this->EPECObject->NumPlayers; ++j)
 				branchingLocations.at(j) = this->getFirstBranchLocation(j, Incumbent.at(j));
-				// Check if we detected infeasibility
-				if (branchingLocations.at(j) < 0) {
-				  LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::solve: "
-									  "firstBranching proves infeasibility for player  "
-								  << j;
-				  infeasibilityDetection = true;
-				  break;
-				}
-			 } else {
-				if (this->EPECObject->Stats.AlgorithmData.BranchingStrategy.get() ==
-					 Data::EPEC::BranchingStrategy::HybridBranching)
-				  branchingLocations.at(j) = this->hybridBranching(j, Incumbent.at(j));
-				else if (this->EPECObject->Stats.AlgorithmData.BranchingStrategy.get() ==
-							Data::EPEC::BranchingStrategy::DeviationBranching) {
-				  branchingLocations.at(j) = this->deviationBranching(j, Incumbent.at(j));
-				  if (branchingLocations.at(j) == -1)
-					 branchingLocations.at(j) = this->getFirstBranchLocation(j, Incumbent.at(j));
-				}
-				// Check if we detected infeasibility
-				if (branchingLocations.at(j) == -2) {
-				  LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::solve: "
-									  "hybridBranching proves infeasibility for player "
-								  << j;
-				  infeasibilityDetection = true;
-				  break;
-				}
+
+			 if (*std::max_element(branchingLocations.begin(), branchingLocations.end()) < 0) {
+				LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::solve: "
+									"No more branching candidates.";
+				this->EPECObject->Stats.Status.set(ZEROStatus::NashEqNotFound);
+				break;
 			 }
 		  }
 		}
 
-		if (infeasibilityDetection) {
-		  LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::solve: "
-							  "Solved without any equilibrium. Proven infeasibility";
-		  this->EPECObject->Stats.Status.set(ZEROStatus::NashEqNotFound);
-		  solved = true;
-		  break;
-		}
-
-
-		// Check that there is at least a player has a branching selection with
-		// hybrid branching
-		if (*std::max_element(branchingLocations.begin(), branchingLocations.end()) < 0) {
-
-		  // No branching candidates.
-		  LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::solve: "
-							  "No more hybrid branching candidates for "
-							  "any player. Checking if "
-							  "any complementarities are left.";
-		  this->printCurrentApprox();
-		  for (int j = 0; j < this->EPECObject->NumPlayers; ++j)
-			 branchingLocations.at(j) = this->getFirstBranchLocation(j, Incumbent.at(j));
-
-		  if (*std::max_element(branchingLocations.begin(), branchingLocations.end()) < 0) {
+		for (int j = 0; j < this->EPECObject->NumPlayers; ++j) {
+		  if (branchingLocations.at(j) > -1) {
+			 branchingChoices = branchingChoices + 1;
+			 branches         = Trees.at(j)->singleBranch(branchingLocations.at(j), *Incumbent.at(j));
+			 auto childEncoding = this->Trees.at(j)->getNodes()->at(branches.at(0)).getEncoding();
+			 this->PolyLCP.at(j)->outerApproximate(childEncoding, true);
+			 // By definition of hybrid branching, the node should be feasible
+			 Incumbent.at(j) = &(this->Trees.at(j)->getNodes()->at(branches.at(0)));
 			 LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::solve: "
-								 "No more branching candidates.";
-			 this->EPECObject->Stats.Status.set(ZEROStatus::NashEqNotFound);
-			 break;
+								 "branching candidate for player "
+							 << j << " is " << branchingLocations.at(j);
+		  } else if (!branch) {
+			 // if we don't branch.
+			 this->PolyLCP.at(j)->outerApproximate(Incumbent.at(j)->getEncoding(), true);
+			 LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::solve: "
+								 "No branching for player "
+							 << j;
 		  }
 		}
+
+		if (!branch)
+			break;
 	 }
 
-	 for (int j = 0; j < this->EPECObject->NumPlayers; ++j) {
-		if (branchingLocations.at(j) > -1) {
-		  branchingChoices   = branchingChoices + 1;
-		  branches           = Trees.at(j)->singleBranch(branchingLocations.at(j), *Incumbent.at(j));
-		  auto childEncoding = this->Trees.at(j)->getNodes()->at(branches.at(0)).getEncoding();
-		  this->PolyLCP.at(j)->outerApproximate(childEncoding, true);
-		  // By definition of hybrid branching, the node should be feasible
-		  Incumbent.at(j) = &(this->Trees.at(j)->getNodes()->at(branches.at(0)));
-		  LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::solve: "
-							  "branching candidate for player "
-						  << j << " is " << branchingLocations.at(j);
-		} else if (!branch) {
-		  // if we don't branch.
-		  this->PolyLCP.at(j)->outerApproximate(Incumbent.at(j)->getEncoding(), true);
-		  LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::solve: "
-							  "No branching for player "
-						  << j;
-		}
-	 }
+
 
 	 this->printCurrentApprox();
 	 this->EPECObject->makePlayersQPs();
@@ -757,16 +776,16 @@ void Algorithms::EPEC::CutAndPlay::solve() {
 
 
 		if (branchesLeft > 0)
-		  timeForNextIteration = (timeRemaining) / (cumulativeBranchingCandidates - 1);
+		  timeForNextIteration = 2.5 * (timeRemaining) / (cumulativeBranchingCandidates - 1);
 
 		LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::solve: Allocating " << timeForNextIteration
 						<< "s for the next iteration (" << branchesLeft << " complementarities left).";
 		this->EPECObject->computeNashEq(
-			 this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(),
-			 timeForNextIteration,
-			 false,
-			 true,
-			 false);
+			 this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(), // Pure Nash eq
+			 timeForNextIteration,                                            // Time
+			 false,                                                           // Check
+			 true,                                                            // Linear welfare
+			 false);                                                          // Quadratic welfare
 	 } else {
 		this->EPECObject->computeNashEq(
 			 this->EPECObject->Stats.AlgorithmData.PureNashEquilibrium.get(), 0, false, true, false);
@@ -801,7 +820,9 @@ void Algorithms::EPEC::CutAndPlay::solve() {
 		  }
 		  if (useRay) {
 			 this->EPECObject->Stats.AlgorithmData.UseRay.set(true);
-			 // this->repairProcedure(this->EPECObject->SolutionX);
+			 LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::solve: Repairing Nash equilibrium (it "
+								 "contains rays)";
+			 this->repairProcedure(this->EPECObject->SolutionX);
 		  }
 
 

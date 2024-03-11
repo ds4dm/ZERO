@@ -521,7 +521,7 @@ bool Game::EPEC::computeNashEq(bool   pureNE,
   unsigned int MIPWorkers = 1;
   if (solver == Data::LCP::Algorithms::MIP || solver == Data::LCP::Algorithms::MINLP) {
 	 if (this->Stats.AlgorithmData.Threads.get() >= 8) {
-		int wrk    = static_cast<int>(std::round(std::floor(this->Stats.AlgorithmData.Threads.get() / 4)));
+		int wrk    = static_cast<int>(std::round(std::floor(this->Stats.AlgorithmData.Threads.get())));
 		MIPWorkers = std::max(wrk, 1);
 		LOG_S(INFO) << "Game::EPEC::computeNashEq: ConcurrentMIP set to " << MIPWorkers << ".";
 	 }

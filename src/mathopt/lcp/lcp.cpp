@@ -869,8 +869,8 @@ std::unique_ptr<GRBModel> MathOpt::LCP::getMIP(bool indicators) {
 			 l[counter], 1, x[p.second], GRB_EQUAL, LB, "ind_x_" + std::to_string(p.first) + "_LB");
 
 		obj += x[p.second] + l[counter];
-
-		model->addConstr(u[counter] + l[counter] + in[counter] == 1,
+		
+		model->addConstr(u[counter] + l[counter]  + in[counter] >= 1,
 							  "MCP_" + std::to_string(p.second));
 
 
@@ -969,11 +969,7 @@ void MathOpt::LCP::setMIPObjective(GRBModel &MIP) {
 		obj.addTerms(coeff, vars, 1);
 	 }
 
-	 for (unsigned long int i = 0; i < nR; i++) {
-		GRBVar vars[]  = {MIP.getVarByName("z_" + std::to_string(i))};
-		double coeff[] = {1};
-		obj.addTerms(coeff, vars, 1);
-	 }
+
 
 	 MIP.setObjective(obj, GRB_MINIMIZE);
 	 MIP.set(GRB_IntParam_MIPFocus, 1);
