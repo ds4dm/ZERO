@@ -197,85 +197,94 @@ bool Algorithms::EPEC::CutAndPlay::repairProcedure(const arma::vec &x) {
 	 if (PlayerTree->useRay) {
 
 		bool  converted = false;
-		float B         = 1e3;
+		float B         = 1e5;
 		while (!converted) {
 
 		  // Get xOfI
 		  arma::vec xOfI;
 		  this->EPECObject->getXofI(this->EPECObject->SolutionX, player, xOfI, false);
-		  unsigned int rayCount = 0;
+		  unsigned int zeroCount = 0;
 
 		  // Get the restricted membership without rays
-		  try{
-			std::unique_ptr<GRBModel> restrictedMembership{new GRBModel(*this->EPECObject->Env)};
-			MathOpt::getDualMembershipLP(restrictedMembership,
-													PlayerTree->VertexCounter,
-													PlayerTree->V,
-													rayCount,
-													arma::sp_mat(),
-													xOfI,
-													PlayerTree->containsOrigin);
+		  try {
 
-
-			auto leaderModel = this->EPECObject->bestResponseProgram(
-					player, x, this->Trees.at(player)->OriginalLCP.get());
-			auto   nvars = this->EPECObject->LeaderObjective.at(player)->c.n_rows;
-			GRBVar l[nvars]; // Dual membership variables
-			for (unsigned int i = 0; i < nvars; i++)
+			 auto leaderModel = this->EPECObject->bestResponseProgram(
+				  player, x, this->Trees.at(player)->OriginalLCP.get());
+			 auto   nvars = this->EPECObject->LeaderObjective.at(player)->c.n_rows;
+			 GRBVar l[nvars]; // Dual membership variables
+			 for (unsigned int i = 0; i < nvars; i++)
 				l[i] = leaderModel->getVarByName("x_" + std::to_string(i));
 
 
 
-			// Convert the rays to a vertices
-			auto R = this->Trees.at(player)->getR();
+			 // Convert the rays to a vertices
+			 auto R = this->Trees.at(player)->getR();
 
-			// For each ray
-			for (unsigned int i = 0; i < R->n_rows; ++i) {
-				GRBLinExpr obj = 0;
-				for (unsigned int j = 0; j < nvars; j++)
-					obj += R->at(i, j) * l[j];
+			 // For each ray
+			 for (unsigned int i = 0; i < R->n_rows; ++i) {
 
-				auto constr = leaderModel->addConstr(obj <= B);
-				leaderModel->setObjective(obj);
-				leaderModel->optimize();
-				leaderModel->remove(constr);
+				bool vertex_done = false;
+
+				while (!vertex_done) {
+				  GRBLinExpr obj = 0;
+				  for (unsigned int j = 0; j < nvars; j++)
+					 obj += R->at(i, j) * l[j];
+
+				  auto constr = leaderModel->addConstr(obj <= B);
+				  leaderModel->setObjective(obj);
+				  leaderModel->optimize();
+
+				  auto status = leaderModel->get(GRB_IntAttr_Status);
+				  if (status == GRB_OPTIMAL) {
+
+					 arma::vec vertex(nvars);
+					 for (unsigned int j = 0; j < nvars; j++)
+						vertex.at(j) = l[j].get(GRB_DoubleAttr_X);
+
+					 this->Trees.at(player)->addVertex(vertex, false);
+					 vertex_done = true;
+				  } else {
+					 B = B * 10;
+				  }
+				  leaderModel->remove(constr);
+				}
+			 }
+
+			 std::unique_ptr<GRBModel> restrictedMembership{new GRBModel(*this->EPECObject->Env)};
+			 MathOpt::getDualMembershipLP(restrictedMembership,
+													zeroCount,
+													PlayerTree->V,
+													zeroCount,
+													arma::sp_mat(),
+													xOfI,
+													PlayerTree->containsOrigin);
+			 auto dualMembershipModel = this->Trees.at(player)->MembershipLP.get();
+			 restrictedMembership->optimize();
+
+			 int status = restrictedMembership->get(GRB_IntAttr_Status);
 
 
-				arma::vec vertex(nvars);
-				for (unsigned int j = 0; j < nvars; j++)
-					vertex.at(j) = l[j].get(GRB_DoubleAttr_X);
 
-				this->Trees.at(player)->addVertex(vertex, false);
-			}
-
-			this->updateMembership(player, xOfI);
-			auto dualMembershipModel = this->Trees.at(player)->MembershipLP.get();
-			dualMembershipModel->optimize();
-
-			int status = dualMembershipModel->get(GRB_IntAttr_Status);
-
-
-
-			if (status == GRB_OPTIMAL) {
-				double dualObj = dualMembershipModel->getObjective().getValue();
+			 if (status == GRB_OPTIMAL) {
+				double dualObj = restrictedMembership->getObjective().getValue();
 
 				// Maximization of the dual membership gives zero. Then, the point is feasible
 				if (Utils::isEqual(dualObj, 0, this->Tolerance)) {
-					PlayerTree->useRay = false;
-					LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::repairProcedure: (P" << player << ")"
-									<< "Rays successfully converted to vertices.";
-					converted = true;
+				  PlayerTree->useRay = false;
+				  LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::repairProcedure: (P" << player << ")"
+								  << "Rays successfully converted to vertices.";
+				  converted = true;
 				}
-			}
-			if (!converted) {
+			 }
+			 if (!converted) {
 				B = B * 10;
 				LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::repairProcedure: (P" << player << ")"
 								<< "Rays were not converted to vertices. Retrying...";
-			}
-		  }catch (GRBException &e) {
-			std::cout << e.getMessage() << std::endl;
-		  throw ZEROException(e);
-		}
+			 }
+		  } catch (GRBException &e) {
+			 std::cout << e.getMessage() << std::endl;
+			 throw ZEROException(e);
+		  }
 		}
 	 }
   }
@@ -651,7 +660,7 @@ void Algorithms::EPEC::CutAndPlay::solve() {
 	 for (int branched_on = 0; branched_on < num_branches_per_player; ++branched_on) {
 
 		LOG_S(INFO) << "Algorithms::EPEC::CutAndPlay::solve: Round "
-					 << std::to_string(branched_on +1) << " of branching";
+						<< std::to_string(branched_on + 1) << " of branching";
 		branchingLocations.clear();
 		branchingLocations            = std::vector<int>(this->EPECObject->NumPlayers, -1);
 		branchingCandidatesNumber     = std::vector<int>(this->EPECObject->NumPlayers, 0);
@@ -754,7 +763,7 @@ void Algorithms::EPEC::CutAndPlay::solve() {
 		}
 
 		if (!branch)
-			break;
+		  break;
 	 }
 
 
